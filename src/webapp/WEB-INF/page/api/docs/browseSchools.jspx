@@ -1,0 +1,219 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:apidoc="urn:jsptagdir:/WEB-INF/tags/api/docs"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+
+<c:set var="pageName" value="API Documentation"/>
+<html>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>GreatSchools.net API Registration</title>
+    <meta content="todo" name="description"/>
+    <meta content="todo" name="keywords"/>
+    <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
+    <![CDATA[
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
+        <![endif]-->
+        ]]>
+</head>
+
+<body>
+<div id="api_docs">
+    <jsp:include page="/api/leftNav.module" />
+
+    <div class="content">
+
+
+        <div class="call">
+            <h2>Browse Schools</h2>
+            Returns a list of schools in a city. All calls for Browse Schools are in this format:
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[components]?[parameters]</div>
+        </div>
+        <div class="call">
+            <h2>Components</h2>
+
+            Components of the url describe what type of data you would like.
+            They are separated by forward slashes.
+            <table class="call_params">
+                <thead>
+                <tr class="fields">
+                    <td>Name</td>
+                    <td>Required/Optional</td>
+                    <td>Description</td>
+                    <td>Sample Values</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="required">
+                    <td>state</td>
+                    <td>required</td>
+                    <td>Two letter state abbreviation or full state name</td>
+                    <td>ak<br/>CA<br/>California</td>
+                </tr>
+                <tr>
+                    <td>city</td>
+                    <td>required</td>
+                    <td>Name of city, with spaces replaced with hyphens.
+                        If the city name has hyphens, replace those with underscores.</td>
+                    <td>San Francisco becomes "San-Francisco"
+                        <br/>Cardiff-By-The-Sea becomes "Cardiff_By_The_Sea"
+                    </td>
+                </tr>
+                <tr>
+                    <td>school type</td>
+                    <td>optional</td>
+                    <td>Type of school you wish to appear in the list</td>
+                    <td>Valid values: "public", "charter", "private",
+                        or any combination separated by hyphens, like "public-charter"</td>
+                </tr>
+                <tr>
+                    <td>level</td>
+                    <td>optional</td>
+                    <td>Level of school you wish to appear in the list</td>
+                    <td>Valid values: "elementary-schools", "middle-schools", "high-schools" </td>
+                </tr>
+                </tbody>
+            </table>
+
+            Examples of usage:
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[city name]?[parameters]</div>
+            Returns all schools in the city.
+            <br/>e.g. Alameda: http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=1234abc
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[city name]/[school type]?[parameters]</div>
+            Returns all schools in the city that match the school type.
+            <br/>e.g. public schools: http://api.staging.greatschools.net/schools/CA/Alameda/public?key=1234abc
+            <br/>e.g. public and charter schools: http://api.staging.greatschools.net/schools/CA/Alameda/public-charter?key=1234abc
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[city name]/[level code]?[parameters]</div>
+            Returns all schools in the city that match the level code.
+            <br/>e.g. elementary schools: http://api.${pageContext.request.serverName}/schools/CA/Alameda/elementary-schools?key=1234abc
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[city name]/[school type]/[level code]?[parameters]</div>
+            Returns all schools in the city that match the school type and level code.
+            <br/>e.g. private middle schools: http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/private/middle-schools?key=1234abc
+        </div>
+        <div class="call">
+            <h2>Parameters</h2>
+            The "key" parameter is what you use to send us your API key.
+            Other parameters are optional and used to describe how you would like to receive the data.
+            <table class="call_params">
+                <thead>
+                <tr class="fields">
+                    <td>Name</td>
+                    <td>Required/Optional</td>
+                    <td>Description</td>
+                    <td>Sample Values</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="required">
+                    <td>key</td>
+                    <td>required</td>
+                    <td>Your API key</td>
+                    <td>1234abc</td>
+                </tr>
+                <tr>
+                    <td>sort</td>
+                    <td>optional</td>
+                    <td>How to sort the results, either by name (ascending),
+                        by GS rating (descending), or by overall parent rating
+                        (descending). The default sort is name (ascending).
+                        When sorted by rating, schools without a rating will
+                        appear last.
+                    </td>
+                    <td>Valid values: "name", "gs_rating", "parent_rating"</td>
+                </tr>
+                <tr>
+                    <td>limit</td>
+                    <td>optional</td>
+                    <td>Maximum number of schools to return. This defaults to 200.
+                        To get all results, use -1.
+                    </td>
+                    <td>1234</td>
+                </tr>
+                </tbody>
+            </table>
+            Examples of usage:
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/?key=1234abc&amp;sort=name</div>
+            Sorts by name
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/?key=1234abc&amp;sort=gs_rating</div>
+            Sorts by GS rating
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/schools/CA/San-Francisco/?key=1234abc&amp;sort=parent_rating</div>
+            Sorts by parent rating
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/?key=1234abc&amp;limit=5</div>
+            Returns 5 results
+            <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/?key=1234abc&amp;limit=-1</div>
+            Returns all results
+        </div>
+        <div class="sample_wrapper">
+            <div class="call">
+                <h2>Sample Request</h2>
+                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/schools/CA/Alameda?key=1234abc</div>
+                Returns all schools in Alameda, CA
+            </div>
+            <div class="call">
+                <h2>Sample Response</h2>
+                <textarea rows="20" cols="70">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                    &lt;urn:Response xmlns:urn="urn:boorah:srch"&gt;
+                    &lt;urn:Status code="OK"&gt;OK&lt;/urn:Status&gt;
+                    &lt;urn:ResultSet totalResultsAvailable="21" totalResultsReturned="10"&gt;
+                    &lt;urn:Result&gt;
+                    &lt;urn:RestaurantName&gt;Osteria&lt;/urn:RestaurantName&gt;
+                    &lt;urn:RestaurantUrl&gt;http://www.boorah.com/restaurants/CA/palo-alto/osteria/1B35D8F898.html&lt;/urn:RestaurantUrl&gt;
+                    &lt;urn:Address&gt;
+                    &lt;urn:Street1&gt;247 Hamilton Ave&lt;/urn:Street1&gt;
+                    &lt;urn:City&gt;Palo Alto&lt;/urn:City&gt;
+                    &lt;urn:State&gt;CA&lt;/urn:State&gt;
+                    &lt;urn:Zip&gt;94301&lt;/urn:Zip&gt;
+                    &lt;urn:Phone&gt;650-328-5700&lt;/urn:Phone&gt;
+                    &lt;/urn:Address&gt;
+                    &lt;urn:Rating&gt;
+                    &lt;urn:OverallPopularityPercentage&gt;91&lt;/urn:OverallPopularityPercentage&gt;
+                    &lt;urn:FoodPopularityPercentage&gt;94&lt;/urn:FoodPopularityPercentage&gt;
+                    &lt;urn:ServicePopularityPercentage&gt;80&lt;/urn:ServicePopularityPercentage&gt;
+                    &lt;urn:AmbiancePopularityPercentage&gt;94&lt;/urn:AmbiancePopularityPercentage&gt;
+                    &lt;urn:FoodBoos&gt;25&lt;/urn:FoodBoos&gt;
+                    &lt;urn:FoodRahs&gt;411&lt;/urn:FoodRahs&gt;
+                    &lt;urn:ServiceBoos&gt;14&lt;/urn:ServiceBoos&gt;
+                    &lt;urn:ServiceRahs&gt;56&lt;/urn:ServiceRahs&gt;
+                    &lt;urn:AmbianceBoos&gt;3&lt;/urn:AmbianceBoos&gt;
+                    &lt;urn:AmbianceRahs&gt;48&lt;/urn:AmbianceRahs&gt;
+                    &lt;/urn:Rating&gt;
+                    &lt;urn:LinkSet&gt;
+                    &lt;urn:Link type="menu"&gt;
+                    &lt;urn:url&gt;http://www.boorah.com/restaurants/mpMenu.jsp?rid=6805&amp;extUrl=http%3A//www.allmenus.com/menus/46901/Osteria&lt;/urn:url&gt;
+                    &lt;urn:description&gt;General&lt;/urn:description&gt;
+                    &lt;/urn:Link&gt;
+                    &lt;/urn:LinkSet&gt;
+                    &lt;urn:AttributeSet&gt;
+                    &lt;urn:Attribute type="cuisine"&gt;Continental&lt;/urn:Attribute&gt;
+                    &lt;urn:Attribute type="cuisine"&gt;Italian&lt;/urn:Attribute&gt;
+                    &lt;urn:Attribute type="buzz"&gt;243&lt;/urn:Attribute&gt;
+                    &lt;/urn:AttributeSet&gt;
+                    &lt;/urn:Result&gt;
+                    &lt;/urn:ResultSet&gt;
+                    &lt;/urn:Response&gt;
+
+
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- <apidoc:sidebar current="schools"/> -->
+</div>
+</body>
+</html>
+</jsp:root>

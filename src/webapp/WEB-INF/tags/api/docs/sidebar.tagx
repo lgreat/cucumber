@@ -2,30 +2,67 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:link="urn:www.greatschools.net/taglib/link" >
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
+    <pageHelper:externalCss file="/res/css/api/docs/sidebar.css" />
+    <jsp:directive.attribute name="cssClass" required="false" description="Style class to be added the top-level div" />
+    <jsp:directive.attribute name="collapseTopicTips" type="java.lang.Boolean"
+        description="Whether or not to collapse topic tips" required="false"/>
+    <jsp:directive.attribute name="collapseGradeTips" type="java.lang.Boolean"
+        description="Whether or not to collapse grade tips" required="false"/>
 
-<jsp:directive.attribute name="current" type="java.lang.String" description="current page" required="false"/>
+    <c:set var="collapseTopicTips" value="${not empty collapseTopicTips ? collapseTopicTips : false}"/>
+    <c:set var="collapseGradeTips" value="${not empty collapseGradeTips ? collapseGradeTips : false}"/>
 
-<div id="sidebar">
-    <ul class="toc">
-        <li>
-            <a href="/api/docs/main.page" class="${current eq 'main' ? 'current' : ''}">Overview</a>            
-        </li>
-        <li>
-            <a href="/api/docs/schools.page" class="${current eq 'schools' ? 'current' : ''}">Schools</a>
-            <ul class="sub-toc">
-                <li><a href="">Get School</a></li>
-                <li><a href="">School Browse</a></li>
-                <li><a href="">Schools Nearby</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="/api/docs/tests.page" class="${current eq 'tests' ? 'current' : ''}">Tests</a>
-            <ul class="sub-toc">
-                <li><a href="">test</a></li>
-                <li><a href="">test</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+    <div id="librarySidebar" class="${cssClass}">
+        <div class="box">
+            <div class="inner">
+                <h3>API Resources</h3>
+                <div class="inner-links">
+                <ul id="browse-tips">
+                    <li>
+                        <a href="#grade-tips" id="gradeTips">Getting Started</a>
+                        <div class="toggle">
+                            <ul>
+                                <li><link:articleCategoryBrowse categoryId="103">Register</link:articleCategoryBrowse></li>
+                                <li class="last"><link:articleCategoryBrowse categoryId="33">Terms of Use</link:articleCategoryBrowse></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="last">
+                        <a href="#topic-tips" id="topicTips">Documentation</a>
+                        <div class="toggle">
+                            <ul id="topic-tips">
+                                <li><a href="/school-choice/">Technical Overview</a></li>
+                                <li><a href="/content/movingWithKids.page">Browse Schools</a></li>
+                                <li><a href="/content/countdownToCollege.page">Nearby Schools</a></li>
+                                <li><a href="/content/tutoring_Homework_Help.page">School Profile</a></li>
+                                <li><a href="/content/tutoring_Homework_Help.page">School Reviews</a></li>
+                                <li><a href="/content/specialNeeds.page">School Test Scores</a></li>
+                                <li class="last"><a href="/content/travel.page">School Census Data</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <c:if test="${collapseTopicTips}">
+        <script type="text/javascript">
+            document.getElementById('topicTips').className = 'closed';
+        </script>
+    </c:if>
+    <c:if test="${collapseGradeTips}">
+        <script type="text/javascript">
+            document.getElementById('gradeTips').className = 'closed';
+        </script>
+    </c:if>
 </jsp:root>

@@ -240,6 +240,13 @@
         </property>
     </bean>
 
+    <bean name="/api/leftNav.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/api/leftNav</value>
+        </property>
+    </bean>
+
     <bean name="/header/moveChoose.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
