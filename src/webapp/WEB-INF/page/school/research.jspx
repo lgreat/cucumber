@@ -435,7 +435,7 @@
                 <h2 class="topSchoolsHeader">GreatSchools Finder Widget</h2>
                 <p>Display our school information on your Web site for free!</p>
                 <a href="/schoolfinder/widget/customize.page">
-                    <img src="/res/img/button/go.gif"/>
+                    <img src="/res/img/button/go.gif" alt="go"/>
                 </a>
             </div>
      </td>
