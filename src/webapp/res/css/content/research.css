@@ -188,6 +188,42 @@ h2.fourStepsHeader {
     height:85px;
 }
 
+#topHighSchools{
+    width:372px;
+    float:left;
+    padding-top:14px;
+}
+
+#schoolFinderPromo{
+    background-color:#DDEEEE;
+
+    float: left;
+
+    width: 238px;
+    padding: 4px 20px;
+
+    /*
+    margin-top: -14px;
+    margin-bottom:-13px;
+    */
+
+
+
+
+}
+
+#schoolFinderPromo p {
+    margin-left: 133px;
+    margin-top: 6px;
+    color:#666666;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
+}
+
+#schoolFinderPromo img {
+    margin-left: 200px;
+}
+
 
 .topSchoolTextDiv {
     font-family: "Trebuchet MS", Arial, sans-serif;
@@ -195,16 +231,17 @@ h2.fourStepsHeader {
 	line-height: 17px;
 	color: #666666;
 	letter-spacing: 0px;
-    width:380px;
+    width:258px;
     float:left;
     height:75px;
+    padding-right: 10px;
 }
 
  .businessWeekImgDiv {
      width:135px;
      float:left;
      height:23px;
-     padding: 52px 0px 0px 10px;
+     padding: 14px 0px 0px 0px;
  }
 
 .contentGS ul.fourStepsUlstyle {
