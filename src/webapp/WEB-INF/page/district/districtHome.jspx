@@ -118,19 +118,24 @@
     <div id="main">
         <div id="intro">
             <div id="introTab"><h2>${district.name}</h2>
-                <ul  class="horizontalList">
-                    <li class="selected">
-                        <a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a>
-                    </li>
-                </ul>
+                <c:if test="${noDistrict eq false}">
+                    <ul  class="horizontalList">
+                        <li class="selected">
+                            <a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a>
+                        </li>
+                    </ul>
+                </c:if>
             </div>
             <div class="introText">
                 <h3 >Know your school choice options in ${district.physicalAddress.city}</h3>
-                <span id="districtBox" class="boilerPlate" style="">${boilerplate}</span>
-                <span id="stateBox"  class="boilerPlate" style="display: none;">${stateBoilerPlate}</span>
+
+                    <span id="districtBox" class="boilerPlate" style="">${boilerplate}</span>
+                    <span id="stateBox"  class="boilerPlate" style="display: none;">${stateBoilerPlate}</span>
+
+
                 <c:if test="${not empty choicelink and not empty locatorlink}">
                 <ul class="horizontalList">
 
@@ -156,8 +161,42 @@
 
 
         <div id="ratingAndInfo">
-            ${district.physicalAddress.street},${district.physicalAddress.city},${district.physicalAddress.state},${district.physicalAddress.zip},${district.county}
-            ${district.phone},${district.fax},
+            <table>
+                <tr>
+                    <td id="rating">
+                        <table>
+                        <tr>
+                            <td><img alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_${rating}.gif"/></td>
+                        </tr>
+                        <tr><td>This district's rating is based on its schools' test results;10 is best.</td></tr>
+                        <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
+                        </table>
+                    </td>
+                    <td  id="address">
+                        <table>
+                        <tr><td>${district.physicalAddress.street}</td></tr>
+                        <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
+                        <tr><td>${district.county}</td></tr>
+                        <tr><td> Map &gt;</td></tr>
+                        <tr><td> ${district.phone}</td></tr>
+                        <tr><td>${district.fax}</td></tr>
+                        <tr><td> District Web site &gt;</td></tr>
+                        </table>
+                    </td>
+                    <td  id="info">
+                        <table>
+                        <tr><td>${district.gradeLevels}</td></tr>
+                        <tr><td>students</td></tr>
+                        <tr><td>${district.numberOfSchools}</td></tr>
+                        <tr><td>View all schools in this district &gt;</td></tr>
+                        <tr><td>District superintendent:</td></tr>
+                        <tr><td>John W.Doe:</td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
         <div id="browseSchools">
             <div>

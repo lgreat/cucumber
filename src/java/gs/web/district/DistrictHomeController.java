@@ -21,6 +21,8 @@ import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.test.rating.DistrictRating;
+import gs.data.test.rating.IDistrictRatingDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 
@@ -38,6 +40,7 @@ public class DistrictHomeController extends AbstractController {
     private IDistrictDao _districtDao;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
+    private IDistrictRatingDao _districtRatingDao;
     public static final String DEV_DEFINITIONS_TAB = "od6";
     public static final String STAGING_DEFINITIONS_TAB = "od6";
     public static final String LIVE_DEFINITIONS_TAB = "od6";
@@ -47,6 +50,7 @@ public class DistrictHomeController extends AbstractController {
     public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
     public static final String STAGING_STATE_BOILERPLATE_TAB = "od4";
     public static final String LIVE_STATE_BOILERPLATE_TAB = "od4";
+    public boolean _noDistrict;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -67,9 +71,12 @@ public class DistrictHomeController extends AbstractController {
             }else{
                 model.put("acronymOrName",district.getName());
             }
+            loadDistrictRating(district,model);
         }
 //        getBoilerPlateWithKeyTerms(model,definitions);
         loadTopRatedSchools(model,sessionContext);
+        System.out.println("--------------------"+_noDistrict);
+        model.put("noDistrict",_noDistrict);
         return new ModelAndView(getViewName(), model);
     }
 
@@ -78,15 +85,20 @@ public class DistrictHomeController extends AbstractController {
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
+         System.out.println("--------------------"+rows);
         if(rows.size() > 0){
             for(ITableRow row :rows){
                 if(row.get("state").equals(state)){
                     for (Object columnName : row.getColumnNames()) {
                         model.put(columnName.toString(),(row.get(columnName).toString()) == null ? "":row.get(columnName).toString());
                     }
+                }else{
+                     _noDistrict = true;
                 }
             }
         }else{
+            _noDistrict = true;
+            System.out.println("--------------------"+_noDistrict);
             model.put("id","");
             model.put("state","");
             model.put("name","");
@@ -148,6 +160,11 @@ public class DistrictHomeController extends AbstractController {
 //        model.put("boilerplate",boilerPlate);
 //        model.put("definitionsDiv",definitionsDiv);
 //    }
+
+    protected void loadDistrictRating(District district,Map<String, Object> model){
+        DistrictRating districtRating = getDistrictRatingDao().getDistrictRatingByDistrict(district);
+        model.put("rating",districtRating.getRating());
+    }
 
     protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
            City userCity = null;
@@ -254,6 +271,14 @@ public class DistrictHomeController extends AbstractController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public IDistrictRatingDao getDistrictRatingDao() {
+        return _districtRatingDao;
+    }
+
+    public void setDistrictRatingDao(IDistrictRatingDao districtRatingDao) {
+        _districtRatingDao = districtRatingDao;
     }
 
 

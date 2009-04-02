@@ -96,8 +96,25 @@ div.transparent div.keyTermsWrapper{
 
 
 #ratingAndInfo{
-    height:100px;
-    border: red solid medium;
+    margin:10px 10px 10px 0px;
+}
+#rating{
+    width:40%;
+    padding:0px 10px 0px 0px;
+}
+
+#address{
+    width:30%;
+    padding:0px 10px 0px 10px;
+    line-height:15px;
+    border-left: 1px solid #888;
+}
+
+#info{
+    width:30%;
+    padding:0px 10px 0px 10px;
+    line-height:15px;
+    border-left: 1px solid #888;
 }
 span#districtBox{
     clear:right;
