@@ -53,23 +53,22 @@ public class DistrictHomeController extends AbstractController {
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
-        HashMap definitions = getKeyTermDefinitionsFromSpreadSheet(request);
+//        HashMap definitions = getKeyTermDefinitionsFromSpreadSheet(request);
 
         // TODO: What should the behavior be if there is no district_id specified
         if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
             model.put("district", district);
-            getBoilerPlateForDistrict("CA","717",model,request);
-            getBoilerPlateForState("CA",model,request);
-//            getSpreadSheetRow(state.getAbbreviation(),districtIdStr,model);
+            getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,model,request);
+            getBoilerPlateForState(state.getAbbreviation(),model,request);
             if(model.get("acronym")!= null && !"".equals(model.get("acronym"))){
                 model.put("acronymOrName",model.get("acronym"));
             }else{
                 model.put("acronymOrName",district.getName());
             }
         }
-        getBoilerPlateWithKeyTerms(model,definitions);
+//        getBoilerPlateWithKeyTerms(model,definitions);
         loadTopRatedSchools(model,sessionContext);
         return new ModelAndView(getViewName(), model);
     }
@@ -83,10 +82,19 @@ public class DistrictHomeController extends AbstractController {
             for(ITableRow row :rows){
                 if(row.get("state").equals(state)){
                     for (Object columnName : row.getColumnNames()) {
-                        model.put(columnName.toString(),row.get(columnName).toString());
+                        model.put(columnName.toString(),(row.get(columnName).toString()) == null ? "":row.get(columnName).toString());
                     }
                 }
             }
+        }else{
+            model.put("id","");
+            model.put("state","");
+            model.put("name","");
+            model.put("acronym","");
+            model.put("choicelink","");
+            model.put("locatorlink","");
+            model.put("superintendent","");
+            model.put("boilerplate","");
         }
 
     }
@@ -97,46 +105,49 @@ public class DistrictHomeController extends AbstractController {
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
         if(rows.size() >0){
-            model.put("stateBoilerPlate",rows.get(0).get("boilerplate"));    
+            model.put("stateBoilerPlate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate"));
+        }else{
+            model.put("stateBoilerPlate","");
         }
+
 
     }
 
 
-    protected HashMap getKeyTermDefinitionsFromSpreadSheet(HttpServletRequest request){
-        GoogleSpreadsheetDao definitionsCastDao = (GoogleSpreadsheetDao) getDefinitionsTableDao();
-        definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
+//    protected HashMap getKeyTermDefinitionsFromSpreadSheet(HttpServletRequest request){
+//        GoogleSpreadsheetDao definitionsCastDao = (GoogleSpreadsheetDao) getDefinitionsTableDao();
+//        definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
+//
+//        List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
+//        HashMap<String,String> map = new HashMap<String, String>();
+//        if(rows.size() >0){
+//            for(ITableRow row :rows){
+//                map.put(row.get("key").toString(),row.get("value").toString());
+//            }
+//        }
+//
+//        return map;
+//    }
 
-        List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
-        HashMap<String,String> map = new HashMap<String, String>();
-        if(rows.size() >0){
-            for(ITableRow row :rows){
-                map.put(row.get("key").toString(),row.get("value").toString());
-            }
-        }
-
-        return map;
-    }
-
-    protected void getBoilerPlateWithKeyTerms(Map model,HashMap definitions){
-
-        String boilerPlate = model.get("boilerplate").toString().replaceAll("\n","<br/>");
-        Set s = definitions.keySet();
-        Iterator i = s.iterator();
-        StringBuffer definitionsDiv = new StringBuffer();
-
-        while(i.hasNext()){
-            String key = i.next().toString();
-            String span = "<span class=\"keyTerms\" onmouseout=\"hidePopup('"+key.replaceAll(" ","")+"');\"  onmouseover=\"showPopup(event,'"+key.replaceAll(" ","")+"');\">"+key+"</span>";
-            int length = boilerPlate.length();
-            boilerPlate = boilerPlate.replaceAll("\\b"+key+"\\b",span);
-            if(length < boilerPlate.length()){
-                definitionsDiv.append("<div id=\""+key.replaceAll(" ","")+"\" class=\"transparent\"><div class=\"keyTermsWrapper\"><h3>Key Terms</h3><div class=\"keyTermDefinition\">"+key+"</div>"+definitions.get(key)+"</div></div>");
-            }                       
-        }
-        model.put("boilerplate",boilerPlate);
-        model.put("definitionsDiv",definitionsDiv);
-    }
+//    protected void getBoilerPlateWithKeyTerms(Map model,HashMap definitions){
+//
+//        String boilerPlate = model.get("boilerplate").toString().replaceAll("\n","<br/>");
+//        Set s = definitions.keySet();
+//        Iterator i = s.iterator();
+//        StringBuffer definitionsDiv = new StringBuffer();
+//
+//        while(i.hasNext()){
+//            String key = i.next().toString();
+//            String span = "<span class=\"keyTerms\" onmouseout=\"hidePopup('"+key.replaceAll(" ","")+"');\"  onmouseover=\"showPopup(event,'"+key.replaceAll(" ","")+"');\">"+key+"</span>";
+//            int length = boilerPlate.length();
+//            boilerPlate = boilerPlate.replaceAll("\\b"+key+"\\b",span);
+//            if(length < boilerPlate.length()){
+//                definitionsDiv.append("<div id=\""+key.replaceAll(" ","")+"\" class=\"transparent\"><div class=\"keyTermsWrapper\"><h3>Key Terms</h3><div class=\"keyTermDefinition\">"+key+"</div>"+definitions.get(key)+"</div></div>");
+//            }
+//        }
+//        model.put("boilerplate",boilerPlate);
+//        model.put("definitionsDiv",definitionsDiv);
+//    }
 
     protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
            City userCity = null;

@@ -155,7 +155,10 @@
 
 
 
-        <div id="ratingAndInfo"><h2>District rating and info</h2></div>
+        <div id="ratingAndInfo">
+            ${district.physicalAddress.street},${district.physicalAddress.city},${district.physicalAddress.state},${district.physicalAddress.zip},${district.county}
+            ${district.phone},${district.fax},
+        </div>
         <div id="browseSchools">
             <div>
                 <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${acronymOrName}"/>
@@ -196,9 +199,11 @@
         <div id="citySnapShot">
             <div class="outer">
                 <div class="inner">
+                     <c:if test="${not empty topRatedSchools and not empty topSchools}">
                      <school:topRatedSchoolsInCityList city="${cityObject}"
                                                       topRatedSchools="${topRatedSchools}"
                                                       topSchools="${topSchools}"/>
+                    </c:if>
                 </div>
             </div>
         </div>
