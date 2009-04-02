@@ -145,6 +145,7 @@
                 </tr>
                 </tbody>
             </table>
+            <!-- examples of usage -->
             Examples of usage:
             <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/?key=1234abc&amp;sort=name</div>
             Sorts by name
