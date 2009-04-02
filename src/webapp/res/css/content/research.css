@@ -195,21 +195,18 @@ h2.fourStepsHeader {
 }
 
 #schoolFinderPromo{
-    background-color:#DDEEEE;
-
+	background-image: url(/res/img/promo/schoolfinder/mapwidget_rcpage_mapbg.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
     float: left;
-
     width: 238px;
     padding: 4px 20px;
+}
 
-    /*
-    margin-top: -14px;
-    margin-bottom:-13px;
-    */
-
-
-
-
+#schoolFinderPromo h2{
+    color:#55BBCC;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 #schoolFinderPromo p {
@@ -217,7 +214,7 @@ h2.fourStepsHeader {
     margin-top: 6px;
     color:#666666;
     font-family:"Trebuchet MS",Arial,sans-serif;
-    font-size:12px;
+    font-size:13px;
 }
 
 #schoolFinderPromo img {

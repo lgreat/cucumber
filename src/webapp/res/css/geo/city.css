@@ -138,17 +138,25 @@
 }
 
 #schoolFinderPromo {
-    background-color:#DDEEEE;
+	background-image: url(/res/img/promo/schoolfinder/mapwidget_citypage_mapbg.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
 }
 
 #schoolFinderPromo h2, #schoolFinderPromo p, #schoolFinderPromo a{
     margin-left:220px;
 }
 #schoolFinderPromo img{
-   margin-left:256px;
+    margin-left:256px;
 }
 #schoolFinderPromo h2{
     color:#55BBCC;
+    font-weight: bold;
+    font-size: 16px;
+}
+#schoolFinderPromo p{
+    color:#666666;
+    font-size: 13px;
 }
 
 .headerBox {
