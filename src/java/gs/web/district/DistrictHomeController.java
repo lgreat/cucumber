@@ -170,6 +170,9 @@ public class DistrictHomeController extends AbstractController {
            City userCity = null;
            if (context.getCity() != null) {
                userCity = context.getCity();
+           } else {
+                District district = (District)model.get("district");
+                userCity = new City(district.getPhysicalAddress().getCity(), context.getStateOrDefault());
            }
            model.put("cityObject", userCity);
 
