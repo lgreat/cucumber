@@ -137,6 +137,20 @@
     border-top-width: 1px;
 }
 
+#schoolFinderPromo {
+    background-color:#DDEEEE;
+}
+
+#schoolFinderPromo h2, #schoolFinderPromo p, #schoolFinderPromo a{
+    margin-left:220px;
+}
+#schoolFinderPromo img{
+   margin-left:256px;
+}
+#schoolFinderPromo h2{
+    color:#55BBCC;
+}
+
 .headerBox {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     background-color:#DDEEEE;
