@@ -78,8 +78,11 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             userCity = getGeoDao().findCity(State.CA, "Los Angeles");
         }
         model.put("cityObject", userCity);
-
         loadCityDropdown(model, userCity.getState());
+
+        if("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())){
+            model.put("specialCity","Washington,DC");
+        }
 
         List<ISchoolDao.ITopRatedSchool> topRatedSchools =
                 getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, _levelCode.getLowestLevel(), 5);

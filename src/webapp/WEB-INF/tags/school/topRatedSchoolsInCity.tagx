@@ -15,7 +15,7 @@
     <jsp:directive.attribute name="levelCodeName" required="true" description="Level code name"/>
 
 
-<h2>Top ${levelCodeName} schools: <span class="cityName">${city.name}</span></h2>
+<h2>Top ${levelCodeName} schools: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h2>
 
 <div class="changeCity">Change city:
     <span id="topCitiesCityListSpan">
