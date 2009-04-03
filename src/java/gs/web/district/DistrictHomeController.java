@@ -80,7 +80,6 @@ public class DistrictHomeController extends AbstractController {
         }
 
         loadTopRatedSchools(model,sessionContext);
-        System.out.println("-------------------"+_noDistrict);
         model.put("noDistrict",_noDistrict);
         return new ModelAndView(getViewName(), model);
     }
@@ -90,11 +89,11 @@ public class DistrictHomeController extends AbstractController {
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
-        if(rows.size() > 0){
+        if(rows!= null &&rows.size() > 0){
             for(ITableRow row :rows){
                 if(row.get("state").equals(state)){
                     for (Object columnName : row.getColumnNames()) {
-                        model.put(columnName.toString(),(row.get(columnName).toString()) == null ? "":row.get(columnName).toString());
+                        model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName).toString());
                     }
                 }else{
                      _noDistrict = true;
