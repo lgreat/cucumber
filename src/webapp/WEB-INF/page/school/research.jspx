@@ -434,7 +434,7 @@
             <div id="schoolFinderPromo">
                 <h2 class="topSchoolsHeader">Want your own SchoolFinder?</h2>
                 <p>Take ours! Display GreatSchools' school test scores, ratings, and stats on your website for free.</p>
-                <a href="/schoolfinder/widget/customize.page">
+                <a class="GS_EV5_" id="school_finder_promo_research" href="/schoolfinder/widget/customize.page">
                     <img src="/res/img/button/go.gif" alt="go"/>
                 </a>
             </div>
