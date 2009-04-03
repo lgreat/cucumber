@@ -182,7 +182,7 @@ a:hover.parent_rating {
 
 /* Parent Ratings rollovers */
 .parent_0 { /* displays the "no star" parent rating */
-	background: url(/res/img/school/ratings/ratings_parent_head_no.gif) no-repeat;
+	background: url(/res/img/school/ratings/rateit_01.gif) no-repeat;
 }
 
 a:hover.parent_0 { /* displays the "no star" rollover */

@@ -101,16 +101,16 @@
                         <c:choose>
                             <!-- ratings summary on public and charter schools only -->
                             <c:when test="${school.levelCode ne 'p'}">
-                                <gsml:img src="/res/img/school/overview/7970_b/rating_BeTheFirst.gif"
-                                      alt="Be the first to rate this school!"
+                                <gsml:img src="/res/img/school/overview/rate_this_blue.gif"
+                                      alt="Rate this school!"
                                       styleClass="parentTitle"/>
                                 <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="stars"/>
                                 <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                             </c:when>
                             <!-- ratings summary not shown for other schools -->
                             <c:otherwise>
-                                <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif"
-                                      alt="Be the first to rate this school!"
+                                <gsml:img src="/res/img/school/overview/rate_this_white.gif"
+                                      alt="Rate this school!"
                                       styleClass="parentTitle"/>
                                 <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars"/>
                                 <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
