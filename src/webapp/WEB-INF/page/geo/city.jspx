@@ -238,9 +238,9 @@
         </tr></table>
     </div>
 
-    <div style="width: 100%" class="cleanLineTopBox" id="schoolFinderPromo">
-        <h2>GreatSchools Finder Widget</h2>
-        <p>Display our school information on your Web site for free!</p>
+    <div style="width: 100%"  id="schoolFinderPromo">
+        <h2>Want your own SchoolFinder?</h2>
+        <p>Take ours! Display GreatSchools' school test scores, ratings, and stats on your website for free.</p>
         <a href="/schoolfinder/widget/customize.page">
             <img src="/res/img/button/go.gif" alt="go"/>
         </a>
