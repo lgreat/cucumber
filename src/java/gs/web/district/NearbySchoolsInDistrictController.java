@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.2 2009/04/01 19:53:04 droy Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.3 2009/04/03 18:17:55 droy Exp $
  */
 
 package gs.web.district;
@@ -52,8 +52,6 @@ public class NearbySchoolsInDistrictController extends AbstractController {
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        //SessionContext sc = SessionContextUtil.getSessionContext(request);
         String stateParam = request.getParameter(PARAM_STATE);
         State state = State.fromString(stateParam);
 
@@ -63,8 +61,7 @@ public class NearbySchoolsInDistrictController extends AbstractController {
 
         String acronymOrName = request.getParameter(PARAM_ACRONYM_OR_NAME);
                 
-        List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true);
-        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
+        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, null, 200);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
 
         int num_elementary_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.ELEMENTARY, districtIdParam);

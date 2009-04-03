@@ -6,7 +6,10 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
 
     <div id="nearbySchoolsInDistrict">
         <div id="mapHeader"><h3>Browse ${acronymOrName} Schools</h3></div>
@@ -20,22 +23,22 @@
                 <li>
                     <gsml:checkbox name="elementary"
                                    styleId="filter_e"
-                                   checked="${requestScope.command.elementaryFilterChecked}"
-                                   onclick="toggleFilter('e', this.checked, '${requestScope.command.searchQuery}');"/>
+                                   checked="true"
+                                   onclick="toggleFilter('e', this.checked);"/>
                     <label for="filter_e">Elementary</label>
                 </li>
                 <li>
                     <gsml:checkbox name="middle"
                                    styleId="filter_m"
-                                   checked="${requestScope.command.middleFilterChecked}"
-                                   onclick="toggleFilter('m', this.checked, '${requestScope.command.searchQuery}');"/>
+                                   checked="true"
+                                   onclick="toggleFilter('m', this.checked);"/>
                     <label for="filter_m">Middle</label>
                 </li>
                 <li>
                     <gsml:checkbox name="high"
                                    styleId="filter_h"
-                                   checked="${requestScope.command.highFilterChecked}"
-                                   onclick="toggleFilter('h', this.checked, '${requestScope.command.searchQuery}');"/>
+                                   checked="true"
+                                   onclick="toggleFilter('h', this.checked);"/>
                     <label for="filter_h">High</label>
                 </li>
             </ul>
@@ -58,5 +61,30 @@
                                 lon="${district.lon}"
                                 schools="${schoolsWithRatings}"
                 />
+        <script type="text/javascript">
+        <![CDATA[
+        //<!--
+            function toggleFilter(whichFilter, isChecked) {
+                var e_button = document.getElementById("filter_e");
+                var m_button = document.getElementById("filter_m");
+                var h_button = document.getElementById("filter_h");
+
+                var filterLevelCode = "";
+                if (e_button.checked) {
+                    filterLevelCode += "e";
+                }
+                if (m_button.checked) {
+                    filterLevelCode += "m";
+                }
+                if (h_button.checked) {
+                    filterLevelCode += "h";
+                }
+
+                renderSchools(undefined, filterLevelCode);
+                return true;
+            }
+        //-->
+        ]]>
+        </script>
     </div>
 </jsp:root>

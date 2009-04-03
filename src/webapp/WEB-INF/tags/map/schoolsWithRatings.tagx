@@ -171,10 +171,8 @@ var GS_smallHeight = 275;
 var needsExtraZoom = true;
 
 function initMap() {
-    var tooltip = null;
     GS_map = new GMap2(document.getElementById("${id}"));
     document.getElementById("${id}").style.overflow = "hidden";
-    var marker;
 
     GS_map_zoomControl = new GSmallZoomControl();
     GS_map.addControl(GS_map_zoomControl);
@@ -182,38 +180,9 @@ function initMap() {
     GS_map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
-    <![CDATA[
-    if (schoolArray.length > 0) {
-        for (var counter=0; counter < schoolArray.length; counter++) {
-            var curSchool = schoolArray[counter];
-            var icon = new GIcon();
-            var imageValue = curSchool.rating;
-            if (imageValue == 0) {
-                if (curSchool.levelCode == 'p') {
-                    imageValue = 'preschool';
-                } else if (curSchool.type == 'private') {
-                    imageValue = 'private';
-                } else {
-                    imageValue = 'na';
-                }
-            }
-            icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-            icon.shadow =  "/res/img/map/GS_gsr_1_backgroundshadow.png";
-            icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_trans.png";
-            icon.iconSize = new GSize(42,41);
-            icon.iconAnchor = new GPoint(14,39);
-            icon.infoWindowAnchor = new GPoint(21,2);
-            icon.infoShadowAnchor = new GPoint(21,2);
-            icon.shadowSize = new GSize(42,41);
-            tooltip = curSchool.name;
-            marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
-            addBubbleListener(marker, curSchool);
-            GS_map.addOverlay(marker);
-            bounds.extend(curSchool.location);
-        }
-    }
-    ]]>
 
+    renderSchools(bounds, 'emh');
+    
     if (showLocationMarker) {
         addLocationMarker(GS_map, locationPoint);
         extendBoundsToCenterOnPoint(locationPoint, bounds);
@@ -243,6 +212,69 @@ function initMap() {
             }
         });
     }
+}
+
+function renderSchools(bounds, filterLevelCode) {
+    <![CDATA[
+    GS_map.clearOverlays();
+    if (schoolArray.length > 0) {
+        var tooltip = null;
+        var marker;
+
+        for (var counter=0; counter < schoolArray.length; counter++) {
+            var curSchool = schoolArray[counter];
+
+            if (filterLevelCode == undefined || filterLevelCode == 'emh' || containsLevelCode(curSchool.levelCode, filterLevelCode)) {
+                if (curSchool.marker == undefined) {
+                    var icon = new GIcon();
+                    var imageValue = curSchool.rating;
+                    if (imageValue == 0) {
+                        if (curSchool.levelCode == 'p') {
+                            imageValue = 'preschool';
+                        } else if (curSchool.type == 'private') {
+                            imageValue = 'private';
+                        } else {
+                            imageValue = 'na';
+                        }
+                    }
+                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
+                    icon.shadow =  "/res/img/map/GS_gsr_1_backgroundshadow.png";
+                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_trans.png";
+                    icon.iconSize = new GSize(42,41);
+                    icon.iconAnchor = new GPoint(14,39);
+                    icon.infoWindowAnchor = new GPoint(21,2);
+                    icon.infoShadowAnchor = new GPoint(21,2);
+                    icon.shadowSize = new GSize(42,41);
+                    tooltip = curSchool.name;
+                    marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
+                    addBubbleListener(marker, curSchool);
+                    if (bounds != undefined) {
+                        bounds.extend(curSchool.location);
+                    }
+                    curSchool.marker = marker;
+                } else {
+                    marker = curSchool.marker;
+                }
+
+                GS_map.addOverlay(marker);
+            }
+        }
+    }
+    ]]>
+}
+
+function containsLevelCode(schoolLC, filterLC) {
+    <![CDATA[
+    var levelCodes = schoolLC.split(',');
+    for (var i = 0; i < levelCodes.length; i++) {
+        var levelCode = levelCodes[i];
+        if (filterLC.indexOf(levelCode) != -1) {
+            return true;
+        }
+    }
+
+    return false;
+    ]]>
 }
 
 function panUpABit() {

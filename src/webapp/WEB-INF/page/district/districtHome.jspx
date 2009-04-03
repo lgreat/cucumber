@@ -234,11 +234,11 @@
 
 
         </div>
-        <!--<div id="browseSchools">-->
-            <!--<div>-->
-                <!--<jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${acronymOrName}"/>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="browseSchools">
+            <div>
+                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${acronymOrName}"/>
+            </div>
+        </div>
         <div id="compareSchools">
             <div id="compareSchoolsHeader"><h3>Compare Schools</h3></div>
             <div>
