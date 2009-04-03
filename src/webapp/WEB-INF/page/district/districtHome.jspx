@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -89,6 +90,7 @@
     }
 
     function selectBox(linkElem, boxId) {
+
         var x;
         // de-select all links
         var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
@@ -106,7 +108,39 @@
                 boxArr[x].hide();
             }
         }
+        //set the tabs
+        if(boxId == 'districtBox'){
+        var distTabDiv = document.getElementById('districtTabDiv');
+        var stTabDiv = document.getElementById('stateTabDiv');
+        var distTabLeft = document.getElementById('districtTabLeft');
+        var distTabRight = document.getElementById('districtTabRight');
+        var stTabLeft = document.getElementById('stateTabLeft');
+        var stTabRight = document.getElementById('stateTabRight');
+        distTabDiv.className = 'backgroundOn';
+        stTabDiv.className = 'backgroundOff';
+        distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+        distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+        stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+        stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+        }
+
+         if(boxId == 'stateBox'){
+        var distTabDiv = document.getElementById('districtTabDiv');
+        var stTabDiv = document.getElementById('stateTabDiv');
+        var distTabLeft = document.getElementById('districtTabLeft');
+        var distTabRight = document.getElementById('districtTabRight');
+        var stTabLeft = document.getElementById('stateTabLeft');
+        var stTabRight = document.getElementById('stateTabRight');
+        distTabDiv.className = 'backgroundOff';
+        stTabDiv.className = 'backgroundOn';
+        stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+        stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+        distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+        distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+        }
     }
+
+
     //-->
     </script>
     ]]>
@@ -114,17 +148,18 @@
 
 </head>
 
-<gsml:body adPageName="district-home">
+
+<gsml:body adPageName="district-home" >
     <div id="main">
         <div id="intro">
             <div id="introTab"><h2>${district.name}</h2>
-                <c:if test="${noDistrict eq false}">
+                <c:if test="${noDistrict eq true}">
                     <ul  class="horizontalList">
                         <li class="selected">
-                            <a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a>
+                            <img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/><div id="districtTabDiv" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a></div><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/>
                         </li>
                         <li>
-                            <a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a>
+                            <img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/><div id="stateTabDiv" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a></div><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/>
                         </li>
                     </ul>
                 </c:if>
@@ -168,7 +203,8 @@
                         <tr>
                             <td><img alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_${rating}.gif"/></td>
                         </tr>
-                        <tr><td>This district's rating is based on its schools' test results;10 is best.</td></tr>
+                        <tr><td>This district's rating is based on its schools' <link:districtProfile districtId="${district.id}"
+                        state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>;10 is best.</td></tr>
                         <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
                         </table>
                     </td>
@@ -180,15 +216,15 @@
                         <tr><td> Map &gt;</td></tr>
                         <tr><td> ${district.phone}</td></tr>
                         <tr><td>${district.fax}</td></tr>
-                        <tr><td> District Web site &gt;</td></tr>
+                        <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
                         </table>
                     </td>
                     <td  id="info">
                         <table>
-                        <tr><td>${district.gradeLevels}</td></tr>
-                        <tr><td>students</td></tr>
-                        <tr><td>${district.numberOfSchools}</td></tr>
-                        <tr><td>View all schools in this district &gt;</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.gradeLevels}</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${districtEnrollment} students</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.numberOfSchools} schools</td></tr>
+                        <tr><td><link:allSchoolsInDistrict districtId="${district.id}">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
                         <tr><td>District superintendent:</td></tr>
                         <tr><td>John W.Doe:</td></tr>
                         </table>
@@ -198,11 +234,11 @@
 
 
         </div>
-        <div id="browseSchools">
-            <div>
-                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${acronymOrName}"/>
-            </div>
-        </div>
+        <!--<div id="browseSchools">-->
+            <!--<div>-->
+                <!--<jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${acronymOrName}"/>-->
+            <!--</div>-->
+        <!--</div>-->
         <div id="compareSchools">
             <div id="compareSchoolsHeader"><h3>Compare Schools</h3></div>
             <div>

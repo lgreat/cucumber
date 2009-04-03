@@ -22,14 +22,35 @@ body{
 #introTab{
     background-color:#66CCCC;
 }
+ul.horizontalList{
+    height:29px;
+}
 
 ul.horizontalList li{
     display: inline;
 }
 
+.backgroundOn{
+    background:url(/res/img/district/tabs_Right_on_02.gif) repeat-x;
+    padding-bottom:5px;
+    padding-top:8px;
+    left:8px;
+    float:left;
+}
+
+.backgroundOff{
+    background:url(/res/img/district/tabs_Right_off_02.gif) repeat-x;
+    padding-bottom:5px;
+    padding-top:8px;
+    left:8px;
+    float:left;
+}
+
+#introTab ul.horizontalList li img{
+    float:left;
+}
+
 #introTab ul.horizontalList li {
-    background-color:white;
-    margin: 0 5px 0 5px;
     font-size: 13px;
     font-weight:bold;
 }
@@ -40,6 +61,7 @@ ul.horizontalList li{
 .introText{
     margin:0 15px 10px 15px;
 }
+
 
 .keyTerms{
     color:green;
