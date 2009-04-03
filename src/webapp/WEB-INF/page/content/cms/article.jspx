@@ -8,7 +8,18 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${article.promo} - ${article.primaryKategoryName} | GreatSchools</title>
+        <c:choose>
+            <c:when test="${article.pageTitle gt ''}">
+                <c:set var="pageTitle">${article.pageTitle}</c:set>
+            </c:when>
+            <c:when test="${article.promo gt ''}">
+                <c:set var="pageTitle">${article.promo} | ${article.primaryKategoryName} | GreatSchools</c:set>
+            </c:when>
+            <c:otherwise>
+                <c:set var="pageTitle">${article.title} | ${article.primaryKategoryName} | GreatSchools</c:set>
+            </c:otherwise>
+        </c:choose>
+        <title>${pageTitle}</title>
         <meta name="description"
               content="${article.metaDescription}"/>
         <meta name="keywords"
