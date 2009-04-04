@@ -46,16 +46,13 @@ public class DistrictHomeController extends AbstractController {
     private IGeoDao _geoDao;
     private IDistrictRatingDao _districtRatingDao;
     private ICensusDataSetDao _censusDataSetDao;
-    public static final String DEV_DEFINITIONS_TAB = "od6";
-    public static final String STAGING_DEFINITIONS_TAB = "od6";
-    public static final String LIVE_DEFINITIONS_TAB = "od6";
     public static final String DEV_DISTRICT_BOILERPLATE_TAB = "od6";
     public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "od6";
     public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od6";
     public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
     public static final String STAGING_STATE_BOILERPLATE_TAB = "od4";
     public static final String LIVE_STATE_BOILERPLATE_TAB = "od4";
-    public boolean _noDistrict;
+    public boolean _isDistrictPresent;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -80,7 +77,7 @@ public class DistrictHomeController extends AbstractController {
         }
 
         loadTopRatedSchools(model,sessionContext);
-        model.put("noDistrict",_noDistrict);
+        model.put("isDistrictPresent",_isDistrictPresent);
         return new ModelAndView(getViewName(), model);
     }
 
@@ -88,19 +85,19 @@ public class DistrictHomeController extends AbstractController {
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
+        _isDistrictPresent = false;
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
         if(rows!= null &&rows.size() > 0){
             for(ITableRow row :rows){
                 if(row.get("state").equals(state)){
                     for (Object columnName : row.getColumnNames()) {
-                        model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName).toString());
+                        model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName));
                     }
-                }else{
-                     _noDistrict = true;
+                    model.put("boilerplate",model.get("boilerplate").toString().replaceAll("\n","<br/>"));
+                    _isDistrictPresent = true;
                 }
             }
         }else{
-            _noDistrict = true;
             model.put("id","");
             model.put("state","");
             model.put("name","");
@@ -109,6 +106,7 @@ public class DistrictHomeController extends AbstractController {
             model.put("locatorlink","");
             model.put("superintendent","");
             model.put("boilerplate","");
+            model.put("distrctBoilerplateHeading","");
         }
 
     }
@@ -119,9 +117,12 @@ public class DistrictHomeController extends AbstractController {
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
         if(rows.size() >0){
-            model.put("stateBoilerPlate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate"));
+            System.out.println("-----------"+rows.get(0));
+            model.put("stateBoilerplate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate").toString().replaceAll("\n","<br/>"));
+            model.put("stateBoilerplateHeading",(rows.get(0).get("stateboilerplateheading")) == null ? "": rows.get(0).get("stateboilerplateheading").toString());
         }else{
-            model.put("stateBoilerPlate","");
+            model.put("stateBoilerplate","");
+            model.put("stateBoilerplateHeading","");
         }
     }
 
@@ -184,21 +185,6 @@ public class DistrictHomeController extends AbstractController {
                 worksheetName = LIVE_STATE_BOILERPLATE_TAB;
             }
         }
-
-        return worksheetName;
-    }
-
-     protected String getWorksheetForDefinition(HttpServletRequest request) {
-        String worksheetName ="";
-        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = DEV_DEFINITIONS_TAB;
-
-        } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = STAGING_DEFINITIONS_TAB;
-        } else {
-            worksheetName = LIVE_DEFINITIONS_TAB;
-        }
-
         return worksheetName;
     }
 

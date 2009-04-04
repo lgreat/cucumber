@@ -29,67 +29,11 @@
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
     <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
 
-    <![CDATA[
-    <!--[if IE]>
-    <script type="text/javascript">
-    function showPopup(event,item)
-    {
-        /* get the mouse left position */
-        x =   event.clientX +20 ;
-        /* get the mouse top position  */
-        y =  event.clientY +20;
-
-        var popUp = document.getElementById(item);
-        popUp.style.display="block";
-        popUp.style.backgroundColor="white";
-        /* set the pop-up's left */
-        popUp.style.left  = x +'px';
-        /* set the pop-up's top */
-        popUp.style.top = y + 'px';
-    }
-    </script>
-    <![endif]-->
-    ]]>
-
-
-    <![CDATA[
-    <!--[if !IE]><-->
-    <script type="text/javascript">
-
-    function showPopup(event,item)
-    {    
-    /* get the mouse left position */
-    x =   event.pageX +20 ;
-    /* get the mouse top position  */
-    y =  event.pageY +20;
-    /* display the pop-up */
-
-    var popUp = document.getElementById(item);
-    popUp.style.display="block";
-    popUp.style.backgroundColor="white";
-    /* set the pop-up's left */
-    popUp.style.left  = x +'px';
-
-
-    /* set the pop-up's top */
-    popUp.style.top = y + 'px';
-    }
-    </script>
-    <!--><![endif]-->
-    ]]>
 
     <![CDATA[
     <script type="text/javascript">
     //<!--
-    /* this function hides the pop-up when
-    user moves the mouse out of the link */
-    function hidePopup(item)
-    {
-        var popUp = document.getElementById(item);
-        popUp.style.display="none";
-    }
-
-    function selectBox(linkElem, boxId) {
+       function selectBox(linkElem, boxId) {
 
         var x;
         // de-select all links
@@ -108,8 +52,15 @@
                 boxArr[x].hide();
             }
         }
+
+
+
         //set the tabs
         if(boxId == 'districtBox'){
+        var stateHeading = document.getElementById('stateHeading');
+        stateHeading.hide();
+        var distHeading = document.getElementById('districtHeading');
+        distHeading.show();
         var distTabDiv = document.getElementById('districtTabDiv');
         var stTabDiv = document.getElementById('stateTabDiv');
         var distTabLeft = document.getElementById('districtTabLeft');
@@ -125,6 +76,10 @@
         }
 
          if(boxId == 'stateBox'){
+        var distHeading = document.getElementById('districtHeading');
+        distHeading.hide();
+        var stateHeading = document.getElementById('stateHeading');
+        stateHeading.show();
         var distTabDiv = document.getElementById('districtTabDiv');
         var stTabDiv = document.getElementById('stateTabDiv');
         var distTabLeft = document.getElementById('districtTabLeft');
@@ -140,7 +95,6 @@
         }
     }
 
-
     //-->
     </script>
     ]]>
@@ -153,7 +107,7 @@
     <div id="main">
         <div id="intro">
             <div id="introTab"><h2>${district.name}</h2>
-                <c:if test="${noDistrict eq true}">
+                <c:if test="${isDistrictPresent eq true}">
                     <ul  class="horizontalList">
                         <li class="selected">
                             <img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/><div id="districtTabDiv" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a></div><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/>
@@ -165,12 +119,19 @@
                 </c:if>
             </div>
             <div class="introText">
-                <h3 >Know your school choice options in ${district.physicalAddress.city}</h3>
 
-                    <span id="districtBox" class="boilerPlate" style="">${boilerplate}</span>
-                    <span id="stateBox"  class="boilerPlate" style="display: none;">${stateBoilerPlate}</span>
-
-
+                <c:choose>
+                    <c:when test="${isDistrictPresent eq true}">
+                        <h3 id="districtHeading" style="">${districtboilerplateheading}</h3>
+                        <h3 id="stateHeading" style="display: none;">${stateBoilerplateHeading}</h3>
+                        <span id="districtBox" class="boilerPlate" style="">${boilerplate}</span>
+                        <span id="stateBox"  class="boilerPlate" style="display: none;">${stateBoilerplate}</span>
+                    </c:when>
+                 <c:otherwise>
+                     <h3 >${stateBoilerplateHeading}</h3>
+                      <span>${stateBoilerPlate}</span>
+                 </c:otherwise>
+                </c:choose>
                 <c:if test="${not empty choicelink and not empty locatorlink}">
                 <ul class="horizontalList">
 
@@ -188,7 +149,7 @@
 
                 </ul>
                  </c:if>
-                <div><span class="letUsKnow">Notice an innaccuracy? </span> <a href="#">Let us know!</a></div>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an innaccuracy? </span> <a href="#">Let us know!</a></div>
                 ${definitionsDiv}
             </div>            
         </div>
