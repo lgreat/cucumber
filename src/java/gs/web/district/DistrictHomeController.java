@@ -117,7 +117,6 @@ public class DistrictHomeController extends AbstractController {
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
         if(rows.size() >0){
-            System.out.println("-----------"+rows.get(0));
             model.put("stateBoilerplate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate").toString().replaceAll("\n","<br/>"));
             model.put("stateBoilerplateHeading",(rows.get(0).get("stateboilerplateheading")) == null ? "": rows.get(0).get("stateboilerplateheading").toString());
         }else{
