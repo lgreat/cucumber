@@ -108,6 +108,19 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty article.relatedArticles}">
+          <h4>Related Articles</h4>
+          <div id="relatedArticleLinks">
+            <ul>
+              <c:forEach var="relatedArticle" items="${article.relatedArticles}">
+                <c:if test="${not empty relatedArticle.url}">
+                  <li><a href="${relatedArticle.url}">${relatedArticle.linkText}</a></li>
+                </c:if>
+              </c:forEach>
+            </ul>
+          </div>
+        </c:if>
+
         <c:if test="${not empty article.externalLinks}">
             <h4>Related Links</h4>
             <div id="relatedExternaLinks">
