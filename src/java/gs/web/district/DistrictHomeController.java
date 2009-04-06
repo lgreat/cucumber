@@ -67,6 +67,7 @@ public class DistrictHomeController extends AbstractController {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
             model.put("district", district);
+            pageModel.put("city", district.getPhysicalAddress().getCity());
 
             String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
             if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
@@ -161,7 +162,11 @@ public class DistrictHomeController extends AbstractController {
                userCity = context.getCity();
            } else {
                 District district = (District)model.get("district");
-                userCity = new City(district.getPhysicalAddress().getCity(), context.getStateOrDefault());
+               if (district != null && district.getPhysicalAddress() != null && district.getPhysicalAddress().getCity() != null) {
+                    userCity = new City(district.getPhysicalAddress().getCity(), context.getStateOrDefault());
+               } else {
+                   return;
+               }
            }
            model.put("cityObject", userCity);
 

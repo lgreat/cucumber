@@ -341,3 +341,23 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     top: 7px;
 }
 /* END compare schools */
+
+/* BEGIN breadcrumbs */
+#breadcrumbs {
+	margin: 2px 0 10px 1px;
+}
+
+#breadcrumbs ul li {
+	font: 11px "Trebuchet MS", Arial, sans-serif;
+	color: #888;
+	list-style: none;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+#breadcrumbs ul li a {
+	text-decoration: underline;
+	color: #888;
+}
+/* END breadcrumbs */

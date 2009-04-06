@@ -14,10 +14,23 @@
     <jsp:directive.attribute name="school" required="false" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="model" required="true" description="Model data from the parent page" type="java.util.Map"/>
 
+    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
 
     <div id="main">
+        <c:if test="${empty school}">
+            <div id="breadcrumbs">
+                <ul>
+                    <li><link:research state="${state}"
+                                       title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
+                    </li>
+                    <li><link:city city="${model.city}" state="${state}"
+                                   title="${model.city} schools">${model.city} schools</link:city>&amp;#160;
+                    </li>
+                </ul>
+            </div>
+        </c:if>
         <div id="intro">
             <div id="introTab"><h2>${district.name}</h2>
                 <c:if test="${model.isDistrictPresent eq true}">
