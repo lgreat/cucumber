@@ -147,7 +147,7 @@
                 document.getElementById('firstName').focus();
 
                 function noThanks() {
-                    window.top.sendToDestination();
+                    parent.sendToDestination();
                     return false;
                 }
             </script>
