@@ -130,11 +130,11 @@
             <div id="compareSchoolsHeader"><h3>Compare Schools</h3></div>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
-                    <input id="rightCompSchoolsE" type="radio" checked="checked" value="e" name="level"/>
+                    <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>
                     <label for="rightCompSchoolsE">Elementary schools</label>
-                    <input id="rightCompSchoolsM" type="radio" value="m" name="level"/>
+                    <gsml:radio styleId="rightCompSchoolsM" checked="${model.compare_m_checked}" value="m" name="level"/>
                     <label for="rightCompSchoolsM">Middle schools</label>
-                    <input id="rightCompSchoolsH" type="radio" value="h" name="level"/>
+                    <gsml:radio styleId="rightCompSchoolsH" checked="${model.compare_h_checked}" value="h" name="level"/>
                     <label for="rightCompSchoolsH">High schools</label>
                     <input type="hidden" value="d" name="area"/>
                     <input type="hidden" value="${district.id}" name="district"/>

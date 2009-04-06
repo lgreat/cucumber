@@ -70,32 +70,15 @@ public class DistrictHomeController extends AbstractController {
             model.put("district", district);
             pageModel.put("city", district.getPhysicalAddress().getCity());
 
+            School school = null;
             String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
             if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
                 int schoolId = Integer.parseInt(schoolIdStr);
-                School school = _schoolDao.getSchoolById(state, schoolId);
+                school = _schoolDao.getSchoolById(state, schoolId);
                 model.put("school", school);
-                
-                if (school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
-                    pageModel.put("school_level_code_e", 1);
-                } else {
-                    pageModel.put("school_level_code_e", 0);
-                }
-                if (school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
-                    pageModel.put("school_level_code_m", 1);
-                } else {
-                    pageModel.put("school_level_code_m", 0);
-                }
-                if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
-                    pageModel.put("school_level_code_h", 1);
-                } else {
-                    pageModel.put("school_level_code_h", 0);
-                }
-            } else {
-                pageModel.put("school_level_code_e", 1);
-                pageModel.put("school_level_code_m", 1);
-                pageModel.put("school_level_code_h", 1);
             }
+
+            processSchoolData(school, pageModel);
 
             getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);
             getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
@@ -203,8 +186,6 @@ public class DistrictHomeController extends AbstractController {
            }
        }
 
-
-     
     protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
         String worksheetName ="";
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
@@ -227,6 +208,40 @@ public class DistrictHomeController extends AbstractController {
             }
         }
         return worksheetName;
+    }
+
+    protected void processSchoolData(School school, Map<String, Object> model) {
+        if (school == null) {
+            model.put("school_level_code_e", 1);
+            model.put("school_level_code_m", 1);
+            model.put("school_level_code_h", 1);
+            model.put("compare_e_checked", "true");
+            model.put("compare_m_checked", "");
+            model.put("compare_h_checked", "");
+        } else {
+            boolean needsCompareCheck = true;
+
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                model.put("school_level_code_e", 1);
+                model.put("compare_e_checked", "true");
+                needsCompareCheck = false;
+            }
+
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                model.put("school_level_code_m", 1);
+                if (needsCompareCheck) {
+                    model.put("compare_m_checked", "true");
+                    needsCompareCheck = false;
+                }
+            }
+
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                model.put("school_level_code_h", 1);
+                if (needsCompareCheck) {
+                    model.put("compare_h_checked", "true");                    
+                }
+            }
+        }        
     }
 
     public IDistrictDao getDistrictDao() {
