@@ -31,14 +31,13 @@
     <script type="text/javascript">
         var mslHref = '';
         function sendToDestination() {
-            closeMslFlowDialog();
             if (mslHref != '') {
                 window.location = mslHref;
                 mslHref = '';
             }
         }
         function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
-            mslHref = href;
+            mslHref = decodeURIComponent(href);
             return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
         }
     </script>
