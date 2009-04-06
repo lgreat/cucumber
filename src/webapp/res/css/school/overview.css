@@ -366,9 +366,9 @@ hr { /* has IE 7 equivalent */
 #ratingsNone #rating_parent { /* has IE 7 equivalent */
 	float: right;
 	text-align: center;
-	margin: 32px 45px 0 0;
+	margin: 32px 35px 0 0;
 	_margin: 30px 23px 15px 0; /* IE 6 hack */
-	width: 102px;
+	width: 112px;
 }
 
 #ratingsNone a {
