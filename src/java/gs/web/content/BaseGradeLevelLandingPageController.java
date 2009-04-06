@@ -81,7 +81,7 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
         loadCityDropdown(model, userCity.getState());
 
         if("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())){
-            model.put("specialCity","Washington,DC");
+            model.put("specialCity","Washington, DC");
         }
 
         List<ISchoolDao.ITopRatedSchool> topRatedSchools =

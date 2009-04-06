@@ -59,7 +59,7 @@
                             <td
                                     style="font-weight: bold;text-align: right">
                                 <link:city city="${city.name}"
-                                           state="${city.state}">See all ${city.name} schools &amp;gt;</link:city>
+                                           state="${city.state}">See all ${empty specialCity? city.name:specialCity} schools &amp;gt;</link:city>
                             </td>
                         </tr>
                     </table>
@@ -73,7 +73,7 @@
         <td style="vertical-align: top; padding-left: .3em">
             <c:if test="${empty topRatedSchools}">
                 <div id="noTopSchools">
-                 <p>There are no ${levelCodeName} schools in ${city.name}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
+                 <p>There are no ${levelCodeName} schools in ${empty specialCity? city.name:specialCity}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
                 </div>
             </c:if>
             <c:if test="${not empty topRatedSchools}">
@@ -113,7 +113,7 @@
                         <tr>
                             <td colspan="2">
                                 <link:schools city="${city}"
-                                              levelCode="${levelCode}">See all ${city.name} schools &amp;gt;</link:schools>
+                                              levelCode="${levelCode}">See all ${empty specialCity? city.name:specialCity} schools &amp;gt;</link:schools>
                             </td>
                         </tr>
                     </table>
