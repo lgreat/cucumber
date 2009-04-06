@@ -1977,10 +1977,10 @@
     <bean name="/district/districtHome.page"
           class="gs.web.district.DistrictHomeController"
           autowire="byName" lazy-init="true">
-    <property name="viewName" value="district/districtHome"/>
-    <property name="boilerPlateTableDao">
-        <bean factory-bean="districtHomePageBoilerPlateFactory" factory-method="getTableDao"/>
-    </property>
+        <property name="viewName" value="district/districtHome"/>
+        <property name="boilerPlateTableDao">
+            <bean factory-bean="districtHomePageBoilerPlateFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean id="districtHomePageBoilerPlateFactory"

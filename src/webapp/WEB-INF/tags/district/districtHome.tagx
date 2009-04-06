@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
+    <jsp:directive.attribute name="school" required="false" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="model" required="true" description="Model data from the parent page" type="java.util.Map"/>
+
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
+
+    <div id="main">
+        <div id="intro">
+            <div id="introTab"><h2>${district.name}</h2>
+                <c:if test="${model.isDistrictPresent eq true}">
+                    <ul  class="horizontalList">
+                        <li class="selected">
+                            <img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/><div id="districtTabDiv" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${model.acronymOrName}</a></div><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/>
+                        </li>
+                        <li>
+                            <img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/><div id="stateTabDiv" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a></div><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/>
+                        </li>
+                    </ul>
+                </c:if>
+            </div>
+            <div class="introText">
+
+                <c:choose>
+                    <c:when test="${model.isDistrictPresent eq true}">
+                        <h3 id="districtHeading" style="">${model.districtboilerplateheading}</h3>
+                        <h3 id="stateHeading" style="display: none;">${model.stateBoilerplateHeading}</h3>
+                        <span id="districtBox" class="boilerPlate" style="">${model.boilerplate}</span>
+                        <span id="stateBox"  class="boilerPlate" style="display: none;">${model.stateBoilerplate}</span>
+                    </c:when>
+                 <c:otherwise>
+                     <h3 >${model.stateBoilerplateHeading}</h3>
+                      <span>${model.stateBoilerPlate}</span>
+                 </c:otherwise>
+                </c:choose>
+                <c:if test="${not empty model.choicelink and not empty model.locatorlink}">
+                <ul class="horizontalList">
+
+                    <c:if test="${not empty model.choicelink}">
+                    <li>
+                        <a href="${model.choicelink}" target="_blank">Read more about ${model.acronymOrName} enrollment</a>
+                    </li>
+                    </c:if>
+
+                    <c:if test="${not empty model.locatorlink}">
+                    <li class="firstLink">
+                        <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
+                    </li>
+                    </c:if>
+
+                </ul>
+                 </c:if>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an innaccuracy? </span> <a href="#">Let us know!</a></div>
+                ${model.definitionsDiv}
+            </div>
+        </div>
+
+
+
+        <div id="ratingAndInfo">
+            <table>
+                <tr>
+                    <td id="rating">
+                        <table>
+                        <tr>
+                            <td><img alt="GreatSchools Rating: ${model.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_${model.rating}.gif"/></td>
+                        </tr>
+                        <tr><td>This district's rating is based on its schools' <link:districtProfile districtId="${district.id}"
+                        state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>;10 is best.</td></tr>
+                        <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
+                        </table>
+                    </td>
+                    <td  id="address">
+                        <table>
+                        <tr><td>${district.physicalAddress.street}</td></tr>
+                        <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
+                        <tr><td>${district.county}</td></tr>
+                        <tr><td> Map &gt;</td></tr>
+                        <tr><td> ${district.phone}</td></tr>
+                        <tr><td>${district.fax}</td></tr>
+                        <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
+                        </table>
+                    </td>
+                    <td  id="info">
+                        <table>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.gradeLevels}</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${model.districtEnrollment} students</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.numberOfSchools} schools</td></tr>
+                        <tr><td><link:allSchoolsInDistrict districtId="${district.id}">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
+                        <tr><td>District superintendent:</td></tr>
+                        <tr><td>John W.Doe:</td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div id="browseSchools">
+            <div>
+                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}"/>
+            </div>
+        </div>
+        <div id="compareSchools">
+            <div id="compareSchoolsHeader"><h3>Compare Schools</h3></div>
+            <div>
+                <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
+                    <input id="rightCompSchoolsE" type="radio" checked="checked" value="e" name="level"/>
+                    <label for="rightCompSchoolsE">Elementary schools</label>
+                    <input id="rightCompSchoolsM" type="radio" value="m" name="level"/>
+                    <label for="rightCompSchoolsM">Middle schools</label>
+                    <input id="rightCompSchoolsH" type="radio" value="h" name="level"/>
+                    <label for="rightCompSchoolsH">High schools</label>
+                    <input type="hidden" value="d" name="area"/>
+                    <input type="hidden" value="${district.id}" name="district"/>
+                    <input type="hidden" value="name" name="sortby"/>
+                    <input type="hidden" value="over" name="tab"/>
+                    <input id="compareSchoolsFormSubmit" class="submit" type="image" alt="Compare" value="Submit" src="/res/img/school/overview/submit_compare.gif"/>
+                </form>
+            </div>
+        </div>
+        <div id="parentReviews">
+            <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;maxage=3000"/>
+        </div>
+    </div>
+    <div id="contentRight">
+        <div id="ad"><h3>Ad</h3></div>
+        <div id="nearByDistricts" class="box">
+            <div class="outer">
+                <div class="inner">
+                    <span>Near By districts</span>
+                </div>
+            </div>
+        </div>
+        <div id="houseAd"><h3>House ad</h3></div>
+        <div id="citySnapShot">
+            <div class="outer">
+                <div class="inner">
+                     <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
+                     <school:topRatedSchoolsInCityList city="${model.cityObject}"
+                                                      topRatedSchools="${model.topRatedSchools}"
+                                                      topSchools="${model.topSchools}"/>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>

@@ -38,6 +38,7 @@ import java.util.*;
  */
 public class DistrictHomeController extends AbstractController {
     public static final String PARAM_DISTRICT_ID = "district_id";
+    public static final String PARAM_SCHOOL_ID = "school_id";
     String _viewName;
     private ITableDao _boilerPlateTableDao;
     private ITableDao _definitionsTableDao;
@@ -56,6 +57,7 @@ public class DistrictHomeController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> pageModel = new HashMap<String, Object>();
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
@@ -65,23 +67,33 @@ public class DistrictHomeController extends AbstractController {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
             model.put("district", district);
-            getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,model,request);
-            getBoilerPlateForState(state.getAbbreviation(),model,request);
-            if(model.get("acronym")!= null && !"".equals(model.get("acronym"))){
-                model.put("acronymOrName",model.get("acronym"));
-            }else{
-                model.put("acronymOrName",district.getName());
+
+            String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
+            if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
+                int schoolId = Integer.parseInt(schoolIdStr);
+                School school = _schoolDao.getSchoolById(state, schoolId);
+                model.put("school", school);
             }
-            loadDistrictRating(district,model);
-            loadDistrictEnrollment(district,model);
+
+            getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);
+            getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
+            if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
+                pageModel.put("acronymOrName", pageModel.get("acronym"));
+            }else{
+                pageModel.put("acronymOrName", district.getName());
+            }
+            loadDistrictRating(district, pageModel);
+            loadDistrictEnrollment(district, pageModel);
         }
 
-        loadTopRatedSchools(model,sessionContext);
-        model.put("isDistrictPresent",_isDistrictPresent);
+        loadTopRatedSchools(pageModel,sessionContext);
+        pageModel.put("isDistrictPresent",_isDistrictPresent);
+
+        model.put("model", pageModel);
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void getBoilerPlateForDistrict(String state,String districtId, Map model,HttpServletRequest request){
+    protected void getBoilerPlateForDistrict(String state,String districtId, Map<String, Object> model,HttpServletRequest request){
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
@@ -111,7 +123,7 @@ public class DistrictHomeController extends AbstractController {
 
     }
 
-    protected void getBoilerPlateForState(String state, Map model,HttpServletRequest request){
+    protected void getBoilerPlateForState(String state, Map<String, Object> model,HttpServletRequest request){
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,false));
 
@@ -130,13 +142,17 @@ public class DistrictHomeController extends AbstractController {
         CensusInfoFactory cif = new CensusInfoFactory(_censusDataSetDao);
         cif.setCensusDataSetDao(_censusDataSetDao);
         DistrictCensusValue dicv = cif.getCensusInfo().getLatestValue(district, CensusDataType.STUDENTS_ENROLLMENT);
-        model.put("districtEnrollment",dicv.getValueInteger());
+        if (dicv != null) {
+            model.put("districtEnrollment",dicv.getValueInteger());
+        }
 
     }
 
     protected void loadDistrictRating(District district,Map<String, Object> model){
         DistrictRating districtRating = getDistrictRatingDao().getDistrictRatingByDistrict(district);
-        model.put("rating",districtRating.getRating());
+        if (districtRating != null) {
+            model.put("rating", districtRating.getRating());
+        }
     }
 
     protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
