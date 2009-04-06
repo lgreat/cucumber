@@ -23,21 +23,21 @@
                 <li>
                     <gsml:checkbox name="elementary"
                                    styleId="filter_e"
-                                   checked="true"
+                                   checked="${show_e}"
                                    onclick="toggleFilter('e', this.checked);"/>
                     <label for="filter_e">Elementary</label>
                 </li>
                 <li>
                     <gsml:checkbox name="middle"
                                    styleId="filter_m"
-                                   checked="true"
+                                   checked="${show_m}"
                                    onclick="toggleFilter('m', this.checked);"/>
                     <label for="filter_m">Middle</label>
                 </li>
                 <li>
                     <gsml:checkbox name="high"
                                    styleId="filter_h"
-                                   checked="true"
+                                   checked="${show_h}"
                                    onclick="toggleFilter('h', this.checked);"/>
                     <label for="filter_h">High</label>
                 </li>

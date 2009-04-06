@@ -13,6 +13,7 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.school.census.CensusInfoFactory;
 import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.CensusDataType;
@@ -74,6 +75,26 @@ public class DistrictHomeController extends AbstractController {
                 int schoolId = Integer.parseInt(schoolIdStr);
                 School school = _schoolDao.getSchoolById(state, schoolId);
                 model.put("school", school);
+                
+                if (school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                    pageModel.put("school_level_code_e", 1);
+                } else {
+                    pageModel.put("school_level_code_e", 0);
+                }
+                if (school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                    pageModel.put("school_level_code_m", 1);
+                } else {
+                    pageModel.put("school_level_code_m", 0);
+                }
+                if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                    pageModel.put("school_level_code_h", 1);
+                } else {
+                    pageModel.put("school_level_code_h", 0);
+                }
+            } else {
+                pageModel.put("school_level_code_e", 1);
+                pageModel.put("school_level_code_m", 1);
+                pageModel.put("school_level_code_h", 1);
             }
 
             getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);

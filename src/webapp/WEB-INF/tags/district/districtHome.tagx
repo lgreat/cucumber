@@ -123,7 +123,7 @@
         </div>
         <div id="browseSchools">
             <div>
-                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}"/>
+                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}"/>
             </div>
         </div>
         <div id="compareSchools">
