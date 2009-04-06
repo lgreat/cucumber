@@ -147,7 +147,7 @@
                 document.getElementById('firstName').focus();
 
                 function noThanks() {
-                    ${targetParentFrame ? 'parent' : 'document'}.location.href = '${userCmd.redirectUrl}';
+                    window.top.sendToDestination();
                     return false;
                 }
             </script>
