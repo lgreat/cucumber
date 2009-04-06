@@ -7,6 +7,7 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
@@ -94,9 +95,9 @@
                     </td>
                     <td  id="info">
                         <table>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.gradeLevels}</td></tr>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${model.districtEnrollment} students</td></tr>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"></img> ${district.numberOfSchools} schools</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${district.gradeLevels}</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${model.districtEnrollment} students</td></tr>
+                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${district.numberOfSchools} schools</td></tr>
                         <tr><td><link:allSchoolsInDistrict districtId="${district.id}">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
                         <tr><td>District superintendent:</td></tr>
                         <tr><td>John W.Doe:</td></tr>
@@ -135,7 +136,10 @@
         </div>
     </div>
     <div id="contentRight">
-        <div id="ad"><h3>Ad</h3></div>
+        <div id="ad">
+            <ad:setSlotPrefix slotPrefix="District_Home_Page"/>
+            <ad:AboveFold_300x250/>
+        </div>
         <div id="nearByDistricts" class="box">
             <div class="outer">
                 <div class="inner">
