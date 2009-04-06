@@ -240,20 +240,32 @@ public class RegistrationController extends SimpleFormController implements Read
             mAndV.getModel().put("id", user.getId());
             request.setAttribute("password", userCommand.getPassword());
         } else {
-
-             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
-            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+            try {
+                 // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
+                // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
+                if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
+                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                    _userDao.updateUser(user);
+                }
+                // complete registration
+                // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
+                if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true))) {
+                    processNewsletterSubscriptions(user, userCommand, ot);
+                }
+                if (userCommand.isBeta()) {
+                    subscribeToBetaGroup(user, userCommand);
+                }
+            } catch (Exception e) {
+                // if there is any sort of error prior to notifying community, 
+                // the user MUST BE ROLLED BACK to provisional status
+                // otherwise our database is out of sync with community! Bad!
+                _log.error("Unexpected error during registration", e);
+                // undo registration
+                user.setEmailProvisional(userCommand.getPassword());
                 _userDao.updateUser(user);
-            }
-            // complete registration
-            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
-            if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true))) {
-                processNewsletterSubscriptions(user, userCommand, ot);
-            }
-            if (userCommand.isBeta()) {
-                subscribeToBetaGroup(user, userCommand);
+                // send to error page
+                mAndV.setViewName(getErrorView());
+                return mAndV;
             }
             if (!notifyCommunity(user, userCommand, mAndV, request)) {
                 return mAndV; // early exit!

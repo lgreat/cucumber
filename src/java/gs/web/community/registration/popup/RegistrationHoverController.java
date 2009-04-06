@@ -79,16 +79,30 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
         // save
         getUserDao().updateUser(user);
-        // GS-7649 Because of hibernate caching, it's possible for a list_active record
-        // (with list_member id) to be commited before the list_member record is
-        // committed. Adding this commitOrRollback prevents this.
-        ThreadLocalTransactionManager.commitOrRollback();
 
-        // subscribe to newsletters
-        if (userCommand.getNewsletter()) {
-            processNewsletterSubscriptions(user, userCommand, ot);
+        try {
+            // GS-7649 Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
+
+            // subscribe to newsletters
+            if (userCommand.getNewsletter()) {
+                processNewsletterSubscriptions(user, userCommand, ot);
+            }
+            ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
+        } catch (Exception e) {
+            // if there is any sort of error prior to notifying community,
+            // the user MUST BE ROLLED BACK to provisional status
+            // otherwise our database is out of sync with community! Bad!
+            _log.error("Unexpected error during hover registration", e);
+            // undo registration
+            user.setEmailProvisional(userCommand.getPassword());
+            getUserDao().updateUser(user);
+            // send to error page
+            mAndV.setViewName(getErrorView());
+            return mAndV;
         }
-        ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
         notifyCommunity(user, userCommand, mAndV, request);
 
         if (!user.isEmailProvisional()) {

@@ -719,4 +719,51 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
     }
+
+    // test that if an exception occurs during registration, after user creation, but before
+    // community sync, that the user is rolled back to provisional status
+    public void testRegistrationWithError() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+
+        String email = "testRegistration@RegistrationControllerTest.com";
+        String password = "foobar";
+        userCommand.setEmail(email);
+        userCommand.setPassword(password);
+        userCommand.setConfirmPassword(password);
+        userCommand.setState(State.CA);
+        userCommand.setScreenName("screeny");
+        userCommand.setNumSchoolChildren(0);
+        userCommand.setNewsletter(true);
+        _controller.setRequireEmailValidation(false);
+
+        userCommand.getUser().setId(345); // to fake the database save
+
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
+        _userDao.saveUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser()); // setting password
+        _userDao.updateUser(userCommand.getUser()); // updating user profile
+        _userDao.updateUser(userCommand.getUser()); // rolling back to provisional
+        _userControl.replay();
+
+
+        getRequest().addParameter("next", "next"); // submit button for 2-step process
+
+        // no calls expected if "next" is clicked
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        expectLastCall().andThrow(new RuntimeException("Some exception that happened during subscription processing"));
+        _subscriptionDaoMock.replay();
+
+        replay(_soapRequest);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        _userControl.verify();
+        _subscriptionDaoMock.verify();
+        verify(_soapRequest);
+        verify(_userDao);
+
+        assertTrue("Expect user to be rolled back to provisional status",
+                userCommand.getUser().isEmailProvisional());
+        assertEquals("Expect error view because of exception", _controller.getErrorView(), mAndV.getViewName());
+    }
 }

@@ -207,4 +207,23 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV);
         assertTrue("Expect error view", StringUtils.equals(mAndV.getViewName(), "error"));
     }
+
+    public void testOnSubmitErrorRollsBackUserToProvisional() throws Exception {
+        _command.setNewsletter(true);
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser(isA(User.class)); // create new user
+        _userDao.updateUser(isA(User.class)); // set password
+        _userDao.updateUser(isA(User.class)); // update user profile
+        _userDao.updateUser(isA(User.class)); // rollback to provisional
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        expectLastCall().andThrow(new RuntimeException("Some hibernate exception that happened during subscription processing"));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect user to be rolled back to provisional status",
+                _command.getUser().isEmailProvisional());        
+        assertEquals("Expect error view", _controller.getErrorView(), mAndV.getViewName());
+    }
 }
