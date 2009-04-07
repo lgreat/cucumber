@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.19 2009/03/27 05:26:55 droy Exp $
+ * $Id: RecentParentReviewsController.java,v 1.20 2009/04/07 20:54:29 droy Exp $
  */
 
 package gs.web.school.review;
@@ -44,6 +44,8 @@ public class RecentParentReviewsController extends AbstractController {
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_MAX = "max";
     public static final String PARAM_MAX_AGE = "maxage"; // in days
+    public static final String PARAM_NO_FOLLOW = "nofollow";
+    public static final String MODEL_REL_VALUE = "relvalue";
 
     public static int DEFAULT_MAX = 3;
     public static int DEFAULT_MAX_AGE = 90;
@@ -82,6 +84,11 @@ public class RecentParentReviewsController extends AbstractController {
             maxAge = Integer.parseInt(request.getParameter(PARAM_MAX_AGE));
         }
 
+        String relValue = "";
+        if (!StringUtils.isBlank(request.getParameter(PARAM_NO_FOLLOW))) {
+            relValue = "nofollow";
+        }
+
         List <Integer> reviewIds = new ArrayList<Integer>();
         String city = request.getParameter(PARAM_CITY);
         if (city != null) {
@@ -103,6 +110,7 @@ public class RecentParentReviewsController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView("/school/review/recentParentReviews");
         modelAndView.addObject(MODEL_REVIEW_LIST, reviews);
+        modelAndView.addObject(MODEL_REL_VALUE, relValue);
         return modelAndView;
     }
 

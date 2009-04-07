@@ -154,7 +154,7 @@
             </div>
         </div>
         <div id="parentReviews">
-            <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;maxage=3000"/>
+            <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;maxage=3000&amp;nofollow=1"/>
         </div>
     </div>
     <div id="contentRight">

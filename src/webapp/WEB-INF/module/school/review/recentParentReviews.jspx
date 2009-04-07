@@ -17,7 +17,7 @@
         <c:forEach var="review" items="${reviews}" varStatus="loopStatus">
             <tr>
                 <td>
-                    <h4><link:schoolProfileParentReview school="${review.school}"><c:out
+                    <h4><link:schoolProfileParentReview school="${review.school}" rel="${relvalue}"><c:out
                             value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
                 </td>
                 <td class="stars">
