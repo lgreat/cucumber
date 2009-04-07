@@ -58,10 +58,6 @@
 
         //set the tabs
         if(boxId == 'districtBox'){
-        var stateHeading = document.getElementById('stateHeading');
-        stateHeading.hide();
-        var distHeading = document.getElementById('districtHeading');
-        distHeading.show();
         var distTabDiv = document.getElementById('districtTabDiv');
         var stTabDiv = document.getElementById('stateTabDiv');
         var distTabLeft = document.getElementById('districtTabLeft');
@@ -74,13 +70,19 @@
         distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
         stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
         stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+        var distHeading = $$('#intro #districtHeading');
+        var stateHeading = $$('#intro #stateHeading');
+        for (x=0; x < distHeading.length; x++) {
+            distHeading[x].show();
+        }
+
+        for (x=0; x < stateHeading.length; x++) {
+            stateHeading[x].hide();
+        }
+
         }
 
          if(boxId == 'stateBox'){
-        var distHeading = document.getElementById('districtHeading');
-        distHeading.hide();
-        var stateHeading = document.getElementById('stateHeading');
-        stateHeading.show();
         var distTabDiv = document.getElementById('districtTabDiv');
         var stTabDiv = document.getElementById('stateTabDiv');
         var distTabLeft = document.getElementById('districtTabLeft');
@@ -93,6 +95,16 @@
         stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
         distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
         distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+        var distHeading = $$('#intro #districtHeading');
+        var stateHeading = $$('#intro #stateHeading');
+        for (x=0; x < distHeading.length; x++) {
+            distHeading[x].hide();
+        }
+
+        for (x=0; x < stateHeading.length; x++) {
+            stateHeading[x].show();
+        }
+
         }
     }
 

@@ -126,19 +126,19 @@ div.transparent div.keyTermsWrapper{
 }
 #rating{
     width:40%;
-    padding:0px 10px 0px 0px;
+    padding:0px 5px 0px 0px;
 }
 
 #address{
     width:30%;
-    padding:0px 10px 0px 10px;
+    padding:0px 5px 0px 5px;
     line-height:15px;
     border-left: 1px solid #888;
 }
 
 #info{
     width:30%;
-    padding:0px 10px 0px 10px;
+    padding:0px 5px 0px 5px;
     line-height:15px;
     border-left: 1px solid #888;
 }

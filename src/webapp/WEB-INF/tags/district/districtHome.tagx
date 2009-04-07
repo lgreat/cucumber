@@ -101,8 +101,8 @@
                         <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
                         <tr><td>${district.county}</td></tr>
                         <tr><td> Map &gt;</td></tr>
-                        <tr><td> ${district.phone}</td></tr>
-                        <tr><td>${district.fax}</td></tr>
+                        <tr><td>PH: ${district.phone}</td></tr>
+                        <tr><td>FAX: ${district.fax}</td></tr>
                         <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
                         </table>
                     </td>
@@ -112,8 +112,10 @@
                         <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${model.districtEnrollment} students</td></tr>
                         <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${district.numberOfSchools} schools</td></tr>
                         <tr><td><link:allSchoolsInDistrict districtId="${district.id}">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
-                        <tr><td>District superintendent:</td></tr>
-                        <tr><td>John W.Doe:</td></tr>
+                         <c:if test="${not empty model.superintendent}">
+                            <tr><td>District superintendent:</td></tr>
+                            <tr><td>${model.superintendent}</td></tr>
+                        </c:if>
                         </table>
                     </td>
                 </tr>
