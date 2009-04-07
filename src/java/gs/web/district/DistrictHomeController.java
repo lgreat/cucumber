@@ -32,6 +32,7 @@ import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 
 import java.util.*;
+import java.net.URLEncoder;
 
 /**
  * @author droy@greatschools.net
@@ -89,9 +90,11 @@ public class DistrictHomeController extends AbstractController {
             }
             loadDistrictRating(district, pageModel);
             loadDistrictEnrollment(district, pageModel);
+            pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         }
 
         loadTopRatedSchools(pageModel,sessionContext);
+
         pageModel.put("isDistrictPresent",_isDistrictPresent);
 
         model.put("model", pageModel);

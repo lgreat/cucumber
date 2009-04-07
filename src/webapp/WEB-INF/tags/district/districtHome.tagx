@@ -10,6 +10,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
         >
+
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
     <jsp:directive.attribute name="school" required="false" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="model" required="true" description="Model data from the parent page" type="java.util.Map"/>
@@ -17,6 +18,7 @@
     <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
+
 
     <div id="main">
         <c:if test="${empty school}">
@@ -75,7 +77,7 @@
 
                 </ul>
                  </c:if>
-                <div id="innaccuracyLink"><span class="letUsKnow">Notice an innaccuracy? </span> <a href="#">Let us know!</a></div>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an innaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=gen">Let us know!</gsml:a></div>
                 ${model.definitionsDiv}
             </div>
         </div>
@@ -100,7 +102,7 @@
                         <tr><td>${district.physicalAddress.street}</td></tr>
                         <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
                         <tr><td>${district.county}</td></tr>
-                        <tr><td> Map &gt;</td></tr>
+                        <tr><td><a href="${model.googleMapLink}" target="_blank"> Map &gt;</a></td></tr>
                         <tr><td>PH: ${district.phone}</td></tr>
                         <tr><td>FAX: ${district.fax}</td></tr>
                         <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
