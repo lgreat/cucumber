@@ -1,105 +1,279 @@
-#cmsArticle {
+#contentGS {
+    position: relative;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+#main {
+    width: 620px;
+    margin-top: 0;
+    position: relative;
+}
+
+#rightColumn {
+    width: 300px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.breadcrumbs {
+    font-size: 11px;
+}
+
+ul.horizontal li {
+    display: inline;
+    margin-left: 15px;
+}
+
+br.clear {
+    clear: both;
+    font-size: 1px;
+}
+
+.float.right {
+    float: right;
+}
+
+.divider {
+    border-bottom: 1px solid #CCC;
+    height: 10px;
+    margin-bottom: 10px;
+}
+    .divider hr {
+        display: none;
+    }
+
+.headerTools {
+    margin-top: 10px;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .headerTools h2 {
+        font-size: 20px;
+        text-transform: uppercase;
+        color: #000;
+    }
+
+    .headerTools ul {
+        position: absolute;
+        bottom: 10px;
+        right: 0;
+    }
+
+    .headerTools ul li {
+        font-size: 11px;
+    }
+
+#main .breadcrumbs {
+    color: #666;
+}
+
+#main .breadcrumbs a {
+    color: #666;
+    text-decoration: underline;
+}
+
+#leftNav {
+    position: absolute;
+    left: 0;
+    width: 175px;
+}
+
+#content {
+    margin-left: 190px;
+}
+
+.bodyHeader {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin: 5px 0 8px 0;
+}
+
+    .bodyHeader h2 {
+        font-size: 20px;
+        color: #333;
+    }
+
+    .bodyHeader img.licensor {
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+
+    .bodyHeader .pageIdentifier {
+        text-align: right;
+        font-size: 13px;
+        font-style: italic;
+        color: #666;
+    }
+
+    .bodyHeader .summary {
+        color: #666;
+        clear: right;
+    }
+        .summary p {
+            font-style: italic;
+        }
+
+#content .otherLanguageLink {
+    text-align: right;
+    margin-bottom: 5px;
+}
+    #content .otherLanguageLink a {
+        font-size: 13px;
+    }
+
+.mainImage {
+    float: left;
+    margin: 3px 10px 5px 0;
     font-size: 12px;
 }
+    .mainImage .caption {
+        margin-top: 5px;
+    }
 
-#cmsArticle .cmsArticleTitle {
-    font-size: 21px;
-    font-weight: bold;
-    padding-top: 20px;
-    margin-bottom: 15px;
+#cmsArticleText {
+    font-size: 12px;
+    color: #333;
 }
 
-#cmsArticle .cmsArticleImage {
-    margin-bottom: 15px;
-}
+    #cmsArticleText #cmsArticleSidebar {
+        border: 1px dotted #666666;
+        padding: 15px;
+        margin-left: 20px;
+        font-size: 10px;
+        float: right;
+        width: 200px;
+        clear: right;
+    }
 
-#cmsArticle .cmsArticleLicensorLogo {
-    margin-bottom: 15px;
-}
+    #cmsArticleText h1 {
+        font-size: 218%;
+    }
 
-#cmsArticle #cmsArticleSidebar {
-    border: 1px dotted #666666;
-    padding: 15px;
-    margin-left: 20px;
-    font-size: 10px;
-    float: right;
-    width: 200px;
-    clear: right;
-}
+    #cmsArticleText h2 {
+        font-size: 164%;
+    }
 
-#cmsArticle #cmsArticleLicensorAttribution {
-    font-size: 10px;
-}
+    #cmsArticleText h3 {
+        font-size: 145%;
+    }
 
-#cmsArticle h1 {
-    font-size: 218%;
-}
+    #cmsArticleText h4 {
+        font-size: 118%;
+    }
 
-#cmsArticle h2 {
-    font-size: 164%;
-}
+    #cmsArticleText p {
+        margin-bottom: 1.0em;
+    }
 
-#cmsArticle h3 {
-    font-size: 145%;
-}
+    #cmsArticleText ul li {
+        list-style: disc;
+        margin-left: 2em;
+        margin-bottom: 0.2em;
+    }
 
-#cmsArticle h4 {
-    font-size: 118%;
-}
+    #cmsArticleText ol,
+        #cmsArticleText ul {
+        margin-bottom: 1.0em;
+    }
 
-#cmsArticle p {
-    margin-bottom: 1.0em;
-}
-
-#cmsArticle ul li {
-    list-style: disc;
-    margin-left: 2em;
-    margin-bottom: 0.2em;
-}
-
-#cmsArticle ol,
-    #cmsArticle ul {
-    margin-bottom: 1.0em;
-}
-
-#cmsArticle ol li {
-    list-style: decimal;
-    margin-left: 2em;
-    margin-bottom: 0.2em;
-}
+    #cmsArticleText ol li {
+        list-style: decimal;
+        margin-left: 2em;
+        margin-bottom: 0.2em;
+    }
 
 /* Pagination */
-#cmsArticlePagination {
-    padding: 10px 0;
-    text-align: center;
+.authorPageBar {
+    margin-top: 5px;
+    width: 430px;
 }
 
-#cmsArticlePagination .active {
-    color: #FFFFFF;
-    background-color: #55BBCC;
-    font-weight: bold;
-    padding: 4px 8px;
-    margin-right: 3px;
+.authors {
+    font-size: 12px;
+    color: #666;
+    width: 200px;
 }
 
-#cmsArticlePagination a {
-    text-decoration: none;
-    border: solid 1px #55BBCC;
-    padding: 3px 7px;
-    margin-right: 3px;
+.cmsArticlePagination {
+    font-size: 13px;
+    text-align: right;
+}
+    .cmsArticlePagination .active {
+        font-weight: bold;
+        padding: 4px 8px;
+        margin-right: 3px;
+    }
+    #content .cmsArticlePagination a {
+        text-decoration: underline;
+        padding: 3px 7px;
+        margin-right: 3px;
+        color: #5BC;
+    }
+    #content .cmsArticlePagination a:link, #content .cmsArticlePagination a:visited,
+        #content .cmsArticlePagination a:hover {
+        color: #5BC;
+        text-decoration: underline;
+    }
+
+.relatedLinks {
+    background-color: #ECECEC;
+    border: 1px solid #CCC;
+    padding: 10px 15px 15px 10px;
+    margin: 15px 0;
+}
+    .relatedLinks h4 {
+        font-size: 16px;
+        margin: 5px 0;
+        color: #000;
+    }
+    .relatedLinks ul {
+        margin-left: 15px;
+    }
+        .relatedLinks ul li {
+            list-style-type: disc;
+        }
+
+#leftNav .module {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
-#cmsArticlePagination a:link {
-    color: #AACCDD;
+#rightColumn .module {
+    border: 1px solid #ccc;
+    padding: 10px 15px 15px 15px;
+    margin-bottom: 20px;
 }
 
-#cmsArticlePagination a:visited {
-    color: #55BBCC;
+.searchByTopic h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;
 }
 
-#cmsArticlePagination a:hover {
-    border: solid 1px #99CC66;
-    color: #FFF;
-    background-color: #99CC66;
+.searchByTopic input.text {
+    width: 200px;
+    margin-right: 15px;
+    padding: 2px;
+    color: #666;
 }
+
+.sidebar h3 {
+    font-size: 16px;
+    color: #000;
+}
+.sidebar p {
+    margin: 5px 0;
+}
+.sidebar ol {
+    margin-left: 15px;
+}
+    .sidebar ol li {
+        list-style-type: decimal;
+    }
 

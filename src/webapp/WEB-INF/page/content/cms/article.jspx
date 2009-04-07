@@ -3,33 +3,234 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           version="2.0">
-    <html lang="en">
-    <jsp:directive.page contentType="text/html"/>
-    <c:set var="pageName" value="article" scope="request"/>
-    <head>
-        <c:choose>
-            <c:when test="${article.pageTitle gt ''}">
-                <c:set var="pageTitle">${article.pageTitle}</c:set>
-            </c:when>
-            <c:when test="${article.promo gt ''}">
-                <c:set var="pageTitle">${article.promo} | ${article.primaryKategoryName} | GreatSchools</c:set>
-            </c:when>
-            <c:otherwise>
-                <c:set var="pageTitle">${article.title} | ${article.primaryKategoryName} | GreatSchools</c:set>
-            </c:otherwise>
-        </c:choose>
-        <title>${pageTitle}</title>
-        <meta name="description"
-              content="${article.metaDescription}"/>
-        <meta name="keywords"
-              content="${article.metaKeywords}"/>
-        <pageHelper:setPathway pathway="LIBRARY"/>
-        <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <c:choose>
+        <c:when test="${article.pageTitle gt ''}">
+            <c:set var="pageTitle">${article.pageTitle}</c:set>
+        </c:when>
+        <c:when test="${article.promo gt ''}">
+            <c:set var="pageTitle">${article.promo} | ${article.primaryKategoryName} | GreatSchools</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${article.title} | ${article.primaryKategoryName} | GreatSchools</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle}</title>
+    <meta name="description"
+          content="${article.metaDescription}"/>
+    <meta name="keywords"
+          content="${article.metaKeywords}"/>
+    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+</head>
+<body>
+    <!-- leftNav is positioned absolutely, this makes sure that if it is longer than the main content area
+         the page layout will not place content over it -->
+    <gsml:equalizeColumns ids="'content','leftNav'"/>
+    <!-- rightColumn is positioned absolutely, this makes sure that if it is longer than the main content area
+         the page layout will not place content over it -->
+    <gsml:equalizeColumns ids="'main','rightColumn'"/>
 
-    </head>
-    <body>
+    <div id="main">
+        <div class="breadcrumbs">
+            <!-- TODO: full breadcrumbs -->
+            <a href="#">${article.primaryKategoryName}</a> &amp;gt; ${article.title}
+        </div>
+        <div class="headerTools">
+            <h2>${article.primaryKategoryName}</h2>
+            <ul class="horizontal">
+                <li>Thumbs Up</li>
+                <li>Share</li>
+                <li>Watch</li>
+                <li>Report it</li>
+            </ul>
+        </div>
+        <div id="leftNav">
+            <div class="module">
+                Category nav
+            </div>
+            <div class="module">
+                Grade level nav
+            </div>
+            <div class="module">
+                Hot topics nav
+            </div>
+        </div>
+
+        <div id="content">
+            <!-- title, licensor, summary, current page -->
+            <div class="bodyHeader">
+                <div class="float right">
+                    <!-- do not collapse -->
+                    <c:if test="${not empty article.licensorLogoUrl}">
+                        <c:if test="${article.licensorLogoUrl ne null}">
+                            <img class="licensor"
+                                 src="${article.licensorLogoUrl}" alt="${article.licensorLogoAltText}"/>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${article.currentPageNum gt 1}">
+                        <div class="pageIdentifier">
+                            Page ${article.currentPageNum} of ${article.numPages}
+                        </div>
+                    </c:if>
+                </div>
+                
+                <h2 class="title">${article.title}</h2>
+
+                <c:choose>
+                    <c:when test="${article.currentPageNum lt 2}">
+                        <div class="summary">
+                            ${article.summary}
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <br class="clear"/>
+                        <br class="clear"/>
+                    </c:otherwise>
+                </c:choose>
+            </div> <!-- end .bodyHeader -->
+
+            <!-- Other language link -->
+            <c:if test="${article.currentPageNum lt 2 and not empty article.otherLanguageUri}">
+                <div class="otherLanguageLink">
+                    <a href="${article.otherLanguageUri}">
+                        Read this article in
+                        <c:choose>
+                            <c:when test="${article.language eq 'ES'}">
+                                English
+                            </c:when>
+                            <c:otherwise>
+                                Spanish
+                            </c:otherwise>
+                        </c:choose>
+                        &amp;gt;
+                    </a>
+                </div>
+            </c:if>
+
+            <!-- article text -->
+            <div id="cmsArticleText">
+                <c:if test="${article.currentPageNum lt 2 and not empty article.imageUrl}">
+                    <div class="mainImage">
+                        <c:if test="${not empty article.imageUrl}">
+                            <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
+                        </c:if>
+                        <div class="caption">${article.imageTitle}</div>
+                    </div>
+                </c:if>
+
+                ${article.currentPage}
+            </div> <!-- end #cmsArticleText -->
+
+            <!-- authors and pagination -->
+            <!-- table because either one or the other can be missing -->
+            <table class="authorPageBar">
+                <tr>
+                    <td class="authors">
+                        <!-- Show authors on last page only (and single page view) -->
+                        <c:if test="${not empty article.authors and (article.currentPageNum eq -1 or article.numPages eq article.currentPageNum)}">
+                            By
+                            <c:forEach var="author"
+                                       items="${article.authors}"
+                                       varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
+                        </c:if>
+                    </td>
+                    <td class="cmsArticlePagination">
+                        <c:if test="${article.numPages > 1}">
+                            Page
+                            <c:forEach begin="1" end="${article.numPages}" var="pageNum" varStatus="status">
+                                <c:choose>
+                                    <c:when test="${pageNum == article.currentPageNum}">
+                                        <span class="active">${pageNum}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${uri}?page=${pageNum}">${pageNum}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${-1 == article.currentPageNum}">
+                                    <span class="active">Single Page</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${uri}?page=all">Single Page</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+                    </td>
+                </tr>
+            </table> <!-- end .authorPageBar -->
+            <!-- Related links -->
+            <c:if test="${not empty article.relatedArticles or not empty article.externalLinks}">
+                <div class="relatedLinks">
+                    <c:if test="${not empty article.relatedArticles}">
+                        <h4>More on GreatSchools.net</h4>
+                        <div>
+                            <ul>
+                                <c:forEach var="relatedArticle" items="${article.relatedArticles}">
+                                    <c:if test="${not empty relatedArticle.url}">
+                                        <li><a href="${relatedArticle.url}">${relatedArticle.linkText}</a></li>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty article.externalLinks}">
+                        <h4>Related Links</h4>
+                        <div>
+                            <ul>
+                                <c:forEach var="externalLink" items="${article.externalLinks}">
+                                    <c:if test="${not empty externalLink.url}">
+                                        <li><a href="${externalLink.url}" target="_blank">${externalLink.linkText}</a></li>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:if>
+                </div>
+            </c:if> <!-- end .relatedLinks -->
+            <div class="divider"><hr/></div>
+            <div class="articleCommentForm">
+                <h3>Article Comments</h3>
+            </div>
+        </div> <!-- end #content -->
+    </div> <!-- end #main -->
+    <div id="rightColumn">
+        <div class="module searchByTopic">
+            <h3>Search Topics</h3>
+
+            <form accept-charset="UTF-8" action="/search/search.page" method="get">
+                <input class="text" type="text" name="q" value="[Enter keywords]"
+                       onfocus="GS_textSwitch(this, '', '[Enter keywords]');"
+                       onblur="GS_textSwitch(this, '[Enter keywords]', '');"/>
+                <input class="button" type="submit" value="GO"/>
+                <input type="hidden" value="topic" name="c"/>
+            </form>
+        </div>
+        <div class="module">
+            Ad
+        </div>
+        <c:if test="${not empty article.sidebar}">
+            <div class="module sidebar">
+                ${article.sidebar}
+            </div>
+        </c:if>
+        <div class="module">
+            Most Popular Articles
+        </div>
+        <div class="module">
+            Recent Posts
+        </div>
+        <div class="module">
+            House Ad
+        </div>
+    </div>
+
+    <!--
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
         <c:if test="${not empty article.otherLanguageUri}">
@@ -131,8 +332,8 @@
                 </ul>
             </div>
         </c:if>
-
     </div>
-    </body>
-    </html>
+-->
+</body>
+</html>
 </jsp:root>

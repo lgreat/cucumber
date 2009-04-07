@@ -44,7 +44,11 @@ public class CmsArticleController extends AbstractController {
 
         // paginate after transforms have been done on entire body
         String pageNum = request.getParameter("page");
-        if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum)) {
+        if (StringUtils.equals("all", pageNum)) {
+            pageNum = "-1";
+        }
+        if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
+                StringUtils.equals("-1", pageNum)) {
             try {
                 article.setCurrentPageNum(Integer.parseInt(pageNum));
             } catch (NumberFormatException e) {

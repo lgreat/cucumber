@@ -292,3 +292,10 @@ function registerEventHandler(node, eventType, handler){
         //alert("Handler could not be attached");
     }
 }
+
+// Swaps text value with another
+function GS_textSwitch(el, target, replace) {
+    if (el.value == replace) {
+        el.value = target;
+    }
+}
