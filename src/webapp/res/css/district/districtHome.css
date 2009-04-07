@@ -14,58 +14,43 @@ body{
     margin-left: 9px;
 }
 
+/* BEGIN boilerplate module*/
+
 #intro{
     font-size: 13px;
     border-left:1px solid #66CCCC;
     border-right:1px solid #66CCCC;
     border-bottom:1px solid #66CCCC;
 }
-#introTab{
-    background-color:#66CCCC;
-}
-ul.horizontalList{
-    height:29px;
+
+.districtTabs {
+    background-color: #6CC;
 }
 
-ul.horizontalList li{
-    display: inline;
+.districtTabs td a{
+    font-size: 13px;
+    font-weight:bold;
+    position:relative;
+    top:4px;
+}
+
+.districtTabs td a:hover{
+    text-decoration:none;
+}
+.districtTabs table td {
+    height: 29px;
 }
 
 .backgroundOn{
     background:url(/res/img/district/tabs_Right_on_02.gif) repeat-x;
-    padding-bottom:5px;
-    padding-top:8px;
-    left:8px;
-    float:left;
 }
 
 .backgroundOff{
     background:url(/res/img/district/tabs_Right_off_02.gif) repeat-x;
-    padding-bottom:5px;
-    padding-top:8px;
-    left:8px;
-    float:left;
-}
-
-#introTab ul.horizontalList li img{
-    float:left;
-}
-
-#introTab ul.horizontalList li {
-    font-size: 13px;
-    font-weight:bold;
-}
-#introTab ul.horizontalList li a:hover{
-    text-decoration:none;
 }
 
 .introText{
     margin:0 15px 10px 15px;
-}
-
-
-.keyTerms{
-    color:green;
 }
 
 #intro h3{
@@ -75,17 +60,20 @@ ul.horizontalList li{
     font-size:18px;
 }
 
-div#introTab h2{
+#intro h2{
     font-size: 25px;
     font-weight:bold;
     color:white;
     padding-left:20px;
 }
 
-div.introText ul.horizontalList{
+ul.horizontalList{
     margin-top:10px;
 }
 
+ul.horizontalList li{
+    display: inline;
+}
 
 div.introText ul.horizontalList li.firstLink{
     border-left: 1px solid #888;
@@ -97,14 +85,6 @@ div.introText ul.horizontalList li.firstLink{
     text-decoration:underline;
 }
 
-.transparent {
-    display:none;
-    width:200px;
-    position:absolute;
-    border:1px solid #66CCCC;
-    z-index: 9001;
-}
-
 #innaccuracyLink{
     margin-top:10px;
 }
@@ -113,13 +93,9 @@ div.introText ul.horizontalList li.firstLink{
     font-style:italic;
 }
 
-.keyTermDefinition{
-    font-weight:bold;
-}
-div.transparent div.keyTermsWrapper{
-    margin:5px 10px 10px 5px;
-}
+/* END boilerplate module*/
 
+/* BEGIN Quickfacts*/
 
 #ratingAndInfo{
     margin:10px 10px 10px 0px;
@@ -142,9 +118,8 @@ div.transparent div.keyTermsWrapper{
     line-height:15px;
     border-left: 1px solid #888;
 }
-span#districtBox{
-    clear:right;
-}
+
+/* END Quickfacts*/
 
 #browseSchools{
     margin-top: 15px;

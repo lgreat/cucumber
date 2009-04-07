@@ -58,14 +58,14 @@
 
         //set the tabs
         if(boxId == 'districtBox'){
-        var distTabDiv = document.getElementById('districtTabDiv');
-        var stTabDiv = document.getElementById('stateTabDiv');
+        var distTab = document.getElementById('districtTab');
+        var stTab = document.getElementById('stateTab');
         var distTabLeft = document.getElementById('districtTabLeft');
         var distTabRight = document.getElementById('districtTabRight');
         var stTabLeft = document.getElementById('stateTabLeft');
         var stTabRight = document.getElementById('stateTabRight');
-        distTabDiv.className = 'backgroundOn';
-        stTabDiv.className = 'backgroundOff';
+        distTab.className = 'backgroundOn';
+        stTab.className = 'backgroundOff';
         distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
         distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
         stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
@@ -83,14 +83,14 @@
         }
 
          if(boxId == 'stateBox'){
-        var distTabDiv = document.getElementById('districtTabDiv');
-        var stTabDiv = document.getElementById('stateTabDiv');
+        var distTab = document.getElementById('districtTab');
+        var stTab = document.getElementById('stateTab');
         var distTabLeft = document.getElementById('districtTabLeft');
         var distTabRight = document.getElementById('districtTabRight');
         var stTabLeft = document.getElementById('stateTabLeft');
         var stTabRight = document.getElementById('stateTabRight');
-        distTabDiv.className = 'backgroundOff';
-        stTabDiv.className = 'backgroundOn';
+        distTab.className = 'backgroundOff';
+        stTab.className = 'backgroundOn';
         stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
         stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
         distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';

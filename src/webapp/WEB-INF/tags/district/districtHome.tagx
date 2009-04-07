@@ -34,18 +34,23 @@
             </div>
         </c:if>
         <div id="intro">
-            <div id="introTab"><h2>${district.name}</h2>
-                <c:if test="${model.isDistrictPresent eq true}">
-                    <ul  class="horizontalList">
-                        <li class="selected">
-                            <img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/><div id="districtTabDiv" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${model.acronymOrName}</a></div><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/>
-                        </li>
-                        <li>
-                            <img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/><div id="stateTabDiv" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a></div><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/>
-                        </li>
-                    </ul>
-                </c:if>
+            <div  class="districtTabs"><h2>${district.name}</h2>
             </div>
+                <c:if test="${model.isDistrictPresent eq true}">
+                  <div class="districtTabs">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/></td>
+                                <td id="districtTab" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${model.acronymOrName}</a></td>
+                                <td><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/></td>
+                                <td><img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/></td>
+                                <td id="stateTab" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a></td>
+                                <td><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                 </c:if>
+
             <div class="introText">
 
                 <c:choose>
