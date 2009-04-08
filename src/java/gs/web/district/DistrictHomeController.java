@@ -62,7 +62,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
     public static final String STAGING_STATE_BOILERPLATE_TAB = "od4";
     public static final String LIVE_STATE_BOILERPLATE_TAB = "od4";
-    public boolean _isDistrictPresent;
+    public boolean _isDistrictBoilerplatePresent;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -141,10 +141,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         loadDistrictRating(district, pageModel);
         loadDistrictEnrollment(district, pageModel);
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
-
-        loadTopRatedSchools(pageModel,sessionContext);
-
-        pageModel.put("isDistrictPresent",_isDistrictPresent);
+        pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
 
         model.put("model", pageModel);
         return new ModelAndView(getViewName(), model);
@@ -154,7 +151,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
-        _isDistrictPresent = false;
+        _isDistrictBoilerplatePresent = false;
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
         if(rows!= null &&rows.size() > 0){
             for(ITableRow row :rows){
@@ -163,7 +160,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
                         model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName));
                     }
                     model.put("boilerplate",model.get("boilerplate").toString().replaceAll("\n","<br/>"));
-                    _isDistrictPresent = true;
+                    _isDistrictBoilerplatePresent = true;
                 }
             }
         }else{

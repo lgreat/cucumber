@@ -32,27 +32,16 @@
           content="Information to help parents choose the right public school for their children in the ${district.name}."/>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
-    <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
-    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
     <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
 
 
     <![CDATA[
     <script type="text/javascript">
     //<!--
-       function selectBox(linkElem, boxId) {
+       function selectBox(boxId) {
 
-        var x;
-        // de-select all links
-        var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
-        for (x=0; x < listItemsArr.length; x++) {
-            listItemsArr[x].removeClassName("selected");
-        }
-        // select current link
-        Element.extend(linkElem.parentNode).addClassName("selected");
         // hide all boxes, show current box
-        var boxArr = $$('#intro .boilerPlate');
+        var boxArr = document.getElementsByClassName('boilerPlate');
         for (x=0; x < boxArr.length; x++) {
             if (boxArr[x].id == boxId) {
                 boxArr[x].show();
@@ -67,8 +56,8 @@
         var distTabRight = document.getElementById('districtTabRight');
         var stTabLeft = document.getElementById('stateTabLeft');
         var stTabRight = document.getElementById('stateTabRight');
-        var distHeading = $$('#intro #districtHeading');
-        var stateHeading = $$('#intro #stateHeading');
+        var distHeading = document.getElementById("districtHeading");
+        var stateHeading =  document.getElementById("stateHeading");
 
         //switch the images for the tabs and show the corresponding state or the district heading.
         if(boxId == 'districtBox'){
@@ -78,12 +67,8 @@
             distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
             stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            for (x=0; x < distHeading.length; x++) {
-                distHeading[x].show();
-            }
-            for (x=0; x < stateHeading.length; x++) {
-                stateHeading[x].hide();
-            }
+            distHeading.show();
+            stateHeading.hide();
         }
 
          if(boxId == 'stateBox'){
@@ -93,12 +78,8 @@
             stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
             distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            for (x=0; x < distHeading.length; x++) {
-                distHeading[x].hide();
-            }
-            for (x=0; x < stateHeading.length; x++) {
-                stateHeading[x].show();
-            }
+            distHeading.hide();
+            stateHeading.show();
         }
     }
 

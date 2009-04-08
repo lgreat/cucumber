@@ -98,6 +98,9 @@ div.introText ul.horizontalList li.firstLink{
     font-style:italic;
 }
 
+div#keyTermDefinitions{
+    margin-top:7px;
+}
 /* END boilerplate module*/
 
 /* BEGIN Quickfacts*/
@@ -157,7 +160,7 @@ div.recentParentReviews {
 .recentParentReviews h2 {
     color:#FFFFFF;
     padding: 2px 0 2px 5px;
-    background-color:#66CCCC;
+    background-color:#8ACACA;
     font-size: medium;
     font-weight: 700;
     text-align: left;
@@ -210,7 +213,7 @@ div.recentParentReviews table tr td {
 /* BEGIN google map */
 
 div#mapHeader {
-    background-color: #66CCCC;
+    background-color: #8ACACA;
     height: 25px;
 }
 
@@ -226,9 +229,9 @@ div#map {
 }
 
 div#mapFooter {
-    border-left: #66CCCC solid 1px;
-    border-right: #66CCCC solid 1px;
-    border-bottom: #66CCCC solid 1px;
+    border-left: #8ACACA solid 1px;
+    border-right: #8ACACA solid 1px;
+    border-bottom: #8ACACA solid 1px;
     padding: 5px;
 }
 
@@ -258,7 +261,7 @@ div#schoolBrowseLinks {
 
 /* BEGIN compare schools */
 div#compareSchoolsHeader {
-        background-color: #66CCCC;
+        background-color: #8ACACA;
         height: 25px;
 
 }

@@ -36,15 +36,15 @@
         <div id="intro">
             <div  class="districtTabs"><h2>${district.name}</h2>
             </div>
-                <c:if test="${model.isDistrictPresent eq true}">
+                <c:if test="${model.isDistrictBoilerplatePresent eq true}">
                   <div class="districtTabs">
                         <table cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/></td>
-                                <td id="districtTab" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About This District</a></td>
+                                <td id="districtTab" class="backgroundOn"><a href="#" onclick="selectBox('districtBox'); return false;">About This District</a></td>
                                 <td><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/></td>
                                 <td><img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/></td>
-                                <td id="stateTab" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public Schools in ${district.physicalAddress.state.longName}</a></td>
+                                <td id="stateTab" class="backgroundOff"><a href="#" onclick="selectBox('stateBox'); return false;">About Public Schools in ${district.physicalAddress.state.longName}</a></td>
                                 <td><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/></td>
                             </tr>
                         </table>
@@ -54,7 +54,7 @@
             <div class="introText">
 
                 <c:choose>
-                    <c:when test="${model.isDistrictPresent eq true}">
+                    <c:when test="${model.isDistrictBoilerplatePresent eq true}">
                         <h3 id="districtHeading" style="">${model.districtboilerplateheading}</h3>
                         <h3 id="stateHeading" style="display: none;">${model.stateBoilerplateHeading}</h3>
                         <span id="districtBox" class="boilerPlate" style="">${model.boilerplate}</span>
@@ -82,7 +82,8 @@
 
                 </ul>
                  </c:if>
-                <div id="innaccuracyLink"><span class="letUsKnow">Notice an innaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=gen">Let us know!</gsml:a></div>
+                <div id="keyTermDefinitions"><gsweb:articlelink articleId="3754">Know the system: Key terms</gsweb:articlelink></div>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=gen">Let us know!</gsml:a></div>
                 ${model.definitionsDiv}
             </div>
         </div>
@@ -98,7 +99,8 @@
                             <td>
                                 <c:choose>
                                 <c:when test="${empty model.rating}">
-                                     <img alt="GreatSchools Rating: no rating available.GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_no.gif"/>
+                                     <img alt="GreatSchools Rating: no rating available.GreatSchools Ratings are based on test results. 10 is best."
+                                          src="/res/img/citydist_ratings/GS_CD_d_no.gif"/>
                                 </c:when>
                                 <c:otherwise>
                                 <img alt="GreatSchools Rating: ${model.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."
@@ -126,7 +128,7 @@
                     <td  id="info">
                         <table>
                         <c:if test="${not empty district.gradeLevels}">
-                            <tr><td class="noWrapping"><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> Grades ${district.gradeLevels}</td></tr>
+                            <tr><td class="noWrapping"><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> Grades <c:out value="${district.gradeLevels}" escapeXml="true"/> </td></tr>
                         </c:if>
                         <c:if test="${not empty model.districtEnrollment}">
                             <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${model.districtEnrollment} students</td></tr>
