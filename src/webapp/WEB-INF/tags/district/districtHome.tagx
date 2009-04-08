@@ -174,7 +174,7 @@
         </div>
     </div>
     <div id="contentRight">
-        <div id="ad">
+        <div id="ad_top">
             <ad:setSlotPrefix slotPrefix="District_Home_Page"/>
             <ad:AboveFold_300x250/>
         </div>
