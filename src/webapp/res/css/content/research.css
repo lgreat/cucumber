@@ -199,8 +199,9 @@ h2.fourStepsHeader {
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
     float: left;
-    width: 238px;
-    padding: 4px 20px;
+    width: 247px;
+    height: 160px;
+    padding: 4px 16px;
 }
 
 #schoolFinderPromo h2{
@@ -210,8 +211,9 @@ h2.fourStepsHeader {
 }
 
 #schoolFinderPromo p {
-    margin-left: 133px;
+    margin-left: 120px;
     margin-top: 6px;
+    margin-bottom: 2px;
     color:#666666;
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:13px;
