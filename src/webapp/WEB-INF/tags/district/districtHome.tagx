@@ -126,13 +126,13 @@
                     <td  id="info">
                         <table>
                         <c:if test="${not empty district.gradeLevels}">
-                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.gradeLevels}</td></tr>
+                            <tr><td class="noWrapping"><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> Grades ${district.gradeLevels}</td></tr>
                         </c:if>
                         <c:if test="${not empty model.districtEnrollment}">
                             <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${model.districtEnrollment} students</td></tr>
                         </c:if>
                         <c:if test="${not empty district.numberOfSchools}">
-                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.numberOfSchools} schools</td></tr>
+                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.numberOfSchools} ${district.numberOfSchools > 1 ? "schools" : "school"}</td></tr>
                         </c:if>
                         <tr><td><link:allSchoolsInDistrict districtId="${district.id}" rel="nofollow">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
                         <c:if test="${not empty model.superintendent}">

@@ -98,11 +98,12 @@ div.introText ul.horizontalList li.firstLink{
 /* BEGIN Quickfacts*/
 
 #ratingAndInfo{
-    margin:10px 10px 10px 0px;
+    margin:10px 0px 10px 0px;
 }
 #rating{
     width:40%;
     padding:0px 5px 0px 0px;
+    
 }
 
 #address{
@@ -112,9 +113,13 @@ div.introText ul.horizontalList li.firstLink{
     border-left: 1px solid #888;
 }
 
+.noWrapping{
+    white-space:nowrap;
+}
+
 #info{
     width:30%;
-    padding:0px 5px 0px 5px;
+    padding:0px 0px 0px 5px;
     line-height:15px;
     border-left: 1px solid #888;
     vertical-align:top;
