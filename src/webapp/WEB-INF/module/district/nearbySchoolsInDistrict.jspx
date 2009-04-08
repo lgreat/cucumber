@@ -45,15 +45,23 @@
         </div>
 
         <div id="schoolBrowseLinks">
-            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
-                <c:out value="${district.name}"/> Elementary Schools</link:allSchoolsInDistrict> (<c:out value="${numElementarySchools}"/>)
-            </div>
-            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
-                <c:out value="${district.name}"/> Middle Schools</link:allSchoolsInDistrict> (<c:out value="${numMiddleSchools}"/>)
-            </div>
-            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
-                <c:out value="${district.name}"/> High Schools</link:allSchoolsInDistrict> (<c:out value="${numHighSchools}"/>)
-            </div>
+            <c:if test="${numElementarySchools gt 0}">
+                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
+                    ${district.name} Elementary Schools</link:allSchoolsInDistrict> (${numElementarySchools})
+                </div>
+            </c:if>
+
+            <c:if test="${numMiddleSchools gt 0}">
+                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
+                    ${district.name} Middle Schools</link:allSchoolsInDistrict> (${numMiddleSchools})
+                </div>
+            </c:if>
+
+            <c:if test="${numHighSchools gt 0}">
+                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
+                    ${district.name} High Schools</link:allSchoolsInDistrict> (${numHighSchools})
+                </div>
+            </c:if>
         </div>
 
         <map:schoolsWithRatings id="map"

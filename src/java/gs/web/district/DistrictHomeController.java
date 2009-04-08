@@ -117,10 +117,16 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
         School school = null;
         String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
-        if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
-            int schoolId = Integer.parseInt(schoolIdStr);
-            school = _schoolDao.getSchoolById(state, schoolId);
-            model.put("school", school);
+        if (!StringUtils.isBlank(schoolIdStr)) {
+            try {
+                int schoolId = Integer.parseInt(schoolIdStr);
+                school = _schoolDao.getSchoolById(state, schoolId);
+                model.put("school", school);
+            } catch (ObjectRetrievalFailureException orfe) {
+                // Do nothing, school remains null and will be handled below
+            } catch (NumberFormatException nfe) {
+                // Do nothing, school remains null and will be handled below
+            }
         }
 
         processSchoolData(school, pageModel);
