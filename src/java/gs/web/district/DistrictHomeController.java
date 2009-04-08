@@ -68,7 +68,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         Map<String, Object> pageModel = new HashMap<String, Object>();
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
-        String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
 
         District district = null;
         City city = null;
@@ -82,6 +81,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 district = _districtDao.findDistrictByNameAndCity(state, districtName, cityName);
             }
         } else {
+            String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
             if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
                 int districtId = Integer.parseInt(districtIdStr);
                 district = _districtDao.findDistrictById(state, districtId);
@@ -119,7 +119,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
         processSchoolData(school, pageModel);
 
-        getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);
+        getBoilerPlateForDistrict(state.getAbbreviation(),district.getId().toString(),pageModel,request);
         getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
         if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
             pageModel.put("acronymOrName", pageModel.get("acronym"));
