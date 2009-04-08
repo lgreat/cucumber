@@ -14,6 +14,10 @@ body{
     margin-left: 9px;
 }
 
+.headerTab{
+    background-color:#8ACACA;
+}
+
 #contentRight #House_Ad_300x137 {
     margin-top: 10px;
 }
@@ -27,22 +31,17 @@ body{
     border-bottom:1px solid #8ACACA;
 }
 
-
-.districtTabs{
-    background-color:#8ACACA;
-}
-
-.districtTabs td a{
+#districtTabs td a{
     font-size: 13px;
     font-weight:bold;
     position:relative;
     top:4px;
 }
 
-.districtTabs td a:hover{
+#districtTabs td a:hover{
     text-decoration:none;
 }
-.districtTabs table td {
+#districtTabs table td {
     height: 29px;
 }
 
@@ -261,9 +260,7 @@ div#schoolBrowseLinks {
 
 /* BEGIN compare schools */
 div#compareSchoolsHeader {
-        background-color: #8ACACA;
         height: 25px;
-
 }
 
 div#compareSchoolsHeader h3 {

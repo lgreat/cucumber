@@ -34,10 +34,10 @@
             </div>
         </c:if>
         <div id="intro">
-            <div  class="districtTabs"><h2>${district.name}</h2>
+            <div  class="headerTab"><h2>${district.name}</h2>
             </div>
                 <c:if test="${model.isDistrictBoilerplatePresent eq true}">
-                  <div class="districtTabs">
+                  <div class="headerTab" id="districtTabs">
                         <table cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/></td>
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div id="compareSchools">
-            <div id="compareSchoolsHeader"><h3>Compare Schools</h3></div>
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools</h3></div>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>
