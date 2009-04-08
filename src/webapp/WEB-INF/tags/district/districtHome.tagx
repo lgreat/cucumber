@@ -41,10 +41,10 @@
                         <table cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/></td>
-                                <td id="districtTab" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${model.acronymOrName}</a></td>
+                                <td id="districtTab" class="backgroundOn"><a href="#" onclick="selectBox(this, 'districtBox'); return false;">About This District</a></td>
                                 <td><img id="districtTabRight" alt="district right img" src="/res/img/district/tabs_Right_on_04.gif"/></td>
                                 <td><img id="stateTabLeft" alt="state left img" src="/res/img/district/tabs_Right_off_01.gif"/></td>
-                                <td id="stateTab" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a></td>
+                                <td id="stateTab" class="backgroundOff"><a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public Schools in ${district.physicalAddress.state.longName}</a></td>
                                 <td><img id="stateTabRight" alt="state right img" src="/res/img/district/tabs_Right_off_04.gif"/></td>
                             </tr>
                         </table>
@@ -95,7 +95,17 @@
                     <td id="rating">
                         <table>
                         <tr>
-                            <td><img alt="GreatSchools Rating: ${model.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_${model.rating}.gif"/></td>
+                            <td>
+                                <c:choose>
+                                <c:when test="${empty model.rating}">
+                                     <img alt="GreatSchools Rating: no rating available.GreatSchools Ratings are based on test results. 10 is best." src="/res/img/citydist_ratings/GS_CD_d_no.gif"/>
+                                </c:when>
+                                <c:otherwise>
+                                <img alt="GreatSchools Rating: ${model.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."
+                                     src="/res/img/citydist_ratings/GS_CD_d_${model.rating}.gif"/>
+                                </c:otherwise>
+                                </c:choose>
+                            </td>
                         </tr>
                         <tr><td>This district's rating is based on its schools' <link:districtProfile districtId="${district.id}"
                         state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>;10 is best.</td></tr>
@@ -115,11 +125,17 @@
                     </td>
                     <td  id="info">
                         <table>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${district.gradeLevels}</td></tr>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${model.districtEnrollment} students</td></tr>
-                        <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif"/> ${district.numberOfSchools} schools</td></tr>
-                        <tr><td><link:allSchoolsInDistrict districtId="${district.id}">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
-                         <c:if test="${not empty model.superintendent}">
+                        <c:if test="${not empty district.gradeLevels}">
+                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.gradeLevels}</td></tr>
+                        </c:if>
+                        <c:if test="${not empty model.districtEnrollment}">
+                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${model.districtEnrollment} students</td></tr>
+                        </c:if>
+                        <c:if test="${not empty district.numberOfSchools}">
+                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.numberOfSchools} schools</td></tr>
+                        </c:if>
+                        <tr><td><link:allSchoolsInDistrict districtId="${district.id}" rel="nofollow">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
+                        <c:if test="${not empty model.superintendent}">
                             <tr><td>District superintendent:</td></tr>
                             <tr><td>${model.superintendent}</td></tr>
                         </c:if>
@@ -161,25 +177,6 @@
         <div id="ad">
             <ad:setSlotPrefix slotPrefix="District_Home_Page"/>
             <ad:AboveFold_300x250/>
-        </div>
-        <div id="nearByDistricts" class="box">
-            <div class="outer">
-                <div class="inner">
-                    <span>Near By districts</span>
-                </div>
-            </div>
-        </div>
-        <div id="houseAd"><h3>House ad</h3></div>
-        <div id="citySnapShot">
-            <div class="outer">
-                <div class="inner">
-                     <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
-                     <school:topRatedSchoolsInCityList city="${model.cityObject}"
-                                                      topRatedSchools="${model.topRatedSchools}"
-                                                      topSchools="${model.topSchools}"/>
-                    </c:if>
-                </div>
-            </div>
         </div>
     </div>
 </jsp:root>

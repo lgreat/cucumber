@@ -117,6 +117,7 @@ div.introText ul.horizontalList li.firstLink{
     padding:0px 5px 0px 5px;
     line-height:15px;
     border-left: 1px solid #888;
+    vertical-align:top;
 }
 
 /* END Quickfacts*/

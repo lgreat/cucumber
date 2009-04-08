@@ -7,6 +7,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:district="urn:jsptagdir:/WEB-INF/tags/district"
@@ -15,14 +16,20 @@
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
+<c:set var="acronymWithHyphen"/>
+<c:if test="${not empty model.acronym}">
+  <c:set var="acronymWithHyphen">${model.acronym} - </c:set>
+</c:if>
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
-    <title>District Home</title>
+    <title>${empty model.acronym ? "" :acronymWithHyphen} ${district.name} Overview | GreatSchools</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="description"
+          content="Information to help parents choose the right public school for their children in the ${district.name}."/>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
@@ -54,57 +61,44 @@
             }
         }
 
-
-
-        //set the tabs
-        if(boxId == 'districtBox'){
         var distTab = document.getElementById('districtTab');
         var stTab = document.getElementById('stateTab');
         var distTabLeft = document.getElementById('districtTabLeft');
         var distTabRight = document.getElementById('districtTabRight');
         var stTabLeft = document.getElementById('stateTabLeft');
         var stTabRight = document.getElementById('stateTabRight');
-        distTab.className = 'backgroundOn';
-        stTab.className = 'backgroundOff';
-        distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
-        distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
-        stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
-        stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
         var distHeading = $$('#intro #districtHeading');
         var stateHeading = $$('#intro #stateHeading');
-        for (x=0; x < distHeading.length; x++) {
-            distHeading[x].show();
-        }
 
-        for (x=0; x < stateHeading.length; x++) {
-            stateHeading[x].hide();
-        }
-
+        //switch the images for the tabs and show the corresponding state or the district heading.
+        if(boxId == 'districtBox'){
+            distTab.className = 'backgroundOn';
+            stTab.className = 'backgroundOff';
+            distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+            distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+            stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+            stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+            for (x=0; x < distHeading.length; x++) {
+                distHeading[x].show();
+            }
+            for (x=0; x < stateHeading.length; x++) {
+                stateHeading[x].hide();
+            }
         }
 
          if(boxId == 'stateBox'){
-        var distTab = document.getElementById('districtTab');
-        var stTab = document.getElementById('stateTab');
-        var distTabLeft = document.getElementById('districtTabLeft');
-        var distTabRight = document.getElementById('districtTabRight');
-        var stTabLeft = document.getElementById('stateTabLeft');
-        var stTabRight = document.getElementById('stateTabRight');
-        distTab.className = 'backgroundOff';
-        stTab.className = 'backgroundOn';
-        stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
-        stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
-        distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
-        distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-        var distHeading = $$('#intro #districtHeading');
-        var stateHeading = $$('#intro #stateHeading');
-        for (x=0; x < distHeading.length; x++) {
-            distHeading[x].hide();
-        }
-
-        for (x=0; x < stateHeading.length; x++) {
-            stateHeading[x].show();
-        }
-
+            distTab.className = 'backgroundOff';
+            stTab.className = 'backgroundOn';
+            stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+            stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+            distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+            distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+            for (x=0; x < distHeading.length; x++) {
+                distHeading[x].hide();
+            }
+            for (x=0; x < stateHeading.length; x++) {
+                stateHeading[x].show();
+            }
         }
     }
 
@@ -128,6 +122,10 @@
             </school:profile>
         </c:otherwise>
     </c:choose>
+    
+     <mod:tracking pageName="District Home"
+                  hier1="District,District Home,${district.name}"/>
+
 </gsml:body>
 </html>
 </jsp:root>
