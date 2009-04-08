@@ -14,6 +14,10 @@ body{
     margin-left: 9px;
 }
 
+#contentRight #House_Ad_300x137 {
+    margin-top: 10px;
+}
+
 /* BEGIN boilerplate module*/
 
 #intro{
