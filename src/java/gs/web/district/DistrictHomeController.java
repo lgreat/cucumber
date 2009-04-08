@@ -2,6 +2,7 @@ package gs.web.district;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -82,27 +83,32 @@ public class DistrictHomeController extends AbstractController  implements IDire
             }
         } else {
             String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
-            if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
-                int districtId = Integer.parseInt(districtIdStr);
-                district = _districtDao.findDistrictById(state, districtId);
-
+            if (!StringUtils.isBlank(districtIdStr)) {
+                try {
+                    int districtId = Integer.parseInt(districtIdStr);
+                    district = _districtDao.findDistrictById(state, districtId);
+                } catch (ObjectRetrievalFailureException orfe) {
+                    // Do nothing, district remains null and will be handled below
+                } catch (NumberFormatException nfe) {
+                    // Do nothing, district remains null and will be handled below                    
+                }
                 if (district != null && district.getPhysicalAddress() != null) {
                     city = _geoDao.findCity(state, district.getPhysicalAddress().getCity());
                 }
             }
         }
         
+        if (district == null) {
+            BadRequestLogger.logBadRequest(_log, request, "District not found in state/city in district home request.");
+            model.put("showSearchControl", Boolean.TRUE);
+            model.put("title", "District not found");
+            return new ModelAndView("status/error", model);
+        }
+
         if (city == null) {
             BadRequestLogger.logBadRequest(_log, request, "City not found in state in district home request.");
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "City not found in state");
-            return new ModelAndView("status/error", model);
-        }
-
-        if (district == null) {
-            BadRequestLogger.logBadRequest(_log, request, "District not found in state/city in district home request.");
-            model.put("showSearchControl", Boolean.TRUE);
-            model.put("title", "District not found in city");
             return new ModelAndView("status/error", model);
         }
 
