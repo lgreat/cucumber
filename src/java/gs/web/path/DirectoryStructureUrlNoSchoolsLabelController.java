@@ -37,6 +37,6 @@ public class DirectoryStructureUrlNoSchoolsLabelController extends AbstractContr
         if (fields == null) {
             return false;
         }
-        return fields.hasState() && fields.hasCityName() && !fields.hasSchoolsLabel();
+        return fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasSchoolsLabel();
     }    
 }

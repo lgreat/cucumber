@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 public class DirectoryStructureUrlFields {
     private State _state = null;
     private String _cityName = null;
+    private String _districtName = null;
     private Set<SchoolType> _schoolTypes = new HashSet<SchoolType>();
     private String[] _schoolTypesParams = null;
     private LevelCode _levelCode = null;
@@ -69,7 +70,7 @@ public class DirectoryStructureUrlFields {
             // /california/sonoma/
             _cityName = pathComponents[2];
         } else if (pathComponents.length == 4) {
-            // /california/sonoma/schools/ or /california/sonoma/preschools/ or /california/sonoma/public-charter/ or /california/sonoma/somethingUnexpected/
+            // /california/sonoma/schools/ or /california/sonoma/preschools/ or /california/sonoma/public-charter/ or /california/sonoma/San-Francisco-Unified-School-District/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
@@ -77,6 +78,8 @@ public class DirectoryStructureUrlFields {
                 populateSchoolTypesFromLabel(pathComponents[3]);
             } else if (levelCodeMatcher.find()) {
                 populateLevelCodeFromLabel(pathComponents[3]);
+            } else {
+                _districtName = pathComponents[3];
             }
         } else if (pathComponents.length == 5) {
             // /california/sonoma/public-charter/schools/
@@ -102,6 +105,10 @@ public class DirectoryStructureUrlFields {
 
         if (StringUtils.isNotBlank(_cityName)) {
             _cityName = _cityName.replaceAll("-", " ").replaceAll("_", "-");
+        }
+
+        if (StringUtils.isNotBlank(_districtName)) {
+            _districtName = _districtName.replaceAll("-", " ").replaceAll("_", "-");
         }
 
         if (StringUtils.isNotBlank(_schoolName)) {
@@ -171,6 +178,14 @@ public class DirectoryStructureUrlFields {
 
     public boolean hasCityName() {
         return StringUtils.isNotBlank(_cityName);
+    }
+
+    public String getDistrictName() {
+        return _districtName;
+    }
+
+    public boolean hasDistrictName() {
+        return StringUtils.isNotBlank(_districtName);
     }
 
     public Set<SchoolType> getSchoolTypes() {

@@ -3,6 +3,7 @@ package gs.web.district;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,9 @@ import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
+import gs.web.util.BadRequestLogger;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.path.DirectoryStructureUrlFields;
 
 import java.util.*;
 import java.net.URLEncoder;
@@ -38,7 +42,9 @@ import java.net.URLEncoder;
  * @author droy@greatschools.net
  * @author npatury@greatschools.net
  */
-public class DistrictHomeController extends AbstractController {
+public class DistrictHomeController extends AbstractController  implements IDirectoryStructureUrlController {
+    private static Logger _log = Logger.getLogger(DistrictHomeController.class);
+
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_SCHOOL_ID = "school_id";
     String _viewName;
@@ -64,34 +70,65 @@ public class DistrictHomeController extends AbstractController {
         State state = sessionContext.getStateOrDefault();
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
 
-        // TODO: What should the behavior be if there is no district_id specified
-        if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
-            int districtId = Integer.parseInt(districtIdStr);
-            District district = _districtDao.findDistrictById(state, districtId);
-            model.put("district", district);
-            pageModel.put("city", district.getPhysicalAddress().getCity());
+        District district = null;
+        City city = null;
 
-            School school = null;
-            String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
-            if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
-                int schoolId = Integer.parseInt(schoolIdStr);
-                school = _schoolDao.getSchoolById(state, schoolId);
-                model.put("school", school);
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        if (fields != null) {
+            String cityName = fields.getCityName();
+            city = _geoDao.findCity(state, cityName);
+            if (city != null) {
+                String districtName = fields.getDistrictName();
+                district = _districtDao.findDistrictByNameAndCity(state, districtName, cityName);
             }
+        } else {
+            if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
+                int districtId = Integer.parseInt(districtIdStr);
+                district = _districtDao.findDistrictById(state, districtId);
 
-            processSchoolData(school, pageModel);
-
-            getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);
-            getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
-            if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
-                pageModel.put("acronymOrName", pageModel.get("acronym"));
-            }else{
-                pageModel.put("acronymOrName", district.getName());
+                if (district != null && district.getPhysicalAddress() != null) {
+                    city = _geoDao.findCity(state, district.getPhysicalAddress().getCity());
+                }
             }
-            loadDistrictRating(district, pageModel);
-            loadDistrictEnrollment(district, pageModel);
-            pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         }
+        
+        if (city == null) {
+            BadRequestLogger.logBadRequest(_log, request, "City not found in state in district home request.");
+            model.put("showSearchControl", Boolean.TRUE);
+            model.put("title", "City not found in state");
+            return new ModelAndView("status/error", model);
+        }
+
+        if (district == null) {
+            BadRequestLogger.logBadRequest(_log, request, "District not found in state/city in district home request.");
+            model.put("showSearchControl", Boolean.TRUE);
+            model.put("title", "District not found in city");
+            return new ModelAndView("status/error", model);
+        }
+
+        model.put("district", district);
+        pageModel.put("city", district.getPhysicalAddress().getCity());
+
+        School school = null;
+        String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
+        if (!StringUtils.isBlank(schoolIdStr) && StringUtils.isNumeric(schoolIdStr)) {
+            int schoolId = Integer.parseInt(schoolIdStr);
+            school = _schoolDao.getSchoolById(state, schoolId);
+            model.put("school", school);
+        }
+
+        processSchoolData(school, pageModel);
+
+        getBoilerPlateForDistrict(state.getAbbreviation(),districtIdStr,pageModel,request);
+        getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
+        if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
+            pageModel.put("acronymOrName", pageModel.get("acronym"));
+        }else{
+            pageModel.put("acronymOrName", district.getName());
+        }
+        loadDistrictRating(district, pageModel);
+        loadDistrictEnrollment(district, pageModel);
+        pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
 
         loadTopRatedSchools(pageModel,sessionContext);
 
@@ -245,6 +282,15 @@ public class DistrictHomeController extends AbstractController {
                 }
             }
         }        
+    }
+
+    // required to implement IDirectoryStructureUrlController
+    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
+        if (fields == null) {
+            return false;
+        }
+
+        return fields.hasState() && fields.hasCityName() && fields.hasDistrictName();
     }
 
     public IDistrictDao getDistrictDao() {

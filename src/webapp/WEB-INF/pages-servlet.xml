@@ -1884,6 +1884,7 @@
                 <ref bean="directoryStructureUrlNoSchoolTypesController"/>
                 <ref bean="/schools.page"/>
                 <ref bean="/school/overview.page"/>
+                <ref bean="/district/districtHome.page"/>
             </list>
         </property>
         <aop:scoped-proxy proxy-target-class="false"/>
