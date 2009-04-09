@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.36 2008/09/22 18:16:53 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.37 2009/04/09 17:34:26 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -186,6 +186,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.NC)){
                     label = "EOC - All Grades";
+                }
+                else if(state.equals(State.ND)){
+                    label = "NDSA - All Grades";
                 }
                 else if(state.equals(State.NY)){
                     label = "Regents Exams - All Grades";
