@@ -64,6 +64,8 @@
         <div id="content">
             <!-- title, licensor, summary, current page -->
             <div class="bodyHeader">
+                <h2 class="title">${article.title}</h2>
+
                 <div class="float right">
                     <!-- do not collapse -->
                     <c:if test="${not empty article.licensorLogoUrl}">
@@ -78,8 +80,6 @@
                         </div>
                     </c:if>
                 </div>
-                
-                <h2 class="title">${article.title}</h2>
 
                 <c:choose>
                     <c:when test="${article.currentPageNum lt 2}">
@@ -229,111 +229,6 @@
             House Ad
         </div>
     </div>
-
-    <!--
-    <div id="cmsArticle">
-        <div class="cmsArticleTitle">${article.title}</div>
-        <c:if test="${not empty article.otherLanguageUri}">
-            <div class="otherLanguageLink">
-                <a href="${article.otherLanguageUri}">
-                    Read this article in
-                    <c:choose>
-                        <c:when test="${article.language eq 'ES'}">
-                            English
-                        </c:when>
-                        <c:otherwise>
-                            Spanish
-                        </c:otherwise>
-                    </c:choose>
-                </a>
-            </div>
-        </c:if>
-        <c:if test="${not empty article.licensorLogoUrl}">
-            <div class="cmsArticleLicensorImage">
-                <c:if test="${article.licensorLogoUrl ne null}">
-                    <img src="${article.licensorLogoUrl}" alt="${article.licensorLogoAltText}"/>
-                </c:if>
-            </div>
-        </c:if>
-
-        <c:if test="${not empty article.authors}">
-            <div id="authors">
-                By
-                <c:forEach var="author"
-                           items="${article.authors}"
-                           varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
-            </div>
-            <br/>
-        </c:if>
-
-        <c:if test="${not empty article.imageUrl}">
-            <div class="cmsArticleImage">
-                <c:if test="${not empty article.imageUrl}">
-                    <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
-                </c:if>
-                <br/>
-                ${article.imageTitle}
-            </div>
-        </c:if>
-
-        <c:if test="${not empty article.sidebar}">
-            <div id="cmsArticleSidebar">
-                ${article.sidebar}
-            </div>
-        </c:if>
-
-        <div id="cmsArticleText">
-            ${article.currentPage}
-        </div>
-
-        <c:if test="${article.numPages > 1}">
-            <div id="cmsArticlePagination">
-                <c:forEach begin="1" end="${article.numPages}" var="pageNum" varStatus="status">
-                    <c:choose>
-                        <c:when test="${pageNum == article.currentPageNum}">
-                            <span class="active">${pageNum}</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${uri}?page=${pageNum}">${pageNum}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </div>
-
-        </c:if>
-
-
-        <c:if test="${not empty article.licensorAttribution}">
-            <div id="cmsArticleLicensorAttribution">
-                ${article.licensorAttribution}
-            </div>
-        </c:if>
-
-        <c:if test="${not empty article.relatedArticles}">
-          <h4>Related Articles</h4>
-          <div id="relatedArticleLinks">
-            <ul>
-              <c:forEach var="relatedArticle" items="${article.relatedArticles}">
-                <c:if test="${not empty relatedArticle.url}">
-                  <li><a href="${relatedArticle.url}">${relatedArticle.linkText}</a></li>
-                </c:if>
-              </c:forEach>
-            </ul>
-          </div>
-        </c:if>
-
-        <c:if test="${not empty article.externalLinks}">
-            <h4>Related Links</h4>
-            <div id="relatedExternaLinks">
-                <ul>
-                   <c:forEach var="externalLink" items="${article.externalLinks}">
-                       <li><a href="${externalLink.url}">${externalLink.linkText}</a></li>
-                   </c:forEach>
-                </ul>
-            </div>
-        </c:if>
-    </div>
--->
 </body>
 </html>
 </jsp:root>

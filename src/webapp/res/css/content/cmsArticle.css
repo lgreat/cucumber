@@ -112,7 +112,6 @@ br.clear {
 
     .bodyHeader .summary {
         color: #666;
-        clear: right;
     }
         .summary p {
             font-style: italic;
