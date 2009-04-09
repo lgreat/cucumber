@@ -38,10 +38,10 @@
     <![CDATA[
     <script type="text/javascript">
     //<!--
-       function selectBox(boxId) {
-
+        function selectBox(boxId) {
+        var x;
         // hide all boxes, show current box
-        var boxArr = document.getElementsByClassName('boilerPlate');
+        var boxArr = $$('#intro .boilerPlate');
         for (x=0; x < boxArr.length; x++) {
             if (boxArr[x].id == boxId) {
                 boxArr[x].show();
@@ -50,14 +50,14 @@
             }
         }
 
-        var distTab = document.getElementById('districtTab');
-        var stTab = document.getElementById('stateTab');
-        var distTabLeft = document.getElementById('districtTabLeft');
-        var distTabRight = document.getElementById('districtTabRight');
-        var stTabLeft = document.getElementById('stateTabLeft');
-        var stTabRight = document.getElementById('stateTabRight');
-        var distHeading = document.getElementById("districtHeading");
-        var stateHeading =  document.getElementById("stateHeading");
+        var distTab = $('districtTab');
+        var stTab = $('stateTab');
+        var distTabLeft = $('districtTabLeft');
+        var distTabRight = $('districtTabRight');
+        var stTabLeft = $('stateTabLeft');
+        var stTabRight = $('stateTabRight');
+        var distHeading = $('districtHeading');
+        var stHeading = $('stateHeading');
 
         //switch the images for the tabs and show the corresponding state or the district heading.
         if(boxId == 'districtBox'){
@@ -68,7 +68,7 @@
             stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
             distHeading.show();
-            stateHeading.hide();
+            stHeading.hide();
         }
 
          if(boxId == 'stateBox'){
@@ -79,7 +79,8 @@
             distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
             distHeading.hide();
-            stateHeading.show();
+            stHeading.show();
+
         }
     }
 
