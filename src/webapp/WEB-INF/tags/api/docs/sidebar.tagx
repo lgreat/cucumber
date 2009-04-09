@@ -40,12 +40,12 @@
                         <div class="toggle">
                             <ul id="topic-tips">
                                 <li><a href="/school-choice/">Technical Overview</a></li>
-                                <li><a href="/content/movingWithKids.page">Browse Schools</a></li>
-                                <li><a href="/content/countdownToCollege.page">Nearby Schools</a></li>
-                                <li><a href="/content/tutoring_Homework_Help.page">School Profile</a></li>
-                                <li><a href="/content/tutoring_Homework_Help.page">School Reviews</a></li>
-                                <li><a href="/content/specialNeeds.page">School Test Scores</a></li>
-                                <li class="last"><a href="/content/travel.page">School Census Data</a></li>
+                                <li><a href="/api/docs/browseSchools.page">Browse Schools</a></li>
+                                <li><a href="/api/docs/nearbySchools.page">Nearby Schools</a></li>
+                                <li><a href="/api/docs/schoolProfile.page">School Profile</a></li>
+                                <li><a href="/api/docs/schoolReviews.page">School Reviews</a></li>
+                                <li><a href="/api/docs/schoolTestScores.page">School Test Scores</a></li>
+                                <li class="last"><a href="/api/docs/schoolCensusData.page">School Census Data</a></li>
                             </ul>
                         </div>
                     </li>

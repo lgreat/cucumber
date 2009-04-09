@@ -1,0 +1,164 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:apidoc="urn:jsptagdir:/WEB-INF/tags/api/docs"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+
+    <c:set var="pageName" value="API Documentation"/>
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>GreatSchools.net API School Census Data Documentation</title>
+        <meta content="todo" name="description"/>
+        <meta content="todo" name="keywords"/>
+        <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
+        <![CDATA[
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
+        <![endif]-->
+        ]]>
+    </head>
+
+    <body>
+    <div id="api_docs">
+        <jsp:include page="/api/leftNav.module" />
+
+        <div class="content">
+
+
+            <div class="callfirst">
+                <h2>School Census Data</h2>
+                Returns census and profile data for a school. All calls for Browse Schools are in this format:
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/[components]?[parameters]</div>
+            </div>
+            <div class="call">
+                <h2>Components</h2>
+
+                Components of the url describe what type of data you would like.
+                They are separated by forward slashes.
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="required">
+                        <td>state*</td>
+                        <td>Two letter state abbreviation or full state name</td>
+                        <td>ak<br/>CA<br/>California</td>
+                    </tr>
+                    <tr>
+                        <td>gsID</td>
+                        <td>Numeric id of school
+                        <br/>This gsID is included in other listing requests
+                            like Browse Schools and Nearby Schools</td>
+                        <td>1</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">*required</div>
+
+            </div>
+            <div class="call">
+                <h2>Parameters</h2>
+                The "key" parameter is what you use to send us your API key.
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="required">
+                        <td>key*</td>
+                        <td>Your API key</td>
+                        <td>1234abc</td>
+                    </tr>
+                     </tbody>
+                </table>
+                <div class="footnote">*required</div>
+                <!-- examples of usage -->
+                Examples of usage:
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/CA/1?key=[yourkey]</div>
+                Returns census and profile data for school in California with GreatSchools ID of 1
+            </div>
+            <div class="call">
+                <h2>Sample Request</h2>
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/ND/20?key=[yourkey]</div>
+                Returns census and profile data for school in North Dakota with GreatSchools ID of 20
+            </div>
+            <div class="call">
+                <h2>Sample Response</h2>
+                <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
+&lt;census-data&gt;
+	&lt;schoolName&gt;Simle Middle School&lt;/schoolName&gt;
+	&lt;address&gt;1215 N 19th St,  Bismarck, ND  58501&lt;/address&gt;
+	&lt;latitude&gt;46.8179&lt;/latitude&gt;
+	&lt;longitude&gt;-100.7631&lt;/longitude&gt;
+	&lt;phone&gt;(701) 221-3570&lt;/phone&gt;
+	&lt;type&gt;public&lt;/type&gt;
+	&lt;district&gt;Bismarck 1&lt;/district&gt;
+	&lt;enrollment&gt;851&lt;/enrollment&gt;
+	&lt;freeAndReducedPriceLunch&gt;23.3843&lt;/freeAndReducedPriceLunch&gt;
+	&lt;studentTeacherRatio&gt;14.1&lt;/studentTeacherRatio&gt;
+	&lt;ethnicities&gt;
+		&lt;ethnicity&gt;
+			&lt;name&gt;White, non-Hispanic&lt;/name&gt;
+			&lt;value&gt;91.0693&lt;/value&gt;
+			&lt;year&gt;2007&lt;/year&gt;
+		&lt;/ethnicity&gt;
+		&lt;ethnicity&gt;
+			&lt;name&gt;Black, non-Hispanic&lt;/name&gt;
+			&lt;value&gt;0.587544&lt;/value&gt;
+			&lt;year&gt;2007&lt;/year&gt;
+		&lt;/ethnicity&gt;
+		&lt;ethnicity&gt;
+			&lt;name&gt;Hispanic&lt;/name&gt;
+			&lt;value&gt;0.822562&lt;/value&gt;
+			&lt;year&gt;2007&lt;/year&gt;
+		&lt;/ethnicity&gt;
+		&lt;ethnicity&gt;
+			&lt;name&gt;Asian/Pacific Islander&lt;/name&gt;
+			&lt;value&gt;0.705053&lt;/value&gt;
+			&lt;year&gt;2007&lt;/year&gt;
+		&lt;/ethnicity&gt;
+		&lt;ethnicity&gt;
+			&lt;name&gt;Native American or Native Alaskan&lt;/name&gt;
+			&lt;value&gt;6.81551&lt;/value&gt;
+			&lt;year&gt;2007&lt;/year&gt;
+		&lt;/ethnicity&gt;
+	&lt;/ethnicities&gt;
+&lt;/census-data&gt;
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Have Questions?</h2>
+                <div class="questions">To ask questions or to report bugs please email
+                    api-support@greatschools.net. Please do not abuse our API. Review the
+                <a href="">Terms of Use</a>.</div>
+            </div>
+        </div>
+
+        <!-- <apidoc:sidebar current="schools"/> -->
+    </div>
+    </body>
+    </html>
+</jsp:root>

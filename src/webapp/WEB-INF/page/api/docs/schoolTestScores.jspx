@@ -20,7 +20,7 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title>GreatSchools.net API Browse Schools Documentation</title>
+        <title>GreatSchools.net API School Test Scores Documentation</title>
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
@@ -39,9 +39,9 @@
 
 
             <div class="callfirst">
-                <h2>Browse Schools</h2>
-                Returns a school detail by GreatSchools ID. All calls for a School Profile are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[id]?key=[yourAPIkey]</div>
+                <h2>School Test Scores</h2>
+                Returns test and rank data for a specific school. All calls for Browse Schools are in this format:
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/[components]?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -63,23 +63,11 @@
                         <td>ak<br/>CA<br/>California</td>
                     </tr>
                     <tr>
-                        <td>city*</td>
-                        <td>Name of city, with spaces replaced with hyphens.
-                            If the city name has hyphens, replace those with underscores.</td>
-                        <td>San Francisco becomes "San-Francisco"
-                            <br/>Cardiff-By-The-Sea becomes "Cardiff_By_The_Sea"
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>school type</td>
-                        <td>Type of school you wish to appear in the list</td>
-                        <td>Valid values: "public", "charter", "private",
-                            or any combination separated by hyphens, like "public-charter"</td>
-                    </tr>
-                    <tr>
-                        <td>level</td>
-                        <td>Level of school you wish to appear in the list</td>
-                        <td>Valid values: "elementary-schools", "middle-schools", "high-schools" </td>
+                        <td>gsID</td>
+                        <td>Numeric id of school
+                        <br/>This gsID is included in other listing requests
+                            like Browse Schools and Nearby Schools</td>
+                        <td>1</td>
                     </tr>
                     </tbody>
                 </table>
@@ -89,7 +77,6 @@
             <div class="call">
                 <h2>Parameters</h2>
                 The "key" parameter is what you use to send us your API key.
-                Other parameters are optional and used to describe how you would like to receive the data.
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
@@ -102,41 +89,20 @@
                     <tr class="required">
                         <td>key*</td>
                         <td>Your API key</td>
-                        <td>myAPIkey</td>
+                        <td>1234abc</td>
                     </tr>
-                    <tr>
-                        <td>sort</td>
-                        <td>How to sort the results, either by name (ascending),
-                            by GS rating (descending), or by overall parent rating
-                            (descending). The default sort is name (ascending).
-                            When sorted by rating, schools without a rating will
-                            appear last.
-                        </td>
-                        <td>Valid values: "name", "gs_rating", "parent_rating"</td>
-                    </tr>
-                    <tr>
-                        <td>limit</td>
-                        <td>Maximum number of schools to return. This defaults to 200.
-                            <br/>To get all results, use -1.
-                        </td>
-                        <td>10</td>
-                    </tr>
-                    </tbody>
+                     </tbody>
                 </table>
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]</div>
-                Returns up to 200 schools in the city of Alameda, CA
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]&amp;limit=-1</div>
-                Returns all schools in the city of Alameda, CA
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/private/middle-schools?key=[yourAPIkey]&amp;sort=parent_rating&amp;limit=5</div>
-                Returns 5 private middle schools in San Francisco, CA, sorting by parent rating
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/CA/1?key=[yourkey]</div>
+                Returns test scores for school in California with GreatSchools ID of 1
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Truckee?key=[yourAPIkey]</div>
-                Returns 2 schools in Truckee, CA
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/CA/1?key=[yourkey]</div>
+                Returns test scores for school in California with GreatSchools ID of 1
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
@@ -152,8 +118,7 @@
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
         &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
         &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
-        &amp;lt;address&amp;gt;10931 Alder Dr.,
-        Truckee, CA  96161&amp;lt;/address&amp;gt;
+        &amp;lt;address&amp;gt;10931 Alder Dr., Truckee, CA  96161&amp;lt;/address&amp;gt;
         &amp;lt;phone&amp;gt;(530) 582-2750&amp;lt;/phone&amp;gt;
         &amp;lt;fax&amp;gt;(530) 582-7640&amp;lt;/fax&amp;gt;
         &amp;lt;website&amp;gt;http://www.ttusd.org&amp;lt;/website&amp;gt;
@@ -174,8 +139,7 @@
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
         &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
         &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
-        &amp;lt;address&amp;gt;11661 Donner Pass Rd.,
-        Truckee, CA  96161&amp;lt;/address&amp;gt;
+        &amp;lt;address&amp;gt;11661 Donner Pass Rd., Truckee, CA  96161&amp;lt;/address&amp;gt;
         &amp;lt;phone&amp;gt;(530) 582-2640&amp;lt;/phone&amp;gt;
         &amp;lt;fax&amp;gt;(530) 582-7640&amp;lt;/fax&amp;gt;
         &amp;lt;ncesId&amp;gt;063877006175&amp;lt;/ncesId&amp;gt;

@@ -3,6 +3,7 @@
 	width: 164px;
 	float: left;
 	margin-left: 10px;
+
 }
 
 #librarySidebar.micro {
@@ -121,6 +122,7 @@
 
 div.inner-links {
     padding:10px 0 10px 0;
+    font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
 .white div.inner-links {
