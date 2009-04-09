@@ -65,7 +65,7 @@
                       <span>${model.stateBoilerPlate}</span>
                  </c:otherwise>
                 </c:choose>
-                <c:if test="${not empty model.choicelink and not empty model.locatorlink}">
+                <c:if test="${not empty model.choicelink or not empty model.locatorlink}">
                 <ul class="horizontalList">
 
                     <c:if test="${not empty model.choicelink}">
@@ -110,7 +110,7 @@
                             </td>
                         </tr>
                         <tr><td>This district's rating is based on its schools' <link:districtProfile districtId="${district.id}"
-                        state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>;10 is best.</td></tr>
+                        state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>; 10 is best.</td></tr>
                         <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
                         </table>
                     </td>
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div id="compareSchools">
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools</h3></div>
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>

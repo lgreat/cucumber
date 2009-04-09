@@ -38,6 +38,7 @@ import gs.web.path.DirectoryStructureUrlFields;
 
 import java.util.*;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 
 /**
  * @author droy@greatschools.net
@@ -142,7 +143,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         loadDistrictEnrollment(district, pageModel);
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
-
         model.put("model", pageModel);
         return new ModelAndView(getViewName(), model);
     }
@@ -195,9 +195,10 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
         CensusInfoFactory cif = new CensusInfoFactory(_censusDataSetDao);
         cif.setCensusDataSetDao(_censusDataSetDao);
-        DistrictCensusValue dicv = cif.getCensusInfo().getLatestValue(district, CensusDataType.STUDENTS_ENROLLMENT);
-        if (dicv != null) {
-            model.put("districtEnrollment",dicv.getValueInteger());
+        DistrictCensusValue districtCensusValue = cif.getCensusInfo().getLatestValue(district, CensusDataType.STUDENTS_ENROLLMENT);
+        if (districtCensusValue != null) {
+            DecimalFormat myFormatter = new DecimalFormat("###,###");
+            model.put("districtEnrollment",myFormatter.format(districtCensusValue.getValueInteger()));
         }
 
     }

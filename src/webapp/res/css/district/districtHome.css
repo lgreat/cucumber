@@ -1,17 +1,22 @@
 body{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #666666;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 #main{
     float:left;
     width:550px;
+    margin-top:0px;
 }
 #contentRight{
     float:left;
     width:300px;
     margin-left: 9px;
+}
+
+#main a{
+    color:#3399AA;
 }
 
 .headerTab{
@@ -25,14 +30,14 @@ body{
 /* BEGIN boilerplate module*/
 
 #intro{
-    font-size: 13px;
+    font-size: 12px;
     border-left:1px solid #8ACACA;
     border-right:1px solid #8ACACA;
     border-bottom:1px solid #8ACACA;
 }
 
 #districtTabs td a{
-    font-size: 13px;
+    font-size: 12px;
     font-weight:bold;
     position:relative;
     top:4px;
@@ -45,16 +50,20 @@ body{
     height: 29px;
 }
 
-.backgroundOn{
+#districtTabs .backgroundOn{
     background:url(/res/img/district/tabs_Right_on_02.gif) repeat-x;
 }
 
-.backgroundOff{
+#districtTabs .backgroundOn a{
+    color:black;
+}
+
+#districtTabs .backgroundOff{
     background:url(/res/img/district/tabs_Right_off_02.gif) repeat-x;
 }
 
 .introText{
-    margin:0 15px 10px 15px;
+    margin:0 15px 10px 6px;
 }
 
 #intro h3{
@@ -68,7 +77,7 @@ body{
     font-size: 25px;
     font-weight:bold;
     color:white;
-    padding-left:20px;
+    padding-left:5px;
 }
 
 ul.horizontalList{
@@ -137,6 +146,8 @@ div#keyTermDefinitions{
 #browseSchools{
     margin-top: 15px;
     margin-bottom: 15px;
+    border-left:1px solid #8ACACA;
+    border-right:1px solid #8ACACA;
 }
 
 #compareSchools{
@@ -147,6 +158,8 @@ div#keyTermDefinitions{
 
 #ad_top #AboveFold_300x250{
    border-top:none;
+    margin-top:0px;
+    padding-top:10px;
 }
 
 /* BEGIN Recent Parent Reviews */
@@ -228,8 +241,6 @@ div#map {
 }
 
 div#mapFooter {
-    border-left: #8ACACA solid 1px;
-    border-right: #8ACACA solid 1px;
     border-bottom: #8ACACA solid 1px;
     padding: 5px;
 }
@@ -270,6 +281,16 @@ div#compareSchoolsHeader h3 {
     padding-left: 5px;
 }
 
+div#compareSchools{
+    position:relative;
+}
+
+div#compareSchools img{
+    position:absolute;
+    top:20px;
+    left:500px;
+
+}
 form#compareSchoolsForm input {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -294,7 +315,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 /* BEGIN breadcrumbs */
 #breadcrumbs {
-	margin: 2px 0 10px 1px;
+	margin: 0px 0 10px 1px;
 }
 
 #breadcrumbs ul li {
