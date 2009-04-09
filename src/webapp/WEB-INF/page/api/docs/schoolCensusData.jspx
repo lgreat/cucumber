@@ -40,7 +40,7 @@
 
             <div class="callfirst">
                 <h2>School Census Data</h2>
-                Returns census and profile data for a school. All calls for Browse Schools are in this format:
+                Returns census and profile data for a school. All calls for School Census Data are in this format:
                 <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/[components]?[parameters]</div>
             </div>
             <div class="call">
@@ -107,6 +107,7 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
+&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;census-data&gt;
 	&lt;schoolName&gt;Simle Middle School&lt;/schoolName&gt;
 	&lt;address&gt;1215 N 19th St,  Bismarck, ND  58501&lt;/address&gt;

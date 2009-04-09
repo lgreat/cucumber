@@ -133,55 +133,42 @@
             <div class="call">
                 <h2>Sample Request</h2>
                 <div class="sample_url">http://api.${pageContext.request.serverName}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=2</div>
-                Returns 2 most recent reviews for schools in Alameda, CA.
+                Returns 2 most recent reviews for school in California with GreatSchools ID of 1.
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
-&amp;lt;schools&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;13978&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Alder Creek Middle School&amp;lt;/name&amp;gt;
-        &amp;lt;type&amp;gt;public&amp;lt;/type&amp;gt;
-        &amp;lt;gradeRange&amp;gt;6-8&amp;lt;/gradeRange&amp;gt;
-        &amp;lt;enrollment&amp;gt;598&amp;lt;/enrollment&amp;gt;
-        &amp;lt;city&amp;gt;Truckee&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
-        &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
-        &amp;lt;address&amp;gt;10931 Alder Dr., Truckee, CA  96161&amp;lt;/address&amp;gt;
-        &amp;lt;phone&amp;gt;(530) 582-2750&amp;lt;/phone&amp;gt;
-        &amp;lt;fax&amp;gt;(530) 582-7640&amp;lt;/fax&amp;gt;
-        &amp;lt;website&amp;gt;http://www.ttusd.org&amp;lt;/website&amp;gt;
-        &amp;lt;ncesId&amp;gt;063877011005&amp;lt;/ncesId&amp;gt;
-        &amp;lt;lat&amp;gt;39.3454&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-120.1735&amp;lt;/lon&amp;gt;
-        &amp;lt;overviewLink&amp;gt;http://www.greatschools.net/modperl/browse_school/ca/13978?s_cid=gsapi&amp;lt;/overviewLink&amp;gt;
-        &amp;lt;ratingsLink&amp;gt;http://www.greatschools.net/school/rating.page?state=CA&amp;amp;id=13978&amp;amp;s_cid=gsapi&amp;lt;/ratingsLink&amp;gt;
-        &amp;lt;reviewsLink&amp;gt;http://www.greatschools.net/school/parentReviews.page?state=CA&amp;amp;id=13978&amp;amp;s_cid=gsapi&amp;lt;/reviewsLink&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;11039&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Cold Stream Alternative School&amp;lt;/name&amp;gt;
-        &amp;lt;type&amp;gt;public&amp;lt;/type&amp;gt;
-        &amp;lt;gradeRange&amp;gt;9-12&amp;lt;/gradeRange&amp;gt;
-        &amp;lt;enrollment&amp;gt;47&amp;lt;/enrollment&amp;gt;
-        &amp;lt;city&amp;gt;Truckee&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
-        &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
-        &amp;lt;address&amp;gt;11661 Donner Pass Rd., Truckee, CA  96161&amp;lt;/address&amp;gt;
-        &amp;lt;phone&amp;gt;(530) 582-2640&amp;lt;/phone&amp;gt;
-        &amp;lt;fax&amp;gt;(530) 582-7640&amp;lt;/fax&amp;gt;
-        &amp;lt;ncesId&amp;gt;063877006175&amp;lt;/ncesId&amp;gt;
-        &amp;lt;lat&amp;gt;39.3259&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-120.2147&amp;lt;/lon&amp;gt;
-        &amp;lt;overviewLink&amp;gt;http://www.greatschools.net/modperl/browse_school/ca/11039?s_cid=gsapi&amp;lt;/overviewLink&amp;gt;
-        &amp;lt;ratingsLink&amp;gt;http://www.greatschools.net/school/rating.page?state=CA&amp;id=11039&amp;s_cid=gsapi&amp;lt;/ratingsLink&amp;gt;
-        &amp;lt;reviewsLink&amp;gt;http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=11039&amp;s_cid=gsapi&amp;lt;/reviewsLink&amp;gt;
-    &amp;lt;/school&amp;gt;
-&amp;lt;/schools&amp;gt;
-
+&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
+&lt;reviews&gt;
+    &lt;review&gt;
+        &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
+        &lt;schoolAddress&gt;2201 Encinal Ave.,
+        Alameda, CA  94501&lt;/schoolAddress&gt;
+        &lt;reviewLink&gt;
+        http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps398220
+        &lt;/reviewLink&gt;
+        &lt;rating&gt;3&lt;/rating&gt;
+        &lt;submitter&gt;former student&lt;/submitter&gt;
+        &lt;postedDate&gt;2006/06/06&lt;/postedDate&gt;
+        &lt;comments&gt;
+        The staff gets on the level of the students and everything is kaotic.
+        &lt;/comments&gt;
+    &lt;/review&gt;
+    &lt;review&gt;
+        &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
+        &lt;schoolAddress&gt;2201 Encinal Ave.,
+        Alameda, CA  94501&lt;/schoolAddress&gt;
+        &lt;reviewLink&gt;
+        http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps354422
+        &lt;/reviewLink&gt;
+        &lt;rating&gt;3&lt;/rating&gt;
+        &lt;submitter&gt;parent&lt;/submitter&gt;
+        &lt;postedDate&gt;2006/03/12&lt;/postedDate&gt;
+        &lt;comments&gt;
+        I have hasd 2 children at Alameda High and I find the school to be &apos;okay. As a large public high school, with a huge variation of academic abilities, it is extremely important for parents to stay in touch with course choices and expectations of teachers to ensure their child&apos;s basic education. Their music and drama programs are excellent - don&apos;t know about sports. Easy to lose your way in such a large environment - stay in touch with counselors and teachers.
+        &lt;/comments&gt;
+    &lt;/review&gt;
+&lt;/reviews&gt;
                 </textarea>
             </div>
 

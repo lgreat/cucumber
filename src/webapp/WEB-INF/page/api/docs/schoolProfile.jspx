@@ -40,7 +40,7 @@
 
             <div class="callfirst">
                 <h2>School Profile</h2>
-                Returns a list of schools in a city. All calls for Browse Schools are in this format:
+                Returns a list of schools in a city. All calls for School Profiles are in this format:
                 <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[components]?[parameters]</div>
             </div>
             <div class="call">
@@ -108,6 +108,7 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
+&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;school&gt;
     &lt;gsId&gt;1&lt;/gsId&gt;
     &lt;name&gt;Alameda High School&lt;/name&gt;

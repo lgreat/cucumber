@@ -135,12 +135,13 @@
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Truckee?key=[yourAPIkey]</div>
+                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Truckee?key=[yourAPIkey]&amp;limit=2</div>
                 Returns 2 schools in Truckee, CA
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
+&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &amp;lt;schools&amp;gt;
     &amp;lt;school&amp;gt;
         &amp;lt;gsId&amp;gt;13978&amp;lt;/gsId&amp;gt;
