@@ -68,6 +68,7 @@
                                 lat="${district.lat}"
                                 lon="${district.lon}"
                                 schools="${schoolsWithRatings}"
+                                zoom="10"
                 />
         <script type="text/javascript">
         <![CDATA[

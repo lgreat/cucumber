@@ -62,8 +62,8 @@
                         <span id="stateBox"  class="boilerPlate" style="display: none;">${model.stateBoilerplate}</span>
                     </c:when>
                  <c:otherwise>
-                     <h3 >${model.stateBoilerplateHeading}</h3>
-                      <span>${model.stateBoilerPlate}</span>
+                     <h3>${model.stateBoilerplateHeading}</h3>
+                      <span>${model.stateBoilerplate}</span>
                  </c:otherwise>
                 </c:choose>
                 <c:if test="${not empty model.choicelink or not empty model.locatorlink}">
@@ -88,9 +88,6 @@
                 ${model.definitionsDiv}
             </div>
         </div>
-
-
-
         <div id="ratingAndInfo">
             <table>
                 <tr>
@@ -121,8 +118,12 @@
                         <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
                         <tr><td>${district.county}</td></tr>
                         <tr><td><a href="${model.googleMapLink}" target="_blank"> Map &gt;</a></td></tr>
-                        <tr><td>PH: ${district.phone}</td></tr>
-                        <tr><td>FAX: ${district.fax}</td></tr>
+                        <c:if test="${not empty district.phone}">
+                             <tr><td>PH: ${district.phone}</td></tr>
+                        </c:if>                       
+                        <c:if test="${not empty district.fax}">
+                            <tr><td>FAX: ${district.fax}</td></tr>
+                        </c:if>
                         <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
                         </table>
                     </td>
@@ -131,8 +132,8 @@
                         <c:if test="${not empty district.gradeLevels}">
                             <tr><td class="noWrapping"><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> Grades <c:out value="${district.gradeLevels}" escapeXml="true"/> </td></tr>
                         </c:if>
-                        <c:if test="${not empty model.districtEnrollment}">
-                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${model.districtEnrollment} students</td></tr>
+                        <c:if test="${not empty model.formattedDistrictEnrollment and  model.districtEnrollment != 0}">
+                            <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${model.formattedDistrictEnrollment} students</td></tr>
                         </c:if>
                         <c:if test="${not empty district.numberOfSchools}">
                             <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.numberOfSchools} ${district.numberOfSchools > 1 ? "schools" : "school"}</td></tr>
@@ -151,7 +152,7 @@
         </div>
         <div id="browseSchools">
             <div>
-                <jsp:include page="/district/nearbySchoolsInDistrict.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}"/>
+                <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}"/>
             </div>
         </div>
         <div id="compareSchools">
@@ -184,5 +185,22 @@
         <div id="ad">
             <ad:House_Ad_300x137  referredBy="${pageName}"/>
         </div>
+
+         <div id="citySnapShot">
+            <div class="outer">
+                <div class="inner">
+                     <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
+                     <school:topRatedSchoolsInCityList city="${model.cityObject}"
+                                                      topRatedSchools="${model.topRatedSchools}"
+                                                      topSchools="${model.topSchools}"/>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
+
+
 </jsp:root>

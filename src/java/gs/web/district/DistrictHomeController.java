@@ -140,6 +140,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         }
         loadDistrictRating(district, pageModel);
         loadDistrictEnrollment(district, pageModel);
+        loadTopRatedSchools(city,pageModel);
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
         model.put("model", pageModel);
@@ -197,9 +198,9 @@ public class DistrictHomeController extends AbstractController  implements IDire
         DistrictCensusValue districtCensusValue = cif.getCensusInfo().getLatestValue(district, CensusDataType.STUDENTS_ENROLLMENT);
         if (districtCensusValue != null) {
             DecimalFormat myFormatter = new DecimalFormat("###,###");
-            model.put("districtEnrollment",myFormatter.format(districtCensusValue.getValueInteger()));
+            model.put("formattedDistrictEnrollment",myFormatter.format(districtCensusValue.getValueInteger()));
+            model.put("districtEnrollment",districtCensusValue.getValueInteger());
         }
-
     }
 
     protected void loadDistrictRating(District district,Map<String, Object> model){
@@ -209,20 +210,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
         }
     }
 
-    protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
-           City userCity = null;
-           if (context.getCity() != null) {
-               userCity = context.getCity();
-           } else {
-                District district = (District)model.get("district");
-               if (district != null && district.getPhysicalAddress() != null && district.getPhysicalAddress().getCity() != null) {
-                    userCity = new City(district.getPhysicalAddress().getCity(), context.getStateOrDefault());
-               } else {
-                   return;
-               }
-           }
+    protected void loadTopRatedSchools(City userCity,Map<String, Object> model) {
            model.put("cityObject", userCity);
-
            List<ISchoolDao.ITopRatedSchool> topRatedSchools =
                    getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, null, 5);
            if (topRatedSchools.size() > 0) {

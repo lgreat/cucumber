@@ -331,3 +331,39 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 	color: #888;
 }
 /* END breadcrumbs */
+
+
+/* BEGIN top rated schools*/
+
+.dottedLineBottomBox {
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border: 0 solid #DDD;
+    border-bottom-width: 1px;
+    margin-bottom: 3px;
+}
+
+#citySnapShot {
+
+background-image:url(/res/img/schoolChoice/schoolchoice_poll_bottom.gif);
+background-position:left bottom;
+background-repeat:no-repeat;
+padding-bottom:6px;
+}
+
+.outer {
+background-image:url(/res/img/schoolChoice/schoolchoice_poll_top.gif);
+background-position:left top;
+background-repeat:no-repeat;
+padding-top:6px;
+}
+
+.inner {
+background-color:transparent;
+background-image:url(/res/img/schoolChoice/schoolchoice_pol_sides.gif);
+background-position:left top;
+background-repeat:repeat-y;
+padding:6px 16px;
+}
+
+/* END top rated schools */
