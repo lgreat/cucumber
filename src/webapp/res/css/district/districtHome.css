@@ -152,8 +152,6 @@ div#keyTermDefinitions{
 #browseSchools{
     margin-top: 15px;
     margin-bottom: 15px;
-    border-left:1px solid #8ACACA;
-    border-right:1px solid #8ACACA;
 }
 
 #compareSchools{
@@ -243,11 +241,15 @@ div#mapHeader h3 {
 }
 
 div#map {
-    height: 300px;
+    height: 300px;    
+    border-left:1px solid #8ACACA;
+    border-right:1px solid #8ACACA;
 }
 
 div#mapFooter {
     border-bottom: #8ACACA solid 1px;
+    border-left:1px solid #8ACACA;
+    border-right:1px solid #8ACACA;
     padding: 5px;
 }
 
