@@ -12,14 +12,15 @@
     <jsp:directive.attribute name="topRatedSchools" required="true" description="List of TopRatedSchool objects" type="java.util.List"/>
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
 
-     <div class="topRatedSchools">
-                    <div style="">
-                            <div style="text-align: left">Top-Rated Public Schools</div>
-                            <div style="text-align: right;">GreatSchools<br/>Rating</div>
+     <div class="topRatedSchools" border="2">
+                        <div id="citySnapshotHeader">
+                            <h3>City Snapshot</h3>
+                            <h4>Top-Rated ${city.name} Schools</h4>
+                            <span class="leftHeader">Top-Rated Public Schools</span>
+                            <span class="rightHeader">GreatSchools<br/>Rating</span>
                         </div>
                         <c:forEach items="${topRatedSchools}" var="s">
-                            <div>
-                                <c:choose>
+                            <c:choose>
                                     <c:when test="${'private' == s.school.type.schoolTypeName}">
                                         <c:set var="hrefbase"
                                                value="/cgi-bin/${stateAbbrevLowerCase}/private/"/>
@@ -29,20 +30,22 @@
                                                value="/modperl/browse_school/${stateAbbrevLowerCase}/"/>
                                     </c:otherwise>
                                 </c:choose>
-                                </div>
-                                <div class="dottedLineBottomBox">
-                                    <gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
+                               <div class="dottedLineBottomBox">
+                                   <span  class="schoolName"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                     <c:if test="${s.rating > 0}">
                                         <c:set var="ratingValue" value="${s.rating}"/>
                                     </c:if>
-                                    <gsml:img
+                                   </span>
+                                   <span class="schoolRating"><gsml:img
                                             src="/res/img/school/ratings/${ratingValue}.gif"
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/>
+                                   </span>
 
                             </div>
                         </c:forEach>
+                    <div style="text-align: right;"><a href="#">View city information &gt;</a></div>
          </div>
     </jsp:root>
