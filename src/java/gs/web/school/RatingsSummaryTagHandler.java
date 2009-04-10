@@ -33,7 +33,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
             p += "  " + getReviewSchoolLink();
         }
 
-        writeParagraph(p);
+        writeParagraph(p, "last");
 
         writeClosingDiv();
     }
@@ -69,6 +69,14 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
     public void writeParagraph(String s) throws JspException, IOException {
 
         final String OPEN_PARAGRAPH = "<p>";
+        final String CLOSE_PARAGRAPH = "</p>";
+
+        getJspContext().getOut().write(OPEN_PARAGRAPH + s + CLOSE_PARAGRAPH);
+    }
+
+    public void writeParagraph(String s, String styleClass) throws JspException, IOException {
+
+        final String OPEN_PARAGRAPH = "<p class='" + styleClass + "'>";
         final String CLOSE_PARAGRAPH = "</p>";
 
         getJspContext().getOut().write(OPEN_PARAGRAPH + s + CLOSE_PARAGRAPH);

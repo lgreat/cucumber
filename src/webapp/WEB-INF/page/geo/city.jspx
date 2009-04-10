@@ -240,7 +240,7 @@
 
     <div style="width: 100%"  id="schoolFinderPromo">
         <h2>Want your own SchoolFinder?</h2>
-        <p>Take ours! Display GreatSchools' school test scores, ratings, and stats on your website for free.</p>
+        <p>Take ours! Display GreatSchools' test scores, ratings and stats on your Web site for free.</p>
         <a href="/schoolfinder/widget/customize.page">
             <img src="/res/img/button/go.gif" alt="go"/>
         </a>
