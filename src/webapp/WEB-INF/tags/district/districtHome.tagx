@@ -33,6 +33,7 @@
                 </ul>
             </div>
         </c:if>
+        
         <div id="intro">
             <div  class="headerTab"><h2>${district.name}</h2>
             </div>

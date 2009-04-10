@@ -129,7 +129,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 // Do nothing, school remains null and will be handled below
             }
         }
-
         processSchoolData(school, pageModel);
 
         getBoilerPlateForDistrict(state.getAbbreviation(),district.getId().toString(),pageModel,request);
