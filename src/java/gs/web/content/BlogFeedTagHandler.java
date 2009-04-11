@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.17 2009/03/31 18:09:54 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.18 2009/04/11 03:58:27 eddie Exp $
  */
 
 package gs.web.content;
@@ -165,7 +165,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         imageAuthor.put("Dave Steer","http://community.greatschools.net/avatar?id=3090256&height=94&width=94");
         */
         
-        return imageAuthor.get(author).toString();
+        return imageAuthor.get(author) != null ? imageAuthor.get(author).toString() : "/res/img/pixel.gif";
 
     }
 
