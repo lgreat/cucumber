@@ -1,0 +1,39 @@
+/* General elements to omit from print-friendly version (copied from article.css) */
+.search, #adLeaderboard, #footer, .noprint, #promoContent {
+    display: none;
+}
+
+/* CMS-article-specific elements to omit from printer-friendly version */
+.breadcrumbs, .headerTools, #leftNav, #boxAd, #houseAd, #popularArticles, #recentPosts, .searchByTopic, .cmsArticlePagination {
+    display: none;
+}
+
+#main {
+    width: 100%;
+}
+
+#content {
+    margin-left: 0;
+}
+
+#main .printViewLinks {
+    display: block;
+    padding-bottom: 15px;
+}
+
+/* P R I N T   S T Y L E S */
+@media print {
+    body, body.unframed #pageGS {
+        background-color: #fff;
+        border: 0 solid   #fff;
+    }
+    #contentGS {
+        width: 630px;
+    }
+    #pageGS {
+        width: 664px;
+    }
+    #main .printViewLinks {
+        display: none;
+    }
+}

@@ -26,6 +26,12 @@
           content="${article.metaKeywords}"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <c:if test="${param.print eq 'true'}">
+        <!-- cmsArticleSupplemental is for the screen view *and* print version of the printer-friendly version.
+             We can't use the word "print" in the css file name, or else it will target media="print" only.
+             See PageHelper.getHeadElements() -->
+        <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css"/>
+    </c:if>
 </head>
 <body>
     <!-- leftNav is positioned absolutely, this makes sure that if it is longer than the main content area
@@ -36,6 +42,20 @@
     <gsml:equalizeColumns ids="'main','rightColumn'"/>
 
     <div id="main">
+        <div class="printViewLinks">
+            <p>
+                <a href="javascript:window.print()" class="printArticle">Print article</a>
+                <c:choose>
+                    <c:when test="${article.numPages == 1 or fromPage eq '1'}">
+                        <c:set var="articleLink" value="${uri}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="articleLink" value="${uri}?page=${fromPage}"/>
+                    </c:otherwise>
+                </c:choose>
+                <a href="${articleLink}" class="backToArticle">Back to article</a>
+            </p>
+        </div>
         <div class="breadcrumbs">
             <!-- TODO: full breadcrumbs -->
             <a href="#">${article.primaryKategoryName}</a> &amp;gt; ${article.title}
@@ -46,7 +66,7 @@
                 <li>Thumbs Up</li>
                 <li>Share</li>
                 <li>Watch</li>
-                <li>Print</li>
+                <li><a href="${uri}?print=true&amp;fromPage=${article.currentPageNum == -1 ? 'all' : article.currentPageNum}">Print</a></li>
             </ul>
         </div>
         <div id="leftNav">
@@ -211,7 +231,7 @@
                 <input type="hidden" value="topic" name="c"/>
             </form>
         </div>
-        <div class="module">
+        <div id="boxAd" class="module">
             Ad
         </div>
         <c:if test="${not empty article.sidebar}">
@@ -219,13 +239,13 @@
                 ${article.sidebar}
             </div>
         </c:if>
-        <div class="module">
+        <div id="popularArticles" class="module">
             Most Popular Articles
         </div>
-        <div class="module">
+        <div id="recentPosts" class="module">
             Recent Posts
         </div>
-        <div class="module">
+        <div id="houseAd" class="module">
             House Ad
         </div>
     </div>

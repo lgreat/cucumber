@@ -68,6 +68,18 @@ br.clear {
         font-size: 11px;
     }
 
+#main .printViewLinks {
+    display: none;
+}
+
+    #main .printViewLinks .printArticle {
+
+    }
+
+    #main .printViewLinks .backToArticle {
+        margin-left: 20px;
+    }
+
 #main .breadcrumbs {
     color: #666;
 }
