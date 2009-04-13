@@ -111,3 +111,9 @@ td.fielddescription{
 td.fieldsample{
     width:150px;
 }
+
+.sampleTextArea{
+    width:600px;
+    height:200px;
+    background-color:#ffffff;
+}
