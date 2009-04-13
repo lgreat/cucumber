@@ -137,7 +137,7 @@
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
-                <textarea style="width:500px; height:200px;" wrap="off" readonly="readonly">
+                <textarea style="width:600px; height:200px;" wrap="off" readonly="readonly">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;reviews&gt;
     &lt;review&gt;
