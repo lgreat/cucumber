@@ -53,7 +53,7 @@ div.call,div.callfirst{
     color:#666666;
     font-family:Trebuchet MS,Arial,sans-serif;
     font-size:13px;
-    line-height:22px;
+    line-height:17px;
 }
 
 div.call{
@@ -66,21 +66,23 @@ div.callfirst{
 
 div.callfirst h2{
     font-size:20px;
+    color:#55bbcc;
+    margin-bottom:10px;
 }
 
 div.call h2{
     font-size:18px;
+    color:#55bbcc;
+    margin-bottom:10px;
 }
 
 div.sample_url{
     font-weight:bold;
-    margin-top:10px;
 }
 
-div.sample_wrapper{
-    border:solid #cccccc 1px;
-    padding:5px;
-    margin-bottom:10px;
+div.example_url{
+    font-weight:bold;
+    margin-top:10px;
 }
 
 div.footnote{
@@ -96,4 +98,16 @@ div.questions{
 div.questions a,div.questions a:link,
     div.questions a:visited,div.questions a:active{
     color:#3399aa;
+}
+
+td.fieldname{
+    width:100px;
+}
+
+td.fielddescription{
+    width:350px;
+}
+
+td.fieldsample{
+    width:150px;
 }

@@ -40,8 +40,8 @@
 
             <div class="callfirst">
                 <h2>Browse Schools</h2>
-                Returns a school detail by GreatSchools ID. All calls for a School Profile are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[state]/[id]?key=[yourAPIkey]</div>
+                Returns a list of schools in a city. All calls for a Browse Schools are in this format:
+                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/[components]?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -51,10 +51,10 @@
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td>Sample Values</td>
-                    </tr>
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                   </tr>
                     </thead>
                     <tbody>
                     <tr class="required">
@@ -93,9 +93,9 @@
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td>Sample Values</td>
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -126,11 +126,11 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]</div>
+                <div class="example_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]</div>
                 Returns up to 200 schools in the city of Alameda, CA
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]&amp;limit=-1</div>
+                <div class="example_url">http://api.${pageContext.request.serverName}/schools/CA/Alameda?key=[yourAPIkey]&amp;limit=-1</div>
                 Returns all schools in the city of Alameda, CA
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/private/middle-schools?key=[yourAPIkey]&amp;sort=parent_rating&amp;limit=5</div>
+                <div class="example_url">http://api.${pageContext.request.serverName}/schools/CA/San-Francisco/private/middle-schools?key=[yourAPIkey]&amp;sort=parent_rating&amp;limit=5</div>
                 Returns 5 private middle schools in San Francisco, CA, sorting by parent rating
             </div>
             <div class="call">
@@ -195,7 +195,9 @@
                 <h2>Have Questions?</h2>
                 <div class="questions">To ask questions or to report bugs please email
                     api-support@greatschools.net. Please do not abuse our API. Review the
-                <a href="">Terms of Use</a>.</div>
+                <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                   onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
+                </div>
             </div>
         </div>
 

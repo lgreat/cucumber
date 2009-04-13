@@ -51,9 +51,9 @@
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td>Sample Values</td>
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                         <td>ak<br/>CA<br/>California</td>
                     </tr>
                     <tr>
-                        <td>gsID</td>
+                        <td>gsID*</td>
                         <td>Numeric id of school
                         <br/>This gsID is included in other listing requests
                             like Browse Schools and Nearby Schools</td>
@@ -80,10 +80,10 @@
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td>Sample Values</td>
-                    </tr>
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                   </tr>
                     </thead>
                     <tbody>
                     <tr class="required">
@@ -95,9 +95,6 @@
                 </table>
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
-                Examples of usage:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/CA/1?key=[yourkey]</div>
-                Returns test scores for school in California with GreatSchools ID of 1
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
@@ -151,7 +148,9 @@
                 <h2>Have Questions?</h2>
                 <div class="questions">To ask questions or to report bugs please email
                     api-support@greatschools.net. Please do not abuse our API. Review the
-                <a href="">Terms of Use</a>.</div>
+                    <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                       onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
+                </div>
             </div>
         </div>
 
