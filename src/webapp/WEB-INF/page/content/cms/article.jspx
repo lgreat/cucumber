@@ -148,19 +148,22 @@
 
             <!-- authors and pagination -->
             <!-- table because either one or the other can be missing -->
-            <table class="authorPageBar">
+            <table class="authorPageBar" cellspacing="0" cellpadding="0">
                 <tr>
                     <td class="authors">
                         <!-- Show authors on last page only (and single page view) -->
                         <c:if test="${not empty article.authors and (article.currentPageNum eq -1 or article.numPages eq article.currentPageNum)}">
-                            By
+                            <c:choose>
+                                <c:when test="${article.language eq 'ES'}">Por </c:when>
+                                <c:otherwise>By </c:otherwise>
+                            </c:choose>
                             <c:forEach var="author"
                                        items="${article.authors}"
                                        varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
                         </c:if>
                     </td>
-                    <td class="cmsArticlePagination">
-                        <c:if test="${article.numPages > 1}">
+                    <c:if test="${article.numPages > 1 and param.print ne 'true'}">
+                        <td class="cmsArticlePagination">
                             Page
                             <c:forEach begin="1" end="${article.numPages}" var="pageNum" varStatus="status">
                                 <c:choose>
@@ -180,8 +183,8 @@
                                     <a href="${uri}?page=all">Single Page</a>
                                 </c:otherwise>
                             </c:choose>
-                        </c:if>
-                    </td>
+                        </td>
+                    </c:if>
                 </tr>
             </table> <!-- end .authorPageBar -->
             <!-- Related links -->

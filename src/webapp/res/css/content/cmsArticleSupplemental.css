@@ -21,6 +21,10 @@
     padding-bottom: 15px;
 }
 
+.authors {
+    width: 100%;
+}
+
 /* P R I N T   S T Y L E S */
 @media print {
     /* left-align logo with article text */
