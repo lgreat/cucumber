@@ -21,23 +21,25 @@
     padding-bottom: 15px;
 }
 
-/* left-align logo with article text */
-#topnav table td a img {
-    position: relative;
-    left: -33px;
-}
-
 /* P R I N T   S T Y L E S */
 @media print {
+    /* left-align logo with article text */
+    #topnav table td a img {
+        position: relative;
+        left: -33px;
+    }
+    div.divider {
+        width: 90%;
+    }
     body, body.unframed #pageGS {
         background-color: #fff;
         border: 0 solid   #fff;
     }
     #contentGS {
-        width: 95%;
+        width: 98%;
     }
     #pageGS {
-        width: 95%;
+        width: 98%;
     }
     #main .printViewLinks {
         display: none;
