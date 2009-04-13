@@ -81,14 +81,6 @@
     <![endif]-->
     ]]>
 
-    <!-- ratings summary on public and charter schools only -->
-    <c:if test="${school.levelCode ne 'p'}">
-    <![CDATA[
-    <!--[if IE 7]>
-        <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7_b_7970.css" />
-    <![endif]-->
-    ]]>
-    </c:if>
     
 <c:set var="school" value="${school}"/>
 <school:profile school="${school}" tab="overview">
@@ -120,7 +112,7 @@
     <!-- begin center column -->
      <!-- ratings summary on public and charter schools only -->
     <c:if test="${school.levelCode ne 'p'}">
-        <school:ratings school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true" includeSummary='true'/>
+        <school:overviewSummary school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
     </c:if>
 
     <div id="col_center">
