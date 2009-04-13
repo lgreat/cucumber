@@ -146,9 +146,11 @@ br.clear {
         margin-top: 5px;
     }
 
-#cmsArticleText {
+#cmsArticleText, #cmsArticleText p, #cmsArticleText li, #cmsArticleText span, #cmsArticleText div {
     font-size: 12px;
     color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 120%;
 }
 
     #cmsArticleText #cmsArticleSidebar {
