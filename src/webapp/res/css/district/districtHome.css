@@ -379,7 +379,6 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     margin-bottom:8px;
 }
 
-
 .leftHeader{
     float:left;
     width:200px;
@@ -399,13 +398,12 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     float:left;
 }
 
-
 #citySnapShot {
-
     background-image:url(/res/img/schoolChoice/schoolchoice_poll_bottom.gif);
     background-position:left bottom;
     background-repeat:no-repeat;
     padding-bottom:6px;
+    margin-top:10px;
 }
 
 #citySnapshotHeader img{

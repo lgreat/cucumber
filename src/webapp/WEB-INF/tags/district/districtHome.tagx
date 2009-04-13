@@ -186,17 +186,18 @@
             <ad:House_Ad_300x137  referredBy="${pageName}"/>
         </div>
 
-         <div id="citySnapShot">
+        <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
+        <div id="citySnapShot">
             <div class="outer">
                 <div class="inner">
-                     <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
                      <school:topRatedSchoolsInCityList city="${model.cityObject}"
                                                       topRatedSchools="${model.topRatedSchools}"
                                                       topSchools="${model.topSchools}"/>
-                    </c:if>
                 </div>
             </div>
         </div>
+        </c:if>
+
 
     </div>
 

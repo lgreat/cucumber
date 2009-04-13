@@ -46,6 +46,8 @@
 
                             </div>
                         </c:forEach>
-                    <div style="text-align: right;"><a href="#">View city information &gt;</a></div>
+                    <div style="text-align: right;"> <link:city
+                    city="${city.name}"
+                    state="${city.state}" styleClass="minilink">View city information &gt;</link:city></div>
          </div>
     </jsp:root>
