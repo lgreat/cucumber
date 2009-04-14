@@ -289,9 +289,8 @@
                            title="${city} schools">${city} schools</link:city>&amp;#160;
             </li>
             <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                <li>&amp;gt; <link:districtProfile districtId="${school.districtId}"
-                                                   state="${state.abbreviationLowerCase}"
-                                                   title="District information">${school.district.name}</link:districtProfile>
+                <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                   title="District information">${school.district.name}</link:districtHome>
                 </li>
             </c:if>
             <c:if test="${school.levelCode == 'p'}">
@@ -511,8 +510,8 @@
             <c:choose>
                 <c:when test="${school.districtId != 0 and school.levelCode != 'p'}">
                     ${delimiter}
-                    <link:allSchoolsInDistrict
-                            districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
+                    <link:districtHome
+                            district="${school.district}"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
                     <c:if test="${tab ne 'overview'}">
                         ${delimiter}<br/>
                         <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>

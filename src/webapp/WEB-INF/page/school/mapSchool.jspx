@@ -116,10 +116,10 @@
                 <ul>
                     <c:if test="${school.type.schoolTypeName != 'private' and (school.levelCode != 'p')}">
                         <li>
-                            <link:allSchoolsInDistrict districtId="${school.districtId}"
+                            <link:districtHome district="${school.district}"
                                                        title="${school.district.name}">
-                                Schools in ${school.district.name}&amp;#160;&gt;
-                            </link:allSchoolsInDistrict>
+                                <c:out value="${school.district.name}" escapeXml="true"/>&amp;#160;&gt;
+                            </link:districtHome>
                         </li>
                     </c:if>
                     <li>
