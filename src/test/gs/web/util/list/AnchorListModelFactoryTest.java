@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.12 2009/04/14 21:53:09 droy Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.13 2009/04/14 22:03:54 droy Exp $
  */
 
 package gs.web.util.list;
@@ -16,6 +16,7 @@ import gs.data.state.State;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.GSAnalyzer;
+import gs.data.util.Address;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.UrlBuilder;
@@ -148,32 +149,36 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(1, anchorListModel.getResults().size());
     }
 
-//    public void testCreateDistrictList_EscapeAmpersand() throws Exception {
-//        AnchorListModelFactory anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
-//        IDistrictDao mockDao = createMock(IDistrictDao.class);
-//        IDistrictDao backupDistrictDao = anchorListModelFactory._districtDao;
-//        anchorListModelFactory.setDistrictDao(mockDao);
-//
-//        try {
-//            List<District> returnList = new ArrayList<District>();
-//            District d1 = new District();
-//            d1.setDatabaseState(State.DC);
-//            d1.setName("Arts & Technology");
-//            d1.setId(1234);
-//            returnList.add(d1);
-//
-//            expect(mockDao.findDistrictsInCity(State.DC, "Washington", true)).andReturn(returnList);
-//            mockDao.sortDistrictsByName(returnList);
-//            replay(mockDao);
-//
-//            AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", "Washington, DC",_request);
-//            List list = model.getResults();
-//            assertTrue(list.size() == 1);
-//            assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
-//        } finally {
-//            anchorListModelFactory.setDistrictDao(backupDistrictDao);
-//        }
-//    }
+    public void testCreateDistrictList_EscapeAmpersand() throws Exception {
+        AnchorListModelFactory anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
+        IDistrictDao mockDao = createMock(IDistrictDao.class);
+        IDistrictDao backupDistrictDao = anchorListModelFactory._districtDao;
+        anchorListModelFactory.setDistrictDao(mockDao);
+
+        try {
+            List<District> returnList = new ArrayList<District>();
+            District d1 = new District();
+            d1.setDatabaseState(State.DC);
+            d1.setName("Arts & Technology");
+            d1.setId(1234);
+
+            Address address = new Address();
+            address.setCity("Washington");
+            d1.setPhysicalAddress(address);
+            returnList.add(d1);
+
+            expect(mockDao.findDistrictsInCity(State.DC, "Washington", true)).andReturn(returnList);
+            mockDao.sortDistrictsByName(returnList);
+            replay(mockDao);
+
+            AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", "Washington, DC",_request);
+            List list = model.getResults();
+            assertTrue(list.size() == 1);
+            assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
+        } finally {
+            anchorListModelFactory.setDistrictDao(backupDistrictDao);
+        }
+    }
 
     public void testCreateCitiesListModel() throws Exception{
         //This is a useless test because I couldn't load any sample dc data
