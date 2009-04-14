@@ -10,6 +10,10 @@ div.summaryWithGSRating{
     float:left;
 }
 
+div.summaryWithGSRating{
+    height:182px;
+}
+
 div.summaryWithNoGSRating div.leftBlock,
 div.summaryWithNoGSRating div.leftBlock div.noGsRating,
 div.summaryWithNoGSRating div.leftBlock div.summaryText,
@@ -33,13 +37,16 @@ div.summaryWithGSRating div.rightBlock{
     width:148px;
     height:151px;
 }
+div.summaryWithGSRating div.rightBlock{
+    padding-top: 15px;
+}
 
 div.summaryWithNoGSRating div.leftBlock .summaryText {
     width:356px;
 }
 
 div.summaryWithNoGSRating div.leftBlock #rating_summary {
-	margin: 28px 18px 0 10px;
+	margin: 20px 18px 0 10px;
     font-size: 13px;
 }
 
@@ -68,8 +75,8 @@ div.summaryWithGSRating .leftBlock {
 
 div.summaryWithGSRating div.leftBlock #rating_gs {
     float:left;
-	margin: 8px 18px 0 24px;
-    _margin: 8px 18px 0 12px;
+	margin: 16px 18px 0 24px;
+    _margin: 16px 18px 0 12px;
     font-size: 13px;
 }
 
@@ -77,7 +84,7 @@ div.summaryWithGSRating div.leftBlock .summaryText {
     width: 366px;
 }
 div.summaryWithGSRating div.leftBlock #rating_summary {
-	margin: 14px 18px 0 0;
+	margin: 10px 18px 0 0;
     font-size: 13px;
 }
 
