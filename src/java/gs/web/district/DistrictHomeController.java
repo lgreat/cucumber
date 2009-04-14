@@ -123,6 +123,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 int schoolId = Integer.parseInt(schoolIdStr);
                 school = _schoolDao.getSchoolById(state, schoolId);
                 if(!school.getDistrictId().equals(district.getId())){
+                    model.put("showSearchControl", Boolean.TRUE);
+                    model.put("title", "School not found");
                     return new ModelAndView("status/error", model);
                 }
                 model.put("school", school);
