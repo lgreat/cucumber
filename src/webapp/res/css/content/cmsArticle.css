@@ -73,11 +73,11 @@ br.clear {
 }
 
     #main .printViewLinks .printArticle {
-
+        margin-right: 5px;
     }
 
     #main .printViewLinks .backToArticle {
-        margin-left: 20px;
+        margin-left: 5px;
     }
 
 #main .breadcrumbs {

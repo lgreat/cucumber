@@ -25,6 +25,12 @@
     width: 100%;
 }
 
+.bodyHeader .licensor {
+    position: absolute;
+    top: -100px;
+    right: 0;
+}
+
 /* P R I N T   S T Y L E S */
 @media print {
     /* left-align logo with article text */

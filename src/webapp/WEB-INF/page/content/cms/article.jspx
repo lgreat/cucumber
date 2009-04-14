@@ -42,18 +42,17 @@
     <gsml:equalizeColumns ids="'main','rightColumn'"/>
 
     <div id="main">
+        <c:choose>
+            <c:when test="${article.numPages == 1 or fromPage eq '1'}">
+                <c:set var="articleLink" value="${uri}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="articleLink" value="${uri}?page=${fromPage}"/>
+            </c:otherwise>
+        </c:choose>
         <div class="printViewLinks">
             <p>
-                <a href="javascript:window.print()" class="printArticle">Print article</a>
-                <c:choose>
-                    <c:when test="${article.numPages == 1 or fromPage eq '1'}">
-                        <c:set var="articleLink" value="${uri}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="articleLink" value="${uri}?page=${fromPage}"/>
-                    </c:otherwise>
-                </c:choose>
-                <a href="${articleLink}" class="backToArticle">Back to article</a>
+                <a href="javascript:window.print()" class="printArticle">Print article</a> | <a href="${articleLink}" class="backToArticle">Back to article</a>
             </p>
         </div>
         <div class="breadcrumbs">
