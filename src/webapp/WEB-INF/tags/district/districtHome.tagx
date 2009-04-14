@@ -115,7 +115,7 @@
                     <td  id="address">
                         <table>
                         <tr><td>${district.physicalAddress.street}</td></tr>
-                        <tr><td>${district.physicalAddress.city},${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
+                        <tr><td>${district.physicalAddress.city}, ${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
                         <tr><td>${district.county}</td></tr>
                         <tr><td><a href="${model.googleMapLink}" target="_blank"> Map &gt;</a></td></tr>
                         <c:if test="${not empty district.phone}">

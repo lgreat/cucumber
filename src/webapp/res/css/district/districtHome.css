@@ -11,11 +11,10 @@ body{
 }
 #contentRight{
     float:left;
-    width:300px;
     margin-left: 9px;
 }
 
-#main a{
+#contentGS a{
     color:#3399AA;
 }
 
@@ -43,6 +42,10 @@ h3{
     border-bottom:1px solid #8ACACA;
 }
 
+#districtTabs table{
+    /*margin-left:10px;*/
+}
+
 #districtTabs td a{
     font-size: 12px;
     font-weight:bold;
@@ -63,14 +66,18 @@ h3{
 
 #districtTabs .backgroundOn a{
     color:black;
+    padding-left:6px;
+    padding-right:6px;
 }
 
 #districtTabs .backgroundOff{
     background:url(/res/img/district/tabs_Right_off_02.gif) repeat-x;
+    padding-left:5px;
+    padding-right:5px;
 }
 
 .introText{
-    margin:0 15px 10px 6px;
+    margin:0 15px 10px 12px;
 }
 
 #intro h3{
@@ -84,7 +91,8 @@ h3{
     font-size: 25px;
     font-weight:bold;
     color:white;
-    padding-left:5px;
+    padding-left:12px;
+    padding-top:5px;
 }
 
 ul.horizontalList{
@@ -125,12 +133,12 @@ div#keyTermDefinitions{
 }
 #rating{
     width:40%;
-    padding:0px 5px 0px 0px;    
+    padding:0px 7px 0px 0px;    
 }
 
 #address{
     width:30%;
-    padding:0px 5px 0px 5px;
+    padding:0px 7px 0px 11px;
     line-height:15px;
     border-left: 1px solid #888;
 }
@@ -141,7 +149,7 @@ div#keyTermDefinitions{
 
 #info{
     width:30%;
-    padding:0px 0px 0px 5px;
+    padding:0px 0px 0px 12px;
     line-height:15px;
     border-left: 1px solid #888;
     vertical-align:top;
@@ -161,7 +169,7 @@ div#keyTermDefinitions{
 
 
 #ad_top #AboveFold_300x250{
-   border-top:none;
+    border-top:none;
     margin-top:0px;
     padding-top:10px;
 }
@@ -175,16 +183,18 @@ div.recentParentReviews {
 
 .recentParentReviews h2 {
     color:#FFFFFF;
-    padding: 2px 0 2px 5px;
+    padding-left:11px;
     background-color:#8ACACA;
     font-size: medium;
     font-weight: 700;
     text-align: left;
+    height:25px;
 }
 
 div.recentParentReviewsContent {
     margin: 0;
     padding: 0 5px;
+}
 }
 
 div.recentParentReviews table tr td {
@@ -237,7 +247,7 @@ div#mapHeader h3 {
     color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
-    padding-left: 5px;
+    padding-left: 11px;
 }
 
 div#map {
@@ -286,7 +296,7 @@ div#compareSchoolsHeader h3 {
     color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
-    padding-left: 5px;
+    padding-left: 11px;
 }
 
 div#compareSchools{
@@ -344,10 +354,6 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 /* BEGIN top rated schools*/
 
-#contentRight a{
-    color:#3399AA;
-}
-
 .dottedLineBottomBox {
     padding-bottom: 4px;
     padding-top: 4px;
@@ -399,7 +405,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 #citySnapShot {
-    background-image:url(/res/img/schoolChoice/schoolchoice_poll_bottom.gif);
+    background-image:url(/res/img/district/district_page_rightbox_bottom.gif);
     background-position:left bottom;
     background-repeat:no-repeat;
     padding-bottom:6px;
@@ -411,7 +417,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 .outer {
-    background-image:url(/res/img/schoolChoice/schoolchoice_poll_top.gif);
+    background-image:url(/res/img/district/district_page_rightbox_top.gif);
     background-position:left top;
     background-repeat:no-repeat;
     padding-top:6px;
@@ -419,10 +425,10 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 .inner {
     background-color:transparent;
-    background-image:url(/res/img/schoolChoice/schoolchoice_pol_sides.gif);
+    background-image:url(/res/img/district/district_page_rightbox_sides.gif);
     background-position:left top;
     background-repeat:repeat-y;
-    padding:6px 12px;
+    padding:6px 11px 6px 16px;
 }
 
 /* END top rated schools */

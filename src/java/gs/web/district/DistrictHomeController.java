@@ -58,11 +58,11 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private IDistrictRatingDao _districtRatingDao;
     private ICensusDataSetDao _censusDataSetDao;
     public static final String DEV_DISTRICT_BOILERPLATE_TAB = "od6";
-    public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "od6";
-    public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od6";
+    public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "odb";
+    public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od9";
     public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
-    public static final String STAGING_STATE_BOILERPLATE_TAB = "od4";
-    public static final String LIVE_STATE_BOILERPLATE_TAB = "od4";
+    public static final String STAGING_STATE_BOILERPLATE_TAB = "od8";
+    public static final String LIVE_STATE_BOILERPLATE_TAB = "ocy";
     public boolean _isDistrictBoilerplatePresent;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -122,6 +122,9 @@ public class DistrictHomeController extends AbstractController  implements IDire
             try {
                 int schoolId = Integer.parseInt(schoolIdStr);
                 school = _schoolDao.getSchoolById(state, schoolId);
+                if(!school.getDistrictId().equals(district.getId())){
+                    return new ModelAndView("status/error", model);
+                }
                 model.put("school", school);
             } catch (ObjectRetrievalFailureException orfe) {
                 // Do nothing, school remains null and will be handled below
