@@ -163,19 +163,21 @@ br.clear {
     }
 
     #cmsArticleText h1 {
-        font-size: 218%;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 0.5em;
     }
 
     #cmsArticleText h2 {
-        font-size: 164%;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 0.5em;
     }
 
     #cmsArticleText h3 {
-        font-size: 145%;
-    }
-
-    #cmsArticleText h4 {
-        font-size: 118%;
+        font-weight: bold;
+        font-size: 12px;
+        margin-bottom: 0.5em;
     }
 
     #cmsArticleText p {
