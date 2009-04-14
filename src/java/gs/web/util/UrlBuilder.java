@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.156 2009/03/27 01:14:12 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.157 2009/04/14 21:23:38 droy Exp $
  */
 
 package gs.web.util;
@@ -108,6 +108,7 @@ public class UrlBuilder {
     public static final VPage DESIGN_FEEDBACK = new VPage("vpage:design_feedback");
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
+    public static final VPage DISTRICT_HOME = new VPage("vpage:districtHome");
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
 
     public static final VPage SCHOOL_SEARCH = new VPage("vpage:schoolSearch");
@@ -482,6 +483,9 @@ public class UrlBuilder {
                     district.getDatabaseState().getAbbreviationLowerCase() +
                     "/district_profile/" +
                     district.getId();
+        } else if (DISTRICT_HOME.equals(page)) {
+            _perlPage = false;
+            _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(district.getDatabaseState(), district);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

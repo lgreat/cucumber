@@ -823,6 +823,64 @@
         </attribute>
     </tag>
     <tag>
+        <name>districtHome</name>
+        <tag-class>gs.web.jsp.link.DistrictHomeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>District Home</display-name>
+        <description>
+            <![CDATA[Link to district home page]]>
+        </description>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>district</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.district.District</type>
+            <description>District object</description>
+        </attribute>
+        <attribute>
+            <name>schoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School id (optional), if specified the district profile page will add the school profile header</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute (tooltip)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>betaSignup</name>
         <tag-class>gs.web.jsp.link.BetaSignupTagHandler</tag-class>
         <body-content>JSP</body-content>

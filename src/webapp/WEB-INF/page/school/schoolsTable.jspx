@@ -407,9 +407,9 @@ function reloadPageWithFilters(sortColId) {
                     state="${state}" styleClass="minilink">View city information &gt;</link:city>
         </c:when>
         <c:otherwise>
-            <link:districtProfile
-                    districtId="${param.district}"
-                    state="${state}" styleClass="minilink">View district information &gt;</link:districtProfile>
+            <link:districtHome
+                    district="${districtObject}"
+                    styleClass="minilink">View district information &gt;</link:districtHome>
         </c:otherwise>
     </c:choose>
 </div>

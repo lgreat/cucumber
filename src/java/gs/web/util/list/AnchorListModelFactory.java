@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.20 2009/02/26 01:05:55 eddie Exp $
+ * $Id: AnchorListModelFactory.java,v 1.21 2009/04/14 21:23:38 droy Exp $
  */
 
 package gs.web.util.list;
@@ -15,6 +15,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
@@ -76,8 +77,7 @@ public class AnchorListModelFactory {
 
             for (Iterator iter = list.iterator(); iter.hasNext();) {
                 District d = (District) iter.next();
-                String url = "/cgi-bin/" + state.getAbbreviationLowerCase() + "/district_profile/" + d.getId() + "/";
-                url = _urlUtil.buildUrl(url, request);
+                String url = DirectoryStructureUrlFactory.createNewDistrictHomeURI(d.getDatabaseState(), d);
                 districts.add(new Anchor(url, StringEscapeUtils.escapeXml(d.getName())));
             }
 

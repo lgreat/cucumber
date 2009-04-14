@@ -26,6 +26,8 @@ import gs.data.search.Indexer;
 import gs.data.search.IndexField;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.district.District;
+import gs.data.util.Address;
 
 /**
  * This controller builds the model for the "all schools",
@@ -281,6 +283,19 @@ public class AllInStateController extends AbstractController {
                             _log.warn("Could not parse school id: " + id, nfe);
                         }
                         fields.put("school", s);
+                    } else if (DISTRICTS_TYPE.equals(type)) {
+                        District d = new District();
+                        d.setName(name);
+                        d.setDatabaseState(state);
+                        Address address = new Address();
+                        address.setCity(city);
+                        d.setPhysicalAddress(address);
+                        try {
+                            d.setId(new Integer(id));
+                        } catch (NumberFormatException nfe) {
+                            _log.warn("Could not parse district id: " + id, nfe);
+                        }
+                        fields.put("district", d);
                     }
 
                     if (name.matches("^\\p{Digit}.*")) {

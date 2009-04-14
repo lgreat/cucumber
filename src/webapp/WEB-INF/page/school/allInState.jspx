@@ -100,9 +100,9 @@
                     </c:if>
                     <c:if test="${type eq 'district'}">
                         <td>
-                            <gsml:a href="/schools.page?district=${data.id}&amp;state=${state.abbreviation}">
+                            <link:districtHome district="${data.district}">
                                 <c:out value="${data.name}" escapeXml="true"/>
-                            </gsml:a>
+                            </link:districtHome>                            
                         </td>
                     </c:if>
                     <c:if test="${type eq 'city'}">

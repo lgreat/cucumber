@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.99 2009/03/27 01:14:12 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.100 2009/04/14 21:23:38 droy Exp $
  */
 
 package gs.web.util;
@@ -11,6 +11,7 @@ import gs.data.geo.ICity;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.GsMockHttpServletRequest;
@@ -614,4 +615,18 @@ public class UrlBuilderSaTest extends TestCase {
         }
 
     }
+
+    public void testDistrictHomePage() {
+        GsMockHttpServletRequest request = getMockRequest();
+        District district = new District();
+        district.setDatabaseState(State.CA);
+        district.setName("A Test-District");
+        Address address = new Address();
+        address.setCity("A City");
+        district.setPhysicalAddress(address);
+
+        UrlBuilder builder = new UrlBuilder(district, UrlBuilder.DISTRICT_HOME);
+        assertEquals("/california/a-city/a-test_district/", builder.asSiteRelative(request));
+    }
+
 }
