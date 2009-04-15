@@ -48,7 +48,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private static Logger _log = Logger.getLogger(DistrictHomeController.class);
 
     public static final String PARAM_DISTRICT_ID = "district_id";
-    public static final String PARAM_SCHOOL_ID = "school_id";
+    public static final String PARAM_SCHOOL_ID = "schoolId";
     String _viewName;
     private ITableDao _boilerPlateTableDao;
     private ITableDao _definitionsTableDao;
