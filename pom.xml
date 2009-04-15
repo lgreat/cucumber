@@ -42,27 +42,7 @@
                 <!-- filtering is on for context.xml -->
                 <filtering>true</filtering>
             </resource>
-            <resource>
-                <directory>${basedir}/../GSData/src/conf</directory>
-                <includes>
-                    <include>log4j-production.properties</include>
-                </includes>
-            </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <directory>src/webapp/WEB-INF</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </testResource>
-            <testResource>
-                <directory>src/webapp</directory>
-                <includes>
-                    <include>res/**/*.js</include>
-                </includes>
-            </testResource>
-        </testResources>
 
         <!-- Plugins -->
         <plugins>

@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import gs.data.content.cms.ICmsArticleDao;
 import gs.data.content.cms.CmsArticle;
+import gs.data.cms.IPublicationDao;
 import gs.web.util.UrlBuilder;
 
 public class CmsArticleController extends AbstractController {
