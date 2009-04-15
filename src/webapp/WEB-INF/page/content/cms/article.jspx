@@ -13,10 +13,10 @@
             <c:set var="pageTitle">${article.pageTitle}</c:set>
         </c:when>
         <c:when test="${article.promo gt ''}">
-            <c:set var="pageTitle">${article.promo} | ${article.primaryKategoryName} | GreatSchools</c:set>
+            <c:set var="pageTitle">${article.promo} - ${article.primaryKategoryName} - GreatSchools</c:set>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTitle">${article.title} | ${article.primaryKategoryName} | GreatSchools</c:set>
+            <c:set var="pageTitle">${article.title} - ${article.primaryKategoryName} - GreatSchools</c:set>
         </c:otherwise>
     </c:choose>
     <title>${pageTitle}</title>
@@ -34,6 +34,7 @@
     </c:if>
 </head>
 <body>
+
     <!-- leftNav is positioned absolutely, this makes sure that if it is longer than the main content area
          the page layout will not place content over it -->
     <gsml:equalizeColumns ids="'content','leftNav'"/>
