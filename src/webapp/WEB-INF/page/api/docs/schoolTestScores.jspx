@@ -41,7 +41,7 @@
             <div class="callfirst">
                 <h2>School Test Scores</h2>
                 Returns test and rank data for a specific school. All calls for School Test Scores are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/[components]?[parameters]</div>
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/tests/[components]?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -98,7 +98,7 @@
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/school/test/CA/1?key=[yourkey]</div>
+                <div class="sample_url">http://api.${pageContext.request.serverName}/school/tests/CA/1?key=[yourkey]</div>
                 Returns test scores for school in California with GreatSchools ID of 1
             </div>
             <div class="call">

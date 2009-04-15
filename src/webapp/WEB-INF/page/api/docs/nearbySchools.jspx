@@ -92,6 +92,20 @@
                     </tr>
 
                     <tr>
+                        <td>lat</td>
+                        <td>latitude
+                        </td>
+                        <td>37.758862</td>
+                    </tr>
+
+                    <tr>
+                        <td>lon</td>
+                        <td>longitude
+                        </td>
+                        <td>-122.411406</td>
+                    </tr>
+
+                    <tr>
                         <td>schoolType</td>
                         <td>Type of school you wish to appear in the list</td>
                         <td>Valid values: "public", "charter", "private",
@@ -139,8 +153,12 @@
                 <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;address=160+Spear+St&amp;city=San+Francisco&amp;state=CA&amp;zip=94105&amp;schoolType=public-charter&amp;levelCode=elementary-schools&amp;minimumSchools=50&amp;radius=10&amp;limit=100</div>
                 Returns 50 to 100 public and charter elementary schools within 10 miles of
                 160 Spear St, San Francisco, CA 94105
+                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;city=San+Francisco&amp;state=CA</div>
+                Returns up to 200 schools within 5 miles of San Francisco, CA
                 <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;state=CA&amp;zip=94105</div>
                 Returns up to 200 schools within 5 miles of ZIP Code 94105
+                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;lat=37.758862&amp;lon=-122.411406</div>
+                Returns up to 200 schools within 5 miles of latitude 37.758862, longitude -122.411406
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
