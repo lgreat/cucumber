@@ -98,7 +98,8 @@
             <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${district.physicalAddress.city}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
         </c:when>
         <c:otherwise>
-            <school:profile school="${school}" tab="overview">
+            <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+            <school:profile school="${school}" tab="district_overview">
                 <district:districtHome district="${district}" school="${school}" model="${model}"/>
             </school:profile>
         </c:otherwise>

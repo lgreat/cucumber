@@ -432,16 +432,15 @@
 
         <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
             <td>
-                <link:districtProfile districtId="${school.districtId}"
+                <link:districtHome district="${school.district}"
                                       styleId="District_Overview_Tab${styleIdSuffix}"
-                                      styleClass="GS_CI9_"
+                                      styleClass="${(tab eq 'district_overview') ? 'on GS_CI9_' : ''}"
                                       schoolId="${school.id}"
-                                      state="${state.abbreviationLowerCase}"
                                       title="District information"
-                                      anchor="${headerAnchor}">
+                                      anchor="${(tab eq 'district_overview') ? '' : headerAnchor}">
                     District<br/>
                     Overview
-                </link:districtProfile>
+                </link:districtHome>
 
             </td>
         </c:if>

@@ -16,7 +16,7 @@ public class DistrictHomeTagHandler extends LinkTagHandler {
         UrlBuilder urlBuilder =
                 new UrlBuilder(_district, UrlBuilder.DISTRICT_HOME);
         if (_schoolId != null) {
-            urlBuilder.addParameter("school_id", String.valueOf(_schoolId));
+            urlBuilder.addParameter("schoolId", String.valueOf(_schoolId));
         }
         return urlBuilder;
     }
