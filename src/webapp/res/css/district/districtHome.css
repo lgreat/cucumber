@@ -285,6 +285,11 @@ div#schoolBrowseLinks {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+div.schoolInfo address, div.schoolInfo p.schoolPhone {
+    font-size: 11px;
+}
+
 /* END google map */
 
 /* BEGIN compare schools */
@@ -395,12 +400,12 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     text-align:right;
 }
 
-.schoolName{
+#citySnapShot .schoolName{
     float:left;
     width:250px;
 }
 
-.schoolRating{
+#citySnapShot .schoolRating{
     float:left;
 }
 
