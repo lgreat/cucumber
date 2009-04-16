@@ -94,7 +94,7 @@
                 </ul>
                  </c:if>
                 <div id="keyTermDefinitions"><gsweb:articlelink articleId="3754" target="_blank">Know the system: Key terms</gsweb:articlelink></div>
-                <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=gen">Let us know!</gsml:a></div>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=district">Let us know!</gsml:a></div>
                 ${model.definitionsDiv}
             </div>
         </div>
