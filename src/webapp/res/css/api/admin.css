@@ -16,6 +16,18 @@ td, th {
     text-align:left;
 }
 
+span.report-title {
+    border:1px solid;
+    display:block;
+    background: #DDD;
+    padding: 4px;
+    font-weight: bold;
+}
+
+td.field {
+    border-bottom: 1px solid #ccc;
+}
+
 div#api_admin_nav {
     margin:5px 15px 0 0;
     float:left;

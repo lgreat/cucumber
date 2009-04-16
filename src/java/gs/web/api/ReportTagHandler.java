@@ -26,15 +26,29 @@ import gs.data.api.IApiAccountDao;
 import gs.data.api.ApiAccount;
 
 /**
+ * This tag handler makes an http request to the gs-api report service in
+ * order to create api usage reports as html markup.
+ * 
  * @author chriskimm@greatschools.net
  */
 public class ReportTagHandler extends SpringTagHandler {
 
+    /** The report type */
     private String _type;
+
+    /** Used to make the REST call */
     private HttpClient _httpClient;
+
+    /** All report calls use HTTP GET */
     private GetMethod _method;
+
+    /** Display style - transcendent or heathen */
     private String _display = "div"; // default
+
+    /** Api Authenticaion Key */
     private String _key = "1234abc"; // default
+
+    /** Used to decorate reports with account info.*/
     private IApiAccountDao _accountDao;
 
     public void doTag() throws JspException, IOException {
@@ -73,6 +87,15 @@ public class ReportTagHandler extends SpringTagHandler {
         _httpClient = httpClient;
     }
 
+    /**
+     * This method returns the report url for the api host that
+     * matches the requesting host.  For example, gs-web on production
+     * should request reports from gs-api on production.  The reports
+     * page could be extended so that it can display reports from gs-api
+     * on any environment.
+     *
+     * @return a String url
+     */
     String getReportUrl() {
         StringBuilder sb = new StringBuilder();
         sb.append("http://");
@@ -115,26 +138,6 @@ public class ReportTagHandler extends SpringTagHandler {
             } catch (Exception e) { e.printStackTrace(); }
         }
         return _method;
-    }
-
-    void setMethod(GetMethod method) {
-        _method = method;
-    }
-
-    public String getKey() {
-        return _key;
-    }
-
-    public void setKey(String key) {
-        _key = key;
-    }
-
-    public String getDisplay() {
-        return _display;
-    }
-
-    public void setDisplay(String display) {
-        _display = display;
     }
 
     public Source getXsltSource() throws IOException {
@@ -188,5 +191,25 @@ public class ReportTagHandler extends SpringTagHandler {
 
     public void setAccountDao(IApiAccountDao accountDao) {
         _accountDao = accountDao;
+    }
+
+    void setMethod(GetMethod method) {
+        _method = method;
+    }
+
+    public String getKey() {
+        return _key;
+    }
+
+    public void setKey(String key) {
+        _key = key;
+    }
+
+    public String getDisplay() {
+        return _display;
+    }
+
+    public void setDisplay(String display) {
+        _display = display;
     }
 }
