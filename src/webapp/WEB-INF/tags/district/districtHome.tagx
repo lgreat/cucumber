@@ -76,9 +76,19 @@
                     </c:if>
 
                     <c:if test="${not empty model.locatorlink}">
-                    <li class="firstLink">
-                        <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
-                    </li>
+                        <c:choose>
+                            <c:when test="${not empty model.choicelink}">
+                                <li class="borderedLink">
+                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
                     </c:if>
 
                 </ul>
@@ -156,7 +166,7 @@
             </div>
         </div>
         <div id="compareSchools">
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${model.acronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>
@@ -197,11 +207,6 @@
             </div>
         </div>
         </c:if>
-
-
     </div>
-
-
-
 
 </jsp:root>

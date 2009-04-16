@@ -32,18 +32,19 @@
                                     </c:otherwise>
                                 </c:choose>
                                <div class="dottedLineBottomBox">
-                                   <span  class="schoolName"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                     <c:if test="${s.rating > 0}">
                                         <c:set var="ratingValue" value="${s.rating}"/>
                                     </c:if>
-                                   </span>
                                    <span class="schoolRating"><gsml:img
-                                            src="/res/img/school/ratings/${ratingValue}.gif"
+                                            src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/>
                                    </span>
+                                   <span  class="schoolName"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
+                                   </span>
+
 
                             </div>
                         </c:forEach>

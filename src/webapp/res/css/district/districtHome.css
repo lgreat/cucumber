@@ -11,7 +11,7 @@ body{
 }
 #contentRight{
     float:left;
-    margin-left: 9px;
+    margin-left: 10px;
 }
 
 #contentGS a{
@@ -101,9 +101,10 @@ ul.horizontalList{
 
 ul.horizontalList li{
     display: inline;
+    font-size:12px;
 }
 
-div.introText ul.horizontalList li.firstLink{
+div.introText ul.horizontalList li.borderedLink{
     border-left: 1px solid #888;
     padding: 0 0 0 10px;
     margin: 0 0px 0 10px;
@@ -225,6 +226,12 @@ div.recentParentReviews table tr td {
 
 .recentParentReviews p {
     font-size: small;
+}
+
+div.recentParentReviewsContent table{
+    padding-bottom:6px;
+    border-bottom: 1px solid #DDDDDD;
+
 }
 
 .dottedLineBottomBox {
@@ -359,14 +366,14 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 /* BEGIN top rated schools*/
 
-.dottedLineBottomBox {
+.topRatedSchools div.dottedLineBottomBox {
     padding-bottom: 4px;
     padding-top: 4px;
-    border: 0 solid #DDD;
+    border: 0 dotted #DDD;
     border-bottom-width: 1px;
     margin-bottom: 3px;
-    height:22px;
     font-weight:bold;
+    width:268px;
 }
 #citySnapshotHeader{
     height:85px;
@@ -398,15 +405,15 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 .rightHeader{
     float:left;
     text-align:right;
+    padding-left:7px;
 }
 
 #citySnapShot .schoolName{
-    float:left;
-    width:250px;
+    font-size:13px;
 }
 
 #citySnapShot .schoolRating{
-    float:left;
+    float:right;
 }
 
 #citySnapShot {
@@ -437,3 +444,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 /* END top rated schools */
+
+div#footer{
+margin-top:20px;
+}
