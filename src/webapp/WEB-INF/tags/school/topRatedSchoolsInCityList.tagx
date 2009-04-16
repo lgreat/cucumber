@@ -11,6 +11,7 @@
     <jsp:directive.attribute name="city" required="true" description="City object" type="gs.data.geo.City"/>
     <jsp:directive.attribute name="topRatedSchools" required="true" description="List of TopRatedSchool objects" type="java.util.List"/>
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
+    <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 
      <div class="topRatedSchools" border="2">
                         <div id="citySnapshotHeader">
