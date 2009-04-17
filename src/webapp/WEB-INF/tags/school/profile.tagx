@@ -284,7 +284,7 @@
             </li>
             <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                 <li>&amp;gt; <link:districtHome district="${school.district}"
-                                                   title="District information">${school.district.name}</link:districtHome>
+                                                   title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
                 </li>
             </c:if>
             <c:if test="${school.levelCode == 'p'}">

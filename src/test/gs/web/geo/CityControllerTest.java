@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.22 2009/04/14 21:53:09 droy Exp $
+ * $Id: CityControllerTest.java,v 1.23 2009/04/17 18:33:22 droy Exp $
  */
 
 package gs.web.geo;
@@ -67,7 +67,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
-        assertEquals("/california/alameda/alameda-city-unified/", ((Anchor) list.get(0)).getHref());
+        assertEquals("/california/alameda/Alameda-City-Unified/", ((Anchor) list.get(0)).getHref());
     }
 
     public void testBadCity() throws Exception {

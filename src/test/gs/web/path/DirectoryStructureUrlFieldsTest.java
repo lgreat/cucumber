@@ -88,5 +88,27 @@ public class DirectoryStructureUrlFieldsTest extends BaseControllerTestCase {
         assertTrue("Expected school name set", fields.hasSchoolName());
         assertEquals("Expected school name 'School Name 123 45'", "School Name 123 45", fields.getSchoolName());
         assertEquals("Expected school ID '123'", "123", fields.getSchoolID());
+
+        request.setRequestURI("/california/san-francisco/San-Francisco-Unified-School-District/");
+        fields = new DirectoryStructureUrlFields(request);
+        assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
+        assertEquals("Expected district name 'San Francisco Unified School District'", "San Francisco Unified School District", fields.getDistrictName());
+        assertFalse("Expected no school label", fields.hasSchoolsLabel());
+        assertFalse("Expected no level code", fields.hasLevelCode());
+
+        request.setRequestURI("/arizona/chandler/Ball-Charter-Schools-(Dobson)/");
+        fields = new DirectoryStructureUrlFields(request);
+        assertEquals("Expected city name 'chandler'", "chandler", fields.getCityName());
+        assertEquals("Expected district name 'Ball Charter Schools (Dobson)'", "Ball Charter Schools (Dobson)", fields.getDistrictName());
+        assertFalse("Expected no school label", fields.hasSchoolsLabel());
+        assertFalse("Expected no level code", fields.hasLevelCode());
+
+        request.setRequestURI("/arizona/coolidge/Akimel-O%27Otham-Pee-Posh-Charter-School-Inc./");
+        fields = new DirectoryStructureUrlFields(request);
+        assertEquals("Expected city name 'coolidge'", "coolidge", fields.getCityName());
+        assertEquals("Expected district name 'Akimel O'Otham Pee Posh Charter School Inc.'", "Akimel O'Otham Pee Posh Charter School Inc.", fields.getDistrictName());
+        assertFalse("Expected no school label", fields.hasSchoolsLabel());
+        assertFalse("Expected no level code", fields.hasLevelCode());
+
     }
 }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.13 2009/04/14 22:03:54 droy Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.14 2009/04/17 18:33:22 droy Exp $
  */
 
 package gs.web.util.list;
@@ -114,8 +114,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
-        //assertEquals("/cgi-bin/ny/district_profile/1/", ((Anchor) list.get(0)).getHref());
-        assertEquals("/new-york/dolgeville/dolgeville-central-school-district/", ((Anchor) list.get(0)).getHref());        
+        assertEquals("/new-york/dolgeville/Dolgeville-Central-School-District/", ((Anchor) list.get(0)).getHref());        
     }
 
     public void testNearbyCities() {

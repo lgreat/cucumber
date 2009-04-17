@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.100 2009/04/14 21:23:38 droy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.101 2009/04/17 18:33:22 droy Exp $
  */
 
 package gs.web.util;
@@ -626,7 +626,7 @@ public class UrlBuilderSaTest extends TestCase {
         district.setPhysicalAddress(address);
 
         UrlBuilder builder = new UrlBuilder(district, UrlBuilder.DISTRICT_HOME);
-        assertEquals("/california/a-city/a-test_district/", builder.asSiteRelative(request));
+        assertEquals("/california/a-city/A-Test_District/", builder.asSiteRelative(request));
     }
 
 }

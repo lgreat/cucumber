@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -42,9 +44,9 @@ public class DirectoryStructureUrlFields {
     public static final String LEVEL_LABEL_SCHOOLS = "schools";
 
     public static final Pattern LEVEL_CODE_PATTERN =
-        Pattern.compile("(schools|preschools|elementary-schools|middle-schools|high-schools)");
+        Pattern.compile("^(schools|preschools|elementary-schools|middle-schools|high-schools)$");
     public static final Pattern SCHOOL_TYPE_PATTERN =
-        Pattern.compile("(public|private|charter|public-private|public-charter|private-charter)");
+        Pattern.compile("^(public|private|charter|public-private|public-charter|private-charter)$");
 
     public DirectoryStructureUrlFields(HttpServletRequest request) {
         // require that the request uri starts and ends with /
@@ -52,6 +54,8 @@ public class DirectoryStructureUrlFields {
         if (StringUtils.isBlank(requestUri) || !requestUri.startsWith("/")) {
             return;
         }
+
+        System.out.println("===*** requestURI: " + requestUri);
 
         // state: always take from session context
         SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -70,16 +74,25 @@ public class DirectoryStructureUrlFields {
             // /california/sonoma/
             _cityName = pathComponents[2];
         } else if (pathComponents.length == 4) {
-            // /california/sonoma/schools/ or /california/sonoma/preschools/ or /california/sonoma/public-charter/ or /california/sonoma/San-Francisco-Unified-School-District/
+            // /california/sonoma/schools/ or /california/sonoma/preschools/ or /california/sonoma/public-charter/
+            // or /california/san-francisco/San-Francisco-Unified-School-District/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
+            System.out.println("===*** pathComponents[3]: " + pathComponents[3]);
             if (schoolTypeMatcher.find()) {
+                System.out.println("===*** 1");
                 populateSchoolTypesFromLabel(pathComponents[3]);
             } else if (levelCodeMatcher.find()) {
+                System.out.println("===*** 2");
                 populateLevelCodeFromLabel(pathComponents[3]);
             } else {
-                _districtName = pathComponents[3];
+                System.out.println("===*** 3");
+                try {
+                    _districtName = URLDecoder.decode(pathComponents[3], "UTF-8");
+                } catch (UnsupportedEncodingException uee) {
+                    _districtName = pathComponents[3];
+                }
             }
         } else if (pathComponents.length == 5) {
             // /california/sonoma/public-charter/schools/
