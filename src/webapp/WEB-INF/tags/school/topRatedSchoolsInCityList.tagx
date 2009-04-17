@@ -38,7 +38,7 @@
                                         <c:set var="ratingValue" value="${s.rating}"/>
                                     </c:if>
                                    <span class="schoolRating"><gsml:img
-                                            src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
+                                            src="/res/img/school/ratings/${ratingValue}.gif"
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/>
                                    </span>
