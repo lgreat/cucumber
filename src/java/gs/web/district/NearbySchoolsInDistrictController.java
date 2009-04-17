@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.5 2009/04/16 20:16:17 npatury Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.6 2009/04/17 22:58:38 droy Exp $
  */
 
 package gs.web.district;
@@ -38,6 +38,8 @@ import java.util.Map;
 public class NearbySchoolsInDistrictController extends AbstractController {
     private static final Logger _log = Logger.getLogger(NearbySchoolsInDistrictController.class);
 
+    public static final int MAX_SCHOOLS_IN_MAP = 100;
+
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_ACRONYM_OR_NAME = "acronymOrName";
@@ -68,7 +70,7 @@ public class NearbySchoolsInDistrictController extends AbstractController {
 
         String acronymOrName = request.getParameter(PARAM_ACRONYM_OR_NAME);
                 
-        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, 200);
+        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
 
         int num_elementary_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.ELEMENTARY, districtIdParam);
