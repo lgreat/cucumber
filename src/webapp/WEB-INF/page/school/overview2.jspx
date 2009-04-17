@@ -55,11 +55,6 @@
     <title>${gsweb:schoolPageTitle(school)}</title>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 
-    <!-- ratings summary on public and charter schools only -->
-    <c:if test="${school.levelCode ne 'p'}">
-        <pageHelper:externalCss file="/res/css/school/overview_b_7970.css"/>    
-    </c:if>
-
     <style type="text/css">
         #stateSelector2 {
             color:#666666;
@@ -109,23 +104,15 @@
         </div>
     </div><!-- end: col_left" -->
 
-    <!-- begin center column -->
-     <!-- ratings summary on public and charter schools only -->
-    <c:if test="${school.levelCode ne 'p'}">
-        <school:overviewSummary school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
-    </c:if>
+    <school:overviewSummary school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
 
+    <!-- begin center column -->
     <div id="col_center">
-            <!-- ratings summary on public and charter schools only -->
-            <c:if test="${school.levelCode eq 'p'}">
-                <school:ratings school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
-            </c:if>
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left;" >
                     <school:compareSchool school="${school}"/>
                 </div>
             </c:if>
-
 
             <jsp:include page="/community/communityQuestionPromo.module">
                 <jsp:param name="code" value="school/overview.page"/>
@@ -389,42 +376,17 @@
         <div id="col_right" class="noprint">
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
             <div class="ad_top">
-                <c:choose>
-                    <!-- ratings summary on public and charter schools only -->
-                    <c:when test="${school.levelCode ne 'p'}">
-                        <c:set var="position300x250" value="AboveFold_300x250" />
-                        <ad:AboveFold_300x250/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:choose>
-                            <c:when test="${showSchoolChooserPackPromo}">
-                                <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
-                            </c:when>
-                            <c:otherwise>
-                                <ad:Top_300x137/>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:otherwise>
-                </c:choose>
-
+                <c:set var="position300x250" value="AboveFold_300x250" />
+                <ad:AboveFold_300x250/>
             </div>
             <!---->
             <div class="ad_middle">
                 <c:choose>
-                    <!-- ratings summary on public and charter schools only -->
-                    <c:when test="${school.levelCode ne 'p'}">
-                        <c:choose>
-                            <c:when test="${showSchoolChooserPackPromo}">
-                                <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
-                            </c:when>
-                            <c:otherwise>
-                                <ad:Top_300x137/>
-                            </c:otherwise>
-                        </c:choose>
+                    <c:when test="${showSchoolChooserPackPromo}">
+                        <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
                     </c:when>
                     <c:otherwise>
-                        <c:set var="position300x250" value="AboveFold_300x250" />
-                        <ad:AboveFold_300x250 position="${position300x250}"/>
+                        <ad:Top_300x137/>
                     </c:otherwise>
                 </c:choose>
             </div>

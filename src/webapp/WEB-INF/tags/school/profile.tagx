@@ -38,10 +38,10 @@
 <jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object"
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
-<!-- ratings summary not shown for other schools -->
-<c:if test="${school.levelCode ne 'p'}">
-    <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
-</c:if>
+
+
+<pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
+
 
 
 <jsp:scriptlet><![CDATA[
@@ -149,16 +149,12 @@
 <![CDATA[
 <!--[if IE 7]>
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7.css" />
-<![endif]-->
-]]>
-<!-- ratings summary not shown for other schools:  this needs be renamed -->
-<c:if test="${school.levelCode ne 'p'}">
-    <![CDATA[
-<!--[if IE 7]>
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7_b_7970.css" />
 <![endif]-->
 ]]>
-</c:if>
+
+
+
 <c:if test="${!requestScope.context.crawler}">
     <script type="text/javascript" language="javascript">
         <![CDATA[
@@ -255,25 +251,23 @@
                             alt="Compare this school"/></link:schoolCompareSchool>
                     <link:schoolCompareSchool school="${school}" from="header"
                                               styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
-                </c:if>
-
-                <!-- ratings summary on public and charter schools only -->
-                <c:if test="${school.levelCode ne 'p'}">
-                    <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
-                    <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
-                              alt="Print this page"
-                              onclick="javascript:window.print();"/>
-                    <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
 
                     <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
-                    <gsml:url var="mailToFriendUrl"
-                              value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
-                    <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
-                              alt="Email this page to a friend"
-                              onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"/>
-                    <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
-                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
                 </c:if>
+                
+                <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
+                          alt="Print this page"
+                          onclick="javascript:window.print();"/>
+                <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
+
+                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                <gsml:url var="mailToFriendUrl"
+                          value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+                <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
+                          alt="Email this page to a friend"
+                          onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"/>
+                <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
             </div>
 
         </div>
@@ -467,7 +461,7 @@
 <c:set var="subNavClass" value=""/>
 
 <!-- ratings summary on public and charter schools only -->
-<c:if test="${school.levelCode ne 'p'}">
+<c:if test="${true}">
     <c:set var="subNavClass" value="hidden"/>
 </c:if>
 
