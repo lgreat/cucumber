@@ -55,8 +55,6 @@ public class DirectoryStructureUrlFields {
             return;
         }
 
-        System.out.println("===*** requestURI: " + requestUri);
-
         // state: always take from session context
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
@@ -79,15 +77,11 @@ public class DirectoryStructureUrlFields {
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
-            System.out.println("===*** pathComponents[3]: " + pathComponents[3]);
             if (schoolTypeMatcher.find()) {
-                System.out.println("===*** 1");
                 populateSchoolTypesFromLabel(pathComponents[3]);
             } else if (levelCodeMatcher.find()) {
-                System.out.println("===*** 2");
                 populateLevelCodeFromLabel(pathComponents[3]);
             } else {
-                System.out.println("===*** 3");
                 try {
                     _districtName = URLDecoder.decode(pathComponents[3], "UTF-8");
                 } catch (UnsupportedEncodingException uee) {
