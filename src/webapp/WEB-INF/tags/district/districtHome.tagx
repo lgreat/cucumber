@@ -35,10 +35,10 @@
         </c:if>
         
         <div id="intro">
-            <div  class="headerTab"><h2>${district.name}</h2>
-            </div>
-                <c:if test="${model.isDistrictBoilerplatePresent eq true}">
-                  <div class="headerTab" id="districtTabs">
+                <c:choose>
+                    <c:when test="${model.isDistrictBoilerplatePresent eq true}">
+                        <div  class="headerTab"><h2>${district.name}</h2></div>
+                        <div class="headerTab" id="districtTabs">
                         <table cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><img id="districtTabLeft" alt="district left img" src="/res/img/district/tabs_Right_on_01.gif"/></td>
@@ -50,7 +50,12 @@
                             </tr>
                         </table>
                     </div>
-                 </c:if>
+
+                    </c:when>
+                    <c:otherwise>
+                        <div  class="headerNoTab"><h2>${district.name}</h2></div>
+                    </c:otherwise>
+                </c:choose>
 
             <div class="introText">
 
@@ -79,12 +84,12 @@
                         <c:choose>
                             <c:when test="${not empty model.choicelink}">
                                 <li class="borderedLink">
-                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
+                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundaries</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundries</a>
+                                    <a href="${model.locatorlink}" target="_blank">View ${model.acronymOrName} boundaries</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>

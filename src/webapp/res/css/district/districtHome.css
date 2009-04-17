@@ -65,7 +65,7 @@ h3{
 }
 
 #districtTabs .backgroundOn a{
-    color:black;
+    color:#666666;
     padding-left:6px;
     padding-right:6px;
 }
@@ -94,6 +94,12 @@ h3{
     padding-left:12px;
     padding-top:5px;
 }
+
+#intro div.headerNoTab{
+    padding-bottom:8px;
+    background-color:#8ACACA;
+}
+
 
 ul.horizontalList{
     margin-top:10px;
@@ -222,6 +228,7 @@ div.recentParentReviews table tr td {
 .recentParentReviews h4 {
     padding-top: 5px;
     font-size: small;
+    font-weight:bold;
 }
 
 .recentParentReviews p {
