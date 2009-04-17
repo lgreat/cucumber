@@ -12,7 +12,15 @@
     <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
 
     <div id="nearbySchoolsInDistrict">
-        <div id="mapHeader"><h3>Browse ${acronymOrName} Schools</h3></div>
+        <jsp:scriptlet>
+            String acronymOrName = request.getParameter("acronymOrName");
+            if (acronymOrName.toLowerCase().endsWith("schools")) {
+                request.setAttribute("mapHeaderName", acronymOrName);
+            } else {
+                request.setAttribute("mapHeaderName", acronymOrName + " Schools");
+            }
+        </jsp:scriptlet>
+        <div id="mapHeader"><h3>Browse ${mapHeaderName}</h3></div>
         <div id="map">&#160;
             <noscript>JavaScript is required in order to view a map of the schools.
             </noscript>
