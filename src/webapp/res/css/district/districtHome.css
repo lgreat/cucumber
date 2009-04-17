@@ -286,11 +286,13 @@ div#mapFooter input {
 div#mapFooter div#mapFooterKey {
     float: left;
     margin-right: 10px;
+    font-size:13px;
 }
 
 div#schoolBrowseLinks {
     margin-top: 5px;
     margin-bottom: 5px;
+    font-size:13px;
 }
 
 div.schoolInfo address, div.schoolInfo p.schoolPhone {
