@@ -346,6 +346,14 @@ form#compareSchoolsForm label {
     margin-right: 15px;
 }
 
+* + html form#compareSchoolsForm label{
+    top: -6px;
+}
+
+* html form#compareSchoolsForm label{
+    top: -5px;
+}
+
 form#compareSchoolsForm input#compareSchoolsFormSubmit {
     position: relative;
     top: 7px;
