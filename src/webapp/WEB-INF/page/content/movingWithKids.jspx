@@ -48,9 +48,9 @@
     <div>
         <h3 id="learn">Learn the ABCs of Moving</h3>
         <ul class="plain">
+            <gsweb:articlelink articleId="455" wrappingElement="li">Tips to Help Your Child With the Transition</gsweb:articlelink>
             <gsweb:articlelink articleId="826" wrappingElement="li"/>
-            <li><a href="http://moving.about.com/od/movingwithchildre1/a/help_kids_move.htm" target="_blank">Preparing Kids to Move</a></li>
-            <li><a href="http://moving.about.com/od/movingwithchildren/a/children_books.htm" target="_blank">Books to Help Kids Move </a></li>
+            <gsweb:articlelink articleId="3757" wrappingElement="li">Books to Help Kids Move</gsweb:articlelink>
         </ul>
     </div>
 
@@ -73,10 +73,9 @@
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="ease">Ease the Transition</h3>
         <ul class="plain">
-            <gsweb:articlelink articleId="455" wrappingElement="li"/>
             <gsweb:articlelink articleId="60" wrappingElement="li"/>
+            <gsweb:articlelink articleId="331" wrappingElement="li"/>
             <gsweb:articlelink articleId="325" wrappingElement="li"/>
-            <li><a href="http://moving.move.com/Move/SettlingIn/Community/SettleIn.asp?poe=homestore" target="_blank">Settle in to Your New Community</a></li>
         </ul>
     </div>
 
