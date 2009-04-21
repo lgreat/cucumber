@@ -96,10 +96,10 @@
     <c:choose>
         <c:when test="${empty school}">
             <district:districtHome district="${district}" model="${model}"/>
-            <div id="footer">
+            <div id="districtHomeFooter">
             <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${district.physicalAddress.city}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
             </div>
-        </c:when>
+          </c:when>
         <c:otherwise>
             <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
             <school:profile school="${school}" tab="district_overview">

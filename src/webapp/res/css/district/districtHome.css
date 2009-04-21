@@ -482,7 +482,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     margin-top:10px;
 }
 
-#nearbyDistricts div#nameAndRating{
+#nearbyDistricts div.nameAndRating{
     width:268px;
 }
 #nearbyDistrictsHeader{
@@ -491,12 +491,10 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 /* END nearby districts module*/
 
-div#footer{
+div#districtHomeFooter{
+padding-top:20px;
 margin-top:20px;
+clear:both;
 }
 
-#contentGS  div#footer div.editorialMoving a img, div#footer div.editorialChoosing a img{
-float:left;
-margin-right:10px;
-}
 

@@ -12,7 +12,7 @@
     <div class="outer">
     <div class="inner">
         <div id="nearbyDistrictsHeader">
-                            <span class="leftHeader"><h3>Nearby Districts</h3></span>
+                            <h3 class="leftHeader">Nearby Districts</h3>
                             <span class="rightHeader">GreatSchools<br/>Rating</span>
                         </div>
          <c:forEach items="${nearbyDistricts}" var="nd" varStatus="loopStatus">
@@ -20,7 +20,7 @@
              <c:if test="${nd.rating > 0}">
                 <c:set var="ratingValue" value="${nd.rating}"/>
              </c:if>
-             <div id="nameAndRating">
+             <div class="nameAndRating">
                  <span class="rating"><gsml:img src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/></span>
