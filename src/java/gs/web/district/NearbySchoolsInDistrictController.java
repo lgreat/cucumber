@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.7 2009/04/21 18:45:35 droy Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.8 2009/04/21 19:01:10 droy Exp $
  */
 
 package gs.web.district;
@@ -25,15 +25,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generates a model to show recent parent reviews in a geographical region.
- * Inputs:
- * <li>state - required
- * <li>city - optional
- * <li>max - optional limit on the number of reviews to show. Default is 3.
- * Output model:
- * <li>reviews - a List of IParentReviewModel objects
+ * Renders a map with schools in the  district.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * district_id - required - District to show schools in
+ * state - required - State the district id is in
+ * acronymOrName - required - Either the name of the district or the acronym for it (the acronym isn't stored in
+ *                            the db, so it must be passed)
+ * show_e, show_m, show_h - optional - If one or more of these arguments are passed and are set to "1" those level
+ *                                     filter checkboxes will be selected.  If none are passed, then all level filters
+ *                                     will be selected by default.
+ *
+ * @author <a href="mailto:droy@greatschools.net">Dave Roy</a>
  */
 public class NearbySchoolsInDistrictController extends AbstractController {
     private static final Logger _log = Logger.getLogger(NearbySchoolsInDistrictController.class);
