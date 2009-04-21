@@ -45,8 +45,8 @@
                             onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass} schoolProfileParentReview" styleId="Ratings_Module"
                             >
-                        <gsml:img src="/res/img/school/overview/7970_b/rating_BeTheFirst.gif"
-                                  alt="Be the first to rate this school!"
+                        <gsml:img src="/res/img/school/overview/7970_b/rate_this_school.gif"
+                                  alt="Rate this school!"
                                   styleClass="title"/>
                         <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="starRating"/>
                         <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It"

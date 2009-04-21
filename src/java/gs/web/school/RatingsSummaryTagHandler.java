@@ -28,17 +28,32 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         writeParagraph(builder.buildFirstSentence(command) + "  " + builder.buildSecondSentence(command));
 
-        String p = builder.buildThirdSentence(command);
-        if (!command.hasParentReviews){
-            p += "  " + getReviewSchoolLink();
+        String p = "";
+        if (builder.getClass().isAssignableFrom(PreschoolMessageBuilder.class)){
+            boolean schoolNameLT_M = command.schoolName.toUpperCase().charAt(0) < 'M';
+
+            if (command.numberOfParentReviews <= 2 && schoolNameLT_M) {
+                p =  builder.buildThirdSentence(command) + "  " + getReviewSchoolLink(builder.buildParentRatingMessage(command));
+            } else if (command.numberOfParentReviews <= 2) {
+                p = getReviewSchoolLink(builder.buildParentRatingMessage(command)) + "  " + builder.buildThirdSentence(command);
+            } else {
+                p =  builder.buildThirdSentence(command);
+            }
+
+        }else{
+            p = builder.buildThirdSentence(command);
+            if (!command.hasParentReviews){
+                p += "  " + getReviewSchoolLink("Share your review!");
+            }
         }
+
 
         writeParagraph(p, "last");
 
         writeClosingDiv();
     }
 
-    public String getReviewSchoolLink(){
+    public String getReviewSchoolLink(String s){
         UrlBuilder b = new UrlBuilder(_school, UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
         PageContext pageContext = (PageContext)getJspContext();
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
@@ -50,11 +65,13 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         sb.append("\" class=\"submodal-344-362 addParentReviewLink\"");
         sb.append(" onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false; \"");
         sb.append(">") ;
-        sb.append("Share your review!");
+        sb.append(s);
         sb.append("</a>");
 
         return sb.toString();
     }
+
+
 
     public void writeOpeningDiv() throws JspException, IOException {
         final String OPEN_DIV = "<div id=\"rating_summary\">";

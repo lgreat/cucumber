@@ -52,10 +52,10 @@ div.rating_parent .rated .viewAll{
 
 /* not parent rated */
 div.rating_parent .notRated .title {
-    width: 105px;
-    height: 27px;
-    margin-left: 22px;
-    padding-top: 30px;
+    width: 115px;
+    height: 12px;
+    margin-left: 16px;
+    padding-top: 34px;
 }
 
 
