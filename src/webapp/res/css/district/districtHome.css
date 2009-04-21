@@ -26,12 +26,12 @@ body{
     margin-top: 10px;
 }
 
-#contentGS h3{
-    margin-top:8px;
-    margin-bottom:6px;
-    color:#D66671;
-    font-size:18px;
-}
+/*#contentGS h3{*/
+    /*margin-top:8px;*/
+    /*margin-bottom:6px;*/
+    /*color:#D66671;*/
+    /*font-size:18px;*/
+/*}*/
 
 /* BEGIN boilerplate module*/
 
@@ -111,7 +111,7 @@ ul.horizontalList li{
 }
 
 div.introText ul.horizontalList li.borderedLink{
-    border-left: 1px solid #DDDDDD;
+    border-left: 1px solid #666666;
     padding: 0 0 0 10px;
     margin: 0 0px 0 10px;
 }
@@ -257,7 +257,7 @@ div#mapHeader {
     height: 25px;
 }
 
-div#mapHeader h3 {
+#contentGS div#mapHeader h3{
     color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
@@ -323,7 +323,7 @@ div#compareSchoolsHeader {
         height: 25px;
 }
 
-div#compareSchoolsHeader h3 {
+#contentGS div#compareSchoolsHeader h3 {
     color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
@@ -401,15 +401,13 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     margin-bottom: 3px;
     width:268px;
 }
-#citySnapshotHeader{
-    height:85px;
-}
 
 #citySnapshotHeader h4{
     color:#999999;
     font-size:14px;
     font-weight:bold;
 }
+
 
 .leftHeader{
     float:left;
@@ -443,6 +441,13 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     float:right;
 }
 
+#contentRight h3{
+    margin-top:8px;
+    margin-bottom:6px;
+    color:#D66671;
+    font-size:18px;
+}
+
 #citySnapShot {
     background-image:url(/res/img/district/district_page_rightbox_bottom.gif);
     background-position:left bottom;
@@ -467,7 +472,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     background-image:url(/res/img/district/district_page_rightbox_sides.gif);
     background-position:left top;
     background-repeat:repeat-y;
-    padding:6px 0px 6px 16px;
+    padding:2px 0px 6px 16px;
 }
 
 /* END top rated schools */
