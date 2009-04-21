@@ -40,9 +40,20 @@ Schools without lat/lon are skipped.
         request.setAttribute("locationPoint", new LatLon(locationMarkerLat, locationMarkerLon));
     }
 
-    if (lat != null && lon != null && (lat + lon != 0)) {
-        request.setAttribute("center", new LatLon(lat, lon));
-    } else {
+    boolean validLatLon = (lat != null && lon != null && (lat + lon != 0));
+    if (validLatLon) {
+        try {
+            request.setAttribute("center", new LatLon(lat, lon));
+        } catch (IllegalArgumentException iae) {
+            // LatLon is picky about only accepting coords in the US, so we must have some bad coords.  Get rid of them
+            // and compute the center a different way.
+            lat = null;
+            lon = null;
+            validLatLon = false;
+        }
+    }
+    
+    if (!validLatLon){
         // Calculate the optimal center point
         if (schools != null) {
             LatLonRect r = new LatLonRect(schools);
