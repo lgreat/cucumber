@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.6 2009/04/17 22:58:38 droy Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.7 2009/04/21 18:45:35 droy Exp $
  */
 
 package gs.web.district;
@@ -38,7 +38,7 @@ import java.util.Map;
 public class NearbySchoolsInDistrictController extends AbstractController {
     private static final Logger _log = Logger.getLogger(NearbySchoolsInDistrictController.class);
 
-    public static final int MAX_SCHOOLS_IN_MAP = 100;
+    public static final int MAX_SCHOOLS_IN_MAP = 125;
 
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_STATE = "state";
