@@ -19,6 +19,11 @@
           autowire="byName">
     </bean>
 
+    <bean name="/district/nearbyDistricts.module"
+          class="gs.web.district.NearbyDistrictController"
+          autowire="byName">
+    </bean>
+
     <bean name="/district/nearbySchoolsInDistrict.module"
           class="gs.web.district.NearbySchoolsInDistrictController"
           autowire="byName">

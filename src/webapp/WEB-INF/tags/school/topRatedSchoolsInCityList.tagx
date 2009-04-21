@@ -13,7 +13,7 @@
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
     <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 
-     <div class="topRatedSchools" border="2">
+     <div class="topRatedSchools">
                         <div id="citySnapshotHeader">
                             <h3>City Snapshot</h3>
                             <h4>Top-Rated ${city.name} Schools</h4>
@@ -37,18 +37,18 @@
                                     <c:if test="${s.rating > 0}">
                                         <c:set var="ratingValue" value="${s.rating}"/>
                                     </c:if>
-                                   <span class="schoolRating"><gsml:img
+                                   <span class="rating"><gsml:img
                                             src="/res/img/school/ratings/${ratingValue}.gif"
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/>
                                    </span>
-                                   <span  class="schoolName"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
+                                   <span  class="name"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
                                    </span>
 
 
                             </div>
                         </c:forEach>
-                    <div style="text-align: right;"> <link:city
+                    <div style="text-align: right; margin-right:15px;"> <link:city
                     city="${city.name}"
                     state="${city.state}" styleClass="minilink">View city information &gt;</link:city></div>
          </div>

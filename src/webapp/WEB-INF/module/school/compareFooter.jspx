@@ -116,7 +116,7 @@
     </div>
 
      <c:if test="${param.putMoving ne null and param.putMoving eq true}">
-             <div class="editorialChoosing">
+             <div class="editorialMoving">
                  <link:movingWithKids>
                     <gsml:img src="/res/img/moving_image.jpg"
                               alt="Moving? View our tips to help your child with the transition"/>

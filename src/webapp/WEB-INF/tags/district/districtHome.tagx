@@ -212,6 +212,7 @@
             </div>
         </div>
         </c:if>
+        <jsp:include page="/district/nearbyDistricts.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;limit=5"/>
     </div>
 
 </jsp:root>

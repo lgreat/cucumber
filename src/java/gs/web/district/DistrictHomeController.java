@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.district.NearbyDistrict;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
@@ -160,12 +161,14 @@ public class DistrictHomeController extends AbstractController  implements IDire
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
         if(rows!= null &&rows.size() > 0){
             for(ITableRow row :rows){
-                if(row.get("state").equals(state)){
+                if(row.get("state") != null && (state).equals(row.get("state"))){
                     for (Object columnName : row.getColumnNames()) {
                         model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName));
                     }
-                    model.put("boilerplate",model.get("boilerplate").toString().replaceAll("\n","<br/>"));
-                    _isDistrictBoilerplatePresent = true;
+                    if(model.get("boilerplate") != null){
+                        model.put("boilerplate",model.get("boilerplate").toString().replaceAll("\n","<br/>"));
+                        _isDistrictBoilerplatePresent = true;
+                    }
                 }
             }
         }else{
@@ -195,6 +198,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
             model.put("stateBoilerplateHeading","");
         }
     }
+
 
     protected void loadDistrictEnrollment(District district,Map<String, Object> model){
 
