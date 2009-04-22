@@ -33,59 +33,49 @@
 
     <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
 
-
     <![CDATA[
     <script type="text/javascript">
     //<!--
         function selectBox(boxId) {
-        var x;
+            var distTab = document.getElementById('districtTab');
+            var stTab = document.getElementById('stateTab');
+            var distTabLeft = document.getElementById('districtTabLeft');
+            var distTabRight = document.getElementById('districtTabRight');
+            var stTabLeft = document.getElementById('stateTabLeft');
+            var stTabRight = document.getElementById('stateTabRight');
+            var distHeading = document.getElementById('districtHeading');
+            var stHeading = document.getElementById('stateHeading');
+            var distBoilerplate = document.getElementById('districtBox');
+            var stateBoilerplate = document.getElementById('stateBox');
 
-        var boilerPlateTabs = document.getElementsByClassName('boilerPlate');
-        for (x=0; x < boilerPlateTabs.length; x++) {
-            if (boilerPlateTabs[x].id == boxId) {
-                boilerPlateTabs[x].style.display='block';
-            } else {
-                boilerPlateTabs[x].style.display='none';
+            //switch the images for the tabs and show the corresponding state or the district heading.
+            if(boxId == 'districtBox'){
+                stateBoilerplate.style.display = 'none';
+                distBoilerplate.style.display = '';
+                distTab.className = 'backgroundOn';
+                stTab.className = 'backgroundOff';
+                distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+                distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+                stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+                stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+                stHeading.style.display = 'none';
+                distHeading.style.display = '';
+            } else if (boxId == 'stateBox'){
+                distBoilerplate.style.display = 'none';
+                stateBoilerplate.style.display = '';
+                distTab.className = 'backgroundOff';
+                stTab.className = 'backgroundOn';
+                stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
+                stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
+                distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
+                distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
+                distHeading.style.display = 'none';
+                stHeading.style.display = '';
             }
         }
-
-        var distTab = document.getElementById('districtTab');
-        var stTab = document.getElementById('stateTab');
-        var distTabLeft = document.getElementById('districtTabLeft');
-        var distTabRight = document.getElementById('districtTabRight');
-        var stTabLeft = document.getElementById('stateTabLeft');
-        var stTabRight = document.getElementById('stateTabRight');
-        var distHeading = document.getElementById('districtHeading');
-        var stHeading = document.getElementById('stateHeading'); 
-
-        //switch the images for the tabs and show the corresponding state or the district heading.
-        if(boxId == 'districtBox'){
-            distTab.className = 'backgroundOn';
-            stTab.className = 'backgroundOff';
-            distTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
-            distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
-            stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
-            stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            distHeading.style.display='block';
-            stHeading.style.display='none';
-        }
-
-         if(boxId == 'stateBox'){
-            distTab.className = 'backgroundOff';
-            stTab.className = 'backgroundOn';
-            stTabLeft.src = '/res/img/district/tabs_Right_on_01.gif';
-            stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
-            distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
-            distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            distHeading.style.display='none';
-            stHeading.style.display='block';
-
-        }
-    }
-
     //-->
     </script>
-    ]]>    
+    ]]>
 
 </head>
 
