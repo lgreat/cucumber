@@ -7,7 +7,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
-   <c:if test="${not empty nearbyDistricts}">
+    <c:if test="${not empty nearbyDistricts}">
     <div id="nearbyDistricts">
     <div class="outer">
     <div class="inner">
@@ -29,7 +29,17 @@
                                 <c:out value="${nd.neighborDistrict.name}" escapeXml="true"/>
                             </link:districtHome></span>
              </div>
-             <div class="${(loopStatus.last)?'':'dottedLineBottomBox'}">${nd.neighborDistrict.physicalAddress.city}, ${nd.neighborDistrict.physicalAddress.state} | ${nd.distance} miles | ${nd.neighborDistrict.numberOfSchools} schools
+             <c:set var="roundedDistance">
+                <fmt:formatNumber maxFractionDigits='0' minFractionDigits='0' value='${nd.distance}'/>
+             </c:set>
+             <c:if test="${roundedDistance lt 1}">
+                 <c:set var="roundedDistance">
+                    <fmt:formatNumber maxFractionDigits='1' minFractionDigits='1' value='${nd.distance}'/>
+                 </c:set>
+             </c:if>
+
+             <div class="${(loopStatus.last)?'':'dottedLineBottomBox'}">${nd.neighborDistrict.physicalAddress.city}, ${nd.neighborDistrict.physicalAddress.state} |
+                 ${roundedDistance eq 0.0 ? 0.1: roundedDistance} miles | ${nd.neighborDistrict.numberOfSchools} schools
              </div>
         </c:forEach>
       </div>
