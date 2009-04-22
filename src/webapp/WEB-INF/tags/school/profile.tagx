@@ -225,19 +225,19 @@
                             <c:when test="${school.levelCode == 'p'}">
                                 <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
                                                       styleClass="emailImg toolsImg"><gsml:img
-                                        src="/res/img/school/tools_th_email.gif"
-                                        alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                                        src="/res/img/school/overview/7970_b/update_email.gif"
+                                        alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
                                 <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
-                                                      styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                                                      styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
                             </c:when>
                             
                             <c:otherwise>
                                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
                                                       styleClass="emailImg toolsImg"><gsml:img
-                                        src="/res/img/school/tools_th_email.gif"
-                                        alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                                        src="/res/img/school/overview/7970_b/update_email.gif"
+                                        alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
                                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                      styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                                                      styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
                             </c:otherwise>
                         </c:choose>
                     </c:otherwise>
