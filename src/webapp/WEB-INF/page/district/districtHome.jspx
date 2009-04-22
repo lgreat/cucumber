@@ -31,7 +31,6 @@
     <meta name="description"
           content="Information to help parents choose the right public school for their children in the ${district.name}."/>
 
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
 
 
@@ -40,24 +39,24 @@
     //<!--
         function selectBox(boxId) {
         var x;
-        // hide all boxes, show current box
-        var boxArr = $$('#intro .boilerPlate');
-        for (x=0; x < boxArr.length; x++) {
-            if (boxArr[x].id == boxId) {
-                boxArr[x].show();
+
+        var boik = document.getElementsByClassName('boilerPlate');
+        for (x=0; x < boik.length; x++) {
+            if (boik[x].id == boxId) {
+                boik[x].style.display='block';
             } else {
-                boxArr[x].hide();
+                boik[x].style.display='none';
             }
         }
 
-        var distTab = $('districtTab');
-        var stTab = $('stateTab');
-        var distTabLeft = $('districtTabLeft');
-        var distTabRight = $('districtTabRight');
-        var stTabLeft = $('stateTabLeft');
-        var stTabRight = $('stateTabRight');
-        var distHeading = $('districtHeading');
-        var stHeading = $('stateHeading');
+        var distTab = document.getElementById('districtTab');
+        var stTab = document.getElementById('stateTab');
+        var distTabLeft = document.getElementById('districtTabLeft');
+        var distTabRight = document.getElementById('districtTabRight');
+        var stTabLeft = document.getElementById('stateTabLeft');
+        var stTabRight = document.getElementById('stateTabRight');
+        var distHeading = document.getElementById('districtHeading');
+        var stHeading = document.getElementById('stateHeading'); 
 
         //switch the images for the tabs and show the corresponding state or the district heading.
         if(boxId == 'districtBox'){
@@ -67,8 +66,8 @@
             distTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
             stTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             stTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            distHeading.show();
-            stHeading.hide();
+            distHeading.style.display='block';
+            stHeading.style.display='none';
         }
 
          if(boxId == 'stateBox'){
@@ -78,8 +77,8 @@
             stTabRight.src = '/res/img/district/tabs_Right_on_04.gif';
             distTabLeft.src = '/res/img/district/tabs_Right_off_01.gif';
             distTabRight.src = '/res/img/district/tabs_Right_off_04.gif';
-            distHeading.hide();
-            stHeading.show();
+            distHeading.style.display='none';
+            stHeading.style.display='block';
 
         }
     }
