@@ -436,6 +436,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 #contentRight .name{
     font-size:13px;
     font-weight:bold;
+    margin-right:5px;
 }
 
 #contentRight .rating{
