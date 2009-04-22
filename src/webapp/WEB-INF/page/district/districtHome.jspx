@@ -40,12 +40,12 @@
         function selectBox(boxId) {
         var x;
 
-        var boik = document.getElementsByClassName('boilerPlate');
-        for (x=0; x < boik.length; x++) {
-            if (boik[x].id == boxId) {
-                boik[x].style.display='block';
+        var boilerPlateTabs = document.getElementsByClassName('boilerPlate');
+        for (x=0; x < boilerPlateTabs.length; x++) {
+            if (boilerPlateTabs[x].id == boxId) {
+                boilerPlateTabs[x].style.display='block';
             } else {
-                boik[x].style.display='none';
+                boilerPlateTabs[x].style.display='none';
             }
         }
 
