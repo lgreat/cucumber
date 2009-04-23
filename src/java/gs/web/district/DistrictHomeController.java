@@ -78,10 +78,26 @@ public class DistrictHomeController extends AbstractController  implements IDire
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
         if (fields != null) {
             String cityName = fields.getCityName();
-            city = _geoDao.findCity(state, cityName);
-            if (city != null) {
-                String districtName = fields.getDistrictName();
-                district = _districtDao.findDistrictByNameAndCity(state, districtName, cityName);
+            String districtName = fields.getDistrictName();
+            district = _districtDao.findDistrictByNameAndCity(state, districtName, cityName);
+            if (district != null) {
+                // Try to find the city in the state from the URL first
+                city = _geoDao.findCity(state, cityName);
+                if (city == null) {
+                    // If that doesn't work try to find the city in the district's phyiscal address state
+                    // There are some districts that are physically in CA but are part of the AZ school system, for
+                    // example.
+                    city = _geoDao.findCity(district.getPhysicalAddress().getState(), cityName);
+                }
+            } else {
+                List<City> cities = _geoDao.findAllCitiesWithName(cityName);
+                for (City cityIter : cities) {
+                    district = _districtDao.findDistrictByNameAndCity(cityIter.getState(), districtName, cityName);
+                    if (district != null) {
+                        city = cityIter;
+                        break;
+                    }
+                }
             }
         } else {
             String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
@@ -101,14 +117,24 @@ public class DistrictHomeController extends AbstractController  implements IDire
         }
         
         if (district == null) {
-            BadRequestLogger.logBadRequest(_log, request, "District not found in state/city in district home request.");
+            String stateStr    = (state == null)    ? "null" : state.toString();
+            String cityStr     = (city == null)     ? "null" : city.getName();
+            String districtStr = (district == null) ? "null" : district.getName();
+
+            String error = "District not found where state = '" + stateStr + "', city = '" + cityStr + "', district = '" + districtStr + "'";
+            BadRequestLogger.logBadRequest(_log, request, error);
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "District not found");
             return new ModelAndView("status/error", model);
         }
 
         if (city == null) {
-            BadRequestLogger.logBadRequest(_log, request, "City not found in state in district home request.");
+            String stateStr    = (state == null)    ? "null" : state.toString();
+            String cityStr     = (city == null)     ? "null" : city.getName();
+            String districtStr = (district == null) ? "null" : district.getName();
+
+            String error = "District not found where state = '" + stateStr + "', city = '" + cityStr + "', district = '" + districtStr + "'";
+            BadRequestLogger.logBadRequest(_log, request, error);
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "City not found in state");
             return new ModelAndView("status/error", model);
