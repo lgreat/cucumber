@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.8 2009/04/21 19:01:10 droy Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.9 2009/04/23 23:47:14 npatury Exp $
  */
 
 package gs.web.district;
@@ -48,6 +48,9 @@ public class NearbySchoolsInDistrictController extends AbstractController {
     public static final String PARAM_SHOW_E = "show_e";
     public static final String PARAM_SHOW_M = "show_m";
     public static final String PARAM_SHOW_H = "show_h";
+    public static final String PARAM_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
+    public static final String PARAM_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
+    public static final String PARAM_NUM_HIGH_SCHOOLS = "numHighSchools";
     public static final String MODEL_SCHOOL_LIST = "schoolsWithRatings";
     public static final String MODEL_DISTRICT = "district";
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
@@ -74,17 +77,12 @@ public class NearbySchoolsInDistrictController extends AbstractController {
                 
         List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
-
-        int num_elementary_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.ELEMENTARY, districtIdParam);
-        int num_middle_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.MIDDLE, districtIdParam);
-        int num_high_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.HIGH, districtIdParam);
-
         ModelAndView modelAndView = new ModelAndView("/district/nearbySchoolsInDistrict");
         modelAndView.addObject(MODEL_SCHOOL_LIST, schoolsWithRatings);
         modelAndView.addObject(MODEL_DISTRICT, district);
-        modelAndView.addObject(MODEL_NUM_ELEMENTARY_SCHOOLS, num_elementary_schools);
-        modelAndView.addObject(MODEL_NUM_MIDDLE_SCHOOLS, num_middle_schools);
-        modelAndView.addObject(MODEL_NUM_HIGH_SCHOOLS, num_high_schools);
+        modelAndView.addObject(MODEL_NUM_ELEMENTARY_SCHOOLS, request.getParameter(PARAM_NUM_ELEMENTARY_SCHOOLS));
+        modelAndView.addObject(MODEL_NUM_MIDDLE_SCHOOLS, request.getParameter(PARAM_NUM_MIDDLE_SCHOOLS));
+        modelAndView.addObject(MODEL_NUM_HIGH_SCHOOLS, request.getParameter(PARAM_NUM_HIGH_SCHOOLS));
         modelAndView.addObject(MODEL_ACRONYM_OR_NAME, acronymOrName);
 
         setDefaultLevelCodeFilters(request, modelAndView);

@@ -167,19 +167,25 @@
         </div>
         <div id="browseSchools">
             <div>
-                <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}"/>
+                <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}&amp;numElementarySchools=${model.numElementarySchools}&amp;numMiddleSchools=${model.numMiddleSchools}&amp;numHighSchools=${model.numHighSchools}"/>
             </div>
         </div>
         <div id="compareSchools">
             <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${model.acronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
+                    <c:if test="${model.numElementarySchools gt 0}">
                     <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>
                     <label for="rightCompSchoolsE">Elementary schools</label>
+                    </c:if>
+                    <c:if test="${model.numMiddleSchools gt 0}">
                     <gsml:radio styleId="rightCompSchoolsM" checked="${model.compare_m_checked}" value="m" name="level"/>
                     <label for="rightCompSchoolsM">Middle schools</label>
+                    </c:if>
+                    <c:if test="${model.numHighSchools gt 0}">
                     <gsml:radio styleId="rightCompSchoolsH" checked="${model.compare_h_checked}" value="h" name="level"/>
-                    <label for="rightCompSchoolsH">High schools</label>
+                    <label for="rightCompSchoolsH">High schools${numHighSchools}</label>
+                    </c:if>
                     <input type="hidden" value="d" name="area"/>
                     <input type="hidden" value="${district.id}" name="district"/>
                     <input type="hidden" value="name" name="sortby"/>

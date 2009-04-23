@@ -65,6 +65,9 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public static final String STAGING_STATE_BOILERPLATE_TAB = "od8";
     public static final String LIVE_STATE_BOILERPLATE_TAB = "ocy";
     public boolean _isDistrictBoilerplatePresent;
+    public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
+    public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
+    public static final String MODEL_NUM_HIGH_SCHOOLS = "numHighSchools";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -173,6 +176,10 @@ public class DistrictHomeController extends AbstractController  implements IDire
         loadDistrictRating(district, pageModel);
         loadDistrictEnrollment(district, pageModel);
         loadTopRatedSchools(city,pageModel);
+        loadNumberofGradeLevelSchools(state,district.getId().toString(),pageModel);
+        System.out.println("---------------------"+pageModel.get(MODEL_NUM_ELEMENTARY_SCHOOLS));
+        System.out.println("---------------------"+pageModel.get(MODEL_NUM_MIDDLE_SCHOOLS));
+        System.out.println("---------------------"+pageModel.get(MODEL_NUM_HIGH_SCHOOLS));
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
         model.put("model", pageModel);
@@ -243,6 +250,18 @@ public class DistrictHomeController extends AbstractController  implements IDire
         if (districtRating != null) {
             model.put("rating", districtRating.getRating());
         }
+    }
+
+    protected void loadNumberofGradeLevelSchools(State state,String districtId,Map<String, Object> model){
+        int num_elementary_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.ELEMENTARY, districtId);
+        int num_middle_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.MIDDLE, districtId);
+        int num_high_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.HIGH, districtId);
+        System.out.println("---------------"+num_elementary_schools);
+        System.out.println("---------------"+num_middle_schools);
+        System.out.println("---------------"+num_high_schools);
+        model.put(MODEL_NUM_ELEMENTARY_SCHOOLS, num_elementary_schools);
+        model.put(MODEL_NUM_MIDDLE_SCHOOLS, num_middle_schools);
+        model.put(MODEL_NUM_HIGH_SCHOOLS, num_high_schools);
     }
 
     protected void loadTopRatedSchools(City userCity,Map<String, Object> model) {
