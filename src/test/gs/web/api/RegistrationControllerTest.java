@@ -39,6 +39,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         command.setName("tommy");
         command.setOrganization("GreatSchools");
         command.setEmail("tommy@gs.net");
+        command.setIndustry("education");
         _apiAccountDao.save(command);
         replay(_apiAccountDao);
 

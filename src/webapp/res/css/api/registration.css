@@ -1,5 +1,5 @@
 /* api/registration.css */
-div#api_reg {
+div#api_regg {
     float:left;
     margin: 0;
     padding: 0 10px 0 15px;
@@ -20,12 +20,11 @@ div#api_reg span.text, div#api_reg td.label {
 }
 
 div#api_reg form table {
-    text-align: right;
     vertical-align: text-top;
 }
 
 div#api_reg input {
-    width: 330px;
+    width: 220px;
 }
 
 div#api_reg input#save {
@@ -61,12 +60,12 @@ div#api_reg tr.iuse {
 
 div#api_reg td.error {
     text-align:left;
-    font-size:13px;
-    color: red;
+    font-size:11px;
+    color: #d66671;
 }
 
 div#api_reg textarea {
-    width: 470px;
+    width: 350px;
     height: 115px;
 }
 
@@ -122,4 +121,105 @@ div#finder_promo .headline {
 
 div#finder_promo .blurb {
     font-size: 13px;
+}
+
+#intro h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5BC;
+    margin-bottom: 10px;
+}
+
+#content #intro h2 {
+    margin: 0;
+    padding:0;
+}
+
+.greyDotVert {
+	background-image: url(/res/img/api/grey_dot_vert.gif);
+	background-repeat: repeat-y;
+}
+
+#schoolFinderPromo{
+	background-image: url(/res/img/api/mapwidget_map.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 30px;
+
+    width: 247px;
+    height: 152px;
+    padding: 4px 0px;
+}
+
+#schoolFinderPromo h2{
+    color:#55BBCC;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#schoolFinderPromo p {
+    margin-left: 120px;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    color:#666666;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+}
+
+#schoolFinderPromo img {
+    margin-left: 200px;
+}
+
+.box .inner .contentRight {
+	padding: 5px 0px 1px;
+	background-color: #fff;
+    /*position: relative;*/
+}
+
+tr.glanceTitle{
+    font-weight:bold;
+    font-size:12px;
+}
+
+td.getStarted{
+    font-size:12px;
+}
+
+
+.getStarted1{
+    background-image: url(/res/img/api/step1.gif);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    padding-left:20px;
+    height:25px;
+    margin-top:10px;
+}
+
+.getStarted2{
+    background-image: url(/res/img/api/step2.gif);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    padding-left:20px;
+    height:25px;
+}
+
+.getStarted3{
+    background-image: url(/res/img/api/step3.gif);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    padding-left:20px;
+}
+
+table.atAGlance{
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+table.atAGlance td{
+    height:25px;
+}
+
+.note{
+    font-size:11px;
+    font-style:italic;
+    margin-bottom:5px;
 }

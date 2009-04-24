@@ -1962,7 +1962,7 @@
         <property name="bindOnNewForm" value="true" />
         <property name="commandClass" value="gs.data.api.ApiAccount" />
         <property name="formView" value="api/registration" />
-        <property name="successView" value="api/registrationSuccess" />
+        <property name="successView" value="api/docs/main" />
         <property name="validators">
             <list>
                 <ref local="apiAccountValidator"/>

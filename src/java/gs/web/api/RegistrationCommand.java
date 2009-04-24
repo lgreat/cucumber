@@ -10,6 +10,15 @@ public class RegistrationCommand {
     private String _name;
     private String _organization;
     private String _email;
+    private String _industry;
+
+    public String getindustry() {
+        return _industry;
+    }
+
+    public void setindustry(String industry) {
+        _industry = industry;
+    }
 
     public String getName() {
         return _name;

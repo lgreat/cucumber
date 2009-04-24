@@ -144,3 +144,10 @@ div.inner-links {
 #browse-tips .toggle {
      overflow:hidden;
  }
+
+.box .innerRight {
+	padding: 5px 0px 1px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: left top;
+}

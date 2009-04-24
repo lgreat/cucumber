@@ -30,7 +30,9 @@ public class RegistrationController extends SimpleFormController implements Read
         ApiAccount command = (ApiAccount)o;
         _apiAccountDao.save(command);
         sendRequestEmail(command);
-        return new ModelAndView(getSuccessView());
+        ModelAndView successView = new ModelAndView(getSuccessView());
+        successView.getModel().put("registration","success");
+        return successView;
     }
 
     public IApiAccountDao getApiAccountDao() {
@@ -52,6 +54,18 @@ public class RegistrationController extends SimpleFormController implements Read
 
             message.append("\nName: ");
             String value = account.getName() != null ? account.getName() : "";
+            message.append(value);
+
+            message.append("\nWebsite: ");
+            value = account.getWebsite() != null ? account.getWebsite() : "";
+            message.append(value);
+
+            message.append("\nIndustry: ");
+            value = account.getIndustry() != null ? account.getIndustry() : "";
+            message.append(value);
+
+            message.append("\nProduct Offering: ");
+            value = account.getType() != null ? account.getType() : "";
             message.append(value);
 
             message.append("\nEmail: ");

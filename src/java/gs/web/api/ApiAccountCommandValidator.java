@@ -22,10 +22,13 @@ public class ApiAccountCommandValidator implements Validator {
     }
 
     public void validate(Object o, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "field.required", REQUIRED_FIELD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "website", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "intendedUse", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "organization", "field.required", REQUIRED_FIELD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "industry", "field.required", REQUIRED_FIELD);
 
         ApiAccount account = (ApiAccount)o;
         String email = account.getEmail();

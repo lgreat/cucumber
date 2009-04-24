@@ -30,8 +30,9 @@
                         <a href="#grade-tips" id="gradeTips">Getting Started</a>
                         <div class="toggle">
                             <ul>
-                                <li><link:articleCategoryBrowse categoryId="103">Register</link:articleCategoryBrowse></li>
-                                <li class="last"><link:articleCategoryBrowse categoryId="33">Terms of Use</link:articleCategoryBrowse></li>
+                                <li><a href="/api/registration.page">Register</a></li>
+                                <li class="last"><a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                                           onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a></li>
                             </ul>
                         </div>
                     </li>
@@ -39,7 +40,7 @@
                         <a href="#topic-tips" id="topicTips">Documentation</a>
                         <div class="toggle">
                             <ul id="topic-tips">
-                                <li><a href="/school-choice/">Technical Overview</a></li>
+                                <li><a href="/api/docs/main.page">Technical Overview</a></li>
                                 <li><a href="/api/docs/browseSchools.page">Browse Schools</a></li>
                                 <li><a href="/api/docs/nearbySchools.page">Nearby Schools</a></li>
                                 <li><a href="/api/docs/schoolProfile.page">School Profile</a></li>
