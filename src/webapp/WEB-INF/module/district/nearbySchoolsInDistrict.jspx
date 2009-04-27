@@ -16,9 +16,9 @@
             <jsp:scriptlet>
                 String acronymOrName = request.getParameter("acronymOrName");
                 if (acronymOrName.toLowerCase().endsWith("schools")) {
-                    request.setAttribute("mapHeaderName", acronymOrName);
+                    request.setAttribute("mapHeaderName", (acronymOrName.length() > 40 ? "schools in this district":acronymOrName));
                 } else {
-                    request.setAttribute("mapHeaderName", acronymOrName + " Schools");
+                    request.setAttribute("mapHeaderName", ((acronymOrName + " Schools").length() > 40 ? "schools in this district":acronymOrName + " Schools"));
                 }
             </jsp:scriptlet>
 

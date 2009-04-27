@@ -19,6 +19,7 @@
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
     <c:set var="pageName" value="District Home Page"/>
+    <c:set var="districtAcronymOrName" value="${model.acronymOrName}"/>
 
     <div id="main">
         <c:if test="${empty school}">
@@ -170,8 +171,9 @@
                 <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}&amp;numElementarySchools=${model.numElementarySchools}&amp;numMiddleSchools=${model.numMiddleSchools}&amp;numHighSchools=${model.numHighSchools}"/>
             </div>
         </div>
+
         <div id="compareSchools">
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${model.acronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${fn:length(districtAcronymOrName) >40 ? "this district":districtAcronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <c:if test="${model.numElementarySchools gt 0}">
