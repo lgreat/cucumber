@@ -27,12 +27,6 @@ body{
     margin-top: 10px;
 }
 
-/*#contentGS h3{*/
-    /*margin-top:8px;*/
-    /*margin-bottom:6px;*/
-    /*color:#D66671;*/
-    /*font-size:18px;*/
-/*}*/
 
 /* BEGIN boilerplate module*/
 
@@ -321,7 +315,7 @@ div.schoolInfo address, div.schoolInfo p.schoolPhone {
 
 /* BEGIN compare schools */
 div#compareSchoolsHeader {
-        height: 25px;
+    padding-bottom:3px;
 }
 
 #contentGS div#compareSchoolsHeader h3 {
