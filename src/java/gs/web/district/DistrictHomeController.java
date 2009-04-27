@@ -177,9 +177,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         loadDistrictEnrollment(district, pageModel);
         loadTopRatedSchools(city,pageModel);
         loadNumberofGradeLevelSchools(state,district.getId().toString(),pageModel);
-        System.out.println("---------------------"+pageModel.get(MODEL_NUM_ELEMENTARY_SCHOOLS));
-        System.out.println("---------------------"+pageModel.get(MODEL_NUM_MIDDLE_SCHOOLS));
-        System.out.println("---------------------"+pageModel.get(MODEL_NUM_HIGH_SCHOOLS));
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
         model.put("model", pageModel);
