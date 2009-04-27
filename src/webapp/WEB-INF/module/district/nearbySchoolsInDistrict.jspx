@@ -11,97 +11,103 @@
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
 
-    <div id="nearbySchoolsInDistrict">
-        <jsp:scriptlet>
-            String acronymOrName = request.getParameter("acronymOrName");
-            if (acronymOrName.toLowerCase().endsWith("schools")) {
-                request.setAttribute("mapHeaderName", acronymOrName);
-            } else {
-                request.setAttribute("mapHeaderName", acronymOrName + " Schools");
-            }
-        </jsp:scriptlet>
-        <div id="mapHeader"><h3>Browse ${mapHeaderName}</h3></div>
-        <div id="map">&#160;
-            <noscript>JavaScript is required in order to view a map of the schools.
-            </noscript>
-        </div>
-        <div id="mapFooter">
-            <span id="mapFooterKey">Show:</span>
-            <ul>
-                <li>
-                    <gsml:checkbox name="elementary"
-                                   styleId="filter_e"
-                                   checked="${show_e}"
-                                   onclick="toggleFilter('e', this.checked);"/>
-                    <label for="filter_e">Elementary</label>
-                </li>
-                <li>
-                    <gsml:checkbox name="middle"
-                                   styleId="filter_m"
-                                   checked="${show_m}"
-                                   onclick="toggleFilter('m', this.checked);"/>
-                    <label for="filter_m">Middle</label>
-                </li>
-                <li>
-                    <gsml:checkbox name="high"
-                                   styleId="filter_h"
-                                   checked="${show_h}"
-                                   onclick="toggleFilter('h', this.checked);"/>
-                    <label for="filter_h">High</label>
-                </li>
-            </ul>
-        </div>
+    <c:if test="${(numElementarySchools + numMiddleSchools + numHighSchools) gt 0}">
+        <div id="nearbySchoolsInDistrict">
+            <jsp:scriptlet>
+                String acronymOrName = request.getParameter("acronymOrName");
+                if (acronymOrName.toLowerCase().endsWith("schools")) {
+                    request.setAttribute("mapHeaderName", acronymOrName);
+                } else {
+                    request.setAttribute("mapHeaderName", acronymOrName + " Schools");
+                }
+            </jsp:scriptlet>
 
-        <div id="schoolBrowseLinks">
-            <c:if test="${numElementarySchools gt 0}">
-                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
-                    ${district.name} Elementary Schools</link:allSchoolsInDistrict> (${numElementarySchools})
+            <div id="mapHeader"><h3>Browse ${mapHeaderName}</h3></div>
+
+            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                <div id="map">&#160;
+                    <noscript>JavaScript is required in order to view a map of the schools.
+                    </noscript>
                 </div>
+                <div id="mapFooter">
+                    <span id="mapFooterKey">Show:</span>
+                    <ul>
+                        <li>
+                            <gsml:checkbox name="elementary"
+                                           styleId="filter_e"
+                                           checked="${show_e}"
+                                           onclick="toggleFilter('e', this.checked);"/>
+                            <label for="filter_e">Elementary</label>
+                        </li>
+                        <li>
+                            <gsml:checkbox name="middle"
+                                           styleId="filter_m"
+                                           checked="${show_m}"
+                                           onclick="toggleFilter('m', this.checked);"/>
+                            <label for="filter_m">Middle</label>
+                        </li>
+                        <li>
+                            <gsml:checkbox name="high"
+                                           styleId="filter_h"
+                                           checked="${show_h}"
+                                           onclick="toggleFilter('h', this.checked);"/>
+                            <label for="filter_h">High</label>
+                        </li>
+                    </ul>
+                </div>
+                <map:schoolsWithRatings id="map"
+                                        lat="${district.lat}"
+                                        lon="${district.lon}"
+                                        schools="${schoolsWithRatings}"
+                                        zoom="10"
+                        />
+                <script type="text/javascript">
+                <![CDATA[
+                //<!--
+                    function toggleFilter(whichFilter, isChecked) {
+                        var e_button = document.getElementById("filter_e");
+                        var m_button = document.getElementById("filter_m");
+                        var h_button = document.getElementById("filter_h");
+
+                        var filterLevelCode = "";
+                        if (e_button.checked) {
+                            filterLevelCode += "e";
+                        }
+                        if (m_button.checked) {
+                            filterLevelCode += "m";
+                        }
+                        if (h_button.checked) {
+                            filterLevelCode += "h";
+                        }
+
+                        renderSchools(undefined, filterLevelCode);
+                        return true;
+                    }
+                //-->
+                ]]>
+                </script>
             </c:if>
 
-            <c:if test="${numMiddleSchools gt 0}">
-                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
-                    ${district.name} Middle Schools</link:allSchoolsInDistrict> (${numMiddleSchools})
-                </div>
-            </c:if>
+            <div id="schoolBrowseLinks">
+                <c:if test="${numElementarySchools gt 0}">
+                    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
+                        ${district.name} Elementary Schools</link:allSchoolsInDistrict> (${numElementarySchools})
+                    </div>
+                </c:if>
 
-            <c:if test="${numHighSchools gt 0}">
-                <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
-                    ${district.name} High Schools</link:allSchoolsInDistrict> (${numHighSchools})
-                </div>
-            </c:if>
+                <c:if test="${numMiddleSchools gt 0}">
+                    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
+                        ${district.name} Middle Schools</link:allSchoolsInDistrict> (${numMiddleSchools})
+                    </div>
+                </c:if>
+
+                <c:if test="${numHighSchools gt 0}">
+                    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
+                        ${district.name} High Schools</link:allSchoolsInDistrict> (${numHighSchools})
+                    </div>
+                </c:if>
+            </div>
+
         </div>
-
-        <map:schoolsWithRatings id="map"
-                                lat="${district.lat}"
-                                lon="${district.lon}"
-                                schools="${schoolsWithRatings}"
-                                zoom="10"
-                />
-        <script type="text/javascript">
-        <![CDATA[
-        //<!--
-            function toggleFilter(whichFilter, isChecked) {
-                var e_button = document.getElementById("filter_e");
-                var m_button = document.getElementById("filter_m");
-                var h_button = document.getElementById("filter_h");
-
-                var filterLevelCode = "";
-                if (e_button.checked) {
-                    filterLevelCode += "e";
-                }
-                if (m_button.checked) {
-                    filterLevelCode += "m";
-                }
-                if (h_button.checked) {
-                    filterLevelCode += "h";
-                }
-
-                renderSchools(undefined, filterLevelCode);
-                return true;
-            }
-        //-->
-        ]]>
-        </script>
-    </div>
+    </c:if>
 </jsp:root>
