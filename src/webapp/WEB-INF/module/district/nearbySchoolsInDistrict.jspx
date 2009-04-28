@@ -10,8 +10,7 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
-${(numElementarySchools + numMiddleSchools + numHighSchools)}
-    <c:if test="${(numElementarySchools + numMiddleSchools + numHighSchools) gt 0}">
+    <c:if test="${numElementarySchools gt 0 and  numMiddleSchools gt 0 and numHighSchools gt 0}">
         <div id="nearbySchoolsInDistrict">
             <jsp:scriptlet>
                 String acronymOrName = request.getParameter("acronymOrName");
