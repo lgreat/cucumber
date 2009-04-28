@@ -10,7 +10,7 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
-
+${(numElementarySchools + numMiddleSchools + numHighSchools)}
     <c:if test="${(numElementarySchools + numMiddleSchools + numHighSchools) gt 0}">
         <div id="nearbySchoolsInDistrict">
             <jsp:scriptlet>
