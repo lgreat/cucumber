@@ -106,9 +106,25 @@ function changeCity(cityName, stateAbbr) {
         return false;
     }
     else{
-        return true;
+        var url = '/util/validator/isZipCodeValid.page';
+        var params = {'zipcode':zipCode};
+        new Ajax.Request(
+            url,
+            {
+            method: 'post',
+            parameters: params,
+            onSuccess: showResponse
+            });
+        return false;
     }
 }
+  function showResponse(x) {
+    if(x.responseText == "false"){
+        alert("Please enter a valid ZIP code.");
+    }else{
+        document.forms['compareModuleForm'].submit();
+    }
+  }
 
 function viewTopSchools() {
     var selector = document.getElementById('top5State');

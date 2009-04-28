@@ -285,6 +285,10 @@
         <property name="successView" value="widget/customizeSchoolSearchWidget"/>
         <property name="schoolSearchWidgetController" ref="/widget/schoolSearch.page"/>
     </bean>
+    
+    <bean name="/util/validator/isZipCodeValid.page"
+          class="gs.web.util.validator.IsZipCodeValid" lazy-init="true">
+    </bean>
 
     <bean name="/widget/schoolSearch.page"
           class="gs.web.widget.SchoolSearchWidgetController"
