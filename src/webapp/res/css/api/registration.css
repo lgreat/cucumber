@@ -23,8 +23,16 @@ div#api_reg form table {
     vertical-align: text-top;
 }
 
-div#api_reg input {
+/*div#api_reg input {
     width: 220px;
+} */
+
+#organization,#website,#name,#phone,#email,#confirmEmail{
+    width: 220px;
+}
+
+.radioReg{
+    width:100px;
 }
 
 div#api_reg input#save {
@@ -182,6 +190,7 @@ tr.glanceTitle{
 
 td.getStarted{
     font-size:12px;
+    line-height:15px;
 }
 
 
@@ -190,7 +199,7 @@ td.getStarted{
     background-repeat: no-repeat;
     background-position: 0px 0px;
     padding-left:20px;
-    height:25px;
+    height:35px;
     margin-top:10px;
 }
 
@@ -199,7 +208,7 @@ td.getStarted{
     background-repeat: no-repeat;
     background-position: 0px 0px;
     padding-left:20px;
-    height:25px;
+    height:35px;
 }
 
 .getStarted3{

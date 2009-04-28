@@ -81,15 +81,15 @@
     <div id="topSchools" class="box">
         <div class="inner cleared">
             <div class="content">
-                <h2>Register for GreatSchools Developer Tools</h2>
+                <h2>Request a key for the GreatSchool API</h2>
                 <div class="note">Fields marked with an asterisk (*) are required.</div>
                 <div id="api_reg">
                     <form:form>
                         <table border="0" >
                             <tr>
-                                <td width="130" class="label">Product Offering *</td>
-                                <td class="label"><input type="radio" name="type" value="f"> Free</input>
-                                &amp;nbsp; <input type="radio" name="type" value="p"> Pro (Give me a quote)</input></td>
+                               <td width="130" class="label">Product Offering *</td>
+                                <td class="label"><form:radiobutton path="type" value="f"/> Free &amp;nbsp;
+                                <form:radiobutton path="type" value="p"/> Pro (Give me a quote)</td>
                                 <td class="error"><form:errors path="type" /></td>
                             </tr>
 
@@ -125,15 +125,15 @@
                             </tr>
                             <tr>
                                 <td class="label">Select an Industry *</td>
-                                <td><select name="industry">
-                                    <option value="">choose one</option>
-                                    <option value="education">Education</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="government">Government</option>
-                                    <option value="media">Media - Journalism</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="other">Other</option>
-                                </select></td>
+                                <td><form:select path="industry">
+                                    <form:option value="">Choose One</form:option>    
+                                    <form:option value="education">Education</form:option>
+                                    <form:option value="finance">Finance</form:option>
+                                    <form:option value="government">Government</form:option>
+                                    <form:option value="media">Media - Journalism</form:option>
+                                    <form:option value="technology">Technology</form:option>
+                                    <form:option value="other">Other</form:option>
+                                </form:select></td>
                                 <td class="error"><form:errors path="industry" /></td>
                             </tr>
 
@@ -156,7 +156,7 @@
                             </tr>
                             <tr id="submitrow">
                                 <td colspan="3">
-                                    <input id="save" type="submit" value="Save Changes" />
+                                    <input id="save" type="submit" value="Submit Request" />
                                 </td>
                             </tr>
                         </table>
@@ -175,7 +175,7 @@
     <div class="box thin">
         <div class="inner">
             <div class="contentRight">
-                <h2 style="padding:0;margin-bottom:2px;">API Offerings At-A-Glance</h2>
+                <h2 style="padding:0;margin-bottom:2px;margin-top:0px;">API Offerings At-A-Glance</h2>
                 <table cellpadding="0" cellspacing="0" class="atAGlance">
                     <tr class="glanceTitle">
                         <td width="150">Feature</td>

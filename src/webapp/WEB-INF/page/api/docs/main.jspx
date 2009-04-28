@@ -29,9 +29,7 @@
     <body>
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
-
-                ${header.referer}
-
+        
         <c:if test="${registration eq 'success'}">
             <div class="success_message">Your request has been submitted.
             We will respond to you within the next 3-4 business days.</div>
