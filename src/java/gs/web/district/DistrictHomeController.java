@@ -253,9 +253,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         int num_elementary_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.ELEMENTARY, districtId);
         int num_middle_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.MIDDLE, districtId);
         int num_high_schools = _schoolDao.countSchoolsInDistrict(state, null, LevelCode.HIGH, districtId);
-        System.out.println("---------------"+num_elementary_schools);
-        System.out.println("---------------"+num_middle_schools);
-        System.out.println("---------------"+num_high_schools);
         model.put(MODEL_NUM_ELEMENTARY_SCHOOLS, num_elementary_schools);
         model.put(MODEL_NUM_MIDDLE_SCHOOLS, num_middle_schools);
         model.put(MODEL_NUM_HIGH_SCHOOLS, num_high_schools);
