@@ -17,20 +17,38 @@
         <script type="text/javascript" language="javascript">
                 <!--
                 function checkZipCode(zip){
-                    var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
+
+                var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
                     elem = document.getElementById("errorMessageZip");
                     if (zip.value.search(re5digit)==-1){ //if match failed
-                        elem.style.display = "block";
+                        alert("Please enter a valid ZIP code.");
                         return false;
+                    }else{
+                        var url = '/util/validator/isZipCodeValid.page';
+                        var params = {'zipcode':zip.value};
+                        new Ajax.Request(
+                        url,
+                        {
+                        method: 'post',
+                        parameters: params,
+                        onSuccess: showResponse
+                        });
+                         return false;
                     }
-                    elem.style.display = "none";
-                    return true;
                 }
+
+                function showResponse(x) {
+                if(x.responseText == "false"){
+                    alert("Please enter a valid ZIP code.");
+                }else{
+                    document.forms['compareForm'].submit();
+                }
+  }
                     -->
         </script>
                 ]]>
 
-    <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial"
+    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial"
                 onsubmit="return checkZipCode(this.zip)">
         <input type="hidden" name="sortby" value="distance" />
         <input type="hidden" name="tab" value="over" />
