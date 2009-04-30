@@ -27,6 +27,7 @@
 
 <!-- GS-3686 init vars -->
 <c:set var="communityClassSearch" value=""/>
+<c:set var="webbyStyle" value=""/>
 <!-- GS-3686: Override a padding value, used in main member td -->
 <c:set var="communityClass" value="communityHeader"/>
 
@@ -59,6 +60,8 @@
                     <c:when test="${communityAuth eq true}">
                         <!-- communityClassSearch is used to modify the margin above the search box below -->
                         <c:set var="communityClassSearch" value="communityHeader"/>
+                        <!-- webbyStyle is used to hide the webby logo below -->
+                        <c:set var="webbyStyle" value="display: none;"/>
                         <mod:communityAccountHeader communityHost="${communityHost}" inCommunity="${inCommunity}"/>
                     </c:when>
                     <!-- msl only login case -->
@@ -68,7 +71,11 @@
                 </c:choose>
             </c:otherwise>
         </c:choose>
-
+<c:choose>
+    <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
+        <div style="padding:18px 0 0 85px; ${webbyStyle}"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
+    </c:when>
+    <c:otherwise>
         <!-- variables holding the search form actions for local and community searches -->
         <c:set var="localSearchAction" value="/search/search.page"/>
         <c:set var="communitySearchAction" value="http://${communityHost}/search"/>
@@ -102,7 +109,8 @@
                 <!-- shorten text box and show state drop down -->
                 <c:set var="searchBoxStyle" value="width:190px;"/>
                 <c:set var="searchStateStyle" value="display:block;"/>
-
+            </c:otherwise>
+        </c:choose>
         <!-- text in following script also hard-coded into global.js -->
         <script type="text/javascript">
             function clearValueInBox(x) {
@@ -209,7 +217,7 @@
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
-    
+
     <table cellpadding="0" cellspacing="0" id="topnav_subnav">
         <tr>
             <!--#19--><td><link:articleLibrary
