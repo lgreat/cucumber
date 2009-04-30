@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.16 2009/01/26 21:59:19 aroy Exp $
+ * $Id: SchoolsTagHandler.java,v 1.17 2009/04/30 16:45:59 eddie Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,6 +8,7 @@ package gs.web.jsp.link;
 import gs.data.geo.ICity;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
@@ -52,7 +53,8 @@ public class SchoolsTagHandler extends LinkTagHandler {
                 }
             }
 
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, getState(), _cityName, schoolTypes, levelCode);
+            State myState = _city != null ? _city.getState() : getState();
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, myState, _cityName, schoolTypes, levelCode);
         } else {
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, getState(), "");
             urlBuilder.setParameter(SchoolsController.PARAM_DISTRICT, String.valueOf(_districtId));
