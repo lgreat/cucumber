@@ -10,7 +10,6 @@ import gs.data.school.district.District;
 public class DistrictHomeTagHandler extends LinkTagHandler {
     private Integer _schoolId;
     private District _district;
-    private State _state;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder =
