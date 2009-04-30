@@ -210,13 +210,13 @@
                 <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                 <gsweb:form method="get"
                             action="/stateLauncher.page"
-                            onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
+                            onsubmit="return findAndCompareCheck('r', 'splashStateSelector', 'p')">
                     <input name="p" id="p" type="hidden" value="search_single"/>
                     <input name="type" type="hidden" value="school"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
                     </c:if>
-                    <input type="text" value="Enter school, city or district" name="q" id="q" size="21" class="textInput"
+                    <input type="text" value="Enter school, city or district" name="r" id="r" size="21" class="textInput"
                            onfocus="textSwitch(this, '', 'Enter school, city or district');"
                            onblur="textSwitch(this, 'Enter school, city or district', '');"/>
 
