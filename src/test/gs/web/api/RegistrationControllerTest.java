@@ -2,12 +2,16 @@ package gs.web.api;
 
 //import gs.web.BaseControllerTestCase;
 import java.util.List;
+import java.util.Map;
+
 import gs.web.BaseControllerTestCase;
 import gs.data.api.IApiAccountDao;
 import gs.data.api.ApiAccount;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
-import static org.easymock.EasyMock.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.community.User;
+import static org.easymock.classextension.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,6 +22,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private RegistrationController _controller;
     private IApiAccountDao _apiAccountDao;
     private MockJavaMailSender _javaMailSender;
+    private ExactTargetAPI _exactTargetAPI;
 
     private String SUCCESS_VIEW = "api/success";
 
@@ -32,6 +37,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _javaMailSender.setHost("greatschools.net");
         _factory.setMailSender(_javaMailSender);
         _controller.setEmailHelperFactory(_factory);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
+        _controller.setExactTargetAPI(_exactTargetAPI);
     }
 
     public void testFormSubmit() throws Exception {
@@ -41,13 +48,22 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         command.setEmail("tommy@gs.net");
         command.setIndustry("education");
         _apiAccountDao.save(command);
+        User user = new User();
+        user.setEmail(command.getEmail());
+        _exactTargetAPI.sendTriggeredEmail(eq("apiWelcomeMessage"),isA(User.class));
         replay(_apiAccountDao);
+        replay(_exactTargetAPI);
 
         ModelAndView mAndV = _controller.onSubmit(command);
-        assertEquals(SUCCESS_VIEW, mAndV.getViewName());
+       
         verify(_apiAccountDao);
+        verify(_exactTargetAPI);
 
         List messages = _javaMailSender.getSentMessages();
         assertEquals(1, messages.size());
+        
+        assertEquals(SUCCESS_VIEW, mAndV.getViewName());
     }
+
+
 }
