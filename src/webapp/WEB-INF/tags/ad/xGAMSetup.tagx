@@ -15,6 +15,7 @@
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag import="java.util.Set"/>
+    <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
@@ -51,6 +52,10 @@
                     }                    
                     adNames.add(slotPrefix + ad.getName());
                 }
+            }
+
+            if (UrlUtil.isDevEnvironment(request.getServerName())) {
+                pageHelper.addAdKeyword("env", "dev");
             }
 
             request.setAttribute("GAMadNames", adNames);
