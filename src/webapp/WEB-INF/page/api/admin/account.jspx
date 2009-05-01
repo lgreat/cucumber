@@ -41,7 +41,10 @@
         <ul>
             <li>Name: ${account.name}</li>
             <li>Organization: ${account.organization}</li>
-            <li>Email: ${account.email}</li>
+            <li>Email:  <a href="mailto:${account.email}?subject=Regarding your use of the GreatSchools API &amp;body=Name: ${account.name}%0AOrganization: ${account.organization}
+            %0AEmail: ${account.email}%0AWebsite: ${account.website}%0APhone: ${account.phone}
+            %0AIntended Use: ${account.intendedUse}%0AApi Key: ${account.apiKey}">${account.email}</a>
+            </li>
             <li>Website: ${account.website}</li>
             <li>Phone: ${account.phone}</li>
             <!-- <li>Industry: ${account.industry}</li>    -->
