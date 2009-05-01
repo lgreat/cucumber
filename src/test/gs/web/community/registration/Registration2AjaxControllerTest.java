@@ -70,6 +70,33 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         assertTrue("Output does not contain expected city name Fremont", sw.getBuffer().indexOf("Fremont") > -1);
     }
 
+    public void testOutputCitySelect_nullChild() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+
+        // set up data
+        getRequest().addParameter("state", "CA");
+        _geoDao.findCitiesByState(State.CA);
+        List cities = new ArrayList();
+        City city1 = new City();
+        city1.setName("Oakland");
+        cities.add(city1);
+        City city2 = new City();
+        city2.setName("Fremont");
+        cities.add(city2);
+        _geoControl.setReturnValue(cities);
+        _geoControl.replay();
+
+        _controller.outputCitySelect(State.CA, pw, null);
+        _geoControl.verify();
+
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output should not write out null child value",
+                sw.getBuffer().toString().contains("<select name=\"citySelect\" id=\"citySelect\" class=\"selectChildCity\" onchange=\"cityChange(this);\">"));
+        assertTrue("Output does not contain expected city name Fremont", sw.getBuffer().indexOf("Fremont") > -1);
+    }
+
     public void testOutputSchoolSelect() {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -93,6 +120,38 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
 
         assertNotNull("Output null", sw.getBuffer());
         assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected high school Alameda High School",
+                sw.getBuffer().indexOf("Alameda High School") > -1);
+        assertTrue("Output does not contain expected high school Roy's Home for the Gifted",
+                sw.getBuffer().indexOf("Roy's Home for the Gifted") > -1);
+    }
+
+    public void testOutputSchoolSelect_allGrades() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+
+        // set up data
+        _schoolDao.findSchoolsInCity(State.CA, "Alameda", 1000);
+        List schools = new ArrayList();
+        School school1 = new School();
+        school1.setName("Alameda High School");
+        school1.setId(new Integer(1));
+        schools.add(school1);
+        School school2 = new School();
+        school2.setName("Roy's Home for the Gifted");
+        school2.setId(new Integer(314));
+        schools.add(school2);
+        _schoolControl.setReturnValue(schools);
+        _schoolControl.replay();
+
+        _controller.outputSchoolSelect(State.CA, "Alameda", null, pw, null);
+        _schoolControl.verify();
+
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+
+        assertTrue(sw.getBuffer().toString().contains("<select name=\"school\" id=\"school\" class=\"selectChildSchool\">"));
+
         assertTrue("Output does not contain expected high school Alameda High School",
                 sw.getBuffer().indexOf("Alameda High School") > -1);
         assertTrue("Output does not contain expected high school Roy's Home for the Gifted",

@@ -82,7 +82,11 @@ public class Registration2AjaxController implements Controller {
         City notListed = new City();
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
-        openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");");
+        if (StringUtils.isNotBlank(childNum)) {
+            openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");");
+        } else {
+            openSelectTag(out, "citySelect", "citySelect", "selectChildCity", "cityChange(this);");
+        }
         outputOption(out, "", "--", true);
         for (int x=0; x < cities.size(); x++) {
             ICity icity = (ICity) cities.get(x);
@@ -92,8 +96,17 @@ public class Registration2AjaxController implements Controller {
     }
 
     protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
-        List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
-        openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
+        List schools;
+        if (StringUtils.isNotBlank(grade)) {
+            schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+        } else {
+            schools = _schoolDao.findSchoolsInCity(state, city, 1000); // 1000 is arbitrary - CK
+        }
+        if (StringUtils.isNotBlank(childNum)) {
+            openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
+        } else {
+            openSelectTag(out, "school", "school", "selectChildSchool", null);
+        }
         outputOption(out, "", "--", true);
         outputOption(out, "-1", "My child's school is not listed");
         for (int x=0; x < schools.size(); x++) {
