@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.158 2009/05/04 17:13:38 droy Exp $
+ * $Id: UrlBuilder.java,v 1.159 2009/05/04 19:15:44 droy Exp $
  */
 
 package gs.web.util;
@@ -481,7 +481,7 @@ public class UrlBuilder {
 
             _path = "/cgi-bin/" +
                     district.getDatabaseState().getAbbreviationLowerCase() +
-                    "/district_profile/" +
+                    "/district-profile/" +
                     district.getId();
         } else if (DISTRICT_HOME.equals(page)) {
             _perlPage = false;
@@ -700,7 +700,7 @@ public class UrlBuilder {
             _perlPage = true;
             _path = "/cgi-bin/" +
                     state.getAbbreviationLowerCase() +
-                    "/district_profile/" +
+                    "/district-profile/" +
                     param0;
         } else if (RESEARCH.equals(page)) {
             if (state == null) {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.18 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: TopDistrictsController.java,v 1.19 2009/05/04 19:15:44 droy Exp $
  */
 
 package gs.web.state;
@@ -38,7 +38,7 @@ public class TopDistrictsController extends AbstractController {
     private IDistrictDao _districtDao;
     private String _urlTemplate = "/schools.page?district=$DISTRICT&amp;state=$STATE";
     //private String _urlTemplate = "/modperl/browse_district/$DISTRICT/$STATE";
-    //                            "/cgi-bin/$STATE/district_profile/$DISTRICT"
+    //                            "/cgi-bin/$STATE/district-profile/$DISTRICT"
 
 
     /**

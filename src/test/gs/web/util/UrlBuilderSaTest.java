@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.101 2009/04/17 18:33:22 droy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.102 2009/05/04 19:15:44 droy Exp $
  */
 
 package gs.web.util;
@@ -444,7 +444,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
         assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
-        assertEquals("/cgi-bin/ca/district_profile/135", builder.asSiteRelative(request));
+        assertEquals("/cgi-bin/ca/district-profile/135", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
         assertEquals("/promo/webbyAwardWinner.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.PARENT_RATING_EXPLAINED, State.CA, null);
@@ -590,7 +590,7 @@ public class UrlBuilderSaTest extends TestCase {
 
         // district profile
         urlBuilder = new UrlBuilder("districtProfile?state=NC&id=566");
-        assertEquals("/cgi-bin/nc/district_profile/566", urlBuilder.asSiteRelative(getMockRequest()));
+        assertEquals("/cgi-bin/nc/district-profile/566", urlBuilder.asSiteRelative(getMockRequest()));
 
         // city page
         urlBuilder = new UrlBuilder("city?state=CA&city=San+Francisco");

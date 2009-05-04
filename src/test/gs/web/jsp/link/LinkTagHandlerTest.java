@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.53 2009/05/04 17:13:38 droy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.54 2009/05/04 19:15:44 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -527,10 +527,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setDistrictId(new Integer(123));
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/ca/district_profile/123", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/ca/district-profile/123", builder.asSiteRelative(null));
         tagHandler.setState(State.AK);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/ak/district_profile/123", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/ak/district-profile/123", builder.asSiteRelative(null));
     }
 
     public void testDistrictHome() {
