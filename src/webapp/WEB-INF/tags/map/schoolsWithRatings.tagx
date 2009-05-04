@@ -250,7 +250,7 @@ function renderSchools(bounds, filterLevelCode) {
                     }
                     icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
                     icon.shadow =  "/res/img/map/GS_gsr_1_backgroundshadow.png";
-                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_trans.png";
+                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
                     icon.iconSize = new GSize(42,41);
                     icon.iconAnchor = new GPoint(14,39);
                     icon.infoWindowAnchor = new GPoint(21,2);
