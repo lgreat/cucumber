@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.50 2009/03/27 21:25:11 jnorton Exp $
+ * $Id: SchoolsControllerTest.java,v 1.51 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.school;
@@ -14,6 +14,7 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -271,16 +272,28 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("Expected city id", "133917", model.get(SchoolsController.MODEL_CITY_ID).toString());
     }
 
-    public void testDistrictBrowseModel() throws Exception {
+    public void testDistrictBrowseRedirect() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/schools.page");
         request.setParameter(SchoolsController.PARAM_DISTRICT, "10");
         request.setParameter("state", "ak");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+        assertTrue("ModelAndView should be a RedirectView301", mav.getView() instanceof RedirectView301);
+        assertEquals("Incorrect redirect url", "/alaska/tok/Alaska-Gateway-School-District/schools/", ((RedirectView) mav.getView()).getUrl());
+    }
+
+    public void testDistrictBrowseModel() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/california/alameda/Alameda-City-Unified/schools/");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
         Map model = mav.getModel();
-        assertEquals("Expected city id", "133981", model.get(SchoolsController.MODEL_CITY_ID).toString());
-        assertEquals("Expected city display name", "Tok", model.get(SchoolsController.MODEL_CITY_DISPLAY_NAME).toString());
+        assertEquals("Expected city id", "135457", model.get(SchoolsController.MODEL_CITY_ID).toString());
+        assertEquals("Expected city display name", "Alameda", model.get(SchoolsController.MODEL_CITY_DISPLAY_NAME).toString());
     }
 
     public void testCreateNewCityBrowseQueryString() throws Exception {
@@ -423,10 +436,10 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
     public void testByDistrict() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/schools.page");
-        request.setParameter("state", "CA");
-        request.setParameter("district", "1");
+        request.setRequestURI("/california/alameda/Alameda-City-Unified/schools/");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
@@ -454,16 +467,23 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
     public void testDistrictShouldBeInModel() throws Exception {
         District district = new District();
+        district.setId(1);
         district.setName("Some District Name");
+        district.setDatabaseState(State.CA);
+        Address address = new Address();
+        address.setCity("Alameda");
+        district.setPhysicalAddress(address);
+
         IDistrictDao districtDao = createMock(IDistrictDao.class);
-        expect(districtDao.findDistrictById(State.CA, new Integer(1))).andReturn(district);
+        expect(districtDao.findDistrictByNameAndCity( State.CA, "Some District Name", "alameda")).andReturn(district);
         replay(districtDao);
         _controller.setDistrictDao(districtDao);
 
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/schools.page");
-        request.setParameter("state", "CA");
-        request.setParameter("district", "1");
+        request.setRequestURI("/california/alameda/Some-District-Name/schools/");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 

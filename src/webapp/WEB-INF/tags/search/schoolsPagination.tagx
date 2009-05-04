@@ -10,7 +10,7 @@
     <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
 
     <jsp:directive.attribute name="cityName" required="true" type="java.lang.String"/>
-    <jsp:directive.attribute name="districtId" required="true" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="district" required="true" type="gs.data.school.district.District"/>
     <jsp:directive.attribute name="schoolTypes" required="true" type="java.lang.String[]"/>
     <jsp:directive.attribute name="levelCode" required="true" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="showAllThreshold" required="true" type="java.lang.Integer"/>
@@ -39,14 +39,14 @@
         <c:when test="${resultCount gt pageSize}">
             <div id="pagination">
                 <c:if test="${resultCount le showAllThreshold}">
-                    <link:schools cityName="${cityName}" districtId="${districtId}"
+                    <link:schools cityName="${cityName}" district="${district}"
                                                schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"
                                                styleClass="page showAll noInterstitial" showAll="${true}"
                                                resultsPerPage="${pageSize}" sortDirection="${param.sortDirection}"
                                                sortColumn="${param.sortColumn}" sortSelection="Show all">Show all &amp;gt;</link:schools>
                 </c:if>
                 <c:if test="${currentPage gt 1}">
-                    <link:schools cityName="${cityName}" districtId="${districtId}"
+                    <link:schools cityName="${cityName}" district="${district}"
                                            schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"
                                            styleClass="page" page="${currentPage - 1}" showAll="${false}"
                                            resultsPerPage="${pageSize}" sortDirection="${param.sortDirection}"
@@ -58,7 +58,7 @@
                             <span class="page"><c:out value="${count}"/></span>
                         </c:when>
                         <c:otherwise>
-                            <link:schools cityName="${cityName}" districtId="${districtId}"
+                            <link:schools cityName="${cityName}" district="${district}"
                                            schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"
                                            styleClass="page" page="${count}" showAll="${false}"
                                            resultsPerPage="${pageSize}" sortDirection="${param.sortDirection}"
@@ -68,7 +68,7 @@
                 </c:forEach>
 
                 <c:if test="${currentPage lt end}">
-                    <span class="divider">|</span><link:schools cityName="${cityName}" districtId="${districtId}"
+                    <span class="divider">|</span><link:schools cityName="${cityName}" district="${district}"
                                            schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"
                                            styleClass="page" page="${currentPage + 1}" showAll="${false}"
                                            resultsPerPage="${pageSize}" sortDirection="${param.sortDirection}"

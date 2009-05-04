@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.52 2008/12/18 17:36:54 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.53 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,7 +8,9 @@ package gs.web.jsp.link;
 import gs.data.content.Article;
 import gs.data.school.Grade;
 import gs.data.school.School;
+import gs.data.school.district.District;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -507,10 +509,17 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
     public void testAllSchoolsInDistrict() {
         DistrictsAllSchoolsTagHandler tagHandler = new DistrictsAllSchoolsTagHandler();
-        tagHandler.setDistrictId(new Integer(1));
+        District district = new District();
+        district.setName("San Francisco City Unified School District");
+        district.setDatabaseState(State.CA);
+        Address address = new Address();
+        address.setCity("San Francisco");
+        district.setPhysicalAddress(address);
+
+        tagHandler.setDistrict(district);
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/schools.page?district=1&state=CA", builder.asSiteRelative(null));
+        assertEquals("/california/san-francisco/San-Francisco-City-Unified-School-District/schools/", builder.asSiteRelative(null));
     }
 
     public void testDistrictProfile() {
@@ -522,6 +531,21 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setState(State.AK);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/ak/district_profile/123", builder.asSiteRelative(null));
+    }
+
+    public void testDistrictHome() {
+        DistrictHomeTagHandler tagHandler = new DistrictHomeTagHandler();
+        District district = new District();
+        district.setName("San Francisco City Unified School District");
+        district.setDatabaseState(State.CA);
+        Address address = new Address();
+        address.setCity("San Francisco");
+        district.setPhysicalAddress(address);
+
+        tagHandler.setDistrict(district);
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/california/san-francisco/San-Francisco-City-Unified-School-District/", builder.asSiteRelative(null));
     }
 
     public void testSchoolSearchTagHandler() throws IOException {

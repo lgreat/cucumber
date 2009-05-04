@@ -70,7 +70,7 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     }
 
     public void testBrowseDistrict() {
-        assertValidXhtml(INTEGRATION_HOST + "/schools.page?district=4&state=ak");
+        assertValidXhtml(INTEGRATION_HOST + "/alaska/Chevak/Kashunamiut-School-District/schools/");
     }
 
     public void testMapSchool() {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.21 2009/04/14 21:23:38 droy Exp $
+ * $Id: AnchorListModelFactory.java,v 1.22 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.util.list;
@@ -16,6 +16,8 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.util.Address;
+import gs.data.search.Indexer;
 import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
@@ -262,8 +264,17 @@ public class AnchorListModelFactory {
             if (districtHits != null && districtHits.length() > j) {
                 Document districtDoc = districtHits.doc(j);
                 String id = districtDoc.get("id");
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, state, id);
+
                 String districtName = districtDoc.get("name");
+
+                District district = new District();
+                district.setName(districtName);
+                district.setDatabaseState(state);
+                Address address = new Address();
+                address.setCity(Indexer.CITY);
+                district.setPhysicalAddress(address);
+
+                UrlBuilder builder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
                 String s = districtDoc.get("state");
                 State stateOfCity = _stateManager.getState(s);
                 if (!ObjectUtils.equals(state, stateOfCity)) {

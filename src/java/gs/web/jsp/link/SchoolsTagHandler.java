@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.17 2009/04/30 16:45:59 eddie Exp $
+ * $Id: SchoolsTagHandler.java,v 1.18 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,6 +8,7 @@ package gs.web.jsp.link;
 import gs.data.geo.ICity;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
+import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.school.SchoolsController;
@@ -29,7 +30,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private Integer _page;
     private ICity _city;
     private String _cityName;
-    private Integer _districtId;
+    private District _district;
     private boolean _showAll = false;
     private Integer _resultsPerPage;
     private String _sortColumn;
@@ -37,14 +38,14 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private String _sortSelection;
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder urlBuilder;        
-        if (_districtId == null || _districtId == 0) {
+        UrlBuilder urlBuilder;
+        if (_district == null || _district.getId() == 0) {
             LevelCode levelCode = null;
             if (StringUtils.isNotBlank(_levelCode)) {
                 levelCode = LevelCode.createLevelCode(_levelCode);
             }
 
-            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();            
+            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             if (StringUtils.isNotBlank(_schoolType)) {
                 StringTokenizer tok = new StringTokenizer(_schoolType, ",");
                 while (tok.hasMoreTokens()) {
@@ -56,8 +57,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
             State myState = _city != null ? _city.getState() : getState();
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, myState, _cityName, schoolTypes, levelCode);
         } else {
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, getState(), "");
-            urlBuilder.setParameter(SchoolsController.PARAM_DISTRICT, String.valueOf(_districtId));
+            urlBuilder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
             urlBuilder.removeParameter(SchoolsController.PARAM_CITY);
 
             if (StringUtils.isNotBlank(_levelCode)) {
@@ -144,14 +144,6 @@ public class SchoolsTagHandler extends LinkTagHandler {
         _cityName = cityName;
     }
 
-    public Integer getDistrictId() {
-        return _districtId;
-    }
-
-    public void setDistrictId(Integer districtId) {
-        _districtId = districtId;
-    }
-
     public boolean getShowAll() {
         return _showAll;
     }
@@ -191,4 +183,13 @@ public class SchoolsTagHandler extends LinkTagHandler {
     public void setSortSelection(String sortSelection) {
         _sortSelection = sortSelection;
     }
+
+    public District getDistrict() {
+        return _district;
+    }
+
+    public void setDistrict(District district) {
+        _district = district;
+    }
+
 }

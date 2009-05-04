@@ -89,7 +89,8 @@ public class DirectoryStructureUrlFields {
                 }
             }
         } else if (pathComponents.length == 5) {
-            // /california/sonoma/public-charter/schools/
+            // /california/sonoma/public-charter/schools/ or
+            // /california/san-francisco/San-Francisco-Unified-School-District/schools/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             if (schoolTypeMatcher.find()) {
@@ -98,6 +99,13 @@ public class DirectoryStructureUrlFields {
                 if (levelCodeMatcher.find()) {
                     populateLevelCodeFromLabel(pathComponents[4]);
                 }
+            } else if (pathComponents[4].equals(LEVEL_LABEL_SCHOOLS)) {
+                try {
+                    _districtName = URLDecoder.decode(pathComponents[3], "UTF-8");
+                } catch (UnsupportedEncodingException uee) {
+                    _districtName = pathComponents[3];
+                }
+                _hasSchoolsLabel = true;
             }
         } else if (pathComponents.length == 6) {
             // /california/sonoma/preschools/Preschool-Name/123/

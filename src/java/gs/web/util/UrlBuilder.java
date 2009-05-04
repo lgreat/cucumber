@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.157 2009/04/14 21:23:38 droy Exp $
+ * $Id: UrlBuilder.java,v 1.158 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.util;
@@ -486,6 +486,9 @@ public class UrlBuilder {
         } else if (DISTRICT_HOME.equals(page)) {
             _perlPage = false;
             _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(district.getDatabaseState(), district);
+        } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
+            _perlPage = false;
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -693,11 +696,6 @@ public class UrlBuilder {
             _path = "/cgi-bin/newsletters/" +
                     state.getAbbreviation() +
                     "/";
-        } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
-            _perlPage = false;
-            _path = "/schools.page";
-            setParameter("district", param0);
-            setParameter("state", state.getAbbreviation());
         } else if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/" +

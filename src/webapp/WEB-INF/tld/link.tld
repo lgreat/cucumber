@@ -304,11 +304,11 @@
             <description>Optional city name for city browse.</description>
         </attribute>
         <attribute>
-            <name>districtId</name>
+            <name>district</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>Optional district id for district browse.</description>
+            <type>gs.data.school.district.District</type>
+            <description>District object</description>
         </attribute>
         <attribute>
             <name>page</name>
@@ -2174,11 +2174,11 @@
             <description>target window to open link in</description>
         </attribute>
         <attribute>
-            <name>districtId</name>
+            <name>district</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>Id of district</description>
+            <type>gs.data.school.district.District</type>
+            <description>District object</description>
         </attribute>
         <attribute>
             <name>title</name>

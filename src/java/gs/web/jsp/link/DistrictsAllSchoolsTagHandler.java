@@ -1,6 +1,7 @@
 package gs.web.jsp.link;
 
 import gs.web.util.UrlBuilder;
+import gs.data.school.district.District;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -9,11 +10,11 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
 public class DistrictsAllSchoolsTagHandler extends LinkTagHandler {
-    private Integer _districtId;
     private String _levelCode;
+    private District _district;
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, getState(), getDistrictId().toString());
+        UrlBuilder builder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
         if (StringUtils.isNotBlank(_levelCode)) {
             builder.setParameter("lc", _levelCode);
         }
@@ -21,13 +22,14 @@ public class DistrictsAllSchoolsTagHandler extends LinkTagHandler {
         return builder;
     }
 
-    public Integer getDistrictId() {
-        return _districtId;
+    public District getDistrict() {
+        return _district;
     }
 
-    public void setDistrictId(Integer districtId) {
-        _districtId = districtId;
+    public void setDistrict(District district) {
+        _district = district;
     }
+
     public String getLevelCode() {
         return _levelCode;
     }

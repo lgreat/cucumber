@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.80 2009/03/27 20:55:20 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.81 2009/05/04 17:13:38 droy Exp $
  */
 
 package gs.web.school;
@@ -258,45 +258,71 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
         String cityName = null;
         if (isDistrictBrowse) {
-            String districtParam = request.getParameter(PARAM_DISTRICT);
-            if (districtParam != null) {
-                // Look up the district name
-                String districtIdStr = request.getParameter(PARAM_DISTRICT);
-                model.put(MODEL_DISTRICT, districtIdStr);
-                int districtId = Integer.parseInt(districtIdStr);
-                District district;
-                try {
+            District district = null;
+            ObjectRetrievalFailureException exception = null;
+
+            try {
+                String districtParam = request.getParameter(PARAM_DISTRICT);
+                if (districtParam != null) {
+                    String districtIdStr = request.getParameter(PARAM_DISTRICT);
+                    int districtId = Integer.parseInt(districtIdStr);
                     district = _districtDao.findDistrictById(state, districtId);
-                    model.put(MODEL_DISTNAME, district.getName());
+                    String uri = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, district);
 
-                    model.put(MODEL_HEADING1, "Schools in " + district.getName());
-
-                    Address districtAddress = district.getPhysicalAddress();
-                    if (districtAddress != null) {
-                        cityName = districtAddress.getCity();
-                        if (cityName != null) {
-                            model.put(MODEL_DIST_CITY_NAME, cityName);
-                        } else {
-                            model.put(MODEL_DIST_CITY_NAME, "");
-                        }
-                    } else {
-                        model.put(MODEL_DIST_CITY_NAME, "");
-                    }
-                    model.put(MODEL_DISTRICT_OBJECT, district);
-                    model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
-                    searchCommand.setDistrict(districtIdStr);
-                } catch (ObjectRetrievalFailureException e) {
-                    BadRequestLogger.logBadRequest(_log, request, state + ": District Id " + districtId + " not found.", e);
-                    BindException errors = new BindException(searchCommand, "searchCommand");
-                    errors.reject("error_no_district", "District was not found.");
-
-                    model.put("errors", errors);
-                    model.put("showSearchControl", Boolean.TRUE);
-                    model.put("title", "District not found");
-
-                    return new ModelAndView("status/error", model);
+                    String queryString = SchoolsController.createNewCityBrowseQueryString(request);
+                    String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                    return new ModelAndView(new RedirectView301(redirectUrl));
+                } else {
+                    String districtName = fields.getDistrictName();
+                    cityName = fields.getCityName();
+                    district = _districtDao.findDistrictByNameAndCity(state, districtName, cityName);
                 }
+            } catch (ObjectRetrievalFailureException e) {
+                // Deal with this later in code that handles both an exception and null return value
+                exception = e;
             }
+
+            if (district == null) {
+                if (exception == null) {
+                    String districtName = fields.getDistrictName();
+                    cityName = fields.getCityName();
+                    String districtStr = districtName == null ? "null" : districtName;
+                    String cityStr = cityName == null ? "null" : cityName;
+                    BadRequestLogger.logBadRequest(_log, request, state + ": District '" + districtStr + "' in " + cityStr + ", " + state.getName() + " not found.");
+                } else {
+                    String idStr = request.getParameter(PARAM_DISTRICT) == null ? "null" : request.getParameter(PARAM_DISTRICT);
+                    BadRequestLogger.logBadRequest(_log, request, state + ": District Id " + idStr + " not found.", exception);
+                }
+
+                BindException errors = new BindException(searchCommand, "searchCommand");
+                errors.reject("error_no_district", "District was not found.");
+
+                model.put("errors", errors);
+                model.put("showSearchControl", Boolean.TRUE);
+                model.put("title", "District not found");
+
+                return new ModelAndView("status/error", model);
+            }
+            
+            model.put(MODEL_DISTRICT, district.getId().toString());
+            model.put(MODEL_DISTNAME, district.getName());
+
+            model.put(MODEL_HEADING1, "Schools in " + district.getName());
+
+            Address districtAddress = district.getPhysicalAddress();
+            if (districtAddress != null) {
+                cityName = districtAddress.getCity();
+                if (cityName != null) {
+                    model.put(MODEL_DIST_CITY_NAME, cityName);
+                } else {
+                    model.put(MODEL_DIST_CITY_NAME, "");
+                }
+            } else {
+                model.put(MODEL_DIST_CITY_NAME, "");
+            }
+            model.put(MODEL_DISTRICT_OBJECT, district);
+            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(district.getId(), state));
+            searchCommand.setDistrict(district.getId().toString());
         } else {
             cityName = fields.getCityName();
             model.put(MODEL_CITY_BROWSE_URI_ROOT, DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, cityName));
@@ -401,7 +427,17 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
         }
-        return request.getRequestURI().contains("/schools.page") && request.getParameter(PARAM_DISTRICT) != null;
+
+        if (request.getRequestURI().contains("/schools.page") && request.getParameter(PARAM_DISTRICT) != null) {
+            return true;
+        }
+
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        if (fields != null && fields.hasState() && fields.hasCityName() && fields.hasDistrictName() && fields.hasSchoolsLabel()) {
+            return true;
+        }
+
+        return false;
     }
 
     public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
@@ -673,8 +709,18 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         if (fields == null) {
             return false;
         }
+
         // level code is optional
-        return fields.hasState() && fields.hasCityName() && fields.hasSchoolTypes() && fields.hasSchoolsLabel() && !fields.hasSchoolName();
+        if (fields.hasState() && fields.hasCityName() && fields.hasSchoolTypes() && fields.hasSchoolsLabel()
+                && !fields.hasSchoolName()) {
+            return true;
+        }
+
+        if (fields.hasState() && fields.hasCityName() && fields.hasDistrictName() && fields.hasSchoolsLabel()) {
+            return true;
+        }
+
+        return false;
     }
 
     public String getViewName() {
