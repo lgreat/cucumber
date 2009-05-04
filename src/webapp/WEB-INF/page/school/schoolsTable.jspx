@@ -200,9 +200,8 @@ function reloadPageWithFilters(sortColId) {
         reloadUrl += '${cityBrowseUriLevelLabel}/';
         reloadUrl += '?';
     } else {
-        reloadUrl = '/schools.page';
-        reloadUrl += '?district=' + district;
-        reloadUrl += '&state=' + state;
+        reloadUrl = window.location.pathname;
+        reloadUrl += "?";
         if (levelCode.length > 0) {
             reloadUrl += '&lc=' + levelCode;
         }
