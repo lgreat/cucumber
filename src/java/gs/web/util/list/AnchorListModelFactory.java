@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.22 2009/05/04 17:13:38 droy Exp $
+ * $Id: AnchorListModelFactory.java,v 1.23 2009/05/05 18:04:41 droy Exp $
  */
 
 package gs.web.util.list;
@@ -271,7 +271,7 @@ public class AnchorListModelFactory {
                 district.setName(districtName);
                 district.setDatabaseState(state);
                 Address address = new Address();
-                address.setCity(Indexer.CITY);
+                address.setCity(districtDoc.get(Indexer.CITY));
                 district.setPhysicalAddress(address);
 
                 UrlBuilder builder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
