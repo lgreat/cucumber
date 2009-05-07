@@ -131,7 +131,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         PrintWriter pw = new PrintWriter(sw);
 
         // set up data
-        _schoolDao.findSchoolsInCity(State.CA, "Alameda", 1000);
+        _schoolDao.findSchoolsInCity(State.CA, "Alameda", 2000);
         List schools = new ArrayList();
         School school1 = new School();
         school1.setName("Alameda High School");
