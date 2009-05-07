@@ -100,7 +100,7 @@ public class Registration2AjaxController implements Controller {
         if (StringUtils.isNotBlank(grade)) {
             schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
         } else {
-            schools = _schoolDao.findSchoolsInCity(state, city, 1000); // 1000 is arbitrary - CK
+            schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
         }
         if (StringUtils.isNotBlank(childNum)) {
             openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
