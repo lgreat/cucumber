@@ -9,42 +9,197 @@
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:district="urn:jsptagdir:/WEB-INF/tags/district"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags"
         >
-<html lang="en">
+    <html lang="en">
 
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-<jsp:directive.page contentType="text/html; charset=UTF-8"/>
-<head>
-    <title>pr</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="description"
-          content="Information to help parents choose the right public school for their children in the ${district.name}."/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <head>
+        <title>pr</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+        <meta name="description"
+              content="Information to help parents choose the right public school for their children in the ${district.name}."/>
+
+
+        <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+        <pageHelper:externalCss file="/res/css/parentR.css"/>
+        <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+        <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+        <![CDATA[
+    <script type="text/javascript">
+        <!--
+        function changeFindCity(citySelect, selectId) {
+        $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+            var myAjax1 = new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
+                method: 'get',
+                parameters: {state : document.getElementById('userState').value, city : citySelect.value },
+                onComplete: function(transport) {
+                   
+                }
+            });
+        }
+
+        function stateChange(stateSelect) {
+             var url = '/community/registrationAjax.page';
+              var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true&onchange=changeFindCity(this,'schools')";
+              $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+              var myAjax = new Ajax.Updater (
+                      'city',
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: function(transport) {
+                }
+                      });
+          }
+         -->
+    </script>
+    ]]>
+
     </head>
 
-<gsml:body adPageName="district-home" >
-<div id="top">
-    <h2>Help us help parents</h2>
-    <p>A few minutes of your time can make a difference.Rate and review your child's school so other parents can make the right choice for their family.</p>
-    <h3>1.Find your school</h3>
-</div>
-    <div id="bottom">
-        <h3>2.Complete your review &amp; rating</h3>
-        <h4>School Name</h4>
-        <div><span></span><span></span>
-            <span></span>
+    <gsml:body adPageName="ParentReviews">
+        <div id="pageWrapper">
+            <div id="top">
+                <h2>Help us help parents</h2>
+
+                <p>A few minutes of your time can make a difference.Rate and review your child's school so other parents can make the right
+choice for their family.</p>
+
+                <h3>1.Find your school</h3>
+            </div>
+            <div id="bottom">
+                <h3>2.Complete your review &amp; rating</h3>
+                <h4>${swr.school.name}</h4>
+
+                <div><span><img class="rating_gs"
+                                alt="GreatSchools Rating: ${swr.rating} out of 10. Greatschools Ratings are based on test results. 10 is
+best."
+                                src="/res/img/school/ratings/ratings_gs_head_${swr.rating}.gif"/></span>
+                    <span><img class="sm_stars" alt="Principal Leadership: ${cmd.ratings.overall} out of 5 stars"
+                               src="/res/img/school/ratings/ratings_parent_head_${cmd.ratings.overall}.gif"/></span>
+                    <span>Based on ${cmd.ratings.count} ratings</span>
+
+<span>${swr.school.street}${swr.school.street}${swr.school.streetLine2}${swr.school.city}${swr.school.stateAbbreviation}${swr.school.zipcode}
+${swr.school.county} County</span>
+                </div>
+                <div id="parentRating">
+                    <div>My Overall rating</div>
+                    <div><span>My Review</span><span>Guidlines</span></div>
+                    <div>Enter your review Here</div>
+                    <div>Enter email address</div>
+                    <div>I'am a and I accept the Terms of Use</div>
+                    <div>Send me weekly emails from Greatschools,including updates about this school.</div>
+                    <div>Submit Review</div>
+                </div>
+                <div id="categoryRatings">
+                    <ul>
+                        <li>Principal Leadership</li>
+                        <li>Teacher Quality</li>
+                        <li>Extra curricular Activites</li>
+                        <li>Parent Involvement</li>
+                        <li>Safety and Discipline</li>
+                    </ul>
+                    <div>Learn More about these categories</div>
+                    <div>Principals,submit your review here ></div>
+                </div>
+                <div id="ratingTitle">My rasdf</div>
+                <div>
+                    <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
+                    <ul class="star-rating large-star">
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li><a href="#"
+                               title="1 star out of 5"
+                               class="one-star"
+                               onclick="this.hideFocus=true;setStars(1);return false;"
+                               onmouseover="showStars(1);"
+                               onmouseout="resetStars();"
+                                >1</a></li>
+                        <li><a href="#" title="2 stars out of 5" class="two-stars"
+                               onclick="this.hideFocus=true;setStars(2);return false;"
+                               onmouseover="showStars(2);"
+                               onmouseout="resetStars();"
+                                >2</a></li>
+                        <li><a href="#" title="3 stars out of 5" class="three-stars"
+                               onclick="this.hideFocus=true;setStars(3);return false;"
+                               onmouseover="showStars(3);"
+                               onmouseout="resetStars();"
+                                >3</a></li>
+                        <li><a href="#" title="4 stars out of 5" class="four-stars"
+                               onclick="this.hideFocus=true;setStars(4);return false;"
+                               onmouseover="showStars(4);"
+                               onmouseout="resetStars();"
+                                >4</a></li>
+                        <li><a href="#" title="5 stars out of 5" class="five-stars"
+                               onclick="this.hideFocus=true;setStars(5);return false;"
+                               onmouseover="showStars(5);"
+                               onmouseout="resetStars();"
+                                >5</a></li>
+                    </ul>
+                </div>
+
+                <textarea id="reviewText"
+                          name="comments"
+                          onkeyup="countWords(this)"
+                          onkeydown="countWords(this)"
+                          onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                          rows="" cols="50" wrap="on">Enter your review here</textarea>
+
+                <!--<select id="achievementCities" name="city" tabindex="10"-->
+                        <!--onchange="changeFindCity(this, '${swr.school.stateAbbreviation}', 'schools');">-->
+                    <!--<option selected="selected" value="">1. Choose city</option>-->
+                    <!--<c:forEach var="cityOption" items="${cities}">-->
+                        <!--<![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>-->
+                                            <!--</c:forEach>-->
+                <!--</select>-->
+
+
+
+
+                <!-- State -->
+
+
+
+                <label id="stateLabel"><span class="required">*</span>State</label>
+                <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                                         onChange="stateChange(this);" tabIndex="9"/>
+
+
+
+
+                <label id="cityLabel"><span class="required">*</span>City</label>
+                    <span id="city">
+                        <select name="city" tabindex="10" onchange="alert('asdaskjdasd');">
+                            <option selected="selected" value="">1. Choose city</option>
+                            <c:forEach var="cityOption" items="${cities}">
+                                <![CDATA[<option ]]>
+                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                            </c:forEach>
+                        </select>
+                    </span>
+
+                <div id="schools">
+                    <select id="schoolSelect" name="sid" class="selectSchool">
+                        <option value="">2. Choose school</option>
+                    </select>
+                </div>
+                 <!--<select id="achievementCities" name="city" tabindex="10"-->
+                        <!--onchange="changeFindCity(this, '${swr.school.stateAbbreviation}', 'schools');">-->
+                    <!--<option selected="selected" value="">1. Choose city</option>-->
+                    <!--<c:forEach var="cityOption" items="${cities}">-->
+                        <!--<![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>-->
+                                            <!--</c:forEach>-->
+                <!--</select>-->
+
+            </div>
         </div>
-        <div>My Overall rating</div>
-        <div><span>My Review</span><span>Guidlines</span></div>
-        <div>Enter your review Here</div>
-    </div>
 
 
-
-</gsml:body>
-</html>
+    </gsml:body>
+    </html>
 </jsp:root>
+
