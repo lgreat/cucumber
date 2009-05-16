@@ -35,7 +35,7 @@
         $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             var myAjax1 = new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
-                parameters: {state : document.getElementById('userState').value, city : citySelect.value },
+                parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange: 'onchange=test(this)'},
                 onComplete: function(transport) {
                    
                 }
@@ -44,7 +44,7 @@
 
         function stateChange(stateSelect) {
              var url = '/community/registrationAjax.page';
-              var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true&onchange=changeFindCity(this,'schools')";
+             var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true&onchange=changeFindCity(this,'schools')";
               $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
               var myAjax = new Ajax.Updater (
                       'city',
@@ -53,9 +53,27 @@
                           method: 'get',
                           parameters: pars,
                           onComplete: function(transport) {
-                }
+                            }
                       });
           }
+          function test(school){
+          var schoolObj = school;
+           var url = '/school/schoolForParentReview.page';
+           var pars = 'levels=' + school.value;
+           var myAjaxw = new Ajax.Updater (
+                      'foo',
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: showResponse
+                      });
+          }
+
+          function showResponse(x) {
+          alert(x.getRating);
+
+    }
          -->
     </script>
     ]]>
@@ -66,11 +84,38 @@
         <div id="pageWrapper">
             <div id="top">
                 <h2>Help us help parents</h2>
-
-                <p>A few minutes of your time can make a difference.Rate and review your child's school so other parents can make the right
-choice for their family.</p>
+                <div id="selections">
+                <p>A few minutes of your time can make a difference.Rate and
+                    review your child's school so other parents can make the right
+                    choice for their family.</p>
 
                 <h3>1.Find your school</h3>
+                <div id="stateDropdown">
+                    State:
+                    <span id="state">
+                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                                         onChange="stateChange(this);" tabIndex="9"/>
+                    </span>
+                </div>
+                <div id="cityDropdown">City:
+                    <span id="city">
+                        <select name="city" tabindex="10" onchange="">
+                            <option selected="selected" value="">1. Choose city</option>
+                            <c:forEach var="cityOption" items="${cities}">
+                                <![CDATA[<option ]]>
+                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                            </c:forEach>
+                        </select>
+                    </span> </div>
+                 <div id="schoolsDropdown">School:
+                    <span id="schools">
+                    <select id="schoolSelect" name="sid" class="selectSchool">
+                    <option value="">2. Choose school</option>
+                    </select>
+                    </span>
+                 </div>
+                    </div>
+                <div id="parentReviewImage">The Image goes here</div>
             </div>
             <div id="bottom">
                 <h3>2.Complete your review &amp; rating</h3>
@@ -149,51 +194,10 @@ ${swr.school.county} County</span>
                           onfocus="if(this.value=='Enter your review here'){this.value='';}"
                           rows="" cols="50" wrap="on">Enter your review here</textarea>
 
-                <!--<select id="achievementCities" name="city" tabindex="10"-->
-                        <!--onchange="changeFindCity(this, '${swr.school.stateAbbreviation}', 'schools');">-->
-                    <!--<option selected="selected" value="">1. Choose city</option>-->
-                    <!--<c:forEach var="cityOption" items="${cities}">-->
-                        <!--<![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>-->
-                                            <!--</c:forEach>-->
-                <!--</select>-->
 
 
 
 
-                <!-- State -->
-
-
-
-                <label id="stateLabel"><span class="required">*</span>State</label>
-                <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                         onChange="stateChange(this);" tabIndex="9"/>
-
-
-
-
-                <label id="cityLabel"><span class="required">*</span>City</label>
-                    <span id="city">
-                        <select name="city" tabindex="10" onchange="alert('asdaskjdasd');">
-                            <option selected="selected" value="">1. Choose city</option>
-                            <c:forEach var="cityOption" items="${cities}">
-                                <![CDATA[<option ]]>
-                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                            </c:forEach>
-                        </select>
-                    </span>
-
-                <div id="schools">
-                    <select id="schoolSelect" name="sid" class="selectSchool">
-                        <option value="">2. Choose school</option>
-                    </select>
-                </div>
-                 <!--<select id="achievementCities" name="city" tabindex="10"-->
-                        <!--onchange="changeFindCity(this, '${swr.school.stateAbbreviation}', 'schools');">-->
-                    <!--<option selected="selected" value="">1. Choose city</option>-->
-                    <!--<c:forEach var="cityOption" items="${cities}">-->
-                        <!--<![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>-->
-                                            <!--</c:forEach>-->
-                <!--</select>-->
 
             </div>
         </div>
