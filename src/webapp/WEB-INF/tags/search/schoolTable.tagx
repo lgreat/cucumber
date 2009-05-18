@@ -10,13 +10,19 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
+<jsp:directive.tag import="java.util.ArrayList"/>
+<jsp:directive.tag import="java.util.List"/>
+<jsp:directive.tag import="gs.data.school.School"/>
+<jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
+    <jsp:directive.attribute name="checkedSchools" required="false" type="java.util.Collection"/>
+    <jsp:directive.attribute name="checkedKeys" required="false" type="java.util.Map"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
-    <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
+    <pageHelper:addOnLoadHandler handler="evaluateCheckboxes()"/>
 
     <c:set var="results" value="${schools}"/>
     <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
@@ -75,7 +81,24 @@
 
     
 
-    <school:compareHover schoolSearchResults="${results}"/>
+    <jsp:scriptlet>
+        <![CDATA[
+        List<School> hoverResults = new ArrayList<School>();
+        for (Object obj : schools) {
+            SchoolSearchResult result = (SchoolSearchResult)obj;
+            School school = result.getSchool();
+            hoverResults.add(school);
+        }
+
+        for (Object obj : checkedSchools) {
+            School school = (School)obj;
+            hoverResults.add(school);
+        }
+
+        request.setAttribute("hoverResults", hoverResults);
+        ]]>
+    </jsp:scriptlet>
+    <school:compareHover schools="${hoverResults}"/>
 
     <div id="searchResultsHeader" class="cleared">
          <div class="firstspace">
@@ -84,7 +107,7 @@
         <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''} ${hideRating ? 'wideSchoolResultsHeader' : ''}" id="schoolResultsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('schoolResultsHeader')">
+             onclick="reloadPageWithFilters('schoolResultsHeader', true)">
             School Name
             <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
@@ -101,7 +124,7 @@
         <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}  ${hideRating ? 'hidden' : ''}" id="ratingsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('ratingsHeader')">
+             onclick="reloadPageWithFilters('ratingsHeader',true)">
             GreatSchools Rating
             <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
@@ -117,7 +140,7 @@
         <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} " id="reviewsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('reviewsHeader')">
+             onclick="reloadPageWithFilters('reviewsHeader',true)">
             Parent Rating
             <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
@@ -132,7 +155,12 @@
 
     <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <div id="searchResultsList">
+        <c:forEach var="checkedResult" items="${checkedSchools}" varStatus="loopStatus">
+            <input id="school_lc_${checkedResult.id}" type="hidden" value="${checkedResult.levelCode}"/>
+            <input id="compare_schools_${checkedResult.id}" type="checkbox" checked="yes" name="sc" value="${requestScope.context.stateOrDefault.abbreviation}${checkedResult.id}" style="display: none;"/>
+        </c:forEach>
+                
+        <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" varStatus="loopStatus">
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
@@ -177,12 +205,18 @@
                         <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
                             <br />
                             <div class="compare_schools_row">
+                                <c:set var="key" value="${requestScope.context.stateOrDefault.abbreviation}${school.id}" scope="page"/>
+                                <c:set var="isChecked" value="false"/>
+                                <c:if test="${!empty checkedKeys[key]}">
+                                    <c:set var="isChecked" value="true"/>
+                                </c:if>
                                 <gsml:checkbox
                                         name="sc"
                                         value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
                                         styleClass="compare_checkbox"
                                         styleId="compare_schools_${school.id}"
-                                        onclick="return evaluateCheckboxes();"/>
+                                        onclick="return evaluateCheckboxes();"
+                                        checked="${isChecked}"/>
                                 <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
                                 <label class="compare_label"
                                        id="compare_schools_label_${school.id}"><gsml:img

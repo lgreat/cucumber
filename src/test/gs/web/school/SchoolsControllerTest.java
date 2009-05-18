@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.51 2009/05/04 17:13:38 droy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.52 2009/05/18 23:38:43 droy Exp $
  */
 
 package gs.web.school;
@@ -254,6 +254,39 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertEquals("status/error", mAndV.getViewName());
+    }
+
+    public void testGetCheckedSchools() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        List<School> schools;
+
+        request.removeAllParameters();
+        request.setRequestURI("/schools.page");
+        request.setParameter("cmp", "AK508,AK510,AK509");
+        //request.setQueryString("cmp=AK508,AK510,AK509");
+        schools = _controller.getCheckedSchools(request);
+        assertEquals(schools.size(), 3);
+        assertEquals(State.AK, schools.get(0).getDatabaseState());
+        assertEquals(new Integer(508), schools.get(0).getId());
+        assertEquals(State.AK, schools.get(1).getDatabaseState());
+        assertEquals(new Integer(510), schools.get(1).getId());
+        assertEquals(State.AK, schools.get(2).getDatabaseState());
+        assertEquals(new Integer(509), schools.get(2).getId());
+
+        request.setParameter("cmp", "XX,XY100,AK508,XYzzz,AKzz,AK");
+        schools = _controller.getCheckedSchools(request);
+        assertEquals(schools.size(), 1);
+        assertEquals(State.AK, schools.get(0).getDatabaseState());
+        assertEquals(new Integer(508), schools.get(0).getId());
+
+        request.setParameter("cmp", "");
+        schools = _controller.getCheckedSchools(request);
+        assertEquals(schools.size(), 0);
+
+        request.setParameter("cmp", ",,");
+        schools = _controller.getCheckedSchools(request);
+        assertEquals(schools.size(), 0);
+
     }
 
     public void testCityBrowseModel() throws Exception {

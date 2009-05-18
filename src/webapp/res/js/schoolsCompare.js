@@ -1,5 +1,35 @@
 var ID_PREFIX = 'compare_schools_';
 
+function appendCompareSchools(link) {
+    var param = getCompareSchoolsParam();
+    if (param.length > 0) {
+        link.href += "&" + param;
+    }
+}
+
+function getCompareSchoolsParam() {
+    var inputs = document.getElementsByTagName("input");
+    var schoolIds = "";
+    for (var i=0; i < inputs.length; i++) {
+        var currentElem = inputs[i];
+        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+            if (currentElem.checked) {
+                if (schoolIds.length != 0) {
+                    schoolIds += ",";
+                }
+
+                schoolIds += currentElem.value;
+            }
+        }
+    }
+
+    if (schoolIds.length > 0) {
+        return "cmp=" + schoolIds;
+    }
+
+    return "";
+}
+
 function countChecked() {
     var numChecked = 0;
     var inputs = document.getElementsByTagName("input");
@@ -18,7 +48,7 @@ function setCheckedToDisplayError() {
     var inputs = document.getElementsByTagName("input");
     for (var i=0; i < inputs.length; i++) {
         var currentElem = inputs[i];
-        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1 && currentElem.style.display != "none") {
             if (currentElem.checked) {
                 var curId = currentElem.id.substring(ID_PREFIX.length);
                 hide(ID_PREFIX + "label_" + curId);
@@ -33,7 +63,7 @@ function setCheckedToDisplaySubmit() {
     var inputs = document.getElementsByTagName("input");
     for (var i=0; i < inputs.length; i++) {
         var currentElem = inputs[i];
-        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1 && currentElem.style.display != "none") {
             if (currentElem.checked) {
                 var curId = currentElem.id.substring(ID_PREFIX.length);
                 hide(ID_PREFIX + "label_" + curId);
@@ -48,7 +78,7 @@ function setAllToDisplayLabel() {
     var inputs = document.getElementsByTagName("input");
     for (var i=0; i < inputs.length; i++) {
         var currentElem = inputs[i];
-        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+        if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1 && currentElem.style.display != "none") {
             var curId = currentElem.id.substring(ID_PREFIX.length);
             showInline(ID_PREFIX + "label_" + curId);
             hide(ID_PREFIX + "error_" + curId);

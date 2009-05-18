@@ -380,6 +380,13 @@
             <type>java.lang.String</type>
             <description>GS-7845 sort selection for omniture prop 15</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Javascript onclick value</description>
+        </attribute>
     </tag>
 
     <tag>

@@ -12,10 +12,11 @@
 <jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
 <jsp:directive.tag import="java.util.Collections"/>
 <jsp:directive.tag import="java.util.Comparator"/>
-<jsp:directive.attribute name="schools" required="false" description="List of schools. Only provide one."
+<jsp:directive.attribute name="schools" required="false"
+                         description="List of schools. Only provide one of schools or schoolSearchResults."
                          type="java.util.List"/>
 <jsp:directive.attribute name="schoolSearchResults" required="false"
-                         description="List of SchoolSearchResults. Only provide one."
+                         description="List of SchoolSearchResults. Only provide one of schools or schoolSearchResults."
                          type="java.util.List"/>
 
 <!--

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.81 2009/05/04 17:13:38 droy Exp $
+ * $Id: SchoolsController.java,v 1.82 2009/05/18 23:38:43 droy Exp $
  */
 
 package gs.web.school;
@@ -10,6 +10,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
+import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Indexer;
@@ -20,6 +21,7 @@ import gs.data.state.State;
 import gs.data.util.Address;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.search.ResultsPager;
+import gs.web.search.SchoolSearchResult;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -31,6 +33,7 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
+import org.apache.lucene.search.Hit;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,6 +68,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
     public static final String PARAM_RESULTS_PER_PAGE = "pageSize";
     public static final String PARAM_SORT_COLUMN = "sortColumn";
     public static final String PARAM_SORT_DIRECTION = "sortDirection";
+    public static final String PARAM_CMP_SCHOOLS = "cmp";
 
     /**
      * The name of the city, if provided.
@@ -133,6 +137,11 @@ public class SchoolsController extends AbstractController implements IDirectoryS
      * A List of School objects.
      */
     public static final String MODEL_SCHOOLS = "schools";
+    /**
+     * A List of School objects.
+     */
+    public static final String MODEL_CHECKED_SCHOOLS = "checkedSchools";
+    public static final String MODEL_CHECKED_KEYS = "checkedKeys";
     /**
      * Requested page size. The number of items on the page is the size
      * of the schools list.
@@ -408,8 +417,19 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             }
 
             Map<String, Object> resultsModel = new HashMap<String, Object>();
+            List schoolResults = _resultsPager.getResults(page, pageSize);
+
+            List<School> checkedSchools = getCheckedSchools(request);
+
+            List<School> compareSchools = new ArrayList<School>();
+            Map<String, String> checkedKeys = new HashMap<String, String>();
+
+            populateCheckedSchoolsInfo(hts, schoolResults, checkedSchools, compareSchools, checkedKeys);            
+
+            resultsModel.put(MODEL_CHECKED_SCHOOLS, compareSchools);
+            resultsModel.put(MODEL_CHECKED_KEYS, checkedKeys);
             resultsModel.put(MODEL_SCHOOLS_TOTAL, hts.length());
-            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
+            resultsModel.put(MODEL_SCHOOLS, schoolResults);
             resultsModel.put(MODEL_PAGE_SIZE, pageSize);
             resultsModel.put(MODEL_TOTAL, hts.length());
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
@@ -574,6 +594,90 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         return result;
     }
 
+    /**
+     * Populate some data structures with information on which schools were checked on previous pages.
+     *
+     * @param hts The full set of search results across all pages
+     * @param schoolResults The SchoolSearchResult objects for the current page (subset of hts)
+     * @param checkedSchools List of Schools that were checked on this page or other pages
+     * @param compareSchools Empty list to populate with School objects that were checked on pages other than the
+     *              one we are about to load.
+     * @param checkedKeys Empty map of school keys (e.g. 'AK508') to be populated with keys from checked schools.
+     *              This allows the page to auto-check a school again when you page back to the original page it
+     *              was checked on.
+     * @throws java.io.IOException
+     */
+    protected void populateCheckedSchoolsInfo (Hits hts, List schoolResults, List<School> checkedSchools, List<School> compareSchools, Map<String,String> checkedKeys) throws java.io.IOException {
+        int checkedSchoolsCounted = 0;
+        Iterator hitsIter = hts.iterator();
+        while (hitsIter.hasNext() && checkedSchoolsCounted < checkedSchools.size()) {
+            Hit hit = (Hit)hitsIter.next();
+
+            for (School school : checkedSchools) {
+                int checkedId = school.getId();
+                State checkedState = school.getDatabaseState();
+
+                if (Integer.parseInt(hit.get(Indexer.ID)) == checkedId && hit.get(Indexer.STATE).equals(checkedState.getAbbreviationLowerCase())) {
+                    checkedSchoolsCounted++;
+                    checkedKeys.put(checkedState.getAbbreviation() + school.getId().toString(), "true");
+
+                    boolean onCurrentPage = false;
+                    for (Object obj : schoolResults) {
+                        SchoolSearchResult searchResult = (SchoolSearchResult)obj;
+
+                        School searchSchool = searchResult.getSchool();
+                        if (searchSchool.getId().equals(checkedId) && searchSchool.getDatabaseState().equals(checkedState)) {
+                            // This school is on the current page so don't add it to the list
+                            onCurrentPage = true;
+                            break;
+                        }
+                    }
+
+                    if (!onCurrentPage) {
+                       School completeSchool = _schoolDao.getSchoolById(checkedState, checkedId);
+                       compareSchools.add(completeSchool);
+                       break;
+                   }
+                }
+            }
+        }
+    }
+
+    /**
+     * Parse the paramters to see if schools were checked on prior pages and build a List of School objects for them.
+     * @param request Request object to retrieve parameters from
+     * @return List of School objects representing the schools parsed out of the parameters.
+     */
+    protected List<School> getCheckedSchools(HttpServletRequest request) {
+        List<School> checkedSchools = new ArrayList<School>();
+
+        String checkedSchoolsParam = request.getParameter(PARAM_CMP_SCHOOLS);
+        if (!StringUtils.isBlank(checkedSchoolsParam)) {
+            String[] cmpFields = checkedSchoolsParam.split(",");
+            for (String cmpField : cmpFields) {
+
+                if (cmpField.length() >= 3) {
+                    String statePart = cmpField.substring(0,2);
+                    String idPart = cmpField.substring(2);
+
+                    try {
+                        State state = State.fromString(statePart);
+                        int id = Integer.parseInt(idPart);
+                        School sch = new School();
+                        sch.setId(id);
+                        sch.setDatabaseState(state);
+                        checkedSchools.add(sch);
+                    } catch (IllegalArgumentException iae) {
+                        // IllegalArgumentException catches both the NumberFormatException and the
+                        // IllegalArgumentException the State throws.
+                        // Ignore that parameter if it doesn't parse
+                    }
+                }
+            }
+        }
+
+        return checkedSchools;
+    }
 
     /**
      * A setter for Spring
