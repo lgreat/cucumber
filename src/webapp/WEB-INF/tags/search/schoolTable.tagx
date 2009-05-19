@@ -107,7 +107,7 @@
         <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''} ${hideRating ? 'wideSchoolResultsHeader' : ''}" id="schoolResultsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('schoolResultsHeader', true)">
+             onclick="reloadPageWithFilters('schoolResultsHeader')">
             School Name
             <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
@@ -124,7 +124,7 @@
         <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}  ${hideRating ? 'hidden' : ''}" id="ratingsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('ratingsHeader',true)">
+             onclick="reloadPageWithFilters('ratingsHeader')">
             GreatSchools Rating
             <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
@@ -140,7 +140,7 @@
         <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} " id="reviewsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
-             onclick="reloadPageWithFilters('reviewsHeader',true)">
+             onclick="reloadPageWithFilters('reviewsHeader')">
             Parent Rating
             <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"

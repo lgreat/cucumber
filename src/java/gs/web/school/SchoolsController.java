@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.82 2009/05/18 23:38:43 droy Exp $
+ * $Id: SchoolsController.java,v 1.83 2009/05/19 19:53:24 droy Exp $
  */
 
 package gs.web.school;
@@ -608,37 +608,30 @@ public class SchoolsController extends AbstractController implements IDirectoryS
      * @throws java.io.IOException
      */
     protected void populateCheckedSchoolsInfo (Hits hts, List schoolResults, List<School> checkedSchools, List<School> compareSchools, Map<String,String> checkedKeys) throws java.io.IOException {
-        int checkedSchoolsCounted = 0;
-        Iterator hitsIter = hts.iterator();
-        while (hitsIter.hasNext() && checkedSchoolsCounted < checkedSchools.size()) {
-            Hit hit = (Hit)hitsIter.next();
+        for (School school : checkedSchools) {
+            int checkedId = school.getId();
+            State checkedState = school.getDatabaseState();
 
-            for (School school : checkedSchools) {
-                int checkedId = school.getId();
-                State checkedState = school.getDatabaseState();
+            // All checked schools have their key (e.g. AK123) added to this hash
+            checkedKeys.put(checkedState.getAbbreviation() + school.getId().toString(), "true");
 
-                if (Integer.parseInt(hit.get(Indexer.ID)) == checkedId && hit.get(Indexer.STATE).equals(checkedState.getAbbreviationLowerCase())) {
-                    checkedSchoolsCounted++;
-                    checkedKeys.put(checkedState.getAbbreviation() + school.getId().toString(), "true");
+            // See if the school is on the current page (i.e. the user clicked next, prev or changed sort order, etc...)
+            boolean onCurrentPage = false;
+            for (Object obj : schoolResults) {
+                SchoolSearchResult searchResult = (SchoolSearchResult)obj;
 
-                    boolean onCurrentPage = false;
-                    for (Object obj : schoolResults) {
-                        SchoolSearchResult searchResult = (SchoolSearchResult)obj;
-
-                        School searchSchool = searchResult.getSchool();
-                        if (searchSchool.getId().equals(checkedId) && searchSchool.getDatabaseState().equals(checkedState)) {
-                            // This school is on the current page so don't add it to the list
-                            onCurrentPage = true;
-                            break;
-                        }
-                    }
-
-                    if (!onCurrentPage) {
-                       School completeSchool = _schoolDao.getSchoolById(checkedState, checkedId);
-                       compareSchools.add(completeSchool);
-                       break;
-                   }
+                School searchSchool = searchResult.getSchool();
+                if (searchSchool.getId().equals(checkedId) && searchSchool.getDatabaseState().equals(checkedState)) {
+                    // This school is on the current page so don't add it to the list
+                    onCurrentPage = true;
+                    break;
                 }
+            }
+
+            if (!onCurrentPage) {
+                // Schools not on the current page go in this list
+                School completeSchool = _schoolDao.getSchoolById(checkedState, checkedId);
+                compareSchools.add(completeSchool);
             }
         }
     }
@@ -655,7 +648,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         if (!StringUtils.isBlank(checkedSchoolsParam)) {
             String[] cmpFields = checkedSchoolsParam.split(",");
             for (String cmpField : cmpFields) {
-
                 if (cmpField.length() >= 3) {
                     String statePart = cmpField.substring(0,2);
                     String idPart = cmpField.substring(2);

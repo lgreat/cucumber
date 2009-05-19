@@ -260,7 +260,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         reloadUrl += "&sortSelection=" + sortSelection;
     }
 
-    if (keepCheckedSchools == true) {
+    if (keepCheckedSchools != false) {
         var checkedSchoolsParam = getCompareSchoolsParam();
         if (checkedSchoolsParam != '') {
             reloadUrl += "&" + checkedSchoolsParam;
@@ -447,7 +447,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                           district="${districtObject}"
                           schoolType="${stOmniture}"
                           styleClass="noInterstitial"
-                          showAll="${not empty param.showall}">All Schools</link:schools>
+                          showAll="${not empty param.showall}"
+                          onclick="appendCompareSchools(this);">All Schools</link:schools>
         </li>
         <c:if test="${isCityBrowse}">
             <li class="${pTabClass}">
@@ -455,7 +456,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                               district="${districtObject}"
                               levelCode="p"
                               styleClass="noInterstitial"
-                              showAll="${not empty param.showall}">Preschool</link:schools>
+                              showAll="${not empty param.showall}"
+                              onclick="appendCompareSchools(this);">Preschool</link:schools>
             </li>
         </c:if>
         <li class="${eTabClass}">
@@ -464,7 +466,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                           schoolType="${stOmniture}"
                           levelCode="e"
                           styleClass="noInterstitial"
-                          showAll="${not empty param.showall}">Elementary</link:schools>
+                          showAll="${not empty param.showall}"
+                          onclick="appendCompareSchools(this);">Elementary</link:schools>
         </li>
         <li class="${mTabClass}">
             <link:schools cityName="${cityName}"
@@ -472,7 +475,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                           schoolType="${stOmniture}"
                           levelCode="m"
                           styleClass="noInterstitial"
-                          showAll="${not empty param.showall}">Middle</link:schools>
+                          showAll="${not empty param.showall}"
+                          onclick="appendCompareSchools(this);">Middle</link:schools>
         </li>
         <li class="tabright ${hTabClass}">
             <link:schools cityName="${cityName}"
@@ -480,7 +484,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                           schoolType="${stOmniture}"
                           levelCode="h"
                           styleClass="noInterstitial"
-                          showAll="${not empty param.showall}">High</link:schools>
+                          showAll="${not empty param.showall}"
+                          onclick="appendCompareSchools(this);">High</link:schools>
         </li>
     </ul>
 </div>
@@ -528,7 +533,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
             </div>
         </c:if>
         <c:if test="${not empty results.schools}">
-            <select id="resultsPerPageSelector" onchange="setSortSelectionPageSize(this.value); reloadPageWithFilters(undefined, true);">
+            <select id="resultsPerPageSelector" onchange="setSortSelectionPageSize(this.value); reloadPageWithFilters();">
                 <gsml:selectOption id="rppOption25" value="25"
                                    selected="${results.pageSize eq 25}">25</gsml:selectOption>
                 <gsml:selectOption id="rppOption50" value="50"

@@ -2,8 +2,12 @@ var ID_PREFIX = 'compare_schools_';
 
 function appendCompareSchools(link) {
     var param = getCompareSchoolsParam();
-    if (param.length > 0) {
-        link.href += "&" + param;
+    if (param != '') {
+        if (link.href.indexOf("?") != -1) {
+            link.href += "&" + param;
+        } else {
+            link.href += "?" + param;
+        }
     }
 }
 
@@ -23,7 +27,7 @@ function getCompareSchoolsParam() {
         }
     }
 
-    if (schoolIds.length > 0) {
+    if (schoolIds != '') {
         return "cmp=" + schoolIds;
     }
 
