@@ -11,7 +11,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags"
-        >
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -34,11 +35,11 @@
         <!--
         function cityChange(citySelect, selectId) {
             $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            var myAjax1 = new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
+            new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
-                parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange: 'onchange=schoolChange(this)'},
+                parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange:'schoolChange(this)'},
                 onComplete: function(transport) {
-                   
+
                 }
             });
         }
@@ -47,7 +48,7 @@
              var url = '/community/registrationAjax.page';
              var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
              $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-             var myAjax = new Ajax.Updater (
+              new Ajax.Updater (
                       'city',
                       url,
                       {
@@ -62,8 +63,7 @@
             var schoolObj = school;
             var url = '/school/schoolForParentReview.page';
             var pars = 'schoolId=' + school.value;
-            var myAjaxw = new Ajax.Updater (
-                      'foo',
+            new Ajax.Request(
                       url,
                       {
                           method: 'get',
@@ -76,23 +76,42 @@
             var schoolInfoArray = x.responseText.split(";");
             document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
             if(schoolInfoArray[1] != ""){
-            document.getElementById('gsRating').innerHTML = '<img class="rating_gs" alt="GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best." src="/res/img/school/ratings/ratings_gs_head_'+schoolInfoArray[1]+'.gif"/>';
+            document.getElementById('gsRating').innerHTML = '<img class="rating_gs" alt="GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best." src="/res/img/school/ratings/ratings_gs_head_'+schoolInfoArray[1]+'.gif"\/>';
             }
+
+            alert("inside 1"+document.getElementById('gsRating').innerHTML);
+
+            <!--alert("2"+schoolInfoArray[2]);-->
+            <!--alert("3"+schoolInfoArray[3]);-->
+            <!--alert("4"+schoolInfoArray[4]);-->
+            <!--alert("5"+schoolInfoArray[5]);-->
+            <!--alert("6"+schoolInfoArray[6]);-->
+            <!--alert("7"+schoolInfoArray[7]);-->
+            <!--alert("8"+schoolInfoArray[8]);-->
+            <!--alert("9"+schoolInfoArray[9]);-->
+            <!--alert("10"+schoolInfoArray[10]);-->
+            <!--alert("11"+schoolInfoArray[11]);-->
+
+
             if(schoolInfoArray[2] != ""){
             document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
             }
             if(schoolInfoArray[3] != ""){
             document.getElementById('parentRatingCount').innerHTML = 'Based on '+schoolInfoArray[3]+' ratings';
             }
-            <!--if(schoolInfoArray[4] != "" && schoolInfoArray[5] != ""){-->
-            <!--document.getElementById('schoolAddress').innerHTML = schoolInfoArray[4]+'<br/>'+ schoolInfoArray[5] + '<br/>'+ schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8] + '<br/>'+schoolInfoArray[9] + 'county';-->
-            <!--}-->
+            if(schoolInfoArray[4] != ""){
+
+
+            document.getElementById('schoolAddress').innerHTML = schoolInfoArray[4] + '<br/>'+ schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8] + '<br/>'+schoolInfoArray[9] + 'county';
+            }
             <!--if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){-->
             <!--document.getElementById('schoolAddress').innerHTML = schoolInfoArray[4]+'<br/>'+ schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8] + '<br/>'+schoolInfoArray[9] + 'county';-->
             <!--}-->
 
-            var prForm =  document.getElementById('parentReviewFormForDis');
-            prForm.style.display = 'block';
+            var prForm =  document.getElementById('parentReviewForm');
+            prForm.style.display = '';
+            var review = document.getElementById('completeReview');
+            review.style.display = '';
             var instructions = document.getElementById('instructText');
             instructions.style.display = 'none';
             document.getElementById('schoolId').value = schoolInfoArray[10] ;
@@ -121,6 +140,7 @@
 
 <gsml:body adPageName="ParentReviews">
     <form:form commandName="parentReviewCommand" method="post">
+
         <div id="pageWrapper">
             <div id="topSelections">
                 <h2>Help us help parents</h2>
@@ -131,7 +151,9 @@
                         choice for their family.</p>
 
                     <h3>1.Find your school</h3>
-
+                     <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
+                     <school:showHover/>
+<a href="#" onclick="showLoginHover();">Click here for hover</a>
                     <div id="stateDropdown">
                         State:
                     <span id="state">
@@ -151,27 +173,28 @@
                     </span></div>
                     <div id="schoolsDropdown">School:
                     <span id="schools">
-                    <select id="schoolSelect" name="sid" class="selectSchool"  onchange="schoolChange(this);">
+                    <select id="schoolSelect" name="sid" class="selectSchool">
                         <option value="">2. Choose school</option>
                     </select>
                     </span>
                     </div>
                     <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
                 </div>
-                <div id="parentReviewImage"></div>
+                <div id="parentReviewImage">Img</div>
             </div>
-            <div style="display: none;" id="parentReviewFormForDis">
+
+            <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
+            <div style="display: none;" id="parentReviewForm">
+            <!--<div id="parentReviewForm">-->
                 <input type="hidden" name="schoolId" id="schoolId" value=""/>
                 <input type="hidden" name="schoolState" id="schoolState" value=""/>
-
-
-                <h3>2.Complete your review &amp; rating ${schoolASDF.name}</h3>
+                <input type="hidden" name="isAddNewParentReview" value="true"/>
                 <h4 id="schoolNameHeader">${swr.school.name}</h4>
 
-                <div><span id="gsRating"></span>
-                    <span id="overallParentRating"></span>
+                <div id="schoolInfo"><span id="gsRating"></span>
+                    <span id="testingHere"></span>
                     <span id="parentRatingCount"></span>
-                    <span id="schoolAddress"></span>
+                    <span id="schoolAdd"></span>
                 </div>
 
                 <div id="parentRating">
@@ -211,17 +234,17 @@
                         </ul>
                     </div>
 
-                    <div><span>My Review</span><span>Guidlines</span></div>
+                    <div class="marginTextArea"><span>My Review</span><span id="guidelines">Guidlines</span></div>
                     <div><textarea id="reviewText"
                                    name="comments"
                                    onkeyup="countWords(this)"
                                    onkeydown="countWords(this)"
                                    onfocus="if(this.value=='Enter your review here'){this.value='';}"
                                    rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
-                    <div><input type="text" name="email" id="reviewEmail"
+                    <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
                                 onfocus="if(this.value=='Enter your email address'){this.value='';}"
                                 value="${email}" class="emailAddress"/></div>
-                    <div><input id="permission" name="givePermission" type="checkbox" checked="checked"/>
+                    <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox" checked="checked"/>
                         I'm a <select name="posterAsString">
                             <option value="parent">parent</option>
                             <option value="student">student</option>
@@ -230,10 +253,10 @@
                         </select> and I accept <span id="tos">the <gsml:a
                                 href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
                                 target="_blank">Terms of Use</gsml:a></span></div>
-                    <div><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
-                                checked="checked"/> Send me weekly emails from GreatSchools,including updates about this school.
+                    <div class="marginEmailField"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
+                                checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
                     </div>
-                    <div>GreatSchools Privay Policy</div>
+                    <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">GreatSchools Privay Policy</gsml:a></div>
                 </div>
                 <div id="categoryRatings">
                     <ul>
@@ -263,11 +286,11 @@
                             </div>
                         </li>
                     </ul>
-                    <div>Learn More about these categories</div>
-                    <div>Principals,submit your review here ></div>
+                    <div id="learnMoreLinks">Learn More about these categories &gt;</div>
+                    <div class="marginEmailField">Principals,submit your review here &gt;</div>
                 </div>
 
-                <gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit" id="submit" name="_submit"/>
+                <div><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review" id="submit" name="_submit"/></div>
 
             </div>
         </div>
