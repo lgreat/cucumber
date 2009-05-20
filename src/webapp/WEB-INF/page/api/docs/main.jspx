@@ -29,17 +29,47 @@
     <body>
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
-        
+
         <c:if test="${registration eq 'success'}">
             <div class="success_message">Your request has been submitted.
-            We will respond to you within the next 3-4 business days.</div>
+                We will respond to you within the next 3-4 business days.</div>
         </c:if>
         <div class="content">
-            The GreatSchools API is a <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>-based
-            web service.
+            <div class="callfirst">
+                <h2>Technical Overview</h2>
+
+                <div class="mainRequest">The GreatSchools API is a <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer" target="_blank">REST</a>-based
+                web service. </div>
+            </div>
+            <div class="call">
+                <h2>Requests</h2>
+                <div class="mainRequest"><a href="/api/docs/browseSchools.page" >Browse Schools</a></div>
+                Returns a list of schools in a city. All calls for a Browse Schools are in this format:
+                <div class="mainRequest"><a href="/api/docs/nearbySchools.page">Nearby Schools</a></div>
+                Returns a list of schools closest to the center of a city,
+                ZIP Code or address. All calls for Nearby Schools are in this format:
+                <div class="mainRequest"><a href="/api/docs/schoolProfile.page">School Profile</a></div>
+                Returns a list of schools in a city. All calls for School Profiles are in this format:
+                <div class="mainRequest"><a href="/api/docs/schoolReviews.page">School Reviews</a></div>
+                Returns a list of the most recent reviews for a school
+                or for any schools in a city. All calls for School Reviews are in this format:
+                <div class="mainRequest"><a href="/api/docs/schoolTestScores.page">School Test Scores</a></div>
+                Returns test and rank data for a specific school. All calls for School Test Scores are in this format:
+                <div class="mainRequest"><a href="/api/docs/schoolCensusData.page">School Census Data</a></div>
+                Returns census and profile data for a school. All calls for School Census Data are in this format:
+            </div>
+
+            <div class="call">
+                <h2>Have Questions?</h2>
+                <div class="questions">To ask questions or to report bugs please email
+                    api-support@greatschools.net. Please do not abuse our API. Review the
+                <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                   onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
+                </div>
+            </div>
         </div>
 
-       <!-- <apidoc:sidebar current="main"/>   -->
+        <!-- <apidoc:sidebar current="main"/>   -->
     </div>
     </body>
     </html>
