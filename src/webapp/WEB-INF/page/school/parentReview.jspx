@@ -62,51 +62,47 @@
         function schoolChange(school){
             var schoolObj = school;
             var url = '/school/schoolForParentReview.page';
-            var pars = 'schoolId=' + school.value;
             new Ajax.Request(
                       url,
                       {
                           method: 'get',
-                          parameters: pars,
+                         parameters: {schoolId : school.value, state : document.getElementById('userState').value},
                           onComplete: showResponse
                       });
         }
 
         function showResponse(x) {
-            var schoolInfoArray = x.responseText.split(";");
+        var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
+        var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
+        var schoolInfoArray = x.responseText.split(";");
             document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
             if(schoolInfoArray[1] != ""){
-            document.getElementById('gsRating').innerHTML = '<img class="rating_gs" alt="GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best." src="/res/img/school/ratings/ratings_gs_head_'+schoolInfoArray[1]+'.gif"\/>';
+                var image = document.createElement('img');
+                image.setAttribute('alt', 'GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best.');
+                image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1] +'.gif');
+                image.setAttribute('class', 'rating_gs');
+                document.getElementById('gsSchoolRating').appendChild(image);
             }
 
-            alert("inside 1"+document.getElementById('gsRating').innerHTML);
-
-            <!--alert("2"+schoolInfoArray[2]);-->
-            <!--alert("3"+schoolInfoArray[3]);-->
-            <!--alert("4"+schoolInfoArray[4]);-->
-            <!--alert("5"+schoolInfoArray[5]);-->
-            <!--alert("6"+schoolInfoArray[6]);-->
-            <!--alert("7"+schoolInfoArray[7]);-->
-            <!--alert("8"+schoolInfoArray[8]);-->
-            <!--alert("9"+schoolInfoArray[9]);-->
-            <!--alert("10"+schoolInfoArray[10]);-->
-            <!--alert("11"+schoolInfoArray[11]);-->
-
-
+           
             if(schoolInfoArray[2] != ""){
-            document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
+             document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
             }
             if(schoolInfoArray[3] != ""){
             document.getElementById('parentRatingCount').innerHTML = 'Based on '+schoolInfoArray[3]+' ratings';
             }
-            if(schoolInfoArray[4] != ""){
 
-
-            document.getElementById('schoolAddress').innerHTML = schoolInfoArray[4] + '<br/>'+ schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8] + '<br/>'+schoolInfoArray[9] + 'county';
+            if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){
+            document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
+            document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
+            document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
             }
-            <!--if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){-->
-            <!--document.getElementById('schoolAddress').innerHTML = schoolInfoArray[4]+'<br/>'+ schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8] + '<br/>'+schoolInfoArray[9] + 'county';-->
-            <!--}-->
+            else if(schoolInfoArray[4] != ""  && schoolInfoArray[5] != ""){
+            document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
+            document.getElementById('schoolAddressLine2').innerHTML = schoolInfoArray[4];
+            document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
+            document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
+            }
 
             var prForm =  document.getElementById('parentReviewForm');
             prForm.style.display = '';
@@ -114,6 +110,13 @@
             review.style.display = '';
             var instructions = document.getElementById('instructText');
             instructions.style.display = 'none';
+            if(isPreschool){
+            var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
+                nonPreschoolRatingStars.style.display = 'none';
+            }else{
+             var preschoolRatingStars = document.getElementById('preSchoolStars');
+                preschoolRatingStars.style.display = 'none';
+            }
             document.getElementById('schoolId').value = schoolInfoArray[10] ;
             document.getElementById('schoolState').value = schoolInfoArray[7] ;
         }
@@ -152,8 +155,8 @@
 
                     <h3>1.Find your school</h3>
                      <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-                     <school:showHover/>
-<a href="#" onclick="showLoginHover();">Click here for hover</a>
+                     <!--<school:showHover/>-->
+<!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
                     <div id="stateDropdown">
                         State:
                     <span id="state">
@@ -191,10 +194,14 @@
                 <input type="hidden" name="isAddNewParentReview" value="true"/>
                 <h4 id="schoolNameHeader">${swr.school.name}</h4>
 
-                <div id="schoolInfo"><span id="gsRating"></span>
-                    <span id="testingHere"></span>
-                    <span id="parentRatingCount"></span>
-                    <span id="schoolAdd"></span>
+                <div id="schoolInfo"> <![CDATA[<div id="gsSchoolRating"></div>
+                    <div id="overallParentRating"></div>
+                    <div id="parentRatingCount"></div>
+                     <div id="schoolAddress">
+                    <div id="schoolAddressLine1"></div>
+                    <div id="schoolAddressLine2"></div>
+                    <div id="schoolAddressLine3"></div>
+                    <div id="schoolAddressLine4"></div></div>]]>
                 </div>
 
                 <div id="parentRating">
@@ -259,7 +266,8 @@
                     <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">GreatSchools Privay Policy</gsml:a></div>
                 </div>
                 <div id="categoryRatings">
-                    <ul>
+
+                    <ul id="nonPreSchoolStars">
                         <li>
                             <div class="catRatingLabel">Principal Leadership</div>
                             <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
@@ -286,7 +294,39 @@
                             </div>
                         </li>
                     </ul>
-                    <div id="learnMoreLinks">Learn More about these categories &gt;</div>
+
+
+                    <ul id="preSchoolStars">
+                        <li>
+                            <div class="catRatingLabel">Program &amp; Curriculum</div>
+                            <div class="catRating"><gsml:starRating id="PProgramAsString" additionalClass="med-star"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="catRatingLabel">Facilities &amp; Equipment</div>
+                            <div class="catRating"><gsml:starRating id="PFacilitiesAsString" additionalClass="med-star"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="catRatingLabel">Health &amp; Safety</div>
+                            <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="catRatingLabel">Teacher Quality</div>
+                            <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="catRatingLabel">Parent Involvement</div>
+                            <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
+                            </div>
+                        </li>
+                    </ul>
+                    
+
+                    <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained></div>
                     <div class="marginEmailField">Principals,submit your review here &gt;</div>
                 </div>
 
