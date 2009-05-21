@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.161 2009/05/21 21:46:09 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.162 2009/05/21 22:49:27 npatury Exp $
  */
 
 package gs.web.util;
@@ -162,7 +162,7 @@ public class UrlBuilder {
      * school profile pages
      */
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
-    public static final VPage SCHOOL_PARENT_REVIEWS_WITH_HOVER = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PARENT_REVIEWS_WITH_HOVER = new VPage("vpage:schoolParentReviewsWithHover");
     public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");    
     public static final VPage SCHOOL_PROFILE_TEST_SCORE = new VPage("vpage:schoolTestscores");
     public static final VPage SCHOOL_PROFILE_CENSUS = new VPage("vpage:schoolCensus");
