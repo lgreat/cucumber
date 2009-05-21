@@ -103,6 +103,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
             }
         }
 
+
         User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
         boolean isNewUser = false;
 
@@ -170,7 +171,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         }
 
         if ((!StringUtils.isBlank(check))) {
-            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS_WITH_HOVER);
             return new ModelAndView(new RedirectView(builder.asFullUrl(request)));
 
         } else {

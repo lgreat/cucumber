@@ -32,6 +32,7 @@ margin:10px 0;
     border:5px solid #55BBCC;
     padding:10px 20px 20px 20px;
     margin-bottom:50px;
+    height:550px;
 }
 
 #pageWrapper h4{
@@ -134,4 +135,24 @@ margin-top:22px;
     margin-top:10px;
     margin-bottom:10px;
     height:60px;
+    border-bottom:4px dotted #CCCCCC;
+}
+
+#overallParentRating{
+     padding-left:20px;
+    float:left;
+    padding-top:25px;
+    width: 70px;
+}
+
+#submitReview{
+    height:30px;
+}
+
+#parentRatingCount{
+     padding-left:20px;
+    float:left;
+    padding-top:25px;
+    width: 150px;
+
 }

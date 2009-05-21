@@ -37,7 +37,7 @@
             $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
-                parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange:'schoolChange(this)'},
+                parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange:'schoolChange(this)',includePrivateSchools :true},
                 onComplete: function(transport) {
 
                 }
@@ -75,63 +75,70 @@
         var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
         var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
         var schoolInfoArray = x.responseText.split(";");
-            document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
-            if(schoolInfoArray[1] != ""){
-                var image = document.createElement('img');
-                image.setAttribute('alt', 'GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best.');
-                image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1]+'.gif');
-                image.setAttribute('class', 'rating_gs');
-                document.getElementById('gsSchoolRating').appendChild(image);
-            }
-           
-            if(schoolInfoArray[2] != ""){
-             document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
-            }
-            if(schoolInfoArray[3] != ""){
-            document.getElementById('parentRatingCount').innerHTML = 'Based on '+schoolInfoArray[3]+' ratings';
-            }
+        document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
 
-            if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){
-            document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
-            document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
-            document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
-            }
-            else if(schoolInfoArray[4] != ""  && schoolInfoArray[5] != ""){
-            document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
-            document.getElementById('schoolAddressLine2').innerHTML = schoolInfoArray[4];
-            document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
-            document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
-            }
+        removeChildrenFromNode(document.getElementById('gsSchoolRating'));
 
-document.getElementById('schoolId').value = schoolInfoArray[10] ;
-            document.getElementById('schoolState').value = schoolInfoArray[7] ;
-             var principalsHref = document.createElement('a');
-                principalsHref.setAttribute('href', schoolInfoArray[11]);
 
-                principalsHref.appendChild(document.createTextNode("alksdklasdklasd"));
-                alert(document.getElementById('principalsLink'));
-                document.getElementById('principalsLink').appendChild(principalsHref);
-                document.getElementById('principalsLink').innerHtml = '<a href="'+schoolInfoArray[11]+'"> Preinlkasd</a>';
-
-                
-            var prForm =  document.getElementById('parentReviewForm');
-            prForm.style.display = '';
-            var review = document.getElementById('completeReview');
-            review.style.display = '';
-            var instructions = document.getElementById('instructText');
-            instructions.style.display = 'none';
-            if(isPreschool){
-            var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
-                nonPreschoolRatingStars.style.display = 'none';
-            }else{
-             var preschoolRatingStars = document.getElementById('preSchoolStars');
-                preschoolRatingStars.style.display = 'none';
-            }
+        if(schoolInfoArray[1] != ""){
+        var image = document.createElement('img');
+        image.setAttribute('alt', 'GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best.');
+        image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1]+'.gif');
+        image.setAttribute('class', 'rating_gs');
+        document.getElementById('gsSchoolRating').appendChild(image);
 
 
         }
 
-    var starSelected = false;
+        if(schoolInfoArray[2] != ""){
+        document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
+        }
+        if(schoolInfoArray[3] != ""){
+        document.getElementById('parentRatingCount').innerHTML = 'Based on '+schoolInfoArray[3]+' ratings';
+        }
+
+        if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){
+        document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
+        document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
+        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
+        }
+        else if(schoolInfoArray[4] != ""  && schoolInfoArray[5] != ""){
+        document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
+        document.getElementById('schoolAddressLine2').innerHTML = schoolInfoArray[4];
+        document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
+        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
+        }
+
+        document.getElementById('schoolId').value = schoolInfoArray[10] ;
+        document.getElementById('schoolState').value = schoolInfoArray[7] ;
+        removeChildrenFromNode(document.getElementById('principalsLink'));
+        var principalsHref = document.createElement('a');
+        principalsHref.setAttribute('href', schoolInfoArray[11]);
+
+        principalsHref.appendChild(document.createTextNode("Principal,sumit your review here"));
+
+        document.getElementById('principalsLink').appendChild(principalsHref);
+        document.getElementById('principalsLink').innerHtml = '<a href="'+schoolInfoArray[11]+'"> Preinlkasd</a>';
+
+
+        var prForm =  document.getElementById('parentReviewForm');
+        prForm.style.display = '';
+        var review = document.getElementById('completeReview');
+        review.style.display = '';
+        var instructions = document.getElementById('instructText');
+        instructions.style.display = 'none';
+        if(isPreschool){
+        var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
+        nonPreschoolRatingStars.style.display = 'none';
+        }else{
+        var preschoolRatingStars = document.getElementById('preSchoolStars');
+        preschoolRatingStars.style.display = 'none';
+        }
+
+
+        }
+
+         var starSelected = false;
         function onLoadCities(){
             var url = '/community/registrationAjax.page';
                      var pars = 'state=' + document.getElementById('userState').value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
@@ -184,6 +191,18 @@ document.getElementById('schoolId').value = schoolInfoArray[10] ;
 
              return noError;
                 }
+
+
+        function removeChildrenFromNode(node)
+        {
+
+            var len = node.childNodes.length;
+
+            while (node.hasChildNodes())
+            {
+                node.removeChild(node.firstChild);
+            }
+        }
          -->
     </script>
     ]]>
@@ -191,29 +210,29 @@ document.getElementById('schoolId').value = schoolInfoArray[10] ;
 </head>
 
 <gsml:body adPageName="ParentReviews">
-    <form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
+<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
 
-        <div id="pageWrapper">
-            <div id="topSelections">
-                <h2>Help us help parents</h2>
+    <div id="pageWrapper">
+        <div id="topSelections">
+            <h2>Help us help parents</h2>
 
-                <div id="selections">
-                    <p>A few minutes of your time can make a difference.Rate and
-                        review your child's school so other parents can make the right
-                        choice for their family.</p>
+            <div id="selections">
+                <p>A few minutes of your time can make a difference.Rate and
+                    review your child's school so other parents can make the right
+                    choice for their family.</p>
 
-                    <h3>1.Find your school</h3>
-                     <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-                     <!--<school:showHover/>-->
-<!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
-                    <div id="stateDropdown">
-                        State:
+                <h3>1.Find your school</h3>
+                <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
+                <!--<school:showHover/>-->
+                <!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
+                <div id="stateDropdown">
+                    State:
                     <span id="state">
                     <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                          onChange="stateChange(this);" tabIndex="9"/>
                     </span>
-                    </div>
-                    <div id="cityDropdown">City:
+                </div>
+                <div id="cityDropdown">City:
                     <span id="city">
                         <select name="city" tabindex="10" onchange="">
                             <option selected="selected" value="">1. Choose city</option>
@@ -223,27 +242,28 @@ document.getElementById('schoolId').value = schoolInfoArray[10] ;
                             </c:forEach>
                         </select>
                     </span></div>
-                    <div id="schoolsDropdown">School:
+                <div id="schoolsDropdown">School:
                     <span id="schools">
                     <select id="schoolSelect" name="sid" class="selectSchool">
                         <option value="">2. Choose school</option>
                     </select>
                     </span>
-                    </div>
-                    <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
                 </div>
-                <div id="parentReviewImage">Img</div>
+                <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
             </div>
+            <div id="parentReviewImage">Img</div>
+        </div>
 
-            <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
-            <div style="display: none;" id="parentReviewForm">
+        <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
+
+        <div style="display: none;" id="parentReviewForm">
             <!--<div id="parentReviewForm">-->
-                <input type="hidden" name="schoolId" id="schoolId" value=""/>
-                <input type="hidden" name="schoolState" id="schoolState" value=""/>
-                <input type="hidden" name="isAddNewParentReview" value="true"/>
-                <h4 id="schoolNameHeader">${swr.school.name}</h4>
+            <input type="hidden" name="schoolId" id="schoolId" value=""/>
+            <input type="hidden" name="schoolState" id="schoolState" value=""/>
+            <input type="hidden" name="isAddNewParentReview" value="true"/>
+            <h4 id="schoolNameHeader">${swr.school.name}</h4>
 
-                <div id="schoolInfo"> <![CDATA[<div id="gsSchoolRating"></div>
+            <div id="schoolInfo"> <![CDATA[<div id="gsSchoolRating"></div>
                     <div id="overallParentRating"></div>
                     <div id="parentRatingCount"></div>
                      <div id="schoolAddress">
@@ -251,139 +271,145 @@ document.getElementById('schoolId').value = schoolInfoArray[10] ;
                     <div id="schoolAddressLine2"></div>
                     <div id="schoolAddressLine3"></div>
                     <div id="schoolAddressLine4"></div></div>]]>
-                </div>
-
-                <div id="parentRating">
-                    <div id="ratingTitle">My Overall rating</div>
-                    <div class="parentRatingStars">
-                        <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
-                        <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
-                        <ul class="star-rating large-star">
-                            <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                            <li><a href="#" id="validateStar1"
-                                   title="1 star out of 5"
-                                   class="one-star"
-                                   onclick="this.hideFocus=true;setStars(1);return false;"
-                                   onmouseover="showStars(1);"
-                                   onmouseout="resetStars();"
-                                    >1</a></li>
-                            <li><a href="#"  id="validateStar2" title="2 stars out of 5" class="two-stars"
-                                   onclick="this.hideFocus=true;setStars(2);return false;"
-                                   onmouseover="showStars(2);"
-                                   onmouseout="resetStars();"
-                                    >2</a></li>
-                            <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
-                                   onclick="this.hideFocus=true;setStars(3);return false;"
-                                   onmouseover="showStars(3);"
-                                   onmouseout="resetStars();"
-                                    >3</a></li>
-                            <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
-                                   onclick="this.hideFocus=true;setStars(4);return false;"
-                                   onmouseover="showStars(4);"
-                                   onmouseout="resetStars();"
-                                    >4</a></li>
-                            <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
-                                   onclick="this.hideFocus=true;setStars(5);return false;"
-                                   onmouseover="showStars(5);"
-                                   onmouseout="resetStars();"
-                                    >5</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="marginTextArea"><span>My Review</span><span id="guidelines">Guidlines</span></div>
-                    <div><textarea id="reviewText"
-                                   name="comments"
-                                   onkeyup="countWords(this)"
-                                   onkeydown="countWords(this)"
-                                   onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                                   rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
-                    <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
-                                onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                                value="${email}" class="emailAddress"/></div>
-                    <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox" checked="checked"/>
-                        I'm a <select name="posterAsString">
-                            <option value="parent">parent</option>
-                            <option value="student">student</option>
-                            <option value="teacher">teacher</option>
-                            <option value="other">other</option>
-                        </select> and I accept <span id="tos">the <gsml:a
-                                href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
-                                target="_blank">Terms of Use</gsml:a></span></div>
-                    <div class="marginEmailField"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
-                                checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
-                    </div>
-                    <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">GreatSchools Privay Policy</gsml:a></div>
-                </div>
-                <div id="categoryRatings">
-
-                    <ul id="nonPreSchoolStars">
-                        <li>
-                            <div class="catRatingLabel">Principal Leadership</div>
-                            <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Teacher Quality</div>
-                            <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Extra curricular Activites</div>
-                            <div class="catRating"><gsml:starRating id="activitiesAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Parent Involvement</div>
-                            <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Safety and Discipline</div>
-                            <div class="catRating"><gsml:starRating id="safetyAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                    </ul>
-
-
-                    <ul id="preSchoolStars">
-                        <li>
-                            <div class="catRatingLabel">Program &amp; Curriculum</div>
-                            <div class="catRating"><gsml:starRating id="PProgramAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Facilities &amp; Equipment</div>
-                            <div class="catRating"><gsml:starRating id="PFacilitiesAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Health &amp; Safety</div>
-                            <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Teacher Quality</div>
-                            <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="catRatingLabel">Parent Involvement</div>
-                            <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
-                            </div>
-                        </li>
-                    </ul>
-                    
-
-                    <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
-                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained></div>
-                    <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
-                </div>
-
-                <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review" id="submit" name="_submit" onclick="return validateReview();"/></div>
-
             </div>
+
+            <div id="parentRating">
+                <div id="ratingTitle">My Overall rating</div>
+                <div class="parentRatingStars">
+                    <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
+                    <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
+                    <ul class="star-rating large-star">
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li><a href="#" id="validateStar1"
+                               title="1 star out of 5"
+                               class="one-star"
+                               onclick="this.hideFocus=true;setStars(1);return false;"
+                               onmouseover="showStars(1);"
+                               onmouseout="resetStars();"
+                                >1</a></li>
+                        <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
+                               onclick="this.hideFocus=true;setStars(2);return false;"
+                               onmouseover="showStars(2);"
+                               onmouseout="resetStars();"
+                                >2</a></li>
+                        <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
+                               onclick="this.hideFocus=true;setStars(3);return false;"
+                               onmouseover="showStars(3);"
+                               onmouseout="resetStars();"
+                                >3</a></li>
+                        <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
+                               onclick="this.hideFocus=true;setStars(4);return false;"
+                               onmouseover="showStars(4);"
+                               onmouseout="resetStars();"
+                                >4</a></li>
+                        <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
+                               onclick="this.hideFocus=true;setStars(5);return false;"
+                               onmouseover="showStars(5);"
+                               onmouseout="resetStars();"
+                                >5</a></li>
+                    </ul>
+                </div>
+
+                <div class="marginTextArea"><span>My Review</span><span id="guidelines">Guidlines</span></div>
+                <div><textarea id="reviewText"
+                               name="comments"
+                               onkeyup="countWords(this)"
+                               onkeydown="countWords(this)"
+                               onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                               rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
+                <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
+                                                     onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                                                     value="${email}" class="emailAddress"/></div>
+                <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox"
+                                                     checked="checked"/>
+                    I'm a <select name="posterAsString">
+                        <option value="parent">parent</option>
+                        <option value="student">student</option>
+                        <option value="teacher">teacher</option>
+                        <option value="other">other</option>
+                    </select> and I accept <span id="tos">the <gsml:a
+                            href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
+                            target="_blank">Terms of Use</gsml:a></span></div>
+                <div class="marginEmailField"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
+                                                     checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
+                </div>
+                <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
+                                                target="_blank">GreatSchools Privay Policy</gsml:a></div>
+            </div>
+            <div id="categoryRatings">
+
+                <ul id="nonPreSchoolStars">
+                    <li>
+                        <div class="catRatingLabel">Principal Leadership</div>
+                        <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Teacher Quality</div>
+                        <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Extra curricular Activites</div>
+                        <div class="catRating"><gsml:starRating id="activitiesAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Parent Involvement</div>
+                        <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Safety and Discipline</div>
+                        <div class="catRating"><gsml:starRating id="safetyAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <ul id="preSchoolStars">
+                    <li>
+                        <div class="catRatingLabel">Program &amp; Curriculum</div>
+                        <div class="catRating"><gsml:starRating id="PProgramAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Facilities &amp; Equipment</div>
+                        <div class="catRating"><gsml:starRating id="PFacilitiesAsString"
+                                                                additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Health &amp; Safety</div>
+                        <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Teacher Quality</div>
+                        <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="catRatingLabel">Parent Involvement</div>
+                        <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                      onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained>
+                </div>
+                <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
+            </div>
+
+            <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review"
+                                                    id="submit" name="_submit" onclick="return validateReview();"/>
+            </div>
+
         </div>
-    </form:form>
+    </div>
+</form:form>
 
 </gsml:body>
 </html>

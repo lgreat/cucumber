@@ -10,7 +10,9 @@ import gs.data.school.School;
 import gs.data.school.ISchoolDao;
 import gs.data.school.SchoolWithRatings;
 import gs.data.school.LevelCode;
+import gs.data.school.review.IReviewDao;
 import gs.data.state.State;
+import gs.web.util.UrlBuilder;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
 
     ISchoolDao _schoolDao;
+    IReviewDao _reviewDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -42,28 +45,37 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 if (schoolWithRatingsList != null && schoolWithRatingsList.size() > 0) {
                     SchoolWithRatings swr = schoolWithRatingsList.get(0);
                     str.append((swr.getRating() == null ? "" : swr.getRating()) + ";");
-                    str.append((swr.getParentRatings() == null ? "" : swr.getParentRatings().getOverall()) + ";");
-                    str.append((swr.getParentRatings() == null ? "" : swr.getParentRatings().getCount()) + ";");
-                }else{
-                    str.append("noRatingInfo"+";");
+                } else {
+                    str.append("noRatingInfo" + ";");
                 }
+                str.append((_reviewDao.findRatingsBySchool(school).getAvgParents() == null ? "" : _reviewDao.findRatingsBySchool(school).getAvgParents()) + ";");
+                str.append((_reviewDao.findRatingsBySchool(school).getCount() == null ? "" : _reviewDao.findRatingsBySchool(school).getCount()) + ";");
                 str.append(school.getStreet() + ";");
                 str.append((school.getStreetLine2() == "" ? "" : school.getStreetLine2()) + ";");
                 str.append(school.getCity() + ";");
                 str.append(school.getStateAbbreviation() + ";");
                 str.append(school.getZipcode() + ";");
                 str.append(school.getCounty() + ";");
-            }
+                if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                    str.append("isPreschool" + ";");
+                }
+                str.append(school.getId() + ";");
+                UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
+                str.append(builder.asFullUrl(request) + ";");
 
-            if(LevelCode.PRESCHOOL.equals(school.getLevelCode())){
-                    str.append("isPreschool"+";");
             }
-
-            str.append(school.getId() + ";");
         }
         PrintWriter out = response.getWriter();
         out.print(str);
         return null;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 
     public ISchoolDao getSchoolDao() {

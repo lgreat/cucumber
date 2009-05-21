@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.160 2009/05/21 00:17:56 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.161 2009/05/21 21:46:09 npatury Exp $
  */
 
 package gs.web.util;
@@ -162,8 +162,8 @@ public class UrlBuilder {
      * school profile pages
      */
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
-    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
-     public static final VPage SCHOOL_PARENT_REVIEWS_WITH_HOVER = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PARENT_REVIEWS_WITH_HOVER = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");    
     public static final VPage SCHOOL_PROFILE_TEST_SCORE = new VPage("vpage:schoolTestscores");
     public static final VPage SCHOOL_PROFILE_CENSUS = new VPage("vpage:schoolCensus");
     public static final VPage SCHOOL_PROFILE_CENSUS_PRIVATE = new VPage("vpage:schoolCensusPrivate");
@@ -383,17 +383,18 @@ public class UrlBuilder {
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
             handleSchoolProfile(school, false);
-        } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
+        } else if (SCHOOL_PARENT_REVIEWS_WITH_HOVER.equals(page)) {
             _perlPage = false;
             _path = "/school/parentReviews.page";
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
-        } else if (SCHOOL_PARENT_REVIEWS_WITH_HOVER.equals(page)) {
+            setParameter("showThankyouHover", "true");
+        }  else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = false;
-            _path = "/school/parentReviews.page?showThankyouHover=true";
+            _path = "/school/parentReviews.page";
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
-        } else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
+        }else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
