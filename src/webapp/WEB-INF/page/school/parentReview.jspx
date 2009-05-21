@@ -79,11 +79,10 @@
             if(schoolInfoArray[1] != ""){
                 var image = document.createElement('img');
                 image.setAttribute('alt', 'GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best.');
-                image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1] +'.gif');
+                image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1]+'.gif');
                 image.setAttribute('class', 'rating_gs');
                 document.getElementById('gsSchoolRating').appendChild(image);
             }
-
            
             if(schoolInfoArray[2] != ""){
              document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
@@ -104,6 +103,17 @@
             document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
             }
 
+document.getElementById('schoolId').value = schoolInfoArray[10] ;
+            document.getElementById('schoolState').value = schoolInfoArray[7] ;
+             var principalsHref = document.createElement('a');
+                principalsHref.setAttribute('href', schoolInfoArray[11]);
+
+                principalsHref.appendChild(document.createTextNode("alksdklasdklasd"));
+                alert(document.getElementById('principalsLink'));
+                document.getElementById('principalsLink').appendChild(principalsHref);
+                document.getElementById('principalsLink').innerHtml = '<a href="'+schoolInfoArray[11]+'"> Preinlkasd</a>';
+
+                
             var prForm =  document.getElementById('parentReviewForm');
             prForm.style.display = '';
             var review = document.getElementById('completeReview');
@@ -117,8 +127,8 @@
              var preschoolRatingStars = document.getElementById('preSchoolStars');
                 preschoolRatingStars.style.display = 'none';
             }
-            document.getElementById('schoolId').value = schoolInfoArray[10] ;
-            document.getElementById('schoolState').value = schoolInfoArray[7] ;
+
+
         }
 
     var starSelected = false;
@@ -149,9 +159,30 @@
                 }
                 
         function validateReview(){
-        alert(starSelected);
+        
+        var errMsg = 'Please enter the following feilds : ';
+        var noError = true;    
 
-                return starSelected;
+        if(!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))){
+            errMsg = errMsg + '\nPlease enter a review or rating.';
+            noError = false;
+        }
+
+       if(document.getElementById('reviewEmail').value == '' ){
+            errMsg = errMsg + '\nPlease enter a valid email address.';
+            noError = false;
+        }
+
+        if(!document.getElementById('permission').checked){
+            errMsg = errMsg + '\nPlease accept our terms of use.';
+            noError = false;
+        }
+
+        if(!noError){
+            alert(errMsg);
+        }
+
+             return noError;
                 }
          -->
     </script>
@@ -205,8 +236,8 @@
             </div>
 
             <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
-            <!--<div style="display: none;" id="parentReviewForm">-->
-            <div id="parentReviewForm">
+            <div style="display: none;" id="parentReviewForm">
+            <!--<div id="parentReviewForm">-->
                 <input type="hidden" name="schoolId" id="schoolId" value=""/>
                 <input type="hidden" name="schoolState" id="schoolState" value=""/>
                 <input type="hidden" name="isAddNewParentReview" value="true"/>
@@ -345,10 +376,10 @@
 
                     <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
                                                                        onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained></div>
-                    <div class="marginEmailField">asdasd</div>
+                    <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
                 </div>
 
-                <div><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review" id="submit" name="_submit" onclick="return validateReview();"/></div>
+                <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review" id="submit" name="_submit" onclick="return validateReview();"/></div>
 
             </div>
         </div>
