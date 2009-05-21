@@ -8,7 +8,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
-    <pageHelper:externalCss file="/res/css/school/parentReviews/thankYouHover.css"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviews/parentReviewThankYouHover.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
 
