@@ -319,7 +319,7 @@
             </c:when>
             <c:otherwise>
                 <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br/>GreatSchools Parent
-                    <brr/>
+                    <br/>
                     Community &#62;</gsml:a></p>
             </c:otherwise>
         </c:choose>
