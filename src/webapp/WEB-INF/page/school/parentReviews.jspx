@@ -349,9 +349,9 @@
     <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser links"/>
     <ad:BelowFold_300x250/>
-    <!--<c:if test="${empty param.hideMap}">-->
-        <!--<school:nearbySchools school="${school}"/>-->
-    <!--</c:if>-->
+    <c:if test="${empty param.hideMap}">
+        <school:nearbySchools school="${school}"/>
+    </c:if>
 </div>
 <!-- end: col_right -->
 </div>

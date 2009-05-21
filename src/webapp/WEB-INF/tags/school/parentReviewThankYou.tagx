@@ -70,8 +70,8 @@
         <div id="mslFlowDialogTopBar">
             <img src="/res/img/community/registration/join_pop_top.gif" alt="Personalize your school search - GreatSchools"/>
         </div>
-        <div id="mslFlowDialogBody">Your review has been submitted.Our Parent Review team will read your review and post it
-            so long as it meets our guidelines.This preocess may take a few days.Checkout what other parents have said about  ${schoolName}.
+        <div id="mslFlowDialogBody"><p>Your review has been submitted.Our Parent Review team will read your review and post it
+            so long as it meets our guidelines.This preocess may take a few days.Checkout what other parents have said about  ${schoolName}.</p>
             <div id="closeWindowDiv">
              <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
             </div>
