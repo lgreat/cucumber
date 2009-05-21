@@ -1603,6 +1603,10 @@
           class="gs.web.test.SchoolsInCityAjaxController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/school/schoolForParentReview.page"
+          class="gs.web.school.review.ParentReviewAjaxControllerForSchoolInfo"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/test/schoolLevelsInCity.page"
           class="gs.web.test.SchoolLevelsInCityAjaxController"
           autowire="byName" lazy-init="true"/>
@@ -1957,6 +1961,18 @@
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
 
+     <bean name="/school/parentReview.page"
+          class="gs.web.school.review.AddParentReviewsController"
+          autowire="byName" lazy-init="true">       
+         <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="successView" value="parentReviews"/>
+        <property name="viewName">
+            <value>school/parentReview</value>
+        </property>
+    </bean>
+
     <bean id="apiAccountValidator" class="gs.web.api.ApiAccountCommandValidator"
           autowire="byName" lazy-init="true"/>
 
@@ -2022,8 +2038,6 @@
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>
     </bean>
-
-
 
     <bean name="/community/chooserRegistration.page"
           class="gs.web.community.registration.RegistrationController"

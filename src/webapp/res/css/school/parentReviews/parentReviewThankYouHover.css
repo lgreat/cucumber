@@ -1,0 +1,20 @@
+#mslFlowDialog {
+    position: relative;
+    height:150px;
+}
+
+#mslFlowDialogBody {
+   padding-left:15px;
+   padding-top:10px;
+   padding-bottom: 10px;
+   background: url(/res/img/community/registration/join_pop_body.gif) repeat-y;
+}
+
+#closeWindowDiv .closeWindowClass{
+    padding-left:50px;
+    text-decoration:none;
+    font-size:12px;
+    font-family: Trebuchet MS;
+    color:#666666;
+}
+

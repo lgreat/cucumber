@@ -3,6 +3,7 @@ package gs.web.school.review;
 import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
+import gs.data.school.ISchoolDao;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -11,9 +12,11 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailContentHelper;
 import static gs.data.util.XMLUtil.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.state.State;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
+import gs.web.util.UrlBuilder;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +25,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,6 +58,9 @@ public class AddParentReviewsController extends SimpleFormController implements 
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
     private EmailContentHelper _emailContentHelper;
+    private String _viewName;
+
+    private ISchoolDao _schoolDao;
 
     private EmailHelperFactory _emailHelperFactory;
 
@@ -86,7 +94,15 @@ public class AddParentReviewsController extends SimpleFormController implements 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
         ReviewCommand rc = (ReviewCommand) command;
+        
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+        String check = request.getParameter("isAddNewParentReview");
+        if(!StringUtils.isBlank(check)){
+           if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
+            school = _schoolDao.getSchoolById(State.fromString(request.getParameter("schoolState")), Integer.parseInt(request.getParameter("schoolId")));
+            }
+        }
+
         User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
         boolean isNewUser = false;
 
@@ -153,12 +169,15 @@ public class AddParentReviewsController extends SimpleFormController implements 
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentReview);
         }
 
-        if ("xml".equals(rc.getOutput())) return successXML(response);
-        else if ("json".equals(rc.getOutput())) return successJSON(response);
-        else if ("html".equals(rc.getOutput())) return successHTML();
-        else if (isXmlPage()) return successXML(response);
-        else if (isJsonPage()) return successJSON(response);
-        else return successHTML();
+        if ((!StringUtils.isBlank(check))) {
+            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            return new ModelAndView(new RedirectView(builder.asFullUrl(request)));
+
+        } else {
+            if ("xml".equals(rc.getOutput()) || isXmlPage()) return successXML(response);
+            else if ("json".equals(rc.getOutput()) || isJsonPage()) return successJSON(response);
+            else return successHTML();
+        }
     }
 
     protected static boolean userRatedOneOrMoreCategories(ReviewCommand rc) {
@@ -427,5 +446,20 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
         _emailHelperFactory = emailHelperFactory;
+    }
+    
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
+    }
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

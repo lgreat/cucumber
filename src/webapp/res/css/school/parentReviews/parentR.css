@@ -1,0 +1,137 @@
+#pageWrapper{
+    color:#666666;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    border:5px solid #CACC9E;
+     position:relative;
+    padding:10px;
+}
+
+#pageWrapper h2{
+border-bottom:1px solid #CACC9E;
+color:#55BBCC;
+font-size:19px;
+font-weight:bold;
+margin:0 0 14px;
+padding-bottom:6px;
+}asd
+
+#pageWrapper h3{
+color:#D66671;
+font-size:18px;
+margin:10px 0;
+}
+
+#pageWrapper #topSelections{
+    height:250px;
+    width:800px;
+}
+
+
+#pageWrapper #parentReviewForm{
+    border:5px solid #55BBCC;
+    padding:10px 20px 20px 20px;
+    margin-bottom:50px;
+}
+
+#pageWrapper h4{
+color:#55BBCC;
+font-family:"Trebuchet MS";
+font-size:16px;
+font-weight:bold;
+}
+
+#gsSchoolRating{
+    padding-top:25px;
+    float:left;
+}
+
+#schoolAddress{
+    padding-left:20px;
+    float:left;
+    width: 200px;
+    height:50px;
+}
+
+#pageWrapper #parentRating{
+    float:left;
+    width:450px;
+}
+#parentRating #ratingTitle{
+    float:left;
+    width:120px;
+
+}
+#parentRating .parentRatingStars{
+    float:left;
+    width:310px;
+    padding-left:10px;
+}
+.marginTextArea{
+    margin-top:30px;
+}
+
+.marginEmailField{
+    margin-top:10px;
+}
+#guidelines{
+    padding-left:305px;
+}
+
+#categoryRatings{
+float:left;
+height:350px;
+width:300px;
+margin-top:22px;
+}
+
+#categoryRatings ul li div.catRatingLabel{
+    float:left;
+    width:180px;
+    padding-top:10px;
+}
+
+#categoryRatings ul li div.catRating{
+    padding-top:10px;
+}
+
+#selections{
+    float:left;
+    width:500px;
+}
+
+ #selections div{
+    padding-bottom:10px;
+}
+
+#selections div span#state{
+    padding-left:16px;
+}
+
+#selections div span#city{
+    padding-left:24px;
+}
+
+#selections div span#schools{
+    padding-left:9px;
+}
+
+#parentReviewImage{
+    float:left;
+    width:300px;
+    height:200px;
+}
+
+#learnMoreLinks{
+    padding-top:20px;
+}
+
+#privacyPolicy{
+    font-size:10px;
+}
+
+#schoolInfo{
+    margin-top:10px;
+    margin-bottom:10px;
+    height:60px;
+}

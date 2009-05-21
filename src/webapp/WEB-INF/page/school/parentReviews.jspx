@@ -20,272 +20,352 @@
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page import="gs.data.school.review.Ratings"/>
 <html lang="en">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    <jsp:directive.page contentType="text/html"/>
-    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
-    <c:set var="school" value="${cmd.school}"/>
-    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
-    <head>
-        <title>Parent Reviews of ${school.name} - ${addr}</title>
-        <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
-            <![CDATA[<script type="text/javascript"><!--]]>
-            function go(box) {
-                option = box.options[box.selectedIndex].value;
-                if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
-            }
-        <![CDATA[--></script>]]>
-        <jsp:scriptlet>
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-            request.setAttribute("catFacilities", Ratings.Category.P_Facilities);
-            request.setAttribute("catParents", Ratings.Category.P_Parents);
-            request.setAttribute("catProgram", Ratings.Category.P_Program);
-            request.setAttribute("catSafety", Ratings.Category.P_Safety);
-            request.setAttribute("catTeachers", Ratings.Category.P_Teachers);
-        </jsp:scriptlet>
-    </head>
-    <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
-    <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
-        <school:profile school="${school}" tab="parentReviews">
-            <gsml:equalizeColumns ids="'col_left','col_right'"/>
-            <div id="parentReview">
-                <div id="col_left">
-                    <c:if test="${cmd.ratings.displayOverallRating eq true}">
-                        <div id="showParentRatings">
-                            <div id="rating_parent">
-                                <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating" styleClass="parentTitle" />
-                                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif" alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars" />
-                                <link:schoolProfileAddParentReview
-                                        school="${school}"
-                                        onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                        styleClass="submodal-344-362"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif" alt="Rate it" styleClass="rateIt" /></link:schoolProfileAddParentReview>
-                                <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
-                            </div><!-- end: rating_parent -->
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<c:set var="school" value="${cmd.school}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
+<head>
+   
+    <title>Parent Reviews of ${school.name} - ${addr}</title>
+    <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
+    <![CDATA[<script type="text/javascript"><!--]]>
+    function go(box) {
+    option = box.options[box.selectedIndex].value;
+    if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
+    }
+    <![CDATA[--></script>]]>
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        request.setAttribute("catFacilities", Ratings.Category.P_Facilities);
+        request.setAttribute("catParents", Ratings.Category.P_Parents);
+        request.setAttribute("catProgram", Ratings.Category.P_Program);
+        request.setAttribute("catSafety", Ratings.Category.P_Safety);
+        request.setAttribute("catTeachers", Ratings.Category.P_Teachers);
+    </jsp:scriptlet>
+    <c:if test="${param.showThankyouHover eq 'true'}">
+        <pageHelper:addOnLoadHandler handler="showLoginHover();"/>
+    </c:if>
+</head>
+<gsml:body adPageName="parentReviews" pageLayout="parentReviews">
+<pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
 
-                            <c:set var="hasPreschoolCategoryRatings" value="${
+<school:profile school="${school}" tab="parentReviews">
+<gsml:equalizeColumns ids="'col_left','col_right'"/>
+
+<div id="parentReview">
+<div id="col_left">
+<c:if test="${cmd.ratings.displayOverallRating eq true}">
+    <div id="showParentRatings">
+        <div id="rating_parent">
+            <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
+                      alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating"
+                      styleClass="parentTitle"/>
+            <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif"
+                      alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars"/>
+            <link:schoolProfileAddParentReview
+                    school="${school}"
+                    onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                    styleClass="submodal-344-362"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
+                                                            alt="Rate it"
+                                                            styleClass="rateIt"/></link:schoolProfileAddParentReview>
+
+            <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
+        </div>
+        <!-- end: rating_parent -->
+<school:parentReviewThankYou schoolName="${school.name}"/>
+        <c:set var="hasPreschoolCategoryRatings" value="${
                                    not empty cmd.ratings.averageRatingMap[catProgram]
                                 or not empty cmd.ratings.averageRatingMap[catFacilities]
                                 or not empty cmd.ratings.averageRatingMap[catSafety]
                                 or not empty cmd.ratings.averageRatingMap[catTeachers]
                                 or not empty cmd.ratings.averageRatingMap[catParents]}"/>
 
-                            <c:set var="hasGradeschoolCategoryRatings" value="${
+        <c:set var="hasGradeschoolCategoryRatings" value="${
                                    not empty cmd.ratings.avgPrincipal
                                 or not empty cmd.ratings.avgTeachers
                                 or not empty cmd.ratings.avgActivities
                                 or not empty cmd.ratings.avgParents
                                 or not empty cmd.ratings.avgSafety}"/>
 
-                            <c:choose>
-                                <c:when test="${cmd.ratings.preschool}">
-                                    <c:if test="${hasPreschoolCategoryRatings}">
-                                    <ul>
-                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catProgram]}"/>
-                                        <c:set var="curCatName" value="Program &amp; Curriculum"/>
-                                        <c:if test="${not empty curCatValue}">
-                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
-                                        <c:set var="curCatName" value="Facilities &amp; Equipment"/>
-                                        <c:if test="${not empty curCatValue}">
-                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catSafety]}"/>
-                                        <c:set var="curCatName" value="Health &amp; Safety"/>
-                                        <c:if test="${not empty curCatValue}">
-                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
-                                        <c:set var="curCatName" value="Teacher Quality"/>
-                                        <c:if test="${not empty curCatValue}">
-                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
-                                        <c:set var="curCatName" value="Parent Involvement"/>
-                                        <c:if test="${not empty curCatValue}">
-                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                    </ul>
-                                    </c:if>
-                                    <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
-                                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
-                                </c:when>
-                                <c:when test="${cmd.ratings.gradeschool}">
-                                    <c:if test="${hasGradeschoolCategoryRatings}">
-                                    <ul>
-                                        <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                            <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:if test="${not empty cmd.ratings.avgTeachers}">
-                                            <li>Teacher Quality<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:if test="${not empty cmd.ratings.avgActivities}">
-                                            <li>Extracurricular Activities<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif" alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:if test="${not empty cmd.ratings.avgParents}">
-                                            <li>Parent Involvement<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                        <c:if test="${not empty cmd.ratings.avgSafety}">
-                                            <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
-                                        </c:if>
-                                    </ul>
-                                    </c:if>
-                                    <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
-                                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
-                                </c:when>
-                            </c:choose>
-                        </div><!-- end: showParentRatings -->
-                    </c:if>
+        <c:choose>
+            <c:when test="${cmd.ratings.preschool}">
+                <c:if test="${hasPreschoolCategoryRatings}">
+                    <ul>
+                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catProgram]}"/>
+                        <c:set var="curCatName" value="Program &amp; Curriculum"/>
+                        <c:if test="${not empty curCatValue}">
+                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                       styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
+                        <c:set var="curCatName" value="Facilities &amp; Equipment"/>
+                        <c:if test="${not empty curCatValue}">
+                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                       styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catSafety]}"/>
+                        <c:set var="curCatName" value="Health &amp; Safety"/>
+                        <c:if test="${not empty curCatValue}">
+                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                       styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
+                        <c:set var="curCatName" value="Teacher Quality"/>
+                        <c:if test="${not empty curCatValue}">
+                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                       styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
+                        <c:set var="curCatName" value="Parent Involvement"/>
+                        <c:if test="${not empty curCatValue}">
+                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                       styleClass="sm_stars"/></li>
+                        </c:if>
+                    </ul>
+                </c:if>
 
-                    <jsp:include page="/community/communityQuestionPromo.module">
-                        <jsp:param name="code" value="school/parentReviews.page"/>
-                        <jsp:param name="styleClass" value="bottomBorder clearLeft"/>
-                    </jsp:include>
+                <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                </p>
+            </c:when>
+            <c:when test="${cmd.ratings.gradeschool}">
+                <c:if test="${hasGradeschoolCategoryRatings}">
+                    <ul>
+                        <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                            <li>Principal Leadership<gsml:img
+                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif"
+                                    alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars"
+                                    styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:if test="${not empty cmd.ratings.avgTeachers}">
+                            <li>Teacher Quality<gsml:img
+                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif"
+                                    alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars"
+                                    styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:if test="${not empty cmd.ratings.avgActivities}">
+                            <li>Extracurricular Activities<gsml:img
+                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif"
+                                    alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars"
+                                    styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:if test="${not empty cmd.ratings.avgParents}">
+                            <li>Parent Involvement<gsml:img
+                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif"
+                                    alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars"
+                                    styleClass="sm_stars"/></li>
+                        </c:if>
+                        <c:if test="${not empty cmd.ratings.avgSafety}">
+                            <li>Safety and Discipline<gsml:img
+                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif"
+                                    alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars"
+                                    styleClass="sm_stars"/></li>
+                        </c:if>
+                    </ul>
+                </c:if>
 
-                    <c:if test="${cmd.showParentReviewForm}">
-                        <school:parentReviewForm school="${school}" pageName="parentReviews"/>
-                    </c:if>
+                <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
+                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                </p>
+            </c:when>
+        </c:choose>
+    </div>
+    <!-- end: showParentRatings -->
+</c:if>
 
-                    <!-- begin Parent Reviews -->
-                    <c:if test="${cmd.totalReviews gt 0}">
-                        <div id="showParentReviews" class="showall">
-                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
+<jsp:include page="/community/communityQuestionPromo.module">
+    <jsp:param name="code" value="school/parentReviews.page"/>
+    <jsp:param name="styleClass" value="bottomBorder clearLeft"/>
+</jsp:include>
 
-                         <form:select path="cmd.sortBy" cssClass="sortReviews" id="sltRatingSort" onchange="go(this);">
-                            <form:option value="">Sort by</form:option>
-                            <form:option value="dd">Date: newest to oldest</form:option>
-                            <form:option value="da">Date: oldest to newest</form:option>
-                            <form:option value="rd">Rating: highest to lowest</form:option>
-                            <form:option value="ra">Rating: lowest to highest</form:option>
-                        </form:select>
+<c:if test="${cmd.showParentReviewForm}">
+    <school:parentReviewForm school="${school}" pageName="parentReviews"/>
+</c:if>
 
-                        <pg:pager
-                                maxPageItems="${cmd.maxReviewsPerPage}"
-                                items="${cmd.totalReviews}"
-                                maxItems="${cmd.totalReviews}"
-                                url="/school/parentReviews.page"
-                                export="currentPage=pageNumber"
-                                >
-                            <pg:param name="id" value="${cmd.school.id}"/>
-                            <pg:param name="state" value="${stateAbbrev}"/>
-                            <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
+<!-- begin Parent Reviews -->
+<c:if test="${cmd.totalReviews gt 0}">
+    <div id="showParentReviews" class="showall">
+        <h2>Parent Reviews <span
+                class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
 
-                            <c:set var="pageControls">
-                                <div class="pageControls">
-                                    <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                                    <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} Parent Reviews" /></gsml:a></div></pg:next>
-                                    <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} Parent Reviews" /></gsml:a></div></pg:prev>
-                                </div>
-                            </c:set>
+        <form:select path="cmd.sortBy" cssClass="sortReviews" id="sltRatingSort" onchange="go(this);">
+            <form:option value="">Sort by</form:option>
+            <form:option value="dd">Date: newest to oldest</form:option>
+            <form:option value="da">Date: oldest to newest</form:option>
+            <form:option value="rd">Rating: highest to lowest</form:option>
+            <form:option value="ra">Rating: lowest to highest</form:option>
+        </form:select>
 
-                            ${pageControls}
-                            <c:forEach var="review" items="${cmd.reviews}">
-                                <pg:item>
-                                    <!-- does user permit name to display-->
-                                    <div class="review">
-                                        <![CDATA[ <a name="ps${review.id}"></a> ]]> 
-                                        <c:set var="who" value=""/>
-                                        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                                            <c:set var="who" value="${review.who}"/>
-                                        </c:if>
-                                        <c:set var="curStarRating" value="${review.quality.name}"/>
-                                        <c:if test="${school.levelCode eq 'p'}">
-                                            <c:set var="curStarRating" value="${review.POverall.name}"/>
-                                        </c:if>
-                                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
-                                            <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
-                                                      styleClass="stars" alt="${curStarRating} out of 5 stars" />
-                                        </c:if>
-                                        <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+        <pg:pager
+                maxPageItems="${cmd.maxReviewsPerPage}"
+                items="${cmd.totalReviews}"
+                maxItems="${cmd.totalReviews}"
+                url="/school/parentReviews.page"
+                export="currentPage=pageNumber"
+                >
+            <pg:param name="id" value="${cmd.school.id}"/>
+            <pg:param name="state" value="${stateAbbrev}"/>
+            <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
 
-                                        <c:set var="postedByDisplay" value=""/>
-                                        <c:choose>
-                                            <c:when test="${review.allowName and not empty(review.user)}">
-                                                <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                                            </c:when>
-                                            <c:when test="${review.who ne ''}">
-                                                <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
-                                            </c:when>
-                                        </c:choose>
-                                        <p>
-                                            <c:out value="${review.comments}" escapeXml="true"/>
-                                                <c:choose>
-                                                    <c:when test="${who eq 'principal'}">
-                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="principal author">Submitted by ${postedByDisplay}</span></c:if>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="author">Submitted by ${postedByDisplay}</span></c:if>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                        </p>
-                                        <p class="respond"><link:schoolProfileAddParentReview
-                                                school="${school}"
-                                                onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                                styleClass="submodal-344-362"
-                                                >Write your own review</link:schoolProfileAddParentReview></p>
-                                    </div><!-- end: review -->
-                                </pg:item>
-                            </c:forEach>
-                            ${pageControls}
-                        </pg:pager>
-                        </div><!-- end: showParentReviews -->
-                    </c:if>
+            <c:set var="pageControls">
+                <div class="pageControls">
+                    <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
+                    <pg:next>
+                        <div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img
+                                src="/res/img/school/parentReviews/nextPage.gif"
+                                alt="Next page of ${school.name} Parent Reviews"/></gsml:a></div>
+                    </pg:next>
+                    <pg:prev>
+                        <div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img
+                                src="/res/img/school/parentReviews/previousPage.gif"
+                                alt="Previous page of ${school.name} Parent Reviews"/></gsml:a></div>
+                    </pg:prev>
+                </div>
+            </c:set>
 
-                    <c:if test="${school.levelCode != 'p'}">
-                        <div class="noprint" style="margin:10px 0 20px 0;">
-                            <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_ParentReview"
-                                    id="GS_ParentSurvey.surveyTeaser">
-                                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif" alt="What are ${school.name}'s special characteristics?" />
-                            </link:schoolStartSurvey>
-                        </div>
-                    </c:if>                    
+            ${pageControls}
+            <c:forEach var="review" items="${cmd.reviews}">
+                <pg:item>
+                    <!-- does user permit name to display-->
+                    <div class="review">
+                        <![CDATA[ <a name="ps${review.id}"></a> ]]>
+                        <c:set var="who" value=""/>
+                        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                            <c:set var="who" value="${review.who}"/>
+                        </c:if>
+                        <c:set var="curStarRating" value="${review.quality.name}"/>
+                        <c:if test="${school.levelCode eq 'p'}">
+                            <c:set var="curStarRating" value="${review.POverall.name}"/>
+                        </c:if>
+                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                            <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
+                                      styleClass="stars" alt="${curStarRating} out of 5 stars"/>
+                        </c:if>
 
-                    <!-- begin Callouts -->
-                    <div id="callouts" class="noprint">
-                        <div class="learnMore"><p>Learn more about Parent Reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
-                        <div class="feedback">
-                            <c:choose>
-                                <c:when test="${cmd.totalReviews gt 0}">
-                                    <p>Were these ratings and reviews helpful to you? <a href="mailto:commentfeedback@greatschools.net?subject=${school.name} ${stateAbbrev} ${school.id}" title="Give us feedback">Give us feedback &#62;</a></p>
-                                </c:when>
-                                <c:otherwise>
-                                    <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br />GreatSchools Parent<br />Community &#62;</gsml:a></p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                        <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+
+                        <c:set var="postedByDisplay" value=""/>
                         <c:choose>
-                            <c:when test="${school.levelCode == 'p'}">
-                                <div class="tellUsMore noprint"><p>Is your child on track? Find out with our <promo:nthGraderHover referredBy="parentReviews">grade-by-grade newsletters</promo:nthGraderHover>.</p></div>    
+                            <c:when test="${review.allowName and not empty(review.user)}">
+                                <c:set var="postedByDisplay"
+                                       value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
                             </c:when>
-                            <c:otherwise>
-                                <div class="tellUsMore noprint"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
-                            </c:otherwise>
+                            <c:when test="${review.who ne ''}">
+                                <c:set var="postedByDisplay"
+                                       value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                            </c:when>
                         </c:choose>
 
-                    </div><!-- end: callouts -->
+                        <p>
+                            <c:out value="${review.comments}" escapeXml="true"/>
+                            <c:choose>
+                                <c:when test="${who eq 'principal'}">
+                                    <c:if test="${not empty postedByDisplay}"><br/><span
+                                            class="principal author">Submitted by ${postedByDisplay}</span></c:if>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${not empty postedByDisplay}"><br/><span
+                                            class="author">Submitted by ${postedByDisplay}</span></c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
 
-                    <p class="disclaimer" >Parent ratings and reviews do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
-                </div><!-- end: col_left" -->
+                        <p class="respond"><link:schoolProfileAddParentReview
+                                school="${school}"
+                                onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                styleClass="submodal-344-362"
+                                >Write your own review</link:schoolProfileAddParentReview></p>
+                    </div>
+                    <!-- end: review -->
+                </pg:item>
+            </c:forEach>
+            ${pageControls}
+        </pg:pager>
+    </div>
+    <!-- end: showParentReviews -->
+</c:if>
 
-                <div id="col_right" class="noprint">      
-                    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
-                    <ad:Top_300x137/>
-                    <ad:AboveFold_300x600/>
-                    <ad:multiTextAd blurb="Advertiser links"/>
-                    <ad:BelowFold_300x250/>
-                    <c:if test="${empty param.hideMap}">
-                        <school:nearbySchools school="${school}"/>
-                    </c:if>
-                </div><!-- end: col_right -->
-        </div><!-- end: parentReview -->
-        </school:profile>
-        <mod:tracking pageName="Parent Reviews"
-                      hier1="School,Parent Reviews,Read Reviews"
-                      school="${school}"
-                />
-    </gsml:body>
-    </html>
+<c:if test="${school.levelCode != 'p'}">
+    <div class="noprint" style="margin:10px 0 20px 0;">
+        <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_ParentReview"
+                                id="GS_ParentSurvey.surveyTeaser">
+            <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif"
+                      alt="What are ${school.name}'s special characteristics?"/>
+        </link:schoolStartSurvey>
+    </div>
+</c:if>
+
+<!-- begin Callouts -->
+<div id="callouts" class="noprint">
+    <div class="learnMore"><p>Learn more about Parent Reviews and read about the
+        <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
+    <div class="feedback">
+        <c:choose>
+            <c:when test="${cmd.totalReviews gt 0}">
+                <p>Were these ratings and reviews helpful to you? <a
+                        href="mailto:commentfeedback@greatschools.net?subject=${school.name} ${stateAbbrev} ${school.id}"
+                        title="Give us feedback">Give us feedback &#62;</a></p>
+            </c:when>
+            <c:otherwise>
+                <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br/>GreatSchools Parent
+                    <brr/>
+                    Community &#62;</gsml:a></p>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <c:choose>
+        <c:when test="${school.levelCode == 'p'}">
+            <div class="tellUsMore noprint"><p>Is your child on track? Find out with our <promo:nthGraderHover
+                    referredBy="parentReviews">grade-by-grade newsletters</promo:nthGraderHover>.</p></div>
+        </c:when>
+        <c:otherwise>
+            <div class="tellUsMore noprint"><p>Principals and school officials, we encourage you to
+                <link:schoolProfileEspLogin
+                        school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
+        </c:otherwise>
+    </c:choose>
+
+</div>
+<!-- end: callouts -->
+
+<p class="disclaimer">Parent ratings and reviews do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
+</div>
+<!-- end: col_left" -->
+
+<div id="col_right" class="noprint">
+    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
+    <ad:Top_300x137/>
+    <ad:AboveFold_300x600/>
+    <ad:multiTextAd blurb="Advertiser links"/>
+    <ad:BelowFold_300x250/>
+    <!--<c:if test="${empty param.hideMap}">-->
+        <!--<school:nearbySchools school="${school}"/>-->
+    <!--</c:if>-->
+</div>
+<!-- end: col_right -->
+</div>
+<div id="parentReviewThankYou">asd
+<!--<div id="mslFlowDialogBody">-->
+            <!--<iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""-->
+                    <!--width="445" height="437" frameborder="0" scrolling="no">--><!-- don't collapse --><!--</iframe>-->
+         <!--</div>-->
+         </div>
+<!-- end: parentReview -->
+</school:profile>
+<mod:tracking pageName="Parent Reviews"
+              hier1="School,Parent Reviews,Read Reviews"
+              school="${school}"
+        />
+</gsml:body>
+</html>
 </jsp:root>
