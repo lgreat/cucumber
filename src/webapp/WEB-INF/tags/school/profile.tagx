@@ -262,7 +262,7 @@
 
                 <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
                 <gsml:url var="mailToFriendUrl"
-                          value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+                          value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
                 <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
                           alt="Email this page to a friend"
                           onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"/>
