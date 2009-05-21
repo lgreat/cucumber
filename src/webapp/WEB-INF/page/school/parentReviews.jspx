@@ -29,7 +29,7 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
 <head>
-   
+
     <title>Parent Reviews of ${school.name} - ${addr}</title>
     <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
     <![CDATA[<script type="text/javascript"><!--]]>
@@ -58,6 +58,7 @@
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
 
 <div id="parentReview">
+<school:parentReviewThankYou schoolName="${school.name}"/>
 <div id="col_left">
 <c:if test="${cmd.ratings.displayOverallRating eq true}">
     <div id="showParentRatings">
@@ -77,7 +78,7 @@
             <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
         </div>
         <!-- end: rating_parent -->
-<school:parentReviewThankYou schoolName="${school.name}"/>
+
         <c:set var="hasPreschoolCategoryRatings" value="${
                                    not empty cmd.ratings.averageRatingMap[catProgram]
                                 or not empty cmd.ratings.averageRatingMap[catFacilities]
@@ -354,12 +355,6 @@
 </div>
 <!-- end: col_right -->
 </div>
-<div id="parentReviewThankYou">asd
-<!--<div id="mslFlowDialogBody">-->
-            <!--<iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""-->
-                    <!--width="445" height="437" frameborder="0" scrolling="no">--><!-- don't collapse --><!--</iframe>-->
-         <!--</div>-->
-         </div>
 <!-- end: parentReview -->
 </school:profile>
 <mod:tracking pageName="Parent Reviews"
