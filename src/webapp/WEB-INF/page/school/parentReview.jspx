@@ -215,6 +215,7 @@
     <div id="pageWrapper">
         <div id="topSelections">
             <h2>Help us help parents</h2>
+             <div id="parentReviewImage"><img alt="Parent Review Image" src="/res/img/school/parentReviews/parent_reviews.jpg"/></div>
 
             <div id="selections">
                 <p>A few minutes of your time can make a difference.Rate and
@@ -229,7 +230,7 @@
                     State:
                     <span id="state">
                     <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                         onChange="stateChange(this);" tabIndex="9"/>
+                                         onChange="stateChange(this);" usingLongNames="true" tabIndex="9"/>
                     </span>
                 </div>
                 <div id="cityDropdown">City:
@@ -251,7 +252,6 @@
                 </div>
                 <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
             </div>
-            <div id="parentReviewImage"><img alt="Parent Review Image" src="/res/img/school/parentReviews/parent_reviews.jpg"/></div>
         </div>
 
         <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
