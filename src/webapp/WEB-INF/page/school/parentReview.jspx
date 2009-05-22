@@ -87,19 +87,27 @@
         image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1]+'.gif');
         image.setAttribute('class', 'rating_gs');
         document.getElementById('gsSchoolRating').appendChild(image);
+        }else{
+         document.getElementById('gsSchoolRating').style.display = 'none';
         }
 
-        if(schoolInfoArray[2] != ""){
+        if(schoolInfoArray[2] != "" && schoolInfoArray[2] > 0){
         document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: '+schoolInfoArray[2]+' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_'+schoolInfoArray[2]+'.gif"/>';
+        }else{
+        document.getElementById('overallParentRating').style.display = 'none';
         }
-        if(schoolInfoArray[3] != ""){
+        if(schoolInfoArray[3] != "" && schoolInfoArray[3] > 0){
         document.getElementById('parentRatingCount').innerHTML = 'Based on '+schoolInfoArray[3]+' ratings';
+        }else{
+        document.getElementById('parentRatingCount').style.display = 'none';
         }
+
+
 
         if(schoolInfoArray[4] != "" && schoolInfoArray[5] == ""){
         document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
         document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
-        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
+        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + ' ' + 'county';
         }
         else if(schoolInfoArray[4] != ""  && schoolInfoArray[5] != ""){
         document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
@@ -114,7 +122,7 @@
         var principalsHref = document.createElement('a');
         principalsHref.setAttribute('href', schoolInfoArray[11]);
 
-        principalsHref.appendChild(document.createTextNode("Principal,sumit your review here"));
+        principalsHref.appendChild(document.createTextNode("Principal,sumit your review here >"));
 
         document.getElementById('principalsLink').appendChild(principalsHref);
 
@@ -135,11 +143,8 @@ if(isPreschool){
         prForm.style.display = '';
         var review = document.getElementById('completeReview');
         review.style.display = '';
-        var instructions = document.getElementById('instructText');
-        instructions.style.display = 'none';
-
-
-
+        var reviewBtn = document.getElementById('reviewThisSchoolButton');
+        reviewBtn.style.display = 'none';
         }
 
          var starSelected = false;
@@ -172,7 +177,18 @@ if(isPreschool){
         function validateReview(){
         
         var errMsg = 'Please enter the following feilds : ';
-        var noError = true;    
+        var noError = true;
+        var url = 'http://www.greatschools.net/util/isValidEmail.page';
+             var pars = 'email=' + document.getElementById('reviewEmail').value;
+             new Ajax.Updater (
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: function showValidateEmail(x) {
+                            }
+                      });
+
 
         if(!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))){
             document.getElementById('reviewRatingError').style.display = '';
@@ -190,6 +206,13 @@ if(isPreschool){
         }
 
              return noError;
+                }
+                function showValidateEmail(x){
+                if(x.responseText == 'false'){
+                    document.getElementById('emailError').style.display = '';
+                    alert(here);
+                     
+                }
                 }
 
 
@@ -214,20 +237,18 @@ if(isPreschool){
 
 <div id="pageWrapper">
 <div id="topSelections">
-    <h2>Help us help parents</h2>
+    <h2>Help us help parents - review your child's school</h2>
 
     <div id="parentReviewImage"><img alt="Parent Review Image" src="/res/img/school/parentReviews/parent_reviews.jpg"/>
     </div>
 
     <div id="selections">
-        <p>A few minutes of your time can make a difference.Rate and
-            review your child's school so other parents can make the right
-            choice for their family.</p>
+        <p>Tell us what you like about your child's school, what makes it special and where it needs improvement so that other families can make better,
+            more informed choices.</p>
 
-        <h3>1.Find your school</h3>
+
+        <h3>Find your school</h3>
         <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-        <!--<school:showHover/>-->
-        <!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
         <div id="stateDropdown">
             State:
                     <span id="state">
@@ -252,11 +273,11 @@ if(isPreschool){
                     </select>
                     </span>
         </div>
-        <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
+        <div id="reviewThisSchoolButton"> <img alt="Parent Review Image" src="/res/img/school/parentReviews/review_button.gif"/></div>
     </div>
 </div>
 
-<h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
+<h3 style="display: none;" id="completeReview">Complete your review &amp; rating</h3>
 
 <div style="display: none;" id="parentReviewForm">
     <!--<div id="parentReviewForm">-->
@@ -318,7 +339,7 @@ if(isPreschool){
         <div id="reviewRatingError" style="display:none" class="reviewError">Please enter a review or rating.</div>
         <div id="emailError" style="display:none" class="reviewError">Please enter a valid email address.</div>
         <div id="termsError" style="display:none" class="reviewError">Please accept our terms of use.</div>
-        <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines">Guidlines</span>
+        <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines"><a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/Guidlines">Guidelines</a></span>
 
         </div>
         <div id="reviewCommnents"><textarea id="reviewText"
@@ -329,22 +350,22 @@ if(isPreschool){
                                             rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
         <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
                                              onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                                             value="${email}" class="emailAddress"/></div>
-        <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox"
+                                             value="Enter your email address" class="emailAddress"/></div>
+        <div class="marginEmailField" id="termsAndPrivacy"><input id="permission" name="givePermission" type="checkbox"
                                              checked="checked"/>
             I'm a <select name="posterAsString">
                 <option value="parent">parent</option>
                 <option value="student">student</option>
                 <option value="teacher">teacher</option>
                 <option value="other">other</option>
-            </select> and I accept <span id="tos">the <gsml:a
+            </select> and I agree to the GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
+                                        target="_blank">Privacy Policy </gsml:a> &amp; <gsml:a
                     href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
-                    target="_blank">Terms of Use</gsml:a></span></div>
+                    target="_blank">Terms of Use</gsml:a>></div>
         <div class="marginEmailField" id="weeklyEmails"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
                                              checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
         </div>
-        <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
-                                        target="_blank">GreatSchools Privay Policy</gsml:a></div>
+
     </div>
     <div id="categoryRatings">
 
