@@ -77,17 +77,16 @@
         var schoolInfoArray = x.responseText.split(";");
         document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
 
-        removeChildrenFromNode(document.getElementById('gsSchoolRating'));
+         if(document.getElementById('gsSchoolRating').childNodes.length > 0){
+            removeChildrenFromNode(document.getElementById('gsSchoolRating'));
+         }
 
-
-        if(schoolInfoArray[1] != ""){
+        if(schoolInfoArray[1] != "" && isRatingInfoPresent && schoolInfoArray[1]>0){
         var image = document.createElement('img');
         image.setAttribute('alt', 'GreatSchools Rating: '+ schoolInfoArray[1]+' out of 10. Greatschools Ratings are based on test results. 10 is best.');
         image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_'+ schoolInfoArray[1]+'.gif');
         image.setAttribute('class', 'rating_gs');
         document.getElementById('gsSchoolRating').appendChild(image);
-
-
         }
 
         if(schoolInfoArray[2] != ""){
@@ -118,22 +117,27 @@
         principalsHref.appendChild(document.createTextNode("Principal,sumit your review here"));
 
         document.getElementById('principalsLink').appendChild(principalsHref);
-        document.getElementById('principalsLink').innerHtml = '<a href="'+schoolInfoArray[11]+'"> Preinlkasd</a>';
 
 
+
+if(isPreschool){
+            var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
+            var preschoolRatingStars = document.getElementById('preSchoolStars');
+            preschoolRatingStars.style.display = '';
+            nonPreschoolRatingStars.style.display = 'none';
+        }else{
+            var preschoolRatingStars = document.getElementById('preSchoolStars');
+            var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
+            preschoolRatingStars.style.display = 'none';
+            nonPreschoolRatingStars.style.display = '';
+        }
         var prForm =  document.getElementById('parentReviewForm');
         prForm.style.display = '';
         var review = document.getElementById('completeReview');
         review.style.display = '';
         var instructions = document.getElementById('instructText');
         instructions.style.display = 'none';
-        if(isPreschool){
-        var nonPreschoolRatingStars = document.getElementById('nonPreSchoolStars');
-        nonPreschoolRatingStars.style.display = 'none';
-        }else{
-        var preschoolRatingStars = document.getElementById('preSchoolStars');
-        preschoolRatingStars.style.display = 'none';
-        }
+
 
 
         }
