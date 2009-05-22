@@ -112,7 +112,7 @@
 	    	<b>Data Feeds</b><br/>
 		Utilize our XML data feed or integrate links and search boxes for our school profiles, test scores, census data and more.
 		<br/>
-		Please click on the link to see a current partner example: <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/result.html;_ylt=Ai39MTtQVmo9M6O8YIaSwdxB5YV4?p=94123&search=Search&level=all&type=all&redir=1%20" target="_blank">Yahoo! Real Estate</a>
+		Please click on the link to see a current partner example: <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/result.html;_ylt=Ai39MTtQVmo9M6O8YIaSwdxB5YV4?p=94123&amp;search=Search&amp;level=all&amp;type=all&amp;redir=1%20" target="_blank">Yahoo! Real Estate</a>
 	    </p>
 	    
             <p>
