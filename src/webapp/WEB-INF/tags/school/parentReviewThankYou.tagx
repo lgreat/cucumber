@@ -68,7 +68,7 @@
 
      <div id="mslFlowDialog" style="display: none;">
         <div id="mslFlowDialogTopBar">
-            <img src="/res/img/community/registration/join_pop_top.gif" alt="Personalize your school search - GreatSchools"/>
+            <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/>
         </div>
         <div id="mslFlowDialogBody"><p>Your review has been submitted.Our Parent Review team will read your review and post it
             so long as it meets our guidelines.This preocess may take a few days.Checkout what other parents have said about  ${schoolName}.</p>
@@ -77,7 +77,7 @@
             </div>
          </div>
         <div id="mslFlowDialogBottomBar">
-            <img src="/res/img/community/registration/join_pop_bottom.gif" alt=""/>
+            <img src="/res/img/school/parentReviews/reviewconfirm_bottom.gif" alt=""/>
         </div>
     </div>
 
