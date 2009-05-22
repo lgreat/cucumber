@@ -44,7 +44,7 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
 
                 if (schoolWithRatingsList != null && schoolWithRatingsList.size() > 0) {
                     SchoolWithRatings swr = schoolWithRatingsList.get(0);
-                    str.append((swr.getRating() == null ? "" : swr.getRating()) + ";");
+                    str.append((swr.getRating() == null ? "noRatingInfo" : swr.getRating()) + ";");
                 } else {
                     str.append("noRatingInfo" + ";");
                 }

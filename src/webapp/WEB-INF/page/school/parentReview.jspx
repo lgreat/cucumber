@@ -105,7 +105,7 @@
         document.getElementById('schoolAddressLine1').innerHTML = schoolInfoArray[4];
         document.getElementById('schoolAddressLine2').innerHTML = schoolInfoArray[4];
         document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] +','+ schoolInfoArray[7] +' '+ schoolInfoArray[8];
-        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + 'county';
+        document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] +' '+ 'county';
         }
 
         document.getElementById('schoolId').value = schoolInfoArray[10] ;
@@ -175,22 +175,18 @@ if(isPreschool){
         var noError = true;    
 
         if(!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))){
-            errMsg = errMsg + '\nPlease enter a review or rating.';
+            document.getElementById('reviewRatingError').style.display = '';
             noError = false;
         }
 
        if(document.getElementById('reviewEmail').value == '' ){
-            errMsg = errMsg + '\nPlease enter a valid email address.';
+            document.getElementById('emailError').style.display = '';
             noError = false;
         }
 
         if(!document.getElementById('permission').checked){
-            errMsg = errMsg + '\nPlease accept our terms of use.';
+            document.getElementById('termsError').style.display = '';
             noError = false;
-        }
-
-        if(!noError){
-            alert(errMsg);
         }
 
              return noError;
@@ -216,28 +212,30 @@ if(isPreschool){
 <gsml:body adPageName="ParentReviews">
 <form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
 
-    <div id="pageWrapper">
-        <div id="topSelections">
-            <h2>Help us help parents</h2>
-             <div id="parentReviewImage"><img alt="Parent Review Image" src="/res/img/school/parentReviews/parent_reviews.jpg"/></div>
+<div id="pageWrapper">
+<div id="topSelections">
+    <h2>Help us help parents</h2>
 
-            <div id="selections">
-                <p>A few minutes of your time can make a difference.Rate and
-                    review your child's school so other parents can make the right
-                    choice for their family.</p>
+    <div id="parentReviewImage"><img alt="Parent Review Image" src="/res/img/school/parentReviews/parent_reviews.jpg"/>
+    </div>
 
-                <h3>1.Find your school</h3>
-                <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-                <!--<school:showHover/>-->
-                <!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
-                <div id="stateDropdown">
-                    State:
+    <div id="selections">
+        <p>A few minutes of your time can make a difference.Rate and
+            review your child's school so other parents can make the right
+            choice for their family.</p>
+
+        <h3>1.Find your school</h3>
+        <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
+        <!--<school:showHover/>-->
+        <!--<a href="#" onclick="showLoginHover();">Click here for hover</a>-->
+        <div id="stateDropdown">
+            State:
                     <span id="state">
                     <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                          onChange="stateChange(this);" usingLongNames="true" tabIndex="9"/>
                     </span>
-                </div>
-                <div id="cityDropdown">City:
+        </div>
+        <div id="cityDropdown">City:
                     <span id="city">
                         <select name="city" tabindex="10" onchange="">
                             <option selected="selected" value="">1. Choose city</option>
@@ -247,27 +245,27 @@ if(isPreschool){
                             </c:forEach>
                         </select>
                     </span></div>
-                <div id="schoolsDropdown">School:
+        <div id="schoolsDropdown">School:
                     <span id="schools">
                     <select id="schoolSelect" name="sid" class="selectSchool">
                         <option value="">2. Choose school</option>
                     </select>
                     </span>
-                </div>
-                <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
-            </div>
         </div>
+        <div id="instructText"> Select your school above.After you choose your school,you have the chance to rate and write your own personal review.</div>
+    </div>
+</div>
 
-        <h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
+<h3 style="display: none;" id="completeReview">2.Complete your review &amp; rating</h3>
 
-        <div style="display: none;" id="parentReviewForm">
-            <!--<div id="parentReviewForm">-->
-            <input type="hidden" name="schoolId" id="schoolId" value=""/>
-            <input type="hidden" name="schoolState" id="schoolState" value=""/>
-            <input type="hidden" name="isAddNewParentReview" value="true"/>
-            <h4 id="schoolNameHeader">${swr.school.name}</h4>
+<div style="display: none;" id="parentReviewForm">
+    <!--<div id="parentReviewForm">-->
+    <input type="hidden" name="schoolId" id="schoolId" value=""/>
+    <input type="hidden" name="schoolState" id="schoolState" value=""/>
+    <input type="hidden" name="isAddNewParentReview" value="true"/>
+    <h4 id="schoolNameHeader">${swr.school.name}</h4>
 
-            <div id="schoolInfo"> <![CDATA[<div id="gsSchoolRating"></div>
+    <div id="schoolInfo"> <![CDATA[<div id="gsSchoolRating"></div>
                     <div id="overallParentRating"></div>
                     <div id="parentRatingCount"></div>
                      <div id="schoolAddress">
@@ -275,144 +273,152 @@ if(isPreschool){
                     <div id="schoolAddressLine2"></div>
                     <div id="schoolAddressLine3"></div>
                     <div id="schoolAddressLine4"></div></div>]]>
-            </div>
+    </div>
 
-            <div id="parentRating">
-                <div id="ratingTitle">My Overall rating</div>
-                <div class="parentRatingStars">
-                    <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
-                    <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
-                    <ul class="star-rating large-star">
-                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                        <li><a href="#" id="validateStar1"
-                               title="1 star out of 5"
-                               class="one-star"
-                               onclick="this.hideFocus=true;setStars(1);return false;"
-                               onmouseover="showStars(1);"
-                               onmouseout="resetStars();"
-                                >1</a></li>
-                        <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
-                               onclick="this.hideFocus=true;setStars(2);return false;"
-                               onmouseover="showStars(2);"
-                               onmouseout="resetStars();"
-                                >2</a></li>
-                        <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
-                               onclick="this.hideFocus=true;setStars(3);return false;"
-                               onmouseover="showStars(3);"
-                               onmouseout="resetStars();"
-                                >3</a></li>
-                        <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
-                               onclick="this.hideFocus=true;setStars(4);return false;"
-                               onmouseover="showStars(4);"
-                               onmouseout="resetStars();"
-                                >4</a></li>
-                        <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
-                               onclick="this.hideFocus=true;setStars(5);return false;"
-                               onmouseover="showStars(5);"
-                               onmouseout="resetStars();"
-                                >5</a></li>
-                    </ul>
-                </div>
+    <div id="parentRating">
 
-                <div class="marginTextArea"><span>My Review</span><span id="guidelines">Guidlines</span></div>
-                <div><textarea id="reviewText"
-                               name="comments"
-                               onkeyup="countWords(this)"
-                               onkeydown="countWords(this)"
-                               onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                               rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
-                <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
-                                                     onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                                                     value="${email}" class="emailAddress"/></div>
-                <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox"
-                                                     checked="checked"/>
-                    I'm a <select name="posterAsString">
-                        <option value="parent">parent</option>
-                        <option value="student">student</option>
-                        <option value="teacher">teacher</option>
-                        <option value="other">other</option>
-                    </select> and I accept <span id="tos">the <gsml:a
-                            href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
-                            target="_blank">Terms of Use</gsml:a></span></div>
-                <div class="marginEmailField"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
-                                                     checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
-                </div>
-                <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
-                                                target="_blank">GreatSchools Privay Policy</gsml:a></div>
-            </div>
-            <div id="categoryRatings">
-
-                <ul id="nonPreSchoolStars">
-                    <li>
-                        <div class="catRatingLabel">Principal Leadership</div>
-                        <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Teacher Quality</div>
-                        <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Extra curricular Activites</div>
-                        <div class="catRating"><gsml:starRating id="activitiesAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Parent Involvement</div>
-                        <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Safety and Discipline</div>
-                        <div class="catRating"><gsml:starRating id="safetyAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
+        <div id="inputRating">
+            <div id="ratingTitle">My Overall rating</div>
+            <div class="parentRatingStars">
+                <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
+                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
+                <ul class="star-rating large-star">
+                    <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                    <li><a href="#" id="validateStar1"
+                           title="1 star out of 5"
+                           class="one-star"
+                           onclick="this.hideFocus=true;setStars(1);return false;"
+                           onmouseover="showStars(1);"
+                           onmouseout="resetStars();"
+                            >1</a></li>
+                    <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
+                           onclick="this.hideFocus=true;setStars(2);return false;"
+                           onmouseover="showStars(2);"
+                           onmouseout="resetStars();"
+                            >2</a></li>
+                    <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
+                           onclick="this.hideFocus=true;setStars(3);return false;"
+                           onmouseover="showStars(3);"
+                           onmouseout="resetStars();"
+                            >3</a></li>
+                    <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
+                           onclick="this.hideFocus=true;setStars(4);return false;"
+                           onmouseover="showStars(4);"
+                           onmouseout="resetStars();"
+                            >4</a></li>
+                    <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
+                           onclick="this.hideFocus=true;setStars(5);return false;"
+                           onmouseover="showStars(5);"
+                           onmouseout="resetStars();"
+                            >5</a></li>
                 </ul>
-
-
-                <ul id="preSchoolStars">
-                    <li>
-                        <div class="catRatingLabel">Program &amp; Curriculum</div>
-                        <div class="catRating"><gsml:starRating id="PProgramAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Facilities &amp; Equipment</div>
-                        <div class="catRating"><gsml:starRating id="PFacilitiesAsString"
-                                                                additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Health &amp; Safety</div>
-                        <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Teacher Quality</div>
-                        <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="catRatingLabel">Parent Involvement</div>
-                        <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
-                        </div>
-                    </li>
-                </ul>
-
-
-                <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
-                                                                      onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained>
-                </div>
-                <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
             </div>
+        </div>
 
-            <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review"
-                                                    id="submit" name="_submit" onclick="return validateReview();"/>
-            </div>
+        <div id="reviewRatingError" style="display:none" class="reviewError">Please enter a review or rating.</div>
+        <div id="emailError" style="display:none" class="reviewError">Please enter a valid email address.</div>
+        <div id="termsError" style="display:none" class="reviewError">Please accept our terms of use.</div>
+        <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines">Guidlines</span>
 
         </div>
+        <div id="reviewCommnents"><textarea id="reviewText"
+                                            name="comments"
+                                            onkeyup="countWords(this)"
+                                            onkeydown="countWords(this)"
+                                            onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                                            rows="10" cols="50" wrap="on">Enter your review here</textarea></div>
+        <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
+                                             onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                                             value="${email}" class="emailAddress"/></div>
+        <div class="marginEmailField"><input id="permission" name="givePermission" type="checkbox"
+                                             checked="checked"/>
+            I'm a <select name="posterAsString">
+                <option value="parent">parent</option>
+                <option value="student">student</option>
+                <option value="teacher">teacher</option>
+                <option value="other">other</option>
+            </select> and I accept <span id="tos">the <gsml:a
+                    href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
+                    target="_blank">Terms of Use</gsml:a></span></div>
+        <div class="marginEmailField" id="weeklyEmails"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
+                                             checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
+        </div>
+        <div id="privacyPolicy"><gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
+                                        target="_blank">GreatSchools Privay Policy</gsml:a></div>
     </div>
+    <div id="categoryRatings">
+
+        <ul id="nonPreSchoolStars">
+            <li>
+                <div class="catRatingLabel">Principal Leadership</div>
+                <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Teacher Quality</div>
+                <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Extra curricular Activites</div>
+                <div class="catRating"><gsml:starRating id="activitiesAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Parent Involvement</div>
+                <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Safety and Discipline</div>
+                <div class="catRating"><gsml:starRating id="safetyAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+        </ul>
+
+
+        <ul id="preSchoolStars">
+            <li>
+                <div class="catRatingLabel">Program &amp; Curriculum</div>
+                <div class="catRating"><gsml:starRating id="PProgramAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Facilities &amp; Equipment</div>
+                <div class="catRating"><gsml:starRating id="PFacilitiesAsString"
+                                                        additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Health &amp; Safety</div>
+                <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Teacher Quality</div>
+                <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+            <li>
+                <div class="catRatingLabel">Parent Involvement</div>
+                <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
+                </div>
+            </li>
+        </ul>
+
+
+        <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                              onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn More about these categories &gt;</link:parentRatingsExplained>
+        </div>
+        <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
+    </div>
+
+    <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review"
+                                            id="submit" name="_submit" onclick="return validateReview();"/>
+    </div>
+
+</div>
+</div>
 </form:form>
 
 </gsml:body>

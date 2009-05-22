@@ -14,7 +14,7 @@ font-size:19px;
 font-weight:bold;
 margin:0 0 14px;
 padding-bottom:6px;
-}asd
+}
 
 #pageWrapper h3{
 color:#D66671;
@@ -22,18 +22,6 @@ font-size:18px;
 margin:10px 0;
 }
 
-#pageWrapper #topSelections{
-    height:250px;
-    width:800px;
-}
-
-
-#pageWrapper #parentReviewForm{
-    border:5px solid #55BBCC;
-    padding:10px 20px 20px 20px;
-    margin-bottom:50px;
-    height:550px;
-}
 
 #pageWrapper h4{
 color:#55BBCC;
@@ -42,59 +30,12 @@ font-size:16px;
 font-weight:bold;
 }
 
-#gsSchoolRating{
-    padding-top:25px;
-    float:left;
+#pageWrapper #topSelections{
+    height:250px;
+    width:800px;
 }
 
-#schoolAddress{
-    padding-left:20px;
-    float:left;
-    width: 200px;
-    height:50px;
-}
-
-#pageWrapper #parentRating{
-    float:left;
-    width:450px;
-}
-#parentRating #ratingTitle{
-    float:left;
-    width:120px;
-
-}
-#parentRating .parentRatingStars{
-    float:left;
-    width:310px;
-    padding-left:10px;
-}
-.marginTextArea{
-    margin-top:30px;
-}
-
-.marginEmailField{
-    margin-top:10px;
-}
-#guidelines{
-    padding-left:305px;
-}
-
-#categoryRatings{
-float:left;
-height:350px;
-width:300px;
-margin-top:22px;
-}
-
-#categoryRatings ul li div.catRatingLabel{
-    float:left;
-    width:180px;
-    padding-top:10px;
-}
-
-#categoryRatings ul li div.catRating{
-    padding-top:10px;
-}
+/*   */
 
 #selections{
     float:left;
@@ -123,13 +64,16 @@ margin-top:22px;
     height:200px;
 }
 
-#learnMoreLinks{
-    padding-top:20px;
+/*         */
+
+#pageWrapper #parentReviewForm{
+    border:5px solid #55BBCC;
+    padding:10px 20px 20px 20px;
+    margin-bottom:50px;
+    height:550px;
 }
 
-#privacyPolicy{
-    font-size:10px;
-}
+/*      */
 
 #schoolInfo{
     margin-top:10px;
@@ -138,6 +82,12 @@ margin-top:22px;
     border-bottom:4px dotted #CCCCCC;
 }
 
+#gsSchoolRating{
+    padding-top:25px;
+    float:left;
+}
+
+
 #overallParentRating{
      padding-left:20px;
     float:left;
@@ -145,8 +95,11 @@ margin-top:22px;
     width: 70px;
 }
 
-#submitReview{
-    height:30px;
+#schoolAddress{
+    padding-left:20px;
+    float:left;
+    width: 200px;
+    height:50px;
 }
 
 #parentRatingCount{
@@ -156,3 +109,88 @@ margin-top:22px;
     width: 150px;
 
 }
+/*      */
+
+/*      */
+
+
+#parentRating{
+    float:left;
+    width:450px;
+    height:360px;
+    margin-top:10px;
+}
+
+
+#ratingTitle{
+    float:left;
+    width:120px;
+
+}
+#parentRating .parentRatingStars{
+    float:left;
+    width:310px;
+    padding-left:10px;
+}
+
+#reviewAndGuidlines{
+ height:20px;
+}
+
+#reviewCommnents{
+    height:180px;
+    margin-top:30px;
+}
+
+.marginEmailField{
+    margin-top:10px;
+    height:20px;
+}
+#guidelines{
+    padding-left:305px;
+}
+
+.reviewError{
+    color:red;
+}
+
+
+/*      */
+
+/*      */
+
+#categoryRatings{
+float:left;
+height:350px;
+width:300px;
+margin-top:22px;
+}
+
+#categoryRatings ul li div.catRatingLabel{
+    float:left;
+    width:180px;
+    padding-top:10px;
+}
+
+#categoryRatings ul li div.catRating{
+    padding-top:10px;
+}
+
+#learnMoreLinks{
+    padding-top:20px;
+}
+
+#privacyPolicy{
+    font-size:10px;
+}
+
+#weeklyEmails{
+    height:40px;
+}
+
+/*        */
+
+#submitReview{
+    height:30px;
+}
+
