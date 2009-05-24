@@ -1,4 +1,4 @@
-#pageWrapper{
+#contentGS{
     color:#666666;
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:13px;
@@ -6,28 +6,28 @@
     padding:10px;
 }
 
-#pageWrapper h2{
+#contentGS h2{
 border-bottom:1px solid #CACC9E;
 color:#55BBCC;
 font-size:19px;
 font-weight:bold;
 }
 
-#pageWrapper h3{
+#contentGS h3{
 color:#D66671;
 font-size:18px;
 margin:10px 0;
 }
 
 
-#pageWrapper h4{
+#contentGS h4{
 color:#55BBCC;
 font-family:"Trebuchet MS";
 font-size:16px;
 font-weight:bold;
 }
 
-#pageWrapper #topSelections{
+#contentGS #topSelections{
     height:250px;
     width:800px;
 }
@@ -68,16 +68,18 @@ font-weight:bold;
 
 /*         */
 
-#pageWrapper #parentReviewForm{
+#contentGS #parentReviewForm{
     border:5px solid #55BBCC;
     padding:10px 20px 20px 20px;
     margin-bottom:50px;
     height:550px;
 }
 
+
+
 /*      */
 
-#schoolInfo{
+#contentGS #parentReviewForm #schoolInfo{
     margin-top:10px;
     margin-bottom:10px;
     height:60px;
@@ -140,7 +142,7 @@ font-weight:bold;
 
 #reviewCommnents{
     height:180px;
-    margin-top:30px;
+    margin-top:8px;
 }
 
 .marginEmailField{
@@ -167,7 +169,7 @@ font-weight:bold;
 float:left;
 height:350px;
 width:300px;
-margin-top:22px;
+margin-top:30px;
 }
 
 #categoryRatings ul li div.catRatingLabel{
@@ -178,10 +180,25 @@ margin-top:22px;
 
 #categoryRatings ul li div.catRating{
     padding-top:10px;
+    float:left;
+}
+
+#nonPreSchoolStars{
+    height:170px;
+}
+
+
+#preSchoolStars{
+    height:170px;
+}
+
+#inputRating{
+    height:30px;
 }
 
 #learnMoreLinks{
     padding-top:20px;
+    height:20px;
 }
 
 #termsAndPrivacy{

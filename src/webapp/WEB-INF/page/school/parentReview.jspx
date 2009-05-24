@@ -233,9 +233,9 @@ if(isPreschool){
 </head>
 
 <gsml:body adPageName="ParentReviews">
-<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
 
-<div id="pageWrapper">
+
+
 <div id="topSelections">
     <h2>Help us help parents - review your child's school</h2>
 
@@ -277,6 +277,7 @@ if(isPreschool){
     </div>
 </div>
 
+<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
 <h3 style="display: none;" id="completeReview">Complete your review &amp; rating</h3>
 
 <div style="display: none;" id="parentReviewForm">
@@ -438,7 +439,7 @@ if(isPreschool){
                                             id="submit" name="_submit" onclick="return validateReview();"/>
     </div>
 
-</div>
+
 </div>
 </form:form>
 
