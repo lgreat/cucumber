@@ -72,10 +72,8 @@ font-weight:bold;
     border:5px solid #55BBCC;
     padding:10px 20px 20px 20px;
     margin-bottom:50px;
-    height:550px;
+    height:650px;
 }
-
-
 
 /*      */
 
@@ -206,7 +204,9 @@ margin-top:30px;
 }
 
 
-
+#reviewRatingError{
+    height:20px;
+}
 
 
 #weeklyEmails{
