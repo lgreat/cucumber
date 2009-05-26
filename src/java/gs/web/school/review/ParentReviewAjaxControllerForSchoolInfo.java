@@ -6,10 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.data.school.School;
-import gs.data.school.ISchoolDao;
-import gs.data.school.SchoolWithRatings;
-import gs.data.school.LevelCode;
+import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
@@ -57,12 +54,14 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 str.append(school.getZipcode() + ";");
                 str.append(school.getCounty() + ";");
                 str.append(school.getId() + ";");
+                UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
+                str.append(builder.asFullUrl(request) + ";");
                 if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                     str.append("isPreschool" + ";");
                 }
-                UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
-                str.append(builder.asFullUrl(request) + ";");
-
+                if (SchoolType.PUBLIC.equals(school.getType())) {
+                    str.append("isPublic" + ";");
+                }
             }
         }
         PrintWriter out = response.getWriter();
