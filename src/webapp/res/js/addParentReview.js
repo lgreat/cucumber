@@ -88,7 +88,11 @@ function showResponse(x) {
         document.getElementById('schoolAddressLine3').innerHTML = schoolInfoArray[6] + ',' + schoolInfoArray[7] + ' ' + schoolInfoArray[8];
         document.getElementById('schoolAddressLine4').innerHTML = schoolInfoArray[9] + ' ' + 'county';
     }
-
+    if (isPublic) {
+        document.getElementById('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools, including periodic updates about ' + schoolInfoArray[0] + '.</div>';
+    } else {
+        document.getElementById('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools.</div>';
+    }
     document.getElementById('schoolId').value = schoolInfoArray[10];
     document.getElementById('schoolState').value = schoolInfoArray[7];
 
