@@ -153,6 +153,7 @@ font-weight:bold;
 
 .reviewError{
     color:red;
+    height:25px;
 }
 
 #reviewEmail{
@@ -205,8 +206,10 @@ clear:right;
 }
 
 
-#reviewRatingError{
-    height:20px;
+#contentGS .reviewError img{
+   margin-right:3px;
+   position:relative;
+    top:7px;
 }
 
 

@@ -62,15 +62,18 @@ function showResponse(x) {
     }
 
     if (schoolInfoArray[2] != "" && schoolInfoArray[2] > 0) {
+        alert("inside");
         document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
         document.getElementById('overallParentRating').style.display = '';
+        if (schoolInfoArray[3] != "" && schoolInfoArray[3] > 0) {
+             alert("inside");
+            document.getElementById('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
+            document.getElementById('parentRatingCount').style.display = '';
+        } else {
+            document.getElementById('parentRatingCount').style.display = 'none';
+        }
     } else {
         document.getElementById('overallParentRating').style.display = 'none';
-    }
-    if (schoolInfoArray[3] != "" && schoolInfoArray[3] > 0) {
-        document.getElementById('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
-        document.getElementById('parentRatingCount').style.display = '';
-    } else {
         document.getElementById('parentRatingCount').style.display = 'none';
     }
 
@@ -137,7 +140,6 @@ function onLoadCities() {
         $('city').innerHTML = '<select name="city" class="selectCity"><option value="Choose a city">Choose a city</option></select>';
     }
 
-
     var starHandler = function(event) {
         starSelected = true;
     };
@@ -155,8 +157,8 @@ function validateReview() {
 
     if (!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))) {
         document.getElementById('reviewRatingError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
         noError = false;
     } else {
         document.getElementById('reviewRatingError').style.display = 'none';
@@ -164,8 +166,8 @@ function validateReview() {
 
     if (document.getElementById('reviewEmail').value == '' || (document.getElementById('reviewEmail').value == 'Enter your email address') || (validateEmail(document.getElementById('reviewEmail').value) == false)) {
         document.getElementById('emailError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
         noError = false;
     } else {
         document.getElementById('emailError').style.display = 'none';
@@ -173,13 +175,12 @@ function validateReview() {
 
     if (!document.getElementById('permission').checked) {
         document.getElementById('termsError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
         noError = false;
     } else {
         document.getElementById('termsError').style.display = 'none';
     }
-
     return noError;
 }
 

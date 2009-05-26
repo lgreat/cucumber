@@ -62,7 +62,7 @@
             State:
                     <span id="state">
                     <gsweb:stateSelector state="${requestScope.context.state}" styleId="userState"
-                                         onChange="stateChange(this);" noStateLabel="Choose a state" useNoState="${requestScope.context.state eq ''}" usingLongNames="true" tabIndex="9"/>
+                                         onChange="stateChange(this);" noStateLabel="Choose a state" useNoState="${requestScope.context.state eq null}" usingLongNames="true" tabIndex="9"/>
                     </span>
         </div>
         <div id="cityDropdown">City:
@@ -146,9 +146,9 @@
             </div>
         </div>
 
-        <div id="reviewRatingError" style="display:none" class="reviewError">Please enter a review or rating.</div>
-        <div id="emailError" style="display:none" class="reviewError">Please enter a valid email address.</div>
-        <div id="termsError" style="display:none" class="reviewError">Please accept our terms of use.</div>
+        <div id="reviewRatingError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a review or rating.</div>
+        <div id="emailError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a valid email address.</div>
+        <div id="termsError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please accept our terms of use.</div>
         <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines"><a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/Guidlines">Guidelines</a></span>
 
         </div>

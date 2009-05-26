@@ -56,10 +56,10 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 str.append(school.getStateAbbreviation() + ";");
                 str.append(school.getZipcode() + ";");
                 str.append(school.getCounty() + ";");
+                str.append(school.getId() + ";");
                 if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                     str.append("isPreschool" + ";");
                 }
-                str.append(school.getId() + ";");
                 UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
                 str.append(builder.asFullUrl(request) + ";");
 
