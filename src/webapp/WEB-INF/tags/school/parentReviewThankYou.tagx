@@ -68,15 +68,17 @@
 
      <div id="mslFlowDialog" style="display: none;">
         <div id="mslFlowDialogTopBar">
-            <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/>
+            <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/><div id="thankyouHeader">Thank you for your review</div>
         </div>
-        <div id="mslFlowDialogBody"><p>Your review has been submitted.Our Parent Review team will read your review and post it
-            so long as it meets our guidelines.This preocess may take a few days.Checkout what other parents have said about  ${schoolName}.</p>
+        <div id="mslFlowDialogBody"><p>Thank you for sharing your review and helping other families choose the right school for their children.
+            Our team of parent reviewers will read the review and post it if it meets our <a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">guidelines</a>.</p>
+            <div id="okBtn"><img src="/res/img/school/parentReviews/ok_button.gif" alt="ok" onclick="closeMslFlowDialog();"/></div>
             <div id="closeWindowDiv">
              <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
             </div>
          </div>
         <div id="mslFlowDialogBottomBar">
+            <![CDATA[<div></div>]]>
             <img src="/res/img/school/parentReviews/reviewconfirm_bottom.gif" alt=""/>
         </div>
     </div>
