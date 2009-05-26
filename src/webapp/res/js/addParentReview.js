@@ -62,11 +62,9 @@ function showResponse(x) {
     }
 
     if (schoolInfoArray[2] != "" && schoolInfoArray[2] > 0) {
-        alert("inside");
         document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
         document.getElementById('overallParentRating').style.display = '';
         if (schoolInfoArray[3] != "" && schoolInfoArray[3] > 0) {
-             alert("inside");
             document.getElementById('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
             document.getElementById('parentRatingCount').style.display = '';
         } else {
