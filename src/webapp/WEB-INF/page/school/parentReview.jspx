@@ -61,14 +61,14 @@
         <div id="stateDropdown">
             State:
                     <span id="state">
-                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                         onChange="stateChange(this);" usingLongNames="true" tabIndex="9"/>
+                    <gsweb:stateSelector state="${requestScope.context.state}" styleId="userState"
+                                         onChange="stateChange(this);" noStateLabel="Choose a state" useNoState="${requestScope.context.state eq ''}" usingLongNames="true" tabIndex="9"/>
                     </span>
         </div>
         <div id="cityDropdown">City:
                     <span id="city">
-                        <select name="city" tabindex="10" onchange="">
-                            <option selected="selected" value="">1. Choose city</option>
+                        <select name="city" styleId="citySelect" tabindex="10" onchange="">
+                            <option selected="selected" value="">Choose a city</option>
                             <c:forEach var="cityOption" items="${cities}">
                                 <![CDATA[<option ]]>
                                 <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -77,12 +77,12 @@
                     </span></div>
         <div id="schoolsDropdown">School:
                     <span id="schools">
-                    <select id="schoolSelect" name="sid" class="selectSchool">
-                        <option value="">2. Choose school</option>
+                    <select id="schoolSelect" styleId="schoolSelect" name="sid" class="selectSchool">
+                        <option value="">Choose a school</option>
                     </select>
                     </span>
         </div>
-        <div id="reviewThisSchoolButton"> <img alt="Parent Review Image" src="/res/img/school/parentReviews/review_button.gif"/></div>
+        <div id="reviewThisSchoolButton"> <img alt="Parent Review Image" src="/res/img/school/parentReviews/review_button.gif" onclick="return reviewThisSchool();"/></div>
     </div>
 </div>
 
@@ -251,7 +251,9 @@
 
 </div>
 </form:form>
-
+<mod:tracking pageName="Rating Review Marketing Landing Page"
+              hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
+        />
 </gsml:body>
 </html>
 </jsp:root>

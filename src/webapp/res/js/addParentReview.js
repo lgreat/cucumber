@@ -2,7 +2,7 @@ function cityChange(citySelect, selectId) {
     $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
     new Ajax.Updater(selectId, '/test/schoolsInCity.page', {
         method: 'get',
-        parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange:'schoolChange(this)',includePrivateSchools :true},
+        parameters: {state : document.getElementById('userState').value, city : citySelect.value,onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'},
         onComplete: function(transport) {
 
         }
@@ -26,14 +26,18 @@ function stateChange(stateSelect) {
 
 function schoolChange(school) {
     var schoolObj = school;
-    var url = '/school/schoolForParentReview.page';
-    new Ajax.Request(
-            url,
-    {
-        method: 'get',
-        parameters: {schoolId : school.value, state : document.getElementById('userState').value},
-        onComplete: showResponse
-    });
+    if (school.value != '') {
+        var url = '/school/schoolForParentReview.page';
+        new Ajax.Request(
+                url,
+        {
+            method: 'get',
+            parameters: {schoolId : school.value, state : document.getElementById('userState').value},
+            onComplete: showResponse
+        });
+
+    }
+
 }
 
 function showResponse(x) {
@@ -115,18 +119,24 @@ function showResponse(x) {
 
 var starSelected = false;
 function onLoadCities() {
-    var url = '/community/registrationAjax.page';
-    var pars = 'state=' + document.getElementById('userState').value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
-    $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-    var myAjax = new Ajax.Updater(
-            'city',
-            url,
-    {
-        method: 'get',
-        parameters: pars,
-        onComplete: function(transport) {
-        }
-    });
+    if (document.getElementById('userState').value != '') {
+        var url = '/community/registrationAjax.page';
+        var pars = 'state=' + document.getElementById('userState').value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
+        $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+        var myAjax = new Ajax.Updater(
+                'city',
+                url,
+        {
+            method: 'get',
+            parameters: pars,
+            onComplete: function(transport) {
+            }
+        });
+
+    } else {
+        $('city').innerHTML = '<select name="city" class="selectCity"><option value="Choose a city">Choose a city</option></select>';
+    }
+
 
     var starHandler = function(event) {
         starSelected = true;
@@ -142,27 +152,20 @@ function onLoadCities() {
 
 function validateReview() {
     var noError = true;
-    var url = 'http://www.greatschools.net/util/isValidEmail.page';
-    var pars = 'email=' + document.getElementById('reviewEmail').value;
-    new Ajax.Updater(
-            url,
-    {
-        method: 'get',
-        parameters: pars,
-        onComplete: function showValidateEmail(x) {
-        }
-    });
-
 
     if (!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))) {
         document.getElementById('reviewRatingError').style.display = '';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
         noError = false;
     } else {
         document.getElementById('reviewRatingError').style.display = 'none';
     }
 
-    if (document.getElementById('reviewEmail').value == '' || (document.getElementById('reviewEmail').value == 'Enter your email address')) {
+    if (document.getElementById('reviewEmail').value == '' || (document.getElementById('reviewEmail').value == 'Enter your email address') || (validateEmail(document.getElementById('reviewEmail').value) == false)) {
         document.getElementById('emailError').style.display = '';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
         noError = false;
     } else {
         document.getElementById('emailError').style.display = 'none';
@@ -170,6 +173,8 @@ function validateReview() {
 
     if (!document.getElementById('permission').checked) {
         document.getElementById('termsError').style.display = '';
+        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 15 + 'px';
+        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 15 + 'px';
         noError = false;
     } else {
         document.getElementById('termsError').style.display = 'none';
@@ -177,13 +182,12 @@ function validateReview() {
 
     return noError;
 }
-function showValidateEmail(x) {
-    if (x.responseText == 'false') {
-        document.getElementById('emailError').style.display = '';
-        alert("hereh");
 
-    }
+function validateEmail(elementValue) {
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(elementValue);
 }
+
 
 function removeChildrenFromNode(node)
 {
@@ -193,4 +197,30 @@ function removeChildrenFromNode(node)
     {
         node.removeChild(node.firstChild);
     }
+}
+
+function reviewThisSchool() {
+    var errMsg = 'Please enter the following feilds : ';
+    var noError = true;
+
+    if ((document.getElementById('userState').value == '') || (document.getElementById('userState').value == 'Choose a state')) {
+        errMsg = errMsg + '\nPlease select a state.';
+        noError = false;
+    }
+
+    if ((document.getElementById('citySelect').value == '') || (document.getElementById('citySelect').value == 'Choose a school')) {
+        errMsg = errMsg + '\nPlease select a city.';
+        noError = false;
+    }
+
+    if ((document.getElementById('schoolSelect').value == '') || (document.getElementById('schoolSelect').value == 'Choose a school')) {
+        errMsg = errMsg + '\nPlease select a school.';
+        noError = false;
+    }
+
+    if (!noError) {
+        alert(errMsg);
+    }
+
+    return false;
 }

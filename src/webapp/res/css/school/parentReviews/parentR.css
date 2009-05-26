@@ -72,7 +72,7 @@ font-weight:bold;
     border:5px solid #55BBCC;
     padding:10px 20px 20px 20px;
     margin-bottom:50px;
-    height:650px;
+    height:600px;
 }
 
 /*      */
@@ -168,6 +168,7 @@ float:left;
 height:350px;
 width:300px;
 margin-top:30px;
+clear:right;
 }
 
 #categoryRatings ul li div.catRatingLabel{
@@ -231,6 +232,9 @@ margin-top:30px;
 /*        */
 
 #submitReview{
-    height:30px;
+    height:30px;    
+    float:left;
+    width:100px;
+    margin-top:10px;
 }
 
