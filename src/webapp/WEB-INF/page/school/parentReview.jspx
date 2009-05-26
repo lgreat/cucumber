@@ -162,8 +162,8 @@
                                              onfocus="if(this.value=='Enter your email address'){this.value='';}"
                                              value="Enter your email address" class="emailAddress"/></div>
         <div class="marginEmailField" id="termsAndPrivacy"><input id="permission" name="givePermission" type="checkbox"
-                                             checked="checked"/>
-            I'm a <select name="posterAsString">
+                                             checked="checked" class="parentReviewChkBoxes"/>
+            <div>I'm a <select name="posterAsString">
                 <option value="parent">parent</option>
                 <option value="student">student</option>
                 <option value="teacher">teacher</option>
@@ -171,9 +171,9 @@
             </select> and I agree to the GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
                                         target="_blank">Privacy Policy </gsml:a> &amp; <gsml:a
                     href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use"
-                    target="_blank">Terms of Use</gsml:a>></div>
+                    target="_blank">Terms of Use</gsml:a></div></div>
         <div class="marginEmailField" id="weeklyEmails"><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes"
-                                             checked="checked"/> Send me weekly emails from GreatSchools,including updates about<br/> this school.
+                                             checked="checked" class="parentReviewChkBoxes"/> <div>Send me weekly emails from GreatSchools,including updates about this school.</div>
         </div>
 
     </div>

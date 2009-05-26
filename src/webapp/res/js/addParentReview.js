@@ -43,6 +43,7 @@ function schoolChange(school) {
 function showResponse(x) {
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
+    var isPublic = (x.responseText.indexOf('isPublic') != -1);
     var schoolInfoArray = x.responseText.split(";");
     document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
 

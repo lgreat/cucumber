@@ -212,6 +212,11 @@ clear:right;
     top:7px;
 }
 
+#contentGS .parentReviewChkBoxes{
+display:block;
+float:left;
+margin:2px 5px 10px 0;
+}
 
 #weeklyEmails{
     height:40px;
