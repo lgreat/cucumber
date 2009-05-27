@@ -41,6 +41,7 @@ function schoolChange(school) {
 }
 
 function showResponse(x) {
+
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
     var isPublic = (x.responseText.indexOf('isPublic') != -1);
@@ -119,12 +120,15 @@ function showResponse(x) {
         nonPreschoolRatingStars.style.display = '';
     }
 
-    var prForm = document.getElementById('parentReviewForm');
-    prForm.style.display = '';
-    var review = document.getElementById('completeReview');
-    review.style.display = '';
-    var reviewBtn = document.getElementById('reviewThisSchoolButton');
-    reviewBtn.style.display = 'none';
+    if ($('parentReviewForm').style.display != 'none') {
+        var prForm = document.getElementById('parentReviewForm');
+        prForm.style.display = '';
+        var review = document.getElementById('completeReview');
+        review.style.display = '';
+        var reviewBtn = document.getElementById('reviewThisSchoolButton');
+        reviewBtn.style.display = 'none';
+    }
+
 }
 
 var starSelected = false;
@@ -239,6 +243,15 @@ function reviewThisSchool() {
 
     if (!noError) {
         alert(errMsg);
+    } else {
+        if ($('parentReviewForm').style.display == 'none') {
+            var prForm = document.getElementById('parentReviewForm');
+            prForm.style.display = '';
+            var review = document.getElementById('completeReview');
+            review.style.display = '';
+            var reviewBtn = document.getElementById('reviewThisSchoolButton');
+            reviewBtn.style.display = 'none';
+        }
     }
 
     return false;
