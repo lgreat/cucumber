@@ -161,9 +161,9 @@ function validateReview() {
 
     if (!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))) {
         document.getElementById('reviewRatingError').style.display = '';
-        document.getElementById('parentRating').style.height = height+ 28 + 'px';
+        document.getElementById('parentRating').style.height = height + 28 + 'px';
         document.getElementById('categoryRatings').style.height = height + 28 + 'px';
-        height = height + 20;
+        height = height + 29;
         noError = false;
     } else {
         document.getElementById('reviewRatingError').style.display = 'none';
@@ -173,7 +173,7 @@ function validateReview() {
         document.getElementById('emailError').style.display = '';
         document.getElementById('parentRating').style.height = height + 28 + 'px';
         document.getElementById('categoryRatings').style.height = height + 28 + 'px';
-        height = height + 20;
+        height = height + 29;
         noError = false;
     } else {
         document.getElementById('emailError').style.display = 'none';
@@ -183,13 +183,17 @@ function validateReview() {
         document.getElementById('termsError').style.display = '';
         document.getElementById('parentRating').style.height = height + 28 + 'px';
         document.getElementById('categoryRatings').style.height = height + 28 + 'px';
-        height = height + 20;
+        height = height + 29;
         noError = false;
     } else {
         document.getElementById('termsError').style.display = 'none';
     }
-    if(!noError){
+    if (!noError) {
         document.getElementById('reviewAndGuidlines').style.marginTop = '8px';
+    } else {
+        if (document.getElementById('reviewText').value == 'Enter your review here') {
+            document.getElementById('reviewText').value = "";
+        }
     }
     return noError;
 }
