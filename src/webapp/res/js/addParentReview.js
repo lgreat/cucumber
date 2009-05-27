@@ -63,7 +63,7 @@ function showResponse(x) {
     }
 
     if (schoolInfoArray[2] != "" && schoolInfoArray[2] > 0) {
-        document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Principal Leadership: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
+        document.getElementById('overallParentRating').innerHTML = '<img class="sm_stars" alt="Parent Rating: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
         document.getElementById('overallParentRating').style.display = '';
         if (schoolInfoArray[3] != "" && schoolInfoArray[3] > 0) {
             document.getElementById('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
