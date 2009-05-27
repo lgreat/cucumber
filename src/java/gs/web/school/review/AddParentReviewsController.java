@@ -4,6 +4,7 @@ import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
 import gs.data.school.ISchoolDao;
+import gs.data.school.SchoolType;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -125,7 +126,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
         }
 
         //does user want mss? if user maxed out MSS subs, just don't add.  do not throw error message.
-        if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions()) {
+        if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions() && StringUtils.isBlank(check)) {
+            Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
+            sub.setSchoolId(school.getId());
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
+            getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
+        }else if(!StringUtils.isBlank(check) && rc.isWantMssNL() && school.getType().equals(SchoolType.PUBLIC)){
             Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
             sub.setSchoolId(school.getId());
             NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
