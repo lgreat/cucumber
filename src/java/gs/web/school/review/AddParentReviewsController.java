@@ -103,7 +103,6 @@ public class AddParentReviewsController extends SimpleFormController implements 
             }
         }
 
-
         User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
         boolean isNewUser = false;
 
@@ -132,6 +131,13 @@ public class AddParentReviewsController extends SimpleFormController implements 
             NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
+
+         if(!StringUtils.isBlank(check) && rc.isWantMssNL()){
+            Subscription sub = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState());
+            sub.setSchoolId(school.getId());
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
+            getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
+         }
 
         //has user's name changed?
         boolean nameChange = false;
