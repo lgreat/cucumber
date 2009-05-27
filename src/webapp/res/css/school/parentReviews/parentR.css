@@ -1,246 +1,250 @@
-#contentGS{
-    color:#666666;
-    font-family:"Trebuchet MS",Arial,sans-serif;
-    font-size:13px;
-     position:relative;
-    padding:10px;
+#contentGS {
+    color: #666666;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 13px;
+    position: relative;
+    padding: 10px;
 }
 
-#contentGS h2{
-border-bottom:1px solid #CACC9E;
-color:#55BBCC;
-font-size:19px;
-font-weight:bold;
+#contentGS h2 {
+    border-bottom: 1px solid #ccc;
+    color: #55BBCC;
+    font-size: 21px;
+    font-weight: bold;
 }
 
-#contentGS h3{
-color:#D66671;
-font-size:18px;
-margin:10px 0;
+#contentGS h3 {
+    color: #D66671;
+    font-size: 18px;
+    margin: 10px 0;
 }
 
-
-#contentGS h4{
-color:#55BBCC;
-font-family:"Trebuchet MS";
-font-size:16px;
-font-weight:bold;
+#contentGS h4 {
+    color: #55BBCC;
+    font-family: "Trebuchet MS";
+    font-size: 16px;
+    font-weight: bold;
 }
 
-#contentGS #topSelections{
-    height:250px;
-    width:800px;
+#contentGS #topSelections {
+    height: 250px;
+    width: 800px;
+}
+
+#contentGS .biggerFontText {
+    font-size: 14px;
 }
 
 /*  state,city,school dropdowns */
 
-#selections{
-    float:left;
-    width:500px;
-    padding-top:10px;
+#selections {
+    float: left;
+    width: 500px;
+    padding-top: 10px;
 }
 
- #selections div{
-    padding-bottom:10px;
+#selections p {
+    font-size: 14px;
 }
 
-#selections div span#state{
-    padding-left:16px;
+#selections div {
+    padding-bottom: 10px;
 }
 
-#selections div span#city{
-    padding-left:24px;
+#selections div span#state {
+    padding-left: 16px;
 }
 
-#selections div span#schools{
-    padding-left:9px;
+#selections div span#city {
+    padding-left: 24px;
 }
 
-#parentReviewImage{
-    float:left;
-    width:250px;
-    height:200px;
+#selections div span#schools {
+    padding-left: 9px;
 }
 
-#reviewThisSchoolButton{
-    padding-top:16px;
+#parentReviewImage {
+    float: left;
+    width: 250px;
+    height: 200px;
+}
+
+#reviewThisSchoolButton {
+    padding-top: 16px;
 }
 
 /*    parentReviewForm     */
 
-#contentGS #parentReviewForm{
-    border:5px solid #55BBCC;
-    padding:10px 20px 20px 20px;
-    margin-bottom:50px;
-    height:620px;
+#contentGS #parentReviewForm {
+    border: 5px solid #55BBCC;
+    padding: 10px 20px 20px 20px;
+    margin-bottom: 50px;
+    height: 620px;
 }
 
 /*  school name,gs-rating,parent rating,school address  */
 
-#contentGS #parentReviewForm #schoolInfo{
-    margin-top:10px;
-    margin-bottom:10px;
-    height:60px;
-    border-bottom:4px dotted #CCCCCC;
+#contentGS #parentReviewForm #schoolInfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 60px;
+    border-bottom: 4px dotted #CCCCCC;
 }
 
-#gsSchoolRating{
-    padding-top:25px;
-    float:left;
+#gsSchoolRating {
+    padding-top: 25px;
+    float: left;
 }
 
-
-#overallParentRating{
-     padding-left:20px;
-    float:left;
-    padding-top:25px;
+#overallParentRating {
+    padding-left: 20px;
+    float: left;
+    padding-top: 25px;
     width: 70px;
 }
 
-#schoolAddress{
-    float:left;
+#schoolAddress {
+    float: left;
     width: 200px;
-    height:50px;
+    height: 50px;
 }
 
-#parentRatingCount{
-     padding-left:20px;
-    float:left;
-    padding-top:25px;
+#parentRatingCount {
+    padding-left: 20px;
+    float: left;
+    padding-top: 25px;
     width: 150px;
 
 }
 
-
 /*  the overall rating stars,review text area, terms and weekly emails   */
 
-#parentRating{
-    float:left;
-    width:450px;
-    height:360px;
-    margin-top:10px;
+#parentRating {
+    float: left;
+    width: 450px;
+    height: 360px;
+    margin-top: 10px;
 }
 
+#ratingTitle {
+    float: left;
+    width: 120px;
 
-#ratingTitle{
-    float:left;
-    width:120px;
-
-}
-#parentRating .parentRatingStars{
-    float:left;
-    width:310px;
-    padding-left:10px;
 }
 
-#reviewAndGuidlines{
- height:20px;
+#parentRating .parentRatingStars {
+    float: left;
+    width: 310px;
+    padding-left: 10px;
 }
 
-#reviewCommnents{
-    height:180px;
-    margin-top:8px;
+#reviewAndGuidlines {
+    height: 20px;
 }
 
-.marginEmailField{
-    margin-top:10px;
-    height:20px;
-}
-#guidelines{
-    padding-left:305px;
+#reviewCommnents {
+    height: 180px;
+    margin-top: 8px;
 }
 
-.reviewError{
-    color:#CC5566;;
-    height:25px;
+.marginEmailField {
+    margin-top: 10px;
+    height: 20px;
 }
 
-#reviewEmail{
-    width:250px;
+#guidelines {
+    padding-left: 305px;
 }
 
-#termsAndPrivacy{
-    height:40px;
+.reviewError {
+    color: #CC5566;;
+    height: 25px;
 }
 
-
-#contentGS .reviewError img{
-   margin-right:3px;
-   position:relative;
-    top:7px;
+#reviewEmail {
+    width: 250px;
 }
 
-#contentGS .parentReviewChkBoxes{
-display:block;
-float:left;
-margin:2px 5px 10px 0;
+#termsAndPrivacy {
+    height: 40px;
 }
 
-#weeklyEmails{
-    height:40px;
+#contentGS .reviewError img {
+    margin-right: 3px;
+    position: relative;
+    top: 7px;
 }
 
-#addParentReviewForm a
-{
- text-decoration:underline;
-    color:#3399AA;
+#contentGS .parentReviewChkBoxes {
+    display: block;
+    float: left;
+    margin: 2px 5px 10px 0;
 }
 
-#addParentReviewForm #termsAndPrivacy a{
-    color:#666666;
-    text-decoration:none;
+#weeklyEmails {
+    height: 40px;
 }
-#addParentReviewForm #termsAndPrivacy a:hover{
-    color:#666666;
-    text-decoration:underline;
+
+#addParentReviewForm a {
+    text-decoration: underline;
+    color: #3399AA;
 }
+
+#addParentReviewForm #termsAndPrivacy a {
+    color: #666666;
+    text-decoration: none;
+}
+
+#addParentReviewForm #termsAndPrivacy a:hover {
+    color: #666666;
+    text-decoration: underline;
+}
+
 /*   category ratings   */
 
-#categoryRatings{
-float:left;
-height:350px;
-width:300px;
-margin-top:30px;
-clear:right;
+#categoryRatings {
+    float: left;
+    height: 350px;
+    width: 300px;
+    margin-top: 30px;
+    clear: right;
 }
 
-#categoryRatings ul li div.catRatingLabel{
-    float:left;
-    width:180px;
-    padding-top:10px;
+#categoryRatings ul li div.catRatingLabel {
+    float: left;
+    width: 180px;
+    padding-top: 10px;
+    font-size: 14px;
 }
 
-#categoryRatings ul li div.catRating{
-    padding-top:10px;
-    float:left;
+#categoryRatings ul li div.catRating {
+    padding-top: 10px;
+    float: left;
 }
 
-#nonPreSchoolStars{
-    height:170px;
+#nonPreSchoolStars {
+    height: 170px;
 }
 
-
-#preSchoolStars{
-    height:170px;
+#preSchoolStars {
+    height: 170px;
 }
 
-#inputRating{
-    height:30px;
+#inputRating {
+    height: 30px;
 }
 
-#learnMoreLinks{
-    padding-top:20px;
-    height:20px;
+#learnMoreLinks {
+    padding-top: 20px;
+    height: 20px;
 }
-
-
 
 /*   submit button     */
 
-#submitReview{
-    height:30px;    
-    float:left;
-    width:100px;
-    margin-top:10px;
+#submitReview {
+    height: 30px;
+    float: left;
+    width: 100px;
+    margin-top: 10px;
 }
 

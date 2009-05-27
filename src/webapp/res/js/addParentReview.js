@@ -74,6 +74,9 @@ function showResponse(x) {
     } else {
         document.getElementById('overallParentRating').style.display = 'none';
         document.getElementById('parentRatingCount').style.display = 'none';
+        if(schoolInfoArray[1] != "" && isRatingInfoPresent && schoolInfoArray[1] > 0){
+            $('schoolAddress').style.paddingLeft = '50px';
+        }
     }
 
 

@@ -109,7 +109,7 @@
     <div id="parentRating">
 
         <div id="inputRating">
-            <div id="ratingTitle">My Overall rating</div>
+            <div id="ratingTitle" class="biggerFontText">My Overall rating</div>
             <div class="parentRatingStars">
                 <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
                 <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
