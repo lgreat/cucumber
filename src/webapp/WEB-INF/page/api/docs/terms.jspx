@@ -120,7 +120,7 @@
         <p>All input and output elements must be accompanied by an approved GreatSchools.net logo that links directly to www.GreatSchools.net.  Logos may not be resized or otherwise modified.</p>
         <p>For all pages displaying GreatSchools data:</p>
         <p>-	Display a "Data powered by [GreatSchools.net]" 	logo linked to http://www.greatschools.net as done below
-        <br/><a href="http://www.greatschools.net" target="_blank"><img border="0" src="/res/img/api/poweredby.gif" alt="powered by GreatSchools"/></a></p>
+        <br/><a href="http://www.greatschools.net" target="_blank"><img border="0" src="/res/img/logo/logo_GS_125x70transparent.gif" alt="powered by GreatSchools"/></a></p>
 
         <div class="apiTermsSection">Links</div>
         <p>The following output elements must be present and link to http://www.greatschools.net using the standard linking format on your site, with appropriate URL links from the API call. Links to GreatSchools may not include the attribute rel="nofollow".</p>
