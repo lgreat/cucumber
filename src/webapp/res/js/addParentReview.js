@@ -44,6 +44,7 @@ function showResponse(x) {
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
     var isPublic = (x.responseText.indexOf('isPublic') != -1);
+    $('schoolAddress').style.paddingLeft = '0px';
     var schoolInfoArray = x.responseText.split(";");
     document.getElementById('schoolNameHeader').innerHTML = schoolInfoArray[0];
 
@@ -74,7 +75,7 @@ function showResponse(x) {
     } else {
         document.getElementById('overallParentRating').style.display = 'none';
         document.getElementById('parentRatingCount').style.display = 'none';
-        if(schoolInfoArray[1] != "" && isRatingInfoPresent && schoolInfoArray[1] > 0){
+        if (schoolInfoArray[1] != "" && isRatingInfoPresent && schoolInfoArray[1] > 0) {
             $('schoolAddress').style.paddingLeft = '50px';
         }
     }
