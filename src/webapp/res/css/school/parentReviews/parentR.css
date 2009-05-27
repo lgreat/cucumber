@@ -185,6 +185,10 @@
     height: 40px;
 }
 
+#addParentReviewForm{
+    width:844px;
+}
+
 #addParentReviewForm a {
     text-decoration: underline;
     color: #3399AA;
