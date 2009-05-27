@@ -157,11 +157,13 @@ function onLoadCities() {
 
 function validateReview() {
     var noError = true;
+    var height = 360;
 
     if (!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))) {
         document.getElementById('reviewRatingError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
+        document.getElementById('parentRating').style.height = height+ 20 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 20 + 'px';
+        height = height + 20;
         noError = false;
     } else {
         document.getElementById('reviewRatingError').style.display = 'none';
@@ -169,8 +171,9 @@ function validateReview() {
 
     if (document.getElementById('reviewEmail').value == '' || (document.getElementById('reviewEmail').value == 'Enter your email address') || (validateEmail(document.getElementById('reviewEmail').value) == false)) {
         document.getElementById('emailError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
+        document.getElementById('parentRating').style.height = height + 20 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 20 + 'px';
+        height = height + 20;
         noError = false;
     } else {
         document.getElementById('emailError').style.display = 'none';
@@ -178,8 +181,9 @@ function validateReview() {
 
     if (!document.getElementById('permission').checked) {
         document.getElementById('termsError').style.display = '';
-        document.getElementById('parentRating').style.height = document.getElementById('parentRating').offsetHeight + 20 + 'px';
-        document.getElementById('categoryRatings').style.height = document.getElementById('categoryRatings').offsetHeight + 20 + 'px';
+        document.getElementById('parentRating').style.height = height + 20 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 20 + 'px';
+        height = height + 20;
         noError = false;
     } else {
         document.getElementById('termsError').style.display = 'none';
