@@ -32,7 +32,7 @@ font-weight:bold;
     width:800px;
 }
 
-/*   */
+/*  state,city,school dropdowns */
 
 #selections{
     float:left;
@@ -66,7 +66,7 @@ font-weight:bold;
     padding-top:16px;
 }
 
-/*         */
+/*    parentReviewForm     */
 
 #contentGS #parentReviewForm{
     border:5px solid #55BBCC;
@@ -75,7 +75,7 @@ font-weight:bold;
     height:620px;
 }
 
-/*      */
+/*  school name,gs-rating,parent rating,school address  */
 
 #contentGS #parentReviewForm #schoolInfo{
     margin-top:10px;
@@ -110,10 +110,9 @@ font-weight:bold;
     width: 150px;
 
 }
-/*      */
 
-/*      */
 
+/*  the overall rating stars,review text area, terms and weekly emails   */
 
 #parentRating{
     float:left;
@@ -160,9 +159,42 @@ font-weight:bold;
     width:250px;
 }
 
-/*      */
+#termsAndPrivacy{
+    height:40px;
+}
 
-/*      */
+
+#contentGS .reviewError img{
+   margin-right:3px;
+   position:relative;
+    top:7px;
+}
+
+#contentGS .parentReviewChkBoxes{
+display:block;
+float:left;
+margin:2px 5px 10px 0;
+}
+
+#weeklyEmails{
+    height:40px;
+}
+
+#addParentReviewForm a
+{
+ text-decoration:underline;
+    color:#3399AA;
+}
+
+#addParentReviewForm #termsAndPrivacy a{
+    color:#666666;
+    text-decoration:none;
+}
+#addParentReviewForm #termsAndPrivacy a:hover{
+    color:#666666;
+    text-decoration:underline;
+}
+/*   category ratings   */
 
 #categoryRatings{
 float:left;
@@ -201,43 +233,9 @@ clear:right;
     height:20px;
 }
 
-#termsAndPrivacy{
-    height:40px;
-}
 
 
-#contentGS .reviewError img{
-   margin-right:3px;
-   position:relative;
-    top:7px;
-}
-
-#contentGS .parentReviewChkBoxes{
-display:block;
-float:left;
-margin:2px 5px 10px 0;
-}
-
-#weeklyEmails{
-    height:40px;
-}
-
-#addParentReviewForm a
-{
- text-decoration:underline;
-    color:#3399AA;
-}
-
-#addParentReviewForm #termsAndPrivacy a{
-    color:#666666;
-    text-decoration:none;
-}
-#addParentReviewForm #termsAndPrivacy a:hover{
-    color:#666666;
-    text-decoration:underline;
-}
-
-/*        */
+/*   submit button     */
 
 #submitReview{
     height:30px;    
