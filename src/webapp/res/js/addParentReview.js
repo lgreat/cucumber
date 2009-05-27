@@ -161,8 +161,8 @@ function validateReview() {
 
     if (!starSelected && ((document.getElementById('reviewText').value == '') || (document.getElementById('reviewText').value == 'Enter your review here'))) {
         document.getElementById('reviewRatingError').style.display = '';
-        document.getElementById('parentRating').style.height = height+ 25 + 'px';
-        document.getElementById('categoryRatings').style.height = height + 25 + 'px';
+        document.getElementById('parentRating').style.height = height+ 28 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 28 + 'px';
         height = height + 20;
         noError = false;
     } else {
@@ -171,8 +171,8 @@ function validateReview() {
 
     if (document.getElementById('reviewEmail').value == '' || (document.getElementById('reviewEmail').value == 'Enter your email address') || (validateEmail(document.getElementById('reviewEmail').value) == false)) {
         document.getElementById('emailError').style.display = '';
-        document.getElementById('parentRating').style.height = height + 25 + 'px';
-        document.getElementById('categoryRatings').style.height = height + 25 + 'px';
+        document.getElementById('parentRating').style.height = height + 28 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 28 + 'px';
         height = height + 20;
         noError = false;
     } else {
@@ -181,12 +181,15 @@ function validateReview() {
 
     if (!document.getElementById('permission').checked) {
         document.getElementById('termsError').style.display = '';
-        document.getElementById('parentRating').style.height = height + 25 + 'px';
-        document.getElementById('categoryRatings').style.height = height + 25 + 'px';
+        document.getElementById('parentRating').style.height = height + 28 + 'px';
+        document.getElementById('categoryRatings').style.height = height + 28 + 'px';
         height = height + 20;
         noError = false;
     } else {
         document.getElementById('termsError').style.display = 'none';
+    }
+    if(!noError){
+        document.getElementById('reviewAndGuidlines').style.marginTop = '8px';
     }
     return noError;
 }
