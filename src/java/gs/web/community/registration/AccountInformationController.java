@@ -18,6 +18,7 @@ import gs.data.state.StateManager;
 import gs.data.school.Grade;
 import gs.data.school.School;
 import gs.data.school.ISchoolDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -208,6 +209,7 @@ public class AccountInformationController extends SimpleFormController implement
         deleteSubscriptionsForProduct(user, SubscriptionProduct.PARENT_CONTACT);
         if (command.getNumStudents() > 0) {
             if (StringUtils.equals("yes", command.getParentAmbassador())) {
+                ThreadLocalTransactionManager.commitOrRollback(); // force delete above to happen
                 addParentAmbassadorSubscriptions(command.getStudents(), user);
             }
             int counter=1;
