@@ -82,7 +82,7 @@
                     </select>
                     </span>
         </div>
-        <div id="reviewThisSchoolButton"> <img alt="Parent Review Image" src="/res/img/school/parentReviews/review_button.gif" onclick="return reviewThisSchool();"/></div>
+        <div id="reviewThisSchoolButton"> <input id="send" class="button" type="image" alt="Review this school" src="/res/img/school/parentReviews/review_button.gif" onclick="return reviewThisSchool();"/></div>
     </div>
 </div>
 
