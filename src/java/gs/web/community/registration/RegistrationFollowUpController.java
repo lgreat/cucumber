@@ -45,6 +45,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             "If you cannot find the school, please select \"My child's school is not listed.\"";
     public static final String ERROR_TERMS = "Please read and accept our Terms of Use to join the community.";
 
+    public static final String BETA_PARAMETER = "betaStr";
+
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
@@ -85,7 +87,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         fupCommand.setTerms("on".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
         fupCommand.setNewsletter("on".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
-        fupCommand.setBeta("on".equals(request.getParameter(RegistrationController.BETA_PARAMETER)));
+        fupCommand.setBeta("on".equals(request.getParameter(BETA_PARAMETER)));
         bindRequestData(request, fupCommand, errors);
         for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {
             loadCityList(request, fupCommand, errors, x+1);

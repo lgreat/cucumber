@@ -107,7 +107,7 @@ public class Registration2AjaxController implements Controller {
         } else {
             openSelectTag(out, "school", "school", "selectChildSchool", null);
         }
-        outputOption(out, "", "--", true);
+        outputOption(out, "", "- Choose School -", true);
         outputOption(out, "-1", "My child's school is not listed");
         for (int x=0; x < schools.size(); x++) {
             School school = (School) schools.get(x);

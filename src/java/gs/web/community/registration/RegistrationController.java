@@ -6,10 +6,14 @@ import gs.data.util.table.ITableDao;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.soap.SoapRequestException;
 import gs.data.soap.CreateOrUpdateUserRequestBean;
 import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.school.Grade;
+import gs.data.school.School;
+import gs.data.school.ISchoolDao;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
@@ -26,6 +30,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
@@ -45,6 +50,8 @@ public class RegistrationController extends SimpleFormController implements Read
     private IGeoDao _geoDao;
     private ITableDao _tableDao;
     private ISubscriptionDao _subscriptionDao;
+    private ISchoolDao _schoolDao;
+    private StateManager _stateManager;
     private JavaMailSender _mailSender;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
@@ -52,10 +59,16 @@ public class RegistrationController extends SimpleFormController implements Read
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
-    public static final String PARENT_ADVISOR_NEWSLETTER = "parentAdvisorNewsletter";
+    //public static final String PARENT_ADVISOR_NEWSLETTER = "parentAdvisorNewsletter";
+    public static final String PARTNER_NEWSLETTER_PARAMETER = "partnerNewsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
-    public static final String BETA_PARAMETER = "betaStr";
+    public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
+
+    public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school.";
+    public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
+            "If you cannot find the school, please select \"My child's school is not listed.\"";
+    public static final String ERROR_TERMS = "Please read and accept our Terms of Use to join the community.";
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -71,6 +84,7 @@ public class RegistrationController extends SimpleFormController implements Read
             loadCityList(request, userCommand);
         }
 
+        // TODO: This may no longer be necessary as we use 1 page now and no longer use email validation
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
             User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
             if (user != null && !user.isEmailValidated()) {
@@ -91,13 +105,31 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
         }
+
+        State state = userCommand.getUserProfile().getState();
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        String city = userCommand.getUserProfile().getCity();
+        // TODO: No need to loop, just add 1 student if a form type that needs it (not chooser reg, for example)
+        // with default state and no city
+        for (int x = 0; x < 1 || (userCommand.getUserProfile().getNumSchoolChildren() != null &&
+                x < userCommand.getUserProfile().getNumSchoolChildren()); x++) {
+            Student student = new Student();
+            student.setState(state);
+            userCommand.addStudent(student);
+            userCommand.addCityName(city);
+            //loadCityList(request, userCommand, errors, x+1);
+        }
+
+        System.out.println("onBindOnNewForm Students: " + userCommand.getStudents().size());
     }
 
     private void setupChooserRegistration(UserCommand userCommand) {
         // set up defaults for data not collected in chooser registration
         userCommand.setChooserRegistration(true);
         userCommand.setNewsletter(false);
-        userCommand.setBeta(false);
+        // Gender u because no gender input on chooser reg
         userCommand.setGender("u");
         userCommand.setNumSchoolChildren(0);
     }
@@ -118,14 +150,99 @@ public class RegistrationController extends SimpleFormController implements Read
             loadCityList(request, userCommand);
         }
 
-        String parentAdvisorNewsletter = request.getParameter(PARENT_ADVISOR_NEWSLETTER);
-        userCommand.setParentAdvisorNewsletter("on".equals(parentAdvisorNewsletter));
-        String terms = request.getParameter(TERMS_PARAMETER);
-        userCommand.setTerms("on".equals(terms));
         String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
         userCommand.setNewsletter("on".equals(newsletter));
-        String beta = request.getParameter(BETA_PARAMETER);
-        userCommand.setBeta("on".equals(beta));
+        String partnerNewsletter = request.getParameter(PARTNER_NEWSLETTER_PARAMETER);
+        userCommand.setPartnerNewsletter("on".equals(partnerNewsletter));
+        String terms = request.getParameter(TERMS_PARAMETER);
+        userCommand.setTerms("on".equals(terms));
+
+        int numChildFields = 1;
+        while (request.getParameter("grade" + numChildFields) != null) {
+            String gradeParam = request.getParameter("grade" + numChildFields);
+            //String schoolParam = request.getParameter("school" + numChildFields);
+
+            if (!StringUtils.isBlank(gradeParam)) {
+                parseStudent(request, userCommand, null, numChildFields);
+            }
+            numChildFields++;
+        }
+        numChildFields--;
+
+//        for (int x=0; userCommand.getUserProfile().getNumSchoolChildren() != null &&
+//                x < userCommand.getUserProfile().getNumSchoolChildren(); x++) {
+//            int childNum = x+1;
+//            if (request.getParameter("grade" + childNum) != null) {
+//                parseStudent(request, userCommand, null, childNum);
+//            }
+//        }
+
+        // TODO: this only true on join flows that have a default child row
+        if (userCommand.getStudents().size() == 0) {
+            Student student = new Student();
+            student.setState(userCommand.getState());
+            userCommand.addStudent(student);
+            numChildFields = 1;
+        }
+        userCommand.setNumSchoolChildren(numChildFields);
+
+        System.out.println("onBind userProfile: " + userCommand.getUserProfile());
+        System.out.println("onBind Students: " + userCommand.getStudents().size());
+    }
+
+    protected void parseStudent(HttpServletRequest request, UserCommand userCommand, BindException errors, int childNum) {
+        String sGrade = request.getParameter("grade" + childNum);
+        String sSchoolId = request.getParameter("school" + childNum);
+
+        String stateParam = request.getParameter("state" + childNum);
+        State state;
+        if (StringUtils.isBlank(stateParam)) {
+            // TODO: This should use the userCommand state
+            state = SessionContextUtil.getSessionContext(request).getState();
+        } else {
+            state = _stateManager.getState(stateParam);
+        }
+
+        String cityParam = request.getParameter("city" + childNum);
+        String city;
+        if (StringUtils.isBlank(cityParam)) {
+            // TODO: This should use the userCommand city
+            city = request.getParameter(CITY_PARAMETER);
+        } else {
+            city = cityParam;
+        }
+
+        Student student = new Student();
+
+        if (!StringUtils.isEmpty(sGrade)) {
+            student.setGrade(Grade.getGradeLevel(sGrade));
+        }
+        if (!StringUtils.isEmpty(sSchoolId)) {
+            student.setSchoolId(new Integer(sSchoolId));
+        }
+        student.setState(state);
+        student.setOrder(childNum);
+
+        userCommand.addStudent(student);
+        userCommand.addCityName(city);
+        loadSchoolList(student, city, userCommand);
+    }
+
+    protected void loadSchoolList(Student student, String city, UserCommand userCommand) {
+        State state = student.getState();
+        Grade grade = student.getGrade();
+        System.out.println("loadSchoolList: " + grade + " " + city + " " + state);
+        if (grade != null) {
+            List<School> schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
+            School school = new School();
+            school.setId(-1);
+            school.setName("My child's school is not listed");
+            schools.add(0, school);
+            userCommand.addSchools(schools);
+        } else {
+            userCommand.addSchools(new ArrayList<School>());
+        }
+        userCommand.addSchoolName("");
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
@@ -177,6 +294,43 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommandValidator validator = new UserCommandValidator();
         validator.setUserDao(_userDao);
         validator.validate(request, command, errors);
+
+        UserCommand userCommand = (UserCommand) command;
+        userCommand.getSchoolNames().clear();
+
+        for (int x=0; x < userCommand.getNumSchoolChildren(); x++) {
+            Student student = userCommand.getStudents().get(x);
+            if (student.getGrade() == null) {
+                errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
+                _log.info("Registration error: " + ERROR_GRADE_MISSING);
+            }
+            School school = null;
+            if (student.getSchoolId() != null && student.getSchoolId() != -1) {
+                try {
+                    school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
+                } catch (ObjectRetrievalFailureException orfe) {
+                    _log.warn("Can't find school corresponding to id " +
+                            student.getSchoolId() + " in " + student.getState());
+                }
+            } else if (student.getSchoolId() == null) {
+                errors.rejectValue("students[" + x + "]", null, ERROR_SCHOOL_MISSING);
+                _log.info("Registration error: " + ERROR_SCHOOL_MISSING);
+            }
+
+            if (school != null) {
+                student.setSchool(school);
+                // a list of school names makes persisting the page MUCH easier
+                // (order is preserved for students!!)
+                userCommand.addSchoolName(school.getName());
+            } else if (student.getSchoolId() != null && student.getSchoolId() == -1) {
+                userCommand.addSchoolName("My child's school is not listed");
+            } else {
+                // to avoid index out of bounds exceptions, we have to add something to the list
+                userCommand.addSchoolName("");
+            }
+        }
+
+        System.out.println("onBindAndValidate Students: " + ((UserCommand)command).getStudents().size());
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -219,6 +373,41 @@ public class RegistrationController extends SimpleFormController implements Read
 
         UserProfile userProfile = updateUserProfile(user, userCommand, ot);
 
+        if (user.getStudents() != null) {
+            user.getStudents().clear();
+        }
+        if (userProfile.getNumSchoolChildren() > 0) {
+            for (Student student: userCommand.getStudents()) {
+                if (student.getSchoolId() != null && student.getSchoolId() == -1) {
+                    student.setSchoolId(null);
+                }
+                user.addStudent(student);
+            }
+        }
+
+        //TODO: this happens below
+//        if (userCommand.getNewsletter()) {
+//            Subscription subscription = new Subscription();
+//            subscription.setUser(user);
+//            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+//            subscription.setState(userCommand.getUserProfile().getState());
+//            userCommand.addSubscription(subscription);
+//        }
+
+        if (userCommand.getPartnerNewsletter()) {
+            Subscription subscription = new Subscription();
+            subscription.setUser(user);
+            subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
+            subscription.setState(userCommand.getUserProfile().getState());
+            userCommand.addSubscription(subscription);
+        }
+
+        saveSubscriptionsForUser(userCommand, user, request, response);
+
+        if (user.isEmailProvisional()) {
+            user.setEmailValidated();
+        }
+
         // save
         _userDao.updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
@@ -226,67 +415,52 @@ public class RegistrationController extends SimpleFormController implements Read
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
-        if (userProfile.getNumSchoolChildren() != null && userProfile.getNumSchoolChildren() > 0) {
-            // send to page 2
-            mAndV.setViewName(getSuccessView());
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            mAndV.getModel().put("marker", hash);
-            if (_requireEmailValidation) {
-                mAndV.getModel().put("email", user.getEmail());
-            }
-            if (StringUtils.isNotEmpty(userCommand.getRedirectUrl())) {
-                mAndV.getModel().put("redirect", userCommand.getRedirectUrl());
-            }
-            mAndV.getModel().put("id", user.getId());
-            request.setAttribute("password", userCommand.getPassword());
-        } else {
-            try {
-                 // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
-                // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-                if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
-                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                    _userDao.updateUser(user);
-                }
-                // complete registration
-                // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
-                if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true))) {
-                    processNewsletterSubscriptions(user, userCommand, ot);
-                }
-                if (userCommand.isBeta()) {
-                    subscribeToBetaGroup(user, userCommand);
-                }
-            } catch (Exception e) {
-                // if there is any sort of error prior to notifying community, 
-                // the user MUST BE ROLLED BACK to provisional status
-                // otherwise our database is out of sync with community! Bad!
-                _log.error("Unexpected error during registration", e);
-                // undo registration
-                user.setEmailProvisional(userCommand.getPassword());
+        try {
+            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
+            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
+            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter())){
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.updateUser(user);
-                // send to error page
-                mAndV.setViewName(getErrorView());
-                return mAndV;
             }
-            if (!notifyCommunity(user, userCommand, mAndV, request)) {
-                return mAndV; // early exit!
+            // complete registration
+            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
+            // TODO: Update chooser reg to use getNewsletter and get rid of getParentAdvisorNewsletter since they are the same thing
+            // with 2 different names
+            if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter()))) {
+                processNewsletterSubscriptions(user, userCommand, ot);
             }
-            if (!user.isEmailProvisional()) {
-                if (!isChooserRegistration()) {
-                    sendConfirmationEmail(user, userCommand, request);
-                }
+        } catch (Exception e) {
+            // if there is any sort of error prior to notifying community,
+            // the user MUST BE ROLLED BACK to provisional status
+            // otherwise our database is out of sync with community! Bad!
+            _log.error("Unexpected error during registration", e);
+            // undo registration
+            user.setEmailProvisional(userCommand.getPassword());
+            _userDao.updateUser(user);
+            // send to error page
+            mAndV.setViewName(getErrorView());
+            return mAndV;
+        }
+        if (!notifyCommunity(user, userCommand, mAndV, request)) {
+            return mAndV; // early exit!
+        }
+        if (!user.isEmailProvisional()) {
+            if (!isChooserRegistration()) {
+                sendConfirmationEmail(user, userCommand, request);
             }
-
-            PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
-            if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
-                    !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
-                String redirectUrl = "http://" +
-                        SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                        "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
-                userCommand.setRedirectUrl(redirectUrl);
-            }
-            mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
         }
 
+        PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
+        if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+                !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
+            String redirectUrl = "http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
+            userCommand.setRedirectUrl(redirectUrl);
+        }
+        mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+
+        System.out.println("onSubmit Students: " + userCommand.getStudents().size());
         return mAndV;
     }
 
@@ -318,15 +492,15 @@ public class RegistrationController extends SimpleFormController implements Read
         return true;
     }
 
-    protected void subscribeToBetaGroup(User user, UserCommand userCommand) {
-        if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
-            Subscription betaSubscription = new Subscription();
-            betaSubscription.setUser(user);
-            betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
-            betaSubscription.setState(userCommand.getState());
-            _subscriptionDao.saveSubscription(betaSubscription);
-        }
-    }
+//    protected void subscribeToBetaGroup(User user, UserCommand userCommand) {
+//        if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
+//            Subscription betaSubscription = new Subscription();
+//            betaSubscription.setUser(user);
+//            betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
+//            betaSubscription.setState(userCommand.getState());
+//            _subscriptionDao.saveSubscription(betaSubscription);
+//        }
+//    }
 
     protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
         List<Subscription> subs = new ArrayList<Subscription>();
@@ -394,7 +568,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
         user.getUserProfile().setUpdated(new Date());
-        if (userProfile.getNumSchoolChildren() == -1) {
+        if (userProfile.getNumSchoolChildren() == null || userProfile.getNumSchoolChildren() < 0) {
             userProfile.setNumSchoolChildren(0);
         }
         return userProfile;
@@ -472,6 +646,29 @@ public class RegistrationController extends SimpleFormController implements Read
                     "/soap/user");
         }
         soapRequest.createOrUpdateUserRequest(bean);
+    }
+
+    private void saveSubscriptionsForUser(UserCommand userCommand, User user, HttpServletRequest request, HttpServletResponse response) {
+        List<Subscription> newsSubs = new ArrayList<Subscription>();
+        System.out.println ("Subscription count: " + userCommand.getSubscriptions().size());
+        for (Subscription sub: userCommand.getSubscriptions()) {
+            sub.setUser(user);
+            //if (sub.getProduct().isNewsletter()) {
+                newsSubs.add(sub);
+            //} else {
+            //    System.out.println ("Sub addeed");
+            //    _subscriptionDao.saveSubscription(sub);
+            //}
+            //TODO: recontact might be parent ambassador, this can be deleted
+            //if (Boolean.valueOf(userCommand.getRecontact())) {
+            //    addContactSubscriptionFromSubscription(sub);
+            //}
+        }
+        if (!newsSubs.isEmpty()) {
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
+            _subscriptionDao.addNewsletterSubscriptions(user, newsSubs);
+            System.out.println ("Newsub added");
+        }
     }
 
     public IUserDao getUserDao() {
@@ -553,4 +750,21 @@ public class RegistrationController extends SimpleFormController implements Read
     public void setChooserRegistration(boolean chooserRegistration) {
         _chooserRegistration = chooserRegistration;
     }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
 }

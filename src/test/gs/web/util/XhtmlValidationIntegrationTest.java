@@ -137,7 +137,7 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/community/forgotPassword.page");
     }
 
-    public void testRegistrationPageOne() {
+    public void xtestRegistrationPageOne() {
         assertValidXhtml(INTEGRATION_HOST + "/community/registration.page");
     }
 

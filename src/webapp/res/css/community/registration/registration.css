@@ -1,10 +1,9 @@
 #outline {
-    border: 4px solid #F2F3DB;
     width: 752px;
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
     color: #444;
-    padding: 31px 20px 28px 84px;
+    padding: 31px 20px 0 30px;
 }
 
 #outline h2 {
@@ -13,8 +12,7 @@
     font-size: 20px;
     border-bottom: 1px solid #CACC9E;
     padding-bottom: 3px;
-    margin-bottom: 5px;
-    width: 503px;
+    width: 575px;
 }
 
 #outline .loginLink {
@@ -26,7 +24,35 @@
 
 #outline .loginLink a, #outline .loginLink a:hover {
     text-decoration: none;
-    color: #3399AA;    
+    color: #3399AA;
+}
+
+#outline .joinMedallion {
+    position: absolute;
+    top: 27px;
+    left: 600px;
+}
+
+#outline .headerImage {
+    position: relative;
+    top: -1px;
+    float: left;
+}
+
+#outline #bulletsHeader #bullets {
+    width: 550px;
+    position: relative;
+    left: 25px;
+}
+
+#outline #bulletsHeader #bullets li {
+    height: auto;
+    list-style-type: disc;
+    list-style-position: outside;
+}
+
+#outline #bulletsHeader .strongHeader {
+    font-weight: bolder;
 }
 
 #outline h3 {
@@ -36,22 +62,25 @@
     padding-bottom: 22px;
 }
 
-#regWebbyAward {
-    position: absolute;
-    top: 37px;
-    right: 122px;
+#outline ul li.dottedRule {
+    left: 120px;
+    width: 250px;
+    border-top: 2px dotted gray;
+    margin: 7px 0 9px 0;
+    height: 0px;
+    padding: 0;
 }
 
 #outline ul li {
     position: relative;
     padding: 7px 0 7px 0;
-    height: 30px;
+    height: 20px;
 }
 
 #outline ul li input, #outline ul li select {
     position: absolute;
     color: #444;
-    left: 158px;
+    left: 120px;
     width: 213px;
 }
 
@@ -72,11 +101,8 @@
     padding-right: 4px;
 }
 
-#outline #genderLine input {
-    position: static;
-    left: inherit;
+#outline #genderLine select {
     width: auto;
-    margin-left: 23px;
 }
 
 #outline #genderLine .radio {
@@ -93,8 +119,8 @@
 	color: #8f8f8f;
     position: absolute;
     top: 26px;
-    left: 157px;
-    width: 310px; 
+    left: 120px;
+    width: 210px; 
 }
 
 #userDetails {
@@ -104,25 +130,6 @@
     position: absolute;
     top: 21px;
     left: 0;
-}
-
-#emailDisclaimer {
-	font-size: 10px;
-	font-style: italic;
-	color: #8f8f8f;
-    position: absolute;
-    top: 26px;
-    left: 157px;
-    width: 275px;
-}
-
-#emailDisclaimer a,
-    #emailDisclaimer a:visited,
-    #emailDisclaimer a:link,
-    #emailDisclaimer a:active,
-    #emailDisclaimer a:hover {
-	text-decoration: none;
-    color: #3399AA;
 }
 
 #passwordDetails {
@@ -135,7 +142,6 @@
 }
 
 #outline #whereLiveLine {
-    height: 60px;
 }
 
 #stateLabel {
@@ -145,7 +151,6 @@
 
 #outline ul li select#userState {
     width: auto;
-    left: 212px;
 }
 
 #cityLabel {
@@ -156,8 +161,20 @@
 
 #outline ul li #city select {
     width: 140px;
-    top: 38px;
-    left: 212px;
+    left: 180px;
+}
+
+#outline ul li.childRow {
+
+}
+
+#outline ul li.childRow .selectChildGrade{
+    width: auto;
+}
+
+#outline ul li.childRow .selectChildSchool{
+    width: 140px;
+    left: 210px;
 }
 
 #outline li#numChildren {
@@ -175,39 +192,23 @@
     top: 10px;
 }
 
-#outline li#newsletter, #outline li#betaGroup, #outline li#terms {
-    height: 40px;
-}
-
-#outline li#newsletter label, #outline li#betaGroup label, #outline li#terms label {
+#outline ul li#newsletter label, #outline ul li#partnerNewsletter label, #outline li#terms label {
     line-height: 15px;
-    position: absolute;
-}
-
-#outline ul li#newsletter label, #outline ul li#betaGroup label {
     font-weight: normal;
+    left: 126px;
+    position: relative;
 }
 
-#outline ul li#newsletter input, #outline ul li#betaGroup input {
+#outline ul li#newsletter input, #outline ul li#partnerNewsletter input, #outline ul li#terms input {
     width: 15px;
     height: 15px;
-    top: 10px;
-    left: 395px
+    top: 3px;
+    left: 120px;
+    position: relative;
 }
 
 #outline ul li#terms {
     padding-bottom: 11px;
-}
-
-#outline ul li#terms label {
-    font-weight: normal;
-}
-
-#outline ul li#terms input {
-    width: 15px;
-    height: 15px;
-    top: 10px;
-    left: 395px
 }
 
 #terms a {
@@ -223,23 +224,13 @@
     padding-top: 14px;
 }
 
-#outline li#controlLine p.privacyBox {
-    position: absolute;
-    font-size: 11px;
-    border: 2px solid #DDEEEE;
-    width: 184px;
-    padding: 5px 5px 5px 8px;
-    line-height: 14px;
-}
-
 #controlLine img {
     padding: 0 5px 0 5px;
 }
 
-#controlLine input#submitButton {
-    width: auto;
-    left: auto;
-    right: 0;
+#outline input#submitButton {
+    position: relative;
+    left: 120px;
 }
 
 img.errorIcon {
@@ -251,11 +242,15 @@ img.errorIcon {
 p.warning {
     color: #cc5566;
     font-size: 11px;
+    line-height: 12px;
     position: absolute;
     top: 10px;
     left: 399px;
     width: 350px;
-    line-height: 12px;
+}
+
+#outline ul li#usernameLine {
+    height: 40px;
 }
 
 #usernameLine p.warning {
@@ -300,9 +295,51 @@ p.warning {
 }
 
 p.requiredFld {
-   font-size: 11px;
-   font-style: italic;
-   margin-top: -15px;
-   margin-bottom: 5px;
+    color: #8f8f8f;
+    font-size: 11px;
+    position: absolute;
+    top: 565px;
+    left: 30px;
+    width: 100px;
+    line-height: 14px;
 }
 
+p.privacyBox a,
+    p.privacyBox a:visited,
+    p.privacyBox a:link,
+    p.privacyBox a:active,
+    p.privacyBox a:hover {
+	text-decoration: none;
+    color: #3399AA;
+}
+
+p.privacyBox {
+    color: #8f8f8f;
+    font-size: 11px;
+    position: absolute;
+    top: 600px;
+    left: 30px;
+    width: 100px;
+    line-height: 14px;
+}
+
+#outline ul li span.ajaxMessage {
+    font-size: 11px;
+    position: absolute;
+    left: 380px;
+    padding-left: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 3px;
+}
+
+#outline ul li span.ajaxError {
+    color: #cc5566;
+    background-image: url(/res/img/bullet/icon_warning_12x12.gif);
+}
+
+#outline ul li span.ajaxSuccess {
+    color: #97c963;
+    background-image: url(/res/img/bullet/icon_checkmark_12x15.gif);
+    height: 18px;
+    width: 20px;
+}

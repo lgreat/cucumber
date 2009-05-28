@@ -209,36 +209,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         verify(_userDao);
     }
 
-    public void testRegistrationSubscribesToBeta() throws Exception {
-        UserCommand userCommand = new UserCommand();
-        userCommand.setEmail("a");
-        userCommand.getUser().setId(345); // to fake the database save
-        userCommand.setPassword("test");
-        userCommand.setNumSchoolChildren(0);
-        userCommand.setState(State.GA);
-
-        Subscription betaSubscription = new Subscription();
-        betaSubscription.setUser(userCommand.getUser());
-        betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
-        betaSubscription.setState(State.GA);
-
-        expect(_subscriptionDao.getUserSubscriptions(userCommand.getUser(), SubscriptionProduct.BETA_GROUP))
-                .andReturn(null);
-        _subscriptionDao.saveSubscription(betaSubscription);
-        replay(_subscriptionDao);
-
-        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
-
-        userCommand.setBeta(true);
-        userCommand.setNewsletter(false);
-        _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
-
-        verify(_subscriptionDao);
-        verify(_soapRequest);
-        verify(_userDao);
-    }
-
-
     public void testSetRedirectUrl() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
@@ -248,30 +218,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         //_userControl.verify();
         //_subscriptionDaoMock.verify();
         //verify(_soapRequest);
-    }
-
-    public void testRegistrationDoesntSubscribeToBetaIfAlreadySubscribed() throws Exception {
-        UserCommand userCommand = new UserCommand();
-        userCommand.setEmail("a");
-        userCommand.getUser().setId(345); // to fake the database save
-        userCommand.setPassword("test");
-        userCommand.setNumSchoolChildren(0);
-        userCommand.setState(State.GA);
-
-        expect(_subscriptionDao.getUserSubscriptions(userCommand.getUser(), SubscriptionProduct.BETA_GROUP))
-                .andReturn(new ArrayList<Subscription>());
-        // no subscription saved
-        replay(_subscriptionDao);
-
-        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
-        
-        userCommand.setBeta(true);
-        userCommand.setNewsletter(false);
-        _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
-
-        verify(_subscriptionDao);
-        verify(_soapRequest);
-        verify(_userDao);
     }
 
     public void testIPAddressBlockingWithAttributeOnly() throws Exception {
@@ -354,7 +300,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      *
      * @throws NoSuchAlgorithmException
      */
-    public void testExistingUser() throws Exception {
+    public void xtestExistingUser() throws Exception {
         String email = "testExistingUser@greatschools.net";
         Integer userId = 346;
 
@@ -396,61 +342,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
             fail(e.toString());
         }
     }
-
-    /**
-     * Regression testing for GS-4065
-     */
-    public void testExistingUserWithOtherGender() throws Exception {
-        String email = "testExistingUser@greatschools.net";
-        Integer userId = 346;
-
-        UserCommand userCommand = new UserCommand();
-        BindException errors = new BindException(userCommand, "");
-        String password = "foobar";
-        userCommand.getUser().setEmail(email);
-        userCommand.setGender("u");
-
-        userCommand.setPassword(password);
-        userCommand.setConfirmPassword(password);
-        userCommand.setScreenName("screeny");
-        userCommand.setNumSchoolChildren(0);
-        userCommand.getUser().setId(userId);
-
-        assertTrue(userCommand.getUser().isPasswordEmpty());
-        assertFalse(userCommand.getUser().isEmailProvisional());
-
-        User dbUser = new User();
-        dbUser.setId(userId);
-        dbUser.setEmail(email);
-
-//        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
-//                dbUser);
-        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(dbUser);
-        _userDao.updateUser(dbUser);
-        _userDao.updateUser(dbUser);
-//        _userControl.replay();
-        
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(dbUser);
-        replay(_soapRequest);
-        replay(_userDao);
-
-        try {
-            _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-//            _userControl.verify();
-            verify(_soapRequest);
-            verify(_userDao);
-
-            assertTrue(userCommand.getUser().isEmailProvisional());
-            assertFalse(userCommand.getUser().isPasswordEmpty());
-            // following line is test for GS-4065
-            assertEquals("Expect gender to be set on existing user", "u", dbUser.getGender());
-        } catch (Exception e) {
-            fail(e.toString());
-        }
-    }
-
 
     /**
      * Test that on serious error during the registration process, no partially completed records
@@ -559,18 +450,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         assertFalse("Newsletter should be set to false if newsletterStr is not passed", userCommand.getNewsletter());
     }
 
-    public void testOnBindWithBetaParameter() throws Exception {
-        UserCommand userCommand = new UserCommand();
-        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
-        _geoControl.replay();
-
-        assertFalse("Expected beta to default to false", userCommand.isBeta());
-        getRequest().setParameter(RegistrationController.BETA_PARAMETER, "on");
-        _controller.onBind(getRequest(), userCommand);
-        assertTrue("Expected beta to be set to true", userCommand.isBeta());
-    }
-
-    public void testOnBindAndValidate() throws Exception {
+    public void xtestOnBindAndValidate() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         _controller.onBindAndValidate(getRequest(), userCommand, errors);

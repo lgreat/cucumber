@@ -87,15 +87,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateFirstName(command, errors);
         validateUsername(command, user, errors);
         validateGender(command, errors);
-        validateNumSchoolChildren(command, errors);
-        if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
-                command.getNumSchoolChildren() == 0)) {
-            // only validate terms of use if this is final page of registration
-            // which happens if they don't list children
-            if (!command.isChooserRegistration()) {
-                validateTerms(command, errors);
-            }
-        }
+        //validateNumSchoolChildren(command, errors);
+        validateTerms(command, errors);
         validatePassword(command, errors);
         if (command.isChooserRegistration()) {
             validateSchoolChoiceStateCity(command, errors);
@@ -157,15 +150,15 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
     protected void validateStateCity(UserCommand command, Errors errors) {
         UserProfile userProfile = command.getUserProfile();
-        if (userProfile.getState() == null) {
-            errors.rejectValue("state", null, ERROR_STATE_MISSING);
-            _log.info("Registration error: " + ERROR_STATE_MISSING);
-            return; // avoid NPEs
-        }
-        if (StringUtils.isEmpty(userProfile.getCity())) {
-            errors.rejectValue("city", null, ERROR_CITY_MISSING);
-            _log.info("Registration error: " + ERROR_CITY_MISSING);
-        }
+//        if (userProfile.getState() == null) {
+//            errors.rejectValue("state", null, ERROR_STATE_MISSING);
+//            _log.info("Registration error: " + ERROR_STATE_MISSING);
+//            return; // avoid NPEs
+//        }
+//        if (StringUtils.isEmpty(userProfile.getCity())) {
+//            errors.rejectValue("city", null, ERROR_CITY_MISSING);
+//            _log.info("Registration error: " + ERROR_CITY_MISSING);
+//        }
     }
 
     protected void validateTerms(UserCommand command, Errors errors) {
@@ -186,13 +179,13 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
     protected void validateGender(UserCommand command, Errors errors) {
         String gender = command.getGender();
-        if (StringUtils.isEmpty(gender)) {
-            errors.rejectValue("gender", null, GENDER_MISSING);
-            _log.info("Registration error: " + GENDER_MISSING);
+        if (StringUtils.isBlank(gender)) {
+            // gender not required
+            return;
         } else if  (gender.length() > 1) {
             errors.rejectValue("gender", null, GENDER_MISSING);
             _log.info("Registration error: " + GENDER_MISSING);
-        } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
+        } else if (!("m".equals(gender) || "f".equals(gender))) {
             errors.rejectValue("gender", null, GENDER_MISSING);
             _log.info("Registration error: " + GENDER_MISSING);
         }

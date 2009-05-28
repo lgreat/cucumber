@@ -1306,7 +1306,7 @@
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/registration"/>
-        <property name="successView" value="redirect:/community/registration2.page"/>
+        <property name="successView" value="redirect:/community/loginOrRegister.page"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">
             <list>
@@ -1323,6 +1323,7 @@
         </property>
     </bean>
 
+    <!--
     <bean name="/community/registration2.page"
           class="gs.web.community.registration.RegistrationFollowUpController"
           autowire="byName" lazy-init="true">
@@ -1333,7 +1334,8 @@
         <property name="successView" value="redirect:/community/loginOrRegister.page"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
     </bean>
-
+    -->
+    
     <bean name="/community/registrationSoapError.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">

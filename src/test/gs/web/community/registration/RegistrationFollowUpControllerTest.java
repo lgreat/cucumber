@@ -172,14 +172,14 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testBindRequestDataCapturesBetaFalse() throws Exception {
-        _request.setParameter(RegistrationController.BETA_PARAMETER, "off");
+        _request.setParameter(RegistrationFollowUpController.BETA_PARAMETER, "off");
         _user.getUserProfile().setNumSchoolChildren(0);
         _controller.onBind(getRequest(), _command, _errors);
         assertFalse("Beta should be false if parameter is not \"on\"", _command.isBeta());
     }
 
     public void testBindRequestDataCapturesBetaTrue() throws Exception {
-        _request.setParameter(RegistrationController.BETA_PARAMETER, "on");
+        _request.setParameter(RegistrationFollowUpController.BETA_PARAMETER, "on");
         _user.getUserProfile().setNumSchoolChildren(0);
         _controller.onBind(getRequest(), _command, _errors);
         assertTrue("Beta should be true if parameter is \"on\"", _command.isBeta());

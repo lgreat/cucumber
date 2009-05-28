@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import gs.data.geo.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.community.IUserDao;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -24,37 +25,62 @@ public class RegistrationAjaxController implements Controller {
     public static final String BEAN_ID = "/community/registrationAjax.page";
 
     private IGeoDao _geoDao;
+    private IUserDao _userDao;
     private StateManager _stateManager;
 
     final public static String TYPE_PARAM = "type";
+    final public static String EMAIL_PARAM = "email";
+    final public static String USER_NAME_PARAM = "un";
     final public static String CITY_TYPE = "city";
     final public static String COUNTY_TYPE = "county";
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
-    }
-
-    public StateManager getStateManager() {
-        return _stateManager;
-    }
-
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
-    }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
         String type = request.getParameter(TYPE_PARAM);
-        if (CITY_TYPE.equals(type)) {
-            outputCitySelect(request, out);
-        } else if (COUNTY_TYPE.equals(type)) {
-            outputCountySelect(request,out);
+        if (type != null) {
+            if (CITY_TYPE.equals(type)) {
+                outputCitySelect(request, out);
+            } else if (COUNTY_TYPE.equals(type)) {
+                outputCountySelect(request,out);
+            }
+            return null;
         }
+
+        if (request.getParameter(EMAIL_PARAM) != null) {
+            validateEmail(request, out);
+            return null;
+        }
+
+        if (request.getParameter(USER_NAME_PARAM) != null) {
+            validateUsername(request, out);
+            return null;
+        }
+
         return null;
+    }
+
+    protected void validateEmail(HttpServletRequest request, PrintWriter out) {
+        String email = request.getParameter(EMAIL_PARAM);
+        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+
+        //TODO: Check if email is in use by a full fledged member?
+        if (!emv.isValid(email)) {
+            out.print("invalid");
+        } else {
+            out.print("valid");
+        }
+    }
+
+    protected void validateUsername(HttpServletRequest request, PrintWriter out) {
+        String username = request.getParameter(USER_NAME_PARAM);
+
+        if (username.length() < 6 || username.length() > 14) {
+            out.print("invalid");
+        } else if (_userDao.findUserFromScreenNameIfExists(username) != null) {
+            out.print("inuse");
+        } else {
+            out.print("valid");
+        }
     }
 
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
@@ -107,5 +133,29 @@ public class RegistrationAjaxController implements Controller {
         out.print("value=\"" + value + "\">");
         out.print(StringEscapeUtils.escapeHtml(name));
         out.print("</option>");
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
+    }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }
