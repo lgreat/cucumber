@@ -41,7 +41,7 @@ function schoolChange(school) {
 }
 
 function showResponse(x) {
-
+    setDisplay('');
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
     var isPublic = (x.responseText.indexOf('isPublic') != -1);
