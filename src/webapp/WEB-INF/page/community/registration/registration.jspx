@@ -174,13 +174,13 @@
                     <!-- State -->
                     <spring:bind path="userCmd.state">
                         <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                             onChange="stateChange(this);" tabIndex="7"/>
+                                             onChange="stateChange(this,${loopTimes});" tabIndex="7"/>
                     </spring:bind>
                     <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
 
                     <!-- City -->
                     <span id="city">
-                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange('',${loopTimes});">
+                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes});">
                             <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
                                 <option selected="selected" value="">Choose city</option>
                             </c:if>
@@ -207,11 +207,12 @@
                     </c:if>
                     <li class="childRow">
                         <label for="school${child}" class="childSchoolLabel">Child's School</label>
+                        <span id="addAnother"><a href="#">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
                                              useAlternateNames="true" usePreK="true"
-                                             onChange="gradeChange(this, ${child});"/>
+                                             onChange="gradeChange(${child});"/>
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
