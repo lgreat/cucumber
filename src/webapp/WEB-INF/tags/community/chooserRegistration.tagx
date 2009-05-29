@@ -153,7 +153,7 @@
             </script>
 
             <div id="parentAdvice">
-                <span id="chkBox"><gsml:checkbox styleId="parentAdvisorNewsletter" name="parentAdvisorNewsletter"
+                <span id="chkBox"><gsml:checkbox styleId="parentAdvisorNewsletter" name="newsletter"
                                    checked="true"/>
                 </span>
                 <span>Yes! Sign me up to receive free email newsletters with parenting advice and tips for school success.</span>

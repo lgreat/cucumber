@@ -463,7 +463,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(userCommand, "");
 
         // Test with no user
-        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 4);
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 3);
         _geoControl.replay();
         _controller.onBindOnNewForm(getRequest(), userCommand, errors);
         assertNull(userCommand.getEmail());
@@ -480,23 +480,13 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setFirstName("X");
         userCommand.setLastName("Y");
         User user = userCommand.getUser();
-        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user, 2);
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user, 1);
         _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
         _userDao.evict(user);
-        _userControl.setVoidCallable(2);
-        _userDao.updateUser(user);
         _userControl.replay();
         _controller.onBindOnNewForm(getRequest(), userCommand, errors);
         assertNull(userCommand.getFirstName());
         assertNull(userCommand.getLastName());
-
-        // Test provisional password reset
-        user.setPlaintextPassword("test");
-        user.setEmailProvisional("test");
-        assertNotNull(user.getPasswordMd5());
-        getRequest().addParameter("reset", "true");
-        _controller.onBindOnNewForm(getRequest(), userCommand, errors);
-        assertNull(user.getPasswordMd5());
 
         // Test with user not found
         _controller.onBindOnNewForm(getRequest(), userCommand, errors);

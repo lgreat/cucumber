@@ -38,8 +38,6 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _terms = false;
     private boolean _newsletter = false;
     private boolean _partnerNewsletter = false;
-    //TODO: remove this field
-    private boolean _parentAdvisorNewsletter;
 
     private boolean _chooserRegistration = false;
 
@@ -281,14 +279,6 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setChooserRegistration(boolean chooserRegistration) {
         _chooserRegistration = chooserRegistration;
-    }
-
-    public boolean getParentAdvisorNewsletter() {
-        return _parentAdvisorNewsletter;
-    }
-
-    public void setParentAdvisorNewsletter(boolean parentAdvisorNewsletter) {
-        _parentAdvisorNewsletter = parentAdvisorNewsletter;
     }
 
     public List<Student> getStudents() {

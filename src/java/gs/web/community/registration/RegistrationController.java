@@ -1,7 +1,6 @@
 package gs.web.community.registration;
 
 import gs.data.community.*;
-import gs.data.util.DigestUtil;
 import gs.data.util.table.ITableDao;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
@@ -65,6 +64,7 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
+    // TODO: Following two errors may no longer be necessary?
     public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school.";
     public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
             "If you cannot find the school, please select \"My child's school is not listed.\"";
@@ -85,6 +85,10 @@ public class RegistrationController extends SimpleFormController implements Read
         }
 
         // TODO: This may no longer be necessary as we use 1 page now and no longer use email validation
+        // AR: True but there are a number of ways that provisional users could still end up here, and I
+        // think we still need this for them
+        // This ensures that when provisional users arrive here, they are hooked up to their list_member
+        // rows, so they don't see the "email already taken" error
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
             User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
             if (user != null && !user.isEmailValidated()) {
@@ -96,13 +100,6 @@ public class RegistrationController extends SimpleFormController implements Read
                 // clear first/last name for existing users
                 userCommand.setFirstName(null);
                 userCommand.setLastName(null);
-                if (request.getParameter("reset") != null &&
-                        request.getParameter("reset").equals("true") &&
-                        user.isEmailProvisional()) {
-                    // reset provisional status
-                    user.setPasswordMd5(null);
-                    _userDao.updateUser(user);
-                }
             }
         }
 
@@ -111,18 +108,11 @@ public class RegistrationController extends SimpleFormController implements Read
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
         String city = userCommand.getUserProfile().getCity();
-        // TODO: No need to loop, just add 1 student if a form type that needs it (not chooser reg, for example)
-        // with default state and no city
-        for (int x = 0; x < 1 || (userCommand.getUserProfile().getNumSchoolChildren() != null &&
-                x < userCommand.getUserProfile().getNumSchoolChildren()); x++) {
-            Student student = new Student();
-            student.setState(state);
-            userCommand.addStudent(student);
-            userCommand.addCityName(city);
-            //loadCityList(request, userCommand, errors, x+1);
-        }
-
-        System.out.println("onBindOnNewForm Students: " + userCommand.getStudents().size());
+        // TODO: This block is only for join flows that have a default student row
+        Student student = new Student();
+        student.setState(state);
+        userCommand.addStudent(student);
+        userCommand.addCityName(city);
     }
 
     private void setupChooserRegistration(UserCommand userCommand) {
@@ -157,6 +147,7 @@ public class RegistrationController extends SimpleFormController implements Read
         String terms = request.getParameter(TERMS_PARAMETER);
         userCommand.setTerms("on".equals(terms));
 
+        // TODO: All of this student stuff is only for join flows with students (duh!)
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
             String gradeParam = request.getParameter("grade" + numChildFields);
@@ -177,7 +168,6 @@ public class RegistrationController extends SimpleFormController implements Read
 //            }
 //        }
 
-        // TODO: this only true on join flows that have a default child row
         if (userCommand.getStudents().size() == 0) {
             Student student = new Student();
             student.setState(userCommand.getState());
@@ -197,8 +187,8 @@ public class RegistrationController extends SimpleFormController implements Read
         String stateParam = request.getParameter("state" + childNum);
         State state;
         if (StringUtils.isBlank(stateParam)) {
-            // TODO: This should use the userCommand state
-            state = SessionContextUtil.getSessionContext(request).getState();
+            // Default to user's state
+            state = userCommand.getState();
         } else {
             state = _stateManager.getState(stateParam);
         }
@@ -206,8 +196,8 @@ public class RegistrationController extends SimpleFormController implements Read
         String cityParam = request.getParameter("city" + childNum);
         String city;
         if (StringUtils.isBlank(cityParam)) {
-            // TODO: This should use the userCommand city
-            city = request.getParameter(CITY_PARAMETER);
+            // Default to user's city
+            city = userCommand.getCity();
         } else {
             city = cityParam;
         }
@@ -296,6 +286,7 @@ public class RegistrationController extends SimpleFormController implements Read
         validator.validate(request, command, errors);
 
         UserCommand userCommand = (UserCommand) command;
+        // TODO: Student stuff only applies to registration flows that have students
         userCommand.getSchoolNames().clear();
 
         for (int x=0; x < userCommand.getNumSchoolChildren(); x++) {
@@ -418,15 +409,12 @@ public class RegistrationController extends SimpleFormController implements Read
         try {
             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
             // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter())){
+            if(isChooserRegistration() && (userCommand.getNewsletter())){
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.updateUser(user);
             }
             // complete registration
-            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
-            // TODO: Update chooser reg to use getNewsletter and get rid of getParentAdvisorNewsletter since they are the same thing
-            // with 2 different names
-            if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter()))) {
+            if (userCommand.getNewsletter()) {
                 processNewsletterSubscriptions(user, userCommand, ot);
             }
         } catch (Exception e) {
@@ -504,27 +492,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
     protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
         List<Subscription> subs = new ArrayList<Subscription>();
-        // GS-7479 Swap out BoC newsletter with Parent Advisor
-        // subscribe to three newsletters
-        // best of community
-//                Subscription communityNewsletterSubscription = new Subscription();
-//                communityNewsletterSubscription.setUser(user);
-//                communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
-//                communityNewsletterSubscription.setState(userCommand.getState());
-//                subs.add(communityNewsletterSubscription);
-        // best of city
-//                communityNewsletterSubscription = new Subscription();
-//                communityNewsletterSubscription.setUser(user);
-//                communityNewsletterSubscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
-//                communityNewsletterSubscription.setState(userCommand.getState());
-//                subs.add(communityNewsletterSubscription);
-        // best of school
-//                communityNewsletterSubscription = new Subscription();
-//                communityNewsletterSubscription.setUser(user);
-//                communityNewsletterSubscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
-//                communityNewsletterSubscription.setState(userCommand.getState());
-//                subs.add(communityNewsletterSubscription);
-
         Subscription communityNewsletterSubscription = new Subscription();
         communityNewsletterSubscription.setUser(user);
         communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
@@ -658,10 +625,6 @@ public class RegistrationController extends SimpleFormController implements Read
             //} else {
             //    System.out.println ("Sub addeed");
             //    _subscriptionDao.saveSubscription(sub);
-            //}
-            //TODO: recontact might be parent ambassador, this can be deleted
-            //if (Boolean.valueOf(userCommand.getRecontact())) {
-            //    addContactSubscriptionFromSubscription(sub);
             //}
         }
         if (!newsSubs.isEmpty()) {
