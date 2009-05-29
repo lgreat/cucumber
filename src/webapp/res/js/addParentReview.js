@@ -42,6 +42,17 @@ function schoolChange(school) {
 
 function showResponse(x) {
     setDisplay('');
+    $('principalAsString').value = '';
+    $('teacherAsString').value = '';
+    $('activitiesAsString').value = '';
+    $('parentAsString').value = '';
+    $('safetyAsString').value = '';
+    $('PProgramAsString').value = '';
+    $('PFacilitiesAsString').value = '';
+    $('PSafetyAsString').value = '';
+    $('PTeachersAsString').value = '';
+    $('PParentsAsString').value = '';
+    
     clearRatings('principalAsString');
     clearRatings('teacherAsString');
     clearRatings('activitiesAsString');
