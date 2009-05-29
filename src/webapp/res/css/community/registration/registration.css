@@ -290,18 +290,22 @@ p.warning {
     top: 41px;
 }
 
-#terms p.warning {
-    left: 436px;
-    top: 11px;
+#outline ul li#termsError{
+    height:10px;
+    padding:0px;
 }
 
-#terms img.errorIcon {
-    top: 11px;
+#termsError .termsWarning {
+    position:absolute;
+    left:120px;
+    background-image:url(/res/img/bullet/icon_warning_12x12.gif);
+    background-repeat: no-repeat;
+    color:#CC5566;
+    background-position:0 3px;
+    font-size:11px;
+    padding-left:22px;
 }
 
-#terms img.errorIcon {
-    left: 417px;
-}
 
 p.requiredFld {
     color: #8f8f8f;

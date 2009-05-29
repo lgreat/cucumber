@@ -256,6 +256,15 @@
                     <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
                 </li>
 
+                <spring:hasBindErrors name="userCmd">
+                    <spring:bind path="userCmd.terms">
+                        <c:set var="message">
+                            <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
+                        </c:set>
+                        <li id="termsError"><span class="termsWarning">${message}</span></li>
+                    </spring:bind>
+                </spring:hasBindErrors>
+
                 <li id="terms">
                     <gsml:checkbox styleId="termsField" name="termsStr"
                                    checked="${userCmd.terms eq true}" tabIndex="13"/>
@@ -270,7 +279,6 @@
                             href="/cgi-bin/static/terms.html/$STATE#communityStandards"
                             tabIndex="15">Community Guidelines</gsml:popupWindow>.
                     </label>
-                    <gsml:errorMessage command="userCmd" field="terms" useImage="true" styleClass="warning"/>
                 </li>
 
             </ul>
