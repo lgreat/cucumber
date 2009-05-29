@@ -42,6 +42,17 @@ function schoolChange(school) {
 
 function showResponse(x) {
     setDisplay('');
+    clearRatings('principalAsString');
+    clearRatings('teacherAsString');
+    clearRatings('activitiesAsString');
+    clearRatings('parentAsString');
+    clearRatings('safetyAsString');
+    clearRatings('PProgramAsString');
+    clearRatings('PFacilitiesAsString');
+    clearRatings('PSafetyAsString');
+    clearRatings('PTeachersAsString');
+    clearRatings('PParentsAsString');
+
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
     var isPublic = (x.responseText.indexOf('isPublic') != -1);
