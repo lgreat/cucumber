@@ -64,12 +64,6 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
-    // TODO: Following two errors may no longer be necessary?
-    public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school.";
-    public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
-            "If you cannot find the school, please select \"My child's school is not listed.\"";
-    public static final String ERROR_TERMS = "Please read and accept our Terms of Use to join the community.";
-
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -285,6 +279,8 @@ public class RegistrationController extends SimpleFormController implements Read
         validator.setUserDao(_userDao);
         validator.validate(request, command, errors);
 
+        // TODO: I got rid of the validation messages here, should all of this move up to onBind?  Not sure if we'll
+        // add back some validation later for children greater than 1...
         UserCommand userCommand = (UserCommand) command;
         // TODO: Student stuff only applies to registration flows that have students
         userCommand.getSchoolNames().clear();
@@ -292,8 +288,7 @@ public class RegistrationController extends SimpleFormController implements Read
         for (int x=0; x < userCommand.getNumSchoolChildren(); x++) {
             Student student = userCommand.getStudents().get(x);
             if (student.getGrade() == null) {
-                errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
-                _log.info("Registration error: " + ERROR_GRADE_MISSING);
+                continue;
             }
             School school = null;
             if (student.getSchoolId() != null && student.getSchoolId() != -1) {
@@ -304,8 +299,7 @@ public class RegistrationController extends SimpleFormController implements Read
                             student.getSchoolId() + " in " + student.getState());
                 }
             } else if (student.getSchoolId() == null) {
-                errors.rejectValue("students[" + x + "]", null, ERROR_SCHOOL_MISSING);
-                _log.info("Registration error: " + ERROR_SCHOOL_MISSING);
+                continue;
             }
 
             if (school != null) {
@@ -321,6 +315,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
 
+        System.out.println(errors);
         System.out.println("onBindAndValidate Students: " + ((UserCommand)command).getStudents().size());
     }
 

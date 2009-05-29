@@ -88,7 +88,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateUsername(command, user, errors);
         validateGender(command, errors);
         //validateNumSchoolChildren(command, errors);
-        validateTerms(command, errors);
+        if (!command.isChooserRegistration()) {
+            validateTerms(command, errors);
+        }
         validatePassword(command, errors);
         if (command.isChooserRegistration()) {
             validateSchoolChoiceStateCity(command, errors);
@@ -185,7 +187,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         } else if  (gender.length() > 1) {
             errors.rejectValue("gender", null, GENDER_MISSING);
             _log.info("Registration error: " + GENDER_MISSING);
-        } else if (!("m".equals(gender) || "f".equals(gender))) {
+        } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
             errors.rejectValue("gender", null, GENDER_MISSING);
             _log.info("Registration error: " + GENDER_MISSING);
         }
