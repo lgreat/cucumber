@@ -2,12 +2,14 @@ function scrollToError() {
               window.location.href = document.location.pathname + '#error';
           }
 
-          function gradeChange(gradeSelect, childNum) {
+          function gradeChange(childNum) {
+              var grade = $('grade'+childNum).value;
 
-              if (gradeSelect.value == '') {
+              if (grade == '') {
                   $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
                   return;
               }
+
               var url = 'registration2Ajax.page';
               var defaultState = $('userState').value;
               var state = defaultState;
@@ -25,11 +27,6 @@ function scrollToError() {
                   city = overrideCityElem.value;
               }
 
-              var grade = $('grade'+childNum).value
-              if (gradeSelect.value != undefined) {
-                  grade = gradeSelect.value;
-              }
-
               pars += '&city=' + city;
               pars += '&grade=' + grade;
               pars += '&childNum=' + childNum;
@@ -43,9 +40,11 @@ function scrollToError() {
                       });
           }
 
-          function stateChange(stateSelect) {
+          function stateChange(stateSelect,childNum) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
+              $('grade'+childNum).value ='';
+              $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
               $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
               var myAjax = new Ajax.Updater (
                       'city',

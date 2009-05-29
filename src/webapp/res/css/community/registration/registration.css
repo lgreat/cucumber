@@ -106,7 +106,7 @@
 }
 
 #outline #genderLine .radio {
-	margin-right: 6px;
+    margin-right: 6px;
 }
 
 #outline ul li input#mom {
@@ -114,13 +114,13 @@
 }
 
 #userDisclaimer {
-	font-size: 10px;
-	font-style: italic;
-	color: #8f8f8f;
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
     position: absolute;
     top: 26px;
     left: 120px;
-    width: 210px; 
+    width: 210px;
 }
 
 #userDetails {
@@ -130,6 +130,15 @@
     position: absolute;
     top: 21px;
     left: 0;
+}
+
+#reg1Form #addAnother a{
+    color: #3399AA;
+    font-size: 10px;
+    position: absolute;
+    top: 21px;
+    left: 0;
+    text-decoration: underline;
 }
 
 #passwordDetails {
@@ -168,11 +177,11 @@
 
 }
 
-#outline ul li.childRow .selectChildGrade{
+#outline ul li.childRow .selectChildGrade {
     width: auto;
 }
 
-#outline ul li.childRow .selectChildSchool{
+#outline ul li.childRow .selectChildSchool {
     width: 140px;
     left: 210px;
 }
@@ -309,7 +318,7 @@ p.privacyBox a,
     p.privacyBox a:link,
     p.privacyBox a:active,
     p.privacyBox a:hover {
-	text-decoration: none;
+    text-decoration: none;
     color: #3399AA;
 }
 
@@ -334,12 +343,12 @@ p.privacyBox {
 
 #outline ul li span.ajaxError {
     color: #cc5566;
-    background-image: url(/res/img/bullet/icon_warning_12x12.gif);
+    background-image: url( /res/img/bullet/icon_warning_12x12.gif );
 }
 
 #outline ul li span.ajaxSuccess {
     color: #97c963;
-    background-image: url(/res/img/bullet/icon_checkmark_12x15.gif);
+    background-image: url( /res/img/bullet/icon_checkmark_12x15.gif );
     height: 18px;
     width: 20px;
 }
