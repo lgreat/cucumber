@@ -205,9 +205,13 @@
                     <c:if test="${userCmd.students[child-1].state ne null}">
                         <c:set var="stateVal" value="${userCmd.students[child-1].state}"/>
                     </c:if>
+                    <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="state_${child}"
+                                             onChange="stateChange(this,${loopTimes});" tabIndex="7"/>
+                         <span><select id="citySelect_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});"> <option selected="selected" value="">Choose city</option></select></span>
+                    </li>
                     <li class="childRow">
                         <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span id="addAnother"><a href="#">+ Add another child</a></span>
+                        <span id="addAnother"><a href="#" onclick="addAnotherChild();">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
@@ -239,6 +243,7 @@
                                 </spring:bind>
                             </c:if>
                         </spring:hasBindErrors>
+                        <span id="changeCity"><a href="#" onclick="changeChildCity();">Change city</a></span>
                     </li>
                 </c:forEach>
 
