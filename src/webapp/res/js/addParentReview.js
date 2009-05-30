@@ -4,7 +4,9 @@ function cityChange(citySelect, selectId) {
         method: 'get',
         parameters: {state : $('userState').value, city : citySelect.value,onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'},
         onComplete: function(transport) {
-
+            if (transport.responseText.lastIndexOf("option") < 125) {
+                alert('No schools found in this city. Please choose again.');
+            }
         }
     });
 }
@@ -52,7 +54,7 @@ function showResponse(x) {
     $('PSafetyAsString').value = '';
     $('PTeachersAsString').value = '';
     $('PParentsAsString').value = '';
-    
+
     clearRatings('principalAsString');
     clearRatings('teacherAsString');
     clearRatings('activitiesAsString');
@@ -80,18 +82,18 @@ function showResponse(x) {
         image.setAttribute('alt', 'GreatSchools Rating: ' + schoolInfoArray[1] + ' out of 10. Greatschools Ratings are based on test results. 10 is best.');
         image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_' + schoolInfoArray[1] + '.gif');
         image.setAttribute('class', 'rating_gs');
-         $('gsSchoolRating').appendChild(image);
-         $('gsSchoolRating').style.display = '';
+        $('gsSchoolRating').appendChild(image);
+        $('gsSchoolRating').style.display = '';
     } else {
-         $('gsSchoolRating').style.display = 'none';
+        $('gsSchoolRating').style.display = 'none';
     }
 
     if (schoolInfoArray[2] != "" && schoolInfoArray[2] > 0) {
-         $('overallParentRating').innerHTML = '<img class="sm_stars" alt="Parent Rating: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
-         $('overallParentRating').style.display = '';
+        $('overallParentRating').innerHTML = '<img class="sm_stars" alt="Parent Rating: ' + schoolInfoArray[2] + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + schoolInfoArray[2] + '.gif"/>';
+        $('overallParentRating').style.display = '';
         if (schoolInfoArray[3] != "" && schoolInfoArray[3] > 0) {
-             $('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
-             $('parentRatingCount').style.display = '';
+            $('parentRatingCount').innerHTML = 'Based on ' + schoolInfoArray[3] + ' ratings';
+            $('parentRatingCount').style.display = '';
         } else {
             $('parentRatingCount').style.display = 'none';
         }
