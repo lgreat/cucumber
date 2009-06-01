@@ -1,3 +1,14 @@
+var hasChildCityState_1 = false;
+var hasChildCityState_2 = false;
+var hasChildCityState_3 = false;
+var hasChildCityState_4 = false;
+var hasChildCityState_5 = false;
+var hasChildCityState_6 = false;
+var hasChildCityState_7 = false;
+var hasChildCityState_8 = false;
+var hasChildCityState_9 = false;
+
+
 function scrollToError() {
     window.location.href = document.location.pathname + '#error';
 }
@@ -24,10 +35,10 @@ function gradeChange(childNum) {
     var defaultCity = $('citySelect').value;
     var city = defaultCity;
     var overrideCityElem = $('citySelectChild_' + childNum);
-    if (overrideCityElem != undefined && overrideCityElem.value != '') {
+    if (overrideCityElem != undefined && overrideCityElem.value != '' && eval('hasChildCityState_' + childNum)) {
         city = overrideCityElem.value;
     }
-    
+
     pars += '&city=' + city;
     pars += '&grade=' + grade;
     pars += '&childNum=' + childNum;
@@ -179,6 +190,8 @@ function changeChildCityAndState(childNum) {
     $('stateSelectChild_' + childNum).value = $('userState').value;
     $('childCityRow_' + childNum).style.display = '';
     $('changeChildCity_' + childNum).style.display = 'none';
+
+    eval('hasChildCityState_' + childNum + ' = true;');
 }
 
 function addAnotherChild(childNum) {
