@@ -216,9 +216,9 @@
                     </li>
                     <c:choose>
                     <c:when test="${child eq 1}">
-                        <li class="childRow">
+                        <li class="childRow" id="childRow_${child}">
                             <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child});">+ Add another child</a></span>
+                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
@@ -267,7 +267,7 @@
                                 <c:if test="${schoolVal eq null or schoolVal eq ''}">
                                     <option selected="selected" value="">- Choose School -</option>
                                 </c:if>
-                                <c:forEach var="schoolOption" items="${userCmd.schools[child-1]}">
+                                <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
                                     <![CDATA[<option ]]>
                                     <c:if test="${schoolVal eq schoolOption.name}">
                                         selected="selected"
@@ -287,7 +287,7 @@
                                 </spring:bind>
                             </c:if>
                         </spring:hasBindErrors>
-                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child});">Change city</a></span>
+                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a></span>
                     </li>
                         </c:otherwise>
                         </c:choose>

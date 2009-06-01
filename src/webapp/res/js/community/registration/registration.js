@@ -27,8 +27,6 @@ function gradeChange(childNum) {
     if (overrideCityElem != undefined) {
         city = overrideCityElem.value;
     }
-     alert(state);
-    alert(city);
 
     pars += '&city=' + city;
     pars += '&grade=' + grade;
@@ -168,7 +166,15 @@ function doSingleClick(element) {
 }
 
 function changeChildCityAndState(childNum) {
-    $('citySelectChild_' + childNum).innerHTML = $('citySelect').innerHTML;
+
+    var cityChildSelectSpan = $('citySelectSpan_' + childNum);
+    cityChildSelectSpan.innerHTML = $('city').innerHTML.replace('citySelect', 'citySelectChild_' + childNum);
+    $('citySelectChild_' + childNum).className = "childCities";
+    $('citySelectChild_' + childNum).name = "city_" + childNum;
+    $('citySelectChild_' + childNum).onchange =  function(){
+        gradeChange(childNum);
+    };
+
     $('citySelectChild_' + childNum).value = $('citySelect').value;
     $('stateSelectChild_' + childNum).value = $('userState').value;
     $('childCityRow_' + childNum).style.display = '';
