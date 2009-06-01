@@ -164,11 +164,8 @@
                     </select>
                     <gsml:feedbackMessage command="userCmd" field="gender" styleClass="ajaxMessage ajaxError"/>
                 </li>
-                <c:set var="loopTimes" value="1"/>
-                <c:if test="${userCmd.userProfile.numSchoolChildren gt 1}">
-                    <c:set var="loopTimes" value="${userCmd.userProfile.numSchoolChildren}"/>
-                </c:if>
 
+                <c:set var="loopTimes" value="${userCmd.numStudentRows}"/>
                 <li id="whereLiveLine">
                     <label>State, city</label>
                     <!-- State -->
@@ -198,15 +195,25 @@
 
                 <!-- begin child module -->
                 <!-- Default to always show one row -->
+                <!--
+                <c:set var="loopTimes" value="1"/>
+                <c:if test="${userCmd.userProfile.numSchoolChildren gt 1}">
+                    <c:set var="loopTimes" value="${userCmd.userProfile.numSchoolChildren}"/>
+                </c:if>
+                -->
+                <!-- c:set var="loopTimes" value="2"/ -->
 
-                <c:forEach var="child" begin="1" end="9">
-                    <c:set var="gradeVal" value="${userCmd.students[child-1].grade}"/>
-                    <c:set var="schoolVal" value="${userCmd.schoolNames[child-1]}"/>
-                    <c:if test="${userCmd.students[child-1].state ne null}">
-                        <c:set var="stateVal" value="${userCmd.students[child-1].state}"/>
+
+                <c:forEach var="child" begin="1" end="${loopTimes}">
+                    <c:set var="gradeVal" value="${userCmd.studentRows[child-1].gradeSelected}"/>
+                    <c:set var="schoolVal" value="${userCmd.studentRows[child-1].schoolIdSelected}"/>
+                    <c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">
+                        <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
                     </c:if>
-                    <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="state_${child}"
-                                             onChange="stateChange(this,${loopTimes});" tabIndex="7" styleClass="childStates"/>
+                    <li id="childCityRow_${child}" style="display:none">
+                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="state_${child}"
+                                             onChange="stateChange(this,${loopTimes});" tabIndex="7" styleClass="childStates"
+                                             name="state${child}"/>
                          <span><select id="citySelect_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
                     </li>
                     <c:choose>
@@ -222,23 +229,23 @@
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
-                                <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                                <c:if test="${schoolVal eq -1}">
                                     <option selected="selected" value="">- Choose School -</option>
                                 </c:if>
-                                <c:forEach var="schoolOption" items="${userCmd.schools[child-1]}">
+                                <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
                                     <![CDATA[<option ]]>
-                                    <c:if test="${schoolVal eq schoolOption.name}">
+                                    <c:if test="${schoolVal eq schoolOption.id}">
                                         selected="selected"
                                     </c:if>
                                     <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
                                 </c:forEach>
                             </select>
                         </span>
-                        <gsml:errorMessage command="userCmd" field="students[${child-1}]" useImage="true"/>
+                        <gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>
                         <!-- remember error for omniture tagging: see end of body. -->
                         <spring:hasBindErrors name="userCmd">
                             <c:if test="${errors.errorCount gt 0}">
-                                <spring:bind path="userCmd.students[${child-1}]">
+                                <spring:bind path="userCmd.studentRows[${child-1}]">
                                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                                         <c:set var="schoolError" value="true"/>
                                     </c:if>

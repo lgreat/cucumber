@@ -7,6 +7,8 @@ import gs.data.community.Student;
 import gs.data.community.Subscription;
 import gs.data.state.State;
 import gs.data.school.School;
+import gs.data.school.Grade;
+import gs.data.geo.City;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -29,27 +31,20 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _referrer;
     private List _cityList;
     private List _schoolChoiceCityList;
-    private List<Student> _students;
-    private List<String> _schoolNames;
-    private List<List<School>> _schools;
-    private List<String> _cityNames;
     private List<Subscription> _subscriptions;
+    private List<StudentCommand> _studentRows;
     private boolean _recontact;
     private boolean _terms = false;
     private boolean _newsletter = false;
     private boolean _partnerNewsletter = false;
-
     private boolean _chooserRegistration = false;
 
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
-        //TODO add userprofile to user?
+        // TODO: add userprofile to user?
         
-        _students = new ArrayList<Student>();
-        _schoolNames = new ArrayList<String>();
-        _schools = new ArrayList<List<School>>();
-        _cityNames = new ArrayList<String>();
+        _studentRows = new ArrayList<StudentCommand>();
         _subscriptions = new ArrayList<Subscription>();
     }
 
@@ -281,56 +276,8 @@ public class UserCommand implements EmailValidator.IEmail {
         _chooserRegistration = chooserRegistration;
     }
 
-    public List<Student> getStudents() {
-        return _students;
-    }
-
-    public void setStudents(List<Student> students) {
-        _students = students;
-    }
-
-    public void addStudent(Student student) {
-        getStudents().add(student);
-    }
-
-    public int getNumStudents() {
-        return getStudents().size();
-    }
-
     public void setNumStudents(int num) {
         // ignore -- this is so JSTL treats this as a bean property
-    }
-
-    public List<String> getSchoolNames() {
-        return _schoolNames;
-    }
-
-    public void setSchoolNames(List<String> schoolNames) {
-        _schoolNames = schoolNames;
-    }
-
-    public void addSchoolName(String name) {
-        getSchoolNames().add(name);
-    }
-
-    public void addSchools(List<School> schools) {
-        _schools.add(schools);
-    }
-
-    public List<List<School>> getSchools() {
-        return _schools;
-    }
-
-    public List<String> getCityNames() {
-        return _cityNames;
-    }
-
-    public void setCityNames(List<String> cityNames) {
-        _cityNames = cityNames;
-    }
-
-    public void addCityName(String cityName) {
-        _cityNames.add(cityName);
     }
 
     public List<Subscription> getSubscriptions() {
@@ -347,5 +294,83 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public int getNumSubscriptions() {
         return getSubscriptions().size();
+    }
+
+    public List<StudentCommand> getStudentRows() {
+        return _studentRows;
+    }
+
+    public void setStudentRows(List<StudentCommand> studentRows) {
+        _studentRows = studentRows;
+    }
+
+    public void addStudentRow(StudentCommand studentCommand) {
+        _studentRows.add(studentCommand);
+    }
+
+    public int getNumStudentRows() {
+        return _studentRows.size();
+    }
+
+    protected static class StudentCommand {
+        private int _schoolIdSelected;
+        private Grade _gradeSelected;
+        private State _stateSelected;
+        private String _citySelected;
+        private List<City> _cities;
+        private List<School> _schools;
+
+        public StudentCommand() {
+            _schoolIdSelected = -1;
+        }
+        
+        public int getSchoolIdSelected() {
+            return _schoolIdSelected;
+        }
+
+        public void setSchoolIdSelected(int schoolIdSelected) {
+            _schoolIdSelected = schoolIdSelected;
+        }
+
+        public Grade getGradeSelected() {
+            return _gradeSelected;
+        }
+
+        public void setGradeSelected(Grade gradeSelected) {
+            _gradeSelected = gradeSelected;
+        }
+
+        public State getStateSelected() {
+            return _stateSelected;
+        }
+
+        public void setStateSelected(State stateSelected) {
+            _stateSelected = stateSelected;
+        }
+
+        public String getCitySelected() {
+            return _citySelected;
+        }
+
+        public void setCitySelected(String citySelected) {
+            _citySelected = citySelected;
+        }
+
+        public List<City> getCities() {
+            return _cities;
+        }
+
+        public void setCities(List<City> cities) {
+            _cities = cities;
+        }
+
+        public List<School> getSchools() {
+            return _schools;
+        }
+
+        public void setSchools(List<School> schools) {
+            _schools = schools;
+        }
+
     }
 }

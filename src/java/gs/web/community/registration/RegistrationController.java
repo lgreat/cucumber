@@ -58,7 +58,6 @@ public class RegistrationController extends SimpleFormController implements Read
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
-    //public static final String PARENT_ADVISOR_NEWSLETTER = "parentAdvisorNewsletter";
     public static final String PARTNER_NEWSLETTER_PARAMETER = "partnerNewsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
     public static final String CITY_PARAMETER = "city";
@@ -97,16 +96,20 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
 
-        State state = userCommand.getUserProfile().getState();
-        if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-        }
-        String city = userCommand.getUserProfile().getCity();
+//        State state = userCommand.getUserProfile().getState();
+//        if (state == null) {
+//            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+//       }
+//        String city = userCommand.getUserProfile().getCity();
+//        Student student = new Student();
+//        student.setState(state);
+//        userCommand.addStudent(student);
+//        userCommand.addCityName(city);
+//        userCommand.setNumSchoolChildren(1);
+
         // TODO: This block is only for join flows that have a default student row
-        Student student = new Student();
-        student.setState(state);
-        userCommand.addStudent(student);
-        userCommand.addCityName(city);
+        UserCommand.StudentCommand student = new UserCommand.StudentCommand();
+        userCommand.addStudentRow(student);        
     }
 
     private void setupChooserRegistration(UserCommand userCommand) {
@@ -120,6 +123,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
+        System.out.println(userCommand.getState());
         if (isChooserRegistration()) {
             if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
                 State state = State.fromString(request.getParameter("schoolChoiceState"));
@@ -142,39 +146,18 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setTerms("on".equals(terms));
 
         // TODO: All of this student stuff is only for join flows with students (duh!)
+        // Although this particular loop is a NOP on forms with no children
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
-            String gradeParam = request.getParameter("grade" + numChildFields);
-            //String schoolParam = request.getParameter("school" + numChildFields);
-
-            if (!StringUtils.isBlank(gradeParam)) {
-                parseStudent(request, userCommand, null, numChildFields);
-            }
+            parseStudent(request, userCommand, numChildFields);
             numChildFields++;
         }
-        numChildFields--;
-
-//        for (int x=0; userCommand.getUserProfile().getNumSchoolChildren() != null &&
-//                x < userCommand.getUserProfile().getNumSchoolChildren(); x++) {
-//            int childNum = x+1;
-//            if (request.getParameter("grade" + childNum) != null) {
-//                parseStudent(request, userCommand, null, childNum);
-//            }
-//        }
-
-        if (userCommand.getStudents().size() == 0) {
-            Student student = new Student();
-            student.setState(userCommand.getState());
-            userCommand.addStudent(student);
-            numChildFields = 1;
-        }
-        userCommand.setNumSchoolChildren(numChildFields);
+        //userCommand.setNumSchoolChildren(userCommand.getStudentRows().size());
 
         System.out.println("onBind userProfile: " + userCommand.getUserProfile());
-        System.out.println("onBind Students: " + userCommand.getStudents().size());
     }
 
-    protected void parseStudent(HttpServletRequest request, UserCommand userCommand, BindException errors, int childNum) {
+    protected void parseStudent(HttpServletRequest request, UserCommand userCommand, int childNum) {
         String sGrade = request.getParameter("grade" + childNum);
         String sSchoolId = request.getParameter("school" + childNum);
 
@@ -183,8 +166,10 @@ public class RegistrationController extends SimpleFormController implements Read
         if (StringUtils.isBlank(stateParam)) {
             // Default to user's state
             state = userCommand.getState();
+            System.out.println("parseStudent: Setting state to userCommand.state: " + state);
         } else {
             state = _stateManager.getState(stateParam);
+            System.out.println("parseStudent: Setting state to override state: " + state);
         }
 
         String cityParam = request.getParameter("city" + childNum);
@@ -196,25 +181,24 @@ public class RegistrationController extends SimpleFormController implements Read
             city = cityParam;
         }
 
-        Student student = new Student();
+        UserCommand.StudentCommand student = new UserCommand.StudentCommand();
 
         if (!StringUtils.isEmpty(sGrade)) {
-            student.setGrade(Grade.getGradeLevel(sGrade));
+            student.setGradeSelected(Grade.getGradeLevel(sGrade));
         }
         if (!StringUtils.isEmpty(sSchoolId)) {
-            student.setSchoolId(new Integer(sSchoolId));
+            student.setSchoolIdSelected(new Integer(sSchoolId));
         }
-        student.setState(state);
-        student.setOrder(childNum);
+        student.setStateSelected(state);
+        student.setCitySelected(city);
 
-        userCommand.addStudent(student);
-        userCommand.addCityName(city);
-        loadSchoolList(student, city, userCommand);
+        userCommand.addStudentRow(student);
+        loadSchoolList(student, city);
     }
 
-    protected void loadSchoolList(Student student, String city, UserCommand userCommand) {
-        State state = student.getState();
-        Grade grade = student.getGrade();
+    protected void loadSchoolList(UserCommand.StudentCommand student, String city) {
+        State state = student.getStateSelected();
+        Grade grade = student.getGradeSelected();
         System.out.println("loadSchoolList: " + grade + " " + city + " " + state);
         if (grade != null) {
             List<School> schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
@@ -222,11 +206,10 @@ public class RegistrationController extends SimpleFormController implements Read
             school.setId(-1);
             school.setName("My child's school is not listed");
             schools.add(0, school);
-            userCommand.addSchools(schools);
+            student.setSchools(schools);
         } else {
-            userCommand.addSchools(new ArrayList<School>());
+            student.setSchools(new ArrayList<School>());
         }
-        userCommand.addSchoolName("");
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
@@ -279,44 +262,7 @@ public class RegistrationController extends SimpleFormController implements Read
         validator.setUserDao(_userDao);
         validator.validate(request, command, errors);
 
-        // TODO: I got rid of the validation messages here, should all of this move up to onBind?  Not sure if we'll
-        // add back some validation later for children greater than 1...
-        UserCommand userCommand = (UserCommand) command;
-        // TODO: Student stuff only applies to registration flows that have students
-        userCommand.getSchoolNames().clear();
-
-        for (int x=0; x < userCommand.getNumSchoolChildren(); x++) {
-            Student student = userCommand.getStudents().get(x);
-            if (student.getGrade() == null) {
-                continue;
-            }
-            School school = null;
-            if (student.getSchoolId() != null && student.getSchoolId() != -1) {
-                try {
-                    school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
-                } catch (ObjectRetrievalFailureException orfe) {
-                    _log.warn("Can't find school corresponding to id " +
-                            student.getSchoolId() + " in " + student.getState());
-                }
-            } else if (student.getSchoolId() == null) {
-                continue;
-            }
-
-            if (school != null) {
-                student.setSchool(school);
-                // a list of school names makes persisting the page MUCH easier
-                // (order is preserved for students!!)
-                userCommand.addSchoolName(school.getName());
-            } else if (student.getSchoolId() != null && student.getSchoolId() == -1) {
-                userCommand.addSchoolName("My child's school is not listed");
-            } else {
-                // to avoid index out of bounds exceptions, we have to add something to the list
-                userCommand.addSchoolName("");
-            }
-        }
-
         System.out.println(errors);
-        System.out.println("onBindAndValidate Students: " + ((UserCommand)command).getStudents().size());
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -357,28 +303,41 @@ public class RegistrationController extends SimpleFormController implements Read
             sendValidationEmail(user, userCommand, userExists, request);
         }
 
-        UserProfile userProfile = updateUserProfile(user, userCommand, ot);
+        updateUserProfile(user, userCommand, ot);
 
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }
-        if (userProfile.getNumSchoolChildren() > 0) {
-            for (Student student: userCommand.getStudents()) {
-                if (student.getSchoolId() != null && student.getSchoolId() == -1) {
-                    student.setSchoolId(null);
+
+        int numRealChildren = 0;
+        if (userCommand.getStudentRows().size() > 0) {
+            for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
+                Grade grade = student.getGradeSelected();
+                if (grade != null) {
+                    Student newStudent = new Student();
+                    numRealChildren++;
+                    newStudent.setOrder(numRealChildren);
+                    newStudent.setGrade(grade);
+
+                    int schoolId = student.getSchoolIdSelected();
+                    if (schoolId == -1) {
+                        newStudent.setSchoolId(null);
+                    } else {
+                        newStudent.setSchoolId(schoolId);
+                    }
+
+                    State state = student.getStateSelected();
+                    if (state != null) {
+                        newStudent.setState(state);
+                    } else {
+                        newStudent.setState(userCommand.getState());
+                    }
+
+                    user.addStudent(newStudent);
                 }
-                user.addStudent(student);
             }
         }
-
-        //TODO: this happens below
-//        if (userCommand.getNewsletter()) {
-//            Subscription subscription = new Subscription();
-//            subscription.setUser(user);
-//            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-//            subscription.setState(userCommand.getUserProfile().getState());
-//            userCommand.addSubscription(subscription);
-//        }
+        user.getUserProfile().setNumSchoolChildren(numRealChildren);
 
         if (userCommand.getPartnerNewsletter()) {
             Subscription subscription = new Subscription();
@@ -443,7 +402,6 @@ public class RegistrationController extends SimpleFormController implements Read
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
 
-        System.out.println("onSubmit Students: " + userCommand.getStudents().size());
         return mAndV;
     }
 
@@ -512,7 +470,7 @@ public class RegistrationController extends SimpleFormController implements Read
             // hack to get provisional accounts working in least amount of development time
             // note: this code is not reached during Chooser Registration
             userProfile = user.getUserProfile();
-            userProfile.setNumSchoolChildren(userCommand.getNumSchoolChildren());
+            //userProfile.setNumSchoolChildren(userCommand.getNumSchoolChildren());
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setCity(userCommand.getCity());
             userProfile.setState(userCommand.getState());
@@ -530,9 +488,9 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
         user.getUserProfile().setUpdated(new Date());
-        if (userProfile.getNumSchoolChildren() == null || userProfile.getNumSchoolChildren() < 0) {
-            userProfile.setNumSchoolChildren(0);
-        }
+        //if (userProfile.getNumSchoolChildren() == null || userProfile.getNumSchoolChildren() < 0) {
+        //    userProfile.setNumSchoolChildren(0);
+        //}
         return userProfile;
     }
 
