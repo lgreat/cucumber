@@ -201,7 +201,6 @@
                     <c:set var="loopTimes" value="${userCmd.userProfile.numSchoolChildren}"/>
                 </c:if>
                 -->
-                <!-- c:set var="loopTimes" value="2"/ -->
 
 
                 <c:forEach var="child" begin="1" end="${loopTimes}">
@@ -264,23 +263,23 @@
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
-                                <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                                <c:if test="${schoolVal eq -1}">
                                     <option selected="selected" value="">- Choose School -</option>
                                 </c:if>
                                 <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
                                     <![CDATA[<option ]]>
-                                    <c:if test="${schoolVal eq schoolOption.name}">
+                                    <c:if test="${schoolVal eq schoolOption.id}">
                                         selected="selected"
                                     </c:if>
                                     <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
                                 </c:forEach>
                             </select>
                         </span>
-                        <gsml:errorMessage command="userCmd" field="students[${child-1}]" useImage="true"/>
+                        <gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>
                         <!-- remember error for omniture tagging: see end of body. -->
                         <spring:hasBindErrors name="userCmd">
                             <c:if test="${errors.errorCount gt 0}">
-                                <spring:bind path="userCmd.students[${child-1}]">
+                                <spring:bind path="userCmd.studentRows[${child-1}]">
                                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                                         <c:set var="schoolError" value="true"/>
                                     </c:if>
