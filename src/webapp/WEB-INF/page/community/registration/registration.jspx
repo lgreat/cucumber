@@ -199,19 +199,21 @@
                 <!-- begin child module -->
                 <!-- Default to always show one row -->
 
-                <c:forEach var="child" begin="1" end="${loopTimes}">
+                <c:forEach var="child" begin="1" end="9">
                     <c:set var="gradeVal" value="${userCmd.students[child-1].grade}"/>
                     <c:set var="schoolVal" value="${userCmd.schoolNames[child-1]}"/>
                     <c:if test="${userCmd.students[child-1].state ne null}">
                         <c:set var="stateVal" value="${userCmd.students[child-1].state}"/>
                     </c:if>
                     <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="state_${child}"
-                                             onChange="stateChange(this,${loopTimes});" tabIndex="7"/>
-                         <span><select id="citySelect_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});"> <option selected="selected" value="">Choose city</option></select></span>
+                                             onChange="stateChange(this,${loopTimes});" tabIndex="7" styleClass="childStates"/>
+                         <span><select id="citySelect_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
                     </li>
-                    <li class="childRow">
-                        <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span id="addAnother"><a href="#" onclick="addAnotherChild();">+ Add another child</a></span>
+                    <c:choose>
+                    <c:when test="${child eq 1}">
+                        <li class="childRow">
+                            <label for="school${child}" class="childSchoolLabel">Child's School</label>
+                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child});">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
@@ -243,8 +245,49 @@
                                 </spring:bind>
                             </c:if>
                         </spring:hasBindErrors>
-                        <span id="changeCity"><a href="#" onclick="changeChildCity();">Change city</a></span>
+                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child});">Change city</a></span>
                     </li>
+                    </c:when>
+                        <c:otherwise><li class="childRow" id="childRow_${child}" style="display:none">
+                            <label for="school${child}" class="childSchoolLabel">Child's School</label>
+                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child});">+ Add another child</a></span>
+                        <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
+                                             styleClass="selectChildGrade" grade="${gradeVal}"
+                                             useNoGrade="true" noGradeLabel="- Grade -"
+                                             useAlternateNames="true" usePreK="true"
+                                             onChange="gradeChange(${child});"/>
+
+                        <span id="schoolDiv${child}">
+                            <select name="school${child}" id="school${child}" class="selectChildSchool">
+                                <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                                    <option selected="selected" value="">- Choose School -</option>
+                                </c:if>
+                                <c:forEach var="schoolOption" items="${userCmd.schools[child-1]}">
+                                    <![CDATA[<option ]]>
+                                    <c:if test="${schoolVal eq schoolOption.name}">
+                                        selected="selected"
+                                    </c:if>
+                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                </c:forEach>
+                            </select>
+                        </span>
+                        <gsml:errorMessage command="userCmd" field="students[${child-1}]" useImage="true"/>
+                        <!-- remember error for omniture tagging: see end of body. -->
+                        <spring:hasBindErrors name="userCmd">
+                            <c:if test="${errors.errorCount gt 0}">
+                                <spring:bind path="userCmd.students[${child-1}]">
+                                    <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                        <c:set var="schoolError" value="true"/>
+                                    </c:if>
+                                </spring:bind>
+                            </c:if>
+                        </spring:hasBindErrors>
+                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child});">Change city</a></span>
+                    </li>
+                        </c:otherwise>
+                        </c:choose>
+
+
                 </c:forEach>
 
                 <li class="dottedRule"/>
@@ -296,14 +339,14 @@
                 <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
             </spring:bind>
 
-            <p class="requiredFld">* indicates a required field.</p>
+            <!--<p class="requiredFld">* indicates a required field.</p>-->
 
-            <p class="privacyBox">Your privacy is important to us. GreatSchools
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                        title="GreatSchools Privacy Policy"
-                        href="/about/privacyStatement.page?state=$STATE"
-                        tabIndex="17">Privacy Policy</gsml:popupWindow>
-            </p>
+            <!--<p class="privacyBox">Your privacy is important to us. GreatSchools-->
+                <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
+                        <!--title="GreatSchools Privacy Policy"-->
+                        <!--href="/about/privacyStatement.page?state=$STATE"-->
+                        <!--tabIndex="17">Privacy Policy</gsml:popupWindow>-->
+            <!--</p>-->
 
         </gsweb:form>
         <gsml:errorMessage command="userCmd" useImage="true" styleClass="warning"/>

@@ -352,29 +352,26 @@ p.privacyBox {
 
 /* start styles for each child */
 
-#changeCity{
+#reg1Form .changeChildCity a{
     color: #3399AA;
     font-size: 10px;
     position: absolute;
-    top: 21px;
+    top: 13px;
     left: 400px;
     text-decoration: underline;
 }
 
-#outline ul li select#state_1{
+#outline ul li select.childStates{
 width:auto;
 }
 
-#outline ul li select#citySelect_1{
+#outline ul li select.childCities{
 left:180px;
-width:140px; }
-
-#childCityRow_1{
-    display:block;
+width:140px; 
 }
 
 
-#reg1Form #addAnother a{
+#reg1Form .addAnotherChild a{
     color: #3399AA;
     font-size: 10px;
     position: absolute;

@@ -164,7 +164,19 @@ function doSingleClick(element) {
     return true;
 }
 
-function changeChildCity(){
-$('citySelect_1').innerHTML = $('citySelect').innerHTML;
-    $('childCityRow_1').style.display = '';
+function changeChildCityAndState(childNum) {
+    $('citySelect_' + childNum).innerHTML = $('citySelect').innerHTML;
+    $('citySelect_' + childNum).value = $('citySelect').value;
+    $('state_' + childNum).value = $('userState').value;
+    $('childCityRow_' + childNum).style.display = '';
+    $('changeChildCity_' + childNum).style.display = 'none';
+}
+
+function addAnotherChild(childNum) {
+    var nextChildNum = childNum + 1;
+    $('childRow_' + nextChildNum).style.display = '';
+    $('addAnotherChild_'+childNum).style.display = 'none';
+    if(childNum == 8){
+        $('addAnotherChild_'+nextChildNum).style.display = 'none';
+    }
 }
