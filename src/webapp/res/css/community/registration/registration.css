@@ -304,7 +304,7 @@ p.requiredFld {
     color: #8f8f8f;
     font-size: 11px;
     position: absolute;
-    top: 565px;
+    bottom: 100px;
     left: 30px;
     width: 100px;
     line-height: 14px;
@@ -323,7 +323,7 @@ p.privacyBox {
     color: #8f8f8f;
     font-size: 11px;
     position: absolute;
-    top: 600px;
+    bottom: 20px;
     left: 30px;
     width: 100px;
     line-height: 14px;

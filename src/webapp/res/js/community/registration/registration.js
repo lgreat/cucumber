@@ -14,18 +14,21 @@ function gradeChange(childNum) {
     var defaultState = $('userState').value;
     var state = defaultState;
 
-    var overrideStateElem = $('state' + childNum);
+    var overrideStateElem = $('stateSelectChild_' + childNum);
     if (overrideStateElem != undefined) {
         state = overrideStateElem.value;
     }
+
     var pars = 'state=' + state;
 
     var defaultCity = $('citySelect').value;
     var city = defaultCity;
-    var overrideCityElem = $('city' + childNum);
+    var overrideCityElem = $('citySelectChild_' + childNum);
     if (overrideCityElem != undefined) {
         city = overrideCityElem.value;
     }
+     alert(state);
+    alert(city);
 
     pars += '&city=' + city;
     pars += '&grade=' + grade;
@@ -165,9 +168,9 @@ function doSingleClick(element) {
 }
 
 function changeChildCityAndState(childNum) {
-    $('citySelect_' + childNum).innerHTML = $('citySelect').innerHTML;
-    $('citySelect_' + childNum).value = $('citySelect').value;
-    $('state_' + childNum).value = $('userState').value;
+    $('citySelectChild_' + childNum).innerHTML = $('citySelect').innerHTML;
+    $('citySelectChild_' + childNum).value = $('citySelect').value;
+    $('stateSelectChild_' + childNum).value = $('userState').value;
     $('childCityRow_' + childNum).style.display = '';
     $('changeChildCity_' + childNum).style.display = 'none';
 }

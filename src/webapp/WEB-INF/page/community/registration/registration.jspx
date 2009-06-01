@@ -210,11 +210,9 @@
                     <c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">
                         <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
                     </c:if>
-                    <li id="childCityRow_${child}" style="display:none">
-                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="state_${child}"
-                                             onChange="stateChange(this,${loopTimes});" tabIndex="7" styleClass="childStates"
-                                             name="state${child}"/>
-                         <span><select id="citySelect_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
+                    <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="stateSelectChild_${child}"
+                                             onChange="stateChange(this,${loopTimes});" tabIndex="7" styleClass="childStates"/>
+                         <span id="citySelectSpan_${child}"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
                     </li>
                     <c:choose>
                     <c:when test="${child eq 1}">
@@ -252,12 +250,12 @@
                                 </spring:bind>
                             </c:if>
                         </spring:hasBindErrors>
-                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child});">Change city</a></span>
+                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a></span>
                     </li>
                     </c:when>
                         <c:otherwise><li class="childRow" id="childRow_${child}" style="display:none">
                             <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child});">+ Add another child</a></span>
+                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
@@ -346,14 +344,14 @@
                 <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
             </spring:bind>
 
-            <!--<p class="requiredFld">* indicates a required field.</p>-->
+            <p class="requiredFld">* indicates a required field.</p>
 
-            <!--<p class="privacyBox">Your privacy is important to us. GreatSchools-->
-                <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
-                        <!--title="GreatSchools Privacy Policy"-->
-                        <!--href="/about/privacyStatement.page?state=$STATE"-->
-                        <!--tabIndex="17">Privacy Policy</gsml:popupWindow>-->
-            <!--</p>-->
+            <p class="privacyBox">Your privacy is important to us. GreatSchools
+                <gsml:popupWindow width="800" height="600" left="50" top="50"
+                        title="GreatSchools Privacy Policy"
+                        href="/about/privacyStatement.page?state=$STATE"
+                        tabIndex="17">Privacy Policy</gsml:popupWindow>
+            </p>
 
         </gsweb:form>
         <gsml:errorMessage command="userCmd" useImage="true" styleClass="warning"/>
