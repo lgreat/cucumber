@@ -24,10 +24,10 @@ function gradeChange(childNum) {
     var defaultCity = $('citySelect').value;
     var city = defaultCity;
     var overrideCityElem = $('citySelectChild_' + childNum);
-    if (overrideCityElem != undefined) {
+    if (overrideCityElem != undefined && overrideCityElem.value != '') {
         city = overrideCityElem.value;
     }
-
+    
     pars += '&city=' + city;
     pars += '&grade=' + grade;
     pars += '&childNum=' + childNum;
