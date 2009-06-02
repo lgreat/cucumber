@@ -62,6 +62,10 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
+    protected boolean hasChildRows() {
+        return true;
+    }
+
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -111,14 +115,15 @@ public class RegistrationController extends SimpleFormController implements Read
     @Override
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
         UserCommand userCommand = (UserCommand) super.formBackingObject(httpServletRequest);
-        // TODO: This block is only for join flows that have a default student row
         // note: We have to create the right number of students here so that the databinder will succeed
         // in binding child properties. Otherwise, it attempts to bind to e.g. userCommand.studentRows[0] and
         // gets an index out of bounds exception
         // (Since the page is configured to always submit 9 children, I have to add all 9 here)
-        for (int x=0; x < 9; x++) {
-            UserCommand.StudentCommand student = new UserCommand.StudentCommand();
-            userCommand.addStudentRow(student);
+        if (hasChildRows()) {
+            for (int x=0; x < 9; x++) {
+                UserCommand.StudentCommand student = new UserCommand.StudentCommand();
+                userCommand.addStudentRow(student);
+            }
         }
         return userCommand;
     }
@@ -156,7 +161,6 @@ public class RegistrationController extends SimpleFormController implements Read
         String terms = request.getParameter(TERMS_PARAMETER);
         userCommand.setTerms("on".equals(terms));
 
-        // TODO: All of this student stuff is only for join flows with students (duh!)
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
             parseStudent(request, userCommand, numChildFields);
@@ -325,40 +329,42 @@ public class RegistrationController extends SimpleFormController implements Read
 
         updateUserProfile(user, userCommand, ot);
 
-        if (user.getStudents() != null) {
-            user.getStudents().clear();
-        }
+        if (hasChildRows()) {
+            if (user.getStudents() != null) {
+                user.getStudents().clear();
+            }
 
-        int numRealChildren = 0;
-        System.out.println("onSubmit: getStudentRows.size(): " + userCommand.getStudentRows().size());
-        if (userCommand.getStudentRows().size() > 0) {
-            for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
-                Grade grade = student.getGradeSelected();
-                if (grade != null) {
-                    Student newStudent = new Student();
-                    numRealChildren++;
-                    newStudent.setOrder(numRealChildren);
-                    newStudent.setGrade(grade);
+            int numRealChildren = 0;
+            System.out.println("onSubmit: getStudentRows.size(): " + userCommand.getStudentRows().size());
+            if (userCommand.getStudentRows().size() > 0) {
+                for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
+                    Grade grade = student.getGradeSelected();
+                    if (grade != null) {
+                        Student newStudent = new Student();
+                        numRealChildren++;
+                        newStudent.setOrder(numRealChildren);
+                        newStudent.setGrade(grade);
 
-                    int schoolId = student.getSchoolIdSelected();
-                    if (schoolId == -1) {
-                        newStudent.setSchoolId(null);
-                    } else {
-                        newStudent.setSchoolId(schoolId);
+                        int schoolId = student.getSchoolIdSelected();
+                        if (schoolId == -1) {
+                            newStudent.setSchoolId(null);
+                        } else {
+                            newStudent.setSchoolId(schoolId);
+                        }
+
+                        State state = student.getStateSelected();
+                        if (state != null) {
+                            newStudent.setState(state);
+                        } else {
+                            newStudent.setState(userCommand.getState());
+                        }
+
+                        user.addStudent(newStudent);
                     }
-
-                    State state = student.getStateSelected();
-                    if (state != null) {
-                        newStudent.setState(state);
-                    } else {
-                        newStudent.setState(userCommand.getState());
-                    }
-
-                    user.addStudent(newStudent);
                 }
             }
+            user.getUserProfile().setNumSchoolChildren(numRealChildren);
         }
-        user.getUserProfile().setNumSchoolChildren(numRealChildren);
 
         if (userCommand.getPartnerNewsletter()) {
             Subscription subscription = new Subscription();
@@ -589,7 +595,7 @@ public class RegistrationController extends SimpleFormController implements Read
         soapRequest.createOrUpdateUserRequest(bean);
     }
 
-    private void saveSubscriptionsForUser(UserCommand userCommand, User user, HttpServletRequest request, HttpServletResponse response) {
+    protected void saveSubscriptionsForUser(UserCommand userCommand, User user, HttpServletRequest request, HttpServletResponse response) {
         List<Subscription> newsSubs = new ArrayList<Subscription>();
         System.out.println ("Subscription count: " + userCommand.getSubscriptions().size());
         for (Subscription sub: userCommand.getSubscriptions()) {
@@ -642,6 +648,10 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         this._requireEmailValidation = requireEmailValidation;
+    }
+
+    public boolean isRequireEmailValidation() {
+        return _requireEmailValidation;
     }
 
     public String getErrorView() {

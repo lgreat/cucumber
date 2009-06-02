@@ -3,7 +3,6 @@ package gs.web.community.registration;
 import gs.web.util.validator.EmailValidator;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.community.Student;
 import gs.data.community.Subscription;
 import gs.data.state.State;
 import gs.data.school.School;
@@ -38,6 +37,11 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _newsletter = false;
     private boolean _partnerNewsletter = false;
     private boolean _chooserRegistration = false;
+
+    private boolean _mystat = true;
+    private String _mystatSchoolName;
+    private int _mystatSchoolId;
+    private State _mystatSchoolState;
 
     public UserCommand() {
         _user = new User();
@@ -310,6 +314,38 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public int getNumStudentRows() {
         return _studentRows.size();
+    }
+
+    public boolean isMystat() {
+        return _mystat;
+    }
+
+    public void setMystat(boolean mystat) {
+        _mystat = mystat;
+    }
+
+    public String getMystatSchoolName() {
+        return _mystatSchoolName;
+    }
+
+    public void setMystatSchoolName(String mystatSchoolName) {
+        _mystatSchoolName = mystatSchoolName;
+    }
+
+    public int getMystatSchoolId() {
+        return _mystatSchoolId;
+    }
+
+    public void setMystatSchoolId(int mystatSchoolId) {
+        _mystatSchoolId = mystatSchoolId;
+    }
+
+    public State getMystatSchoolState() {
+        return _mystatSchoolState;
+    }
+
+    public void setMystatSchoolState(State mystatSchoolState) {
+        _mystatSchoolState = mystatSchoolState;
     }
 
     protected static class StudentCommand {

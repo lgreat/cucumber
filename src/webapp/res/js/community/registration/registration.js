@@ -15,7 +15,7 @@ function gradeChange(childNum, isChangeParentCity) {
                 }
                 var parentState = $('userState').value;
                 var parentCity = $('citySelect').value;
-                var url = 'registration2Ajax.page';
+                var url = '/community/registration2Ajax.page';
                 var pars = 'state=' + parentState;
                 pars += '&city=' + parentCity;
                 pars += '&grade=' + grade;
@@ -37,7 +37,7 @@ function gradeChange(childNum, isChangeParentCity) {
             $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
             return;
         }
-        var url = 'registration2Ajax.page';
+        var url = '/community/registration2Ajax.page';
 
         var state =  $('userState').value;
         var city = $('citySelect').value;
@@ -64,7 +64,7 @@ function gradeChange(childNum, isChangeParentCity) {
 }
 
 function parentStateChange(stateSelect, numChildren) {
-    var url = 'registrationAjax.page';
+    var url = '/community/registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
     pars += "&onchange=gradeChange(" + numChildren + ",true);";
     for (var i = 1; i <= numChildren; i++) {
@@ -85,7 +85,7 @@ function parentStateChange(stateSelect, numChildren) {
 
 // TODO: when changing child's state, clear out child's school dropdown
 function childStateChange(stateSelect, childNum) {
-    var url = 'registrationAjax.page';
+    var url = '/community/registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
     pars += '&citySelectId=citySelectChild_' + childNum;
     pars += '&citySelectName=city' + childNum;
@@ -114,7 +114,7 @@ function validateFirstName() {
 }
 
 function validateEmail() {
-    var url = 'registrationAjax.page';
+    var url = '/community/registrationAjax.page';
     var pars = 'email=' + $('email').value;
     var notice = $('emailMessage');
     var myAjax = new Ajax.Request(
@@ -143,7 +143,7 @@ function validateEmail() {
 }
 
 function validateUN() {
-    var url = 'registrationAjax.page';
+    var url = '/community/registrationAjax.page';
     var pars = 'un=' + $('screenName').value;
     var notice = $('usernameMessage');
     var myAjax = new Ajax.Request(

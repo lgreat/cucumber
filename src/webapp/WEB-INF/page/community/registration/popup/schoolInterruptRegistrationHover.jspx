@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:form="http://www.springframework.org/tags/form"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <![CDATA[
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    ]]>
+    <title>Join - GreatSchools</title>
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+    <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
+    <pageHelper:externalCss file="/res/css/community/registration/popup/schoolInterruptRegistrationHover.css"/>
+    <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
+</head>
+
+<gsml:body adPageName="community/schoolInterruptRegistrationHover">
+    <div id="outline">
+
+        <gsml:img src="/res/img/community/registration/join_burst_inline.gif"
+                  alt="Join" styleClass="joinMedallion"/>
+
+        <div id="bulletsHeader">
+            <gsml:img src="/res/img/community/registration/join_inline.jpg"
+                      alt="Join" styleClass="headerImage"/>
+
+            <ul id="bullets">
+                <li>
+                    <span class="strongHeader">Find the right school</span>
+                    for your child and track how it performs compared to other schools in your state.
+                </li>
+                <li>
+                    <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
+                    community of 800,000 about your school, your tips for parenting.
+                </li>
+                <li>
+                    <span class="strongHeader">Receive weekly emails</span> with fun tips, books and activities
+                    to keep track of your child grade-by-grade.
+                </li>
+            </ul>
+        </div>
+
+        <spring:hasBindErrors name="userCmd">
+            <pageHelper:addOnLoadHandler handler="scrollToError();"/>
+        </spring:hasBindErrors>
+
+        <!-- begin registration form -->
+        <gsweb:form action="/community/registration/popup/schoolInterruptRegistrationHover.page"
+                    method="post" styleClass="registration" id="reg1Form">
+            <form:hidden path="userCmd.mystatSchoolId"/>
+            <form:hidden path="userCmd.mystatSchoolState"/>
+            <ul>
+                <li>
+                    <label for="firstName">First name <span class="required">*</span></label>
+                    <spring:bind path="userCmd.user.firstName">
+                        <input id="firstName" type="text" name="${status.expression}" value="${status.value}"
+                               tabindex="1" onblur="validateFirstName();"/>
+                    </spring:bind>
+                    <gsml:feedbackMessage command="userCmd" field="firstName" styleId="firstNameMessage"
+                                          styleClass="ajaxMessage ajaxError"/>
+                </li>
+
+                <li id="emailLine">
+                    <label for="email">Email address <span class="required">*</span></label>
+                    <spring:bind path="userCmd.user.email">
+                        <input id="email" type="text" name="${status.expression}" value="${status.value}" tabindex="2"
+                               onblur="validateEmail();"/>
+                    </spring:bind>
+                    <gsml:feedbackMessage command="userCmd" field="email" styleId="emailMessage"
+                                          styleClass="ajaxMessage ajaxError"/>
+                </li>
+
+                <li id="usernameLine">
+                    <label for="screenName">Username <span class="required">*</span></label>
+                    <spring:bind path="userCmd.screenName">
+                        <input id="screenName" type="text" name="${status.expression}" value="${status.value}"
+                               tabindex="3" onblur="validateUN();"/>
+                    </spring:bind>
+                    <gsml:feedbackMessage command="userCmd" field="screenName" styleId="usernameMessage"
+                                          styleClass="ajaxMessage ajaxError"/>
+                    <span id="userDetails">6-14 characters</span>
+                    <span id="userDisclaimer">Choose carefully&amp;#8212;This will be your public identity on GreatSchools</span>
+                </li>
+
+                <li>
+                    <label for="password">Password <span class="required">*</span></label>
+                    <spring:bind path="userCmd.password">
+                        <input id="password" type="password" name="${status.expression}" value="" tabindex="4"
+                               onblur="validatePW();"/>
+                    </spring:bind>
+                    <gsml:feedbackMessage command="userCmd" field="password" styleId="passwordMessage"
+                                          styleClass="ajaxMessage ajaxError"/>
+                    <span id="passwordDetails">6-14 characters</span>
+                </li>
+
+                <li>
+                    <label for="confirmPassword">Retype password <span class="required">*</span></label>
+                    <spring:bind path="userCmd.confirmPassword">
+                        <input id="confirmPassword" type="password" name="${status.expression}" value="" tabindex="5"
+                               onblur="validateConfirmPW();"/>
+                    </spring:bind>
+                    <gsml:feedbackMessage command="userCmd" field="confirmPassword" styleId="confirmPWMessage"
+                                          styleClass="ajaxMessage ajaxError"/>
+                </li>
+
+                <li id="mystat">
+                    <form:checkbox path="userCmd.mystat" id="mystatField" tabindex="12"/>
+                    <label for="mystatField">Send me weekly updates from GreatSchools including
+                        periodic updates about ${userCmd.mystatSchoolName}.</label>
+                </li>
+
+                <li id="partnerNewsletter">
+                    <gsml:checkbox styleId="partnerNewsletterField" name="partnerNewsletterStr"
+                                   checked="${userCmd.partnerNewsletter eq true}" tabIndex="12"/>
+                    <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
+                </li>
+
+                <spring:hasBindErrors name="userCmd">
+                    <spring:bind path="userCmd.terms">
+                        <c:set var="message">
+                            <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
+                        </c:set>
+                        <li id="termsError"><span class="termsWarning">${message}</span></li>
+                    </spring:bind>
+                </spring:hasBindErrors>
+
+                <li id="terms">
+                    <gsml:checkbox styleId="termsField" name="termsStr"
+                                   checked="${userCmd.terms eq true}" tabIndex="13"/>
+                    <label for="termsField" class="terms">I agree to the
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Terms of Use"
+                                          href="/cgi-bin/static/terms.html/$STATE"
+                                          tabIndex="14">GreatSchools Terms of Use</gsml:popupWindow>
+                        and
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Community Standards"
+                                          href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                                          tabIndex="15">Community Guidelines</gsml:popupWindow>. <span
+                                class="required">*</span>
+                    </label>
+                </li>
+
+            </ul>
+
+            <gsml:inputImage src="/res/img/community/registration/joinbutton.gif" alt="submit"
+                             name="submit" onclick="return doSingleClick(this);" tabIndex="16"
+                             id="submitButton"/>
+
+            <spring:bind path="userCmd.redirectUrl">
+                <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
+            </spring:bind>
+
+            <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
+
+            <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
+                <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                  title="GreatSchools Privacy Policy"
+                                  href="/about/privacyStatement.page?state=$STATE"
+                                  tabIndex="17">Privacy Policy</gsml:popupWindow>
+            </p>
+
+        </gsweb:form>
+
+    </div>
+    <script type="text/javascript">
+        $('firstName').focus();
+
+        function noThanks() {
+            parent.sendToDestination();
+            return false;
+        }
+    </script>
+
+
+    <mod:tracking pageName="School Interrupt Registration Hover"
+                  hier1="Account,Registration,School Interrupt Registration Hover"/>
+</gsml:body>
+</html>
+</jsp:root>
