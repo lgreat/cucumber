@@ -26,6 +26,7 @@ public abstract class SelectorTagHandler extends SimpleTagSupport {
     private String _noResponseLabel = "--"; // default
     private String _name = null;
     private String _selectedValue = null;
+    private String _tabIndex = null;
 
     /**
      * When set to true, the selector will show "--" as the default option.
@@ -99,6 +100,14 @@ public abstract class SelectorTagHandler extends SimpleTagSupport {
         return _selectedValue;
     }
 
+    public String getTabIndex() {
+        return _tabIndex;
+    }
+
+    public void setTabIndex(String tabIndex) {
+        _tabIndex = tabIndex;
+    }
+
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
@@ -114,6 +123,9 @@ public abstract class SelectorTagHandler extends SimpleTagSupport {
         }
         if (_onChange != null) {
             out.print(" onchange=\"" + _onChange + "\"");
+        }
+        if (_tabIndex != null) {
+            out.print(" tabindex=\"" + _tabIndex + "\"");
         }
         out.println(">");
 
