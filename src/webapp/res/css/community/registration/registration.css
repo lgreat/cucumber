@@ -101,6 +101,11 @@
     padding-right: 4px;
 }
 
+#outline div.genericError{
+    font-size: 13px;
+    color: #cc5566;
+}
+
 #outline #genderLine select {
     width: auto;
 }
@@ -299,6 +304,10 @@ p.warning {
     padding-left:22px;
 }
 
+#outline ul li#terms .termsRequired{
+    position:absolute;
+    left:110px;
+}
 
 p.requiredFld {
     color: #8f8f8f;

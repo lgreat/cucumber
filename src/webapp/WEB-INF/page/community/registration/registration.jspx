@@ -81,6 +81,7 @@
         <br/>
 
         <spring:hasBindErrors name="userCmd">
+            <div class="genericError">Please complete the required fields.</div>
             <pageHelper:addOnLoadHandler handler="scrollToError();"/>
         </spring:hasBindErrors>
 
@@ -307,11 +308,14 @@
                         <c:set var="message">
                             <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
                         </c:set>
+                        <c:if test="${message ne ''}">
                         <li id="termsError"><span class="termsWarning">${message}</span></li>
+                        </c:if>
                     </spring:bind>
                 </spring:hasBindErrors>
 
                 <li id="terms">
+                    <span class="termsRequired">*</span>
                     <gsml:checkbox styleId="termsField" name="termsStr"
                                    checked="${userCmd.terms eq true}" tabIndex="13"/>
                     <label for="termsField" class="terms">I agree to the
@@ -347,7 +351,6 @@
             </p>
 
         </gsweb:form>
-        <gsml:errorMessage command="userCmd" useImage="true" styleClass="warning"/>
     </div>
         <!-- end: outline -->
     <c:set var="pageName" value="Registration page 1"/>
