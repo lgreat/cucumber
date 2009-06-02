@@ -381,5 +381,16 @@ public class UserCommand implements EmailValidator.IEmail {
         public void setLocationOverride(boolean locationOverride) {
             _locationOverride = locationOverride;
         }
+
+        public String toString() {
+            StringBuffer str = new StringBuffer("StudentCommand{");
+            if (_locationOverride) {
+                str.append("state: " + _stateSelected + ", city: " + _citySelected + ", ");
+            }
+            str.append("grade: " + _gradeSelected + ", school: " + _schoolIdSelected);
+            str.append("}");
+            
+            return str.toString();
+        }
     }
 }
