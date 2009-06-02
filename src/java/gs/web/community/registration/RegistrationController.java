@@ -134,7 +134,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
-        System.out.println(userCommand.getState());
+
         if (isChooserRegistration()) {
             if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
                 State state = State.fromString(request.getParameter("schoolChoiceState"));
@@ -157,15 +157,11 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setTerms("on".equals(terms));
 
         // TODO: All of this student stuff is only for join flows with students (duh!)
-        // Although this particular loop is a NOP on forms with no children
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
             parseStudent(request, userCommand, numChildFields);
             numChildFields++;
         }
-        //userCommand.setNumSchoolChildren(userCommand.getStudentRows().size());
-
-        System.out.println("onBind userProfile: " + userCommand.getUserProfile());
     }
 
     protected void parseStudent(HttpServletRequest request, UserCommand userCommand, int childNum) {
@@ -204,7 +200,6 @@ public class RegistrationController extends SimpleFormController implements Read
         student.setStateSelected(state);
         student.setCitySelected(city);
 
-        userCommand.addStudentRow(student);
         loadSchoolList(student, city);
         // if the student has overriden their location, make sure to populate the view with the list of cities
         // at that location
@@ -335,6 +330,7 @@ public class RegistrationController extends SimpleFormController implements Read
         }
 
         int numRealChildren = 0;
+        System.out.println("onSubmit: getStudentRows.size(): " + userCommand.getStudentRows().size());
         if (userCommand.getStudentRows().size() > 0) {
             for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
                 Grade grade = student.getGradeSelected();
