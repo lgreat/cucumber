@@ -13,43 +13,71 @@ function scrollToError() {
     window.location.href = document.location.pathname + '#error';
 }
 
-function gradeChange(childNum) {
-    var grade = $('grade' + childNum).value;
+function gradeChange(childNum, isChangeParentCity) {
+    if (isChangeParentCity) {
+        //when parent city is changed the childnum = looptimes
+        for (var i = 1; i <= childNum; i++) {
+            if (!eval('hasChildCityState_' + i)) {
+                var grade = $('grade' + i).value;
+                if (grade == '') {
+                    $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">Choose School -</option></select>';
+                    return;
+                }
+                var paremtState = $('userState').value;
+                var parentCity = $('citySelect').value;
+                var url = 'registration2Ajax.page';
+                var pars = 'state=' + paremtState;
+                pars += '&city=' + parentCity;
+                pars += '&grade=' + grade;
+                pars += '&childNum=' + i;
+                $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">Loading ...</option></select>';
+                var myAjax = new Ajax.Updater(
+                        'schoolDiv' + i,
+                        url,
+                {
+                    method: 'get',
+                    parameters: pars
+                });
+            }
+        }
+    }
+    else {
+        var grade = $('grade' + childNum).value;
+        if (grade == '') {
+            $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
+            return;
+        }
+        var url = 'registration2Ajax.page';
 
-    if (grade == '') {
-        $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
-        return;
+        var defaultState = $('userState').value;
+        var state = defaultState;
+        var overrideStateElem = $('stateSelectChild_' + childNum);
+        if (overrideStateElem != undefined) {
+            state = overrideStateElem.value;
+        }
+
+        var pars = 'state=' + state;
+
+        var defaultCity = $('citySelect').value;
+        var city = defaultCity;
+        var overrideCityElem = $('citySelectChild_' + childNum);
+        if (overrideCityElem != undefined && overrideCityElem.value != '' && eval('hasChildCityState_' + childNum)) {
+            city = overrideCityElem.value;
+        }
+
+        pars += '&city=' + city;
+        pars += '&grade=' + grade;
+        pars += '&childNum=' + childNum;
+        $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">Loading ...</option></select>';
+        var myAjax = new Ajax.Updater(
+                'schoolDiv' + childNum,
+                url,
+        {
+            method: 'get',
+            parameters: pars
+        });
     }
 
-    var url = 'registration2Ajax.page';
-    var defaultState = $('userState').value;
-    var state = defaultState;
-
-    var overrideStateElem = $('stateSelectChild_' + childNum);
-    if (overrideStateElem != undefined) {
-        state = overrideStateElem.value;
-    }
-
-    var pars = 'state=' + state;
-
-    var defaultCity = $('citySelect').value;
-    var city = defaultCity;
-    var overrideCityElem = $('citySelectChild_' + childNum);
-    if (overrideCityElem != undefined && overrideCityElem.value != '' && eval('hasChildCityState_' + childNum)) {
-        city = overrideCityElem.value;
-    }
-
-    pars += '&city=' + city;
-    pars += '&grade=' + grade;
-    pars += '&childNum=' + childNum;
-    $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">Loading ...</option></select>';
-    var myAjax = new Ajax.Updater(
-            'schoolDiv' + childNum,
-            url,
-    {
-        method: 'get',
-        parameters: pars
-    });
 }
 
 function stateChange(stateSelect, childNum) {
@@ -182,7 +210,7 @@ function changeChildCityAndState(childNum) {
     cityChildSelectSpan.innerHTML = $('city').innerHTML.replace('citySelect', 'citySelectChild_' + childNum);
     $('citySelectChild_' + childNum).className = "childCities";
     $('citySelectChild_' + childNum).name = "city_" + childNum;
-    $('citySelectChild_' + childNum).onchange =  function(){
+    $('citySelectChild_' + childNum).onchange = function() {
         gradeChange(childNum);
     };
 
@@ -197,9 +225,9 @@ function changeChildCityAndState(childNum) {
 function addAnotherChild(childNum) {
     var nextChildNum = childNum + 1;
     $('childRow_' + nextChildNum).style.display = '';
-    $('addAnotherChild_'+childNum).style.display = 'none';
-    if(childNum == 8){
-        $('addAnotherChild_'+nextChildNum).style.display = 'none';
+    $('addAnotherChild_' + childNum).style.display = 'none';
+    if (childNum == 8) {
+        $('addAnotherChild_' + nextChildNum).style.display = 'none';
     }
     $('requiredFld').hide();
     $('requiredFld').show();

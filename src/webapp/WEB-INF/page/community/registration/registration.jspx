@@ -177,7 +177,7 @@
 
                     <!-- City -->
                     <span id="city">
-                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes});">
+                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},'true');">
                             <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
                                 <option selected="selected" value="">Choose city</option>
                             </c:if>
@@ -211,7 +211,7 @@
                     </c:if>
                     <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="stateSelectChild_${child}"
                                              onChange="stateChange(this,${child});" tabIndex="7" styleClass="childStates" name="state${child}"/>
-                         <span id="citySelectSpan_${child}"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child});" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
+                         <span id="citySelectSpan_${child}"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child},'false');" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
                     </li>
                     <c:choose>
                     <c:when test="${child eq 1}">
@@ -222,7 +222,7 @@
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
                                              useAlternateNames="true" usePreK="true"
-                                             onChange="gradeChange(${child});"/>
+                                             onChange="gradeChange(${child},'false');"/>
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
@@ -259,7 +259,7 @@
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
                                              useAlternateNames="true" usePreK="true"
-                                             onChange="gradeChange(${child});"/>
+                                             onChange="gradeChange(${child},'false');"/>
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
