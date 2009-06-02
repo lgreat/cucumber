@@ -13,6 +13,7 @@ function scrollToError() {
     window.location.href = document.location.pathname + '#error';
 }
 
+// TODO: Break out into two methods: parentGradeChange and childGradeChange
 function gradeChange(childNum, isChangeParentCity) {
     if (isChangeParentCity) {
         //when parent city is changed the childnum = looptimes
@@ -20,13 +21,13 @@ function gradeChange(childNum, isChangeParentCity) {
             if (!eval('hasChildCityState_' + i)) {
                 var grade = $('grade' + i).value;
                 if (grade == '') {
-                    $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">Choose School -</option></select>';
+                    $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
                     return;
                 }
-                var paremtState = $('userState').value;
+                var parentState = $('userState').value;
                 var parentCity = $('citySelect').value;
                 var url = 'registration2Ajax.page';
-                var pars = 'state=' + paremtState;
+                var pars = 'state=' + parentState;
                 pars += '&city=' + parentCity;
                 pars += '&grade=' + grade;
                 pars += '&childNum=' + i;
@@ -49,22 +50,15 @@ function gradeChange(childNum, isChangeParentCity) {
         }
         var url = 'registration2Ajax.page';
 
-        var defaultState = $('userState').value;
-        var state = defaultState;
-        var overrideStateElem = $('stateSelectChild_' + childNum);
-        if (overrideStateElem != undefined) {
-            state = overrideStateElem.value;
+        var state =  $('userState').value;;
+        var city = $('citySelect').value;
+
+        if (eval('hasChildCityState_' + childNum)) {
+            state = $('stateSelectChild_' + childNum).value;
+            city = $('citySelectChild_' + childNum).value;
         }
 
         var pars = 'state=' + state;
-
-        var defaultCity = $('citySelect').value;
-        var city = defaultCity;
-        var overrideCityElem = $('citySelectChild_' + childNum);
-        if (overrideCityElem != undefined && overrideCityElem.value != '' && eval('hasChildCityState_' + childNum)) {
-            city = overrideCityElem.value;
-        }
-
         pars += '&city=' + city;
         pars += '&grade=' + grade;
         pars += '&childNum=' + childNum;
@@ -80,14 +74,35 @@ function gradeChange(childNum, isChangeParentCity) {
 
 }
 
-function stateChange(stateSelect, childNum) {
+function parentStateChange(stateSelect, numChildren) {
     var url = 'registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
-    $('grade' + childNum).value = '';
-    $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
+    pars += "&onchange=gradeChange(" + numChildren + ",true);";
+    for (var i = 1; i <= numChildren; i++) {
+        if (!eval('hasChildCityState_' + i)) {
+            // if child's location is not overridden, clear out his school because parent has changed state
+            $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
+        }
+    }
     $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
     var myAjax = new Ajax.Updater(
             'city',
+            url,
+    {
+        method: 'get',
+        parameters: pars
+    });
+}
+
+// TODO: when changing child's state, clear out child's school dropdown
+function childStateChange(stateSelect, childNum) {
+    var url = 'registrationAjax.page';
+    var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
+    pars += '&citySelectId=citySelectChild_' + childNum;
+    pars += "&onchange=gradeChange(" + childNum + ",false);";
+    $('citySelectSpan_' + childNum).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+    var myAjax = new Ajax.Updater(
+            'citySelectSpan_' + childNum,
             url,
     {
         method: 'get',

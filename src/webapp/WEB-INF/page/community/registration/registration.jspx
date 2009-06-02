@@ -171,13 +171,13 @@
                     <!-- State -->
                     <spring:bind path="userCmd.state">
                         <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                             onChange="stateChange(this,${loopTimes});" tabIndex="7"/>
+                                             onChange="parentStateChange(this,${loopTimes});" tabIndex="7"/>
                     </spring:bind>
                     <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
 
                     <!-- City -->
                     <span id="city">
-                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},'true');">
+                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},true);">
                             <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
                                 <option selected="selected" value="">Choose city</option>
                             </c:if>
@@ -209,20 +209,24 @@
                     <c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">
                         <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
                     </c:if>
-                    <li id="childCityRow_${child}" style="display:none"><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="stateSelectChild_${child}"
-                                             onChange="stateChange(this,${child});" tabIndex="7" styleClass="childStates" name="state${child}"/>
-                         <span id="citySelectSpan_${child}"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child},'false');" class="childCities"> <option selected="selected" value="">Choose city</option></select></span>
+                    <li id="childCityRow_${child}" style="display:none">
+                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="stateSelectChild_${child}"
+                                             onChange="childStateChange(this,${child});" tabIndex="7" styleClass="childStates" 
+                                             name="state${child}"/>
+                         <span id="citySelectSpan_${child}" class="citySelectSpan"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child},'false');"> <option selected="selected" value="">Choose city</option></select></span>
                     </li>
-                    <c:choose>
-                    <c:when test="${child eq 1}">
-                        <li class="childRow" id="childRow_${child}">
-                            <label for="school${child}" class="childSchoolLabel">Child's School</label>
+                    <c:set var="childRowDisplay" value="none"/>
+                    <c:if test="${child eq 1}">
+                        <c:set var="childRowDisplay" value="block"/>
+                    </c:if>
+                    <li class="childRow" id="childRow_${child}" style="display:${childRowDisplay};">
+                        <label for="school${child}" class="childSchoolLabel">Child's School</label>
                         <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a></span>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
                                              useAlternateNames="true" usePreK="true"
-                                             onChange="gradeChange(${child},'false');"/>
+                                             onChange="gradeChange(${child},false);"/>
 
                         <span id="schoolDiv${child}">
                             <select name="school${child}" id="school${child}" class="selectChildSchool">
@@ -251,47 +255,6 @@
                         </spring:hasBindErrors>
                         <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a></span>
                     </li>
-                    </c:when>
-                        <c:otherwise><li class="childRow" id="childRow_${child}" style="display:none">
-                            <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a></span>
-                        <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
-                                             styleClass="selectChildGrade" grade="${gradeVal}"
-                                             useNoGrade="true" noGradeLabel="- Grade -"
-                                             useAlternateNames="true" usePreK="true"
-                                             onChange="gradeChange(${child},'false');"/>
-
-                        <span id="schoolDiv${child}">
-                            <select name="school${child}" id="school${child}" class="selectChildSchool">
-                                <c:if test="${schoolVal eq -1}">
-                                    <option selected="selected" value="">- Choose School -</option>
-                                </c:if>
-                                <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
-                                    <![CDATA[<option ]]>
-                                    <c:if test="${schoolVal eq schoolOption.id}">
-                                        selected="selected"
-                                    </c:if>
-                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </span>
-                        <gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>
-                        <!-- remember error for omniture tagging: see end of body. -->
-                        <spring:hasBindErrors name="userCmd">
-                            <c:if test="${errors.errorCount gt 0}">
-                                <spring:bind path="userCmd.studentRows[${child-1}]">
-                                    <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                        <c:set var="schoolError" value="true"/>
-                                    </c:if>
-                                </spring:bind>
-                            </c:if>
-                        </spring:hasBindErrors>
-                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a></span>
-                    </li>
-                        </c:otherwise>
-                        </c:choose>
-
-
                 </c:forEach>
 
                 <li class="dottedRule"/>

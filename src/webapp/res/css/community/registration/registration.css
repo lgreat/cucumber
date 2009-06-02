@@ -365,7 +365,7 @@ p.privacyBox {
 width:auto;
 }
 
-#outline ul li select.childCities{
+#outline ul li span.citySelectSpan select {
 left:180px;
 width:140px; 
 }
