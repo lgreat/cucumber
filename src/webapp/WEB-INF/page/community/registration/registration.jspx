@@ -2,6 +2,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -165,7 +166,7 @@
                     <gsml:feedbackMessage command="userCmd" field="gender" styleClass="ajaxMessage ajaxError"/>
                 </li>
 
-                <c:set var="loopTimes" value="${userCmd.numStudentRows}"/>
+                <c:set var="loopTimes" value="9"/>
                 <li id="whereLiveLine">
                     <label>State, city</label>
                     <!-- State -->
@@ -204,24 +205,50 @@
 
 
                 <c:forEach var="child" begin="1" end="${loopTimes}">
+                    <form:hidden path="userCmd.studentRows[${child-1}].locationOverride" id="locationOverride_${child}"/>
                     <c:set var="gradeVal" value="${userCmd.studentRows[child-1].gradeSelected}"/>
                     <c:set var="schoolVal" value="${userCmd.studentRows[child-1].schoolIdSelected}"/>
+                    <c:set var="cityVal" value="${userCmd.studentRows[child-1].citySelected}"/>
+                    <c:set var="stateVal" value="${userCmd.state}"/>
                     <c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">
                         <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
                     </c:if>
-                    <li id="childCityRow_${child}" style="display:none">
-                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="stateSelectChild_${child}"
+                    <c:set var="locationOverrideDisplay" value="none"/>
+                    <c:if test="${userCmd.studentRows[child-1].locationOverride eq true}">
+                        <c:set var="locationOverrideDisplay" value="block"/>
+                    </c:if>
+                    <li id="childCityRow_${child}" style="display:${locationOverrideDisplay}">
+                        <gsweb:stateSelector state="${stateVal}" styleId="stateSelectChild_${child}"
                                              onChange="childStateChange(this,${child});" tabIndex="7" styleClass="childStates" 
                                              name="state${child}"/>
-                         <span id="citySelectSpan_${child}" class="citySelectSpan"><select id="citySelectChild_${child}" name="city_${child}" tabindex="8" onchange="gradeChange(${child},'false');"> <option selected="selected" value="">Choose city</option></select></span>
+                         <span id="citySelectSpan_${child}" class="citySelectSpan">
+                             <select id="citySelectChild_${child}" name="city${child}"
+                                     tabindex="8" onchange="gradeChange(${child},false);">
+                                 <c:if test="${empty cityVal}">
+                                     <option selected="selected" value="">- Choose city -</option>
+                                 </c:if>
+                                 <c:forEach var="cityOption" items="${userCmd.studentRows[child-1].cities}">
+                                     <![CDATA[<option ]]>
+                                     <c:if test="${cityVal eq cityOption.name}">
+                                         selected="selected"
+                                     </c:if>
+                                     <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                 </c:forEach>
+                             </select>
+                         </span>
                     </li>
                     <c:set var="childRowDisplay" value="none"/>
-                    <c:if test="${child eq 1}">
+                    <c:if test="${child eq 1 or not empty gradeVal}">
+                        <!-- Always display first child row, and always display children with grades selected -->
                         <c:set var="childRowDisplay" value="block"/>
                     </c:if>
                     <li class="childRow" id="childRow_${child}" style="display:${childRowDisplay};">
                         <label for="school${child}" class="childSchoolLabel">Child's School</label>
-                        <span class="addAnotherChild" id="addAnotherChild_${child}"><a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a></span>
+                        <c:if test="${child lt 10 and empty userCmd.studentRows[child].gradeSelected}">
+                            <span class="addAnotherChild" id="addAnotherChild_${child}">
+                                <a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a>
+                            </span>
+                        </c:if>
                         <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                              styleClass="selectChildGrade" grade="${gradeVal}"
                                              useNoGrade="true" noGradeLabel="- Grade -"
@@ -253,7 +280,11 @@
                                 </spring:bind>
                             </c:if>
                         </spring:hasBindErrors>
-                        <span class="changeChildCity" id="changeChildCity_${child}"><a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a></span>
+                        <c:if test="${userCmd.studentRows[child-1].locationOverride eq false}">
+                            <span class="changeChildCity" id="changeChildCity_${child}">
+                                <a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a>
+                            </span>
+                        </c:if>
                     </li>
                 </c:forEach>
 

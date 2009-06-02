@@ -29,7 +29,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
@@ -107,9 +106,21 @@ public class RegistrationController extends SimpleFormController implements Read
 //        userCommand.addCityName(city);
 //        userCommand.setNumSchoolChildren(1);
 
+    }
+
+    @Override
+    protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
+        UserCommand userCommand = (UserCommand) super.formBackingObject(httpServletRequest);
         // TODO: This block is only for join flows that have a default student row
-        UserCommand.StudentCommand student = new UserCommand.StudentCommand();
-        userCommand.addStudentRow(student);        
+        // note: We have to create the right number of students here so that the databinder will succeed
+        // in binding child properties. Otherwise, it attempts to bind to e.g. userCommand.studentRows[0] and
+        // gets an index out of bounds exception
+        // (Since the page is configured to always submit 9 children, I have to add all 9 here)
+        for (int x=0; x < 9; x++) {
+            UserCommand.StudentCommand student = new UserCommand.StudentCommand();
+            userCommand.addStudentRow(student);
+        }
+        return userCommand;
     }
 
     private void setupChooserRegistration(UserCommand userCommand) {
@@ -161,27 +172,28 @@ public class RegistrationController extends SimpleFormController implements Read
         String sGrade = request.getParameter("grade" + childNum);
         String sSchoolId = request.getParameter("school" + childNum);
 
-        String stateParam = request.getParameter("state" + childNum);
         State state;
-        if (StringUtils.isBlank(stateParam)) {
-            // Default to user's state
-            state = userCommand.getState();
-            System.out.println("parseStudent: Setting state to userCommand.state: " + state);
-        } else {
-            state = _stateManager.getState(stateParam);
-            System.out.println("parseStudent: Setting state to override state: " + state);
-        }
-
-        String cityParam = request.getParameter("city" + childNum);
         String city;
-        if (StringUtils.isBlank(cityParam)) {
-            // Default to user's city
-            city = userCommand.getCity();
-        } else {
-            city = cityParam;
-        }
 
-        UserCommand.StudentCommand student = new UserCommand.StudentCommand();
+        // pull existing student out of command (see formBackingObject)
+        UserCommand.StudentCommand student = userCommand.getStudentRows().get(childNum-1);
+
+        if (!student.isLocationOverride()) {
+            // Default to user's state, city
+            state = userCommand.getState();
+            city = userCommand.getCity();
+            System.out.println("parseStudent: Setting location to userCommand: " + state + ", " + city);
+        } else {
+            // Use child's state, city
+            String stateParam = request.getParameter("state" + childNum);
+            state = _stateManager.getState(stateParam);
+            city = request.getParameter("city" + childNum);
+            System.out.println("parseStudent: Setting location to override: " + state + ", " + city);
+            // if the location is the same as the parent, it is no longer considered an override
+            if (state.equals(userCommand.getState()) && city.equals(userCommand.getCity())) {
+                student.setLocationOverride(false);
+            }
+        }
 
         if (!StringUtils.isEmpty(sGrade)) {
             student.setGradeSelected(Grade.getGradeLevel(sGrade));
@@ -194,6 +206,11 @@ public class RegistrationController extends SimpleFormController implements Read
 
         userCommand.addStudentRow(student);
         loadSchoolList(student, city);
+        // if the student has overriden their location, make sure to populate the view with the list of cities
+        // at that location
+        if (student.isLocationOverride()) {
+            loadCityList(student);
+        }
     }
 
     protected void loadSchoolList(UserCommand.StudentCommand student, String city) {
@@ -210,6 +227,14 @@ public class RegistrationController extends SimpleFormController implements Read
         } else {
             student.setSchools(new ArrayList<School>());
         }
+    }
+
+    protected void loadCityList(UserCommand.StudentCommand student) {
+        List<City> cities = _geoDao.findAllCitiesByState(student.getStateSelected());
+        City city = new City();
+        city.setName("My city is not listed");
+        cities.add(0, city);
+        student.setCities(cities);
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {

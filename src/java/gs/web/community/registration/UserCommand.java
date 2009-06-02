@@ -319,9 +319,11 @@ public class UserCommand implements EmailValidator.IEmail {
         private String _citySelected;
         private List<City> _cities;
         private List<School> _schools;
+        private boolean _locationOverride;
 
         public StudentCommand() {
             _schoolIdSelected = -1;
+            _locationOverride = false;
         }
         
         public int getSchoolIdSelected() {
@@ -372,5 +374,12 @@ public class UserCommand implements EmailValidator.IEmail {
             _schools = schools;
         }
 
+        public boolean isLocationOverride() {
+            return _locationOverride;
+        }
+
+        public void setLocationOverride(boolean locationOverride) {
+            _locationOverride = locationOverride;
+        }
     }
 }

@@ -1,14 +1,3 @@
-var hasChildCityState_1 = false;
-var hasChildCityState_2 = false;
-var hasChildCityState_3 = false;
-var hasChildCityState_4 = false;
-var hasChildCityState_5 = false;
-var hasChildCityState_6 = false;
-var hasChildCityState_7 = false;
-var hasChildCityState_8 = false;
-var hasChildCityState_9 = false;
-
-
 function scrollToError() {
     window.location.href = document.location.pathname + '#error';
 }
@@ -18,7 +7,7 @@ function gradeChange(childNum, isChangeParentCity) {
     if (isChangeParentCity) {
         //when parent city is changed the childnum = looptimes
         for (var i = 1; i <= childNum; i++) {
-            if (!eval('hasChildCityState_' + i)) {
+            if ($('locationOverride_' + i).value != 'true') {
                 var grade = $('grade' + i).value;
                 if (grade == '') {
                     $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
@@ -50,10 +39,10 @@ function gradeChange(childNum, isChangeParentCity) {
         }
         var url = 'registration2Ajax.page';
 
-        var state =  $('userState').value;;
+        var state =  $('userState').value;
         var city = $('citySelect').value;
 
-        if (eval('hasChildCityState_' + childNum)) {
+        if ($('locationOverride_' + childNum).value == 'true') {
             state = $('stateSelectChild_' + childNum).value;
             city = $('citySelectChild_' + childNum).value;
         }
@@ -79,7 +68,7 @@ function parentStateChange(stateSelect, numChildren) {
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
     pars += "&onchange=gradeChange(" + numChildren + ",true);";
     for (var i = 1; i <= numChildren; i++) {
-        if (!eval('hasChildCityState_' + i)) {
+        if ($('locationOverride_' + i).value != 'true') {
             // if child's location is not overridden, clear out his school because parent has changed state
             $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
         }
@@ -99,8 +88,9 @@ function childStateChange(stateSelect, childNum) {
     var url = 'registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
     pars += '&citySelectId=citySelectChild_' + childNum;
+    pars += '&citySelectName=city' + childNum;
     pars += "&onchange=gradeChange(" + childNum + ",false);";
-    $('citySelectSpan_' + childNum).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+    $('citySelectSpan_' + childNum).innerHTML = '<select name="city' + childNum + '" class="selectCity"><option value="">Loading ...</option></select>';
     var myAjax = new Ajax.Updater(
             'citySelectSpan_' + childNum,
             url,
@@ -224,9 +214,9 @@ function changeChildCityAndState(childNum) {
     var cityChildSelectSpan = $('citySelectSpan_' + childNum);
     cityChildSelectSpan.innerHTML = $('city').innerHTML.replace('citySelect', 'citySelectChild_' + childNum);
     $('citySelectChild_' + childNum).className = "childCities";
-    $('citySelectChild_' + childNum).name = "city_" + childNum;
+    $('citySelectChild_' + childNum).name = "city" + childNum;
     $('citySelectChild_' + childNum).onchange = function() {
-        gradeChange(childNum);
+        gradeChange(childNum, false);
     };
 
     $('citySelectChild_' + childNum).value = $('citySelect').value;
@@ -234,7 +224,7 @@ function changeChildCityAndState(childNum) {
     $('childCityRow_' + childNum).style.display = '';
     $('changeChildCity_' + childNum).style.display = 'none';
 
-    eval('hasChildCityState_' + childNum + ' = true;');
+    $('locationOverride_' + childNum).value = true;
 }
 
 function addAnotherChild(childNum) {
