@@ -62,6 +62,8 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
+    // Allows subclasses to skip out on child processing
+    // TODO: Is this really necessary?
     protected boolean hasChildRows() {
         return true;
     }
@@ -98,18 +100,6 @@ public class RegistrationController extends SimpleFormController implements Read
                 userCommand.setLastName(null);
             }
         }
-
-//        State state = userCommand.getUserProfile().getState();
-//        if (state == null) {
-//            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-//       }
-//        String city = userCommand.getUserProfile().getCity();
-//        Student student = new Student();
-//        student.setState(state);
-//        userCommand.addStudent(student);
-//        userCommand.addCityName(city);
-//        userCommand.setNumSchoolChildren(1);
-
     }
 
     @Override
@@ -296,6 +286,7 @@ public class RegistrationController extends SimpleFormController implements Read
         if (isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         UserCommand userCommand = (UserCommand) command;
+        // TODO: Block that grabs user can be extracted to a method
         User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
@@ -329,6 +320,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
         updateUserProfile(user, userCommand, ot);
 
+        // TODO: Body of if could be extracted to a method
         if (hasChildRows()) {
             if (user.getStudents() != null) {
                 user.getStudents().clear();
@@ -366,6 +358,8 @@ public class RegistrationController extends SimpleFormController implements Read
             user.getUserProfile().setNumSchoolChildren(numRealChildren);
         }
 
+        // TODO: These two newsletter blocks should move into the try
+        // TODO: Should be combined with newsletter processing already in try
         if (userCommand.getPartnerNewsletter()) {
             Subscription subscription = new Subscription();
             subscription.setUser(user);

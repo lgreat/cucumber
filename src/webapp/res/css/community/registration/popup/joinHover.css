@@ -1,0 +1,341 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#outline {
+    font-size: small;
+    width: 575px;
+    padding: 0;
+    position: relative;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    color: #444;
+}
+
+#outline ul {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.joinMedallion {
+    position: absolute;
+    top: -25px;
+    left: 550px;
+}
+
+.headerImage {
+    position: relative;
+    top: -1px;
+    float: left;
+    margin-right: 25px;
+}
+
+#bulletsHeader {
+    height: 165px;
+}
+
+#bullets {
+    width: auto;
+    padding: 0 25px;
+}
+
+#outline #bullets li {
+    height: auto;
+    list-style-type: disc;
+    list-style-position: outside;
+}
+
+.strongHeader {
+    font-weight: bolder;
+}
+
+li.dottedRule {
+    left: 120px;
+    width: 250px;
+    border-top: 2px dotted gray;
+    margin: 7px 0 9px 0;
+    height: 0px;
+    padding: 0;
+}
+
+#outline ul li {
+    position: relative;
+    padding: 7px 0 7px 0;
+    height: 20px;
+}
+
+#outline ul li input, #outline ul li select {
+    position: absolute;
+    color: #444;
+    left: 120px;
+    width: 213px;
+}
+
+ul li label {
+    padding: 0;
+    margin: 0;
+    height: 18px;
+    font-weight: bold;
+}
+
+label img {
+    margin-left: 6px;
+    position: relative;
+    top: -1px;
+}
+
+.required {
+    padding-right: 4px;
+}
+
+div.genericError{
+    font-size: 13px;
+    color: #cc5566;
+}
+
+#genderLine select {
+    width: auto;
+}
+
+#genderLine .radio {
+    margin-right: 6px;
+}
+
+input#mom {
+    margin-left: 122px;
+}
+
+#userDisclaimer {
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 26px;
+    left: 120px;
+    width: 210px;
+}
+
+#userDetails {
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 21px;
+    left: 0;
+}
+
+
+#passwordDetails {
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 21px;
+    left: 0;
+}
+
+#stateLabel {
+    position: absolute;
+    left: 158px;
+}
+
+#outline ul li select#userState {
+    width: auto;
+}
+
+#cityLabel {
+    position: absolute;
+    top: 38px;
+    left: 158px;
+}
+
+#outline ul li #city select {
+    width: 140px;
+    left: 180px;
+}
+
+#outline ul li.childRow .selectChildGrade {
+    width: auto;
+}
+
+#outline ul li.childRow .selectChildSchool {
+    width: 140px;
+    left: 210px;
+}
+
+ul li#newsletter label, ul li#partnerNewsletter label, li#terms label {
+    line-height: 15px;
+    font-weight: normal;
+    left: 126px;
+    position: relative;
+}
+
+ul li#newsletter input, ul li#partnerNewsletter input, ul li#terms input {
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    left: 120px;
+    position: relative;
+}
+
+#outline ul li#terms {
+    padding-bottom: 11px;
+}
+
+#terms a {
+    color: #3399aa;
+    text-decoration: none;
+}
+
+input#submitButton {
+    position: relative;
+    left: 120px;
+}
+
+img.errorIcon {
+    position: absolute;
+    top: 10px;
+    left: 380px;
+}
+
+p.warning {
+    color: #cc5566;
+    font-size: 11px;
+    line-height: 12px;
+    position: absolute;
+    top: 10px;
+    left: 399px;
+    width: 350px;
+}
+
+ul li#usernameLine {
+    height: 40px;
+}
+
+#usernameLine p.warning {
+    text-indent: -65px;
+    padding-left: 65px;
+    width: 300px;
+}
+
+#emailLine p.warning {
+    text-indent: -35px;
+    padding-left: 35px;
+}
+
+#genderLine p.warning {
+    width: 175px;
+}
+
+#outline p.warning a {
+    text-decoration: none;
+    color: #3399AA;
+}
+
+#whereLiveLine p.warning {
+    top: 41px;
+}
+
+#whereLiveLine img.errorIcon {
+    top: 41px;
+}
+
+ul li#termsError{
+    height:10px;
+    padding:0px;
+}
+
+
+#termsError .termsWarning {
+    position:absolute;
+    left:120px;
+    background-image:url(/res/img/bullet/icon_warning_12x12.gif);
+    background-repeat: no-repeat;
+    color:#CC5566;
+    background-position:0 3px;
+    font-size:11px;
+    padding-left:22px;
+}
+
+p.requiredFld {
+    color: #8f8f8f;
+    font-size: 11px;
+    position: absolute;
+    bottom: 100px;
+    left: 30px;
+    width: 100px;
+    line-height: 14px;
+}
+
+p.privacyBox a,
+    p.privacyBox a:visited,
+    p.privacyBox a:link,
+    p.privacyBox a:active,
+    p.privacyBox a:hover {
+    text-decoration: none;
+    color: #3399AA;
+}
+
+p.privacyBox {
+    color: #8f8f8f;
+    font-size: 11px;
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    width: 100px;
+    line-height: 14px;
+}
+
+ul li span.ajaxMessage {
+    font-size: 11px;
+    position: absolute;
+    left: 380px;
+    padding-left: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 3px;
+}
+
+ul li span.ajaxError {
+    color: #cc5566;
+    background-image: url( /res/img/bullet/icon_warning_12x12.gif );
+}
+
+ul li span.ajaxSuccess {
+    color: #97c963;
+    background-image: url( /res/img/bullet/icon_checkmark_12x15.gif );
+    height: 18px;
+    width: 20px;
+}
+
+/* start styles for each child */
+
+#reg1Form .changeChildCity a{
+    color: #3399AA;
+    font-size: 10px;
+    position: absolute;
+    top: 13px;
+    left: 400px;
+    text-decoration: underline;
+}
+
+#outline ul li select.childStates{
+    width:auto;
+}
+
+#outline ul li span.citySelectSpan select {
+    left:180px;
+    width:140px;
+}
+
+
+#reg1Form .addAnotherChild a{
+    color: #3399AA;
+    font-size: 10px;
+    position: absolute;
+    top: 21px;
+    left: 0;
+    text-decoration: underline;
+}
+
+/* end styles for each child */

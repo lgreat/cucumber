@@ -1,34 +1,3 @@
-html, body {
-    margin: 0;
-    padding: 0;
-}
-
-#outline {
-    font-size: small;
-    width: 575px;
-    padding: 0;
-}
-
-#outline ul {
-    list-style-type: none;
-    padding-left: 20px;
-    margin-left: 0;
-}
-
-#outline .joinMedallion {
-    top: -25px;
-    left: 550px;
-}
-
-#bulletsHeader {
-    height: 165px;
-}
-
-#outline #bulletsHeader #bullets {
-    width: auto;
-    padding-right: 25px;
-}
-
 #mystat input#mystatField {
     height: 15px;
     left: 120px;

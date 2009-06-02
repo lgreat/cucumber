@@ -6,7 +6,6 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
-import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.community.User;
@@ -21,8 +20,6 @@ import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -120,7 +117,6 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             }
             if (userCommand.isMystat()) {
                 // subscribe to greatnews and mss for the school
-                // greatnews
                 processNewsletterSubscriptions(user, userCommand, ot);
             }
 
@@ -161,7 +157,6 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
 
     @Override
     protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
-        List<Subscription> subs = new ArrayList<Subscription>();
         // greatnews
         Subscription communityNewsletterSubscription = new Subscription();
         communityNewsletterSubscription.setUser(user);

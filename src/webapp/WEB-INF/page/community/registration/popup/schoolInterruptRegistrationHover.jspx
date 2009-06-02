@@ -24,12 +24,15 @@
     ]]>
     <title>Join - GreatSchools</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-    <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
+    <pageHelper:externalCss file="/res/css/community/registration/popup/joinHover.css"/>
     <pageHelper:externalCss file="/res/css/community/registration/popup/schoolInterruptRegistrationHover.css"/>
     <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
 </head>
 
 <gsml:body adPageName="community/schoolInterruptRegistrationHover">
+    <!-- TODO: Add blue top area with Join Greatschools, already member, etc. -->
+
+    <!-- TODO: Copy over child rows (but comment out for now) -->
     <div id="outline">
 
         <gsml:img src="/res/img/community/registration/join_burst_inline.gif"

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author <a href="aroy@greatschools.net">Anthony Roy</a>
+ * This command is shared by many join flows. Not every field is used in every flow.
  */
 public class UserCommand implements EmailValidator.IEmail {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -38,6 +38,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _partnerNewsletter = false;
     private boolean _chooserRegistration = false;
 
+    // following four fields used by SchoolInterruptRegistrationHoverController
     private boolean _mystat = true;
     private String _mystatSchoolName;
     private int _mystatSchoolId;
@@ -46,7 +47,7 @@ public class UserCommand implements EmailValidator.IEmail {
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
-        // TODO: add userprofile to user?
+        _user.setUserProfile(_userProfile);
         
         _studentRows = new ArrayList<StudentCommand>();
         _subscriptions = new ArrayList<Subscription>();
@@ -138,7 +139,7 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setId(String id) {
         try {
-            getUser().setId(new Integer(Integer.parseInt(id)));
+            getUser().setId(Integer.parseInt(id));
         } catch (NumberFormatException _nfe) {
             // ignore - this is an expected case for new users
         }
@@ -421,9 +422,9 @@ public class UserCommand implements EmailValidator.IEmail {
         public String toString() {
             StringBuffer str = new StringBuffer("StudentCommand{");
             if (_locationOverride) {
-                str.append("state: " + _stateSelected + ", city: " + _citySelected + ", ");
+                str.append("state: ").append(_stateSelected).append(", city: ").append(_citySelected).append(", ");
             }
-            str.append("grade: " + _gradeSelected + ", school: " + _schoolIdSelected);
+            str.append("grade: ").append(_gradeSelected).append(", school: ").append(_schoolIdSelected);
             str.append("}");
             
             return str.toString();
