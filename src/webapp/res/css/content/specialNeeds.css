@@ -76,3 +76,10 @@ h2#Managing-Your-Child {
 #contentGS div.question p.answer {
     margin: 0 0 15px 18px;
 }
+
+#provided_by {
+    margin: 10px 0 5px 2px;
+    padding: 20px 58px 20px 58px;
+    border-top: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+}
