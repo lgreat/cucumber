@@ -30,99 +30,79 @@
 </head>
 
 <gsml:body adPageName="community/LDRegistrationHover">
-    <div id="top">
-        <h2>Join GreatSchools</h2>
-        <div class="loginLink">
-            Already a member?
-            <link:loginOrRegister email="${userCmd.user.email}" target="_blank">Sign in</link:loginOrRegister>.
-        </div>
-    </div>
+    <community:joinHoverHeader>
+        <li class="thin">
+            <span class="strongHeader">Find the right school</span>
+            for your child and track how it performs compared to other schools in your state.
+        </li>
+        <li>
+            <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
+            community of 800,000 about your school, your tips for parenting.
+        </li>
+        <li>
+            <span class="strongHeader">Receive weekly emails</span> with fun tips, books and activities
+            to keep track of your child grade-by-grade.
+        </li>
+    </community:joinHoverHeader>
 
-    <div id="outline">
-        <div id="bulletsHeader">
-            <gsml:img src="/res/img/community/registration/join_inline.jpg"
-                      alt="Join" styleClass="headerImage"/>
-            <span style="font-size: 1px;">&amp;nbsp;</span> <!-- Otherwise Firefox adds space above #outline -->
-            <ul id="bullets">
-                <li class="thin">
-                    <span class="strongHeader">Find the right school</span>
-                    for your child and track how it performs compared to other schools in your state.
-                </li>
-                <li>
-                    <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
-                    community of 800,000 about your school, your tips for parenting.
-                </li>
-                <li>
-                    <span class="strongHeader">Receive weekly emails</span> with fun tips, books and activities
-                    to keep track of your child grade-by-grade.
-                </li>
-            </ul>
-        </div>
 
-        <gsml:img src="/res/img/community/registration/join_burst_inline.gif"
-                  alt="Join" styleClass="joinMedallion"/>        
+    <spring:hasBindErrors name="userCmd">
+        <pageHelper:addOnLoadHandler handler="scrollToError();"/>
+    </spring:hasBindErrors>
 
-        <spring:hasBindErrors name="userCmd">
-            <pageHelper:addOnLoadHandler handler="scrollToError();"/>
-        </spring:hasBindErrors>
+    <!-- begin registration form -->
+    <gsweb:form action="/community/registration/popup/LDRegistrationHover.page"
+                method="post" styleClass="registration" id="reg1Form">
+        <ul>
+            <form:hidden path="userCmd.redirectUrl"/>
 
-        <!-- begin registration form -->
-        <gsweb:form action="/community/registration/popup/LDRegistrationHover.page"
-                    method="post" styleClass="registration" id="reg1Form">
-            <ul>
-                <community:joinHoverUserFields userCmd="${userCmd}"/>
-                
-                <c:set var="loopTimes" value="0"/>
-                <li id="whereLiveLine">
-                    <label>State, city</label>
-                    <spring:bind path="userCmd.state">
-                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                             onChange="parentStateChange(this,${loopTimes});" tabIndex="7"/>
-                    </spring:bind>
-                    <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
+            <community:joinHoverUserFields userCmd="${userCmd}"/>
 
-                    <span id="city">
-                        <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},true);">
-                            <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
-                                <option selected="selected" value="">Choose city</option>
+            <c:set var="loopTimes" value="0"/>
+            <li id="whereLiveLine">
+                <label>State, city</label>
+                <spring:bind path="userCmd.state">
+                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                                         onChange="parentStateChange(this,${loopTimes});" tabIndex="7"/>
+                </spring:bind>
+                <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
+
+                <span id="city">
+                    <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},true);">
+                        <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
+                            <option selected="selected" value="">Choose city</option>
+                        </c:if>
+                        <c:forEach var="cityOption" items="${userCmd.cityList}">
+                            <![CDATA[<option ]]>
+                            <c:if test="${userCmd.city eq cityOption.name}">
+                                selected="selected"
                             </c:if>
-                            <c:forEach var="cityOption" items="${userCmd.cityList}">
-                                <![CDATA[<option ]]>
-                                <c:if test="${userCmd.city eq cityOption.name}">
-                                    selected="selected"
-                                </c:if>
-                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                            </c:forEach>
-                        </select>
-                    </span>
-                    <gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>
-                </li>
+                            <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                        </c:forEach>
+                    </select>
+                </span>
+                <gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>
+            </li>
 
-                <community:joinHoverNewsletterFields userCmd="${userCmd}" showLDNewsletter="${true}"/>
+            <community:joinHoverNewsletterFields userCmd="${userCmd}" showLDNewsletter="${true}"/>
 
-            </ul>
+        </ul>
 
-            <!-- TODO: Use "Join now" button instead of this one -->
-            <gsml:inputImage src="/res/img/community/registration/joinbutton.gif" alt="submit"
-                             name="submit" onclick="return doSingleClick(this);" tabIndex="16"
-                             id="submitButton"/>
+        <gsml:inputImage src="/res/img/community/registration/join_button_hover.gif" alt="submit"
+                         name="submit" onclick="return doSingleClick(this);" tabIndex="16"
+                         id="submitButton"/>
 
-            <spring:bind path="userCmd.redirectUrl">
-                <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
-            </spring:bind>
+        <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
 
-            <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
+        <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
+            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                              title="GreatSchools Privacy Policy"
+                              href="/about/privacyStatement.page?state=$STATE"
+                              tabIndex="17">Privacy Policy</gsml:popupWindow>
+        </p>
 
-            <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                  title="GreatSchools Privacy Policy"
-                                  href="/about/privacyStatement.page?state=$STATE"
-                                  tabIndex="17">Privacy Policy</gsml:popupWindow>
-            </p>
+    </gsweb:form>
 
-        </gsweb:form>
-
-    </div>
     <script type="text/javascript">
         $('firstName').focus();
 

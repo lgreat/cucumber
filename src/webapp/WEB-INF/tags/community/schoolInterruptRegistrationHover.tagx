@@ -19,7 +19,7 @@
             schoolInterruptRegistrationDialog = new YAHOO.widget.Dialog("schoolInterruptRegistrationDialog",
             {
                 postmethod: "form",
-                width: "665px",
+                width: "680px",
                 visible: false,
                 draggable: false,
                 modal: true,
@@ -42,7 +42,7 @@
             schoolInterruptRegistrationDialog.show();
 
             try {
-                var dwidth = 665;
+                var dwidth = 680;
                 var dheight = 600;
                 var scrollTop = 0;
                 if (document.all) {
@@ -70,21 +70,38 @@
     </script>
 
     <div id="schoolInterruptRegistrationDialog" class="joinDialog" style="display: none;">
-        <div id="schoolInterruptRegistrationDialogTopBar" class="joinDialogTopBar">
-            <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
-                close <img src="/res/img/submodal/closeblue.gif" alt="Close window"/>
-            </div>
-        </div>
-        <div id="schoolInterruptRegistrationDialogBody" class="joinDialogBody">
-            <iframe id="schoolInterruptRegistrationHoverIFrame" name="schoolInterruptRegistrationHoverIFrame" src=""
-                    width="625" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
-        </div>
+        <table cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="joinDialogTopBorder">
+                    <div id="schoolInterruptRegistrationDialogTopBar" class="joinDialogTopBar">
+                        <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                            close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="joinDialogBody">
+                    <div id="schoolInterruptRegistrationDialogBody">
+                        <iframe id="schoolInterruptRegistrationHoverIFrame"
+                                name="schoolInterruptRegistrationHoverIFrame" src=""
+                                width="640" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="joinDialogBottomBorder">
+                    &amp;nbsp;
+                </td>
+            </tr>
+        </table>
     </div>
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
         loginInterruptHoverInit();
+        showLoginInterruptHover(1, 'CA');
         //-->
         ]]>
     </script>

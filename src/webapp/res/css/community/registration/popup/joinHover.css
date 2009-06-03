@@ -1,7 +1,14 @@
 html, body, #marginGS, #contentGS {
     margin: 0;
     padding: 0;
-    width: 625px;
+    width: 640px;
+}
+
+#contentGS {
+    font-size: small;
+    position: relative;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    color: #444;
 }
 
 #top {
@@ -9,6 +16,7 @@ html, body, #marginGS, #contentGS {
     height: 30px;
     padding: 2px 0 0 0;
     margin: 0;
+    position: relative;
 }
 
 #top h2 {
@@ -29,28 +37,20 @@ html, body, #marginGS, #contentGS {
     color: white;
 }
 
-#outline {
-    font-size: small;
-    width: 625px;
-    padding: 0;
-    position: relative;
-    font-family: Trebuchet MS, Arial, sans-serif;
-    color: #444;
-}
-
-#outline ul {
+#contentGS ul {
     list-style-type: none;
-    padding: 0 0 0 20px;
+    padding: 15px 0 0 20px;
     margin: 0;
 }
 
-#outline form ul {
+#contentGS form ul {
     margin-top: 15px;
+    padding-top: 0;
 }
 
 .joinMedallion {
     position: absolute;
-    top: -25px;
+    bottom: -60px;
     left: 540px;
 }
 
@@ -62,7 +62,7 @@ html, body, #marginGS, #contentGS {
 }
 
 #bulletsHeader {
-    height: 165px;
+    height: 142px;
 }
 
 #bullets {
@@ -71,11 +71,11 @@ html, body, #marginGS, #contentGS {
     margin: 0;
 }
 
-#outline #bullets li.thin {
+#contentGS #bullets li.thin {
     padding-right: 80px;
 }
 
-#outline #bullets li {
+#contentGS #bullets li {
     height: auto;
     list-style-type: disc;
     list-style-position: outside;
@@ -95,13 +95,13 @@ li.dottedRule {
     padding: 0;
 }
 
-#outline ul li {
+#contentGS ul li {
     position: relative;
     padding: 5px 0 7px 0;
     height: 24px;
 }
 
-#outline ul li input, #outline ul li select {
+#contentGS ul li input, #contentGS ul li select {
     position: absolute;
     color: #444;
     left: 120px;
@@ -176,7 +176,7 @@ input#mom {
     left: 158px;
 }
 
-#outline ul li select#userState {
+#contentGS ul li select#userState {
     width: auto;
 }
 
@@ -186,16 +186,16 @@ input#mom {
     left: 158px;
 }
 
-#outline ul li #city select {
+#contentGS ul li #city select {
     width: 140px;
     left: 180px;
 }
 
-#outline ul li.childRow .selectChildGrade {
+#contentGS ul li.childRow .selectChildGrade {
     width: auto;
 }
 
-#outline ul li.childRow .selectChildSchool {
+#contentGS ul li.childRow .selectChildSchool {
     width: 140px;
     left: 210px;
 }
@@ -215,7 +215,7 @@ ul li#newsletter input, ul li#ldNewsletter input, ul li#partnerNewsletter input,
     position: relative;
 }
 
-#outline ul li#terms {
+#contentGS ul li#terms {
     padding-bottom: 11px;
 }
 
@@ -264,7 +264,7 @@ ul li#usernameLine {
     width: 175px;
 }
 
-#outline p.warning a {
+#contentGS p.warning a {
     text-decoration: none;
     color: #3399AA;
 }
@@ -366,11 +366,11 @@ ul li span.ajaxSuccess {
     text-decoration: underline;
 }
 
-#outline ul li select.childStates{
+#contentGS ul li select.childStates{
     width:auto;
 }
 
-#outline ul li span.citySelectSpan select {
+#contentGS ul li span.citySelectSpan select {
     left:180px;
     width:140px;
 }

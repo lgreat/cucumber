@@ -109,69 +109,48 @@ PLEASE NOTE:
 
 .hide-scrollbars,
 .hide-scrollbars * {
-
     overflow: hidden;
-
 }
 
 .hide-scrollbars select {
-
     display: none;
-
 }
 
 .show-scrollbars {
-
     overflow: auto;
-
 }
 
 .yui-panel-container.show-scrollbars {
-
     overflow: visible;
-
 }
 
 .yui-panel-container.show-scrollbars .underlay {
-
     overflow: auto;
-
 }
-
-.yui-panel-container.focused {
-
-}
-
 
 /* Panel underlay styles */
 
 .yui-panel-container .underlay {
-
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-
 }
 
 .yui-panel-container.matte {
-
     padding: 3px;
     background-color: #fff;
-
 }
 
 .yui-panel-container.shadow .underlay {
-
-    top: 3px;
+    top: 6px;
     bottom: -3px;
     right: -3px;
-    left: 3px;
+    left: 6px;
     background-color: #000;
     opacity: .12;
-    filter: alpha(opacity=12);  /* For IE */
-
+    filter: alpha(opacity=12);   For IE
 }
 
 /*
@@ -298,8 +277,19 @@ PLEASE NOTE:
     position: relative;
 }
 
+.joinDialogTopBorder {
+    background: url('/res/img/submodal/joinpopup_top.gif') no-repeat;
+    height: 26px;
+    font-size: 1px;
+}
+
+.joinDialogBottomBorder {
+    background: url('/res/img/submodal/joinpopup_bottom.gif') no-repeat;
+    height: 20px;
+    font-size: 1px;
+}
+
 .joinDialogTopBar {
-    background-color: #42BCCE;
     height: 26px;
     position: relative;
 }
@@ -319,6 +309,6 @@ PLEASE NOTE:
 }
 
 .joinDialogBody {
-    border: 20px solid #42BCCE;
-    border-top: 0;
+    background-image: url('/res/img/submodal/joinpopup_middle.gif');
+    padding-left: 20px;
 }
