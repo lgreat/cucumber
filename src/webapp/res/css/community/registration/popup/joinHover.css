@@ -1,6 +1,7 @@
-html, body {
+html, body, #marginGS, #contentGS {
     margin: 0;
     padding: 0;
+    width: 625px;
 }
 
 #top {
@@ -39,14 +40,18 @@ html, body {
 
 #outline ul {
     list-style-type: none;
-    padding-left: 20px;
-    margin-left: 0;
+    padding: 0 0 0 20px;
+    margin: 0;
+}
+
+#outline form ul {
+    margin-top: 15px;
 }
 
 .joinMedallion {
     position: absolute;
     top: -25px;
-    left: 550px;
+    left: 540px;
 }
 
 .headerImage {
@@ -66,14 +71,15 @@ html, body {
     margin: 0;
 }
 
-#bullets li.thin {
-    padding-right: 75px;
+#outline #bullets li.thin {
+    padding-right: 80px;
 }
 
 #outline #bullets li {
     height: auto;
     list-style-type: disc;
     list-style-position: outside;
+    padding-right: 10px;
 }
 
 .strongHeader {
@@ -91,8 +97,8 @@ li.dottedRule {
 
 #outline ul li {
     position: relative;
-    padding: 7px 0 7px 0;
-    height: 20px;
+    padding: 5px 0 7px 0;
+    height: 24px;
 }
 
 #outline ul li input, #outline ul li select {
@@ -296,6 +302,7 @@ p.requiredFld {
     left: 30px;
     width: 100px;
     line-height: 14px;
+    margin: 0;
 }
 
 p.privacyBox a,
@@ -315,12 +322,21 @@ p.privacyBox {
     left: 30px;
     width: 100px;
     line-height: 14px;
+    margin: 0;
+}
+
+html* p.requiredFld, * html p.requiredFld {
+    bottom: 120px;
+}
+
+html* p.privacyBox, * html p.privacyBox {
+    bottom: 40px;
 }
 
 ul li span.ajaxMessage {
     font-size: 11px;
     position: absolute;
-    left: 380px;
+    left: 350px;
     padding-left: 15px;
     background-repeat: no-repeat;
     background-position: 0 3px;
@@ -329,6 +345,7 @@ ul li span.ajaxMessage {
 ul li span.ajaxError {
     color: #cc5566;
     background-image: url( /res/img/bullet/icon_warning_12x12.gif );
+    white-space: normal;
 }
 
 ul li span.ajaxSuccess {

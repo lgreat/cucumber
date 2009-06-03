@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <pageHelper:externalCss file="/res/css/community/registration/popup/joinHoverContainer.css"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
+
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+        var schoolInterruptRegistrationDialog;
+        function loginInterruptHoverInit() {
+            schoolInterruptRegistrationDialog = new YAHOO.widget.Dialog("schoolInterruptRegistrationDialog",
+            {
+                postmethod: "form",
+                width: "665px",
+                visible: false,
+                draggable: false,
+                modal: true,
+                close: false,
+                zIndex: 9999999
+            });
+            schoolInterruptRegistrationDialog.render();
+        }
+
+        function showLoginInterruptHover(schoolId, schoolState) {
+            var frameLocation = '' + window.frames['schoolInterruptRegistrationHoverIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/schoolInterruptRegistrationHover.page') == -1) {
+                window.frames['schoolInterruptRegistrationHoverIFrame'].window.location =
+                    '/community/registration/popup/schoolInterruptRegistrationHover.page' +
+                    '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;
+            }
+
+            document.getElementById("schoolInterruptRegistrationDialog").style.display="block";
+
+            schoolInterruptRegistrationDialog.show();
+
+            try {
+                var dwidth = 665;
+                var dheight = 600;
+                var scrollTop = 0;
+                if (document.all) {
+                    var iebody=(document.compatMode && document.compatMode != "BackCompat")?
+                                document.documentElement : document.body
+                    scrollTop = iebody.scrollTop;
+                } else {
+                    scrollTop = window.pageYOffset;
+                }
+                var x = Math.round((YAHOO.util.Dom.getViewportWidth()-dwidth)/2);
+                x = (x < 0)?0:x;
+                var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
+                y = (y < scrollTop)?scrollTop:y;
+                schoolInterruptRegistrationDialog.moveTo(x,y);
+            } catch (e) {}
+
+            return false;
+        }
+
+        function closeLoginInterruptHover() {
+            schoolInterruptRegistrationDialog.cancel();
+        }
+        //-->
+        ]]>
+    </script>
+
+    <div id="schoolInterruptRegistrationDialog" class="joinDialog" style="display: none;">
+        <div id="schoolInterruptRegistrationDialogTopBar" class="joinDialogTopBar">
+            <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                close <img src="/res/img/submodal/closeblue.gif" alt="Close window"/>
+            </div>
+        </div>
+        <div id="schoolInterruptRegistrationDialogBody" class="joinDialogBody">
+            <iframe id="schoolInterruptRegistrationHoverIFrame" name="schoolInterruptRegistrationHoverIFrame" src=""
+                    width="625" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+        </div>
+    </div>
+
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+        loginInterruptHoverInit();
+        //-->
+        ]]>
+    </script>
+
+    <!--
+     Login hover is now ready for use on your page
+     To use, attach an onclick handler to an a href like this:
+     <a href="/community/loginOrRegister.page"
+        onclick="return showLoginInterruptHover()">Sign in</a>
+    -->
+
+</jsp:root>

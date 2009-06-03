@@ -8,29 +8,33 @@
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Test Hover - GreatSchools</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/community/registration/popup/mssFlowHover.css"><!-- foo --></link>
-    <link rel="stylesheet" type="text/css" href="/res/css/school/compareHover-container.css"><!-- foo --></link>
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"><!-- foo --></script>
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"><!-- foo --></script>
     <script type="text/javascript">
+        var destUrl = '';
         function sendToDestination() {
-            closeMslFlowDialog();
+            closeLoginInterruptHover();
+            if (destUrl != '') {
+                window.location = destUrl;
+                destUrl = '';
+            }
+        }
+
+        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
+            destUrl = destination;
+            return showLoginInterruptHover(schoolId, schoolState);
         }
     </script>
 </head>
 <body>
 
-    <community:mslLoginHover/>
-    <a href="#" onclick="return showLoginHover();">Click here for hover</a>
-
-    <ad:setSlotPrefix slotPrefix="Hover_Test"/>
-    <div id="droy_ad1">
-        <ad:AboveFold_300x250/>
-    </div>
+    <community:schoolInterruptRegistrationHover/>
+    <a href="/community/loginOrRegister.page"
+       onclick="return prepAndShowLoginInterruptHover(this.href, 1, 'CA');">
+        Click here for school interrupt hover
+    </a>
 
 </body>
 </html>

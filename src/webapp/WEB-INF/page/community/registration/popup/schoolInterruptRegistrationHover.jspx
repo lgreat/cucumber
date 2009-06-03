@@ -35,7 +35,7 @@
         <h2>Join GreatSchools</h2>
         <div class="loginLink">
             Already a member?
-            <link:loginOrRegister email="${userCmd.user.email}">Sign in</link:loginOrRegister>.
+            <link:loginOrRegister email="${userCmd.user.email}" target="_blank">Sign in</link:loginOrRegister>.
         </div>
     </div>
 
