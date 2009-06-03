@@ -275,7 +275,7 @@
                     <label for="newsletterField">Send me weekly updates about my child's school.</label>
                 </li>
 
-                <li id="newletters">
+                <li id="freeNewsletters">
                     <h2>Free Newsletters from Greatschools</h2>
                     <div id="newsletterCol1">
                         <div class="newletterNoDivider">

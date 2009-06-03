@@ -152,9 +152,6 @@ p.requiredFld {
     margin-right: 6px;
 }
 
-#outline ul li input#mom {
-    margin-left: 122px;
-}
 
 #stateLabel {
     position: absolute;
@@ -209,12 +206,22 @@ p.requiredFld {
     font-size:13px;
 }
 
-#outline ul li#newsletter input, #outline ul li#partnerNewsletter input {
+#outline ul li#newsletter input{
     width: 15px;
     height: 15px;
     top: 3px;
     left: 120px;
     position: relative;
+}
+
+* html #outline ul li#newsletter input {
+    position:relative;
+    top:-1px;
+}
+
+* + html #outline ul li#newsletter input {
+    position:relative;
+    top:-1px;
 }
 
 
@@ -333,7 +340,7 @@ width:140px;
 /* end styles for each child */
 
 /* start the bottom newsletter subscriptions */
-#outline ul li#newletters{
+#outline ul li#freeNewsletters{
     margin-top:14px;
     padding-top:14px;
     border-top: solid 1px #cccccc;
@@ -342,7 +349,7 @@ width:140px;
     height:auto;
 }
 
-#newletters h3{
+#freeNewsletters h3{
      color: #55BBCC;
     font-size:13px;
     font-weight:bold;
@@ -373,35 +380,51 @@ width:140px;
     left:500;
 }
 
-#newletters .weeklyUpdates{
+#freeNewsletters .weeklyUpdates{
     margin-left:91px;
 }
 
-#newletters .learningDisablities{
+#freeNewsletters .learningDisablities{
     margin-left:91px;
 }
 
-#newletters .brainDrain{
+#freeNewsletters .brainDrain{
     margin-left:91px;
     height:100px;
 }
 
-#newletters .valuableOffers{
+#freeNewsletters .valuableOffers{
     margin-left:91px;
 }
 
-#newletters .newsletterText{
+#freeNewsletters .newsletterText{
      margin-top:15px;
 }
 
-#outline ul li#newletters input{
+#outline ul li#freeNewsletters input{
     width:0px;
-    position:static;
+    position:relative;
     margin-top:15px;
     margin-right:8px;
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    left:0px;
+    position: relative;
 }
 
-#outline ul li#newletters label{
+
+* html #outline ul li#freeNewsletters input {
+    position:relative;
+    top:-1px;
+}
+
+* + html #outline ul li#freeNewsletters input {
+    position:relative;
+    top:-1px;
+}
+
+#outline ul li#freeNewsletters label{
      font-weight: normal;
      line-height: 15px;
      font-size:13px;
@@ -427,7 +450,6 @@ width:140px;
 
 
 /* start terms and privcy and join button*/
-
 
 #terms a {
     color: #3399aa;
@@ -469,6 +491,16 @@ width:140px;
     top: 3px;
     left:0px;
     position: relative;
+}
+
+* html #outline ul li#terms input {
+    position:relative;
+    top:-1px;
+}
+
+* + html #outline ul li#terms input {
+    position:relative;
+    top:-1px;
 }
 
 p.privacyBox a,
