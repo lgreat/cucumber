@@ -32,16 +32,13 @@
 <gsml:body adPageName="community/LDRegistrationHover">
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="strongHeader">Find the right school</span>
-            for your child and track how it performs compared to other schools in your state.
+            <span class="strongHeader">Receive our monthly email</span>
+            with support, strategies and resources for your child with a learning disability, difficulty or
+            attention problem.
         </li>
         <li>
             <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
             community of 800,000 about your school, your tips for parenting.
-        </li>
-        <li>
-            <span class="strongHeader">Receive weekly emails</span> with fun tips, books and activities
-            to keep track of your child grade-by-grade.
         </li>
     </community:joinHoverHeader>
 
