@@ -32,13 +32,15 @@
 <gsml:body adPageName="community/LDRegistrationHover">
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="strongHeader">Receive our monthly email</span>
-            with support, strategies and resources for your child with a learning disability, difficulty or
-            attention problem.
+            <span class="strongHeader">Get the resources you need</span> to support your child with a learning
+            disability or an attention problem.
         </li>
         <li>
-            <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
-            community of 800,000 about your school, your tips for parenting.
+            <span class="strongHeader">Find the right school</span> for your child and track its stats - from
+            test scores to teacher quality.
+        </li>
+        <li>
+            <span class="strongHeader">Share stories</span> about your child's success in and out of the classroom.
         </li>
     </community:joinHoverHeader>
 
