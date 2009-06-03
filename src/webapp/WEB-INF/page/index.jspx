@@ -169,7 +169,7 @@
 
                     if (MM_FlashCanPlay) {
                         // c.swf does flash detection
-                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/gs_hm_090430.swf';
+                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/gs_hm_090604.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
