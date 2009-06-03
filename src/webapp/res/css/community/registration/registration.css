@@ -13,7 +13,6 @@
 
 #bulletsHeader{
     width:800px;
-    height:150px;
 }
 
 #outline h2 {
@@ -45,14 +44,13 @@
 #outline .headerImage {
     position: absolute;
     top:-8px;
-    left:511px;
+    left:505px;
 }
 
 #bullets {
     width: 400px;
     position: relative;
     left: 20px;
-    float:left;
     margin-top:4px;
 }
 
@@ -85,7 +83,7 @@ p.requiredFld {
     font-style: italic;
     color: #999999;
     position: absolute;
-    top: 21px;
+    top: 23px;
     left: 0;
 }
 
@@ -95,7 +93,7 @@ p.requiredFld {
     font-style: italic;
     color: #8f8f8f;
     position: absolute;
-    top: 21px;
+    top: 23px;
     left: 0;
 }
 
@@ -105,21 +103,21 @@ p.requiredFld {
     font-style: italic;
     color: #666666;
     position: absolute;
-    top: 26px;
-    left: 120px;
+    top: 30px;
+    left: 135px;
     width: 210px;
 }
 
 #outline ul li {
     position: relative;
-    padding: 7px 0 7px 0;
     height: 20px;
+    padding:9px 0 3px 0;
 }
 
 #outline ul li input, #outline ul li select {
     position: absolute;
     color: #444;
-    left: 120px;
+    left: 135px;
     width: 213px;
 }
 
@@ -175,12 +173,9 @@ p.requiredFld {
 
 #outline ul li #city select {
     width: 140px;
-    left: 180px;
+    left: 195px;
 }
 
-#outline ul li.childRow {
-
-}
 
 #outline ul li.childRow .selectChildGrade {
     width: auto;
@@ -188,7 +183,7 @@ p.requiredFld {
 
 #outline ul li.childRow .selectChildSchool {
     width: 140px;
-    left: 210px;
+    left: 225px;
 }
 
 #outline li#numChildren {
@@ -253,7 +248,7 @@ p.warning {
 }
 
 #outline ul li#usernameLine {
-    height: 40px;
+    height: 50px;
 }
 
 #usernameLine p.warning {
@@ -321,7 +316,7 @@ width:auto;
 }
 
 #outline ul li span.citySelectSpan select {
-left:180px;
+left:195px;
 width:140px; 
 }
 
@@ -342,8 +337,9 @@ width:140px;
     margin-top:14px;
     padding-top:14px;
     border-top: solid 1px #cccccc;
+    padding-bottom:20px;
     position:relative;
-    height:320px;
+    height:auto;
 }
 
 #newletters h3{
