@@ -88,8 +88,9 @@ public class RegistrationHoverController extends RegistrationController implemen
 
             // subscribe to newsletters
             if (userCommand.getNewsletter()) {
-                processNewsletterSubscriptions(user, userCommand, ot);
+                processNewsletterSubscriptions(userCommand);
             }
+            saveSubscriptionsForUser(userCommand, ot);
             ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
         } catch (Exception e) {
             // if there is any sort of error prior to notifying community,

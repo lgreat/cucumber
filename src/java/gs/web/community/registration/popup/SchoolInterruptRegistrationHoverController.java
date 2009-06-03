@@ -117,10 +117,10 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             }
             if (userCommand.isMystat()) {
                 // subscribe to greatnews and mss for the school
-                processNewsletterSubscriptions(user, userCommand, ot);
+                processNewsletterSubscriptions(userCommand);
             }
 
-            saveSubscriptionsForUser(userCommand, user, request, response);
+            saveSubscriptionsForUser(userCommand, ot);
         } catch (Exception e) {
             // if there is any sort of error prior to notifying community,
             // the user MUST BE ROLLED BACK to provisional status
@@ -156,7 +156,9 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
     }
 
     @Override
-    protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
+    protected void processNewsletterSubscriptions(UserCommand userCommand) {
+        User user = userCommand.getUser();
+        
         // greatnews
         Subscription communityNewsletterSubscription = new Subscription();
         communityNewsletterSubscription.setUser(user);

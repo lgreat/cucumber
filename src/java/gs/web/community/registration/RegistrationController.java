@@ -39,6 +39,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
+ * @author <a href="mailto:droy@urbanasoft.com">Dave Roy</a>
  */
 public class RegistrationController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration.page";
@@ -286,31 +287,9 @@ public class RegistrationController extends SimpleFormController implements Read
         if (isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         UserCommand userCommand = (UserCommand) command;
-        // TODO: Block that grabs user can be extracted to a method
-        User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
-        ModelAndView mAndV = new ModelAndView();
-        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-        boolean userExists = false;
 
-        if (user != null) {
-            userExists = true;
-            // update the user's name if they specified a new one
-            if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
-                user.setFirstName(userCommand.getFirstName());
-            }
-            if (StringUtils.isNotEmpty(userCommand.getLastName())) {
-                user.setLastName(userCommand.getLastName());
-            }
-            String gender = userCommand.getGender();
-            if (StringUtils.isNotEmpty(gender)) {
-                user.setGender(userCommand.getGender());
-            }
-            userCommand.setUser(user);
-        } else {
-            // only create the user if the user is new
-            _userDao.saveUser(userCommand.getUser());
-            user = userCommand.getUser();
-        }
+        boolean userExists = updateCommandUser(userCommand);
+        User user = userCommand.getUser();
 
         setUsersPassword(user, userCommand, userExists);
 
@@ -318,57 +297,12 @@ public class RegistrationController extends SimpleFormController implements Read
             sendValidationEmail(user, userCommand, userExists, request);
         }
 
+        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         updateUserProfile(user, userCommand, ot);
 
-        // TODO: Body of if could be extracted to a method
         if (hasChildRows()) {
-            if (user.getStudents() != null) {
-                user.getStudents().clear();
-            }
-
-            int numRealChildren = 0;
-            System.out.println("onSubmit: getStudentRows.size(): " + userCommand.getStudentRows().size());
-            if (userCommand.getStudentRows().size() > 0) {
-                for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
-                    Grade grade = student.getGradeSelected();
-                    if (grade != null) {
-                        Student newStudent = new Student();
-                        numRealChildren++;
-                        newStudent.setOrder(numRealChildren);
-                        newStudent.setGrade(grade);
-
-                        int schoolId = student.getSchoolIdSelected();
-                        if (schoolId == -1) {
-                            newStudent.setSchoolId(null);
-                        } else {
-                            newStudent.setSchoolId(schoolId);
-                        }
-
-                        State state = student.getStateSelected();
-                        if (state != null) {
-                            newStudent.setState(state);
-                        } else {
-                            newStudent.setState(userCommand.getState());
-                        }
-
-                        user.addStudent(newStudent);
-                    }
-                }
-            }
-            user.getUserProfile().setNumSchoolChildren(numRealChildren);
+            persistChildren(userCommand);
         }
-
-        // TODO: These two newsletter blocks should move into the try
-        // TODO: Should be combined with newsletter processing already in try
-        if (userCommand.getPartnerNewsletter()) {
-            Subscription subscription = new Subscription();
-            subscription.setUser(user);
-            subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-            subscription.setState(userCommand.getUserProfile().getState());
-            userCommand.addSubscription(subscription);
-        }
-
-        saveSubscriptionsForUser(userCommand, user, request, response);
 
         if (user.isEmailProvisional()) {
             user.setEmailValidated();
@@ -381,6 +315,7 @@ public class RegistrationController extends SimpleFormController implements Read
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
+        ModelAndView mAndV = new ModelAndView();
         try {
             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
             // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
@@ -390,8 +325,18 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             // complete registration
             if (userCommand.getNewsletter()) {
-                processNewsletterSubscriptions(user, userCommand, ot);
+                processNewsletterSubscriptions(userCommand);
             }
+
+            if (userCommand.getPartnerNewsletter()) {
+                Subscription subscription = new Subscription();
+                subscription.setUser(user);
+                subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
+                subscription.setState(userCommand.getUserProfile().getState());
+                userCommand.addSubscription(subscription);
+            }
+
+            saveSubscriptionsForUser(userCommand, ot);
         } catch (Exception e) {
             // if there is any sort of error prior to notifying community,
             // the user MUST BE ROLLED BACK to provisional status
@@ -424,6 +369,79 @@ public class RegistrationController extends SimpleFormController implements Read
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
 
         return mAndV;
+    }
+
+    /**
+     * Update the userCommand object's User object with the existing user from the database, if necessary.
+     * @param userCommand Command object to place the pre-existing user object into
+     * @return True if the user already existsed.
+     */
+    protected boolean updateCommandUser(UserCommand userCommand) {
+        User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
+        boolean userExists = false;
+
+        if (user != null) {
+            userExists = true;
+            // update the user's name if they specified a new one
+            if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
+                user.setFirstName(userCommand.getFirstName());
+            }
+            if (StringUtils.isNotEmpty(userCommand.getLastName())) {
+                user.setLastName(userCommand.getLastName());
+            }
+            String gender = userCommand.getGender();
+            if (StringUtils.isNotEmpty(gender)) {
+                user.setGender(userCommand.getGender());
+            }
+            userCommand.setUser(user);
+        } else {
+            // only create the user if the user is new
+            _userDao.saveUser(userCommand.getUser());
+        }
+
+        return userExists;
+    }
+
+    /**
+     * Update the user object with the children submitted
+     * @param userCommand Commmand object with the User object and the list of children submitted.
+     */
+    protected void persistChildren(UserCommand userCommand) {
+        User user = userCommand.getUser();
+        
+        if (user.getStudents() != null) {
+            user.getStudents().clear();
+        }
+
+        int numRealChildren = 0;
+        if (userCommand.getStudentRows().size() > 0) {
+            for (UserCommand.StudentCommand student: userCommand.getStudentRows()) {
+                Grade grade = student.getGradeSelected();
+                if (grade != null) {
+                    Student newStudent = new Student();
+                    numRealChildren++;
+                    newStudent.setOrder(numRealChildren);
+                    newStudent.setGrade(grade);
+
+                    int schoolId = student.getSchoolIdSelected();
+                    if (schoolId == -1) {
+                        newStudent.setSchoolId(null);
+                    } else {
+                        newStudent.setSchoolId(schoolId);
+                    }
+
+                    State state = student.getStateSelected();
+                    if (state != null) {
+                        newStudent.setState(state);
+                    } else {
+                        newStudent.setState(userCommand.getState());
+                    }
+
+                    user.addStudent(newStudent);
+                }
+            }
+        }
+        user.getUserProfile().setNumSchoolChildren(numRealChildren);
     }
 
     protected void sendConfirmationEmail(User user, UserCommand userCommand, HttpServletRequest request) {
@@ -464,25 +482,37 @@ public class RegistrationController extends SimpleFormController implements Read
 //        }
 //    }
 
-    protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
-        List<Subscription> subs = new ArrayList<Subscription>();
+    /**
+     * Add a Subscription object to the userCommand for Parent Advisor (aka greatnews)
+     * @param userCommand Command object that holds the user to subscribe and the list of subscriptions
+     */
+    protected void processNewsletterSubscriptions(UserCommand userCommand) {
         Subscription communityNewsletterSubscription = new Subscription();
-        communityNewsletterSubscription.setUser(user);
+        communityNewsletterSubscription.setUser(userCommand.getUser());
         communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
         // When a user registers through a hover then the state and city field are null for that user
         //instead we use schoolChoiceState and schoolChoiceCity fields.Therefore the if and else block below. Jira - 7915 and 7968(Parent Advisor Newsletter)
         if(userCommand.getState() != null){
             communityNewsletterSubscription.setState(userCommand.getState());
-        }
-        else if(userCommand.getSchoolChoiceState() != null)
-        {
+        } else if(userCommand.getSchoolChoiceState() != null) {
             communityNewsletterSubscription.setState(userCommand.getSchoolChoiceState());
         }
 
-        subs.add(communityNewsletterSubscription);
+        userCommand.addSubscription(communityNewsletterSubscription);
+    }
 
-        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
-        _subscriptionDao.addNewsletterSubscriptions(user, subs);
+    /**
+     * Save any subscriptions stored in the userCommand.  They will be registered to the user in the userCommand.
+     * @param userCommand Command object that has the list of subscriptions
+     * @param ot OmnitureTracking object for omniture update
+     */
+    protected void saveSubscriptionsForUser(UserCommand userCommand, OmnitureTracking ot) {
+        List<Subscription> newsSubs = userCommand.getSubscriptions();
+        if (newsSubs.size() > 0) {
+            User user = userCommand.getUser();
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
+            _subscriptionDao.addNewsletterSubscriptions(user, newsSubs);
+        }
     }
 
     protected UserProfile updateUserProfile(User user, UserCommand userCommand, OmnitureTracking ot) {
@@ -491,7 +521,6 @@ public class RegistrationController extends SimpleFormController implements Read
             // hack to get provisional accounts working in least amount of development time
             // note: this code is not reached during Chooser Registration
             userProfile = user.getUserProfile();
-            //userProfile.setNumSchoolChildren(userCommand.getNumSchoolChildren());
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setCity(userCommand.getCity());
             userProfile.setState(userCommand.getState());
@@ -509,9 +538,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
         user.getUserProfile().setUpdated(new Date());
-        //if (userProfile.getNumSchoolChildren() == null || userProfile.getNumSchoolChildren() < 0) {
-        //    userProfile.setNumSchoolChildren(0);
-        //}
+
         return userProfile;
     }
 
@@ -587,25 +614,6 @@ public class RegistrationController extends SimpleFormController implements Read
                     "/soap/user");
         }
         soapRequest.createOrUpdateUserRequest(bean);
-    }
-
-    protected void saveSubscriptionsForUser(UserCommand userCommand, User user, HttpServletRequest request, HttpServletResponse response) {
-        List<Subscription> newsSubs = new ArrayList<Subscription>();
-        System.out.println ("Subscription count: " + userCommand.getSubscriptions().size());
-        for (Subscription sub: userCommand.getSubscriptions()) {
-            sub.setUser(user);
-            //if (sub.getProduct().isNewsletter()) {
-                newsSubs.add(sub);
-            //} else {
-            //    System.out.println ("Sub addeed");
-            //    _subscriptionDao.saveSubscription(sub);
-            //}
-        }
-        if (!newsSubs.isEmpty()) {
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
-            _subscriptionDao.addNewsletterSubscriptions(user, newsSubs);
-            System.out.println ("Newsub added");
-        }
     }
 
     public IUserDao getUserDao() {
