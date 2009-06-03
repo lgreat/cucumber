@@ -37,9 +37,9 @@
 
 #outline .joinMedallion {
     position: absolute;
-    top: 180px;
+    top: 170px;
     z-index:3;
-    left: 455px;
+    left: 465px;
 }
 
 #outline .headerImage {
@@ -76,6 +76,9 @@ p.requiredFld {
     font-size: 11px;
     line-height: 14px;
 }
+#reg1Form{
+    margin-left:5px;
+}
 
 #userDetails {
     font-size: 11px;
@@ -100,14 +103,12 @@ p.requiredFld {
 #userDisclaimer {
     font-size: 11px;
     font-style: italic;
-    color: #8f8f8f;
+    color: #666666;
     position: absolute;
     top: 26px;
     left: 120px;
     width: 210px;
 }
-
-
 
 #outline ul li {
     position: relative;
@@ -127,6 +128,7 @@ p.requiredFld {
     margin: 0;
     height: 18px;
     font-weight: bold;
+    font-size:14px;
 }
 
 #outline label img {
@@ -154,15 +156,6 @@ p.requiredFld {
 
 #outline ul li input#mom {
     margin-left: 122px;
-}
-
-
-
-
-
-
-
-#outline #whereLiveLine {
 }
 
 #stateLabel {
@@ -213,11 +206,12 @@ p.requiredFld {
     top: 10px;
 }
 
-#outline ul li#newsletter label, #outline ul li#partnerNewsletter label {
+#outline ul li#newsletter label{
     line-height: 15px;
     font-weight: normal;
     left: 126px;
     position: relative;
+    font-size:13px;
 }
 
 #outline ul li#newsletter input, #outline ul li#partnerNewsletter input {
@@ -345,16 +339,17 @@ width:140px;
 
 /* start the bottom newsletter subscriptions */
 #outline ul li#newletters{
-    margin-top:20px;
-    padding-top:20px;
+    margin-top:14px;
+    padding-top:14px;
     border-top: solid 1px #cccccc;
     position:relative;
-    height:350px;
+    height:320px;
 }
 
 #newletters h3{
      color: #55BBCC;
     font-size:13px;
+    font-weight:bold;
 }
 
 #newsletterCol1{
@@ -368,7 +363,6 @@ width:140px;
 
 .LearningDisabilitiesImage{
     position:absolute;
-    top:45;
     left:0;
 }
 
@@ -379,33 +373,25 @@ width:140px;
 
 .valuableOffersImage{
     position:absolute;
-    top:45;
+    top:150px;
     left:500;
 }
 
 #newletters .weeklyUpdates{
-    margin-left:100px;
-    margin-top:20px;
+    margin-left:91px;
 }
 
 #newletters .learningDisablities{
-    margin-left:100px;
-    margin-top:20px;
-    padding-top:20px;
-    border-top: solid 1px #cccccc;
+    margin-left:91px;
 }
 
 #newletters .brainDrain{
-    margin-left:100px;
-    margin-top:20px;
-    height:150px;
+    margin-left:91px;
+    height:100px;
 }
 
 #newletters .valuableOffers{
-    margin-left:100px;   
-    margin-top:20px;
-    padding-top:20px;
-    border-top: solid 1px #cccccc;
+    margin-left:91px;
 }
 
 #newletters .newsletterText{
@@ -416,18 +402,29 @@ width:140px;
     width:0px;
     position:static;
     margin-top:15px;
-    margin-right:15px;
+    margin-right:8px;
 }
 
 #outline ul li#newletters label{
      font-weight: normal;
+     line-height: 15px;
+     font-size:13px;
 }
 
 #newsletterCol2{
    position:absolute;
    width:350px;
-   top : 65px;
+   top:40px;
    left: 450px;
+}
+
+.newletterDivider{
+    border-top: solid 1px #cccccc;    
+    margin-top:15px;
+    padding-top:19px;
+}
+.newletterNoDivider{
+    margin-top:14px;
 }
 
 /* end the bottom newsletter subscriptions */
@@ -459,11 +456,12 @@ width:140px;
 
 #outline ul li#terms .termsRequired{
     position:absolute;
-    left:500px;
+    left:436px;
 }
 
 #outline ul li#terms label {
     line-height: 15px;
+    font-size:13px;
     font-weight: normal;
     position:relative;
     left:10px;

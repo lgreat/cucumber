@@ -270,58 +270,59 @@
                 </c:forEach>
 
                 <li id="newsletter">
-                    <gsml:checkbox styleId="newsletterField" name="newsletterStr"
-                                   checked="${userCmd.newsletter eq true}" tabIndex="11"/>
-                    <label for="newsletterField">Send me weekly updates from GreatSchools.</label>
+                       <form:checkbox path="userCmd.newsletter"
+                                        tabindex="11"/>
+                    <label for="newsletterField">Send me weekly updates about my child's school.</label>
                 </li>
 
                 <li id="newletters">
                     <h2>Free Newsletters from Greatschools</h2>
                     <div id="newsletterCol1">
-                        <gsml:img src="/res/img/email/boy_with_pen.jpg"
-                                  alt="weeklyUpdatesImage" styleClass="weeklyUpdatesImage"/>
-                        <div class="weeklyUpdates">
-                            <h3>Weekly updates</h3>
-                            <p class="newsletterText">The tips and tools you need to make smart choices about your child's edication</p>
-                            <gsml:checkbox styleId="check1" name="check1" 
-                                   checked="${true}" tabIndex="11"/>
-                             <label for="newsletterField">Subscribe to this newsletter</label>
+                        <div class="newletterNoDivider">
+                            <gsml:img src="/res/img/email/boy_with_pen.jpg"
+                                      alt="weeklyUpdatesImage" styleClass="weeklyUpdatesImage"/>
+                            <div class="weeklyUpdates">
+                                <h3>Weekly updates</h3>
+                                <p class="newsletterText">The tips and tools you need to make smart choices about your child's edication</p>
+                                <form:checkbox path="userCmd.newsletter"
+                                        tabindex="11"/>
+                                 <label for="newsletterField">Subscribe to this newsletter</label>
+                            </div>
                         </div>
-
-                        <gsml:img src="/res/img/email/boy_with_dad.jpg"
-                                  alt="weeklyUpdatesImage" styleClass="LearningDisabilitiesImage"/>
-                        <div class="learningDisablities">
-                            <h3>"Helping kids with learning disablities" newsletter</h3>
-                            <p class="newsletterText">Does your child have a learning disablility,difficulty or
-                                attention problem? Our monthly guide offers support,strategies and resources.(see sample)
-                            </p>
-                            <gsml:checkbox styleId="check1" name="check1"
-                                   checked="${true}" tabIndex="11"/>
-                            <label for="newsletterField">Subscribe to this newsletter</label>
+                        <div class="newletterDivider">
+                            <gsml:img src="/res/img/email/boy_with_dad.jpg"
+                                      alt="learningDisablitiesImage" styleClass="LearningDisabilitiesImage"/>
+                            <div class="learningDisablities">
+                                <h3>"Helping kids with learning disablities" newsletter</h3>
+                                <p class="newsletterText">Does your child have a learning disablility,difficulty or
+                                    attention problem? Our monthly guide offers support,strategies and resources.(see sample)
+                                </p>
+                                <form:checkbox path="userCmd.ldNewsletter"
+                                        tabindex="11"/>
+                                <label for="newsletterField">Subscribe to this newsletter</label>
+                            </div>
                         </div>
                     </div>
                    
                     <div id="newsletterCol2">
-                        <gsml:img src="/res/img/email/boy_with_book.jpg"
-                                  alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
-                        <div class="brainDrain">brain Drain</div>
+                        <div class="newletterNoDivider">
+                            <gsml:img src="/res/img/email/boy_with_book.jpg"
+                                      alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
+                            <div class="brainDrain">brain Drain</div>
+                        </div>
                         <gsml:img src="/res/img/email/pencils.jpg"
                                   alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
-                        
-                        <div class="valuableOffers">
-                            <h3>Valuable offers from Greatschools' partners!</h3>
-                            <gsml:checkbox styleId="check1" name="check1"
-                                   checked="${true}" tabIndex="11"/>
-                            <label for="newsletterField">Subscribe to this newsletter</label>
+
+                        <div class="newletterDivider">
+                            <div class="valuableOffers">
+                                <h3>Valuable offers from Greatschools' partners!</h3>
+                                <form:checkbox path="userCmd.partnerNewsletter"
+                                        tabindex="11"/>
+                                <label for="newsletterField">Subscribe to this newsletter</label>
+                            </div>
                         </div>
                     </div>
                 </li>
-
-                <!--<li id="partnerNewsletter">-->
-                    <!--<gsml:checkbox styleId="partnerNewsletterField" name="partnerNewsletterStr"-->
-                                   <!--checked="${userCmd.partnerNewsletter eq true}" tabIndex="12"/>-->
-                    <!--<label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>-->
-                <!--</li>-->
 
                 <spring:hasBindErrors name="userCmd">
                     <spring:bind path="userCmd.terms">
@@ -335,8 +336,8 @@
                 </spring:hasBindErrors>
 
                 <li id="terms">
-                    <gsml:checkbox styleId="termsField" name="termsStr"
-                                   checked="${userCmd.terms eq true}" tabIndex="13"/>
+                    <form:checkbox path="userCmd.terms"
+                                        tabindex="11"/>
                     <label for="termsField" class="terms">I agree to the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
