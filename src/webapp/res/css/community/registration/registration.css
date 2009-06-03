@@ -1,24 +1,34 @@
+
+
 #outline {
-    width: 752px;
+    width: 800px;
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
-    color: #444;
-    padding: 31px 20px 0 30px;
+    font-size:13px;
+    color: #666666;
+    margin-top:8px;
+    padding: 25px 25px 25px 25px;
+    border: 8px solid #55BBCC;
+}
+
+/* start the promo details*/
+
+#outline #bulletsHeader{
+    width:800px;
+    height:150px;
 }
 
 #outline h2 {
     color: #55BBCC;
     font-weight: bold;
-    font-size: 20px;
-    border-bottom: 1px solid #CACC9E;
-    padding-bottom: 3px;
+    font-size: 24px;
     width: 575px;
 }
 
 #outline .loginLink {
     position: absolute;
     top: 37px;
-    left: 440px;
+    left: 300px;
     font-size: 12px;
 }
 
@@ -29,20 +39,22 @@
 
 #outline .joinMedallion {
     position: absolute;
-    top: 27px;
-    left: 600px;
+    top: 180px;
+    z-index:3;
+    left: 455px;
 }
 
 #outline .headerImage {
-    position: relative;
-    top: -1px;
-    float: left;
+    position: absolute;
+    top:-8px;
+    left:511px;
 }
 
 #outline #bulletsHeader #bullets {
-    width: 550px;
+    width: 400px;
     position: relative;
-    left: 25px;
+    left: 20px;
+    float:left;
 }
 
 #outline #bulletsHeader #bullets li {
@@ -53,23 +65,50 @@
 
 #outline #bulletsHeader .strongHeader {
     font-weight: bolder;
+    font-size:16px;
+    color:#D66671;
 }
 
-#outline h3 {
-    width: 503px;
-    font-size: 13px;
-    line-height: 15px;
-    padding-bottom: 22px;
+/* end the promo details*/
+
+/* start the join form details*/
+
+p.requiredFld {
+    font-size: 11px;
+    line-height: 14px;
 }
 
-#outline ul li.dottedRule {
+#userDetails {
+    font-size: 11px;
+    font-style: italic;
+    color: #999999;
+    position: absolute;
+    top: 21px;
+    left: 0;
+}
+
+
+#passwordDetails {
+    font-size: 11px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 21px;
+    left: 0;
+}
+
+
+#userDisclaimer {
+    font-size: 11px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 26px;
     left: 120px;
-    width: 250px;
-    border-top: 2px dotted gray;
-    margin: 7px 0 9px 0;
-    height: 0px;
-    padding: 0;
+    width: 210px;
 }
+
+
 
 #outline ul li {
     position: relative;
@@ -118,34 +157,11 @@
     margin-left: 122px;
 }
 
-#userDisclaimer {
-    font-size: 10px;
-    font-style: italic;
-    color: #8f8f8f;
-    position: absolute;
-    top: 26px;
-    left: 120px;
-    width: 210px;
-}
-
-#userDetails {
-    font-size: 10px;
-    font-style: italic;
-    color: #8f8f8f;
-    position: absolute;
-    top: 21px;
-    left: 0;
-}
 
 
-#passwordDetails {
-    font-size: 10px;
-    font-style: italic;
-    color: #8f8f8f;
-    position: absolute;
-    top: 21px;
-    left: 0;
-}
+
+
+
 
 #outline #whereLiveLine {
 }
@@ -198,14 +214,14 @@
     top: 10px;
 }
 
-#outline ul li#newsletter label, #outline ul li#partnerNewsletter label, #outline li#terms label {
+#outline ul li#newsletter label, #outline ul li#partnerNewsletter label {
     line-height: 15px;
     font-weight: normal;
     left: 126px;
     position: relative;
 }
 
-#outline ul li#newsletter input, #outline ul li#partnerNewsletter input, #outline ul li#terms input {
+#outline ul li#newsletter input, #outline ul li#partnerNewsletter input {
     width: 15px;
     height: 15px;
     top: 3px;
@@ -213,14 +229,6 @@
     position: relative;
 }
 
-#outline ul li#terms {
-    padding-bottom: 11px;
-}
-
-#terms a {
-    color: #3399aa;
-    text-decoration: none;
-}
 
 #outline li#controlLine {
     border-top: 1px solid #CACC9E;
@@ -234,10 +242,6 @@
     padding: 0 5px 0 5px;
 }
 
-#outline input#submitButton {
-    position: relative;
-    left: 120px;
-}
 
 img.errorIcon {
     position: absolute;
@@ -285,57 +289,6 @@ p.warning {
 
 #whereLiveLine img.errorIcon {
     top: 41px;
-}
-
-#outline ul li#termsError{
-    height:10px;
-    padding:0px;
-}
-
-
-#termsError .termsWarning {
-    position:absolute;
-    left:120px;
-    background-image:url(/res/img/bullet/icon_warning_12x12.gif);
-    background-repeat: no-repeat;
-    color:#CC5566;
-    background-position:0 3px;
-    font-size:11px;
-    padding-left:22px;
-}
-
-#outline ul li#terms .termsRequired{
-    position:absolute;
-    left:110px;
-}
-
-p.requiredFld {
-    color: #8f8f8f;
-    font-size: 11px;
-    position: absolute;
-    bottom: 100px;
-    left: 30px;
-    width: 100px;
-    line-height: 14px;
-}
-
-p.privacyBox a,
-    p.privacyBox a:visited,
-    p.privacyBox a:link,
-    p.privacyBox a:active,
-    p.privacyBox a:hover {
-    text-decoration: none;
-    color: #3399AA;
-}
-
-p.privacyBox {
-    color: #8f8f8f;
-    font-size: 11px;
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-    width: 100px;
-    line-height: 14px;
 }
 
 #outline ul li span.ajaxMessage {
@@ -390,3 +343,156 @@ width:140px;
 }
 
 /* end styles for each child */
+
+/* start the bottom newsletter subscriptions */
+#outline ul li#newletters{
+    margin-top:20px;
+    padding-top:20px;
+    border-top: solid 1px #cccccc;
+    position:relative;
+    height:350px;
+}
+
+#newletters h3{
+     color: #55BBCC;
+    font-size:13px;
+}
+
+#newsletterCol1{
+    width:400px;
+}
+
+.weeklyUpdatesImage{
+    position:absolute;
+    left:0;
+}
+
+.LearningDisabilitiesImage{
+    position:absolute;
+    top:45;
+    left:0;
+}
+
+.brainDrainImage{
+    position:absolute;
+    left:500;
+}
+
+.valuableOffersImage{
+    position:absolute;
+    top:45;
+    left:500;
+}
+
+#newletters .weeklyUpdates{
+    margin-left:100px;
+    margin-top:20px;
+}
+
+#newletters .learningDisablities{
+    margin-left:100px;
+    margin-top:20px;
+    padding-top:20px;
+    border-top: solid 1px #cccccc;
+}
+
+#newletters .brainDrain{
+    margin-left:100px;
+    margin-top:20px;
+    height:150px;
+}
+
+#newletters .valuableOffers{
+    margin-left:100px;   
+    margin-top:20px;
+    padding-top:20px;
+    border-top: solid 1px #cccccc;
+}
+
+#newletters .newsletterText{
+     margin-top:15px;
+}
+
+#outline ul li#newletters input{
+    width:0px;
+    position:static;
+    margin-top:15px;
+    margin-right:15px;
+}
+
+#outline ul li#newletters label{
+     font-weight: normal;
+}
+
+#newsletterCol2{
+   position:absolute;
+   width:350px;
+   top : 65px;
+   left: 450px;
+}
+
+/* end the bottom newsletter subscriptions */
+
+
+/* start terms and privcy and join button*/
+
+
+#terms a {
+    color: #3399aa;
+    text-decoration: none;
+}
+
+#outline ul li#termsError{
+    height:10px;
+    padding:0px;
+}
+
+
+#termsError .termsWarning {
+    position:absolute;
+    background-image:url(/res/img/bullet/icon_warning_12x12.gif);
+    background-repeat: no-repeat;
+    color:#CC5566;
+    background-position:0 3px;
+    font-size:11px;
+    padding-left:22px;
+}
+
+#outline ul li#terms .termsRequired{
+    position:absolute;
+    left:500px;
+}
+
+#outline ul li#terms label {
+    line-height: 15px;
+    font-weight: normal;
+    position:relative;
+    left:10px;
+}
+
+#outline ul li#terms input {
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    left:0px;
+    position: relative;
+}
+
+p.privacyBox a,
+    p.privacyBox a:visited,
+    p.privacyBox a:link,
+    p.privacyBox a:active,
+    p.privacyBox a:hover {
+    text-decoration: none;
+    color: #3399AA;
+}
+
+p.privacyBox {
+    color: #8f8f8f;
+    font-size: 11px;
+    line-height: 14px;
+    margin-left:20px;
+    padding-bottom:10px;
+}
+/* end terms and privcy and join button*/
+

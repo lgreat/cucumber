@@ -52,30 +52,31 @@
         <h2>Join GreatSchools!</h2>
 
         <div class="loginLink">
-            Already a member? <link:loginOrRegister email="${userCmd.user.email}">Sign in</link:loginOrRegister>
+            Already a member? <link:loginOrRegister email="${userCmd.user.email}">Sign in.</link:loginOrRegister>
         </div>
 
-        <gsml:img src="/res/img/community/registration/join_burst_inline.gif"
+        <gsml:img src="/res/img/community/registration/join_burst_transparent.png"
                                   alt="Join" styleClass="joinMedallion"/>
 
         <div id="bulletsHeader">
-            <gsml:img src="/res/img/community/registration/join_inline.jpg"
-                                  alt="Join" styleClass="headerImage"/>
 
             <ul id="bullets">
                 <li>
-                    <span class="strongHeader">Find the right school</span> for your child and track how it performs compared to other schools in
-                    your state.
+                    <span class="strongHeader">Receive weekly emails</span> with tips and tools
+                    you need to make smart choices about your child's education.
                 </li>
                 <li>
-                    <span class="strongHeader">Share and learn:</span> Tell other parents and experts in our
-                    community of 800,000 about your school, your tips for parenting.
+                    <span class="strongHeader">Find the right school</span> for your child and track its stats - from
+                    test scores to teacher quality.
                 </li>
                 <li>
-                    <span class="strongHeader">Receive weekly emails</span> with fun tips, books and activities
-                    to keep track of your child grade-by-grade.
+                    <span class="strongHeader">Share stories</span> about your child's success in and out of the classroom.
                 </li>
             </ul>
+
+            <gsml:img src="/res/img/community/registration/mom_daughter_joininline.jpg"
+                                  alt="Join" styleClass="headerImage"/>
+
         </div>
 
         <br/>
@@ -87,6 +88,8 @@
 
     <!-- begin registration form -->
         <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
+        <p class="requiredFld">* indicates a required field.</p>
+                            
             <ul>
                 <li>
                     <label for="firstName">First name <span class="required">*</span></label>
@@ -266,19 +269,59 @@
                     </li>
                 </c:forEach>
 
-                <li class="dottedRule"/>
-
                 <li id="newsletter">
                     <gsml:checkbox styleId="newsletterField" name="newsletterStr"
                                    checked="${userCmd.newsletter eq true}" tabIndex="11"/>
                     <label for="newsletterField">Send me weekly updates from GreatSchools.</label>
                 </li>
 
-                <li id="partnerNewsletter">
-                    <gsml:checkbox styleId="partnerNewsletterField" name="partnerNewsletterStr"
-                                   checked="${userCmd.partnerNewsletter eq true}" tabIndex="12"/>
-                    <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
+                <li id="newletters">
+                    <h2>Free Newsletters from Greatschools</h2>
+                    <div id="newsletterCol1">
+                        <gsml:img src="/res/img/email/boy_with_pen.jpg"
+                                  alt="weeklyUpdatesImage" styleClass="weeklyUpdatesImage"/>
+                        <div class="weeklyUpdates">
+                            <h3>Weekly updates</h3>
+                            <p class="newsletterText">The tips and tools you need to make smart choices about your child's edication</p>
+                            <gsml:checkbox styleId="check1" name="check1" 
+                                   checked="${true}" tabIndex="11"/>
+                             <label for="newsletterField">Subscribe to this newsletter</label>
+                        </div>
+
+                        <gsml:img src="/res/img/email/boy_with_dad.jpg"
+                                  alt="weeklyUpdatesImage" styleClass="LearningDisabilitiesImage"/>
+                        <div class="learningDisablities">
+                            <h3>"Helping kids with learning disablities" newsletter</h3>
+                            <p class="newsletterText">Does your child have a learning disablility,difficulty or
+                                attention problem? Our monthly guide offers support,strategies and resources.(see sample)
+                            </p>
+                            <gsml:checkbox styleId="check1" name="check1"
+                                   checked="${true}" tabIndex="11"/>
+                            <label for="newsletterField">Subscribe to this newsletter</label>
+                        </div>
+                    </div>
+                   
+                    <div id="newsletterCol2">
+                        <gsml:img src="/res/img/email/boy_with_book.jpg"
+                                  alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
+                        <div class="brainDrain">brain Drain</div>
+                        <gsml:img src="/res/img/email/pencils.jpg"
+                                  alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
+                        
+                        <div class="valuableOffers">
+                            <h3>Valuable offers from Greatschools' partners!</h3>
+                            <gsml:checkbox styleId="check1" name="check1"
+                                   checked="${true}" tabIndex="11"/>
+                            <label for="newsletterField">Subscribe to this newsletter</label>
+                        </div>
+                    </div>
                 </li>
+
+                <!--<li id="partnerNewsletter">-->
+                    <!--<gsml:checkbox styleId="partnerNewsletterField" name="partnerNewsletterStr"-->
+                                   <!--checked="${userCmd.partnerNewsletter eq true}" tabIndex="12"/>-->
+                    <!--<label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>-->
+                <!--</li>-->
 
                 <spring:hasBindErrors name="userCmd">
                     <spring:bind path="userCmd.terms">
@@ -292,7 +335,6 @@
                 </spring:hasBindErrors>
 
                 <li id="terms">
-                    <span class="termsRequired">*</span>
                     <gsml:checkbox styleId="termsField" name="termsStr"
                                    checked="${userCmd.terms eq true}" tabIndex="13"/>
                     <label for="termsField" class="terms">I agree to the
@@ -306,26 +348,24 @@
                             href="/cgi-bin/static/terms.html/$STATE#communityStandards"
                             tabIndex="15">Community Guidelines</gsml:popupWindow>.
                     </label>
+                    <span class="termsRequired">*</span>
                 </li>
 
             </ul>
+            <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
+                <gsml:popupWindow width="800" height="600" left="50" top="50"
+                    title="GreatSchools Privacy Policy"
+                    href="/about/privacyStatement.page?state=$STATE"
+                    tabIndex="17">Privacy Policy</gsml:popupWindow>
+            </p>
 
-            <gsml:inputImage src="/res/img/community/registration/joinbutton.gif" alt="submit"
+            <gsml:inputImage src="/res/img/community/registration/join_button.gif" alt="submit"
                              name="submit" onclick="return doSingleClick(this);" tabIndex="16"
                              id="submitButton"/>
 
             <spring:bind path="userCmd.redirectUrl">
                 <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
             </spring:bind>
-
-            <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
-
-            <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                        title="GreatSchools Privacy Policy"
-                        href="/about/privacyStatement.page?state=$STATE"
-                        tabIndex="17">Privacy Policy</gsml:popupWindow>
-            </p>
 
         </gsweb:form>
     </div>
