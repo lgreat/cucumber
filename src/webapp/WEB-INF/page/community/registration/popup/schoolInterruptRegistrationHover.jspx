@@ -11,6 +11,7 @@
         xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -30,20 +31,21 @@
 </head>
 
 <gsml:body adPageName="community/schoolInterruptRegistrationHover">
-    <!-- TODO: Add blue top area with Join Greatschools, already member, etc. -->
+    <div id="top">
+        <h2>Join GreatSchools</h2>
+        <div class="loginLink">
+            Already a member?
+            <link:loginOrRegister email="${userCmd.user.email}">Sign in</link:loginOrRegister>.
+        </div>
+    </div>
 
-    <!-- TODO: Copy over child rows (but comment out for now) -->
     <div id="outline">
-
-        <gsml:img src="/res/img/community/registration/join_burst_inline.gif"
-                  alt="Join" styleClass="joinMedallion"/>
-
         <div id="bulletsHeader">
             <gsml:img src="/res/img/community/registration/join_inline.jpg"
                       alt="Join" styleClass="headerImage"/>
-
+            <span style="font-size: 1px;">&amp;nbsp;</span> <!-- Otherwise Firefox adds space above #outline -->
             <ul id="bullets">
-                <li>
+                <li class="thin">
                     <span class="strongHeader">Find the right school</span>
                     for your child and track how it performs compared to other schools in your state.
                 </li>
@@ -57,6 +59,9 @@
                 </li>
             </ul>
         </div>
+
+        <gsml:img src="/res/img/community/registration/join_burst_inline.gif"
+                  alt="Join" styleClass="joinMedallion"/>        
 
         <spring:hasBindErrors name="userCmd">
             <pageHelper:addOnLoadHandler handler="scrollToError();"/>
@@ -121,6 +126,128 @@
                                           styleClass="ajaxMessage ajaxError"/>
                 </li>
 
+                <!--<li id="genderLine">-->
+                    <!--<label>My gender</label>-->
+                    <!--<gsweb:maleFemaleSelector name="gender" selectedValue="${userCmd.gender}"-->
+                                              <!--useNoResponse="true" noResponseLabel="- Select one -"-->
+                                              <!--tabIndex="6"/>-->
+                    <!--<gsml:feedbackMessage command="userCmd" field="gender" styleClass="ajaxMessage ajaxError"/>-->
+                <!--</li>-->
+
+                <!--<c:set var="loopTimes" value="9"/>-->
+                <!--<li id="whereLiveLine">-->
+                    <!--<label>State, city</label>-->
+                    <!-- State -->
+                    <!--<spring:bind path="userCmd.state">-->
+                        <!--<gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"-->
+                                             <!--onChange="parentStateChange(this,${loopTimes});" tabIndex="7"/>-->
+                    <!--</spring:bind>-->
+                    <!--<gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>-->
+
+                    <!-- City -->
+                    <!--<span id="city">-->
+                        <!--<select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},true);">-->
+                            <!--<c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">-->
+                                <!--<option selected="selected" value="">Choose city</option>-->
+                            <!--</c:if>-->
+                            <!--<c:forEach var="cityOption" items="${userCmd.cityList}">-->
+                                <!--<![CDATA[<option ]]>-->
+                                <!--<c:if test="${userCmd.city eq cityOption.name}">-->
+                                    <!--selected="selected"-->
+                                <!--</c:if>-->
+                                <!--<![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>-->
+                            <!--</c:forEach>-->
+                        <!--</select>-->
+                    <!--</span>-->
+                    <!--<gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>-->
+                <!--</li>-->
+
+                <!-- begin child module -->
+
+                <!--<c:forEach var="child" begin="1" end="${loopTimes}">-->
+                    <!--<form:hidden path="userCmd.studentRows[${child-1}].locationOverride" id="locationOverride_${child}"/>-->
+                    <!--<c:set var="gradeVal" value="${userCmd.studentRows[child-1].gradeSelected}"/>-->
+                    <!--<c:set var="schoolVal" value="${userCmd.studentRows[child-1].schoolIdSelected}"/>-->
+                    <!--<c:set var="cityVal" value="${userCmd.studentRows[child-1].citySelected}"/>-->
+                    <!--<c:set var="stateVal" value="${userCmd.state}"/>-->
+                    <!--<c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">-->
+                        <!--<c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>-->
+                    <!--</c:if>-->
+                    <!--<c:set var="locationOverrideDisplay" value="none"/>-->
+                    <!--<c:if test="${userCmd.studentRows[child-1].locationOverride eq true}">-->
+                        <!--<c:set var="locationOverrideDisplay" value="block"/>-->
+                    <!--</c:if>-->
+                    <!--<li id="childCityRow_${child}" style="display:${locationOverrideDisplay}">-->
+                        <!--<gsweb:stateSelector state="${stateVal}" styleId="stateSelectChild_${child}"-->
+                                             <!--onChange="childStateChange(this,${child});" tabIndex="7" styleClass="childStates" -->
+                                             <!--name="state${child}"/>-->
+                         <!--<span id="citySelectSpan_${child}" class="citySelectSpan">-->
+                             <!--<select id="citySelectChild_${child}" name="city${child}"-->
+                                     <!--tabindex="8" onchange="gradeChange(${child},false);">-->
+                                 <!--<c:if test="${empty cityVal}">-->
+                                     <!--<option selected="selected" value="">- Choose city -</option>-->
+                                 <!--</c:if>-->
+                                 <!--<c:forEach var="cityOption" items="${userCmd.studentRows[child-1].cities}">-->
+                                     <!--<![CDATA[<option ]]>-->
+                                     <!--<c:if test="${cityVal eq cityOption.name}">-->
+                                         <!--selected="selected"-->
+                                     <!--</c:if>-->
+                                     <!--<![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>-->
+                                 <!--</c:forEach>-->
+                             <!--</select>-->
+                         <!--</span>-->
+                    <!--</li>-->
+                    <!--<c:set var="childRowDisplay" value="none"/>-->
+                    <!--<c:if test="${child eq 1 or not empty gradeVal}">-->
+                        <!-- Always display first child row, and always display children with grades selected -->
+                        <!--<c:set var="childRowDisplay" value="block"/>-->
+                    <!--</c:if>-->
+                    <!--<li class="childRow" id="childRow_${child}" style="display:${childRowDisplay};">-->
+                        <!--<label for="school${child}" class="childSchoolLabel">Child's School</label>-->
+                        <!--<c:if test="${child lt 10 and empty userCmd.studentRows[child].gradeSelected}">-->
+                            <!--<span class="addAnotherChild" id="addAnotherChild_${child}">-->
+                                <!--<a href="#" onclick="addAnotherChild(${child}); return false;">+ Add another child</a>-->
+                            <!--</span>-->
+                        <!--</c:if>-->
+                        <!--<gsweb:gradeSelector styleId="grade${child}" name="grade${child}"-->
+                                             <!--styleClass="selectChildGrade" grade="${gradeVal}"-->
+                                             <!--useNoGrade="true" noGradeLabel="- Grade -"-->
+                                             <!--useAlternateNames="true" usePreK="true"-->
+                                             <!--onChange="gradeChange(${child},false);"/>-->
+
+                        <!--<span id="schoolDiv${child}">-->
+                            <!--<select name="school${child}" id="school${child}" class="selectChildSchool">-->
+                                <!--<c:if test="${schoolVal eq -1}">-->
+                                    <!--<option selected="selected" value="">- Choose School -</option>-->
+                                <!--</c:if>-->
+                                <!--<c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">-->
+                                    <!--<![CDATA[<option ]]>-->
+                                    <!--<c:if test="${schoolVal eq schoolOption.id}">-->
+                                        <!--selected="selected"-->
+                                    <!--</c:if>-->
+                                    <!--<![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>-->
+                                <!--</c:forEach>-->
+                            <!--</select>-->
+                        <!--</span>-->
+                        <!--<gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>-->
+                        <!--<spring:hasBindErrors name="userCmd">-->
+                            <!--<c:if test="${errors.errorCount gt 0}">-->
+                                <!--<spring:bind path="userCmd.studentRows[${child-1}]">-->
+                                    <!--<c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">-->
+                                        <!--<c:set var="schoolError" value="true"/>-->
+                                    <!--</c:if>-->
+                                <!--</spring:bind>-->
+                            <!--</c:if>-->
+                        <!--</spring:hasBindErrors>-->
+                        <!--<c:if test="${userCmd.studentRows[child-1].locationOverride eq false}">-->
+                            <!--<span class="changeChildCity" id="changeChildCity_${child}">-->
+                                <!--<a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a>-->
+                            <!--</span>-->
+                        <!--</c:if>-->
+                    <!--</li>-->
+                <!--</c:forEach>-->
+
+
                 <li id="mystat">
                     <form:checkbox path="userCmd.mystat" id="mystatField" tabindex="12"/>
                     <label for="mystatField">Send me weekly updates from GreatSchools including
@@ -161,6 +288,7 @@
 
             </ul>
 
+            <!-- TODO: Use "Join now" button instead of this one -->
             <gsml:inputImage src="/res/img/community/registration/joinbutton.gif" alt="submit"
                              name="submit" onclick="return doSingleClick(this);" tabIndex="16"
                              id="submitButton"/>
@@ -191,8 +319,10 @@
     </script>
 
 
-    <mod:tracking pageName="School Interrupt Registration Hover"
-                  hier1="Account,Registration,School Interrupt Registration Hover"/>
+    <div style="display: none;">
+        <mod:tracking pageName="School Interrupt Registration Hover"
+                      hier1="Account,Registration,School Interrupt Registration Hover"/>
+    </div>
 </gsml:body>
 </html>
 </jsp:root>

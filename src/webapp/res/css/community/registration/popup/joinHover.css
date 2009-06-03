@@ -3,9 +3,34 @@ html, body {
     padding: 0;
 }
 
+#top {
+    background-color: #42BCCE;
+    height: 30px;
+    padding: 2px 0 0 0;
+    margin: 0;
+}
+
+#top h2 {
+    display: inline;
+    font-size: 20px;
+    color: white;
+    padding-right: 35px;
+}
+
+#top div {
+    display: inline;
+    color: white;
+    font-size: 12px;
+}
+
+#top div.loginLink a, #top div.loginLink a:hover, #top div.loginLink a:link {
+    text-decoration: underline;
+    color: white;
+}
+
 #outline {
     font-size: small;
-    width: 575px;
+    width: 625px;
     padding: 0;
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
@@ -37,7 +62,12 @@ html, body {
 
 #bullets {
     width: auto;
-    padding: 0 25px;
+    padding: 0;
+    margin: 0;
+}
+
+#bullets li.thin {
+    padding-right: 75px;
 }
 
 #outline #bullets li {
@@ -55,7 +85,7 @@ li.dottedRule {
     width: 250px;
     border-top: 2px dotted gray;
     margin: 7px 0 9px 0;
-    height: 0px;
+    height: 0;
     padding: 0;
 }
 
@@ -111,7 +141,7 @@ input#mom {
     font-style: italic;
     color: #8f8f8f;
     position: absolute;
-    top: 26px;
+    top: 29px;
     left: 120px;
     width: 210px;
 }
@@ -210,7 +240,7 @@ p.warning {
 }
 
 ul li#usernameLine {
-    height: 40px;
+    height: 43px;
 }
 
 #usernameLine p.warning {
