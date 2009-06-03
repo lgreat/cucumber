@@ -1306,7 +1306,6 @@
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/registration"/>
-        <property name="successView" value="redirect:/community/loginOrRegister.page"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">
             <list>
