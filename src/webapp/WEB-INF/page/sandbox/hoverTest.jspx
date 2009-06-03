@@ -26,6 +26,11 @@
             destUrl = destination;
             return showLoginInterruptHover(schoolId, schoolState);
         }
+
+        function prepAndShowLDHover(destination) {
+            destUrl = destination;
+            return showLDHover();
+        }
     </script>
 </head>
 <body>
@@ -34,6 +39,14 @@
     <a href="/community/loginOrRegister.page"
        onclick="return prepAndShowLoginInterruptHover(this.href, 1, 'CA');">
         Click here for school interrupt hover
+    </a>
+
+    <br/>
+
+    <community:ldRegistrationHover/>
+    <a href="/community/loginOrRegister.page"
+       onclick="return prepAndShowLDHover(this.href);">
+        Click here for LD hover
     </a>
 
 </body>

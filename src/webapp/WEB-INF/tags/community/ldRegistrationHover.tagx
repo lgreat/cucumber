@@ -14,9 +14,9 @@
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
-        var schoolInterruptRegistrationDialog;
-        function loginInterruptHoverInit() {
-            schoolInterruptRegistrationDialog = new YAHOO.widget.Dialog("schoolInterruptRegistrationDialog",
+        var ldRegistrationDialog;
+        function ldHoverInit() {
+            ldRegistrationDialog = new YAHOO.widget.Dialog("ldRegistrationDialog",
             {
                 postmethod: "form",
                 width: "680px",
@@ -26,20 +26,19 @@
                 close: false,
                 zIndex: 9999999
             });
-            schoolInterruptRegistrationDialog.render();
+            ldRegistrationDialog.render();
         }
 
-        function showLoginInterruptHover(schoolId, schoolState) {
-            var frameLocation = '' + window.frames['schoolInterruptRegistrationHoverIFrame'].window.location;
-            if (frameLocation.indexOf('/community/registration/popup/schoolInterruptRegistrationHover.page') == -1) {
-                window.frames['schoolInterruptRegistrationHoverIFrame'].window.location =
-                    '/community/registration/popup/schoolInterruptRegistrationHover.page' +
-                    '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;
+        function showLDHover() {
+            var frameLocation = '' + window.frames['ldRegistrationHoverIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/LDRegistrationHover.page') == -1) {
+                window.frames['ldRegistrationHoverIFrame'].window.location =
+                    '/community/registration/popup/LDRegistrationHover.page';
             }
 
-            document.getElementById("schoolInterruptRegistrationDialog").style.display="block";
+            document.getElementById("ldRegistrationDialog").style.display="block";
 
-            schoolInterruptRegistrationDialog.show();
+            ldRegistrationDialog.show();
 
             try {
                 var dwidth = 680;
@@ -56,25 +55,25 @@
                 x = (x < 0)?0:x;
                 var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
                 y = (y < scrollTop)?scrollTop:y;
-                schoolInterruptRegistrationDialog.moveTo(x,y);
+                ldRegistrationDialog.moveTo(x,y);
             } catch (e) {}
 
             return false;
         }
 
-        function closeLoginInterruptHover() {
-            schoolInterruptRegistrationDialog.cancel();
+        function closeLDHover() {
+            ldRegistrationDialog.cancel();
         }
         //-->
         ]]>
     </script>
 
-    <div id="schoolInterruptRegistrationDialog" class="joinDialog" style="display: none;">
+    <div id="ldRegistrationDialog" class="joinDialog" style="display: none;">
         <table cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="joinDialogTopBorder">
-                    <div id="schoolInterruptRegistrationDialogTopBar" class="joinDialogTopBar">
-                        <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                    <div id="ldRegistrationDialogTopBar" class="joinDialogTopBar">
+                        <div class="joinDialogClose" onclick="closeLDHover();">
                             close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
                         </div>
                     </div>
@@ -82,9 +81,9 @@
             </tr>
             <tr>
                 <td class="joinDialogBody">
-                    <div id="schoolInterruptRegistrationDialogBody">
-                        <iframe id="schoolInterruptRegistrationHoverIFrame"
-                                name="schoolInterruptRegistrationHoverIFrame" src=""
+                    <div id="ldRegistrationDialogBody">
+                        <iframe id="ldRegistrationHoverIFrame"
+                                name="ldRegistrationHoverIFrame" src=""
                                 width="640" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
                     </div>
                 </td>
@@ -100,7 +99,7 @@
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
-        loginInterruptHoverInit();
+        ldHoverInit();
         //-->
         ]]>
     </script>
@@ -109,7 +108,7 @@
      Login hover is now ready for use on your page
      To use, attach an onclick handler to an a href like this:
      <a href="/community/loginOrRegister.page"
-        onclick="return showLoginInterruptHover()">Sign in</a>
+        onclick="return showLDHover()">Sign in</a>
     -->
 
 </jsp:root>
