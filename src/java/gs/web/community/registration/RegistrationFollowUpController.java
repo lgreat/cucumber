@@ -85,8 +85,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         super.onBind(request, command);
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
-        fupCommand.setTerms("on".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
-        fupCommand.setNewsletter("on".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
+        fupCommand.setTerms("on".equals(request.getParameter("termsStr")));
+        fupCommand.setNewsletter("on".equals(request.getParameter("newsletterStr")));
         fupCommand.setBeta("on".equals(request.getParameter(BETA_PARAMETER)));
         bindRequestData(request, fupCommand, errors);
         for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {

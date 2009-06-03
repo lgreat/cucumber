@@ -422,23 +422,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _geoControl.replay();
 
         getRequest().setParameter("city", "San Francisco");
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "n");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
         _controller.onBind(getRequest(), userCommand);
         assertFalse(userCommand.getTerms());
         assertFalse("Expected newsletter to be set to false", userCommand.getNewsletter());
-    }
-
-    public void testOnBindWithTermsAndNewsletter() throws Exception {
-        UserCommand userCommand = new UserCommand();
-        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
-        _geoControl.replay();
-
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "on");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
-        _controller.onBind(getRequest(), userCommand);
-        assertTrue("Expected terms to be set to true", userCommand.getTerms());
-        assertTrue("Expected newsletter to be set to true", userCommand.getNewsletter());
     }
 
     public void testOnBindWithoutNewsletterParameter() throws Exception {

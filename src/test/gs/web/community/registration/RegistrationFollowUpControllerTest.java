@@ -152,14 +152,14 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testBindRequestDataCapturesNewsletterTrue() throws Exception {
-        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
+        _request.setParameter("newsletterStr", "on");
         _user.getUserProfile().setNumSchoolChildren(0);
         _controller.onBind(getRequest(), _command, _errors);
         assertTrue("Expected newsletter to be true when 'on' is passed", _command.getNewsletter());
     }
 
     public void testBindRequestDataCapturesNewsletterFalse() throws Exception {
-        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
+        _request.setParameter("newsletterStr", "n");
         _user.getUserProfile().setNumSchoolChildren(0);
         _controller.onBind(getRequest(), _command, _errors);
         assertFalse("Expected newsletter to be false when 'n' is passed", _command.getNewsletter());
@@ -295,8 +295,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("city", "San Francisco");
 
         FollowUpCommand followUpCommand = new FollowUpCommand();
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "n");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
         _controller.onBind(getRequest(), followUpCommand, null);
         assertFalse("Expected terms to be set to false", followUpCommand.getTerms());
         assertFalse("Expected newsletter to be set to false", followUpCommand.getNewsletter());
@@ -308,8 +306,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("city", "San Francisco");
 
         FollowUpCommand followUpCommand = new FollowUpCommand();
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "on");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
+        getRequest().setParameter("termsStr", "on");
+        getRequest().setParameter("newsletterStr", "on");
         _controller.onBind(getRequest(), followUpCommand, null);
         assertTrue("Expected terms to be set to true", followUpCommand.getTerms());
         assertTrue("Expected newsletter to be set to true", followUpCommand.getNewsletter());

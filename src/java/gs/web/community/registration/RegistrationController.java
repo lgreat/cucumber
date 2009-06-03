@@ -57,9 +57,6 @@ public class RegistrationController extends SimpleFormController implements Read
     private String _errorView;
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
-    public static final String NEWSLETTER_PARAMETER = "newsletterStr";
-    public static final String PARTNER_NEWSLETTER_PARAMETER = "partnerNewsletterStr";
-    public static final String TERMS_PARAMETER = "termsStr";
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
@@ -144,13 +141,6 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setCity(request.getParameter("city"));
             loadCityList(request, userCommand);
         }
-
-        String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
-        userCommand.setNewsletter("on".equals(newsletter));
-        String partnerNewsletter = request.getParameter(PARTNER_NEWSLETTER_PARAMETER);
-        userCommand.setPartnerNewsletter("on".equals(partnerNewsletter));
-        String terms = request.getParameter(TERMS_PARAMETER);
-        userCommand.setTerms("on".equals(terms));
 
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
