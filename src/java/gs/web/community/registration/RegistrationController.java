@@ -336,6 +336,14 @@ public class RegistrationController extends SimpleFormController implements Read
                 userCommand.addSubscription(subscription);
             }
 
+            if (userCommand.getLdNewsletter()) {
+                Subscription subscription = new Subscription();
+                subscription.setUser(user);
+                subscription.setProduct(SubscriptionProduct.LEARNING_DIFFERENCES);
+                subscription.setState(userCommand.getUserProfile().getState());
+                userCommand.addSubscription(subscription);
+            }
+
             saveSubscriptionsForUser(userCommand, ot);
         } catch (Exception e) {
             // if there is any sort of error prior to notifying community,
@@ -396,7 +404,13 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setUser(user);
         } else {
             // only create the user if the user is new
-            _userDao.saveUser(userCommand.getUser());
+            user = userCommand.getUser();
+            _userDao.saveUser(user);
+        }
+
+        if (StringUtils.isBlank(user.getGender())) {
+            // Existing and new users that didn't get a gender set should get the default
+            user.setGender("u");
         }
 
         return userExists;

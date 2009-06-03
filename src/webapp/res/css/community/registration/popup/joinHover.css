@@ -200,14 +200,14 @@ input#mom {
     left: 210px;
 }
 
-ul li#newsletter label, ul li#partnerNewsletter label, li#terms label {
+ul li#newsletter label, ul li#ldNewsletter label, ul li#partnerNewsletter label, li#terms label {
     line-height: 15px;
     font-weight: normal;
     left: 126px;
     position: relative;
 }
 
-ul li#newsletter input, ul li#partnerNewsletter input, ul li#terms input {
+ul li#newsletter input, ul li#ldNewsletter input, ul li#partnerNewsletter input, ul li#terms input {
     width: 15px;
     height: 15px;
     top: 3px;
