@@ -62,31 +62,9 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         if (isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         UserCommand userCommand = (UserCommand) command;
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        ModelAndView mAndV = new ModelAndView();
-        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-        boolean userExists = false;
 
-        if (user != null) {
-            userExists = true;
-            // update the user's name if they specified a new one
-            if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
-                user.setFirstName(userCommand.getFirstName());
-            }
-            if (StringUtils.isNotEmpty(userCommand.getLastName())) {
-                user.setLastName(userCommand.getLastName());
-            }
-            String gender = userCommand.getGender();
-            if (StringUtils.isNotEmpty(gender)) {
-                user.setGender(userCommand.getGender());
-            }
-            userCommand.setUser(user);
-        } else {
-            // only create the user if the user is new
-            getUserDao().saveUser(userCommand.getUser());
-            user = userCommand.getUser();
-            user.setGender("u");
-        }
+        boolean userExists = updateCommandUser(userCommand);
+        User user = userCommand.getUser();
 
         setUsersPassword(user, userCommand, userExists);
 
@@ -94,6 +72,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             sendValidationEmail(user, userCommand, userExists, request);
         }
 
+        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         updateUserProfile(user, userCommand, ot);
 
         if (user.isEmailProvisional()) {
@@ -107,6 +86,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
+        ModelAndView mAndV = new ModelAndView();
         try {
             if (userCommand.getPartnerNewsletter()) {
                 Subscription subscription = new Subscription();
