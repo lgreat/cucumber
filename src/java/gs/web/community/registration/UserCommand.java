@@ -37,7 +37,8 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _newsletter = false;
     private boolean _partnerNewsletter = false;
     private boolean _ldNewsletter = false;
-    private boolean _chooserRegistration = false;
+//    private boolean _weeklyUpdatesNewsletter = false;
+    private boolean _chooserRegistration = false;    
 
     // following four fields used by SchoolInterruptRegistrationHoverController
     private boolean _mystat = true;
@@ -273,6 +274,14 @@ public class UserCommand implements EmailValidator.IEmail {
     public void setLdNewsletter(boolean ldNewsletter) {
         _ldNewsletter = ldNewsletter;
     }
+
+//    public boolean getWeeklyUpdatesNewsletter() {
+//        return _weeklyUpdatesNewsletter;
+//    }
+//
+//    public void setWeeklyUpdatesNewsletter(boolean weeklyUpdatesNewsletter) {
+//        _weeklyUpdatesNewsletter = weeklyUpdatesNewsletter;
+//    }
 
     public String getReferrer() {
         return _referrer;
