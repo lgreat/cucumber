@@ -13,10 +13,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.Grade;
 import gs.data.school.School;
 import gs.data.school.ISchoolDao;
-import gs.web.util.ReadWriteController;
-import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
-import gs.web.util.NewSubscriberDetector;
+import gs.web.util.*;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
@@ -28,6 +25,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.mail.internet.MimeMessage;
@@ -119,7 +117,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private void setupChooserRegistration(UserCommand userCommand) {
         // set up defaults for data not collected in chooser registration
         userCommand.setChooserRegistration(true);
-        userCommand.setNewsletter(false);
+//        userCommand.setNewsletter(false);
         // Gender u because no gender input on chooser reg
         userCommand.setGender("u");
         userCommand.setNumSchoolChildren(0);
@@ -132,6 +130,7 @@ public class RegistrationController extends SimpleFormController implements Read
             if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
                 State state = State.fromString(request.getParameter("schoolChoiceState"));
                 userCommand.setSchoolChoiceState(state);
+
             }
             userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
             loadSchoolChoiceCityList(request, userCommand);
@@ -322,7 +321,12 @@ public class RegistrationController extends SimpleFormController implements Read
                 Subscription subscription = new Subscription();
                 subscription.setUser(user);
                 subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-                subscription.setState(userCommand.getUserProfile().getState());
+                if(isChooserRegistration())
+                {
+                    subscription.setState(userCommand.getSchoolChoiceState());
+                }else{
+                    subscription.setState(userCommand.getUserProfile().getState());
+                }
                 userCommand.addSubscription(subscription);
             }
 
@@ -365,6 +369,12 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setRedirectUrl(redirectUrl);
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+
+        if(isChooserRegistration()){
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                   return new ModelAndView(new RedirectView(builder.asFullUrl(request)));
+        }
+
 
         return mAndV;
     }

@@ -4,42 +4,117 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:spring="http://www.springframework.org/tags"
+        xmlns:form="http://www.springframework.org/tags/form"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
-    <html lang="en">
-    <jsp:output doctype-root-element="html"
+<html lang="en">
+<jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <jsp:directive.page contentType="text/html"/>
-
-    <head>
+<head>
     <![CDATA[
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     ]]>
     <title>Join - GreatSchools</title>
-    </head>
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+    <pageHelper:externalCss file="/res/css/community/registration/popup/joinHover.css"/>
+    <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
+</head>
+
+<gsml:body adPageName="community/chooserRegistrationHover">
+    <community:joinHoverHeader>
+        <li class="thin">
+            <span class="strongHeader">Receive a customized four-part email</span> series to guide you step-by-step
+            through your search.
+        </li>
+        <li>
+            <span class="strongHeader">Save profiles of your top contenders</span> and compare imposrtant factors like
+            class size and academic performace.
+        </li>
+    </community:joinHoverHeader>
+
+    <spring:hasBindErrors name="userCmd">
+        <pageHelper:addOnLoadHandler handler="scrollToError();"/>
+    </spring:hasBindErrors>
+
+        <!-- begin registration form -->
+    <gsweb:form action="/community/registration/popup/chooserRegistrationHover.page"
+                    method="post" styleClass="registration" id="reg1Form">
+        <form:hidden path="userCmd.redirectUrl"/>
+        <ul>
+                <community:joinHoverUserFields userCmd="${userCmd}"/>
+
+                <c:set var="loopTimes" value="0"/>
+                <li id="whereLiveLine">
+                    <label>State, city</label>
+                    <spring:bind path="userCmd.schoolChoiceState">
+                        <gsweb:stateSelector state="${status.value}" styleId="userState"
+                                             onChange="parentStateChange(this,${loopTimes});" tabIndex="7" name="${status.expression}"/>
+                    </spring:bind>
+
+                   
+                    <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
+
+                <span id="city">
+                    <spring:bind path="userCmd.schoolChoiceCity">
+                        <select name="${status.expression}" tabindex="6">
+                            <c:if test="${empty userCmd.schoolChoiceState or (userCmd.schoolChoiceCityList ne null and (userCmd.schoolChoiceCity eq null or userCmd.schoolChoiceCity eq ''))}">
+                                <option selected="selected" value="">Choose city</option>
+                            </c:if>
+                            <c:if test="${not empty userCmd.schoolChoiceState}">
+                                <c:forEach var="cityOption" items="${userCmd.schoolChoiceCityList}">
+                                    <![CDATA[<option ]]>
+                                    <c:if test="${userCmd.schoolChoiceCity eq cityOption.name}">
+                                        selected="selected"
+                                    </c:if>
+                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                </c:forEach>
+                            </c:if>
+                        </select>
+                    </spring:bind>
+                </span>
 
 
+                    <gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>
+                </li>
 
-    <gsml:body adPageName="community/chooserRegistrationHover">
+                <community:joinHoverNewsletterFields userCmd="${userCmd}"/>
 
-        <div id="chooserRegistrationWrapper">
-           <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page" targetParentFrame="true"/>
-            <!-- put this after the tag so that it can override chooserRegistrationCommon.css --> 
-            <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
+            </ul>
 
-        </div>
-        <div id="closeWindowDiv">
-             <a href="#" onclick="return noThanks();" class="closeWindowClass">CLOSE WINDOW</a>
-        </div>
+        <gsml:inputImage src="/res/img/community/registration/join_button_hover.gif" alt="submit"
+                             name="submit" onclick="return doSingleClick(this);" tabIndex="16"
+                             id="submitButton"/>
 
-        <mod:tracking pageName="Short Registration Hover"
+        <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
+
+        <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
+                <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                  title="GreatSchools Privacy Policy"
+                                  href="/about/privacyStatement.page?state=$STATE"
+                                  tabIndex="17">Privacy Policy</gsml:popupWindow>
+        </p>
+
+        </gsweb:form>
+
+        <script type="text/javascript">
+            $('firstName').focus();
+
+            function noThanks() {
+                parent.sendToDestination();
+                return false;
+            }
+        </script>
+
+    <mod:tracking pageName="Short Registration Hover"
                       hier1="Account,Registration,Short Registration Hover"/>
 
     </gsml:body>
