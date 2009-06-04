@@ -55,6 +55,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private String _errorView;
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
+    private String _how;
     public static final String CITY_PARAMETER = "city";
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
@@ -195,7 +196,6 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void loadSchoolList(UserCommand.StudentCommand student, String city) {
         State state = student.getStateSelected();
         Grade grade = student.getGradeSelected();
-        System.out.println("loadSchoolList: " + grade + " " + city + " " + state);
         if (grade != null) {
             List<School> schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
@@ -541,17 +541,17 @@ public class RegistrationController extends SimpleFormController implements Read
         } else {
             // gotten this far, now let's update their user profile
             userProfile = userCommand.getUserProfile();
+            userProfile.setHow(getHow());
 
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
             if (isChooserRegistration()) {
-                user.getUserProfile().setHow("chooser");
                 ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "Chooser Reg"));
             }
         }
-        user.getUserProfile().setUpdated(new Date());
+        userProfile.setUpdated(new Date());
 
         return userProfile;
     }
@@ -730,4 +730,11 @@ public class RegistrationController extends SimpleFormController implements Read
         _schoolDao = schoolDao;
     }
 
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        _how = how;
+    }
 }

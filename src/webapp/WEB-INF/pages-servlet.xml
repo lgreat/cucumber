@@ -1317,6 +1317,7 @@
         </property>
         <property name="requireEmailValidation" value="false"/>
         <property name="chooserRegistration" value="false"/>
+        <property name="how" value="Inline Join"/>
         <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>

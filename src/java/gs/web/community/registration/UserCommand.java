@@ -49,7 +49,6 @@ public class UserCommand implements EmailValidator.IEmail {
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
-        _user.setUserProfile(_userProfile);
         
         _studentRows = new ArrayList<StudentCommand>();
         _subscriptions = new ArrayList<Subscription>();
