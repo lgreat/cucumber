@@ -50,14 +50,15 @@
 #bullets {
     width: 400px;
     position: relative;
-    left: 20px;
+    margin-left: 5px;
     margin-top:4px;
 }
 
 #outline #bulletsHeader #bullets li {
     height: auto;
     list-style-type: disc;
-    list-style-position: inside;
+    list-style-position: outside;
+    margin-left:15px;
     color:#99CC66;
 }
 
@@ -345,21 +346,12 @@ width:140px;
 
 /* start the bottom newsletter subscriptions */
 #outline ul li#freeNewsletters{
-    margin-top:14px;
+    margin-top:25px;
     padding-top:14px;
     border-top: solid 1px #cccccc;
     padding-bottom:20px;
     position:relative;
     height:auto;
-}
-
-
-* html #outline ul li#freeNewsletters {
-    margin-top:0px;
-}
-
-* + html #outline ul li#freeNewsletters {
-    margin-top:0px;
 }
 
 

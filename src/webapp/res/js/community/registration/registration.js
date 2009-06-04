@@ -234,8 +234,4 @@ function addAnotherChild(childNum) {
     if (childNum == 8) {
         $('addAnotherChild_' + nextChildNum).style.display = 'none';
     }
-    $('requiredFld').hide();
-    $('requiredFld').show();
-    $('privacyBox').hide();
-    $('privacyBox').show();
 }

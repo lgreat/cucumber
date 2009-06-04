@@ -20,26 +20,11 @@
       <jsp:scriptlet>
           PageHelper.hideFooterAd(request);
       </jsp:scriptlet>
-
-      <script type="text/javascript">
-          <![CDATA[
-          
-        ]]>
-    </script>
   </head>
   <gsml:body adPageName="registration">
 
   <ad:setSlotPrefix slotPrefix="CommunityRegistration"/>
 
-    <![CDATA[
-  <!--[if IE]>
-    <style type="text/css">
-      #outline li#newsletter, #outline li#terms {
-        height: 36px;
-      }
-    </style>
-  <![endif]-->
-  ]]>
     <![CDATA[
     <a name="error"></a>
     ]]>
@@ -286,7 +271,7 @@
                                 <h3>Weekly updates</h3>
                                 <p class="newsletterText">The tips and tools you need to make smart choices about your child's edication</p>
                                 <form:checkbox path="userCmd.newsletter"
-                                        tabindex="11"/>
+                                        tabindex="11" id="newsletterField"/>
                                  <label for="newsletterField">Subscribe to this newsletter</label>
                             </div>
                         </div>
@@ -299,8 +284,8 @@
                                     attention problem? Our monthly guide offers support,strategies and resources.(see sample)
                                 </p>
                                 <form:checkbox path="userCmd.ldNewsletter"
-                                        tabindex="11"/>
-                                <label for="newsletterField">Subscribe to this newsletter</label>
+                                        tabindex="11" id="ldNewsletterField"/>
+                                <label for="ldNewsletterField">Subscribe to this newsletter</label>
                             </div>
                         </div>
                     </div>
@@ -318,8 +303,8 @@
                             <div class="valuableOffers">
                                 <h3>Valuable offers from Greatschools' partners!</h3>
                                 <form:checkbox path="userCmd.partnerNewsletter"
-                                        tabindex="11"/>
-                                <label for="newsletterField">Subscribe to this newsletter</label>
+                                        tabindex="11" id="partnerNewsletterField"/>
+                                <label for="partnerNewsletterField">Subscribe to this newsletter</label>
                             </div>
                         </div>
                     </div>
@@ -338,7 +323,7 @@
 
                 <li id="terms">
                     <form:checkbox path="userCmd.terms"
-                                        tabindex="11"/>
+                                        tabindex="11" id="termsField"/>
                     <label for="termsField" class="terms">I agree to the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
