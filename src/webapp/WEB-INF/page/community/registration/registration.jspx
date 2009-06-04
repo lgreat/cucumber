@@ -62,15 +62,16 @@
 
             <ul id="bullets">
                 <li>
-                    <span class="strongHeader">Receive weekly emails</span> with tips and tools
-                    you need to make smart choices about your child's education.
+                    <span class="strongHeader">Receive weekly emails</span> <span class="overrideGreenList">with tips and tools
+                    you need to make smart choices about your child's education.</span>
                 </li>
                 <li>
-                    <span class="strongHeader">Find the right school</span> for your child and track its stats - from
-                    test scores to teacher quality.
+                    <span class="strongHeader">Find the right school</span> <span class="overrideGreenList">for your child and track its stats - from
+                    test scores to teacher quality.</span>
                 </li>
                 <li>
-                    <span class="strongHeader">Share stories</span> about your child's success in and out of the classroom.
+                    <span class="strongHeader">Share stories</span> <span class="overrideGreenList">about your child's success in and out
+                    of the classroom.</span>
                 </li>
             </ul>
 
@@ -269,11 +270,11 @@
                     </li>
                 </c:forEach>
 
-                <li id="newsletter">
-                       <form:checkbox path="userCmd.newsletter"
-                                        tabindex="11"/>
-                    <label for="newsletterField">Send me weekly updates about my child's school.</label>
-                </li>
+                <!--<li id="newsletter">-->
+                       <!--<form:checkbox path="userCmd.weeklyUpdatesNewsletter"-->
+                                        <!--tabindex="11"/>-->
+                    <!--<label for="newsletterField">Send me weekly updates about my child's school.</label>-->
+                <!--</li>-->
 
                 <li id="freeNewsletters">
                     <h2>Free Newsletters from Greatschools</h2>

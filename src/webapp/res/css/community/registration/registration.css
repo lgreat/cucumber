@@ -57,7 +57,8 @@
 #outline #bulletsHeader #bullets li {
     height: auto;
     list-style-type: disc;
-    list-style-position: outside;
+    list-style-position: inside;
+    color:green;
 }
 
 #outline #bulletsHeader .strongHeader {
@@ -66,6 +67,9 @@
     color:#D66671;
 }
 
+#outline #bulletsHeader .overrideGreenList{
+    color: #666666;
+}
 /* end the promo details*/
 
 /* start the join form details*/
@@ -349,6 +353,16 @@ width:140px;
     height:auto;
 }
 
+
+* html #outline ul li#freeNewsletters {
+    margin-top:0px;
+}
+
+* + html #outline ul li#freeNewsletters {
+    margin-top:0px;
+}
+
+
 #freeNewsletters h3{
      color: #55BBCC;
     font-size:13px;
@@ -451,6 +465,7 @@ width:140px;
 
 /* start terms and privcy and join button*/
 
+
 #terms a {
     color: #3399aa;
     text-decoration: none;
@@ -478,7 +493,6 @@ width:140px;
 }
 
 #outline ul li#terms label {
-    line-height: 15px;
     font-size:13px;
     font-weight: normal;
     position:relative;
@@ -487,7 +501,6 @@ width:140px;
 
 #outline ul li#terms input {
     width: 15px;
-    height: 15px;
     top: 3px;
     left:0px;
     position: relative;
