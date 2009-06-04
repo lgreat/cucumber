@@ -65,6 +65,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
 
         boolean userExists = updateCommandUser(userCommand);
         User user = userCommand.getUser();
+        user.setHow("supporter");
 
         setUsersPassword(user, userCommand, userExists);
 
@@ -74,6 +75,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         updateUserProfile(user, userCommand, ot);
+        user.getUserProfile().setHow("supporter");
 
         if (user.isEmailProvisional()) {
             user.setEmailValidated();

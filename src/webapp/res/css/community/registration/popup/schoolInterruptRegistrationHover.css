@@ -14,3 +14,13 @@
     font-weight: normal;
     line-height: 15px;
 }
+
+.nothanks {
+    position: relative;
+    left: 140px;
+    top: -10px;
+}
+
+#contentGS a.nothanks, #contentGS a.nothanks:hover {
+    text-decoration: underline;
+}

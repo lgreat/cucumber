@@ -9,7 +9,6 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:gsweb="gstaglib"
-        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 <html lang="en">
@@ -71,6 +70,8 @@
         <gsml:inputImage src="/res/img/community/registration/join_button_hover.gif" alt="submit"
                          name="submit" onclick="return doSingleClick(this);" tabIndex="16"
                          id="submitButton"/>
+
+        <a href="#" class="nothanks" onclick="return noThanks();">No thanks &amp;gt;</a>
 
         <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
 

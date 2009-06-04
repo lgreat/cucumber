@@ -150,7 +150,7 @@ PLEASE NOTE:
     left: 6px;
     background-color: #000;
     opacity: .12;
-    filter: alpha(opacity=12);   For IE
+    filter: alpha(opacity=12);
 }
 
 /*
@@ -275,16 +275,21 @@ PLEASE NOTE:
 .joinDialog {
     font-family: "Trebuchet MS", Arial, sans-serif;
     position: relative;
+    background-color: transparent;
 }
 
 .joinDialogTopBorder {
-    background: url('/res/img/submodal/joinpopup_top.gif') no-repeat;
+    background: transparent url('/res/img/submodal/joinpopup_top.gif') no-repeat;
     height: 26px;
     font-size: 1px;
 }
 
+.joinDialog table {
+    background-color: transparent;
+}
+
 .joinDialogBottomBorder {
-    background: url('/res/img/submodal/joinpopup_bottom.gif') no-repeat;
+    background: transparent url('/res/img/submodal/joinpopup_bottom.gif') no-repeat; /** background: none;*/
     height: 20px;
     font-size: 1px;
 }
