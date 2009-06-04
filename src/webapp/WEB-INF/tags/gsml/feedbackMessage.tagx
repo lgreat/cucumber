@@ -28,5 +28,12 @@
     <c:if test="${empty message}">
         <c:set var="inlineStyle" value="display: none;"/>
     </c:if>
-    <span id="${styleId}" class="${styleClass}" style="${inlineStyle}">${message}</span>
+    <c:choose>
+        <c:when test="${not empty styleId}">
+            <span id="${styleId}" class="${styleClass}" style="${inlineStyle}">${message}</span>
+        </c:when>
+        <c:otherwise>
+            <span class="${styleClass}" style="${inlineStyle}">${message}</span>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>

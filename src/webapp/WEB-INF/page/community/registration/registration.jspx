@@ -172,7 +172,6 @@
 
 
                 <c:forEach var="child" begin="1" end="${loopTimes}">
-                    <form:hidden path="userCmd.studentRows[${child-1}].locationOverride" id="locationOverride_${child}"/>
                     <c:set var="gradeVal" value="${userCmd.studentRows[child-1].gradeSelected}"/>
                     <c:set var="schoolVal" value="${userCmd.studentRows[child-1].schoolIdSelected}"/>
                     <c:set var="cityVal" value="${userCmd.studentRows[child-1].citySelected}"/>
@@ -185,6 +184,7 @@
                         <c:set var="locationOverrideDisplay" value="block"/>
                     </c:if>
                     <li id="childCityRow_${child}" style="display:${locationOverrideDisplay}">
+                        <form:hidden path="userCmd.studentRows[${child-1}].locationOverride" id="locationOverride_${child}"/>
                         <gsweb:stateSelector state="${stateVal}" styleId="stateSelectChild_${child}"
                                              onChange="childStateChange(this,${child});" tabIndex="7" styleClass="childStates" 
                                              name="state${child}"/>
