@@ -32,15 +32,16 @@
 
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="strongHeader">Is ${userCmd.mystatSchoolName} on track?</span> Sign up for updates on its
-            stats - from test scores to teacher quality.
+            <span class="bulletText"><span class="strongHeader">Is ${userCmd.mystatSchoolName} on track?</span> Sign up
+                for updates on its stats - from test scores to teacher quality.</span>
         </li>
         <li>
-            <span class="strongHeader">Find the right school</span> for your child and track its stats - from test
-            scores to teacher quality.
+            <span class="bulletText"><span class="strongHeader">Find the right school</span> for your child and track
+                its stats - from test scores to teacher quality.</span>
         </li>
         <li>
-            <span class="strongHeader">Share stories</span> about your child's success in and out of the classroom.
+            <span class="bulletText"><span class="strongHeader">Share stories</span> about your child's success in and
+                out of the classroom.</span>
         </li>
     </community:joinHoverHeader>
 

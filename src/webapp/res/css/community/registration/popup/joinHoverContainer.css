@@ -305,12 +305,12 @@ PLEASE NOTE:
     top: 5px;
     cursor: pointer;
     color: white;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .joinDialogClose img {
     position: relative;
-    top: 3px;
+    top: 2px;
 }
 
 .joinDialogBody {

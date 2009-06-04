@@ -24,20 +24,20 @@
     </c:if>
 
     <c:if test="${showLDNewsletter}">
-        <li id="ldNewsletter">
+        <li id="ldNewsletter" class="newsletter">
             <form:checkbox path="userCmd.ldNewsletter" id="ldNewsletterField" tabindex="11"/>
             <label for="ldNewsletterField">Send me monthly emails about Learning Difficulties.</label>
         </li>
     </c:if>
 
     <c:if test="${showNewsletter}">
-        <li id="newsletter">
+        <li id="newsletter" class="newsletter">
             <form:checkbox id="newsletterField" path="userCmd.newsletter" tabindex="12"/>
             <label for="newsletterField">Send me weekly updates from GreatSchools.</label>
         </li>
     </c:if>
 
-    <li id="partnerNewsletter">
+    <li id="partnerNewsletter" class="newsletter">
         <form:checkbox id="partnerNewsletterField" path="userCmd.partnerNewsletter" tabindex="12"/>
         <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
     </li>
@@ -51,7 +51,7 @@
         </spring:bind>
     </spring:hasBindErrors>
 
-    <li id="terms">
+    <li id="terms" class="newsletter">
         <form:checkbox id="termsField" path="userCmd.terms" tabindex="13"/>
         <label for="termsField" class="terms">I agree to the
             <gsml:popupWindow width="800" height="600" left="50" top="50"

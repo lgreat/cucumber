@@ -35,6 +35,7 @@ html, body, #marginGS, #contentGS {
 #top div.loginLink a, #top div.loginLink a:hover, #top div.loginLink a:link {
     text-decoration: underline;
     color: white;
+    font-weight: bold;
 }
 
 #contentGS ul {
@@ -80,10 +81,17 @@ html, body, #marginGS, #contentGS {
     list-style-type: disc;
     list-style-position: outside;
     padding-right: 10px;
+    color: #9C6;
+    font-size: 13px;
+}
+
+#contentGS #bullets li span.bulletText{
+    color: #444;
 }
 
 .strongHeader {
-    font-weight: bolder;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 li.dottedRule {
@@ -104,15 +112,14 @@ li.dottedRule {
 #contentGS ul li input, #contentGS ul li select {
     position: absolute;
     color: #444;
-    left: 120px;
+    left: 124px;
     width: 213px;
 }
 
 ul li label {
     padding: 0;
     margin: 0;
-    height: 18px;
-    font-weight: bold;
+    font-size: 14px;
 }
 
 label img {
@@ -143,19 +150,19 @@ input#mom {
 }
 
 #userDisclaimer {
-    font-size: 10px;
+    font-size: 11px;
     font-style: italic;
-    color: #8f8f8f;
+    color: #666;
     position: absolute;
     top: 29px;
-    left: 120px;
+    left: 124px;
     width: 210px;
 }
 
 #userDetails {
     font-size: 10px;
     font-style: italic;
-    color: #8f8f8f;
+    color: #999;
     position: absolute;
     top: 21px;
     left: 0;
@@ -165,7 +172,7 @@ input#mom {
 #passwordDetails {
     font-size: 10px;
     font-style: italic;
-    color: #8f8f8f;
+    color: #999;
     position: absolute;
     top: 21px;
     left: 0;
@@ -188,7 +195,7 @@ input#mom {
 
 #contentGS ul li #city select {
     width: 140px;
-    left: 180px;
+    left: 245px;
 }
 
 #contentGS ul li.childRow .selectChildGrade {
@@ -200,18 +207,20 @@ input#mom {
     left: 210px;
 }
 
-ul li#newsletter label, ul li#ldNewsletter label, ul li#partnerNewsletter label, li#terms label {
+form#reg1Form ul li.newsletter label {
     line-height: 15px;
     font-weight: normal;
     left: 126px;
     position: relative;
+    font-size: 13px;
 }
 
-ul li#newsletter input, ul li#ldNewsletter input, ul li#partnerNewsletter input, ul li#terms input {
+form#reg1Form ul li.newsletter input {
     width: 15px;
     height: 15px;
-    top: 3px;
     left: 120px;
+    top: 3px;
+    *top: 0px;
     position: relative;
 }
 
@@ -226,7 +235,7 @@ ul li#newsletter input, ul li#ldNewsletter input, ul li#partnerNewsletter input,
 
 input#submitButton {
     position: relative;
-    left: 120px;
+    left: 145px;
 }
 
 img.errorIcon {
@@ -285,7 +294,7 @@ ul li#termsError{
 
 #termsError .termsWarning {
     position:absolute;
-    left:120px;
+    left:127px;
     background-image:url(/res/img/bullet/icon_warning_12x12.gif);
     background-repeat: no-repeat;
     color:#CC5566;
@@ -295,7 +304,7 @@ ul li#termsError{
 }
 
 p.requiredFld {
-    color: #8f8f8f;
+    color: #666;
     font-size: 11px;
     position: absolute;
     bottom: 100px;
@@ -315,7 +324,7 @@ p.privacyBox a,
 }
 
 p.privacyBox {
-    color: #8f8f8f;
+    color: #666;
     font-size: 11px;
     position: absolute;
     bottom: 20px;

@@ -32,15 +32,16 @@
 <gsml:body adPageName="community/LDRegistrationHover">
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="strongHeader">Get the resources you need</span> to support your child with a learning
-            disability or an attention problem.
+            <span class="bulletText"><span class="strongHeader">Get the resources you need</span> to support your child
+                with a learning disability or an attention problem.</span>
         </li>
         <li>
-            <span class="strongHeader">Find the right school</span> for your child and track its stats - from
-            test scores to teacher quality.
+            <span class="bulletText"><span class="strongHeader">Find the right school</span> for your child and track
+                its stats - from test scores to teacher quality.</span>
         </li>
         <li>
-            <span class="strongHeader">Share stories</span> about your child's success in and out of the classroom.
+            <span class="bulletText"><span class="strongHeader">Share stories</span> about your child's success in and
+                out of the classroom.</span>
         </li>
     </community:joinHoverHeader>
 
@@ -52,9 +53,9 @@
     <!-- begin registration form -->
     <gsweb:form action="/community/registration/popup/LDRegistrationHover.page"
                 method="post" styleClass="registration" id="reg1Form">
-        <ul>
-            <form:hidden path="userCmd.redirectUrl"/>
+        <form:hidden path="userCmd.redirectUrl"/>
 
+        <ul>
             <community:joinHoverUserFields userCmd="${userCmd}"/>
 
             <c:set var="loopTimes" value="0"/>
@@ -62,7 +63,8 @@
                 <label>State, city</label>
                 <spring:bind path="userCmd.state">
                     <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                         onChange="parentStateChange(this,${loopTimes});" tabIndex="7"/>
+                                         onChange="parentStateChange(this,${loopTimes});" tabIndex="7"
+                            usingLongNames="true"/>
                 </spring:bind>
                 <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
 
