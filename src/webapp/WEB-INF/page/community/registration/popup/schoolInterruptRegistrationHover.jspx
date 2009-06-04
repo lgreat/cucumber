@@ -94,8 +94,8 @@
     </script>
 
     <div style="display: none;">
-        <mod:tracking pageName="School Interrupt Registration Hover"
-                      hier1="Account,Registration,School Interrupt Registration Hover"/>
+        <mod:tracking pageName="Newsletter Promo Hover"
+                      hier1="Newsletter,NL hover promo - MSS,School profile"/>
     </div>
 </gsml:body>
 </html>
