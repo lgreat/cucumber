@@ -65,15 +65,22 @@ function gradeChange(childNum, isChangeParentCity) {
 
 function parentStateChange(stateSelect, numChildren) {
     var url = '/community/registrationAjax.page';
-    var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
+    var citySpan = $('city');
+    var citySelect = citySpan.getElementsByTagName('select')[0];
+
+    var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true" + "&citySelectName=" + citySelect.name;
     pars += "&onchange=gradeChange(" + numChildren + ",true);";
+    if (citySelect.id != '') {
+        pars += "&citySelectId=" + citySelect.id;
+    }
+    
     for (var i = 1; i <= numChildren; i++) {
         if ($('locationOverride_' + i).value != 'true') {
             // if child's location is not overridden, clear out his school because parent has changed state
             $('schoolDiv' + i).innerHTML = '<select name="school' + i + '" id="school' + i + '" class="selectChildSchool"><option value="">- Choose School -</option></select>';
         }
     }
-    $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+    citySpan.innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
     var myAjax = new Ajax.Updater(
             'city',
             url,

@@ -38,7 +38,9 @@
         }
         function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
             mslHref = decodeURIComponent(href);
-            return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
+//            return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
+//            destUrl = destination;
+            return showLoginChooserRegistrationHover(emailUrlEncoded);
         }
     </script>
     <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>

@@ -126,6 +126,8 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
+        System.out.println("onBind: userCommand.schoolChoiceCity: " + userCommand.getSchoolChoiceCity());
+        System.out.println("onBind: request.getParameter.schoolChoiceCity:" + request.getParameter("schoolChoiceCity"));
 
         if (isChooserRegistration()) {
             if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
@@ -134,6 +136,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
             }
             userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
+            System.out.println("onBind: userCommand.schoolChoiceCity: " + userCommand.getSchoolChoiceCity());
             loadSchoolChoiceCityList(request, userCommand);
             // need to call this so that userCommand.isChooserRegistration() == true during validation
             setupChooserRegistration(userCommand);

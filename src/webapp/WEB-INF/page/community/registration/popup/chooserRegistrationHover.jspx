@@ -32,12 +32,12 @@
 <gsml:body adPageName="community/chooserRegistrationHover">
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="strongHeader">Receive a customized four-part email</span> series to guide you step-by-step
-            through your search.
+            <span class="bulletText"><span class="strongHeader">Receive a customized four-part email</span> series to
+                guide you step-by-step through your search.</span>
         </li>
         <li>
-            <span class="strongHeader">Save profiles of your top contenders</span> and compare imposrtant factors like
-            class size and academic performace.
+            <span class="bulletText"><span class="strongHeader">Save profiles of your top contenders</span> and
+                compare imposrtant factors like class size and academic performace.</span>
         </li>
     </community:joinHoverHeader>
 
@@ -57,7 +57,8 @@
                     <label>State, city</label>
                     <spring:bind path="userCmd.schoolChoiceState">
                         <gsweb:stateSelector state="${status.value}" styleId="userState"
-                                             onChange="parentStateChange(this,${loopTimes});" tabIndex="7" name="${status.expression}"/>
+                                             onChange="parentStateChange(this,${loopTimes});" tabIndex="7"
+                                             name="${status.expression}" usingLongNames="true"/>
                     </spring:bind>
 
                    

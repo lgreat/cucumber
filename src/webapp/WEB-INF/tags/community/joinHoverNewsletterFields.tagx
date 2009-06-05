@@ -47,7 +47,9 @@
             <c:set var="message">
                 <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
             </c:set>
-            <li id="termsError"><span class="termsWarning">${message}</span></li>
+            <c:if test="${!empty message}">
+                <li id="termsError"><span class="termsWarning">${message}</span></li>                
+            </c:if>
         </spring:bind>
     </spring:hasBindErrors>
 

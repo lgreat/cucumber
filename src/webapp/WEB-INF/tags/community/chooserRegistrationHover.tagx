@@ -10,8 +10,6 @@
     <pageHelper:externalCss file="/res/css/community/registration/popup/joinHoverContainer.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
-   
-   
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
@@ -39,10 +37,10 @@
                     '?email=' + emailUrlEncoded;
             }              
 
-            /*var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
             if (schoolChoiceVideo) {
                 schoolChoiceVideo.style.display = 'none';
-            }*/
+            }
 
             document.getElementById("chooserRegistrationDialog").style.display="block";
 
@@ -63,14 +61,18 @@
                 x = (x < 0)?0:x;
                 var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
                 y = (y < scrollTop)?scrollTop:y;
-                mslFlowDialog.moveTo(x,y);
+                chooserRegistrationDialog.moveTo(x,y);
             } catch (e) {}
 
             return false;
         }
 
-        function closeLoginInterruptHover() {
+        function closeLoginChooserHover() {
             chooserRegistrationDialog.cancel();
+            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            if (schoolChoiceVideo) {
+                schoolChoiceVideo.style.display = '';
+            }
         }
         //-->
         ]]>
@@ -81,7 +83,7 @@
             <tr>
                 <td class="joinDialogTopBorder">
                     <div id="chooserRegistrationDialogTopBar" class="joinDialogTopBar">
-                        <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                        <div class="joinDialogClose" onclick="closeLoginChooserHover();">
                             close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
                         </div>
                     </div>
@@ -92,7 +94,7 @@
                     <div id="chooserRegistrationDialogBody">
                         <iframe id="chooserRegistrationHoverIFrame"
                                 name="chooserRegistrationHoverIFrame" src=""
-                                width="640" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                                width="640" height="635" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
                     </div>
                 </td>
             </tr>
@@ -102,7 +104,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 
     <script language="JavaScript" type="text/javascript">
@@ -114,10 +115,10 @@
     </script>
 
     <!--
-     MSL login hover is now ready for use on your page
+     chooser registration hover is now ready for use on your page
      To use, attach an onclick handler to an a href like this:
      <a href="/community/loginOrRegister.page"
-        onclick="return showLoginHover()">Sign in</a>
+        onclick="return showLoginChooserRegistrationHover()">Sign in</a>
 
      In addition, the sendToDestination function here should probably exist on your page instead, and use
      page state to determine where to send the user and with what parameters. I would imagine the onclick
