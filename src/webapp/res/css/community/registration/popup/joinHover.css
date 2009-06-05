@@ -226,6 +226,10 @@ form#reg1Form ul li.newsletter input {
 
 #contentGS ul li#terms {
     padding-bottom: 11px;
+    *top: -4px;
+}
+*+html #contentGS ul li#terms {
+    padding-top: 0px;
 }
 
 #terms a {
@@ -301,6 +305,7 @@ ul li#termsError{
     background-position:0 3px;
     font-size:11px;
     padding-left:22px;
+    *top: -10px;
 }
 
 p.requiredFld {

@@ -84,7 +84,7 @@
                     <div id="ldRegistrationDialogBody">
                         <iframe id="ldRegistrationHoverIFrame"
                                 name="ldRegistrationHoverIFrame" src=""
-                                width="640" height="620" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                                width="640" height="635" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
                     </div>
                 </td>
             </tr>
