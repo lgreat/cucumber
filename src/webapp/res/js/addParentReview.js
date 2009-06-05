@@ -14,6 +14,8 @@ function cityChange(citySelect, selectId) {
 function stateChange(stateSelect) {
     var url = '/community/registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
+    $('schools').innerHTML = '<select id="schoolSelect" name="sid" class="selectSchool"><option value="Choose a school">Choose a school</option></select>';
+
     $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
     new Ajax.Updater(
             'city',
