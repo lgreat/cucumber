@@ -108,11 +108,7 @@
                             </spring:bind>
                         </c:when>
                         <c:otherwise>
-                            <spring:bind path="userCmd.schoolChoiceState">
-                                <gsweb:stateSelector state="${status.value}" styleId="userState"
-                                                     onChange="stateChange(this);" tabIndex="5"
-                                                     name="${status.expression}"/>
-                            </spring:bind>
+                            
                         </c:otherwise>
                     </c:choose>
                     <gsml:errorMessage command="userCmd" field="schoolChoiceState" useImage="true" styleClass="warning"/>

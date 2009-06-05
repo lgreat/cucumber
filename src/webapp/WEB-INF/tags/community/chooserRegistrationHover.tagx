@@ -7,50 +7,50 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
-    <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationFlowHover.css"/>
-    <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
+    <pageHelper:externalCss file="/res/css/community/registration/popup/joinHoverContainer.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
-
+   
    
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
-        var mslFlowDialog;
-        function loginHoverInit() {
-            mslFlowDialog = new YAHOO.widget.Dialog("mslFlowDialog",
+        var chooserRegistrationDialog;
+        function loginChooserRegistrationHoverInit() {
+            chooserRegistrationDialog = new YAHOO.widget.Dialog("chooserRegistrationDialog",
             {
                 postmethod: "form",
-                width: "475px",
-                height: "495px",
+                width: "680px",
                 visible: false,
                 draggable: false,
                 modal: true,
                 close: false,
                 zIndex: 9999999
             });
-            mslFlowDialog.render();
+            chooserRegistrationDialog.render();
         }
 
-        function showLoginHover(redirectUrlEncoded, emailUrlEncoded) {
-            var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
-            window.frames['mslFlowDialogIFrame'].window.location =
-                '/community/registration/popup/chooserRegistrationHover.page?email=' +
-                emailUrlEncoded + '&redirect=' + redirectUrlEncoded;
+        function showLoginChooserRegistrationHover(emailUrlEncoded) {
+            var frameLocation = '' + window.frames['chooserRegistrationHoverIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/chooserRegistrationHover.page') == -1) {
+                window.frames['chooserRegistrationHoverIFrame'].window.location =
+                    '/community/registration/popup/chooserRegistrationHover.page' +
+                    '?email=' + emailUrlEncoded;
+            }              
 
-            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            /*var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
             if (schoolChoiceVideo) {
                 schoolChoiceVideo.style.display = 'none';
-            }
+            }*/
 
-            document.getElementById("mslFlowDialog").style.display="block";
+            document.getElementById("chooserRegistrationDialog").style.display="block";
 
-            mslFlowDialog.show();
+            chooserRegistrationDialog.show();
 
             try {
-                var dwidth = 560;
-                var dheight = 472;
+                var dwidth = 680;
+                var dheight = 600;
                 var scrollTop = 0;
                 if (document.all) {
                     var iebody=(document.compatMode && document.compatMode != "BackCompat")?
@@ -68,28 +68,47 @@
 
             return false;
         }
+
+        function closeLoginInterruptHover() {
+            chooserRegistrationDialog.cancel();
+        }
         //-->
         ]]>
     </script>
 
-    <div id="mslFlowDialog" style="display: none;">
-        <div id="mslFlowDialogTopBar">
-            <img src="/res/img/community/registration/join_pop_top.gif" alt="Personalize your school search - GreatSchools"/>
-        </div>
-        <div id="mslFlowDialogBody">
-            <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="437" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
-         </div>
+    <div id="chooserRegistrationDialog" class="joinDialog" style="display: none;">
+         <table cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="joinDialogTopBorder">
+                    <div id="chooserRegistrationDialogTopBar" class="joinDialogTopBar">
+                        <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                            close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="joinDialogBody">
+                    <div id="chooserRegistrationDialogBody">
+                        <iframe id="chooserRegistrationHoverIFrame"
+                                name="chooserRegistrationHoverIFrame" src=""
+                                width="640" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="joinDialogBottomBorder">
+                    &amp;nbsp;
+                </td>
+            </tr>
+        </table>
 
-        <div id="mslFlowDialogBottomBar">
-            <img src="/res/img/community/registration/join_pop_bottom.gif" alt=""/>
-        </div>
     </div>
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
-        loginHoverInit();
+        loginChooserRegistrationHoverInit();
         //-->
         ]]>
     </script>

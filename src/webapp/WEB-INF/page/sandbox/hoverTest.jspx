@@ -31,6 +31,11 @@
             destUrl = destination;
             return showLDHover();
         }
+
+        function prepAndShowChooserRegistrationHover(destination,emailId) {
+            destUrl = destination;
+            return showLoginChooserRegistrationHover(emailId);
+        }
     </script>
 </head>
 <body>
@@ -47,6 +52,14 @@
     <a href="/community/loginOrRegister.page"
        onclick="return prepAndShowLDHover(this.href);">
         Click here for LD hover
+    </a>
+    
+    <br/>
+
+    <community:chooserRegistrationHover/>
+    <a href="/community/loginOrRegister.page"
+       onclick="return prepAndShowChooserRegistrationHover(this.href, 'testing@gmail.com');">
+        Click here for chooser registration hover
     </a>
 
 </body>
