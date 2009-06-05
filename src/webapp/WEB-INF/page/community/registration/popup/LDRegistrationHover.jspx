@@ -115,8 +115,8 @@
 
 
     <div style="display: none;">
-        <mod:tracking pageName="Learning Difficulties Registration Hover"
-                      hier1="Account,Registration,Learning Difficulties Registration Hover"/>
+        <mod:tracking pageName="Newsletter Promo Hover - LD"
+                      hier1="Newsletter, NL hover promo - LD"/>
     </div>
 </gsml:body>
 </html>
