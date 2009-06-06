@@ -173,7 +173,7 @@
         </div>
 
         <div id="compareSchools">
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${fn:length(districtAcronymOrName) >40 ? "this district":districtAcronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${fn:length(districtAcronymOrName) >40 ? "This District":districtAcronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <c:if test="${model.numElementarySchools gt 0}">
