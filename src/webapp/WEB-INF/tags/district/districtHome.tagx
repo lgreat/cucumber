@@ -123,9 +123,10 @@
                                 </c:choose>
                             </td>
                         </tr>
-                        <tr><td>This district's rating is based on its schools' <link:districtProfile districtId="${district.id}"
-                        state="${district.physicalAddress.state}" styleClass="minilink">test results</link:districtProfile>; 10 is best.</td></tr>
+                        <tr><td>This district's rating is based on its schools' test results; 10 is best.</td></tr>
                         <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
+                        <tr><td><link:districtProfile districtId="${district.id}"
+                                 state="${district.physicalAddress.state}">This district's stats &gt;</link:districtProfile></td></tr>
                         </table>
                     </td>
                     <td  id="address">
