@@ -39,7 +39,7 @@
              </c:if>
 
              <div class="${(loopStatus.last)?'':'dottedLineBottomBox'}">${nd.neighborDistrict.physicalAddress.city}, ${nd.neighborDistrict.physicalAddress.state} |
-                 ${roundedDistance eq 0.0 ? 0.1: roundedDistance} miles | ${nd.neighborDistrict.numberOfSchools} schools
+                 ${roundedDistance eq 0.0 ? 0.1: roundedDistance} miles | ${nd.neighborDistrict.numberOfSchools} school${nd.neighborDistrict.numberOfSchools gt 1 ? 's':''}
              </div>
         </c:forEach>
       </div>
