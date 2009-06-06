@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.school.district.NearbyDistrict;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
@@ -29,11 +28,13 @@ import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.ICounty;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 import gs.web.util.BadRequestLogger;
+import gs.web.util.PageHelper;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.path.DirectoryStructureUrlFields;
 
@@ -180,6 +181,18 @@ public class DistrictHomeController extends AbstractController  implements IDire
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
         model.put("model", pageModel);
+
+        // Google ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        pageHelper.addAdKeyword("state", state.getAbbreviation());
+        pageHelper.addAdKeyword("city", city.getName());
+        if (city.getCountyFips() != null) {
+            ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
+            if (county != null) {
+                pageHelper.addAdKeyword("county", county.getName());
+            }
+        }
+
         return new ModelAndView(getViewName(), model);
     }
 
