@@ -363,6 +363,14 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     position: relative;
     top: 7px;
 }
+
+* + html form#compareSchoolsForm input#compareSchoolsFormSubmit {
+    top: 4px;
+}
+
+* html form#compareSchoolsForm input#compareSchoolsFormSubmit {
+    top: 4px;
+}
 /* END compare schools */
 
 /* BEGIN breadcrumbs */
