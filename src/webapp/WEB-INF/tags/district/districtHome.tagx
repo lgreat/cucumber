@@ -140,7 +140,9 @@
                         <c:if test="${not empty district.fax}">
                             <tr><td>FAX: ${district.fax}</td></tr>
                         </c:if>
-                        <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
+                        <c:if test="${not empty district.webSite}">
+                            <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
+                        </c:if>
                         </table>
                     </td>
                     <td  id="info">
