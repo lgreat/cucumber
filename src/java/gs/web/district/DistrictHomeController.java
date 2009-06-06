@@ -69,6 +69,9 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
     public static final String MODEL_NUM_HIGH_SCHOOLS = "numHighSchools";
+    public static final String MODEL_COMPARE_E_CHECKED = "compare_e_checked";
+    public static final String MODEL_COMPARE_M_CHECKED = "compare_m_checked";
+    public static final String MODEL_COMPARE_H_CHECKED = "compare_h_checked";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -269,6 +272,17 @@ public class DistrictHomeController extends AbstractController  implements IDire
         model.put(MODEL_NUM_ELEMENTARY_SCHOOLS, num_elementary_schools);
         model.put(MODEL_NUM_MIDDLE_SCHOOLS, num_middle_schools);
         model.put(MODEL_NUM_HIGH_SCHOOLS, num_high_schools);
+
+        // now that we know how many schools in each grade level, we can properly set compare_[e|m|h]_checked
+        // to make sure at least one e/m/h checkbox is checked
+        // note: amazingly, the num_*_schools is -1 if there are 0!!!
+        if (num_elementary_schools <= 0) {
+            if (num_middle_schools <= 0) {
+                model.put(MODEL_COMPARE_H_CHECKED, "true");
+            } else {
+                model.put(MODEL_COMPARE_M_CHECKED, "true");
+            }
+        }
     }
 
     protected void loadTopRatedSchools(City userCity,Map<String, Object> model) {
@@ -314,22 +328,22 @@ public class DistrictHomeController extends AbstractController  implements IDire
             model.put("school_level_code_e", 1);
             model.put("school_level_code_m", 1);
             model.put("school_level_code_h", 1);
-            model.put("compare_e_checked", "true");
-            model.put("compare_m_checked", "");
-            model.put("compare_h_checked", "");
+            model.put(MODEL_COMPARE_E_CHECKED, "true");
+            model.put(MODEL_COMPARE_M_CHECKED, "");
+            model.put(MODEL_COMPARE_H_CHECKED, "");
         } else {
             boolean needsCompareCheck = true;
 
             if (school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
                 model.put("school_level_code_e", 1);
-                model.put("compare_e_checked", "true");
+                model.put(MODEL_COMPARE_E_CHECKED, "true");
                 needsCompareCheck = false;
             }
 
             if (school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
                 model.put("school_level_code_m", 1);
                 if (needsCompareCheck) {
-                    model.put("compare_m_checked", "true");
+                    model.put(MODEL_COMPARE_M_CHECKED, "true");
                     needsCompareCheck = false;
                 }
             }
@@ -337,7 +351,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
             if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
                 model.put("school_level_code_h", 1);
                 if (needsCompareCheck) {
-                    model.put("compare_h_checked", "true");                    
+                    model.put(MODEL_COMPARE_H_CHECKED, "true");                    
                 }
             }
         }        
