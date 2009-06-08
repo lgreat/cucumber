@@ -32,8 +32,12 @@ public class ReviewCommand implements EmailValidator.IEmail {
      */
     private CategoryRating _pProgram = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _pFacilities = CategoryRating.DECLINE_TO_STATE;
+    private CategoryRating _pSafetyPreschool = CategoryRating.DECLINE_TO_STATE;
+    private CategoryRating _pTeachersPreschool = CategoryRating.DECLINE_TO_STATE;
+    private CategoryRating _pParentsPreschool = CategoryRating.DECLINE_TO_STATE;
 
     private Poster _poster;
+
 
     private boolean _givePermission;
     private boolean _wantMssNL;
@@ -157,6 +161,30 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setPFacilities(CategoryRating pFacilities) {
         _pFacilities = pFacilities;
+    }
+
+    public CategoryRating getPSafetyPreschool() {
+        return _pSafetyPreschool;
+    }
+
+    public void setPSafetyPreschool(CategoryRating pSafetyPreschool) {
+        _pSafetyPreschool = pSafetyPreschool;
+    }
+
+    public CategoryRating getPTeachersPreschool() {
+        return _pTeachersPreschool;
+    }
+
+    public void setPTeachersPreschool(CategoryRating pTeachersPreschool) {
+        _pTeachersPreschool = pTeachersPreschool;
+    }
+
+    public CategoryRating getPParentsPreschool() {
+        return _pParentsPreschool;
+    }
+
+    public void setPParentsPreschool(CategoryRating pParentsPreschool) {
+        _pParentsPreschool = pParentsPreschool;
     }
 
     public CategoryRating getPSafety() {
@@ -291,6 +319,28 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setPProgramAsString(String rating) {
         _pProgram = CategoryRating.getCategoryRating(rating);
+    }
+
+     public String getPSafetyPreschoolAsString() {
+        return _pSafetyPreschool.getName();
+    }
+
+    public void setPSafetyPreschoolAsString(String rating) {
+        _pSafetyPreschool = CategoryRating.getCategoryRating(rating);
+    }
+    public String getPTeachersPreschoolAsString() {
+        return _pTeachersPreschool.getName();
+    }
+
+    public void setPTeachersPreschoolAsString(String rating) {
+        _pTeachersPreschool = CategoryRating.getCategoryRating(rating);
+    }
+    public String getPParentsPreschoolAsString() {
+        return _pParentsPreschool.getName();
+    }
+
+    public void setPParentsPreschoolAsString(String rating) {
+        _pParentsPreschool = CategoryRating.getCategoryRating(rating);
     }
 
     public String getPParentsAsString() {

@@ -220,17 +220,17 @@
             </li>
             <li>
                 <div class="catRatingLabel">Health &amp;amp; Safety</div>
-                <div class="catRating"><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/>
+                <div class="catRating"><gsml:starRating id="PSafetyPreschoolAsString" additionalClass="med-star"/>
                 </div>
             </li>
             <li>
                 <div class="catRatingLabel">Teacher Quality</div>
-                <div class="catRating"><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/>
+                <div class="catRating"><gsml:starRating id="PTeachersPreschoolAsString" additionalClass="med-star"/>
                 </div>
             </li>
             <li>
                 <div class="catRatingLabel">Parent Involvement</div>
-                <div class="catRating"><gsml:starRating id="PParentsAsString" additionalClass="med-star"/>
+                <div class="catRating"><gsml:starRating id="PParentsPreschoolAsString" additionalClass="med-star"/>
                 </div>
             </li>
         </ul>

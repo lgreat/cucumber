@@ -53,9 +53,9 @@ function showResponse(x) {
     $('safetyAsString').value = '';
     $('PProgramAsString').value = '';
     $('PFacilitiesAsString').value = '';
-    $('PSafetyAsString').value = '';
-    $('PTeachersAsString').value = '';
-    $('PParentsAsString').value = '';
+    $('PSafetyPreschoolAsString').value = '';
+    $('PTeachersPreschoolAsString').value = '';
+    $('PParentsPreschoolAsString').value = '';
 
     clearRatings('principalAsString');
     clearRatings('teacherAsString');
@@ -64,9 +64,9 @@ function showResponse(x) {
     clearRatings('safetyAsString');
     clearRatings('PProgramAsString');
     clearRatings('PFacilitiesAsString');
-    clearRatings('PSafetyAsString');
-    clearRatings('PTeachersAsString');
-    clearRatings('PParentsAsString');
+    clearRatings('PSafetyPreschoolAsString');
+    clearRatings('PTeachersPreschoolAsString');
+    clearRatings('PParentsPreschoolAsString');
 
     var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
     var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
@@ -220,6 +220,7 @@ function validateReview() {
             $('reviewText').value = "";
         }
     }
+
     return noError;
 }
 
