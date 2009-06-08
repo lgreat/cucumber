@@ -69,6 +69,7 @@
 
         function closeLoginChooserHover() {
             chooserRegistrationDialog.cancel();
+            parent.sendToDestination();
             var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
             if (schoolChoiceVideo) {
                 schoolChoiceVideo.style.display = '';
