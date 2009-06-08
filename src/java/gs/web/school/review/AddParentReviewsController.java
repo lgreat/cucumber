@@ -96,6 +96,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         ReviewCommand rc = (ReviewCommand) command;
 
+
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         String check = request.getParameter("isAddNewParentReview");
         if(!StringUtils.isBlank(check)){
@@ -161,7 +162,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
             getUserDao().saveUser(user);
         }
 
-        Review r = createOrUpdateReview(user, school, rc, isNewUser);
+        Review r = createOrUpdateReview(user, school, rc, isNewUser,check);
         //save the review
         getReviewDao().saveReview(r);
 
@@ -211,7 +212,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
     }
 
     protected Review createOrUpdateReview(final User user, final School school,
-                                          final ReviewCommand command, final boolean isNewUser) {
+                                          final ReviewCommand command, final boolean isNewUser,String check) {
 
         Review review = null;
         //existing user, check if they have previously left a review for this school
@@ -238,6 +239,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                             review.setQuality(command.getOverall());
                         }
                     }
+
                     review.setPosted(new Date());
                     review.setProcessDate(null);
                     //new review submitted, so set the processor to null
@@ -247,6 +249,42 @@ public class AddParentReviewsController extends SimpleFormController implements 
                             + review.getComments() +
                             "\nNew Comment: " + command.getComments() + "\nOld processor: " + review.getSubmitter()
                             + "\nOld Note: " + review.getNote());
+                }
+
+                if(StringUtils.isNotBlank(check)){
+                    if(!LevelCode.PRESCHOOL.equals(school.getLevelCode())){
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacher()) && command.getTeacher() != null){
+                        review.setTeachers(command.getTeacher());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getActivities()) && command.getActivities() != null){
+                            review.setActivities(command.getActivities());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getParent()) && command.getParent() != null){
+                            review.setParents(command.getParent());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getSafety()) && command.getSafety() != null){
+                            review.setSafety(command.getSafety());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPrincipal()) && command.getPrincipal() != null){
+                            review.setPrincipal(command.getPrincipal());
+                        }
+                    }else{
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPFacilities()) && command.getPFacilities() != null){
+                            review.setPFacilities(command.getPFacilities());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPProgram()) && command.getPProgram() != null){
+                            review.setPProgram(command.getPProgram());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPSafetyPreschool()) && command.getPSafetyPreschool() != null){
+                            review.setPSafety(command.getPSafetyPreschool());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPTeachersPreschool()) && command.getPTeachersPreschool() != null){
+                            review.setPTeachers(command.getPTeachersPreschool());
+                        }
+                        if(!CategoryRating.DECLINE_TO_STATE.equals(command.getPParentsPreschool()) && command.getPParentsPreschool() != null){
+                            review.setPParents(command.getPParentsPreschool());
+                        }
+                    }
                 }
             }
         }
@@ -258,11 +296,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
             review.setSchool(school);
 
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                review.setPOverall(command.getPFacilities());
-                review.setPOverall(command.getPParents());
-                review.setPOverall(command.getPProgram());
-                review.setPOverall(command.getPSafety());
-                review.setPOverall(command.getPTeachers());
+                review.setPFacilities(command.getPFacilities());
+                review.setPParents(command.getPParentsPreschool());
+                review.setPProgram(command.getPProgram());
+                review.setPSafety(command.getPSafetyPreschool());
+                review.setPTeachers(command.getPTeachersPreschool());
                 review.setPOverall(command.getOverall());
             } else {
                 review.setPrincipal(command.getPrincipal());

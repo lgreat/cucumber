@@ -117,7 +117,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _command.setOverallAsString("1");
 
         _controller.setReviewDao(_reviewDao);
-        Review r = _controller.createOrUpdateReview(_user, _school, _command, false);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, false,"");
         assertEquals("a", r.getStatus());
     }
 
@@ -195,7 +195,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
     public void testCreateReviewRejected() throws Exception {
         _command.setComments("fuck, this page is the shit");
-        Review r = _controller.createOrUpdateReview(_user, _school, _command, true);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, true,"");
 
         assertEquals("r", r.getStatus());
     }
@@ -214,7 +214,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _command.setAllowContact(false);
         _command.setFirstName("dave");
 
-        Review r = _controller.createOrUpdateReview(_user, _school, _command, true);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, true,"");
         assertEquals(CategoryRating.RATING_1, r.getPrincipal());
         assertEquals(CategoryRating.RATING_2, r.getTeachers());
         assertEquals(CategoryRating.RATING_3, r.getActivities());
@@ -361,7 +361,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(r);
         replay(_reviewDao);
         _controller.setReviewDao(_reviewDao);
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
         assertEquals(r, review2);
         assertEquals(CategoryRating.RATING_2, review2.getQuality());
         verify(_reviewDao);
@@ -385,7 +385,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         replay(_reviewDao);
 
         _controller.setReviewDao(_reviewDao);
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
         assertEquals(_command.getComments(), review2.getComments());
         assertEquals(CategoryRating.RATING_4, review2.getQuality());
         assertEquals(CategoryRating.RATING_1, review2.getTeachers());
