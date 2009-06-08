@@ -56,29 +56,25 @@
                 <li id="whereLiveLine">
                     <label>State, city</label>
                     <spring:bind path="userCmd.state">
-                        <gsweb:stateSelector state="${status.value}" styleId="userState"
+                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                              onChange="parentStateChange(this,${loopTimes});" tabIndex="7"
-                                             name="${status.expression}" usingLongNames="true"/>
+                                             name="${status.expression}"/>
                     </spring:bind>
-
-                   
                     <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
 
-                <span id="city">
+                <span id="city" class="shortState">
                     <spring:bind path="userCmd.city">
                         <select name="${status.expression}" tabindex="6">
-                            <c:if test="${empty userCmd.state or (userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq ''))}">
+                            <c:if test="${empty userCmd.city}">
                                 <option selected="selected" value="">Choose city</option>
                             </c:if>
-                            <c:if test="${not empty userCmd.state}">
-                                <c:forEach var="cityOption" items="${userCmd.cityList}">
-                                    <![CDATA[<option ]]>
-                                    <c:if test="${userCmd.city eq cityOption.name}">
-                                        selected="selected"
-                                    </c:if>
-                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                </c:forEach>
-                            </c:if>
+                            <c:forEach var="cityOption" items="${userCmd.cityList}">
+                                <![CDATA[<option ]]>
+                                <c:if test="${userCmd.city eq cityOption.name}">
+                                    selected="selected"
+                                </c:if>
+                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                            </c:forEach>
                         </select>
                     </spring:bind>
                 </span>

@@ -198,6 +198,10 @@ input#mom {
     left: 245px;
 }
 
+#contentGS ul li #city.shortState select {
+    left:197px;
+}
+
 #contentGS ul li.childRow .selectChildGrade {
     width: auto;
 }
