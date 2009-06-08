@@ -2088,11 +2088,12 @@
     </bean>
 
     <bean name="/community/registration/popup/LDRegistrationHover.page"
-          class="gs.web.community.registration.RegistrationController"
+          class="gs.web.community.registration.popup.LDRegistrationHoverController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="how" value="LD Hover"/>
         <property name="formView" value="community/registration/popup/LDRegistrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">
