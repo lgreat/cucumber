@@ -115,8 +115,8 @@
             }
         </script>
 
-    <mod:tracking pageName="Short Registration Hover"
-                      hier1="Account,Registration,Short Registration Hover"/>
+    <mod:tracking pageName="Short On Page Registration"
+                      hier1="Account,Registration,Short On Page Registration"/>
 
     </gsml:body>
     </html>
