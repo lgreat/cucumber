@@ -55,7 +55,7 @@
                 <c:set var="loopTimes" value="0"/>
                 <li id="whereLiveLine">
                     <label>State, city</label>
-                    <spring:bind path="userCmd.schoolChoiceState">
+                    <spring:bind path="userCmd.state">
                         <gsweb:stateSelector state="${status.value}" styleId="userState"
                                              onChange="parentStateChange(this,${loopTimes});" tabIndex="7"
                                              name="${status.expression}" usingLongNames="true"/>
@@ -65,15 +65,15 @@
                     <gsml:feedbackMessage command="userCmd" field="state" styleClass="ajaxMessage ajaxError"/>
 
                 <span id="city">
-                    <spring:bind path="userCmd.schoolChoiceCity">
+                    <spring:bind path="userCmd.city">
                         <select name="${status.expression}" tabindex="6">
-                            <c:if test="${empty userCmd.schoolChoiceState or (userCmd.schoolChoiceCityList ne null and (userCmd.schoolChoiceCity eq null or userCmd.schoolChoiceCity eq ''))}">
+                            <c:if test="${empty userCmd.state or (userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq ''))}">
                                 <option selected="selected" value="">Choose city</option>
                             </c:if>
-                            <c:if test="${not empty userCmd.schoolChoiceState}">
-                                <c:forEach var="cityOption" items="${userCmd.schoolChoiceCityList}">
+                            <c:if test="${not empty userCmd.state}">
+                                <c:forEach var="cityOption" items="${userCmd.cityList}">
                                     <![CDATA[<option ]]>
-                                    <c:if test="${userCmd.schoolChoiceCity eq cityOption.name}">
+                                    <c:if test="${userCmd.city eq cityOption.name}">
                                         selected="selected"
                                     </c:if>
                                     <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>

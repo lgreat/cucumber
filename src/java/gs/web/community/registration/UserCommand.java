@@ -29,7 +29,6 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _redirectUrl;
     private String _referrer;
     private List _cityList;
-    private List _schoolChoiceCityList;
     private List<Subscription> _subscriptions;
     private List<StudentCommand> _studentRows;
     private boolean _recontact;
@@ -60,14 +59,6 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setCityList(List cityList) {
         _cityList = cityList;
-    }
-
-    public List getSchoolChoiceCityList() {
-        return _schoolChoiceCityList;
-    }
-
-    public void setSchoolChoiceCityList(List cityList) {
-        _schoolChoiceCityList = cityList;
     }
 
     public String getRedirectUrl() {
@@ -178,28 +169,12 @@ public class UserCommand implements EmailValidator.IEmail {
         getUserProfile().setState(state);
     }
 
-    public State getSchoolChoiceState() {
-        return getUserProfile().getSchoolChoiceState();
-    }
-
-    public void setSchoolChoiceState(State state) {
-        getUserProfile().setSchoolChoiceState(state);
-    }
-
     public String getCity() {
         return getUserProfile().getCity();
     }
 
     public void setCity(String city) {
         getUserProfile().setCity(city);
-    }
-
-    public String getSchoolChoiceCity() {
-        return getUserProfile().getSchoolChoiceCity();
-    }
-
-    public void setSchoolChoiceCity(String city) {
-        getUserProfile().setSchoolChoiceCity(city);
     }
 
     public Integer getNumSchoolChildren() {

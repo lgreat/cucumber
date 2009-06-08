@@ -90,11 +90,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         //validateNumSchoolChildren(command, errors);
         validateTerms(command, errors);
         validatePassword(command, errors);
-        if (command.isChooserRegistration()) {
-            validateSchoolChoiceStateCity(command, errors);
-        } else {
-            validateStateCity(command, errors);
-        }
+        validateStateCity(command, errors);
     }
 
     protected User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
@@ -135,30 +131,19 @@ public class UserCommandValidator implements IRequestAwareValidator {
         return user;
     }
 
-    protected void validateSchoolChoiceStateCity(UserCommand command, Errors errors) {
-        UserProfile userProfile = command.getUserProfile();
-        if (userProfile.getSchoolChoiceState() == null) {
-            errors.rejectValue("schoolChoiceState", null, ERROR_SCHOOL_CHOICE_STATE_MISSING);
-            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_STATE_MISSING);
-            return; // avoid NPEs
-        }
-        if (StringUtils.isEmpty(userProfile.getSchoolChoiceCity())) {
-            errors.rejectValue("schoolChoiceCity", null, ERROR_SCHOOL_CHOICE_CITY_MISSING_SHORT);
-            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_CITY_MISSING_SHORT);
-        }
-    }
-
     protected void validateStateCity(UserCommand command, Errors errors) {
         UserProfile userProfile = command.getUserProfile();
-//        if (userProfile.getState() == null) {
-//            errors.rejectValue("state", null, ERROR_STATE_MISSING);
-//            _log.info("Registration error: " + ERROR_STATE_MISSING);
-//            return; // avoid NPEs
-//        }
-//        if (StringUtils.isEmpty(userProfile.getCity())) {
-//            errors.rejectValue("city", null, ERROR_CITY_MISSING);
-//            _log.info("Registration error: " + ERROR_CITY_MISSING);
-//        }
+        if (command.isChooserRegistration()) {
+            if (userProfile.getState() == null) {
+                errors.rejectValue("state", null, ERROR_STATE_MISSING);
+                _log.info("Registration error: " + ERROR_STATE_MISSING);
+                return; // avoid NPEs
+            }
+            if (StringUtils.isEmpty(userProfile.getCity())) {
+                errors.rejectValue("city", null, ERROR_CITY_MISSING);
+                _log.info("Registration error: " + ERROR_CITY_MISSING);
+            }
+        }
     }
 
     protected void validateTerms(UserCommand command, Errors errors) {

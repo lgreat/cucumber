@@ -36,8 +36,8 @@ import java.util.*;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
- * @author <a href="mailto:droy@urbanasoft.com">Dave Roy</a>
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author <a href="mailto:droy@greatschools.net">Dave Roy</a>
  */
 public class RegistrationController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration.page";
@@ -73,11 +73,9 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRedirectUrl(request.getParameter("redirect"));
         if (isChooserRegistration()) {
-            loadSchoolChoiceCityList(request, userCommand);
             setupChooserRegistration(userCommand);
-        } else {
-            loadCityList(request, userCommand);
         }
+        loadCityList(request, userCommand);
 
         // TODO: This may no longer be necessary as we use 1 page now and no longer use email validation
         // AR: True but there are a number of ways that provisional users could still end up here, and I
@@ -126,24 +124,14 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
-        System.out.println("onBind: userCommand.schoolChoiceCity: " + userCommand.getSchoolChoiceCity());
-        System.out.println("onBind: request.getParameter.schoolChoiceCity:" + request.getParameter("schoolChoiceCity"));
 
         if (isChooserRegistration()) {
-            if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
-                State state = State.fromString(request.getParameter("schoolChoiceState"));
-                userCommand.setSchoolChoiceState(state);
-
-            }
-            userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
-            System.out.println("onBind: userCommand.schoolChoiceCity: " + userCommand.getSchoolChoiceCity());
-            loadSchoolChoiceCityList(request, userCommand);
             // need to call this so that userCommand.isChooserRegistration() == true during validation
             setupChooserRegistration(userCommand);
-        } else {
-            userCommand.setCity(request.getParameter("city"));
-            loadCityList(request, userCommand);
         }
+
+        userCommand.setCity(request.getParameter("city"));
+        loadCityList(request, userCommand);
 
         int numChildFields = 1;
         while (request.getParameter("grade" + numChildFields) != null) {
@@ -220,33 +208,15 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
-        loadCityListHelper(request, userCommand, false);
-    }
-
-    protected void loadSchoolChoiceCityList(HttpServletRequest request, UserCommand userCommand) {
-        loadCityListHelper(request, userCommand, true);
-    }
-
-    protected void loadCityListHelper(HttpServletRequest request, UserCommand userCommand, boolean isSchoolChoiceLocation) {
-        State state = (isSchoolChoiceLocation ? userCommand.getSchoolChoiceState() : userCommand.getState());
+        State state = userCommand.getState();
         if (state == null) {
             if (SessionContextUtil.getSessionContext(request).getCity() != null) {
                 City userCity = SessionContextUtil.getSessionContext(request).getCity();
                 state = userCity.getState();
                 SessionContextUtil.getSessionContext(request).setState(state);
-                if (isSchoolChoiceLocation) {
-                    userCommand.setSchoolChoiceCity(userCity.getName());
-                    userCommand.setSchoolChoiceState(state);
-                } else {
-                    userCommand.setCity(userCity.getName());
-                }
-
+                userCommand.setCity(userCity.getName());
             } else {
-                if (isSchoolChoiceLocation) {
-                    state = SessionContextUtil.getSessionContext(request).getState();
-                } else {
-                    state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-                }
+                state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             }
         }
 
@@ -255,11 +225,7 @@ public class RegistrationController extends SimpleFormController implements Read
             City city = new City();
             city.setName("My city is not listed");
             cities.add(0, city);
-            if (isSchoolChoiceLocation) {
-                userCommand.setSchoolChoiceCityList(cities);
-            } else {
-                userCommand.setCityList(cities);
-            }
+            userCommand.setCityList(cities);
         }
     }
 
@@ -324,12 +290,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 Subscription subscription = new Subscription();
                 subscription.setUser(user);
                 subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-                if(isChooserRegistration())
-                {
-                    subscription.setState(userCommand.getSchoolChoiceState());
-                }else{
-                    subscription.setState(userCommand.getUserProfile().getState());
-                }
+                subscription.setState(userCommand.getUserProfile().getState());
                 userCommand.addSubscription(subscription);
             }
 
@@ -511,8 +472,6 @@ public class RegistrationController extends SimpleFormController implements Read
         //instead we use schoolChoiceState and schoolChoiceCity fields.Therefore the if and else block below. Jira - 7915 and 7968(Parent Advisor Newsletter)
         if(userCommand.getState() != null){
             communityNewsletterSubscription.setState(userCommand.getState());
-        } else if(userCommand.getSchoolChoiceState() != null) {
-            communityNewsletterSubscription.setState(userCommand.getSchoolChoiceState());
         }
 
         userCommand.addSubscription(communityNewsletterSubscription);
