@@ -67,10 +67,11 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 				<li>
 					<p class="question">Where does GreatSchools get its funding?</p>
-					<p>GreatSchools receives generous support from leading foundations that share our goal of
-                       empowering parents to support their children's education, including the Bill and Melinda
-                       Gates Foundation, The Broad Foundation, The Hewlett Foundation and The Robinson Foundation.
-                       GreatSchools also generates revenue from our advertising and content licensing programs.</p>
+					<p>GreatSchools receives generous support from leading foundations that share our
+                       goal of empowering parents to support their children's education, including
+                       the Bill and Melinda Gates Foundation, the Robertson Foundation and the
+                       Walton Family Foundation. GreatSchools also generates revenue from our
+                       advertising and content licensing programs.</p>
 				</li>
 
 				<li>
