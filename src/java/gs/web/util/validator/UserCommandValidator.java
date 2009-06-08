@@ -88,9 +88,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateUsername(command, user, errors);
         validateGender(command, errors);
         //validateNumSchoolChildren(command, errors);
-        if (!command.isChooserRegistration()) {
-            validateTerms(command, errors);
-        }
+        validateTerms(command, errors);
         validatePassword(command, errors);
         if (command.isChooserRegistration()) {
             validateSchoolChoiceStateCity(command, errors);
