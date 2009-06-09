@@ -20,10 +20,12 @@
             <area shape="rect" href="http://www.additudemag.com" target="_blank"
                   coords="155,0 300,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
         </map>
-        <gsml:img id="provided_by" 
-                  src="/res/img/ADD-logo_01.gif"
-                  alt="Content provided by: ADDitude magazine"
-                  usemap="#specialNeedsContentProvidedBy"/>
+        <gsml:a href="http://www.additudemag.com/" target="_blank">
+            <gsml:img id="provided_by"
+                      src="/res/img/ADD-logo_01.gif"
+                      alt="Content provided by: ADDitude magazine"
+                      usemap="#specialNeedsContentProvidedBy"/>
+        </gsml:a>
     </c:if>
     <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning') or fn:contains(pageContext.request.requestURI,'mediaChoices')}">
         <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
