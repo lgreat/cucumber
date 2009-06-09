@@ -16,10 +16,6 @@
     <ad:AboveFold_300x600/>
     
     <c:if test="${fn:contains(pageContext.request.requestURI,'specialNeeds')}">
-        <map name="specialNeedsContentProvidedBy" id="specialNeedsContentProvidedBy">
-            <area shape="rect" href="http://www.additudemag.com" target="_blank"
-                  coords="155,0 300,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
-        </map>
         <gsml:a href="http://www.additudemag.com/" target="_blank">
             <gsml:img id="provided_by"
                       src="/res/img/ADD-logo_01.gif"
