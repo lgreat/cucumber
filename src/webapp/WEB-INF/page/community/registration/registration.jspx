@@ -74,7 +74,7 @@
 
     <!-- begin registration form -->
         <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
-        <p class="requiredFld">* indicates a required field.</p>
+        <p class="requiredFld">* Indicates a required field.</p>
                             
             <ul>
                 <li>
