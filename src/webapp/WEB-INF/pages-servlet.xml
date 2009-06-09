@@ -2070,6 +2070,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="how" value="MSS Hover"/>
         <property name="formView" value="community/registration/popup/schoolInterruptRegistrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">
