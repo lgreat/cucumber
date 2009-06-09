@@ -86,7 +86,7 @@
     </div>
 </div>
 
-<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post">
+<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post" onsubmit="return validateReview();">
 <h3 style="display: none;" id="completeReview">Complete your review &amp;amp; rating</h3>
 
 <div style="display: none;" id="parentReviewForm">
@@ -158,7 +158,7 @@
                                             onkeydown="countWords(this)"
                                             onfocus="if(this.value=='Enter your review here'){this.value='';}"
                                             rows="10" cols="50">Enter your review here</textarea></div>
-        <div class="marginEmailField"><input type="text" name="email" id="reviewEmail"
+        <div class="marginEmailField"><input type="text" name="email" id="reviewEmail" 
                                              onfocus="if(this.value=='Enter your email address'){this.value='';}"
                                              value="Enter your email address" class="emailAddress"/></div>
         <div class="marginEmailField" id="termsAndPrivacy"><input id="permission" name="givePermission" type="checkbox"
@@ -243,7 +243,7 @@
     </div>
 
     <div id="submitReview"><gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit Review"
-                                            id="submit" name="_submit" onclick="return validateReview();"/>
+                                            id="submit" name="_submit"/>
     </div>
 
 
