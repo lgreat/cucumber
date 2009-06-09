@@ -12,7 +12,8 @@ function cityChange(citySelect, selectId) {
 }
 
 function stateChange(stateSelect) {
-    var url = '/community/registrationAjax.page';
+    if(stateSelect.value != ''){
+        var url = '/community/registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=false&onchange=cityChange(this,'schools')";
     $('schools').innerHTML = '<select id="schoolSelect" name="sid" class="selectSchool"><option value="Choose a school">Choose a school</option></select>';
 
@@ -26,6 +27,11 @@ function stateChange(stateSelect) {
         onComplete: function(transport) {
         }
     });
+
+    }else{
+         $('city').innerHTML = '<select name="city"  id="citySelect" class="selectCity"><option value="Choose a city">Choose a city</option></select>';
+    }
+
 }
 
 function schoolChange(school) {
@@ -165,7 +171,7 @@ function onLoadCities() {
         });
 
     } else {
-        $('city').innerHTML = '<select name="city" class="selectCity"><option value="Choose a city">Choose a city</option></select>';
+        $('city').innerHTML = '<select name="city"  id="citySelect" class="selectCity"><option value="Choose a city">Choose a city</option></select>';
     }
 
     var starHandler = function(event) {
@@ -244,12 +250,12 @@ function reviewThisSchool() {
     var errMsg = 'Please enter the following feilds : ';
     var noError = true;
 
-    if (($('userState').value == '') || ($('userState').value == 'Choose a state')) {
+    if (($('userState').value == 0) || ($('userState').value == 'Choose a state')) {
         errMsg = errMsg + '\nPlease select a state.';
         noError = false;
     }
 
-    if (($('citySelect').value == '') || ($('citySelect').value == 'Choose a school')) {
+    if (($('citySelect').value == '') || ($('citySelect').value == 'Choose a city')) {
         errMsg = errMsg + '\nPlease select a city.';
         noError = false;
     }
