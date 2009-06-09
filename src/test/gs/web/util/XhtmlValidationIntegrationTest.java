@@ -174,6 +174,6 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     }
 
     public void testAddParentReviewPage() {
-        assertValidXhtml(INTEGRATION_HOST + "school/parentReview.page");
+        assertValidXhtml(INTEGRATION_HOST + "/school/parentReview.page");
     }
 }
