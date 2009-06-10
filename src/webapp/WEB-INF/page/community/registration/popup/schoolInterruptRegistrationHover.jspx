@@ -74,7 +74,7 @@
 
         <a href="#" class="nothanks" onclick="return noThanks();">No thanks &amp;gt;</a>
 
-        <p class="requiredFld" id="requiredFld">* indicates a required field.</p>
+        <p class="requiredFld" id="requiredFld">* Indicates a required field.</p>
 
         <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
             <gsml:popupWindow width="800" height="600" left="50" top="50"

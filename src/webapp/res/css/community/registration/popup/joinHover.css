@@ -57,13 +57,13 @@ html, body, #marginGS, #contentGS {
 
 .headerImage {
     position: relative;
-    top: -1px;
     float: left;
     margin-right: 25px;
 }
 
 #bulletsHeader {
     height: 142px;
+    background-image: url(/res/img/community/registration/join_header_gradient.gif);
 }
 
 #bullets {
