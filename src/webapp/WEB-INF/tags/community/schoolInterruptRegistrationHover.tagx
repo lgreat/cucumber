@@ -15,6 +15,7 @@
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <pageHelper:externalJavascript file="/res/js/cookie.js"/>
+    <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
@@ -71,52 +72,6 @@
             schoolInterruptRegistrationDialog.cancel();
             parent.sendToDestination();
         }
-
-        var mssAutoHoverInterceptor = {
-            interceptPercent: 0,
-            hoverName: '',
-            hoverUrl: '',
-            hoverHeight: 0,
-            hoverWidth: 0,
-            newHoverName: '',
-            cookieName: '',
-            cookieProperty: '',
-            userLoggedInCookieName: '',
-            ajaxRequest: null,
-            shouldIntercept: function(hoverName) {
-                if (this.hoverName != hoverName){
-                    return false;
-                }
-                if (this.userIsLoggedIn(this.userLoggedInCookieName)){
-                    return false;
-                }
-
-                var dataObject = subCookie.getObject(this.cookieName);
-                // if no cookie, set value to 1
-                if (dataObject == undefined || dataObject[this.cookieProperty] == undefined){
-                    subCookie.setObjectProperty(this.cookieName, this.cookieProperty, 1,1000);
-                    return false;
-                // else if cookie value is 1, set to 2 and show hover
-                } else if (dataObject[this.cookieProperty] == '1') {
-                    subCookie.setObjectProperty(this.cookieName, this.cookieProperty, 2,1000);
-                    return true;
-                }
-                // else no-op
-                return false;
-            },
-            init: function(){
-                this.hoverName = 'mssAutoHover';
-                this.cookieName = 'mssAutoHover';
-                this.cookieProperty = 'GS-8290';
-                this.userIsLoggedIn = GSType.submodal.interceptor.userIsLoggedIn;
-                this.userLoggedInCookieName = 'MEMID';
-            },
-            userShouldSeeAlternateHover: function(){return false;},
-            generateRandomNumber: function(){return 0;},
-            userIsLoggedIn: function(){return false;}
-        };
-
-        mssAutoHoverInterceptor.init();
 
         function showMssAutoHoverOnExit() {
             var arr = getElementsByCondition(

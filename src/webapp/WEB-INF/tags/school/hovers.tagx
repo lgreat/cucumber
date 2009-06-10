@@ -84,9 +84,10 @@
             <c:when test="${school.levelCode == 'p'}">
                 <pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}', 'true')"/>
             </c:when>
-            <c:otherwise>
-                <pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>
-            </c:otherwise>
+            <!-- GS-8291 Replacing with new MSS hover, see schoolInterruptRegistrationHover.tagx -->
+            <!--<c:otherwise>-->
+                <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
+            <!--</c:otherwise>-->
         </c:choose>
     </c:if>
     <c:if test="${showSurvey}">
