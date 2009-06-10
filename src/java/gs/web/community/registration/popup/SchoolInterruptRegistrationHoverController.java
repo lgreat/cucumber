@@ -5,8 +5,6 @@ import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
-import gs.web.util.context.SessionContextUtil;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.community.User;
 import gs.data.community.Subscription;
@@ -15,7 +13,6 @@ import gs.data.school.School;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -123,14 +120,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         }
 
         PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
-        if ((StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
-                !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
-            String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
-            userCommand.setRedirectUrl(redirectUrl);
-        }
-        mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+        mAndV.setViewName("redirect:" + getHoverView());
 
         return mAndV;
     }

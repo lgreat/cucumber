@@ -25,7 +25,6 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.mail.internet.MimeMessage;
@@ -53,6 +52,8 @@ public class RegistrationController extends SimpleFormController implements Read
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
     private String _errorView;
+    /** If defined, the view that this controller should redirect to. Special casing for hovers. **/
+    private String _hoverView;
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
     private String _how;
@@ -325,7 +326,9 @@ public class RegistrationController extends SimpleFormController implements Read
         }
 
         PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
-        if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+        if(StringUtils.isNotBlank(getHoverView())) {
+            userCommand.setRedirectUrl(getHoverView());
+        } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                 !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
             String redirectUrl = "http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
@@ -333,12 +336,6 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setRedirectUrl(redirectUrl);
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
-
-        if(isChooserRegistration()){
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
-                   return new ModelAndView(new RedirectView(builder.asFullUrl(request)));
-        }
-
 
         return mAndV;
     }
@@ -638,6 +635,14 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setErrorView(String errorView) {
         _errorView = errorView;
+    }
+
+    public String getHoverView() {
+        return _hoverView;
+    }
+
+    public void setHoverView(String hoverView) {
+        _hoverView = hoverView;
     }
 
     public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
