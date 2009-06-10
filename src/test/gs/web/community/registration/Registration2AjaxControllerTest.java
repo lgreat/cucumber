@@ -115,7 +115,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         _schoolControl.setReturnValue(schools);
         _schoolControl.replay();
 
-        _controller.outputSchoolSelect(State.CA, "Alameda", "12", pw, "1");
+        _controller.outputSchoolSelect(State.CA, "Alameda", "12", pw, "1", null, null);
         _schoolControl.verify();
 
         assertNotNull("Output null", sw.getBuffer());
@@ -144,7 +144,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         _schoolControl.setReturnValue(schools);
         _schoolControl.replay();
 
-        _controller.outputSchoolSelect(State.CA, "Alameda", null, pw, null);
+        _controller.outputSchoolSelect(State.CA, "Alameda", null, pw, null, null, null);
         _schoolControl.verify();
 
         assertNotNull("Output null", sw.getBuffer());
@@ -162,7 +162,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         // test with all parameters
-        _controller.openSelectTag(pw, "name", "id", "class", "onChange");
+        _controller.openSelectTag(pw, "name", "id", "class", "onChange", null);
         assertTrue("Expected output not received",
                 sw.getBuffer().toString().indexOf
                         ("<select name=\"name\" id=\"id\" class=\"class\" onchange=\"onChange\">") > -1);
@@ -170,7 +170,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         sw = new StringWriter();
         pw = new PrintWriter(sw);
         // test with no parameters
-        _controller.openSelectTag(pw, null, null, null, null);
+        _controller.openSelectTag(pw, null, null, null, null, null);
         assertTrue("Expected output not received",
                 sw.getBuffer().toString().indexOf
                         ("<select name=\"null\">") > -1);
