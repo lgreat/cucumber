@@ -24,7 +24,7 @@
 
 #outline .loginLink {
     position: absolute;
-    top: 37px;
+    top: 29px;
     left: 340px;
     font-size: 12px;
 }
@@ -145,7 +145,14 @@ p.requiredFld {
 
 #outline div.genericError{
     font-size: 13px;
+    width: 430px;
     color: #cc5566;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background-image: url( /res/img/bullet/icon_warning_12x12.gif );
+    background-repeat: no-repeat;
+    background-position: 0 3px;
+    margin-left: 5px;
 }
 
 #outline #genderLine select {
@@ -291,7 +298,7 @@ p.warning {
 }
 
 #outline ul li span.ajaxMessage {
-    font-size: 11px;
+    font-size: 12px;
     position: absolute;
     left: 380px;
     padding-left: 15px;
@@ -302,6 +309,10 @@ p.warning {
 #outline ul li span.ajaxError {
     color: #cc5566;
     background-image: url( /res/img/bullet/icon_warning_12x12.gif );
+}
+
+#outline ul li span.childSchoolError {
+    left: 475px;
 }
 
 #outline ul li span.ajaxSuccess {

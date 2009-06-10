@@ -170,7 +170,15 @@
         <body-content>empty</body-content>
         <attribute>
             <name>useNoState</name>
-            <description>Set to true if there is a "null" state option.</description>
+            <description>Set to true if there is a "null" state option and you want it to be selected regardless of
+                the state attribute.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>allowNoState</name>
+            <description>Set to true if you want to have a "null" state option, but you still want the state
+                in the state attribute to be selected.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

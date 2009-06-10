@@ -4,6 +4,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.SpringUtil;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -27,6 +28,7 @@ import java.util.Set;
 public class StateSelectorTagHandler extends SimpleTagSupport {
 
     private boolean _useNoState = false;
+    private boolean _allowNoState = false;
     private boolean _usingLongNames = false;
     private String _styleClass = null;
     private String _styleId = "stateSelector"; // default
@@ -70,14 +72,24 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     }
 
     /**
-     * When set to true, the selector will show "--" no matter what the
-     * state value is.  When set to false, then the "--" is not shown and
+     * When set to true, the selector will show "--" (or whatever is specified as the _noStateLabel) no matter
+     * what the state value is.  When set to false, then the "--" is not shown and
      * the option selection is set to the current state.
      *
      * @param noState - defaults to false;
      */
     public void setUseNoState(boolean noState) {
         _useNoState = noState;
+    }
+
+    /**
+     * When set to true, the selector will show "--" (or whatever is specified as the _noStateLabel) as the top
+     * option.  This will be selected if _state is blank/null, otherwise the _state will be selected.  
+     *
+     * @param allowNoState - defaults to false;
+     */
+    public void setAllowNoState(boolean allowNoState) {
+        _allowNoState = allowNoState;
     }
 
     /**
@@ -178,6 +190,12 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         if (_useNoState) {
             out.print("<option value=\"\"");
             if (!_multiple || _stateSet == null) {
+                out.print(" selected=\"selected\"");
+            }
+            out.println(">" + _noStateLabel +"</option>");
+        } else if (_allowNoState) {
+            out.print("<option value=\"\"");
+            if ((_multiple && _stateSet == null) || (!_multiple && _state == null)) {
                 out.print(" selected=\"selected\"");
             }
             out.println(">" + _noStateLabel +"</option>");

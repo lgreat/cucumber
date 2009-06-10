@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.ArrayList;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -67,7 +68,9 @@ public class Registration2AjaxController implements Controller {
         PrintWriter out = response.getWriter();
         try {
             if (city != null) {
-                outputSchoolSelect(state, city, grade, out, childNum);
+                String onChange = request.getParameter("onchange");
+                String onClick = request.getParameter("onclick");
+                outputSchoolSelect(state, city, grade, out, childNum, onChange, onClick);
             } else {
                 outputCitySelect(state, out, childNum);
             }
@@ -78,46 +81,49 @@ public class Registration2AjaxController implements Controller {
     }
 
     protected void outputCitySelect(State state, PrintWriter out, String childNum) {
-        List cities = _geoDao.findCitiesByState(state);
+        List<City> cities = _geoDao.findCitiesByState(state);
         City notListed = new City();
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
         if (StringUtils.isNotBlank(childNum)) {
-            openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");");
+            openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");", null);
         } else {
-            openSelectTag(out, "citySelect", "citySelect", "selectChildCity", "cityChange(this);");
+            openSelectTag(out, "citySelect", "citySelect", "selectChildCity", "cityChange(this);", null);
         }
         outputOption(out, "", "--", true);
-        for (int x=0; x < cities.size(); x++) {
-            ICity icity = (ICity) cities.get(x);
+        for (ICity icity : cities) {
             outputOption(out, icity.getName(), icity.getName());
         }
         out.print("</select>");
     }
 
-    protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
-        List schools;
-        if (StringUtils.isNotBlank(grade)) {
-            schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+    protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum, String onChange, String onClick) {
+        List<School> schools;
+        if (state != null) {
+            if (StringUtils.isNotBlank(grade)) {
+                schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+            } else {
+                schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
+            }
         } else {
-            schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
+            schools = new ArrayList<School>();
         }
+
         if (StringUtils.isNotBlank(childNum)) {
-            openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
+            openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", onChange, onClick);
         } else {
-            openSelectTag(out, "school", "school", "selectChildSchool", null);
+            openSelectTag(out, "school", "school", "selectChildSchool", onChange, onClick);
         }
         outputOption(out, "", "- Choose School -", true);
         outputOption(out, "-1", "My child's school is not listed");
-        for (int x=0; x < schools.size(); x++) {
-            School school = (School) schools.get(x);
+        for(School school : schools) {
             String idString = ((school.getId() != null)?school.getId().toString():"");
             outputOption(out, idString, school.getName());
         }
         out.print("</select>");
     }
 
-    protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange) {
+    protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange, String onClick) {
         out.print("<select");
         out.print(" name=\"" + name + "\"");
         if (StringUtils.isNotEmpty(cssId)) {
@@ -128,6 +134,9 @@ public class Registration2AjaxController implements Controller {
         }
         if (StringUtils.isNotEmpty(onChange)) {
             out.print(" onchange=\"" + onChange + "\"");
+        }
+        if (StringUtils.isNotEmpty(onClick)) {
+            out.print(" onclick=\"" + onClick + "\"");
         }
         out.println(">");
     }
