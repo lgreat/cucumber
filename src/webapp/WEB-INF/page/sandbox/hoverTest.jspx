@@ -3,6 +3,7 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
     >
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -15,10 +16,16 @@
     <script type="text/javascript">
         var destUrl = '';
         function sendToDestination() {
-            closeLoginInterruptHover();
-            if (destUrl != '') {
-                window.location = destUrl;
-                destUrl = '';
+            try {
+                if (window.schoolInterruptRegistrationDialog) {
+                    schoolInterruptRegistrationDialog.hide();
+                }
+                if (destUrl != '') {
+                    window.location = destUrl;
+                    destUrl = '';
+                }
+            } catch (e) {
+                alert(e.message);
             }
         }
 
@@ -38,10 +45,11 @@
         }
     </script>
 </head>
+<pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 <body>
 
-    <community:schoolInterruptRegistrationHover/>
-    <a href="/community/loginOrRegister.page"
+    <community:schoolInterruptRegistrationHover schoolId="1" schoolState="CA"/>
+    <a href="/sandbox/hoverTest.page"
        onclick="return prepAndShowLoginInterruptHover(this.href, 1, 'CA');">
         Click here for school interrupt hover
     </a>
@@ -49,7 +57,7 @@
     <br/>
 
     <community:ldRegistrationHover/>
-    <a href="/community/loginOrRegister.page"
+    <a href="/sandbox/hoverTest.page"
        onclick="return prepAndShowLDHover(this.href);">
         Click here for LD hover
     </a>
@@ -57,10 +65,14 @@
     <br/>
 
     <community:chooserRegistrationHover/>
-    <a href="/community/loginOrRegister.page"
+    <a href="/sandbox/hoverTest.page"
        onclick="return prepAndShowChooserRegistrationHover(this.href, 'testing@gmail.com');">
         Click here for chooser registration hover
     </a>
+
+    <br/><hr/>
+
+<a href="/sandbox/hoverTest.page">Click here to return to this page</a>
 
 </body>
 </html>

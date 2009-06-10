@@ -41,7 +41,25 @@
 
 
 <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
+<community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
+<script type="text/javascript">
+    var destUrl = '';
+    function sendToDestination() {
+        if (window.schoolInterruptRegistrationDialog) {
+            schoolInterruptRegistrationDialog.hide();
+        }
+        if (destUrl != '') {
+            window.location = destUrl;
+            destUrl = '';
+        }
+    }
 
+    function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
+        destUrl = destination;
+        return showLoginInterruptHover(schoolId, schoolState);
+    }
+</script>
+<pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 
 
 <jsp:scriptlet><![CDATA[
@@ -205,6 +223,7 @@
 
                 <c:choose>
                     <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
+                        <!-- TODO: GS-8290 Replace with new hover -->
                         <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
                                         styleClass="emailImg toolsImg"><gsml:img
                                 src="/res/img/school/overview/7970_b/update_email.gif"
