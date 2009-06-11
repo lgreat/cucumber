@@ -175,7 +175,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             throws Exception {
         ManagementCommand command =  (ManagementCommand) be.getTarget();
         if(command.getUserId() == 0){
-            return new ModelAndView("redirect:/community/loginOrRegister.page");
+            return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");
         }else{
             _log.warn("doing showform");
             //List<Error> errors = new ArrayList<Error>(be.getAllErrors());
