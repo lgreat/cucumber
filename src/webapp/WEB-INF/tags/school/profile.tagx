@@ -41,26 +41,28 @@
 
 
 <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
-<community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
-<script type="text/javascript">
-    var destUrl = '';
-    function sendToDestination() {
-        if (window.schoolInterruptRegistrationDialog) {
-            schoolInterruptRegistrationDialog.hide();
+<c:if test="${school ne null and school.type.schoolTypeName != 'private' and school.levelCode ne 'p'}">
+    <!-- to (potentially) trigger MSS modal on exit -->
+    <community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
+    <script type="text/javascript">
+        var destUrl = '';
+        function sendToDestination() {
+            if (window.schoolInterruptRegistrationDialog) {
+                schoolInterruptRegistrationDialog.hide();
+            }
+            if (destUrl != '') {
+                window.location = destUrl;
+                destUrl = '';
+            }
         }
-        if (destUrl != '') {
-            window.location = destUrl;
-            destUrl = '';
+
+        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
+            destUrl = destination;
+            return showLoginInterruptHover(schoolId, schoolState);
         }
-    }
-
-    function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
-        destUrl = destination;
-        return showLoginInterruptHover(schoolId, schoolState);
-    }
-</script>
-<pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
-
+    </script>
+    <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
+</c:if>
 
 <jsp:scriptlet><![CDATA[
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
