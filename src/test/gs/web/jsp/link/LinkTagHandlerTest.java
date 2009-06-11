@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.54 2009/05/04 19:15:44 droy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.55 2009/06/11 17:32:23 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -268,11 +268,25 @@ public class LinkTagHandlerTest extends BaseTestCase {
         NewsletterManagementTagHandler tagHandler = new NewsletterManagementTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/newsletterSubscribe?state=CA", builder.asSiteRelative(null));
+        assertEquals("/email/management.page", builder.asSiteRelative(null));
 
         tagHandler.setEmail("whoever@whatever.how");
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/newsletterSubscribe?email=whoever%40whatever.how&state=CA", builder.asSiteRelative(null));
+        assertEquals("/email/management.page?email=whoever%40whatever.how", builder.asSiteRelative(null));
+
+        tagHandler.setSchoolId(1);
+        builder = tagHandler.createUrlBuilder();
+        // just school id is ignored
+        assertEquals("/email/management.page?email=whoever%40whatever.how", builder.asSiteRelative(null));
+
+        tagHandler.setSchoolState(State.CA);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/email/management.page?email=whoever%40whatever.how&schoolId=1&schoolState=CA", builder.asSiteRelative(null));
+        
+        tagHandler.setEmail(null);
+        tagHandler.setSchoolState(State.CA);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/email/management.page?schoolId=1&schoolState=CA", builder.asSiteRelative(null));
     }
 
     public void testPrivacyPolicy() {

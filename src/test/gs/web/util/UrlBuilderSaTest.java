@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.102 2009/05/04 19:15:44 droy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.103 2009/06/11 17:32:23 aroy Exp $
  */
 
 package gs.web.util;
@@ -386,11 +386,10 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.TERMS_OF_USE, State.WY, null);
         assertEquals("/cgi-bin/static/terms.html/WY", builder.asSiteRelative(request));
 
-        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, State.WY);
         final String email = "dlee@greatschools.net";
+        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, State.WY, email);
         String encodedEmail = URLEncoder.encode(email,"UTF-8");
-        builder.addParameter("email",email);
-        assertEquals("/cgi-bin/newsletterSubscribe?email="+encodedEmail +"&state=WY", builder.asSiteRelative(request));
+        assertEquals("/email/management.page?email="+encodedEmail, builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.BETA_SIGNUP, State.WY, null);
         assertEquals("/community/beta.page?state=WY", builder.asSiteRelative(request));

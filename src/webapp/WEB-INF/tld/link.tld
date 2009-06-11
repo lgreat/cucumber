@@ -444,7 +444,7 @@
         <description>
             <![CDATA[Link to our "newsletter management page".
             This page allows a user to alter or add newsletter subscriptions.
-            Currently <code>/cgi-bin/newsletterSubscribe?state=$STATE&amp;email=$EMAIL.</code>]]>
+            Currently <code>/email/management.page?email=$EMAIL.</code>]]>
         </description>
         <attribute>
             <name>styleClass</name>
@@ -455,10 +455,10 @@
         </attribute>
         <attribute>
             <name>email</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Required email address</description>
+            <description>Optional email address</description>
         </attribute>
         <attribute>
             <name>target</name>
@@ -473,6 +473,27 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional javascript onclick</description>
+        </attribute>
+        <attribute>
+            <name>schoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Optional id of school to pre-select</description>
+        </attribute>
+        <attribute>
+            <name>schoolState</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>Optional state of school to pre-select</description>
         </attribute>
     </tag>
     <tag>

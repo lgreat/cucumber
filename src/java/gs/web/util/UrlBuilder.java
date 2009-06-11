@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.162 2009/05/21 22:49:27 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.163 2009/06/11 17:32:23 aroy Exp $
  */
 
 package gs.web.util;
@@ -749,9 +749,11 @@ public class UrlBuilder {
                 }
             }
         } else if (NEWSLETTER_MANAGEMENT.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/newsletterSubscribe";
-            setParameter("state", state.getAbbreviation());
+            _perlPage = false;
+            _path = "/email/management.page";
+            if (StringUtils.isNotBlank(param0)) {
+                setParameter("email", param0);
+            }
         } else if (ADMIN_NEWS_ITEMS.equals(page)) {
             _perlPage = false;
             _path = "/admin/news/list.page";
