@@ -29,15 +29,15 @@
 
     <community:chooserRegistrationHover/>
     <script type="text/javascript">
-        var mslHref = '';
+        var destUrl = window.destUrl ? window.destUrl : '';
         function sendToDestination() {
-            if (mslHref != '') {
-                window.location = mslHref;
-                mslHref = '';
+            if (destUrl != '') {
+                window.location = destUrl;
+                destUrl = '';
             }
         }
         function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
-            mslHref = decodeURIComponent(href);
+            destUrl = decodeURIComponent(href);
 //            return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
 //            destUrl = destination;
             return showLoginChooserRegistrationHover(emailUrlEncoded);
