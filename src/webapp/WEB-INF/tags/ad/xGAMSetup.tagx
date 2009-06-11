@@ -27,7 +27,6 @@
 
             if (StringUtils.isEmpty(slotPrefix)) {
                 if (!"interstitial".equals(pageHelper.getPageName())
-                        && !"error404".equals(pageHelper.getPageName())
                         && !"error500".equals(pageHelper.getPageName())) {
                     _log.warn("Setting ad slot with empty prefix: " + request.getRequestURL() + "; " + pageHelper.getPageName());
                     slotPrefix = "";
