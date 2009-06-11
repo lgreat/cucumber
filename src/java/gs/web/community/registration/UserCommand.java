@@ -45,12 +45,16 @@ public class UserCommand implements EmailValidator.IEmail {
     private int _mystatSchoolId;
     private State _mystatSchoolState;
 
+   //following list is used by NthGraderHover for the grade by grade newsletters.
+     private List<Boolean> _gradeNewsletters;
+
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
         
         _studentRows = new ArrayList<StudentCommand>();
         _subscriptions = new ArrayList<Subscription>();
+        _gradeNewsletters = new ArrayList<Boolean>();
     }
 
     public List getCityList() {
@@ -339,6 +343,14 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setMystatSchoolState(State mystatSchoolState) {
         _mystatSchoolState = mystatSchoolState;
+    }
+
+     public List<Boolean> getGradeNewsletters() {
+        return _gradeNewsletters;
+    }
+
+    public void setGradeNewsletters(List<Boolean> gradeNewsletters) {
+        _gradeNewsletters = gradeNewsletters;
     }
 
     protected static class StudentCommand {

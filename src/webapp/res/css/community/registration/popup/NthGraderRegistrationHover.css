@@ -1,0 +1,47 @@
+
+form#reg1Form ul li#gradeNewsLetters{
+    height:140px;
+}
+
+form#reg1Form ul li#gradeNewsLetters div#grades{
+    border-bottom: 2px dotted #CCCCCC;
+    height:105px;
+    margin-left:124px;
+}
+
+form#reg1Form ol li{
+    list-style:none;
+}
+
+form#reg1Form ol li input {
+    left: 0px;
+    position:static;
+    width:auto;
+
+}
+
+form#reg1Form ol#first{
+    position:absolute;
+    top:35px;
+    left:80px;
+}
+
+form#reg1Form ol#second{
+    position:absolute;
+    top:35px;
+    left:200px;
+}
+
+form#reg1Form ol#third{
+    position:absolute;
+    top:35px;
+    left:320px;
+}
+
+p.requiredFld {
+    bottom: 190px;
+}
+
+p.privacyBox {
+     bottom: 115px;
+}
