@@ -443,6 +443,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 #contentRight .rating{
     float:right;
+    height: 18px;
 }
 
 #contentRight h3{
