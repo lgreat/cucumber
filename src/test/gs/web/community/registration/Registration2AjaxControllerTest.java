@@ -51,7 +51,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         // set up data
         getRequest().addParameter("state", "CA");
         _geoDao.findCitiesByState(State.CA);
-        List cities = new ArrayList();
+        List<City> cities = new ArrayList<City>();
         City city1 = new City();
         city1.setName("Oakland");
         cities.add(city1);
@@ -77,7 +77,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         // set up data
         getRequest().addParameter("state", "CA");
         _geoDao.findCitiesByState(State.CA);
-        List cities = new ArrayList();
+        List<City> cities = new ArrayList<City>();
         City city1 = new City();
         city1.setName("Oakland");
         cities.add(city1);
@@ -103,14 +103,14 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
 
         // set up data
         _schoolDao.findSchoolsInCityByGrade(State.CA, "Alameda", Grade.G_12);
-        List schools = new ArrayList();
+        List<School> schools = new ArrayList<School>();
         School school1 = new School();
         school1.setName("Alameda High School");
-        school1.setId(new Integer(1));
+        school1.setId(1);
         schools.add(school1);
         School school2 = new School();
         school2.setName("Roy's Home for the Gifted");
-        school2.setId(new Integer(314));
+        school2.setId(314);
         schools.add(school2);
         _schoolControl.setReturnValue(schools);
         _schoolControl.replay();
@@ -132,14 +132,14 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
 
         // set up data
         _schoolDao.findSchoolsInCity(State.CA, "Alameda", 2000);
-        List schools = new ArrayList();
+        List<School> schools = new ArrayList<School>();
         School school1 = new School();
         school1.setName("Alameda High School");
-        school1.setId(new Integer(1));
+        school1.setId(1);
         schools.add(school1);
         School school2 = new School();
         school2.setName("Roy's Home for the Gifted");
-        school2.setId(new Integer(314));
+        school2.setId(314);
         schools.add(school2);
         _schoolControl.setReturnValue(schools);
         _schoolControl.replay();
