@@ -1361,6 +1361,10 @@
           class="gs.web.community.registration.Registration2AjaxController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/util/ajax/ajaxCity.page"
+          class="gs.web.util.ajax.AjaxCityController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/community/registrationConfirm.page"
           class="gs.web.community.registration.RegistrationConfirmController"
           autowire="byName" lazy-init="true">
@@ -2040,6 +2044,36 @@
                 <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>
+    </bean>
+
+    <!--
+    <bean id="emailManagementValidator" class="gs.web.email.ManagementCommandValidator"
+          autowire="byName" lazy-init="true"/>
+   -->
+
+    <bean name="/email/management.page"
+          class="gs.web.email.ManagementController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="emailCmd"/>
+        <property name="commandClass" value="gs.web.email.ManagementCommand"/>
+        <property name="formView" value="/email/management"/>
+        <property name="successView" value="email/managementSuccess" />
+        <!--
+        <property name="errorView" value="redirect:/community/loginOrRegister.page"/>  
+        <property name="validators">
+            <list>
+                <ref local="emailManagementValidator"/>
+            </list>
+        </property>
+        -->
+
+     </bean>
+
+
+    <bean name="/email/managementSuccess.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="email/managementSuccess"/>
     </bean>
 
     <bean name="/community/registration/popup/schoolInterruptRegistrationHover.page"
