@@ -54,7 +54,7 @@
 
                 <c:set var="loopTimes" value="0"/>
                 <li id="whereLiveLine">
-                    <label>State, city</label>
+                    <label>State, city  <span class="required">*</span></label>
                     <spring:bind path="userCmd.state">
                         <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                              onChange="parentStateChange(this,${loopTimes});" tabIndex="7"
@@ -83,8 +83,9 @@
                     <gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>
                 </li>
 
-                <community:joinHoverNewsletterFields userCmd="${userCmd}"/>
+                <li class="dottedRule"/>
 
+                <community:joinHoverNewsletterFields userCmd="${userCmd}"/>
             </ul>
 
         <gsml:inputImage src="/res/img/community/registration/join_button_hover.gif" alt="submit"

@@ -94,13 +94,24 @@ html, body, #marginGS, #contentGS {
     font-size: 15px;
 }
 
-li.dottedRule {
+#contentGS ul li.dottedRule {
     left: 120px;
-    width: 250px;
-    border-top: 2px dotted gray;
-    margin: 7px 0 9px 0;
+    width: 430px;
+    border-top: 2px dotted #CCC;
+    margin: 11px 0 8px 0;
     height: 0;
     padding: 0;
+}
+
+/* IE 6 */
+* html #contentGS ul li.dottedRule {
+    margin-bottom: 0;
+}
+
+/* IE 7 */
+*+html #contentGS ul li.dottedRule {
+    margin-top: 0;
+    top: -3px;
 }
 
 #contentGS ul li {
@@ -352,7 +363,7 @@ html* p.privacyBox, * html p.privacyBox {
 }
 
 ul li span.ajaxMessage {
-    font-size: 11px;
+    font-size: 12px;
     position: absolute;
     left: 350px;
     padding-left: 15px;

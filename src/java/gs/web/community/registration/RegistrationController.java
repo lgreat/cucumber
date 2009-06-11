@@ -75,6 +75,7 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setRedirectUrl(request.getParameter("redirect"));
         if (isChooserRegistration()) {
             setupChooserRegistration(userCommand);
+            userCommand.setNewsletter(true);
         }
         loadCityList(request, userCommand);
 
