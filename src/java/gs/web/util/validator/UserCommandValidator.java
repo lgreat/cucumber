@@ -36,13 +36,13 @@ public class UserCommandValidator implements IRequestAwareValidator {
     protected static final String GENDER_MISSING =
             "Please select from one of the options.";
     protected static final String ERROR_FIRST_NAME_LENGTH =
-            "Your first name must be 2-24 characters long.";
+            "First name must be 2-24 characters long.";
     protected static final String ERROR_SCREEN_NAME_LENGTH =
-            "Your username must be 6-14 characters long.";
+            "Username must be 6-14 characters.";
     protected static final String ERROR_SCREEN_NAME_BAD =
-            "Your username may only contain letters and numbers.";
+            "Username may only contain letters and numbers.";
     protected static final String ERROR_SCREEN_NAME_TAKEN =
-            "We're sorry, that username is already taken. Please try another username.";
+            "This username is already in use.";
     protected static final String ERROR_SCREEN_NAME_TAKEN_SHORT =
             "That username is taken. Please try another username.";
     protected static final String ERROR_EMAIL_MISSING =
@@ -50,9 +50,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
     public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";
 
     protected static final String ERROR_PASSWORD_LENGTH =
-            "Your password must be 6-14 characters long.";
+            "Password should be 6-14 characters.";
     protected static final String ERROR_PASSWORD_MISMATCH =
-            "The two password fields don't match.";
+            "Passwords do not match.";
     protected static final String ERROR_STATE_MISSING =
             "Please select your state.";
     protected static final String ERROR_CITY_MISSING =

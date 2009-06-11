@@ -103,13 +103,11 @@ html, body, #marginGS, #contentGS {
     padding: 0;
 }
 
-/* IE 6 */
-* html #contentGS ul li.dottedRule {
+.ie6 #contentGS ul li.dottedRule {
     margin-bottom: 0;
 }
 
-/* IE 7 */
-*+html #contentGS ul li.dottedRule {
+.ie7 #contentGS ul li.dottedRule {
     margin-top: 0;
     top: -3px;
 }
@@ -145,7 +143,17 @@ label img {
 
 div.genericError{
     font-size: 13px;
+    font-weight: bold;
     color: #cc5566;
+    background-image: url( /res/img/bullet/icon_warning_12x12.gif );
+    background-repeat: no-repeat;
+    background-position: 0 1px;
+    margin: 10px 0 0 20px;
+    padding: 0 0 0 20px;
+}
+
+.ff3 div.genericError{
+    background-position: 0 2px;
 }
 
 #genderLine select {
@@ -317,10 +325,14 @@ ul li#termsError{
     background-image:url(/res/img/bullet/icon_warning_12x12.gif);
     background-repeat: no-repeat;
     color:#CC5566;
-    background-position:0 3px;
+    background-position:0 1px;
     font-size:11px;
     padding-left:22px;
     *top: -10px;
+}
+
+.ff3 #termsError .termsWarning{
+    background-position: 0 2px;
 }
 
 p.requiredFld {
@@ -366,9 +378,15 @@ ul li span.ajaxMessage {
     font-size: 12px;
     position: absolute;
     left: 350px;
-    padding-left: 15px;
+    padding-left: 20px;
     background-repeat: no-repeat;
-    background-position: 0 3px;
+    background-position: 0 1px;
+    width: 230px;
+}
+
+
+.ff3 ul li span.ajaxMessage{
+    background-position: 0 2px;
 }
 
 ul li span.ajaxError {

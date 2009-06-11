@@ -42,6 +42,7 @@
     </community:joinHoverHeader>
 
     <spring:hasBindErrors name="userCmd">
+        <div class="genericError">There were some problems with your submission. Please make corrections noted below.</div>
         <pageHelper:addOnLoadHandler handler="scrollToError();"/>
     </spring:hasBindErrors>
 

@@ -142,7 +142,7 @@ function validateFirstName() {
     var fn = $('firstName').value;
 
     if (fn.length < 2 || fn.length > 24) {
-        notice.update('Your first name must be 2-24 characters long.').style.display = '';
+        notice.update('First name must be 2-24 characters long.').style.display = '';
         notice.className = "ajaxMessage ajaxError";
     } else {
         notice.update('').style.display = '';
@@ -190,10 +190,10 @@ function validateUN() {
         parameters: pars,
         onSuccess: function(transport) {
             if (transport.responseText == "inuse") {
-                notice.update('This user name is already in use.').style.display = '';
+                notice.update('This username is already in use.').style.display = '';
                 notice.className = "ajaxMessage ajaxError";
             } else if (transport.responseText == "invalid") {
-                notice.update('User name must be 6-14 characters.').style.display = '';
+                notice.update('Username must be 6-14 characters.').style.display = '';
                 notice.className = "ajaxMessage ajaxError";
             } else if (transport.responseText == "valid") {
                 notice.update('').style.display = '';
@@ -272,3 +272,6 @@ function addAnotherChild(childNum) {
         $('addAnotherChild_' + nextChildNum).style.display = 'none';
     }
 }
+
+function css_browser_selector(u){var ua = u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1;},g='gecko',w='webkit',s='safari',h=document.getElementsByTagName('html')[0],b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3')?g+' ff3':is('gecko/')?g:/opera(\s|\/)(\d+)/.test(ua)?'opera opera'+RegExp.$2:is('konqueror')?'konqueror':is('chrome')?w+' chrome':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?'mobile':is('iphone')?'iphone':is('ipod')?'ipod':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win':is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}
+css_browser_selector(navigator.userAgent);
