@@ -17,9 +17,6 @@
         var destUrl = '';
         function sendToDestination() {
             try {
-                if (window.schoolInterruptRegistrationDialog) {
-                    schoolInterruptRegistrationDialog.hide();
-                }
                 if (destUrl != '') {
                     window.location = destUrl;
                     destUrl = '';
@@ -27,21 +24,6 @@
             } catch (e) {
                 alert(e.message);
             }
-        }
-
-        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
-            destUrl = destination;
-            return showLoginInterruptHover(schoolId, schoolState);
-        }
-
-        function prepAndShowLDHover(destination) {
-            destUrl = destination;
-            return showLDHover();
-        }
-
-        function prepAndShowChooserRegistrationHover(destination,emailId) {
-            destUrl = destination;
-            return showLoginChooserRegistrationHover(emailId);
         }
     </script>
 </head>

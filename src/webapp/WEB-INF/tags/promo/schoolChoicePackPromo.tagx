@@ -38,9 +38,16 @@
         }
         function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
             destUrl = decodeURIComponent(href);
-//            return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
-//            destUrl = destination;
-            return showLoginChooserRegistrationHover(emailUrlEncoded);
+            // Make sure the hover knows about this email address
+            chooserRegistrationDialog.getIframeUrl = function() {
+                return this.baseUrl + '?email=' + emailUrlEncoded;
+            };
+            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            if (schoolChoiceVideo) {
+                schoolChoiceVideo.style.display = 'none';
+            }
+
+            return chooserRegistrationDialog.show();
         }
     </script>
     <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>

@@ -10,70 +10,36 @@
     <pageHelper:externalCss file="/res/css/community/registration/popup/joinHoverContainer.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
+    <pageHelper:externalJavascript file="/res/js/yahooRegistrationHover.js"/>
 
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         <![CDATA[
         //<!--
-        var ldRegistrationDialog;
-        function ldHoverInit() {
-            ldRegistrationDialog = new YAHOO.widget.Dialog("ldRegistrationDialog",
-            {
-                postmethod: "form",
-                width: "680px",
-                visible: false,
-                draggable: false,
-                modal: true,
-                close: false,
-                zIndex: 9999999
-            });
-            ldRegistrationDialog.render();
+        // configure hover for this application
+        var ldRegistrationDialog = new GSType.yahooRegistrationHover();
+        ldRegistrationDialog.baseUrl = '/community/registration/popup/LDRegistrationHover.page';
+        ldRegistrationDialog.domIdPrefix = 'ldRegistrationHover';
+        // overridden to not call sendToDestination (I don't know why ... just maintaining the logic from before)
+        ldRegistrationDialog.close = function() {
+            this.dialog.cancel();
+        };
+
+        // function that page calls to show hover
+        function prepAndShowLDHover(destination) {
+            window.destUrl = destination;
+            return ldRegistrationDialog.show();
         }
 
-        function showLDHover() {
-            var frameLocation = '' + window.frames['ldRegistrationHoverIFrame'].window.location;
-            if (frameLocation.indexOf('/community/registration/popup/LDRegistrationHover.page') == -1) {
-                window.frames['ldRegistrationHoverIFrame'].window.location =
-                    '/community/registration/popup/LDRegistrationHover.page';
-            }
-
-            document.getElementById("ldRegistrationDialog").style.display="block";
-
-            ldRegistrationDialog.show();
-
-            try {
-                var dwidth = 680;
-                var dheight = 600;
-                var scrollTop = 0;
-                if (document.all) {
-                    var iebody=(document.compatMode && document.compatMode != "BackCompat")?
-                                document.documentElement : document.body
-                    scrollTop = iebody.scrollTop;
-                } else {
-                    scrollTop = window.pageYOffset;
-                }
-                var x = Math.round((YAHOO.util.Dom.getViewportWidth()-dwidth)/2);
-                x = (x < 0)?0:x;
-                var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
-                y = (y < scrollTop)?scrollTop:y;
-                ldRegistrationDialog.moveTo(x,y);
-            } catch (e) {}
-
-            return false;
-        }
-
-        function closeLDHover() {
-            ldRegistrationDialog.cancel();
-        }
         //-->
         ]]>
     </script>
 
-    <div id="ldRegistrationDialog" class="joinDialog" style="display: none;">
+    <div id="ldRegistrationHoverDialog" class="joinDialog" style="display: none;">
         <table cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="joinDialogTopBorder">
                     <div id="ldRegistrationDialogTopBar" class="joinDialogTopBar">
-                        <div class="joinDialogClose" onclick="closeLDHover();">
+                        <div class="joinDialogClose" onclick="ldRegistrationDialog.close();">
                             close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
                         </div>
                     </div>
@@ -96,10 +62,10 @@
         </table>
     </div>
 
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         <![CDATA[
         //<!--
-        ldHoverInit();
+        ldRegistrationDialog.init();
         //-->
         ]]>
     </script>

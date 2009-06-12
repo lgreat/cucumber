@@ -47,18 +47,13 @@
     <script type="text/javascript">
         var destUrl = '';
         function sendToDestination() {
-            if (window.schoolInterruptRegistrationDialog) {
-                schoolInterruptRegistrationDialog.hide();
+            if (window.autoMssHover) {
+                window.autoMssHover.dialog.hide();
             }
             if (destUrl != '') {
                 window.location = destUrl;
                 destUrl = '';
             }
-        }
-
-        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
-            destUrl = destination;
-            return showLoginInterruptHover(schoolId, schoolState);
         }
     </script>
     <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
@@ -226,12 +221,14 @@
                 <c:choose>
                     <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
                         <!-- TODO: GS-8290 Replace with new hover -->
-                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                        styleClass="emailImg toolsImg"><gsml:img
+                        <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
+                                                   onclick=""
+                                                   styleClass="emailImg toolsImg"><gsml:img
                                 src="/res/img/school/overview/7970_b/update_email.gif"
-                                alt="Send me updates about this school"/></promo:mssHover>
-                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                        styleClass="email toolsTxt">Send me updates about this school</promo:mssHover>
+                                alt="Send me updates about this school"/></link:newsletterManagement>
+                        <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
+                                                   onclick=""
+                                                   styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>
                     </c:when>
                      <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
                        <promo:nthGraderHover referredBy="schoolProfile" isForm="false"

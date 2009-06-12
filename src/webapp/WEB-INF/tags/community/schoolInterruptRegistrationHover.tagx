@@ -16,63 +16,34 @@
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <pageHelper:externalJavascript file="/res/js/cookie.js"/>
     <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
+    <pageHelper:externalJavascript file="/res/js/yahooRegistrationHover.js"/>
 
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         <![CDATA[
         //<!--
-        var schoolInterruptRegistrationDialog;
-        function loginInterruptHoverInit() {
-            schoolInterruptRegistrationDialog = new YAHOO.widget.Dialog("schoolInterruptRegistrationDialog",
-            {
-                postmethod: "form",
-                width: "680px",
-                visible: false,
-                draggable: false,
-                modal: true,
-                close: false,
-                zIndex: 9999999
-            });
-            schoolInterruptRegistrationDialog.render();
-        }
+        // configure hover for this application
+        var autoMssHover = new GSType.yahooRegistrationHover();
+        autoMssHover.baseUrl = '/community/registration/popup/schoolInterruptRegistrationHover.page';
+        autoMssHover.domIdPrefix = 'schoolInterruptRegistrationHover';
 
-        function showLoginInterruptHover(schoolId, schoolState) {
-            var frameLocation = '' + window.frames['schoolInterruptRegistrationHoverIFrame'].window.location;
-            if (frameLocation.indexOf('/community/registration/popup/schoolInterruptRegistrationHover.page') == -1) {
-                window.frames['schoolInterruptRegistrationHoverIFrame'].window.location =
-                    '/community/registration/popup/schoolInterruptRegistrationHover.page' +
-                    '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;
-            }
-
-            document.getElementById("schoolInterruptRegistrationDialog").style.display="block";
-
-            schoolInterruptRegistrationDialog.show();
-
+        // function that page calls to show hover
+        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
             try {
-                var dwidth = 680;
-                var dheight = 600;
-                var scrollTop = 0;
-                if (document.all) {
-                    var iebody=(document.compatMode && document.compatMode != "BackCompat")?
-                                document.documentElement : document.body
-                    scrollTop = iebody.scrollTop;
-                } else {
-                    scrollTop = window.pageYOffset;
-                }
-                var x = Math.round((YAHOO.util.Dom.getViewportWidth()-dwidth)/2);
-                x = (x < 0)?0:x;
-                var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
-                y = (y < scrollTop)?scrollTop:y;
-                schoolInterruptRegistrationDialog.moveTo(x,y);
-            } catch (e) {}
-
+                window.destUrl = destination;
+                // my hover takes parameters that may differ on a link-by-link basis, so I
+                // override the function right here
+                autoMssHover.getIframeUrl = function() {
+                    return autoMssHover.baseUrl +
+                           '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;           
+                };
+                return autoMssHover.show();
+            } catch (e) {
+                alert(e.message);
+            }
             return false;
         }
 
-        function closeLoginInterruptHover() {
-            schoolInterruptRegistrationDialog.cancel();
-            parent.sendToDestination();
-        }
-
+        // function that causes the hover to pop up on exit
         function showMssAutoHoverOnExit() {
             var arr = getElementsByCondition(
                 function(el) {
@@ -93,7 +64,6 @@
                         if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')){
                             // show hover
                             return prepAndShowLoginInterruptHover(gRedirectAnchor.href, ${schoolId}, '${schoolState}');
-                            return false;
                         }
                     } catch (e) {}
                     return true;
@@ -101,17 +71,16 @@
             }
         }
 
-
         //-->
         ]]>
     </script>
 
-    <div id="schoolInterruptRegistrationDialog" class="joinDialog" style="display: none;">
+    <div id="schoolInterruptRegistrationHoverDialog" class="joinDialog" style="display: none;">
         <table cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="joinDialogTopBorder">
                     <div id="schoolInterruptRegistrationDialogTopBar" class="joinDialogTopBar">
-                        <div class="joinDialogClose" onclick="closeLoginInterruptHover();">
+                        <div class="joinDialogClose" onclick="autoMssHover.close();">
                             close <img src="/res/img/community/registration/join_close_icon.gif" alt="Close window"/>
                         </div>
                     </div>
@@ -134,10 +103,11 @@
         </table>
     </div>
 
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         <![CDATA[
         //<!--
-        loginInterruptHoverInit();
+        //loginInterruptHoverInit();
+        autoMssHover.init();
         //-->
         ]]>
     </script>
