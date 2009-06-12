@@ -2028,6 +2028,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="how" value="chooser"/>
         <property name="formView" value="community/registration/popup/chooserRegistrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="hoverView" value="/community/registration/popup/sendToDestination.page"/>
