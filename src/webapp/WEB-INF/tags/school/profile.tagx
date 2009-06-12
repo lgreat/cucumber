@@ -44,18 +44,6 @@
 <c:if test="${school ne null and school.type.schoolTypeName != 'private' and school.levelCode ne 'p'}">
     <!-- to (potentially) trigger MSS modal on exit -->
     <community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
-    <script type="text/javascript">
-        var destUrl = '';
-        function sendToDestination() {
-            if (window.autoMssHover) {
-                window.autoMssHover.dialog.hide();
-            }
-            if (destUrl != '') {
-                window.location = destUrl;
-                destUrl = '';
-            }
-        }
-    </script>
     <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 </c:if>
 

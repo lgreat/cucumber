@@ -13,26 +13,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Test Hover - GreatSchools</title>
-    <script type="text/javascript">
-        var destUrl = '';
-        function sendToDestination() {
-            try {
-                if (destUrl != '') {
-                    window.location = destUrl;
-                    destUrl = '';
-                }
-            } catch (e) {
-                alert(e.message);
-            }
-        }
-    </script>
 </head>
 <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 <body>
 
     <community:schoolInterruptRegistrationHover schoolId="1" schoolState="CA"/>
     <a href="/sandbox/hoverTest.page"
-       onclick="return prepAndShowLoginInterruptHover(this.href, 1, 'CA');">
+       onclick="return autoMssHover.prepAndShow(this.href, 1, 'CA');">
         Click here for school interrupt hover
     </a>
 
@@ -40,7 +27,7 @@
 
     <community:ldRegistrationHover/>
     <a href="/sandbox/hoverTest.page"
-       onclick="return prepAndShowLDHover(this.href);">
+       onclick="return ldRegistrationDialog.prepAndShow(this.href);">
         Click here for LD hover
     </a>
     
@@ -48,7 +35,7 @@
 
     <community:chooserRegistrationHover/>
     <a href="/sandbox/hoverTest.page"
-       onclick="return prepAndShowChooserRegistrationHover(this.href, 'testing@gmail.com');">
+       onclick="return chooserRegistrationDialog.prepAndShow(this.href, 'testing@gmail.com');">
         Click here for chooser registration hover
     </a>
 

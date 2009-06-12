@@ -24,11 +24,7 @@
             this.dialog.cancel();
         };
 
-        // function that page calls to show hover
-        function prepAndShowLDHover(destination) {
-            window.destUrl = destination;
-            return ldRegistrationDialog.show();
-        }
+        // call ldRegistrationDialog.prepAndShow(url) to invoke
 
         //-->
         ]]>

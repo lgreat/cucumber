@@ -29,28 +29,10 @@
 
     <community:chooserRegistrationHover/>
     <script type="text/javascript">
-        var destUrl = window.destUrl ? window.destUrl : '';
-        function sendToDestination() {
-            if (destUrl != '') {
-                window.location = destUrl;
-                destUrl = '';
-            }
-        }
         function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
-            destUrl = decodeURIComponent(href);
-            // Make sure the hover knows about this email address
-            chooserRegistrationDialog.getIframeUrl = function() {
-                return this.baseUrl + '?email=' + emailUrlEncoded;
-            };
-            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
-            if (schoolChoiceVideo) {
-                schoolChoiceVideo.style.display = 'none';
-            }
-
-            return chooserRegistrationDialog.show();
+            return chooserRegistrationDialog.prepAndShow(decodeURIComponent(href), emailUrlEncoded);
         }
     </script>
-    <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
 
     <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
 

@@ -26,22 +26,22 @@
         autoMssHover.baseUrl = '/community/registration/popup/schoolInterruptRegistrationHover.page';
         autoMssHover.domIdPrefix = 'schoolInterruptRegistrationHover';
 
-        // function that page calls to show hover
-        function prepAndShowLoginInterruptHover(destination, schoolId, schoolState) {
+        // called by page
+        autoMssHover.prepAndShow = function (destination, schoolId, schoolState) {
             try {
                 window.destUrl = destination;
                 // my hover takes parameters that may differ on a link-by-link basis, so I
                 // override the function right here
-                autoMssHover.getIframeUrl = function() {
-                    return autoMssHover.baseUrl +
+                this.getIframeUrl = function() {
+                    return this.baseUrl +
                            '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;           
                 };
-                return autoMssHover.show();
+                return this.show();
             } catch (e) {
                 alert(e.message);
             }
             return false;
-        }
+        };
 
         // function that causes the hover to pop up on exit
         function showMssAutoHoverOnExit() {
@@ -63,7 +63,7 @@
                     try {
                         if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')){
                             // show hover
-                            return prepAndShowLoginInterruptHover(gRedirectAnchor.href, ${schoolId}, '${schoolState}');
+                            return autoMssHover.prepAndShow(gRedirectAnchor.href, ${schoolId}, '${schoolState}');
                         }
                     } catch (e) {}
                     return true;

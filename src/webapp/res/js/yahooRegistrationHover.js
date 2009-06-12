@@ -2,6 +2,14 @@ if (GSType == undefined) {
     var GSType = {};
 }
 
+var destUrl = '';
+function sendToDestination() {
+    if (destUrl != '') {
+        window.location = destUrl;
+        destUrl = '';
+    }
+}
+
 GSType.yahooRegistrationHover = function() {
     this.dialog = null;
     this.width = 680;
@@ -23,6 +31,11 @@ GSType.yahooRegistrationHover = function() {
     };
     this.getIframeUrl = function() {
         return this.baseUrl;
+    };
+    // override to do your own preparation
+    this.prepAndShow = function(destination) {
+        destUrl = destination;
+        return this.show();
     };
     this.show = function() {
         var frameLocation = '' + window.frames[this.domIdPrefix + 'IFrame'].window.location;
@@ -57,6 +70,6 @@ GSType.yahooRegistrationHover = function() {
 
     this.close = function() {
         this.dialog.cancel();
-        parent.sendToDestination();
+        sendToDestination();
     };
 };

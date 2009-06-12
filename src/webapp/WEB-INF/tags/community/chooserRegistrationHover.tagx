@@ -22,16 +22,16 @@
         chooserRegistrationDialog.domIdPrefix = 'chooserRegistrationHover';
         chooserRegistrationDialog.close = function() {
             this.dialog.cancel();
-            parent.sendToDestination();
+            sendToDestination();
             var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
             if (schoolChoiceVideo) {
                 schoolChoiceVideo.style.display = '';
             }
         };
-
-        function prepAndShowChooserRegistrationHover(destination,emailId) {
+        // called by page
+        chooserRegistrationDialog.prepAndShow = function(destination,emailId) {
             destUrl = destination;
-            chooserRegistrationDialog.getIframeUrl = function() {
+            this.getIframeUrl = function() {
                 return this.baseUrl +
                        '?email=' + emailId;
             };
@@ -39,8 +39,8 @@
             if (schoolChoiceVideo) {
                 schoolChoiceVideo.style.display = 'none';
             }
-            return chooserRegistrationDialog.show();
-        }
+            return this.show();
+        };
 
         //-->
         ]]>
