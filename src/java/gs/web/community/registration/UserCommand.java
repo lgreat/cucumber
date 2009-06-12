@@ -4,6 +4,7 @@ import gs.web.util.validator.EmailValidator;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
 import gs.data.state.State;
 import gs.data.school.School;
 import gs.data.school.Grade;
@@ -45,8 +46,14 @@ public class UserCommand implements EmailValidator.IEmail {
     private int _mystatSchoolId;
     private State _mystatSchoolState;
 
-   //following list is used by NthGraderHover for the grade by grade newsletters.
-     private List<Boolean> _gradeNewsletters;
+    public List<NthGraderSubscription> getGradeNewsletters() {
+        return _gradeNewsletters;
+    }
+
+    public void setGradeNewsletters(List<NthGraderSubscription> gradeNewsletters) {
+        _gradeNewsletters = gradeNewsletters;
+    }//following list is used by NthGraderHover for the grade by grade newsletters.
+    private List<NthGraderSubscription> _gradeNewsletters;
 
     public UserCommand() {
         _user = new User();
@@ -54,7 +61,7 @@ public class UserCommand implements EmailValidator.IEmail {
         
         _studentRows = new ArrayList<StudentCommand>();
         _subscriptions = new ArrayList<Subscription>();
-        _gradeNewsletters = new ArrayList<Boolean>();
+        _gradeNewsletters = new ArrayList<NthGraderSubscription>();
     }
 
     public List getCityList() {
@@ -345,12 +352,140 @@ public class UserCommand implements EmailValidator.IEmail {
         _mystatSchoolState = mystatSchoolState;
     }
 
-     public List<Boolean> getGradeNewsletters() {
-        return _gradeNewsletters;
+    public static class NthGraderSubscription{
+
+        private boolean _checked;
+        private SubscriptionProduct _subProduct;
+
+        public NthGraderSubscription(boolean chk, SubscriptionProduct sub) {
+            _checked = chk;
+            _subProduct = sub;
+        }
+
+        public boolean getChecked() {
+            return _checked;
+        }
+
+        public void setChecked(boolean checked) {
+            _checked = checked;
+        }
+
+        public SubscriptionProduct getSubProduct() {
+            return _subProduct;
+        }
     }
 
-    public void setGradeNewsletters(List<Boolean> gradeNewsletters) {
-        _gradeNewsletters = gradeNewsletters;
+    public boolean isMy1() {
+        return my1;
+    }
+
+    public void setMy1(boolean my1) {
+        this.my1 = my1;
+    }
+
+    public boolean isMy2() {
+        return my2;
+    }
+
+    public void setMy2(boolean my2) {
+        this.my2 = my2;
+    }
+
+    public boolean isMy3() {
+        return my3;
+    }
+
+    public void setMy3(boolean my3) {
+        this.my3 = my3;
+    }
+
+    public boolean isMy4() {
+        return my4;
+    }
+
+    public void setMy4(boolean my4) {
+        this.my4 = my4;
+    }
+
+    public boolean isMy5() {
+        return my5;
+    }
+
+    public void setMy5(boolean my5) {
+        this.my5 = my5;
+    }
+
+    public boolean isMyhs() {
+        return myhs;
+    }
+
+    public void setMyhs(boolean myhs) {
+        this.myhs = myhs;
+    }
+
+    public boolean isMyk() {
+        return myk;
+    }
+
+    public void setMyk(boolean myk) {
+        this.myk = myk;
+    }
+
+    public boolean isMyms() {
+        return myms;
+    }
+
+    public void setMyms(boolean myms) {
+        this.myms = myms;
+    }
+
+    public boolean isMypk() {
+        return mypk;
+    }
+
+    public void setMypk(boolean mypk) {
+        this.mypk = mypk;
+    }
+
+    private boolean mypk;
+    private boolean myk;
+    private boolean my1;
+    private boolean my2;
+    private boolean my3;
+    private boolean my4;
+    private boolean my5;
+    private boolean myms;
+    private boolean myhs;
+
+    public boolean checkedBox(SubscriptionProduct myNth){
+        if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
+            return mypk;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)){
+            return myk;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)){
+            return my1;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)){
+            return my2;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)){
+            return my3;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)){
+            return my4;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)){
+            return my5;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_MS)){
+            return myms;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_HS)){
+            return myhs;
+        }
+        return false;
     }
 
     protected static class StudentCommand {

@@ -2127,7 +2127,7 @@
     </bean>
     
     <bean name="/community/registration/popup/NthGraderRegistrationHover.page"
-          class="gs.web.community.registration.RegistrationController"
+          class="gs.web.community.registration.popup.NthGraderRegistrationHoverController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>

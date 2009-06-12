@@ -10,6 +10,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.geo.IGeoDao;
+import gs.data.state.State;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,10 +27,9 @@ import org.apache.commons.lang.StringUtils;
  */
 
 public class NthGraderRegistrationHoverController extends RegistrationController {
-    private IUserDao _userDao;
+//    private IUserDao _userDao;
     private boolean _requireEmailValidation = true;
-
-    @Override
+ @Override
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
         UserCommand userCommand = (UserCommand) super.formBackingObject(httpServletRequest);
         // note: We have to create the right number of Grade Newsletters here so that the databinder will succeed
@@ -37,14 +37,14 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         // gets an index out of bounds exception
         // (Since the page is configured to always submit 9 Newsletters, I have to add all 9 here)
 
-        List<Boolean> al = new ArrayList(9);
-        for(int x=0;x < 9;x++){
-            al.add(new Boolean(false));
+        for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
+            UserCommand.NthGraderSubscription nthSubscription = new UserCommand.NthGraderSubscription(false, myNth);
+            userCommand.getGradeNewsletters().add(nthSubscription);
         }
-        userCommand.setGradeNewsletters(al);
+
         return userCommand;
     }
-
+   
      public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -52,8 +52,9 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         if (isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         UserCommand userCommand = (UserCommand) command;
-System.out.println("--------------------------------------------"+userCommand.getGradeNewsletters().get(0));
+
         boolean userExists = updateCommandUser(userCommand);
+         System.out.println("-----------------------------------------------"+userCommand.getEmail());
         User user = userCommand.getUser();
 
         setUsersPassword(user, userCommand, userExists);
@@ -74,7 +75,7 @@ System.out.println("--------------------------------------------"+userCommand.ge
         }
 
         // save
-        _userDao.updateUser(user);
+        getUserDao().updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
         // (with list_member id) to be commited before the list_member record is
         // committed. Adding this commitOrRollback prevents this.
@@ -86,7 +87,7 @@ System.out.println("--------------------------------------------"+userCommand.ge
             // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
             if(isChooserRegistration() && (userCommand.getNewsletter())){
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                _userDao.updateUser(user);
+                getUserDao().updateUser(user);
             }
             // complete registration
             if (userCommand.getNewsletter()) {
@@ -117,7 +118,7 @@ System.out.println("--------------------------------------------"+userCommand.ge
             _log.error("Unexpected error during registration", e);
             // undo registration
             user.setEmailProvisional(userCommand.getPassword());
-            _userDao.updateUser(user);
+            getUserDao().updateUser(user);
             // send to error page
             mAndV.setViewName(getErrorView());
             return mAndV;
@@ -131,7 +132,7 @@ System.out.println("--------------------------------------------"+userCommand.ge
             }
         }
 
-        PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
+        PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
         if(StringUtils.isNotBlank(getHoverView())) {
             userCommand.setRedirectUrl(getHoverView());
         } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
@@ -146,13 +147,33 @@ System.out.println("--------------------------------------------"+userCommand.ge
         return mAndV;
     }
 
-    public IUserDao getUserDao() {
-        return _userDao;
+
+protected void processGradeNewsLetters(UserCommand userCmd,User user){
+
+        for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
+            if(userCmd.checkedBox(myNth)){
+                addMyNth(myNth,user,user.getState());
+            }
+        }
     }
 
-    public void setUserDao(IUserDao userDao) {
-        _userDao = userDao;
-    }
+    public void addMyNth(SubscriptionProduct sp,User user, State state){
+        System.out.println("------------TEST:------------------"+sp.getGrade());
+           Student student = new Student();
+           student.setSchoolId(-1);
+           student.setGrade(sp.getGrade());
+           student.setState(state);
+           user.addStudent(student);
+//           _userDao.saveUser(user);
+       }
+
+//    public IUserDao getUserDao() {
+//        return _userDao;
+//    }
+//
+//    public void setUserDao(IUserDao userDao) {
+//        _userDao = userDao;
+//    }
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         this._requireEmailValidation = requireEmailValidation;
