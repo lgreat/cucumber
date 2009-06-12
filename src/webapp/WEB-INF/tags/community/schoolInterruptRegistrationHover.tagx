@@ -44,6 +44,7 @@
         };
 
         // function that causes the hover to pop up on exit
+        // TODO: Why isn't this in /res/js/mssAutoHoverInterceptor.js?
         function showMssAutoHoverOnExit() {
             var arr = getElementsByCondition(
                 function(el) {
