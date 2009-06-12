@@ -120,10 +120,15 @@ function parentStateChange(stateSelect, numChildren) {
     });
 }
 
-// TODO: when changing child's state, clear out child's school dropdown
 function childStateChange(stateSelect, childNum) {
+    var state = stateSelect.value;
+    if (state == '') {
+        $('schoolDiv' + childNum).innerHTML = makeChildSchoolSelect(childNum, "- Choose School -");
+        childSchoolChange(childNum, true);
+    }
+
     var url = '/community/registrationAjax.page';
-    var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
+    var pars = 'state=' + state + "&type=city&showNotListed=true";
     pars += '&citySelectId=citySelectChild_' + childNum;
     pars += '&citySelectName=city' + childNum;
     pars += "&onchange=gradeChange(" + childNum + ",false);";

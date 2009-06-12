@@ -164,21 +164,28 @@ public class RegistrationController extends SimpleFormController implements Read
             city = request.getParameter("city" + childNum);
             System.out.println("parseStudent: Setting location to override: " + state + ", " + city);
             // if the location is the same as the parent, it is no longer considered an override
-            if (state.equals(userCommand.getState()) && city.equals(userCommand.getCity())) {
+            if (state != null && state.equals(userCommand.getState()) && city != null && city.equals(userCommand.getCity())) {
                 student.setLocationOverride(false);
             }
         }
 
-        if (!StringUtils.isEmpty(sGrade)) {
-            student.setGradeSelected(Grade.getGradeLevel(sGrade));
-        }
-        if (!StringUtils.isEmpty(sSchoolId)) {
-            student.setSchoolIdSelected(new Integer(sSchoolId));
-        }
         student.setStateSelected(state);
         student.setCitySelected(city);
 
+        if (state != null && !StringUtils.isEmpty(city)) {
+            if (!StringUtils.isEmpty(sGrade)) {
+                student.setGradeSelected(Grade.getGradeLevel(sGrade));
+            }
+            if (!StringUtils.isEmpty(sSchoolId)) {
+                student.setSchoolIdSelected(new Integer(sSchoolId));
+            }
+        } else {
+            student.setGradeSelected(null);
+            student.setSchoolIdSelected(-1);
+        }
+
         loadSchoolList(student, city);
+
         // if the student has overriden their location, make sure to populate the view with the list of cities
         // at that location
         if (student.isLocationOverride()) {
@@ -189,7 +196,7 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void loadSchoolList(UserCommand.StudentCommand student, String city) {
         State state = student.getStateSelected();
         Grade grade = student.getGradeSelected();
-        if (grade != null) {
+        if (state != null && grade != null) {
             List<School> schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
             school.setId(-1);
@@ -202,11 +209,14 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     protected void loadCityList(UserCommand.StudentCommand student) {
-        List<City> cities = _geoDao.findAllCitiesByState(student.getStateSelected());
-        City city = new City();
-        city.setName("My city is not listed");
-        cities.add(0, city);
-        student.setCities(cities);
+        State state = student.getStateSelected();
+        if (state != null) {
+            List<City> cities = _geoDao.findAllCitiesByState(state);
+            City city = new City();
+            city.setName("My city is not listed");
+            cities.add(0, city);
+            student.setCities(cities);
+        }
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
