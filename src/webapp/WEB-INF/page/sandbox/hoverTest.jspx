@@ -39,6 +39,14 @@
         Click here for chooser registration hover
     </a>
 
+    <br/>
+
+    <community:nthGraderRegistrationHover/>
+    <a href="/sandbox/hoverTest.page"
+       onclick="return nthGraderRegistrationDialog.prepAndShow(this.href);">
+        Click here for nthGrader hover
+    </a>
+
     <br/><hr/>
 
 <a href="/sandbox/hoverTest.page">Click here to return to this page</a>

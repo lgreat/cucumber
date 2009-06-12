@@ -7,16 +7,13 @@ import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -28,7 +25,6 @@ import org.apache.commons.lang.StringUtils;
  */
 
 public class NthGraderRegistrationHoverController extends RegistrationController {
-//    private IUserDao _userDao;
     private boolean _requireEmailValidation = true;
  @Override
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
@@ -55,7 +51,6 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         UserCommand userCommand = (UserCommand) command;
 
         boolean userExists = updateCommandUser(userCommand);
-
         User user = userCommand.getUser();
 
         setUsersPassword(user, userCommand, userExists);
@@ -66,10 +61,6 @@ public class NthGraderRegistrationHoverController extends RegistrationController
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         updateUserProfile(user, userCommand, ot);
-
-//        if (hasChildRows()) {
-//            persistChildren(userCommand);
-//        }
 
         if (user.isEmailProvisional()) {
             user.setEmailValidated();
@@ -82,15 +73,18 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
+        State state = userCommand.getUserProfile().getState();
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+
+        if (null == state) {
+        // use a default state for setting subscriptions
+            userCommand.getUserProfile().setState(sessionContext.getStateOrDefault());
+        } 
+
         ModelAndView mAndV = new ModelAndView();
         try {
-            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
-            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-//            if(isChooserRegistration() && (userCommand.getNewsletter())){
-//                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-//                getUserDao().updateUser(user);
-//            }
             // complete registration
+
             processGradeNewsLetters(userCommand,user);
 
             if (userCommand.getPartnerNewsletter()) {
@@ -98,10 +92,8 @@ public class NthGraderRegistrationHoverController extends RegistrationController
                 subscription.setUser(user);
                 subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
                 subscription.setState(userCommand.getUserProfile().getState());
-                System.out.println("------2--------------------------------"+subscription.getId());
                 userCommand.addSubscription(subscription);
             }
-
 
             saveSubscriptionsForUser(userCommand, ot);
         } catch (Exception e) {
@@ -148,15 +140,13 @@ public class NthGraderRegistrationHoverController extends RegistrationController
                 addMyNth(userCmd.getGradeNewsletters().get(i).getSubProduct(),user,user.getState());
                 if(!alreadySubscribed){
                     Subscription subscription = new Subscription();
-            subscription.setUser(user);
-            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-            subscription.setState(user.getState());
-                    System.out.println("---1-----------------------------------"+subscription.getId());
-            userCmd.addSubscription(subscription);
-            alreadySubscribed = true;
+                    subscription.setUser(user);
+                    subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+                    subscription.setState(userCmd.getUserProfile().getState());
+                    userCmd.addSubscription(subscription);
+                    alreadySubscribed = true;
                 }
             }
-            
         }
     }
 
