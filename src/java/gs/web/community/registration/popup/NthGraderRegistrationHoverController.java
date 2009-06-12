@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -54,7 +55,7 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         UserCommand userCommand = (UserCommand) command;
 
         boolean userExists = updateCommandUser(userCommand);
-         System.out.println("-----------------------------------------------"+userCommand.getEmail());
+
         User user = userCommand.getUser();
 
         setUsersPassword(user, userCommand, userExists);
@@ -66,9 +67,9 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         updateUserProfile(user, userCommand, ot);
 
-        if (hasChildRows()) {
-            persistChildren(userCommand);
-        }
+//        if (hasChildRows()) {
+//            persistChildren(userCommand);
+//        }
 
         if (user.isEmailProvisional()) {
             user.setEmailValidated();
@@ -85,30 +86,22 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         try {
             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
             // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-            if(isChooserRegistration() && (userCommand.getNewsletter())){
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                getUserDao().updateUser(user);
-            }
+//            if(isChooserRegistration() && (userCommand.getNewsletter())){
+//                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+//                getUserDao().updateUser(user);
+//            }
             // complete registration
-            if (userCommand.getNewsletter()) {
-                processNewsletterSubscriptions(userCommand);
-            }
+            processGradeNewsLetters(userCommand,user);
 
             if (userCommand.getPartnerNewsletter()) {
                 Subscription subscription = new Subscription();
                 subscription.setUser(user);
                 subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
                 subscription.setState(userCommand.getUserProfile().getState());
+                System.out.println("------2--------------------------------"+subscription.getId());
                 userCommand.addSubscription(subscription);
             }
 
-            if (userCommand.getLdNewsletter()) {
-                Subscription subscription = new Subscription();
-                subscription.setUser(user);
-                subscription.setProduct(SubscriptionProduct.LEARNING_DIFFERENCES);
-                subscription.setState(userCommand.getUserProfile().getState());
-                userCommand.addSubscription(subscription);
-            }
 
             saveSubscriptionsForUser(userCommand, ot);
         } catch (Exception e) {
@@ -148,32 +141,34 @@ public class NthGraderRegistrationHoverController extends RegistrationController
     }
 
 
-protected void processGradeNewsLetters(UserCommand userCmd,User user){
-
-        for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
-            if(userCmd.checkedBox(myNth)){
-                addMyNth(myNth,user,user.getState());
+    protected void processGradeNewsLetters(UserCommand userCmd,User user){
+        boolean alreadySubscribed = false;
+        for(int i=0;i<userCmd.getGradeNewsletters().size();i++){
+            if(userCmd.getGradeNewsletters().get(i).getChecked()){
+                addMyNth(userCmd.getGradeNewsletters().get(i).getSubProduct(),user,user.getState());
+                if(!alreadySubscribed){
+                    Subscription subscription = new Subscription();
+            subscription.setUser(user);
+            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+            subscription.setState(user.getState());
+                    System.out.println("---1-----------------------------------"+subscription.getId());
+            userCmd.addSubscription(subscription);
+            alreadySubscribed = true;
+                }
             }
+            
         }
     }
 
     public void addMyNth(SubscriptionProduct sp,User user, State state){
-        System.out.println("------------TEST:------------------"+sp.getGrade());
            Student student = new Student();
            student.setSchoolId(-1);
            student.setGrade(sp.getGrade());
            student.setState(state);
            user.addStudent(student);
-//           _userDao.saveUser(user);
-       }
+           getUserDao().saveUser(user);
+    }
 
-//    public IUserDao getUserDao() {
-//        return _userDao;
-//    }
-//
-//    public void setUserDao(IUserDao userDao) {
-//        _userDao = userDao;
-//    }
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         this._requireEmailValidation = requireEmailValidation;

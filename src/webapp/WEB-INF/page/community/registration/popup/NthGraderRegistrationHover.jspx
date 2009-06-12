@@ -80,7 +80,7 @@
                     </div>
                 </li>
 
-                <community:joinHoverNewsletterFields userCmd="${userCmd}"/>
+                <community:joinHoverNewsletterFields userCmd="${userCmd}" showLDNewsletter="false" showNewsletter="false"/>
 
             </ul>
 
