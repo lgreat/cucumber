@@ -11,37 +11,45 @@ form#reg1Form ul li#gradeNewsLetters div#grades{
 
 form#reg1Form ol li{
     list-style:none;
+    height:auto;
 }
 
 form#reg1Form ol li input {
     left: 0px;
     position:static;
     width:auto;
-
 }
 
 form#reg1Form ol#first{
     position:absolute;
-    top:35px;
+    top:44px;
     left:80px;
 }
 
 form#reg1Form ol#second{
     position:absolute;
-    top:35px;
     left:200px;
+    top:44px;
 }
 
 form#reg1Form ol#third{
     position:absolute;
-    top:35px;
     left:320px;
+    top:44px;
 }
 
 p.requiredFld {
-    bottom: 190px;
+    bottom: 150px;
+}
+
+html* p.requiredFld, * html p.requiredFld {
+    bottom: 175px;
+}
+
+html* p.privacyBox, * html p.privacyBox {
+    bottom: 105px;
 }
 
 p.privacyBox {
-     bottom: 115px;
+     bottom: 78px;
 }
