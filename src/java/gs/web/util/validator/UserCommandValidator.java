@@ -26,17 +26,25 @@ public class UserCommandValidator implements IRequestAwareValidator {
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
 
-    protected static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
-    protected static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
-    protected static final int FIRST_NAME_MINIMUM_LENGTH = 2;
-    protected static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
+    public static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
+    public static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
+    public static final int FIRST_NAME_MINIMUM_LENGTH = 2;
+    public static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
     protected static final int EMAIL_MAXIMUM_LENGTH = 127;
     protected static final int PASSWORD_MINIMUM_LENGTH = 6;
     protected static final int PASSWORD_MAXIMUM_LENGTH = 14;
+
     protected static final String GENDER_MISSING =
             "Please select from one of the options.";
+
     protected static final String ERROR_FIRST_NAME_LENGTH =
             "First name must be 2-24 characters long.";
+    public static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
+    };
+    protected static final String ERROR_FIRST_NAME_BAD =
+            "Please remove the numbers or symbols.";
+
     protected static final String ERROR_SCREEN_NAME_LENGTH =
             "Username must be 6-14 characters.";
     protected static final String ERROR_SCREEN_NAME_BAD =
@@ -47,7 +55,12 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "That username is taken. Please try another username.";
     protected static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
-    public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";
+    public static final String ERROR_EMAIL_LENGTH =
+            "Your email must be less than 128 characters long.";
+    protected static final String ERROR_EMAIL_TAKEN =
+            "This email address is already registered.";
+    protected static final String ERROR_EMAIL_TAKEN_SHORT =
+            "This email address is already registered.";
 
     protected static final String ERROR_PASSWORD_LENGTH =
             "Password should be 6-14 characters.";
@@ -67,12 +80,6 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "Please tell us the number of children you have in K-12 schools.";
     protected static final String ERROR_TERMS_MISSING =
             "Please read and accept our Terms of Use to join GreatSchools.";
-    protected static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
-    };
-    protected static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
-    protected static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
-    protected static final String ERROR_EMAIL_TAKEN_SHORT = "That email address has been registered.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;

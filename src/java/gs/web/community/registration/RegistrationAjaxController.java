@@ -16,6 +16,7 @@ import gs.data.geo.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.community.IUserDao;
+import gs.web.util.validator.UserCommandValidator;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -31,6 +32,7 @@ public class RegistrationAjaxController implements Controller {
     final public static String TYPE_PARAM = "type";
     final public static String EMAIL_PARAM = "email";
     final public static String USER_NAME_PARAM = "un";
+    final public static String FIRST_NAME_PARAM = "fn";
     final public static String CITY_TYPE = "city";
     final public static String COUNTY_TYPE = "county";
 
@@ -56,6 +58,11 @@ public class RegistrationAjaxController implements Controller {
             return null;
         }
 
+        if (request.getParameter(FIRST_NAME_PARAM) != null) {
+            validateFirstName(request, out);
+            return null;
+        }
+
         return null;
     }
 
@@ -74,10 +81,24 @@ public class RegistrationAjaxController implements Controller {
     protected void validateUsername(HttpServletRequest request, PrintWriter out) {
         String username = request.getParameter(USER_NAME_PARAM);
 
-        if (username.length() < 6 || username.length() > 14) {
+        if (username.length() < UserCommandValidator.SCREEN_NAME_MINIMUM_LENGTH || username.length() > UserCommandValidator.SCREEN_NAME_MAXIMUM_LENGTH) {
             out.print("invalid");
         } else if (_userDao.findUserFromScreenNameIfExists(username) != null) {
             out.print("inuse");
+        } else {
+            out.print("valid");
+        }
+    }
+
+    protected void validateFirstName(HttpServletRequest request, PrintWriter out) {
+        String firstName = request.getParameter(FIRST_NAME_PARAM);
+
+        if (StringUtils.isEmpty(firstName) ||
+                firstName.length() > UserCommandValidator.FIRST_NAME_MAXIMUM_LENGTH ||
+                firstName.length() < UserCommandValidator.FIRST_NAME_MINIMUM_LENGTH) {
+            out.print("invalid_length");
+        } else if (!StringUtils.containsNone(firstName, UserCommandValidator.FIRST_NAME_DISALLOWED_CHARACTERS)) {
+            out.print("invalid_chars");
         } else {
             out.print("valid");
         }

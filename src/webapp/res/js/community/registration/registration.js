@@ -143,16 +143,35 @@ function childStateChange(stateSelect, childNum) {
 }
 
 function validateFirstName() {
+    var url = '/community/registrationAjax.page';
+    var pars = 'fn=' + $('firstName').value;
     var notice = $('firstNameMessage');
-    var fn = $('firstName').value;
-
-    if (fn.length < 2 || fn.length > 24) {
-        notice.update('First name must be 2-24 characters long.').style.display = '';
-        notice.className = "ajaxMessage ajaxError";
-    } else {
-        notice.update('').style.display = '';
-        notice.className = "ajaxMessage ajaxSuccess";
-    }
+    var myAjax = new Ajax.Request(
+            url,
+        {
+            method: 'get',
+            parameters: pars,
+            onSuccess: function(transport) {
+                if (transport.responseText == "invalid_length") {
+                    notice.update('First name must be 2-24 characters long.').style.display = '';
+                    notice.className = "ajaxMessage ajaxError";
+                } else if (transport.responseText == "invalid_chars") {
+                    notice.update('Please remove the numbers or symbols.').style.display = '';
+                    notice.className = "ajaxMessage ajaxError";
+                } else if (transport.responseText == "valid") {
+                    notice.update('').style.display = '';
+                    notice.className = "ajaxMessage ajaxSuccess";
+                } else {
+                    notice.update('').style.display = 'none';
+                    notice.className = "ajaxMessage";
+                }
+            },
+            onFailure: function(transport) {
+                notice.update('').style.display = 'none';
+                notice.className = "ajaxMessage";
+            }
+        }
+    );
 }
 
 function validateEmail() {
