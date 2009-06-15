@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class NthGraderRegistrationHoverController extends RegistrationController {
     private boolean _requireEmailValidation = true;
- @Override
+    @Override
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
         UserCommand userCommand = (UserCommand) super.formBackingObject(httpServletRequest);
         // note: We have to create the right number of Grade Newsletters here so that the databinder will succeed
@@ -36,6 +36,9 @@ public class NthGraderRegistrationHoverController extends RegistrationController
 
         for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
             UserCommand.NthGraderSubscription nthSubscription = new UserCommand.NthGraderSubscription(false, myNth);
+            if (httpServletRequest.getParameter(myNth.getName()) != null) {
+                nthSubscription.setChecked(true);
+            }
             userCommand.getGradeNewsletters().add(nthSubscription);
         }
 

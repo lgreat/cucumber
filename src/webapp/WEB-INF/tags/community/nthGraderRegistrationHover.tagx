@@ -24,7 +24,25 @@
             this.dialog.cancel();
         };
 
-        // call ldRegistrationDialog.prepAndShow(url) to invoke
+        nthGraderRegistrationDialog.prepAndShow = function(destination, precheck) {
+            destUrl = destination;
+            // my hover takes parameters that may differ on a link-by-link basis, so I
+            // override the function right here
+            if (precheck) {
+                this.getIframeUrl = function() {
+                    return this.baseUrl +
+                           '?' + precheck + "=true";
+                };
+            } else {
+                this.getIframeUrl = function() {
+                    return this.baseUrl;
+                };
+            }
+
+            return this.show();
+        };
+
+        // call nthGraderRegistrationDialog.prepAndShow(url) to invoke
 
         //-->
         ]]>

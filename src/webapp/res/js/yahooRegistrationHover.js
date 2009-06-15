@@ -38,10 +38,7 @@ GSType.yahooRegistrationHover = function() {
         return this.show();
     };
     this.show = function() {
-        var frameLocation = '' + window.frames[this.domIdPrefix + 'IFrame'].window.location;
-        if (frameLocation.indexOf(this.baseUrl) == -1) {
-            window.frames[this.domIdPrefix + 'IFrame'].window.location = this.getIframeUrl();
-        }
+        window.frames[this.domIdPrefix + 'IFrame'].window.location = this.getIframeUrl();
 
         document.getElementById(this.domIdPrefix + "Dialog").style.display="block";
 

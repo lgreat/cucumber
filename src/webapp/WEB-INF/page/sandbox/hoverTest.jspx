@@ -41,7 +41,7 @@
 
     <br/>
 
-    <community:nthGraderRegistrationHover/>
+    <pageHelper:showNthGraderHover/>
     <a href="/sandbox/hoverTest.page"
        onclick="return nthGraderRegistrationDialog.prepAndShow(this.href);">
         Click here for nthGrader hover

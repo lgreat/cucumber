@@ -14,6 +14,7 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -76,6 +77,10 @@
 
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}" onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
+<c:if test="${requestScope.pageHelper.showingNthGraderHover}">
+    <community:nthGraderRegistrationHover/>    
+</c:if>
+
 <div id="marginGS" class="marginGS">
     <cobrand:header/>
 

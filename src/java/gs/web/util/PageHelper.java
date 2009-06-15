@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.76 2009/03/04 23:05:11 droy Exp $
+ * $Id: PageHelper.java,v 1.77 2009/06/15 19:53:32 aroy Exp $
  */
 
 package gs.web.util;
@@ -161,6 +161,23 @@ public class PageHelper {
         }
     }
 
+    public static void addNthGraderHover(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setShowingNthGraderHover(true);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+    protected void setShowingNthGraderHover(boolean b) {
+        _showingNthGraderHover = b;
+    }
+
+    public boolean isShowingNthGraderHover() {
+        return _showingNthGraderHover;
+    }
+
     /**
      * Get the city name to use for the footer Yahoo Real Estate link.  Not every page has a city associated with it,
      * so those that do should set this to specify what it is if they require the YRE link in the footer.
@@ -219,6 +236,7 @@ public class PageHelper {
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
     private String _onunload = "";
+    private boolean _showingNthGraderHover = false;
 
 
     private Set<String> _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
