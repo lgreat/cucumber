@@ -40,7 +40,7 @@
             Already a member? <link:loginOrRegister email="${userCmd.user.email}">Sign in.</link:loginOrRegister>
         </div>
 
-        <gsml:img src="/res/img/community/registration/join_burst_transparent.png"
+        <gsml:img src="/res/img/community/registration/join_burst_transparent.gif"
                                   alt="Join" styleClass="joinMedallion"/>
 
         <div id="bulletsHeader">

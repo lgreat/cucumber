@@ -36,9 +36,9 @@
 
 #outline .joinMedallion {
     position: absolute;
-    top: 170px;
+    top: 173px;
     z-index:3;
-    left: 465px;
+    left: 468px;
 }
 
 #outline .headerImage {
@@ -80,7 +80,8 @@ p.requiredFld {
     line-height: 14px;
 }
 #reg1Form{
-    margin-left:5px;
+    margin-left: 5px;
+    padding-top: 8px;
 }
 
 #userDetails {
