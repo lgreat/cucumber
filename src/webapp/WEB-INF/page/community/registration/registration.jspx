@@ -385,6 +385,10 @@
 
     <mod:tracking pageName="${pageName}"
                   hier1="Account,Registration,Page 1,${hier}"/>
+
+  <script type="text/javascript">
+      $('firstName').focus();
+  </script>
   </gsml:body>
 </html>
 </jsp:root>
