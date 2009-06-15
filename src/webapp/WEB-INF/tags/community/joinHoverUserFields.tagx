@@ -10,7 +10,14 @@
         >
     <jsp:directive.attribute name="userCmd" required="true" description="Command object"
                              type="gs.web.community.registration.UserCommand"/>
-    
+    <jsp:directive.attribute name="emailEditable" required="false"
+                             description="Should the email field be editable or read only. Default: true"
+                             type="java.lang.Boolean"/>
+
+    <c:if test="${empty emailEditable}">
+        <c:set var="emailEditable" value="${true}"/>
+    </c:if>
+
     <li>
         <label for="firstName">First name <span class="required">*</span></label>
         <spring:bind path="userCmd.user.firstName">
@@ -23,13 +30,25 @@
 
     <li id="emailLine">
         <label for="email">Email address <span class="required">*</span></label>
-        <spring:bind path="userCmd.user.email">
-            <input id="email" type="text" name="${status.expression}" value="${status.value}" tabindex="2"
-                   onblur="validateEmail();"/>
-        </spring:bind>
+            <c:choose>
+                <c:when test="${emailEditable}">
+                    <spring:bind path="userCmd.user.email">
+                        <input id="email" type="text" name="${status.expression}" value="${status.value}" tabindex="2"
+                               onblur="validateEmail();"/>
+                    </spring:bind>
+                </c:when>
+                <c:otherwise>
+                    <spring:bind path="userCmd.user.email">
+                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                        <input id="email" type="text" name="${status.expression}_disabled" value="${status.value}"
+                               disabled="disabled"/>
+                    </spring:bind>
+                </c:otherwise>
+            </c:choose>
         <gsml:feedbackMessage command="userCmd" field="email" styleId="emailMessage"
                               styleClass="ajaxMessage ajaxError"/>
     </li>
+
 
     <li id="usernameLine">
         <label for="screenName">Username <span class="required">*</span></label>

@@ -51,7 +51,7 @@
                     method="post" styleClass="registration" id="reg1Form">
         <form:hidden path="userCmd.redirectUrl"/>
         <ul>
-                <community:joinHoverUserFields userCmd="${userCmd}"/>
+                <community:joinHoverUserFields userCmd="${userCmd}" emailEditable="false"/>
 
                 <c:set var="loopTimes" value="0"/>
                 <li id="whereLiveLine">
