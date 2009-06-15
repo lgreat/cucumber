@@ -167,11 +167,9 @@
                     <c:set var="schoolVal" value="${userCmd.studentRows[child-1].schoolIdSelected}"/>
                     <c:set var="cityVal" value="${userCmd.studentRows[child-1].citySelected}"/>
                     <c:set var="stateVal" value="${userCmd.state}"/>
-                    <c:if test="${userCmd.studentRows[child-1].stateSelected ne null}">
-                        <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
-                    </c:if>
                     <c:set var="locationOverrideDisplay" value="none"/>
                     <c:if test="${userCmd.studentRows[child-1].locationOverride eq true}">
+                        <c:set var="stateVal" value="${userCmd.studentRows[child-1].stateSelected}"/>
                         <c:set var="locationOverrideDisplay" value="block"/>
                     </c:if>
                     <li id="childCityRow_${child}" style="display:${locationOverrideDisplay}">

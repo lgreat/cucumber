@@ -417,7 +417,7 @@ public class RegistrationController extends SimpleFormController implements Read
                     }
 
                     State state = student.getStateSelected();
-                    if (state != null) {
+                    if (student.isLocationOverride()) {
                         newStudent.setState(state);
                     } else {
                         newStudent.setState(userCommand.getState());
