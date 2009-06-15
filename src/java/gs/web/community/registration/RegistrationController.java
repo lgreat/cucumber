@@ -169,18 +169,18 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
 
+        if (!StringUtils.isEmpty(sGrade)) {
+            student.setGradeSelected(Grade.getGradeLevel(sGrade));
+        }
+
         student.setStateSelected(state);
         student.setCitySelected(city);
 
         if (state != null && !StringUtils.isEmpty(city)) {
-            if (!StringUtils.isEmpty(sGrade)) {
-                student.setGradeSelected(Grade.getGradeLevel(sGrade));
-            }
             if (!StringUtils.isEmpty(sSchoolId)) {
                 student.setSchoolIdSelected(new Integer(sSchoolId));
             }
         } else {
-            student.setGradeSelected(null);
             student.setSchoolIdSelected(-1);
         }
 
