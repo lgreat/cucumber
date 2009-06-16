@@ -26,23 +26,42 @@
         <pageHelper:externalCss file="/res/css/community/registration/accountInformation.css"/>
         <pageHelper:externalJavascript file="/res/js/prototype.js"/>
         <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
-         <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
+        <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
     </head>
 
     <gsml:body adPageName="email/management">
         <ad:setSlotPrefix slotPrefix="Email_Management"/>
 
+        <div id="border">
+
+        <h2>Free Newsletters from GreatSchools</h2>
+
+        <p>To subscribe, check the box.  To unsubscribe, uncheck the box.  Click "Save Settings" when you are finished.</p>
+        <p>Read the GreatSchools <gsml:popupWindow width="800" height="600" left="50" top="50"
+                    title="GreatSchools Privacy Policy"
+                    href="/about/privacyStatement.page?state=$STATE"
+                    tabIndex="17">Privacy Policy</gsml:popupWindow>.</p>
+            
         <form:form name="manage" commandName="emailCmd" method="post" onsubmit="return checkForm();">
             <input name="userId" type="hidden" value="${emailCmd.userId}"/>
 
+            <table cellpadding="0" cellspacing="0" id="newsletterColumns">
+                <tr>
+                    <td valign="top" class="newsletterColumn" width="50%">
+                        <div>
+                            <img src="/res/img/email/boy_with_pen.jpg" alt="boy with pen" class="newsletterImage"/>
+                            <div class="newsletterInfo">
+                                <div class="newsletterHeader">Weekly Updates</div>
+                                <div class="newsletterDescription">
+                                    The tips and tools you need to make smart choices about your child’s education.
+                                </div>
+                                <form:checkbox path="greatnews" id="greatnews" onclick="doSomething();" cssClass="newsletterCheckbox"/> Subscribe to this newsletter
+                                <form:hidden path="greatnewsId"/>
+                            </div>
+                        </div>
 
-               <table><tr><td valign="top">
-            <br/><img src="/res/img/email/boy_with_pen.jpg" alt="boy with pen"/>
-            <br/>GreatSchools Weekly
-            <br/>The tips and tools you need to make smart choices about your child’s education.
-            <br/><form:checkbox path="greatnews" id="greatnews" onclick="doSomething();"/> Subscribe to this newsletter
-            <form:hidden path="greatnewsId"/>
-
+                        <div class="rule"><!-- don't collapse --></div>
+                        
             <c:set var="showMynth" value="${ emailCmd.greatnewsId > 0 ? 'showIt' : 'hideIt' }" />
             <div id="mynth" class="${showMynth}">
                 <br/>Personalize your weekly updates by indicating what grade your child is in.
@@ -68,84 +87,110 @@
             </div>
             
 
-            <br/><img src="/res/img/email/teacher.jpg" alt="teacher"/>
-            <br/>How does your school measure up?
-            <br/>Track your child’s school stats - from test scores to teacher quality.
-            <br/>(Available for public schools only)
-            <c:if test="${emailCmd.school1}">
-                <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
-                    <br/><form:checkbox path="school${schoolCounter.count}" id="${varName}"/>
-                    <input type="hidden" name="id${schoolCounter.count}" value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
-                    <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
-                    ${school.name}, ${school.city}, ${school.stateAbbreviation}
-                </c:forEach>
-            </c:if>
-            
 
-            <c:if test="${fn:length(emailCmd.myStatIds) lt 4}">     <!-- ${ not (emailCmd.id4 > 0)} -->
-            <br/><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                 onChange="emailStateChange(this);" name="stateAdd"/>  
-            <span id="city">
-                <select id="citySelect" name="city" onchange="emailSchoolChange(this)">
-                    <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
-                        <option selected="selected" value="">Choose city</option>
-                    </c:if>
-                    <c:forEach var="cityOption" items="${emailCmd.cityList}">
-                        <![CDATA[<option ]]>
-                        <c:if test="${emailCmd.city eq cityOption.name}">
-                    a        selected="selected"
-                        </c:if>
-                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                    </c:forEach>
-                </select>
-            </span>
-            <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
+                        <div>
+                            <img src="/res/img/email/teacher.jpg" alt="teacher" class="newsletterImage"/>
+                            <div class="newsletterInfo">
+                                <div class="newsletterHeader">How does your child's school measure up?</div>
+                                <div class="newsletterDescription">
+                                    Get updates that show your child's school by the numbers, from test scores to
+                                    teacher quality.   You can sign up for a maximum of four schools per email
+                                    address. (<a>See sample</a>)
+                                </div>
+                            </div>
 
-           <span id="schoolsInCity">
-                <select name="school" id="school" class="selectChildSchool">
-                    <option selected="selected" value="0">- Choose School -</option>
-                    <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
-                        <![CDATA[<option ]]>
-                        <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                    </c:forEach>
-                </select>
-            </span>
-                <input id="add" type="submit" value="Add"/>
+                            <p>Subscribe to school updates on:</p>
 
-            </c:if>
+                            <c:if test="${emailCmd.school1}">
+                                <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
+                                    <br/><form:checkbox path="school${schoolCounter.count}" id="${varName}"/>
+                                    <input type="hidden" name="id${schoolCounter.count}" value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
+                                    <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
+                                    ${school.name}, ${school.city}, ${school.stateAbbreviation}
+                                </c:forEach>
+                            </c:if>
+
+
+                            <c:if test="${fn:length(emailCmd.myStatIds) lt 4}">     <!-- ${ not (emailCmd.id4 > 0)} -->
+                            <br/><gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                                                 onChange="emailStateChange(this);" name="stateAdd"/>  
+                            <span id="city">
+                                <select id="citySelect" name="city" onchange="emailSchoolChange(this)">
+                                    <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
+                                        <option selected="selected" value="">Choose city</option>
+                                    </c:if>
+                                    <c:forEach var="cityOption" items="${emailCmd.cityList}">
+                                        <![CDATA[<option ]]>
+                                        <c:if test="${emailCmd.city eq cityOption.name}">
+                                    a        selected="selected"
+                                        </c:if>
+                                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </span>
+                            <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
+
+                           <span id="schoolsInCity">
+                                <select name="school" id="school" class="selectChildSchool">
+                                    <option selected="selected" value="0">- Choose School -</option>
+                                    <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
+                                        <![CDATA[<option ]]>
+                                        <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </span>
+                                <input id="add" type="submit" value="Add"/>
+
+                            </c:if>
+                        </div>
             </td>
 
 
-            <td valign="top">
-              <br/><img src="/res/img/email/boy_with_book.jpg" alt="boy with book"/>
-            <br/>Prevent the summer brain drain
-            <br/>Daily tips and activities to engage your child in learning over the break and ease her into the next
-            school year.
-            <br/><form:checkbox path="seasonal" onclick="doSomethingSeasonal();"/> Subscribe to this newsletter
-            <c:set var="showWeeks" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }" />
-            <div id="weeks" class="${showWeeks}">
-            <br/>Tell us when your child’s school starts so we can personalize your newsletter.
-            <br/>School starts the week of:
-            <form:select path="startweek" id="startweek">
-                <form:option value="">Choose one</form:option>
-                <form:option value="summer1">July 19</form:option>
-                <form:option value="summer2">July 26</form:option>
-                <form:option value="summer3">August 2</form:option>
-                <form:option value="summer4">August 9</form:option>
-                <form:option value="summer5">August 16</form:option>
-                <form:option value="summer6">August 23</form:option>
-                <form:option value="summer7">August 30</form:option>
-                <form:option value="summer8">September 6</form:option>
-            </form:select>
-            </div>
-            <form:hidden path="seasonalId"/>
+            <td valign="top" class="newsletterColumn" width="50%">
 
+                <div>
+                    <img src="/res/img/email/boy_with_book.jpg" alt="boy with book" class="newsletterImage"/>
+                    <div class="newsletterInfo">
+                        <div class="newsletterHeader">Prevent the summer brain drain with our daily seasonal tips and acivities</div>
+                        <div class="newsletterDescription"><!-- nothing -->
+                        </div>
 
-            <br/><img src="/res/img/email/boy_with_dad.jpg" alt="boy with dad"/>
-            <br/>Help kids with learning disabilities
-            <br/>Get the resources you need to support your child with a learning disability or an attention problem.
-            <br/><form:checkbox path="learning_dis"/> Subscribe to this newsletter
-            <form:hidden path="learning_disId"/>
+                        <p><form:checkbox path="seasonal" onclick="doSomethingSeasonal();"/> Subscribe to this newsletter</p>
+
+                        <c:set var="showWeeks" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }" />
+                        <div id="weeks" class="${showWeeks}">
+                        <br/>Tell us when your child’s school starts so we can personalize your newsletter.
+                        <br/>School starts the week of:
+                        <form:select path="startweek" id="startweek">
+                            <form:option value="">Choose one</form:option>
+                            <form:option value="summer1">July 19</form:option>
+                            <form:option value="summer2">July 26</form:option>
+                            <form:option value="summer3">August 2</form:option>
+                            <form:option value="summer4">August 9</form:option>
+                            <form:option value="summer5">August 16</form:option>
+                            <form:option value="summer6">August 23</form:option>
+                            <form:option value="summer7">August 30</form:option>
+                            <form:option value="summer8">September 6</form:option>
+                        </form:select>
+                        </div>
+                        <form:hidden path="seasonalId"/>
+                    </div>
+                </div>
+
+                <div class="rule"><!-- don't collapse --></div>
+
+                <div>
+                    <img src="/res/img/email/boy_with_dad.jpg" alt="boy with dad" class="newsletterImage"/>
+                    <div class="newsletterInfo">
+                        <div class="newsletterHeader">"Helping Kids With Learning Disabilities" Newsletter</div>
+                        <div class="newsletterDescription">Does your child have a learning disability, difficulty or
+                            attention problem?  Our monthly guide offers support, strategies and resources.
+                            (<a>See sample</a>) 
+                        </div>
+                        <form:checkbox path="learning_dis" cssClass="newsletterCheckbox"/> Subscribe to this newsletter
+                        <form:hidden path="learning_disId"/>
+                    </div>
+                </div>
 
 
             <c:set var="showChooser" value="${ emailCmd.chooser ? 'showIt' : 'hideIt' }" />
@@ -165,17 +210,27 @@
             <form:hidden path="chooserpack_hId"/>
             </div>
 
-            <br/><img src="/res/img/email/pencils.jpg" alt="pencils"/>
-            <br/>Send me valuable offers and information from GreatSchools partners
-            <br/><form:checkbox path="sponsor"/> Subscribe to this newsletter
-            <form:hidden path="sponsorId"/>
+                <div class="rule"><!-- don't collapse --></div>
 
+                <div>
+                    <img src="/res/img/email/pencils.jpg" alt="pencils" class="newsletterImage"/>
+                    <div class="newsletterInfo">
+                        <div class="newsletterHeader">Valuable offers from GreatSchools' Partners!</div>
+                        <div class="newsletterDescription"><!-- nop --></div>
+                        <form:checkbox path="sponsor" cssClass="newsletterCheckbox"/> Subscribe to this newsletter
+                        <form:hidden path="sponsorId"/>
+                    </div>
+                </div>
 
-            <input id="save" type="submit" value="Submit Request"/>
+            <!-- input id="save" type="submit" value="Submit Request"/ -->
+                <gsml:inputImage src="/res/img/email/btn_savesettings.png" alt="submit"
+                                 name="submit" id="save"/>
+
             </td>
             </tr>
             </table>
         </form:form>
+        </div>
 
 
         <mod:tracking pageName="Email Management"
