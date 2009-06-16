@@ -108,8 +108,8 @@
             }
         </script>
 
-    <mod:tracking pageName="Newsletter Promo Hover"
-                      hier1="Newsletter, NL hover promo - MSS, School profile"/>
+    <mod:tracking pageName="Newsletter Promo Hover Nthgrader"
+                      hier1="Newsletter, NL hover promo - Nth Grader"/>
 
     </gsml:body>
     </html>
