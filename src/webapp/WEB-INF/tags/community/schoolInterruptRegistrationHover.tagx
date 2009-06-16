@@ -28,22 +28,16 @@
 
         // called by page
         autoMssHover.prepAndShow = function (destination, schoolId, schoolState) {
-            try {
-                // my hover takes parameters that may differ on a link-by-link basis, so I
-                // override the function right here
-                this.getIframeUrl = function() {
-                    return this.baseUrl +
-                           '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;           
-                };
-                return this.checkCookies(destination);
-            } catch (e) {
-                alert(e.message);
-            }
-            return false;
+            // my hover takes parameters that may differ on a link-by-link basis, so I
+            // override the function right here
+            this.getIframeUrl = function() {
+                return this.baseUrl +
+                       '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;
+            };
+            return this.checkCookies(destination);
         };
 
         // function that causes the hover to pop up on exit
-        // TODO: Why isn't this in /res/js/mssAutoHoverInterceptor.js?
         function showMssAutoHoverOnExit() {
             var arr = getElementsByCondition(
                 function(el) {
@@ -62,6 +56,7 @@
                     gRedirectAnchor = this;
                     try {
                         if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')){
+                            window.destUrl = gRedirectAnchor.href;
                             // show hover
                             return autoMssHover.prepAndShow(gRedirectAnchor.href, ${schoolId}, '${schoolState}');
                         }
