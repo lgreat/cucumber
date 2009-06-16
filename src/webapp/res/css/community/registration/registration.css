@@ -407,7 +407,11 @@ width:140px;
 
 #freeNewsletters .brainDrain{
     margin-left:91px;
-    height:100px;
+}
+
+#freeNewsletters .brainDrain select{
+    margin-left:20px;
+    width:auto;
 }
 
 #freeNewsletters .valuableOffers{
@@ -537,3 +541,10 @@ p.privacyBox {
 }
 /* end terms and privcy and join button*/
 
+.showIt{
+    display:block;
+}
+
+.hideIt{
+    display:none;
+}

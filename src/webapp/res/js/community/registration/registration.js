@@ -265,8 +265,17 @@ function validateConfirmPW() {
     }
 }
 
+function validateAndSubmit(element){
+    if(document.getElementById("brainDrainNewsletterField").checked && document.getElementById("startweek").value == ''){
+             alert("Please select a start week for your Summer Brain Drain newsletter so we can personalize your emails.");
+             return false;
+      }else{
+        doSingleClick(element);
+    }
+}
+
 function doSingleClick(element) {
-    element.onclick = new Function('return false;');
+    element.onclick = new Function('return false;');     
     return true;
 }
 
@@ -299,3 +308,13 @@ function addAnotherChild(childNum) {
 
 function css_browser_selector(u){var ua = u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1;},g='gecko',w='webkit',s='safari',h=document.getElementsByTagName('html')[0],b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3')?g+' ff3':is('gecko/')?g:/opera(\s|\/)(\d+)/.test(ua)?'opera opera'+RegExp.$2:is('konqueror')?'konqueror':is('chrome')?w+' chrome':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?'mobile':is('iphone')?'iphone':is('ipod')?'ipod':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win':is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}
 css_browser_selector(navigator.userAgent);
+
+
+function displayStartWeekDropdowns(){
+     var elem = document.getElementById("weeks");
+    if(document.getElementById("brainDrainNewsletterField").checked){
+        elem.style.display = "block";
+    } else{
+        elem.style.display = "none";
+    }
+}

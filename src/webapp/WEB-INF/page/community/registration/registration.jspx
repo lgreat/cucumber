@@ -286,8 +286,27 @@
                         <div class="newletterNoDivider">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
-                            <div class="brainDrain">Prevent the summer brain drain</div>
+                            <div class="brainDrain"><h3>Prevent the summer brain drain</h3>
+                                <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField" onclick="displayStartWeekDropdowns();"/>
+                                <label for="brainDrainNewsletterField">Subscribe to this newsletter</label>
+                                <c:set var="showWeeks" value="${ userCmd.brainDrainNewsletter ? 'showIt' : 'hideIt' }" />
+                                <div id="weeks" class="${showWeeks}"><p class="newsletterText">Tell us when your chil'd school starts so we can personalize your newsletter!</p>
+                                    <div>Week of:
+                                    <form:select path="userCmd.startweek" id="startweek">
+                                        <form:option value="">Choose one</form:option>
+                                        <form:option value="summer1">July 19</form:option>
+                                        <form:option value="summer2">July 26</form:option>
+                                        <form:option value="summer3">August 2</form:option>
+                                        <form:option value="summer4">August 9</form:option>
+                                        <form:option value="summer5">August 16</form:option>
+                                        <form:option value="summer6">August 23</form:option>
+                                        <form:option value="summer7">August 30</form:option>
+                                        <form:option value="summer8">September 6</form:option>
+                                    </form:select></div>
+                                </div>
+                            </div>
                         </div>
+
                         <gsml:img src="/res/img/email/pencils.jpg"
                                   alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
 
@@ -339,7 +358,7 @@
             </p>
 
             <gsml:inputImage src="/res/img/community/registration/join_button.gif" alt="submit"
-                             name="submit" onclick="return doSingleClick(this);" tabIndex="16"
+                             name="submit" onclick="return validateAndSubmit(this);" tabIndex="16"
                              id="submitButton"/>
 
             <spring:bind path="userCmd.redirectUrl">

@@ -37,7 +37,9 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _newsletter = false;
     private boolean _partnerNewsletter = false;
     private boolean _ldNewsletter = false;
+    private boolean _brainDrainNewsletter = false;
 //    private boolean _weeklyUpdatesNewsletter = false;
+    private String _startweek;
     private boolean _chooserRegistration = false;    
 
     // following four fields used by SchoolInterruptRegistrationHoverController
@@ -260,13 +262,21 @@ public class UserCommand implements EmailValidator.IEmail {
         _ldNewsletter = ldNewsletter;
     }
 
-//    public boolean getWeeklyUpdatesNewsletter() {
-//        return _weeklyUpdatesNewsletter;
-//    }
-//
-//    public void setWeeklyUpdatesNewsletter(boolean weeklyUpdatesNewsletter) {
-//        _weeklyUpdatesNewsletter = weeklyUpdatesNewsletter;
-//    }
+     public boolean getBrainDrainNewsletter() {
+        return _brainDrainNewsletter;
+    }
+
+    public void setBrainDrainNewsletter(boolean brainDrainNewsletter) {
+        _brainDrainNewsletter = brainDrainNewsletter;
+    }
+
+     public String getStartweek() {
+        return _startweek;
+    }
+
+    public void setStartweek(String startweek) {
+        this._startweek = startweek;
+    }
 
     public String getReferrer() {
         return _referrer;
