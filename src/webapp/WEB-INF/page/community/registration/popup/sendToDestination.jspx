@@ -11,6 +11,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
 <head>
     <![CDATA[
@@ -18,12 +19,18 @@
         ]]>
     <title>Login Successful - GreatSchools</title>
     <script type="text/javascript">
-        parent.sendToDestination();
+        try {
+            parent.sendToDestination();
+        } catch (e) {}
     </script>
 </head>
 
 <gsml:body adPageName="forgotPassword">
-
+    <script type="text/javascript">
+        try {
+            window.top.hidePopWin(false);
+        } catch (e) { alert(e.message);}
+    </script>
 </gsml:body>
 </html>
 </jsp:root>
