@@ -25,7 +25,6 @@
         };
 
         nthGraderRegistrationDialog.prepAndShow = function(destination, precheck) {
-            destUrl = destination;
             // my hover takes parameters that may differ on a link-by-link basis, so I
             // override the function right here
             if (precheck) {
@@ -39,7 +38,7 @@
                 };
             }
 
-            return this.show();
+            return this.checkCookies(destination);
         };
 
         // call nthGraderRegistrationDialog.prepAndShow(url) to invoke

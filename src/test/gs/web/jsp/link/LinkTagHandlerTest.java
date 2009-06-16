@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.55 2009/06/11 17:32:23 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.56 2009/06/16 00:29:28 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -287,6 +287,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setSchoolState(State.CA);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/email/management.page?schoolId=1&schoolState=CA", builder.asSiteRelative(null));
+
+        tagHandler.setAutocheck("myk");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/email/management.page?myk=true&schoolId=1&schoolState=CA", builder.asSiteRelative(null));
     }
 
     public void testPrivacyPolicy() {

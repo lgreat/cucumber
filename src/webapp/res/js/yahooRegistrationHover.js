@@ -4,6 +4,13 @@ if (GSType == undefined) {
 
 var destUrl = '';
 function sendToDestination() {
+    if (nthGraderRegistrationDialog != undefined) {
+        nthGraderRegistrationDialog.dialog.cancel();
+    }
+    if (autoMssHover != undefined) {
+        autoMssHover.dialog.cancel();
+    }
+    // TODO: add other hovers here
     if (destUrl != '') {
         window.location = destUrl;
         destUrl = '';
@@ -32,10 +39,50 @@ GSType.yahooRegistrationHover = function() {
     this.getIframeUrl = function() {
         return this.baseUrl;
     };
+    this.isCookieSet = function(cookieName){
+        // if cookie cookieName exists, the cookie is set
+        var value = readCookie(cookieName);
+
+        return value != undefined && value.length > 0;
+    };
+    this.getServerName = function() {
+        // default to live
+        var serverName = 'www';
+
+        // check for staging
+        if (location.hostname.match(/staging\.|staging$/)) {
+            serverName = 'staging';
+        } else if (location.hostname.match(/dev\.|dev$|clone|\.office\.|cpickslay\.|localhost|127\.0\.0\.1|macbook/)) {
+            serverName = 'dev';
+        }
+
+        return serverName;
+    };
     // override to do your own preparation
     this.prepAndShow = function(destination) {
         destUrl = destination;
-        return this.show();
+        return this.checkCookies(destination);
+    };
+    this.checkCookies = function(destination) {
+        // check for cookies
+        // if no cookies
+        if (!this.isCookieSet('MEMID')) {
+            // proceed as usual, show hover
+            return this.show();
+        } else {
+            // if just MEMID
+            if (!this.isCookieSet('community_' + this.getServerName())) {
+                // send to loginOrRegister.page with redirect set to destination
+                var loginUrl = '/community/loginOrRegister.page?redirect=';
+                loginUrl += encodeURIComponent(destination);
+                window.location = loginUrl;
+                return false;
+            } else {
+                // both memid and community
+                // send directly to destination
+                return true;
+            }
+        }
     };
     this.show = function() {
         window.frames[this.domIdPrefix + 'IFrame'].window.location = this.getIframeUrl();

@@ -482,6 +482,13 @@
             <description>Optional javascript onclick</description>
         </attribute>
         <attribute>
+            <name>autocheck</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional newsletter to pre-check</description>
+        </attribute>
+        <attribute>
             <name>schoolId</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

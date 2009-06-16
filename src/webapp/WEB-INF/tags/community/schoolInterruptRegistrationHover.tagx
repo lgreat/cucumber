@@ -29,14 +29,13 @@
         // called by page
         autoMssHover.prepAndShow = function (destination, schoolId, schoolState) {
             try {
-                window.destUrl = destination;
                 // my hover takes parameters that may differ on a link-by-link basis, so I
                 // override the function right here
                 this.getIframeUrl = function() {
                     return this.baseUrl +
                            '?mystatSchoolId=' + schoolId + '&mystatSchoolState=' + schoolState;           
                 };
-                return this.show();
+                return this.checkCookies(destination);
             } catch (e) {
                 alert(e.message);
             }
