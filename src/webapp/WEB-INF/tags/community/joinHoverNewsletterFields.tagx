@@ -15,6 +15,8 @@
                              type="java.lang.Boolean"/>
     <jsp:directive.attribute name="showNewsletter" required="false" description="Show the default newsletter or not"
                              type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="tabindex" required="true" description="Value of tabindex"
+                             type="java.lang.Integer"/>
 
     <c:if test="${empty showLDNewsletter}">
         <c:set var="showLDNewsletter" value="${false}"/>
@@ -25,22 +27,25 @@
 
     <c:if test="${showLDNewsletter}">
         <li id="ldNewsletter" class="newsletter">
-            <form:checkbox path="userCmd.ldNewsletter" id="ldNewsletterField" tabindex="11"/>
+            <form:checkbox path="userCmd.ldNewsletter" id="ldNewsletterField" tabindex="${tabindex}"/>
             <label for="ldNewsletterField">Send me monthly emails about Learning Difficulties.</label>
         </li>
+        <c:set var="tabindex" value="${tabindex+1}"/>
     </c:if>
 
     <c:if test="${showNewsletter}">
         <li id="newsletter" class="newsletter">
-            <form:checkbox id="newsletterField" path="userCmd.newsletter" tabindex="12"/>
+            <form:checkbox id="newsletterField" path="userCmd.newsletter" tabindex="${tabindex}"/>
             <label for="newsletterField">Send me weekly updates from GreatSchools.</label>
         </li>
+        <c:set var="tabindex" value="${tabindex+1}"/>
     </c:if>
 
     <li id="partnerNewsletter" class="newsletter">
-        <form:checkbox id="partnerNewsletterField" path="userCmd.partnerNewsletter" tabindex="12"/>
+        <form:checkbox id="partnerNewsletterField" path="userCmd.partnerNewsletter" tabindex="${tabindex}"/>
         <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
     </li>
+    <c:set var="tabindex" value="${tabindex+1}"/>
 
     <spring:hasBindErrors name="userCmd">
         <spring:bind path="userCmd.terms">
@@ -54,18 +59,21 @@
     </spring:hasBindErrors>
 
     <li id="terms" class="newsletter">
-        <form:checkbox id="termsField" path="userCmd.terms" tabindex="13"/>
+        <form:checkbox id="termsField" path="userCmd.terms" tabindex="${tabindex}"/>
+        <c:set var="tabindex" value="${tabindex+1}"/>
         <label for="termsField" class="terms">I agree to the
             <gsml:popupWindow width="800" height="600" left="50" top="50"
                               title="GreatSchools Terms of Use"
                               href="/cgi-bin/static/terms.html/$STATE"
-                              tabIndex="14">GreatSchools Terms of Use</gsml:popupWindow>
+                              tabIndex="${tabindex}">GreatSchools Terms of Use</gsml:popupWindow>
+            <c:set var="tabindex" value="${tabindex+1}"/>
             and
             <gsml:popupWindow width="800" height="600" left="50" top="50"
                               title="GreatSchools Community Standards"
                               href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                              tabIndex="15">Community Guidelines</gsml:popupWindow>. <span
+                              tabIndex="${tabindex}">Community Guidelines</gsml:popupWindow>. <span
                     class="required">*</span>
         </label>
+        <c:set var="tabindex" value="${tabindex+1}"/>        
     </li>
 </jsp:root>

@@ -85,7 +85,7 @@
                 <gsml:feedbackMessage command="userCmd" field="city" styleClass="ajaxMessage ajaxError"/>
             </li>
 
-            <community:joinHoverNewsletterFields userCmd="${userCmd}" showLDNewsletter="${true}"/>
+            <community:joinHoverNewsletterFields userCmd="${userCmd}" showLDNewsletter="${true}" tabindex="9"/>
 
         </ul>
 

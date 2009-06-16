@@ -65,14 +65,14 @@
             </li>
 
             <community:joinHoverNewsletterFields userCmd="${userCmd}"
-                                                 showLDNewsletter="${false}" showNewsletter="${false}"/>
+                                                 showLDNewsletter="${false}" showNewsletter="${false}" tabindex="13"/>
         </ul>
 
         <gsml:inputImage src="/res/img/community/registration/join_button_hover.gif" alt="submit"
-                         name="submit" onclick="return doSingleClick(this);" tabIndex="16"
+                         name="submit" onclick="return doSingleClick(this);" tabIndex="17"
                          id="submitButton"/>
 
-        <a href="#" class="nothanks" onclick="return noThanks();">No thanks &amp;gt;</a>
+        <a href="#" class="nothanks" onclick="return noThanks();" tabindex="18">No thanks &amp;gt;</a>
 
         <p class="requiredFld" id="requiredFld">* Indicates a required field.</p>
 
@@ -80,7 +80,7 @@
             <gsml:popupWindow width="800" height="600" left="50" top="50"
                               title="GreatSchools Privacy Policy"
                               href="/about/privacyStatement.page?state=$STATE"
-                              tabIndex="17">Privacy Policy</gsml:popupWindow>
+                              tabIndex="19">Privacy Policy</gsml:popupWindow>
         </p>
     </gsweb:form>
 
