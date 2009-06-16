@@ -4,13 +4,18 @@ if (GSType == undefined) {
 
 var destUrl = '';
 function sendToDestination() {
-    if (nthGraderRegistrationDialog != undefined) {
-        nthGraderRegistrationDialog.dialog.cancel();
+    if (window.nthGraderRegistrationDialog != undefined) {
+        window.nthGraderRegistrationDialog.dialog.cancel();
     }
-    if (autoMssHover != undefined) {
-        autoMssHover.dialog.cancel();
+    if (window.autoMssHover != undefined) {
+        window.autoMssHover.dialog.cancel();
     }
-    // TODO: add other hovers here
+    if (window.ldRegistrationDialog != undefined) {
+        window.ldRegistrationDialog.dialog.cancel();
+    }
+    if (window.chooserRegistrationDialog != undefined) {
+        window.chooserRegistrationDialog.dialog.cancel();
+    }
     if (destUrl != '') {
         window.location = destUrl;
         destUrl = '';
