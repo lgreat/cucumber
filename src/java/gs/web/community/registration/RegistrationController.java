@@ -436,8 +436,7 @@ public class RegistrationController extends SimpleFormController implements Read
             _registrationConfirmationEmail.sendToUser(user, userCommand.getPassword(), request);
         } catch (Exception ex) {
             _log.error("Error sending community registration confirmation email to " +
-                    user);
-            _log.error(ex);
+                    user, ex);
         }
     }
 
