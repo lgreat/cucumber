@@ -49,7 +49,6 @@ public class RegistrationController extends SimpleFormController implements Read
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
     private JavaMailSender _mailSender;
-    private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
     private String _errorView;
     /** If defined, the view that this controller should redirect to. Special casing for hovers. **/
@@ -61,7 +60,6 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
     // Allows subclasses to skip out on child processing
-    // TODO: Is this really necessary?
     protected boolean hasChildRows() {
         return true;
     }
@@ -79,9 +77,8 @@ public class RegistrationController extends SimpleFormController implements Read
         }
         loadCityList(request, userCommand);
 
-        // TODO: This may no longer be necessary as we use 1 page now and no longer use email validation
-        // AR: True but there are a number of ways that provisional users could still end up here, and I
-        // think we still need this for them
+        // AR: There are a number of ways that provisional users could still end up here, and I
+        // think we need this for them
         // This ensures that when provisional users arrive here, they are hooked up to their list_member
         // rows, so they don't see the "email already taken" error
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
@@ -278,6 +275,13 @@ public class RegistrationController extends SimpleFormController implements Read
             user.setEmailValidated();
         }
 
+        // per GS-8290 All users who complete registration should get a welcome message
+        // but only users who haven't already been sent one
+        if (!isChooserRegistration()
+                && user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
+            user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+        }
+
         // save
         _userDao.updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
@@ -329,11 +333,6 @@ public class RegistrationController extends SimpleFormController implements Read
         }
         if (!notifyCommunity(user, userCommand, mAndV, request)) {
             return mAndV; // early exit!
-        }
-        if (!user.isEmailProvisional()) {
-            if (!isChooserRegistration()) {
-                sendConfirmationEmail(user, userCommand, request);
-            }
         }
 
         PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
@@ -428,16 +427,6 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
         user.getUserProfile().setNumSchoolChildren(numRealChildren);
-    }
-
-    protected void sendConfirmationEmail(User user, UserCommand userCommand, HttpServletRequest request) {
-        try {
-            // registration is done, let's send a confirmation email
-            _registrationConfirmationEmail.sendToUser(user, userCommand.getPassword(), request);
-        } catch (Exception ex) {
-            _log.error("Error sending community registration confirmation email to " +
-                    user, ex);
-        }
     }
 
     protected boolean notifyCommunity(User user, UserCommand userCommand, ModelAndView mAndV, HttpServletRequest request) {
@@ -615,10 +604,6 @@ public class RegistrationController extends SimpleFormController implements Read
         return _mailSender;
     }
 
-    public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
-        return _registrationConfirmationEmail;
-    }
-
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
     }
@@ -653,10 +638,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setHoverView(String hoverView) {
         _hoverView = hoverView;
-    }
-
-    public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
-        _registrationConfirmationEmail = registrationConfirmationEmail;
     }
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {

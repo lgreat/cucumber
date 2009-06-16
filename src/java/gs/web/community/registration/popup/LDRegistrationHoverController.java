@@ -6,6 +6,7 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
+import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.community.User;
@@ -24,7 +25,7 @@ import java.util.Map;
 /**
  * @author Anthony Roy <mailto:droy@greatschools.net>
  */
-public class LDRegistrationHoverController extends RegistrationController {
+public class LDRegistrationHoverController extends RegistrationController implements ReadWriteController {
 
     @Override
     protected boolean hasChildRows() {

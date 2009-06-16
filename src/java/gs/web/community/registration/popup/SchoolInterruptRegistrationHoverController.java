@@ -5,10 +5,12 @@ import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
+import gs.web.util.ReadWriteController;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.community.User;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
+import gs.data.community.WelcomeMessageStatus;
 import gs.data.school.School;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -21,7 +23,7 @@ import java.util.Map;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class SchoolInterruptRegistrationHoverController extends RegistrationController {
+public class SchoolInterruptRegistrationHoverController extends RegistrationController implements ReadWriteController {
 
     @Override
     protected boolean hasChildRows() {
@@ -76,6 +78,8 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             user.setEmailValidated();
         }
 
+        user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);        
+
         // save
         getUserDao().updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
@@ -112,11 +116,6 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         }
         if (!notifyCommunity(user, userCommand, mAndV, request)) {
             return mAndV; // early exit!
-        }
-        if (!user.isEmailProvisional()) {
-            if (!isChooserRegistration()) {
-                sendConfirmationEmail(user, userCommand, request);
-            }
         }
 
         PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community

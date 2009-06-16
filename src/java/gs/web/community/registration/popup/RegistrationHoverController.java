@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import gs.web.util.ReadWriteController;
-import gs.web.util.PageHelper;
 import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
 import gs.web.community.registration.UserCommand;
@@ -20,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
+ * // TODO: This class is deprecated and may (should?) no longer be in use
  * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @deprecated
  */
 public class RegistrationHoverController extends RegistrationController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -105,11 +106,6 @@ public class RegistrationHoverController extends RegistrationController implemen
             return mAndV;
         }
         notifyCommunity(user, userCommand, mAndV, request);
-
-        if (!user.isEmailProvisional()) {
-            sendConfirmationEmail(user, userCommand, request);
-            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-        }
 
         mAndV.setViewName("redirect:/community/registration/popup/sendToDestination.page");
 

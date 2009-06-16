@@ -9,7 +9,6 @@ import gs.data.state.State;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.web.BaseControllerTestCase;
-import gs.web.community.registration.RegistrationConfirmationEmail;
 import org.apache.commons.lang.StringUtils;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
@@ -28,7 +27,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     private ISubscriptionDao _subscriptionDao;
     private ITableDao _tableDao;
     private CreateOrUpdateUserRequest _soapRequest;
-    private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private RegistrationHoverCommand _command;
     private BindException _errors;
 
@@ -42,14 +40,12 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
         _tableDao = createStrictMock(ITableDao.class);
         _soapRequest = createStrictMock(CreateOrUpdateUserRequest.class);
-        _registrationConfirmationEmail = createStrictMock(RegistrationConfirmationEmail.class);
 
         _controller.setUserDao(_userDao);
         _controller.setGeoDao(_geoDao);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setTableDao(_tableDao);
         _controller.setSoapRequest(_soapRequest);
-        _controller.setRegistrationConfirmationEmail(_registrationConfirmationEmail);
 
         _command = new RegistrationHoverCommand();
         _command.setEmail("RegistrationHoverControllerTest@greatschools.net");
@@ -70,7 +66,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         replay(_subscriptionDao);
         replay(_tableDao);
         replay(_soapRequest);
-        replay(_registrationConfirmationEmail);
     }
 
     public void verifyMocks() {
@@ -79,7 +74,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
         verify(_tableDao);
         verify(_soapRequest);
-        verify(_registrationConfirmationEmail);
     }
 
     public void resetMocks() {
@@ -88,7 +82,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         reset(_subscriptionDao);
         reset(_tableDao);
         reset(_soapRequest);
-        reset(_registrationConfirmationEmail);
     }
 
     public void testOnBindOnNewForm() {
@@ -129,7 +122,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(isA(User.class)); // update user profile
         _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -148,7 +140,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(user); // update user profile
         _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -172,7 +163,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(user); // update user profile
         _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -190,7 +180,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
         _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();

@@ -74,7 +74,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
         email.getEmailHelperFactory().setMailSender(_mailSender);
-        _controller.setRegistrationConfirmationEmail(email);
         _controller.setRequireEmailValidation(true);
         _controller.setErrorView("error");
     }
@@ -85,7 +84,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         assertNotNull(_controller.getTableDao());
         assertSame(_subscriptionDao, _controller.getSubscriptionDao());
         assertSame(_mailSender, _controller.getMailSender());
-        assertNotNull(_controller.getRegistrationConfirmationEmail());
     }
 
     /**

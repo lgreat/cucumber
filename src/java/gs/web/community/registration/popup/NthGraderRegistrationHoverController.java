@@ -5,7 +5,7 @@ import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
+import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.data.community.*;
@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Nanditha Patury <mailto:npatury@greatschools.net>
  */
 
-public class NthGraderRegistrationHoverController extends RegistrationController {
+public class NthGraderRegistrationHoverController extends RegistrationController implements ReadWriteController {
     private boolean _requireEmailValidation = true;
     @Override
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
@@ -69,6 +69,8 @@ public class NthGraderRegistrationHoverController extends RegistrationController
             user.setEmailValidated();
         }
 
+        user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+         
         // save
         getUserDao().updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
@@ -114,21 +116,10 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         if (!notifyCommunity(user, userCommand, mAndV, request)) {
             return mAndV; // early exit!
         }
-        if (!user.isEmailProvisional()) {
-            if (!isChooserRegistration()) {
-                sendConfirmationEmail(user, userCommand, request);
-            }
-        }
 
         PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
         if(StringUtils.isNotBlank(getHoverView())) {
             userCommand.setRedirectUrl(getHoverView());
-        } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
-                !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
-            String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
-            userCommand.setRedirectUrl(redirectUrl);
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
 
