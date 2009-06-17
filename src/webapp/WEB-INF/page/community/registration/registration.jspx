@@ -276,7 +276,7 @@
                                 <p class="newsletterText">Get the resources you need to support your child with a
                                     learning disability or an attention problem.</p>
                                 <form:checkbox path="userCmd.ldNewsletter"
-                                        tabindex="11" id="ldNewsletterField"/>
+                                        tabindex="12" id="ldNewsletterField"/>
                                 <label for="ldNewsletterField">Subscribe to this newsletter</label>
                             </div>
                         </div>
@@ -287,12 +287,13 @@
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
                             <div class="brainDrain"><h3>Prevent the summer brain drain</h3>
-                                <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField" onclick="displayStartWeekDropdowns();"/>
+                                <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField"
+                                               onclick="displayStartWeekDropdowns();" tabindex="13"/>
                                 <label for="brainDrainNewsletterField">Subscribe to this newsletter</label>
                                 <c:set var="showWeeks" value="${ userCmd.brainDrainNewsletter ? 'showIt' : 'hideIt' }" />
                                 <div id="weeks" class="${showWeeks}"><p class="newsletterText">Tell us when your chil'd school starts so we can personalize your newsletter!</p>
                                     <div id="brainDrainStartWeek">Week of:
-                                    <form:select path="userCmd.startweek" id="startweek">
+                                    <form:select path="userCmd.startweek" id="startweek" tabindex="14">
                                         <form:option value="">Choose one</form:option>
                                         <form:option value="summer1">July 19</form:option>
                                         <form:option value="summer2">July 26</form:option>
@@ -315,7 +316,7 @@
                                   alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
                                 <h3>Send me valuable offers and information from GreatSchools partners</h3>
                                 <form:checkbox path="userCmd.partnerNewsletter"
-                                        tabindex="11" id="partnerNewsletterField"/>
+                                        tabindex="15" id="partnerNewsletterField"/>
                                 <label for="partnerNewsletterField">Subscribe to this newsletter</label>
                             </div>
                         </div>
@@ -335,17 +336,17 @@
 
                 <li id="terms">
                     <form:checkbox path="userCmd.terms"
-                                        tabindex="11" id="termsField"/>
+                                        tabindex="16" id="termsField"/>
                     <label for="termsField" class="terms">I agree to the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
                             href="/cgi-bin/static/terms.html/$STATE"
-                            tabIndex="14">GreatSchools Terms of Use</gsml:popupWindow>
+                            tabIndex="17">GreatSchools Terms of Use</gsml:popupWindow>
                     and
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Community Standards"
                             href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                            tabIndex="15">Community Guidelines</gsml:popupWindow>.
+                            tabIndex="18">Community Guidelines</gsml:popupWindow>.
                     </label>
                     <span class="termsRequired">*</span>
                 </li>
@@ -355,11 +356,11 @@
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                     title="GreatSchools Privacy Policy"
                     href="/about/privacyStatement.page?state=$STATE"
-                    tabIndex="17">Privacy Policy</gsml:popupWindow>
+                    tabIndex="19">Privacy Policy</gsml:popupWindow>
             </p>
 
             <gsml:inputImage src="/res/img/community/registration/join_button.gif" alt="submit"
-                             name="submit" onclick="return validateAndSubmit(this);" tabIndex="16"
+                             name="submit" onclick="return validateAndSubmit(this);" tabIndex="20"
                              id="submitButton"/>
 
             <spring:bind path="userCmd.redirectUrl">
