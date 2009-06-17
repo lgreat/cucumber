@@ -29,7 +29,7 @@
     <script type="text/javascript">
         try {
             window.top.hidePopWin(false);
-        } catch (e) { alert(e.message);}
+        } catch (e) {}
     </script>
 </gsml:body>
 </html>
