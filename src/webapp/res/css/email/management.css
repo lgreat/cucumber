@@ -8,6 +8,10 @@
     display:none;
 }
 
+.strong {
+    font-weight: bold;
+}
+
 hr {
 
 }
@@ -16,19 +20,41 @@ hr {
     border: #66CCCC solid 8px;
     padding: 19px 25px 25px 25px;
     margin-top: 11px;
+    position: relative;
 }
 
 #contentGS {
     font-family:Trebuchet MS,Arial,sans-serif;
     color: #666666;
     font-size: 13px;
+    line-height: 19px;
 }
 
 #contentGS h2 {
     color: #55BBCC;
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+#dashboardLink {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 12px;
+}
+
+#border a, #border a:link, #border a:hover {
+    color: #39A;
+    text-decoration: none;
+}
+
+#border a:hover {
+    text-decoration: underline;
+}
+
+#border p {
+    font-size: 13px;
 }
 
 .newsletterImage {
@@ -46,9 +72,10 @@ hr {
     margin-bottom: 13px;
 }
 
-.newsletterCheckbox {
+#border .newsletterCheckbox {
     position: relative;
     top: 2px;
+    margin-right: 8px;
 }
 
 #newsletterColumns {
@@ -56,6 +83,7 @@ hr {
 }
 
 .newsletterColumn {
+    padding-right: 25px;
 }
 
 .newsletterInfo {
@@ -70,10 +98,71 @@ div.rule {
     border-top: 1px solid #CCC;
     height: 0;
     padding: 0;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 17px 0;
 }
 
 #save {
     margin-left:225px;
     margin-top:30px;
 }
+
+div.mynth {
+    margin-left: 92px;
+    margin-top: 10px;
+}
+
+ol.horizontal {
+    width: 265px;
+    height: 125px;
+    margin-top: 10px;
+}
+
+ol.horizontal li {
+    display: inline;
+}
+
+ol.leftColumn {
+    float: left;
+}
+
+ol.rightColumn {
+    float: left;
+}
+
+ol.horizontal li ol {
+    width: 130px;
+}
+
+ol.horizontal li ol li {
+    width: 130px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.mssInfo {
+    margin-left: 92px;
+    width: 275px;
+}
+
+.mssInfo p {
+    margin-bottom: 5px;
+}
+
+.mssInfo .mssSchoolLine {
+    margin-bottom: 8px;
+}
+
+.mssInfo select {
+    display: block;
+    margin-bottom: 8px;
+    width: 225px;
+}
+
+#weeks p {
+    margin: 6px 0;
+}
+
+#chooser ol.horizontal {
+    height: 45px;
+}
+

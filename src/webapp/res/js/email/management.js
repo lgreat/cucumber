@@ -1,4 +1,4 @@
-function doSomething(){
+function toggleNthGraderNewsletters(){
     var elem = document.getElementById("mynth");
     if(document.manage.greatnews.checked){
         elem.style.display = "block";
@@ -7,7 +7,7 @@ function doSomething(){
     }
 }
 
-function doSomethingSeasonal(){
+function toggleSummerBrainDrain(){
     var elem = document.getElementById("weeks");
     if(document.manage.seasonal.checked){
         elem.style.display = "block";
