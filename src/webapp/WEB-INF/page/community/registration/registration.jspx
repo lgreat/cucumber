@@ -291,7 +291,7 @@
                                                onclick="displayStartWeekDropdowns();" tabindex="13"/>
                                 <label for="brainDrainNewsletterField">Subscribe to this newsletter</label>
                                 <c:set var="showWeeks" value="${ userCmd.brainDrainNewsletter ? 'showIt' : 'hideIt' }" />
-                                <div id="weeks" class="${showWeeks}"><p class="newsletterText">Tell us when your chil'd school starts so we can personalize your newsletter!</p>
+                                <div id="weeks" class="${showWeeks}"><p class="newsletterText">Tell us when your child's school starts so we can personalize your newsletter!</p>
                                     <div id="brainDrainStartWeek">Week of:
                                     <form:select path="userCmd.startweek" id="startweek" tabindex="14">
                                         <form:option value="">Choose one</form:option>
