@@ -8,7 +8,7 @@
         <h2>Join GreatSchools</h2>
         <div class="loginLink">
             Already a member?
-            <link:loginOrRegister email="${userCmd.user.email}" target="_blank">Sign in</link:loginOrRegister>.
+            <link:loginOrRegister email="${userCmd.user.email}" target="_parent" redirect="/email/management.page">Sign in</link:loginOrRegister>.
         </div>
         <gsml:img src="/res/img/community/registration/join_burst_hover.gif"
                   alt="Join" styleClass="joinMedallion"/>
