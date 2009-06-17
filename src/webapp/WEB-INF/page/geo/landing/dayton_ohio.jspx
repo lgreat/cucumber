@@ -182,7 +182,7 @@
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/DaytonSchoolChooser2009.pdf" >Montgomery County School Chooser</gsml:a>
                     </li>
-                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
+                    <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
                 </ul>
             </div>
             <div class="gridbox bottom right">

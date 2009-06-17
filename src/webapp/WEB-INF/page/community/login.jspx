@@ -93,7 +93,7 @@
                         <h3>New Users:</h3>
                         <p>Become a GreatSchools member by signing up for one of our free services:</p>
                         <ul>
-                            <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
+                            <li><link:newsletterManagement>Learn about newsletters</link:newsletterManagement></li>
                             <li><link:mySchoolList>Keep bookmarks to your favorite schools</link:mySchoolList></li>
                         </ul>
                     </div>

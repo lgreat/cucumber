@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.165 2009/06/17 18:27:58 eddie Exp $
+ * $Id: UrlBuilder.java,v 1.166 2009/06/17 20:54:29 aroy Exp $
  */
 
 package gs.web.util;
@@ -127,10 +127,6 @@ public class UrlBuilder {
     public static final VPage MY_SCHOOL_LIST = new VPage("vpage:mySchoolList");
     public static final VPage MY_SCHOOL_LIST_LOGIN = new VPage("vpage:mySchoolListLogin");
 
-    /**
-     * Information about newsletters.
-     */
-    public static final VPage NEWSLETTER_CENTER = new VPage("vpage:newsletterCenter");
     /**
      * Manage new or existing subscriptions.
      */
@@ -698,11 +694,6 @@ public class UrlBuilder {
         } else if (ARTICLE_LIBRARY.equals(page)) {
             _perlPage = false;
             _path = "/education-topics/";
-        } else if (NEWSLETTER_CENTER.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/newsletters/" +
-                    state.getAbbreviation() +
-                    "/";
         } else if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/" +

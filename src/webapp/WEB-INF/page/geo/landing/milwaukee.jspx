@@ -191,7 +191,7 @@
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/ListadodeEscuelasdeMilwaukee.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
                     </li>
-                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
+                    <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
                 </ul>
             </div>
         </div>

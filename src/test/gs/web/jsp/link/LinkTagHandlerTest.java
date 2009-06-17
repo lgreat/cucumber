@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.56 2009/06/16 00:29:28 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.57 2009/06/17 20:54:30 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -251,17 +251,6 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setSchool(s);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/mySchoolList.page?command=add&ids=234&state=AK", builder.asSiteRelative(null));
-    }
-
-    public void testNewsletterCenter() {
-        NewsletterCenterTagHandler tagHandler = new NewsletterCenterTagHandler();
-        tagHandler.setPageContext(new MockPageContext());
-        UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/newsletters/CA/", builder.asSiteRelative(null));
-
-        tagHandler.setEmail("whoever@whatever.how");
-        builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/newsletters/CA/?email=whoever%40whatever.how", builder.asSiteRelative(null));
     }
 
     public void testNewsletterManagementandAnchors() {

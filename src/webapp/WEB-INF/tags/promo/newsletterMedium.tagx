@@ -81,7 +81,7 @@
                 <gsml:inputImage src="/res/img/button/btn_go_small.gif" styleClass="btn" alt="GO"/>
             </div>
         </gsweb:form>
-        <link:newsletterCenter styleClass="small block">Learn More</link:newsletterCenter>
+        <link:newsletterManagement styleClass="small block">Learn More</link:newsletterManagement>
         <gsml:a styleClass="small block" href="/about/privacyStatement.page?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</gsml:a>
     </div>
 </jsp:root>

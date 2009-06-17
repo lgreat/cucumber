@@ -90,7 +90,7 @@
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
-                                <link:newsletterCenter styleClass="GS_EV5_" id="NL_sub_article_tools">Sign-up For Newsletters</link:newsletterCenter>
+                                <link:newsletterManagement styleClass="GS_EV5_" styleId="NL_sub_article_tools">Sign-up For Newsletters</link:newsletterManagement>
                             </div>
                             <br/>
                             <div class="simplemenu">
