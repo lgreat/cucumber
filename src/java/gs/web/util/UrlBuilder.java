@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.164 2009/06/17 17:37:54 eddie Exp $
+ * $Id: UrlBuilder.java,v 1.165 2009/06/17 18:27:58 eddie Exp $
  */
 
 package gs.web.util;
@@ -483,10 +483,7 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(District district, VPage page) {
-        if(district == null){
-            throw new IllegalArgumentException("VPage unknown" + page);
-        }
-        else if (DISTRICT_PROFILE.equals(page)) {
+        if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
 
             _path = "/cgi-bin/" +

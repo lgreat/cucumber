@@ -122,7 +122,7 @@
 
                     <c:if test="${!isPreschoolLevelOnly}">
                         <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
-                        <c:if test="${school.type.schoolTypeName != 'private'}">
+                        <c:if test="${school.districtId != 0 and school.type.schoolTypeName != 'private'}">
                             <li id="nearDistrict"><link:districtHome district="${school.district}" title="${school.district.name}">About <c:out value="${school.district.name}" escapeXml="true"/>&#160;&#62;</link:districtHome></li>
                         </c:if>
                     </c:if>
