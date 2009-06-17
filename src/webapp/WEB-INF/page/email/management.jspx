@@ -193,7 +193,7 @@
                                         </c:forEach>
                                     </select>
                                 </span>
-                                <input id="add" type="submit" value="Add"/>
+                                <input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"/>
                             </c:if>
                         </div> <!-- end .mssInfo -->
                     </div>
