@@ -6,8 +6,10 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+ 
           xmlns:form="http://www.springframework.org/tags/form">
+    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
     <html lang="en">
 
@@ -19,21 +21,34 @@
 
     <head>
         <title>Email Management - GreatSchools</title>
-        <pageHelper:externalCss file="/res/css/email/management.css"/>
+        <pageHelper:externalCss file="/res/css/email/managementSuccess.css"/>
+        <jsp:scriptlet>
+            String comHost =
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
+            String dashboardUrl = "http://" + comHost + "/dashboard";
+            request.setAttribute("dashboardUrl", dashboardUrl);
+        </jsp:scriptlet>
     </head>
 
     <gsml:body adPageName="email/management">
         <ad:setSlotPrefix slotPrefix="Email_Management"/>
 
+        <h2>Your newsletter subscriptions have been updated.</h2>
 
-            <h1>Email management</h1>  success
-        <ul>
+        <a href="${dashboardUrl}"
+           id="accountLink">Go to my account &amp;gt;</a>
+
+        <div class="rule"><!-- nop --></div>
+        
+        <ul id="messages" >
         <c:forEach var="message" items="${messages}">
             <li>${message}</li>
         </c:forEach>
         </ul>
  
-
+        <link:newsletterManagement styleId="editSubscriptionButton" email="${param.email}">
+            <img src="/res/img/email/editSubscriptionsButton.gif" alt="Edit subscriptions"/>
+        </link:newsletterManagement>
 
         <mod:tracking pageName="Email Management"
                       hier1="Email,Management"/>
