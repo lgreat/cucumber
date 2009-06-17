@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.163 2009/06/11 17:32:23 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.164 2009/06/17 17:37:54 eddie Exp $
  */
 
 package gs.web.util;
@@ -152,9 +152,9 @@ public class UrlBuilder {
     public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
-     /**
-      * for the four part tip sheet promo
-      */
+    /**
+     * for the four part tip sheet promo
+     */
     public static final VPage CHOOSER_REGISTRATION_HOVER = new VPage("vpage:chooserRegistrationHover");
     public static final VPage CHOOSER_REGISTRATION = new VPage("vpage:chooserRegistration");
 
@@ -163,7 +163,7 @@ public class UrlBuilder {
      */
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     public static final VPage SCHOOL_PARENT_REVIEWS_WITH_HOVER = new VPage("vpage:schoolParentReviewsWithHover");
-    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");    
+    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
     public static final VPage SCHOOL_PROFILE_TEST_SCORE = new VPage("vpage:schoolTestscores");
     public static final VPage SCHOOL_PROFILE_CENSUS = new VPage("vpage:schoolCensus");
     public static final VPage SCHOOL_PROFILE_CENSUS_PRIVATE = new VPage("vpage:schoolCensusPrivate");
@@ -296,9 +296,9 @@ public class UrlBuilder {
             }
             init(RESEARCH, state, null);
         } else if (DISTRICT_PROFILE.equals(vPage)) {
-           State state = State.fromString(params.get("state"));
-           String districtIdStr = params.get("id");
-           init(DISTRICT_PROFILE, state, districtIdStr);
+            State state = State.fromString(params.get("state"));
+            String districtIdStr = params.get("id");
+            init(DISTRICT_PROFILE, state, districtIdStr);
         } else if (CITY_PAGE.equals(vPage)) {
             State state = State.fromString(params.get("state"));
             String city = params.get("city");
@@ -483,7 +483,10 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(District district, VPage page) {
-        if (DISTRICT_PROFILE.equals(page)) {
+        if(district == null){
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+        else if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
 
             _path = "/cgi-bin/" +
@@ -924,7 +927,7 @@ public class UrlBuilder {
             _path = "/community/registration/popup/chooserRegistrationHover.page";
 
         } else if(CHOOSER_REGISTRATION.equals(page)){
-              _perlPage = false;
+            _perlPage = false;
             _path = "/community/chooserRegistration.page";
         } else if (API_ADMIN_LOGIN.equals(page)) {
             StringBuilder sb = new StringBuilder();
