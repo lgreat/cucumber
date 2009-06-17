@@ -61,7 +61,7 @@ public class AccountInformationController extends SimpleFormController implement
                             new AccountInformationCommand.StudentCommand();
                     studentCommand.setState(student.getState());
                     studentCommand.setGrade(student.getGrade());
-                    if (student.getSchoolId() != null) {
+                    if (student.getSchoolId() != null && student.getSchoolId() > 0) {
                         School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
                         studentCommand.setCity(school.getCity());
                         studentCommand.setSchoolId(student.getSchoolId());
@@ -341,7 +341,12 @@ public class AccountInformationController extends SimpleFormController implement
 
     protected class StudentComparator implements Comparator<Student> {
         public int compare(Student s1, Student s2) {
-            return s1.getOrder().compareTo(s2.getOrder());
+            if (s1.getOrder() != null && s2.getOrder() != null) {
+                return s1.getOrder().compareTo(s2.getOrder());
+            } else if (s1.getGrade() != null && s2.getGrade() != null) {
+                return s1.getGrade().compareTo(s2.getGrade());
+            }
+            return 0;
         }
     }
 }
