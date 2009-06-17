@@ -6,7 +6,8 @@ import org.springframework.validation.BindException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.apache.commons.lang.StringUtils;
+ 
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -228,7 +229,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         ManagementCommand command = (ManagementCommand)o;
         User user = getUserDao().findUserFromId(command.getUserId());
         List<Subscription> subscriptions = new ArrayList<Subscription>();
-        List<String> messages = new ArrayList<String>();
         State state = user.getState();
         if(user.getUserProfile() != null){
             state = user.getUserProfile().getState();
@@ -239,31 +239,25 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if(command.getGreatnews() && !(command.getGreatnewsId() > 0)){
             Subscription s = new Subscription(user,SubscriptionProduct.PARENT_ADVISOR, state);
             subscriptions.add(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if((!(command.getGreatnews())) && command.getGreatnewsId() > 0){
             _subscriptionDao.removeSubscription(command.getGreatnewsId());
-            messages.add("removed parent advisor");
         }
 
         //my nth grader
-        submitMyNthList(user,command,messages,state);
+        submitMyNthList(user,command,state);
 
         //see if we need to delete any my school stats
         if(command.getId1() >0 && !command.isSchool1()){
-            messages.add(command.getName1() + " has been removed from your school list.");
             _subscriptionDao.removeSubscription(command.getId1());
         }
         if(command.getId2() >0 && !command.isSchool2()){
-            messages.add(command.getName2() + " has been removed from your school list.");
             _subscriptionDao.removeSubscription(command.getId2());
         }
         if(command.getId3() >0 && !command.isSchool3()){
-            messages.add(command.getName3() + " has been removed from your school list.");
             _subscriptionDao.removeSubscription(command.getId3());
         }
         if(command.getId4() >0 && !command.isSchool4()){
-            messages.add(command.getName4() + " has been removed from your school list.");
             _subscriptionDao.removeSubscription(command.getId4());
         }
 
@@ -272,13 +266,12 @@ public class ManagementController extends SimpleFormController implements ReadWr
                     || command.getSchool() == command.getId2()
                     || command.getSchool() == command.getId3()
                     ){
-                messages.add("Did not add school because it is already in your list." );
             }else{
                 Subscription s = new Subscription(user,SubscriptionProduct.MYSTAT, command.getStateAdd());
                 s.setSchoolId(command.getSchool());
                 subscriptions.add(s);
                 School school = _schoolDao.getSchoolById(command.getStateAdd(),command.getSchool());
-                messages.add("added " + s.getProduct().getLongName() + " for " + school.getName());
+                command.setSchoolName(school.getName());
             }
 
         }
@@ -288,20 +281,16 @@ public class ManagementController extends SimpleFormController implements ReadWr
                 _subscriptionDao.removeSubscription(command.getSeasonalId());
             }
             _subscriptionDao.addSeasonal(command.getStartweek(),user,state);
-            messages.add("added summer seasonal newsletter");
         }
         if(command.getSeasonalId() >0 && !command.isSeasonal()){
-            messages.add("removed summer seasonal newsletter");
             _subscriptionDao.removeSubscription(command.getSeasonalId());
         }
 
         if((!(command.getLearning_disId() >0)) && command.isLearning_dis()){
             Subscription s = new Subscription(user,SubscriptionProduct.LEARNING_DIFFERENCES, state);
             subscriptions.add(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getLearning_disId() >0 && !command.isLearning_dis()){
-            messages.add("removed " + SubscriptionProduct.LEARNING_DIFFERENCES.getLongName());
             _subscriptionDao.removeSubscription(command.getLearning_disId());
         }
 
@@ -309,53 +298,45 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if((!(command.getChooserpack_pId() >0)) && command.isChooserpack_p()){
             Subscription s = new Subscription(user,SubscriptionProduct.SCHOOL_CHOOSER_PACK_PRESCHOOL, state);
             _subscriptionDao.saveSubscription(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getChooserpack_pId() >0 && !command.isChooserpack_p()){
-            messages.add("removed " + SubscriptionProduct.SCHOOL_CHOOSER_PACK_PRESCHOOL.getLongName());
             _subscriptionDao.removeSubscription(command.getChooserpack_pId());
         }
 
         if((!(command.getChooserpack_eId() >0)) && command.isChooserpack_e()){
             Subscription s = new Subscription(user,SubscriptionProduct.SCHOOL_CHOOSER_PACK_ELEMENTARY, state);
             _subscriptionDao.saveSubscription(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getChooserpack_eId() >0 && !command.isChooserpack_e()){
-            messages.add("removed " + SubscriptionProduct.SCHOOL_CHOOSER_PACK_ELEMENTARY.getLongName());
             _subscriptionDao.removeSubscription(command.getChooserpack_eId());
         }
 
         if((!(command.getChooserpack_mId() >0)) && command.isChooserpack_m()){
             Subscription s = new Subscription(user,SubscriptionProduct.SCHOOL_CHOOSER_PACK_MIDDLE, state);
             _subscriptionDao.saveSubscription(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getChooserpack_mId() >0 && !command.isChooserpack_m()){
-            messages.add("removed " + SubscriptionProduct.SCHOOL_CHOOSER_PACK_MIDDLE.getLongName());
             _subscriptionDao.removeSubscription(command.getChooserpack_mId());
         }
 
         if((!(command.getChooserpack_hId() >0)) && command.isChooserpack_h()){
             Subscription s = new Subscription(user,SubscriptionProduct.SCHOOL_CHOOSER_PACK_HIGH, state);
             _subscriptionDao.saveSubscription(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getChooserpack_hId() >0 && !command.isChooserpack_h()){
-            messages.add("removed " + SubscriptionProduct.SCHOOL_CHOOSER_PACK_HIGH.getLongName());
             _subscriptionDao.removeSubscription(command.getChooserpack_hId());
         }
-
 
         if((!(command.getSponsorId() >0)) && command.isSponsor()){
             Subscription s = new Subscription(user,SubscriptionProduct.SPONSOR_OPT_IN, state);
             subscriptions.add(s);
-            messages.add("added " + s.getProduct().getLongName());
         }
         if(command.getSponsorId() >0 && !command.isSponsor()){
-            messages.add("removed " + SubscriptionProduct.SPONSOR_OPT_IN.getLongName());
             _subscriptionDao.removeSubscription(command.getSponsorId());
         }
+
+        List<String> messages = new ArrayList<String>();
+        updateMessages(command, messages);
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(getCommandName(), command);
@@ -376,21 +357,63 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
     }
 
+    protected void updateMessages(ManagementCommand command, List<String> messages) {
+        messages.clear();
+        if (command.getGreatnews()) {
+            messages.add("Weekly Updates");
+        }
+        if (command.isSchool1()) {
+            messages.add("School updates for " + command.getName1());
+        }
+        if (command.isSchool2()) {
+            messages.add("School updates for " + command.getName2());
+        }
+        if (command.isSchool3()) {
+            messages.add("School updates for " + command.getName3());
+        }
+        if (command.isSchool4()) {
+            messages.add("School updates for " + command.getName4());
+        }
+        if (command.isSchool4()) {
+            messages.add("School updates for " + command.getName4());
+        }
+        if (!StringUtils.isBlank(command.getSchoolName())) {
+            messages.add("School updates for " + command.getSchoolName());
+        }
+        if (command.isSeasonal()) {
+            messages.add("Summer Tips and Activities to Prevent Brain Drain");
+        }
+        if (command.isLearning_dis()) {
+            messages.add("Helping Kids With Learning Disabilities");
+        }
+        if (command.isChooserpack_p()) {
+            messages.add("Preschool Tip Sheet");
+        }
+        if (command.isChooserpack_e()) {
+            messages.add("Elementary Tip Sheet");
+        }
+        if (command.isChooserpack_m()) {
+            messages.add("Middle School Tip Sheet");
+        }
+        if (command.isChooserpack_h()) {
+            messages.add("High School Tip Sheet");
+        }
+        if (command.isSponsor()) {
+            messages.add("Valuable offers and information from GreatSchools' partners");
+        }
+    }
+
     public void submitMyNthList(User user,
                                 ManagementCommand command,
-                                List<String> messages,
                                 State state){
         //foreach possible subscription, check if it needs to be added or deleted
         for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
             if(command.checkedBox(myNth) && !(command.getMyNthId(myNth) > 0)){
                 addMyNth(myNth,user,state);
-                messages.add("added " + myNth.getLongName());
             }
             if((!command.checkedBox(myNth)) && command.getMyNthId(myNth) > 0){
                 _subscriptionDao.removeStudent(command.getMyNthId(myNth));
-                messages.add("removed " + myNth.getLongName());
             }
-
         }
     }
 

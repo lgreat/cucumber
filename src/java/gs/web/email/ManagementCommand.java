@@ -73,6 +73,7 @@ public class ManagementCommand {
     private List cityList;
     private String city;
     private int school;
+    private String schoolName;
     private List<School> currentMySchoolStats;
     private List myStatIds;
 
@@ -575,6 +576,13 @@ public class ManagementCommand {
         this.sponsorId = sponsorId;
     }
 
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
 
     public List<State> getStateList() {
         stateManager = new StateManager();
