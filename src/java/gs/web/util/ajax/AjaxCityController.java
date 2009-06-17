@@ -20,16 +20,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: eddie
- * Date: Jun 9, 2009
- * Time: 3:11:36 AM
- * To change this template use File | Settings | File Templates.
+ * General ajax controller for city/school lists
  */
 public class AjaxCityController  implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "/util/ajax/ajaxCity.page";
-    public static final int MAX_RESULTS_TO_RETURN = 10;
 
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
@@ -63,75 +58,55 @@ public class AjaxCityController  implements Controller {
         String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
         String grade = request.getParameter("grade");
-        String childNum = request.getParameter("childNum");
+        String notListedOption = request.getParameter("notListedOption");
 
         PrintWriter out = response.getWriter();
         try {
             if (city != null) {
-                outputSchoolSelect(state, city, grade, out, childNum);
+                outputSchoolOptions(state, city, grade, out, notListedOption);
             } else {
-                outputCitySelect(state, out, childNum);
+                outputCityOptions(state, out, notListedOption);
             }
         } catch (Exception e) {
-            out.print("Error retrieving results");
+            out.print("<option>Error retrieving results</option>");
         }
         return null;
     }
 
-    protected void outputCitySelect(State state, PrintWriter out, String childNum) {
-        List cities = _geoDao.findCitiesByState(state);
+    protected void outputCityOptions(State state, PrintWriter out, String notListedOption) {
+        List<City> cities = _geoDao.findCitiesByState(state);
+        if (StringUtils.isBlank(notListedOption)) {
+            notListedOption = "--";
+        }
+        outputOption(out, "", notListedOption, true);
+
         City notListed = new City();
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
-        if (StringUtils.isNotBlank(childNum)) {
-            openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");");
-        } else {
-            openSelectTag(out, "citySelect", "citySelect", "selectChildCity", "cityChange(this);");
-        }
-        outputOption(out, "", "--", true);
-        for (int x=0; x < cities.size(); x++) {
-            ICity icity = (ICity) cities.get(x);
+        for (ICity icity : cities) {
             outputOption(out, icity.getName(), icity.getName());
         }
         out.print("</select>");
     }
 
-    protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
-        List schools;
+    protected void outputSchoolOptions(State state, String city, String grade, PrintWriter out, String notListedOption) {
+        List<School> schools;
         if (StringUtils.isNotBlank(grade)) {
             schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
         } else {
             String[] types = {"public","charter"};
             schools = _schoolDao.findSchoolsInCityByType(state, city, 2000,types); // 2000 is arbitrary - CK
         }
-        if (StringUtils.isNotBlank(childNum)) {
-            openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
-        } else {
-            openSelectTag(out, "school", "school", "selectChildSchool", null);
+        if (StringUtils.isBlank(notListedOption)) {
+            notListedOption = "- Choose School -";
         }
-        outputOption(out, "0", "- Choose School -", true);
+        outputOption(out, "0", notListedOption, true);
         outputOption(out, "-1", "My child's school is not listed");
-        for (int x=0; x < schools.size(); x++) {
-            School school = (School) schools.get(x);
-            String idString = ((school.getId() != null)?school.getId().toString():"");
+        for (School school : schools) {
+            String idString = ((school.getId() != null) ? school.getId().toString() : "");
             outputOption(out, idString, school.getName());
         }
         out.print("</select>");
-    }
-
-    protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange) {
-        out.print("<select");
-        out.print(" name=\"" + name + "\"");
-        if (StringUtils.isNotEmpty(cssId)) {
-            out.print(" id=\"" + cssId + "\"");
-        }
-        if (StringUtils.isNotEmpty(cssClass)) {
-            out.print(" class=\"" + cssClass + "\"");
-        }
-        if (StringUtils.isNotEmpty(onChange)) {
-            out.print(" onchange=\"" + onChange + "\"");
-        }
-        out.println(">");
     }
 
     protected void outputOption(PrintWriter out, String value, String name) {

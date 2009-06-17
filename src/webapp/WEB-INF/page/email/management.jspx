@@ -22,12 +22,8 @@
 <head>
     <title>Email Management - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/email/management.css"/>
+    <pageHelper:externalJavascript file="/res/js/prototype-1.6.0.2.js"/>
     <pageHelper:externalJavascript file="/res/js/email/management.js"/>
-    <pageHelper:externalJavascript file="/res/js/accountInformation.js"/>
-    <pageHelper:externalCss file="/res/css/community/registration/accountInformation.css"/>
-    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-    <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
-    <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
     <jsp:scriptlet>
         String comHost =
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
@@ -168,8 +164,8 @@
                                 <p><span class="strong">Add a school</span> (four schools maximum)</p>
                                 <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                                      onChange="emailStateChange(this);" name="stateAdd"/>
-                                <span id="city">
-                                    <select id="citySelect" name="city" onchange="emailSchoolChange(this)">
+                                <div id="city">
+                                    <select id="citySelect" name="city" onchange="emailSchoolChange(this);">
                                         <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
                                             <option selected="selected" value="">2. Choose city</option>
                                         </c:if>
@@ -181,12 +177,12 @@
                                             <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
                                         </c:forEach>
                                     </select>
-                                </span>
+                                </div>
                                 <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
 
                                <span id="schoolsInCity">
                                     <select name="school" id="school" class="selectChildSchool">
-                                        <option selected="selected" value="0">3. Choose School</option>
+                                        <option selected="selected" value="0">3. Choose school</option>
                                         <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
                                             <![CDATA[<option ]]>
                                             <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
@@ -321,7 +317,6 @@
                         </div>
                     </div>
 
-                    <!-- input id="save" type="submit" value="Submit Request"/ -->
                     <gsml:inputImage src="/res/img/email/btn_savesettings.png" alt="submit"
                                      name="submit" id="save"/>
                 </td>

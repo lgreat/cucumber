@@ -24,24 +24,29 @@ function checkForm(){
     return true;
 }
 
-function emailStateChange2(stateSelect) {
-    var elem = document.getElementById("city");
-    elem.innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-}
-
 function emailStateChange(stateSelect) {
-    //var url = '/community/registrationAjax.page';
     var url = '/util/ajax/ajaxCity.page';
-    var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
-    $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-    var myAjax = new Ajax.Updater(
-            'city',
+    var pars = 'state=' + stateSelect.value + "&type=city&notListedOption=2. Choose city";
+    var cityDiv = $('city');
+    var citySelect = $('citySelect');
+    $('school').update('<option value="0">3. Choose school</option>');
+    Element.remove(citySelect);
+    cityDiv.update("<span>Loading...</span>");
+    new Ajax.Updater(
+            'citySelect',
             url,
     {
         method: 'get',
-        parameters: pars
+        parameters: pars,
+        onComplete: emailUpdateElementContents('city', citySelect)
     });
 }
+
+function emailUpdateElementContents(elemIdToUpdate, elemToAdd) {
+    $(elemIdToUpdate).update(elemToAdd);
+    elemToAdd.show();
+}
+
 /*
  schoolDiv${child} -> schoolsInCity
  school${child} -> schoolAdd
@@ -55,17 +60,21 @@ function emailStateChange(stateSelect) {
 function emailSchoolChange(citySelect) {
     var parentState = $('userState').value;
     var parentCity = $('citySelect').value;
-    //var url = '/community/registration2Ajax.page';
     var url = '/util/ajax/ajaxCity.page';
     var pars = 'state=' + parentState;
     pars += '&city=' + parentCity;
-    $('schoolsInCity').innerHTML = '<select name="school" id="school" class="selectChildSchool"><option value="">Loading ...</option></select>';
-    var myAjax = new Ajax.Updater(
-            'schoolsInCity',
+    pars += '&notListedOption=3. Choose school';
+    var schoolDiv = $('schoolsInCity');
+    var schoolSelect = $('school');
+    Element.remove(schoolSelect);
+    schoolDiv.update("<span>Loading...</span>");
+    new Ajax.Updater(
+            'school',
             url,
     {
         method: 'get',
-        parameters: pars
+        parameters: pars,
+        onComplete: emailUpdateElementContents('schoolsInCity', schoolSelect)
     });
 
 }
