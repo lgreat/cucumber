@@ -21,7 +21,7 @@ old user, add new subscriptions
 
     -->
     <div class="promoNewsletterSmall">
-        <gsweb:form id="nlsform" action="/cgi-bin/newsletterSubscribe" method="get">
+        <gsweb:form id="nlsform" action="/email/management.page" method="get">
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
             <h2>

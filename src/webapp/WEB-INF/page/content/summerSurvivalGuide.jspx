@@ -140,10 +140,6 @@
                         library</link:articleLibrary>
                 </div>
 
-                <div class="newspromo">
-                    <promo:newsletterSmall/>
-                </div>
-
             </td>
         </tr>
     </table>

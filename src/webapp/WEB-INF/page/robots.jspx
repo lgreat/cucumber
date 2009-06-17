@@ -65,6 +65,7 @@ Disallow: /community/newsletters/popup
 Disallow: /community/registration
 Disallow: /community/resetPassword.page
 Disallow: /data/
+Disallow: /email/management.page
 Disallow: /icons/
 Disallow: /images/
 Disallow: /index.page
