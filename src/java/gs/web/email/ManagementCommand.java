@@ -581,6 +581,10 @@ public class ManagementCommand {
         return stateManager.getListByAbbreviations();
     }
 
+    public boolean isNthChecked() {
+        return mypk || myk || my1 || my2 || my3 || my4 || my5 || myms || myhs;
+    }
+
     public boolean checkedBox(SubscriptionProduct myNth){
         if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
             return mypk;

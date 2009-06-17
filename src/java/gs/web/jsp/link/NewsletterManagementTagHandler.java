@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterManagementTagHandler.java,v 1.4 2009/06/16 00:29:28 aroy Exp $
+ * $Id: NewsletterManagementTagHandler.java,v 1.5 2009/06/17 22:55:56 aroy Exp $
  */
 package gs.web.jsp.link;
 
@@ -27,7 +27,7 @@ public class NewsletterManagementTagHandler extends LinkTagHandler {
         }
 
         if (StringUtils.isNotBlank(_autocheck)) {
-            builder.setParameter(_autocheck, "true");
+            builder.setParameter("set" + _autocheck, "true");
         }
 
         return builder;

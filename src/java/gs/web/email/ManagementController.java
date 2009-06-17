@@ -138,6 +138,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         doMyNthList(user,command);
 
+
+        checkRequestParams(request, command);
+
+        // this ensures that if a request param sets an nth newsletter to checked, the
+        // greatnews will also be checked
+        if (command.isNthChecked()) {
+            command.setGreatnews(true);
+        }
+
         if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
             Integer id = Integer.valueOf(request.getParameter("schoolId"));
             State state = State.fromString(request.getParameter("schoolState"));
@@ -432,6 +441,41 @@ public class ManagementController extends SimpleFormController implements ReadWr
             else if(myNth.equals(SubscriptionProduct.MY_HS)){
                 command.setMyhs(true);
                 command.setMyhsId(mnId);
+            }
+        }
+    }
+
+    protected void checkRequestParams(HttpServletRequest request, ManagementCommand command) {
+        for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
+            if (request.getParameter("set" + myNth.getName()) == null) {
+                continue;
+            }
+            if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
+                command.setMypk(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)){
+                command.setMyk(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)){
+                command.setMy1(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)){
+                command.setMy2(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)){
+                command.setMy3(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)){
+                command.setMy4(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)){
+                command.setMy5(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_MS)){
+                command.setMyms(true);
+            }
+            else if(myNth.equals(SubscriptionProduct.MY_HS)){
+                command.setMyhs(true);
             }
         }
     }

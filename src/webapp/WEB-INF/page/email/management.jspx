@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <c:set var="showMynth" value="${ emailCmd.greatnewsId > 0 ? 'showIt' : 'hideIt' }"/>
+                    <c:set var="showMynth" value="${ emailCmd.greatnews ? 'showIt' : 'hideIt' }"/>
 
                     <div id="mynth" class="mynth ${showMynth}">
                         <p>Personalize your weekly updates by indicating what grade your child is in.

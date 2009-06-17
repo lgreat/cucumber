@@ -16,7 +16,7 @@
     <pageHelper:showNthGraderHover/>
 
     <link:newsletterManagement onclick="return nthGraderRegistrationDialog.prepAndShow(this.href, '${fn:toLowerCase(autocheck)}');"
-                               styleClass="${styleClass}" autocheck="${autocheck}">
+                               styleClass="${styleClass}" autocheck="${fn:toLowerCase(autocheck)}">
         <jsp:doBody/>
     </link:newsletterManagement>
 </jsp:root>
