@@ -283,7 +283,7 @@
                     </div>
                    
                     <div id="newsletterCol2">
-                        <div class="newletterNoDivider">
+                        <div class="brainDrainModule">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
                             <div class="brainDrain"><h3>Prevent the summer brain drain</h3>
@@ -291,7 +291,7 @@
                                 <label for="brainDrainNewsletterField">Subscribe to this newsletter</label>
                                 <c:set var="showWeeks" value="${ userCmd.brainDrainNewsletter ? 'showIt' : 'hideIt' }" />
                                 <div id="weeks" class="${showWeeks}"><p class="newsletterText">Tell us when your chil'd school starts so we can personalize your newsletter!</p>
-                                    <div>Week of:
+                                    <div id="brainDrainStartWeek">Week of:
                                     <form:select path="userCmd.startweek" id="startweek">
                                         <form:option value="">Choose one</form:option>
                                         <form:option value="summer1">July 19</form:option>
@@ -307,11 +307,12 @@
                             </div>
                         </div>
 
-                        <gsml:img src="/res/img/email/pencils.jpg"
-                                  alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
+
 
                         <div class="newletterDivider">
                             <div class="valuableOffers">
+                                <gsml:img src="/res/img/email/pencils.jpg"
+                                  alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>
                                 <h3>Send me valuable offers and information from GreatSchools partners</h3>
                                 <form:checkbox path="userCmd.partnerNewsletter"
                                         tabindex="11" id="partnerNewsletterField"/>
