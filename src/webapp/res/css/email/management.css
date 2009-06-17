@@ -159,6 +159,14 @@ ol.horizontal li ol li {
     color: #666;
 }
 
+.newsletterInfo div.error {
+    font-size: 13px;
+    color: #cc5566;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background: url(/res/img/bullet/icon_warning_12x12.gif) no-repeat 0 5px;
+}
+
 #weeks p {
     margin: 6px 0;
 }

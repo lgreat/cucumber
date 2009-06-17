@@ -11,11 +11,7 @@ import gs.data.community.SubscriptionProduct;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: eddie
- * Date: May 22, 2009
- * Time: 5:04:23 PM
- * To change this template use File | Settings | File Templates.
+ * Command backing the email management form.
  */
 public class ManagementCommand {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -104,6 +100,16 @@ public class ManagementCommand {
     //variable for sponsors
     private boolean sponsor;
     private int sponsorId;
+
+    private boolean tooManySchoolsError = false;
+
+    public boolean isTooManySchoolsError() {
+        return tooManySchoolsError;
+    }
+
+    public void setTooManySchoolsError(boolean tooManySchoolsError) {
+        this.tooManySchoolsError = tooManySchoolsError;
+    }
 
     public StateManager getStateManager() {
         return stateManager;

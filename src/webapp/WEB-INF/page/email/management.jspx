@@ -136,6 +136,10 @@
                         <img src="/res/img/email/teacher.jpg" alt="teacher" class="newsletterImage"/>
 
                         <div class="newsletterInfo">
+                            <c:if test="${emailCmd.tooManySchoolsError}">
+                                <div class="error">You have subscribed to the maximum number
+                                of school updates</div>
+                            </c:if>
                             <div class="newsletterHeader">How does your school measure up?</div>
                             <div class="newsletterDescription">
                                 Track your child's school stats &amp;#8212; from test scores to teacher quality.
