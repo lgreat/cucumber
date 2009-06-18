@@ -6,6 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import static org.easymock.classextension.EasyMock.replay;
+import static org.easymock.classextension.EasyMock.verify;
+import static org.easymock.classextension.EasyMock.reset;
 
 /**
  * BaseTestCase for classes in gs.web to subclass for easy access to Spring IoC
@@ -34,4 +37,22 @@ public class BaseTestCase extends TestCase {
         super.tearDown();
         ThreadLocalTransactionManager.commitOrRollback();
     }
+
+    protected void replayMocks(Object... mocks) {
+        for (Object mock: mocks) {
+            replay(mock);
+        }
+    }
+
+    protected void verifyMocks(Object... mocks) {
+        for (Object mock: mocks) {
+            verify(mock);
+        }
+    }
+
+    protected void resetMocks(Object... mocks) {
+        for (Object mock: mocks) {
+            reset(mock);
+        }
+    }    
 }

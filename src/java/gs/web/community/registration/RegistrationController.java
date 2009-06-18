@@ -65,6 +65,7 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     //set up defaults if none supplied
+    @Override
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
@@ -121,6 +122,7 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setNumSchoolChildren(0);
     }
 
+    @Override
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
 
@@ -236,6 +238,7 @@ public class RegistrationController extends SimpleFormController implements Read
         }
     }
 
+    @Override
     public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
         super.onBindAndValidate(request, command, errors);
         UserCommandValidator validator = new UserCommandValidator();
@@ -243,6 +246,7 @@ public class RegistrationController extends SimpleFormController implements Read
         validator.validate(request, command, errors);
     }
 
+    @Override
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -526,9 +530,8 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void setUsersPassword(User user, UserCommand userCommand, boolean userExists) throws Exception {
         try {
             user.setPlaintextPassword(userCommand.getPassword());
-            if (_requireEmailValidation ||
-                    (userCommand.getNumSchoolChildren() != null && userCommand.getNumSchoolChildren() > 0)) {
-                // mark account as provisional until they complete stage 2
+            if (_requireEmailValidation) {
+                // mark account as provisional if we require email validation
                 user.setEmailProvisional(userCommand.getPassword());
             }
             _userDao.updateUser(user);
