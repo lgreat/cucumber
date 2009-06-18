@@ -307,11 +307,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
 
             if (userCommand.getBrainDrainNewsletter()) {
-                Subscription subscription = new Subscription();
-                subscription.setUser(user);
-                subscription.setProduct(SubscriptionProduct.getSubscriptionProduct(userCommand.getStartweek()));
-                subscription.setState(userCommand.getUserProfile().getState());
-                userCommand.addSubscription(subscription);
+                _subscriptionDao.addSeasonal(userCommand.getStartweek(),user,userCommand.getUserProfile().getState());
             }
 
             if (userCommand.getLdNewsletter()) {
