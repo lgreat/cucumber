@@ -122,7 +122,7 @@ public class RegistrationAjaxController implements Controller {
         if (cities.size() > 0) {
             out.print("<select id=\"" + citySelectId + "\" name=\"" + citySelectName + "\" class=\"selectCity\" tabindex=\"10\"" +
                  (StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
-            outputOption(out, "", "Choose city", true);
+            outputOption(out, "", "- Choose city -", true);
             for (int x=0; x < cities.size(); x++) {
                 ICity city = (ICity) cities.get(x);
                 outputOption(out, city.getName(), city.getName());

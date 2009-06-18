@@ -148,7 +148,7 @@
                     <span id="city">
                         <select id="citySelect" name="city" tabindex="8" onchange="gradeChange(${loopTimes},true);">
                             <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
-                                <option selected="selected" value="">Choose city</option>
+                                <option selected="selected" value="">- Choose city -</option>
                             </c:if>
                             <c:forEach var="cityOption" items="${userCmd.cityList}">
                                 <![CDATA[<option ]]>
