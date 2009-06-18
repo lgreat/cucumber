@@ -147,8 +147,10 @@
     <div id="carousel">
         <div class="images">
             <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                <a href="${featureLink.url}">
                 <img src="${homepage.featureLinks[status.index].imageUrl}"
                      alt="${homepage.featureLinks[status.index].imageAltText}"/>
+                </a>
             </c:forEach>
         </div>
         <!-- class="images" -->
@@ -159,9 +161,10 @@
         <div class="info">
             <div class="inner">
                 <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                    <a href="${featureLink.url}">
                     <h3>${featureLink.title}</h3>
-
-                    <p>${featureLink.description} <a href="${featureLink.url}">More ></a></p>
+                    <p>${featureLink.description} <span>More &gt;</span></p>
+                    </a>
                 </c:forEach>
             </div>
             <!-- class="inner" -->

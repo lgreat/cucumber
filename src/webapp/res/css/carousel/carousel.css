@@ -32,9 +32,16 @@
     display:none;
 }
 
-#carousel a {
+#carousel span {
 	color: #39a;
+}
+
+#carousel span:link {
 	text-decoration: none;
+}
+
+#carousel span:hover {
+	text-decoration: underline;
 }
 
 #carousel .bg {
@@ -78,4 +85,6 @@
     cursor:pointer;
 }
 
-
+#carousel .navigation .num {
+    display:none;
+}

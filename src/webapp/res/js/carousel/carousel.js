@@ -13,7 +13,7 @@ $(document).ready(function() {
 	var holdID = null;
 	var swapID = null;
 	$('.bg').animate({"opacity" : .9},0);
-	$('.inner h3, .inner p, .images img').hide();
+	$('.inner h3, .inner p, .images img,').hide();
 	if (CURRENTI>MAXIMUMI){
 		CURRENTI = MAXIMUMI;
 	}
@@ -89,6 +89,12 @@ $(document).ready(function() {
 			return this.src.replace('off.gif','on.gif');
 		});
 	}
+    var showButtons = function() {
+        $('.num:lt('+(CURRENTI)+')').show();
+        $('.num:gt('+(MAXIMUMI-1)+')').hide(function(){
+            $(this).parent().hide();
+        });
+    }
 	// Navigation buttons
 	// - numbered buttons
 	$('.num').click(function() {
@@ -128,6 +134,7 @@ $(document).ready(function() {
         setText(i);
 	    setButtonState(i);
 	    fadeInSlide();
+        showButtons();
   } else {
         setText(i);
         setImage(i);
