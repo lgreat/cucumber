@@ -16,9 +16,12 @@ function sendToDestination() {
     if (window.chooserRegistrationDialog != undefined) {
         window.chooserRegistrationDialog.dialog.cancel();
     }
+
     if (destUrl != '') {
-        window.location = destUrl;
+       window.location = destUrl;
         destUrl = '';
+    }else{
+        window.location.href=window.location.href;
     }
 }
 
