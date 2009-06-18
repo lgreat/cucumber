@@ -2,213 +2,293 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+
 <head>
     <c:choose>
-        <c:when test="${article.pageTitle gt ''}">
-            <c:set var="pageTitle">${article.pageTitle}</c:set>
+        <c:when test="${not empty feature.pageTitle}">
+            <c:set var="pageTitle">${feature.pageTitle}</c:set>
         </c:when>
-        <c:when test="${article.promo gt ''}">
-            <c:set var="pageTitle">${article.promo} - ${article.primaryKategoryName} - GreatSchools</c:set>
+        <c:when test="${not empty feature.promo}">
+            <c:set var="pageTitle">${feature.promo} - ${feature.primaryKategory.name} | GreatSchools</c:set>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTitle">${article.title} - ${article.primaryKategoryName} - GreatSchools</c:set>
+            <c:set var="pageTitle">${feature.title} - ${feature.primaryKategory.name} | GreatSchools</c:set>
         </c:otherwise>
     </c:choose>
     <title>${pageTitle}</title>
-    <meta name="description"
-          content="${article.metaDescription}"/>
-    <meta name="keywords"
-          content="${article.metaKeywords}"/>
+    <c:choose>
+        <c:when test="${type eq 'article'}">
+            <meta name="description" content="${feature.metaDescription}"/>
+        </c:when>
+        <c:when test="${type eq 'askTheExperts'}">
+            <meta name="description" content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
+        </c:when>
+    </c:choose>
+
+    <meta name="keywords" content="${feature.metaKeywords}"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <c:if test="${param.print eq 'true'}">
+    <c:choose>
+        <c:when test="${param.print eq 'true'}">
         <!-- cmsArticleSupplemental is for the screen view *and* print version of the printer-friendly version.
              We can't use the word "print" in the css file name, or else it will target media="print" only.
              See PageHelper.getHeadElements() -->
-        <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css"/>
-    </c:if>
+            <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css"/>
+        </c:when>
+        <c:otherwise>
+            <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css" media="print"/>
+        </c:otherwise>
+    </c:choose>
 </head>
 <body>
 
-    <!-- leftNav is positioned absolutely, this makes sure that if it is longer than the main content area
-         the page layout will not place content over it -->
-    <gsml:equalizeColumns ids="'content','leftNav'"/>
-    <!-- rightColumn is positioned absolutely, this makes sure that if it is longer than the main content area
-         the page layout will not place content over it -->
-    <gsml:equalizeColumns ids="'main','rightColumn'"/>
-
     <div id="main">
         <c:choose>
-            <c:when test="${article.numPages == 1 or fromPage eq '1'}">
-                <c:set var="articleLink" value="${uri}"/>
+            <c:when test="${feature.numPages == 1 or fromPage eq '1'}">
+                <c:set var="featureLink" value="${uri}"/>
             </c:when>
             <c:otherwise>
-                <c:set var="articleLink" value="${uri}?page=${fromPage}"/>
+                <c:set var="featureLink" value="${uri}&amp;page=${fromPage}"/>
             </c:otherwise>
         </c:choose>
         <div class="printViewLinks">
             <p>
-                <a href="javascript:window.print()" class="printArticle">Print article</a> | <a href="${articleLink}" class="backToArticle">Back to article</a>
+                <a href="javascript:window.print()" class="printArticle">Print article</a> | <a href="${featureLink}" class="backToArticle">Back to article</a>
             </p>
-        </div>
-        <div class="breadcrumbs">
-            <!-- TODO: full breadcrumbs -->
-            <a href="#">${article.primaryKategoryName}</a> &amp;gt; ${article.title}
-        </div>
-        <div class="headerTools">
-            <h2>${article.primaryKategoryName}</h2>
-            <ul class="horizontal">
-                <li>Thumbs Up</li>
-                <li>Share</li>
-                <li>Watch</li>
-                <li><a href="${uri}?print=true&amp;fromPage=${article.currentPageNum == -1 ? 'all' : article.currentPageNum}">Print</a></li>
-            </ul>
-        </div>
-        <div id="leftNav">
-            <div class="module">
-                Category nav
-            </div>
-            <div class="module">
-                Grade level nav
-            </div>
-            <div class="module">
-                Hot topics nav
-            </div>
         </div>
 
         <div id="content">
             <!-- title, licensor, summary, current page -->
-            <div class="bodyHeader">
-                <h2 class="title">${article.title}</h2>
+            <div id="bodyHeader">
 
-                <div class="float right">
                     <!-- do not collapse -->
-                    <c:if test="${not empty article.licensorLogoUrl}">
-                        <c:if test="${article.licensorLogoUrl ne null}">
-                            <img class="licensor"
-                                 src="${article.licensorLogoUrl}" alt="${article.licensorLogoAltText}"/>
+                    <c:if test="${not empty feature.licensorLogoUrl}">
+                        <c:if test="${not empty feature.licensorLogoUrl}">
+                            <c:set var="licensorLogo">
+                                <img class="float right pb pl"
+                                     src="${feature.licensorLogoUrl}" alt="${feature.licensorLogoAltText}"/>
+                            </c:set>
+                            <c:choose>
+                                <c:when test="${not empty feature.licensorUrl}">
+                                    <a href="${feature.licensorUrl}" target="_blank">${licensorLogo}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    ${licensorLogo}
+                                </c:otherwise>
+                            </c:choose>
                         </c:if>
                     </c:if>
-                    <c:if test="${article.currentPageNum gt 1}">
-                        <div class="pageIdentifier">
-                            Page ${article.currentPageNum} of ${article.numPages}
-                        </div>
-                    </c:if>
-                </div>
 
-                <c:choose>
-                    <c:when test="${article.currentPageNum lt 2}">
-                        <div class="summary">
-                            ${article.summary}
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <br class="clear"/>
-                        <br class="clear"/>
-                    </c:otherwise>
-                </c:choose>
+                <c:if test="${type eq 'askTheExperts'}">
+                    <h3 class="text-uppercase">Ask the Experts</h3>
+                </c:if>
+                <h1>${feature.title}</h1>
+
+                <c:if test="${type eq 'article'}">
+                    <c:choose>
+                        <c:when test="${article.currentPageNum lt 2}">
+                            <div class="summary">
+                                ${fn:escapeXml(article.summary)}
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="pageIdentifier pt">
+                                Page ${article.currentPageNum} of ${article.numPages}
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
             </div> <!-- end .bodyHeader -->
+            <div class="divider pt clear"><hr /></div>
 
-            <!-- Other language link -->
-            <c:if test="${article.currentPageNum lt 2 and not empty article.otherLanguageUri}">
-                <div class="otherLanguageLink">
-                    <a href="${article.otherLanguageUri}">
-                        Read this article in
-                        <c:choose>
-                            <c:when test="${article.language eq 'ES'}">
-                                English
-                            </c:when>
-                            <c:otherwise>
-                                Spanish
-                            </c:otherwise>
-                        </c:choose>
-                        &amp;gt;
-                    </a>
-                </div>
+            <!-- Article languages -->
+            <div id="cmsArticleLanguages" class="float left">
+                <ul>
+                    <c:if test="${not empty feature.otherLanguageUri}">
+                        <li><a href="${feature.otherLanguageUri}">
+                            <c:choose>
+                                <c:when test="${feature.language eq 'ES'}">
+                                    <span class="bolder">Read this article in English &amp;raquo;</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="bolder">Lea este artículo en espa&amp;ntilde;ol &amp;raquo;</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </a></li>
+                    </c:if>
+                </ul>
+            </div><!-- end #cmsArticleLanguages -->
+
+            <div id="cmsArticleFunctions">
+                <ul>
+                    <li><a href="${uri}&amp;print=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}"><img src="/res/img/icons/printIcon.gif" alt="Print"/>&amp;nbsp;<span>Print</span></a></li>
+                    <li>
+                        <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
+                        <gsml:a href="${mailToFriendUrl}"
+                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>
+                    </li>                    
+                </ul>
+            </div><!-- end #cmsArticleFunctions -->
+            <div class="clear">&amp;nbsp;</div>
+
+            <c:if test="${type eq 'askTheExperts'}">
+                <div id="cmsAskTheExpertsQuestion">
+                    <h3 class="text-uppercase">Question:</h3>
+                    ${askTheExperts.question}
+                </div><!-- end #cmsAskTheExpertsQuestion -->
             </c:if>
 
             <!-- article text -->
             <div id="cmsArticleText">
-                <c:if test="${article.currentPageNum lt 2 and not empty article.imageUrl}">
+                <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
                     <div class="mainImage">
-                        <c:if test="${not empty article.imageUrl}">
-                            <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
+                        <c:if test="${not empty feature.imageUrl}">
+                            <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
                         </c:if>
-                        <div class="caption">${article.imageTitle}</div>
+
+                        <div class="caption">${feature.imageTitle}</div>
                     </div>
                 </c:if>
 
-                ${article.currentPage}
+                <c:choose>
+                    <c:when test="${type eq 'article'}">
+                        <!-- the currentPage variable might contain a sidebar inside <div id="cmsArticleSidebar">...</div>;
+                             see CmsFeatureController.java -->
+                        ${currentPage}
+                    </c:when>
+                    <c:when test="${type eq 'askTheExperts'}">
+                        <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
+                        ${answer}
+                    </c:when>
+                </c:choose>
             </div> <!-- end #cmsArticleText -->
+            <div class="clear">&amp;nbsp;</div>
 
-            <!-- authors and pagination -->
-            <!-- table because either one or the other can be missing -->
-            <table class="authorPageBar" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td class="authors">
+            <!-- authors and/or licensor attribution -->
+            <div class="authorPageBar">
+                <div class="authors">
+                    <c:if test="${type eq 'article'}">
+                        <!-- byline - for articles only -->
                         <!-- Show authors on last page only (and single page view) -->
                         <c:if test="${not empty article.authors and (article.currentPageNum eq -1 or article.numPages eq article.currentPageNum)}">
                             <c:choose>
                                 <c:when test="${article.language eq 'ES'}">Por </c:when>
                                 <c:otherwise>By </c:otherwise>
+
                             </c:choose>
                             <c:forEach var="author"
                                        items="${article.authors}"
                                        varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
                         </c:if>
-                    </td>
-                    <c:if test="${article.numPages > 1 and param.print ne 'true'}">
-                        <td class="cmsArticlePagination">
-                            Page
-                            <c:forEach begin="1" end="${article.numPages}" var="pageNum" varStatus="status">
-                                <c:choose>
-                                    <c:when test="${pageNum == article.currentPageNum}">
-                                        <span class="active">${pageNum}</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="${uri}?page=${pageNum}">${pageNum}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
+                    </c:if>
+
+                    <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+                        ${feature.licensorAttribution}
+                    </c:if>
+                </div>
+                <!-- end .authors -->
+            </div>
+            <!-- end .authorPageBar -->
+
+            <c:if test="${type eq 'article'}">
+                <!-- Pagination -->
+                <c:if test="${feature.numPages > 1 and param.print ne 'true'}">
+                    <div class="cmsArticlePagination">
+                        Page
+                        <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
                             <c:choose>
-                                <c:when test="${-1 == article.currentPageNum}">
-                                    <span class="active">Single Page</span>
+                                <c:when test="${pageNum == feature.currentPageNum}">
+                                    <span class="active">${pageNum}</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${uri}?page=all">Single Page</a>
+                                    <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
                                 </c:otherwise>
                             </c:choose>
-                        </td>
-                    </c:if>
-                </tr>
-            </table> <!-- end .authorPageBar -->
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${-1 == feature.currentPageNum}">
+                                <span class="active">Single Page</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${uri}&amp;page=all">Single Page</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <!-- end .cmsArticlePagination -->
+                </c:if>
+            </c:if>
+
+            <c:if test="${type eq 'askTheExperts'}">
+                <div class="divider"><hr/></div>
+                <div id="authorBio">
+                  ${bio}
+                </div>
+                
+                <div id="disclaimer">
+                    <p>
+                        Advice from our experts is not a substitude for medical or other professional
+                        advice and services from a qualified health-care provider familiar with your
+                        unique situation. We recommend consulting a qualified professional if you have
+                        concerns about your child's medical or emotional condition.
+                    </p>
+                </div>
+            </c:if>
+
+            <!-- share this -->
+            <cms:communityDistribution feature="${feature}" />
+
             <!-- Related links -->
-            <c:if test="${not empty article.relatedArticles or not empty article.externalLinks}">
-                <div class="relatedLinks">
-                    <c:if test="${not empty article.relatedArticles}">
-                        <h4>More on GreatSchools.net</h4>
+             <c:if test="${not empty feature.relatedArticles or not empty feature.externalLinks}">
+                <div id="relatedLinks">
+                    <c:set var="hasPublishedRelatedArticles" value="${false}"/>
+                    <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
+                        <c:if test="${not empty relatedArticle.url}">
+                            <c:set var="hasPublishedRelatedArticles" value="${true}"/>
+                        </c:if>
+                    </c:forEach>
+
+                    <c:if test="${hasPublishedRelatedArticles}">
+                        <h4>Related Articles</h4>
                         <div>
                             <ul>
-                                <c:forEach var="relatedArticle" items="${article.relatedArticles}">
+                                <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
                                     <c:if test="${not empty relatedArticle.url}">
-                                        <li><a href="${relatedArticle.url}">${relatedArticle.linkText}</a></li>
+                                        <li><a href="${relatedArticle.url}" class="GS_EV5_" id="moreonA__${status.count}">${relatedArticle.linkText}</a></li>
                                     </c:if>
                                 </c:forEach>
                             </ul>
                         </div>
                     </c:if>
-                    <c:if test="${not empty article.externalLinks}">
+                    <c:if test="${not empty feature.externalLinks}">
                         <h4>Related Links</h4>
                         <div>
                             <ul>
-                                <c:forEach var="externalLink" items="${article.externalLinks}">
+                                <c:forEach var="externalLink" items="${feature.externalLinks}">
                                     <c:if test="${not empty externalLink.url}">
-                                        <li><a href="${externalLink.url}" target="_blank">${externalLink.linkText}</a></li>
+                                        <c:choose>
+                                            <c:when test="${fn:startsWith(externalLink.url, '/')}">
+                                                <c:set var="externalLinkTarget" value="_self"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="externalLinkTarget" value="_blank"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <li><a href="${externalLink.url}" target="${externalLinkTarget}">${externalLink.linkText}</a></li>
                                     </c:if>
                                 </c:forEach>
                             </ul>
@@ -216,42 +296,141 @@
                     </c:if>
                 </div>
             </c:if> <!-- end .relatedLinks -->
-            <div class="divider"><hr/></div>
+            <div class="divider"><hr /></div>
             <div class="articleCommentForm">
-                <h3>Article Comments</h3>
+
+                <div id="articleComments" class="noprint">
+                    <div id="enterComment">
+                        <script type="text/javascript">
+                            function wrapCommentWithDelimiter(comment) {
+                                return "BEGIN_ARTICLE_COMMENT\n" +
+                                       comment +
+                                       "\nEND_ARTICLE_COMMENT\n";
+                            }
+                        </script>
+                        <!-- Article comment form -->
+                        <div id="cmsArticleForm">
+                            <form action="/cgi-bin/feedback_submit" method="post"
+                                  onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
+                                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
+                                <input type="hidden" name="type" value="article"/>
+                                <c:if test="${not empty feature.legacyId}">
+                                    <input type="hidden" name="id" value="${feature.legacyId}"/>
+                                </c:if>
+                                <input type="hidden" name="contentType" value="${feature.contentKey.type}"/>
+                                <input type="hidden" name="contentIdentifier" value="${feature.contentKey.identifier}"/>
+                                <input type="hidden" name="contentUrl" value="${contentUrl}"/>
+                                <input type="hidden" name="captchaChallenge" value="the Challenge"/>
+                                <input type="hidden" name="captchaResponse" value="the Response"/>
+                                <input type="hidden" name="description" value=""/>
+
+                                <div>
+                                    <h4><img src="/res/img/icons/commentBubbleSm.gif" alt="comment"/>
+                                    Post a comment on this article</h4>
+                                </div>
+                                <div>
+                                    <label for="name">Name (optional): </label>
+                                    <input name="name" id="name" size="25" type="text" class="txt"/>
+                                </div>
+                                <div>
+                                    <label for="email">Email (optional): </label>
+                                    <input name="email" id="email" size="25" type="text" class="txt"/>
+                                </div>
+                                <div>
+                                <label for="commenttextarea">Comment:</label><br />
+                                <![CDATA[<textarea name="comment" id="commenttextarea" cols="50" rows="5"></textarea>]]>
+                                </div>
+                                <div class="captcha">
+                                    <script type="text/javascript">
+                                        var RecaptchaOptions = {theme:'white', tabindex: 0};
+                                    </script>
+                                    <script type="text/javascript"
+                                            src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                                        /* this comment keeps the tag from collapsing */
+                                    </script>
+
+                                    <![CDATA[
+                                        <noscript>
+                                           <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                                               height="300" width="500" frameborder="0"></iframe><br/>
+                                           <textarea name="recaptcha_challenge_field"
+                                                     rows="3" cols="40" style="height: 60px;">
+                                           </textarea>
+                                           <input type="hidden" name="recaptcha_response_field"
+                                               value="manual_challenge"/>
+                                        </noscript>
+                                        ]]>
+                                </div>
+                                <div class="float left"><input name="permit" type="checkbox" checked="checked"/></div>
+                                <div>
+                                <p>Yes, I agree to the
+                                    <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
+                                    permission to post my comments for other parents to read.</p>
+
+                                <p>Note: Your email address is
+                                    required if you would like a response from GreatSchools.net.</p>
+                                </div>
+
+                                <div><input type="image" src="/res/img/button/btn_post.gif" /></div>
+                            </form>
+                        </div><!-- end #cmsArticleForm -->
+                    </div>
+                    <div class="divider"><hr /></div>
+                    <div id="cmsArticleComments">
+                    <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                        <!--<hr width="100%" class="commentDivider"/>-->
+                        <h4>Comments from GreatSchools.net readers</h4>
+                        <div id="comments">
+                            <c:forEach var="comment" items="${comments}">
+                                <div class="comment">
+                                    <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                                        pattern="MM/d/yyyy"/>:</div>
+
+                                    <div class="comment-text">"${comment.text}"</div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                    </div>
+                </div>
             </div>
         </div> <!-- end #content -->
     </div> <!-- end #main -->
     <div id="rightColumn">
-        <div class="module searchByTopic">
-            <h3>Search Topics</h3>
+        <jsp:include page="/content/cms/moreInCategory.module?categoryId=${feature.primaryKategory.id}&amp;excludeType=${
+            feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
-            <form accept-charset="UTF-8" action="/search/search.page" method="get">
-                <input class="text" type="text" name="q" value="[Enter keywords]"
-                       onfocus="GS_textSwitch(this, '', '[Enter keywords]');"
-                       onblur="GS_textSwitch(this, '[Enter keywords]', '');"/>
-                <input class="button" type="submit" value="GO"/>
-                <input type="hidden" value="topic" name="c"/>
-            </form>
+        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+        <div id="squareadvert">
+            <ad:AboveFold_300x250/>
         </div>
-        <div id="boxAd" class="module">
-            Ad
-        </div>
-        <c:if test="${not empty article.sidebar}">
-            <div class="module sidebar">
-                ${article.sidebar}
-            </div>
-        </c:if>
-        <div id="popularArticles" class="module">
-            Most Popular Articles
-        </div>
-        <div id="recentPosts" class="module">
-            Recent Posts
-        </div>
-        <div id="houseAd" class="module">
-            House Ad
+        <div id="seasonalPromo">
+            <c:choose>
+                <c:when test="${requestScope.context.cobranded}">
+                    <link:schoolChoiceCenter styleClass="more"><gsml:img
+                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                            alt="School Choice Tips"/></link:schoolChoiceCenter>
+                </c:when>
+                <c:otherwise>
+                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
+
+    <c:choose>
+        <c:when test="${type eq 'article'}">
+            <mod:tracking pageName="article"
+                          hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
+                          events="event7"/>
+        </c:when>
+        <c:when test="${type eq 'askTheExperts'}">
+            <mod:tracking pageName="Ask the Experts"
+                          hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"
+                          events="event7"/>
+        </c:when>
+    </c:choose>
+
 </body>
 </html>
 </jsp:root>

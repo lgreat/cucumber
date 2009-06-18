@@ -200,7 +200,7 @@ public class TestLandingController extends SimpleFormController {
                                 int aid = Integer.parseInt(s2[0].substring(4));
                                 Article article = getArticleDao().getArticleFromId(aid);
                                 if (article != null) {
-                                    UrlBuilder builder = new UrlBuilder(article, null, false);
+                                    UrlBuilder builder = new UrlBuilder(article.getId(), false);
                                     list.add(new Anchor(builder.toString(), article.getTitle(), "article"));
                                 } else {
                                     _log.warn("Could not find article: " + aid);

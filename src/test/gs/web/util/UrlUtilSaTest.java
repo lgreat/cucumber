@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.60 2009/03/17 22:45:05 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.61 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
@@ -237,6 +237,11 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(UrlUtil.isDevEnvironment("127.0.0.1"));
         assertTrue(UrlUtil.isDevEnvironment("172.21.1.142"));
         assertTrue(UrlUtil.isDevEnvironment("172.21.1.142:8080"));
+
+        assertTrue(UrlUtil.isDevEnvironment("gs-cms.carbonfive.com"));
+        assertTrue(UrlUtil.isDevEnvironment("gs-preview.carbonfive.com"));
+        assertTrue(UrlUtil.isDevEnvironment("gs-staging.carbonfive.com"));
+        assertTrue(UrlUtil.isDevEnvironment("gs-live.carbonfive.com"));
     }
 
     public void testIsStagingServer() {

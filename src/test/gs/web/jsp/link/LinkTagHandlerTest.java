@@ -1,15 +1,19 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.58 2009/06/17 22:55:56 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.59 2009/06/18 23:08:22 eingenito Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.content.Article;
+import gs.data.content.cms.CmsContent;
+import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.Publication;
 import gs.data.school.Grade;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import gs.data.util.Address;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
@@ -214,9 +218,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
     public void testArticleTag() {
         ArticleTagHandler tagHandler = new ArticleTagHandler();
         tagHandler.setPageContext(new MockPageContext());
-        Article a = new Article();
-        a.setId(new Integer(8));
-        tagHandler.setArticle(a);
+        tagHandler.setArticleId(8);
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/showarticle/8", builder.asSiteRelative(null));
 
@@ -227,6 +229,45 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setCampaignId("123456");
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/showarticlefeature/8?s_cid=123456", builder.asSiteRelative(null));
+    }
+
+    public void testCmsContentTagWithCmsDisabledThrowsException() {
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.disableCms();
+
+        CmsContentTagHandler tagHandler = new CmsContentTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        CmsContent cmsContent = new CmsContent();
+        cmsContent.setFullUri("/topic/category/title");
+        cmsContent.setContentKey(new ContentKey("article", 25L));
+
+        boolean caught = false;
+        try {
+            UrlBuilder builder = tagHandler.createUrlBuilder();
+        } catch (Exception e) {
+            caught = true;
+        }
+
+        assertTrue(caught);
+
+        CmsUtil.setCmsEnabled(cmsEnabled);
+    }
+
+    public void testCmsContentTag() {
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.enableCms();
+
+        CmsContentTagHandler tagHandler = new CmsContentTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        tagHandler.setFullUri("/topic/category/title");
+        tagHandler.setContentKey(new ContentKey("article", 25L).toString());
+
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/topic/category/title.gs?content=25", builder.asSiteRelative(null));
+
+        CmsUtil.setCmsEnabled(cmsEnabled);
     }
 
     public void testCity() {

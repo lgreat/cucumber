@@ -1,23 +1,28 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.166 2009/06/17 20:54:29 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.167 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
 
+import gs.data.cms.IPublicationDao;
 import gs.data.content.Article;
+import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.Publication;
+import gs.data.content.cms.CmsConstants;
 import gs.data.geo.ICity;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
-import gs.data.school.LevelCode;
-import gs.data.school.ISchoolDao;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
-import gs.web.util.list.Anchor;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.Anchor;
 import gs.web.widget.SchoolSearchWidgetController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -203,19 +208,27 @@ public class UrlBuilder {
      */
     public static final VPage ADD_PARENT_REVIEW_SEARCH = new VPage("vpage:addParentReviewSearch");
 
-    /** number1schools cobrand leadgen page */
+    /**
+     * number1schools cobrand leadgen page
+     */
     public static final VPage GET_BIREG = new VPage("vpage:getBireg");
 
-    /** webby award thank you page */
+    /**
+     * webby award thank you page
+     */
     public static final VPage WEBBY_AWARD_THANKS = new VPage("vpage:webbyAwardThanks");
 
-    /**parent review info pages**/
+    /**
+     * parent review info pages*
+     */
     public static final VPage PARENT_REVIEW_GUIDELINES = new VPage("vpage:parentReviewGuidelines");
     public static final VPage PARENT_REVIEW_LEARN_MORE = new VPage("vpage:parentReviewLearnMore");
     public static final VPage PARENT_RATING_EXPLAINED = new VPage("vpage:parentRatingExplained");
     public static final VPage PARENT_RATING_PRESCHOOL_EXPLAINED = new VPage("vpage:parentRatingPreschoolExplained");
 
-    /** Editorial Microsites */
+    /**
+     * Editorial Microsites
+     */
     public static final VPage SCHOOL_CHOICE_CENTER = new VPage("vpage:schoolChoiceCenter");
     public static final VPage HEALTHY_KIDS = new VPage("vpage:healthyKids");
     public static final VPage SPECIAL_NEEDS = new VPage("vpage:specialNeeds");
@@ -235,14 +248,20 @@ public class UrlBuilder {
     public static final VPage MIDDLE_SCHOOL = new VPage("vpage:middleSchool");
     public static final VPage HIGH_SCHOOL = new VPage("vpage:highSchool");
 
-    /** test score landing page */
+    /**
+     * test score landing page
+     */
     public static final VPage TEST_SCORE_LANDING = new VPage("vpage:testScoreLanding");
 
-    /** submit school pages */
+    /**
+     * submit school pages
+     */
     public static final VPage SUBMIT_PRESCHOOL = new VPage("vpage:submitPreschool");
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
 
-    /** browse pages */
+    /**
+     * browse pages
+     */
     public static final VPage BROWSE_PRESCHOOLS = new VPage("vpage:browsePreschools");
 
     public static final VPage DONORS_CHOOSE_EXPLAINED = new VPage("vpage:donorsChooseExplained");
@@ -253,7 +272,9 @@ public class UrlBuilder {
 
     public static final VPage SCHOOL_FINDER_WIDGET = new VPage("vpage:schoolFinderWidget");
 
-    /** Api Pages */
+    /**
+     * Api Pages
+     */
     public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
 
     /**
@@ -267,7 +288,7 @@ public class UrlBuilder {
         if (paramIndex > 0) {
             vpageName = gsUrl.substring(0, paramIndex);
             // want part after the ?
-            params = UrlUtil.getParamsFromQueryString(gsUrl.substring(paramIndex+1));
+            params = UrlUtil.getParamsFromQueryString(gsUrl.substring(paramIndex + 1));
         } else {
             vpageName = gsUrl;
         }
@@ -349,17 +370,35 @@ public class UrlBuilder {
         // _log.error("requestURL="+request.getRequestURL()); // yields "http://apeterson.office.greatschools.net:8080/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
     }
 
+    public UrlBuilder(Integer contentId, boolean featured) {
+        boolean useLegacyArticle = true;
+        Publication publication = null;
 
-    /**
-     * Create a link to an article
-     *
-     * @param featured should the "featured" url be used instead of the normal one. This is
-     */
-    public UrlBuilder(Article article, State s, boolean featured) {
-        this(article != null ? article.getId() : new Integer(1), featured);
+        // if CMS is enabled and we can find a publication associated with that legacy article ID, then
+        // generate a url to the CMS-driven content
+        // otherwise, fall back to serving the legacy article url (/cgi-bin/showarticle/X/Y)
+        // note: if the article should be served by the legacy cms, don't bother trying to get it the new cms version
+        if (CmsUtil.isCmsEnabled() && !CmsConstants.isArticleServedByLegacyCms(contentId)) {
+            publication = getPublication(contentId);
+            useLegacyArticle = (publication == null);
+        }
+
+        if (useLegacyArticle) {
+            initializeForLegacyArticle(contentId, featured);
+        } else {
+            initializeForCmsContent(publication.getContentKey(), publication.getFullUri());
+        }
     }
 
-    public UrlBuilder(Integer articleId, boolean featured) {
+    public Publication getPublication(Integer legacyId) {
+        return getPublicationDao().findByLegacyId(new Long(legacyId));
+    }
+
+    private IPublicationDao getPublicationDao() {
+        return (IPublicationDao) SpringUtil.getApplicationContext().getBean("publicationDao");
+    }
+
+    private void initializeForLegacyArticle(Integer articleId, boolean featured) {
         _perlPage = true;
 
         // Calculate page to use
@@ -374,6 +413,19 @@ public class UrlBuilder {
                 page +
                 "/" +
                 articleId;
+    }
+
+    public UrlBuilder(ContentKey contentKey, String fullUri) {
+        if (!CmsUtil.isCmsEnabled()) {
+            throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
+        }
+
+        initializeForCmsContent(contentKey, fullUri);
+    }
+
+    private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
+        _path = fullUri + (".gs");
+        setParameter("content", contentKey.getIdentifier().toString());
     }
 
     public UrlBuilder(School school, VPage page) {
@@ -520,6 +572,7 @@ public class UrlBuilder {
 
     /**
      * for pages that do not require parameters in URL.  Default is perlpage is false.
+     *
      * @param page VPage
      */
     public UrlBuilder(VPage page) {
@@ -627,9 +680,7 @@ public class UrlBuilder {
         if (SCHOOL_CHOICE_CENTER.equals(page)) {
             _perlPage = false;
             _path = "/school-choice/?confirm=" + showConfirmation;
-        }
-
-        else {
+        } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
@@ -658,7 +709,7 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(VPage page, boolean showConfirmation,School school) {
+    public UrlBuilder(VPage page, boolean showConfirmation, School school) {
         // GS-7917
         if (SCHOOL_PROFILE.equals(page)) {
             handleSchoolProfile(school, showConfirmation);
@@ -688,7 +739,7 @@ public class UrlBuilder {
                 setParameter("command", "add");
                 setParameter("state", state.getAbbreviation());
                 if (null != param0) {
-                    setParameter("ids",param0);
+                    setParameter("ids", param0);
                 }
             }
         } else if (ARTICLE_LIBRARY.equals(page)) {
@@ -735,7 +786,7 @@ public class UrlBuilder {
             if (param0 != null) {
                 if (StringUtils.isNumeric(param0)) {
                     setParameter("mid", param0);
-                } else  {
+                } else {
                     setParameter("email", param0);
                 }
             }
@@ -851,7 +902,7 @@ public class UrlBuilder {
             this.setParameter("state", state.getAbbreviation());
         } else if (PARENT_REVIEW_LEARN_MORE.equals(page)) {
             _perlPage = true;
-            _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() +"/";
+            _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() + "/";
         } else if (PARENT_RATING_EXPLAINED.equals(page)) {
             _perlPage = true;
             _path = "/definitions/parent_rating_categories.html";
@@ -898,7 +949,7 @@ public class UrlBuilder {
             _perlPage = false;
             StringBuilder sb = new StringBuilder();
             sb.append("/");
-            String urlState =  state.getLongName().toLowerCase();
+            String urlState = state.getLongName().toLowerCase();
             urlState = urlState.replace(" ", "-");
             sb.append(urlState);
             sb.append("/");
@@ -910,7 +961,7 @@ public class UrlBuilder {
             }
             sb.append("/preschools/");
             _path = sb.toString();
-        } else if(CHOOSER_REGISTRATION_HOVER.equals(page)){
+        } else if (CHOOSER_REGISTRATION_HOVER.equals(page)) {
             _perlPage = false;
             _path = "/community/registration/popup/chooserRegistrationHover.page";
 
@@ -986,7 +1037,7 @@ public class UrlBuilder {
             if (existingValues == null) {
                 _parameters.put(key, new String[]{value});
             } else {
-                String [] newValues = org.springframework.util.StringUtils.addStringToArray(existingValues, value);
+                String[] newValues = org.springframework.util.StringUtils.addStringToArray(existingValues, value);
                 _parameters.put(key, newValues);
             }
 
@@ -1156,9 +1207,9 @@ public class UrlBuilder {
         return url;
     }
 
-    public static String getCommunitySiteBaseUrl(HttpServletRequest request){
+    public static String getCommunitySiteBaseUrl(HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        return  "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request);
+        return "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request);
     }
 
     /**

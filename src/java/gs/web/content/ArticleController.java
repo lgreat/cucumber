@@ -12,9 +12,13 @@ import gs.data.content.IArticleDao;
 import gs.data.content.Article;
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.ArticleCategory;
+import gs.data.content.cms.CmsConstants;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -74,6 +78,9 @@ public class ArticleController extends AbstractController {
     private Pattern _pattern =
             Pattern.compile("(\\^gstate=\\\"[a-z,\\!]+\\\"\\^)([^\\^]+)(\\^\\/gstate\\^)");
 
+    /** Provided for unit tests */
+    private UrlBuilder _urlBuilderForArticleId;
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) {
         State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
@@ -81,6 +88,22 @@ public class ArticleController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (articleId > 0) {
+            if (CmsUtil.isCmsEnabled() && !CmsConstants.isArticleServedByLegacyCms(articleId)) {
+                // 301-redirect old-style article url requests to new-style article urls,
+                // if the cms-driven article has been published for that url.
+                // otherwise, return the 404 page (making sure to set the 404 code) 
+                UrlBuilder urlBuilder = getUrlBuilderForArticleId(articleId);
+                String path = urlBuilder.asSiteRelative(request);
+                // can't find CMS-published article, and we don't want to serve up the legacy article
+                // using the old article page, so show an error 404
+                if (path.startsWith("/cgi-bin/")) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return new ModelAndView("/status/error404.page");
+                } else {
+                    return new ModelAndView(new RedirectView301(path));
+                }
+            }
+
             Article article = _articleDao.getArticleFromId(articleId, true);
             if (article != null) {
                 model.put(MODEL_NEW_ARTICLE, isArticleNewStyle(article));
@@ -238,6 +261,27 @@ public class ArticleController extends AbstractController {
             }
         }
         return result;
+    }
+
+    /**
+     * Provided for unit tests
+     * @param articleId
+     * @return
+     */
+    public UrlBuilder getUrlBuilderForArticleId(int articleId) {
+        if (_urlBuilderForArticleId == null) {
+            return new UrlBuilder(articleId, false);
+        }
+
+        return _urlBuilderForArticleId;
+    }
+
+    /**
+     * Provided for unit tests 
+     * @param urlBuilder
+     */
+    public void setUrlBuilderForArticleId(UrlBuilder urlBuilder) {
+        _urlBuilderForArticleId = urlBuilder;
     }
 
 

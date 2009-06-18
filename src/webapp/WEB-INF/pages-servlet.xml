@@ -45,6 +45,17 @@
         <property name="lazyInitHandlers" value="true"/>
     </bean>
 
+    <bean name="cmsFeatureHandlerMapping" parent="defaultHandlerMapping"
+             class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
+           <property name="urlMap">
+               <map>
+                   <entry key="/**/*.gs" value="/content/cms/feature.page"/>
+                   <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
+               </map>
+           </property>
+       </bean>
+
+
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <!-- bean mappings for special SEO pages -->
@@ -75,14 +86,6 @@
         </property>
     </bean>
 
-    <bean name="cmsArticleHandlerMapping" parent="defaultHandlerMapping"
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
-        <property name="urlMap">
-            <map>
-                <entry key="/**/*.article" value="/content/cms/article.page"/>
-            </map>
-        </property>
-    </bean>
 
     <bean name="noInterceptorsHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
@@ -221,6 +224,10 @@
         </property>
     </bean>
 
+    <bean name="/cmshome.page"
+          class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
+        <property name="viewName" value="/content/cms/home"/>
+    </bean>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
           autowire="byName" lazy-init="true">
@@ -285,7 +292,7 @@
         <property name="successView" value="widget/customizeSchoolSearchWidget"/>
         <property name="schoolSearchWidgetController" ref="/widget/schoolSearch.page"/>
     </bean>
-    
+
     <bean name="/util/validator/isZipCodeValid.page"
           class="gs.web.util.validator.IsZipCodeValid" lazy-init="true">
     </bean>
@@ -457,9 +464,22 @@
           autowire="byName" lazy-init="true">
     </bean>
 
-    <bean name="/content/cms/article.page"
-          class="gs.web.content.cms.CmsArticleController"
-          autowire="byName" lazy-init="true"/>
+    <bean name="/content/cms/translate.page"
+          class="gs.web.content.cms.CmsUrlTranslationController"
+          autowire="byName" lazy-init="true">
+    </bean>
+
+    <bean name="/content/cms/feature.page"
+          class="gs.web.content.cms.CmsFeatureController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/article"/>
+    </bean>
+
+    <bean name="/content/cms/topicCenter.page"
+          class="gs.web.content.cms.CmsTopicCenterController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/topicCenter"/>
+    </bean>
 
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
@@ -524,8 +544,8 @@
         <property name="viewName">
             <value>about/sponsors</value>
         </property>
-    </bean> 
-    
+    </bean>
+
 
     <bean name="/about/gsNetwork.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
@@ -713,7 +733,9 @@
 
     <bean name="/articleCategory.page"
           class="gs.web.content.ArticlesByCategoryController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/articleCategory"/>
+    </bean>
 
     <bean name="/city.page"
           class="gs.web.geo.CityController"
@@ -1335,7 +1357,7 @@
         <property name="errorView" value="/community/registration/registrationSoapError"/>
     </bean>
     -->
-    
+
     <bean name="/community/registrationSoapError.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
@@ -1969,7 +1991,7 @@
 
      <bean name="/school/parentReview.page"
           class="gs.web.school.review.AddParentReviewsController"
-          autowire="byName" lazy-init="true">       
+          autowire="byName" lazy-init="true">
          <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
@@ -2016,7 +2038,7 @@
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
     </bean>
-    
+
     <bean name="/api/docs/*"
           class="gs.web.mvc.WildcardViewController" lazy-init="true">
         <property name="basePath" value="api/docs"/>
@@ -2061,7 +2083,7 @@
         <property name="formView" value="/email/management"/>
         <property name="successView" value="email/managementSuccess" />
         <!--
-        <property name="errorView" value="redirect:/community/loginOrRegister.page"/>  
+        <property name="errorView" value="redirect:/community/loginOrRegister.page"/>
         <property name="validators">
             <list>
                 <ref local="emailManagementValidator"/>
@@ -2126,7 +2148,7 @@
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>
     </bean>
-    
+
     <bean name="/community/registration/popup/NthGraderRegistrationHover.page"
           class="gs.web.community.registration.popup.NthGraderRegistrationHoverController"
           autowire="byName" lazy-init="true">

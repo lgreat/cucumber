@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.IndexField;
+import gs.data.util.CmsUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +21,7 @@ public class SearchResult {
         school,
         city,
         article,
+        cms_feature,
         term,
         topic
     }
@@ -51,7 +53,7 @@ public class SearchResult {
         Type type = getType();
         if (type == Type.school) {
             context = getAddress();
-        } else if (type == Type.term || type == Type.article || type == Type.topic) {
+        } else if (type == Type.term || type == Type.article || type == Type.cms_feature || type == Type.topic) {
             context = _doc.get("abstract");
             if (context == null) {
                 context = _doc.get("definition");
@@ -161,5 +163,21 @@ public class SearchResult {
             addressBuffer.append(zip);
         }
         return addressBuffer.toString();
+    }
+
+    public String getFullUri() {
+        if (!CmsUtil.isCmsEnabled() && getType() != Type.cms_feature) {
+            throw new UnsupportedOperationException("FullURI property is only available on CMS content.");
+        }
+
+        return _doc.get("full_uri");
+    }
+
+    public String getContentKey() {
+        if (!CmsUtil.isCmsEnabled() && getType() != Type.cms_feature) {
+            throw new UnsupportedOperationException("FullURI property is only available on CMS content.");
+        }
+
+        return _doc.get("id");
     }
 }

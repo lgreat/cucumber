@@ -60,12 +60,37 @@ public class UtilTest extends TestCase {
         assertEquals("", Util.capitalize(" "));
     }
 
+    public void testToLowerCase() {
+        assertEquals(null, Util.toLowerCase(null));
+        assertEquals("", Util.toLowerCase(""));
+        assertEquals("foo LD bar", Util.toLowerCase("Foo LD Bar"));
+        assertEquals("foo LDs bar", Util.toLowerCase("Foo LDs Bar"));
+        assertEquals("foo ADD bar", Util.toLowerCase("Foo ADD Bar"));
+        assertEquals("foo ADHD bar", Util.toLowerCase("Foo ADHD Bar"));
+        assertEquals("foo AD/HD bar", Util.toLowerCase("Foo AD/HD Bar"));
+        assertEquals("ADHD bar", Util.toLowerCase("ADHD Bar"));
+        assertEquals("LD basics", Util.toLowerCase("LD basics"));
+        assertEquals("ADHD", Util.toLowerCase("ADHD"));
+        assertEquals("addition", Util.toLowerCase("Addition")); // we don't want "ADDition"
+        assertEquals("foo IEP bar", Util.toLowerCase("Foo IEP Bar"));
+        assertEquals("foo IEPs bar", Util.toLowerCase("Foo IEPs Bar"));
+        assertEquals("foo Spanish bar", Util.toLowerCase("Foo Spanish Bar"));
+    }
+
     public void unquoteTest() {
         assertEquals(null, Util.unquote(null));
         assertEquals("", Util.unquote(""));
         assertEquals("", Util.unquote("\""));
         assertEquals("A \"quoted\" string", Util.unquote("\"A \"quoted\" string\""));
         assertEquals("'\"inside single quotes\"'", Util.unquote("'\"inside single quotes\"'"));
+    }
+
+    public void testAbbreviate() {
+        assertEquals(null, Util.abbreviate(null, 3));
+        assertEquals("", Util.abbreviate("", 3));
+        assertEquals("first it's here...", Util.abbreviate("first it's here second", 3));
+        assertEquals("first second third", Util.abbreviate("first second third", 3));
+        assertEquals("first second third...", Util.abbreviate("first second third fourth", 3));
     }
 
     public void testAbbreviateAtWhitespace() throws Exception {

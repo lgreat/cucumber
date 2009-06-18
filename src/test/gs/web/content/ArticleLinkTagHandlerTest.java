@@ -1,16 +1,22 @@
 package gs.web.content;
 
+import gs.data.cms.IPublicationDao;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
+import gs.data.content.cms.CmsFeature;
+import gs.data.content.cms.CmsContent;
+import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.CmsConstants;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
 import junit.framework.TestCase;
+import static org.easymock.EasyMock.*;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
-import org.easymock.MockControl;
 
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
@@ -21,15 +27,21 @@ import java.io.IOException;
 public class ArticleLinkTagHandlerTest extends TestCase {
     private ArticleLinkTagHandler _tagHandler;
     private IArticleDao _articleDao;
-    private MockControl _articleControl;
+    private IPublicationDao _publicationDao;
     private MockJspWriter _out;
+    private boolean _cmsEnabled;
 
     protected void setUp() throws Exception {
         super.setUp();
+        _cmsEnabled = CmsUtil.isCmsEnabled();
 
         _tagHandler = new ArticleLinkTagHandler() {
             protected IArticleDao getArticleDao() {
                 return _articleDao;
+            }
+
+            protected IPublicationDao getPublicationDao() {
+                return _publicationDao;
             }
         };
 
@@ -41,32 +53,111 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         _out = (MockJspWriter) pageContext.getOut();
         _tagHandler.setJspContext(pageContext);
 
-        _articleControl = MockControl.createControl(IArticleDao.class);
-        _articleDao = (IArticleDao) _articleControl.getMock();
+        _articleDao = createMock(IArticleDao.class);
+        _publicationDao = createMock(IPublicationDao.class);
 
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+
+        CmsUtil.setCmsEnabled(_cmsEnabled);
     }
 
     public void testLinkByArticleId() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setTitle("title");
         article.setActive(true);
         article.setStatesAsString("CA");
 
-        _tagHandler.setArticleId(new Integer(2));
-        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(2)), article);
-        _articleControl.replay();
+        _tagHandler.setArticleId(2);
+        expect(_articleDao.getArticleFromId(2)).andReturn(article);
+        replay(_articleDao);
 
         _tagHandler.doTag();
-        _articleControl.verify();
+
+        verify(_articleDao);
 
         assertEquals("<a href=\"/cgi-bin/showarticle/1\">title</a>", _out.getOutputBuffer().toString());
     }
+/*
+    public void testLinkByArticleIdRendersArticleContentLinkWhenCmsEnabledAndCmsContentMissing() throws IOException {
+        CmsUtil.enableCms();
 
+        expect(_publicationDao.populateByLegacyId(eq(2L), isA(CmsContent.class))).andReturn(null);
+
+        Article article = new Article();
+        article.setId(1);
+        article.setTitle("title");
+        article.setActive(true);
+        article.setStatesAsString("CA");
+
+        expect(_articleDao.getArticleFromId(2)).andReturn(article);
+
+        replay(_publicationDao);
+        replay(_articleDao);
+
+        _tagHandler.setArticleId(2);
+        _tagHandler.doTag();
+
+        verify(_publicationDao);
+        verify(_articleDao);
+
+        assertEquals("<a href=\"/\">title</a>", _out.getOutputBuffer().toString());
+        // Fallthrough: assertEquals("<a href=\"/cgi-bin/showarticle/1\">title</a>", _out.getOutputBuffer().toString());
+    }
+*/
+    public void testLinkByArticleIdRendersCmsContentLinkWhenEnabled() throws IOException {
+        CmsUtil.enableCms();
+
+        CmsFeature content = new CmsFeature();
+        content.setContentKey(new ContentKey("article", 102L));
+        content.setFullUri("/Topic/Category/Title");
+        content.setTitle("Title");
+
+        _tagHandler.setArticleId(2);
+
+        expect(_publicationDao.populateByLegacyId(eq(2L), isA(CmsContent.class))).andReturn(content);
+        replay(_publicationDao);
+        replay(_articleDao);
+
+        _tagHandler.doTag();
+
+        verify(_publicationDao);
+        verify(_articleDao);
+
+        assertEquals("<a href=\"/Topic/Category/Title.gs?content=102\">Title</a>", _out.getOutputBuffer().toString());
+    }
+
+    public void testLinkByArticleIdFallbackBehavior() throws IOException {
+        CmsUtil.enableCms();
+
+        CmsFeature content = new CmsFeature();
+        content.setContentKey(new ContentKey("article", 102L));
+        content.setFullUri("/Topic/Category/Title");
+        content.setTitle("Title");
+
+        int legacyArticleId = CmsConstants.getArticlesServedByLegacyCms().iterator().next().intValue();
+        _tagHandler.setArticleId(legacyArticleId);
+
+        Article article = new Article();
+        article.setId(legacyArticleId);
+        article.setTitle("title");
+        article.setActive(true);
+        article.setStatesAsString("CA");
+
+        _tagHandler.setArticle(article);
+
+        _tagHandler.doTag();
+
+        assertEquals("<a href=\"/cgi-bin/showarticle/" + legacyArticleId + "\">title</a>", _out.getOutputBuffer().toString());
+    }
 
     public void testLinkByArticle() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setTitle("title");
         article.setActive(true);
         article.setStatesAsString("CA");
@@ -80,7 +171,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
     public void testLinkFeatured() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setTitle("title");
         article.setActive(true);
         article.setStatesAsString("CA");
@@ -96,7 +187,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
     public void testLinkTargetStyle() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setTitle("title");
         article.setActive(true);
         article.setStatesAsString("CA");
@@ -113,7 +204,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
     public void testLinkId() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setTitle("title");
         article.setActive(true);
         article.setStatesAsString("CA");
@@ -133,13 +224,13 @@ public class ArticleLinkTagHandlerTest extends TestCase {
     }
 
     public void testMissingArticleId() throws IOException {
-        _tagHandler.setArticleId(new Integer(15));
+        _tagHandler.setArticleId(15);
 
-        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(15)), null);
-        _articleControl.replay();
+        expect(_articleDao.getArticleFromId(15)).andReturn(null);
+        replay(_articleDao);
 
         _tagHandler.doTag();
-        _articleControl.verify();
+        verify(_articleDao);
 
         assertEquals("Expected no output since article id was invalid",
                 "", _out.getOutputBuffer().toString());
@@ -147,7 +238,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
     public void testEncoding() throws IOException {
         Article article = new Article();
-        article.setId(new Integer(1));
+        article.setId(1);
         article.setActive(true);
         article.setStatesAsString("--");
         article.setTitle("& is the new !");
@@ -166,7 +257,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         Article article = new Article();
         article.setTitle("Tests in $LONGSTATE are fun!");
 
-        String output = _tagHandler.formatArticleTitle(article, State.CA);
+        String output = _tagHandler.formatArticleTitle(new ArticleLinkTagHandler.LinkableContent(article), State.CA);
 
         assertEquals("Expected substitution of state long name",
                 "Tests in California are fun!", output);
@@ -176,27 +267,27 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         Article article = new Article();
         article.setTitle("Beyond PB&J: Healthy Lunch Ideas");
         assertEquals("Expected to replace ampersand with entity", "Beyond PB&amp;J: Healthy Lunch Ideas",
-                _tagHandler.formatArticleTitle(article, State.CA));
+                _tagHandler.formatArticleTitle(new ArticleLinkTagHandler.LinkableContent(article), State.CA));
 
         article.setTitle("Beyond PB&amp;J: Healthy Lunch Ideas");
         assertEquals("Shouldn't replace ampersand in entity", "Beyond PB&amp;J: Healthy Lunch Ideas",
-                _tagHandler.formatArticleTitle(article, State.CA));
+                _tagHandler.formatArticleTitle(new ArticleLinkTagHandler.LinkableContent(article), State.CA));
 
         article.setTitle("Beyond PB&J &#8212; Healthy Lunch Ideas");
         assertEquals("Should replace only ampersands that aren't part of an entity", "Beyond PB&amp;J &#8212; Healthy Lunch Ideas",
-                _tagHandler.formatArticleTitle(article, State.CA));
+                _tagHandler.formatArticleTitle(new ArticleLinkTagHandler.LinkableContent(article), State.CA));
     }
 
     public void testGetAndValidateArticle() {
-        _tagHandler.setArticleId(new Integer(18));
+        _tagHandler.setArticleId(18);
 
-        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(18)), null);
-        _articleControl.replay();
+        expect(_articleDao.getArticleFromId(18)).andReturn(null);
+        replay(_articleDao);
 
         Article article;
 
         article = _tagHandler.getAndValidateArticle();
-        _articleControl.verify();
+        verify(_articleDao);
         assertNull(article);
 
         _tagHandler.setArticleId(null);

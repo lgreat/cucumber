@@ -1,11 +1,14 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.104 2009/06/17 20:54:29 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.105 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
+import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.Publication;
+import gs.data.content.cms.CmsConstants;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.school.LevelCode;
@@ -14,6 +17,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.data.util.CmsUtil;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.widget.CustomizeSchoolSearchWidgetController;
 import gs.web.widget.SchoolSearchWidgetController;
@@ -65,71 +69,47 @@ public class UrlBuilderSaTest extends TestCase {
         Article article = new Article();
         article.setId(new Integer(5));
         article.setActive(true);
-        UrlBuilder builder12 = new UrlBuilder(article, State.CA, true);
+        UrlBuilder builder12 = new UrlBuilder(article.getId(), true);
         assertEquals("/cgi-bin/showarticlefeature/5", builder12.toString());
-        UrlBuilder builder11 = new UrlBuilder(article, State.CA, false);
+        UrlBuilder builder11 = new UrlBuilder(article.getId(), false);
         assertEquals("/cgi-bin/showarticle/5", builder11.toString());
-        UrlBuilder builder10 = new UrlBuilder(article, State.WY, true);
+        UrlBuilder builder10 = new UrlBuilder(article.getId(), true);
         assertEquals("/cgi-bin/showarticlefeature/5", builder10.toString());
-        UrlBuilder builder9 = new UrlBuilder(article, State.WY, false);
+        UrlBuilder builder9 = new UrlBuilder(article.getId(), false);
         assertEquals("/cgi-bin/showarticle/5", builder9.toString());
     }
 
-    /**
-     * Tests the Article Link Builder
-     *
-     * This test that the correct urls are being built.  The Urls are being
-     * transitioned from the old style
-     *
-     *        /cgi-bin/showarticle/ca/700
-     * 
-     * to the new style.
-     *
-     *        /cgi-bin/showarticle/700
-     *
-     * The transition is being done incrementally, so each iteration, the lower
-     * boundry is decreased.
-     *
-     * GS-4929 lb=700, GS-5037 lb=1, GS-5142 Transition complete
-     */
-    public void testArticleLinkBuilder_NewURL() {
-        Article article = new Article();
+    public void testArticleTagReturnsNewPublicationUrlWhenCmsEnabled() {
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.enableCms();
 
-        Integer lowerLimitId = 1;
-        //Integer underId = lowerLimitId - 1;
-        UrlBuilder builder;
+        UrlBuilder builder = new UrlBuilder(8, false) {
+            @Override
+            public Publication getPublication(Integer legacyId) {
+                Publication pub = new Publication();
+                pub.setLegacyId(Long.valueOf(legacyId));
+                pub.setContentKey(new ContentKey("article", 35L));
+                pub.setFullUri("/Topic/Category/Title");
+                return pub;
+            }
+        };
 
-        /**
-         * Test Obsolete
-        // GS-4929
-        article.setId(underId);
-        article.setActive(true);
-        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/ca/" + underId.toString(), builder.toString());
-         */
+        assertEquals("/Topic/Category/Title.gs?content=35", builder.asSiteRelative(null));
 
-        // Lower Boundry
-        article.setId(lowerLimitId);
-        builder = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/" + lowerLimitId.toString(), builder.toString());
+        CmsUtil.setCmsEnabled(cmsEnabled);
+    }
 
-        /**
-         * Test Obsolete
-        // GS-4929
-        article.setId(699);
-        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/ca/699", builder.toString());
-        */
+    public void testArticleTagReturnsLegacyUrlForFallbackBehavior() {
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.enableCms();
 
-        // Above the lower boundry
-        article.setId(700);
-        builder = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/700", builder.toString());
+        int legacyArticleId = CmsConstants.getArticlesServedByLegacyCms().iterator().next().intValue();
 
-        // Feature Article is true
-        article.setId(1000);
-        builder = new UrlBuilder(article, State.CA, true);
-        assertEquals("/cgi-bin/showarticlefeature/1000", builder.toString());
+        UrlBuilder builder = new UrlBuilder(legacyArticleId, false);
+
+        assertEquals("/cgi-bin/showarticle/" + legacyArticleId, builder.asSiteRelative(null));
+
+        CmsUtil.setCmsEnabled(cmsEnabled);
     }
 
     public void testUrlBuilder() {
@@ -512,7 +492,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/content/stateStandards.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.PRESCHOOL);
-        assertEquals("/preschool/", builder.asSiteRelative(request));        
+        assertEquals("/preschool/", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {
@@ -571,7 +551,7 @@ public class UrlBuilderSaTest extends TestCase {
         // research & compare
         // national
         urlBuilder = new UrlBuilder("research");
-        assertEquals("/school/research.page", urlBuilder.asSiteRelative(getMockRequest()));        
+        assertEquals("/school/research.page", urlBuilder.asSiteRelative(getMockRequest()));
 
         // Maryland
         urlBuilder = new UrlBuilder("research?state=MD");

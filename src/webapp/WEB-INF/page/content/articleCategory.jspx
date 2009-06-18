@@ -24,9 +24,24 @@
 
 <head>
     <title>
-        ${requestScope.subcategory.typeDisplay} Articles - GreatSchools.net
+        <c:choose>
+            <c:when test="${not empty requestScope.subcategory.typeDisplay}">
+                ${requestScope.subcategory.typeDisplay}
+            </c:when>
+            <c:when test="${not empty category.name}">
+                ${category.name}
+            </c:when>
+        </c:choose>
+        articles | GreatSchools
     </title>
-    <meta name="keywords" content="${requestScope.subcategory.typeDisplay}" />
+    <c:choose>
+        <c:when test="${not empty requestScope.subcategory.typeDisplay}">
+            <meta name="keywords" content="${requestScope.subcategory.typeDisplay}"/>
+        </c:when>
+        <c:when test="${not empty category.name}">
+            <meta name="keywords" content="${category.name}"/>            
+        </c:when>
+    </c:choose>
 </head>
 
 <gsml:body adPageName="articleCategory">
@@ -67,12 +82,30 @@
             <c:if test="${isALearningDisabilityCategory}">
                 <li><link:specialNeeds styleClass="breadcrumb">Learning Disabilities</link:specialNeeds> &amp;gt;</li>
             </c:if>
-            <li> ${requestScope.subcategory.typeDisplay}</li>
+            <li>
+                <c:choose>
+                    <c:when test="${not empty requestScope.subcategory.typeDisplay}">
+                        ${requestScope.subcategory.typeDisplay}
+                    </c:when>
+                    <c:when test="${not empty category.name}">
+                        ${category.name}
+                    </c:when>
+                </c:choose>
+            </li>
         </ul>
     </div>
     <!-- end: breadcrumbs -->
 
-    <h1>${requestScope.subcategory.typeDisplay}</h1>
+    <h1>
+    <c:choose>
+        <c:when test="${not empty requestScope.subcategory.typeDisplay}">
+            ${requestScope.subcategory.typeDisplay}
+        </c:when>
+        <c:when test="${not empty category.name}">
+            ${category.name}
+        </c:when>
+    </c:choose>
+    </h1>
 
     <div id="searchResults">
         <c:if test="${not empty requestScope.mainResults}">
@@ -80,7 +113,7 @@
         </c:if>
 
         <br style="clear: left;"/>
-        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
+        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}" language="${language}"/>
     </div>
 
 </div>

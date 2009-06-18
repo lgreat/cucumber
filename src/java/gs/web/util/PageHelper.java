@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.77 2009/06/15 19:53:32 aroy Exp $
+ * $Id: PageHelper.java,v 1.78 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
@@ -146,16 +146,19 @@ public class PageHelper {
      * Adds the referenced css file to the list of files to be included at the top of the file. The sitemsh decorator is
      * responsible for retrieving these and including them.
      *
+     * If media is specified for the last time the same cssSrc is specified
+     *
      * If cssSrc contains screen, then the media type will be media="screen"
      * If cssSrc contains print, then the media type will be media="print"
      * Else no media attribute will appear
      *
      * @param cssSrc exact url to be included
+     * @param media if this is not null, use media="[specified string]", overriding the logic above.
      */
-    public static void addExternalCss(HttpServletRequest request, String cssSrc) {
+    public static void addExternalCss(HttpServletRequest request, String cssSrc, String media) {
         PageHelper pageHelper = getInstance(request);
         if (pageHelper != null) {
-            pageHelper.addCssSource(cssSrc);
+            pageHelper.addCssSource(cssSrc, media);
         } else {
             _log.error("No PageHelper object available.");
         }
@@ -189,7 +192,7 @@ public class PageHelper {
     }
 
     /**
-     * Get the city name to use for the footer Yahoo Real Estate link, but escape it so that it can be used in an href.  
+     * Get the city name to use for the footer Yahoo Real Estate link, but escape it so that it can be used in an href.
      *
      * @return Yahoo Real Estate city name for link in footer
      */
@@ -198,7 +201,7 @@ public class PageHelper {
         try {
             escapedCity = URLEncoder.encode(escapedCity, "UTF-8");
         } catch (java.io.UnsupportedEncodingException e) {
-            // Do nothing, just return what we have   
+            // Do nothing, just return what we have
         }
 
         return escapedCity;
@@ -241,6 +244,7 @@ public class PageHelper {
 
     private Set<String> _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
     private Set<String> _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
+    private Map<String,String> _cssMediaMap; // map of css src to which media to use
 
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
@@ -543,7 +547,7 @@ public class PageHelper {
     private void setPageName(String pageName) {
         _pageName = pageName;
     }
-    
+
     private void addOnLoadHandler(String javascript) {
         if (javascript.indexOf('\"') != -1) {
             throw new IllegalArgumentException("Quotes not coded correctly.");
@@ -585,9 +589,10 @@ public class PageHelper {
         }
     }
 
-    private void addCssSource(String src) {
+    private void addCssSource(String src, String media) {
         if (_cssFiles == null) {
             _cssFiles = new LinkedHashSet<String>();
+            _cssMediaMap = new HashMap<String,String>();
         }
         if (!_cssFiles.contains(src)) {
             if(!(src.indexOf("http") >-1)){
@@ -597,6 +602,11 @@ public class PageHelper {
                 src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             }
             _cssFiles.add(src);
+            // this means that the last media specified will be used
+            // if media isn't specified for the last time this file shows up, media will not be applied
+            // as overriding behavior over using the file name
+            // if media is specified, file name will not be used to determine media
+            _cssMediaMap.put(src, media);
         }
     }
 
@@ -623,7 +633,7 @@ public class PageHelper {
      * @return non-null String.
      */
     public String getHeadElements() {
-        if (_javascriptFiles != null || _cssFiles != null) {
+        if (_javascriptFiles != null || _cssFiles != null || _cssMediaMap != null) {
             StringBuffer sb = new StringBuffer();
             if (_javascriptFiles != null) {
                 for (String _javascriptFile : _javascriptFiles) {
@@ -632,15 +642,21 @@ public class PageHelper {
                     sb.append("<script type=\"text/javascript\" src=\"").append(src).append("\"></script>");
                 }
             }
-            if (_cssFiles != null) {
+            if (_cssFiles != null && _cssMediaMap != null) {
                 for (String _cssFile : _cssFiles) {
                     String src = _cssFile;
+                    String media = _cssMediaMap.get(src);
+
                     src = StringUtils.replace(src, "&", "&amp;");
-                    String media = "";
-                    if (StringUtils.containsIgnoreCase(src, "screen")) {
-                        media = " media=\"screen\"";
-                    } else if (StringUtils.containsIgnoreCase(src, "print")) {
-                        media = " media=\"print\"";
+                    if (media == null) {
+                        media = "";
+                        if (StringUtils.containsIgnoreCase(src, "screen")) {
+                            media = " media=\"screen\"";
+                        } else if (StringUtils.containsIgnoreCase(src, "print")) {
+                            media = " media=\"print\"";
+                        }
+                    } else {
+                        media = " media=\"" + media + "\"";
                     }
                     sb.append("<link rel=\"stylesheet\" type=\"text/css\"")
                             .append(media)

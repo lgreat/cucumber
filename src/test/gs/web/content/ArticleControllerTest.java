@@ -1,15 +1,19 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.UrlBuilder;
+import gs.web.util.RedirectView301;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.ArticleCategory;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import org.springframework.web.servlet.ModelAndView;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 
 /**
@@ -167,5 +171,65 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         assertNull(article.getMetaDescriptor());
         article.setAbstract("<tag>inside first</tag> less than sign < <more>inside second</more>");
         assertEquals("inside first less than sign < inside second",article.getMetaDescriptor());
+    }
+
+    public void testArticleServedByLegacyCms() {
+        int articleServedByLegacyCms = 622;
+
+        CmsUtil.enableCms();
+
+        getRequest().setParameter(ArticleController.PARAM_AID, String.valueOf(articleServedByLegacyCms));
+        expect(_articleDao.getArticleFromId(articleServedByLegacyCms, true)).andReturn(null);
+        replay(_articleDao);
+        _controller.handleRequestInternal(getRequest(), getResponse());
+        assertEquals(HttpServletResponse.SC_OK, getResponse().getStatus());
+        verify(_articleDao);
+
+        CmsUtil.disableCms();
+    }
+
+    public void testArticleServedByCmsButNotPublished() {
+        int articleServedByCmsButNotPublished = 1;
+
+        CmsUtil.enableCms();
+
+        UrlBuilder mock = createStrictMock(UrlBuilder.class);
+        _controller.setUrlBuilderForArticleId(mock);
+
+        getRequest().removeParameter(ArticleController.PARAM_AID);
+        getRequest().setParameter(ArticleController.PARAM_AID, String.valueOf(articleServedByCmsButNotPublished));
+        replay(_articleDao);
+        expect(mock.asSiteRelative(getRequest())).andReturn("/cgi-bin/showarticle/" + articleServedByCmsButNotPublished);
+        replay(mock);
+        _controller.handleRequestInternal(getRequest(), getResponse());
+        assertEquals(HttpServletResponse.SC_NOT_FOUND, getResponse().getStatus());
+        verify(_articleDao);
+        verify(mock);
+
+        reset(_articleDao);
+        reset(mock);
+
+        CmsUtil.disableCms();
+    }
+
+    public void testArticleServedByCmsAndPublished() {
+        int articleServedByCmsButPublished = 41;
+
+        CmsUtil.enableCms();
+
+        UrlBuilder mock = createStrictMock(UrlBuilder.class);
+        _controller.setUrlBuilderForArticleId(mock);
+
+        getRequest().removeParameter(ArticleController.PARAM_AID);
+        getRequest().setParameter(ArticleController.PARAM_AID, String.valueOf(articleServedByCmsButPublished));
+        replay(_articleDao);
+        expect(mock.asSiteRelative(getRequest())).andReturn("/anything_not_starting_with_cgi-bin");
+        replay(mock);
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        verify(_articleDao);
+        verify(mock);
+
+        CmsUtil.disableCms();
     }
  }

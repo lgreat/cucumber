@@ -4,14 +4,20 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.util.email.MockJavaMailSender;
+import gs.data.util.CmsUtil;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.content.cms.ICmsFeatureDao;
+import gs.data.content.cms.CmsFeature;
+import gs.data.content.cms.ContentKey;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.*;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
@@ -43,6 +49,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao(_schoolDao);
         _articleDao = createStrictMock(IArticleDao.class);
         _controller.setArticleDao(_articleDao);
+
     }
 
     public void testGetEmailFromSessionOnBind() {
@@ -104,6 +111,40 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertTrue(command.getMessage().indexOf("helpful resource") > -1);
         assertTrue(command.getMessage().indexOf("article") > -1);
         assertTrue(command.getMessage().indexOf("1") > -1);
+    }
+
+    public void testFeatureId() {
+
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+
+        CmsUtil.setCmsEnabled(true);
+
+        MailToFriendCommand command = new MailToFriendCommand();
+        BindException errors = new BindException(command, "");
+
+        command.setFeatureId(1);
+        _controller.setCmsFeatureDao(new ICmsFeatureDao() {
+            public CmsFeature get(Long contentId) {
+
+                assertEquals("Wrong content Id", contentId, new Long(1));
+
+                CmsFeature feature = new CmsFeature();
+                feature.setContentKey(new ContentKey("Article", 1L));
+                feature.setFullUri("/full/uri");
+                return feature;
+            }
+
+            public List<CmsFeature> getAll() {
+                return null;
+            }
+        });
+
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+
+        assertTrue(command.getMessage().indexOf("helpful resource") > -1);
+        assertTrue(command.getMessage().indexOf("/full/uri.gs?content=1") > -1);
+
+        CmsUtil.setCmsEnabled(cmsEnabled);
     }
 
     //test emails validate correctly

@@ -53,9 +53,10 @@ img {
 #nearbyWrapper, #nthGraderAd, .cobrandAd, #financialAidPlanner,
 #BelowFold_Top_300x125, #BelowFold_Bottom_300x125,
 #AboveFold_300x600, #AboveFold_300x250, #BelowFold_300x250 {
-    margin-top: 20px;
+    /*margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ccc;*/
+    margin-bottom: 20px;
 }
 
 /* text ads */

@@ -12,19 +12,19 @@
         <description>GreatSchools Articles</description>
         <copyright>GreatSchools</copyright>
         <language>en-us</language>
-    <c:forEach items="${articles}" var="article">
+    <c:forEach items="${articles}" var="askTheExperts">
         <jsp:scriptlet>
-            UrlBuilder urlBuilder = new UrlBuilder((Article) pageContext.getAttribute(&quot;article&quot;), null, false);
+            UrlBuilder urlBuilder = new UrlBuilder(((Article) pageContext.getAttribute(&quot;article&quot;)).getId(), false);
             String articleUrl = urlBuilder.asFullUrlXml(request);
             request.setAttribute("articleUrl", articleUrl);
         </jsp:scriptlet>
         <item>
-            <title><c:out value="${article.title}"/></title>
-            <author><c:out value="${article.author}"/></author>
-            <description><c:out value="${article.abstract}"/></description>
+            <title><c:out value="${askTheExperts.title}"/></title>
+            <author><c:out value="${askTheExperts.author}"/></author>
+            <description><c:out value="${askTheExperts.abstract}"/></description>
             <link>${articleUrl}</link>
-            <guid isPermaLink="false"><c:out value="${article.id}"/></guid>
-            <pubDate><c:out value="${article.posted}"/></pubDate>
+            <guid isPermaLink="false"><c:out value="${askTheExperts.id}"/></guid>
+            <pubDate><c:out value="${askTheExperts.posted}"/></pubDate>
         </item>
     </c:forEach>
 </channel>

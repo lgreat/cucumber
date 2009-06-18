@@ -173,6 +173,74 @@
     </tag>
 
     <tag>
+        <name>cmsCategoryBrowse</name>
+        <tag-class>gs.web.jsp.link.CmsCategoryBrowseTagHandler</tag-class>
+        <body-content>tagdependent</body-content>
+        <display-name>CMS Category Browse</display-name>
+        <description>
+            <![CDATA[Link to a CMS category browse page.]]>
+        </description>
+        <attribute>
+            <name>categoryId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>CMS category id</description>
+        </attribute>
+        <attribute>
+            <name>language</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Language code</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>cmsContent</name>
+        <tag-class>gs.web.jsp.link.CmsContentTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>CMS Content</display-name>
+        <description>
+            <![CDATA[Link to cms content.]]>
+        </description>
+        <attribute>
+            <name>contentKey</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.content.cms.CmsContent</type>
+            <description>Content to link to.</description>
+        </attribute>
+        <attribute>
+            <name>fullUri</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>SEO Uri of the content to link to</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>glossaryTerm</name>
         <tag-class>gs.web.jsp.link.GlossaryTermLinkTagHandler</tag-class>
         <body-content>JSP</body-content>

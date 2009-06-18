@@ -154,4 +154,5 @@
         </property>
     </bean>
 
+    <bean id="cmsFeatureEmbeddedLinkResolver" class="gs.web.content.cms.CmsContentLinkResolver"/>
 </beans>

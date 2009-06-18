@@ -1,15 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.7 2008/12/18 17:36:54 aroy Exp $
+ * $Id: ArticleTagHandler.java,v 1.8 2009/06/18 23:08:16 eingenito Exp $
  */
 
 package gs.web.jsp.link;
 
-import gs.data.content.Article;
-import gs.data.content.IArticleDao;
-import gs.web.util.context.SessionContext;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -19,33 +15,16 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ArticleTagHandler extends LinkTagHandler {
 
-    private Article _article;
     private Integer _articleId;
     private boolean _featured;
     private String _campaignId;
 
     protected UrlBuilder createUrlBuilder() {
-        Article a= getArticle();
-        UrlBuilder builder = new UrlBuilder(a, getState(), _featured);
+        UrlBuilder builder = new UrlBuilder(_articleId, _featured);
         if (StringUtils.isNotBlank(_campaignId)) {
             builder.addParameter("s_cid", _campaignId);
         }
         return builder;
-    }
-
-    public Article getArticle() {
-        if (_article != null) {
-            return _article;
-        } else {
-            SessionContext context = getSessionContext();
-            IArticleDao articleDao = (IArticleDao) context.getApplicationContext().getBean(IArticleDao.BEAN_ID);
-            Article a = articleDao.getArticleFromId(_articleId);
-            return a;
-        }
-    }
-
-    public void setArticle(Article article) {
-        _article = article;
     }
 
     public void setArticleId(Integer articleId) {

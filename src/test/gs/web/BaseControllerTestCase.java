@@ -1,11 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.9 2006/12/21 01:27:36 thuss Exp $
+ * $Id: BaseControllerTestCase.java,v 1.10 2009/06/18 23:08:23 eingenito Exp $
  */
 
 package gs.web;
 
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -33,6 +35,9 @@ public class BaseControllerTestCase extends BaseTestCase {
         _sessionContext.setState(State.CA);
         _sessionContext.setUser(null);
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        ServletRequestAttributes attrbs = new ServletRequestAttributes(_request);
+        RequestContextHolder.setRequestAttributes(attrbs);
 
         _response = new MockHttpServletResponse();
     }

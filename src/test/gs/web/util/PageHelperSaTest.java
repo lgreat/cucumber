@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.46 2008/10/01 21:47:07 cpickslay Exp $
+ * $Id: PageHelperSaTest.java,v 1.47 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
@@ -233,21 +233,21 @@ public class PageHelperSaTest extends TestCase {
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
-        PageHelper.addExternalCss(_request, "/res/css/special.css");
+        PageHelper.addExternalCss(_request, "/res/css/special.css", null);
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
         //add a duplicate, should not get multiple
-        PageHelper.addExternalCss(_request, "/res/css/special.css");
+        PageHelper.addExternalCss(_request, "/res/css/special.css", null);
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
         //add a print css
-        PageHelper.addExternalCss(_request, "/res/pRint-sifr.css");
+        PageHelper.addExternalCss(_request, "/res/pRint-sifr.css", null);
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
@@ -255,7 +255,7 @@ public class PageHelperSaTest extends TestCase {
                 pageHelper.getHeadElements());
 
         //add a screen css
-        PageHelper.addExternalCss(_request, "/res/screen-sifr.css");
+        PageHelper.addExternalCss(_request, "/res/screen-sifr.css", null);
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
@@ -265,8 +265,62 @@ public class PageHelperSaTest extends TestCase {
 
 
 
-        PageHelper.addExternalCss(_request, "");
+        PageHelper.addExternalCss(_request, "", null);
 
+    }
+
+    public void testExternalCssMedia() {
+        SessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        Properties versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
+
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        PageHelper.addExternalCss(_request, "styles.css", null);
+        PageHelper.addExternalCss(_request, "styles.css", "print");
+
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"styles.css?v=8.3\"></link>",
+                pageHelper.getHeadElements());
+
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
+
+        PageHelper.addExternalCss(_request, "print.css", null);
+        PageHelper.addExternalCss(_request, "print.css", "screen");
+
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"print.css?v=8.3\"></link>",
+                pageHelper.getHeadElements());
+
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
+
+        PageHelper.addExternalCss(_request, "screen.css", null);
+        PageHelper.addExternalCss(_request, "screen.css", "print");
+
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"screen.css?v=8.3\"></link>",
+                pageHelper.getHeadElements());
+
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
+
+        PageHelper.addExternalCss(_request, "screen.css", null);
+        PageHelper.addExternalCss(_request, "screen.css", "print");
+        PageHelper.addExternalCss(_request, "screen.css", "screen");
+        PageHelper.addExternalCss(_request, "screen.css", null);
+
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"screen.css?v=8.3\"></link>",
+                pageHelper.getHeadElements());
     }
 
     public void testHideFooter() {

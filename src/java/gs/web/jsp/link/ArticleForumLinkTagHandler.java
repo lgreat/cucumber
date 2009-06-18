@@ -27,7 +27,8 @@ public class ArticleForumLinkTagHandler extends ArticleLinkTagHandler {
         return article;
     }
 
-    public String getHref(Article article) {
+
+    public String getUrlForArticle(Article article) {
         return article.getForumUrl().replaceAll("&", "&amp;");
     }
 }

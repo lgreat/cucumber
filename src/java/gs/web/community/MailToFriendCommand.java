@@ -19,6 +19,8 @@ public class MailToFriendCommand implements ICaptchaCommand {
 
     private int _articleId;
 
+    private long _featureId;
+
 
     public String getUserEmail() {
         return _userEmail;
@@ -74,6 +76,14 @@ public class MailToFriendCommand implements ICaptchaCommand {
 
     public void setArticleId(int articleId) {
         _articleId = articleId;
+    }
+
+    public long getFeatureId() {
+        return _featureId;
+    }
+
+    public void setFeatureId(long featureId) {
+        _featureId = featureId;
     }
 
     public String getRefer() {

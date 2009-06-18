@@ -351,6 +351,18 @@
         </property>
    </bean>
 
+   <bean name="/content/cms/moreInCategory.module"
+         class="gs.web.content.ArticlesByCategoryController"
+         autowire="byName" lazy-init="true">
+       <property name="viewName" value="/search/moreInCategory"/>
+   </bean>
+
+    <bean name="/content/cms/mostPopularContent.module"
+         class="gs.web.content.cms.MostPopularContentController"
+         autowire="byName" lazy-init="true">
+       <property name="viewName" value="/content/cms/mostPopularContent"/>
+   </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

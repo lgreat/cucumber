@@ -1,10 +1,13 @@
 package gs.web.community;
 
+import gs.data.content.Article;
+import gs.data.content.IArticleDao;
+import gs.data.content.cms.CmsFeature;
+import gs.data.content.cms.ICmsFeatureDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.data.content.Article;
-import gs.data.content.IArticleDao;
+import gs.data.util.CmsUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -31,6 +34,7 @@ public class MailToFriendController extends SimpleFormController {
     private JavaMailSender _mailSender;
     private ISchoolDao _schoolDao;
     private IArticleDao _articleDao;
+    private ICmsFeatureDao _featureDao;
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -76,23 +80,32 @@ public class MailToFriendController extends SimpleFormController {
                 mtc.setMessage(msgBuffer.toString());
             }
         } else if (0 != mtc.getArticleId()) {
-            State state = session.getStateOrDefault();
             Article article = getArticleDao().getArticleFromId(mtc.getArticleId());
             if (null != article) {
-                mtc.setSubject("I think you'll like GreatSchools");
+                UrlBuilder urlBuilder = new UrlBuilder(article.getId(), false);
+                createMessage(request, mtc, urlBuilder.asFullUrl(request));
+            }
+        } else if (CmsUtil.isCmsEnabled() && mtc.getFeatureId() > 0) {
 
-                StringBuffer msgBuffer = new StringBuffer();
-                UrlBuilder urlBuilder = new UrlBuilder(article, state, false);
-
-                msgBuffer.append("Check out this helpful resource I found").append
-                        (" on GreatSchools.net to support my child!").append
-                        ("\n\n").append
-                        ("Click on this link to learn more:").append
-                        ("\n\n").append
-                        (urlBuilder.asFullUrl(request));
-                mtc.setMessage(msgBuffer.toString());
+            CmsFeature feature = _featureDao.get(mtc.getFeatureId());
+            if (null != feature) {
+                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
+                createMessage(request, mtc, urlBuilder.asFullUrl(request));
             }
         }
+    }
+
+    private void createMessage(HttpServletRequest request, MailToFriendCommand mtc, String url) {
+        mtc.setSubject("I think you'll like GreatSchools");
+
+        StringBuffer msgBuffer = new StringBuffer();
+        msgBuffer.append("Check out this helpful resource I found").append
+                (" on GreatSchools.net to support my child!").append
+                ("\n\n").append
+                ("Click on this link to learn more:").append
+                ("\n\n").append
+                (url);
+        mtc.setMessage(msgBuffer.toString());
     }
 
     /**
@@ -179,5 +192,13 @@ public class MailToFriendController extends SimpleFormController {
 
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
+    }
+
+    public ICmsFeatureDao getCmsFeatureDao() {
+        return _featureDao;
+    }
+
+    public void setCmsFeatureDao(ICmsFeatureDao cmsFeatureDao) {
+        _featureDao = cmsFeatureDao;
     }
 }

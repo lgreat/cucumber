@@ -1,12 +1,19 @@
+/* ---------------------------------- */
+/* ARTICLE AND ASK THE EXPERTS LAYOUT */
+/* ---------------------------------- */
+
+/* -------------- */
+/* ARTICLE STYLES */
+/* -------------- */
+
 #contentGS {
     position: relative;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #333;
+    zoom: 1.0;
 }
 
 #main {
-    width: 620px;
-    margin-top: 0;
+    width: 610px;
+    margin: 0 0 0 15px;
     position: relative;
 }
 
@@ -15,6 +22,22 @@
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.pt {
+    padding-top: 10px;
+}
+
+.pr {
+    padding-right: 10px;
+}
+
+.pb {
+    padding-bottom: 10px;
+}
+
+.pl {
+    padding-left: 10px;
 }
 
 .breadcrumbs {
@@ -26,23 +49,26 @@ ul.horizontal li {
     margin-left: 15px;
 }
 
-br.clear {
-    clear: both;
-    font-size: 1px;
+.clear {
+	clear:both;
+	height:0;
 }
 
 .float.right {
     float: right;
 }
 
-.divider {
-    border-bottom: 1px solid #CCC;
-    height: 10px;
-    margin-bottom: 10px;
+.float.left {
+    float: left;
 }
-    .divider hr {
-        display: none;
-    }
+
+.divider {
+    border-bottom: 2px dotted #ccc;
+}
+
+.divider hr {
+    display: none;
+}
 
 .headerTools {
     margin-top: 10px;
@@ -89,173 +115,294 @@ br.clear {
     text-decoration: underline;
 }
 
-#leftNav {
-    position: absolute;
-    left: 0;
-    width: 175px;
-}
-
 #content {
-    margin-left: 190px;
+    width: 610px;
 }
 
-.bodyHeader {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 8px;
-    margin: 5px 0 8px 0;
+/* -------------- */
+/* ARTICLE HEADER */
+/* -------------- */
+
+#bodyHeader {
 }
 
-    .bodyHeader h2 {
-        font-size: 20px;
-        color: #333;
-    }
-
-    .bodyHeader img.licensor {
-        margin-left: 15px;
-        margin-bottom: 5px;
-    }
-
-    .bodyHeader .pageIdentifier {
-        text-align: right;
-        font-size: 13px;
-        font-style: italic;
-        color: #666;
-    }
-
-    .bodyHeader .summary {
-        color: #666;
-    }
-        .summary p {
-            font-style: italic;
-        }
-
-#content .otherLanguageLink {
-    text-align: right;
-    margin-bottom: 5px;
+#bodyHeader h1, #bodyHeader h2 {
+    font: 27px Georgia, "Times New Roman", Times, serif;
+    color: #444;
 }
-    #content .otherLanguageLink a {
-        font-size: 13px;
-    }
 
-.mainImage {
+#bodyHeader .pageIdentifier {
+    font: italic 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666;
+}
+
+#bodyHeader .summary {
+    font: 15px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin: 5px 0 0 0;
+}
+
+/* ----------------- */
+/* ARTICLE LANGUAGES */
+/* ----------------- */
+
+#cmsArticleLanguages {
+    margin: 10px 0;
+}
+
+#cmsArticleLanguages ul span{
+	font: bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	list-style-type:none;
+}
+
+/* ----------------- */
+/* ARTICLE FUNCTIONS */
+/* ----------------- */
+
+#cmsArticleFunctions {
+	text-align:right;
+	float:right;
+	padding:0;
+	margin: 10px 0;
+}
+
+#cmsArticleFunctions ul span{
+	font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:right;
+	list-style-type:none;
+}
+
+#cmsArticleFunctions ul li {
+	float:left;
+	padding-left:20px;
+}
+
+#cmsArticleFunctions a:hover {
+    text-decoration:none;
+}
+
+#cmsArticleFunctions span:hover {
+	text-decoration:underline;
+}
+
+/* ------------ */
+/* ARTICLE BODY */
+/* ------------ */
+
+#cmsArticleText {
+    margin-bottom: 10px;
+}
+
+#cmsArticleText .mainImage {
     float: left;
-    margin: 3px 10px 5px 0;
-    font-size: 12px;
+    margin: 5px 10px 0 0;
 }
-    .mainImage .caption {
-        margin-top: 5px;
-    }
-
-#cmsArticleText, #cmsArticleText p, #cmsArticleText li, #cmsArticleText span, #cmsArticleText div {
+#cmsArticleText .caption {
+    text-align: center;
     font-size: 12px;
-    color: #333;
-    line-height: 120%;
+    color: #999;
+    margin: 10px 0 0 0;
 }
 
-    #cmsArticleText #cmsArticleSidebar {
-        border: 1px dotted #666666;
-        padding: 15px;
-        margin-left: 20px;
-        font-size: 10px;
-        float: right;
-        width: 200px;
-        clear: right;
-    }
+#cmsArticleText h1 {
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
+    color: #444;
+    margin-bottom:10px;
+}
 
-    #cmsArticleText h1 {
-        font-size: 24px;
-        line-height: 120%;
-    }
+#cmsArticleText h2 {
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
+    color: #444;
+    margin-bottom:10px;
+}
 
-    #cmsArticleText h2 {
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 120%;
-    }
+#cmsArticleText h3 {
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
+    color: #444;
+    margin-bottom:10px;
+}
 
-    #cmsArticleText h3 {
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 120%;
-    }
+#cmsArticleText h4 {
+    font: bold 16px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin: 0px;
+}
 
-    #cmsArticleText p {
-        margin-bottom: 1.0em;
-    }
+#cmsArticleText p {
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin-bottom:10px;
+}
 
-    #cmsArticleText ul li {
-        list-style: disc;
-        margin-left: 2em;
-        margin-bottom: 0.2em;
-    }
+#cmsArticleText ul,
+#cmsArticleText ol,
+#authorBio ul,
+#authorBio ol {
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin-bottom:10px;
+}
 
-    #cmsArticleText ol,
-        #cmsArticleText ul {
-        margin-bottom: 1.0em;
-    }
+#cmsArticleText ul li,
+#authorBio ul li {
+    list-style: disc inside;
+    color: #eb9339;
+    /*list-style-position: inside;*/
+    /*list-style-image: url("/res/img/home/module/bullet.png");*/
+    /*background:url("/res/img/home/module/bullet.png") no-repeat left center;*/
+    /*list-style: none;*/
+    padding: 5px 25px;
+}
 
-    #cmsArticleText ol li {
-        list-style: decimal;
-        margin-left: 2em;
-        margin-bottom: 0.2em;
-    }
+.darktext {
+    color: #444;
+}
 
-/* Pagination */
+#cmsArticleText ol li,
+#authorBio ol li {
+    list-style: decimal inside;
+    color: #444;
+    padding: 5px 25px;
+}
+
+#cmsArticleText table {
+    border:1px solid #e8f5f5;
+    padding:5px 10px;
+    border-collapse: collapse;
+    line-height: 19px;
+    font: 13px "Trebuchet MS",Helvetica,sans-serif;
+    color:#444;
+    margin: 0 0 10px 0;
+}
+
+#cmsArticleText th {
+    background-color: #e8f5f5;
+    padding:5px 10px;
+    line-height: 19px;
+}
+
+#cmsArticleText td {
+    padding:5px 10px;
+    line-height: 19px;
+}
+
+/* --------------- */
+/* ARTICLE SIDEBAR */
+/* --------------- */
+
+#cmsArticleSidebar {
+    /*-moz-border-radius: 10px;*/
+    /*-webkit-border-radius: 10px;*/
+	/*border-left: 3px solid #42bcce;*/
+    /*border-right: 3px solid #42bcce;*/
+    background: url(/res/img/box/sidebar_border.gif) repeat-y;
+	/*padding: 20px;*/
+	margin: 0 15px 0 3px;
+	float: left;
+	width: 245px;
+}
+
+#cmsArticleSidebar div {
+    margin: 0;
+}
+
+#cmsArticleSidebar h3 {
+	color: #d66671;
+    padding: 10px 20px 0 20px;
+    margin: 0;
+}
+
+#cmsArticleSidebar p {
+    line-height: 1.4;
+    padding: 8px 20px 0 20px;
+}
+
+#cmsArticleSidebar ul, #cmsArticleSidebar ol {
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin: 15px 0;
+}
+
+/* -------------- */
+/* ARTICLE AUTHOR */
+/* -------------- */
+
 .authorPageBar {
     margin-top: 5px;
     width: 100%;
 }
 
 .authors {
-    font-size: 12px;
-    color: #666;
-    width: 200px;
+    font: 13px Georgia, "Times New Roman", Times, serif;
+    color: #444;
 }
 
-.cmsArticlePagination {
+.authors p {
+    font: 13px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #999;
+    margin: 10px 0;
+}
+
+/* ------------------ */
+/* ARTICLE PAGINATION */
+/* ------------------ */
+
+#content .cmsArticlePagination {
     font-size: 13px;
+    line-height: 1.0;
     text-align: right;
+    color: #444;
+    padding: 0;
 }
-    .cmsArticlePagination .active {
-        font-weight: bold;
-        padding: 4px 8px;
-        margin-right: 3px;
-    }
-    #content .cmsArticlePagination a {
-        text-decoration: underline;
-        padding: 3px 7px;
-        margin-right: 3px;
-        color: #5BC;
-    }
-    #content .cmsArticlePagination a:link, #content .cmsArticlePagination a:visited,
-        #content .cmsArticlePagination a:hover {
-        color: #5BC;
-        text-decoration: underline;
-    }
-
-.relatedLinks {
-    background-color: #ECECEC;
-    border: 1px solid #CCC;
-    padding: 10px 15px 15px 10px;
-    margin: 15px 0;
+#content .cmsArticlePagination .active {
+    font-weight: bold;
+    margin-left: 15px;
 }
-    .relatedLinks h4 {
-        font-size: 16px;
-        margin: 5px 0;
-        color: #000;
-    }
-    .relatedLinks ul {
-        margin-left: 15px;
-    }
-        .relatedLinks ul li {
-            list-style-type: disc;
-        }
+#content .cmsArticlePagination a {
+    text-decoration: underline;
+    color: #39a;
+    margin: 0 0 0 15px;
+}
 
-#leftNav .module {
+/* --------------------- */
+/* ARTICLE RELATED LINKS */
+/* --------------------- */
+
+#relatedLinks {
+    background-color: #e8f8fd;
+    padding: 20px 20px 0 20px;
+    margin: 0 0 20px 0;
+}
+#relatedLinks h4 {
+    font: 16px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+}
+#relatedLinks ul {
+    font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #39a;
+    padding-bottom: 20px;
+}
+#relatedLinks li {
+    list-style: disc inside;
+    color: #eb9339;
+    /*list-style-position: inside;*/
+    /*list-style-image: url("/res/img/home/module/bullet.png");*/
+}
+
+/* ------------------- */
+/* ARTICLE LEFT COLUMN */
+/* ------------------- */
+
+/*#leftNav .module {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 20px;
-}
+}*/
+
+/* -------------------- */
+/* ARTICLE RIGHT COLUMN */
+/* -------------------- */
 
 #rightColumn .module {
     border: 1px solid #ccc;
@@ -276,17 +423,158 @@ br.clear {
     color: #666;
 }
 
-.sidebar h3 {
-    font-size: 16px;
-    color: #000;
+/* -------------------- */
+/* ARTICLE COMMENT FORM */
+/* -------------------- */
+#cmsArticleForm {
+    margin: 20px 0;
 }
-.sidebar p {
-    margin: 5px 0;
-}
-.sidebar ol {
-    margin-left: 15px;
-}
-    .sidebar ol li {
-        list-style-type: decimal;
-    }
 
+#cmsArticleForm p{
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin: 0 0 10px 25px;
+}
+
+#cmsArticleForm h4{
+    font: 16px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    margin: 0 0 10px 0;
+}
+
+#cmsArticleForm textarea {
+    width: 428px;
+}
+
+#cmsArticleForm input.txt {
+    border: 1px solid #737373;
+    width: 320px;
+}
+
+#cmsArticleForm label {
+    font: 13px/2.1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    width: 100px;
+}
+
+#cmsArticleForm .captcha {
+    margin: 10px 0 10px -4px;
+}
+
+#cmsArticleForm input.btn {
+    font: bold 14px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: white;
+    height: 20px;
+    width: 60px;
+    background-color: #5bc; 
+    border: none;
+    -moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+
+/* ---------------- */
+/* ARTICLE COMMENTS */
+/* ---------------- */
+#cmsArticleComments {
+    margin: 20px 0 0 0;
+}
+
+#cmsArticleComments h4{
+    font: 14px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    margin: 0 0 5px 0;
+}
+
+#cmsArticleComments .comment-text {
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+}
+
+#cmsArticleComments .comment-date {
+    font: 11px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    margin: 16px 0 5px 0;
+}
+
+/* ------------------ */
+/* ARTICLE SHARE THIS */
+/* ------------------ */
+
+#shareThis  {
+    font: 11px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin: 20px 0 15px 0;
+}
+
+#content #shareThis a {
+    text-decoration: underline;
+    color: #666;
+    margin: 0 10px 0 0;
+}
+
+/* --------------------- */
+/* ASK THE EXPERT STYLES */
+/* --------------------- */
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* --------------------- */
+/* ASK THE EXPERT HEADER */
+/* --------------------- */
+
+#bodyHeader h3 {
+    font: bold 13px/0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #5bc;
+    margin: 10px 0 10px 0;
+}
+
+/* ----------------------- */
+/* ASK THE EXPERT QUESTION */
+/* ----------------------- */
+
+#cmsAskTheExpertsQuestion {
+    margin: 0 0 20px 0;
+}
+
+#cmsAskTheExpertsQuestion h3 {
+    font: bold 12px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    margin: 0 0 10px 0;
+}
+
+#cmsAskTheExpertsQuestion p {
+    font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin: 0 0 10px 0;
+}
+
+/* --------------------- */
+/* ASK THE EXPERT ANSWER */
+/* --------------------- */
+
+#cmsAskTheExpertsAnswer h3 {
+    font: bold 12px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    margin: 0 0 10px 0;
+}
+
+/* ------------------ */
+/* ASK THE EXPERT BIO */
+/* ------------------ */
+
+#authorBio {
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin: 20px 0 10px 0;
+}
+
+/* ------------------------- */
+/* ASK THE EXPERT DISCLAIMER */
+/* ------------------------- */
+
+#disclaimer p {
+    font: italic 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #444;
+    margin-bottom:15px;
+}

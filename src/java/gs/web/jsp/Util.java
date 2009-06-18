@@ -9,6 +9,7 @@ import org.joda.time.PeriodType;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.text.BreakIterator;
 import java.util.Date;
 import java.util.Random;
 
@@ -109,6 +110,29 @@ public class Util {
     }
 
     /**
+     * Returns a lowercased version of the supplied String. The following acronyms will have letters in
+     * uppercase/lowercase as shown: LD, LDs, ADD, ADHD, AD/HD.
+     * @param s A <code>String</code> object to be lowercased
+     * @return a <code>String</code, null if input is null
+     */
+    public static String toLowerCase(String s) {
+        if (s == null) {
+            return s;
+        }
+        s = s.toLowerCase();
+        s = s.replaceAll("\\bld\\b", "LD");
+        s = s.replaceAll("\\blds\\b", "LDs");
+        s = s.replaceAll("\\badd\\b", "ADD");
+        s = s.replaceAll("\\badhd\\b", "ADHD");
+        s = s.replaceAll("\\bad/hd\\b", "AD/HD");
+        s = s.replaceAll("\\biep\\b", "IEP");
+        s = s.replaceAll("\\bieps\\b", "IEPs");
+        s = s.replaceAll("\\bspanish\\b", "Spanish");
+
+        return s; 
+    }
+
+    /**
      * Returns the supplied string with leading and trailing double quotes removed.
      * Single quotes are ingored, as are double quotes within the string.  This method
      * first calls trim() on the string to removed leading and trailing whitespace.
@@ -126,6 +150,49 @@ public class Util {
             s = s.replaceAll("\"$", ""); // remove trailing quote
         }
         return s;
+    }
+
+    /**
+     * Abbreviates a string - if a string is longer than maxWords words,
+     * then truncate at a word boundary and append "..."  The resulting string
+     * will be no longer than maxWords <em>excluding</em> the "..."
+     * Null will be returned if a null String is passed
+     * @param s
+     * @param maxWords
+     * @return
+     */
+    public static String abbreviate(String s, int maxWords) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+
+        // http://www.devx.com/tips/Tip/5577
+        // http://java.sun.com/j2se/1.5.0/docs/api/java/text/BreakIterator.html
+        StringBuilder sb = new StringBuilder();
+        BreakIterator bi = BreakIterator.getWordInstance();
+        bi.setText(s);
+
+        int index = 0;
+        int numWordsSoFar = 0;
+		while (bi.next() != BreakIterator.DONE && numWordsSoFar < maxWords) {
+            sb.append(s.substring(index, bi.current()));
+
+            // determine if this is a word by using a heuristic that it's a word if there is a letter or number in it
+            for (int p = index; p < bi.current(); p++) {
+                if (Character.isLetter(s.codePointAt(p)) || Character.isDigit(s.codePointAt(p))) {
+                    numWordsSoFar++;
+                    break;
+                }
+            }
+
+            index = bi.current();
+		}
+
+        if (sb.length() < s.length()) {
+            sb.append("...");
+        }
+
+        return sb.toString();
     }
 
     /**

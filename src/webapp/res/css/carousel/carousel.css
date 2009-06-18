@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#carousel ul, li {
+	list-style:none;
+}
+
+#carousel {
+	position:relative;
+	height:291px;
+	width:584px;
+	background-color: #efefef;
+    float:left;
+}
+
+#carousel h3 {
+	font: 26px Georgia, "Times New Roman", Times, serif;
+	color: #d66671;
+	position:absolute;
+	top:5px;
+	left:11px;
+	margin: 0;
+    display:none;
+}
+
+#carousel p {
+	font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #444;
+	position:absolute;
+	bottom:6px;
+	left:11px;
+    display:none;
+}
+
+#carousel a {
+	color: #39a;
+	text-decoration: none;
+}
+
+#carousel .bg {
+	position:absolute;
+	bottom:0;
+	left:0;
+	height:56px;
+	width:584px;
+	background-color: white;
+}
+#carousel .info {
+	position:absolute;
+	bottom:0;
+	left:0;
+	height:56px;
+	width:584px;
+}
+
+#carousel .info .inner {
+	position:relative;
+	height:56px;
+	width:584px;
+}
+
+#carousel .images img {
+	position:absolute;
+	top:0;
+	left:0;
+    display:none;
+}
+
+#carousel .navigation ul {
+	position:absolute;
+	bottom:3px;
+	right:10px;
+}
+
+#carousel .navigation ul li {
+	display: inline;
+    padding-left:3px;
+    cursor:pointer;
+}
+
+

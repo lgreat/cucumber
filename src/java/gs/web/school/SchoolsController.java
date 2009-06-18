@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.83 2009/05/19 19:53:24 droy Exp $
+ * $Id: SchoolsController.java,v 1.84 2009/06/18 23:08:19 eingenito Exp $
  */
 
 package gs.web.school;
@@ -179,7 +179,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             BadRequestLogger.logBadRequest(_log, request, "Missing state in city/district browse request.");
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "State not found");
-            return new ModelAndView("status/error", model);            
+            return new ModelAndView("status/error", model);
         }
 
         boolean isDistrictBrowse = SchoolsController.isDistrictBrowseRequest(request);
@@ -312,7 +312,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
                 return new ModelAndView("status/error", model);
             }
-            
+
             model.put(MODEL_DISTRICT, district.getId().toString());
             model.put(MODEL_DISTNAME, district.getName());
 
@@ -339,7 +339,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             model.put(MODEL_CITY_BROWSE_URI, DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, fields.getSchoolTypes(), levelCode));
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
-            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));        
+            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
         }
 
         // Get the city from us_geo.city
@@ -424,7 +424,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             List<School> compareSchools = new ArrayList<School>();
             Map<String, String> checkedKeys = new HashMap<String, String>();
 
-            populateCheckedSchoolsInfo(hts, schoolResults, checkedSchools, compareSchools, checkedKeys);            
+            populateCheckedSchoolsInfo(hts, schoolResults, checkedSchools, compareSchools, checkedKeys);
 
             resultsModel.put(MODEL_CHECKED_SCHOOLS, compareSchools);
             resultsModel.put(MODEL_CHECKED_KEYS, checkedKeys);
@@ -470,14 +470,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 request.getRequestURI().contains("/schools.page") &&
                 request.getParameter(PARAM_CITY) != null);
     }
-
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================    
 
     public static String createNewCityBrowseURI(HttpServletRequest request) {
         // school type(s)
@@ -545,27 +537,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
         return queryString.toString();
     }
-
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
 
     protected Sort createSort(SearchCommand searchCommand, String sortColumn, String sortDirection) {
 

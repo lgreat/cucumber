@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>${topicCenter.title}</title>
+    <meta name="description" content="${topicCenter.metaDescription}"/>
+    <meta name="keywords" content="${topicCenter.metaKeywords}"/>
+    <!-- TODO: keep in only if using jquery -->
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
+    <!-- TODO: replace cmsArticle.css -->
+    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+</head>
+<body>
+
+    <div id="main">
+        <div id="content">
+            <h1>${topicCenter.title}</h1>
+
+            <!-- Features -->
+            <img src="${topicCenter.featureImageUrl}" alt="${topicCenter.featureImageAltText}"/>
+            <c:if test="${not empty topicCenter.mainFeatureLink}">
+                <h3><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
+                <p>${topicCenter.mainFeatureLink.description}</p>
+            </c:if>
+            <c:if test="${not empty topicCenter.otherFeatureLinks}">
+                <!-- TODO: enforce a maximum number of other feature links? -->
+                <ul>
+                    <c:forEach var="featureLink" items="${topicCenter.otherFeatureLinks}" varStatus="status">
+                        <li><a href="${featureLink.url}">${featureLink.linkText}</a></li>
+                    </c:forEach>
+                </ul>
+            </c:if>
+
+            <!-- Subtopics -->
+            <h3>In this topic</h3>
+            <!-- TODO: haven't written skeleton Java code for subtopics -->
+
+            <!-- Content-provided-by logo -->
+            <c:if test="${not empty topicCenter.contentProviderLogoUrl and not empty topicCenter.contentProviderLogoAltText}">
+                <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
+            </c:if>
+
+            <!-- Community links -->
+             <c:if test="${not empty topicCenter.communityLinks}">
+                 <ul>
+                     <c:forEach var="link" items="${topicCenter.communityLinks}">
+                         <c:if test="${not empty link.url}">
+                             <c:choose>
+                                 <c:when test="${fn:startsWith(link.url, '/')}">
+                                     <c:set var="linkTarget" value="_self"/>
+                                 </c:when>
+                                 <c:otherwise>
+                                     <c:set var="linkTarget" value="_blank"/>
+                                 </c:otherwise>
+                             </c:choose>
+                             <li><a href="${link.url}"
+                                    target="${linkTarget}">${link.linkText}</a></li>
+                         </c:if>
+                     </c:forEach>
+                 </ul>
+                 <c:if test="${not empty topicCenter.communityMoreLink}">
+                     <a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.linkText}</a>
+                 </c:if>
+            </c:if>
+
+        </div> <!-- end #content -->
+    </div> <!-- end #main -->
+    <div id="rightColumn">
+
+        <!-- TODO: fix ad slot prefix -->
+        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+        <div id="squareadvert">
+            <ad:AboveFold_300x250/>
+        </div>
+
+        <jsp:include page="/content/cms/mostPopularContent.module"/>
+
+        <div id="seasonalPromo">
+            <c:choose>
+                <c:when test="${requestScope.context.cobranded}">
+                    <link:schoolChoiceCenter styleClass="more"><gsml:img
+                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                            alt="School Choice Tips"/></link:schoolChoiceCenter>
+                </c:when>
+                <c:otherwise>
+                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+
+    <!-- TODO: fix omniture info -->
+    <mod:tracking pageName="FIXME"
+                  hier1="FIXME"/>
+
+</body>
+</html>
+</jsp:root>

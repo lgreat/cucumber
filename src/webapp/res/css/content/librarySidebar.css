@@ -5,6 +5,10 @@
 	margin-left: 10px;
 }
 
+.cmsArticleLeftNav #librarySidebar {
+    margin-left: 0px;
+}
+
 #librarySidebar.micro {
 	margin-left: 0;
     margin-right: 5px;

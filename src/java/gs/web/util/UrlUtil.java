@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.77 2009/03/17 22:45:05 aroy Exp $
+ * $Id: UrlUtil.java,v 1.78 2009/06/18 23:08:20 eingenito Exp $
  */
 
 package gs.web.util;
@@ -63,6 +63,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("maddy")
                 && !hostName.startsWith("rithmatic")
                 && !hostName.startsWith("clone")
+                && !hostName.startsWith("cmsqa")
                 && !hostName.startsWith("dev")
                 && !hostName.startsWith("localhost")
                 && !hostName.startsWith("main.dev")
@@ -306,8 +307,10 @@ public final class UrlUtil {
                 hostName.endsWith("dev") ||
                 hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1 ||
+                hostName.indexOf("cmsqa") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
+                hostName.matches(".*carbonfive.com") ||
                 isDeveloperWorkstation(hostName);
     }
 

@@ -1,11 +1,16 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.38 2008/05/13 21:16:03 droy Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.39 2009/06/18 23:08:19 eingenito Exp $
  */
 package gs.web.content;
 
+import gs.data.cms.IPublicationDao;
 import gs.data.content.Article;
+import gs.data.content.cms.CmsFeature;
+import gs.data.content.cms.CmsContent;
+import gs.data.content.cms.CmsConstants;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import gs.data.util.HtmlUtil;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
@@ -73,17 +78,43 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
      * Specify an anchor to point to
      */
     private String _anchorName;
+    private static IPublicationDao _publicationDao;
 
+    protected IPublicationDao getPublicationDao() {
+        if (_publicationDao == null) {
+            _publicationDao = (IPublicationDao) getApplicationContext().getBean("publicationDao");
+        }
+        return _publicationDao;
+    }
+
+    public static class LinkableContent {
+        boolean isNew;
+        boolean isSpanish;
+        String title;
+        String link;
+
+        public LinkableContent(Article article) {
+            isNew = article.isNew();
+            isSpanish = article.isSpanish();
+            title = article.getTitle();
+        }
+
+        public LinkableContent(CmsContent content) {
+            isNew = false;
+            isSpanish = "ES".equals(content.getLanguage());
+            title = content.getLinkText();
+            link = new UrlBuilder(content.getContentKey(), content.getFullUri()).toString();
+        }
+    }
 
     public void doTag() throws IOException {
-
         SessionContext sc = getSessionContext();
         State s = sc.getStateOrDefault();
 
-        Article article = getAndValidateArticle();
+        LinkableContent linkableContent = getLinkableContent();
 
-        if (article == null) {
-            return; // NOTE: Early exit!
+        if (linkableContent == null) {
+            return;
         }
 
         StringBuffer b = new StringBuffer();
@@ -92,19 +123,19 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             b.append("<").append(_wrappingElement).append(">");
         }
 
-        if (_flaggedIfNew && article.isNew()) {
+        if (_flaggedIfNew && linkableContent.isNew) {
             PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
             HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-            String img = article.isSpanish() ? "/res/img/content/nuevo.gif" : "/res/img/content/icon_newarticle.gif";
+            String img = linkableContent.isSpanish ? "/res/img/content/nuevo.gif" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildUrl(img, request);
             b.append("<img src=\"").append(img).append("\" alt=\"new\" class=\"newarticle\"/>&#160;");
         }
 
         b.append("<a href=\"");
 
-        String link = getHref(article);
-        b.append(link);
+        b.append(linkableContent.link);
+
         if (StringUtils.isNotEmpty(_anchorName)) {
             b.append('#').append(_anchorName);
         }
@@ -133,10 +164,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             try {
                 jspBody.invoke(getJspContext().getOut());
             } catch (JspException e) {
-                getJspContext().getOut().print(formatArticleTitle(article, s));
+                getJspContext().getOut().print(formatArticleTitle(linkableContent, s));
             }
         } else {
-            getJspContext().getOut().print(formatArticleTitle(article, s));
+            getJspContext().getOut().print(formatArticleTitle(linkableContent, s));
         }
 
         getJspContext().getOut().print("</a>");
@@ -144,16 +175,45 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         if (StringUtils.isNotEmpty(_wrappingElement)) {
             getJspContext().getOut().print("</" + _wrappingElement + ">");
         }
+
+    }
+
+    protected LinkableContent getLinkableContent() {
+        LinkableContent linkableContent = null;
+
+        if (CmsUtil.isCmsEnabled() && !CmsConstants.isArticleServedByLegacyCms(_articleId)) {
+            CmsFeature content = getPublicationDao().populateByLegacyId(Long.valueOf(_articleId), new CmsFeature());
+
+            if (content != null) {
+                linkableContent = new LinkableContent(content);
+            }
+        }
+
+        if (linkableContent == null) {
+            Article article = getAndValidateArticle();
+
+            if (article != null) {
+                linkableContent = new LinkableContent(article);
+                linkableContent.link = getUrlForArticle(article);
+            }
+        }
+
+        return linkableContent;
+    }
+
+    public String getUrlForArticle(Article article) {
+        return new UrlBuilder(article.getId(), _featured).toString();
     }
 
     /**
      * Do a substitution on $LONGSTATE with the State's name, and escape ampersands.
-     * @param article Article to get title from
+     *
+     * @param linkableContent Article to get title from
      * @param s Current State
      * @return Formatted article title
      */
-    protected String formatArticleTitle(Article article, State s) {
-        String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
+    protected String formatArticleTitle(LinkableContent linkableContent, State s) {
+        String title = linkableContent.title.replaceAll("\\$LONGSTATE", s.getLongName());
 
         // match ampersands and entities. second capture group holds entity content, if any
         return HtmlUtil.escapeAmpersands(title);
@@ -161,6 +221,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     /**
      * Returns article if it is valid for this tag, null otherwise.
+     *
      * @return valid article or null
      */
     protected Article getAndValidateArticle() {
@@ -185,18 +246,6 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         }
 
         return article;
-    }
-
-    /**
-     * returns a url to the article to be used as the href
-     * @param article Article to obtain href for
-     * @return url for href
-     */
-    protected String getHref(Article article) {
-        SessionContext sc = getSessionContext();
-        State s = sc.getStateOrDefault();
-        UrlBuilder builder = new UrlBuilder(article, s, _featured);
-        return builder.toString();
     }
 
     public Article getArticle() {
@@ -254,6 +303,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
     }
+
     public String getAnchorName() {
         return _anchorName;
     }
