@@ -32,12 +32,12 @@
 <gsml:body adPageName="community/chooserRegistrationHover">
     <community:joinHoverHeader>
         <li class="thin">
-            <span class="bulletText"><span class="strongHeader">Receive a customized four-part email</span> series to
-                guide you step-by-step through your search.</span>
+            <span class="bulletText"><span class="strongHeader">Receive a customized four-part email series</span> to
+                guide you step by step through your search.</span>
         </li>
         <li>
             <span class="bulletText"><span class="strongHeader">Save profiles of your top contenders</span> and
-                compare important factors like class size and academic performace.</span>
+                compare important factors like class size and academic performance.</span>
         </li>
     </community:joinHoverHeader>
 
