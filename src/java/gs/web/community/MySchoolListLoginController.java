@@ -82,7 +82,6 @@ public class MySchoolListLoginController extends SimpleFormController implements
         PageHelper.setMemberCookie(request, response, user);
 
         Map<String,Object> model = new HashMap<String,Object>();
-        model.put("showNewsletterHover", true);
         // GS-7623 Pass back any command parameters to the MSL controller
         if (request.getParameter(MySchoolListController.PARAM_COMMAND) != null) {
             model.put(MySchoolListController.PARAM_COMMAND,
