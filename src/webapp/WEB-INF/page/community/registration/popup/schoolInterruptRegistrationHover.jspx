@@ -33,11 +33,11 @@
     <community:joinHoverHeader>
         <li class="thin">
             <span class="bulletText"><span class="strongHeader">Is ${userCmd.mystatSchoolName} on track?</span> Sign up
-                for updates on its stats - from test scores to teacher quality.</span>
+                for updates on its stats &amp;mdash; from test scores to teacher quality.</span>
         </li>
         <li>
-            <span class="bulletText"><span class="strongHeader">Find the right school</span> for your child and track
-                its stats - from test scores to teacher quality.</span>
+            <span class="bulletText"><span class="strongHeader">Receive weekly emails</span> with the tips and tools
+                you need to make smart choices about your child's education. </span>
         </li>
         <li>
             <span class="bulletText"><span class="strongHeader">Share stories</span> about your child's success in and
