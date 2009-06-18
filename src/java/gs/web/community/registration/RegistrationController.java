@@ -153,13 +153,11 @@ public class RegistrationController extends SimpleFormController implements Read
             // Default to user's state, city
             state = userCommand.getState();
             city = userCommand.getCity();
-            System.out.println("parseStudent: Setting location to userCommand: " + state + ", " + city);
         } else {
             // Use child's state, city
             String stateParam = request.getParameter("state" + childNum);
             state = _stateManager.getState(stateParam);
             city = request.getParameter("city" + childNum);
-            System.out.println("parseStudent: Setting location to override: " + state + ", " + city);
             // if the location is the same as the parent, it is no longer considered an override
             if (state != null && state.equals(userCommand.getState()) && city != null && city.equals(userCommand.getCity())) {
                 student.setLocationOverride(false);
@@ -243,8 +241,6 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommandValidator validator = new UserCommandValidator();
         validator.setUserDao(_userDao);
         validator.validate(request, command, errors);
-
-        System.out.println(errors);
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -453,16 +449,6 @@ public class RegistrationController extends SimpleFormController implements Read
         }
         return true;
     }
-
-//    protected void subscribeToBetaGroup(User user, UserCommand userCommand) {
-//        if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
-//            Subscription betaSubscription = new Subscription();
-//            betaSubscription.setUser(user);
-//            betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
-//            betaSubscription.setState(userCommand.getState());
-//            _subscriptionDao.saveSubscription(betaSubscription);
-//        }
-//    }
 
     /**
      * Add a Subscription object to the userCommand for Parent Advisor (aka greatnews)
