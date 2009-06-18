@@ -99,12 +99,15 @@ public class Registration2AjaxController implements Controller {
 
     protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum, String onChange, String onClick) {
         List<School> schools;
-        if (state != null) {
+        boolean selectedSchools = false;
+        if (state != null && !StringUtils.isBlank(city)) {
             if (StringUtils.isNotBlank(grade)) {
                 schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
             } else {
                 schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
             }
+
+            selectedSchools = true;
         } else {
             schools = new ArrayList<School>();
         }
@@ -115,7 +118,9 @@ public class Registration2AjaxController implements Controller {
             openSelectTag(out, "school", "school", "selectChildSchool", onChange, onClick);
         }
         outputOption(out, "", "- Choose School -", true);
-        outputOption(out, "-1", "My child's school is not listed");
+        if (selectedSchools) {
+            outputOption(out, "-1", "My child's school is not listed");
+        }
         for(School school : schools) {
             String idString = ((school.getId() != null)?school.getId().toString():"");
             outputOption(out, idString, school.getName());
