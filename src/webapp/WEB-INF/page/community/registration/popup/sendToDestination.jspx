@@ -28,7 +28,13 @@
 <gsml:body adPageName="forgotPassword">
     <script type="text/javascript">
         try {
-            window.top.hidePopWin(false);
+            // if the top frames URL is the same as my URL
+            // then I am probably not in an iframe!
+            // therefore, I am in a popup window, so I should try to close it
+            if (top.location==document.location){
+                window.top.hidePopWin(false);
+            }
+            // otherwise, I'm in a hover in an iframe, so the parent.sendToDestination in the head block should do it
         } catch (e) {}
     </script>
 </gsml:body>
