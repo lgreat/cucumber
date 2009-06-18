@@ -141,9 +141,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.handleRequest(getRequest(), getResponse());
         assertEquals("get thank you for taking survey email", 1, _mailSender.getSentMessages().size());
 
-        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
-        assertEquals("set a member cookie if this is a new user", String.valueOf(101), cookie.getValue());
-
         verify(_surveyDao);
         verify(_userDao);
     }
@@ -240,9 +237,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         _controller.handleRequest(getRequest(), getResponse());
         assertNull("should not get email", _mailSender.getSentMessages());
-
-        cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
-        assertEquals("set a member cookie if this is a new user", String.valueOf(user.getId()), cookie.getValue());
 
         verify(_surveyDao);
         verify(_userDao);

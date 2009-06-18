@@ -9,11 +9,9 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.util.context.SessionContextUtil;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 
-import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 
 /**
@@ -114,10 +112,5 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
         
         verify(_userDao);
         verify(_reviewDao);
-
-        //member cookie written on success
-        Cookie c = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
-        assertNotNull(c);
-        assertEquals(_user.getId().toString(), c.getValue());
     }
 }

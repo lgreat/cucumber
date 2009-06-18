@@ -30,13 +30,14 @@ $j(function() {
                                     $j.post("/promo/schoolChoicePackPromo.page",
                                     {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
                                             function(datax){
-                                                if (datax.createMemberCookie == 'y') {
+                                                // per GS-8301 don't set memid cookie here
+//                                                if (datax.createMemberCookie == 'y') {
                                                     // must create cookie here even though it's in the controller already because
                                                     // this is an ajax call and we must make sure next page is aware of
                                                     // the MEMID. if only set in controller, the next page loaded may
                                                     // not see that cookie.
-                                                    createCookie("MEMID", datax.memid);
-                                                }
+//                                                    createCookie("MEMID", datax.memid);
+//                                                }
                                                omnitureEventNotifier.clear();
                                                 omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;

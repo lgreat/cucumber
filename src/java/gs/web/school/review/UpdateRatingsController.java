@@ -6,7 +6,6 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +51,8 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
                 return showThankYouPage(school);
             }
             getReviewDao().saveReview(updateCategoryRatingsFromCommand(review, rc));
-            PageHelper.setMemberCookie(request, response, user);
+            // don't set member cookie per GS-8301
+//            PageHelper.setMemberCookie(request, response, user);
             return showThankYouPage(school);
         }
     }

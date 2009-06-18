@@ -353,10 +353,11 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 // (with list_member id) to be commited before the list_member record is
                 // committed. Adding this commitOrRollback prevents this.
                 ThreadLocalTransactionManager.commitOrRollback();
-                PageHelper.setMemberCookie(request, response, user);
+//                PageHelper.setMemberCookie(request, response, user);
                 isExistingUser = false;
             }
-            PageHelper.setMemberCookie(request, response, user);
+            // don't set member cookie per GS-8301
+//            PageHelper.setMemberCookie(request, response, user);
             urc.setUser(user);
         }
 

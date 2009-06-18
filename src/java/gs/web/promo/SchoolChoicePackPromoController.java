@@ -93,10 +93,11 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 }
             }
 
+            // don't set memid cookie here per GS-8301
             // if there is no logged in user, then sign in the user using the email entered
-            if (!isLoggedIn) {
-                PageHelper.setMemberCookie(request, response, user);
-            }
+//            if (!isLoggedIn) {
+//                PageHelper.setMemberCookie(request, response, user);
+//            }
             triggerPromoPackEmail(user, levels);
             String emailEncoded = URLEncoder.encode(email, "UTF-8");
             response.setContentType("application/json");
