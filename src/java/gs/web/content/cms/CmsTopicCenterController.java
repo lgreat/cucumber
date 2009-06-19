@@ -3,20 +3,12 @@ package gs.web.content.cms;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
-import gs.data.content.IArticleDao;
-import gs.data.content.ArticleComment;
 import gs.data.content.cms.*;
-import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 
 public class CmsTopicCenterController extends AbstractController {
@@ -37,7 +29,32 @@ public class CmsTopicCenterController extends AbstractController {
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        // TODO: fetch requested topic center from dao instead of hard-coding sample topic center
+        // TODO: fetch requested topic center from dao and get rid of getSampleTopicCenter()
+        CmsTopicCenter topicCenter = getSampleTopicCenter();
+
+        if (topicCenter == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView("/status/error404.page");
+        }
+
+        try {
+            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Google Ad Manager ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        for (CmsCategory category : topicCenter.getPrimaryKategoryBreadcrumbs()) {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+        }
+
+        model.put("topicCenter", topicCenter);
+
+        return new ModelAndView(_viewName, model);
+    }
+
+    private CmsTopicCenter getSampleTopicCenter() {
         CmsTopicCenter topicCenter = new CmsTopicCenter();
         topicCenter.setTitle("title");
         topicCenter.setMetaDescription("meta description goes here");
@@ -46,6 +63,17 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setFeatureImageAltText("feature image alt text");
         topicCenter.setContentProviderLogoUrl("/res/img/content_provider_logo.gif");
         topicCenter.setContentProviderLogoAltText("content provider logo alt text");
+
+        CmsCategory firstCat = new CmsCategory();
+        firstCat.setName("Category 1");
+        CmsCategory secondCat = new CmsCategory();
+        secondCat.setName("Category 2");
+        CmsCategory thirdCat = new CmsCategory();
+        thirdCat.setName("Category 3");
+
+        topicCenter.setPrimaryKategory(thirdCat);
+        List<CmsCategory> breadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
+        topicCenter.setPrimaryKategoryBreadcrumbs(breadcrumbs);
 
         List<CmsLink> featureLinks = new ArrayList<CmsLink>();
         CmsLink link = new CmsLink();
@@ -98,25 +126,7 @@ public class CmsTopicCenterController extends AbstractController {
         link.setUrl("http://community.greatschools.net");
         link.setLinkText("More discussions &gt;");
         topicCenter.setCommunityMoreLink(link);
-
-        if (topicCenter == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ModelAndView("/status/error404.page");
-        }
-
-        try {
-            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        // TODO: Google Ad Manager ad keywords - category breadcrumbs are in incorrectly CmsFeature, not CmsContent
-        // TODO: refactor primary category out of CmsFeature into CmsContent
-        // TODO: reuse only primary category GAM ad keyword code from CmsFeatureController; no secondary categories here
-
-        model.put("topicCenter", topicCenter);
-
-        return new ModelAndView(_viewName, model);
+        return topicCenter;
     }
 
     public String getViewName() {
