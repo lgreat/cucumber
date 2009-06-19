@@ -2,6 +2,7 @@ package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.CmsHomepage;
+import gs.data.util.CmsUtil;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -23,16 +24,16 @@ public class CmsHomepageController extends AbstractController {
     private String _viewName;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-
-        Collection<CmsHomepage> homepages = _publicationDao.populateAllByContentType("Homepage", new CmsHomepage());
-
         CmsHomepage homepage = new CmsHomepage();
-        if (homepages.size() > 0) {
-            homepage = homepages.iterator().next();
-            try {
-                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(homepage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        if (CmsUtil.isCmsEnabled()) {
+            Collection<CmsHomepage> homepages = _publicationDao.populateAllByContentType("Homepage", new CmsHomepage());
+            if (homepages.size() > 0) {
+                homepage = homepages.iterator().next();
+                try {
+                    _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(homepage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
