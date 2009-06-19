@@ -3,6 +3,7 @@ package gs.web;
 import junit.framework.TestCase;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.CookieManager;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.nutrun.xhtml.validator.XhtmlValidator;
 
@@ -28,7 +29,9 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         // such as hitting Omniture, Tacoda tags, etc...
         _webClient.setJavaScriptEnabled(false);
         // Same for Cookies since they can affect how a page is rendered
-        _webClient.setCookiesEnabled(false);
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiesEnabled(false);
+        _webClient.setCookieManager(cookieManager);
     }
 
     /**
