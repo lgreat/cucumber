@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.PageHelper;
 import gs.data.util.CmsUtil;
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.CmsTopicCenter;
@@ -33,6 +34,9 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = new CmsTopicCenterController();
         _controller.setCmsFeatureEmbeddedLinkResolver(new CmsContentLinkResolver());
+
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
     public void testModel() throws Exception {
