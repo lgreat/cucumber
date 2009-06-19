@@ -31,6 +31,7 @@
 
     <div id="main">
         <div id="content">
+            <div id="leftColumn">
             <div id="featured">
                 <div class="header">
             <h1>${topicCenter.title}</h1>
@@ -54,9 +55,10 @@
                 </ul>
             </c:if>
             </div>
-            </div><!-- end id="featured" -->
+            </div><!-- end #featured -->
 
             <!-- Subtopics -->
+            <div id="topics">
             <h3>In this topic</h3>
             <!-- TODO: haven't written skeleton Java code for subtopics -->
 
@@ -87,6 +89,8 @@
                      <a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.linkText}</a>
                  </c:if>
             </c:if>
+            </div><!-- end #topics -->
+            </div><!-- end #leftColumn -->
 
         </div> <!-- end #content -->
     </div> <!-- end #main -->
