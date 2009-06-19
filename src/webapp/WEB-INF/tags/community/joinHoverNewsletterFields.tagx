@@ -43,7 +43,7 @@
 
     <li id="partnerNewsletter" class="newsletter">
         <form:checkbox id="partnerNewsletterField" path="userCmd.partnerNewsletter" tabindex="${tabindex}"/>
-        <label for="partnerNewsletterField">Send me valuable offers from GreatSchools' partners.</label>
+        <label for="partnerNewsletterField">Send me valuable offers and information from GreatSchools' partners.</label>
     </li>
     <c:set var="tabindex" value="${tabindex+1}"/>
 

@@ -67,7 +67,7 @@
                         <li><form:checkbox path="userCmd.gradeNewsletters[0].checked" id="myp"
                                            tabindex="6"/><label for="myp">Preschool</label></li>
                         <li><form:checkbox path="userCmd.gradeNewsletters[1].checked" id="myk"
-                                           tabindex="7"/><label for="myk">KinderGarten</label></li>
+                                           tabindex="7"/><label for="myk">Kindergarten</label></li>
                         <li><form:checkbox path="userCmd.gradeNewsletters[2].checked" id="my1"
                                            tabindex="8"/><label for="my1">1st Grade</label></li>
                     </ol>
