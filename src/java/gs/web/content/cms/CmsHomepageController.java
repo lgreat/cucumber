@@ -16,7 +16,7 @@ import java.util.Collection;
 public class CmsHomepageController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
 
-    public static final String BEAN_ID = "/home.page";
+    public static final String BEAN_ID = "/index.page";
 
     private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
@@ -26,19 +26,15 @@ public class CmsHomepageController extends AbstractController {
 
         Collection<CmsHomepage> homepages = _publicationDao.populateAllByContentType("Homepage", new CmsHomepage());
 
-        if (homepages.size() < 1) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ModelAndView("/status/error404.page");
+        CmsHomepage homepage = new CmsHomepage();
+        if (homepages.size() > 0) {
+            homepage = homepages.iterator().next();
+            try {
+                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(homepage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
-
-        CmsHomepage homepage = homepages.iterator().next();
-
-        try {
-            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(homepage);
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-
 
         return new ModelAndView(_viewName, "homepage", homepage);
     }

@@ -218,15 +218,10 @@
           autowire="byName" lazy-init="true"/>
 
     <bean name="/index.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+          class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
         <property name="viewName">
             <value>index</value>
         </property>
-    </bean>
-
-    <bean name="/cmshome.page"
-          class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
-        <property name="viewName" value="/content/cms/home"/>
     </bean>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"

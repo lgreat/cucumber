@@ -41,7 +41,7 @@ public class CmsUrlTranslationController extends AbstractController {
         }
 
         if ("Homepage".equals(contentType)) {
-            return new ModelAndView("redirect:/cmshome.page");
+            return new ModelAndView("redirect:/index.page");
         }
 
         if ("TopicCenter".equals(contentType)) {

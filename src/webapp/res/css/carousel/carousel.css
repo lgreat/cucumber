@@ -23,6 +23,11 @@
     display:none;
 }
 
+#carousel h3 a, #carousel h3 a:hover {
+    color: #d66671;
+    text-decoration: none;
+}
+
 #carousel p {
 	font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color: #444;
@@ -32,16 +37,9 @@
     display:none;
 }
 
-#carousel span {
-	color: #39a;
-}
-
-#carousel span:link {
-	text-decoration: none;
-}
-
-#carousel span:hover {
-	text-decoration: underline;
+#carousel p a.description, #carousel p a.description:hover {
+    color: #444;
+    text-decoration: none;
 }
 
 #carousel .bg {

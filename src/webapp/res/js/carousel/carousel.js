@@ -1,19 +1,23 @@
 // JavaScript Document
+// required to avoid "$j" collisions with Prototype.js
+jQuery.noConflict();
+var $j = jQuery;
 
-$(document).ready(function() { 
+$j(document).ready(function() { 
 	
 	// Initialize state
 	var i = 1;
 	var MINIMUMI = 1;
-	var CURRENTI = $('.images img').size();
+    var images = $j('.images img');
+	var CURRENTI = (images ? images.size() : 0);
 	var MAXIMUMI = 8;
 	var fadeTime = 2000;
 	var holdTime = 4000;
 	var swapTime = 2000;
 	var holdID = null;
 	var swapID = null;
-	$('.bg').animate({"opacity" : .9},0);
-	$('.inner h3, .inner p, .images img,').hide();
+	$j('.bg').animate({"opacity" : .9},0);
+	$j('.inner h3, .inner p, .images img,').hide();
 	if (CURRENTI>MAXIMUMI){
 		CURRENTI = MAXIMUMI;
 	}
@@ -22,7 +26,7 @@ $(document).ready(function() {
 	// Initially, image 1 fadeIn over 2 secs
 	// image 1 holds for 4 secs
 	var fadeInSlide = function() {
-		$('.images img:eq('+(i-1)+')').fadeIn(fadeTime);
+		$j('.images img:eq('+(i-1)+')').fadeIn(fadeTime);
 		holdID = setTimeout(fadeOutSlide,holdTime);
 		//console.log('holdID = '+holdID);
 	}
@@ -30,7 +34,7 @@ $(document).ready(function() {
 	// blank holds for 2 secs
 	var fadeOutSlide = function() {
 		clearTimeout(holdID);
-		$('.images img:eq('+(i-1)+')').fadeOut(fadeTime);
+		$j('.images img:eq('+(i-1)+')').fadeOut(fadeTime);
 		swapID = setTimeout(nextSlide,swapTime);
 		//console.log('swapID = '+swapID);
 	}
@@ -53,7 +57,7 @@ $(document).ready(function() {
 	
 	// Stop animation
   	if (CURRENTI>MINIMUMI){
-        $('#carousel').mouseover(function() {
+        $j('#carousel').mouseover(function() {
             // Pause animation on mouseover
             clearTimeout(holdID);
             clearTimeout(swapID);
@@ -62,7 +66,7 @@ $(document).ready(function() {
             setButtonState(i);
         });
 
-        $('#carousel').mouseout(function() {
+        $j('#carousel').mouseout(function() {
             // Restart animation on mouseout
             holdID = setTimeout(fadeOutSlide,holdTime);
         });
@@ -70,42 +74,42 @@ $(document).ready(function() {
 	
 	// Navigation functions
 	var setText = function(slideNumber) {
-		$('.inner h3').hide();
-		$('.inner h3:eq('+(slideNumber-1)+')').show();
-		$('.inner p').hide();
-		$('.inner p:eq('+(slideNumber-1)+')').show();
+		$j('.inner h3').hide();
+		$j('.inner h3:eq('+(slideNumber-1)+')').show();
+		$j('.inner p').hide();
+		$j('.inner p:eq('+(slideNumber-1)+')').show();
 	}
 	
 	var setImage = function(slideNumber) {
-		$('.images img').hide();
-		$('.images img:eq('+(slideNumber-1)+')').show();
+		$j('.images img').hide();
+		$j('.images img:eq('+(slideNumber-1)+')').show();
 	}
 	
 	var setButtonState = function(slideNumber) {
-		$('.num').attr('src', function() {
+		$j('.num').attr('src', function() {
 			return this.src.replace('on.gif','off.gif');
 		});
-		$('.num:eq('+(slideNumber-1)+')').attr('src', function() {
+		$j('.num:eq('+(slideNumber-1)+')').attr('src', function() {
 			return this.src.replace('off.gif','on.gif');
 		});
 	}
     var showButtons = function() {
-        $('.num:lt('+(CURRENTI)+')').show();
-        $('.num:gt('+(MAXIMUMI-1)+')').hide(function(){
-            $(this).parent().hide();
+        $j('.num:lt('+(CURRENTI)+')').show();
+        $j('.num:gt('+(MAXIMUMI-1)+')').hide(function(){
+            $j(this).parent().hide();
         });
     }
 	// Navigation buttons
 	// - numbered buttons
-	$('.num').click(function() {
-		var src = $(this).attr('src');
+	$j('.num').click(function() {
+		var src = $j(this).attr('src');
 		i = src.replace(/^.*num(\d+)-.*$/,'$1');
 		setImage(i);
 		setText(i);
 		setButtonState(i);
 	});
 	// - arrow right
-	$('#ar').click(function() {
+	$j('#ar').click(function() {
 		if (i >= CURRENTI) {
 			i = MINIMUMI;
 		} else {
@@ -117,7 +121,7 @@ $(document).ready(function() {
 		setButtonState(i);
 	});
 	// - arrow left
-	$('#al').click(function() {
+	$j('#al').click(function() {
 		if (i <= MINIMUMI) {
 			i = CURRENTI;
 		} else {
