@@ -278,10 +278,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         if(command.isSeasonal()){
             if(command.getSeasonalId() > 0){
-                _subscriptionDao.removeSubscription(command.getSeasonalId());
+                if(_subscriptionDao.findSummerSubscriptions(user).size() != 0 &&!_subscriptionDao.findSummerSubscriptions(user).get(0).getProduct().equals(SubscriptionProduct.getSubscriptionProduct(command.getStartweek()))){
+                     _subscriptionDao.updateSeasonal(command.getStartweek(),user);
+                }
             }
-            _subscriptionDao.addSeasonal(command.getStartweek(),user,state);
+            else if(_subscriptionDao.findSummerSubscriptions(user).size() == 0){
+                     _subscriptionDao.addSeasonal(command.getStartweek(),user,state);
+                }
         }
+        
         if(command.getSeasonalId() >0 && !command.isSeasonal()){
             _subscriptionDao.removeSubscription(command.getSeasonalId());
         }
