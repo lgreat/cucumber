@@ -136,7 +136,7 @@ function showResponse(x) {
     removeChildrenFromNode($('principalsLink'));
     var principalsHref = document.createElement('a');
     principalsHref.setAttribute('href', schoolInfoArray[11]);
-    principalsHref.appendChild(document.createTextNode("Principal,sumit your review here >"));
+    principalsHref.appendChild(document.createTextNode("Principals, submit your review here >"));
     $('principalsLink').appendChild(principalsHref);
 
     if (isPreschool) {
