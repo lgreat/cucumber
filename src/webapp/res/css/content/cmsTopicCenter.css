@@ -1,0 +1,11 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#featured {
+    width:615px;
+}
+
+#featured .header {
+    height:40px;
+    background:#6cd;
+}

@@ -24,17 +24,23 @@
     <!-- TODO: keep in only if using jquery -->
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <!-- TODO: replace cmsArticle.css -->
-    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
+    <pageHelper:externalCss file="/res/css/content/cmsTopicCenter.css"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
 </head>
 <body>
 
     <div id="main">
         <div id="content">
+            <div id="featured">
+                <div class="header">
             <h1>${topicCenter.title}</h1>
+                </div>
 
             <!-- Features -->
+            <div class="one_of_two">
             <img src="${topicCenter.featureImageUrl}" alt="${topicCenter.featureImageAltText}"/>
+            </div>
+            <div class="two_of_two">
             <c:if test="${not empty topicCenter.mainFeatureLink}">
                 <h3><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
                 <p>${topicCenter.mainFeatureLink.description}</p>
@@ -47,6 +53,8 @@
                     </c:forEach>
                 </ul>
             </c:if>
+            </div>
+            </div><!-- end id="featured" -->
 
             <!-- Subtopics -->
             <h3>In this topic</h3>
