@@ -58,9 +58,74 @@
             </div><!-- end #featured -->
 
             <!-- Subtopics -->
-            <div id="topics">
-            <h3>In this topic</h3>
-            <!-- TODO: haven't written skeleton Java code for subtopics -->
+            <c:if test="${not empty topicCenter.subtopics}">
+                <div id="topics">
+                    <!-- TODO: Randall, I put in h2 just as a guess - I dont know what it should be -->
+                    <h2>In this topic</h2>
+
+                    <!-- Subtopic navigation -->
+                    <ul>
+                        <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
+                            <li>${subtopic.title}</li>
+                        </c:forEach>
+                    </ul>
+
+                    <!-- Subtopic details -->
+                    <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
+                        <!-- TODO: Randall, I put in h3 just as a guess - I dont know what it should be -->
+                        <h3>${subtopic.title}</h3>
+                        <p>${subtopic.description}</p>
+                        <!-- Optional subtopic image -->
+                        <c:if test="${not empty subtopic.imageUrl and not empty subtopic.imageAltText}">
+                            <img src="${subtopic.imageUrl}" alt="${subtopic.imageAltText}"/>
+                        </c:if>
+
+                        <!-- Subtopic sections -->
+                        <c:forEach var="section" items="${subtopic.sections}" varStatus="sectionStatus">
+                            <!-- Optional section title -->
+                            <c:if test="${not empty section.title}">
+                                <!-- TODO: Randall, I put in h4 just as a guess - I dont know what it should be -->
+                                <h4>${section.title}</h4>
+                            </c:if>
+
+                            <!-- Section links -->
+                            <c:if test="${not empty section.links}">
+                                <ul>
+                                    <c:forEach var="link" items="${section.links}" varStatus="linkStatus">
+                                        <li><a href="${link.url}">${link.linkText}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
+
+                            <!-- Section more link -->
+                            <!-- TODO: logic for More link text TBD -->
+                            <c:choose>
+                                <c:when test="${not empty section.moreLinkText}">
+                                    <c:set var="moreLinkText" value="${section.moreLinkText}"/>
+                                </c:when>
+                                <c:when test="${not empty section.moreLink.linkText}">
+                                    <c:set var="moreLinkText" value="${section.moreLink.linkText}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="moreLinkText" value="More in ${section.kategory.name}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${not empty section.moreLink}">
+                                    <a href="${section.moreLink.url}">${moreLinkText}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <link:cmsCategoryBrowse categoryId="${section.kategory.id}"
+                                          language="${param.language}">${moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </c:forEach>
+                    </c:forEach>
+
+                </div>
+                <!-- end #topics -->
+            </c:if>
 
             <!-- Content-provided-by logo -->
             <c:if test="${not empty topicCenter.contentProviderLogoUrl and not empty topicCenter.contentProviderLogoAltText}">
@@ -69,6 +134,8 @@
 
             <!-- Community links -->
              <c:if test="${not empty topicCenter.communityLinks}">
+                 <!-- TODO: Randall, I put in h2 just as a guess - I dont know what it should be -->
+                 <h2>Community</h2>
                  <ul>
                      <c:forEach var="link" items="${topicCenter.communityLinks}">
                          <c:if test="${not empty link.url}">
@@ -89,7 +156,6 @@
                      <a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.linkText}</a>
                  </c:if>
             </c:if>
-            </div><!-- end #topics -->
             </div><!-- end #leftColumn -->
 
         </div> <!-- end #content -->

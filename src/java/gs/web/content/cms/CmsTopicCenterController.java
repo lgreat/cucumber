@@ -127,7 +127,56 @@ public class CmsTopicCenterController extends AbstractController {
         link.setUrl("http://community.greatschools.net");
         link.setLinkText("More discussions &gt;");
         topicCenter.setCommunityMoreLink(link);
+
+        List<CmsSubtopic> subtopics = new ArrayList<CmsSubtopic>();
+        for (int i = 0; i < 7; i++) {
+            subtopics.add(getSampleSubtopic(i));
+        }
+        topicCenter.setSubtopics(subtopics);
+
         return topicCenter;
+    }
+
+    private CmsSubtopic getSampleSubtopic(int i) {
+        CmsSubtopic subtopic = new CmsSubtopic();
+        subtopic.setTitle("subtopic title " + i);
+        subtopic.setDescription("subtopic description " + i);
+        subtopic.setImageUrl("/res/img/");
+        subtopic.setImageAltText("subtopic image alt text " + i);
+
+        List<CmsSubtopicSection> sections = new ArrayList<CmsSubtopicSection>();
+        for (int j = 0; j < 2; j++) {
+            sections.add(getSampleSubtopicSection(i,j));
+        }
+        subtopic.setSections(sections);
+
+        return subtopic;
+    }
+
+    private CmsSubtopicSection getSampleSubtopicSection(int i, int j) {
+        CmsSubtopicSection section = new CmsSubtopicSection();
+        section.setTitle("section title " + i + "." + j);
+
+        CmsCategory cat = new CmsCategory();
+        cat.setName("section category " + i + "." + j);
+        section.setKategory(cat);
+
+        List<CmsLink> links = new ArrayList<CmsLink>();
+        for (int k = 0; k < 4; k++) {
+            CmsLink link = new CmsLink();
+            link.setUrl("http://www.google.com");
+            link.setLinkText("section link lorem ipsum lorem ipsum " + i + "." + j + "." + k);
+            links.add(link);
+        }
+        section.setLinks(links);
+
+        CmsLink link = new CmsLink();
+        link.setUrl("http://www.google.com");
+        link.setLinkText("section more link lorem ipsum lorem ipsum " + i + "." + j);
+        section.setMoreLink(link);
+
+        section.setMoreLinkText("section more link text " + i + "." + j);
+        return section;
     }
 
     public String getViewName() {
