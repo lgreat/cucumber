@@ -5,7 +5,6 @@ import gs.data.content.cms.CmsFeature;
 import gs.web.BaseControllerTestCase;
 
 public class CmsContentUtilsTest extends BaseControllerTestCase {
-
     public void testReplaceGreatSchoolsUrls() {
         String toReplace = "Hello! Visit us " +
                 "<a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>." +
