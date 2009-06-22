@@ -97,7 +97,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         ManagementCommand command = (ManagementCommand) o;
         command.setUserId(user.getId());
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
-
         if(subscriptions != null){
             for (Object subscription : subscriptions) {
                 Subscription s = (Subscription) subscription;
@@ -141,12 +140,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
 
         checkRequestParams(request, command);
-
-        // this ensures that if a request param sets an nth newsletter to checked, the
-        // greatnews will also be checked
-        if (command.isNthChecked()) {
-            command.setGreatnews(true);
-        }
 
         if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
             Integer id = Integer.valueOf(request.getParameter("schoolId"));
@@ -478,6 +471,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
             if (request.getParameter("set" + myNth.getName()) == null) {
                 continue;
             }
+             // this ensures that if a request param sets an nth newsletter to checked, the
+            // greatnews will also be checked
+            command.setGreatnews(true);
             if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
                 command.setMypk(true);
             }
