@@ -22,6 +22,7 @@ function sendToDestination() {
         destUrl = '';
     }else{
         window.location.href=window.location.href;
+        window.location.reload();
     }
 }
 
