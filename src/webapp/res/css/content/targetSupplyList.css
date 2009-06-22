@@ -1,0 +1,27 @@
+#targetContainer {
+    position: relative;
+}
+
+#targetList {
+    position:absolute;
+    width: 250px;
+    padding:16px;
+    border:2px solid;
+}
+
+#targetList h2 {
+    font-size: 20px;
+    color: red;
+}
+
+#targetList h3 {
+    font-size: 16px;
+    color: #666;
+}
+
+#targetList #targetSearchMore {
+    font-size: 13px;
+    color: #666;
+    text-decoration:underline;
+}
+

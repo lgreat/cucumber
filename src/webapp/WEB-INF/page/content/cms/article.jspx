@@ -407,15 +407,17 @@
                  or feature.contentKey.identifier eq 109
                 )}">
                 <pageHelper:externalJavascript file="/res/js/fixedElement.js"/>
-                <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'rightColumn', 'main');"/>
-                <div id="targetList" style="
-                    position:absolute;
-                    width: 200px;
-                    right:10px;
-                    top:10px;
-                    padding:16px;
-                    border:2px solid;">
-                    <h2>What's at Target</h2>
+                <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'targetContainer', 'main');"/>
+                <pageHelper:externalCss file="/res/css/content/targetSupplyList.css"/>
+                <div id="targetContainer">
+                    <div id="targetList" style="
+                        right:10px;
+                        top:10px;">
+                        <h2>What's at Target</h2>
+                        <h3 id="targetSubHeader">Supply List Must Haves</h3>
+                        <a id="targetSearchMore"
+                           href="http://www.target.com">Search more school supplies at Target &amp;gt;</a>
+                    </div>
                 </div>
             </c:when>
             <c:otherwise>
