@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import gs.data.content.cms.*;
+import gs.data.cms.IPublicationDao;
+import gs.data.util.CmsUtil;
 import gs.web.util.PageHelper;
 
 public class CmsTopicCenterController extends AbstractController {
@@ -19,41 +21,52 @@ public class CmsTopicCenterController extends AbstractController {
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
 
-    // TODO: need to use featureDao or something like it
-    //private ICmsFeatureDao _featureDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
     private String _viewName;
+    private IPublicationDao _publicationDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-        String uri = request.getRequestURI();
-
         Map<String, Object> model = new HashMap<String, Object>();
 
-        // TODO: fetch requested topic center from dao and get rid of getSampleTopicCenter()
-        CmsTopicCenter topicCenter = getSampleTopicCenter();
+        if (CmsUtil.isCmsEnabled()) {
+            /*
+            Long contentId;
+            try {
+                contentId = new Long(request.getParameter("content"));
+            } catch(Exception e) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
+            }
 
-        if (topicCenter == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ModelAndView("/status/error404.page");
+            CmsTopicCenter topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());
+            */
+            // TODO uncomment above and remove line below
+            CmsTopicCenter topicCenter = getSampleTopicCenter();
+
+            if (topicCenter == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
+            }
+
+            try {
+                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
+            } catch(Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            for (CmsCategory category : topicCenter.getPrimaryKategoryBreadcrumbs()) {
+                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+            }
+
+            model.put("topicCenter", topicCenter);            
         }
-
-        try {
-            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        // Google Ad Manager ad keywords
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        for (CmsCategory category : topicCenter.getPrimaryKategoryBreadcrumbs()) {
-            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-        }
-
-        model.put("topicCenter", topicCenter);
 
         return new ModelAndView(_viewName, model);
     }
 
+    // START sample topic center methods
     private CmsTopicCenter getSampleTopicCenter() {
         CmsTopicCenter topicCenter = new CmsTopicCenter();
         topicCenter.setTitle("title");
@@ -177,6 +190,11 @@ public class CmsTopicCenterController extends AbstractController {
 
         section.setMoreLinkText("section more link text " + i + "." + j);
         return section;
+    }
+    // END sample topic center methods
+
+    public void setPublicationDao(IPublicationDao publicationDao) {
+        _publicationDao = publicationDao;
     }
 
     public String getViewName() {
