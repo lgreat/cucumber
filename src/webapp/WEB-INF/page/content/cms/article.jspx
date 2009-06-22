@@ -400,22 +400,43 @@
         <jsp:include page="/content/cms/moreInCategory.module?categoryId=${feature.primaryKategory.id}&amp;excludeType=${
             feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
-        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
-        <div id="squareadvert">
-            <ad:AboveFold_300x250/>
-        </div>
-        <div id="seasonalPromo">
-            <c:choose>
-                <c:when test="${requestScope.context.cobranded}">
-                    <link:schoolChoiceCenter styleClass="more"><gsml:img
-                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
-                            alt="School Choice Tips"/></link:schoolChoiceCenter>
-                </c:when>
-                <c:otherwise>
-                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
-                </c:otherwise>
-            </c:choose>
-        </div>
+        <c:choose>
+            <c:when test="${feature.contentKey.type eq 'Article' and
+                (feature.contentKey.identifier eq 1082
+                 or feature.contentKey.identifier eq 1084
+                 or feature.contentKey.identifier eq 109
+                )}">
+                <pageHelper:externalJavascript file="/res/js/fixedElement.js"/>
+                <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'rightColumn', 'main');"/>
+                <div id="targetList" style="
+                    position:absolute;
+                    width: 200px;
+                    right:10px;
+                    top:10px;
+                    padding:16px;
+                    border:2px solid;">
+                    <h2>What's at Target</h2>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+                <div id="squareadvert">
+                    <ad:AboveFold_300x250/>
+                </div>
+                <div id="seasonalPromo">
+                    <c:choose>
+                        <c:when test="${requestScope.context.cobranded}">
+                            <link:schoolChoiceCenter styleClass="more"><gsml:img
+                                    src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                                    alt="School Choice Tips"/></link:schoolChoiceCenter>
+                        </c:when>
+                        <c:otherwise>
+                            <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <c:choose>
