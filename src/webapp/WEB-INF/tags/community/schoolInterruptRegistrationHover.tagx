@@ -86,7 +86,7 @@
                     <div id="schoolInterruptRegistrationDialogBody">
                         <iframe id="schoolInterruptRegistrationHoverIFrame"
                                 name="schoolInterruptRegistrationHoverIFrame" src=""
-                                width="640" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                                width="640" height="584" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
                     </div>
                 </td>
             </tr>
