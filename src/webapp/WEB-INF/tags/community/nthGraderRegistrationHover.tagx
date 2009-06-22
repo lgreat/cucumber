@@ -25,6 +25,7 @@
         };
 
         nthGraderRegistrationDialog.prepAndShow = function(destination, precheck) {
+            destUrl='reload';
             // my hover takes parameters that may differ on a link-by-link basis, so I
             // override the function right here
             if (precheck) {

@@ -17,10 +17,11 @@ function sendToDestination() {
         window.chooserRegistrationDialog.dialog.cancel();
     }
 
-    if (destUrl != '') {
-       window.location = destUrl;
+    if (destUrl != '' && destUrl != 'reload') {
+        window.location = destUrl;
         destUrl = '';
-    }else{
+    } else if (destUrl == 'reload') {
+        destUrl = '';
         window.location.href=window.location.href;
         window.location.reload();
     }
