@@ -87,6 +87,10 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
+        // User object loses its session and this might fix that.
+        user = getUserDao().findUserFromId(user.getId());
+        userCommand.setUser(user);
+
         ModelAndView mAndV = new ModelAndView();
         try {
             if (userCommand.getPartnerNewsletter()) {
@@ -118,7 +122,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             return mAndV; // early exit!
         }
 
-        PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
+        PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
         mAndV.setViewName("redirect:" + getHoverView());
 
         return mAndV;

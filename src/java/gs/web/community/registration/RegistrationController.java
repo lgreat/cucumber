@@ -289,6 +289,10 @@ public class RegistrationController extends SimpleFormController implements Read
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
 
+        // User object loses its session and this might fix that.
+        user = getUserDao().findUserFromId(user.getId());
+        userCommand.setUser(user);
+
         ModelAndView mAndV = new ModelAndView();
         try {
             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
@@ -339,7 +343,7 @@ public class RegistrationController extends SimpleFormController implements Read
             return mAndV; // early exit!
         }
 
-        PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
+        PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
         if(StringUtils.isNotBlank(getHoverView())) {
             userCommand.setRedirectUrl(getHoverView());
         } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
