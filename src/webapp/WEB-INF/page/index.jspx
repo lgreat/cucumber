@@ -173,7 +173,7 @@
                         </c:otherwise>
                     </c:choose>
                     <h3><a href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.title}</a></h3>
-                    <p><a class="description" href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.description}</a>&amp;nbsp;<a href="${featureLink.url}" target="${featureLinkTarget}">More &amp;gt;</a></p>
+                    <p><a class="description" href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.description}</a>&amp;nbsp;<a href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.linkText}</a></p>
                 </c:forEach>
             </div>
             <!-- class="inner" -->
