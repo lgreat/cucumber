@@ -131,7 +131,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
-        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(userCommand.getUser());
+        expect(_userDao.findUserFromId(userCommand.getUser().getId())).andReturn(userCommand.getUser());
 
         getRequest().addParameter("next", "next"); // submit button for 2-step process
 
@@ -413,6 +413,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser()); // setting password
         _userDao.updateUser(userCommand.getUser()); // updating user profile
+        expect(_userDao.findUserFromId(userCommand.getUser().getId())).andReturn(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser()); // rolling back to provisional
 
         // no calls expected if "next" is clicked
