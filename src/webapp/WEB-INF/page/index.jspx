@@ -164,8 +164,16 @@
         <div class="info">
             <div class="inner">
                 <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                    <h3><a href="${featureLink.url}">${featureLink.title}</a></h3>
-                    <p><a class="description" href="${featureLink.url}">${featureLink.description}</a>&amp;nbsp;<a href="${featureLink.url}">More &amp;gt;</a></p>
+                    <c:choose>
+                        <c:when test="${featureLink.newWindow}">
+                            <c:set var="featureLinkTarget" value="_blank"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="featureLinkTarget" value="_self"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <h3><a href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.title}</a></h3>
+                    <p><a class="description" href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.description}</a>&amp;nbsp;<a href="${featureLink.url}" target="${featureLinkTarget}">More &amp;gt;</a></p>
                 </c:forEach>
             </div>
             <!-- class="inner" -->
