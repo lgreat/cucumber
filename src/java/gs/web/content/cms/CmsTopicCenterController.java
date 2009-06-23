@@ -29,19 +29,23 @@ public class CmsTopicCenterController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (CmsUtil.isCmsEnabled()) {
-            /*
-            Long contentId;
-            try {
-                contentId = new Long(request.getParameter("content"));
-            } catch(Exception e) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return new ModelAndView("/status/error404.page");
-            }
+            String uri = request.getRequestURI();
+            boolean showSample = (BEAN_ID.equals(uri));
+            CmsTopicCenter topicCenter;
 
-            CmsTopicCenter topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());
-            */
-            // TODO uncomment above and remove line below
-            CmsTopicCenter topicCenter = getSampleTopicCenter();
+            if (showSample) {
+                topicCenter = getSampleTopicCenter();
+            } else {
+                Long contentId;
+                try {
+                    contentId = new Long(request.getParameter("content"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return new ModelAndView("/status/error404.page");
+                }
+
+                topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());                
+            }
 
             if (topicCenter == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
