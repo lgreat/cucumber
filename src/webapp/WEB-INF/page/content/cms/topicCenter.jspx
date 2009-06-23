@@ -23,7 +23,7 @@
     <meta name="keywords" content="${topicCenter.metaKeywords}"/>
     <!-- TODO: keep in only if using jquery -->
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
-    <pageHelper:externalJavascript file="/res/js/topicCenter/topicCenter.js"/>
+    <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter.js"/>
     <!-- TODO: replace cmsArticle.css -->
     <pageHelper:externalCss file="/res/css/content/cmsTopicCenter.css"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
