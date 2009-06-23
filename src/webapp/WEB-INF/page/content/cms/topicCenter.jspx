@@ -63,11 +63,10 @@
                 <div id="topicNavigation">
                     <!-- TODO: Randall, I put in h2 just as a guess - I dont know what it should be -->
                     <h2>In this topic</h2>
-
                     <!-- Subtopic navigation -->
                     <ul>
                         <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
-                            <li><a href="#">${subtopic.title}</a></li>
+                            <li>${subtopic.title}</li>
                         </c:forEach>
                     </ul>
                 </div><!-- end #topicNavigation -->
