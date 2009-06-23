@@ -182,12 +182,12 @@
         <c:if test="${fn:length(homepage.featureLinks) gt 1}">
             <div class="navigation">
                 <ul> <!-- bullet type: disc/square/circle-->
-                    <li><img id="al" src="/res/img/carousel/arrow_left-1.gif" alt="arrow left"/></li>
+                    <li><img id="al" src="/res/img/carousel/arrow_left-1.gif" title="" alt="arrow left"/></li>
                     <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
                         <li><img class="num" src="/res/img/carousel/num${status.index + 1}-off.gif"
-                                 alt="button ${status.index + 1}"/></li>
+                                 title="" alt="button ${status.index + 1}"/></li>
                     </c:forEach>
-                    <li><img id="ar" src="/res/img/carousel/arrow_right-1.gif" alt="arrow right"/></li>
+                    <li><img id="ar" src="/res/img/carousel/arrow_right-1.gif" title="" alt="arrow right"/></li>
                 </ul>
             </div>
             <!-- class="navigation" -->
