@@ -13,27 +13,12 @@ import java.util.Arrays;
 public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
     private CmsTopicCenterController _controller;
 
-    private CmsTopicCenter getSampleTopicCenter() {
-        CmsTopicCenter topicCenter = new CmsTopicCenter();
-
-        CmsCategory firstCat = new CmsCategory();
-        firstCat.setName("Category 1");
-        CmsCategory secondCat = new CmsCategory();
-        secondCat.setName("Category 2");
-        CmsCategory thirdCat = new CmsCategory();
-        thirdCat.setName("Category 3");
-
-        topicCenter.setPrimaryKategory(thirdCat);
-        List<CmsCategory> breadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
-        topicCenter.setPrimaryKategoryBreadcrumbs(breadcrumbs);
-
-        return topicCenter;
-    }
-
     public void setUp() throws Exception {
         super.setUp();
         _controller = new CmsTopicCenterController();
         _controller.setCmsFeatureEmbeddedLinkResolver(new CmsContentLinkResolver());
+
+        _request.setRequestURI(CmsTopicCenterController.BEAN_ID);
 
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
@@ -49,11 +34,8 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
     }
 
     // TODO: fix this to use expect once controller code uses dao to return a CmsTopicCenter; see CmsFeatureControllerTest.testAdKeywords()
-    /*
     public void testAdKeywords() {
         CmsUtil.enableCms();
-
-        CmsTopicCenter topicCenter = getSampleTopicCenter();
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
 
@@ -68,5 +50,4 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
 
         CmsUtil.disableCms();
     }
-    */
 }
