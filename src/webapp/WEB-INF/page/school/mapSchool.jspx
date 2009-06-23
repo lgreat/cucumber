@@ -114,7 +114,7 @@
             <div id="learnMore">
                 <h2>Learn More About:</h2>
                 <ul>
-                    <c:if test="${school.type.schoolTypeName != 'private' and (school.levelCode != 'p')}">
+                    <c:if test="${school.districtId != 0 and school.type.schoolTypeName != 'private' and (school.levelCode != 'p')}">
                         <li>
                             <link:districtHome district="${school.district}"
                                                        title="${school.district.name}">
