@@ -33,7 +33,6 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
         CmsUtil.disableCms();
     }
 
-    // TODO: fix this to use expect once controller code uses dao to return a CmsTopicCenter; see CmsFeatureControllerTest.testAdKeywords()
     public void testAdKeywords() {
         CmsUtil.enableCms();
 
