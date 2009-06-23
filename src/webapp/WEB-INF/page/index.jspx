@@ -150,7 +150,15 @@
     <div id="carousel">
         <div class="images">
             <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                <a href="${featureLink.url}">
+                <c:choose>
+                    <c:when test="${featureLink.newWindow}">
+                        <c:set var="featureLinkTarget" value="_blank"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="featureLinkTarget" value="_self"/>
+                    </c:otherwise>
+                </c:choose>
+                <a href="${featureLink.url}" target="${featureLinkTarget}">
                 <img src="${homepage.featureLinks[status.index].imageUrl}"
                      alt="${homepage.featureLinks[status.index].imageAltText}"/>
                 </a>
