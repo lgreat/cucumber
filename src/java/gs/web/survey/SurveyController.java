@@ -357,7 +357,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 isExistingUser = false;
             }
             // don't set member cookie per GS-8301
-//            PageHelper.setMemberCookie(request, response, user);
+            // actually DO set the member cookie because of bug exposed by GS-8301
+            PageHelper.setMemberCookie(request, response, user);
             urc.setUser(user);
         }
 
