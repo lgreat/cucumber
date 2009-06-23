@@ -90,26 +90,26 @@ public class CmsTopicCenterController extends AbstractController {
 
         List<CmsLink> featureLinks = new ArrayList<CmsLink>();
         CmsLink link = new CmsLink();
-        link.setTitle("Feature lorem ipsum lorem ipsum lorem ipsum");
+        link.setTitle("Lorem Ipsum Dolor Sit Amet");
         link.setUrl("http://www.google.com");
-        link.setDescription("Main feature description lorem ipsum lorem ipsum");
-        link.setLinkText("Feature lorem ipsum lorem ipsum lorem ipsum 1");
+        link.setDescription("Quisque eu velit a libero pellentesque ullamcorper.");
+        link.setLinkText("In semper purus eget justo");
         featureLinks.add(link);
         link = new CmsLink();
         link.setUrl("http://www.yahoo.com");
-        link.setLinkText("Feature lorem ipsum lorem ipsum lorem ipsum 2");
+        link.setLinkText("Morbi eu sollicitudin augue");
         featureLinks.add(link);
         link = new CmsLink();
         link.setUrl("http://www.jquery.org");
-        link.setLinkText("Feature lorem ipsum lorem ipsum lorem ipsum 3");
+        link.setLinkText("Nunc sed turpis nisl, ac lacinia sem");
         featureLinks.add(link);
         link = new CmsLink();
         link.setUrl("http://www.greatschools.net");
-        link.setLinkText("Feature lorem ipsum lorem ipsum lorem ipsum 4");
+        link.setLinkText("Nulla sit amet libero orci, sed euismod nisl");
         featureLinks.add(link);
         link = new CmsLink();
         link.setUrl("http://www.loremipsum.net");
-        link.setLinkText("Feature lorem ipsum lorem ipsum lorem ipsum 5");
+        link.setLinkText("In semper purus eget justo");
         featureLinks.add(link);
         topicCenter.setFeatureLinks(featureLinks);
 
