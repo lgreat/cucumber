@@ -24,7 +24,7 @@ public class CmsUrlTranslationController extends AbstractController {
 
         String contentType = (String) request.getParameterNames().nextElement();
 
-        if ("Article".equals(contentType) || "AskTheExperts".equals(contentType)) {
+        if ("Article".equals(contentType) || "AskTheExperts".equals(contentType) || "TopicCenter".equals(contentType)) {
             Long contentId;
 
             try {
@@ -35,18 +35,20 @@ public class CmsUrlTranslationController extends AbstractController {
             }
             Publication publication = _publicationDao.findByContentKey(new ContentKey(contentType, contentId));
 
+            String extension = null;
+            if ("Article".equals(contentType) || "AskTheExperts".equals(contentType)) {
+                extension = "gs";
+            } else if ("TopicCenter".equals(contentType)) {
+                extension = "topic";
+            }
+
             Map<String, String> model = new HashMap<String, String>();
             model.put("content", contentId.toString());
-            return new ModelAndView("redirect:" + publication.getFullUri() + ".gs", model);
+            return new ModelAndView("redirect:" + publication.getFullUri() + "." + extension, model);
         }
 
         if ("Homepage".equals(contentType)) {
             return new ModelAndView("redirect:/index.page");
-        }
-
-        if ("TopicCenter".equals(contentType)) {
-            // TODO - replace this to use urlbuilder to use the real topic center url
-            return new ModelAndView("redirect:/content/cms/topicCenter.page");
         }
 
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);

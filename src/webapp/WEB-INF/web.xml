@@ -591,6 +591,11 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>*.topic</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/api/admin/*</url-pattern>
     </filter-mapping>
 
@@ -1071,6 +1076,14 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>*.gs</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>*.topic</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -1901,6 +1914,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>*.gs</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>*.topic</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
