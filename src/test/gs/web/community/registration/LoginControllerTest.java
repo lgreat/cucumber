@@ -37,6 +37,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _user = new User();
         _user.setEmail("testLoginController@greatschools.net");
         _user.setId(99);
+        _user.setUserProfile(new UserProfile());
 
         // this is the IP used when the request attribute is missing
         _ip = "127.0.0.1";

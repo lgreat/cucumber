@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.47 2009/01/20 19:39:37 jnorton Exp $
+ * $Id: LoginController.java,v 1.48 2009/06/24 00:52:05 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Lets user sign in.
@@ -176,6 +178,17 @@ public class LoginController extends SimpleFormController {
         User user = getUserDao().findUserFromEmail(email);
 
         ModelAndView mAndV = new ModelAndView();
+
+        // special casing for GS-8374
+        if (user.getUserProfile() == null) {
+            Map<String, Object> model = new HashMap<String, Object>();
+            UserCommand userCommand = new UserCommand();
+            userCommand.setEmail(email);
+            userCommand.setRedirectUrl(loginCommand.getRedirect());
+            model.put("userCmd", userCommand);
+            mAndV = new ModelAndView("/community/registration/createUsername", model);
+            return mAndV; // early exit!
+        }
 
         if (StringUtils.isEmpty(loginCommand.getRedirect())) {
             if (DEFAULT_REDIRECT_URL == null) {

@@ -153,7 +153,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
     }
 
-    protected void validateTerms(UserCommand command, Errors errors) {
+    public void validateTerms(UserCommand command, Errors errors) {
         if (!command.getTerms()) {
             errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
             _log.info("Registration error: " + ERROR_TERMS_MISSING);
@@ -183,7 +183,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
     }
 
-    protected void validateUsername(UserCommand command, User user, Errors errors) {
+    public void validateUsername(UserCommand command, User user, Errors errors) {
         // screen name must be 5-20 characters and alphanumeric only (no space)
         String sn = command.getScreenName();
         boolean snError = false;
