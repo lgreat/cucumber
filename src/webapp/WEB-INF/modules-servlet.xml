@@ -358,7 +358,7 @@
    </bean>
 
     <bean name="/content/cms/mostPopularContent.module"
-         class="gs.web.content.cms.MostPopularContentController"
+         class="gs.web.content.cms.CmsMostPopularContentController"
          autowire="byName" lazy-init="true">
        <property name="viewName" value="/content/cms/mostPopularContent"/>
    </bean>

@@ -4,12 +4,12 @@ import gs.web.BaseControllerTestCase;
 import gs.data.util.CmsUtil;
 import org.springframework.web.servlet.ModelAndView;
 
-public class MostPopularContentControllerTest extends BaseControllerTestCase {
-    private MostPopularContentController _controller;
+public class CmsMostPopularContentControllerTest extends BaseControllerTestCase {
+    private CmsMostPopularContentController _controller;
 
     public void setUp() throws Exception {
         super.setUp();
-        _controller = new MostPopularContentController();
+        _controller = new CmsMostPopularContentController();
     }
 
     public void testModel() throws Exception {

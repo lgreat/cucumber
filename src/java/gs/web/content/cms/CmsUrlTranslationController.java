@@ -51,6 +51,10 @@ public class CmsUrlTranslationController extends AbstractController {
             return new ModelAndView("redirect:/index.page");
         }
 
+        if ("MostPopularContent".equals(contentType)) {
+            return new ModelAndView("redirect:/content/cms/topicCenter.page");
+        }
+
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         return new ModelAndView("/status/error404.page");
     }
