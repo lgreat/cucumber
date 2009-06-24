@@ -22,7 +22,7 @@ var mssAutoHoverInterceptor = {
         var dataObject = subCookie.getObject(this.cookieName);
         // if no cookie, set value to 1 and show hover
         if (dataObject == undefined || dataObject[this.cookieProperty] == undefined){
-            subCookie.setObjectProperty(this.cookieName, this.cookieProperty, 1,1000);
+            subCookie.setObjectProperty(this.cookieName, this.cookieProperty, 1,15);
             return true;
         }
         // else no-op
