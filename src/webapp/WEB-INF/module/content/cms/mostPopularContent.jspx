@@ -8,13 +8,16 @@
 
     <!-- TODO: this layout is very similar to moreInCategory.jspx -->
 
-    <h3>Most popular</h3>
+    <c:if test="${not empty links}">
 
-    <!-- TODO: fix image, needs to be provided? -->
-    <img src="/res/img/" alt=""/>
+        <h3>Most popular</h3>
 
-    <c:forEach var="link" items="${links}" varStatus="status">
-        <a href="${link.url}"><c:out value="${link.linkText}"/></a>
-    </c:forEach>
+        <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="Smiling girl with book"/>
+
+        <c:forEach var="link" items="${links}" varStatus="status">
+            <a href="${link.url}"><c:out value="${link.linkText}"/></a>
+        </c:forEach>
+
+    </c:if>
 
 </jsp:root>

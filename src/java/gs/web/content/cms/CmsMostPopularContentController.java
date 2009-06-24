@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,48 +36,22 @@ public class CmsMostPopularContentController extends AbstractController {
                     throw new RuntimeException(e);
                 }
             }
-            if (mostPopularContent == null) {
-                mostPopularContent = getSampleMostPopularContent();
+
+            List<CmsLink> links = new ArrayList<CmsLink>();
+            // strip out links that have empty urls -- these are unpublished content that should not be linked to
+            if (mostPopularContent != null && mostPopularContent.getLinks() != null) {
+                for (CmsLink link : mostPopularContent.getLinks()) {
+                    if (StringUtils.isNotBlank(link.getUrl())) {
+                        links.add(link);
+                    }
+                }
             }
 
-            model.put(MODEL_LINKS, mostPopularContent.getLinks());
+            model.put(MODEL_LINKS, links);
         }
 
         return new ModelAndView(_viewName, model);
     }
-
-    // START sample topic center methods
-    private CmsMostPopularContent getSampleMostPopularContent() {
-        CmsMostPopularContent mpc = new CmsMostPopularContent();
-
-        List<CmsLink> links = new ArrayList<CmsLink>();
-
-        CmsLink link = new CmsLink();
-        link.setUrl("http://www.google.com");
-        link.setLinkText("Lorem ipsum lorem ipsum lorem ipsum 1");
-        links.add(link);
-        link = new CmsLink();
-        link.setUrl("http://www.yahoo.com");
-        link.setLinkText("Lorem ipsum lorem ipsum lorem ipsum 2");
-        links.add(link);
-        link = new CmsLink();
-        link.setUrl("http://www.jquery.org");
-        link.setLinkText("Lorem ipsum lorem ipsum lorem ipsum 3");
-        links.add(link);
-        link = new CmsLink();
-        link.setUrl("http://www.greatschools.net");
-        link.setLinkText("Lorem ipsum lorem ipsum lorem ipsum 4");
-        links.add(link);
-        link = new CmsLink();
-        link.setUrl("http://www.loremipsum.net");
-        link.setLinkText("Lorem ipsum lorem ipsum lorem ipsum 5");
-        links.add(link);
-
-        mpc.setLinks(links);
-
-        return mpc; 
-    }
-    // END sample topic center methods
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
