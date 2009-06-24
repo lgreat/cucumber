@@ -35,13 +35,12 @@ public class CmsMostPopularContentController extends AbstractController {
                     throw new RuntimeException(e);
                 }
             }
-        }
+            if (mostPopularContent == null) {
+                mostPopularContent = getSampleMostPopularContent();
+            }
 
-        if (mostPopularContent == null) {
-            mostPopularContent = getSampleMostPopularContent();
+            model.put(MODEL_LINKS, mostPopularContent.getLinks());
         }
-
-        model.put(MODEL_LINKS, mostPopularContent.getLinks());
 
         return new ModelAndView(_viewName, model);
     }
