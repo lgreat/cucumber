@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <head>
+        <title>b2s</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+        <meta name="description"
+              content="b2s"/>
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
+        <pageHelper:externalCss file="/res/css/backToSchool/backToSchoolHome.css"/>
+        <pageHelper:externalJavascript file="/res/js/backToSchool/backToSchoolHome.js"/>
+    </head>
+
+
+    <gsml:body adPageName="backToSchool-home">
+
+        <div id="main">
+            <div id="gamePlan">
+                <div>
+                    <div id="engagedTopImg"><img src="/res/img/backToSchool/b2s_gp_t1.jpg"></img></div>
+                    <div id="prepTopImg"><img src="/res/img/backToSchool/b2s_gp_t2.jpg"></img></div>
+                    <div id="smartTopImg"><img src="/res/img/backToSchool/b2s_gp_t3.jpg"></img></div>
+                </div>
+                <div id="gamePlanContent">
+                    <div id="engagedContent"><p
+                            class="gamePlanBoldText">Stop summer brain drain! </p> Don't let the livin' be too easy this summer - or your child will fall behind.
+                    </div>
+                    <div id="prepContent"><p class="gamePlanBoldText">Ready (or not) for school? </p> Find out <p
+                            class="gamePlanBoldText"> Eeek! School's almost here.</p> Nine steps to a smart start.
+                    </div>
+                    <div id="smartContent"><p class="gamePlanBoldText">Stock up on the right supplies</p>
+                        <select onchange="gotoLanding()" id="suppliesArticles">
+                            <option value="">Choose grade level</option>
+                            <option value="/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082">Elementary</option>
+                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">Middle</option>
+                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">High</option>
+                        </select></div>
+                </div>
+                <div id="gamePlanBottomImgs">
+                    <div id="engagedBottomImg"><img src="/res/img/backToSchool/b2s_gp_b1.jpg"></img></div>
+                    <div id="prepBottomImg"><img src="/res/img/backToSchool/b2s_gp_b2.jpg"></img></div>
+                    <div id="smartBottomImg"><img src="/res/img/backToSchool/b2s_gp_b3.jpg"></img></div>
+                </div>
+
+            </div>
+            <div class="divider">
+                <hr/>
+            </div>
+            <div id="tipOftheDay">TIP</div>
+            <div id="momOnFire">Mom</div>
+            <div id="hotProducts">products</div>
+            <div id="quiz">quiz</div>
+            <div id="community">community</div>
+        </div>
+        <div id="contentRight">
+            <div id="pledge">pledge</div>
+            <div id="popularArticles">articles</div>
+        </div>
+
+    </gsml:body>
+    </html>
+</jsp:root>

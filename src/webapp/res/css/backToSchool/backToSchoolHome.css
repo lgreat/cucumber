@@ -1,0 +1,164 @@
+#contentGS {
+    position: relative;
+}
+
+#main {
+    width: 638px;
+    position: relative;
+    margin-top: 2px;
+}
+
+#contentRight {
+    width: 300px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+}
+
+/* Start game plan module*/
+#contentGS .gamePlanBoldText{
+    font-weight:bold;
+}
+
+#suppliesArticles{
+ margin-top:6px;
+}
+#gamePlan {
+    height: 366px;
+    width: 638px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color:white;
+    font-size:13px;
+}
+
+#engagedTopImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#prepTopImg {
+    position: absolute;
+    left: 212px;
+    top: 0;
+}
+
+#smartTopImg {
+    position: absolute;
+    left: 426px;
+    top: 0;
+}
+
+#gamePlanContent{
+    
+    /*padding-left:15px;*/
+}
+
+#gamePlanContent div {
+    background-color: #108ca6;
+    position: absolute;
+    top: 280px;
+    height:80px;
+    padding-left:8px;
+    padding-right:8px;
+}
+
+#engagedContent {
+    left: 0;
+    width: 194px;
+}
+
+#prepContent {
+    width: 194px;
+    left: 214px;
+}
+
+#gamePlanContent div#smartContent {
+    width: 193px;
+    height:55px;
+    left: 428px;
+}
+
+#gamePlanBottomImgs div {
+    position: absolute;
+    top: 360px;
+}
+
+#engagedBottomImg {
+    left: 0;
+}
+
+#prepBottomImg {
+    left: 212px;
+}
+
+#gamePlanBottomImgs div#smartBottomImg {
+    left: 426px;
+    top: 334px;
+}
+
+/* End game plan module*/
+
+#tipOftheDay {
+    width: 312px;
+    height: 250px;
+    background-color: green;
+}
+
+#momOnFire {
+    width: 312px;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    top: 388px;
+    background-color: yellow;
+}
+
+#hotProducts {
+    width: 638px;
+    height: 227px;
+    background-color: blue;
+}
+
+#quiz {
+    width: 312px;
+    height: 250px;
+    background-color: black;
+}
+
+#community {
+    width: 312px;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    top: 893px;
+    background-color: pink;
+}
+
+#hotProducts, #quiz {
+    margin-top: 14px;
+}
+
+.divider {
+    border-bottom: 2px dotted #CCCCCC;
+    height: 0;
+    margin: 10px 0;
+}
+
+.divider hr {
+    display: none;
+}
+
+#pledge {
+    width: 300px;
+    background-color: green;
+    height: 250px
+}
+
+#popularArticles {
+    width: 300px;
+    margin-top: 20px;
+    background-color: black;
+    height: 250px;
+}
+

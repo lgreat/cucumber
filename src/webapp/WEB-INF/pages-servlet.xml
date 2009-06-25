@@ -2169,28 +2169,27 @@
         </property>
     </bean>
 
-    <bean name="/community/createUsername.page"
-          class="gs.web.community.registration.CreateUsernameRegistrationController"
+    <bean name="/backToSchool/backToSchoolHome.page"
+          class="gs.web.backToSchool.BackToSchoolHomeController"
           autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="false"/>
-        <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
-        <property name="formView" value="/community/registration/createUsername"/>
-        <property name="errorView" value="/community/registration/registrationSoapError"/>
-        <property name="validators">
-            <list>
-                <ref local="emailValidator"/>
-            </list>
+        <property name="viewName" value="/backToSchool/backToSchoolHome"/>
+        <property name="communityTableDao">
+            <bean factory-bean="districtHomePageBoilerPlateFactory" factory-method="getTableDao"/>
         </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
-        <property name="requireEmailValidation" value="false"/>
-        <property name="chooserRegistration" value="false"/>
-        <property name="how" value="Choose Username"/>
-        <property name="tableDao">
-            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
-        </property>
+    </bean>
+
+     <bean id="backToSchoolCommunityFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+     <bean id="backToSchoolPopularArticlesFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
     </bean>
 
 
