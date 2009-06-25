@@ -5,6 +5,7 @@ import gs.web.soap.ChangePasswordRequest;
 import gs.data.soap.SoapRequestException;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -276,6 +277,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
         user.setId(99);
+        user.setUserProfile(new UserProfile());
 
         setUserDaoToReturn(user);
         return user;

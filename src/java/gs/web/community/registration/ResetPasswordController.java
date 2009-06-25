@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Provides controller backing for the form that lets a user change their password.
@@ -183,6 +185,21 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             User user = command.getUser();
 
             user.setPlaintextPassword(command.getNewPassword());
+            // check for users from the GS-8374 flow
+            if (user.getUserProfile() == null) {
+                // save user
+                user.setUpdated(new Date());
+                getUserDao().updateUser(user);
+                // don't log these users in or notify community (they aren't registered!)
+                // just forward them to our new page
+                Map<String, Object> model = new HashMap<String, Object>();
+                UserCommand userCommand = new UserCommand();
+                userCommand.setEmail(user.getEmail());
+                userCommand.setRedirectUrl("/email/management.page");
+                model.put("userCmd", userCommand);
+                mAndV = new ModelAndView("/community/registration/createUsername", model);
+                return mAndV; // early exit!
+            }
             if (notifyCommunity(user, request)) {
                 // success
                 // save user
