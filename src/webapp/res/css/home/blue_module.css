@@ -3,6 +3,11 @@
     height: 215px;
 }
 
+.moduleBox .blue.narrow {
+	background: url(/res/img/home/blue_module/blue_bg_narrow.png) repeat-x left 20px;
+    height: 215px;
+}
+
 .blue .heading {
 	margin: 0;
 }
@@ -14,6 +19,11 @@
 	display: inline;
 	float: left;
 	background: #fff url(/res/img/home/blue_module/blue_white-top.png) no-repeat left top;
+}
+
+.blue .white-box.narrow {
+	width: 303px;
+	background: #fff url(/res/img/home/blue_module/blue_white-top_narrow.png) no-repeat left top;
 }
 
 .blue .transparent-box {

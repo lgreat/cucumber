@@ -1,13 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.20 2009/05/29 21:18:53 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.21 2009/06/25 22:57:06 yfan Exp $
  */
 
 package gs.web.content;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import org.apache.commons.logging.Log;
@@ -20,7 +19,6 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
@@ -45,6 +43,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private String _defaultUrl;
     private String _type;
     private boolean _showDate;
+    private boolean _hideAuthorImages = false;
     private SimpleDateFormat _sdf = null;
 
     public void doTag() throws JspException, IOException {
@@ -114,22 +113,24 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         out.print("<div class=\"blogpromo\">");
-        out.print("<div class=\"blogpromo_image_wrap\">");
-        String authorImage = getAuthorImage(author);
-        if(authorImage != null){
-            out.print("<a onclick=\"Popup=window.open('" +
-                    link +
-                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
-                    " href=\"" +
-                    link +
-                    "\">");
-            out.print("<img class=\"blogpromo_image\" src=\""
-                    + authorImage + "\" alt=\"" + author + "\"/>") ;
-            out.print("</a>");
-        }else{
-            out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>") ;
+        if (!isHideAuthorImages()) {
+            out.print("<div class=\"blogpromo_image_wrap\">");
+            String authorImage = getAuthorImage(author);
+            if (authorImage != null) {
+                out.print("<a onclick=\"Popup=window.open('" +
+                        link +
+                        "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                        " href=\"" +
+                        link +
+                        "\">");
+                out.print("<img class=\"blogpromo_image\" src=\""
+                        + authorImage + "\" alt=\"" + author + "\"/>");
+                out.print("</a>");
+            } else {
+                out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
+            }
+            out.print("</div>");
         }
-        out.print("</div>");
         out.print("<div class=\"blogpromo_entry\">");
         out.print("<a onclick=\"Popup=window.open('" +
                 link +
@@ -307,5 +308,13 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
     public void setShowDate(boolean showDate) {
         _showDate = showDate;
+    }
+
+    public boolean isHideAuthorImages() {
+        return _hideAuthorImages;
+    }
+
+    public void setHideAuthorImages(boolean hideAuthorImages) {
+        _hideAuthorImages = hideAuthorImages;
     }
 }
