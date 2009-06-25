@@ -17,8 +17,8 @@ $j(document).ready(function() {
     $j('#topicNavigation li').click(function () {
         var whichListItem = $j('#topicNavigation li').index(this);
         //console.log('whichListItem = ' + whichListItem);
-        $j('#topics .topic').hide();
-        $j('#topics .topic').eq(whichListItem).show();
+        $j('#topicContent .topic').hide();
+        $j('#topicContent .topic').eq(whichListItem).show();
         $j('#topicNavigation li').removeClass("highlight");
         $j(this).addClass("highlight");
     });

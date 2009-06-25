@@ -9,6 +9,12 @@
 #leftColumn{
     float:left;
     padding: 0 13px;
+    background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 10px 700px;
+}
+
+#rightColumn{
+    width:300px;
+    float:right;
 }
 
 /* -------------- */
@@ -68,13 +74,23 @@
     padding:5px 0;
 }
 
+/* ------ */
+/* TOPICS */
+/* ------ */
+
+#topics{
+    width:615px;
+    float:left;
+}
+
 /* ---------------- */
 /* TOPICS NAVIGATION*/
 /* ---------------- */
 
 #topicNavigation {
     float:left;
-    width: 130px;
+    width: 120px;
+    padding:0 10px 0 0;
 }
 
 #topicNavigation h2 {
@@ -107,57 +123,71 @@
 /* TOPICS CONTENT */
 /* -------------- */
 
-#topics {
+#topicContent {
     float:right;
-    width:460px;
+    width:480px;
+    padding:0 0 0 5px;
+}
+
+.topic {
     border:2px solid #999;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
 }
 
-#topics img {
+#topicContent img {
     float:right;
     width:130px; height:150px;
     outline:1px solid #00f;
     margin:20px;
 }
 
-#topics h3 {
+#topicContent h3 {
     font: bold 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     padding: 20px 0 0 20px;
 }
 
-#topics p {
+#topicContent p {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     padding: 15px 0 0 20px;
 }
 
-#topics h4 {
+#topicContent h4 {
     font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
     padding: 15px 0 0 20px;
 }
 
-#topics ul {
+#topicContent ul {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     padding: 0 0 0 35px;
 }
 
-#topics li {
+#topicContent li {
     list-style: disc outside;
     color: #eb9339;
     padding:3px 0;
 }
 
-#topics a {
+#topicContent a {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-#topics .more {
+#topicContent .more {
     float:right;
     padding:10px 20px 10px 0;
+}
+
+/* ------ */
+/* COMMUNITY */
+/* ------ */
+
+#community{
+    width:615px;
+    float:left;
+    padding:40px 0 0 0;
 }
 
 /* -------------------- */
@@ -166,8 +196,8 @@
 
 #communityNavigation {
     float:left;
-    width: 130px;
-    padding:40px 0 0 0;
+    width: 120px;
+    padding:0 10px 0 0;
 }
 
 #communityNavigation h2 {
@@ -181,27 +211,27 @@
 /* COMMUNITY CONTENT */
 /* ----------------- */
 
-#community {
+#communityContent {
     float:right;
-    width:460px;
-    padding:40px 0 0 0;
+    width:480px;
+    padding:0 0 0 5px;
 }
 
-#community ul {
+#communityContent ul {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-#community li {
+#communityContent li {
     list-style: none;
     border-bottom:1px dotted #999;
     padding:10px 0;
 }
 
-#community a {
+#communityContent a {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-#community .more {
+#communityContent .more {
     float:right;
     padding:10px 0;
 }
