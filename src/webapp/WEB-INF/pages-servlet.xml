@@ -2185,7 +2185,13 @@
         <property name="projection" value="values"/>
     </bean>
 
-     <bean id="backToSchoolPopularArticlesFactory"
+    <bean name="/backToSchool/pledgeLanding.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/backToSchool/pledgeLanding"/>
+    </bean>
+
+    <bean id="backToSchoolPopularArticlesFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
         <property name="visibility" value="public"/>

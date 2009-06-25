@@ -1,0 +1,34 @@
+#contentGS {
+    position: relative;
+}
+
+#main {
+    width: 640px;
+    position: relative;
+    margin-top: 11px;
+}
+
+#main .pledgeHeader {
+    margin-left: 13px;
+}
+
+#contentRight {
+    width: 300px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+}
+
+#contentGS h1 {
+    font-size: 25px;
+    line-height: 28px;
+    color: #55BBCC;
+}
+
+#contentGS p.boilerplate {
+    font-size: 12px;
+    line-height: 16px;
+    color: #666666;
+    margin-top: 10px;
+    padding-top: 0;
+}
