@@ -302,7 +302,7 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 261px; height: 215px; position: relative;">
+                <div class="wrapper-content" style="width: 261px; height: 245px; position: relative;">
                     <!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school"
                          title=""/>
@@ -320,8 +320,6 @@
                                                wrappingElement="li">Charter, private or public</gsweb:articlelink>
                             <gsweb:articlelink articleId="3705"
                                                wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
-                            <gsweb:articlelink articleId="48"
-                                               wrappingElement="li">My checklist for the school visit</gsweb:articlelink>
                         </ul>
 
                         <p class="more right">
@@ -336,7 +334,7 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 241px; height: 215px; position: relative;">
+                <div class="wrapper-content" style="width: 241px; height: 245px; position: relative;">
                     <!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/whats_new_narrow.jpg" alt="What's New?"
                          title=""/>
@@ -356,7 +354,7 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 313px; height: 215px; position: relative;">
+                <div class="wrapper-content" style="width: 313px; height: 245px; position: relative;">
                     <div class="blue narrow"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
 
                         <img class="heading" src="/res/img/home/blue_module/parent_to_parent_narrow.png" alt="Parent to Parent"
