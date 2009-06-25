@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#cmsMostPopular{
+
+}
+
+#cmsMostPopular h3 {
+    font: 18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+}
+
+#cmsMostPopular img {
+    float:left;
+    padding: 10px 0;
+    border-right:10px solid white;
+}
+
+#cmsMostPopular a {
+    font: 13px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#cmsMostPopular div {
+    border-bottom: 1px dotted #999;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+#cmsMostPopular div.lastone {
+    border: none;
+    margin: 5px 0;
+    padding: 5px 0;
+}

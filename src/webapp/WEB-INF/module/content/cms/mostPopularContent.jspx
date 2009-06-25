@@ -4,20 +4,54 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link">
 
     <!-- TODO: this layout is very similar to moreInCategory.jspx -->
 
     <c:if test="${not empty links}">
+        <pageHelper:externalCss file="/res/css/content/mostPopularContent.css"/>
 
-        <h3>Most popular</h3>
+        <div id="cmsMostPopular">
+            <h3>Most popular</h3>
 
-        <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="Smiling girl with book"/>
+            <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="Smiling girl with book"/>
 
-        <c:forEach var="link" items="${links}" varStatus="status">
-            <a href="${link.url}"><c:out value="${link.linkText}"/></a>
-        </c:forEach>
+            <c:set var="numResults" value="${fn:length(links)}"/>
+            <!-- maxResults can be changed to cap the number of articles to display -->
+            <c:set var="maxResults" value="${5}"/>
 
+            <c:choose>
+                <c:when test="${numResults lt maxResults}">
+                    <c:set var="actualMax" value="${numResults}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="actualMax" value="${maxResults}"/>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="link" items="${links}" varStatus="status">
+
+                <c:if test="${status.count le actualMax}">
+
+                    <c:choose>
+                        <c:when test="${status.count eq actualMax}">
+                            <c:set var="className" value="lastone"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="className" value=""/>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <div class="${className}">
+                        <a href="${link.url}"><c:out value="${link.linkText}"/></a>
+                    </div>
+
+                </c:if>
+
+            </c:forEach>
+        </div>
     </c:if>
 
 </jsp:root>
