@@ -49,9 +49,7 @@
 
         <div id="contentRight"><!-- nop -->
             <ad:setSlotPrefix slotPrefix="Pledge_Landing_Page"/>
-            <div style="width: 300px; height: 250px; background-color: #AAFFAA;">
-                <ad:AboveFold_300x250/>
-            </div>
+            <ad:AboveFold_300x250/>
             <div style="width: 300px; height: 137px; background-color: #AAFFAA; margin-top: 20px;">
                 (placeholder) Join
                 <gsweb:adTagGenerator position="House_Ad_300x137"/>
