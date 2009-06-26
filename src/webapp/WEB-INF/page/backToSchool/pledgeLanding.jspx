@@ -22,6 +22,7 @@
               content="Pledge Landing"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/pledgeLanding.css"/>
+        <gsml:equalizeColumns ids="'main','contentRight'"/>
     </head>
 
 
@@ -38,7 +39,7 @@
 
             </div>
 
-            <gsweb:adTagGenerator position="Generic_640"/>
+            <gsweb:adTagGenerator position="Interstitial"/>
 
             <div style="width: 640px; height: 480px; background-color: #AAAAFF; margin-top: 20px;">
                 (placeholder) Pledge results
