@@ -1,6 +1,7 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.PageHelper;
 import gs.web.search.SearchResult;
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.ArticleCategory;
@@ -51,6 +52,9 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         _controller.setCmsCategoryDao(_cmsCategoryDao);
 
         _controller.setGetParents(true);
+
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
     public void testBasics() {
