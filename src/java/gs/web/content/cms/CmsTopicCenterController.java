@@ -78,7 +78,7 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setMetaKeywords("meta keywords");
         topicCenter.setFeatureImageUrl("/res/img/feature_image.jpg");
         topicCenter.setFeatureImageAltText("feature image alt text");
-        topicCenter.setContentProviderLogoUrl("/res/img/content_provider_logo.gif");
+        topicCenter.setContentProviderLogoUrl("/res/img/mostPopularContent/most_popular_sm_thumb.jpg");
         topicCenter.setContentProviderLogoAltText("content provider logo alt text");
 
         CmsCategory firstCat = new CmsCategory();

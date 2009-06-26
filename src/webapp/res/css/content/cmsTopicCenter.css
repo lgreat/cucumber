@@ -123,6 +123,7 @@
 #topicNavigation ul {
     font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align:right;
+    padding-bottom:20px;
 }
 
 #topicNavigation li {
@@ -141,7 +142,7 @@
 
 #contentProvider {
     position:absolute;
-    right:0;
+    right:10px;
 }
 
 /* -------------- */
