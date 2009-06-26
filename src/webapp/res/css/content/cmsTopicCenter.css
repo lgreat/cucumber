@@ -6,15 +6,34 @@
 	height:0;
 }
 
+.divider {
+    border-bottom: 1px dotted #999;
+    /*width:448px;*/
+    height:1px;
+    /*padding:0px;*/
+    margin:0 20px;
+    /*outline: 1px solid red;*/
+}
+
+.divider hr {
+    display: none;
+}
+
 #leftColumn{
+    width:615px;
     float:left;
     padding: 0 13px;
-    background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 10px 700px;
+    zoom: 1.0;
+    /*outline: 1px solid red;*/
+    /*border: 1px solid red;*/
 }
 
 #rightColumn{
     width:300px;
     float:right;
+    zoom: 1.0;
+    /*outline: 1px solid red;*/
+    /*border: 1px solid red;*/
 }
 
 /* -------------- */
@@ -91,6 +110,7 @@
     float:left;
     width: 120px;
     padding:0 10px 0 0;
+    position:relative;
 }
 
 #topicNavigation h2 {
@@ -119,6 +139,11 @@
     cursor:default;
 }
 
+#contentProvider {
+    position:absolute;
+    right:0;
+}
+
 /* -------------- */
 /* TOPICS CONTENT */
 /* -------------- */
@@ -126,20 +151,25 @@
 #topicContent {
     float:right;
     width:480px;
-    padding:0 0 0 5px;
+    padding:0;
+    background:url(/res/img/box/tc_sides.jpg) repeat-y;
 }
 
-.topic {
+/*.topic {
     border:2px solid #999;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
-}
+}*/
 
-#topicContent img {
+#topicContent .topicImage {
     float:right;
     width:130px; height:150px;
     outline:1px solid #00f;
     margin:20px;
+}
+
+#topicContent div {
+    line-height:0;
 }
 
 #topicContent h3 {
@@ -176,18 +206,21 @@
 }
 
 #topicContent .more {
+    /*outline:1px solid red;*/
     float:right;
     padding:10px 20px 10px 0;
+    /*border-bottom:1px dotted #999;*/
 }
 
-/* ------ */
+/* --------- */
 /* COMMUNITY */
-/* ------ */
+/* --------- */
 
 #community{
     width:615px;
     float:left;
     padding:40px 0 0 0;
+    background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 0 25px;
 }
 
 /* -------------------- */
@@ -236,6 +269,6 @@
     padding:10px 0;
 }
 
-/* ------------ */
-/* MOST POPULAR */
-/* ------------ */
+/* --- */
+/* EOF */
+/* --- */
