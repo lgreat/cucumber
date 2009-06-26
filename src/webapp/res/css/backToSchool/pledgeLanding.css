@@ -6,6 +6,7 @@
     width: 640px;
     position: relative;
     margin-top: 11px;
+    min-height: 680px;
 }
 
 #main .pledgeHeader {
@@ -31,4 +32,8 @@
     color: #666666;
     margin-top: 10px;
     padding-top: 0;
+}
+
+#Generic_640 {
+    margin-top: 10px;
 }
