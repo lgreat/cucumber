@@ -26,6 +26,7 @@
 
 
     <gsml:body adPageName="backToSchool-pledge-landing">
+        <ad:setSlotPrefix slotPrefix="Pledge_Landing_Page"/>
 
         <div id="main">
             <div class="pledgeHeader">
@@ -45,8 +46,6 @@
         </div>
 
         <div id="contentRight"><!-- nop -->
-            <ad:setSlotPrefix slotPrefix="Pledge_Landing_Page"/>
-
             <ad:AboveFold_300x250/>
 
             <gsweb:adTagGenerator position="House_Ad_300x137"/>
