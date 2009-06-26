@@ -439,6 +439,7 @@
                 </div>
             </c:otherwise>
         </c:choose>
+        <gsweb:adTagGenerator position="BelowFold_300x250"/>
     </div>
 
     <c:choose>

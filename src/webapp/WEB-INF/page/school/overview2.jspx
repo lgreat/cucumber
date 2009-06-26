@@ -379,16 +379,24 @@
                 <c:set var="position300x250" value="AboveFold_300x250" />
                 <ad:AboveFold_300x250/>
             </div>
-            <!---->
+
             <div class="ad_middle">
+                <!--
                 <c:choose>
-                    <c:when test="${showSchoolChooserPackPromo}">
-                        <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
+                    <c:when test="${requestScope.context.cobranded}">
+                        <gsml:a href="/content/healthyKids.page"><gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids"/></gsml:a>
                     </c:when>
                     <c:otherwise>
-                        <ad:Top_300x137/>
+                -->
+                        <gsweb:adTagGenerator position="Bottom_300x137" alwaysShow="true"/>
+                <!--
                     </c:otherwise>
                 </c:choose>
+                -->
+            </div>
+
+            <div class="ad_middle">
+                <gsweb:adTagGenerator position="AboveFold2_300x250" alwaysShow="true"/>
             </div>
 
             <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
@@ -417,17 +425,6 @@
                 <c:if test="${empty param.hideMap}">
                     <school:nearbySchools school="${school}"/>
                 </c:if>
-            </div>
-
-            <div class="ad_bottom">
-                <c:choose>
-                    <c:when test="${requestScope.context.cobranded}">
-                        <gsml:a href="/content/healthyKids.page"><gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids"/></gsml:a>
-                    </c:when>
-                    <c:otherwise>
-                        <ad:adTag position="Bottom_300x137"/>
-                    </c:otherwise>
-                </c:choose>
             </div>
         </div>
     </div><!-- end: schoolOverview -->
