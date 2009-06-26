@@ -29,72 +29,73 @@ public class BackToSchoolHomeController extends AbstractController {
     public static final String LIVE_POPULARARTICLE = "od4";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-     Map<String, Object> model = new HashMap<String, Object>();
-        getArticlesAndLinks(model,request);
-    getCommunityTopicsAndLinks(model,request);
-     return new ModelAndView(getViewName(), model);
+        Map<String, Object> model = new HashMap<String, Object>();
+        getArticlesAndLinks(model, request);
+        getCommunityTopicsAndLinks(model, request);
+        return new ModelAndView(getViewName(), model);
     }
 
-     protected void getArticlesAndLinks(Map<String, Object> model,HttpServletRequest request){
-        GoogleSpreadsheetDao communityTableDao = (GoogleSpreadsheetDao) getCommunityTableDao();
-        communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request,true));
+    protected void getArticlesAndLinks(Map<String, Object> model, HttpServletRequest request) {
+        GoogleSpreadsheetDao articleTableDao = (GoogleSpreadsheetDao) getArticleTableDao();
+        articleTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request, false));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
-        List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page","backToSchool_popularArticles");
-         if(rows != null && rows.size() > 0){
-             int size = rows.size();
-             for(int i=0;i<size;i++){
-                 String article = rows.get(i).get("text").toString();
-                 String link = rows.get(i).get("url").toString();
-                 NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article,link);
+        List<ITableRow> rows = getArticleTableDao().getRowsByKey("page", "backToSchool_popularArticles");
+        if (rows != null && rows.size() > 0) {
+            int size = rows.size();
+            for (int i = 0; i < size; i++) {
+                String article = rows.get(i).get("text").toString();
+                String link = rows.get(i).get("url").toString();
+                NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article, link);
                 articleLinks.add(articleLink);
 
-             }
-              model.put("popularArticles", articleLinks);
-              model.put("popularArticlesSize", size);
-         }
-        
-     }
-    protected void getCommunityTopicsAndLinks(Map<String, Object> model,HttpServletRequest request){
+            }
+            model.put("popularArticles", articleLinks);
+            model.put("popularArticlesSize", size);
+        }
+
+    }
+
+    protected void getCommunityTopicsAndLinks(Map<String, Object> model, HttpServletRequest request) {
         GoogleSpreadsheetDao communityTableDao = (GoogleSpreadsheetDao) getCommunityTableDao();
-        communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request,true));
+        communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request, true));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
-        List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page","backToSchool_popularArticles");
-         if(rows != null && rows.size() > 0){
-             int size = rows.size();
-             for(int i=0;i<size;i++){
-                 String article = rows.get(i).get("text").toString();
-                 String link = rows.get(i).get("url").toString();
-                 NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article,link);
+        List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_popularArticles");
+        if (rows != null && rows.size() > 0) {
+            int size = rows.size();
+            for (int i = 0; i < size; i++) {
+                String article = rows.get(i).get("text").toString();
+                String link = rows.get(i).get("url").toString();
+                NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article, link);
                 articleLinks.add(articleLink);
-             }
-              model.put("communityTopics", articleLinks);
-              model.put("communityTopicsSize", size);
-         }
+            }
+            model.put("communityTopics", articleLinks);
+            model.put("communityTopicsSize", size);
+        }
 
-     }
+    }
 
-     protected String getWorksheetName(HttpServletRequest request,boolean isCommunity) {
-        String worksheetName ="";
+    protected String getWorksheetName(HttpServletRequest request, boolean isCommunity) {
+        String worksheetName = "";
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            if(isCommunity){
+            if (isCommunity) {
                 worksheetName = DEV_COMMUNITY;
-            }else{
+            } else {
                 worksheetName = DEV_POPULARARTICLE;
             }
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            if(isCommunity){
+            if (isCommunity) {
                 worksheetName = STAGING_COMMUNITY;
-            }else{
+            } else {
                 worksheetName = STAGING_POPULARTICLE;
             }
         } else {
-            if(isCommunity){
+            if (isCommunity) {
                 worksheetName = LIVE_COMMUNITY;
-            }else{
+            } else {
                 worksheetName = LIVE_POPULARARTICLE;
             }
         }
-         return worksheetName;
+        return worksheetName;
     }
 
     public String getViewName() {
@@ -112,8 +113,8 @@ public class BackToSchoolHomeController extends AbstractController {
     public void setCommunityTableDao(ITableDao boilerPlateTableDao) {
         _communityTableDao = boilerPlateTableDao;
     }
-    
-     public ITableDao getArticleTableDao() {
+
+    public ITableDao getArticleTableDao() {
         return _articleTableDao;
     }
 

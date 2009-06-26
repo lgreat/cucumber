@@ -36,7 +36,8 @@
                     <div id="smartTopImg"><img src="/res/img/backToSchool/b2s_gp_t3.jpg"></img></div>
                 </div>
                 <div id="gamePlanContent">
-                    <div id="engagedContent"><p class="gamePlanBoldText">Stop summer brain drain! </p> Don't let the livin' be too easy this summer - or your child will fall behind.
+                    <div id="engagedContent"><p
+                            class="gamePlanBoldText">Stop summer brain drain! </p> Don't let the livin' be too easy this summer - or your child will fall behind.
                     </div>
                     <div id="prepContent"><p class="gamePlanBoldText">Ready (or not) for school? </p> Find out <p
                             class="gamePlanBoldText"> Eeek! School's almost here.</p> Nine steps to a smart start.
@@ -60,34 +61,56 @@
                 <hr/>
             </div>
             <div id="tipOftheDay">TIP</div>
-            <div id="momOnFire">Mom</div>
+            <div id="momOnFire">
+                <div class="momWrapper">
+                    <div class="blogHeader">Mom on fire</div>
+                    <div class="blogTitle">Teacher assignments are in</div>
+                    <div class="blogContent">They set us out teacher assignment today...and we got the dud.</div>
+                    <div class="blogLink">Read the full post &gt;</div>
+                </div>
+            </div>
             <div id="hotProducts">products</div>
             <div id="quiz">quiz</div>
             <div id="community">
-                 <h3>Community</h3>
-                <ul class="communityUl">
+                <div class="communityWrapper">
+                    <h3>Community</h3>
+                    <ul class="communityUl">
                         <c:forEach var="topic" begin="0" end="${communityTopicsSize-1}">
-                        <li class="linksTextList"><a href="${communityTopics[topic].value}">${communityTopics[topic].key}</a> <div class="linksDivider"><hr/></div></li>
+                            <li class="linksTextList"><a
+                                    href="${communityTopics[topic].value}">${communityTopics[topic].key}</a>
+
+                                <div class="linksDivider">
+                                    <hr/>
+                                </div>
+                            </li>
                         </c:forEach>
                     </ul>
-                <div class="additionalLinks">More discussions &gt;</div>
+                    <div class="additionalLinks">More discussions &gt;</div>
+                </div>
             </div>
         </div>
         <div id="contentRight">
             <div id="pledge">pledge</div>
             <div id="popularArticles">
-                    <h3>Popular articles</h3>
+                <h3>Popular articles</h3>
+
                 <div class="articles">
                     <img src="/res/img/content/research/mmyers.jpg" class="popularArticlesImage"></img>
                     <!--<div class="linksDivider"><hr/></div>-->
                     <ul>
                         <c:forEach var="article" begin="0" end="${popularArticlesSize-1}">
-                        <li class="linksTextList"><a href="${popularArticles[article].value}">${popularArticles[article].key}</a><div class="linksDivider"><hr/></div></li>
+                            <li class="linksTextList"><a
+                                    href="${popularArticles[article].value}">${popularArticles[article].key}</a>
+
+                                <div class="linksDivider">
+                                    <hr/>
+                                </div>
+                            </li>
                         </c:forEach>
                     </ul>
                     <div class="additionalLinks">More &gt;</div>
                 </div>
-              </div>
+            </div>
         </div>
 
     </gsml:body>

@@ -15,15 +15,14 @@
     top: 2px;
 }
 
-#contentGS h3{
-    font-size:18px;
-    color:#D66671;
+#contentGS h3 {
+    font-size: 18px;
+    color: #D66671;
 }
 
-.linksTextList{
-    font-size:13px;
-    color:#3399AA;
-    margin-top:10px;
+#contentGS .linksTextList {
+    font-size: 13px;
+    color: #3399AA;
 }
 
 .linksDivider {
@@ -36,11 +35,10 @@
     display: none;
 }
 
-.additionalLinks{
-    font-size:12px;
-    color:#3399AA;
+.additionalLinks {
+    font-size: 12px;
+    color: #3399AA;
 }
-
 
 /* Start game plan module*/
 
@@ -48,8 +46,8 @@
     height: 366px;
     width: 638px;
     font-family: "Trebuchet MS";
-    color:#FFF;
-    font-size:12px;
+    color: #FFF;
+    font-size: 12px;
 }
 
 #engagedTopImg {
@@ -74,9 +72,9 @@
     background-color: #108ca6;
     position: absolute;
     top: 280px;
-    height:80px;
-    padding-left:8px;
-    padding-right:8px;
+    height: 80px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #engagedContent {
@@ -91,7 +89,7 @@
 
 #gamePlanContent div#smartContent {
     width: 193px;
-    height:55px;
+    height: 55px;
     left: 428px;
 }
 
@@ -113,13 +111,13 @@
     top: 334px;
 }
 
-#contentGS .gamePlanBoldText{
-    font-weight:bold;
-    font-size:14px;
+#contentGS .gamePlanBoldText {
+    font-weight: bold;
+    font-size: 14px;
 }
 
-#suppliesArticles{
- margin-top:6px;
+#suppliesArticles {
+    margin-top: 6px;
 }
 
 /* End game plan module*/
@@ -130,14 +128,46 @@
     background-color: green;
 }
 
+/*start Mom on fire*/
+
 #momOnFire {
     width: 312px;
     height: 250px;
     position: absolute;
     right: 0;
     top: 388px;
-    background-color: yellow;
+    background: url( /res/img/backToSchool/bts_mom_on_fire_bg.jpg ) no-repeat;
+    color: #FFF;
+    font-family: "Trebuchet MS";
 }
+
+.momWrapper {
+    padding: 20px 20px 20px 20px;
+}
+
+.blogHeader {
+    font-size: 18px;
+}
+
+.blogTitle {
+    font-family: "Georgia";
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.blogContent {
+    font-size: 13px;
+    width: 150px;
+    margin-top: 15px;
+}
+
+.blogLink {
+    font-size: 10px;
+    text-decoration: underline;
+    margin-top: 15px;
+}
+
+/*end Mom on fire*/
 
 #hotProducts {
     width: 638px;
@@ -159,17 +189,20 @@
     position: absolute;
     right: 0;
     top: 893px;
-    background: url(/res/img/backToSchool/b2s_community_bg.jpg) no-repeat;
-    padding:15px 0 0 20px;
+    background: url( /res/img/backToSchool/b2s_community_bg.jpg ) no-repeat;
+
 }
 
-#contentGS #community ul{
-    margin-top:10px;
-    width:250px;
+.communityWrapper {
+    padding: 20px 20px 0 20px;
 }
 
-#community .additionalLinks{
-    text-align:right;
+#contentGS #community ul {
+    margin-top: 10px;
+}
+
+#community .additionalLinks {
+    text-align: right;
 }
 
 /*end community article*/
@@ -199,21 +232,22 @@
 #popularArticles {
     margin-top: 20px;
     background-color: black;
-    background: url(/res/img/backToSchool/b2s_most_popular_bg.jpg) no-repeat;
-    padding:15px 20px 20px 20px;
-    position:relative;
-}
-.popularArticlesImage{
-   float:left;
-    border-right:10px solid white;
+    background: url( /res/img/backToSchool/b2s_most_popular_bg.jpg ) no-repeat;
+    padding: 15px 20px 20px 20px;
+    position: relative;
 }
 
-.articles{
-    margin-top:10px;
+.popularArticlesImage {
+    float: left;
+    border-right: 10px solid white;
 }
 
-#popularArticles .additionalLinks{
-    text-align:right;
+.articles {
+    margin-top: 10px;
+}
+
+#popularArticles .additionalLinks {
+    text-align: right;
 }
 
 /*End popular artiicles*/
