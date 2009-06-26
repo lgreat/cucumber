@@ -176,7 +176,17 @@
         </div>
 
         <div id="compareSchools">
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare Schools in ${fn:length(districtAcronymOrName) >40 ? "This District":districtAcronymOrName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
+            <c:choose>
+                <c:when test="${fn:endsWith(fn:toLowerCase(districtAcronymOrName),'schools')}">
+                    <c:set var="compareHeaderName" value="${fn:length(districtAcronymOrName) > 40 ? 'Schools in This District' : districtAcronymOrName}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="districtSchoolsName" value="${districtAcronymOrName} Schools"/>
+                    <c:set var="compareHeaderName" value="${fn:length(districtSchoolsName) > 40 ? 'Schools in This District' : districtSchoolsName}"/>
+                </c:otherwise>
+            </c:choose>
+
+            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare ${compareHeaderName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
             <div>
                 <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
                     <c:if test="${model.numElementarySchools gt 0}">
