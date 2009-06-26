@@ -37,10 +37,7 @@
 
             </div>
 
-            <div style="width: 640px; height: 137px; background-color: #AAFFAA; margin-top: 20px;">
-                (placeholder) Check out who else has taken the Great Parents Pledge:
-                <gsweb:adTagGenerator position="Generic_640"/>
-            </div>
+            <gsweb:adTagGenerator position="Generic_640"/>
 
             <div style="width: 640px; height: 480px; background-color: #AAAAFF; margin-top: 20px;">
                 (placeholder) Pledge results
