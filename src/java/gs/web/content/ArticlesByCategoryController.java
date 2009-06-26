@@ -105,7 +105,10 @@ public class ArticlesByCategoryController extends AbstractController {
         if (categoryId != null && StringUtils.isNumeric(categoryId)) {
             // legacy category
             model = handleLegacyCategoryRequest(request, page);
-            setAdTargetingForBrowseGradeLevelPages(request, (ArticleCategory)model.get(MODEL_SUBCATEGORY));
+            ArticleCategory category = (ArticleCategory)model.get(MODEL_SUBCATEGORY);
+            if (category != null) {
+                setAdTargetingForBrowseGradeLevelPages(request, category);
+            }
         } else {
             // cms category
             model = handleCmsCategoryRequest(request, page);
