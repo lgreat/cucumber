@@ -67,7 +67,7 @@
                                               defaultUrl="http://blogs.greatschools.net/greatschoolsblog"
                                               type="researchBlog"/>
             </div>
-            <div id="hotProducts">products</div>
+            <div id="hotProducts"><jsp:include page="/promo/hotProducts.module"/></div>
             <div id="quiz">quiz</div>
             <div id="community">
                 <div class="communityWrapper">
