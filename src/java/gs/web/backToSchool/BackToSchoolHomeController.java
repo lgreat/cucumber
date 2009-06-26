@@ -20,44 +20,20 @@ import gs.web.util.UrlUtil;
 public class BackToSchoolHomeController extends AbstractController {
     public String _viewName;
     private ITableDao _communityTableDao;
-    private ITableDao _articleTableDao;
     public static final String DEV_COMMUNITY = "od6";
     public static final String STAGING_COMMUNITY = "od8";
     public static final String LIVE_COMMUNITY = "od4";
-    public static final String DEV_POPULARARTICLE = "od6";
-    public static final String STAGING_POPULARTICLE = "od8";
-    public static final String LIVE_POPULARARTICLE = "od4";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-        getArticlesAndLinks(model, request);
         getCommunityTopicsAndLinks(model, request);
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void getArticlesAndLinks(Map<String, Object> model, HttpServletRequest request) {
-        GoogleSpreadsheetDao articleTableDao = (GoogleSpreadsheetDao) getArticleTableDao();
-        articleTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request, false));
-        List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
-        List<ITableRow> rows = getArticleTableDao().getRowsByKey("page", "backToSchool_popularArticles");
-        if (rows != null && rows.size() > 0) {
-            int size = rows.size();
-            for (int i = 0; i < size; i++) {
-                String article = rows.get(i).get("text").toString();
-                String link = rows.get(i).get("url").toString();
-                NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article, link);
-                articleLinks.add(articleLink);
-
-            }
-            model.put("popularArticles", articleLinks);
-            model.put("popularArticlesSize", size);
-        }
-
-    }
 
     protected void getCommunityTopicsAndLinks(Map<String, Object> model, HttpServletRequest request) {
         GoogleSpreadsheetDao communityTableDao = (GoogleSpreadsheetDao) getCommunityTableDao();
-        communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request, true));
+        communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
         List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_popularArticles");
         if (rows != null && rows.size() > 0) {
@@ -71,29 +47,19 @@ public class BackToSchoolHomeController extends AbstractController {
             model.put("communityTopics", articleLinks);
             model.put("communityTopicsSize", size);
         }
-
     }
 
-    protected String getWorksheetName(HttpServletRequest request, boolean isCommunity) {
+    protected String getWorksheetName(HttpServletRequest request) {
         String worksheetName = "";
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            if (isCommunity) {
-                worksheetName = DEV_COMMUNITY;
-            } else {
-                worksheetName = DEV_POPULARARTICLE;
-            }
+            worksheetName = DEV_COMMUNITY;
+
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            if (isCommunity) {
-                worksheetName = STAGING_COMMUNITY;
-            } else {
-                worksheetName = STAGING_POPULARTICLE;
-            }
+            worksheetName = STAGING_COMMUNITY;
+
         } else {
-            if (isCommunity) {
-                worksheetName = LIVE_COMMUNITY;
-            } else {
-                worksheetName = LIVE_POPULARARTICLE;
-            }
+            worksheetName = LIVE_COMMUNITY;
+
         }
         return worksheetName;
     }
@@ -114,11 +80,5 @@ public class BackToSchoolHomeController extends AbstractController {
         _communityTableDao = boilerPlateTableDao;
     }
 
-    public ITableDao getArticleTableDao() {
-        return _articleTableDao;
-    }
 
-    public void setArticleTableDao(ITableDao articleTableDao) {
-        _articleTableDao = articleTableDao;
-    }
 }

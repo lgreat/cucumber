@@ -29,6 +29,22 @@
           autowire="byName">
     </bean>
 
+    <bean name="/backToSchool/popularArticles.module"
+          class="gs.web.backToSchool.popularArticlesController"
+          autowire="byName">
+         <property name="articleTableDao">
+            <bean factory-bean="backToSchoolPopularArticlesFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
+    <bean id="backToSchoolPopularArticlesFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBg00sVO5gBNGw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+
     <bean id="communityQuestionPromoTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pmY-74KD4CbXrSKtrPdEnSg"/>

@@ -181,7 +181,7 @@
     background-color: black;
 }
 
-/*start community article*/
+/*start community */
 
 #community {
     width: 312px;
@@ -205,7 +205,7 @@
     text-align: right;
 }
 
-/*end community article*/
+/*end community */
 
 #hotProducts, #quiz {
     margin-top: 14px;
@@ -227,29 +227,5 @@
     height: 250px
 }
 
-/*Start popular artiicles*/
-
-#popularArticles {
-    margin-top: 20px;
-    background-color: black;
-    background: url( /res/img/backToSchool/b2s_most_popular_bg.jpg ) no-repeat;
-    padding: 15px 20px 20px 20px;
-    position: relative;
-}
-
-.popularArticlesImage {
-    float: left;
-    border-right: 10px solid white;
-}
-
-.articles {
-    margin-top: 10px;
-}
-
-#popularArticles .additionalLinks {
-    text-align: right;
-}
-
-/*End popular artiicles*/
 
 
