@@ -27,6 +27,7 @@ import gs.data.search.Indexer;
 import gs.data.search.GSAnalyzer;
 import gs.data.util.CmsUtil;
 import gs.web.search.ResultsPager;
+import gs.web.util.PageHelper;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -61,6 +62,8 @@ public class ArticlesByCategoryController extends AbstractController {
 
     /** Results per page */
     public static final int PAGE_SIZE = 10;
+
+    public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
 
     private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
@@ -102,6 +105,7 @@ public class ArticlesByCategoryController extends AbstractController {
         if (categoryId != null && StringUtils.isNumeric(categoryId)) {
             // legacy category
             model = handleLegacyCategoryRequest(request, page);
+            setAdTargetingForBrowseGradeLevelPages(request, (ArticleCategory)model.get(MODEL_SUBCATEGORY));
         } else {
             // cms category
             model = handleCmsCategoryRequest(request, page);
@@ -113,6 +117,26 @@ public class ArticlesByCategoryController extends AbstractController {
         model.put(MODEL_ISA_LD_CATEGORY,isAnLDCategory(request.getRequestURI()));
         
         return new ModelAndView(_viewName, model);
+    }
+
+    final static Map<Integer,String> GRADE_LEVEL_PAGES_AD_TARGETS = new HashMap<Integer,String>();
+    static {
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(103,"preschool");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(33,"kindergart");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(32,"1stgrade");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(34,"2ndgrade");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(35,"3rdgrade");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(52,"4thgrade");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(53,"5thgrade");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(54,"middlescho");
+        GRADE_LEVEL_PAGES_AD_TARGETS.put(104,"highschool");
+    }
+
+    protected void setAdTargetingForBrowseGradeLevelPages(HttpServletRequest request, ArticleCategory category) {
+        if (GRADE_LEVEL_PAGES_AD_TARGETS.containsKey(category.getId())) {
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, GRADE_LEVEL_PAGES_AD_TARGETS.get(category.getId()));
+        }
     }
 
     /**
