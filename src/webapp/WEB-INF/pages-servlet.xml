@@ -2174,14 +2174,17 @@
           class="gs.web.backToSchool.BackToSchoolHomeController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/backToSchool/backToSchoolHome"/>
+        <property name="articleTableDao">
+            <bean factory-bean="backToSchoolPopularArticlesFactory" factory-method="getTableDao"/>
+        </property>
         <property name="communityTableDao">
-            <bean factory-bean="districtHomePageBoilerPlateFactory" factory-method="getTableDao"/>
+            <bean factory-bean="backToSchoolCommunityFactory" factory-method="getTableDao"/>
         </property>
     </bean>
 
      <bean id="backToSchoolCommunityFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
-        <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
+        <property name="googleKey" value="pHIaC-TrslBhDBlR3glRcMg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
     </bean>
@@ -2194,7 +2197,7 @@
 
     <bean id="backToSchoolPopularArticlesFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
-        <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
+        <property name="googleKey" value="pHIaC-TrslBg00sVO5gBNGw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
     </bean>
