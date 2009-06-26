@@ -39,7 +39,7 @@
 
             </div>
 
-            <gsweb:adTagGenerator position="Interstitial"/>
+            <gsweb:adTagGenerator position="Generic_640"/>
 
             <div style="width: 640px; height: 480px; background-color: #AAAAFF; margin-top: 20px;">
                 (placeholder) Pledge results
