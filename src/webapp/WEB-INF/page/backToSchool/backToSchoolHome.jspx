@@ -31,9 +31,9 @@
         <div id="main">
             <div id="gamePlan">
                 <div>
-                    <div id="engagedTopImg"><img src="/res/img/backToSchool/b2s_gp_t1.jpg"></img></div>
-                    <div id="prepTopImg"><img src="/res/img/backToSchool/b2s_gp_t2.jpg"></img></div>
-                    <div id="smartTopImg"><img src="/res/img/backToSchool/b2s_gp_t3.jpg"></img></div>
+                    <div id="engagedTopImg"><img src="/res/img/backToSchool/b2s_gp_engage_top.jpg"></img></div>
+                    <div id="prepTopImg"><img src="/res/img/backToSchool/b2s_gp_prep_top.jpg"></img></div>
+                    <div id="smartTopImg"><img src="/res/img/backToSchool/b2s_gp_smart_top.jpg"></img></div>
                 </div>
                 <div id="gamePlanContent">
                     <div id="engagedContent"><p
@@ -51,9 +51,9 @@
                         </select></div>
                 </div>
                 <div id="gamePlanBottomImgs">
-                    <div id="engagedBottomImg"><img src="/res/img/backToSchool/b2s_gp_b1.jpg"></img></div>
-                    <div id="prepBottomImg"><img src="/res/img/backToSchool/b2s_gp_b2.jpg"></img></div>
-                    <div id="smartBottomImg"><img src="/res/img/backToSchool/b2s_gp_b3.jpg"></img></div>
+                    <div id="engagedBottomImg"><img src="/res/img/backToSchool/b2s_gp_engage_bottom.jpg"></img></div>
+                    <div id="prepBottomImg"><img src="/res/img/backToSchool/b2s_gp_prep_bottom.jpg"></img></div>
+                    <div id="smartBottomImg"><img src="/res/img/backToSchool/b2s_gp_smart_bottom.jpg"></img></div>
                 </div>
 
             </div>
