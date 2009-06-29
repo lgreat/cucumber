@@ -64,6 +64,8 @@ public class CmsTopicCenterController extends AbstractController {
                 pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
             }
 
+            model.put("omnitureTopicCenterName", topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
+
             model.put("topicCenter", topicCenter);            
         }
 

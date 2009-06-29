@@ -224,11 +224,8 @@
     </div><!-- end #content -->
 </div> <!-- end #main -->
 
-
-
-<!-- TODO: fix omniture info -->
-<mod:tracking pageName="FIXME"
-              hier1="FIXME"/>
+<mod:tracking pageName="${omnitureTopicCenterName} Landing Page"
+              hier1="Topic Centers,${omnitureTopicCenterName}"/>
 
 </body>
 </html>
