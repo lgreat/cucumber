@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.22 2009/06/29 18:12:10 npatury Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.23 2009/06/29 19:51:10 npatury Exp $
  */
 
 package gs.web.content;
@@ -66,12 +66,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedUrl));
             SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
-            System.out.println("--------------entry-----------------------------"+entry);
             title = entry.getTitle();
-            System.out.println("--------------Tike-----------------------------"+title);
             link = entry.getLink();
             text = entry.getDescription().getValue();
-            System.out.println("--------------text-----------------------------"+text);
             author = entry.getAuthor();
             if (isShowDate()) {
                 date = entry.getPublishedDate();
