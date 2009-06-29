@@ -50,10 +50,8 @@
             <ad:AboveFold_300x250/>
 
             <gsweb:adTagGenerator position="House_Ad_300x137"/>
-            
-            <div style="width: 300px; height: 250px; background-color: #FFAAAA; margin-top: 20px;">
-                (placeholder) Popular Articles
-            </div>
+
+            <jsp:include page="/backToSchool/popularArticles.module"/>
         </div>
 
     </gsml:body>
