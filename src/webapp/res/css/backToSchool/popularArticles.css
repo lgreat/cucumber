@@ -1,3 +1,28 @@
+#contentGS h3 {
+    font-size: 18px;
+    color: #D66671;
+}
+
+#contentGS .linksTextList {
+    font-size: 13px;
+    color: #3399AA;
+}
+
+.linksDivider {
+    border-bottom: 2px dotted #CCCCCC;
+    height: 0;
+    margin: 6px 0;
+}
+
+.linksDivider hr {
+    display: none;
+}
+
+.additionalLinks {
+    font-size: 12px;
+    color: #3399AA;
+}
+
 /*Start popular artiicles*/
 
 #popularArticles {
