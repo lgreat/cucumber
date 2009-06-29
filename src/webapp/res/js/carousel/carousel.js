@@ -8,7 +8,7 @@ $j(document).ready(function() {
 	// Initialize state
 	var i = 1;
 	var MINIMUMI = 1;
-    var images = $j('.images img');
+	var images = $j('.images img');
 	var CURRENTI = (images ? images.size() : 0);
 	var MAXIMUMI = 8;
 	var fadeTime = 2000;
@@ -53,24 +53,24 @@ $j(document).ready(function() {
 		fadeInSlide();
 	}
 	// image 2 fadeIn over 2 secs
-	// ...
+	//
 	
 	// Stop animation
-  	if (CURRENTI>MINIMUMI){
-        $j('#carousel').mouseover(function() {
-            // Pause animation on mouseover
-            clearTimeout(holdID);
-            clearTimeout(swapID);
-            setImage(i);
-            setText(i);
-            setButtonState(i);
-        });
+	if (CURRENTI>MINIMUMI){
+		$j('#carousel').mouseover(function() {
+			// Pause animation on mouseover
+			clearTimeout(holdID);
+			clearTimeout(swapID);
+			setImage(i);
+			setText(i);
+			setButtonState(i);
+		});
 
-        $j('#carousel').mouseout(function() {
-            // Restart animation on mouseout
-            holdID = setTimeout(fadeOutSlide,holdTime);
-        });
-    }
+		$j('#carousel').mouseout(function() {
+			// Restart animation on mouseout
+			holdID = setTimeout(fadeOutSlide,holdTime);
+		});
+	}
 	
 	// Navigation functions
 	var setText = function(slideNumber) {
@@ -93,12 +93,12 @@ $j(document).ready(function() {
 			return this.src.replace('off.gif','on.gif');
 		});
 	}
-    var showButtons = function() {
-        $j('.num:lt('+(CURRENTI)+')').show();
-        $j('.num:gt('+(MAXIMUMI-1)+')').hide(function(){
-            $j(this).parent().hide();
-        });
-    }
+	var showButtons = function() {
+		$j('.num:lt('+(CURRENTI)+')').show();
+		$j('.num:gt('+(MAXIMUMI-1)+')').hide(function(){
+			$j(this).parent().hide();
+		});
+	}
 	// Navigation buttons
 	// - numbered buttons
 	$j('.num').click(function() {
@@ -135,13 +135,15 @@ $j(document).ready(function() {
 	
 	// start animation
 	if (CURRENTI>MINIMUMI){
-        setText(i);
-	    setButtonState(i);
-	    fadeInSlide();
-        showButtons();
-  } else {
-        setText(i);
-        setImage(i);
+		setText(i);
+		setImage(i);
+		setButtonState(i);
+		//fadeInSlide();
+		showButtons();
+		holdID = setTimeout(fadeOutSlide,holdTime);
+	} else {
+		setText(i);
+		setImage(i);
 	}
 	// EOF
 });
