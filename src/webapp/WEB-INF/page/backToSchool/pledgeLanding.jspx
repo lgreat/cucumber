@@ -36,7 +36,6 @@
                 <p class="boilerplate">Your involvement is the #1 ingredient to your child's success at school.  For the 2009-2010 school year,
                 make a promise to support your kids' education by being involved in three simple ways.  Join the movement of
                 involved parents around the nation and take the pledge today.</p>
-
             </div>
 
             <gsweb:adTagGenerator position="Generic_640"/>
@@ -46,7 +45,7 @@
             </div>
         </div>
 
-        <div id="contentRight"><!-- nop -->
+        <div id="contentRight">
             <ad:AboveFold_300x250/>
 
             <gsweb:adTagGenerator position="House_Ad_300x137"/>
