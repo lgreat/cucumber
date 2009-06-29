@@ -36,6 +36,7 @@ public class BackToSchoolHomeController extends AbstractController {
         communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
         List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_popularArticles");
+        System.out.println("-----------size--------------------"+rows.size());
         if (rows != null && rows.size() > 0) {
             int size = rows.size();
             for (int i = 0; i < size; i++) {
@@ -45,6 +46,7 @@ public class BackToSchoolHomeController extends AbstractController {
                 articleLinks.add(articleLink);
             }
             model.put("communityTopics", articleLinks);
+            System.out.println("-----------Csize--------------------"+rows.size());
             model.put("communityTopicsSize", size);
         }
     }
@@ -56,10 +58,8 @@ public class BackToSchoolHomeController extends AbstractController {
 
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
             worksheetName = STAGING_COMMUNITY;
-
         } else {
             worksheetName = LIVE_COMMUNITY;
-
         }
         return worksheetName;
     }
