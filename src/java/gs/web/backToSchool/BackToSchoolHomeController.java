@@ -35,7 +35,7 @@ public class BackToSchoolHomeController extends AbstractController {
         GoogleSpreadsheetDao communityTableDao = (GoogleSpreadsheetDao) getCommunityTableDao();
         communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
-        List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_popularArticles");
+        List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_community");
         if (rows != null && rows.size() > 0) {
             int size = rows.size();
             for (int i = 0; i < size; i++) {
