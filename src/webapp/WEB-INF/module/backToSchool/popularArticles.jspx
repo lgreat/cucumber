@@ -15,6 +15,7 @@
 
         <div class="articles">
             <img class="popularArticlesImage" src="/res/img/backToSchool/populararticles_girls.jpg"/>
+            <c:if test="${popularArticlesSize gt 0}">
             <ul>
                 <c:forEach var="article" begin="0" end="${popularArticlesSize-1}">
                     <li class="linksTextList"><a
@@ -25,6 +26,7 @@
                     </li>
                 </c:forEach>
             </ul>
+            </c:if>
             <div class="additionalLinks">More &gt;</div>
         </div>
     </div>

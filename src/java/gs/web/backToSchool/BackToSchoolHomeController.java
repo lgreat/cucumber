@@ -25,10 +25,8 @@ public class BackToSchoolHomeController extends AbstractController {
     public static final String LIVE_COMMUNITY = "od7";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println("-----------internal--------------------");
         Map<String, Object> model = new HashMap<String, Object>();
         getCommunityTopicsAndLinks(model, request);
-        System.out.println("-----------here--------------------");
         return new ModelAndView(getViewName(), model);
     }
 
@@ -36,10 +34,8 @@ public class BackToSchoolHomeController extends AbstractController {
     protected void getCommunityTopicsAndLinks(Map<String, Object> model, HttpServletRequest request) {
         GoogleSpreadsheetDao communityTableDao = (GoogleSpreadsheetDao) getCommunityTableDao();
         communityTableDao.getSpreadsheetInfo().setWorksheetName(getWorksheetName(request));
-        System.out.println("-----------W--------------------"+getWorksheetName(request));
         List<NameValuePair<String, String>> articleLinks = new ArrayList<NameValuePair<String, String>>();
         List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_popularArticles");
-        System.out.println("-----------size--------------------"+rows.size());
         if (rows != null && rows.size() > 0) {
             int size = rows.size();
             for (int i = 0; i < size; i++) {
@@ -49,7 +45,6 @@ public class BackToSchoolHomeController extends AbstractController {
                 articleLinks.add(articleLink);
             }
             model.put("communityTopics", articleLinks);
-            System.out.println("-----------Csize--------------------"+rows.size());
             model.put("communityTopicsSize", size);
         }
     }
