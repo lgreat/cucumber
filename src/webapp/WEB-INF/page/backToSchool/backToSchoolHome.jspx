@@ -62,10 +62,13 @@
             </div>
             <div id="tipOftheDay">TIP</div>
             <div id="momOnFire">
-                <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
-                                              defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://blogs.greatschools.net/greatschoolsblog"
-                                              type="researchBlog"/>
+            <div class="momWrapper">
+                <div class="blogHeader">Mom on fire</div>
+                <content:blogFeed atomUrl="http://blogs.greatschools.net/mom_on_fire/atom.xml"
+                                              defaultTitle="Mom on Fire"
+                                              defaultUrl="http://blogs.greatschools.net/mom_on_fire"
+                                              type="momOnFire"/>
+                </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module"/></div>
             <div id="quiz">quiz</div>

@@ -14,7 +14,7 @@
         <h3>Popular articles</h3>
 
         <div class="articles">
-            <img src="/res/img/content/research/mmyers.jpg" class="popularArticlesImage"></img>
+            <img class="popularArticlesImage" src="/res/img/content/research/mmyers.jpg"/>
             <ul>
                 <c:forEach var="article" begin="0" end="${popularArticlesSize-1}">
                     <li class="linksTextList"><a

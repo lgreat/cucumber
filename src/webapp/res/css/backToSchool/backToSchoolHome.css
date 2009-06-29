@@ -152,19 +152,23 @@
 .blogTitle {
     font-family: "Georgia";
     font-size: 14px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .blogContent {
     font-size: 13px;
     width: 150px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .blogLink {
-    font-size: 10px;
-    text-decoration: underline;
+    font-size: 13px;
     margin-top: 15px;
+}
+
+#momOnFire div.blogLink a{
+    color:white;
+    text-decoration: underline;
 }
 
 /*end Mom on fire*/
@@ -189,11 +193,11 @@
     right: 0;
     top: 893px;
     background: url( /res/img/backToSchool/b2s_community_bg.jpg ) no-repeat;
-
+    line-height:18px;
 }
 
 .communityWrapper {
-    padding: 20px 20px 0 20px;
+    padding: 15px 20px 0 20px;
 }
 
 #contentGS #community ul {

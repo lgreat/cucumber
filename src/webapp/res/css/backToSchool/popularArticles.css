@@ -5,11 +5,13 @@
     background: url( /res/img/backToSchool/b2s_most_popular_bg.jpg ) no-repeat;
     padding: 15px 20px 20px 20px;
     position: relative;
+    line-height:18px;
+    width:260px;
 }
 
 .popularArticlesImage {
-    float: left;
-    border-right: 10px solid white;
+   float:left;
+   border-right: 10px solid white;
 }
 
 .articles {

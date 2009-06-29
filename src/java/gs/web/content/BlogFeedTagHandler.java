@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.21 2009/06/25 22:57:06 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.22 2009/06/29 18:12:10 npatury Exp $
  */
 
 package gs.web.content;
@@ -38,6 +38,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private static final String TYPE_GS_BLOG = "gsBlog";
     private static final String TYPE_SPLASH_BLOG = "splashBlog";
     private static final String TYPE_RESEARCH_BLOG = "researchBlog";
+     private static final String TYPE_MOM_BLOG = "momOnFire";
     private String _defaultTitle;
     private String _atomUrl;
     private String _defaultUrl;
@@ -65,9 +66,12 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedUrl));
             SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
+            System.out.println("--------------entry-----------------------------"+entry);
             title = entry.getTitle();
+            System.out.println("--------------Tike-----------------------------"+title);
             link = entry.getLink();
             text = entry.getDescription().getValue();
+            System.out.println("--------------text-----------------------------"+text);
             author = entry.getAuthor();
             if (isShowDate()) {
                 date = entry.getPublishedDate();
@@ -284,6 +288,25 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                     "\">Read more &gt;</a>");
             out.print("</div> ");
         }
+
+        else if (TYPE_MOM_BLOG.equals(_type)) {
+            out.print("<div class=\"blogTitle\">");
+            out.print(title);
+            out.print("</div>");
+            if (!StringUtils.isBlank(text)) {
+                out.print("<div class=\"blogContent\">");
+                out.print(text);
+                out.print("</div>");
+            }
+            out.print("<div class=\"blogLink\">");
+            out.print("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                    " href=\"" +
+                    link +"\">Read the full post &gt;</a>");
+            out.print("</div> ");
+        }
+        
     }
 
     public void setDefaultTitle(String defaultTitle) {
