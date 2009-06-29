@@ -19,7 +19,9 @@
         <title>The Great Parents Pledge | GreatSchools</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <meta name="description"
-              content="Pledge Landing"/>
+              content="Calling all moms and dads. Make a promise to support your child's education this year. Take the Great Parents Pledge. "/>
+        <meta name="keywords"
+              content="great parents pledge, supporting education"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/pledgeLanding.css"/>
         <gsml:equalizeColumns ids="'main','contentRight'"/>
@@ -52,6 +54,9 @@
 
             <jsp:include page="/backToSchool/popularArticles.module"/>
         </div>
+
+        <mod:tracking pageName="The Great Parents Pledge Landing Page"
+                     hier1="Campaigns, The Great Parents Pledge "/>
 
     </gsml:body>
     </html>
