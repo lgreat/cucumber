@@ -19,6 +19,9 @@ public class CmsContentLinkResolver {
 
         for (PropertyDescriptor pd : wrapper.getPropertyDescriptors()) {
             if (AnnotationUtils.getAnnotation(pd.getReadMethod(), CmsEmbeddedLinks.class) != null) {
+                if (pd.getReadMethod().invoke(content) == null) {
+                    return;
+                }
 
                 if (Collection.class.isAssignableFrom(pd.getPropertyType())) {
                     Class klass = GenericCollectionTypeResolver.getCollectionReturnType(pd.getReadMethod());

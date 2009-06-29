@@ -43,6 +43,64 @@ public class CmsContentLinkResolverTest extends BaseControllerTestCase {
 
     }
 
+    public void testReplaceEmbeddedLink() throws Exception {
+        class CmsTestContent extends CmsContent {
+            private CmsLink replaceMe;
+            private CmsLink leaveMe;
+
+            @CmsEmbeddedLinks
+            public CmsLink getReplaceMe() {
+                return replaceMe;
+            }
+
+            public void setReplaceMe(CmsLink replaceMe) {
+                this.replaceMe = replaceMe;
+            }
+
+            public CmsLink getLeaveMe() {
+                return leaveMe;
+            }
+
+            public void setLeaveMe(CmsLink leaveMe) {
+                this.leaveMe = leaveMe;
+            }
+        }
+
+        CmsTestContent testContent = new CmsTestContent();
+
+        CmsLink link = new CmsLink();
+        link.setUrl("gs://schoolProfile?state=CA&id=1");
+        testContent.setReplaceMe(link);
+
+        link = new CmsLink();
+        link.setUrl("gs://schoolProfile?state=CA&id=1");
+        testContent.setLeaveMe(link);
+
+        new CmsContentLinkResolver().replaceEmbeddedLinks(testContent);
+        assertEquals("/modperl/browse_school/ca/1", testContent.getReplaceMe().getUrl());
+        assertEquals("gs://schoolProfile?state=CA&id=1", testContent.getLeaveMe().getUrl());
+    }
+
+    public void testReplaceEmbeddedLinkHandle() throws Exception {
+        class CmsTestContent extends CmsContent {
+            private CmsLink empty;
+
+            @CmsEmbeddedLinks
+            public CmsLink getEmpty() {
+                return empty;
+            }
+
+            public void setEmpty(CmsLink empty) {
+                this.empty = empty;
+            }
+        }
+
+        CmsTestContent testContent = new CmsTestContent();
+
+        new CmsContentLinkResolver().replaceEmbeddedLinks(testContent);
+        // Shouldn't blow up.
+    }
+
     public void testReplaceAnnotetedPropertiesHandlesCmsLinkCollections() throws Exception {
         class CmsTestContent extends CmsContent {
             private List<CmsLink> replaceMe;
