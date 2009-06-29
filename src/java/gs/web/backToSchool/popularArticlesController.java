@@ -24,8 +24,8 @@ public class popularArticlesController extends AbstractController {
     private ITableDao _articleTableDao;
 
     public static final String DEV_POPULARARTICLE = "od6";
-    public static final String STAGING_POPULARTICLE = "od8";
-    public static final String LIVE_POPULARARTICLE = "od4";
+    public static final String STAGING_POPULARTICLE = "od4";
+    public static final String LIVE_POPULARARTICLE = "od7";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

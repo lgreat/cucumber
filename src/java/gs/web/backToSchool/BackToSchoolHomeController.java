@@ -21,8 +21,8 @@ public class BackToSchoolHomeController extends AbstractController {
     public String _viewName;
     private ITableDao _communityTableDao;
     public static final String DEV_COMMUNITY = "od6";
-    public static final String STAGING_COMMUNITY = "od8";
-    public static final String LIVE_COMMUNITY = "od4";
+    public static final String STAGING_COMMUNITY = "od4";
+    public static final String LIVE_COMMUNITY = "od7";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
