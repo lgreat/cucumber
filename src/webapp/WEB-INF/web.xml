@@ -125,6 +125,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/back-to-school/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/alabama/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -2002,6 +2007,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/pledge/*</url-pattern>
+    </filter-mapping>
+
+     <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/back-to-school/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
