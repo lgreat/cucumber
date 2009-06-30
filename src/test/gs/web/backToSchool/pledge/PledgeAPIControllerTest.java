@@ -41,6 +41,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setContentType(PledgeAPIController.ContentType.XML);
 
         // default method
         getRequest().setMethod("GET");
@@ -61,6 +62,35 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         assertSame(_subscriptionDao, _controller.getSubscriptionDao());
         _controller.setFunction("function");
         assertEquals("function", _controller.getFunction());
+        assertEquals(PledgeAPIController.ContentType.XML, _controller.getContentType());
+    }
+
+    public void testUnknownFunction() throws Exception {
+        _controller.setFunction("foo");
+        getRequest().setMethod("GET");
+        try {
+            _controller.callFunction(getRequest());
+            fail("Didn't receive expected IllegalArgumentException with function \"foo\"");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+        getRequest().setMethod("POST");
+        try {
+            _controller.callFunction(getRequest());
+            fail("Didn't receive expected IllegalArgumentException with function \"foo\"");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+    }
+
+    public void testUnknownRequestMethod() throws PledgeAPIController.PledgeAPIException {
+        getRequest().setMethod("PUT");
+        try {
+            _controller.callFunction(getRequest());
+            fail("Didn't receive expected IllegalArgumentException with request method \"PUT\"");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
     }
 
     /*
@@ -92,7 +122,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.setFunction(PledgeAPIController.GET_NUM_PLEDGES_FUNCTION);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toContentType(_controller.getContentType()),
+                getResponse().getContentAsString());
     }
 
     /*
@@ -120,9 +151,9 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
         assertEquals("<pledgesByState>" +
-                "<stateValue state=\"California\" pledges=\"55000\"/>" +
-                "<stateValue state=\"Maryland\" pledges=\"12000\"/>" +
-                "</pledgesByState>",
+                "\n  <stateValue state=\"California\" pledges=\"55000\"/>" +
+                "\n  <stateValue state=\"Maryland\" pledges=\"12000\"/>" +
+                "\n</pledgesByState>",
                 getResponse().getContentAsString());
     }
 
@@ -151,7 +182,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.setFunction(PledgeAPIController.GET_NUM_PLEDGES_BY_STATE_FUNCTION);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toContentType(_controller.getContentType()),
+                getResponse().getContentAsString());
     }
 
     /*
@@ -180,9 +212,9 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
         assertEquals("<pledgesByCity>" +
-                "<cityValue city=\"Alameda\" pledges=\"1500\"/>" +
-                "<cityValue city=\"San Francisco\" pledges=\"1000\"/>" +
-                "</pledgesByCity>",
+                "\n  <cityValue city=\"Alameda\" pledges=\"1500\"/>" +
+                "\n  <cityValue city=\"San Francisco\" pledges=\"1000\"/>" +
+                "\n</pledgesByCity>",
                 getResponse().getContentAsString());
 
     }
@@ -213,7 +245,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("state", "California");
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toContentType(_controller.getContentType()),
+                getResponse().getContentAsString());
     }
 
     /*
@@ -300,6 +333,62 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         assertEquals(new PledgeAPIController.EmptyPledgeResponse(), rval);
     }
 
+    public void testSubmitPersonalPledgeFromTopBadId() {
+        _controller.setFunction(PledgeAPIController.SUBMIT_PERSONAL_PLEDGE_FUNCTION);
+        getRequest().setMethod("POST");
+        try {
+            _controller.callFunction(getRequest());
+            fail("Didn't receive expected IllegalArgumentException with no pledge id");
+        } catch (PledgeAPIController.PledgeAPIException pe) {
+            // ok
+        }
+
+        getRequest().setParameter(PledgeAPIController.PLEDGE_ID_PARAM, "notANumber");
+        try {
+            _controller.callFunction(getRequest());
+            fail("Didn't receive expected IllegalArgumentException with non-numeric pledge id");
+        } catch (PledgeAPIController.PledgeAPIException pe) {
+            // ok
+        }
+    }
+
+    public void testSubmitPersonalPledgeFromTopNew() throws Exception {
+        _controller.setFunction(PledgeAPIController.SUBMIT_PERSONAL_PLEDGE_FUNCTION);
+        getRequest().setMethod("POST");
+        getRequest().setParameter(PledgeAPIController.PLEDGE_ID_PARAM, "1234");
+        getRequest().setParameter(PledgeAPIController.PLEDGE_PARAM, "I pledge to read to my kids");
+        getRequest().setParameter(PledgeAPIController.EMAIL_PARAM, "email@example.com");
+        getRequest().setParameter(PledgeAPIController.SIGNUP_PARAM, "true");
+
+        Pledge pledge = new Pledge();
+        pledge.setId(1234l);
+        pledge.setZip("92130");
+        pledge.setCity("San Diego");
+        pledge.setState(State.CA);
+        // gets pledge
+        expect(_pledgeDao.getPledgeById(1234)).andReturn(pledge);
+        // checks for user
+        expect(_userDao.findUserFromEmailIfExists("email@example.com")).andReturn(null);
+        // saves user and subscription
+        _userDao.saveUser(isA(User.class));
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        // updates pledge
+        Pledge expectedPledge = new Pledge();
+        expectedPledge.setId(1234l);
+        expectedPledge.setZip("92130");
+        expectedPledge.setCity("San Diego");
+        expectedPledge.setState(State.CA);
+        expectedPledge.setPledge("I pledge to read to my kids");
+        expectedPledge.setUser(new User());
+        _pledgeDao.savePledge(eqPledge(expectedPledge));
+
+        replayMocks();
+        _controller.handleRequest(getRequest(), getResponse());
+        verifyMocks();
+        assertEquals(new PledgeAPIController.EmptyPledgeResponse().toContentType(_controller.getContentType()),
+                getResponse().getContentAsString());
+    }
+
     public void testHasBadWord() {
         // sanity check
         assertTrue(_controller.hasBadWord("Overreacters should be fucking shot"));
@@ -341,13 +430,13 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
                 return false;
             }
             Pledge actual = (Pledge) oActual;
-            actual.setId(1234); // this mimics the save call in the dao
+            if (actual.getId() == null) {actual.setId(1234);} // this mimics the save call in the dao
             if (StringUtils.equals(actual.getZip(), _expected.getZip())
                     && StringUtils.equals(actual.getCity(), _expected.getCity())
                     && actual.getState().equals(_expected.getState())
                     && StringUtils.equals(actual.getPledge(), _expected.getPledge())) {
                 if ((_expected.getUser() == null && actual.getUser() == null)
-                    || _expected.getUser().getId().equals(actual.getUser().getId())) {
+                    || (_expected.getUser() != null && actual.getUser() != null)) {
                     return true;
                 }
             }

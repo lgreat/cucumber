@@ -29,6 +29,18 @@ import gs.web.school.review.AddParentReviewsController;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class PledgeAPIController  implements Controller, ReadWriteController {
+    public static enum ContentType {
+        XML("text/xml"),
+        JSON("application/json");
+        private final String _ctype;
+        ContentType(String ctype) {
+            _ctype = ctype;
+        }
+        public String getContentType() {
+            return _ctype;
+        }
+    }
+
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String GET_NUM_PLEDGES_FUNCTION = "getNumPledges";
     public static final String GET_NUM_PLEDGES_BY_STATE_FUNCTION = "getNumPledgesByState";
@@ -42,7 +54,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     public static final String EMAIL_PARAM = "email";
     public static final String SIGNUP_PARAM = "signup";
     public static final int MAX_PLEDGE_CHARS = 110;
-    public static final String CONTENT_TYPE = "xml";
+    private ContentType _contentType = ContentType.XML;
     private String _function;
     private IPledgeDao _pledgeDao;
     private IGeoDao _geoDao;
@@ -50,68 +62,58 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     private ISubscriptionDao _subscriptionDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (StringUtils.equals("xml", CONTENT_TYPE)) {
-            response.setContentType("text/xml");
-        } else {
-            response.setContentType("application/json");
-        }
+        response.setContentType(_contentType.getContentType());
         PrintWriter out = response.getWriter();
         try {
             IPledgeResponse pledgeResponse;
             // Call the right method and get the response object
-            if (StringUtils.equalsIgnoreCase("get", request.getMethod())) {
-                if (StringUtils.equals(GET_NUM_PLEDGES_FUNCTION, _function)) {
-                    pledgeResponse = getNumPledges();
-                } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_STATE_FUNCTION, _function)) {
-                    pledgeResponse = getNumPledgesByState();
-                } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_CITY_FUNCTION, _function)) {
-                    State state = State.fromString(request.getParameter(STATE_PARAM));
-                    pledgeResponse = getNumPledgesByCity(state);
-                } else {
-                    throw new IllegalArgumentException("Unknown function: " + _function);
-                }
-            } else if (StringUtils.equalsIgnoreCase("post", request.getMethod())) {
-                if (StringUtils.equals(SUBMIT_DEFAULT_PLEDGE_FUNCTION, _function)) {
-                    String zip = request.getParameter(ZIP_PARAM);
-                    pledgeResponse = submitDefaultPledge(zip);
-                } else if (StringUtils.equals(SUBMIT_PERSONAL_PLEDGE_FUNCTION, _function)) {
-                    if (StringUtils.isBlank(request.getParameter(PLEDGE_ID_PARAM))
-                            || !StringUtils.isNumeric(request.getParameter(PLEDGE_ID_PARAM))) {
-                        throw new PledgeAPIException(PledgeAPIException.Code.PARAM_PLEDGE_ID, "Invalid pledge id.");
-                    }
-                    long pledgeId = new Long(request.getParameter(PLEDGE_ID_PARAM));
-                    String pledge = request.getParameter(PLEDGE_PARAM);
-                    String email = request.getParameter(EMAIL_PARAM);
-                    boolean signup = StringUtils.equals("true", request.getParameter(SIGNUP_PARAM));
-                    pledgeResponse = submitPersonalPledge(pledgeId, pledge, email, signup);
-                } else {
-                    throw new IllegalArgumentException("Unknown function: " + _function);
-                }
-            } else {
-                throw new IllegalArgumentException("Unknown request method: " + request.getMethod());
-            }
+            pledgeResponse = callFunction(request);
             // convert response object to the right content type
-            if (StringUtils.equals("xml", CONTENT_TYPE)) {
-                out.print(pledgeResponse.toXML());
-            } else {
-                out.print(pledgeResponse.toJSON());
-            }
+            out.print(pledgeResponse.toContentType(_contentType));
         } catch (PledgeAPIException e) {
             _log.error(e.toString());
-            if (StringUtils.equals("xml", CONTENT_TYPE)) {
-                out.print(e.toXML());
-            } else {
-                out.print(e.toJSON());
-            }
+            out.print(e.toContentType(_contentType));
         } catch (Exception e) {
             _log.error(e, e);
-            if (StringUtils.equals("xml", CONTENT_TYPE)) {
-                out.print(new PledgeAPIException().toXML());
-            } else {
-                out.print(new PledgeAPIException().toJSON());
-            }
+            out.print(new PledgeAPIException().toContentType(_contentType));
         }
         return null;
+    }
+
+    protected IPledgeResponse callFunction(HttpServletRequest request) throws PledgeAPIException {
+        IPledgeResponse pledgeResponse;
+        if (StringUtils.equalsIgnoreCase("get", request.getMethod())) {
+            if (StringUtils.equals(GET_NUM_PLEDGES_FUNCTION, _function)) {
+                pledgeResponse = getNumPledges();
+            } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_STATE_FUNCTION, _function)) {
+                pledgeResponse = getNumPledgesByState();
+            } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_CITY_FUNCTION, _function)) {
+                State state = State.fromString(request.getParameter(STATE_PARAM));
+                pledgeResponse = getNumPledgesByCity(state);
+            } else {
+                throw new IllegalArgumentException("Unknown GET function: " + _function);
+            }
+        } else if (StringUtils.equalsIgnoreCase("post", request.getMethod())) {
+            if (StringUtils.equals(SUBMIT_DEFAULT_PLEDGE_FUNCTION, _function)) {
+                String zip = request.getParameter(ZIP_PARAM);
+                pledgeResponse = submitDefaultPledge(zip);
+            } else if (StringUtils.equals(SUBMIT_PERSONAL_PLEDGE_FUNCTION, _function)) {
+                if (StringUtils.isBlank(request.getParameter(PLEDGE_ID_PARAM))
+                        || !StringUtils.isNumeric(request.getParameter(PLEDGE_ID_PARAM))) {
+                    throw new PledgeAPIException(PledgeAPIException.Code.PARAM_PLEDGE_ID, "Invalid pledge id.");
+                }
+                long pledgeId = new Long(request.getParameter(PLEDGE_ID_PARAM));
+                String pledge = request.getParameter(PLEDGE_PARAM);
+                String email = request.getParameter(EMAIL_PARAM);
+                boolean signup = StringUtils.equals("true", request.getParameter(SIGNUP_PARAM));
+                pledgeResponse = submitPersonalPledge(pledgeId, pledge, email, signup);
+            } else {
+                throw new IllegalArgumentException("Unknown POST function: " + _function);
+            }
+        } else {
+            throw new IllegalArgumentException("Unknown request method: " + request.getMethod());
+        }
+        return pledgeResponse;
     }
 
     protected IPledgeResponse getNumPledges() {
@@ -270,13 +272,32 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
         _subscriptionDao = subscriptionDao;
     }
 
-    protected static interface IPledgeResponse {
-        public String toJSON();
-        public String toXML();
-        public boolean equals(Object o);
+    public ContentType getContentType() {
+        return _contentType;
     }
 
-    protected static class EmptyPledgeResponse implements IPledgeResponse {
+    public void setContentType(ContentType contentType) {
+        _contentType = contentType;
+    }
+
+    protected static interface IPledgeResponse {
+        public String toContentType(ContentType ct);
+        public boolean equals(Object o); // for unit tests
+    }
+
+    protected static abstract class BasePledgeResponse implements IPledgeResponse {
+        public String toContentType(ContentType ct) {
+            if (ct == ContentType.XML) {
+                return toXML();
+            } else {
+                return toJSON();
+            }
+        }
+        public abstract String toJSON();
+        public abstract String toXML();
+    }
+
+    protected static class EmptyPledgeResponse extends BasePledgeResponse {
         public String toJSON() {
             return "{}";
         }
@@ -288,7 +309,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
         }
     }
 
-    protected static class KeyValueResponse implements IPledgeResponse {
+    protected static class KeyValueResponse extends BasePledgeResponse {
         private String _key;
         private String _value;
         protected KeyValueResponse(String key, String value) {
@@ -310,7 +331,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
         }
     }
 
-    protected static class StatePledgesResponse implements IPledgeResponse {
+    protected static class StatePledgesResponse extends BasePledgeResponse {
         List<NameValuePair<State, Long>> _pledgesPerState;
         protected StatePledgesResponse(List<NameValuePair<State, Long>> pledgesPerState) {
             _pledgesPerState = pledgesPerState;
@@ -333,11 +354,11 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
             StringBuilder rval = new StringBuilder();
             rval.append("<pledgesByState>");
             for (NameValuePair<State, Long> stateResultPair: _pledgesPerState) {
-                rval.append("<stateValue ");
+                rval.append("\n  <stateValue ");
                 rval.append("state=\"").append(stateResultPair.getKey().getLongName()).append("\" ");
                 rval.append("pledges=\"").append(stateResultPair.getValue()).append("\"/>");
             }
-            rval.append("</pledgesByState>");
+            rval.append("\n</pledgesByState>");
             return rval.toString();
         }
 
@@ -372,7 +393,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
         }
     }
 
-    protected static class CityPledgesResponse implements IPledgeResponse {
+    protected static class CityPledgesResponse extends BasePledgeResponse {
         List<NameValuePair<String, Long>> _pledgesPerCity;
         protected CityPledgesResponse(List<NameValuePair<String, Long>> pledgesPerCity) {
             _pledgesPerCity = pledgesPerCity;
@@ -395,11 +416,11 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
             StringBuilder rval = new StringBuilder();
             rval.append("<pledgesByCity>");
             for (NameValuePair<String, Long> cityResultPair: _pledgesPerCity) {
-                rval.append("<cityValue ");
+                rval.append("\n  <cityValue ");
                 rval.append("city=\"").append(cityResultPair.getKey()).append("\" ");
                 rval.append("pledges=\"").append(cityResultPair.getValue()).append("\"/>");
             }
-            rval.append("</pledgesByCity>");
+            rval.append("\n</pledgesByCity>");
             return rval.toString();
         }
         @Override
@@ -460,14 +481,13 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
             _message = msg;
         }
 
-        public String toJSON() {
-            return "{error:{code:" + _code + ",message:'" + _message + "'}}";
+        public String toContentType(ContentType ct) {
+            if (ct == ContentType.XML) {
+                return "<error code=\"" + _code + "\" message=\"" + _message + "\"/>";
+            } else {
+                return "{error:{code:" + _code + ",message:'" + _message + "'}}";
+            }
         }
-
-        public String toXML() {
-            return "<error><code>" + _code + "</code><message>" + _message + "</message></error>";
-        }
-
         public String toString() {
             return "PledgeAPIException #" + _code + ": " + _message;
         }
