@@ -181,7 +181,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
                 newUser = true;
                 user = new User();
                 user.setEmail(email);
-                user.setHow("pledge");
+                user.setHow("pledged");
                 _userDao.saveUser(user);
             }
 
