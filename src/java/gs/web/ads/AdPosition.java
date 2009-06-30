@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.40 2009/06/26 01:19:12 yfan Exp $
+ * $Id: AdPosition.java,v 1.41 2009/06/30 22:25:55 npatury Exp $
  */
 package gs.web.ads;
 
@@ -67,6 +67,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Bottom_300x137 = new AdPosition("Bottom_300x137", true);
     public static final AdPosition House_Ad_300x137 = new AdPosition("House_Ad_300x137", true);
     public static final AdPosition House_Ad_300x137_Special = new AdPosition("House_ad_300x137", true, House_Ad_300x137);
+    public static final AdPosition House_Ad_300x137_B2S = new AdPosition("House_Ad_300x137_B2S", true);
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
     public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true, Header_728x90);
     public static final AdPosition Header_728x90_B_Test = new AdPosition("Header_728x90_B_Test", true, Header_728x90);
@@ -78,6 +79,7 @@ public class AdPosition extends Enum {
     public static final AdPosition AboveFold_300x250_A_Test = new AdPosition("AboveFold_300x250_A_Test", true, AboveFold_300x250);
     public static final AdPosition AboveFold_300x250_B_Test = new AdPosition("AboveFold_300x250_B_Test", true, AboveFold_300x250);
     public static final AdPosition AboveFold_300x250_C_Test = new AdPosition("AboveFold_300x250_C_Test", true, AboveFold_300x250);
+    public static final AdPosition BelowFold_311x125 = new AdPosition("BelowFold_311x125", true);
     public static final AdPosition Homepage_300x250 = new AdPosition("Homepage_300x250", true);
     public static final AdPosition Homepage_Left_300x250 = new AdPosition("Homepage_Left_300x250", true);
     public static final AdPosition Homepage_185x28 = new AdPosition("Homepage_185x28", true); // GS-6479
@@ -111,6 +113,10 @@ public class AdPosition extends Enum {
     public static final AdPosition Survey_179x151 = new AdPosition("Survey_179x151", true);
     public static final AdPosition Promo_170x92 = new AdPosition("Promo_170x92", true); // GS-7166
     public static final AdPosition Generic_640 = new AdPosition("Generic_640", true); // GS-8363
+    public static final AdPosition sponsor_210x37 = new AdPosition("sponsor_210x37", true);
+    public static final AdPosition sponsor_90x45 = new AdPosition("sponsor_90x45", true);
+    public static final AdPosition sponsor_120x80 = new AdPosition("sponsor_120x80", true);
+
 
     private boolean _isGAMPosition;
     private String _baseName = null;

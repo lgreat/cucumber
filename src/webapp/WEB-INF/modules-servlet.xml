@@ -30,7 +30,7 @@
     </bean>
 
     <bean name="/backToSchool/popularArticles.module"
-          class="gs.web.backToSchool.popularArticlesController"
+          class="gs.web.backToSchool.PopularArticlesController"
           autowire="byName">
          <property name="articleTableDao">
             <bean factory-bean="backToSchoolPopularArticlesFactory" factory-method="getTableDao"/>

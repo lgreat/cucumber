@@ -6,6 +6,7 @@
     width: 638px;
     position: relative;
     margin-top: 2px;
+    height:1120px;
 }
 
 #contentRight {
@@ -50,6 +51,10 @@
     font-size: 12px;
 }
 
+#contentGS #gamePlan a {
+    color:#FFF;
+}
+
 #engagedTopImg {
     position: absolute;
     left: 0;
@@ -68,11 +73,11 @@
     top: 0;
 }
 
-#gamePlanContent div {
+#gamePlanContent div#engagedContent,div#smartContent,div#prepContent {
     background-color: #108ca6;
     position: absolute;
-    top: 280px;
-    height: 80px;
+    top: 175px;
+    height: 190px;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -87,9 +92,12 @@
     left: 214px;
 }
 
+#almostHere{
+ margin-top:10px;
+}
+
 #gamePlanContent div#smartContent {
     width: 193px;
-    height: 55px;
     left: 428px;
 }
 
@@ -106,9 +114,30 @@
     left: 212px;
 }
 
-#gamePlanBottomImgs div#smartBottomImg {
+.prepText{
+    text-decoration:underline;
+}
+
+#smartBottomImg {
     left: 426px;
-    top: 334px;
+}
+
+.smartText{
+    position:absolute;
+    margin-left:6px;
+    margin-top:20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#contentGS .shopText{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#shopSmartSponsor{
+    margin-top:10px;
+    height:30px;
 }
 
 #contentGS .gamePlanBoldText {
@@ -171,6 +200,10 @@
     text-decoration: underline;
 }
 
+#momSponsor{
+    margin-top:10px;
+    height:45px;
+}
 /*end Mom on fire*/
 
 #hotProducts {
@@ -227,7 +260,6 @@
 
 #pledge {
     width: 300px;
-    background-color: green;
     height: 250px
 }
 
