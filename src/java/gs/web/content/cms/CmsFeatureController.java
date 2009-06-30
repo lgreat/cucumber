@@ -17,8 +17,10 @@ import gs.data.content.ArticleComment;
 import gs.data.content.cms.ICmsFeatureDao;
 import gs.data.content.cms.CmsFeature;
 import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.ContentKey;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
+import gs.web.content.TargetSupplyList;
 
 public class CmsFeatureController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
@@ -125,8 +127,29 @@ public class CmsFeatureController extends AbstractController {
 
         model.put("uri", uri + "?content=" + contentId);
 
+        checkTargetSupplyList(feature, model);
+
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    protected void checkTargetSupplyList(CmsFeature feature, Map<String, Object> model) {
+        if (feature != null && model != null
+                && feature.getContentKey() != null
+                && StringUtils.equals("Article", feature.getContentKey().getType())
+                && feature.getContentKey().getIdentifier() != null) {
+            ContentKey contentKey = feature.getContentKey();
+            if (contentKey.getIdentifier() == 1082l) {
+                // elementary
+                model.put("targetSupplyItems", TargetSupplyList.getRandomElementaryItems());
+            } else if (contentKey.getIdentifier() == 1084l) {
+                // middle
+                model.put("targetSupplyItems", TargetSupplyList.getRandomMiddleItems());
+            } else if (contentKey.getIdentifier() == 109l) {
+                // generic
+                model.put("targetSupplyItems", TargetSupplyList.getRandomGenericItems());
+            }
+        }
     }
 
     /**

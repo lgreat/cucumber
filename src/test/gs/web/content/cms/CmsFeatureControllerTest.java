@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
 
 public class CmsFeatureControllerTest extends BaseControllerTestCase {
     private CmsFeatureController _controller;
@@ -271,7 +273,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
 
         replayAll();
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAll();
 
         PageHelper referencePageHelper = new PageHelper(_sessionContext, _request);
@@ -289,5 +291,73 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         assertEquals("Expected identical ad keywords", referencePageHelper.getAdKeywords(), pageHelper.getAdKeywords());
 
         CmsUtil.disableCms();
+    }
+
+    public void testCheckTargetSupplyList() {
+        Map<String, Object> model;
+        CmsFeature feature = new CmsFeature();
+        ContentKey key;
+
+        // elementary
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Article", 1082l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNotNull("Expect supply list in model for article 1082", model.get("targetSupplyItems"));
+
+        // middle
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Article", 1084l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNotNull("Expect supply list in model for article 1084", model.get("targetSupplyItems"));
+
+        // generic
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Article", 109l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNotNull("Expect supply list in model for article 109", model.get("targetSupplyItems"));
+
+        // other
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Article", 1083l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNull("Expect no supply list in model for article 1083", model.get("targetSupplyItems"));
+
+        // edge conditions
+        // ask the experts
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Ask the experts", 1082l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNull("Expect supply list in model for ask the experts 1082", model.get("targetSupplyItems"));
+
+        // null identifier
+        model = new HashMap<String, Object>();
+        key = new ContentKey();
+        key.setType("Article");
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNull("Expect no supply list in model for article 1083", model.get("targetSupplyItems"));
+
+        // null type
+        model = new HashMap<String, Object>();
+        key = new ContentKey();
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNull("Expect no supply list in model for article 1083", model.get("targetSupplyItems"));
+
+        // null key
+        model = new HashMap<String, Object>();
+        feature.setContentKey(null);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNull("Expect no supply list in model for article 1083", model.get("targetSupplyItems"));
+
+        // null feature
+        model = new HashMap<String, Object>();
+        _controller.checkTargetSupplyList(null, model);
+        assertNull("Expect no supply list in model for article 1083", model.get("targetSupplyItems"));
     }
 }
