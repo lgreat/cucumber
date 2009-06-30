@@ -102,7 +102,7 @@
                         </c:forEach>
                     </ul>
                     </c:if>
-                    <div class="additionalLinks"><a href="http://${communityHost}/search">More discussions &gt;</a></div>
+                    <div class="additionalLinks"><a href="http://${communityHost}">More discussions &gt;</a></div>
                 </div>
             </div>
         </div>
