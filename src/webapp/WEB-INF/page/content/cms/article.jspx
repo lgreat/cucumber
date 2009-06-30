@@ -407,7 +407,7 @@
                 <pageHelper:externalCss file="/res/css/content/targetSupplyList.css"/>
                 <div id="targetContainer">
                     <div id="targetList" style="
-                        right:10px;
+                        right:0;
                         top:10px;">
                         <img class="targetLogo"
                              src="/res/img/promo/target/targetLogo.gif" alt="Target Logo"/>
