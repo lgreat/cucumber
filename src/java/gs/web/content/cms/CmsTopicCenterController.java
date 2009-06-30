@@ -78,8 +78,8 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setTitle("title");
         topicCenter.setMetaDescription("meta description goes here");
         topicCenter.setMetaKeywords("meta keywords");
-        topicCenter.setFeatureImageUrl("/res/img/feature_image.jpg");
-        topicCenter.setFeatureImageAltText("feature image alt text");
+        topicCenter.setImageUrl("/res/img/feature_image.jpg");
+        topicCenter.setImageAltText("feature image alt text");
         topicCenter.setContentProviderLogoUrl("/res/img/mostPopularContent/most_popular_sm_thumb.jpg");
         topicCenter.setContentProviderLogoAltText("content provider logo alt text");
 
@@ -163,39 +163,39 @@ public class CmsTopicCenterController extends AbstractController {
         subtopic.setImageUrl("/res/img/");
         subtopic.setImageAltText("subtopic image alt text " + i);
 
-        List<CmsSubtopicSection> sections = new ArrayList<CmsSubtopicSection>();
+        List<CmsSubSubtopic> subs = new ArrayList<CmsSubSubtopic>();
         for (int j = 0; j < 2; j++) {
-            sections.add(getSampleSubtopicSection(i,j));
+            subs.add(getSampleSubSubtopic(i,j));
         }
-        subtopic.setSections(sections);
+        subtopic.setSubSubtopics(subs);
 
         return subtopic;
     }
 
-    private CmsSubtopicSection getSampleSubtopicSection(int i, int j) {
-        CmsSubtopicSection section = new CmsSubtopicSection();
-        section.setTitle("section title " + i + "." + j);
+    private CmsSubSubtopic getSampleSubSubtopic(int i, int j) {
+        CmsSubSubtopic sub = new CmsSubSubtopic();
+        sub.setTitle("sub title " + i + "." + j);
 
         CmsCategory cat = new CmsCategory();
-        cat.setName("section category " + i + "." + j);
-        section.setKategory(cat);
+        cat.setName("sub category " + i + "." + j);
+        sub.setKategory(cat);
 
         List<CmsLink> links = new ArrayList<CmsLink>();
         for (int k = 0; k < 4; k++) {
             CmsLink link = new CmsLink();
             link.setUrl("http://www.google.com");
-            link.setLinkText("section link lorem ipsum lorem ipsum " + i + "." + j + "." + k);
+            link.setLinkText("sub link lorem ipsum lorem ipsum " + i + "." + j + "." + k);
             links.add(link);
         }
-        section.setLinks(links);
+        sub.setLinks(links);
 
         CmsLink link = new CmsLink();
         link.setUrl("http://www.google.com");
-        link.setLinkText("section more link lorem ipsum lorem ipsum " + i + "." + j);
-        section.setMoreLink(link);
+        link.setLinkText("sub more link lorem ipsum lorem ipsum " + i + "." + j);
+        sub.setMoreLink(link);
 
-        section.setMoreLinkText("section more link text " + i + "." + j);
-        return section;
+        sub.setMoreLinkText("sub more link text " + i + "." + j);
+        return sub;
     }
     // END sample topic center methods
 

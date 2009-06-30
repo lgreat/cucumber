@@ -39,7 +39,7 @@
                 </div>
                 <!-- Features -->
                 <div class="one_of_two">
-                    <img src="${topicCenter.featureImageUrl}" alt="${topicCenter.featureImageAltText}"/>
+                    <img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
                 </div>
                 <div class="two_of_two">
                     <c:if test="${not empty topicCenter.mainFeatureLink}">
@@ -95,7 +95,7 @@
 
 
                                 <!-- Subtopic sections -->
-                                <c:forEach var="section" items="${subtopic.sections}" varStatus="sectionStatus">
+                                <c:forEach var="section" items="${subtopic.subSubtopics}" varStatus="sectionStatus">
                                     <!-- Optional section title -->
                                     <c:if test="${not empty section.title}">
 
@@ -106,7 +106,7 @@
                                     <c:if test="${not empty section.links}">
                                         <ul>
                                             <c:forEach var="link" items="${section.links}" varStatus="linkStatus">
-                                                <li><a href="${link.url}">${link.linkText}</a></li>
+                                                <li><a href="${link.url}">${link.title}</a></li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -125,7 +125,7 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <c:set var="numSections" value="${fn:length(subtopic.sections)}"/>
+                                    <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
                                     <c:if test="${numSections eq 1}">
                                     <div class="divider"><hr/></div>
                                     </c:if>
@@ -183,13 +183,13 @@
                                         </c:otherwise>
                                     </c:choose>
                                     <li><a href="${link.url}"
-                                           target="${linkTarget}">${link.linkText}</a></li>
+                                           target="${linkTarget}">${link.title}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
                         <c:if test="${not empty topicCenter.communityMoreLink}">
                             <div class="more">
-                                <a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.linkText}</a>
+                                <a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.title}</a>
                             </div>
                         </c:if>
                     </div><!-- end #communityContent -->
