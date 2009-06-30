@@ -1,6 +1,7 @@
 package gs.web.content;
 
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -49,7 +50,7 @@ public class TargetSupplyList {
         addToLists(new TargetSupplyItem("B000A3IAHM", "Casio Scientific Calculator Silver", LIST_M));
         addToLists(new TargetSupplyItem("B00004TVDO", "Casio FX-115MS-SR Solar Calculator", LIST_M));
         addToLists(new TargetSupplyItem("B000TXX7W6", "Dane-Elec 4GB USB Drive - Red", LIST_M));
-        addToLists(new TargetSupplyItem("B001GT32S6", "Sennheiser Sport II Water Resistance Headphones ", LIST_M));
+        addToLists(new TargetSupplyItem("B001GT32S6", "Sennheiser Sport II Water Resistance Headphones", LIST_M));
         addToLists(new TargetSupplyItem("B0023B138W", "Acer Aspire One 10.1\" UltraThin Netbook Computer - Blue (AOD250-1165)", LIST_M));
         addToLists(new TargetSupplyItem("B0016637SY", "Casio FX9750GAPlus Graphing Calculator", LIST_M));
         addToLists(new TargetSupplyItem("B001COBZWU", "Lexar 2GB SD Memory Card - SD2GB-60-740", LIST_M));
@@ -126,7 +127,7 @@ public class TargetSupplyList {
             return _link;
         }
         public String getText() {
-            return _text;
+            return StringUtils.replace(_text, "\"", "&quot;");
         }
         public boolean isE() {
             return (_listCategory & LIST_E) == LIST_E;

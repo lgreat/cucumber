@@ -4,19 +4,29 @@
 
 #targetList {
     position:absolute;
-    width: 250px;
+    width: 268px;
     padding:16px;
-    border:2px solid;
+    background: url(/res/img/promo/target/supplyListBorder.gif) no-repeat;
+    height: 568px;
+}
+
+#targetList img.targetLogo {
+    position: absolute;
+    left: 16px;
+    top: 16px;
 }
 
 #targetList h2 {
     font-size: 20px;
     color: #C00;
+    margin-left: 65px;
 }
 
 #targetList h3 {
     font-size: 16px;
     color: #666;
+    margin-left: 65px;
+    margin-bottom: 25px;
 }
 
 #targetList #targetSearchMore {
