@@ -40,6 +40,10 @@
     padding-left: 10px;
 }
 
+.bolder{
+	font-weight: bolder;
+}
+
 .breadcrumbs {
     font-size: 11px;
 }
@@ -140,19 +144,6 @@ ul.horizontal li {
     font: 15px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 5px 0 0 0;
-}
-
-/* ----------------- */
-/* ARTICLE LANGUAGES */
-/* ----------------- */
-
-#cmsArticleLanguages {
-    margin: 10px 0;
-}
-
-#cmsArticleLanguages ul span{
-	font: bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
-	list-style-type:none;
 }
 
 /* ----------------- */
@@ -327,8 +318,8 @@ ul.horizontal li {
 /* -------------- */
 
 .authorPageBar {
-    margin-top: 5px;
-    width: 100%;
+    margin:10px 0;
+    float:left;
 }
 
 .authors {
@@ -352,6 +343,7 @@ ul.horizontal li {
     text-align: right;
     color: #444;
     padding: 0;
+    margin: 0 0 10px 0;
 }
 #content .cmsArticlePagination .active {
     font-weight: bold;
@@ -567,7 +559,7 @@ ul.horizontal li {
 /* ASK THE EXPERT BIO */
 /* ------------------ */
 
-#authorBio {
+.authorBio {
     font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 20px 0 10px 0;
