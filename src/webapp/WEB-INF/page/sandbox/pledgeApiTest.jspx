@@ -16,15 +16,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Test Pledge API - GreatSchools</title>
     <script type="text/javascript">
+
+        function XMLToString(elem) {
+            var serialized;
+            try {
+                // XMLSerializer exists in current Mozilla browsers
+                var serializer = new XMLSerializer();
+                serialized = serializer.serializeToString(elem);
+            }
+            catch (e) {
+                // Internet Explorer has a different approach to serializing XML
+                serialized = elem.xml;
+            }
+            return serialized;
+        }
+
         function getNumPledges() {
             $.get("/backToSchool/pledge/getNumPledges.page", function(data) {
-                alert(data);
+                alert(XMLToString(data));
             });
         }
 
         function getNumPledgesByState() {
             $.get("/backToSchool/pledge/getNumPledgesByState.page", function(data) {
-                alert(data);
+                alert(XMLToString(data));
             });
         }
 
@@ -34,7 +49,7 @@
                     "/backToSchool/pledge/getNumPledgesByCity.page",
                     {state: state},
                     function(data) {
-                        alert(data);
+                        alert(XMLToString(data));
             });
         }
 
@@ -44,7 +59,7 @@
                     "/backToSchool/pledge/submitDefaultPledge.page",
                     {zip: zip},
                     function(data) {
-                        alert(data);
+                        alert(XMLToString(data));
             });
         }
 
@@ -52,11 +67,12 @@
             var pledgeId = $("#pledgeId").val();
             var pledgeStr = $("#pledgeStr").val();
             var email = $("#email").val();
+            var signup = $("#signup").attr("checked");
             $.post(
                     "/backToSchool/pledge/submitPersonalPledge.page",
-                    {pledge_id: pledgeId, pledge: pledgeStr, email: email},
+                    {pledge_id: pledgeId, pledge: pledgeStr, email: email, signup: signup},
                     function(data) {
-                        alert(data);
+                        alert(XMLToString(data));
             });
         }
     </script>
@@ -86,6 +102,7 @@
     <label for="pledgeId">Pledge id: </label><input type="text" id="pledgeId" size="3"/><br/>
     <label for="pledgeStr">Pledge: </label><input type="text" id="pledgeStr" size="64"/><br/>
     <label for="email">Email: </label><input type="text" id="email" size="32"/><br/>
+    <label for="signup">Sign up for email updates: </label><input type="checkbox" id="signup" name="signup"/><br/>
     <input type="button" value="submit personal pledge" onclick="submitPersonalPledge();"/>
 
 </body>

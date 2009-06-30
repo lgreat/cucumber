@@ -7,6 +7,7 @@ import gs.data.util.NameValuePair;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
+import gs.data.community.*;
 
 import static org.easymock.EasyMock.*;
 import org.easymock.IArgumentMatcher;
@@ -14,6 +15,8 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -22,6 +25,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
     private PledgeAPIController _controller;
     private IPledgeDao _pledgeDao;
     private IGeoDao _geoDao;
+    private IUserDao _userDao;
+    private ISubscriptionDao _subscriptionDao;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -29,25 +34,31 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller = new PledgeAPIController();
         _pledgeDao = createStrictMock(IPledgeDao.class);
         _geoDao = createStrictMock(IGeoDao.class);
+        _userDao = createStrictMock(IUserDao.class);
+        _subscriptionDao = createStrictMock(ISubscriptionDao.class);
 
         _controller.setPledgeDao(_pledgeDao);
         _controller.setGeoDao(_geoDao);
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
 
         // default method
         getRequest().setMethod("GET");
     }
 
     public void replayMocks() {
-        replayMocks(_pledgeDao, _geoDao);
+        replayMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao);
     }
 
     public void verifyMocks() {
-        verifyMocks(_pledgeDao, _geoDao);
+        verifyMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao);
     }
 
     public void testBasics() {
         assertSame(_pledgeDao, _controller.getPledgeDao());
         assertSame(_geoDao, _controller.getGeoDao());
+        assertSame(_userDao, _controller.getUserDao());
+        assertSame(_subscriptionDao, _controller.getSubscriptionDao());
         _controller.setFunction("function");
         assertEquals("function", _controller.getFunction());
     }
@@ -59,9 +70,10 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
     public void testGetNumPledges() throws Exception {
         expect(_pledgeDao.getNumPledges()).andReturn(180l);
         replayMocks();
-        _controller.getNumPledges(getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledges();
         verifyMocks();
-        assertEquals("{total:180}", getResponse().getContentAsString());
+        PledgeAPIController.KeyValueResponse expected = new PledgeAPIController.KeyValueResponse("total", "180");
+        assertEquals(expected, rval);
     }
 
     public void testGetNumPledgesFromTop() throws Exception {
@@ -70,7 +82,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{total:180}", getResponse().getContentAsString());
+        assertEquals("<total>180</total>",
+                getResponse().getContentAsString());
     }
 
     public void testErrorOnGetNumPledges() throws Exception {
@@ -79,7 +92,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.setFunction(PledgeAPIController.GET_NUM_PLEDGES_FUNCTION);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{error:{code:1,message:'Service not available.'}}", getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
     }
 
     /*
@@ -92,10 +105,9 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         list.add(new NameValuePair<State, Long>(State.MD, 12000l));
         expect(_pledgeDao.getSortedNumPledgesByState()).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByState(getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByState();
         verifyMocks();
-        assertEquals("{pledgesByState:[{state:'California',pledges:55000},{state:'Maryland',pledges:12000}]}", 
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.StatePledgesResponse(list), rval);
     }
 
     public void testGetNumPledgesByStateFromTop() throws Exception {
@@ -107,7 +119,10 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{pledgesByState:[{state:'California',pledges:55000},{state:'Maryland',pledges:12000}]}",
+        assertEquals("<pledgesByState>" +
+                "<stateValue state=\"California\" pledges=\"55000\"/>" +
+                "<stateValue state=\"Maryland\" pledges=\"12000\"/>" +
+                "</pledgesByState>",
                 getResponse().getContentAsString());
     }
 
@@ -116,20 +131,18 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         list.add(new NameValuePair<State, Long>(State.CA, 55000l));
         expect(_pledgeDao.getSortedNumPledgesByState()).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByState(getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByState();
         verifyMocks();
-        assertEquals("{pledgesByState:[{state:'California',pledges:55000}]}",
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.StatePledgesResponse(list), rval);
     }
 
     public void testGetNumPledgesByStateNoResults() throws Exception {
         List<NameValuePair<State,Long>> list = new ArrayList<NameValuePair<State, Long>>();
         expect(_pledgeDao.getSortedNumPledgesByState()).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByState(getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByState();
         verifyMocks();
-        assertEquals("Expect empty array", "{pledgesByState:[]}",
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.StatePledgesResponse(list), rval);
     }
     
     public void testErrorOnGetNumPledgesByState() throws Exception {
@@ -138,7 +151,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _controller.setFunction(PledgeAPIController.GET_NUM_PLEDGES_BY_STATE_FUNCTION);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{error:{code:1,message:'Service not available.'}}", getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
     }
 
     /*
@@ -151,10 +164,9 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         list.add(new NameValuePair<String, Long>("Oakland", 1000l));
         expect(_pledgeDao.getTop5CitiesByState(State.CA)).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByCity(State.CA, getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByCity(State.CA);
         verifyMocks();
-        assertEquals("{pledgesByCity:[{city:'Alameda',pledges:1500},{city:'Oakland',pledges:1000}]}",
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.CityPledgesResponse(list), rval);
     }
 
     public void testGetNumPledgesByCityFromTop() throws Exception {
@@ -162,13 +174,17 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(PledgeAPIController.STATE_PARAM, "California");
         List<NameValuePair<String,Long>> list = new ArrayList<NameValuePair<String, Long>>();
         list.add(new NameValuePair<String, Long>("Alameda", 1500l));
-        list.add(new NameValuePair<String, Long>("Oakland", 1000l));
+        list.add(new NameValuePair<String, Long>("San Francisco", 1000l));
         expect(_pledgeDao.getTop5CitiesByState(State.CA)).andReturn(list);
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{pledgesByCity:[{city:'Alameda',pledges:1500},{city:'Oakland',pledges:1000}]}",
+        assertEquals("<pledgesByCity>" +
+                "<cityValue city=\"Alameda\" pledges=\"1500\"/>" +
+                "<cityValue city=\"San Francisco\" pledges=\"1000\"/>" +
+                "</pledgesByCity>",
                 getResponse().getContentAsString());
+
     }
 
     public void testGetNumPledgesByCityOneResult() throws Exception {
@@ -176,20 +192,18 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         list.add(new NameValuePair<String, Long>("Alameda", 1500l));
         expect(_pledgeDao.getTop5CitiesByState(State.CA)).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByCity(State.CA, getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByCity(State.CA);
         verifyMocks();
-        assertEquals("{pledgesByCity:[{city:'Alameda',pledges:1500}]}",
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.CityPledgesResponse(list), rval);
     }
 
     public void testGetNumPledgesByCityNoResults() throws Exception {
         List<NameValuePair<String,Long>> list = new ArrayList<NameValuePair<String, Long>>();
         expect(_pledgeDao.getTop5CitiesByState(State.CA)).andReturn(list);
         replayMocks();
-        _controller.getNumPledgesByCity(State.CA, getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.getNumPledgesByCity(State.CA);
         verifyMocks();
-        assertEquals("Expect empty array", "{pledgesByCity:[]}",
-                getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.CityPledgesResponse(list), rval);
     }
 
     public void testErrorOnGetNumPledgesByCity() throws Exception {
@@ -199,7 +213,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("state", "California");
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{error:{code:1,message:'Service not available.'}}", getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.PledgeAPIException().toXML(), getResponse().getContentAsString());
     }
 
     /*
@@ -220,9 +234,9 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _pledgeDao.savePledge(eqPledge(expectedPledge));
 
         replayMocks();
-        _controller.submitDefaultPledge("92130", getResponse().getWriter());
+        PledgeAPIController.IPledgeResponse rval = _controller.submitDefaultPledge("92130");
         verifyMocks();
-        assertEquals("{id:1234}", getResponse().getContentAsString());
+        assertEquals(new PledgeAPIController.KeyValueResponse("id", "1234"), rval);
     }
 
     public void testSubmitDefaultPledgeFromTop() throws Exception {
@@ -245,7 +259,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{id:1234}", getResponse().getContentAsString());
+        assertEquals("<id>1234</id>", getResponse().getContentAsString());
     }
 
     public void testSubmitDefaultPledgeInvalidZip() throws Exception {
@@ -258,10 +272,59 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("{error:{code:2,message:'Invalid zip code.'}}", getResponse().getContentAsString());
     }
 
+    /*
+     * TEST SUBMIT PERSONAL PLEDGE
+     */
 
+    public void testSubmitPersonalPledgeNoPledge() throws Exception {
+        expect(_pledgeDao.getPledgeById(15l)).andReturn(null);
+
+        replayMocks();
+        try {
+            _controller.submitPersonalPledge(15l, "Pledge", "email@example.com", true);
+            fail("Expected exception not received");
+        } catch (PledgeAPIController.PledgeAPIException e) {
+            assertEquals(PledgeAPIController.PledgeAPIException.Code.PARAM_PLEDGE_ID, e.getCode());
+            // ok
+        }
+        verifyMocks();
+    }
+
+    public void testSubmitPersonalPledgeNoSignup() throws Exception {
+        replayMocks();
+        PledgeAPIController.IPledgeResponse rval =
+                _controller.submitPersonalPledge(15l, "Pledge", "email@example.com", false);
+        verifyMocks();
+        assertEquals(new PledgeAPIController.EmptyPledgeResponse(), rval);
+    }
+
+    public void testHasBadWord() {
+        // sanity check
+        assertTrue(_controller.hasBadWord("Overreacters should be fucking shot"));
+    }
+
+    public void testHasPledgeSubscription() {
+        User userWith = new User();
+        userWith.setEmail("email@example.com");
+        Subscription pledge = new Subscription(userWith, SubscriptionProduct.PLEDGE, (State)null);
+        Set<Subscription> subs = new HashSet<Subscription>(1);
+        subs.add(pledge);
+        userWith.setSubscriptions(subs);
+
+        User userWithout = new User();
+        userWithout.setEmail("email@example.com");
+        Subscription other = new Subscription(userWithout, SubscriptionProduct.PARENT_ADVISOR, (State)null);
+        subs = new HashSet<Subscription>(1);
+        subs.add(other);
+        userWithout.setSubscriptions(subs);
+        User userWithNone = new User();
+
+        assertTrue(_controller.userHasPledgeSubscription(userWith));
+        assertFalse(_controller.userHasPledgeSubscription(userWithout));
+        assertFalse(_controller.userHasPledgeSubscription(userWithNone));
+    }
 
     public Pledge eqPledge(Pledge pledge) {
         reportMatcher(new PledgeMatcher(pledge));

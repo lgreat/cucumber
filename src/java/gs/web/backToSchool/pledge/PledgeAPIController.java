@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import gs.data.pledge.IPledgeDao;
 import gs.data.pledge.Pledge;
@@ -22,6 +23,7 @@ import gs.data.geo.bestplaces.BpZip;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.ReadWriteController;
+import gs.web.school.review.AddParentReviewsController;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -38,6 +40,9 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     public static final String PLEDGE_ID_PARAM = "pledge_id";
     public static final String PLEDGE_PARAM = "pledge";
     public static final String EMAIL_PARAM = "email";
+    public static final String SIGNUP_PARAM = "signup";
+    public static final int MAX_PLEDGE_CHARS = 110;
+    public static final String CONTENT_TYPE = "xml";
     private String _function;
     private IPledgeDao _pledgeDao;
     private IGeoDao _geoDao;
@@ -45,25 +50,30 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     private ISubscriptionDao _subscriptionDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setContentType("application/json");
-        _log.error(request.getMethod() + "; " + _function);
+        if (StringUtils.equals("xml", CONTENT_TYPE)) {
+            response.setContentType("text/xml");
+        } else {
+            response.setContentType("application/json");
+        }
         PrintWriter out = response.getWriter();
         try {
+            IPledgeResponse pledgeResponse;
+            // Call the right method and get the response object
             if (StringUtils.equalsIgnoreCase("get", request.getMethod())) {
                 if (StringUtils.equals(GET_NUM_PLEDGES_FUNCTION, _function)) {
-                    getNumPledges(out);
+                    pledgeResponse = getNumPledges();
                 } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_STATE_FUNCTION, _function)) {
-                    getNumPledgesByState(out);
+                    pledgeResponse = getNumPledgesByState();
                 } else if (StringUtils.equals(GET_NUM_PLEDGES_BY_CITY_FUNCTION, _function)) {
                     State state = State.fromString(request.getParameter(STATE_PARAM));
-                    getNumPledgesByCity(state, out);
+                    pledgeResponse = getNumPledgesByCity(state);
                 } else {
                     throw new IllegalArgumentException("Unknown function: " + _function);
                 }
             } else if (StringUtils.equalsIgnoreCase("post", request.getMethod())) {
                 if (StringUtils.equals(SUBMIT_DEFAULT_PLEDGE_FUNCTION, _function)) {
                     String zip = request.getParameter(ZIP_PARAM);
-                    submitDefaultPledge(zip, out);
+                    pledgeResponse = submitDefaultPledge(zip);
                 } else if (StringUtils.equals(SUBMIT_PERSONAL_PLEDGE_FUNCTION, _function)) {
                     if (StringUtils.isBlank(request.getParameter(PLEDGE_ID_PARAM))
                             || !StringUtils.isNumeric(request.getParameter(PLEDGE_ID_PARAM))) {
@@ -72,136 +82,53 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
                     long pledgeId = new Long(request.getParameter(PLEDGE_ID_PARAM));
                     String pledge = request.getParameter(PLEDGE_PARAM);
                     String email = request.getParameter(EMAIL_PARAM);
-                    submitPersonalPledge(pledgeId, pledge, email, out);
+                    boolean signup = StringUtils.equals("true", request.getParameter(SIGNUP_PARAM));
+                    pledgeResponse = submitPersonalPledge(pledgeId, pledge, email, signup);
                 } else {
                     throw new IllegalArgumentException("Unknown function: " + _function);
                 }
             } else {
                 throw new IllegalArgumentException("Unknown request method: " + request.getMethod());
             }
+            // convert response object to the right content type
+            if (StringUtils.equals("xml", CONTENT_TYPE)) {
+                out.print(pledgeResponse.toXML());
+            } else {
+                out.print(pledgeResponse.toJSON());
+            }
         } catch (PledgeAPIException e) {
             _log.error(e.toString());
-            out.print(e.toJSON());
+            if (StringUtils.equals("xml", CONTENT_TYPE)) {
+                out.print(e.toXML());
+            } else {
+                out.print(e.toJSON());
+            }
         } catch (Exception e) {
             _log.error(e, e);
-            out.print(new PledgeAPIException().toJSON());
+            if (StringUtils.equals("xml", CONTENT_TYPE)) {
+                out.print(new PledgeAPIException().toXML());
+            } else {
+                out.print(new PledgeAPIException().toJSON());
+            }
         }
         return null;
     }
 
-    protected void submitPersonalPledge(long pledgeId, String pledgeStr, String email, PrintWriter out) throws PledgeAPIException {
-        // validate pledge id
-        Pledge submittedPledge = _pledgeDao.getPledgeById(pledgeId);
-        if (submittedPledge == null) {
-            _log.error("No pledge by this id:" + pledgeId);
-            throw new PledgeAPIException(PledgeAPIException.Code.PARAM_PLEDGE_ID, "Unknown pledge id.");
-        }
-
-        // validate email
-        EmailValidator emv = EmailValidator.getInstance();
-        if (!emv.isValid(email)) {
-            _log.warn("Invalid email submitted:" + email);
-            throw new PledgeAPIException(PledgeAPIException.Code.PARAM_EMAIL, "Please enter a valid email address.");
-        }
-
-        // validate pledge
-        // TODO: bad word filter
-
-        // check for pre-existing user
-        boolean newUser = false;
-        User user = _userDao.findUserFromEmailIfExists(email);
-        if (user == null) {
-            _log.error("New user");
-            newUser = true;
-            user = new User();
-            user.setEmail(email);
-            user.setHow("pledge");
-            _userDao.saveUser(user);
-        }
-
-        // add pledge subscription
-        if (newUser || !userHasPledgeSubscription(user)) {
-            _log.error("Need to add subscription");
-            Subscription pledgeSub = new Subscription();
-            pledgeSub.setUser(user);
-            pledgeSub.setProduct(SubscriptionProduct.PLEDGE);
-            pledgeSub.setState(submittedPledge.getState());
-
-            List<Subscription> newSubs = new ArrayList<Subscription>(1);
-            newSubs.add(pledgeSub);
-            // ensure list_member record is committed prior to list_active
-            ThreadLocalTransactionManager.commitOrRollback();
-            _subscriptionDao.addNewsletterSubscriptions(user, newSubs);
-        }
-
-        Pledge pledgeToUpdate = submittedPledge;
-        // check for an existing pledge by this user
-        if (!newUser) {
-            _log.error("Checking for existing pledge...");
-            Pledge existingPledge = _pledgeDao.getPledgeByUser(user);
-            if (existingPledge != null) {
-                _log.error("Found it! id:" + existingPledge.getId());
-                // we found one ... update this one instead
-                pledgeToUpdate = existingPledge;
-            }
-        }
-
-        pledgeToUpdate.setUser(user);
-        pledgeToUpdate.setPledge(pledgeStr);
-        _pledgeDao.savePledge(pledgeToUpdate);
-
-        out.print("{}");
+    protected IPledgeResponse getNumPledges() {
+        return new KeyValueResponse("total", String.valueOf(_pledgeDao.getNumPledges()));
     }
 
-    protected boolean userHasPledgeSubscription(User user) {
-        _log.error("Checking for pledge sub...");
-        for (Subscription sub: user.getSubscriptions()) {
-            if (SubscriptionProduct.PLEDGE.equals(sub.getProduct())) {
-                _log.error("Found it! " + sub);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected void getNumPledges(PrintWriter out) {
-        long total = _pledgeDao.getNumPledges();
-        out.print("{total:" + String.valueOf(total) + "}");
-    }
-
-    protected void getNumPledgesByState(PrintWriter out) {
+    protected IPledgeResponse getNumPledgesByState() {
         List<NameValuePair<State, Long>> results = _pledgeDao.getSortedNumPledgesByState();
-        StringBuilder rval = new StringBuilder();
-        rval.append("{pledgesByState:[");
-        String[] stateResults = new String[results.size()];
-        int counter=0;
-        for (NameValuePair<State, Long> stateResultPair: results) {
-            String jsonSegment = "{state:'" + stateResultPair.getKey().getLongName() + "',";
-            jsonSegment += "pledges:" + stateResultPair.getValue() + "}";
-            stateResults[counter++] = jsonSegment;
-        }
-        rval.append(StringUtils.join(stateResults, ","));
-        rval.append("]}");
-        out.print(rval.toString());
+        return new StatePledgesResponse(results);
     }
 
-    protected void getNumPledgesByCity(State state, PrintWriter out) {
+    protected IPledgeResponse getNumPledgesByCity(State state) {
         List<NameValuePair<String, Long>> results = _pledgeDao.getTop5CitiesByState(state);
-        StringBuilder rval = new StringBuilder();
-        rval.append("{pledgesByCity:[");
-        String[] stateResults = new String[results.size()];
-        int counter=0;
-        for (NameValuePair<String, Long> cityResultPair: results) {
-            String jsonSegment = "{city:'" + cityResultPair.getKey() + "',";
-            jsonSegment += "pledges:" + cityResultPair.getValue() + "}";
-            stateResults[counter++] = jsonSegment;
-        }
-        rval.append(StringUtils.join(stateResults, ","));
-        rval.append("]}");
-        out.print(rval.toString());
+        return new CityPledgesResponse(results);
     }
 
-    protected void submitDefaultPledge(String zip, PrintWriter out) throws PledgeAPIException {
+    protected IPledgeResponse submitDefaultPledge(String zip) throws PledgeAPIException {
         BpZip bpzip = _geoDao.findZip(zip);
         if (bpzip == null) {
             throw new PledgeAPIException(PledgeAPIException.Code.PARAM_ZIP, "Invalid zip code.");
@@ -218,7 +145,89 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
             _log.error("No id from saved pledge...");
             throw new PledgeAPIException();
         }
-        out.print("{id:" + pledge.getId() + "}");
+        return new KeyValueResponse("id", String.valueOf(pledge.getId()));
+    }
+
+    protected IPledgeResponse submitPersonalPledge(long pledgeId, String pledgeStr, String email, boolean signup) throws PledgeAPIException {
+        // validate email
+        EmailValidator emv = EmailValidator.getInstance();
+        if (!emv.isValid(email)) {
+            _log.warn("Invalid email submitted:" + email);
+            throw new PledgeAPIException(PledgeAPIException.Code.PARAM_EMAIL, "Please enter a valid email address.");
+        }
+
+        // validate pledge
+        if (StringUtils.isNotBlank(pledgeStr) && hasBadWord(pledgeStr)) {
+            throw new PledgeAPIException(PledgeAPIException.Code.PARAM_PLEDGE,
+                    "Oops! No bad words allowed -- please try again.");
+        }
+        StringUtils.abbreviate(pledgeStr, MAX_PLEDGE_CHARS);
+
+        // only store the user, subscription, and pledge if the user wants to sign up for updates
+        if (signup) {
+            // validate pledge id
+            Pledge submittedPledge = _pledgeDao.getPledgeById(pledgeId);
+            if (submittedPledge == null) {
+                _log.error("No pledge by this id:" + pledgeId);
+                throw new PledgeAPIException(PledgeAPIException.Code.PARAM_PLEDGE_ID, "Unknown pledge id.");
+            }
+
+            // check for pre-existing user
+            boolean newUser = false;
+            User user = _userDao.findUserFromEmailIfExists(email);
+            if (user == null) {
+                newUser = true;
+                user = new User();
+                user.setEmail(email);
+                user.setHow("pledge");
+                _userDao.saveUser(user);
+            }
+
+            // add pledge subscription
+            if (newUser || !userHasPledgeSubscription(user)) {
+                Subscription pledgeSub = new Subscription();
+                pledgeSub.setUser(user);
+                pledgeSub.setProduct(SubscriptionProduct.PLEDGE);
+                pledgeSub.setState(submittedPledge.getState());
+
+                List<Subscription> newSubs = new ArrayList<Subscription>(1);
+                newSubs.add(pledgeSub);
+                // ensure list_member record is committed prior to list_active
+                ThreadLocalTransactionManager.commitOrRollback();
+                _subscriptionDao.addNewsletterSubscriptions(user, newSubs);
+            }
+
+            Pledge pledgeToUpdate = submittedPledge;
+            // check for an existing pledge by this user
+            if (!newUser) {
+                Pledge existingPledge = _pledgeDao.getPledgeByUser(user);
+                if (existingPledge != null) {
+                    // we found one ... update this one instead
+                    pledgeToUpdate = existingPledge;
+                }
+            }
+
+            pledgeToUpdate.setUser(user);
+            pledgeToUpdate.setPledge(pledgeStr);
+            _pledgeDao.savePledge(pledgeToUpdate);
+        }
+        return new EmptyPledgeResponse();
+    }
+
+    protected boolean hasBadWord(final String text) {
+        Matcher m = AddParentReviewsController.BAD_WORDS.matcher(text);
+        return m.matches();
+    }
+
+    protected boolean userHasPledgeSubscription(User user) {
+        if (user.getSubscriptions() != null) {
+            for (Subscription sub: user.getSubscriptions()) {
+                if (SubscriptionProduct.PLEDGE.equals(sub.getProduct())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public String getFunction() {
@@ -261,6 +270,169 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
         _subscriptionDao = subscriptionDao;
     }
 
+    protected static interface IPledgeResponse {
+        public String toJSON();
+        public String toXML();
+        public boolean equals(Object o);
+    }
+
+    protected static class EmptyPledgeResponse implements IPledgeResponse {
+        public String toJSON() {
+            return "{}";
+        }
+        public String toXML() {
+            return "<success/>";
+        }
+        public boolean equals(Object o) {
+            return o instanceof EmptyPledgeResponse;
+        }
+    }
+
+    protected static class KeyValueResponse implements IPledgeResponse {
+        private String _key;
+        private String _value;
+        protected KeyValueResponse(String key, String value) {
+            _key = key;
+            _value = value;
+        }
+        public String toJSON() {
+            return "{" + _key + ":" + _value + "}";
+        }
+        public String toXML() {
+            return "<" + _key + ">" + _value + "</" + _key + ">";
+        }
+        public boolean equals(Object o) {
+            if (!(o instanceof KeyValueResponse)) {
+                return false;
+            }
+            KeyValueResponse other = (KeyValueResponse) o;
+            return other._key.equals(_key) && other._value.equals(_value);
+        }
+    }
+
+    protected static class StatePledgesResponse implements IPledgeResponse {
+        List<NameValuePair<State, Long>> _pledgesPerState;
+        protected StatePledgesResponse(List<NameValuePair<State, Long>> pledgesPerState) {
+            _pledgesPerState = pledgesPerState;
+        }
+        public String toJSON() {
+            StringBuilder rval = new StringBuilder();
+            rval.append("{pledgesByState:[");
+            String[] stateResults = new String[_pledgesPerState.size()];
+            int counter=0;
+            for (NameValuePair<State, Long> stateResultPair: _pledgesPerState) {
+                String jsonSegment = "{state:'" + stateResultPair.getKey().getLongName() + "',";
+                jsonSegment += "pledges:" + stateResultPair.getValue() + "}";
+                stateResults[counter++] = jsonSegment;
+            }
+            rval.append(StringUtils.join(stateResults, ","));
+            rval.append("]}");
+            return rval.toString();
+        }
+        public String toXML() {
+            StringBuilder rval = new StringBuilder();
+            rval.append("<pledgesByState>");
+            for (NameValuePair<State, Long> stateResultPair: _pledgesPerState) {
+                rval.append("<stateValue ");
+                rval.append("state=\"").append(stateResultPair.getKey().getLongName()).append("\" ");
+                rval.append("pledges=\"").append(stateResultPair.getValue()).append("\"/>");
+            }
+            rval.append("</pledgesByState>");
+            return rval.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            StatePledgesResponse other = (StatePledgesResponse) o;
+
+            if (_pledgesPerState != null) {
+                if (other._pledgesPerState == null) {
+                    return false;
+                }
+                if (_pledgesPerState.size() != other._pledgesPerState.size()) {
+                    return false;
+                }
+                for (int i=0; i < _pledgesPerState.size(); i++) {
+                    if (!_pledgesPerState.get(i).getKey().equals(other._pledgesPerState.get(i).getKey())) {
+                        return false;
+                    }
+                    if (!_pledgesPerState.get(i).getValue().equals(other._pledgesPerState.get(i).getValue())) {
+                        return false;
+                    }
+                }
+                if (!_pledgesPerState.equals(other._pledgesPerState))
+                    return false;
+            } else if (other._pledgesPerState != null) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    protected static class CityPledgesResponse implements IPledgeResponse {
+        List<NameValuePair<String, Long>> _pledgesPerCity;
+        protected CityPledgesResponse(List<NameValuePair<String, Long>> pledgesPerCity) {
+            _pledgesPerCity = pledgesPerCity;
+        }
+        public String toJSON() {
+            StringBuilder rval = new StringBuilder();
+            rval.append("{pledgesByCity:[");
+            String[] cityResults = new String[_pledgesPerCity.size()];
+            int counter=0;
+            for (NameValuePair<String, Long> stateResultPair: _pledgesPerCity) {
+                String jsonSegment = "{city:'" + stateResultPair.getKey() + "',";
+                jsonSegment += "pledges:" + stateResultPair.getValue() + "}";
+                cityResults[counter++] = jsonSegment;
+            }
+            rval.append(StringUtils.join(cityResults, ","));
+            rval.append("]}");
+            return rval.toString();
+        }
+        public String toXML() {
+            StringBuilder rval = new StringBuilder();
+            rval.append("<pledgesByCity>");
+            for (NameValuePair<String, Long> cityResultPair: _pledgesPerCity) {
+                rval.append("<cityValue ");
+                rval.append("city=\"").append(cityResultPair.getKey()).append("\" ");
+                rval.append("pledges=\"").append(cityResultPair.getValue()).append("\"/>");
+            }
+            rval.append("</pledgesByCity>");
+            return rval.toString();
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CityPledgesResponse other = (CityPledgesResponse) o;
+
+            if (_pledgesPerCity != null) {
+                if (other._pledgesPerCity == null) {
+                    return false;
+                }
+                if (_pledgesPerCity.size() != other._pledgesPerCity.size()) {
+                    return false;
+                }
+                for (int i=0; i < _pledgesPerCity.size(); i++) {
+                    if (!_pledgesPerCity.get(i).getKey().equals(other._pledgesPerCity.get(i).getKey())) {
+                        return false;
+                    }
+                    if (!_pledgesPerCity.get(i).getValue().equals(other._pledgesPerCity.get(i).getValue())) {
+                        return false;
+                    }
+                }
+                if (!_pledgesPerCity.equals(other._pledgesPerCity))
+                    return false;
+            } else if (other._pledgesPerCity != null) {
+                return false;
+            }
+            return true;
+        }
+    }
+
     protected static class PledgeAPIException extends Exception {
         enum Code {
             UNKNOWN(1),
@@ -292,8 +464,15 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
             return "{error:{code:" + _code + ",message:'" + _message + "'}}";
         }
 
+        public String toXML() {
+            return "<error><code>" + _code + "</code><message>" + _message + "</message></error>";
+        }
+
         public String toString() {
             return "PledgeAPIException #" + _code + ": " + _message;
+        }
+        public Code getCode() {
+            return _code;
         }
     }
 }
