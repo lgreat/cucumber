@@ -229,7 +229,7 @@
 
 <!-- Show author's bio on last page only (and single page view) -->
 <c:if test="${type eq 'article'}">
-    <c:if test="${not empty feature.authors and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+    <c:if test="${not empty bio and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
         <div class="divider"><hr/></div>
         <div class="authorBio">
             ${bio}
