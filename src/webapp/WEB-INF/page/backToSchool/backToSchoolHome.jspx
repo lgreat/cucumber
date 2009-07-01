@@ -58,7 +58,7 @@
                     <div id="prepContent">
                         <img src="/res/img/backToSchool/b2s_gp_prep_photo.jpg"/>
                         <p class="gamePlanBoldText">New-school jitters ? </p> <a href="/back-to-school/preparation/adjusting-new-school.gs?content=25" ><span class="prepText">Make the adjustment</span></a>
-                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"></a><span class="prepText">Nine steps</span> to a smart start.
+                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="prepText">Nine steps</span> to a smart start.</a>
                     </div>
                     <div id="smartContent">
                         <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg"/><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="smartText">Dollars and sense:bargain school buys</a>
