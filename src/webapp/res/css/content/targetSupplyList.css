@@ -1,3 +1,24 @@
+#cmsArticleText p.targetCheckbox {
+    background: transparent url(/res/img/promo/target/checkbox.gif) no-repeat scroll 0 3px;
+    padding-left: 23px;
+}
+
+#cmsArticleText p.targetCheckbox a.targetLink {
+    color: #C00;
+    text-decoration: none;
+    margin-left: 10px;
+    padding-right: 10px;
+    font-size: 12px;
+}
+
+#cmsArticleText p.targetCheckbox a.targetLink:hover {
+    text-decoration:underline;
+}
+
+#cmsArticleText p.targetCheckbox a.targetLink img {
+    margin-left: 5px;
+}
+
 #targetContainer {
     position: relative;
 }
