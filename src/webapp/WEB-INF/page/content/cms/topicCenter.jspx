@@ -50,7 +50,7 @@
                         <ul>
                             <c:forEach var="featureLink" items="${topicCenter.otherFeatureLinks}" varStatus="status">
                                 <c:if test="${status.count le 3}">
-                                    <li><a href="${featureLink.url}">${featureLink.linkText}</a></li>
+                                    <li><a href="${featureLink.url}">${featureLink.title}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
@@ -93,6 +93,14 @@
                                 <p>${subtopic.description}</p>
                                 <!-- Optional subtopic image -->
 
+                                    <!-- Subtopic links -->
+                                <c:if test="${not empty subtopic.links}">
+                                    <ul>
+                                        <c:forEach var="link" items="${subtopic.links}" varStatus="linkStatus">
+                                            <li><a href="${link.url}">${link.linkText}</a></li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:if>
 
                                 <!-- Subtopic sections -->
                                 <c:forEach var="section" items="${subtopic.subSubtopics}" varStatus="sectionStatus">
@@ -106,7 +114,7 @@
                                     <c:if test="${not empty section.links}">
                                         <ul>
                                             <c:forEach var="link" items="${section.links}" varStatus="linkStatus">
-                                                <li><a href="${link.url}">${link.title}</a></li>
+                                                <li><a href="${link.url}">${link.linkText}</a></li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -183,7 +191,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                     <li><a href="${link.url}"
-                                           target="${linkTarget}">${link.title}</a></li>
+                                           target="${linkTarget}">${link.linkText}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
