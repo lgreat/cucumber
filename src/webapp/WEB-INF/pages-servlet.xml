@@ -73,7 +73,7 @@
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
                 <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
-                 <entry key="/back-to-school/**" value="/backToSchool/backToSchoolHome.page"/>
+                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
             </map>
         </property>
     </bean>
@@ -876,13 +876,13 @@
         </property>
     </bean>
 
-    <bean name="/content/backToSchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/content/backToSchool</value>
-        </property>
-    </bean>
+    <!--<bean name="/content/backToSchool.page"-->
+          <!--class="org.springframework.web.servlet.mvc.ParameterizableViewController"-->
+          <!--autowire="byName" lazy-init="true">-->
+        <!--<property name="viewName">-->
+            <!--<value>/content/backToSchool</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <bean name="/content/stateStandards.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
@@ -2176,7 +2176,7 @@
         </property>
     </bean>
 
-    <bean name="/backToSchool/backToSchoolHome.page"
+    <bean name="/content/backToSchool.page"
           class="gs.web.backToSchool.BackToSchoolHomeController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/backToSchool/backToSchoolHome"/>        
