@@ -18,8 +18,9 @@
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <head>
-        <title>Back to School</title>
+        <title>Back to School | GreatSchools</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <meta name="description"
               content="b2s"/>
@@ -31,9 +32,16 @@
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 </jsp:scriptlet>
+     <jsp:scriptlet>
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            if (pageHelper != null) {
+                    pageHelper.addAdKeyword("editorial", "'Backtoscho'");
+            }
+      </jsp:scriptlet>
 
     <gsml:body adPageName="backToSchool-home">
     <c:set var="pageName" value="Back To School"/>
+    <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
 
         <div id="main">
             <div id="gamePlan">
@@ -59,7 +67,7 @@
                             <option value="">Choose grade level</option>
                             <option value="/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082">Elementary</option>
                             <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">Middle</option>
-                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">High</option>
+                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1085">High</option>
                         </select>
                         <div id="shopSmartSponsor"><gsweb:adTagGenerator position="sponsor_210x37" alwaysShow="true"/></div>
                     </div>
@@ -86,7 +94,7 @@
                 </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
-            <gsweb:adTagGenerator position="BelowFold_311x125" alwaysShow="true"/>
+            <gsweb:adTagGenerator position="BelowFold_311x250" alwaysShow="true"/>
             <div id="community">
                 <div class="communityWrapper">
                     <h3>Community</h3>
@@ -113,7 +121,7 @@
             <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
         </div>
 
-        <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+
 
         <div style="display: none;">
             <mod:tracking pageName="${pageName}"
