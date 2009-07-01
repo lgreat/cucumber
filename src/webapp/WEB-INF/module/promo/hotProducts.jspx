@@ -34,7 +34,7 @@
 
     <div id="hotProductsModule">
         <div id="hotProductsHeader">
-            <span class="hotProductsHeaderTitle">Gear that makes the grade</span><span class="sponsorMsg"><span>Sponsored by </span><img src="/res/img/promo/hotProducts/targetSmLogo.gif"/></span>
+            <span class="hotProductsHeaderTitle">Gear that makes the grade</span><span class="sponsorMsg"><span>Sponsored by </span><img src="/res/img/promo/hotProducts/targetSmLogo.gif" alt="sponsor logo"/></span>
         </div>
 
         <!-- prev link -->
@@ -48,7 +48,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/classic_class-mate.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/classic_class-mate.jpg" alt="classic mate"><!--nop--></img>
                         </div>
                         Land's End <a target="_blank" href="http://www.landsend.com/pp/ClassMateLunchBox~186757_-1.html?bcc=y&amp;amp;action=order_more&amp;amp;sku_0=::PRO&amp;amp;CM_MERCH=IDX_00004__0000000491&amp;amp;origin=index">Classic ClassMate</a>
                     </div>
@@ -60,7 +60,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/Built-NYs-Munchlers.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/Built-NYs-Munchlers.jpg" alt="munchlers"><!--nop--></img>
                         </div>
                         Built NY <a target="_blank" href="http://www.builtny.com/VGCMS/vg_root/site_root/showPage.php?pageID=1611">Munchlers</a>
                     </div>
@@ -72,7 +72,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/Laptop-Lunch-.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/Laptop-Lunch-.jpg" alt="laptop lunch"><!--nop--></img>
                         </div>
                         Laptop Lunches <a target="_blank" href="http://secure.laptoplunches.com/AMAZING/items.asp?Cc=SYSTEMS&amp;amp;Bc=">Bento Set</a>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/snack-and-sandwich-bags.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/snack-and-sandwich-bags.jpg" alt="sanwich bag"><!--nop--></img>
                         </div>
                         SnackTaxi <a target="_blank" href="http://www.snacktaxi.com/store/index.php?cPath=23">Sandwich sacks</a>
                     </div>
@@ -96,7 +96,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/Crocodile-Creek-backpacks.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/Crocodile-Creek-backpacks.jpg" alt="creek backpacks"><!--nop--></img>
                         </div>
                         Crocodile Creek <a target="_blank" href="http://www.shopatron.com/index/476.0.17668.0.0.0.0">Backpack</a>
                     </div>
@@ -108,7 +108,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/JanSport-SuperBreak.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/JanSport-SuperBreak.jpg" alt="jansport super break"><!--nop--></img>
                         </div>
                         JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=10&amp;amp;pid=T501">SuperBreak</a>
                     </div>
@@ -121,7 +121,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/Wheeled-SuperBreak.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/Wheeled-SuperBreak.jpg" alt="wheeled super break"><!--nop--></img>
                         </div>
                         JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=14&amp;amp;pid=THE9">Wheeled SuperBreak</a>
                     </div>
@@ -133,7 +133,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/vinyl-pouch-.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/vinyl-pouch-.jpg" alt="vinyl pouch"><!--nop--></img>
                         </div>
                         Office Depot <a target="_blank" href="http://www.officedepot.com/a/products/434357/Office-Depot-Brand-Vinyl-Storage-Pouch/">Vinyl storage pouch</a>
                     </div>
@@ -145,7 +145,7 @@
                 <div class="item active">
                     <div class="hotProductImageHalf">
                         <div class="hotProductsImage">
-                            <img src="/res/img/promo/hotProducts/Kokuyo-Capara-bag.jpg"><!--nop--></img>
+                            <img src="/res/img/promo/hotProducts/Kokuyo-Capara-bag.jpg" alt="capara bag"><!--nop--></img>
                         </div>
                         Kokuyo Capara <a target="_blank" href="http://www.jetpens.com/index.php/cPath/159_521">Pencil case</a>
                     </div>
