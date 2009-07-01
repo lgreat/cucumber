@@ -28,11 +28,12 @@
 #popularArticles {
     margin-top: 14px;
     background: url( /res/img/backToSchool/b2s_most_popular_bg.jpg ) no-repeat;
-    padding: 17px 20px 20px 18px;
+    padding: 17px 20px 20px 19px;
     position: relative;
     line-height:18px;
     width:260px;
     height:215px;
+    margin-bottom:14px;
 }
 
 .popularArticlesImage {

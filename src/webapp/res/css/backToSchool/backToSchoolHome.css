@@ -41,6 +41,9 @@
     color: #3399AA;
 }
 
+.underlineText{
+    text-decoration:underline;
+}
 /* Start game plan module*/
 
 #gamePlan {
@@ -73,8 +76,8 @@
     top: 0;
 }
 
-#gamePlanContent div#engagedContent,div#smartContent,div#prepContent {
-    background-color: #108ca6;
+div#engagedContent,div#smartContent,div#prepContent {
+    background-color: #088da8;
     position: absolute;
     top: 175px;
     height: 190px;
@@ -85,37 +88,33 @@
 #engagedContent {
     left: 0;
     width: 194px;
+    background:url("/res/img/backToSchool/b2s_gp_engage_bottom.jpg") no-repeat bottom;
 }
 
 #prepContent {
     width: 194px;
     left: 214px;
+    background:url("/res/img/backToSchool/b2s_gp_prep_bottom.jpg") no-repeat bottom;
 }
 
 #almostHere{
  margin-top:10px;
 }
 
-#gamePlanContent div#smartContent {
+div#smartContent {
     width: 193px;
     left: 428px;
-}
-
-#gamePlanBottomImgs div {
-    position: absolute;
-    top: 360px;
+    background:url("/res/img/backToSchool/b2s_gp_smart_bottom.jpg") no-repeat bottom #088da8;
 }
 
 #engagedBottomImg {
-    left: 0;
+    left: 0px;
+    position: absolute;
+    bottom:0;
 }
 
 #prepBottomImg {
     left: 212px;
-}
-
-.prepText{
-    text-decoration:underline;
 }
 
 #smartBottomImg {
@@ -124,11 +123,16 @@
 
 .smartText{
     position:absolute;
-    margin-left:6px;
-    margin-top:20px;
+    top:30px;
+    left:116px;
     font-weight: bold;
     font-size: 14px;
-    width:89px;dd
+    width:89px;
+}
+
+#smartContent a.underlineText{
+    text-decoration:underline;
+    width:5px;
 }
 
 #contentGS .shopText{
@@ -137,8 +141,9 @@
 }
 
 #shopSmartSponsor{
-    margin-top:10px;
-    height:30px;
+    position:absolute;
+    left:0px;
+    top:154px;
 }
 
 #contentGS .gamePlanBoldText {
@@ -204,6 +209,10 @@
 #momSponsor{
     margin-top:10px;
     height:45px;
+    text-align:left;
+    width:97px;
+    margin-left:0;
+    padding-left:0;
 }
 /*end Mom on fire*/
 
@@ -216,7 +225,6 @@
 #quiz {
     width: 312px;
     height: 250px;
-    background-color: black;
 }
 
 /*start community */
@@ -232,7 +240,7 @@
 }
 
 .communityWrapper {
-    padding: 17px 20px 0 18px;
+    padding: 17px 20px 0 21px;
 }
 
 #contentGS #community ul {

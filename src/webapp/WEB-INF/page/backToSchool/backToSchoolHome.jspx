@@ -45,38 +45,30 @@
 
         <div id="main">
             <div id="gamePlan">
-                <div >
                     <div id="engagedTopImg"><img src="/res/img/backToSchool/b2s_gp_engage_top.gif"></img></div>
                     <div id="prepTopImg"><img src="/res/img/backToSchool/b2s_gp_prep_top.gif"></img></div>
                     <div id="smartTopImg"><img src="/res/img/backToSchool/b2s_gp_smart_top.gif"></img></div>
-                </div>
-                <div id="gamePlanContent">
+
                     <div id="engagedContent">
                         <img src="/res/img/backToSchool/b2s_gp_engage_photo.jpg"/>
-                        <p class="gamePlanBoldText">Stop summer brain drain! </p> <a href="/back-to-school/summer-activities/stop-brain-drain.gs?content=1510"> Don't let the livin' be too easy this summer - or your child will fall behind.</a>
+                        <p class="gamePlanBoldText">Stop summer brain drain! </p> <a href="/back-to-school/summer-activities/stop-brain-drain.gs?content=1510"><span class="underlineText"> Don't let the livin' be too easy</span></a> this summer - or your child will fall behind.
                     </div>
                     <div id="prepContent">
                         <img src="/res/img/backToSchool/b2s_gp_prep_photo.jpg"/>
-                        <p class="gamePlanBoldText">New-school jitters ? </p> <a href="/back-to-school/preparation/adjusting-new-school.gs?content=25" ><span class="prepText">Make the adjustment</span></a>
-                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="prepText">Nine steps</span> to a smart start.</a>
+                        <p class="gamePlanBoldText">New-school jitters ? </p> <a href="/back-to-school/preparation/adjusting-new-school.gs?content=25" ><span class="underlineText">Make the adjustment</span></a>
+                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="underlineText">Nine steps</span></a> to a smart start.
                     </div>
                     <div id="smartContent">
-                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg"/><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="smartText">Dollars and sense:bargain school buys</a>
+                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg"/><div class="smartText">Dollars and sense:<a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">bargain school buys</a></div>
                         <p class="shopText">Stock up on the right supplies</p>
                         <select onchange="gotoLanding()" id="suppliesArticles">
                             <option value="">Choose grade level</option>
                             <option value="/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082">Elementary</option>
                             <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">Middle</option>
-                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1085">High</option>
+                            <option value="/back-to-school/supplies/back-to-school-supply-list.gs?content=1085">High</option>
                         </select>
                         <div id="shopSmartSponsor"><gsweb:adTagGenerator position="sponsor_210x37" alwaysShow="true"/></div>
                     </div>
-                </div>
-                <div id="gamePlanBottomImgs">
-                    <div id="engagedBottomImg"><img src="/res/img/backToSchool/b2s_gp_engage_bottom.jpg"></img></div>
-                    <div id="prepBottomImg"><img src="/res/img/backToSchool/b2s_gp_prep_bottom.jpg"></img></div>
-                    <div id="smartBottomImg"><img src="/res/img/backToSchool/b2s_gp_smart_bottom.jpg"></img></div>
-                </div>
 
             </div>
             <div class="divider">
@@ -94,7 +86,7 @@
                 </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
-            <gsweb:adTagGenerator position="BelowFold_311x250" alwaysShow="true"/>
+            <div id="quiz"><gsweb:adTagGenerator position="BelowFold_311x250" alwaysShow="true"/></div>
             <div id="community">
                 <div class="communityWrapper">
                     <h3>Community</h3>
