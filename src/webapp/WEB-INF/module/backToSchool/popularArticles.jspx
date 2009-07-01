@@ -14,7 +14,7 @@
         <h3>Popular articles</h3>
 
         <div class="articles">
-            <img class="popularArticlesImage" src="/res/img/backToSchool/populararticles_girls.jpg"/>
+            <img class="popularArticlesImage" src="/res/img/backToSchool/populararticles_girls.jpg" alt="popular articles img"/>
             <c:if test="${popularArticlesSize gt 0}">
             <ul>
                 <c:forEach var="article" begin="0" end="${popularArticlesSize-1}">
