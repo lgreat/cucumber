@@ -8,7 +8,7 @@
     padding:16px;
     background: url(/res/img/promo/target/supplyListBorder.gif) no-repeat;
     height: 568px;
-    font-family: Verdana sans-serif;
+    font-family: Verdana, Arial, Helvetica, Sans-serif;
 }
 
 #targetList img.targetLogo {
@@ -33,7 +33,7 @@
 #targetList #targetSearchMore {
     font-weight: bold;
     font-size: 11px;
-    font-family: Verdana sans-serif;
+    font-family: Verdana, Arial, Helvetica, Sans-serif;
     color: #666;
     text-decoration:underline;
     border-top: 1px solid #DCDCDC;
@@ -58,7 +58,7 @@
 }
 
 #targetList .targetSupplyItem a {
-    font-family: Verdana sans-serif;
+    font-family: Verdana, Arial, Helvetica, Sans-serif;
     font-weight: bold;
     font-size: 11px;
     margin-right: 45px;
