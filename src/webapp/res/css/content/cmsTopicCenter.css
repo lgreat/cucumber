@@ -11,7 +11,7 @@
     /*width:448px;*/
     height:1px;
     /*padding:0px;*/
-    margin:0 20px;
+    margin:0 25px;
     /*outline: 1px solid red;*/
 }
 
@@ -66,7 +66,7 @@
 #featured .two_of_two {
     width:245px; height:215px;
     background:#f7f7f7;
-    padding:10px 15px;
+    padding:5px 10px;
     float:right;
 }
 
@@ -98,6 +98,7 @@
 /* ------ */
 
 #topics{
+    padding: 20px 0;
     width:615px;
     float:left;
 }
@@ -164,9 +165,9 @@
 
 #topicContent .topicImage {
     float:right;
-    width:130px; height:150px;
-    outline:1px solid #00f;
-    margin:20px;
+    /*width:130px; height:150px;
+    outline:1px solid #00f;*/
+    margin:15px 25px;
 }
 
 #topicContent div {
@@ -176,24 +177,24 @@
 #topicContent h3 {
     font: bold 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
-    padding: 0px 0 0 20px;
+    padding: 0 0 0 30px;
 }
 
 #topicContent p {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
-    padding: 15px 0 0 20px;
+    padding: 15px 0 0 30px;
 }
 
 #topicContent h4 {
     font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
-    padding: 15px 0 0 20px;
+    padding: 15px 0 0 30px;
 }
 
 #topicContent ul {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-    padding: 5px 0 0 35px;
+    padding: 5px 0 0 45px;
 }
 
 #topicContent li {
@@ -209,7 +210,7 @@
 #topicContent .more {
     /*outline:1px solid red;*/
     float:right;
-    padding:10px 20px 10px 0;
+    padding:10px 30px 10px 0;
     /*border-bottom:1px dotted #999;*/
 }
 
@@ -231,7 +232,7 @@
 #communityNavigation {
     float:left;
     width: 120px;
-    padding:0 10px 0 0;
+    padding:3px 10px 0 0;
 }
 
 #communityNavigation h2 {
