@@ -194,8 +194,11 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
 
                 List<Subscription> newSubs = new ArrayList<Subscription>(1);
                 newSubs.add(pledgeSub);
-                // ensure list_member record is committed prior to list_active
-                ThreadLocalTransactionManager.commitOrRollback();
+                if (newUser) {
+                    user.getSubscriptions(); // force lazy-load
+                    // ensure list_member record is committed prior to list_active
+                    ThreadLocalTransactionManager.commitOrRollback();
+                }
                 _subscriptionDao.addNewsletterSubscriptions(user, newSubs);
             }
 
