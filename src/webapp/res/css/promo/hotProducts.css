@@ -7,6 +7,7 @@
 
 #hotProductsHeader {
     padding: 10px 0 0 20px;
+    position: relative;
 }
 
 #hotProductsHeader .hotProductsHeaderTitle {
@@ -36,7 +37,7 @@ div.scrollable {
 	/* required settings */
 	position:absolute;
 	overflow:hidden;
-	width: 624px;
+	width: 621px;
 	height: 150px;
 
 	padding: 15px 0;
@@ -58,7 +59,7 @@ div.scrollable div.items div.item {
 
 	text-align:left;
     height: 157px;
-    width: 150px;
+    width: 152px;
     
 	padding: 0;
     margin-right: 5px;
@@ -151,4 +152,10 @@ a.next {
 
 a.prev {
     left: 4px;
+}
+
+#sponsor_120x80 {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

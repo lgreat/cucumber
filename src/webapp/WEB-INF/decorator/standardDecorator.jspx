@@ -16,7 +16,11 @@
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
-<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
+<c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
+<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}</c:set>
+
+<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${browserClass}</c:set>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
