@@ -59,7 +59,7 @@
                         <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="underlineText">Nine steps</span></a> to a smart start.
                     </div>
                     <div id="smartContent">
-                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars and sense:<a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">bargain school buys</a></div>
+                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars <div>and sense:</div><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">bargain school buys</a></div>
                         <p class="shopText">Stock up on the right supplies</p>
                         <select onchange="gotoLanding()" id="suppliesArticles">
                             <option value="">Choose grade level</option>
