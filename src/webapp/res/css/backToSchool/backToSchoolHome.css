@@ -132,13 +132,16 @@ div#smartContent {
 
 #smartContent a.underlineText{
     text-decoration:underline;
-    width:5px;
+    font-size: 12px;
+    font-weight:normal;
 }
 
 #contentGS .shopText{
     font-weight: bold;
     font-size: 12px;
+    margin-top:6px;
 }
+
 
 #shopSmartSponsor{
     position:absolute;
@@ -147,7 +150,7 @@ div#smartContent {
 }
 
 #contentGS .gamePlanBoldText {
-    margin-top:3px;
+    margin-top:6px;
     font-weight: bold;
     font-size: 14px;
 }
