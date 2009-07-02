@@ -245,7 +245,7 @@
                                  styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Healthy Kids</link:healthyKids></td>
             <!--#22--><td><link:backToSchool
-                                 styleId="GlobalNav_BackToSchoolButton"
+                                 id="GlobalNav_BackToSchoolButton"
                                  styleClass="${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Back to School</link:backToSchool></td>
         </tr>
