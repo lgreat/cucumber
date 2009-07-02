@@ -216,10 +216,10 @@
 
     <table cellpadding="0" cellspacing="0" id="topnav_subnav">
         <tr>
-            <!--#19--><td><link:articleLibrary
+            <!--#19--><!--<td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
                 styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Popular topics:</link:articleLibrary></td>
+                >Popular topics:</link:articleLibrary></td>-->
             <!--#15--><td><link:specialNeeds
                                  id="GlobalNav_LDButton"
                                  styleClass="${(pw == tabs.SPECIAL_NEEDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
