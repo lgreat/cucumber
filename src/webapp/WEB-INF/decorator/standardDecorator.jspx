@@ -60,6 +60,12 @@
     <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
     <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
 
+    <gsml:url var="jqueryjs" value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
+
+    <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
+    <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
+
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
