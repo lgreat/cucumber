@@ -53,7 +53,7 @@
                 activeItem = curElem;
                 activeIndex = newActiveIndex;
                 updateNextPrev();
-                debugLog();
+                //debugLog();
             });
 
             next.click(function() {
@@ -138,7 +138,7 @@
 
             function scrollRight() {
                 if (!canScrollRight()) {
-                    debugLog();
+                    //debugLog();
                     return;
                 }
 
@@ -156,12 +156,12 @@
                 }
 
                 updateNextPrev();
-                debugLog();
+                //debugLog();
             }
 
             function scrollLeft() {
                 if (!canScrollLeft()) {
-                    debugLog();
+                    //debugLog();
                     return;
                 }
 
@@ -182,7 +182,7 @@
                 }
 
                 updateNextPrev();
-                debugLog();
+                //debugLog();
             }
 
             function scrollTo(item) {
@@ -194,7 +194,6 @@
             }
 
             function debugLog() {
-                //return;
                 if (console) {
                     if (console.group) {
                         console.group("viewIndex: %d, activeIndex: %d, isActive: %s", viewIndex, activeIndex, isActive);
@@ -208,7 +207,7 @@
                     }
                 }
             }
-            debugLog();
+            //debugLog();
         });
 
         //-->
@@ -234,7 +233,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/classic_class-mate.jpg" alt="classic mate"><!-- no collapse --></img>
                         </div>
-                        0 Land's End <a target="_blank" href="http://www.landsend.com/pp/ClassMateLunchBox~186757_-1.html?bcc=y&amp;amp;action=order_more&amp;amp;sku_0=::PRO&amp;amp;CM_MERCH=IDX_00004__0000000491&amp;amp;origin=index">Classic ClassMate</a>
+                        Land's End <a target="_blank" href="http://www.landsend.com/pp/ClassMateLunchBox~186757_-1.html?bcc=y&amp;amp;action=order_more&amp;amp;sku_0=::PRO&amp;amp;CM_MERCH=IDX_00004__0000000491&amp;amp;origin=index">Classic ClassMate</a>
                     </div>
                     <div class="hotProductDescriptionHalf">
                         PVC-free and leakproof, this lunch box is roomy enough for an ice pack and has exterior pockets for milk money.
@@ -246,7 +245,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/Built-NYs-Munchlers.jpg" alt="munchlers"><!-- no collapse --></img>
                         </div>
-                        1 Built NY <a target="_blank" href="http://www.builtny.com/VGCMS/vg_root/site_root/showPage.php?pageID=1611">Munchlers</a>
+                        Built NY <a target="_blank" href="http://www.builtny.com/VGCMS/vg_root/site_root/showPage.php?pageID=1611">Munchlers</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         These <a href="http://www.stephensavage.net/illustration/categories/books/" target="_blank">Stephen Savage</a>–designed lunch bags are insulated and unzip to double as place mats. Choose from four cute critters.
@@ -258,7 +257,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/Laptop-Lunch-.jpg" alt="laptop lunch"><!-- no collapse --></img>
                         </div>
-                        2 Laptop Lunches <a target="_blank" href="http://secure.laptoplunches.com/AMAZING/items.asp?Cc=SYSTEMS&amp;amp;Bc=">Bento Set</a>
+                        Laptop Lunches <a target="_blank" href="http://secure.laptoplunches.com/AMAZING/items.asp?Cc=SYSTEMS&amp;amp;Bc=">Bento Set</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         Created by two eco-friendly moms, this <a href="http://thetoddlercafe.blogspot.com/2009/01/good-things-come-in-small-tightly.html" target="_blank">bento-style</a> kit is made of recycled plastic and comes with utensils, reusable containers, and recipes.
@@ -270,7 +269,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/snack-and-sandwich-bags.jpg" alt="sanwich bag"><!-- no collapse --></img>
                         </div>
-                        3 SnackTaxi <a target="_blank" href="http://www.snacktaxi.com/store/index.php?cPath=23">Sandwich sacks</a>
+                        SnackTaxi <a target="_blank" href="http://www.snacktaxi.com/store/index.php?cPath=23">Sandwich sacks</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         SnackTaxi’s nylon and cotton sandwich bags feature vivid patterns and are machine washable. A green alternative to Ziplocs.
@@ -282,7 +281,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/Crocodile-Creek-backpacks.jpg" alt="creek backpacks"><!-- no collapse --></img>
                         </div>
-                        4 Crocodile Creek <a target="_blank" href="http://www.shopatron.com/index/476.0.17668.0.0.0.0">Backpack</a>
+                        Crocodile Creek <a target="_blank" href="http://www.shopatron.com/index/476.0.17668.0.0.0.0">Backpack</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         Perfectly sized for younger kids, this line of knapsacks wipes clean easily with warm water and soap.
@@ -294,7 +293,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/JanSport-SuperBreak.jpg" alt="jansport super break"><!-- no collapse --></img>
                         </div>
-                        5 JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=10&amp;amp;pid=T501">SuperBreak</a>
+                        JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=10&amp;amp;pid=T501">SuperBreak</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         For a no-frills, sturdy, and affordable backpack, check out the SuperBreak, which comes with a
@@ -307,7 +306,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/Wheeled-SuperBreak.jpg" alt="wheeled super break"><!-- no collapse --></img>
                         </div>
-                        6 JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=14&amp;amp;pid=THE9">Wheeled SuperBreak</a>
+                        JanSport <a target="_blank" href="http://www.jansport.com/js_product_detail.php?cid=14&amp;amp;pid=THE9">Wheeled SuperBreak</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         This wheeled pack can handle heavier book loads, but some schools don’t allow rolling backpacks due to space limitations.
@@ -319,7 +318,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/vinyl-pouch-.jpg" alt="vinyl pouch"><!-- no collapse --></img>
                         </div>
-                        7 Office Depot <a target="_blank" href="http://www.officedepot.com/a/products/434357/Office-Depot-Brand-Vinyl-Storage-Pouch/">Vinyl storage pouch</a>
+                        Office Depot <a target="_blank" href="http://www.officedepot.com/a/products/434357/Office-Depot-Brand-Vinyl-Storage-Pouch/">Vinyl storage pouch</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         Looking for a pencil case that gets the job done cheaply? Try this straightforward option from Office Depot.
@@ -331,7 +330,7 @@
                         <div class="hotProductsImage">
                             <img src="/res/img/promo/hotProducts/Kokuyo-Capara-bag.jpg" alt="capara bag"><!-- no collapse --></img>
                         </div>
-                        8 Kokuyo Capara <a target="_blank" href="http://www.jetpens.com/index.php/cPath/159_521">Pencil case</a>
+                        Kokuyo Capara <a target="_blank" href="http://www.jetpens.com/index.php/cPath/159_521">Pencil case</a>
                     </div>
                     <div class="hotProductDescriptionHalf" style="display: none;">
                         This stylish bag holds 30-plus pencils in its main compartment and another 10 in its zippered pouch on the bottom.
