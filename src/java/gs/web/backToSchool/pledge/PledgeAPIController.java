@@ -291,7 +291,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     protected static abstract class BasePledgeResponse implements IPledgeResponse {
         public String toContentType(ContentType ct) {
             if (ct == ContentType.XML) {
-                return toXML();
+                return "<response>\n<error code=\"0\" message=\"No errors.\"/>\n" + toXML() + "\n</response>";
             } else {
                 return toJSON();
             }
@@ -486,7 +486,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
 
         public String toContentType(ContentType ct) {
             if (ct == ContentType.XML) {
-                return "<error code=\"" + _code + "\" message=\"" + _message + "\"/>";
+                return "<response>\n<error code=\"" + _code + "\" message=\"" + _message + "\"/>\n</response>";
             } else {
                 return "{error:{code:" + _code + ",message:'" + _message + "'}}";
             }

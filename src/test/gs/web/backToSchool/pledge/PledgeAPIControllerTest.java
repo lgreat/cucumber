@@ -112,7 +112,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("<total>180</total>",
+        assertEquals("<response>\n<error code=\"0\" message=\"No errors.\"/>\n<total>180</total>\n</response>",
                 getResponse().getContentAsString());
     }
 
@@ -150,10 +150,12 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("<pledgesByState>" +
+        assertEquals("<response>\n<error code=\"0\" message=\"No errors.\"/>\n" +
+                "<pledgesByState>" +
                 "\n  <stateValue state=\"California\" pledges=\"55000\"/>" +
                 "\n  <stateValue state=\"Maryland\" pledges=\"12000\"/>" +
-                "\n</pledgesByState>",
+                "\n</pledgesByState>" +
+                "\n</response>",
                 getResponse().getContentAsString());
     }
 
@@ -211,10 +213,12 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("<pledgesByCity>" +
+        assertEquals("<response>\n<error code=\"0\" message=\"No errors.\"/>\n" +
+                "<pledgesByCity>" +
                 "\n  <cityValue city=\"Alameda\" pledges=\"1500\"/>" +
                 "\n  <cityValue city=\"San Francisco\" pledges=\"1000\"/>" +
-                "\n</pledgesByCity>",
+                "\n</pledgesByCity>" +
+                "\n</response>",
                 getResponse().getContentAsString());
 
     }
@@ -292,7 +296,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         replayMocks();
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks();
-        assertEquals("<id>1234</id>", getResponse().getContentAsString());
+        assertEquals("<response>\n<error code=\"0\" message=\"No errors.\"/>\n<id>1234</id>\n</response>",
+                getResponse().getContentAsString());
     }
 
     public void testSubmitDefaultPledgeInvalidZip() throws Exception {
