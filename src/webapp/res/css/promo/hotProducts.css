@@ -1,8 +1,8 @@
 #hotProductsModule {
     width: 638px;
     height: 225px;
-    font-family: Trebuchet MS,Arial,sans-serif;
-    background-image:url(/res/img/promo/hotProducts/shoppingBox.gif);
+    font-family: Trebuchet MS, Arial, sans-serif;
+    background-image: url(/res/img/promo/hotProducts/shoppingBox.gif);
 }
 
 #hotProductsHeader {
@@ -33,15 +33,13 @@
 }
 
 div.scrollable {
+    position: absolute;
+    overflow: hidden;
+    width: 621px;
+    height: 150px;
 
-	/* required settings */
-	position:absolute;
-	overflow:hidden;
-	width: 621px;
-	height: 150px;
-
-	padding: 15px 0;
-    margin: 7px 0 0 8px;
+    padding: 15px 0;
+    margin: 10px 0 0 8px;
 }
 
 .ie div.scrollable {
@@ -49,23 +47,23 @@ div.scrollable {
 }
 
 div.scrollable div.items {
-	width:20000em;
-	position:absolute;
-	clear:both;
+    width: 20000em;
+    position: absolute;
+    clear: both;
 }
 
 div.scrollable div.items div.item {
-	float:left;
+    float: left;
 
-	text-align:left;
+    text-align: left;
     height: 157px;
     width: 152px;
-    
-	padding: 0;
+
+    padding: 0;
     margin-right: 5px;
-	font-size: 12px;
+    font-size: 12px;
     background-image: url(/res/img/promo/hotProducts/shoppingThumbSM.gif);
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     background-position: 0 0;
 
     position: relative;
@@ -84,26 +82,29 @@ div.scrollable div.items div div.hotProductImageHalf {
 div.scrollable div.items div div.hotProductImageHalf div.hotProductsImage {
     width: 120px;
     height: 106px;
+    margin-left: 7px;
 }
 
 div.scrollable div.items div div.hotProductImageHalf img.blueArrow {
-    margin: 8px 0 0 5px;
+    top: 138px;
+    position: absolute;
+    left: 130px;
 }
 
 div.scrollable div.items div div.hotProductImageHalf a {
 }
 
 div.scrollable div.items div div.hotProductDescriptionHalf {
-    width: 150px;
+    width: 135px;
     height: 125px;
 
-    padding: 0 0 0 10px;
+    padding: 0 0 0 13px;
     margin: 10px 0 0 15px;
 
     position: absolute;
-    left: 118px;
+    left: 123px;
 
-    border-left: 3px dotted #ccc;
+    border-left: 1px dotted #999;
 }
 
 div.hotProductPrice {
@@ -116,37 +117,37 @@ div.scrollable div.items div.active {
 }
 
 div.scrollable {
-	float:left;
+    float: left;
 }
 
 a.prev, a.next {
-	display:block;
-	width:18px;
-	height:30px;
-	background:url(/res/img/promo/hotProducts/arrowLft.gif) no-repeat;
-	float:left;
-	margin: 75px 0;
-	cursor:pointer;
-	font-size:1px;
+    display: block;
+    width: 18px;
+    height: 30px;
+    background: url(/res/img/promo/hotProducts/arrowLft.gif) no-repeat;
+    float: left;
+    margin: 75px 0;
+    cursor: pointer;
+    font-size: 1px;
     position: relative;
     z-index: 1;
 }
 
 a.prev:hover, a.next:hover {
-	background-position: 0 -30px;
+    background-position: 0 -30px;
 }
 
 a.disabled {
-	background-position: 0 -60px
+    background-position: 0 -60px
 }
 
 a.disabled:hover {
-	background-position:0 -60px;
+    background-position: 0 -60px;
 }
 
 a.next {
-	background-image:url(/res/img/promo/hotProducts/arrowRt.gif);
-	clear:right;
+    background-image: url(/res/img/promo/hotProducts/arrowRt.gif);
+    clear: right;
     left: 597px;
 }
 
