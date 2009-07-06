@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
-            <div id="quiz"><gsweb:adTagGenerator position="BelowFold_311x250" alwaysShow="true"/></div>
+            <div id="quiz"><gsweb:adTagGenerator position="BelowFold_311x250"/></div>
             <div id="community">
                 <div class="communityWrapper">
                     <h3>Community</h3>
