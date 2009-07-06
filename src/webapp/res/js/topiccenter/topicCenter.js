@@ -12,6 +12,7 @@ $j(document).ready(function() {
     var whichTopic = $j('.topic:first').index(this);
     //console.log('whichTopic = ' + whichTopic);
     $j('#topicNavigation li:first').addClass("highlight");
+    $j('#topicNavigation span:first').addClass("on");
 
     // Set div to show on click
     $j('#topicNavigation li').click(function () {
@@ -20,7 +21,9 @@ $j(document).ready(function() {
         $j('#topicContent .topic').hide();
         $j('#topicContent .topic').eq(whichListItem).show();
         $j('#topicNavigation li').removeClass("highlight");
+        $j('#topicNavigation span').removeClass("on");
         $j(this).addClass("highlight");
+        $j('.highlight span').addClass("on");
     });
 
 	// EOF

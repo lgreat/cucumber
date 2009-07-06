@@ -78,16 +78,16 @@
 #featured .two_of_two p {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#444;
-    padding:10px 0;
+    padding:0 0 10px 0;
 }
 
 #featured .two_of_two ul{
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-    padding:0 15px;
+    padding:0 15px 0  0;
 }
 
 #featured .two_of_two li{
-    list-style: disc outside;
+    list-style: disc inside;
     color: #eb9339;
     border-top:1px dotted #999;
     padding:5px 0;
@@ -130,14 +130,21 @@
 #topicNavigation li {
     list-style: disc outside;
     font: bold 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
-    color: #39a;
+    color:#eb9339;
     padding:0 0 10px 0;
     cursor:pointer;
 }
 
+#topicNavigation li span {
+    color:#39a;
+}
+
+#topicNavigation .on {
+    color:#666;
+}
+
 #topicNavigation .highlight {
     list-style: url("/res/img/topicCenter/greenarrow.gif") outside;
-    color: #666;
     cursor:default;
 }
 

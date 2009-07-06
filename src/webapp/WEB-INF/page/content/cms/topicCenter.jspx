@@ -67,7 +67,7 @@
                         <!-- Subtopic navigation -->
                         <ul>
                             <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
-                                <li>${subtopic.title}</li>
+                                <li><span>${subtopic.title}</span></li>
                             </c:forEach>
                         </ul>
 
