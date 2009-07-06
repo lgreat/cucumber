@@ -207,16 +207,7 @@
                         <ul>
                             <c:forEach var="link" items="${topicCenter.communityLinks}">
                                 <c:if test="${not empty link.url}">
-                                    <c:choose>
-                                        <c:when test="${fn:startsWith(link.url, '/')}">
-                                            <c:set var="linkTarget" value="_self"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="linkTarget" value="_blank"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <li><a href="${link.url}"
-                                           target="${linkTarget}">${link.linkText}</a></li>
+                                    <li><a href="${link.url}">${link.linkText}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>
