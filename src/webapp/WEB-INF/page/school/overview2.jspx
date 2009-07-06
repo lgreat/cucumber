@@ -388,7 +388,7 @@
                     </c:when>
                     <c:otherwise>
                 -->
-                        <gsweb:adTagGenerator position="Bottom_300x137" alwaysShow="true"/>
+                        <gsweb:adTagGenerator position="Bottom_300x137"/>
                 <!--
                     </c:otherwise>
                 </c:choose>

@@ -449,7 +449,7 @@
                 </c:choose>
             </div>
             <div id="b2sHouseAd">
-                <gsweb:adTagGenerator position="BelowFold_300x250" alwaysShow="true"/>
+                <gsweb:adTagGenerator position="BelowFold_300x250"/>
             </div>
         </c:otherwise>
     </c:choose>
