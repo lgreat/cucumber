@@ -6,6 +6,7 @@
     width: 638px;
     position: relative;
     margin-top: 2px;
+    margin-bottom:26px;
     height:1120px;
 }
 
@@ -157,6 +158,7 @@ div#smartContent {
 
 #suppliesArticles {
     margin-top: 6px;
+    color:#666666;
 }
 
 /* End game plan module*/
