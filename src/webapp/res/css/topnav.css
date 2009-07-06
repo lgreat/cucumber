@@ -334,6 +334,25 @@
     text-decoration: underline;
 }
 
+#topnav table#topnav_subnav td.media {
+    text-align: center;
+    padding-left: 9px;
+}
+
+#topnav table#topnav_subnav td.schoolChoice {
+    text-align: center;
+    padding-right: 3px;
+}
+
+#topnav table#topnav_subnav td.healthyKids {
+    text-align: center;
+}
+
+#topnav table#topnav_subnav td.backToSchool {
+    text-align: right;
+    padding-right: 4px;
+}
+
 /* END table-based subnav */
 
 /* START list-based subnav */

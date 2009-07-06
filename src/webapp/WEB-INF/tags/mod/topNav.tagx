@@ -232,19 +232,19 @@
                                  id="GlobalNav_CollegePrepButton"
                                  styleClass="${(pw == tabs.COLLEGE_PREP ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >College Prep</link:countdownToCollege></td>
-            <!--#17--><td style="padding-left: 9px;"><link:mediaChoices
+            <!--#17--><td class="media"><link:mediaChoices
                                  id="GlobalNav_MediaChildButton"
                                  styleClass="${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Media &amp;amp; Your Child</link:mediaChoices></td>
-            <!--#20--><td><link:schoolChoiceCenter
+            <!--#20--><td class="schoolChoice"><link:schoolChoiceCenter
                                  id="GlobalNav_ChoosingButton"
                                  styleClass="${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Choosing the Right School</link:schoolChoiceCenter></td>
-            <!--#18--><td><link:healthyKids
+            <!--#18--><td class="healthyKids"><link:healthyKids
                                  styleId="GlobalNav_HealthyKidsButton"
                                  styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Healthy Kids</link:healthyKids></td>
-            <!--#22--><td><link:backToSchool
+            <!--#22--><td class="backToSchool"><link:backToSchool
                                  id="GlobalNav_BackToSchoolButton"
                                  styleClass="${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Back to School</link:backToSchool></td>
