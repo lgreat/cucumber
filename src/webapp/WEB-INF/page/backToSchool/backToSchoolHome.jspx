@@ -59,7 +59,7 @@
                         <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="underlineText">Nine steps</span></a> to a smart start.
                     </div>
                     <div id="smartContent">
-                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars <div>and sense</div><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">Bargain school buys</a></div>
+                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars <div>and sense</div><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">Bargain <br/>school buys</a></div>
                         <p class="shopText">Stock up on the right supplies</p>
                         <select onchange="gotoLanding()" id="suppliesArticles">
                             <option value="">Choose grade level</option>
@@ -67,7 +67,7 @@
                             <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">Middle</option>
                             <option value="/back-to-school/supplies/back-to-school-supply-list.gs?content=1085">High</option>
                         </select>
-                        <div id="shopSmartSponsor"><gsweb:adTagGenerator position="sponsor_210x37" alwaysShow="true"/></div>
+                        <div id="shopSmartSponsor"><gsweb:adTagGenerator position="sponsor_210x37"/></div>
                     </div>
 
             </div>
@@ -82,7 +82,7 @@
                                               defaultTitle="Mom on Fire"
                                               defaultUrl="http://blogs.greatschools.net/mom_on_fire"
                                               type="momOnFire"/>
-                 <div id="momSponsor"><gsweb:adTagGenerator position="sponsor_90x45" alwaysShow="true"/></div>
+                 <div id="momSponsor"><gsweb:adTagGenerator position="sponsor_90x45" /></div>
                 </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
@@ -110,7 +110,7 @@
             <ad:House_Ad_300x137  referredBy="${pageName}"/>
             <ad:AboveFold_300x250/>
             <jsp:include page="/backToSchool/popularArticles.module"/>
-            <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
+            <gsweb:adTagGenerator position="House_Ad_300x137_B2S"/>
         </div>
 
 

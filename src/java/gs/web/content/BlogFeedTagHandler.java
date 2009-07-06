@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.24 2009/06/29 23:30:51 npatury Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.25 2009/07/06 21:41:46 npatury Exp $
  */
 
 package gs.web.content;
@@ -292,7 +292,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.print("</div>");
             if (!StringUtils.isBlank(text)) {
                 out.print("<div class=\"blogContent\">");
-                out.print(Util.abbreviateAtWhitespace(text,125));
+                out.print(Util.abbreviateAtWhitespace(text,110));
                 out.print("</div>");
             }
             out.print("<div class=\"blogLink\">");
