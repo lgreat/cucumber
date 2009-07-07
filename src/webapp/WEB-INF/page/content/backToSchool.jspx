@@ -18,10 +18,8 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<!--pageHelper:setPathway pathway="SEASONAL"/-->
-<pageHelper:setPathway pathway="LIBRARY"/>
+
+<pageHelper:setPathway pathway="BACK_TO_SCHOOL"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <head>
