@@ -27,6 +27,7 @@
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/backToSchoolHome.css"/>
         <pageHelper:externalJavascript file="/res/js/backToSchool/backToSchoolHome.js"/>
+        <pageHelper:setPathway pathway="BACK_TO_SCHOOL"/>
     </head>
 <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
