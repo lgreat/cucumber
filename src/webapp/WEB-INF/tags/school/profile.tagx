@@ -42,9 +42,6 @@
 
 <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
 <c:if test="${school ne null and school.type.schoolTypeName != 'private' and school.levelCode ne 'p'}">
-    <!-- to (potentially) trigger MSS modal on exit -->
-    <community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
-    <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 </c:if>
 
 <jsp:scriptlet><![CDATA[

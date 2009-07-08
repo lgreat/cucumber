@@ -52,7 +52,7 @@
                 CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligible), cookieLife);
             }
             // If they've seen a hover recently we want to delay showing the survey by one click
-            if (surveyEligible && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
+            if (surveyEligible && (CookieUtil.hasCookie(request, "hover") || CookieUtil.hasCookie(request, "mssAutoHover")) && !CookieUtil.hasCookie(request, "hover_delay")) {
                 CookieUtil.setCookie(response, "hover_delay", "1", cookieLife);
                 showSurvey = false;
             } else {
@@ -77,17 +77,18 @@
 <c:if test="${!requestScope.context.crawler}">
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-    <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
     <c:if test="${showNLHover and school.type.schoolTypeName != 'private'}">
         <!-- to trigger MSS modal on exit -->
         <c:choose>
             <c:when test="${school.levelCode == 'p'}">
-                <pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}', 'true')"/>
             </c:when>
-            <!-- GS-8291 Replacing with new MSS hover, see schoolInterruptRegistrationHover.tagx -->
-            <!--<c:otherwise>-->
+            <c:otherwise>
+                <!-- GS-8291 Replacing with new MSS hover, see schoolInterruptRegistrationHover.tagx -->
                 <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
-            <!--</c:otherwise>-->
+                <!-- to (potentially) trigger MSS modal on exit -->
+                <community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>
+                <pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
+            </c:otherwise>
         </c:choose>
     </c:if>
     <c:if test="${showSurvey}">
