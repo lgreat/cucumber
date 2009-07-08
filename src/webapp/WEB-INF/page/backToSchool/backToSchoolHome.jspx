@@ -75,7 +75,17 @@
             <div class="divider">
                 <hr/>
             </div>
-            <div id="tipOftheDay">TIP</div>
+            <div id="tipOftheDay">
+                <c:choose>
+            <c:when test="${requestScope.context.cobranded}">
+               in cobrand
+            </c:when>
+            <c:otherwise>
+               out of cobrand
+            </c:otherwise>
+                 </c:choose>
+
+            </div>
             <div id="momOnFire">
             <div class="momWrapper">
                 <div class="blogHeader">Mom on fire</div>
@@ -87,7 +97,16 @@
                 </div>
             </div>
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
-            <div id="quiz"><gsweb:adTagGenerator position="BelowFold_311x250"/></div>
+             <div id="quiz">
+                 <c:choose>
+            <c:when test="${requestScope.context.cobranded}">
+               <a href="/school/parentReview.page" target="_parent"><img src="/res/img/backToSchool/parentReviewHouseAd311x250.jpg" alt="Parent Review Img"></img></a>
+            </c:when>
+            <c:otherwise>
+                <gsweb:adTagGenerator position="BelowFold_311x250"/>
+            </c:otherwise>
+                 </c:choose>
+                 </div>
             <div id="community">
                 <div class="communityWrapper">
                     <h3>Community</h3>
@@ -108,14 +127,20 @@
             </div>
         </div>
         <div id="contentRight">
-            <ad:House_Ad_300x137  referredBy="${pageName}"/>
+             <c:choose>
+            <c:when test="${requestScope.context.cobranded}">
+               <a href="http://www.facebook.com/greatschools" target="_blank"><img src="/res/img/backToSchool/fb_gs_house_300_137_img.jpg" alt="facebook Img"></img></a>
+            </c:when>
+            <c:otherwise>
+                <ad:House_Ad_300x137  referredBy="${pageName}"/>
+            </c:otherwise>
+                 </c:choose>
+
             <ad:AboveFold_300x250/>
             <jsp:include page="/backToSchool/popularArticles.module"/>
             <gsweb:adTagGenerator position="House_Ad_300x137_B2S"/>
         </div>
-
-
-
+        
         <div style="display: none;">
             <mod:tracking pageName="${pageName}"
             hier1="Article,Back to School"

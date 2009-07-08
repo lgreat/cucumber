@@ -38,14 +38,21 @@ public class BackToSchoolHomeController extends AbstractController {
         List<ITableRow> rows = getCommunityTableDao().getRowsByKey("page", "backToSchool_community");
         if (rows != null && rows.size() > 0) {
             int size = rows.size();
+            int count = 0;
             for (int i = 0; i < size; i++) {
-                String article = rows.get(i).get("text").toString();
-                String link = rows.get(i).get("url").toString();
-                NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article, link);
-                articleLinks.add(articleLink);
+                if(rows.get(i).get("text") != null && rows.get(i).get("url") != null){
+                    String article = rows.get(i).get("text").toString();
+                    String link = rows.get(i).get("url").toString();
+                    NameValuePair<String, String> articleLink = new NameValuePair<String, String>(article, link);
+                    articleLinks.add(articleLink);
+                    count++;
+                }
             }
             model.put("communityTopics", articleLinks);
-            model.put("communityTopicsSize", size);
+            //the count variable is used to check that there is text and a url....
+            //otherwise the module displays one dotted line after another if there is a
+            // row for  "backToSchool_community" and no text and url
+            model.put("communityTopicsSize", count);
         }
     }
 
