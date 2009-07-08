@@ -90,7 +90,7 @@
             <div id="hotProducts"><jsp:include page="/promo/hotProducts.module?slotPrefix=Library_Microsite_Back_to_School"/></div>
              <div id="quiz">
                  <c:choose>
-            <c:when test="${requestScope.pageHelper.adServedByCobrand}">
+            <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
                <a href="/school/parentReview.page" target="_parent"><img src="/res/img/backToSchool/parentReviewHouseAd311x250.jpg" alt="Parent Review Img"></img></a>
             </c:when>
             <c:otherwise>
@@ -119,7 +119,7 @@
         </div>
         <div id="contentRight">
              <c:choose>
-            <c:when test="${requestScope.pageHelper.adServedByCobrand}">
+            <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
                <a href="http://www.facebook.com/greatschools" target="_blank"><img src="/res/img/backToSchool/fb_gs_house_300_137_img.jpg" alt="facebook Img"></img></a>
             </c:when>
             <c:otherwise>
