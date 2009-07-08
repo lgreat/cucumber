@@ -299,3 +299,7 @@ function GS_textSwitch(el, target, replace) {
         el.value = target;
     }
 }
+
+function GS_addPledgeCookie() {
+    createCookie('pledged', '1', 730);
+}

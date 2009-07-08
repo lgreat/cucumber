@@ -17,6 +17,7 @@
     <jsp:directive.tag import="java.util.Set"/>
     <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.CookieUtil"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
@@ -61,6 +62,10 @@
             if (SessionContextUtil.getSessionContext(request) != null &&
                     SessionContextUtil.getSessionContext(request).getMemberId() != null) {
                 pageHelper.addAdKeyword("member", "true");
+            }
+
+            if (CookieUtil.hasCookie(request, "pledged")) {
+                pageHelper.addAdKeyword("pledge", "true");
             }
 
             request.setAttribute("GAMadNames", adNames);
