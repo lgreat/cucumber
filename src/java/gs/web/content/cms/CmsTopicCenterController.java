@@ -148,7 +148,7 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setCommunityMoreLink(link);
 
         List<CmsSubtopic> subtopics = new ArrayList<CmsSubtopic>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 3; i++) {
             subtopics.add(getSampleSubtopic(i));
         }
         topicCenter.setSubtopics(subtopics);
@@ -163,8 +163,17 @@ public class CmsTopicCenterController extends AbstractController {
         subtopic.setImageUrl("/res/img/");
         subtopic.setImageAltText("subtopic image alt text " + i);
 
+        List<CmsLink> links = new ArrayList<CmsLink>();
+        for (int m = 0; m < 4; m++) {
+            CmsLink link = new CmsLink();
+            link.setUrl("http://www.google.com");
+            link.setLinkText("sub link lorem ipsum lorem ipsum " + i + "." + m);
+            links.add(link);
+        }
+        subtopic.setLinks(links);
+
         List<CmsSubSubtopic> subs = new ArrayList<CmsSubSubtopic>();
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < 1; j++) {
             subs.add(getSampleSubSubtopic(i,j));
         }
         subtopic.setSubSubtopics(subs);
