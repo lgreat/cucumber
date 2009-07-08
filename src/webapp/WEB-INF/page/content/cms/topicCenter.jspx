@@ -65,7 +65,7 @@
         <c:if test="${not empty topicCenter.subtopics}">
             <div id="topicNavigation">
 
-                <h2>In this topic</h2>
+                <h2>Hot topics</h2>
                 <!-- Subtopic navigation -->
                 <ul>
                     <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
@@ -123,11 +123,11 @@
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty subtopic.moreLink}">
-                                        <a href="${subtopic.moreLink.url}">${moreLinkText}</a>
+                                        <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText}</a>
                                     </c:when>
                                     <c:otherwise>
                                         <link:cmsCategoryBrowse categoryId="${subtopic.kategory.id}"
-                                                                language="${param.language}">${moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
+                                                                language="${param.language}">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -137,10 +137,12 @@
 
                         <!-- Subtopic sections -->
                         <c:forEach var="section" items="${subtopic.subSubtopics}" varStatus="sectionStatus">
+
                             <!-- Optional section title -->
                             <c:if test="${not empty section.title}">
-
-                                <h4>${section.title}</h4>
+                                <c:if test="${not empty section.moreLink}">
+                                <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
+                                </c:if>
                             </c:if>
 
                             <!-- Section links -->
@@ -153,7 +155,6 @@
                             </c:if>
 
                             <!-- Section more link -->
-
                             <c:choose>
                                 <c:when test="${not empty section.moreLinkText}">
                                     <c:set var="moreLinkText" value="${section.moreLinkText}"/>
@@ -176,11 +177,11 @@
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty section.moreLink}">
-                                        <a href="${section.moreLink.url}">${moreLinkText}</a>
+                                        <span><a href="${section.moreLink.url}">${section.moreLinkText}</a></span>
                                     </c:when>
                                     <c:otherwise>
-                                        <link:cmsCategoryBrowse categoryId="${section.kategory.id}"
-                                                                language="${param.language}">${moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
+                                        <span><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
+                                                                language="${param.language}">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

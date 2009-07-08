@@ -64,26 +64,27 @@
 }
 
 #featured .two_of_two {
-    width:245px; height:215px;
-    background:#f7f7f7;
+    /*outline:1px solid red;*/
+    width:255px; height:225px;
+    background:url(/res/img/topicCenter/tc_feature_bg.jpg) repeat-x;
     padding:5px 10px;
     float:right;
 }
 
 #featured .two_of_two h3 {
-    font: 22px Georgia, "Times New Roman", Times, serif;
+    font: 22px/1.1 Georgia, "Times New Roman", Times, serif;
     /*color:#39a;*/
 }
 
 #featured .two_of_two p {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#444;
-    padding:0 0 10px 0;
+    padding:0;
 }
 
 #featured .two_of_two ul{
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-    padding:0 15px 0  0;
+    padding:15px 0;
 }
 
 #featured .two_of_two li{
@@ -98,7 +99,7 @@
 /* ------ */
 
 #topics{
-    padding: 20px 0;
+    padding: 20px 0 0 0;
     width:615px;
     float:left;
 }
@@ -124,12 +125,12 @@
 #topicNavigation ul {
     font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align:right;
-    padding-bottom:20px;
+    padding:0 0 20px 5px;
 }
 
 #topicNavigation li {
     list-style: disc outside;
-    font: bold 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#eb9339;
     padding:0 0 10px 0;
     cursor:pointer;
@@ -193,6 +194,10 @@
     padding: 15px 0 0 30px;
 }
 
+#topicContent span {
+    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
 #topicContent h4 {
     font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
@@ -200,18 +205,18 @@
 }
 
 #topicContent ul {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
     padding: 5px 0 0 45px;
 }
 
 #topicContent li {
     list-style: disc outside;
     color: #eb9339;
-    padding:3px 0;
+    padding:0;
 }
 
 #topicContent a {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #topicContent .more {
@@ -228,7 +233,7 @@
 #community{
     width:615px;
     float:left;
-    padding:40px 0 0 0;
+    padding:25px 0 40px 0;
     background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 0 25px;
 }
 
@@ -270,7 +275,7 @@
 }
 
 #communityContent a {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #communityContent .more {
