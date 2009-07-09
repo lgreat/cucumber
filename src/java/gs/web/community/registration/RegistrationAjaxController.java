@@ -106,7 +106,7 @@ public class RegistrationAjaxController implements Controller {
 
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
         State state = _stateManager.getState(request.getParameter("state"));
-        List cities = _geoDao.findCitiesByState(state);
+        List<City> cities = _geoDao.findCitiesByState(state);
         String onChange = request.getParameter("onchange");
         String citySelectName =
             (request.getParameter("citySelectName") != null ? request.getParameter("citySelectName") : "city");
@@ -116,15 +116,14 @@ public class RegistrationAjaxController implements Controller {
         if (request.getParameter("showNotListed") != null && Boolean.valueOf(request.getParameter("showNotListed"))) {
             City notListed = new City();
             notListed.setName("My city is not listed");
-            cities.add(0, notListed);
+            cities.add(notListed);
         }
 
         if (cities.size() > 0) {
             out.print("<select id=\"" + citySelectId + "\" name=\"" + citySelectName + "\" class=\"selectCity\" tabindex=\"10\"" +
                  (StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
             outputOption(out, "", "- Choose city -", true);
-            for (int x=0; x < cities.size(); x++) {
-                ICity city = (ICity) cities.get(x);
+            for (City city : cities) {
                 outputOption(out, city.getName(), city.getName());
             }
             out.print("</select>");

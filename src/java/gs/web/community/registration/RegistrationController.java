@@ -198,7 +198,7 @@ public class RegistrationController extends SimpleFormController implements Read
             School school = new School();
             school.setId(-1);
             school.setName("My child's school is not listed");
-            schools.add(0, school);
+            schools.add(school);
             student.setSchools(schools);
         } else {
             student.setSchools(new ArrayList<School>());
@@ -211,7 +211,7 @@ public class RegistrationController extends SimpleFormController implements Read
             List<City> cities = _geoDao.findAllCitiesByState(state);
             City city = new City();
             city.setName("My city is not listed");
-            cities.add(0, city);
+            cities.add(city);
             student.setCities(cities);
         }
     }
@@ -233,7 +233,7 @@ public class RegistrationController extends SimpleFormController implements Read
             List<City> cities = _geoDao.findCitiesByState(state);
             City city = new City();
             city.setName("My city is not listed");
-            cities.add(0, city);
+            cities.add(city);
             userCommand.setCityList(cities);
         }
     }

@@ -84,7 +84,7 @@ public class Registration2AjaxController implements Controller {
         List<City> cities = _geoDao.findCitiesByState(state);
         City notListed = new City();
         notListed.setName("My city is not listed");
-        cities.add(0, notListed);
+        cities.add(notListed);
         if (StringUtils.isNotBlank(childNum)) {
             openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");", null);
         } else {
@@ -118,12 +118,12 @@ public class Registration2AjaxController implements Controller {
             openSelectTag(out, "school", "school", "selectChildSchool", onChange, onClick);
         }
         outputOption(out, "", "- Choose School -", true);
-        if (selectedSchools) {
-            outputOption(out, "-1", "My child's school is not listed");
-        }
         for(School school : schools) {
             String idString = ((school.getId() != null)?school.getId().toString():"");
             outputOption(out, idString, school.getName());
+        }
+        if (selectedSchools) {
+            outputOption(out, "-1", "My child's school is not listed");
         }
         out.print("</select>");
     }
