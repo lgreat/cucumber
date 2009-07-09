@@ -1,18 +1,13 @@
 package gs.web.jsp.link;
 
-import gs.web.jsp.BaseTagHandler;
+import gs.web.util.UrlBuilder;
 import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.content.cms.CmsCategory;
 import gs.data.util.SpringUtil;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.JspFragment;
-import java.io.IOException;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
-public class CmsCategoryBrowseTagHandler extends BaseTagHandler {
+public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
+    private CmsCategory _category;
     private int _categoryId;
     private String _language;
     private static ICmsCategoryDao _cmsCategoryDao;
@@ -21,27 +16,16 @@ public class CmsCategoryBrowseTagHandler extends BaseTagHandler {
         _cmsCategoryDao = (ICmsCategoryDao) SpringUtil.getApplicationContext().getBean(ICmsCategoryDao.BEAN_ID);
     }
 
-    public void doTag() throws JspException, IOException {
-        CmsCategory category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
+    public CmsCategoryBrowseTagHandler() {
+        _category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
+    }
 
-        if (category != null) {
-            getJspContext().getOut().print("<a href=\"/articles/" + category.getFullUri() +
-                (StringUtils.isNotBlank(_language) ? "?language=" + _language : "") + "\">");
+    protected String getDefaultLinkText() {
+        return StringEscapeUtils.escapeHtml(_category.getName());
+    }
 
-            // Output the body, if any. Otherwise, output the category name.
-            JspFragment jspBody = getJspBody();
-            if (jspBody != null && StringUtils.isNotEmpty(jspBody.toString())) {
-                try {
-                    jspBody.invoke(getJspContext().getOut());
-                } catch (JspException e) {
-                    getJspContext().getOut().print(StringEscapeUtils.escapeHtml(category.getName()));
-                }
-            } else {
-                getJspContext().getOut().print(StringEscapeUtils.escapeHtml(category.getName()));
-            }
-
-            getJspContext().getOut().print("</a>");
-        }
+    protected UrlBuilder createUrlBuilder() {
+        return new UrlBuilder(_category, _language, UrlBuilder.CMS_CATEGORY_BROWSE);
     }
 
     public int getCategoryId() {

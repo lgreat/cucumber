@@ -1,15 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.167 2009/06/18 23:08:20 eingenito Exp $
+ * $Id: UrlBuilder.java,v 1.168 2009/07/09 18:35:16 yfan Exp $
  */
 
 package gs.web.util;
 
 import gs.data.cms.IPublicationDao;
-import gs.data.content.Article;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.Publication;
-import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.*;
 import gs.data.geo.ICity;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
@@ -271,6 +268,8 @@ public class UrlBuilder {
     public static final VPage SCHOOL_FINDER_CUSTOMIZATION = new VPage("vpage:schoolFinderCustomization");
 
     public static final VPage SCHOOL_FINDER_WIDGET = new VPage("vpage:schoolFinderWidget");
+
+    public static final VPage CMS_CATEGORY_BROWSE = new VPage("vpage:cmsCategoryBrowse");
 
     /**
      * Api Pages
@@ -672,6 +671,30 @@ public class UrlBuilder {
             _path = "/community/registration.page";
         } else {
             throw new IllegalArgumentException("VPage not valid for this constructor: " + page);
+        }
+    }
+
+    public UrlBuilder(CmsCategory category, String language, VPage page) {
+        if (CMS_CATEGORY_BROWSE.equals(page)) {
+            _perlPage = false;
+            if (category != null) {
+                _path = "/articles/" + category.getFullUri() +
+                        (StringUtils.isNotBlank(language) ? "?language=" + language : "");
+            }
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(int categoryId, String language, VPage page) {
+        ICmsCategoryDao cmsCategoryDao = (ICmsCategoryDao) SpringUtil.getApplicationContext().getBean(ICmsCategoryDao.BEAN_ID);
+        CmsCategory category = cmsCategoryDao.getCmsCategoryFromId(categoryId);
+        if (CMS_CATEGORY_BROWSE.equals(page)) {
+            _perlPage = false;
+            _path = "/articles/" + category.getFullUri() +
+                (StringUtils.isNotBlank(language) ? "?language=" + language : "");
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
 

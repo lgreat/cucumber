@@ -116,7 +116,7 @@
                                     <c:set var="moreLinkText" value="${subtopic.moreLink.linkText}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:set var="moreLinkText" value="More in ${subtopic.kategory.name}"/>
+                                    <c:set var="moreLinkText" value="More in ${subtopic.kategory.name} &amp;raquo;"/>
                                 </c:otherwise>
                             </c:choose>
 
@@ -127,7 +127,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <link:cmsCategoryBrowse categoryId="${subtopic.kategory.id}"
-                                                                language="${param.language}">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
+                                                                language="${param.language}">${subtopic.moreLinkText}</link:cmsCategoryBrowse>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -163,7 +163,7 @@
                                     <c:set var="moreLinkText" value="${section.moreLink.linkText}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:set var="moreLinkText" value="More in ${section.kategory.name}"/>
+                                    <c:set var="moreLinkText" value="More in ${section.kategory.name} &amp;raquo;"/>
                                 </c:otherwise>
                             </c:choose>
 
@@ -181,7 +181,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <span><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
-                                                                language="${param.language}">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
+                                                                language="${param.language}">${section.moreLinkText}</link:cmsCategoryBrowse></span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

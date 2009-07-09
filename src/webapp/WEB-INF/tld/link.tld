@@ -175,7 +175,7 @@
     <tag>
         <name>cmsCategoryBrowse</name>
         <tag-class>gs.web.jsp.link.CmsCategoryBrowseTagHandler</tag-class>
-        <body-content>tagdependent</body-content>
+        <body-content>JSP</body-content>
         <display-name>CMS Category Browse</display-name>
         <description>
             <![CDATA[Link to a CMS category browse page.]]>
