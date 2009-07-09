@@ -98,8 +98,7 @@
                         document.write('MM_FlashCanPlay = ( IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & MM_contentVersion)))\n');
                         document.write('</scr' + 'ipt\> \n');
                     }
-                    //if (MM_FlashCanPlay) {
-                    if (true) {
+                    if (MM_FlashCanPlay) {
                         // c.swf does flash detection
                         var backToSchoolResource = '/res/swf/c?path=/res/swf/090706_b2s_300x250_TOD.swf';
 
@@ -113,14 +112,14 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
                     } else {
-                        document.write('<a href="http://www.edin08.com/uploadedFiles/FAQs/SAS_DataSources.pdf"><img src="/res/img/content/election2008/startling_stat_standin.jpg" alt="Startling Stat"/></a>');
+                        document.write('<img src="/res/img/countdown/sample.gif" alt="Countdown sample"/>');
                     }
                  -->
                 </script>
                 <noscript>
-                    <a href="http://www.edin08.com/uploadedFiles/FAQs/SAS_DataSources.pdf">
-                        <img src="/res/img/content/election2008/startling_stat_standin.jpg" alt="Startling Stat"/>
-                    </a>
+
+                        <img src="/res/img/countdown/sample.gif" alt="Countdown sample"/>
+
                 </noscript>
                 ]]>               
             </div>
