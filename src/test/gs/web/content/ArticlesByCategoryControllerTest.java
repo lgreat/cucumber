@@ -132,7 +132,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         features.add(feature2);
 
         Indexer indexer = new Indexer();
-        indexer.indexCmsFeaturesAndCategories(features, writer);
+        indexer.indexCategories(indexer.indexCmsFeatures(features, writer), writer);
         writer.close();
 
         IndexDir indexDir = new IndexDir(dir, null);
@@ -172,7 +172,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         features.add(feature3);
 
         Indexer indexer = new Indexer();
-        indexer.indexCmsFeaturesAndCategories(features, writer);
+        indexer.indexCategories(indexer.indexCmsFeatures(features, writer), writer);
         writer.close();
 
         IndexDir indexDir = new IndexDir(dir, null);
@@ -372,7 +372,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
 
         Indexer indexer = new Indexer();
-        indexer.indexCmsFeaturesAndCategories(features, writer);
+        indexer.indexCategories(indexer.indexCmsFeatures(features, writer), writer);
         writer.close();
 
         IndexDir indexDir = new IndexDir(dir, null);
