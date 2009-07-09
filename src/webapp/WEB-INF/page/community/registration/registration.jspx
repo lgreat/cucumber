@@ -213,36 +213,38 @@
                                              useAlternateNames="true" usePreK="true"
                                              onChange="gradeChange(${child},false);"/>
 
-                        <span id="schoolDiv${child}">
-                            <select name="school${child}" id="school${child}" class="selectChildSchool" onclick="childSchoolChange(${child}, false);">
-                                <c:if test="${schoolVal eq -1}">
-                                    <option selected="selected" value="">- Choose School -</option>
-                                </c:if>
-                                <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
-                                    <![CDATA[<option ]]>
-                                    <c:if test="${schoolVal eq schoolOption.id}">
-                                        selected="selected"
+                        <span class="schoolContainer"> <!-- To allow for an expanding width school select -->
+                            <span id="schoolDiv${child}">
+                                <select name="school${child}" id="school${child}" class="selectChildSchool" onclick="childSchoolChange(${child}, false);">
+                                    <c:if test="${schoolVal eq -1}">
+                                        <option selected="selected" value="">- Choose School -</option>
                                     </c:if>
-                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </span>
-                        <gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>
-                        <!-- remember error for omniture tagging: see end of body. -->
-                        <spring:hasBindErrors name="userCmd">
-                            <c:if test="${errors.errorCount gt 0}">
-                                <spring:bind path="userCmd.studentRows[${child-1}]">
-                                    <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                        <c:set var="schoolError" value="true"/>
-                                    </c:if>
-                                </spring:bind>
-                            </c:if>
-                        </spring:hasBindErrors>
-                        <c:if test="${userCmd.studentRows[child-1].locationOverride eq false}">
-                            <span class="changeChildCity" id="changeChildCity_${child}">
-                                <a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a>
+                                    <c:forEach var="schoolOption" items="${userCmd.studentRows[child-1].schools}">
+                                        <![CDATA[<option ]]>
+                                        <c:if test="${schoolVal eq schoolOption.id}">
+                                            selected="selected"
+                                        </c:if>
+                                        <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
                             </span>
-                        </c:if>
+                            <gsml:errorMessage command="userCmd" field="studentRows[${child-1}]" useImage="true"/>
+                            <!-- remember error for omniture tagging: see end of body. -->
+                            <spring:hasBindErrors name="userCmd">
+                                <c:if test="${errors.errorCount gt 0}">
+                                    <spring:bind path="userCmd.studentRows[${child-1}]">
+                                        <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                            <c:set var="schoolError" value="true"/>
+                                        </c:if>
+                                    </spring:bind>
+                                </c:if>
+                            </spring:hasBindErrors>
+                            <c:if test="${userCmd.studentRows[child-1].locationOverride eq false}">
+                                <span class="changeChildCity" id="changeChildCity_${child}">
+                                    <a href="#" onclick="changeChildCityAndState(${child}); return false;">Change city</a>
+                                </span>
+                            </c:if>
+                        </span>
                         <gsml:feedbackMessage command="userCmd" field="studentRows[${child-1}]" styleId="childMessage${child}" styleClass="ajaxMessage ajaxError"/>
                     </li>
                 </c:forEach>

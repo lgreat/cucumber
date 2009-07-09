@@ -191,8 +191,14 @@ p.requiredFld {
 }
 
 #outline ul li.childRow .selectChildSchool {
-    width: 140px;
+    width: auto;
+    left: 0;
+    position: relative;
+}
+#outline ul li.childRow .schoolContainer {
+    position: absolute;
     left: 225px;
+    width: 550px;
 }
 
 #outline li#numChildren {
@@ -328,9 +334,7 @@ p.warning {
 #reg1Form .changeChildCity a{
     color: #3399AA;
     font-size: 10px;
-    position: absolute;
-    top: 13px;
-    left: 400px;
+    margin-left: 35px;
     text-decoration: underline;
 }
 
