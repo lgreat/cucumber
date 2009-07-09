@@ -9,8 +9,8 @@ public class TargetSupplyListTest extends BaseTestCase {
 
     public void testCounts() {
         assertEquals(24, TargetSupplyList.getElementaryItems().length);
-        assertEquals(41, TargetSupplyList.getMiddleItems().length);
-        assertEquals(23, TargetSupplyList.getElementaryMiddleItems().length);
+        assertEquals(40, TargetSupplyList.getMiddleItems().length);
+        assertEquals(22, TargetSupplyList.getElementaryMiddleItems().length);
     }
 
     public void testRandomElementary() {

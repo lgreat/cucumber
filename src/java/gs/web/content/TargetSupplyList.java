@@ -35,14 +35,14 @@ public class TargetSupplyList {
         addToLists(new TargetSupplyItem("B000PULZ4A", "Planning Calendar With Stickers", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001NN70LA", "- Identity Theft- ShredderShark", LIST_M));
         addToLists(new TargetSupplyItem("B0011ZPKZI", "Organizer Leather Compact Black", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B001CCPZKK", "Two drawer charging station black", LIST_M));
+        addToLists(new TargetSupplyItem("B001CCTFO2", "Two drawer charging station white", LIST_M));
         addToLists(new TargetSupplyItem("B0000AQOCM", "- BIC Mark-It Permanent Marker Blue", LIST_M));
         addToLists(new TargetSupplyItem("B001QT1CVA", "Transformers Blue Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001OVT30C", "iCarly Pixilate Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QT1CSI", "Pink Ni Hao, Kai-lan Let's Go Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001OVLMJW", "Bakugan Pyrus World Backpack", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B001QT3E7A", "Nick Jr. Go Diego Go! Blue Wild Backpack", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B001UID5DA", "Trans by Jansport Black Supermax Backpack", LIST_E | LIST_M));
+        addToLists(new TargetSupplyItem("B001QT3E7A", "Nick Jr. Go Diego Go! Blue Wild Backpack", LIST_E));
+        addToLists(new TargetSupplyItem("B001UI8X8M", "Trans by Jansport Black Supermax Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QT1DDW", "SWGR Backpack Black/Charcoal", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QTHZM0", "Embark Fun Friends Rolling Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000TCZ252", "Texas Instruments Scientific Calculator - Pink (30XIIS)", LIST_M));

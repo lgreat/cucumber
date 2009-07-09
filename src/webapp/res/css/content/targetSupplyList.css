@@ -87,3 +87,10 @@
     color: #666;
     text-decoration:underline;
 }
+
+
+@media print {
+    #cmsArticleText p.targetCheckbox a.targetLink {
+        display: none;
+    }
+}

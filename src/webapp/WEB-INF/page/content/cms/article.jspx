@@ -423,10 +423,10 @@
                         <div class="targetSupplyItem">
                             <img src="/res/img/promo/target/${targetSupplyItem.imageName}.jpg"
                                  alt="${targetSupplyItem.text}" height="75" width="75"/>
-                            <a href="${targetSupplyItem.link}">${targetSupplyItem.text}</a>
+                            <a href="${targetSupplyItem.link}" target="target">${targetSupplyItem.text}</a>
                         </div>
                     </c:forEach>
-                    <a id="targetSearchMore"
+                    <a id="targetSearchMore" target="target"
                        href="http://www.target.com">Search more school supplies at Target &amp;raquo;</a>
                 </div>
             </div>

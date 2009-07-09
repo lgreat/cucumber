@@ -43,6 +43,8 @@ fixedMenu.computeShifts = function()
     var mainDiv = document.getElementById(fixedMenu.offsetBottomElementId);
     mainHeight = (navigator.userAgent.toLowerCase().indexOf('opera') == -1) ?
                  mainDiv.scrollHeight : mainDiv.offsetHeight;
+    // decrease height of scrollable area by the distance from top of right column that this module appears
+    mainHeight = mainHeight - document.getElementById(fixedMenu.offsetTopElementId).offsetTop;
     var myHeight = (navigator.userAgent.toLowerCase().indexOf('opera') == -1) ?
                  fixedMenu.menu.scrollHeight : fixedMenu.menu.offsetHeight;
     mainHeight = mainHeight - myHeight;
