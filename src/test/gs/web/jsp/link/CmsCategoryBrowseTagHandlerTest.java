@@ -6,6 +6,7 @@ import gs.data.content.cms.*;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.IndexDir;
+import gs.data.util.CmsUtil;
 import junit.framework.TestCase;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.index.IndexWriter;
@@ -26,10 +27,12 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
 
     public void setUp() throws Exception {
         super.setUp();
+        CmsUtil.enableCms();
         _cmsCategoryDao = new CmsCategoryDao();
         _cmsCategoryDao.setSearcher(setupSearcher());
         _handler = new CmsCategoryBrowseTagHandler();
         _handler.setCmsCategoryDao(_cmsCategoryDao);
+        CmsUtil.disableCms();
     }
 
     public void testDoTagWithLanguage() throws Exception {
@@ -42,7 +45,7 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
         _handler.doAfterBody();
         _handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a href=\"/articles/improve-your-school?language=ES\">Improve your school</a>",
+        assertEquals("<a href=\"/articles/improve-your-school?language=ES\"></a>",
                 out.getOutputBuffer().toString());
     }
 
@@ -55,11 +58,12 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
         _handler.doAfterBody();
         _handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a href=\"/articles/improve-your-school\">Improve your school</a>",
+        assertEquals("<a href=\"/articles/improve-your-school\"></a>",
                 out.getOutputBuffer().toString());
     }
 
     /*
+    // currently don't know how to test tag with body now that we've switched this to LinkTagHandler
     public void testDoTagWithBody() throws Exception {
         final MockPageContext pc = new MockPageContext();
         _handler.setPageContext(pc);

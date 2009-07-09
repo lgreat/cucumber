@@ -29,6 +29,7 @@ public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
     }
 
     protected UrlBuilder createUrlBuilder() {
+        _category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
         return new UrlBuilder(_category, _language, UrlBuilder.CMS_CATEGORY_BROWSE);
     }
 
