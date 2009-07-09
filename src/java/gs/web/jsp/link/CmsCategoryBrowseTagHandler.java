@@ -20,6 +20,10 @@ public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
         _category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
     }
 
+    /**
+     Not currently supported: default link text must be provided
+     */
+    @Override
     protected String getDefaultLinkText() {
         return StringEscapeUtils.escapeHtml(_category.getName());
     }
