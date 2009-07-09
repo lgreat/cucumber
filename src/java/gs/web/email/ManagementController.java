@@ -358,7 +358,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
     protected void updateMessages(ManagementCommand command, List<String> messages) {
         messages.clear();
         if (command.getGreatnews()) {
-            messages.add("Weekly Updates");
+            messages.add("GreatSchools Weekly");
         }
         if (command.isSchool1()) {
             messages.add("School updates for " + command.getName1());

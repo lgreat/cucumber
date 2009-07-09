@@ -3,6 +3,7 @@
     color: #666666;
     font-size: 13px;
     line-height: 19px;
+    position: relative;
 }
 
 #contentGS li{
@@ -39,8 +40,8 @@ div.rule {
 
 #accountLink {
     position: absolute;
-    top: 315px;
-    left: 750px;
+    top: 22px;
+    left: 588px;
 }
 
 #editSubscriptionButton img {

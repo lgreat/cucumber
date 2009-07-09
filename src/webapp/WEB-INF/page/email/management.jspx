@@ -36,7 +36,7 @@
 <ad:setSlotPrefix slotPrefix="Email_Management"/>
 
 <div id="border">
-    <h2>Free Newsletters from GreatSchools</h2>
+    <h2>Free Newsletters From GreatSchools</h2>
 
     <a href="${dashboardUrl}"
        id="dashboardLink">Go to my dashboard &amp;gt;</a>
@@ -206,8 +206,8 @@
                         <div class="newsletterInfo">
                             <div class="newsletterHeader">Prevent the summer brain drain</div>
                             <div class="newsletterDescription">
-                                Daily tips and activities to engage your child in learning
-                                over the break and ease her into the next school year.
+                                Back to School Countdown: Daily tips and activities to engage your child
+                                in learning over the break and ease him into the next school year. 
                             </div>
 
                             <p><form:checkbox path="seasonal"
@@ -243,7 +243,7 @@
                         <img src="/res/img/email/boy_with_dad.jpg" alt="boy with dad" class="newsletterImage"/>
 
                         <div class="newsletterInfo">
-                            <div class="newsletterHeader">Help kids with learning disabilities</div>
+                            <div class="newsletterHeader">Help kids with learning difficulties</div>
                             <div class="newsletterDescription">
                                 Get the resources you need to support your child with a learning
                                 disability or an attention problem.
