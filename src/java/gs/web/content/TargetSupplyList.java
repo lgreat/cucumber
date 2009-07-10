@@ -11,18 +11,17 @@ import java.util.*;
 public class TargetSupplyList {
     private static final int LIST_E = 1;
     private static final int LIST_M = 2;
-    private static List<TargetSupplyItem> E_ONLY_ITEMS = new ArrayList<TargetSupplyItem>(); // 24
-    private static List<TargetSupplyItem> M_ONLY_ITEMS = new ArrayList<TargetSupplyItem>(); // 41
-    private static List<TargetSupplyItem> E_M_ITEMS = new ArrayList<TargetSupplyItem>(); // 23
+    private static List<TargetSupplyItem> E_ONLY_ITEMS = new ArrayList<TargetSupplyItem>();
+    private static List<TargetSupplyItem> M_ONLY_ITEMS = new ArrayList<TargetSupplyItem>();
+    private static List<TargetSupplyItem> E_M_ITEMS = new ArrayList<TargetSupplyItem>();
     public static final int NUM_RANDOM_ITEMS = 4;
 
     static {
         addToLists(new TargetSupplyItem("B000QDY7E6", "Crayola 54ct Trayola Colored Pencils", LIST_E));
-        addToLists(new TargetSupplyItem("B001S41SP8", "Pilot VBall Roller Ball Pen Collection", LIST_E | LIST_M));
+//        addToLists(new TargetSupplyItem("B001S41SP8", "Pilot VBall Roller Ball Pen Collection", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000H6B0IS", "Crayola Trayola Washable Markers", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B000BMBUAG", "5-ColorAccent Highlighter Pens- 2 Sets", LIST_E | LIST_M));
+//        addToLists(new TargetSupplyItem("B000BMBUAG", "5-ColorAccent Highlighter Pens- 2 Sets", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000J0C6D0", "Sharpie Permanent Marker Set - 12pc Set", LIST_M));
-        addToLists(new TargetSupplyItem("B00006IEL8", "Set of 2 Round-Ring View Binders- White(1.5\")", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B0014E4642", "Straight Scissors - 8\"", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B00005C3YY", "450\" Magic Tape Dispenser- 12 Rolls", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B0002XI1RO", "Self-Stick Page Marker - 6-pk.", LIST_E | LIST_M));
@@ -30,19 +29,15 @@ public class TargetSupplyList {
         addToLists(new TargetSupplyItem("B001COOB76", "Gourmet Scented Pencils Set of 10", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B0006HUSRW", "- Evidence Recycled Writing Pads Wh", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000RJ4JL0", "Colored Pencil Set in Kraft Tube", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B001DIZ16Q", "File Cart2 Drawer File Cart", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B0006A30KQ", "Desktop Organizer-4 Shelf- Black", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000PULZ4A", "Planning Calendar With Stickers", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001NN70LA", "- Identity Theft- ShredderShark", LIST_M));
-        addToLists(new TargetSupplyItem("B0011ZPKZI", "Organizer Leather Compact Black", LIST_E | LIST_M));
-        addToLists(new TargetSupplyItem("B001CCTFO2", "Two drawer charging station white", LIST_M));
         addToLists(new TargetSupplyItem("B0000AQOCM", "- BIC Mark-It Permanent Marker Blue", LIST_M));
         addToLists(new TargetSupplyItem("B001QT1CVA", "Transformers Blue Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001OVT30C", "iCarly Pixilate Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QT1CSI", "Pink Ni Hao, Kai-lan Let's Go Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001OVLMJW", "Bakugan Pyrus World Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QT3E7A", "Nick Jr. Go Diego Go! Blue Wild Backpack", LIST_E));
-        addToLists(new TargetSupplyItem("B001UI8X8M", "Trans by Jansport Black Supermax Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QT1DDW", "SWGR Backpack Black/Charcoal", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B001QTHZM0", "Embark Fun Friends Rolling Backpack", LIST_E | LIST_M));
         addToLists(new TargetSupplyItem("B000TCZ252", "Texas Instruments Scientific Calculator - Pink (30XIIS)", LIST_M));
@@ -59,6 +54,13 @@ public class TargetSupplyList {
         addToLists(new TargetSupplyItem("B001FA1NRI", "2nd Gen Shuffle Blue 1GB", LIST_M));
         addToLists(new TargetSupplyItem("B001FA1NSC", "2nd Gen Shuffle Pink 1GB", LIST_M));
         addToLists(new TargetSupplyItem("B001RPNFOU", "Memorex travel ipod speaker", LIST_M));
+        addToLists(new TargetSupplyItem("B002CX3VM2", "Simone Legno for Target Composition Book", LIST_E | LIST_M));
+        addToLists(new TargetSupplyItem("B001QTC2IW", "Embark Backpack", LIST_E));
+        addToLists(new TargetSupplyItem("B001QTC2JG", "Embark Backpack", LIST_M));
+        addToLists(new TargetSupplyItem("B0019665DK", "Crayola Pip-squeaks Skinnies Washable Markers", LIST_E));
+        addToLists(new TargetSupplyItem("B002CX3VDG", "Simone Legno for Target 5 Count Mechanical Pencils", LIST_E));
+        addToLists(new TargetSupplyItem("B002CX7PGA", "Simone Legno for Target Portfolio", LIST_M));
+        addToLists(new TargetSupplyItem("B002CX931K", "Simone Legno for Target 1\" Binder", LIST_M));
     }
 
     private static void addToLists(TargetSupplyItem item) {

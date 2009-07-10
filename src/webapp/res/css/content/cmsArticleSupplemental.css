@@ -32,6 +32,11 @@
     right: 0;
 }
 
+/* GS-8341 for Target supply list only */
+#cmsArticleText p.targetCheckbox a.targetLink {
+    display: none;
+}
+
 /* P R I N T   S T Y L E S */
 @media print {
     /* left-align logo with article text */

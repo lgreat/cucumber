@@ -417,8 +417,7 @@
                     top:10px;">
                     <img class="targetLogo"
                          src="/res/img/promo/target/targetLogo.gif" alt="Target Logo"/>
-                    <h2>What's at Target</h2>
-                    <h3 id="targetSubHeader">Supply List Must Haves</h3>
+                    <h2>Find everything on your school list at Target</h2>
                     <c:forEach items="${requestScope.targetSupplyItems}" var="targetSupplyItem">
                         <div class="targetSupplyItem">
                             <img src="/res/img/promo/target/${targetSupplyItem.imageName}.jpg"
