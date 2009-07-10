@@ -111,7 +111,7 @@
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty subtopic.moreLink}">
-                                        <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText}</a>
+                                        <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText} &amp;raquo;</a>
                                     </c:when>
                                     <c:otherwise>
                                         <link:cmsCategoryBrowse categoryId="${subtopic.kategory.id}"
