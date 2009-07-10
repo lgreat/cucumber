@@ -221,17 +221,22 @@
     </c:if>
 </c:if>
 
-<!-- Show author's bio on last page only (and single page view) -->
-<c:if test="${type eq 'article'}">
-    <c:if test="${not empty bio and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+<!-- Generate html for author bios to be reused later -->
+<c:set var="biosContent">
         <div class="divider"><hr/></div>
         <div class="authorBio">
-            ${bio}
+            <c:forEach var="bio" items="${authorBios}">
+                ${bio}
+            </c:forEach>
         </div>
+</c:set>
+
+<!-- Show author's bio on last page only (and single page view) -->
+<c:if test="${type eq 'article'}">
+    <c:if test="${not empty authorBios and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+        ${biosContent}
     </c:if>
-    <!--</c:if>-->
 </c:if>
-<!--</c:if>-->
 
 <!-- Licensor attribution -->
 <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
@@ -243,10 +248,7 @@
 </c:if>
 
 <c:if test="${type eq 'askTheExperts'}">
-    <div class="divider"><hr/></div>
-    <div class="authorBio">
-        ${bio}
-    </div>
+    ${biosContent}
 
     <div id="disclaimer">
         <p>

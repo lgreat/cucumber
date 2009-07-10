@@ -109,7 +109,12 @@ public class CmsFeatureController extends AbstractController {
         // insert current page into model
         model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
         model.put("answer", insertSpansIntoListItems(feature.getAnswer()));
-        model.put("bio", insertSpansIntoListItems(feature.getAuthorBio()));
+
+        List<String> authorBios = feature.getAuthorBios();
+        for (int i = 0; i < authorBios.size(); i++) {
+            authorBios.set(i, insertSpansIntoListItems(authorBios.get(i)));
+        }
+        model.put("authorBios", authorBios);
 
         // for Omniture tracking - commas and double quotes removed
         model.put("commaSeparatedPrimaryKategoryNames", StringEscapeUtils.escapeHtml(feature.getCommaSeparatedPrimaryKategoryNames()));
