@@ -227,7 +227,7 @@
         <div class="divider"><hr/></div>
         <div class="authorBio">
             <c:forEach var="bio" items="${authorBios}">
-                ${bio}
+                <c:if test="${not empty bio}">${bio}</c:if>
             </c:forEach>
         </div>
     </c:if>    
