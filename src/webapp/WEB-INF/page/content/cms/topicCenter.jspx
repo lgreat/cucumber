@@ -108,18 +108,6 @@
                                 </c:forEach>
                             </ul>
 
-                            <c:choose>
-                                <c:when test="${not empty subtopic.moreLinkText}">
-                                    <c:set var="moreLinkText" value="${subtopic.moreLinkText}"/>
-                                </c:when>
-                                <c:when test="${not empty subtopic.moreLink.linkText}">
-                                    <c:set var="moreLinkText" value="${subtopic.moreLink.linkText}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="moreLinkText" value="More in ${subtopic.kategory.name} &amp;raquo;"/>
-                                </c:otherwise>
-                            </c:choose>
-
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty subtopic.moreLink}">
@@ -127,7 +115,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <link:cmsCategoryBrowse categoryId="${subtopic.kategory.id}"
-                                                                language="${param.language}">${subtopic.moreLinkText}</link:cmsCategoryBrowse>
+                                                                language="${param.language}">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -154,19 +142,6 @@
                                 </ul>
                             </c:if>
 
-                            <!-- Section more link -->
-                            <c:choose>
-                                <c:when test="${not empty section.moreLinkText}">
-                                    <c:set var="moreLinkText" value="${section.moreLinkText}"/>
-                                </c:when>
-                                <c:when test="${not empty section.moreLink.linkText}">
-                                    <c:set var="moreLinkText" value="${section.moreLink.linkText}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="moreLinkText" value="More in ${section.kategory.name} &amp;raquo;"/>
-                                </c:otherwise>
-                            </c:choose>
-
                             <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
                             <c:if test="${numSections eq 1}">
                                 <div class="divider">
@@ -174,14 +149,16 @@
                                 </div>
                             </c:if>
 
+                            <!-- Section more link -->
+
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty section.moreLink}">
-                                        <span><a href="${section.moreLink.url}">${section.moreLinkText}</a></span>
+                                        <span><a href="${section.moreLink.url}">${section.moreLinkText} &amp;raquo;</a></span>
                                     </c:when>
                                     <c:otherwise>
                                         <span><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
-                                                                language="${param.language}">${section.moreLinkText}</link:cmsCategoryBrowse></span>
+                                                                language="${param.language}">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
