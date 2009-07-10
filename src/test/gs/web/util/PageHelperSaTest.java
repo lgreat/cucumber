@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.47 2009/06/18 23:08:20 eingenito Exp $
+ * $Id: PageHelperSaTest.java,v 1.48 2009/07/10 21:48:15 droy Exp $
  */
 
 package gs.web.util;
@@ -578,6 +578,10 @@ public class PageHelperSaTest extends TestCase {
         sessionContext.setCobrand("ocregister");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
         assertEquals("ocregister ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("dallasnews");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("dallasnews ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
 
         sessionContext.setCobrand("sfgate");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());

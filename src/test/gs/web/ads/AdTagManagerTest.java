@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManagerTest.java,v 1.5 2008/12/03 00:15:20 yfan Exp $
+ * $Id: AdTagManagerTest.java,v 1.6 2009/07/10 21:48:15 droy Exp $
  */
 package gs.web.ads;
 
@@ -28,10 +28,12 @@ public class AdTagManagerTest extends BaseTestCase {
         String adTag = _adTagManager.getAdTag("yahoo", AdPosition.AboveFold_Right_120x600);
         assertNotNull(adTag);
         assertTrue(adTag.indexOf("<script type=\"text/javascript\" src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=SKY&c=r\">") != -1);
-        _log.debug(adTag);
 
         adTag = _adTagManager.getAdTag("ocregister", AdPosition.AboveFold_300x250);
         assertTrue("should contain ocregister ad code", adTag.indexOf("OAS_RICH") > -1);
+
+        adTag = _adTagManager.getAdTag("dallasnews", AdPosition.AboveFold_300x250);
+        assertTrue("should contain dallasnews ad code", adTag.indexOf("open.ad.yieldmanager.net") > -1);
     }
 
     public void testSingleton() {

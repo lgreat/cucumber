@@ -175,4 +175,35 @@
             ]]>
         </ad>
     </cobrand>
+
+    <cobrand id="dallasnews">
+        <ad id="Footer_728x90">
+            <![CDATA[
+                <iframe src="http://open.ad.yieldmanager.net/a1?pubId=21107722569&site=dallasnews.com&sz=728x90&rTy=ac&conTy=fn_news&cTopId=20277001&sec=Secondary%20Section%20Front&V=1"
+                width="728" height="90" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                frameborder="0" style="border:0px;" scrolling="no"></iframe>
+            ]]>
+        </ad>
+        <ad id="AboveFold_Left_160x600">
+            <![CDATA[
+                <iframe src="http://open.ad.yieldmanager.net/a1?pubId=21107722569&site=dallasnews.com&sz=160x600&rTy=ac&conTy=fn_news&cTopId=20277001&sec=Secondary%20Section%20Front&V=1"
+                width="160" height="600" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                frameborder="0" style="border:0px;" scrolling="no"></iframe> 
+            ]]>
+        </ad>
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <iframe src="http://open.ad.yieldmanager.net/a1?pubId=21107722569&site=dallasnews.com&sz=300x250&rTy=ac&conTy=fn_news&cTopId=20277001&sec=Secondary%20Section%20Front&V=1"
+                width="300" height="250" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                frameborder="0" style="border:0px;" scrolling="no"></iframe>
+            ]]>
+        </ad>
+        <ad id="BelowFold_300x250">
+            <![CDATA[
+                <iframe src="http://open.ad.yieldmanager.net/a1?pubId=21107722569&site=dallasnews.com&sz=300x250&rTy=ac&conTy=fn_news&cTopId=20277001&sec=Secondary%20Section%20Front&V=1"
+                width="300" height="250" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                frameborder="0" style="border:0px;" scrolling="no"></iframe>
+            ]]>
+        </ad>
+    </cobrand>
 </cobrand-ad-codes>
