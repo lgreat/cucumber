@@ -35,9 +35,10 @@
             <div class="pledgeHeader">
                 <h1>Calling all Moms and Dads &amp;mdash;<br/>take the Great Parents Pledge.</h1>
 
-                <p class="boilerplate">Your involvement is the #1 ingredient to your child's success at school.  For the 2009-2010 school year,
-                make a promise to support your kids' education by being involved in three simple ways.  Join the movement of
-                involved parents around the nation and take the pledge today.</p>
+                <p class="boilerplate">Your involvement is the key ingredient to your child's success at school. For
+                    the 2009-2010 school year, make a promise to become your child's biggest coach in the areas where
+                    they need confidence. Encourage and support your kid's education by being involved in three simple
+                    ways. Join the movement of parents around the nation and take the pledge today.</p>
             </div>
 
             <gsweb:adTagGenerator position="Generic_640"/>
