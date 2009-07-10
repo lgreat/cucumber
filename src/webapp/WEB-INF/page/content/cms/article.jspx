@@ -116,10 +116,9 @@
 </div> <!-- end .bodyHeader -->
 <div class="divider pt clear"><hr /></div>
 
-<!-- authors and/or licensor attribution -->
+<!-- authors -->
 <div class="authorPageBar">
     <div class="authors">
-        <!--<c:if test="${type eq 'article'}">-->
         <!-- byline - for articles only -->
         <!-- Show authors on last page only (and single page view) -->
         <c:if test="${not empty feature.authors}">
@@ -131,11 +130,6 @@
             <c:forEach var="author"
                        items="${feature.authors}"
                        varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
-        </c:if>
-        <!--</c:if>-->
-
-        <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
-            ${feature.licensorAttribution}
         </c:if>
     </div>
     <!-- end .authors -->
@@ -238,6 +232,15 @@
     <!--</c:if>-->
 </c:if>
 <!--</c:if>-->
+
+<!-- Licensor attribution -->
+<c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+    <div class="licensorAttributionPageBar">
+        <div class="attribution">
+            ${feature.licensorAttribution}
+        </div>
+    </div>
+</c:if>
 
 <c:if test="${type eq 'askTheExperts'}">
     <div class="divider"><hr/></div>

@@ -313,21 +313,21 @@ ul.horizontal li {
     margin: 15px 0;
 }
 
-/* -------------- */
-/* ARTICLE AUTHOR */
-/* -------------- */
+/* --------------------------------------- */
+/* ARTICLE AUTHOR AND LICENSOR ATTRIBUTION */
+/* --------------------------------------- */
 
-.authorPageBar {
+.authorPageBar, .licensorAttributionPageBar {
     margin:10px 0;
     float:left;
 }
 
-.authors {
+.authors, .attribution {
     font: 13px Georgia, "Times New Roman", Times, serif;
     color: #444;
 }
 
-.authors p {
+.authors p, .attribution p {
     font: 13px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #999;
     margin: 10px 0;
