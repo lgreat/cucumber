@@ -312,6 +312,13 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         _controller.checkTargetSupplyList(feature, model);
         assertNotNull("Expect supply list in model for article 1084", model.get("targetSupplyItems"));
 
+        // high
+        model = new HashMap<String, Object>();
+        key = new ContentKey("Article", 1085l);
+        feature.setContentKey(key);
+        _controller.checkTargetSupplyList(feature, model);
+        assertNotNull("Expect supply list in model for article 1085", model.get("targetSupplyItems"));
+
         // generic
         model = new HashMap<String, Object>();
         key = new ContentKey("Article", 109l);

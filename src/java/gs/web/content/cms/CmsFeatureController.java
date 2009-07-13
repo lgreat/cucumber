@@ -152,6 +152,9 @@ public class CmsFeatureController extends AbstractController {
             } else if (contentKey.getIdentifier() == 1084l) {
                 // middle
                 model.put("targetSupplyItems", TargetSupplyList.getRandomMiddleItems());
+            } else if (contentKey.getIdentifier() == 1085l) {
+                // high
+                model.put("targetSupplyItems", TargetSupplyList.getRandomHighItems());
             } else if (contentKey.getIdentifier() == 109l) {
                 // generic
                 model.put("targetSupplyItems", TargetSupplyList.getRandomGenericItems());
