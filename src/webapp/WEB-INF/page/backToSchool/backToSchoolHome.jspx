@@ -77,7 +77,9 @@
                 <hr/>
             </div>
             <div id="tipOftheDay">
-                <![CDATA[
+               <c:choose>
+            <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
+               <![CDATA[
                 <script type="text/javascript">
                     <!--
                     var MM_contentVersion = 6;
@@ -121,8 +123,16 @@
                         <img src="/res/img/countdown/sample.gif" alt="Countdown sample"/>
 
                 </noscript>
-                ]]>               
+                ]]>
+            </c:when>
+            <c:otherwise>
+                <gsweb:adTagGenerator position="countdown_b2s_311x250"/>
+            </c:otherwise>
+                 </c:choose>
+
             </div>
+
+
             <div id="momOnFire">
             <div class="momWrapper">
                 <div class="blogHeader">Mom on fire</div>
@@ -144,6 +154,7 @@
             </c:otherwise>
                  </c:choose>
                  </div>
+
             <div id="community">
                 <div class="communityWrapper">
                     <h3>Community</h3>
@@ -175,7 +186,7 @@
 
             <ad:AboveFold_300x250/>
             <jsp:include page="/backToSchool/popularArticles.module"/>
-            <gsweb:adTagGenerator position="House_Ad_300x137_B2S"/>
+            <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
         </div>
         
         <div style="display: none;">
