@@ -14,7 +14,7 @@
         <h2>Fun Activities That Support Learning</h2>
         <div class="wrapper">
             <h3><a id="preschool" class="active" href="#preschool-contents">Preschool</a></h3>
-            <div id="preschool-contents" class="contents">
+            <div id="preschool-contents" class="contents" style="position: absolute; top: 0; right: 0;">
                 <div class="column">
                     <h4>Books</h4>
                     <div class="featured">
@@ -42,7 +42,7 @@
             </div>
 
             <h3><a id="kindergarten" href="#kindergarten-contents">Kindergarten</a></h3>
-            <div id="kindergarten-contents" class="contents">
+            <div id="kindergarten-contents" class="contents" style="display: none">
                 <div class="column">
                     <h4>Books</h4>
                     <div class="featured">
@@ -71,7 +71,7 @@
             </div>
 
             <h3><a id="firstgrade" href="#firstgrade-contents">1st Grade</a></h3>
-            <div id="firstgrade-contents" class="contents">
+            <div id="firstgrade-contents" class="contents" style="display: none">
                 <div class="column">
                     <h4>Books</h4>
                     <div class="featured">
@@ -99,7 +99,7 @@
             </div>
 
             <h3><a id="secondgrade" href="#secondgrade-contents">2nd Grade</a></h3>
-            <div id="secondgrade-contents" class="contents">
+            <div id="secondgrade-contents" class="contents" style="display: none">
                 <div class="column">
                     <h4>Books</h4>
                     <div class="featured">
@@ -127,7 +127,7 @@
             </div>
 
             <h3><a id="thirdgrade" href="#thirdgrade-contents">3rd Grade</a></h3>
-            <div id="thirdgrade-contents" class="contents">
+            <div id="thirdgrade-contents" class="contents" style="display: none">
 
                 <div class="column">
                     <h4>Books</h4>
@@ -156,7 +156,7 @@
             </div>
 
             <h3><a id="fourthgrade" href="#fourthgrade-contents">4th Grade</a></h3>
-            <div id="fourthgrade-contents" class="contents">
+            <div id="fourthgrade-contents" class="contents" style="display: none">
                 <div class="column">
                     <h4>Books</h4>
                     <div class="featured">
@@ -184,7 +184,7 @@
             </div>
 
             <h3><a id="fifthgrade" href="#fifthgrade-contents">5th Grade</a></h3>
-            <div id="fifthgrade-contents" class="contents">
+            <div id="fifthgrade-contents" class="contents" style="display: none">
 
                 <div class="column">
                     <h4>Books</h4>
