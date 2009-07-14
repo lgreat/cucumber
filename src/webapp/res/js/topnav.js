@@ -6,9 +6,9 @@ var $j = jQuery;
 $j(document).ready(function() {
 
     $j('#topnav_menusubnav > .nav_menu').hover(function() {
-        $j(this).children('.nav_group_heading').css('background-color','#66ccdd');
-        $j(this).children('.nav_group_heading.arrow').css('backgroundImage','url('+'/res/img/nav/down_arrow_selected.png'+')');
-        $j(this).children('.nav_group_heading').css('color','#fff');
+        $j(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('background-color','#66ccdd');
+        $j(this).children('.nav_group_heading.arrow:not(#GlobalNav_CommunityButton)').css('backgroundImage','url('+'/res/img/nav/down_arrow_selected.png'+')');
+        $j(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('color','#fff');
         $j(this).children('.nav_group_items').show();
     }, function() {
         $j(this).children('.nav_group_heading').css('background-color','#fff');
@@ -20,11 +20,11 @@ $j(document).ready(function() {
 
     $j('#topnav_menusubnav li.nav_menu ul.nav_group_items li').hover(function() {
         $j(this).css('background-color','#66ccdd');
-        $j(this).children('a, a:hover').css('background-color','#66ccdd');
-        $j(this).children('a, a:hover').css('color','#fff');
+        $j(this).find('a').css('background-color','#66ccdd');
+        $j(this).find('a').css('color','#fff');
     }, function() {
         $j(this).css('background-color','#fff');
-        $j(this).children('a, a:hover').css('background-color','#fff');
-        $j(this).children('a, a:hover').css('color','#3399aa');
+        $j(this).children('a').css('background-color','#fff');
+        $j(this).children('a').css('color','#3399aa');
     });
 });

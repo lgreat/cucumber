@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.80 2009/07/10 21:54:25 droy Exp $
+ * $Id: PageHelper.java,v 1.81 2009/07/14 18:50:30 yfan Exp $
  */
 
 package gs.web.util;
@@ -64,6 +64,11 @@ public class PageHelper {
         put("SCHOOL_CHOICE", "20");
         put("COLLEGE_PREP", "21");
         put("BACK_TO_SCHOOL", "22");
+
+        put("GREAT_PARENTING", "23");
+        put("ACADEMICS_AND_ACTIVITIES", "24");
+        put("LEARNING_DISABILITIES", "25");
+        put("IMPROVE_YOUR_SCHOOL", "26");
     }};
 
     private final SessionContext _sessionContext;

@@ -1,0 +1,12 @@
+
+#topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 7px;
+}
+
+* html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
+}
+
+* + html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
+}

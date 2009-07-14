@@ -207,14 +207,15 @@
                                 styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
                 >High School</link:high-school></td>
-            <!--#10--><td ><gsml:a href="http://${communityHost}"
-                                styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active ractive' : 'inactive')} GS_CI9_ "
-                                id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
+            <!--#22--><td><link:backToSchool
+                                 id="GlobalNav_BackToSchoolButton"
+                                 styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} ${(pw == tabs.BACK_TO_SCHOOL ? 'active ractive' : 'inactive')} GS_CI9_ "
+                >Back to School</link:backToSchool></td>
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
 
-    <table cellpadding="0" cellspacing="0" id="topnav_subnav">
+    <table cellpadding="0" cellspacing="0" id="topnav_subnav" style="display: none;">
         <tr>
             <!--#19--><!--<td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
@@ -245,94 +246,99 @@
                                  styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Healthy Kids</link:healthyKids></td>
             <!--#22--><td class="backToSchool"><link:backToSchool
-                                 id="GlobalNav_BackToSchoolButton"
+                                 id="GlobalNav_BackToSchoolButtonX"
                                  styleClass="${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Back to School</link:backToSchool></td>
         </tr>
     </table>
-<!--
+
     <div id="topnav_menusubnav_wrapper">
         <ul id="topnav_menusubnav">
-
-            <li><link:articleLibrary
-                    id="GlobalNav_ArticleLibraryButton"
-                    styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Popular topics:</link:articleLibrary></li>
-
-            <li class="nav_menu firstHeading"><link:specialNeeds
-                    id="GlobalNav_LDButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.SPECIAL_NEEDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Learning Disabilities</link:specialNeeds>
+            <li class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
+                    id="GlobalNav_GreatParentingButton"
+                    class="arrow nav_group_heading ${(pw == tabs.GREAT_PARENTING ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    >Great Parenting</a>
                 <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
+                    <li class="first"><link:cmsCategoryBrowse categoryId="149" language="EN" styleId="GlobalNav_GP_Bullying" styleClass="GS_CI9_">Bullying</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="124" language="EN" styleId="GlobalNav_GP_BehaviorAndDiscipline" styleClass="GS_CI9_">Behavior &amp;amp; discipline</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="157" language="EN" styleId="GlobalNav_GP_SocialSkills" styleClass="GS_CI9_">Social skills</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="146" language="EN" styleId="GlobalNav_GP_StressManagement" styleClass="GS_CI9_">Stress management</link:cmsCategoryBrowse></li>
+                    <li><link:healthyKids styleId="GlobalNav_GP_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; nutrition</link:healthyKids></li>
+                    <li><link:cmsCategoryBrowse categoryId="136" language="EN" styleId="GlobalNav_GP_TeachingValues" styleClass="GS_CI9_">Teaching values</link:cmsCategoryBrowse></li>
+                    <li class="last"><a href="/parenting.topic?content=1539"
+                        id="GlobalNav_GreatParentingButton__seeAll"
+                        class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><link:tutoring
-                    id="GlobalNav_TutoringHomeworkButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.TUTORING ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Tutoring &amp;amp; Homework</link:tutoring>
+            <li class="nav_menu"><a href="/students.topic?content=1540"
+                    id="GlobalNav_AcademicsAndActivitiesButton"
+                    class="arrow nav_group_heading ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    >Academics &amp;amp; Activities</a>
                 <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
+                    <li class="first"><link:cmsCategoryBrowse categoryId="133" language="EN" styleId="GlobalNav_AA_AcademicSkills" styleClass="GS_CI9_">Academic skills</link:cmsCategoryBrowse></li>
+                    <li><a href="/homework-help.topic?content=1544" id="GlobalNav_AA_HomeworkHelp" class="GS_CI9_">Homework help</a></li>
+                    <li><a href="/college-prep.topic?content=1542" id="GlobalNav_AA_PrepForCollege" class="GS_CI9_">Prep for college</a></li>
+                    <li><link:mediaChoices id="GlobalNav_AA_MediaAndKids" styleClass="GS_CI9_">Media &amp;amp; kids</link:mediaChoices></li>
+                    <li><link:cmsCategoryBrowse categoryId="173" language="EN" styleId="GlobalNav_AA_ExtracurricularActivities" styleClass="GS_CI9_">Extracurricular activities</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="156" language="EN" styleId="GlobalNav_AA_CreativePlay" styleClass="GS_CI9_">Creative play</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book reviews</link:cmsCategoryBrowse></li>
+                    <li class="last"><a href="/students.topic?content=1540"
+                        id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
+                        class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><link:countdownToCollege
-                    id="GlobalNav_CollegePrepButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.COLLEGE_PREP ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >College Prep</link:countdownToCollege>
+            <li class="nav_menu"><a href="/LD.topic?content=1541"
+                    id="GlobalNav_LearningDisabilitiesButton"
+                    class="arrow nav_group_heading ${(pw == tabs.LEARNING_DISABILITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    >Learning Disabilities</a>
                 <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
+                    <li class="first"><link:cmsCategoryBrowse categoryId="168" language="EN" styleId="GlobalNav_IdentifyingAnLD" styleClass="GS_CI9_">Identifying an LD</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="164" language="EN" styleId="GlobalNav_LD_ManagingYourChild" styleClass="GS_CI9_">Managing your child</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="178" language="EN" styleId="GlobalNav_LD_FamilyAndHomeLife" styleClass="GS_CI9_">Family &amp;amp; home life</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="131" language="EN" styleId="GlobalNav_LD_SchoolAndLearning" styleClass="GS_CI9_">School &amp;amp; learning</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="174" language="EN" styleId="GlobalNav_LD_ADHD" styleClass="GS_CI9_">AD/HD</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="170" language="EN" styleId="GlobalNav_LD_ReadingDifficulties" styleClass="GS_CI9_">Reading difficulties</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="194" language="EN" styleId="GlobalNav_LD_WritingDifficulties" styleClass="GS_CI9_">Writing difficulties</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="163" language="EN" styleId="GlobalNav_LD_OtherDisorders" styleClass="GS_CI9_">Other disorders</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="188" language="EN" styleId="GlobalNav_LD_AssistiveTechnology" styleClass="GS_CI9_">Assistive technology</link:cmsCategoryBrowse></li>
+                    <li class="last"><a href="/LD.topic?content=1541"
+                        id="GlobalNav_LearningDisabilitiesButton__seeAll"
+                        class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><link:mediaChoices
-                    id="GlobalNav_MediaChildButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Media &amp;amp; Your Child</link:mediaChoices>
+            <li class="nav_menu"><a href="/improvement.topic?content=1543"
+                    id="GlobalNav_ImproveYourSchoolButton"
+                    class="arrow nav_group_heading ${(pw == tabs.IMPROVE_YOUR_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    >Improve Your School</a>
                 <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
+                    <li class="first"><link:cmsCategoryBrowse categoryId="134" language="EN" styleId="GlobalNav_IYS_Volunteering" styleClass="GS_CI9_">Volunteering</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="135" language="EN" styleId="GlobalNav_IYS_Fundraising" styleClass="GS_CI9_">Fundraising</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="137" language="EN" styleId="GlobalNav_IYS_BuildingCommunity" styleClass="GS_CI9_">Building community</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="126" language="EN" styleId="GlobalNav_IYS_QualityTeaching" styleClass="GS_CI9_">Quality teaching</link:cmsCategoryBrowse></li>
+                    <li class="last"><a href="/improvement.topic?content=1543"
+                        id="GlobalNav_ImproveYourSchoolButton__seeAll"
+                        class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
             <li class="nav_menu"><link:schoolChoiceCenter
-                    id="GlobalNav_ChoosingButton"
+                    id="GlobalNav_ChooseTheRightSchoolButton"
                     styleClass="arrow nav_group_heading ${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Choosing the Right School</link:schoolChoiceCenter>
+                    >Choose the Right School</link:schoolChoiceCenter>
                 <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
+                    <li class="first"><link:cmsCategoryBrowse categoryId="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining your ideal school</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="197" language="EN" styleId="GlobalNav_CTRS_PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a school visit</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse categoryId="195" language="EN" styleId="GlobalNav_CTRS_ApplyingAndEnrolling" styleClass="GS_CI9_">Applying and enrolling</link:cmsCategoryBrowse></li>
+                    <li><link:movingWithKids id="GlobalNav_CTRS_Moving" styleClass="GS_CI9_">Moving</link:movingWithKids></li>
+                    <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
-            <li class="nav_menu"><link:healthyKids
-                    styleId="GlobalNav_HealthyKidsButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                    >Healthy Kids</link:healthyKids>
-                <ul class="nav_group_items">
-                    <li class="first"><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                    <li><a href="/high-school/">High School</a></li>
-                    <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                    <li class="last"><a href="/content/cms/topicCenter.page">See all &amp;raquo;</a></li>
-                </ul>
-            </li>
-            <li class="nav_menu"><link:backToSchool
-                                 id="GlobalNav_BackToSchoolButton"
-                                 styleClass="nav_group_heading ${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Back to School</link:backToSchool>
+            <li class="nav_menu"><gsml:a href="http://${communityHost}"
+                                         styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                                         id="GlobalNav_CommunityButton">Community</gsml:a>
             </li>
         </ul>
     </div>
--->
+
 </div>
 </div>
 

@@ -24,3 +24,7 @@
 #contentGS a {
     color: #3399AA;
 }
+
+#topnav #topnav_menusubnav_wrapper {
+    margin: 0 12px;
+}

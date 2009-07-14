@@ -358,13 +358,13 @@
 /* START list-based subnav */
 
 #topnav #topnav_menusubnav_wrapper {
-    /*border: 1px solid;*/
-    /*margin: 0 12px;*/
+    margin: 0 16px 0 18px;
 }
 
 #topnav ul#topnav_menusubnav {
-    height: 29px;
-    width: 865px;
+    height: 26px;
+    /*width: 865px;*/
+    width: 100%;
     margin: 4px auto 0 auto;
     padding: 0;
     border-top: 1px solid #F1F1F1;
@@ -395,6 +395,14 @@
     text-decoration: none;
 }
 
+#topnav ul#topnav_menusubnav li a#GlobalNav_CommunityButton:hover {
+    text-decoration: underline;
+}
+
+#topnav ul#topnav_menusubnav li a.topnav_subnav_active {
+    color: #444;
+}
+
 /* END list-based subnav */
 
 /* START menu navigation */
@@ -407,24 +415,12 @@
 
 #topnav_menusubnav li.nav_menu {
     position: relative;
-    z-index: 1;
+    z-index: 25;
 }
 
 #topnav_menusubnav li.nav_menu a {
     display: block;
     text-decoration: none;
-}
-
-#topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
-    background: url(/res/img/nav/down_arrow.png) no-repeat right 7px;
-}
-
-* html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
-    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
-}
-
-* + html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
-    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
 }
 
 #topnav_menusubnav li.nav_menu a.nav_group_heading {
@@ -433,11 +429,6 @@
     padding-bottom: 5px;
     padding-left: 12px;
     padding-right: 15px;
-}
-
-#topnav_menusubnav li.nav_menu a.nav_group_heading:hover {
-    background-color: #66ccdd;
-    text-decoration: none; 
 }
 
 #topnav_menusubnav li.nav_menu ul.nav_group_items {
