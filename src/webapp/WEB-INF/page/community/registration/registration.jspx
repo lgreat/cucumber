@@ -274,7 +274,7 @@
                             <gsml:img src="/res/img/email/boy_with_dad.jpg"
                                       alt="learningDisablitiesImage" styleClass="LearningDisabilitiesImage"/>
                             <div class="learningDisablities">
-                                <h3>Help kids with learning disabilities</h3>
+                                <h3>Help kids with learning difficulties</h3>
                                 <p class="newsletterText">Get the resources you need to support your child with a
                                     learning disability or an attention problem.</p>
                                 <form:checkbox path="userCmd.ldNewsletter"
@@ -288,7 +288,11 @@
                         <div class="brainDrainModule">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
-                            <div class="brainDrain"><h3>Prevent the summer brain drain</h3>
+                            <div class="brainDrain"><h3>Back to school countdown</h3>
+                                <p class="newsletterText">
+                                    Daily tips and activities to engage your child
+                                    in learning over the break and ease him into the next school year. 
+                                </p>
                                 <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField"
                                                onclick="displayStartWeekDropdowns();" tabindex="13"/>
                                 <label for="brainDrainNewsletterField">Subscribe to this newsletter</label>
