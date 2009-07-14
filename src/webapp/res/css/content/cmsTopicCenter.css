@@ -24,7 +24,7 @@
     float:left;
     padding: 0 13px;
     zoom: 1.0;
-    overflow:visible;
+    /*overflow:visible;*/
     /*outline: 1px solid red;*/
     /*border: 1px solid red;*/
 }
@@ -104,7 +104,7 @@
     padding: 9px 0 0 0;
     width:615px;
     float:left;
-    overflow:visible;
+    /*overflow:visible;*/
 }
 
 /* ---------------- */
@@ -116,7 +116,7 @@
     width: 115px;
     padding:15px 10px 0 5px;
     /*position:relative;*/
-    overflow:visible;
+    /*overflow:visible;*/
 }
 
 #topicNavigation h2 {
@@ -130,11 +130,11 @@
     font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align:right;
     padding:0 0 20px 5px;
-    overflow:visible;
+    /*overflow:visible;*/
 }
 
 #topicNavigation li {
-    list-style: disc outside;
+    list-style: disc inside;
     font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#eb9339;
     padding:0 0 10px 0;
