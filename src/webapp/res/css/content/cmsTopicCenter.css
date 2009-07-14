@@ -114,7 +114,7 @@
     float:left;
     width: 115px;
     padding:15px 10px 0 5px;
-    position:relative;
+    /*position:relative;*/
     overflow:visible;
 }
 
@@ -154,8 +154,8 @@
 }
 
 #contentProvider {
-    position:absolute;
-    right:10px;
+    /*position:absolute;
+    right:10px;*/
 }
 
 /* -------------- */
