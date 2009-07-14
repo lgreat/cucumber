@@ -154,8 +154,7 @@
 }
 
 #contentProvider {
-    /*position:absolute;
-    right:10px;*/
+    float:right;
 }
 
 /* -------------- */
