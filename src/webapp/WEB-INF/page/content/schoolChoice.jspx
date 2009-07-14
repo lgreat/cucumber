@@ -121,7 +121,7 @@
                                 <p>Watch this short video to learn how to use our site and choose a school where your child will thrive.</p>
                             </div>
 
-                            <div class="video" id="schoolChoiceVideo">
+                            <div class="video" id="schoolChoiceVideo" style="position: relative; z-index: 0;">
                                 <!-- http://validifier.com/ -->
                                 <!-- http://www.howtocreate.co.uk/tutorials/javascript/incorporate -->
                                 <script type="text/javascript">
@@ -129,10 +129,11 @@
                                 document.write('<object width="300" height="166">');
                                 document.write('    <param name="allowfullscreen" value="true"/>');
                                 document.write('    <param name="allowscriptaccess" value="always"/>');
+                                document.write('    <param name="wmode" value="opaque"/>');
                                 document.write('    <param name="movie"');
                                 document.write('           value="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"/>');
                                 document.write('    <embed src="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"');
-                                document.write('           type="application/x-shockwave-flash" allowfullscreen="true"');
+                                document.write('           type="application/x-shockwave-flash" allowfullscreen="true" wmode="opaque"');
                                 document.write('           allowscriptaccess="always" width="300" height="166"></embed>');
                                 document.write('</object>');
                                 //--> ]]>
