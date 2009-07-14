@@ -127,6 +127,13 @@
                                 </c:forEach>
                             </ul>
 
+                            <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
+                            <c:if test="${numSections eq 1}">
+                                <div class="divider">
+                                    <hr/>
+                                </div>
+                            </c:if>
+
                             <div class="more">
                                 <c:choose>
                                     <c:when test="${not empty subtopic.moreLink}">

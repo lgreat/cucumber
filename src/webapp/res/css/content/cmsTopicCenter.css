@@ -65,9 +65,9 @@
 
 #featured .two_of_two {
     /*outline:1px solid red;*/
-    width:244px; height:215px;
+    width:244px; height:218px;
     background:url(/res/img/topicCenter/tc_feature_bg.jpg) repeat-x;
-    padding:15px 15px 5px 15px;
+    padding:12px 15px 5px 15px;
     float:right;
     border-right:1px solid #ededed;
 }
@@ -103,6 +103,7 @@
     padding: 9px 0 0 0;
     width:615px;
     float:left;
+    overflow:visible;
 }
 
 /* ---------------- */
@@ -128,6 +129,7 @@
     font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align:right;
     padding:0 0 20px 5px;
+    overflow:visible;
 }
 
 #topicNavigation li {
