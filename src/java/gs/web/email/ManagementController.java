@@ -372,9 +372,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if (command.isSchool4()) {
             messages.add("School updates for " + command.getName4());
         }
-        if (command.isSchool4()) {
-            messages.add("School updates for " + command.getName4());
-        }
         if (!StringUtils.isBlank(command.getSchoolName())) {
             messages.add("School updates for " + command.getSchoolName());
         }
