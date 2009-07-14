@@ -65,10 +65,11 @@
 
 #featured .two_of_two {
     /*outline:1px solid red;*/
-    width:255px; height:225px;
+    width:244px; height:215px;
     background:url(/res/img/topicCenter/tc_feature_bg.jpg) repeat-x;
-    padding:5px 10px;
+    padding:15px 15px 5px 15px;
     float:right;
+    border-right:1px solid #ededed;
 }
 
 #featured .two_of_two h3 {
@@ -99,7 +100,7 @@
 /* ------ */
 
 #topics{
-    padding: 20px 0 0 0;
+    padding: 9px 0 0 0;
     width:615px;
     float:left;
 }
@@ -113,6 +114,7 @@
     width: 120px;
     padding:15px 10px 0 0;
     position:relative;
+    overflow:visible;
 }
 
 #topicNavigation h2 {
@@ -165,11 +167,9 @@
     background:url(/res/img/box/tc_sides.jpg) repeat-y;
 }
 
-/*.topic {
-    border:2px solid #999;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-}*/
+.topic {
+    min-height:300px;
+}
 
 #topicContent .topicImage {
     float:right;
@@ -205,7 +205,7 @@
 }
 
 #topicContent ul {
-    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.8 "Trebuchet MS", Arial, Helvetica, sans-serif;
     padding: 5px 0 0 45px;
 }
 
@@ -216,7 +216,7 @@
 }
 
 #topicContent a {
-    font:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #topicContent .more {
@@ -275,7 +275,7 @@
 }
 
 #communityContent a {
-    font:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #communityContent .more {
