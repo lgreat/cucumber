@@ -24,6 +24,7 @@
     float:left;
     padding: 0 13px;
     zoom: 1.0;
+    overflow:visible;
     /*outline: 1px solid red;*/
     /*border: 1px solid red;*/
 }
@@ -153,7 +154,7 @@
     cursor:default;
 }
 
-#contentProvider {
+#contentProvider img{
     float:right;
 }
 
