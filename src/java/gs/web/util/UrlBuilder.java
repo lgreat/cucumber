@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.168 2009/07/09 18:35:16 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.169 2009/07/15 18:37:33 yfan Exp $
  */
 
 package gs.web.util;
@@ -586,13 +586,13 @@ public class UrlBuilder {
         } else if (HEALTHY_KIDS.equals(page)) {
             _path = "/content/healthyKids.page";
         } else if (SPECIAL_NEEDS.equals(page)) {
-            _path = "/content/specialNeeds.page";
+            _path = "/LD.topic?content=1541";
         } else if (MEDIA_CHOICES.equals(page)) {
             _path = "/content/mediaChoices.page";
         } else if (MOVING_WITH_KIDS.equals(page)) {
             _path = "/content/movingWithKids.page";
         } else if (COUNTDOWN_TO_COLLEGE.equals(page)) {
-            _path = "/content/countdownToCollege.page";
+            _path = "/college-prep.topic?content=1542";
         } else if (HOLIDAY_LEARNING.equals(page)) {
             _path = "/content/holidayLearning.page";
         } else if (STATE_STANDARDS.equals(page)) {
@@ -604,7 +604,7 @@ public class UrlBuilder {
         } else if (BACK_TO_SCHOOL.equals(page)) {
             _path = "/content/backToSchool.page";
         } else if (TUTORING.equals(page)) {
-            _path = "/content/tutoring_Homework_Help.page";
+            _path = "/homework-help.topic?content=1544";
         } else if (TRAVEL.equals(page)) {
             _path = "/content/travel.page";
         } else if (MY_SCHOOL_LIST.equals(page)) {

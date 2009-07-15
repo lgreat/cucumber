@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.105 2009/06/18 23:08:20 eingenito Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.106 2009/07/15 18:41:30 yfan Exp $
  */
 
 package gs.web.util;
@@ -474,7 +474,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.SPECIAL_NEEDS);
-        assertEquals("/content/specialNeeds.page", builder.asSiteRelative(request));
+        assertEquals("/LD.topic?content=1541", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MEDIA_CHOICES);
         assertEquals("/content/mediaChoices.page", builder.asSiteRelative(request));
@@ -483,7 +483,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/content/movingWithKids.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.COUNTDOWN_TO_COLLEGE);
-        assertEquals("/content/countdownToCollege.page", builder.asSiteRelative(request));
+        assertEquals("/college-prep.topic?content=1542", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.HOLIDAY_LEARNING);
         assertEquals("/content/holidayLearning.page", builder.asSiteRelative(request));

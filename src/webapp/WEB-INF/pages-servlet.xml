@@ -858,11 +858,9 @@
     </bean>
 
     <bean name="/content/specialNeeds.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/content/specialNeeds</value>
-        </property>
+        <property name="redirectPath" value="/LD.topic?content=1541"/>
     </bean>
 
     <bean name="/school/research.page"
@@ -893,11 +891,9 @@
     </bean>
 
     <bean name="/content/countdownToCollege.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/content/countdownToCollege</value>
-        </property>
+        <property name="redirectPath" value="/college-prep.topic?content=1542"/>
     </bean>
 
     <bean name="/content/schoolChoiceCenter.page"
@@ -923,11 +919,9 @@
     </bean>
 
     <bean name="/content/tutoring_Homework_Help.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/content/tutoring</value>
-        </property>
+        <property name="redirectPath" value="/homework-help.topic?content=1544"/>
     </bean>
 
     <bean name="/content/travel.page"
