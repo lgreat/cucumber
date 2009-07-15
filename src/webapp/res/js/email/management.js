@@ -18,7 +18,7 @@ function toggleSummerBrainDrain(){
 
 function checkForm(){
     if(document.manage.seasonal.checked && document.manage.startweek.value == ""){
-        alert("Please select a start week for your Summer Brain Drain newsletter so we can personalize your emails.");
+        alert("Please select a start week for your school so we can personalize your emails.");
         return false;
     }
     return true;
