@@ -256,7 +256,7 @@
                 <!--</li>-->
 
                 <li id="freeNewsletters">
-                    <h2>Free Newsletters from Greatschools</h2>
+                    <h2>Free Newsletters From GreatSchools</h2>
                     <div id="newsletterCol1">
                         <div class="newletterNoDivider">
                             <gsml:img src="/res/img/email/boy_with_pen.jpg"
@@ -288,10 +288,10 @@
                         <div class="brainDrainModule">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
-                            <div class="brainDrain"><h3>Back to school countdown</h3>
+                            <div class="brainDrain"><h3>Back to school countdown: tip of the day</h3>
                                 <p class="newsletterText">
-                                    Daily tips and activities to engage your child
-                                    in learning over the break and ease him into the next school year. 
+                                    Engage your child in learning over the break and ease him into
+                                    the next school year with our daily tips and activities. 
                                 </p>
                                 <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField"
                                                onclick="displayStartWeekDropdowns();" tabindex="13"/>
