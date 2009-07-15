@@ -154,9 +154,13 @@
 
                             <!-- Optional section title -->
                             <c:if test="${not empty section.title}">
-                                <c:if test="${not empty section.moreLink}">
+                                <c:when test="${not empty section.moreLink}">
                                 <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
-                                </c:if>
+                                </c:when>
+                                <c:otherwise>
+                                     <h4><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
+                                                                language="${param.language}">${section.title}</link:cmsCategoryBrowse></h4>
+                                </c:otherwise>
                             </c:if>
 
                             <!-- Section links -->
