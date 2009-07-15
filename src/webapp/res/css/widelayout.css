@@ -25,6 +25,69 @@
     color: #3399AA;
 }
 
+/* top nav */
+
 #topnav #topnav_menusubnav_wrapper {
     margin: 0 12px;
 }
+
+/* START subnav spacing */
+
+#topnav ul#topnav_menusubnav li#topnav_gp {
+    margin-right: 30px;
+}
+#topnav ul#topnav_menusubnav li#topnav_aa {
+    margin-right: 30px;
+}
+#topnav ul#topnav_menusubnav li#topnav_ld {
+    margin-right: 30px;
+}
+#topnav ul#topnav_menusubnav li#topnav_iys {
+    margin-right: 30px;
+}
+#topnav ul#topnav_menusubnav li#topnav_ctrs {
+    margin-right: 30px;
+}
+#topnav ul#topnav_menusubnav li#topnav_c {
+    margin-right: 0;
+}
+
+* html #topnav ul#topnav_menusubnav li#topnav_gp {
+    margin-right: 25px;
+}
+* html #topnav ul#topnav_menusubnav li#topnav_aa {
+    margin-right: 25px;
+}
+* html #topnav ul#topnav_menusubnav li#topnav_ld {
+    margin-right: 25px;
+}
+* html #topnav ul#topnav_menusubnav li#topnav_iys {
+    margin-right: 25px;
+}
+* html #topnav ul#topnav_menusubnav li#topnav_ctrs {
+    margin-right: 25px;
+}
+* html #topnav ul#topnav_menusubnav li#topnav_c {
+    margin-right: 0;
+}
+
+* + html #topnav ul#topnav_menusubnav li#topnav_gp {
+    margin-right: 25px;
+}
+* + html #topnav ul#topnav_menusubnav li#topnav_aa {
+    margin-right: 25px;
+}
+* + html #topnav ul#topnav_menusubnav li#topnav_ld {
+    margin-right: 25px;
+}
+* + html #topnav ul#topnav_menusubnav li#topnav_iys {
+    margin-right: 25px;
+}
+* + html #topnav ul#topnav_menusubnav li#topnav_ctrs {
+    margin-right: 25px;
+}
+* + html #topnav ul#topnav_menusubnav li#topnav_c {
+    margin-right: 0;
+}
+
+/* END subnav spacing */

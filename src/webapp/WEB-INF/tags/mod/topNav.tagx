@@ -254,7 +254,7 @@
 
     <div id="topnav_menusubnav_wrapper">
         <ul id="topnav_menusubnav">
-            <li class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
+            <li id="topnav_gp" class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
                     id="GlobalNav_GreatParentingButton"
                     class="arrow nav_group_heading ${(pw == tabs.GREAT_PARENTING ? 'topnav_subnav_active' : '')} GS_CI9_ "
                     >Great Parenting</a>
@@ -270,7 +270,7 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><a href="/students.topic?content=1540"
+            <li id="topnav_aa" class="nav_menu"><a href="/students.topic?content=1540"
                     id="GlobalNav_AcademicsAndActivitiesButton"
                     class="arrow nav_group_heading ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
                     >Academics &amp;amp; Activities</a>
@@ -287,7 +287,7 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><a href="/LD.topic?content=1541"
+            <li id="topnav_ld" class="nav_menu"><a href="/LD.topic?content=1541"
                     id="GlobalNav_LearningDisabilitiesButton"
                     class="arrow nav_group_heading ${(pw == tabs.LEARNING_DISABILITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
                     >Learning Disabilities</a>
@@ -306,7 +306,7 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><a href="/improvement.topic?content=1543"
+            <li id="topnav_iys" class="nav_menu"><a href="/improvement.topic?content=1543"
                     id="GlobalNav_ImproveYourSchoolButton"
                     class="arrow nav_group_heading ${(pw == tabs.IMPROVE_YOUR_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
                     >Improve Your School</a>
@@ -320,7 +320,7 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li class="nav_menu"><link:schoolChoiceCenter
+            <li id="topnav_ctrs" class="nav_menu"><link:schoolChoiceCenter
                     id="GlobalNav_ChooseTheRightSchoolButton"
                     styleClass="arrow nav_group_heading ${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
                     >Choose the Right School</link:schoolChoiceCenter>
@@ -332,7 +332,7 @@
                     <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
-            <li class="nav_menu"><gsml:a href="http://${communityHost}"
+            <li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"
                                          styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "
                                          id="GlobalNav_CommunityButton">Community</gsml:a>
             </li>
