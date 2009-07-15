@@ -19,6 +19,10 @@
     display: none;
 }
 
+.tall {
+    margin-top:15px;
+}
+
 #leftColumn{
     width:615px;
     float:left;
@@ -204,6 +208,10 @@
     font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
     padding: 15px 0 0 30px;
+}
+
+#topicContent h4 a {
+    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #topicContent ul {

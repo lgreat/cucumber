@@ -129,7 +129,7 @@
 
                             <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
                             <c:if test="${numSections eq 0}">
-                                <div class="divider">
+                                <div class="divider tall">
                                     <hr/>
                                 </div>
                             </c:if>
