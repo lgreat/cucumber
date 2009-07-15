@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -17,11 +17,12 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>survey hover</title>
     <base target="_self"/>
     <pageHelper:externalCss file="/res/css/brand.css"/>
@@ -34,7 +35,7 @@
     <div style="margin-top: 10px">
         <a href="http://www.zoomerang.com/Survey/?p=WEB228UWBXDFJ9" target="_blank"
            onclick="subModalInterceptor.setPresentedToUser(); window.top.hidePopWin(false);">
-            <gsml:img src="/res/img/survey/surveyhover.png" alt="Take Survey" />
+            <gsml:img src="/res/img/survey/surveyhover.gif" alt="Take Survey" />
         </a>
     </div>
 

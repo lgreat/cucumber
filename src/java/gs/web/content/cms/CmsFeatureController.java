@@ -166,6 +166,7 @@ public class CmsFeatureController extends AbstractController {
         if (model != null && model.get("targetSupplyItems") != null) {
             // get current date
             Calendar rightNow = Calendar.getInstance();
+            model.put("currentTimestamp", rightNow.getTime().getTime());
             // if within 8/3-8/12 (inclusive), add another variable to model
             Calendar startDate = Calendar.getInstance();
             startDate.set(Calendar.MONTH, Calendar.AUGUST);
