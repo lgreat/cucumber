@@ -28,6 +28,7 @@
 
         // called by page
         autoMssHover.prepAndShow = function (destination, schoolId, schoolState) {
+            mssAutoHoverInterceptor.setHasSeenMssHover(true);
             // my hover takes parameters that may differ on a link-by-link basis, so I
             // override the function right here
             this.getIframeUrl = function() {
