@@ -32,8 +32,12 @@
         governing traditional public schools. Charter schools often focus on a particular
         curriculum or educational philosophy. Like all public schools, charter schools
         must be nonsectarian and nondiscriminatory. For more information, see
-        <link:article articleId="192" target="_blank">Seven Things to Know About Charter Schools</link:article>
-        and <link:article articleId="70" target="_blank">Charter Schools Offer an Array of Choices</link:article>.
+        <link:cmsContent contentKey="article#192"
+                         fullUri="/find-a-school/defining-your-ideal/know-about-charter-schools"
+                         target="_blank">Seven Things to Know About Charter Schools</link:cmsContent>
+        and <link:cmsContent contentKey="article#70"
+                             fullUri="/find-a-school/defining-your-ideal/charter-schools"
+                             target="_blank">Charter Schools Offer an Array of Choices</link:cmsContent>.
     </p>
     <p>
         <a href="javascript:window.close();">Close this window</a>

@@ -223,14 +223,14 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.content.cms.CmsContent</type>
-            <description>Content to link to.</description>
+            <description>Content to link to. Format is "TYPE#ID", e.g. "article#192"</description>
         </attribute>
         <attribute>
             <name>fullUri</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>SEO Uri of the content to link to</description>
+            <description>SEO Uri of the content to link to, without file extension. e.g. "/find-a-school/charter-schools</description>
         </attribute>
         <attribute>
             <name>styleClass</name>
