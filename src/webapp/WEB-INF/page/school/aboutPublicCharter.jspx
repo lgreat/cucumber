@@ -21,6 +21,9 @@
     <style type="text/css">
         h1 {
             line-height: normal;
+            font-size: 13px;
+            font-weight: bold;
+            color: #039;
         }
     </style>
 </head>
@@ -31,7 +34,10 @@
         A charter school is a public school that is exempt from many of the regulations
         governing traditional public schools. Charter schools often focus on a particular
         curriculum or educational philosophy. Like all public schools, charter schools
-        must be nonsectarian and nondiscriminatory. For more information, see
+        must be nonsectarian and nondiscriminatory.
+    </p>
+    <p>
+        For more information, see
         <link:cmsContent contentKey="article#192"
                          fullUri="/find-a-school/defining-your-ideal/know-about-charter-schools"
                          target="_blank">Seven Things to Know About Charter Schools</link:cmsContent>
@@ -40,7 +46,7 @@
                              target="_blank">Charter Schools Offer an Array of Choices</link:cmsContent>.
     </p>
     <p>
-        <a href="javascript:window.close();">Close this window</a>
+        <a class="callToAction" href="javascript:window.close();">Close this window</a>
     </p>
     <div style="display:none;">
         <mod:tracking pageName="Explanation Popup: Public Charter"
