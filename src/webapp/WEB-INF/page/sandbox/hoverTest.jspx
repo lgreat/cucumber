@@ -19,7 +19,7 @@
 
     <community:schoolInterruptRegistrationHover schoolId="1" schoolState="CA"/>
     <a href="/email/management.page?schoolId=1&amp;schoolState=CA"
-       onclick="return autoMssHover.prepAndShow(this.href, 1, 'CA');">
+       onclick="return autoMssHover.prepAndShow(this.href, 1, 'CA', true);">
         Click here for school interrupt hover
     </a>
 
