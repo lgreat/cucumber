@@ -171,10 +171,12 @@
     width:480px;
     padding:0;
     background:url(/res/img/box/tc_sides.jpg) repeat-y;
+    position:relative;
 }
 
 .topic {
     /*min-height:300px;*/
+    overflow:auto;
 }
 
 #topicContent .topicImage {

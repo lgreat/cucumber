@@ -201,12 +201,10 @@
                                 </div>
                             </c:if>
 
-                            <div class="clear"><!-- don't collapse --></div>
-
                         </c:forEach>
                     </div>
                     <!-- end .topic -->
-                    <div class="clear"><!-- don't collapse --></div>
+
                 </c:forEach>
                 <img src="/res/img/box/tc_bottom.gif" height="25" width="480" alt="bottom border"/>
             </div>
@@ -216,7 +214,6 @@
     <!-- end #topics -->
 
     <div class="clear"><!-- don't collapse --></div>
-
 
     <!-- Community links -->
     <div id="community">
