@@ -258,7 +258,7 @@
                 <li id="freeNewsletters">
                     <h2>Free Newsletters From GreatSchools</h2>
                     <div id="newsletterCol1">
-                        <div class="newletterNoDivider">
+                        <div class="newletterNoDivider gsweekly">
                             <gsml:img src="/res/img/email/boy_with_pen.jpg"
                                       alt="weeklyUpdatesImage" styleClass="weeklyUpdatesImage"/>
                             <div class="weeklyUpdates">
@@ -288,7 +288,7 @@
                         <div class="brainDrainModule">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
-                            <div class="brainDrain"><h3>Back to school countdown: tip of the day</h3>
+                            <div class="brainDrain"><h3>Back-to-school countdown tips</h3>
                                 <p class="newsletterText">
                                     Engage your child in learning over the break and ease him into
                                     the next school year with our daily tips and activities. 
