@@ -406,6 +406,25 @@
     margin-right: 0;
 }
 
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_gp {
+    margin-right: 9px;
+}
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_aa {
+    margin-right: 9px;
+}
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ld {
+    margin-right: 9px;
+}
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_iys {
+    margin-right: 9px;
+}
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ctrs {
+    margin-right: 9px;
+}
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_c {
+    margin-right: 0;
+}
+
 /* END subnav spacing */
 
 #topnav ul#topnav_menusubnav li.nav_menu.firstHeading {
