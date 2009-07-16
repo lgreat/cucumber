@@ -195,8 +195,7 @@
                             <!-- end .more -->
 
                             <c:if test="${!(sectionStatus.last) and numSections gt 1}">
-                                <div class="clear"><!-- don't collapse --></div>
-                                <div class="divider">
+                                <div class="divider taller">
                                     <hr/>
                                 </div>
                             </c:if>
