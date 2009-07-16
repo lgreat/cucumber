@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <![CDATA[
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        ]]>
+    <title>Explanation of Public Charter - GreatSchools</title>
+    <style type="text/css">
+        h1 {
+            line-height: normal;
+        }
+    </style>
+</head>
+
+<gsml:body adPageName="explanationPopup">
+    <h1>Charter school</h1>
+    <p>
+        A charter school is a public school that is exempt from many of the regulations
+        governing traditional public schools. Charter schools often focus on a particular
+        curriculum or educational philosophy. Like all public schools, charter schools
+        must be nonsectarian and nondiscriminatory. For more information, see
+        <link:article articleId="192" target="_blank">Seven Things to Know About Charter Schools</link:article>
+        and <link:article articleId="70" target="_blank">Charter Schools Offer an Array of Choices</link:article>.
+    </p>
+    <p>
+        <a href="javascript:window.close();">Close this window</a>
+    </p>
+    <div style="display:none;">
+        <mod:tracking pageName="Explanation Popup: Public Charter"
+                      hier1="School,Explanation Popup,Public Charter"/>
+    </div>
+</gsml:body>
+</html>
+</jsp:root>

@@ -516,7 +516,11 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                         levelCode="${lc}"
                         showAll="${not empty param.showall}"
                         rel="nofollow"
-                        styleClass="noInterstitial"> Charter</link:schools></label>
+                        styleClass="noInterstitial"> Public Charter
+                            <a href="/school/aboutPublicCharter.page" target="definitions"
+                               onclick="window.open(this.href, 'definitions', 'width=400,height=300,scrollbars=yes'); return false;">
+                                <img class="infoIcon" src="/res/img/icons/infoIcon.gif" alt="Info"/>
+                            </a></link:schools></label>
                 <label class="${isCityBrowse ? '' : 'hidden' }"><gsml:checkbox name="type_schools[]"
                                       checked="${privateChecked}"
                                       styleId="type_schools_private"

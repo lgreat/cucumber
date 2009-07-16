@@ -18,7 +18,8 @@
         <pattern>/school/addComments.page*</pattern>
         <pattern>/school/updateRatings.page*</pattern>
         <pattern>/school/thankYouHover.page*</pattern>        
-        <pattern>/community/registration/popup/*</pattern>        
+        <pattern>/school/aboutPublicCharter.page*</pattern>
+        <pattern>/community/registration/popup/*</pattern>
     </decorator>
 
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">

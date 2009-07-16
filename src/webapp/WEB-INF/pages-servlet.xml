@@ -2256,4 +2256,11 @@
 
     <!-- END PLEDGE API -->
 
+    <bean name="/school/aboutPublicCharter.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/school/aboutPublicCharter</value>
+        </property>
+    </bean>
+
 </beans>
