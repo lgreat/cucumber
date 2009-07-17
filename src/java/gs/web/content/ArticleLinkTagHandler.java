@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.39 2009/06/18 23:08:19 eingenito Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.40 2009/07/17 21:39:52 eddie Exp $
  */
 package gs.web.content;
 
@@ -254,6 +254,9 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void setArticle(Article article) {
         _article = article;
+        if(article !=null){
+            setArticleId(article.getId());
+        }
     }
 
     public String getTarget() {
