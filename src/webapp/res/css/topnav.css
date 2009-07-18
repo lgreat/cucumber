@@ -490,7 +490,7 @@
 
 #topnav_menusubnav li.nav_menu ul.nav_group_items li {
     width: 200px;
-    display: inline;
+    clear: left;
     white-space: nowrap;
     padding-top: 5px;
     padding-bottom: 5px;
