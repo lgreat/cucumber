@@ -20,10 +20,12 @@
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <head>
-        <title>Back to School | GreatSchools</title>
+        <title>Back to School Game Plan | GreatSchools</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <meta name="description"
-              content="b2s"/>
+              content="Tips for the whole family that will help you stop summer brain drain, prep for success, and shop smart for back to school supplies."/>
+         <meta name="keywords"
+          content="back to school, back to school shopping, school supplies, supplies list"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/backToSchoolHome.css"/>
         <pageHelper:externalJavascript file="/res/js/backToSchool/backToSchoolHome.js"/>
