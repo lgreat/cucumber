@@ -6,8 +6,7 @@ import org.springframework.validation.BindException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
- 
+
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -240,34 +239,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
         //my nth grader
         submitMyNthList(user,command,state);
 
-        //see if we need to delete any my school stats
-        if(command.getId1() >0 && !command.isSchool1()){
-            _subscriptionDao.removeSubscription(command.getId1());
-        }
-        if(command.getId2() >0 && !command.isSchool2()){
-            _subscriptionDao.removeSubscription(command.getId2());
-        }
-        if(command.getId3() >0 && !command.isSchool3()){
-            _subscriptionDao.removeSubscription(command.getId3());
-        }
-        if(command.getId4() >0 && !command.isSchool4()){
-            _subscriptionDao.removeSubscription(command.getId4());
-        }
-
-        if(command.getSchool() >0){
-            if(command.getSchool() == command.getId1()
-                    || command.getSchool() == command.getId2()
-                    || command.getSchool() == command.getId3()
-                    ){
-            }else{
-                Subscription s = new Subscription(user,SubscriptionProduct.MYSTAT, command.getStateAdd());
-                s.setSchoolId(command.getSchool());
-                subscriptions.add(s);
-                School school = _schoolDao.getSchoolById(command.getStateAdd(),command.getSchool());
-                command.setSchoolName(school.getName());
-            }
-
-        }
+        // mystats
+        doMySchoolStats(user, command, subscriptions, request);
 
         if(command.isSeasonal()){
             if(command.getSeasonalId() > 0){
@@ -345,6 +318,79 @@ public class ManagementController extends SimpleFormController implements ReadWr
         return new ModelAndView(getSuccessView(), model);
     }
 
+    protected void doMySchoolStats(User user, ManagementCommand command, List<Subscription> newSubscriptions,
+                                   HttpServletRequest request) {
+        List<Subscription> previousMyStatsSubs = _subscriptionDao.findMssSubscriptionsByUser(user);
+        Set<String> stateIdStringSetFromDB = new HashSet<String>(previousMyStatsSubs.size());
+        Map<String, Subscription> stringToSubscriptionMap =
+                new HashMap<String, Subscription>(previousMyStatsSubs.size());
+        for (Subscription sub: previousMyStatsSubs) {
+            String key = sub.getState().getAbbreviation() + sub.getSchoolId();
+            stateIdStringSetFromDB.add(key);
+            stringToSubscriptionMap.put(key, sub);
+        }
+
+        // pull out the schools represented on the page
+        String[] stateIdStringsFromPage = request.getParameterValues("uniqueStateId");
+        Set<String> stateIdStringSetFromPage = new HashSet<String>();
+        if (stateIdStringsFromPage != null) {
+            stateIdStringSetFromPage.addAll(Arrays.asList(stateIdStringsFromPage));
+        }
+        
+        // any schools in the existing subscription set that is not represented, remove it
+        for (String stateIdStringFromDB: stateIdStringSetFromDB) {
+            if (!stateIdStringSetFromPage.contains(stateIdStringFromDB)) {
+                _subscriptionDao.removeSubscription(stringToSubscriptionMap.get(stateIdStringFromDB).getId());
+            }
+        }
+        // any school on the page that isn't in the existing set, add it
+        int counter = 1;
+
+        for (String stateIdStringFromPage: stateIdStringSetFromPage) {
+            State stateToAdd;
+            Integer schoolIdToAdd;
+            try {
+                stateToAdd = State.fromString(stateIdStringFromPage.substring(0, 2));
+                schoolIdToAdd = new Integer(stateIdStringFromPage.substring(2));
+                if (schoolIdToAdd < 1) {
+                    _log.warn("Invalid school id from page: " + schoolIdToAdd);
+                    continue;
+                }
+            } catch (Exception e) {
+                _log.warn("Failed to convert mss from page: " + e, e);
+                continue;
+            }
+            School newSchool = _schoolDao.getSchoolById(stateToAdd, schoolIdToAdd);
+            if (newSchool == null) {
+                _log.warn("Failed to find school from page: " + stateToAdd + ":" + schoolIdToAdd);
+                continue;
+            }
+            // update command for messages
+            if (counter == 1) {
+                command.setSchool1(true);
+                command.setName1(newSchool.getName());
+            } else if (counter == 2) {
+                command.setSchool2(true);
+                command.setName2(newSchool.getName());
+            } else if (counter == 3) {
+                command.setSchool3(true);
+                command.setName3(newSchool.getName());
+            } else if (counter == 4) {
+                command.setSchool4(true);
+                command.setName4(newSchool.getName());
+            } else {
+                _log.warn("Too many schools on page.");
+                break;
+            }
+            if (!stateIdStringSetFromDB.contains(stateIdStringFromPage)) {
+                Subscription s = new Subscription(user,SubscriptionProduct.MYSTAT, stateToAdd);
+                s.setSchoolId(schoolIdToAdd);
+                newSubscriptions.add(s);                
+            }
+            counter++;
+        }
+    }
+
     public void addMyNth(SubscriptionProduct sp,User user,State state){
         Student student = new Student();
         student.setSchoolId(-1);
@@ -387,9 +433,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if (command.isSchool4()) {
             messages.add("School updates for " + command.getName4());
-        }
-        if (!StringUtils.isBlank(command.getSchoolName())) {
-            messages.add("School updates for " + command.getSchoolName());
         }
         if (command.isSeasonal()) {
             messages.add("Summer Tips and Activities to Prevent Brain Drain");

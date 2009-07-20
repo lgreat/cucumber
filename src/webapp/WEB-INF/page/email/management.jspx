@@ -150,26 +150,36 @@
                         <div class="mssInfo">
                             <p>Subscribe to school updates on:</p>
 
-                            <c:if test="${emailCmd.school1}">
-                                <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
-                                    <div class="mssSchoolLine">
-                                        <form:checkbox path="school${schoolCounter.count}" id="mssSchool${schoolCounter.count}"
-                                                       cssClass="newsletterCheckbox"/>
-                                        <label for="mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
-                                        <input type="hidden" name="id${schoolCounter.count}"
-                                               value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
-                                        <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
-                                    </div>
-                                </c:forEach>
+                            <input type="hidden" id="numMssSchools"
+                                   name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
+                            <div id="mssSchoolSection">
+                                <c:if test="${emailCmd.school1}">
+                                    <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
+                                        <div class="mssSchoolLine">
+                                            <form:checkbox path="school${schoolCounter.count}" id="mssSchool${schoolCounter.count}"
+                                                           cssClass="newsletterCheckbox" onclick="removeMssSchool(${schoolCounter.count});"/>
+                                            <label for="mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
+                                            <input type="hidden" name="id${schoolCounter.count}"
+                                                   value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
+                                            <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
+                                            <input type="hidden" name="uniqueStateId" value="${school.stateAbbreviation}${school.id}"/>
+                                        </div>
+                                    </c:forEach>
+                                </c:if>
+                            </div>
+
+
+                            <c:set var="addSectionDisplayStyle" value="block"/>
+                            <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
+                                <c:set var="addSectionDisplayStyle" value="none"/>
                             </c:if>
 
-
-                            <c:if test="${fn:length(emailCmd.myStatIds) lt 4}">     <!-- ${ not (emailCmd.id4 > 0)} -->
+                            <div id="mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
                                 <p><span class="strong">Add a school</span> (four schools maximum)</p>
                                 <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                                      onChange="emailStateChange(this);" name="stateAdd"/>
                                 <div id="city">
-                                    <select id="citySelect" name="city" onchange="emailSchoolChange(this);">
+                                    <select id="citySelect" name="city" onchange="emailCityChange(this);">
                                         <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
                                             <option selected="selected" value="">2. Choose city</option>
                                         </c:if>
@@ -193,8 +203,9 @@
                                         </c:forEach>
                                     </select>
                                 </span>
-                                <input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"/>
-                            </c:if>
+                                <input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"
+                                       onclick="try {addMssSchool();} catch (e) {} return false;"/>
+                            </div> <!-- end .mssAddSchoolSection -->
                         </div> <!-- end .mssInfo -->
                     </div>
                 </td>
