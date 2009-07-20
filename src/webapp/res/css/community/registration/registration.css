@@ -181,7 +181,7 @@ p.requiredFld {
 }
 
 #outline ul li #city select {
-    width: 140px;
+    width: auto;
     left: 195px;
 }
 
@@ -344,7 +344,7 @@ width:auto;
 
 #outline ul li span.citySelectSpan select {
 left:195px;
-width:140px; 
+width:auto; 
 }
 
 
