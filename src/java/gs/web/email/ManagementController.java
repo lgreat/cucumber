@@ -355,6 +355,22 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
     }
 
+    public void removeMyNth(SubscriptionProduct myNth,User user){
+        Set<Student> students = user.getStudents();
+        Student studentToDelete = null;
+        for (Student student: students) {
+            if (student.getGrade() != null && student.getGrade().equals(myNth.getGrade())) {
+                studentToDelete = student;
+                break;
+            }
+        }
+        if (studentToDelete != null) {
+            students.remove(studentToDelete);
+            user.setStudents(students);
+            _userDao.saveUser(user);
+        }
+    }
+
     protected void updateMessages(ManagementCommand command, List<String> messages) {
         messages.clear();
         if (command.getGreatnews()) {
@@ -402,12 +418,13 @@ public class ManagementController extends SimpleFormController implements ReadWr
                                 ManagementCommand command,
                                 State state){
         //foreach possible subscription, check if it needs to be added or deleted
+        // first delete
         for(SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER){
             if(command.checkedBox(myNth) && !(command.getMyNthId(myNth) > 0)){
                 addMyNth(myNth,user,state);
             }
             if((!command.checkedBox(myNth)) && command.getMyNthId(myNth) > 0){
-                _subscriptionDao.removeStudent(command.getMyNthId(myNth));
+                removeMyNth(myNth, user);
             }
         }
     }
