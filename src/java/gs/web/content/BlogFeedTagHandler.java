@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.25 2009/07/06 21:41:46 npatury Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.26 2009/07/21 21:00:48 npatury Exp $
  */
 
 package gs.web.content;
@@ -288,7 +288,8 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
         else if (TYPE_MOM_BLOG.equals(_type)) {
             out.print("<div class=\"blogTitle\">");
-            out.print(title);
+            out.print("Sandra Tsing Loh shares<br/> her back-to-school saga"); // done for release 13.0 as per Julia's request.
+//            out.print(title);
             out.print("</div>");
             if (!StringUtils.isBlank(text)) {
                 out.print("<div class=\"blogContent\">");

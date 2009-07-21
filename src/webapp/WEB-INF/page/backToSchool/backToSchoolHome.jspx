@@ -137,7 +137,7 @@
 
             <div id="momOnFire">
             <div class="momWrapper">
-                <div class="blogHeader">Mom on fire</div>
+                <div class="blogHeader">Blog on Fire</div>
                 <content:blogFeed atomUrl="http://blogs.greatschools.net/mom_on_fire/atom.xml"
                                               defaultTitle="Mom on Fire"
                                               defaultUrl="http://blogs.greatschools.net/mom_on_fire"
