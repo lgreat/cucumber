@@ -59,7 +59,7 @@
                     </div>
                     <div id="prepContent">
                         <img src="/res/img/backToSchool/b2s_gp_prep_photo.jpg" alt="prep photo"/>
-                        <p class="gamePlanBoldText">New-school jitters? </p> <a href="/back-to-school/preparation/adjusting-new-school.gs?content=25" ><span class="underlineText">Make the adjustment</span></a>
+                        <p class="gamePlanBoldText">Ready (or not) for school? </p> <a href="#quiz" ><span class="underlineText">Find out</span></a>
                         <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="underlineText">Nine steps</span></a> to a smart start.
                     </div>
                     <div id="smartContent">
