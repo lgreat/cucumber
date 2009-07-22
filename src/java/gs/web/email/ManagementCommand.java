@@ -102,6 +102,10 @@ public class ManagementCommand {
     private boolean sponsor;
     private int sponsorId;
 
+    //variable for pledge
+    private boolean pledge;
+    private int pledgeId;
+
     private boolean tooManySchoolsError = false;
 
     public boolean isTooManySchoolsError() {
@@ -574,6 +578,22 @@ public class ManagementCommand {
 
     public void setSponsorId(int sponsorId) {
         this.sponsorId = sponsorId;
+    }
+
+    public boolean isPledge() {
+        return pledge;
+    }
+
+    public void setPledge(boolean pledge) {
+        this.pledge = pledge;
+    }
+
+    public int getPledgeId() {
+        return pledgeId;
+    }
+
+    public void setPledgeId(int pledgeId) {
+        this.pledgeId = pledgeId;
     }
 
     public String getSchoolName() {

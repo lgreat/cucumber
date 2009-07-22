@@ -332,6 +332,23 @@
                         </div>
                     </div>
 
+                    <c:set var="showPledge" value="${ emailCmd.pledge ? 'showIt' : 'hideIt' }"/>
+
+                    <div id="chooser" class="${showPledge}">
+                        <div class="rule"><!-- don't collapse --></div>
+
+                        <div>
+                            <img src="/res/img/email/momgirl.jpg" alt="mom with kid" class="newsletterImage"/>
+
+                            <div class="newsletterInfo">
+                                <div class="newsletterHeader">Send me updates about the GreatSchools Parents Pledge</div>
+                                <form:checkbox path="pledge" cssClass="newsletterCheckbox" id="pledge_checkbox"/>
+                                <label for="pledge_checkbox">Subscribe to this newsletter</label>
+                                <form:hidden path="pledgeId"/>
+                            </div>
+                        </div>
+                    </div>
+
                     <gsml:inputImage src="/res/img/email/btn_savesettings.png" alt="submit"
                                      name="submit" id="save"/>
                 </td>

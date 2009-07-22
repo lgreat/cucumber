@@ -131,6 +131,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
                 }else if(s.getProduct().equals(SubscriptionProduct.SPONSOR_OPT_IN)){
                     command.setSponsor(true);
                     command.setSponsorId(s.getId());
+                }else if(s.getProduct().equals(SubscriptionProduct.PLEDGE)){
+                    command.setPledge(true);
+                    command.setPledgeId(s.getId());
                 }
             }
         }
@@ -306,6 +309,14 @@ public class ManagementController extends SimpleFormController implements ReadWr
             _subscriptionDao.removeSubscription(command.getSponsorId());
         }
 
+        if((!(command.getPledgeId() >0)) && command.isPledge()){
+            Subscription s = new Subscription(user,SubscriptionProduct.PLEDGE, state);
+            subscriptions.add(s);
+        }
+        if(command.getPledgeId() >0 && !command.isPledge()){
+            _subscriptionDao.removeSubscription(command.getPledgeId());
+        }
+
         List<String> messages = new ArrayList<String>();
         updateMessages(command, messages);
 
@@ -454,6 +465,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if (command.isSponsor()) {
             messages.add("Valuable offers and information from GreatSchools' partners");
+        }
+        if (command.isPledge()) {
+            messages.add("Updates about the GreatSchools Parents Pledge");
         }
     }
 
