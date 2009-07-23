@@ -118,6 +118,10 @@ public class ArticlesByCategoryController extends AbstractController {
         } else {
             // cms category
             model = handleCmsCategoryRequest(request, page);
+            List<CmsCategory> topics = (List<CmsCategory>)model.get(MODEL_TOPICS);
+            List<CmsCategory> grades = (List<CmsCategory>)model.get(MODEL_GRADES);
+            List<CmsCategory> subjects = (List<CmsCategory>)model.get(MODEL_SUBJECTS);
+            setAdTargetingForTopicsGradesSubjects(request, topics, grades, subjects);
         }
 
         model.put(MODEL_PAGE, page);
@@ -145,6 +149,19 @@ public class ArticlesByCategoryController extends AbstractController {
         if (GRADE_LEVEL_PAGES_AD_TARGETS.containsKey(category.getId())) {
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, GRADE_LEVEL_PAGES_AD_TARGETS.get(category.getId()));
+        }
+    }
+
+    protected void setAdTargetingForTopicsGradesSubjects(HttpServletRequest request, List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects) {
+        List<CmsCategory> categories = new ArrayList<CmsCategory>();
+        categories.addAll(topics);
+        categories.addAll(grades);
+        categories.addAll(subjects);
+
+        // Google Ad Manager ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        for (CmsCategory category : categories) {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
         }
     }
 
@@ -201,6 +218,11 @@ public class ArticlesByCategoryController extends AbstractController {
             storeResultsForCmsCategory(category, model, page, strict, excludeContentKey, language);
 
             model.put(MODEL_CATEGORY, category);
+
+            // temporarily here to not break ad targeting code
+            model.put(MODEL_TOPICS, topics);
+            model.put(MODEL_GRADES, grades);
+            model.put(MODEL_SUBJECTS, subjects);
         }
 
         return model;
