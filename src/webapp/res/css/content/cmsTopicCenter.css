@@ -135,10 +135,8 @@
 }
 
 #topicNavigation ul {
-    font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align:right;
     padding:0 0 20px 5px;
-    /*overflow:visible;*/
 }
 
 #topicNavigation li {
@@ -153,8 +151,16 @@
     color:#39a;
 }
 
-#topicNavigation .on {
+#topicNavigation li span:hover {
+    text-decoration:underline;
+}
+
+#topicNavigation li .on {
     color:#666;
+}
+
+#topicNavigation li:hover .on {
+    text-decoration:none;
 }
 
 #topicNavigation .highlight {
@@ -179,14 +185,11 @@
 }
 
 .topic {
-    /*min-height:300px;*/
     overflow:auto;
 }
 
 #topicContent .topicImage {
     float:right;
-    /*width:130px; height:150px;
-    outline:1px solid #00f;*/
     margin:0 25px;
 }
 
