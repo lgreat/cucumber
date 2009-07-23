@@ -23,25 +23,8 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>
-        <c:choose>
-            <c:when test="${not empty requestScope.subcategory.typeDisplay}">
-                ${requestScope.subcategory.typeDisplay}
-            </c:when>
-            <c:when test="${not empty category.name}">
-                ${category.name}
-            </c:when>
-        </c:choose>
-        articles | GreatSchools
-    </title>
-    <c:choose>
-        <c:when test="${not empty requestScope.subcategory.typeDisplay}">
-            <meta name="keywords" content="${requestScope.subcategory.typeDisplay}"/>
-        </c:when>
-        <c:when test="${not empty category.name}">
-            <meta name="keywords" content="${category.name}"/>            
-        </c:when>
-    </c:choose>
+    <title>Browse articles | GreatSchools</title>
+    <meta name="robots" content="follow,noindex"/>
 </head>
 
 <gsml:body adPageName="articleCategory">
