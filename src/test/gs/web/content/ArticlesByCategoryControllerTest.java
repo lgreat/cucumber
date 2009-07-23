@@ -48,7 +48,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         _controller.setSearcher(_searcher);
 
         _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
-        _cmsCategoryDao.setSearcher(_searcher);
+        //_cmsCategoryDao.setSearcher(_searcher);
         _controller.setCmsCategoryDao(_cmsCategoryDao);
 
         _controller.setGetParents(true);
@@ -442,9 +442,16 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
     public void testHandleRequestInternalCms() {
         getRequest().setRequestURI("/articles/blah-blah");
 
+        expect(_cmsCategoryDao.getCmsCategoriesFromIds(null)).andReturn(new ArrayList<CmsCategory>());
+        expect(_cmsCategoryDao.getCmsCategoriesFromIds(null)).andReturn(new ArrayList<CmsCategory>());
+        expect(_cmsCategoryDao.getCmsCategoriesFromIds(null)).andReturn(new ArrayList<CmsCategory>());
+        expect(_cmsCategoryDao.getCmsCategoryFromURI("/articles/blah-blah")).andReturn(null);
+
+        replay(_cmsCategoryDao);
         replay(_dao);
         replay(_searcher);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_cmsCategoryDao);
         verify(_dao);
         verify(_searcher);
 
