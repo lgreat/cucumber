@@ -42,6 +42,9 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOTAL_HITS = "total";
     protected static final String MODEL_ISA_LD_CATEGORY = "isAnLDCategory";
     protected static final String MODEL_CATEGORY = "category";
+    protected static final String MODEL_TOPICS = "topics";
+    protected static final String MODEL_GRADES = "grades";
+    protected static final String MODEL_SUBJECTS = "subjects";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -59,6 +62,9 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String PARAM_STRICT = "strict";
     /** Language (e.g. "ES" or "EN") to limit matches to */
     public static final String PARAM_LANGUAGE = "language";
+    public static final String PARAM_TOPICS = "topics";
+    public static final String PARAM_GRADES = "grades";
+    public static final String PARAM_SUBJECTS = "subjects";
 
     /** Results per page */
     public static final int PAGE_SIZE = 10;
@@ -156,6 +162,7 @@ public class ArticlesByCategoryController extends AbstractController {
         String type = request.getParameter(PARAM_EXCLUDE_TYPE);
         String contentId = request.getParameter(PARAM_EXCLUDE_CONTENT_ID);
         String strictStr = request.getParameter(PARAM_STRICT);
+
         if (StringUtils.isNotBlank(strictStr)) {
             strict = Boolean.parseBoolean(strictStr);
         }
@@ -165,26 +172,111 @@ public class ArticlesByCategoryController extends AbstractController {
             excludeContentKey.setIdentifier(Long.parseLong(contentId));
         }
 
-        CmsCategory category;
-        // used by more-in module
-        if (StringUtils.isNotBlank(categoryId)) {
-            category = _cmsCategoryDao.getCmsCategoryFromId(Integer.parseInt(categoryId));
-        // used by browse category page
+        List<CmsCategory> topics = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_TOPICS));
+        List<CmsCategory> grades = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_GRADES));
+        List<CmsCategory> subjects = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
+
+        if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
+            storeResultsForCmsCategories(topics, grades, subjects, model, page, excludeContentKey, language);
+
+            model.put(MODEL_TOPICS, topics);
+            model.put(MODEL_GRADES, grades);
+            model.put(MODEL_SUBJECTS, subjects);
         } else {
-            // determine category from full URI using lucene
-            category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
+            CmsCategory category;
+            // used by more-in module
+            if (StringUtils.isNotBlank(categoryId)) {
+                category = _cmsCategoryDao.getCmsCategoryFromId(Integer.parseInt(categoryId));
+            // used by browse category page
+            } else {
+                // determine category from full URI using lucene
+                category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
+            }
+
+            if (category == null) {
+                return model; // early exit!
+            }
+
+            // use category id to search for articles with category of id
+            storeResultsForCmsCategory(category, model, page, strict, excludeContentKey, language);
+
+            model.put(MODEL_CATEGORY, category);
         }
-
-        if (category == null) {
-            return model; // early exit!
-        }
-
-        // use category id to search for articles with category of id
-        storeResultsForCmsCategory(category, model, page, strict, excludeContentKey, language);
-
-        model.put(MODEL_CATEGORY, category);
 
         return model;
+    }
+
+    /**
+     * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
+     * will not populate those variables.
+     */
+    protected void storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, ContentKey excludeContentKey, String language) {
+        // set up search query
+        // articles should be in the particular category
+        BooleanQuery bq = new BooleanQuery();
+
+        for (CmsCategory category : topics) {
+            TermQuery term = new TermQuery(
+                    new Term(Indexer.CMS_TOPIC_ID, String.valueOf(category.getId())));
+            bq.add(term, BooleanClause.Occur.MUST);            
+        }
+
+        for (CmsCategory category : grades) {
+            TermQuery term = new TermQuery(
+                    new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
+            bq.add(term, BooleanClause.Occur.MUST);
+        }
+
+        for (CmsCategory category : subjects) {
+            TermQuery term = new TermQuery(
+                    new Term(Indexer.CMS_SUBJECT_ID, String.valueOf(category.getId())));
+            bq.add(term, BooleanClause.Occur.MUST);
+        }
+
+        if (excludeContentKey != null) {
+            TermQuery excludeContentKeyTerm = new TermQuery(
+                    new Term(Indexer.ID, excludeContentKey.toString()));
+            bq.add(excludeContentKeyTerm, BooleanClause.Occur.MUST_NOT);
+        }
+
+        if (language != null) {
+            TermQuery languageTerm = new TermQuery(
+                    new Term(Indexer.LANGUAGE, language));
+            bq.add(languageTerm, BooleanClause.Occur.MUST);
+        }
+
+        List<CmsCategory> categories = new ArrayList<CmsCategory>();
+        categories.addAll(topics);
+        categories.addAll(grades);
+        categories.addAll(subjects);
+
+        // This should give higher placement to articles with terms from the category name in their title
+        for (CmsCategory category : categories) {
+            String typeDisplay = category.getName();
+            if (StringUtils.isNotBlank(typeDisplay)) {
+                try {
+                    Query titleQuery = _titleParser.parse(typeDisplay);
+                    bq.add(titleQuery, BooleanClause.Occur.SHOULD);
+                } catch (ParseException pe) {
+                    _log.warn("Couldn't parse article category.", pe);
+                }
+            }
+        }
+
+        // Filter to only CMS features
+        Filter typeFilter;
+        typeFilter = new CachingWrapperFilter(new QueryFilter(new TermQuery(
+                    new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
+
+        // execute search
+        Hits hits = _searcher.search(bq, null, null, typeFilter);
+
+        // pass hits object through ResultsPager to paginate and stuff in model as MODEL_RESULTS
+        if (hits != null && hits.length() > 0) {
+            model.put(MODEL_TOTAL_HITS, hits.length());
+            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
+            model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
+        }
     }
 
     /**
