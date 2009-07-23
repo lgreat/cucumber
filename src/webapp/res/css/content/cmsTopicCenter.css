@@ -253,7 +253,7 @@
     width:615px;
     float:left;
     padding:25px 0 40px 0;
-    background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 0 25px;
+    /*background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 0 25px;*/
 }
 
 /* -------------------- */
@@ -280,11 +280,26 @@
 #communityContent {
     float:right;
     width:480px;
-    padding:0 0 0 5px;
+    background:url(/res/img/box/tc_sides.gif) repeat-y;
+    padding:0;
+}
+
+#communityContent .communityImage {
+    float:right;
+    margin:0 25px;
+    border-left: 15px solid white;
+    /*outline:1px solid red;*/
+}
+
+#communityContent h2 {
+    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    padding:0 25px;
 }
 
 #communityContent ul {
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    padding: 5px 25px 0 25px;
 }
 
 #communityContent li {
@@ -299,7 +314,7 @@
 
 #communityContent .more {
     float:right;
-    padding:10px 0;
+    padding:10px 30px 10px 0;
 }
 
 /* --- */
