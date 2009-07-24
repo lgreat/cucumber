@@ -53,8 +53,12 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String PARAM_ID = "id";
 
     // CMS features only:
-    /** CMS category ID */
-    public static final String PARAM_CATEGORY_ID = "categoryId";
+    /** CMS topic IDs, comma-separated */
+    public static final String PARAM_TOPICS = "topics";
+    /** CMS grade IDs, comma-separated */
+    public static final String PARAM_GRADES = "grades";
+    /** CMS subject IDs, comma-separated */
+    public static final String PARAM_SUBJECTS = "subjects";
     /** CMS feature type (i.e. article or askTheExperts) to exclude - must be used with PARAM_EXCLUDE_CONTENT_ID */
     public static final String PARAM_EXCLUDE_TYPE = "excludeType";
     /** CMS content identifier (i.e. ID number of article or askTheExperts) to exclude - must be used with PARAM_EXCLUDE_TYPE*/
@@ -63,9 +67,6 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String PARAM_STRICT = "strict";
     /** Language (e.g. "ES" or "EN") to limit matches to */
     public static final String PARAM_LANGUAGE = "language";
-    public static final String PARAM_TOPICS = "topics";
-    public static final String PARAM_GRADES = "grades";
-    public static final String PARAM_SUBJECTS = "subjects";
 
     /** Results per page */
     public static final int PAGE_SIZE = 10;
@@ -170,7 +171,6 @@ public class ArticlesByCategoryController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
         String language = request.getParameter(PARAM_LANGUAGE);
 
-        String categoryId = request.getParameter(PARAM_CATEGORY_ID);
         boolean strict = false;
         ContentKey excludeContentKey = null;
 
@@ -190,40 +190,10 @@ public class ArticlesByCategoryController extends AbstractController {
         List<CmsCategory> topics = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_TOPICS));
         List<CmsCategory> grades = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_GRADES));
         List<CmsCategory> subjects = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
-        List<CmsCategory> categories = new ArrayList<CmsCategory>();
 
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
-            categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, excludeContentKey, language);
+            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language);
 
-            model.put(MODEL_TOPICS, topics);
-            model.put(MODEL_GRADES, grades);
-            model.put(MODEL_SUBJECTS, subjects);
-            model.put(MODEL_CATEGORIES, categories);
-        } else {
-            // TODO - remove me
-            CmsCategory category;
-            // used by more-in module
-            if (StringUtils.isNotBlank(categoryId)) {
-                category = _cmsCategoryDao.getCmsCategoryFromId(Integer.parseInt(categoryId));
-            // used by browse category page
-            } else {
-                // determine category from full URI using lucene
-                category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
-            }
-
-            if (category == null) {
-                return model; // early exit!
-            }
-
-            // use category id to search for articles with category of id
-            storeResultsForCmsCategory(category, model, page, strict, excludeContentKey, language);
-
-            model.put(MODEL_CATEGORY, category);
-
-            topics.add(category);
-            categories.add(category);
-
-            // temporarily here to not break ad targeting code
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
@@ -237,15 +207,27 @@ public class ArticlesByCategoryController extends AbstractController {
      * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
      * will not populate those variables.
      */
-    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, ContentKey excludeContentKey, String language) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language) {
         // set up search query
         // articles should be in the particular category
         BooleanQuery bq = new BooleanQuery();
 
         for (CmsCategory category : topics) {
-            TermQuery term = new TermQuery(
-                    new Term(Indexer.CMS_TOPIC_ID, String.valueOf(category.getId())));
-            bq.add(term, BooleanClause.Occur.MUST);            
+            BooleanQuery innerBq = new BooleanQuery();
+            TermQuery primaryCategoryTerm = new TermQuery(
+                    new Term(Indexer.CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId())));
+            // set boost on term to give primary category precedence
+            primaryCategoryTerm.setBoost(99f); // default boost is 1.0
+            innerBq.add(primaryCategoryTerm, BooleanClause.Occur.SHOULD);
+
+            if (!strict) {
+                // OR articles can just be tagged with the particular category
+                TermQuery secondaryCategoryTerm = new TermQuery(
+                        new Term(Indexer.CMS_TOPIC_ID, String.valueOf(category.getId())));
+                innerBq.add(secondaryCategoryTerm, BooleanClause.Occur.SHOULD);
+            }
+
+            bq.add(innerBq, BooleanClause.Occur.MUST);
         }
 
         for (CmsCategory category : grades) {

@@ -140,7 +140,7 @@
                                         <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText} &amp;raquo;</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <link:cmsCategoryBrowse categoryId="${subtopic.kategory.id}"
+                                        <link:cmsCategoryBrowse topicIDs="${subtopic.kategory.id}"
                                                                 language="${param.language}">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
                                     </c:otherwise>
                                 </c:choose>
@@ -158,7 +158,7 @@
                                 <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
                                 </c:when>
                                 <c:otherwise>
-                                     <h4><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
+                                     <h4><link:cmsCategoryBrowse topicIDs="${section.kategory.id}"
                                                                 language="${param.language}">${section.title}</link:cmsCategoryBrowse></h4>
                                 </c:otherwise>
                             </c:choose>
@@ -187,7 +187,7 @@
                                         <span><a href="${section.moreLink.url}">${section.moreLinkText} &amp;raquo;</a></span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span><link:cmsCategoryBrowse categoryId="${section.kategory.id}"
+                                        <span><link:cmsCategoryBrowse topicIDs="${section.kategory.id}"
                                                                 language="${param.language}">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
                                     </c:otherwise>
                                 </c:choose>

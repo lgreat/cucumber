@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.169 2009/07/15 18:37:33 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.170 2009/07/24 19:37:31 yfan Exp $
  */
 
 package gs.web.util;
@@ -674,25 +674,35 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(CmsCategory category, String language, VPage page) {
+    /**
+     * Url for CMS-driven browse-content-by-category page
+     * @param page Must be UrlBuilder.CMS_CATEGORY_BROWSE
+     * @param topics Comma-separated list of topic IDs
+     * @param grades Comma-separated list of grade IDs
+     * @param subjects Comma-separated list of subject IDs
+     * @param language
+     */
+    public UrlBuilder(VPage page, String topicIDs, String gradeIDs, String subjectIDs, String language) {
         if (CMS_CATEGORY_BROWSE.equals(page)) {
-            _perlPage = false;
-            if (category != null) {
-                _path = "/articles/" + category.getFullUri() +
-                        (StringUtils.isNotBlank(language) ? "?language=" + language : "");
+            StringBuilder s = new StringBuilder();
+            if (StringUtils.isNotBlank(topicIDs)) {
+                s.append("topics=").append(topicIDs);
             }
-        } else {
-            throw new IllegalArgumentException("VPage unknown" + page);
-        }
-    }
-
-    public UrlBuilder(int categoryId, String language, VPage page) {
-        ICmsCategoryDao cmsCategoryDao = (ICmsCategoryDao) SpringUtil.getApplicationContext().getBean(ICmsCategoryDao.BEAN_ID);
-        CmsCategory category = cmsCategoryDao.getCmsCategoryFromId(categoryId);
-        if (CMS_CATEGORY_BROWSE.equals(page)) {
+            if (StringUtils.isNotBlank(gradeIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("grades=").append(gradeIDs);
+            }
+            if (StringUtils.isNotBlank(subjectIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("subjects=").append(subjectIDs);
+            }
             _perlPage = false;
-            _path = "/articles/" + category.getFullUri() +
-                (StringUtils.isNotBlank(language) ? "?language=" + language : "");
+            _path = "/articles/?" + s.toString() +
+                        (StringUtils.isNotBlank(language) ? "&language=" + language : "");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

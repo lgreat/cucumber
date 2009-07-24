@@ -52,7 +52,7 @@
                 </c:forEach>
 
                 <c:if test="${numResults gt maxResults}">
-                    <link:cmsCategoryBrowse categoryId="${category.id}" language="${param.language}"><span
+                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
                             class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
                 </c:if>
             </div>

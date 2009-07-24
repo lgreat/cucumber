@@ -181,11 +181,25 @@
             <![CDATA[Link to a CMS category browse page.]]>
         </description>
         <attribute>
-            <name>categoryId</name>
-            <required>true</required>
+            <name>topicIDs</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>CMS category id</description>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of topic IDs</description>
+        </attribute>
+        <attribute>
+            <name>gradeIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of grade IDs</description>
+        </attribute>
+        <attribute>
+            <name>subjectIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of subject IDs</description>
         </attribute>
         <attribute>
             <name>language</name>

@@ -420,7 +420,7 @@
 </div> <!-- end #content -->
 </div> <!-- end #main -->
 <div id="rightColumn">
-    <jsp:include page="/content/cms/moreInCategory.module?categoryId=${feature.primaryKategory.id}&amp;excludeType=${
+    <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
             feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
     <c:choose>

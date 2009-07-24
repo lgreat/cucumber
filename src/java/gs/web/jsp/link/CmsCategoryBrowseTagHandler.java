@@ -7,38 +7,37 @@ import gs.data.util.SpringUtil;
 import org.apache.commons.lang.StringEscapeUtils;
 
 public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
-    private CmsCategory _category;
-    private int _categoryId;
     private String _language;
-    private static ICmsCategoryDao _cmsCategoryDao;
-
-    static {
-        _cmsCategoryDao = (ICmsCategoryDao) SpringUtil.getApplicationContext().getBean(ICmsCategoryDao.BEAN_ID);
-    }
-
-    public CmsCategoryBrowseTagHandler() {
-        _category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
-    }
-
-    /**
-     Not currently supported: default link text must be provided
-     */
-    @Override
-    protected String getDefaultLinkText() {
-        return StringEscapeUtils.escapeHtml(_category.getName());
-    }
+    private String _topicIDs;
+    private String _gradeIDs;
+    private String _subjectIDs;
 
     protected UrlBuilder createUrlBuilder() {
-        _category = _cmsCategoryDao.getCmsCategoryFromId(_categoryId);
-        return new UrlBuilder(_category, _language, UrlBuilder.CMS_CATEGORY_BROWSE);
+        return new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, _topicIDs, _gradeIDs, _subjectIDs, _language);
     }
 
-    public int getCategoryId() {
-        return _categoryId;
+    public String getTopicIDs() {
+        return _topicIDs;
     }
 
-    public void setCategoryId(int categoryId) {
-        _categoryId = categoryId;
+    public void setTopicIDs(String topicIDs) {
+        _topicIDs = topicIDs;
+    }
+
+    public String getGradeIDs() {
+        return _gradeIDs;
+    }
+
+    public void setGradeIDs(String gradeIDs) {
+        _gradeIDs = gradeIDs;
+    }
+
+    public String getSubjectIDs() {
+        return _subjectIDs;
+    }
+
+    public void setSubjectIDs(String subjectIDs) {
+        _subjectIDs = subjectIDs;
     }
 
     public String getLanguage() {
@@ -47,13 +46,5 @@ public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
 
     public void setLanguage(String language) {
         _language = language;
-    }
-
-    public ICmsCategoryDao getCmsCategoryDao() {
-        return _cmsCategoryDao;
-    }
-
-    public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
-        _cmsCategoryDao = cmsCategoryDao;
     }
 }
