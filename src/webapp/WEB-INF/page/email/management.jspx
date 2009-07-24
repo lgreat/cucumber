@@ -341,7 +341,7 @@
                             <img src="/res/img/email/momgirl.jpg" alt="mom with kid" class="newsletterImage"/>
 
                             <div class="newsletterInfo">
-                                <div class="newsletterHeader">Send me updates about the GreatSchools Parents Pledge</div>
+                                <div class="newsletterHeader">Send me updates about The GreatSchools Parents Pledge</div>
                                 <form:checkbox path="pledge" cssClass="newsletterCheckbox" id="pledge_checkbox"/>
                                 <label for="pledge_checkbox">Subscribe to this newsletter</label>
                                 <form:hidden path="pledgeId"/>
