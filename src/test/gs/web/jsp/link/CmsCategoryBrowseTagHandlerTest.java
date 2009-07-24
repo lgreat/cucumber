@@ -25,7 +25,7 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
         _handler.doAfterBody();
         _handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a href=\"/articles/?topics=1&language=ES\"></a>",
+        assertEquals("<a href=\"/articles/?topics=1&amp;language=ES\"></a>",
                 out.getOutputBuffer().toString());
     }
 
