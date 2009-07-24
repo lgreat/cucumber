@@ -70,6 +70,7 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final int PAGE_SIZE = 10;
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
+    public static final String GAM_AD_ATTRIBUTE_KEY_CATEGORY_ID = "category_id";
 
     private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
@@ -154,14 +155,21 @@ public class ArticlesByCategoryController extends AbstractController {
 
     protected void setAdTargetingForTopicsGradesSubjects(HttpServletRequest request, List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects) {
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
-        categories.addAll(topics);
-        categories.addAll(grades);
-        categories.addAll(subjects);
+        if (topics != null) {
+            categories.addAll(topics);
+        }
+        if (grades != null) {
+            categories.addAll(grades);
+        }
+        if (subjects != null) {
+            categories.addAll(subjects);
+        }
 
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         for (CmsCategory category : categories) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY_CATEGORY_ID, String.valueOf(category.getId()));
         }
     }
 
