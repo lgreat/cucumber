@@ -467,7 +467,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             messages.add("Valuable offers and information from GreatSchools' partners");
         }
         if (command.isPledge()) {
-            messages.add("Updates about the GreatSchools Parents Pledge");
+            messages.add("Updates about The GreatSchools Parents Pledge");
         }
     }
 
