@@ -198,6 +198,10 @@ public class ArticlesByCategoryController extends AbstractController {
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
             model.put(MODEL_CATEGORIES, categories);
+
+            if (topics.size() == 1) {
+                model.put(MODEL_CATEGORY, topics.get(0));
+            }
         }
 
         return model;
