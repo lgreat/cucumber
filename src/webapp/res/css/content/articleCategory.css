@@ -30,7 +30,6 @@
 #col_left {
     padding-left: 10px;
     width:440px;
-    margin-top:8px;
 }
 
 * html #col_left {
@@ -38,12 +37,21 @@
 }
 
 #col_left h1 {
-    font-family: "Times New Roman", Arial, sans-serif;
-    font-weight: bold;
-    font-size: 25px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-weight: normal;
     color: #666666;
-    margin: 15px 0 20px 0;
-    line-height:25px;
+    margin: 12px 0 10px 0;
+}
+
+#col_left h1 .prefix {
+    font-size: 13px;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+}
+
+#col_left h1 .categories {
+    font-size: 20px;
+    line-height: 25px;
 }
 
 div.abstract {
@@ -52,6 +60,10 @@ div.abstract {
     font-size: 13px;
     color: #666666;
     padding-left: 0;
+}
+
+#searchResultsList .result {
+    padding-left:3px;
 }
 
 /* pagination controls */

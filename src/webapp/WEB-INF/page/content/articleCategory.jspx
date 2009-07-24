@@ -68,8 +68,8 @@
             ${category.name}
         </c:when>
         <c:when test="${not empty categories}">
-            Articles about:
-            <div id="categories">
+            <div class="prefix">Articles about:</div>
+            <div class="categories">
                 <c:forEach var="category" items="${categories}" varStatus="status">
                     <link:cmsCategoryBrowse categoryId="${category.id}" language="${param.language}">
                         ${category.name}</link:cmsCategoryBrowse><c:if test="${fn:length(categories) gt 1}"><c:choose>
