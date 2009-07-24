@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.170 2009/07/24 19:37:31 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.171 2009/07/24 19:55:13 yfan Exp $
  */
 
 package gs.web.util;
@@ -677,9 +677,9 @@ public class UrlBuilder {
     /**
      * Url for CMS-driven browse-content-by-category page
      * @param page Must be UrlBuilder.CMS_CATEGORY_BROWSE
-     * @param topics Comma-separated list of topic IDs
-     * @param grades Comma-separated list of grade IDs
-     * @param subjects Comma-separated list of subject IDs
+     * @param topicIDs Comma-separated list of topic IDs
+     * @param gradeIDs Comma-separated list of grade IDs
+     * @param subjectIDs Comma-separated list of subject IDs
      * @param language
      */
     public UrlBuilder(VPage page, String topicIDs, String gradeIDs, String subjectIDs, String language) {
