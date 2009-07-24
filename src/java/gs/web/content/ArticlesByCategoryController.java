@@ -153,6 +153,9 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
     protected void setAdTargetingForCmsCategories(HttpServletRequest request, List<CmsCategory> categories) {
+        if (categories == null) {
+            return;
+        }
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         for (CmsCategory category : categories) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
