@@ -42,6 +42,7 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOTAL_HITS = "total";
     protected static final String MODEL_ISA_LD_CATEGORY = "isAnLDCategory";
     protected static final String MODEL_CATEGORY = "category";
+    protected static final String MODEL_CATEGORIES = "categories";
     protected static final String MODEL_TOPICS = "topics";
     protected static final String MODEL_GRADES = "grades";
     protected static final String MODEL_SUBJECTS = "subjects";
@@ -119,10 +120,8 @@ public class ArticlesByCategoryController extends AbstractController {
         } else {
             // cms category
             model = handleCmsCategoryRequest(request, page);
-            List<CmsCategory> topics = (List<CmsCategory>)model.get(MODEL_TOPICS);
-            List<CmsCategory> grades = (List<CmsCategory>)model.get(MODEL_GRADES);
-            List<CmsCategory> subjects = (List<CmsCategory>)model.get(MODEL_SUBJECTS);
-            setAdTargetingForTopicsGradesSubjects(request, topics, grades, subjects);
+            List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
+            setAdTargetingForCmsCategories(request, categories);
         }
 
         model.put(MODEL_PAGE, page);
@@ -153,19 +152,7 @@ public class ArticlesByCategoryController extends AbstractController {
         }
     }
 
-    protected void setAdTargetingForTopicsGradesSubjects(HttpServletRequest request, List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects) {
-        List<CmsCategory> categories = new ArrayList<CmsCategory>();
-        if (topics != null) {
-            categories.addAll(topics);
-        }
-        if (grades != null) {
-            categories.addAll(grades);
-        }
-        if (subjects != null) {
-            categories.addAll(subjects);
-        }
-
-        // Google Ad Manager ad keywords
+    protected void setAdTargetingForCmsCategories(HttpServletRequest request, List<CmsCategory> categories) {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         for (CmsCategory category : categories) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
@@ -200,14 +187,17 @@ public class ArticlesByCategoryController extends AbstractController {
         List<CmsCategory> topics = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_TOPICS));
         List<CmsCategory> grades = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_GRADES));
         List<CmsCategory> subjects = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
+        List<CmsCategory> categories = new ArrayList<CmsCategory>();
 
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
-            storeResultsForCmsCategories(topics, grades, subjects, model, page, excludeContentKey, language);
+            categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, excludeContentKey, language);
 
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
+            model.put(MODEL_CATEGORIES, categories);
         } else {
+            // TODO - remove me
             CmsCategory category;
             // used by more-in module
             if (StringUtils.isNotBlank(categoryId)) {
@@ -227,10 +217,14 @@ public class ArticlesByCategoryController extends AbstractController {
 
             model.put(MODEL_CATEGORY, category);
 
+            topics.add(category);
+            categories.add(category);
+
             // temporarily here to not break ad targeting code
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
+            model.put(MODEL_CATEGORIES, categories);
         }
 
         return model;
@@ -240,7 +234,7 @@ public class ArticlesByCategoryController extends AbstractController {
      * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
      * will not populate those variables.
      */
-    protected void storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, ContentKey excludeContentKey, String language) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, ContentKey excludeContentKey, String language) {
         // set up search query
         // articles should be in the particular category
         BooleanQuery bq = new BooleanQuery();
@@ -276,9 +270,15 @@ public class ArticlesByCategoryController extends AbstractController {
         }
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
-        categories.addAll(topics);
-        categories.addAll(grades);
-        categories.addAll(subjects);
+        if (topics != null) {
+            categories.addAll(topics);
+        }
+        if (grades != null) {
+            categories.addAll(grades);
+        }
+        if (subjects != null) {
+            categories.addAll(subjects);
+        }
 
         // This should give higher placement to articles with terms from the category name in their title
         for (CmsCategory category : categories) {
@@ -307,6 +307,8 @@ public class ArticlesByCategoryController extends AbstractController {
             ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
             model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
         }
+
+        return categories;
     }
 
     /**
