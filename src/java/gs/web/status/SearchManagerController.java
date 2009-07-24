@@ -72,6 +72,15 @@ public class SearchManagerController extends AbstractController {
                         states.add(State.CA);
                         states.add(State.NY);
                         states.add(State.WY);
+                    } else if (request.getParameter("ak") != null) {
+                        states = new ArrayList();
+                        states.add(State.AK);
+                    } else if (request.getParameter("ca") != null) {
+                        states = new ArrayList();
+                        states.add(State.CA);
+                    } else if (request.getParameter("wy") != null) {
+                        states = new ArrayList();
+                        states.add(State.WY);
                     }
 
                     _indexer.index(states,
