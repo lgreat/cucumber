@@ -76,8 +76,14 @@
                             <c:set var="categoryName" value="${gsweb:toLowerCase(category.name)}"/>
                         </c:otherwise>
                     </c:choose>
-                    <link:cmsCategoryBrowse topicIDs="${category.id}"
-                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse><c:if test="${fn:length(categories) gt 1}"><c:choose>
+                    <c:choose>
+                        <c:when test="${category.type eq 'topic'}"><link:cmsCategoryBrowse topicIDs="${category.id}"
+                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
+                        <c:when test="${category.type eq 'grade'}"><link:cmsCategoryBrowse gradeIDs="${category.id}"
+                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
+                        <c:when test="${category.type eq 'subject'}"><link:cmsCategoryBrowse subjectIDs="${category.id}"
+                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
+                    </c:choose><c:if test="${fn:length(categories) gt 1}"><c:choose>
                     <c:when test="${!status.last and fn:length(categories) eq 2}"> and </c:when>
                     <c:when test="${!status.last and fn:length(categories) gt 2 and status.count lt fn:length(categories)}">,
                         <c:if test="${status.count eq fn:length(categories) - 1}"> and </c:if>
