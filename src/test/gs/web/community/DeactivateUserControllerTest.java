@@ -1,11 +1,13 @@
 package gs.web.community;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
+import gs.data.community.*;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import static org.easymock.EasyMock.*;
 import org.springframework.orm.ObjectRetrievalFailureException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Test class for the DeactivateUserController
@@ -15,6 +17,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 public class DeactivateUserControllerTest extends BaseControllerTestCase {
     private DeactivateUserController _controller;
     private IUserDao _userDao;
+    private ISubscriptionDao _subscriptionDao;
     private User _user;
 
     protected void setUp() throws Exception {
@@ -22,7 +25,9 @@ public class DeactivateUserControllerTest extends BaseControllerTestCase {
         _controller = new DeactivateUserController();
 
         _userDao = createMock(IUserDao.class);
+        _subscriptionDao = createMock(ISubscriptionDao.class);
         _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
 
         _user = new User();
         _user.setId(1);
@@ -31,37 +36,38 @@ public class DeactivateUserControllerTest extends BaseControllerTestCase {
     }
 
     public void testEmptyRequest() throws Exception {
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
+        verifyMocks(_userDao, _subscriptionDao);
         assertEquals("Expect failure", "false", getResponse().getContentAsString());
     }
 
     public void testNoSecretNumber() throws Exception {
         getRequest().setParameter("id", "1");
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
+        verifyMocks(_userDao, _subscriptionDao);
         assertEquals("Expect failure", "false", getResponse().getContentAsString());
     }
 
     public void testGarbledRequest() throws Exception {
         getRequest().setParameter("secret", DeactivateUserController.SECRET_NUMBER);
         getRequest().setParameter("id", "Anthony");
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
-        assertEquals("Expect failure", "false", getResponse().getContentAsString());        
+        verifyMocks(_userDao, _subscriptionDao);
+        assertEquals("Expect failure", "false", getResponse().getContentAsString());
     }
 
     public void testNormalRequest() throws Exception {
         getRequest().setParameter("secret", DeactivateUserController.SECRET_NUMBER);
         getRequest().setParameter("id", "1");
         expect(_userDao.findUserFromId(1)).andReturn(_user);
+        expect(_subscriptionDao.getUserSubscriptions(_user)).andReturn(new ArrayList<Subscription>());
         _userDao.saveUser(_user);
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
+        verifyMocks(_userDao, _subscriptionDao);
         assertEquals("Expect success", "true", getResponse().getContentAsString());
         assertEquals("Expect user to be deactivated", false, _user.getUserProfile().isActive());
     }
@@ -70,9 +76,9 @@ public class DeactivateUserControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("secret", DeactivateUserController.SECRET_NUMBER);
         getRequest().setParameter("id", "2");
         expect(_userDao.findUserFromId(2)).andThrow(new ObjectRetrievalFailureException(User.class, 2));
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
+        verifyMocks(_userDao, _subscriptionDao);
         assertEquals("Expect failure", "false", getResponse().getContentAsString());
     }
 
@@ -83,9 +89,32 @@ public class DeactivateUserControllerTest extends BaseControllerTestCase {
         user.setUserProfile(null);
         user.setId(1);
         expect(_userDao.findUserFromId(1)).andReturn(user);
-        replay(_userDao);
+        replayMocks(_userDao, _subscriptionDao);
         _controller.handleRequest(getRequest(), getResponse());
-        verify(_userDao);
+        verifyMocks(_userDao, _subscriptionDao);
         assertEquals("Expect failure", "false", getResponse().getContentAsString());
+    }
+    
+    public void testDeleteSubscriptions() throws Exception {
+        getRequest().setParameter("secret", DeactivateUserController.SECRET_NUMBER);
+        getRequest().setParameter("id", "1");
+        expect(_userDao.findUserFromId(1)).andReturn(_user);
+        List<Subscription> subs = new ArrayList<Subscription>();
+        Subscription sub1 = new Subscription(_user, SubscriptionProduct.PARENT_ADVISOR, State.CA);
+        sub1.setId(1);
+        subs.add(sub1);
+        Subscription sub2 = new Subscription(_user, SubscriptionProduct.SCHOOL_CHOOSER_PACK_ELEMENTARY, State.CA);
+        sub2.setId(2);
+        subs.add(sub2);
+        expect(_subscriptionDao.getUserSubscriptions(_user)).andReturn(subs);
+        _userDao.saveUser(_user);
+        _subscriptionDao.removeSubscription(1);
+        _subscriptionDao.removeSubscription(2);
+        replayMocks(_userDao, _subscriptionDao);
+        _controller.handleRequest(getRequest(), getResponse());
+        verifyMocks(_userDao, _subscriptionDao);
+        assertEquals("Expect success", "true", getResponse().getContentAsString());
+        assertEquals("Expect user to be deactivated", false, _user.getUserProfile().isActive());
+
     }
 }
