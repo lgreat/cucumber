@@ -102,7 +102,7 @@
         </c:if>
 
         <br style="clear: left;"/>
-        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}" language="${language}"/>
+        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}" language="${language}" topicIDs="${param.topics}" gradeIDs="${param.grades}" subjectIDs="${param.subjects}"/>
     </div>
 
 </div>
