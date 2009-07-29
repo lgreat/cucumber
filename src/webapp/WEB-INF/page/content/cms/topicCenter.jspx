@@ -231,7 +231,7 @@
             </div>
             <div id="communityContent">
             <img src="/res/img/box/tc_top.gif" height="25" width="480" alt="top border"/>
-                <img class="communityImage" src="/res/img/topicCenter/comm_cups.gif" height="150" width="130" alt="topic center community image"/>
+                <img class="communityImage" src="/res/img/topicCenter/topiccente_community.jpg" height="150" width="130" alt="topic center community image"/>
                 <h2>Community</h2>
                 <ul>
                     <c:forEach var="link" items="${topicCenter.communityLinks}">
