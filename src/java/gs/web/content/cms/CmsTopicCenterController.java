@@ -187,7 +187,10 @@ public class CmsTopicCenterController extends AbstractController {
 
         CmsCategory cat = new CmsCategory();
         cat.setName("sub category " + i + "." + j);
-        sub.setKategory(cat);
+        cat.setType("topic");
+        List<CmsCategory> cats = new ArrayList<CmsCategory>();
+        cats.add(cat);
+        sub.setKategories(cats);
 
         List<CmsLink> links = new ArrayList<CmsLink>();
         for (int k = 0; k < 4; k++) {
