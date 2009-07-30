@@ -319,7 +319,7 @@ ul.horizontal li {
 
 .authorPageBar, .licensorAttributionPageBar {
     margin:10px 0;
-    float:left;
+    /*float:left;*/
 }
 
 .authors, .attribution {
