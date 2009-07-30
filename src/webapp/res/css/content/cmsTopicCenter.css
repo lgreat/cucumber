@@ -241,7 +241,8 @@
 #topicContent .more {
     /*outline:1px solid red;*/
     float:right;
-    padding:10px 30px 10px 0;
+    margin:0;
+    padding:8px 30px 5px 0;
     /*border-bottom:1px dotted #999;*/
 }
 
@@ -252,7 +253,7 @@
 #community{
     width:615px;
     float:left;
-    padding:25px 0 40px 0;
+    padding:0 0 15px 0;
     /*background:url(/res/img/topicCenter/topic_center_speech_bubbles.jpg) no-repeat scroll 0 25px;*/
 }
 
@@ -306,16 +307,18 @@
 #communityContent li {
     list-style: none;
     border-bottom:1px dotted #999;
-    padding:10px 0;
+    margin: 5px 0;
+    padding: 5px 0;
 }
 
 #communityContent a {
-    font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:13px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 #communityContent .more {
     float:right;
-    padding:10px 30px 10px 0;
+    margin: 0;
+    padding:7px 30px 5px 0;
 }
 
 /* --- */
