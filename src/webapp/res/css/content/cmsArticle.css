@@ -317,9 +317,13 @@ ul.horizontal li {
 /* ARTICLE AUTHOR AND LICENSOR ATTRIBUTION */
 /* --------------------------------------- */
 
-.authorPageBar, .licensorAttributionPageBar {
+.authorPageBar {
     margin:10px 0;
-    /*float:left;*/
+    float:left;
+}
+
+.licensorAttributionPageBar {
+    margin:10px 0;
 }
 
 .authors, .attribution {
