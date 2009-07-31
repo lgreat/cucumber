@@ -7,11 +7,13 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 import gs.data.content.cms.*;
 import gs.data.cms.IPublicationDao;
 import gs.data.util.CmsUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.VariantConfiguration;
 
 public class CmsTopicCenterController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsTopicCenterController.class);
@@ -68,6 +70,14 @@ public class CmsTopicCenterController extends AbstractController {
 
             model.put("topicCenter", topicCenter);            
         }
+
+        // TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE
+        String abConfiguration = VariantConfiguration.convertABConfigurationToString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        boolean is13_1ReleaseDate = "2009-08-05".equals(dateFormat.format(new Date()));
+        boolean is100PercentAUsers = "A: 100".equals(abConfiguration);
+        model.put("hideMoreLinks", is13_1ReleaseDate && is100PercentAUsers);
+        // TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE
 
         return new ModelAndView(_viewName, model);
     }
