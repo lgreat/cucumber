@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.171 2009/07/24 19:55:13 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.172 2009/08/01 01:26:42 yfan Exp $
  */
 
 package gs.web.util;
@@ -200,6 +200,8 @@ public class UrlBuilder {
     public static final VPage ADMIN_NEWS_ITEMS_CREATE = new VPage("vpage:newItemsCreate");
     public static final VPage ADMIN_NEWS_ITEMS_DELETE = new VPage("vpage:newItemsDelete");
 
+    public static final VPage B2S_POLL_LANDING_PAGE = new VPage("vpage:b2sPollLandingPage");
+
     /**
      * Page that allows users to search for a school in order to add a parent review
      */
@@ -275,6 +277,19 @@ public class UrlBuilder {
      * Api Pages
      */
     public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
+
+    /**
+     * For converting from constant names to the corresponding VPage constants
+     */
+
+    private static Map<String,VPage> vpageConstantObjectMap = new HashMap<String,VPage>();
+    static {
+        vpageConstantObjectMap.put("B2S_POLL_LANDING_PAGE",B2S_POLL_LANDING_PAGE);
+    }
+
+    public static VPage getVPage(String constantName) {
+        return vpageConstantObjectMap.get(constantName);
+    }
 
     /**
      * Creates a builder to the page specified in the provided URL code. This only supports the
@@ -629,6 +644,8 @@ public class UrlBuilder {
             _path = "/schoolfinder/widget/customize.page";
         } else if (SCHOOL_FINDER_WIDGET.equals(page)) {
             _path = SchoolSearchWidgetController.BEAN_ID;
+        } else if (B2S_POLL_LANDING_PAGE.equals(page)) {
+            _path = "/news/back-to-school-poll-results.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

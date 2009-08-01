@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>PAGE TITLE TBD | GreatSchools</title>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/news/backToSchoolPollResults.css"/>
+</head>
+<body>
+
+<div id="main">
+<div id="content">
+<div id="leftColumn">
+    <h1><img src="/res/img/news/backToSchoolPollResults/specialReport.gif" width="101" height="18" alt="Special Report"/>
+        The Economy's Impact on Back-to-School</h1>
+
+    <div class="summary">
+        National Back to School Report finds parents planning to volunteer in schools,
+        shop smarter and reconsider public vs. private school
+    </div>
+
+    <div class="intro">
+
+        <img src="/res/img/news/backToSchoolPollResults/classroomKids.jpg" width="296" height="217" alt="Classroom with kids"/>
+
+        <div class="text">
+            <p>
+                In a groundbreaking new study entitled &quot;The Economy's Impact on Back-to-School&quot;,
+                <b>GreatSchools</b> and <b>Harris Interactive</b> find that parents, worried about education cutbacks, are planning to roll
+                up their sleeves with greater volunteerism and reconsidering what type of school to send their kids.
+            </p>
+
+            <p>
+                As they prepare to go back to school amidst the most challenging economic climate in recent history,
+                with families, state and school budgets stretched tighter than ever, are their best intentions
+                translating into best practices?
+            </p>
+        </div>
+
+    </div>
+
+    <cms:communityDistribution vpage="B2S_POLL_LANDING_PAGE" title="TBD"/>
+
+    <h2>Key Findings from the GreatSchools/Harris Interactive Back-to-School Report</h2>
+
+    <div id="volunteerism" class="findings pie">
+        <div class="graphics">
+            <img src="/res/img/news/backToSchoolPollResults/pieChart1.gif" width="110" height="111" alt="64% agree, 36% disagree"/>
+            <p class="caption">It's more important to volunteer in my child's school now than before.</p>
+        </div>
+        <div class="text">
+            <h3>Planned volunteerism is UP</h3>
+            
+            <p>
+                In the context of current economic challenges, nearly 2 in 3 parents believe it is more important for
+                them to volunteer than before. Compared to 2008, parents plan to increase their volunteering from
+                44% to 53%, with most of the increase coming from women.
+            </p>
+
+            <p class="takeaway">
+                <span class="heading">Quick takeaway:</span>
+                <span class="info">
+                    20% increase of planned volunteerism from 2008
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="divider clear">
+        <hr/>
+    </div>
+
+    <div id="cutbacks" class="findings pie">
+        <div class="graphics">
+            <img src="/res/img/news/backToSchoolPollResults/pieChart2.gif" width="108" height="107" alt="61% agree, 39% disagree"/>
+            <p class="caption">The quality of education at my child's school will suffer because of school cutbacks.</p>
+        </div>
+        <div class="text">
+            <h3>Parents worried about education cutbacks, reconsidering where to send their kids</h3>
+
+            <p>
+                3 in 5 parents believe the quality of education will suffer because of school cutbacks.
+                1 in 4 parents is reconsidering what type of school (public vs. private) to send their kids, a trend
+                most prominent among lower income, non-rural parents. This perception is seen equally among
+                private school and public school parents.
+            </p>
+
+            <p class="takeaway">
+                <span class="heading">Quick takeaway:</span>
+                <span class="info">
+                    Nearly 1 in 4 parents are reconsidering the type of school (public vs. private)
+                    to send child as a result of the economy.
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="divider clear">
+        <hr/>
+    </div>
+
+    <div id="shop" class="findings bar">
+        <div class="graphics">
+            <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
+            <p>Use Web to find special offers</p>
+            <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
+            <p>Set a strict budget and stick to it</p>
+            <img src="/res/img/news/backToSchoolPollResults/26percent.gif" width="83" height="29" alt="26 percent"/>
+            <p>Delay buying supplies until after school starts</p>
+            <img src="/res/img/news/backToSchoolPollResults/57percent.gif" width="175" height="29" alt="57 percent"/>
+            <p>Reuse portions of last year's school supplies</p>
+
+            <p class="caption">Cost saving steps parents plan this year</p>
+        </div>
+        <div class="text">
+            <h3>Parents planning to shop smart</h3>
+
+            <p>
+                With 75% of families perceiving their economic situation to worsen or stay the same, an
+                overwhelming majority (nearly 9 in 10) of parents plan to take cost-saving steps when shopping
+                for schools supplies, including reusing old supplies and delaying purchase until after school
+                starts to only buy what's truly needed as a result of the economy. Retailers are likely in for
+                a challenging back-to-school season.
+            </p>
+
+            <p class="takeaway">
+                <span class="heading">Quick takeaway:</span>
+                <span class="info">
+                    Most parents plan to reuse portions of last year's school supplies.
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="divider clear">
+        <hr/>
+    </div>
+
+    <div id="prepare" class="findings bar">
+        <div class="graphics">
+            <img src="/res/img/news/backToSchoolPollResults/93percent.gif" width="252" height="29" alt="93 percent"/>
+            <p>Buy school supplies</p>
+            <img src="/res/img/news/backToSchoolPollResults/75percent.gif" width="197" height="29" alt="75 percent"/>
+            <p>Get child on a school sleep schedule</p>
+            <img src="/res/img/news/backToSchoolPollResults/47percent.gif" width="150" height="29" alt="47 percent"/>
+            <p>Find out subjects child will be learning</p>
+            <img src="/res/img/news/backToSchoolPollResults/39percent.gif" width="114" height="29" alt="39 percent"/>
+            <p>Have them start readig more</p>
+            <img src="/res/img/news/backToSchoolPollResults/33percent.gif" width="102" height="29" alt="33 percent"/>
+            <p>Reduce TV/Video game time</p>
+
+            <p class="caption">Cost saving steps parents plan this year</p>
+        </div>
+        <div class="text">
+            <h3>Wake Up Call to Parents: Preparing for Back-to-School is More than Shopping.</h3>
+
+            <p>
+                Parents' best intentions to be involved do not always translate into best practices.
+                Three quarters or more make logistical plans, but fewer than half focus on content or
+                reducing distractions. The largest levels of involvement come from parents of older
+                kids, as well as black and urban parents.
+            </p>
+
+            <p class="takeaway">
+                <span class="heading">Quick takeaway:</span>
+                <span class="info">
+                    Three quarters or more of parents make logistical preparations for school, but fewer
+                    than half focus on content or reducing distractions before school starts.
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="divider clear">
+        <hr/>
+    </div>
+
+    <div id="relatedLinks">
+        <h4>More information about the GreatSchools/Harris Interactive Back-to-School Report</h4>
+
+        <div>
+            <ul>
+                <li><a href="/">Read the Press Release</a></li>
+                <li><a href="/">Download the Executive Summary (PDF)</a></li>
+                <li><a href="/">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="divider">
+        <hr />
+    </div>
+
+    <div class="articleCommentForm">
+
+        <div id="articleComments" class="noprint">
+        <div id="enterComment">
+            <script type="text/javascript">
+                function wrapCommentWithDelimiter(comment) {
+                    return "BEGIN_ARTICLE_COMMENT\n" +
+                           comment +
+                           "\nEND_ARTICLE_COMMENT\n";
+                }
+            </script>
+            <!-- Article comment form -->
+            <div id="cmsArticleForm">
+                <form action="/cgi-bin/feedback_submit" method="post"
+                      onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
+                    <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
+                    <input type="hidden" name="type" value="article"/>
+                    <c:if test="${not empty feature.legacyId}">
+                        <input type="hidden" name="id" value="${feature.legacyId}"/>
+                    </c:if>
+                    <input type="hidden" name="contentType" value="${feature.contentKey.type}"/>
+                    <input type="hidden" name="contentIdentifier" value="${feature.contentKey.identifier}"/>
+                    <input type="hidden" name="contentUrl" value="${contentUrl}"/>
+                    <input type="hidden" name="captchaChallenge" value="the Challenge"/>
+                    <input type="hidden" name="captchaResponse" value="the Response"/>
+                    <input type="hidden" name="description" value=""/>
+
+                    <div>
+                        <h4><img src="/res/img/icons/commentBubbleSm.gif" alt="comment"/>
+                            Post a comment on this article</h4>
+                    </div>
+                    <div>
+                        <label for="name">Name (optional): </label>
+                        <input name="name" id="name" size="25" type="text" class="txt"/>
+                    </div>
+                    <div>
+                        <label for="email">Email (optional): </label>
+                        <input name="email" id="email" size="25" type="text" class="txt"/>
+                    </div>
+                    <div>
+                        <label for="commenttextarea">Comment:</label><br />
+                        <![CDATA[<textarea name="comment" id="commenttextarea" cols="50" rows="5"></textarea>]]>
+                    </div>
+                    <div class="captcha">
+                        <script type="text/javascript">
+                            var RecaptchaOptions = {theme:'white', tabindex: 0};
+                        </script>
+                        <script type="text/javascript"
+                                src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                            /* this comment keeps the tag from collapsing */
+                        </script>
+
+                        <![CDATA[
+                                        <noscript>
+                                           <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                                               height="300" width="500" frameborder="0"></iframe><br/>
+                                           <textarea name="recaptcha_challenge_field"
+                                                     rows="3" cols="40" style="height: 60px;">
+                                           </textarea>
+                                           <input type="hidden" name="recaptcha_response_field"
+                                               value="manual_challenge"/>
+                                        </noscript>
+                                        ]]>
+                    </div>
+                    <div class="float left"><input name="permit" type="checkbox" checked="checked"/></div>
+                    <div>
+                        <p>Yes, I agree to the
+                            <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
+                            permission to post my comments for other parents to read.</p>
+
+                        <p>Note: Your email address is
+                            required if you would like a response from GreatSchools.net.</p>
+                    </div>
+
+                    <div><input type="image" src="/res/img/button/btn_post.gif" /></div>
+                </form>
+            </div><!-- end #cmsArticleForm -->
+        </div>
+        <div class="divider"><hr /></div>
+        <div id="cmsArticleComments">
+            <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                <!--<hr width="100%" class="commentDivider"/>-->
+                <h4>Comments from GreatSchools.net readers</h4>
+                <div id="comments">
+                    <c:forEach var="comment" items="${comments}">
+                        <div class="comment">
+                            <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                      pattern="MM/d/yyyy"/>:</div>
+
+                            <div class="comment-text">"${comment.text}"</div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
+        </div>
+    </div>
+    </div>
+    
+    
+</div>
+<!-- end #leftColumn -->
+
+<div id="rightColumn">
+    <div class="sidebar">
+        <h2>This is a sidebar title</h2>
+
+        <p>
+            <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="TBD"/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras luctus justo nec neque aliquet a posuere purus venenatis. Praesent id augue odio, non laoreet enim. Vestibulum non lorem metus. Donec ante quam, tristique non volutpat eu, ultrices eu odio.
+            Curabitur id urna lorem. Sed porta rutrum lorem a lacinia. Cras mattis metus ut nulla vehicula hendrerit. Ut elementum mattis diam convallis luctus. In sed mauris ac diam hendrerit ullamcorper et et est. Nullam aliquet adipiscing nisl, dignissim bibendum lacus dictum ac.
+        </p>
+        <p class="read">
+            <a href="/">Read article &amp;raquo;</a>
+        </p>
+    </div>
+
+    <ad:setSlotPrefix slotPrefix="Library_B2S_Poll_Landing_Page"/>
+    <!-- TODO: remove me -->
+    <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+    <c:choose>
+        <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
+            <a href="http://www.facebook.com/greatschools" target="_blank"><img
+                    src="/res/img/backToSchool/fb_gs_house_300_137_img.jpg" alt="facebook Img"></img></a>
+        </c:when>
+        <c:otherwise>
+            <gsweb:adTagGenerator position="House_Ad_300x137"/>
+        </c:otherwise>
+    </c:choose>
+
+    <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
+</div>
+<!-- end #rightColumn -->
+
+</div>
+<!-- end #content -->
+</div>
+<!-- end #main -->
+
+<!-- TODO: fix ad slot prefix -->
+
+<mod:tracking pageName="BTS 2009 Poll Landing Page"
+              hier1="Marketing,Back to School,BTS 2009 Poll Landing Page"/>
+
+</body>
+</html>
+</jsp:root>

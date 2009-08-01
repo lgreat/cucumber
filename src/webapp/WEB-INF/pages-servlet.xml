@@ -461,6 +461,14 @@
         <property name="worksheetName" value="od6"/>
     </bean>
 
+    <bean name="/news/back-to-school-poll-results.page"
+          class="gs.web.backToSchool.BackToSchoolPollResultsController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>news/backToSchoolPollResults</value>
+        </property>
+    </bean>
+    
     <bean name="/content/article.page"
           class="gs.web.content.ArticleController"
           autowire="byName" lazy-init="true">
