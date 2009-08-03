@@ -28,6 +28,7 @@
     background-repeat: no-repeat;
 	background-position: left bottom;
     position: relative;
+    width: 100%;
 }
 
 .donorsChooseBox .outer {
