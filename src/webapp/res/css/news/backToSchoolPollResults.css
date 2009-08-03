@@ -45,7 +45,7 @@
 #main h1 {
     font: 24px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #55bbcc;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 #main h1 img {
@@ -83,6 +83,17 @@
     cursor:default;
     padding-left: 10px;
     background: url(/res/img/news/backToSchoolPollResults/arrowbullet.gif) no-repeat 2px 2px;    
+}
+
+#main .findings .graphics .gray {
+    width: 250px;
+    padding: 7px;
+    background-color: #f0f0f0;
+    padding-bottom: 1px;
+}
+
+#main .findings .graphics .gray.last {
+    margin-top: 7px;
 }
 
 #main .intro {

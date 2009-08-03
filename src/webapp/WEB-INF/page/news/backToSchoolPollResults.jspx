@@ -151,16 +151,25 @@
 
     <div id="prepare" class="findings bar">
         <div class="graphics">
-            <img src="/res/img/news/backToSchoolPollResults/93percent.gif" width="252" height="29" alt="93 percent"/>
-            <p>Buy school supplies</p>
-            <img src="/res/img/news/backToSchoolPollResults/75percent.gif" width="197" height="29" alt="75 percent"/>
-            <p>Get child on a school sleep schedule</p>
-            <img src="/res/img/news/backToSchoolPollResults/47percent.gif" width="150" height="29" alt="47 percent"/>
-            <p>Find out subjects child will be learning</p>
-            <img src="/res/img/news/backToSchoolPollResults/39percent.gif" width="114" height="29" alt="39 percent"/>
-            <p>Have them start readig more</p>
-            <img src="/res/img/news/backToSchoolPollResults/33percent.gif" width="102" height="29" alt="33 percent"/>
-            <p>Reduce TV/Video game time</p>
+            <div class="gray">
+                <img src="/res/img/news/backToSchoolPollResults/93percent.gif" width="252" height="29"
+                     alt="93 percent"/>
+                <p>Buy school supplies</p>
+                <img src="/res/img/news/backToSchoolPollResults/75percent.gif" width="197" height="29"
+                     alt="75 percent"/>
+                <p>Get child on a school sleep schedule</p>
+            </div>
+            <div class="gray last">
+                <img src="/res/img/news/backToSchoolPollResults/47percent.gif" width="150" height="29"
+                     alt="47 percent"/>
+                <p>Find out subjects child will be learning</p>
+                <img src="/res/img/news/backToSchoolPollResults/39percent.gif" width="114" height="29"
+                     alt="39 percent"/>
+                <p>Have them start reading more</p>
+                <img src="/res/img/news/backToSchoolPollResults/33percent.gif" width="102" height="29"
+                     alt="33 percent"/>
+                <p>Reduce TV/Video game time</p>
+            </div>
 
             <p class="caption">Cost saving steps parents plan this year</p>
         </div>
