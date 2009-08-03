@@ -132,20 +132,17 @@
 
     position: absolute;
     bottom: 37px;
-    _bottom: 47px;
     left: 87px;
 }
 
 #seeMoreDonorsChoose {
     position: absolute;
     bottom: 65px;
-    _bottom: 75px;
     right: 27px;
 }
 
 #donorsChooseOrg {
     position: absolute;
     bottom: 3px;
-    _bottom: 13px;
     left: 165px;
 }
