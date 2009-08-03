@@ -28,7 +28,7 @@
     <form action="http://${apiHost}/reviews/submit?key=1234abc" method="POST">
         <input type="hidden" name="key" value="1234abc"/>
         <label>School Id: </label>
-        <input type="text" name="schoolId" size="4" value="1"/>
+        <input type="text" name="school_id" size="4" value="1"/>
         <br/>
         <label>State: </label>
         <gsweb:stateSelector state="CA" styleId="userState" allowNoState="false"/>
@@ -36,11 +36,21 @@
         <label>Review: </label><br/>
         <![CDATA[<textarea rows="5" cols="64" name="review"></textarea>]]>
         <br/>
+        <label>Overall rating: </label>
+        <select name="overall_rating">
+            <option value="">None</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+        </select>
+        <br/>
         <label>Email: </label>
         <input type="text" name="email" size="64" value="aroy@greatschools.net"/>
         <br/>
         <label>User type: </label>
-        <select name="userType">
+        <select name="user_type">
             <option value="parent">parent</option>
             <option value="teacher">teacher</option>
             <option value="principal">principal</option>
