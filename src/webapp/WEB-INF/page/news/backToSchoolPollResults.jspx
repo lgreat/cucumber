@@ -33,8 +33,8 @@
 <div id="main">
 <div id="content">
 <div id="leftColumn">
-    <h1><img src="/res/img/news/backToSchoolPollResults/specialReport.gif" width="101" height="18" alt="Special Report"/>
-        The Economy's Impact on Back-to-School</h1>
+    <h1><img src="/res/img/news/backToSchoolPollResults/specialReport.gif" width="164" height="29" alt="Special Report"/>
+        <span class="text">The Economy's Impact on Back-to-School</span></h1>
 
     <div class="summary">
         National Back to School Report finds parents planning to volunteer in schools,
@@ -61,7 +61,7 @@
 
     </div>
 
-    <cms:communityDistribution vpage="B2S_POLL_LANDING_PAGE" title="TBD"/>
+    <cms:communityDistribution vpage="B2S_POLL_LANDING_PAGE" title="Special Report - The Economy's Impact on Back to School | GreatSchools/Harris Poll Results"/>
 
     <h2>Key Findings from the GreatSchools/Harris Interactive Back-to-School Report</h2>
 
@@ -80,10 +80,7 @@
             </p>
 
             <p class="takeaway">
-                <span class="heading">Quick takeaway:</span>
-                <span class="info">
-                    20% increase of planned volunteerism from 2008
-                </span>
+                20% increase of planned volunteerism from 2008
             </p>
         </div>
     </div>
@@ -108,11 +105,8 @@
             </p>
 
             <p class="takeaway">
-                <span class="heading">Quick takeaway:</span>
-                <span class="info">
-                    Nearly 1 in 4 parents are reconsidering the type of school (public vs. private)
-                    to send child as a result of the economy.
-                </span>
+                Nearly 1 in 4 parents are reconsidering the type of school (public vs. private)
+                to send child as a result of the economy.
             </p>
         </div>
     </div>
@@ -123,14 +117,14 @@
 
     <div id="shop" class="findings bar">
         <div class="graphics">
-            <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
-            <p>Use Web to find special offers</p>
-            <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
-            <p>Set a strict budget and stick to it</p>
-            <img src="/res/img/news/backToSchoolPollResults/26percent.gif" width="83" height="29" alt="26 percent"/>
-            <p>Delay buying supplies until after school starts</p>
             <img src="/res/img/news/backToSchoolPollResults/57percent.gif" width="175" height="29" alt="57 percent"/>
             <p>Reuse portions of last year's school supplies</p>
+            <img src="/res/img/news/backToSchoolPollResults/26percent.gif" width="83" height="29" alt="26 percent"/>
+            <p>Delay buying supplies until after school starts</p>
+            <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
+            <p>Set a strict budget and stick to it</p>
+            <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
+            <p>Use Web to find special offers</p>
 
             <p class="caption">Cost saving steps parents plan this year</p>
         </div>
@@ -146,10 +140,7 @@
             </p>
 
             <p class="takeaway">
-                <span class="heading">Quick takeaway:</span>
-                <span class="info">
-                    Most parents plan to reuse portions of last year's school supplies.
-                </span>
+                Most parents plan to reuse portions of last year's school supplies.
             </p>
         </div>
     </div>
@@ -184,11 +175,8 @@
             </p>
 
             <p class="takeaway">
-                <span class="heading">Quick takeaway:</span>
-                <span class="info">
-                    Three quarters or more of parents make logistical preparations for school, but fewer
-                    than half focus on content or reducing distractions before school starts.
-                </span>
+                Three quarters or more of parents make logistical preparations for school, but fewer
+                than half focus on content or reducing distractions before school starts.
             </p>
         </div>
     </div>
@@ -226,15 +214,11 @@
             </script>
             <!-- Article comment form -->
             <div id="cmsArticleForm">
-                <form action="/cgi-bin/feedback_submit" method="post"
+                <form action="http://yfan.dev.greatschools.net/cgi-bin/feedback_submit" method="post"
                       onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
                     <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
                     <input type="hidden" name="type" value="article"/>
-                    <c:if test="${not empty feature.legacyId}">
-                        <input type="hidden" name="id" value="${feature.legacyId}"/>
-                    </c:if>
-                    <input type="hidden" name="contentType" value="${feature.contentKey.type}"/>
-                    <input type="hidden" name="contentIdentifier" value="${feature.contentKey.identifier}"/>
+                    <input type="hidden" name="id" value="${legacyArticleId}"/>
                     <input type="hidden" name="contentUrl" value="${contentUrl}"/>
                     <input type="hidden" name="captchaChallenge" value="the Challenge"/>
                     <input type="hidden" name="captchaResponse" value="the Response"/>
@@ -294,7 +278,6 @@
         <div class="divider"><hr /></div>
         <div id="cmsArticleComments">
             <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                <!--<hr width="100%" class="commentDivider"/>-->
                 <h4>Comments from GreatSchools.net readers</h4>
                 <div id="comments">
                     <c:forEach var="comment" items="${comments}">
@@ -320,7 +303,7 @@
         <h2>This is a sidebar title</h2>
 
         <p>
-            <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="TBD"/>
+            <img src="/res/img/news/backToSchoolPollResults/obamaSM.jpg" width="90" height="113" alt="President Barack Obama"/>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras luctus justo nec neque aliquet a posuere purus venenatis. Praesent id augue odio, non laoreet enim. Vestibulum non lorem metus. Donec ante quam, tristique non volutpat eu, ultrices eu odio.
             Curabitur id urna lorem. Sed porta rutrum lorem a lacinia. Cras mattis metus ut nulla vehicula hendrerit. Ut elementum mattis diam convallis luctus. In sed mauris ac diam hendrerit ullamcorper et et est. Nullam aliquet adipiscing nisl, dignissim bibendum lacus dictum ac.
         </p>
@@ -330,8 +313,9 @@
     </div>
 
     <ad:setSlotPrefix slotPrefix="Library_B2S_Poll_Landing_Page"/>
+    <!-- TODO: fix ad slot prefix -->
     <!-- TODO: remove me -->
-    <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+    <!--ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/-->
     <c:choose>
         <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
             <a href="http://www.facebook.com/greatschools" target="_blank"><img
@@ -350,8 +334,6 @@
 <!-- end #content -->
 </div>
 <!-- end #main -->
-
-<!-- TODO: fix ad slot prefix -->
 
 <mod:tracking pageName="BTS 2009 Poll Landing Page"
               hier1="Marketing,Back to School,BTS 2009 Poll Landing Page"/>

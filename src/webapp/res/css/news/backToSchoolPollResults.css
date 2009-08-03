@@ -45,6 +45,16 @@
 #main h1 {
     font: 24px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #55bbcc;
+    margin-bottom: 12px;
+}
+
+#main h1 img {
+}
+
+#main h1 .text {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-left: 7px;
 }
 
 #main h2 {
@@ -179,10 +189,6 @@
     -moz-border-radius: 8px;
 }
 
-#main .takeaway .heading {
-    color: #55bbcc;
-}
-
 /* ------------- */
 /* RELATED LINKS */
 /* ------------- */
@@ -253,6 +259,10 @@
     border: none;
     -moz-border-radius: 9px;
 	-webkit-border-radius: 9px;
+}
+
+.float.left {
+    float: left;
 }
 
 /* ---------------- */
