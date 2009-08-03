@@ -34,11 +34,11 @@
 <div id="content">
 <div id="leftColumn">
     <h1><img src="/res/img/news/backToSchoolPollResults/specialReport.gif" width="164" height="29" alt="Special Report"/>
-        <span class="text">The Economy's Impact on Back-to-School</span></h1>
+        <span class="text">The Economy's Impact on Back to School</span></h1>
 
     <div class="summary">
-        National Back to School Report finds parents planning to volunteer in schools,
-        shop smarter and reconsider public vs. private school
+        Amid economic and educational concerns, new poll finds parents plan to volunteer at schools,
+        reconsider school options, and shop smarter 
     </div>
 
     <div class="intro">
@@ -47,15 +47,10 @@
 
         <div class="text">
             <p>
-                In a groundbreaking new study entitled &quot;The Economy's Impact on Back-to-School&quot;,
-                <b>GreatSchools</b> and <b>Harris Interactive</b> find that parents, worried about education cutbacks, are planning to roll
-                up their sleeves with greater volunteerism and reconsidering what type of school to send their kids.
-            </p>
-
-            <p>
-                As they prepare to go back to school amidst the most challenging economic climate in recent history,
-                with families, state and school budgets stretched tighter than ever, are their best intentions
-                translating into best practices?
+                In a groundbreaking new study titled "The Economy's Impact on Back to School,"
+                GreatSchools and Harris Interactive find that parents, worried about the economy and education
+                cutbacks, are planning to pitch in with greater volunteerism and shop smarter for school supplies.
+                Many are also reconsidering what type of school their kids should attend. 
             </p>
         </div>
 
@@ -63,7 +58,7 @@
 
     <cms:communityDistribution vpage="B2S_POLL_LANDING_PAGE" title="Special Report - The Economy's Impact on Back to School | GreatSchools/Harris Poll Results"/>
 
-    <h2>Key Findings from the GreatSchools/Harris Interactive Back-to-School Report</h2>
+    <h2>Key findings from the report</h2>
 
     <div id="volunteerism" class="findings pie">
         <div class="graphics">
@@ -71,16 +66,26 @@
             <p class="caption">It's more important to volunteer in my child's school now than before.</p>
         </div>
         <div class="text">
-            <h3>Planned volunteerism is UP</h3>
+            <h3>1. Planned parent volunteerism at school is up 20%</h3>
             
             <p>
-                In the context of current economic challenges, nearly 2 in 3 parents believe it is more important for
-                them to volunteer than before. Compared to 2008, parents plan to increase their volunteering from
-                44% to 53%, with most of the increase coming from women.
+                In the context of current economic challenges, nearly two in three parents (64%) believe it is
+                more important for them to volunteer at school now than before. A majority of parents (53%)
+                plan to volunteer at their children's schools this year versus 44% last year &amp;mdash; <b>an increase
+                of 20%</b>. This trend is <b>most pronounced among African American parents</b>, 60% of whom plan to
+                volunteer (up from 23% who say they volunteered last year).
+            </p>
+
+            <p>
+                Despite their strong interest in volunteering, however, <b>parents may still remain an
+                untapped resource</b>. According to the report, nearly half (49%) list the <b>lack of opportunities
+                offered by teachers or schools</b> among the main challenges they face to being more involved
+                in their children's education. 
             </p>
 
             <p class="takeaway">
-                20% increase of planned volunteerism from 2008
+                A majority of parents agree that it's more important to volunteer at school,
+                but they may not know how best to help.
             </p>
         </div>
     </div>
@@ -95,18 +100,18 @@
             <p class="caption">The quality of education at my child's school will suffer because of school cutbacks.</p>
         </div>
         <div class="text">
-            <h3>Parents worried about education cutbacks, reconsidering where to send their kids</h3>
+            <h3>2. Parents are concerned about school cutbacks and some are rethinking school choices</h3>
 
             <p>
-                3 in 5 parents believe the quality of education will suffer because of school cutbacks.
-                1 in 4 parents is reconsidering what type of school (public vs. private) to send their kids, a trend
-                most prominent among lower income, non-rural parents. This perception is seen equally among
-                private school and public school parents.
+                More than three in five parents (61%) believe <b>the quality of education will suffer because
+                of school cutbacks</b>. Regardless of whether their children now attend public or private school,
+                nearly one in four parents (24%) are <b>rethinking the type of school their children should
+                attend</b> going forward. This trend is most prominent among lower-income urban and suburban parents.
             </p>
 
             <p class="takeaway">
-                Nearly 1 in 4 parents are reconsidering the type of school (public vs. private)
-                to send child as a result of the economy.
+                Lack of education confidence and parents rethinking their child's school are part of
+                the backdrop of a challenging economic environment.
             </p>
         </div>
     </div>
@@ -116,40 +121,6 @@
     </div>
 
     <div id="shop" class="findings bar">
-        <div class="graphics">
-            <img src="/res/img/news/backToSchoolPollResults/57percent.gif" width="175" height="29" alt="57 percent"/>
-            <p>Reuse portions of last year's school supplies</p>
-            <img src="/res/img/news/backToSchoolPollResults/26percent.gif" width="83" height="29" alt="26 percent"/>
-            <p>Delay buying supplies until after school starts</p>
-            <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
-            <p>Set a strict budget and stick to it</p>
-            <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
-            <p>Use Web to find special offers</p>
-
-            <p class="caption">Cost saving steps parents plan this year</p>
-        </div>
-        <div class="text">
-            <h3>Parents planning to shop smart</h3>
-
-            <p>
-                With 75% of families perceiving their economic situation to worsen or stay the same, an
-                overwhelming majority (nearly 9 in 10) of parents plan to take cost-saving steps when shopping
-                for schools supplies, including reusing old supplies and delaying purchase until after school
-                starts to only buy what's truly needed as a result of the economy. Retailers are likely in for
-                a challenging back-to-school season.
-            </p>
-
-            <p class="takeaway">
-                Most parents plan to reuse portions of last year's school supplies.
-            </p>
-        </div>
-    </div>
-
-    <div class="divider clear">
-        <hr/>
-    </div>
-
-    <div id="prepare" class="findings bar">
         <div class="graphics">
             <div class="gray">
                 <img src="/res/img/news/backToSchoolPollResults/93percent.gif" width="252" height="29"
@@ -171,21 +142,57 @@
                 <p>Reduce TV/Video game time</p>
             </div>
 
-            <p class="caption">Cost saving steps parents plan this year</p>
+            <p class="caption">Activities parents do before the first day of school</p>
         </div>
+
         <div class="text">
-            <h3>Wake Up Call to Parents: Preparing for Back-to-School is More than Shopping.</h3>
+            <h3>3. Wake-up call to parents: Preparing for back to school involves more than shopping</h3>
 
             <p>
-                Parents' best intentions to be involved do not always translate into best practices.
-                Three quarters or more make logistical plans, but fewer than half focus on content or
-                reducing distractions. The largest levels of involvement come from parents of older
-                kids, as well as black and urban parents.
+                Parents' best intentions do not always translate into best practices. Three-quarters or more make
+                logistical plans &amp;mdash; 93% plan to shop for school supplies &amp;mdash; but <b>fewer than half
+                focus on academics or reducing distractions</b> for their children. Only 47% find out which subjects
+                their children will be learning, 39% have their kids start reading more often, and 33% cut down
+                on TV and video games.  Parents of older kids, as well as black and urban parents, say they do
+                more of these preparatory activities before the first day of school.
             </p>
 
             <p class="takeaway">
-                Three quarters or more of parents make logistical preparations for school, but fewer
-                than half focus on content or reducing distractions before school starts.
+                Only one in three parents reduces the amount of TV or video game time before the first day of school.
+            </p>
+        </div>
+    </div>
+
+    <div class="divider clear">
+        <hr/>
+    </div>
+
+    <div id="prepare" class="findings bar">
+        <div class="graphics">
+            <img src="/res/img/news/backToSchoolPollResults/57percent.gif" width="175" height="29" alt="57 percent"/>
+            <p>Reuse portions of last year's school supplies</p>
+            <img src="/res/img/news/backToSchoolPollResults/26percent.gif" width="83" height="29" alt="26 percent"/>
+            <p>Delay buying supplies until after school starts</p>
+            <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
+            <p>Set a strict budget and stick to it</p>
+            <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
+            <p>Use Web to find special offers</p>
+
+            <p class="caption">Cost saving steps parents plan this year</p>
+        </div>
+
+        <div class="text">
+            <h3>4. Parents are planning to shop smart</h3>
+
+            <p>
+                Most parents (74%) expect their economic situation to worsen or stay the same in the
+                next six months. As a result, nearly 9 in 10 parents (88%) plan to take <b>cost-saving
+                steps when shopping for school supplies</b>, including reusing old supplies and delaying
+                purchases until after school starts to only buy necessities.
+            </p>
+
+            <p class="takeaway">
+                Nearly three in five parents plan to reuse last year's supplies or find cheaper ways to buy them.
             </p>
         </div>
     </div>
@@ -195,18 +202,18 @@
     </div>
 
     <div id="relatedLinks">
-        <h4>More information about the GreatSchools/Harris Interactive Back-to-School Report</h4>
+        <h4>More information about the GreatSchools/Harris Interactive report: The Economy's Impact on Back to School</h4>
 
         <div>
             <ul>
                 <li><a href="/">Read the Press Release</a></li>
-                <li><a href="/">Download the Executive Summary (PDF)</a></li>
-                <li><a href="/">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
+                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School_ExecutiveSummary.pdf">Download the Executive Summary (PDF)</a></li>
+                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School.pdf">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="divider">
+    <div class="divider clear">
         <hr />
     </div>
 

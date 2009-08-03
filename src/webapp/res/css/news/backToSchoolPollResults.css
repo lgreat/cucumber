@@ -101,6 +101,10 @@
     height: 217px;
 }
 
+#main .intro .text p {
+    font: 15px/1.5 "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
 #main .intro img {
     float: left;
 }
@@ -206,8 +210,8 @@
 
 #relatedLinks {
     background-color: #e8f8fd;
-    padding: 20px 20px 0 20px;
-    margin: 0 0 20px 0;
+    padding: 20px 20px 20px 20px;
+    margin: 0 0 0 0;
 }
 #relatedLinks h4 {
     font: 16px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -216,7 +220,7 @@
 #relatedLinks ul {
     font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
-    padding-bottom: 20px;
+    padding-bottom: 0;
 }
 #relatedLinks li {
     list-style: disc inside;
