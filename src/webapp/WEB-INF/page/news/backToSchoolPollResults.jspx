@@ -97,10 +97,10 @@
     <div id="cutbacks" class="findings pie">
         <div class="graphics">
             <img src="/res/img/news/backToSchoolPollResults/pieChart2.gif" width="108" height="107" alt="61% agree, 39% disagree"/>
-            <p class="caption">The quality of education at my child's school will suffer because of school cutbacks.</p>
+            <p class="caption">The quality of education at my child's school will suffer because of cutbacks.</p>
         </div>
         <div class="text">
-            <h3>2. Parents are concerned about school cutbacks and some are rethinking school choices</h3>
+            <h3>2. Parents are concerned about school cutbacks, and some are rethinking school choices</h3>
 
             <p>
                 More than three in five parents (61%) believe <b>the quality of education will suffer because
@@ -110,7 +110,7 @@
             </p>
 
             <p class="takeaway">
-                Lack of education confidence and parents rethinking their child's school are part of
+                Lack of education confidence and parents rethinking their children's school options are part of
                 the backdrop of a challenging economic environment.
             </p>
         </div>
@@ -128,18 +128,18 @@
                 <p>Buy school supplies</p>
                 <img src="/res/img/news/backToSchoolPollResults/75percent.gif" width="197" height="29"
                      alt="75 percent"/>
-                <p>Get child on a school sleep schedule</p>
+                <p>Adjust kids' sleep schedule</p>
             </div>
             <div class="gray last">
                 <img src="/res/img/news/backToSchoolPollResults/47percent.gif" width="150" height="29"
                      alt="47 percent"/>
-                <p>Find out subjects child will be learning</p>
+                <p>Find out which subjects kids will be learning</p>
                 <img src="/res/img/news/backToSchoolPollResults/39percent.gif" width="114" height="29"
                      alt="39 percent"/>
                 <p>Have them start reading more</p>
                 <img src="/res/img/news/backToSchoolPollResults/33percent.gif" width="102" height="29"
                      alt="33 percent"/>
-                <p>Reduce TV/Video game time</p>
+                <p>Reduce TV and video game time</p>
             </div>
 
             <p class="caption">Activities parents do before the first day of school</p>
@@ -176,9 +176,9 @@
             <img src="/res/img/news/backToSchoolPollResults/24percent.gif" width="74" height="29" alt="24 percent"/>
             <p>Set a strict budget and stick to it</p>
             <img src="/res/img/news/backToSchoolPollResults/22percent.gif" width="66" height="28" alt="22 percent"/>
-            <p>Use Web to find special offers</p>
+            <p>Using the Web to find special offers</p>
 
-            <p class="caption">Cost saving steps parents plan this year</p>
+            <p class="caption">Cost-saving steps parents are planning this year</p>
         </div>
 
         <div class="text">
@@ -192,7 +192,7 @@
             </p>
 
             <p class="takeaway">
-                Nearly three in five parents plan to reuse last year's supplies or find cheaper ways to buy them.
+                Nearly three in five parents plan to reuse last year's supplies or find cheaper ways to buy new ones.
             </p>
         </div>
     </div>
@@ -206,9 +206,9 @@
 
         <div>
             <ul>
-                <li><a href="http://blogs.greatschools.net/press_releases/2009/08/new-poll-finds-20-spike-in-parents-plans-to-volunteer-in-classrooms-this-year-amid-concerns-over-eco.html">Read the Press Release</a></li>
-                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School_ExecutiveSummary.pdf">Download the Executive Summary (PDF)</a></li>
-                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School.pdf">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
+                <li><a href="http://blogs.greatschools.net/press_releases/2009/08/new-poll-finds-20-spike-in-parents-plans-to-volunteer-in-classrooms-this-year-amid-concerns-over-eco.html" target="_blank">Read the Press Release</a></li>
+                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School_ExecutiveSummary.pdf" target="_blank">Download the Executive Summary (PDF)</a></li>
+                <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School.pdf" target="_blank">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
             </ul>
         </div>
     </div>
@@ -322,12 +322,14 @@
             <img src="/res/img/news/backToSchoolPollResults/obamaSM.jpg" width="90" height="113" alt="President Barack Obama"/>
             Six months since President Barack Obama urged Americans to volunteer in their communities, a new report suggests that some parents may be taking his message to heart.   According to a survey of more than 1000 parents from GreatSchools and Harris Interactive, this year parents plan to increase their volunteering in their children's schools by 20%.  "The Economy's Impact on Back to School" also found that 64% of parents believe that it is more important to volunteer now than before.
         </p>
+
+        <p class="read">
+            <link:cmsContent contentKey="article#1559"
+                             fullUri="/improvement/volunteering/economic-impact-on-back-to-school.gs">Read more &amp;gt;</link:cmsContent>
+        </p>
     </div>
 
     <ad:setSlotPrefix slotPrefix="Library_B2S_Poll_Landing_Page"/>
-    <!-- TODO: fix ad slot prefix -->
-    <!-- TODO: remove me -->
-    <!--ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/-->
     <c:choose>
         <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
             <a href="http://www.facebook.com/greatschools" target="_blank"><img
