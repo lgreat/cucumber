@@ -332,7 +332,7 @@
     <ad:setSlotPrefix slotPrefix="Library_B2S_Poll_Landing_Page"/>
     <gsweb:adTagGenerator position="House_Ad_300x250"/>
 
-    <gsweb:adTagGenerator position="House_Ad_300x137" alwaysShow="true"/>
+    <gsweb:adTagGenerator position="House_Ad_300x137"/>
 </div>
 <!-- end #rightColumn -->
 
