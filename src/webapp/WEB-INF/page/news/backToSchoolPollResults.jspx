@@ -206,7 +206,7 @@
 
         <div>
             <ul>
-                <li><a href="/">Read the Press Release</a></li>
+                <li><a href="http://blogs.greatschools.net/press_releases/2009/08/new-poll-finds-20-spike-in-parents-plans-to-volunteer-in-classrooms-this-year-amid-concerns-over-eco.html">Read the Press Release</a></li>
                 <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School_ExecutiveSummary.pdf">Download the Executive Summary (PDF)</a></li>
                 <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School.pdf">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
             </ul>
@@ -316,15 +316,11 @@
 
 <div id="rightColumn">
     <div class="sidebar">
-        <h2>This is a sidebar title</h2>
+        <h2>Answering Obama's call? Parents as the nation's education stimulus package.</h2>
 
         <p>
             <img src="/res/img/news/backToSchoolPollResults/obamaSM.jpg" width="90" height="113" alt="President Barack Obama"/>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras luctus justo nec neque aliquet a posuere purus venenatis. Praesent id augue odio, non laoreet enim. Vestibulum non lorem metus. Donec ante quam, tristique non volutpat eu, ultrices eu odio.
-            Curabitur id urna lorem. Sed porta rutrum lorem a lacinia. Cras mattis metus ut nulla vehicula hendrerit. Ut elementum mattis diam convallis luctus. In sed mauris ac diam hendrerit ullamcorper et et est. Nullam aliquet adipiscing nisl, dignissim bibendum lacus dictum ac.
-        </p>
-        <p class="read">
-            <a href="/">Read article &amp;raquo;</a>
+            Six months since President Barack Obama urged Americans to volunteer in their communities, a new report suggests that some parents may be taking his message to heart.   According to a survey of more than 1000 parents from GreatSchools and Harris Interactive, this year parents plan to increase their volunteering in their children's schools by 20%.  "The Economy's Impact on Back to School" also found that 64% of parents believe that it is more important to volunteer now than before.
         </p>
     </div>
 
