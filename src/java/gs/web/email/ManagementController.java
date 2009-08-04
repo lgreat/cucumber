@@ -356,7 +356,11 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         // any school on the page that isn't in the existing set, add it
         int counter = 1;
-
+        // reset messages
+        command.setSchool1(false);
+        command.setSchool2(false);
+        command.setSchool3(false);
+        command.setSchool4(false);
         for (String stateIdStringFromPage: stateIdStringSetFromPage) {
             State stateToAdd;
             Integer schoolIdToAdd;
