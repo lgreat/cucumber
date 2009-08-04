@@ -330,17 +330,9 @@
     </div>
 
     <ad:setSlotPrefix slotPrefix="Library_B2S_Poll_Landing_Page"/>
-    <c:choose>
-        <c:when test="${requestScope.pageHelper.adFree or requestScope.pageHelper.framed or requestScope.pageHelper.adServedByCobrand}">
-            <a href="http://www.facebook.com/greatschools" target="_blank"><img
-                    src="/res/img/backToSchool/fb_gs_house_300_137_img.jpg" alt="facebook Img"></img></a>
-        </c:when>
-        <c:otherwise>
-            <gsweb:adTagGenerator position="House_Ad_300x137"/>
-        </c:otherwise>
-    </c:choose>
+    <gsweb:adTagGenerator position="House_Ad_300x250"/>
 
-    <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
+    <gsweb:adTagGenerator position="House_Ad_300x137" alwaysShow="true"/>
 </div>
 <!-- end #rightColumn -->
 
