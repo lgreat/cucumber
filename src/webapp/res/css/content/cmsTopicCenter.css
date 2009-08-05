@@ -27,6 +27,11 @@
     margin-top:45px;
 }
 
+#content {
+    overflow: hidden;
+    width: 100%;
+}
+
 #leftColumn{
     width:615px;
     float:left;
