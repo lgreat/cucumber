@@ -6,6 +6,11 @@
 	height:0;
 }
 
+#content {
+    overflow: hidden;
+    width: 100%;
+}
+
 #leftColumn{
     width:615px;
     float:left;
