@@ -129,15 +129,9 @@
 
                             <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
                             <c:if test="${numSections eq 0}">
-                                <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                <c:if test="${!hideMoreLinks}">
-                                <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
                                 <div class="divider tall">
                                     <hr/>
                                 </div>
-                                <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                </c:if>
-                                <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
                             </c:if>
 
                             <div class="more">
@@ -146,16 +140,10 @@
                                         <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText} &amp;raquo;</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                        <c:if test="${!hideMoreLinks}">
-                                        <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
                                             <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
                                                                     gradeIDs="${subtopic.gradeIDs}"
                                                                     subjectIDs="${subtopic.subjectIDs}"
-                                                                    language="${param.language}">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
-                                        <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                        </c:if>
-                                        <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
+                                                                    language="EN">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -169,26 +157,13 @@
                             <!-- Optional section title -->
                             <c:choose>
                                 <c:when test="${not empty section.title and not empty section.moreLink}">
-                                <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
+                                    <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
                                 </c:when>
                                 <c:otherwise>
-                                     <h4>
-                                         <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                         <c:choose>
-                                             <c:when test="${hideMoreLinks}">
-                                                 ${section.title}
-                                             </c:when>
-                                             <c:otherwise>
-                                                 <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                                 <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                         gradeIDs="${section.gradeIDs}"
-                                                                         subjectIDs="${section.subjectIDs}"
-                                                                         language="${param.language}">${section.title}</link:cmsCategoryBrowse>
-                                                 <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                             </c:otherwise>
-                                         </c:choose>
-                                         <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                     </h4>
+                                    <h4><link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                gradeIDs="${section.gradeIDs}"
+                                                                subjectIDs="${section.subjectIDs}"
+                                                                language="EN">${section.title}</link:cmsCategoryBrowse></h4>
                                 </c:otherwise>
                             </c:choose>
 
@@ -202,17 +177,11 @@
                             </c:if>
 
                             <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
-                            <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                            <c:if test="${!hideMoreLinks}">
-                            <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
                             <c:if test="${numSections eq 1}">
                                 <div class="divider">
                                     <hr/>
                                 </div>
                             </c:if>
-                            <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                            </c:if>
-                            <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
 
                             <!-- Section more link -->
 
@@ -222,24 +191,17 @@
                                         <span><a href="${section.moreLink.url}">${section.moreLinkText} &amp;raquo;</a></span>
                                     </c:when>
                                     <c:otherwise>
-                                        <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                        <c:if test="${!hideMoreLinks}">
-                                        <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
                                         <span><link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
                                                                       gradeIDs="${section.gradeIDs}"
                                                                       subjectIDs="${section.subjectIDs}"
-                                                                      language="${param.language}">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
-                                        <!-- TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
-                                        </c:if>
-                                        <!-- TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE -->
+                                                                      language="EN">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
                             <!-- end .more -->
 
                             <c:if test="${!(sectionStatus.last) and numSections gt 1}">
-                                <!-- TODO - CHANGE ME IN 13.2 TO class="divider taller" - TEMPORARY FOR 13.1 RELEASE -->
-                                <div class="divider ${hideMoreLinks ? 'tall' : 'taller'}">
+                                <div class="divider taller">
                                     <hr/>
                                 </div>
                             </c:if>

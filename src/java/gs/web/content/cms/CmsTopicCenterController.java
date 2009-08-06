@@ -71,14 +71,6 @@ public class CmsTopicCenterController extends AbstractController {
             model.put("topicCenter", topicCenter);            
         }
 
-        // TODO - REMOVE BELOW ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE
-        String abConfiguration = VariantConfiguration.convertABConfigurationToString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        boolean is13_1ReleaseDate = "2009-08-05".equals(dateFormat.format(new Date()));
-        boolean is100PercentAUsers = "A: 100".equals(abConfiguration);
-        model.put("hideMoreLinks", is13_1ReleaseDate && is100PercentAUsers);
-        // TODO - REMOVE ABOVE ME IN 13.2 - TEMPORARY FOR 13.1 RELEASE
-
         return new ModelAndView(_viewName, model);
     }
 
