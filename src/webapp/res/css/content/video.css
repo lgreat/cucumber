@@ -1,0 +1,13 @@
+#contentTop {
+    margin: 0 0 4px 0;
+    position: relative;
+    top: 0px;
+}
+
+#contentRight {
+    float: right;
+    margin: 0;
+    height: 604px;
+    width: 300px;
+    position: relative;
+}

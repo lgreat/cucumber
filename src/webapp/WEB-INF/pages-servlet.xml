@@ -1989,6 +1989,14 @@
         </property>
     </bean>
 
+    <bean name="/content/video.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>content/video</value>
+        </property>
+    </bean>
+
     <bean name="/promo/schoolChoicePackPromo.page"
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
