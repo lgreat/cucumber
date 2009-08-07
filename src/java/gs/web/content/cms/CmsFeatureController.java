@@ -9,6 +9,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gs.data.content.IArticleDao;
 import gs.data.content.ArticleComment;
@@ -24,6 +26,8 @@ public class CmsFeatureController extends AbstractController {
     public static final String BEAN_ID = "/content/cms/feature.page";
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
+
+    private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
 
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
@@ -98,6 +102,16 @@ public class CmsFeatureController extends AbstractController {
             }
         }
         pageHelper.addAdKeyword("article_id", String.valueOf(feature.getContentKey().getIdentifier()));
+
+        // note: "referer" is a typo in the HTTP spec -- don't fix it here
+        String referrer = request.getHeader("referer");
+        if (referrer != null) {
+            Matcher matcher = TOPIC_CENTER_URL_PATTERN.matcher(referrer);
+            if (matcher.find()) {
+                String referringTopicCenterID = matcher.group(1);
+                pageHelper.addAdKeyword("referring_topic_center_id", referringTopicCenterID);
+            }
+        } 
 
         UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
 
