@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.37 2009/04/09 17:34:26 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.38 2009/08/07 22:09:55 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -171,6 +171,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             if(label.startsWith("Grade All")){
                 if(state.equals(State.AR)){
                     label = "EOC - All Grades";
+                }
+                else if(state.equals(State.AZ)){
+                    label = "All High School Grades";
                 }
                 else if(state.equals(State.DC)){
                     label = "DC-CAS - All Grades";
