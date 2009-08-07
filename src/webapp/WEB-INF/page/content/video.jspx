@@ -27,21 +27,24 @@
         <meta name="keywords"
               content="GreatSchools Video"/>
         <pageHelper:externalCss file="/res/css/content/video.css"/>
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
     </head>
 
     <c:set var="pageName" value="Video Page"/>
     <gsml:body adPageName="content/video" startAdHierarchyAtPage="true">
+        <div id="content">
+            <div id="leftColumn">
 
-        <div id="contentTop">
-            Video from Delve goes here
-        </div>
-        <div id="contentRight">
-            <ad:setSlotPrefix slotPrefix="Video_Page"/>
-            <ad:Top_300x137/>
-            <ad:AboveFold_300x600/>
-            <jsp:include page="/content/cms/mostPopularContent.module"/>
-        </div>
+<object width="478" height="669" id="delve_player783448o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player783448e" wmode="window" width="478" height="669" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
 
+            </div>
+            <div id="rightColumn">
+                <ad:setSlotPrefix slotPrefix="Video_Page"/>
+                <ad:Top_300x137/>
+                <ad:AboveFold_300x600/>
+                <jsp:include page="/content/cms/mostPopularContent.module"/>
+            </div>
+        </div>
 
 
         <mod:tracking pageName="${pageName}"

@@ -1,13 +1,22 @@
-#contentTop {
-    margin: 0 0 4px 0;
-    position: relative;
-    top: 0px;
+#content {
+   overflow: hidden;
+   width: 100%;
 }
 
-#contentRight {
-    float: right;
-    margin: 0;
-    height: 604px;
-    width: 300px;
-    position: relative;
+#leftColumn{
+   width:615px;
+   float:left;
+   padding: 0 13px;
+   zoom: 1.0;
+   /*overflow:visible;*/
+   /*outline: 1px solid red;*/
+   /*border: 1px solid red;*/
+}
+
+#rightColumn{
+   width:300px;
+   float:right;
+   zoom: 1.0;
+   /*outline: 1px solid red;*/
+   /*border: 1px solid red;*/
 }
