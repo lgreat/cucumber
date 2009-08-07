@@ -80,6 +80,11 @@ public class CmsTopicCenterController extends AbstractController {
     // START sample topic center methods
     private CmsTopicCenter getSampleTopicCenter() {
         CmsTopicCenter topicCenter = new CmsTopicCenter();
+        ContentKey contentKey = new ContentKey();
+        contentKey.setType("TopicCenter");
+        contentKey.setIdentifier(123L);
+
+        topicCenter.setContentKey(contentKey);
         topicCenter.setTitle("title");
         topicCenter.setMetaDescription("meta description goes here");
         topicCenter.setMetaKeywords("meta keywords");
@@ -94,10 +99,14 @@ public class CmsTopicCenterController extends AbstractController {
         secondCat.setName("Category 2");
         CmsCategory thirdCat = new CmsCategory();
         thirdCat.setName("Category 3");
+        List<CmsCategory> secondaryKategories = new ArrayList<CmsCategory>();
+        secondaryKategories.add(thirdCat);
 
-        topicCenter.setPrimaryKategory(thirdCat);
-        List<CmsCategory> breadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
-        topicCenter.setPrimaryKategoryBreadcrumbs(breadcrumbs);
+        topicCenter.setSecondaryKategories(secondaryKategories);
+        List<CmsCategory> categoryBreadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
+        List<List<CmsCategory>> breadcrumbs = new ArrayList<List<CmsCategory>>();
+        breadcrumbs.add(categoryBreadcrumbs);
+        topicCenter.setSecondaryKategoryBreadcrumbs(breadcrumbs);
 
         List<CmsLink> featureLinks = new ArrayList<CmsLink>();
         CmsLink link = new CmsLink();

@@ -43,6 +43,7 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
         referencePageHelper.addAdKeywordMulti("editorial", "Category 1");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 2");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 3");
+        referencePageHelper.addAdKeywordMulti("topic_center_id", "123");
 
         PageHelper pageHelper = (PageHelper) getRequest().getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         assertEquals("Expected identical ad keywords", referencePageHelper.getAdKeywords(), pageHelper.getAdKeywords());
