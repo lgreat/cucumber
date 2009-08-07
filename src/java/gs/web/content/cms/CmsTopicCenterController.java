@@ -7,13 +7,11 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.text.SimpleDateFormat;
 
 import gs.data.content.cms.*;
 import gs.data.cms.IPublicationDao;
 import gs.data.util.CmsUtil;
 import gs.web.util.PageHelper;
-import gs.web.util.VariantConfiguration;
 
 public class CmsTopicCenterController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsTopicCenterController.class);
@@ -62,9 +60,12 @@ public class CmsTopicCenterController extends AbstractController {
 
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            for (CmsCategory category : topicCenter.getPrimaryKategoryBreadcrumbs()) {
-                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+            for (List<CmsCategory> secondaryCategory : topicCenter.getSecondaryKategoryBreadcrumbs()) {
+                for (CmsCategory category : secondaryCategory) {
+                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+                }
             }
+            pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
 
             model.put("omnitureTopicCenterName", topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
 
