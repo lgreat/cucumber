@@ -130,6 +130,12 @@ ul.horizontal li {
 #bodyHeader {
 }
 
+#bodyHeader #breadcrumbs {
+    font: 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666;
+    margin-bottom: 5px;
+}
+
 #bodyHeader h1, #bodyHeader h2 {
     font: 27px Georgia, "Times New Roman", Times, serif;
     color: #444;

@@ -8,17 +8,11 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Calendar;
+import java.util.*;
 
 import gs.data.content.IArticleDao;
 import gs.data.content.ArticleComment;
-import gs.data.content.cms.ICmsFeatureDao;
-import gs.data.content.cms.CmsFeature;
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.*;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.content.TargetSupplyList;
@@ -127,6 +121,8 @@ public class CmsFeatureController extends AbstractController {
         model.put("comments", comments);
         model.put("feature", feature);
 
+        model.put("breadcrumbs", getBreadcrumbs(feature, request));
+
         // add an "article" or "askTheExperts" variable to the model
         String type = feature.getContentKey().getType();
         type = type.substring(0, 1).toLowerCase() + type.substring(1);
@@ -139,6 +135,61 @@ public class CmsFeatureController extends AbstractController {
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    private static final long GREAT_PARENTING_CATEGORY_ID = 123;
+    private static final long HEALTH_AND_NUTRITION_CATEGORY_ID = 154;
+    private static final long ACADEMICS_AND_ACTIVITIES_CATEGORY_ID = 127;
+    private static final long HOMEWORK_HELP_CATEGORY_ID = 140;
+    private static final long PREP_FOR_COLLEGE_CATEGORY_ID = 151;
+    private static final long MEDIA_AND_KIDS_CATEGORY_ID = 162;
+    private static final long LEARNING_DISABILITIES_CATEGORY_ID = 130;
+    private static final long IMPROVE_YOUR_SCHOOL_CATEGORY_ID = 125;
+    private static final long FIND_A_SCHOOL_CATEGORY_ID = 143;
+    private static final long MOVING_CATEGORY_ID = 144;
+
+    private static final Map<Long,UrlBuilder> CATEGORY_MICROSITE_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
+    static {
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(HEALTH_AND_NUTRITION_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("HEALTHY_KIDS")));
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(MEDIA_AND_KIDS_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MEDIA_CHOICES")));
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(FIND_A_SCHOOL_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("SCHOOL_CHOICE_CENTER")));
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(MOVING_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MOVING_WITH_KIDS")));
+    }
+
+    private static final Map<Long,UrlBuilder> CATEGORY_TOPIC_CENTER_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
+    static {
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(GREAT_PARENTING_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1539L)));
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(ACADEMICS_AND_ACTIVITIES_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1540L)));
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(HOMEWORK_HELP_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1544L)));
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(PREP_FOR_COLLEGE_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1542L)));
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(LEARNING_DISABILITIES_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1541L)));
+        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(IMPROVE_YOUR_SCHOOL_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1543L)));
+    }
+
+    protected List<CmsLink> getBreadcrumbs(CmsFeature feature, HttpServletRequest request) {
+        List<CmsLink> breadcrumbs = new ArrayList<CmsLink>();
+
+        for (CmsCategory category : feature.getPrimaryKategoryBreadcrumbs()) {
+            CmsLink link = new CmsLink();
+            link.setLinkText(category.getName());
+
+            UrlBuilder builder;
+            if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
+                builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
+            } else if (CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.containsKey(category.getId())) {
+                builder = CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.get(category.getId());
+                // TODO: set topic center name as link text
+            } else {
+                builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, feature.getLanguage());
+            }
+            if (builder != null) {
+                link.setUrl(builder.asSiteRelative(request));
+            }
+
+            breadcrumbs.add(link);
+        }
+
+        return breadcrumbs;
     }
 
     /* GS-8341 GS-8407 */

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.172 2009/08/01 01:26:42 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.173 2009/08/07 23:47:23 yfan Exp $
  */
 
 package gs.web.util;
@@ -285,6 +285,10 @@ public class UrlBuilder {
     private static Map<String,VPage> vpageConstantObjectMap = new HashMap<String,VPage>();
     static {
         vpageConstantObjectMap.put("B2S_POLL_LANDING_PAGE",B2S_POLL_LANDING_PAGE);
+        vpageConstantObjectMap.put("HEALTHY_KIDS",HEALTHY_KIDS);
+        vpageConstantObjectMap.put("MEDIA_CHOICES",MEDIA_CHOICES);
+        vpageConstantObjectMap.put("SCHOOL_CHOICE_CENTER",SCHOOL_CHOICE_CENTER);
+        vpageConstantObjectMap.put("MOVING_WITH_KIDS",MOVING_WITH_KIDS);        
     }
 
     public static VPage getVPage(String constantName) {
@@ -384,6 +388,7 @@ public class UrlBuilder {
         // _log.error("requestURL="+request.getRequestURL()); // yields "http://apeterson.office.greatschools.net:8080/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
     }
 
+    // WARNING: THIS IS SLIGHTLY INCORRECT - IT ONLY WORKS FOR ARTICLES AND ASK THE EXPERTS
     public UrlBuilder(Integer contentId, boolean featured) {
         boolean useLegacyArticle = true;
         Publication publication = null;
@@ -427,6 +432,25 @@ public class UrlBuilder {
                 page +
                 "/" +
                 articleId;
+    }
+
+    public UrlBuilder(ContentKey contentKey) {
+        if (!CmsUtil.isCmsEnabled()) {
+            throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
+        }
+
+        Publication publication = getPublicationDao().findByContentKey(contentKey);
+
+        String extension = null;
+        if ("Article".equals(contentKey.getType()) || "AskTheExperts".equals(contentKey.getType())) {
+            extension = "gs";
+        } else if ("TopicCenter".equals(contentKey.getType())) {
+            extension = "topic";
+        }
+
+        _perlPage = false;
+        _path = publication.getFullUri() + "." + extension;
+        setParameter("content", contentKey.getIdentifier().toString());
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri) {

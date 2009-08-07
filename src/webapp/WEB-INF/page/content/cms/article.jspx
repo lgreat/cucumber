@@ -80,6 +80,14 @@
 <!-- title, licensor, summary, current page -->
 <div id="bodyHeader">
 
+    <div id="breadcrumbs">
+        <link:home>Home</link:home> &amp;gt;
+        <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
+            <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+            <c:if test="${!status.last}"> &amp;gt; </c:if>
+        </c:forEach>
+    </div>
+
     <!-- do not collapse -->
     <c:if test="${not empty feature.licensorLogoUrl}">
         <c:if test="${not empty feature.licensorLogoUrl}">

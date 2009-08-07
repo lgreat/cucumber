@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.Publication;
 import gs.data.content.cms.ContentKey;
+import gs.web.util.UrlBuilder;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -33,18 +34,10 @@ public class CmsUrlTranslationController extends AbstractController {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
             }
-            Publication publication = _publicationDao.findByContentKey(new ContentKey(contentType, contentId));
 
-            String extension = null;
-            if ("Article".equals(contentType) || "AskTheExperts".equals(contentType)) {
-                extension = "gs";
-            } else if ("TopicCenter".equals(contentType)) {
-                extension = "topic";
-            }
+            UrlBuilder builder = new UrlBuilder(new ContentKey(contentType, contentId));
 
-            Map<String, String> model = new HashMap<String, String>();
-            model.put("content", contentId.toString());
-            return new ModelAndView("redirect:" + publication.getFullUri() + "." + extension, model);
+            return new ModelAndView("redirect:" + builder.asSiteRelative(request));
         }
 
         if ("Homepage".equals(contentType)) {
