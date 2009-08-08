@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import gs.data.content.IArticleDao;
 import gs.data.content.ArticleComment;
 import gs.data.content.cms.*;
+import gs.data.cms.IPublicationDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.content.TargetSupplyList;
@@ -31,6 +32,7 @@ public class CmsFeatureController extends AbstractController {
 
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
+    private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
     private String _viewName;
 
@@ -187,12 +189,16 @@ public class CmsFeatureController extends AbstractController {
             CmsLink link = new CmsLink();
             link.setLinkText(category.getName());
 
+            boolean shouldCache = false;
             UrlBuilder builder;
             if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
                 builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
             } else if (CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.containsKey(category.getId())) {
                 builder = new UrlBuilder(CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId()));
-                // TODO: set topic center name as link text
+
+                ContentKey contentKey = CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId());
+                CmsTopicCenter topicCenter = _publicationDao.populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
+                link.setLinkText(topicCenter.getTitle());
             } else {
                 builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, feature.getLanguage());
             }
@@ -299,6 +305,10 @@ public class CmsFeatureController extends AbstractController {
 
     public void setArticleDao(IArticleDao legacyArticleDao) {
         _legacyArticleDao = legacyArticleDao;
+    }
+
+    public void setPublicationDao(IPublicationDao publicationDao) {
+        _publicationDao = publicationDao;
     }
 
     public String getViewName() {
