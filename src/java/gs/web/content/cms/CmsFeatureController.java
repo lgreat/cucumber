@@ -189,7 +189,6 @@ public class CmsFeatureController extends AbstractController {
             CmsLink link = new CmsLink();
             link.setLinkText(category.getName());
 
-            boolean shouldCache = false;
             UrlBuilder builder;
             if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
                 builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
