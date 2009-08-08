@@ -170,14 +170,14 @@ public class CmsFeatureController extends AbstractController {
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(MOVING_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MOVING_WITH_KIDS")));
     }
 
-    private static final Map<Long,UrlBuilder> CATEGORY_TOPIC_CENTER_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
+    private static final Map<Long,ContentKey> CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP = new HashMap<Long,ContentKey>();
     static {
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(GREAT_PARENTING_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1539L)));
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(ACADEMICS_AND_ACTIVITIES_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1540L)));
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(HOMEWORK_HELP_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1544L)));
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(PREP_FOR_COLLEGE_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1542L)));
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(LEARNING_DISABILITIES_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1541L)));
-        CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.put(IMPROVE_YOUR_SCHOOL_CATEGORY_ID, new UrlBuilder(new ContentKey("TopicCenter",1543L)));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(GREAT_PARENTING_CATEGORY_ID, new ContentKey("TopicCenter",1539L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(ACADEMICS_AND_ACTIVITIES_CATEGORY_ID, new ContentKey("TopicCenter",1540L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(HOMEWORK_HELP_CATEGORY_ID, new ContentKey("TopicCenter",1544L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(PREP_FOR_COLLEGE_CATEGORY_ID, new ContentKey("TopicCenter",1542L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(LEARNING_DISABILITIES_CATEGORY_ID, new ContentKey("TopicCenter",1541L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(IMPROVE_YOUR_SCHOOL_CATEGORY_ID, new ContentKey("TopicCenter",1543L));
     }
 
     protected List<CmsLink> getBreadcrumbs(CmsFeature feature, HttpServletRequest request) {
@@ -190,8 +190,8 @@ public class CmsFeatureController extends AbstractController {
             UrlBuilder builder;
             if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
                 builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
-            } else if (CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.containsKey(category.getId())) {
-                builder = CATEGORY_TOPIC_CENTER_URLBUILDER_MAP.get(category.getId());
+            } else if (CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.containsKey(category.getId())) {
+                builder = new UrlBuilder(CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId()));
                 // TODO: set topic center name as link text
             } else {
                 builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, feature.getLanguage());
