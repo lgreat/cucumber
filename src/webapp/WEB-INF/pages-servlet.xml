@@ -745,6 +745,7 @@
           class="gs.web.content.ArticlesByCategoryController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/articleCategory"/>
+        <property name="showAdTargeting" value="true"/>
     </bean>
 
     <bean name="/city.page"

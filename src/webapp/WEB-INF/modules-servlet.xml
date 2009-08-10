@@ -371,6 +371,7 @@
          class="gs.web.content.ArticlesByCategoryController"
          autowire="byName" lazy-init="true">
        <property name="viewName" value="/search/moreInCategory"/>
+       <property name="showAdTargeting" value="false"/>
    </bean>
 
     <bean name="/content/cms/mostPopularContent.module"

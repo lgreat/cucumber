@@ -80,6 +80,7 @@ public class ArticlesByCategoryController extends AbstractController {
     /** Whether to look up the subcategory's parent categories */
     private boolean _getParents = false;
     private String _viewName;
+    private boolean _showAdTargeting;
 
     // GS-7210: Used to boost articles by relevance.
     private QueryParser _titleParser;
@@ -115,14 +116,16 @@ public class ArticlesByCategoryController extends AbstractController {
             // legacy category
             model = handleLegacyCategoryRequest(request, page);
             ArticleCategory category = (ArticleCategory)model.get(MODEL_SUBCATEGORY);
-            if (category != null) {
+            if (category != null && isShowAdTargeting()) {
                 setAdTargetingForBrowseGradeLevelPages(request, category);
             }
         } else {
             // cms category
             model = handleCmsCategoryRequest(request, page);
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
-            setAdTargetingForCmsCategories(request, categories);
+            if (isShowAdTargeting()) {
+                setAdTargetingForCmsCategories(request, categories);
+            }
         }
 
         model.put(MODEL_PAGE, page);
@@ -535,5 +538,13 @@ public class ArticlesByCategoryController extends AbstractController {
 
     public String getViewName() {
         return _viewName;
+    }
+
+    public boolean isShowAdTargeting() {
+        return _showAdTargeting;
+    }
+
+    public void setShowAdTargeting(boolean showAdTargeting) {
+        _showAdTargeting = showAdTargeting;
     }
 }
