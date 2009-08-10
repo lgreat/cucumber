@@ -15,7 +15,7 @@
     The ad_popunder.js code contains all logic for the popunders.
     -->
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
-    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
+    <c:if test="${requestScope.context.popunderEnabled and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
         <c:set var="triggerPopunder" scope="request" value="DisplayPopunderSpecial('${state}','x06|x17'); return true;"/>
         <pageHelper:addOnLoadHandler handler="DisplayPopunder('${state}','x06|x17')" />
         <pageHelper:externalJavascript file="/cm/ad_popunder.js" />

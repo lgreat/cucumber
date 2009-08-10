@@ -87,7 +87,7 @@
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
 
     <!-- This tag includes ad_popunder.js -->
-    <!-- ad:xPopunder/ -->
+    <ad:xPopunder/>
 
     ${requestScope.pageHelper.headElements}
 
