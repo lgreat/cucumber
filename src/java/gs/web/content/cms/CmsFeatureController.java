@@ -189,27 +189,42 @@ public class CmsFeatureController extends AbstractController {
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(IMPROVE_YOUR_SCHOOL_CATEGORY_ID, new ContentKey("TopicCenter",1543L));
     }
 
+    // GS-8475: note that this cache does not refresh; to reflect changes, restart Tomcat
+    private static final Map<Long,CmsLink> CATEGORY_LINK_CACHE = new HashMap<Long,CmsLink>();
+
     protected List<CmsLink> getBreadcrumbs(CmsFeature feature, HttpServletRequest request) {
         List<CmsLink> breadcrumbs = new ArrayList<CmsLink>();
 
         for (CmsCategory category : feature.getPrimaryKategoryBreadcrumbs()) {
-            CmsLink link = new CmsLink();
-            link.setLinkText(category.getName());
+            CmsLink link;
 
-            UrlBuilder builder;
-            if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
-                builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
-            } else if (CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.containsKey(category.getId())) {
-                builder = new UrlBuilder(CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId()));
-
-                ContentKey contentKey = CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId());
-                CmsTopicCenter topicCenter = _publicationDao.populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
-                link.setLinkText(topicCenter.getTitle());
+            if (CATEGORY_LINK_CACHE.containsKey(category.getId())) {
+                link = CATEGORY_LINK_CACHE.get(category.getId());
             } else {
-                builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, feature.getLanguage());
-            }
-            if (builder != null) {
-                link.setUrl(builder.asSiteRelative(request));
+                link = new CmsLink();
+                link.setLinkText(category.getName());
+
+                UrlBuilder builder;
+                boolean cacheable = true;
+                if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
+                    builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
+                } else if (CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.containsKey(category.getId())) {
+                    builder = new UrlBuilder(CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId()));
+
+                    ContentKey contentKey = CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId());
+                    CmsTopicCenter topicCenter = _publicationDao.populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
+                    link.setLinkText(topicCenter.getTitle());
+                } else {
+                    builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, feature.getLanguage());
+                    cacheable = false;
+                }
+                if (builder != null) {
+                    link.setUrl(builder.asSiteRelative(request));
+                }
+
+                if (cacheable) {
+                    CATEGORY_LINK_CACHE.put(category.getId(), link);
+                }
             }
 
             breadcrumbs.add(link);
