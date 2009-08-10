@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.173 2009/08/07 23:47:23 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.174 2009/08/10 18:26:59 yfan Exp $
  */
 
 package gs.web.util;
@@ -449,7 +449,9 @@ public class UrlBuilder {
         }
 
         _perlPage = false;
-        _path = publication.getFullUri() + "." + extension;
+        if (publication != null) {
+            _path = publication.getFullUri() + "." + extension;
+        }
         setParameter("content", contentKey.getIdentifier().toString());
     }
 

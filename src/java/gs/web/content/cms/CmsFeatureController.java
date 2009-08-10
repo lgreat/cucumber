@@ -18,6 +18,7 @@ import gs.data.content.cms.*;
 import gs.data.cms.IPublicationDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.content.TargetSupplyList;
 
 public class CmsFeatureController extends AbstractController {
@@ -47,6 +48,12 @@ public class CmsFeatureController extends AbstractController {
         } catch(Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView("/status/error404.page");
+        }
+
+        // GS-8490
+        if (contentId == 522L) {
+            UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
+            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
         }
 
         CmsFeature feature = _featureDao.get(contentId);
