@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.84 2009/06/18 23:08:19 eingenito Exp $
+ * $Id: SchoolsController.java,v 1.85 2009/08/11 22:43:51 yfan Exp $
  */
 
 package gs.web.school;
@@ -276,11 +276,15 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                     String districtIdStr = request.getParameter(PARAM_DISTRICT);
                     int districtId = Integer.parseInt(districtIdStr);
                     district = _districtDao.findDistrictById(state, districtId);
+                    // GS-8445 - redirect old district browse to new district home instead of new district browse
+                    /*
                     String uri = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, district);
-
                     String queryString = SchoolsController.createNewCityBrowseQueryString(request);
                     String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
                     return new ModelAndView(new RedirectView301(redirectUrl));
+                    */
+                    String uri = DirectoryStructureUrlFactory.createNewDistrictHomeURI(state, district);
+                    return new ModelAndView(new RedirectView301(uri));
                 } else {
                     String districtName = fields.getDistrictName();
                     cityName = fields.getCityName();

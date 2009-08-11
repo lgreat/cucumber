@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.52 2009/05/18 23:38:43 droy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.53 2009/08/11 22:43:51 yfan Exp $
  */
 
 package gs.web.school;
@@ -313,7 +313,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
         assertTrue("ModelAndView should be a RedirectView301", mav.getView() instanceof RedirectView301);
-        assertEquals("Incorrect redirect url", "/alaska/tok/Alaska-Gateway-School-District/schools/", ((RedirectView) mav.getView()).getUrl());
+        assertEquals("Incorrect redirect url", "/alaska/tok/Alaska-Gateway-School-District/", ((RedirectView) mav.getView()).getUrl());
     }
 
     public void testDistrictBrowseModel() throws Exception {
