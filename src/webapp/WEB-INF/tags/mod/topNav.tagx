@@ -177,6 +177,7 @@
         <!--<tr>-->
             <!--<td>-->
 
+    <div id="navWrapper">
     <table cellpadding="0" cellspacing="0" id="nav" class="${navBarClass}">
         <tr>
             <td width="28px">&amp;#160;</td>
@@ -208,12 +209,15 @@
                                 id="GlobalNav_HighSchoolButton"
                 >High School</link:high-school></td>
             <!--#22--><td><link:backToSchool
-                                 id="GlobalNav_BackToSchoolButton"
-                                 styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} ${(pw == tabs.BACK_TO_SCHOOL ? 'active ractive' : 'inactive')} GS_CI9_ "
+                                 id="GlobalNav_BackToSchoolButton__Plain"
+                                 styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} inactive GS_CI9_ "
                 >Back to School</link:backToSchool></td>
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
+        <link:backToSchool styleClass="GS_CI9_ " id="GlobalNav_BackToSchoolButton"
+                ><img id="btsTab" class="${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}" src="/res/img/nav/bts_nav_${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}.gif" alt="Back to School"/></link:backToSchool>
+    </div>
 
     <table cellpadding="0" cellspacing="0" id="topnav_subnav" style="display: none;">
         <tr>
