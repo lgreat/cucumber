@@ -2280,7 +2280,7 @@
         </property>
     </bean>
 
-    <bean name="cbiIntegrationController"
+    <bean name="/cbi/integration.page"
           class="gs.web.cbi.CBIIntegrationController"
           autowire="byName" lazy-init="true"/>
 
