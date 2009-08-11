@@ -295,6 +295,15 @@
     border-left-color: #FFFFFF;
 }
 
+/* GS-8445 */
+#topnav table#nav td a#GlobalNav_BackToSchoolButton__Plain:hover,
+#topnav table#nav td a#GlobalNav_BackToSchoolButton__Plain:active {
+    color: #99cc67;
+    background-color: #99cc67;
+    border-right-color: #99cc67;
+    border-left-color: #99cc67;
+}
+
 #topnav table#nav_parent {
     width:865px;
     margin:0 auto;
@@ -517,6 +526,7 @@
     padding-right: 12px;
 }
 
+/* GS-8445 */
 #topnav #navWrapper {
     position: relative;
     width: 865px;
@@ -525,6 +535,12 @@
     padding: 0;
 }
 
+/* GS-8445 */
+* html #topnav #navWrapper {
+    width: 866px;
+}
+
+/* GS-8445 */
 #navWrapper #btsTab {
     position: absolute;
     bottom: 0;
