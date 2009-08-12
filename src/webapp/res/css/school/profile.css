@@ -18,6 +18,12 @@ div.printSchoolProfileHeader {
 div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0px;}
 div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
+#AboveFold_300x600 {
+    margin-top:15px;
+    border:1px solid #ccc;
+    padding-top:15px;
+}
+
 /* breadcrumbs */
 #breadcrumbs {
 	margin: 2px 0 0 24px;
