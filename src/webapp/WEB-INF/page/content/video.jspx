@@ -20,10 +20,10 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title>Greatschools.net: Video Page</title>
+        <title>Watch and Learn - GreatSchools</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <meta name="description"
-              content="Video page"/>
+              content="Videos with practical parenting tips to support your child's learning in school."/>
         <meta name="keywords"
               content="GreatSchools Video"/>
         <pageHelper:externalCss file="/res/css/content/video.css"/>
@@ -42,8 +42,18 @@
         <div id="content">
             <div id="leftColumn">
                 <div id="titleLeft">
-                    <h3>GreatSchools Videos</h3>
+                    <h3>Watch and Learn</h3>
                 </div>
+
+
+<object width="609" height="1000" id="delve_player534115o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player534115e" wmode="window" width="609" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"></embed></object>
+                
+                
+                
+                
+                <!-- <object width="609" height="1159" id="delve_player501878o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player501878e" wmode="window" width="609" height="1159" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object> -->
+
+
                 <div id="titleRight">
                     <div id="titleRightLeft">
                         Content provided by
@@ -52,12 +62,6 @@
                         <img src="/res/img/blog_billjackson.jpg"/>
                     </div>
                 </div>
-
-
-
-                <object width="609" height="669" id="delve_player501878o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player501878e" wmode="window" width="609" height="669" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
-
-
 
 
             </div>
@@ -70,7 +74,7 @@
 
 
         <mod:tracking pageName="${pageName}"
-                      hier1="Video"
+                      hier1="Video, Video page"
                       microsite="${pageName}"/>
     </body>
     </html>
