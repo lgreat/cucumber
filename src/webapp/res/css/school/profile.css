@@ -23,7 +23,11 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
     border-top:1px solid #ccc;
     padding-top:15px;
 }
-
+#BelowFold_300x250 {
+    margin-top:15px;
+    border-top:1px solid #ccc;
+    padding-top:15px;
+}
 /* breadcrumbs */
 #breadcrumbs {
 	margin: 2px 0 0 24px;
