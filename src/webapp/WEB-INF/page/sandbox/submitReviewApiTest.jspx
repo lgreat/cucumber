@@ -15,10 +15,10 @@
             String apiHost = "api.greatschools.net";
             if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 apiHost = "localhost/apiservice";
-            } else if (UrlUtil.isDevEnvironment(request.getServerName())) {
-                apiHost = "api.dev.greatschools.net";
             } else if (UrlUtil.isStagingServer(request.getServerName())) {
                 apiHost = "api.staging.greatschools.net";
+            } else if (UrlUtil.isDevEnvironment(request.getServerName())) {
+                apiHost = "api.dev.greatschools.net";
             }
             request.setAttribute("apiHost", apiHost);
         </jsp:scriptlet>
