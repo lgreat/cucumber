@@ -23,12 +23,12 @@
 
 #titleLeft{
     float:left;
+    margin-bottom:10px;
 }
 #titleRight{
     float:right;
     font-size:12px;
-    margin-bottom:4px;
-    margin-right:5px;
+    margin:5px;
 }
 #titleRightLeft{
     float:left;
