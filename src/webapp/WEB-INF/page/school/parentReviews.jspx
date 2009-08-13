@@ -60,7 +60,23 @@
 <div id="parentReview">
 <school:parentReviewThankYou schoolName="${school.name}"/>
 <div id="col_left">
-<c:if test="${cmd.ratings.displayOverallRating eq true}">
+
+<c:set var="hasPreschoolCategoryRatings" value="${
+                            not empty cmd.ratings.averageRatingMap[catProgram]
+                         or not empty cmd.ratings.averageRatingMap[catFacilities]
+                         or not empty cmd.ratings.averageRatingMap[catSafety]
+                         or not empty cmd.ratings.averageRatingMap[catTeachers]
+                         or not empty cmd.ratings.averageRatingMap[catParents]}"/>
+
+<c:set var="hasGradeschoolCategoryRatings" value="${
+                            not empty cmd.ratings.avgPrincipal
+                         or not empty cmd.ratings.avgTeachers
+                         or not empty cmd.ratings.avgActivities
+                         or not empty cmd.ratings.avgParents
+                         or not empty cmd.ratings.avgSafety}"/>
+
+<c:choose>
+<c:when test="${cmd.ratings.displayOverallRating eq true and (hasPreschoolCategoryRatings or hasGradeschoolCategoryRatings)}">
     <div id="showParentRatings">
         <div id="rating_parent">
             <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
@@ -78,20 +94,6 @@
             <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
         </div>
         <!-- end: rating_parent -->
-
-        <c:set var="hasPreschoolCategoryRatings" value="${
-                                   not empty cmd.ratings.averageRatingMap[catProgram]
-                                or not empty cmd.ratings.averageRatingMap[catFacilities]
-                                or not empty cmd.ratings.averageRatingMap[catSafety]
-                                or not empty cmd.ratings.averageRatingMap[catTeachers]
-                                or not empty cmd.ratings.averageRatingMap[catParents]}"/>
-
-        <c:set var="hasGradeschoolCategoryRatings" value="${
-                                   not empty cmd.ratings.avgPrincipal
-                                or not empty cmd.ratings.avgTeachers
-                                or not empty cmd.ratings.avgActivities
-                                or not empty cmd.ratings.avgParents
-                                or not empty cmd.ratings.avgSafety}"/>
 
         <c:choose>
             <c:when test="${cmd.ratings.preschool}">
@@ -182,7 +184,11 @@
         </c:choose>
     </div>
     <!-- end: showParentRatings -->
-</c:if>
+</c:when>
+<c:otherwise>
+    <div id="noRatingsSpacer"><!-- don't collapse --></div>
+</c:otherwise>
+</c:choose>
 
 <jsp:include page="/community/communityQuestionPromo.module">
     <jsp:param name="code" value="school/parentReviews.page"/>

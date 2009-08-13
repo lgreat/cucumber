@@ -102,6 +102,10 @@ Parent Review Page
     font-size: 12px;
 }
 
+#noRatingsSpacer {
+    padding-top: 15px;
+}
+
 
 /* Rate & Review
 ----------------------------------*/
