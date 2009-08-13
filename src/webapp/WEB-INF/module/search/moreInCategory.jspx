@@ -17,12 +17,9 @@
             <div id="cmsRelatedArticleContent">
                 <h2>More in ${gsweb:toLowerCase(category.name)}</h2>
 
-                <c:set var="numResults" value="${fn:length(mainResults)}"/>
-                <c:set var="maxResults" value="${5}"/>
-
                 <c:choose>
-                    <c:when test="${numResults lt maxResults}">
-                        <c:set var="actualMax" value="${numResults}"/>
+                    <c:when test="${total lt maxResults}">
+                        <c:set var="actualMax" value="${total}"/>
                     </c:when>
                     <c:otherwise>
                         <c:set var="actualMax" value="${maxResults}"/>
@@ -51,7 +48,7 @@
                     </c:if>
                 </c:forEach>
 
-                <c:if test="${numResults gt maxResults}">
+                <c:if test="${total gt maxResults}">
                     <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
                             class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
                 </c:if>

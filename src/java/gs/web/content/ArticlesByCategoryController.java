@@ -12,10 +12,8 @@ import org.apache.lucene.queryParser.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.IOException;
 
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.ArticleCategory;
@@ -27,6 +25,7 @@ import gs.data.search.Indexer;
 import gs.data.search.GSAnalyzer;
 import gs.data.util.CmsUtil;
 import gs.web.search.ResultsPager;
+import gs.web.search.SearchResult;
 import gs.web.util.PageHelper;
 
 /**
@@ -46,6 +45,7 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOPICS = "topics";
     protected static final String MODEL_GRADES = "grades";
     protected static final String MODEL_SUBJECTS = "subjects";
+    protected static final String MODEL_MAX_RESULTS = "maxResults";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -81,6 +81,8 @@ public class ArticlesByCategoryController extends AbstractController {
     private boolean _getParents = false;
     private String _viewName;
     private boolean _showAdTargeting;
+    private boolean _randomResults = false;
+    private int _maxResults = -1;
 
     // GS-7210: Used to boost articles by relevance.
     private QueryParser _titleParser;
@@ -297,10 +299,46 @@ public class ArticlesByCategoryController extends AbstractController {
         if (hits != null && hits.length() > 0) {
             model.put(MODEL_TOTAL_HITS, hits.length());
             ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-            model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
+
+            if (isRandomResults() && getMaxResults() > 0) {
+                model.put(MODEL_RESULTS, getRandomResults(hits, getMaxResults()));
+                model.put(MODEL_MAX_RESULTS, getMaxResults());                
+            } else {
+                model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
+            }
         }
 
         return categories;
+    }
+
+    private static List<SearchResult> getRandomResults(Hits hits, int maxResults) {
+        if (hits == null || hits.length() == 0) {
+            throw new IllegalArgumentException("Hits cannot be null or have 0 length");
+        }
+        if (maxResults <= 0) {
+            throw new IllegalArgumentException("MaxResults must be 1 or higher");
+        }
+
+        List<SearchResult> searchResults = new ArrayList<SearchResult>();
+        Set<Integer> picked = new HashSet<Integer>();
+
+        try {
+
+        while (searchResults.size() < maxResults && searchResults.size() < hits.length()) {
+            Random rand = new Random();
+            int n = rand.nextInt(hits.length());
+            if (picked.contains(n)) {
+                continue;
+            }
+            picked.add(n);
+            searchResults.add(new SearchResult(hits.doc(n)));
+        }
+
+        } catch (IOException e) {
+            _log.warn(e);
+        }
+
+        return searchResults;
     }
 
     /**
@@ -546,5 +584,21 @@ public class ArticlesByCategoryController extends AbstractController {
 
     public void setShowAdTargeting(boolean showAdTargeting) {
         _showAdTargeting = showAdTargeting;
+    }
+
+    public boolean isRandomResults() {
+        return _randomResults;
+    }
+
+    public void setRandomResults(boolean randomResults) {
+        _randomResults = randomResults;
+    }
+
+    public int getMaxResults() {
+        return _maxResults;
+    }
+
+    public void setMaxResults(int maxResults) {
+        _maxResults = maxResults;
     }
 }

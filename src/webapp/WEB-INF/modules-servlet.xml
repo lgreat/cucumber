@@ -372,6 +372,8 @@
          autowire="byName" lazy-init="true">
        <property name="viewName" value="/search/moreInCategory"/>
        <property name="showAdTargeting" value="false"/>
+       <property name="randomResults" value="true"/>
+       <property name="maxResults" value="5"/>
    </bean>
 
     <bean name="/content/cms/mostPopularContent.module"
