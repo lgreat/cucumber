@@ -12,6 +12,7 @@ function doOnPlayerLoad() {
 
 function doOnChannelLoad(e) {
     var vid = getParam('id');
+    vid = vid > 0 ? vid - 1 : 0;
     DelvePlayer.doSkipToIndex(vid);
 }
 
