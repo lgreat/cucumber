@@ -18,7 +18,15 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>${topicCenter.title}</title>
+    <c:choose>
+        <c:when test="${not empty topicCenter.pageTitle}">
+            <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${topicCenter.title}</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="${topicCenter.metaDescription}"/>
     <meta name="keywords" content="${topicCenter.metaKeywords}"/>
     <!-- ATTN: keep, using jquery -->
