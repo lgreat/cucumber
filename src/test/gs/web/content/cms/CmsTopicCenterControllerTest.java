@@ -7,8 +7,7 @@ import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.CmsTopicCenter;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Arrays;
+import java.util.*;
 
 public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
     private CmsTopicCenterController _controller;
@@ -46,7 +45,16 @@ public class CmsTopicCenterControllerTest extends BaseControllerTestCase {
         referencePageHelper.addAdKeywordMulti("topic_center_id", "123");
 
         PageHelper pageHelper = (PageHelper) getRequest().getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        assertEquals("Expected identical ad keywords", referencePageHelper.getAdKeywords(), pageHelper.getAdKeywords());
+
+        Collection referenceEditorialKeywords = (Collection)referencePageHelper.getAdKeywords().get("editorial");
+        Collection actualEditorialKeywords = (Collection)pageHelper.getAdKeywords().get("editorial");
+        assertEquals(referenceEditorialKeywords.size(), actualEditorialKeywords.size());
+
+        SortedSet referencedEditorialKeywordsSorted = new TreeSet();
+        referencedEditorialKeywordsSorted.addAll(referenceEditorialKeywords);
+        SortedSet actualEditorialKeywordsSorted = new TreeSet();
+        actualEditorialKeywordsSorted.addAll(actualEditorialKeywords);
+        assertEquals("Expected identical ad keywords", referencedEditorialKeywordsSorted, actualEditorialKeywordsSorted);
 
         CmsUtil.disableCms();
     }
