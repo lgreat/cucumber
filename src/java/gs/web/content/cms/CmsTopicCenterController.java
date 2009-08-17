@@ -60,12 +60,8 @@ public class CmsTopicCenterController extends AbstractController {
 
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            if (topicCenter.getSecondaryKategoryBreadcrumbs() != null) {
-                for (List<CmsCategory> secondaryCategory : topicCenter.getSecondaryKategoryBreadcrumbs()) {
-                    for (CmsCategory category : secondaryCategory) {
-                        pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-                    }
-                }
+            for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
+                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
             }
             pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
 

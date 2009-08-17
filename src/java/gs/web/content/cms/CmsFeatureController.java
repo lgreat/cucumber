@@ -100,15 +100,8 @@ public class CmsFeatureController extends AbstractController {
 
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        for (CmsCategory category : feature.getPrimaryKategoryBreadcrumbs()) {
+        for (CmsCategory category : feature.getUniqueKategoryBreadcrumbs()) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-        }
-        if (feature.getSecondaryKategoryBreadcrumbs() != null) {
-            for (List<CmsCategory> secondaryCategory : feature.getSecondaryKategoryBreadcrumbs()) {
-                for (CmsCategory category : secondaryCategory) {
-                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-                }
-            }
         }
         pageHelper.addAdKeyword("article_id", String.valueOf(feature.getContentKey().getIdentifier()));
 
