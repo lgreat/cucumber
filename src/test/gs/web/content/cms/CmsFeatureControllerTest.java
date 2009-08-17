@@ -12,10 +12,7 @@ import gs.data.util.CmsUtil;
 import static org.easymock.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class CmsFeatureControllerTest extends BaseControllerTestCase {
     private CmsFeatureController _controller;
@@ -38,23 +35,23 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         firstCat.setId(1);
         firstCat.setName("Category 1");
         CmsCategory secondCat = new CmsCategory();
-        firstCat.setId(2);
+        secondCat.setId(2);
         secondCat.setName("Category 2");
         CmsCategory thirdCat = new CmsCategory();
-        firstCat.setId(3);
+        thirdCat.setId(3);
         thirdCat.setName("Category 3");
 
         CmsCategory secondaryFirstCatNum = new CmsCategory();
-        secondaryFirstCatNum.setId(1);
+        secondaryFirstCatNum.setId(4);
         secondaryFirstCatNum.setName("2nd Cat 1");
         CmsCategory secondarySecondCatNum = new CmsCategory();
-        secondarySecondCatNum.setId(4);
+        secondarySecondCatNum.setId(5);
         secondarySecondCatNum.setName("2nd Cat 2");
         CmsCategory secondaryFirstCatLet = new CmsCategory();
-        secondaryFirstCatLet.setId(5);
+        secondaryFirstCatLet.setId(6);
         secondaryFirstCatLet.setName("2nd Cat A");
         CmsCategory secondarySecondCatLet = new CmsCategory();
-        secondarySecondCatLet.setId(6);
+        secondarySecondCatLet.setId(7);
         secondarySecondCatLet.setName("2nd Cat B");
 
         feature.setPrimaryKategory(thirdCat);
@@ -288,13 +285,23 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         referencePageHelper.addAdKeywordMulti("editorial", "Category 1");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 2");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 3");
+        referencePageHelper.addAdKeywordMulti("editorial", "2ndCat1");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCat2");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCatA");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCatB");
         referencePageHelper.addAdKeyword("article_id", "23");
 
         PageHelper pageHelper = (PageHelper) getRequest().getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        assertEquals("Expected identical ad keywords", referencePageHelper.getAdKeywords(), pageHelper.getAdKeywords());
+
+        Collection referenceEditorialKeywords = (Collection)referencePageHelper.getAdKeywords().get("editorial");
+        Collection actualEditorialKeywords = (Collection)pageHelper.getAdKeywords().get("editorial");
+        assertEquals(referenceEditorialKeywords.size(), actualEditorialKeywords.size());
+
+        SortedSet referencedEditorialKeywordsSorted = new TreeSet();
+        referencedEditorialKeywordsSorted.addAll(referenceEditorialKeywords);
+        SortedSet actualEditorialKeywordsSorted = new TreeSet();
+        actualEditorialKeywordsSorted.addAll(actualEditorialKeywords);
+        assertEquals("Expected identical ad keywords", referencedEditorialKeywordsSorted, actualEditorialKeywordsSorted);
 
         CmsUtil.disableCms();
     }
