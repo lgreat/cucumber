@@ -163,6 +163,12 @@ public class CmsFeatureController extends AbstractController {
     private static final long IMPROVE_YOUR_SCHOOL_CATEGORY_ID = 125;
     private static final long FIND_A_SCHOOL_CATEGORY_ID = 143;
     private static final long MOVING_CATEGORY_ID = 144;
+    private static final long BACK_TO_SCHOOL_ID = 141;
+
+    private static final Map<Long,String> CATEGORY_MICROSITE_LINK_TEXT_MAP = new HashMap<Long,String>();
+    static {
+        CATEGORY_MICROSITE_LINK_TEXT_MAP.put(MEDIA_AND_KIDS_CATEGORY_ID, "Media & kids");
+    }
 
     private static final Map<Long,UrlBuilder> CATEGORY_MICROSITE_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
     static {
@@ -170,6 +176,7 @@ public class CmsFeatureController extends AbstractController {
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(MEDIA_AND_KIDS_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MEDIA_CHOICES")));
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(FIND_A_SCHOOL_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("SCHOOL_CHOICE_CENTER")));
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(MOVING_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MOVING_WITH_KIDS")));
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(BACK_TO_SCHOOL_ID, new UrlBuilder(UrlBuilder.getVPage("BACK_TO_SCHOOL")));
     }
 
     private static final Map<Long,ContentKey> CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP = new HashMap<Long,ContentKey>();
@@ -201,6 +208,9 @@ public class CmsFeatureController extends AbstractController {
                 boolean cacheable = true;
                 if (CATEGORY_MICROSITE_URLBUILDER_MAP.containsKey(category.getId())) {
                     builder = CATEGORY_MICROSITE_URLBUILDER_MAP.get(category.getId());
+                    if (CATEGORY_MICROSITE_LINK_TEXT_MAP.containsKey(category.getId())) {
+                        link.setLinkText(CATEGORY_MICROSITE_LINK_TEXT_MAP.get(category.getId()));
+                    }
                 } else if (CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.containsKey(category.getId())) {
                     builder = new UrlBuilder(CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.get(category.getId()));
 
