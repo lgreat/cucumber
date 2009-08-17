@@ -27,6 +27,8 @@ import gs.data.util.CmsUtil;
 import gs.web.search.ResultsPager;
 import gs.web.search.SearchResult;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
+import gs.web.util.RedirectView301;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -123,6 +125,15 @@ public class ArticlesByCategoryController extends AbstractController {
             }
         } else {
             // cms category
+
+            // GS-8546 - handle old-style browse urls
+            CmsCategory category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
+            if (category != null && CmsCategory.TYPE_TOPIC.equals(category.getType())) {
+                UrlBuilder redirectUrlBuilder =
+                        new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, request.getParameter("language"));
+                return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
+            }
+
             model = handleCmsCategoryRequest(request, page);
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
             if (isShowAdTargeting()) {
