@@ -90,10 +90,13 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setContentProviderLogoAltText("content provider logo alt text");
 
         CmsCategory firstCat = new CmsCategory();
+        firstCat.setId(1);
         firstCat.setName("Category 1");
         CmsCategory secondCat = new CmsCategory();
+        firstCat.setId(2);
         secondCat.setName("Category 2");
         CmsCategory thirdCat = new CmsCategory();
+        firstCat.setId(3);
         thirdCat.setName("Category 3");
         List<CmsCategory> secondaryKategories = new ArrayList<CmsCategory>();
         secondaryKategories.add(thirdCat);

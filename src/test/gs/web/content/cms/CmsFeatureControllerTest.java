@@ -35,19 +35,26 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
                 " Also, you may want to go <a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>.");
 
         CmsCategory firstCat = new CmsCategory();
+        firstCat.setId(1);
         firstCat.setName("Category 1");
         CmsCategory secondCat = new CmsCategory();
+        firstCat.setId(2);
         secondCat.setName("Category 2");
         CmsCategory thirdCat = new CmsCategory();
+        firstCat.setId(3);
         thirdCat.setName("Category 3");
 
         CmsCategory secondaryFirstCatNum = new CmsCategory();
+        secondaryFirstCatNum.setId(1);
         secondaryFirstCatNum.setName("2nd Cat 1");
         CmsCategory secondarySecondCatNum = new CmsCategory();
+        secondarySecondCatNum.setId(4);
         secondarySecondCatNum.setName("2nd Cat 2");
         CmsCategory secondaryFirstCatLet = new CmsCategory();
+        secondaryFirstCatLet.setId(5);
         secondaryFirstCatLet.setName("2nd Cat A");
         CmsCategory secondarySecondCatLet = new CmsCategory();
+        secondarySecondCatLet.setId(6);
         secondarySecondCatLet.setName("2nd Cat B");
 
         feature.setPrimaryKategory(thirdCat);
@@ -281,7 +288,6 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         referencePageHelper.addAdKeywordMulti("editorial", "Category 1");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 2");
         referencePageHelper.addAdKeywordMulti("editorial", "Category 3");
-        referencePageHelper.addAdKeywordMulti("editorial", "2ndCat1");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCat2");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCatA");
         referencePageHelper.addAdKeywordMulti("editorial", "2ndCatB");
