@@ -440,9 +440,11 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
     // Test scope is to determine that this method switches based on the URI
     // Testing actual search is out of scope! Use tests that target those methods specifically instead
     public void testHandleRequestInternalCms() {
-        getRequest().setRequestURI("/articles/?topics=1,2,3");
+        getRequest().setQueryString("topics=1,2,3");
+        getRequest().setRequestURI("/articles/");
         getRequest().setParameter("topics","1,2,3");
 
+        expect(_cmsCategoryDao.getCmsCategoryFromURI("/articles/")).andReturn(null);
         expect(_cmsCategoryDao.getCmsCategoriesFromIds("1,2,3")).andReturn(new ArrayList<CmsCategory>());
         expect(_cmsCategoryDao.getCmsCategoriesFromIds(null)).andReturn(new ArrayList<CmsCategory>());
         expect(_cmsCategoryDao.getCmsCategoriesFromIds(null)).andReturn(new ArrayList<CmsCategory>());
