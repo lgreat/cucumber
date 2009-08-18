@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.community.*;
+import gs.web.util.ReadWriteController;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.PrintWriter;
@@ -45,25 +46,6 @@ public class CBIIntegrationController implements Controller {
         return null;
     }
 
-//    protected String sendTargetTriggeredEmail(HttpServletRequest request) {
-//        String exactTargetKey = request.getParameter("etkey");
-//        String emailAddress = request.getParameter("email");
-//        StringBuilder response = new StringBuilder();
-//        if(exactTargetKey != null && emailAddress != null){
-//             User user = new User();
-//             user.setEmail(emailAddress);
-//             Map attributesMap = constructETAttributesMap(request);
-//            if(!attributesMap.isEmpty()){
-//                _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-//            }else{
-//                _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user);
-//            }
-//            response.append("success");
-//        }
-//        return response.toString();
-//    }
-
-
     protected String sendExactTargetTriggeredEmail(HttpServletRequest request) {
         String exactTargetKey = request.getParameter("etkey");
         String memberid = request.getParameter("memberid");
@@ -75,11 +57,12 @@ public class CBIIntegrationController implements Controller {
                 Map attributesMap = constructETAttributesMap(request,user);
                 if(!attributesMap.isEmpty()){
                     if(isCourseCompletionEmail){
-                        //check
+                        if(isUserSubscribedToCourseCompletion(user)){
+                            _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
+                        }
+                    }else{
+                        _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
                     }
-                    _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-                }else{
-                    _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user);
                 }
                 response.append("success");
             }            
@@ -111,18 +94,20 @@ public class CBIIntegrationController implements Controller {
         if(StringUtils.isNotBlank(courseIndex)){
             attributes.put("cbCourseIndex",courseIndex);
         }
+        
         return attributes;
     }
-
-    public void removeCourseCompleteSubscription(User user){
+    
+    public boolean isUserSubscribedToCourseCompletion(User user){
         Set<Subscription> subs = user.getSubscriptions();
         Iterator it = subs.iterator();
         while(it.hasNext()){
             Subscription s = (Subscription)it.next();
             if(s.getProduct().getLongName().equals(SubscriptionProduct.CB_COURSE_COMPLETE.getLongName())){
-                _subscriptionDao.removeSubscription(s.getId());
+              return true;
             }
         }
+        return false;
     }
 
      public IUserDao getUserDao() {
