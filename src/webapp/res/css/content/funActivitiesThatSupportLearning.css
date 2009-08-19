@@ -1,7 +1,9 @@
 #tabbed-info {
     font-size:13px;
 }
-
+#tabbed-info h2{
+    clear:both;
+}
 #tabbed-info h3 {
 	clear: both;
 	float: left;
