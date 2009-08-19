@@ -187,6 +187,7 @@ h2.topSchoolsHeader {
     font-size:16px;
     font-weight:bold;
     margin:5px 0 10px;
+    clear:both;
 }
 .fourStepsBox img {
     float:left;
