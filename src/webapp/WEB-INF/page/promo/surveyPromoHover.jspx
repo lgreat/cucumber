@@ -33,7 +33,7 @@
 <gsml:body adPageName="surveyHover" pageLayout="newsPop">
 
     <div style="margin-top: 10px">
-        <a href="/content/backToSchool.page" target="_blank"
+        <a href="/content/backToSchool.page"
            onclick="subModalInterceptor.setPresentedToUser(); window.top.hidePopWin(false);">
             <gsml:img src="/res/img/survey/surveyhover.gif" alt="Take Survey" />
         </a>

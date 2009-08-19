@@ -346,7 +346,7 @@
             or fn:contains(pageContext.request.requestURI,'backToSchool')}">
             </c:when>
             <c:otherwise>
-                          <ad:Global_Nav_Promo_865x24/>  
+                <div style="text-align:center;width:100%;">${pageContext.request.requestURI}<ad:Global_Nav_Promo_865x24/></div>
             </c:otherwise>
         </c:choose>
     </div>
