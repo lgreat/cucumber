@@ -341,9 +341,17 @@
                                          id="GlobalNav_CommunityButton">Community</gsml:a>
             </li>
         </ul>
+        <c:choose>
+            <c:when test="${fn:contains(pageContext.request.requestURI,'index')
+            or fn:contains(pageContext.request.requestURI,'backToSchool')}">
+            </c:when>
+            <c:otherwise>
+                          <ad:Global_Nav_Promo_865x24/>  
+            </c:otherwise>
+        </c:choose>
     </div>
 
 </div>
-</div>
 
+</div>
 </jsp:root>

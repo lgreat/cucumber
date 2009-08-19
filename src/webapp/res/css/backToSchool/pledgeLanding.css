@@ -20,14 +20,12 @@
 }
 
 #contentGS h1 {
-    font-size: 34px;
-    line-height: 36px;
+    font-size: 28px;
     color: #55BBCC;
 }
 
 #contentGS p.boilerplate {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
     color: #666666;
     margin-top: 10px;
     padding-top: 0;
