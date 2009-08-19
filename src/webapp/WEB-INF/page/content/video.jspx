@@ -46,12 +46,9 @@
                 </div>
 
 
-<object width="609" height="1000" id="delve_player534115o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player534115e" wmode="window" width="609" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"></embed></object>
+<object width="610" height="1000" id="delve_player928094o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player928094e" wmode="window" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="channelId=4d2ffc1969c74ae0bc356bce29422461&amp;playerForm=292d204584cf468ca024f0fd210ab986"></embed></object>
                 
                 
-                
-                
-                <!-- <object width="609" height="1159" id="delve_player501878o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player501878e" wmode="window" width="609" height="1159" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object> -->
 
 
                 <div id="titleRight">
@@ -59,7 +56,7 @@
                         Content provided by
                     </div>
                     <div id="titleRightRight">
-                        <img src="/res/img/content/video/k5.gif"/>
+                        <a href="http://thek5.com"></a><img src="/res/img/content/video/k5.gif" alt="k5"/>
                     </div>
                 </div>
 
