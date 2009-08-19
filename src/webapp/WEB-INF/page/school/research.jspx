@@ -528,7 +528,7 @@
               <td><div id="fourStepsBox">
                   <!--<img class="fourStepsImg" alt="Clipboard" src="/res/img/promo/clipboard_icon.jpg"/>-->
                   <img alt="Clipboard" src="/res/img/promo/clipboard_icon.jpg"/>
-                  <h2 class="fourStepsHeader"> Four Steps to Choosing the Right School</h2>
+                  <h2 id="fourStepsHeader"> Four Steps to Choosing the Right School</h2>
                   <!--<h2> Four Steps to Choosing the Right School</h2>-->
                   <!--<ul class="fourStepsUlstyle">-->
                   <ul>
