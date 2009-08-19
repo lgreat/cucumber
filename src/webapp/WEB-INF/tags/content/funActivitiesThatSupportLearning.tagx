@@ -8,7 +8,7 @@
 
 <pageHelper:externalCss file="/res/css/content/funActivitiesThatSupportLearning.css" />
 
-<div id="tabbed_info">
+<div id="tabbed-info">
     <div class="inner">
         <div class="content">
         <h2 id="fun_activities">Fun Activities That Support Learning</h2>

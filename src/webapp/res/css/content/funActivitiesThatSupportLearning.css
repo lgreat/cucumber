@@ -1,17 +1,17 @@
-#tabbed_info {
+#tabbed-info {
     font-size:13px;
 }
-#tabbed_info h2 #fun_activities{
+#tabbed-info h2 #fun_activities{
     clear:both;
 }
-#tabbed_info h3 {
+#tabbed-info h3 {
 	clear: both;
 	float: left;
 	font-size: 13px;
 	line-height: 15px;
 }
 
-#tabbed_info h3 a {
+#tabbed-info h3 a {
 	display: block;
 	width: 98px;
 	height: 20px;
@@ -21,21 +21,21 @@
 	border-left: 1px solid #c4c4c4;
 }
 
-#tabbed_info h3 .active {
+#tabbed-info h3 .active {
 	background: url(/res/img/library/button-active.png);
 	color: #fff;
 	border-color: #2387a2;
 }
 
-#tabbed_info h3 .active:hover {
+#tabbed-info h3 .active:hover {
 	text-decoration: none;
 }
 
-#tabbed_info #fifthgrade {
+#tabbed-info #fifthgrade {
 	border-bottom: 1px solid #c4c4c4;
 }
 
-#tabbed_info .contents {
+#tabbed-info .contents {
 	width: 332px;
 	float: right;
 	background: #fff url(/res/img/library/middle-box3-bg.png) repeat-x 0 bottom;
@@ -43,7 +43,7 @@
 	border-left: 1px solid #c4c4c4;
 }
 
-#tabbed_info .column {
+#tabbed-info .column {
 	width: 145px;
 	padding: 5px 10px;
 	height: 157px;
@@ -51,13 +51,13 @@
 	border-right: 1px solid #c4c4c4;
 }
 
-#tabbed_info h4 {
+#tabbed-info h4 {
 	font-size: 14.5px;
 	font-weight: bold;
 	margin: 0 0 5px;
 }
 
-#tabbed_info div.gradelevel-books {
+#tabbed-info div.gradelevel-books {
      text-align:right;
 }
 
