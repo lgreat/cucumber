@@ -182,14 +182,13 @@ h2.topSchoolsHeader {
     float:left;
     padding:0 10px 20px 0;
 }*/
-.fourStepsBox h2 {
+#fourStepsBox h2 {
     color:#D66671;
     font-size:16px;
     font-weight:bold;
     margin:5px 0 10px;
-    clear:both;
 }
-.fourStepsBox img {
+#fourStepsBox img {
     float:left;
     padding:0 10px 20px 0;
 }
@@ -259,7 +258,7 @@ h2.topSchoolsHeader {
 	list-style-type: none;
 }*/
 
-.fourStepsBox ul{
+#fourStepsBox ul{
     margin-left:14px;
     list-style-type: none;
 }
@@ -269,7 +268,7 @@ h2.topSchoolsHeader {
 	margin-bottom: 5px;
 }*/
 
-.fourStepsBox li {
+#fourStepsBox li {
     padding-left: 20px;
 	margin-bottom: 5px;
 }
@@ -279,7 +278,7 @@ h2.topSchoolsHeader {
     position:relative;         
 }*/
 
-.fourStepsBox ul li#img1{
+#fourStepsBox ul li#img1{
     background:transparent url(/res/img/content/research/statepage_number1.gif) no-repeat scroll left 4px;
     position:relative;
 }
@@ -292,7 +291,7 @@ h2.topSchoolsHeader {
    background-position:left 2px;
 }*/
 
-.fourStepsBox ul li#img1{
+#fourStepsBox ul li#img1{
     background-position:left 2px;
 }
 
@@ -301,7 +300,7 @@ h2.topSchoolsHeader {
     position:relative;
 }*/
 
-.fourStepsBox ul li#img2{
+#fourStepsBox ul li#img2{
     background:transparent url(/res/img/content/research/statepage_number2.gif) no-repeat scroll left 4px;
     position:relative;
 }
@@ -314,7 +313,7 @@ h2.topSchoolsHeader {
     background-position:left 2px;
 }*/
 
-.fourStepsBox ul li#img2{
+#fourStepsBox ul li#img2{
     background-position:left 2px;
 }
 
@@ -323,7 +322,7 @@ h2.topSchoolsHeader {
     position:relative;
 }*/
 
-.fourStepsBox ul li#img3{
+#fourStepsBox ul li#img3{
     background:transparent url(/res/img/content/research/statepage_number3.gif) no-repeat scroll left 4px;
     position:relative;
 }
@@ -336,7 +335,7 @@ h2.topSchoolsHeader {
     background-position:left 2px;
 }*/
 
-.fourStepsBox ul li#img3{
+#fourStepsBox ul li#img3{
     background-position:left 2px;
 }
 
@@ -345,7 +344,7 @@ h2.topSchoolsHeader {
     position:relative;
 }*/
 
-.fourStepsBox ul li#img4{
+#fourStepsBox ul li#img4{
     background:transparent url(/res/img/content/research/statepage_number4.gif) no-repeat scroll left 4px;
     position:relative;
 }
@@ -358,7 +357,7 @@ h2.topSchoolsHeader {
     background-position:left 2px;
 }*/
 
-.fourStepsBox ul li#img4{
+#fourStepsBox ul li#img4{
     background-position:left 2px;
 }
 
