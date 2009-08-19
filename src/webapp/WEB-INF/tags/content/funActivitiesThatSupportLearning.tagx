@@ -11,7 +11,7 @@
 <div id="tabbed-info">
     <div class="inner">
         <div class="content">
-        <h2>Fun Activities That Support Learning</h2>
+        <h2 id="fun_activities">Fun Activities That Support Learning</h2>
         <div class="wrapper">
             <h3><a id="preschool" class="active" href="#preschool-contents">Preschool</a></h3>
             <div id="preschool-contents" class="contents" style="position: absolute; top: 0; right: 0;">
