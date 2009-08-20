@@ -160,6 +160,8 @@
                 </c:choose>
                 <a href="${featureLink.url}" target="${featureLinkTarget}">
                 <img src="${homepage.featureLinks[status.index].imageUrl}"
+                     width="584"
+                     height="291"
                      alt="${homepage.featureLinks[status.index].imageAltText}"/>
                 </a>
             </c:forEach>
