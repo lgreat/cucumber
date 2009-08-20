@@ -162,7 +162,7 @@
                 <ul>
                     <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
 
-                    <li><link:article articleId="1142">What's new with GreatSchools Milwaukee</link:article></li>
+                    <!--li><link:article articleId="1142">What's new with GreatSchools Milwaukee</link:article></li-->
                     <li>
                         <a href="mailto:milwaukee@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
