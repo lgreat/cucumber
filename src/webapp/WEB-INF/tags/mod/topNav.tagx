@@ -345,8 +345,9 @@
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')
             or fn:contains(pageContext.request.requestURI,'backToSchool')}">
             </c:when>
-            <c:otherwise>
-                <div style="text-align:center;width:100%;"><ad:Global_Nav_Promo_865x24/></div>
+            <c:otherwise>    
+                <div id="global_nav_promo_865"><ad:Global_Nav_Promo_865x24/></div>
+                <div id="global_nav_promo_952"><ad:Global_Nav_Promo_952x24/></div>
             </c:otherwise>
         </c:choose>
     </div>

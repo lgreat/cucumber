@@ -56,4 +56,13 @@
     margin-right: 0;
 }
 
+#global_nav_promo_865{
+    display:none;
+}
+#global_nav_promo_952{
+    display:block;
+    text-align:center;
+    width:100%;
+    margin-top:5px;
+}
 /* END subnav spacing */

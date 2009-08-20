@@ -72,6 +72,16 @@
                             <ad:Promo_170x92/>
                         </Promo_170x92>
                     </c:when>
+                    <c:when test="${curAd eq 'Global_Nav_Promo_865x24'}">
+                        <Global_Nav_Promo_865x24>
+                            <ad:Global_Nav_Promo_865x24/>
+                        </Global_Nav_Promo_865x24>
+                    </c:when>
+                    <c:when test="${curAd eq 'Global_Nav_Promo_952x24'}">
+                        <Global_Nav_Promo_952x24>
+                            <ad:Global_Nav_Promo_952x24/>
+                        </Global_Nav_Promo_952x24>
+                    </c:when>
                 </c:choose>
                 <jsp:scriptlet>
             }
