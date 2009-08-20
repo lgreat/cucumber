@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 import gs.data.util.email.EmailUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This controller provides a web interface to gs.data.util.email.EmailUtils.isValidEmail();
@@ -26,8 +27,20 @@ public class IsValidEmailController implements Controller {
                                       HttpServletResponse response) throws Exception {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
-        out.print(EmailUtils.isValidEmail(request.getParameter("email")));
-        out.flush();
+        if(StringUtils.isNotBlank(request.getParameter("emails"))){
+            String[] emails = request.getParameter("emails").split("[,\\s]");
+            boolean isValid = true;
+            for(int i=0;i<emails.length;i++){
+                if(!EmailUtils.isValidEmail(emails[i])){
+                    isValid = false;
+                }
+            }
+            out.print(isValid);
+            out.flush();
+        }else{
+            out.print(EmailUtils.isValidEmail(request.getParameter("email")));
+            out.flush();
+        }        
         return null;
     }
 }
