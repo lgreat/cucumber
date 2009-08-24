@@ -1,4 +1,4 @@
-/* General elements to omit from print-friendly version (copied from article.css) */
+/* General elements to omit from print-friendly version - copied from article.css */
 .search, #adLeaderboard, #footer, .noprint, #promoContent, #rightColumn {
     display: none;
 }
