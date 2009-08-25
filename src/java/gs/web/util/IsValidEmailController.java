@@ -28,7 +28,7 @@ public class IsValidEmailController implements Controller {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
         if(StringUtils.isNotBlank(request.getParameter("emails"))){
-            String[] emails = request.getParameter("emails").split("[,\\s]");
+            String[] emails = request.getParameter("emails").split("[,\\s]++");
             boolean isValid = true;
             for(int i=0;i<emails.length;i++){
                 if(!EmailUtils.isValidEmail(emails[i])){
