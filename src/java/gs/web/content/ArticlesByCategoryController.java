@@ -29,6 +29,7 @@ import gs.web.search.SearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.RedirectView301;
+import gs.web.content.cms.CmsContentUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -48,6 +49,7 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_GRADES = "grades";
     protected static final String MODEL_SUBJECTS = "subjects";
     protected static final String MODEL_MAX_RESULTS = "maxResults";
+    protected static final String MODEL_BREADCRUMBS = "breadcrumbs";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -210,6 +212,10 @@ public class ArticlesByCategoryController extends AbstractController {
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
             List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language);
 
+            if (categories.size() == 1) {
+                model.put(MODEL_BREADCRUMBS, CmsContentUtils.getBreadcrumbs(getCmsCategoryBreadcrumbs(categories.get(0)), language, request));
+            }
+
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
@@ -221,6 +227,33 @@ public class ArticlesByCategoryController extends AbstractController {
         }
 
         return model;
+    }
+
+    /**
+     * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
+     * will not populate those variables.
+     */
+    protected List<CmsCategory> getCmsCategoryBreadcrumbs(CmsCategory category) {
+        List<CmsCategory> breadcrumbs = new ArrayList<CmsCategory>();
+        boolean done = false;
+        String currentUri = category.getFullUri();
+
+        do {
+            CmsCategory currentCategory = _cmsCategoryDao.getCmsCategoryFromURI(currentUri);
+            if (currentCategory != null) {
+                breadcrumbs.add(0,currentCategory);
+            }
+
+            int indexOfLastSlash = currentUri.lastIndexOf("/");
+            if (indexOfLastSlash > -1) {
+                currentUri = currentUri.substring(0,currentUri.lastIndexOf("/"));
+            } else {
+                done = true;
+            }
+
+        } while (!done);
+
+        return breadcrumbs;
     }
 
     /**

@@ -1,27 +1,11 @@
 /* breadcrumbs */
 #breadcrumbs {
-	margin: 2px 0 0 4px;
-	_margin: 2px 0 12px 4px; /* IE 6 hack */
-    width:450px;
-}
-#breadcrumbs ul {
-    margin: 0;
-}
-#breadcrumbs ul li {
-	font: 11px "Trebuchet MS", Arial, sans-serif;
-	color: #888888;
-	list-style: none;
-	display: inline;
-	margin: 0;
-	padding: 0;
+    font: 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666;
+    padding-top: 9px;
+    padding-bottom: 5px;
 }
 
-#breadcrumbs ul li a:active.breadcrumb,
-#breadcrumbs ul li a:link.breadcrumb,
-#breadcrumbs ul li a:visited.breadcrumb{
-	text-decoration: underline;
-	color: #888888;
-}
 
 * html #librarySidebar {
     margin-left: 5px; /* GS-7616: IE6 only */

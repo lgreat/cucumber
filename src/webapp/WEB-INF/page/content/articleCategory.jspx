@@ -59,6 +59,16 @@
 <c:set var="isALearningDisabilityCategory" value="${requestScope.isAnLDCategory}"/>
 
 <div id="col_left">
+    <c:if test="${not empty breadcrumbs}">
+        <div id="breadcrumbs">
+            <link:home>Home</link:home> &amp;gt;
+            <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
+                <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+                <c:if test="${!status.last}"> &amp;gt; </c:if>
+            </c:forEach>
+        </div>
+    </c:if>
+
     <h1>
     <c:choose>
         <c:when test="${not empty requestScope.subcategory.typeDisplay}">
