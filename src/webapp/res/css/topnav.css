@@ -309,62 +309,6 @@
     margin:0 auto;
 }
 
-/* START table-based subnav */
-
-#topnav table#topnav_subnav {
-    height: 26px;
-    width: 865px;
-    margin: 4px auto 0 auto;
-    padding: 0;
-    border-top: 1px solid #F1F1F1;
-    border-bottom: 1px solid #F1F1F1;
-}
-
-#topnav table#topnav_subnav td a.topnav_subnav_first {
-    color: #D66671;
-}
-
-#topnav table#topnav_subnav td {
-    padding-left: 4px;
-}
-
-#topnav table#topnav_subnav td a {
-    font-size: 12px;
-    font-family: Trebuchet MS, Arial, sans-serif;
-    color: #3399AA;
-    text-decoration: none;
-}
-
-#topnav table#topnav_subnav td a:hover {
-    text-decoration: underline;
-}
-
-#topnav table#topnav_subnav td a.topnav_subnav_active {
-    text-decoration: underline;
-}
-
-#topnav table#topnav_subnav td.media {
-    text-align: center;
-    padding-left: 9px;
-}
-
-#topnav table#topnav_subnav td.schoolChoice {
-    text-align: center;
-    padding-right: 3px;
-}
-
-#topnav table#topnav_subnav td.healthyKids {
-    text-align: center;
-}
-
-#topnav table#topnav_subnav td.backToSchool {
-    text-align: right;
-    padding-right: 4px;
-}
-
-/* END table-based subnav */
-
-
 /* START list-based subnav */
 
 #topnav #topnav_menusubnav_wrapper {
@@ -524,6 +468,18 @@
 #topnav_menusubnav li.nav_menu ul.nav_group_items li a {
     padding-left: 8px;
     padding-right: 12px;
+}
+
+#topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 7px;
+}
+
+* html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
+}
+
+* + html #topnav_menusubnav li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
 }
 
 /* GS-8445 */

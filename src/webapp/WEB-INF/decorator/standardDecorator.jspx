@@ -46,15 +46,6 @@
     <gsml:url var="topnavcss" value="/res/css/topnav.css?v=$RELEASE_NUMBER"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
 
-    <variant:a>
-        <gsml:url var="topnavacss" value="/res/css/topnavA.css?v=$RELEASE_NUMBER"/>
-        <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavacss}"></link>]]>
-    </variant:a>
-    <variant:b>
-        <gsml:url var="topnavbcss" value="/res/css/topnavB.css?v=$RELEASE_NUMBER"/>
-        <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavbcss}"></link>]]>
-    </variant:b>
-
     <gsml:url var="framecss" value="/res/css/frame.css?v=$RELEASE_NUMBER"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${framecss}"></link>]]>
 
@@ -75,10 +66,8 @@
     <gsml:url var="topnavbtsjs" value="/res/js/topnavBTS.js?v=$RELEASE_NUMBER"/>
     <![CDATA[<script type="text/javascript" src="${topnavbtsjs}"></script>]]>
 
-    <variant:b>
-        <gsml:url var="topnavbjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
-        <![CDATA[<script type="text/javascript" src="${topnavbjs}"></script>]]>
-    </variant:b>
+    <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
+    <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>

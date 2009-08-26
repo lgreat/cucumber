@@ -219,43 +219,6 @@
                 ><img id="btsTab" class="${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}" src="/res/img/nav/bts_nav_${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}.gif" alt="Back to School"/></link:backToSchool>
     </div>
 
-    <table cellpadding="0" cellspacing="0" id="topnav_subnav" style="display: none;">
-        <tr>
-            <!--#19--><!--<td><link:articleLibrary
-                id="GlobalNav_ArticleLibraryButton"
-                styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Popular topics:</link:articleLibrary></td>-->
-            <!--#15--><td><link:specialNeeds
-                                 id="GlobalNav_LDButton"
-                                 styleClass="${(pw == tabs.SPECIAL_NEEDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Learning Disabilities</link:specialNeeds></td>
-            <!--#16--><td><link:tutoring
-                                 id="GlobalNav_TutoringHomeworkButton"
-                                 styleClass="${(pw == tabs.TUTORING ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Tutoring &amp;amp; Homework</link:tutoring></td>
-            <!--#21--><td><link:countdownToCollege
-                                 id="GlobalNav_CollegePrepButton"
-                                 styleClass="${(pw == tabs.COLLEGE_PREP ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >College Prep</link:countdownToCollege></td>
-            <!--#17--><td class="media"><link:mediaChoices
-                                 id="GlobalNav_MediaChildButton"
-                                 styleClass="${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Media &amp;amp; Your Child</link:mediaChoices></td>
-            <!--#20--><td class="schoolChoice"><link:schoolChoiceCenter
-                                 id="GlobalNav_ChoosingButton"
-                                 styleClass="${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Choosing the Right School</link:schoolChoiceCenter></td>
-            <!--#18--><td class="healthyKids"><link:healthyKids
-                                 styleId="GlobalNav_HealthyKidsButton"
-                                 styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Healthy Kids</link:healthyKids></td>
-            <!--#22--><td class="backToSchool"><link:backToSchool
-                                 id="GlobalNav_BackToSchoolButtonX"
-                                 styleClass="${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Back to School</link:backToSchool></td>
-        </tr>
-    </table>
-
     <div id="topnav_menusubnav_wrapper">
         <ul id="topnav_menusubnav">
             <li id="topnav_gp" class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
