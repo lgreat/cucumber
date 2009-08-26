@@ -18,6 +18,7 @@
     <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
@@ -62,9 +63,15 @@
                 pageHelper.addAdKeyword("env", "dev");
             }
 
-            if (SessionContextUtil.getSessionContext(request) != null &&
-                    SessionContextUtil.getSessionContext(request).getMemberId() != null) {
-                pageHelper.addAdKeyword("member", "true");
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if (sessionContext != null) {
+                if (sessionContext.getCobrand() != null) {
+                    pageHelper.addAdKeyword("cobrand", "true");                    
+                }
+
+                if (sessionContext.getMemberId() != null) {
+                    pageHelper.addAdKeyword("member", "true");
+                }
             }
 
             if (CookieUtil.hasCookie(request, "pledged")) {
