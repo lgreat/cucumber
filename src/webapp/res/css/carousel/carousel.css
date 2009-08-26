@@ -71,6 +71,7 @@
     display:none;
 }
 
+/*
 #carousel .navigation ul {
 	position:absolute;
 	bottom:3px;
@@ -85,4 +86,89 @@
 
 #carousel .navigation .num {
     display:none;
+}*/
+
+/* Sprite styles */
+#carousel /*.navigation*/ a {
+	text-decoration:none;
+}
+#carousel /*.navigation*/ ul {
+	list-style:none;
+	position:absolute;
+	bottom:3px;
+	right:10px;
+}
+#carousel #nav {
+	/*margin:10px auto; padding:0;*/
+	overflow:hidden;
+}
+#carousel #nav li {
+	display:inline;
+}
+#carousel #nav li a {
+	display:block;
+	width:16px;
+	height:18px;
+	text-indent:-9999px;
+	background: url(/res/img/carousel/carousel_nav_sprite.gif);
+	float:left;
+	border:none;
+	padding:0;
+	margin:0 0 0 3px;
+}
+#carousel #nav li a#al {
+	width:8px;
+	background-position:-128px -18px;
+}
+#carousel #nav li a#num1 {
+	background-position:0px 0px;
+}
+#carousel #nav li a#num2 {
+	background-position:-16px 0px;
+}
+#carousel #nav li a#num3 {
+	background-position:-32px 0px;
+}
+#carousel #nav li a#num4 {
+	background-position:-48px 0px;
+}
+#carousel #nav li a#num5 {
+	background-position:-64px 0px;
+}
+#carousel #nav li a#num6 {
+	background-position:-80px 0px;;
+}
+#carousel #nav li a#num7 {
+	background-position:-96px 0px;
+}
+#carousel #nav li a#num8 {
+	background-position:-112px 0px;
+}
+#carousel #nav li a#ar {
+	width:8px;
+	background-position:-128px 0px;
+}
+#carousel #nav li.activeNavButton a#num1 {
+	background-position:0px -18px;
+}
+#carousel #nav li.activeNavButton a#num2 {
+	background-position:-16px -18px;
+}
+#carousel #nav li.activeNavButton a#num3 {
+	background-position:-32px -18px;
+}
+#carousel #nav li.activeNavButton a#num4 {
+	background-position:-48px -18px;
+}
+#carousel #nav li.activeNavButton a#num5 {
+	background-position:-64px -18px;
+}
+#carousel #nav li.activeNavButton a#num6 {
+	background-position:-80px -18px;
+}
+#carousel #nav li.activeNavButton a#num7 {
+	background-position:-96px -18px;
+}
+#carousel #nav li.activeNavButton a#num8 {
+	background-position:-112px -18px;
 }

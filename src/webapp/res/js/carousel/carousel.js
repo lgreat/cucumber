@@ -86,12 +86,14 @@ $j(document).ready(function() {
 	}
 	
 	var setButtonState = function(slideNumber) {
-		$j('.num').attr('src', function() {
+		/*$j('.num').attr('src', function() {
 			return this.src.replace('on.gif','off.gif');
 		});
 		$j('.num:eq('+(slideNumber-1)+')').attr('src', function() {
 			return this.src.replace('off.gif','on.gif');
-		});
+		});*/
+        $j('#nav li').removeClass('activeNavButton');
+		$j('#num'+slideNumber).parent().addClass('activeNavButton');
 	}
 	var showButtons = function() {
 		$j('.num:lt('+(CURRENTI)+')').show();
@@ -101,12 +103,16 @@ $j(document).ready(function() {
 	}
 	// Navigation buttons
 	// - numbered buttons
-	$j('.num').click(function() {
-		var src = $j(this).attr('src');
-		i = src.replace(/^.*num(\d+)-.*$/,'$1');
+	$j('.navButton').click(function() {
+		var id = $j(this).children().attr('id');
+		i = id.replace(/^num(\d+)$/,'$1');
+		$j('#nav li').removeClass('activeNavButton');
+		$j(this).addClass('activeNavButton');
+        /*var src = $j(this).attr('src');
+		i = src.replace(/^.*num(\d+)-.*$/,'$1');*/
 		setImage(i);
 		setText(i);
-		setButtonState(i);
+//		setButtonState(i);
 	});
 	// - arrow right
 	$j('#ar').click(function() {

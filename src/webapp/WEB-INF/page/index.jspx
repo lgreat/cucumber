@@ -190,16 +190,15 @@
         </div>
         <!-- class="info" -->
         <c:if test="${fn:length(homepage.featureLinks) gt 1}">
-            <div class="navigation">
-                <ul> <!-- bullet type: disc/square/circle-->
-                    <li><img id="al" src="/res/img/carousel/arrow_left-1.gif" title="" alt="arrow left"/></li>
+            <!--<div class="navigation">-->
+                <ul id="nav">
+                    <li><a id="al" href="#">arrow left</a></li>
                     <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                        <li><img class="num" src="/res/img/carousel/num${status.index + 1}-off.gif"
-                                 title="" alt="button ${status.index + 1}"/></li>
+                        <li class="navButton"><a id="num${status.index + 1}" href="#">num${status.index + 1}</a></li>
                     </c:forEach>
-                    <li><img id="ar" src="/res/img/carousel/arrow_right-1.gif" title="" alt="arrow right"/></li>
+                    <li><a id="ar" href="#">arrow right</a></li>
                 </ul>
-            </div>
+            <!--</div>-->
             <!-- class="navigation" -->
         </c:if>
     </div>
