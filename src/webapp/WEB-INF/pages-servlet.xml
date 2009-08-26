@@ -489,6 +489,7 @@
           class="gs.web.content.cms.CmsTopicCenterController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/cms/topicCenter"/>
+        <property name="useAdKeywords" value="true"/>
     </bean>
 
     <bean name="/content/allArticles.page"
@@ -1010,9 +1011,11 @@
     </bean>
 
     <bean name="/preschool/index.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.content.cms.CmsTopicCenterController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/preschool/index2"/>
+        <property name="topicCenterContentID" value="1573"/>
+        <property name="useAdKeywords" value="false"/>
     </bean>
 
     <bean id="gradeLevelLandingPageLinksFactory"
@@ -1040,6 +1043,7 @@
             </list>
         </property>
         <property name="levelCode" value="e"/>
+        <property name="topicCenterContentID" value="1574"/>
     </bean>
 
     <bean name="/content/middleSchool.page"
@@ -1057,6 +1061,7 @@
             </list>
         </property>
         <property name="levelCode" value="m"/>
+        <property name="topicCenterContentID" value="1575"/>
     </bean>
 
     <bean name="/content/highSchool.page"
@@ -1073,6 +1078,7 @@
             </list>
         </property>
         <property name="levelCode" value="h"/>
+        <property name="topicCenterContentID" value="1576"/>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

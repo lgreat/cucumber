@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
 <html lang="en">
 
@@ -121,6 +122,8 @@
 
 <div id="main">
 <h1>Preschool</h1>
+
+<cms:feature topicCenter="${topicCenter}"/>
 
 <!-- added for GS-7442 -->
 <div id="introPromo">

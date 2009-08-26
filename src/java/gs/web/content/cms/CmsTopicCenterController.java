@@ -24,6 +24,8 @@ public class CmsTopicCenterController extends AbstractController {
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
     private String _viewName;
     private IPublicationDao _publicationDao;
+    private Boolean _useAdKeywords = true;
+    private Long _topicCenterContentID;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -37,11 +39,15 @@ public class CmsTopicCenterController extends AbstractController {
                 topicCenter = getSampleTopicCenter();
             } else {
                 Long contentId;
-                try {
-                    contentId = new Long(request.getParameter("content"));
-                } catch (Exception e) {
-                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    return new ModelAndView("/status/error404.page");
+                if (getTopicCenterContentID() == null) {
+                    try {
+                        contentId = new Long(request.getParameter("content"));
+                    } catch (Exception e) {
+                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        return new ModelAndView("/status/error404.page");
+                    }
+                } else {
+                    contentId = getTopicCenterContentID();
                 }
 
                 topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());                
@@ -58,12 +64,14 @@ public class CmsTopicCenterController extends AbstractController {
                 throw new RuntimeException(e);
             }
 
-            // Google Ad Manager ad keywords
-            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
-                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+            if (isUseAdKeywords()) {
+                // Google Ad Manager ad keywords
+                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
+                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+                }
+                pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
             }
-            pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
 
             model.put("omnitureTopicCenterName", topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
 
@@ -234,6 +242,22 @@ public class CmsTopicCenterController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public Boolean isUseAdKeywords() {
+        return _useAdKeywords;
+    }
+
+    public void setUseAdKeywords(Boolean useAdKeywords) {
+        _useAdKeywords = useAdKeywords;
+    }
+
+    public Long getTopicCenterContentID() {
+        return _topicCenterContentID;
+    }
+
+    public void setTopicCenterContentID(Long topicCenterContentID) {
+        _topicCenterContentID = topicCenterContentID;
     }
 
     public CmsContentLinkResolver getCmsFeatureEmbeddedLinkResolver() {

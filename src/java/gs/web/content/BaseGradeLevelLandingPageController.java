@@ -16,10 +16,13 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
+import gs.data.content.cms.CmsTopicCenter;
+import gs.data.cms.IPublicationDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.content.cms.CmsContentLinkResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,10 +38,13 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     private ITableDao _tableDao;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
+    private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
+    private IPublicationDao _publicationDao;
     private String _viewName;
     protected final Log _log = LogFactory.getLog(getClass());
     private List<String> _keySuffixes;
     private LevelCode _levelCode;
+    private Long _topicCenterContentID;
     
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
@@ -67,7 +73,28 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
 
         loadTopRatedSchools(model, context);
 
+        // load CMS topic center
+        loadTopicCenter(model);
+
         return new ModelAndView(getViewName(),model);
+    }
+
+    protected void loadTopicCenter(Map<String,Object> model) {
+        if (getTopicCenterContentID() < 0) {
+            return;
+        }
+
+        CmsTopicCenter topicCenter = _publicationDao.populateByContentId(getTopicCenterContentID(), new CmsTopicCenter());
+
+        if (topicCenter != null) {
+            try {
+                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            model.put("topicCenter", topicCenter);
+        }
     }
 
     protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
@@ -231,6 +258,22 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
         _geoDao = geoDao;
     }
 
+    public CmsContentLinkResolver getCmsFeatureEmbeddedLinkResolver() {
+        return _cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
+        _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public IPublicationDao getPublicationDao() {
+        return _publicationDao;
+    }
+
+    public void setPublicationDao(IPublicationDao publicationDao) {
+        _publicationDao = publicationDao;
+    }
+
     public String getViewName() {
         return _viewName;
     }
@@ -253,5 +296,13 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
 
     public void setLevelCode(LevelCode levelCode) {
         _levelCode = levelCode;
+    }
+
+    public Long getTopicCenterContentID() {
+        return _topicCenterContentID;
+    }
+
+    public void setTopicCenterContentID(Long topicCenterContentID) {
+        _topicCenterContentID = topicCenterContentID;
     }
 }

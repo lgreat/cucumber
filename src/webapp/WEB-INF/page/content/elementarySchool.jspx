@@ -13,6 +13,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
 <html lang="en">
 
@@ -74,6 +75,8 @@
         <div id="content">
 
             <div id="intro" class="box">
+                <cms:feature topicCenter="${topicCenter}"/>
+
                 <div class="inner cleared">
                     <div class="content">
                     <h2>Laying down the basics</h2>

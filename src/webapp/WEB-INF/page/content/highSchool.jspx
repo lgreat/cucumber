@@ -11,6 +11,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
 <html lang="en">
 
@@ -70,6 +71,8 @@
         <h1>High School</h1>
 
         <div id="content">
+              <cms:feature topicCenter="${topicCenter}"/>
+
               <div id="intro" class="box">
                 <div class="inner">
                     <div class="content">
