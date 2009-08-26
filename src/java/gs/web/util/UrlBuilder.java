@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.175 2009/08/17 21:52:46 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.176 2009/08/26 22:18:08 yfan Exp $
  */
 
 package gs.web.util;
@@ -435,10 +435,21 @@ public class UrlBuilder {
                 articleId;
     }
 
+    private static Map<Long,UrlBuilder> GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
+    static {
+        GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.put(1573L,new UrlBuilder(UrlBuilder.PRESCHOOL));
+        GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.put(1574L,new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL));
+        GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.put(1575L,new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL));
+        GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.put(1576L,new UrlBuilder(UrlBuilder.HIGH_SCHOOL));
+    }
+
+
     public UrlBuilder(ContentKey contentKey) {
         if (!CmsUtil.isCmsEnabled()) {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
+
+        boolean specialCase = false;
 
         Publication publication = getPublicationDao().findByContentKey(contentKey);
 
@@ -447,13 +458,21 @@ public class UrlBuilder {
             extension = "gs";
         } else if ("TopicCenter".equals(contentKey.getType())) {
             extension = "topic";
+
+            // specially handle grade-level topic centers
+            if (GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.containsKey(contentKey.getIdentifier())) {
+                _path = GRADE_LEVEL_TOPIC_CENTER_URLBUILDER_MAP.get(contentKey.getIdentifier())._path;
+                specialCase = true;
+            }
         }
 
         _perlPage = false;
-        if (publication != null) {
-            _path = publication.getFullUri() + "." + extension;
+        if (!specialCase) {
+            if (publication != null) {
+                _path = publication.getFullUri() + "." + extension;
+            }
+            setParameter("content", contentKey.getIdentifier().toString());
         }
-        setParameter("content", contentKey.getIdentifier().toString());
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri) {
