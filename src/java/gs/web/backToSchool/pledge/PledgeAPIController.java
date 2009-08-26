@@ -22,6 +22,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.util.ReadWriteController;
 import gs.web.school.review.AddParentReviewsController;
 
@@ -53,6 +54,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     public static final String PLEDGE_PARAM = "pledge";
     public static final String EMAIL_PARAM = "email";
     public static final String SIGNUP_PARAM = "signup";
+    public static final String PLEDGE_EMAIL_TRIGGER_KEY = "Great_Parents_Pledge_Welcome";
     public static final int MAX_PLEDGE_CHARS = 110;
     private ContentType _contentType = ContentType.XML;
     private String _function;
@@ -60,6 +62,7 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
     private IGeoDao _geoDao;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType(_contentType.getContentType());
@@ -200,6 +203,9 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
                 _subscriptionDao.addNewsletterSubscriptions(user, newSubs);
+
+                // send triggered email
+                _exactTargetAPI.sendTriggeredEmail(PLEDGE_EMAIL_TRIGGER_KEY, user);
             }
 
             Pledge pledgeToUpdate = submittedPledge;
@@ -273,6 +279,14 @@ public class PledgeAPIController  implements Controller, ReadWriteController {
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 
     public ContentType getContentType() {

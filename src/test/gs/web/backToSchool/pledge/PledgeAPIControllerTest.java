@@ -8,8 +8,9 @@ import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 import org.easymock.IArgumentMatcher;
 import org.apache.commons.lang.StringUtils;
 
@@ -27,6 +28,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
     private IGeoDao _geoDao;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private ExactTargetAPI _exactTargetAPI; 
 
     public void setUp() throws Exception {
         super.setUp();
@@ -36,11 +38,13 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         _geoDao = createStrictMock(IGeoDao.class);
         _userDao = createStrictMock(IUserDao.class);
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
 
         _controller.setPledgeDao(_pledgeDao);
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setExactTargetAPI(_exactTargetAPI);
         _controller.setContentType(PledgeAPIController.ContentType.XML);
 
         // default method
@@ -48,11 +52,11 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
     }
 
     public void replayMocks() {
-        replayMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao);
+        replayMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao, _exactTargetAPI);
     }
 
     public void verifyMocks() {
-        verifyMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao);
+        verifyMocks(_pledgeDao, _geoDao, _userDao, _subscriptionDao, _exactTargetAPI);
     }
 
     public void testBasics() {
@@ -60,6 +64,7 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         assertSame(_geoDao, _controller.getGeoDao());
         assertSame(_userDao, _controller.getUserDao());
         assertSame(_subscriptionDao, _controller.getSubscriptionDao());
+        assertSame(_exactTargetAPI, _controller.getExactTargetAPI());
         _controller.setFunction("function");
         assertEquals("function", _controller.getFunction());
         assertEquals(PledgeAPIController.ContentType.XML, _controller.getContentType());
@@ -377,6 +382,8 @@ public class PledgeAPIControllerTest extends BaseControllerTestCase {
         // saves user and subscription
         _userDao.saveUser(isA(User.class));
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        // sends triggered email
+        _exactTargetAPI.sendTriggeredEmail(eq("Great_Parents_Pledge_Welcome"),isA(User.class));
         // updates pledge
         Pledge expectedPledge = new Pledge();
         expectedPledge.setId(1234l);
