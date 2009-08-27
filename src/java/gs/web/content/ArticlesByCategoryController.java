@@ -213,7 +213,10 @@ public class ArticlesByCategoryController extends AbstractController {
             List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language);
 
             if (categories.size() == 1) {
-                model.put(MODEL_BREADCRUMBS, CmsContentUtils.getBreadcrumbs(getCmsCategoryBreadcrumbs(categories.get(0)), language, request));
+                List<CmsCategory> breadcrumbs = getCmsCategoryBreadcrumbs(categories.get(0));
+                if (breadcrumbs.size() > 0) {
+                    model.put(MODEL_BREADCRUMBS, CmsContentUtils.getBreadcrumbs(breadcrumbs, language, request));
+                }
             }
 
             model.put(MODEL_TOPICS, topics);
@@ -230,28 +233,21 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
     /**
-     * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
-     * will not populate those variables.
+     * Creates a list of parent categories for specified category
      */
     protected List<CmsCategory> getCmsCategoryBreadcrumbs(CmsCategory category) {
         List<CmsCategory> breadcrumbs = new ArrayList<CmsCategory>();
-        boolean done = false;
         String currentUri = category.getFullUri();
+        int indexOfLastSlash = currentUri.lastIndexOf("/");
 
-        do {
+        while (indexOfLastSlash > -1) {
+            currentUri = currentUri.substring(0, currentUri.lastIndexOf("/"));
             CmsCategory currentCategory = _cmsCategoryDao.getCmsCategoryFromURI(currentUri);
             if (currentCategory != null) {
-                breadcrumbs.add(0,currentCategory);
+                breadcrumbs.add(0, currentCategory);
             }
-
-            int indexOfLastSlash = currentUri.lastIndexOf("/");
-            if (indexOfLastSlash > -1) {
-                currentUri = currentUri.substring(0,currentUri.lastIndexOf("/"));
-            } else {
-                done = true;
-            }
-
-        } while (!done);
+            indexOfLastSlash = currentUri.lastIndexOf("/");
+        }
 
         return breadcrumbs;
     }
