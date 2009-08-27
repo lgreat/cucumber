@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.176 2009/08/26 22:18:08 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.177 2009/08/27 22:40:33 yfan Exp $
  */
 
 package gs.web.util;
@@ -290,6 +290,7 @@ public class UrlBuilder {
         vpageConstantObjectMap.put("SCHOOL_CHOICE_CENTER",SCHOOL_CHOICE_CENTER);
         vpageConstantObjectMap.put("MOVING_WITH_KIDS",MOVING_WITH_KIDS);
         vpageConstantObjectMap.put("BACK_TO_SCHOOL",BACK_TO_SCHOOL);
+        vpageConstantObjectMap.put("ELEMENTARY_SCHOOL",ELEMENTARY_SCHOOL);
     }
 
     public static VPage getVPage(String constantName) {

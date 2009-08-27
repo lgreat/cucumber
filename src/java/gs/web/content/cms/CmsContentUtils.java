@@ -59,10 +59,12 @@ public class CmsContentUtils {
     private static final long FIND_A_SCHOOL_CATEGORY_ID = 143;
     private static final long MOVING_CATEGORY_ID = 144;
     private static final long BACK_TO_SCHOOL_ID = 141;
+    private static final long ELEMENTARY_SCHOOL_ID = 217;
 
     private static final Map<Long,String> CATEGORY_MICROSITE_LINK_TEXT_MAP = new HashMap<Long,String>();
     static {
         CATEGORY_MICROSITE_LINK_TEXT_MAP.put(MEDIA_AND_KIDS_CATEGORY_ID, "Media & kids");
+        CATEGORY_MICROSITE_LINK_TEXT_MAP.put(ELEMENTARY_SCHOOL_ID, "Elementary School");
     }
 
     private static final Map<Long,UrlBuilder> CATEGORY_MICROSITE_URLBUILDER_MAP = new HashMap<Long,UrlBuilder>();
@@ -72,6 +74,7 @@ public class CmsContentUtils {
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(FIND_A_SCHOOL_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("SCHOOL_CHOICE_CENTER")));
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(MOVING_CATEGORY_ID, new UrlBuilder(UrlBuilder.getVPage("MOVING_WITH_KIDS")));
         CATEGORY_MICROSITE_URLBUILDER_MAP.put(BACK_TO_SCHOOL_ID, new UrlBuilder(UrlBuilder.getVPage("BACK_TO_SCHOOL")));
+        CATEGORY_MICROSITE_URLBUILDER_MAP.put(ELEMENTARY_SCHOOL_ID, new UrlBuilder(UrlBuilder.getVPage("ELEMENTARY_SCHOOL")));
     }
 
     private static final Map<Long, ContentKey> CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP = new HashMap<Long,ContentKey>();
