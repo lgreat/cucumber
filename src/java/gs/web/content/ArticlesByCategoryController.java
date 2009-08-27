@@ -120,11 +120,14 @@ public class ArticlesByCategoryController extends AbstractController {
 
         if (categoryId != null && StringUtils.isNumeric(categoryId)) {
             // legacy category
-            model = handleLegacyCategoryRequest(request, page);
-            ArticleCategory category = (ArticleCategory)model.get(MODEL_SUBCATEGORY);
-            if (category != null && isShowAdTargeting()) {
-                setAdTargetingForBrowseGradeLevelPages(request, category);
+
+            // GS-8660
+            if (GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.containsKey(categoryId)) {
+                return new ModelAndView(new RedirectView301(
+                    GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.get(categoryId).asSiteRelative(request)));
             }
+
+            model = handleLegacyCategoryRequest(request, page);
         } else {
             // cms category
 
@@ -151,24 +154,20 @@ public class ArticlesByCategoryController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    final static Map<Integer,String> GRADE_LEVEL_PAGES_AD_TARGETS = new HashMap<Integer,String>();
+    /**
+     * Map from legacy category IDs to CMS grade IDs for grade-level categories
+     */
+    final static Map<String,UrlBuilder> GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP = new HashMap<String,UrlBuilder>();
     static {
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(103,"preschool");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(33,"kindergart");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(32,"1stgrade");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(34,"2ndgrade");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(35,"3rdgrade");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(52,"4thgrade");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(53,"5thgrade");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(54,"middlescho");
-        GRADE_LEVEL_PAGES_AD_TARGETS.put(104,"highschool");
-    }
-
-    protected void setAdTargetingForBrowseGradeLevelPages(HttpServletRequest request, ArticleCategory category) {
-        if (GRADE_LEVEL_PAGES_AD_TARGETS.containsKey(category.getId())) {
-            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, GRADE_LEVEL_PAGES_AD_TARGETS.get(category.getId()));
-        }
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("103", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "198", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("33", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "199", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("32", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "200", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("34", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "201", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("35", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "202", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("52", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "203", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("53", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "204", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("54", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "205", null, "EN"));
+        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("104", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "206", null, "EN"));
     }
 
     protected void setAdTargetingForCmsCategories(HttpServletRequest request, List<CmsCategory> categories) {

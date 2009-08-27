@@ -30,15 +30,15 @@
                         <a href="#grade-tips" id="gradeTips">By Grade</a>
                         <div class="toggle">
                             <ul id="grade-tips">
-                                <li><link:articleCategoryBrowse categoryId="103">Preschool</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="33">Kindergarten</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="32">1st Grade</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="34">2nd Grade</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="35">3rd Grade</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="52">4th Grade</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="53">5th Grade</link:articleCategoryBrowse></li>
-                                <li><link:articleCategoryBrowse categoryId="54">Middle School</link:articleCategoryBrowse></li>
-                                <li class="last"><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="198" language="EN">Preschool</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="199" language="EN">Kindergarten</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="200" language="EN">1st Grade</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="201" language="EN">2nd Grade</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="202" language="EN">3rd Grade</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="203" language="EN">4th Grade</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="204" language="EN">5th Grade</link:cmsCategoryBrowse></li>
+                                <li><link:cmsCategoryBrowse gradeIDs="205" language="EN">Middle School</link:cmsCategoryBrowse></li>
+                                <li class="last"><link:cmsCategoryBrowse gradeIDs="206" language="EN">High School</link:cmsCategoryBrowse></li>
                             </ul>
                         </div>
                     </li>
