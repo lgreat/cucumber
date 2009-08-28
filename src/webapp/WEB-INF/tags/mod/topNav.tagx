@@ -295,7 +295,7 @@
                     <li class="first"><link:cmsCategoryBrowse topicIDs="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining your ideal school</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="197" language="EN" styleId="GlobalNav_CTRS_PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a school visit</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="195" language="EN" styleId="GlobalNav_CTRS_ApplyingAndEnrolling" styleClass="GS_CI9_">Applying and enrolling</link:cmsCategoryBrowse></li>
-                    <li><link:movingWithKids id="GlobalNav_CTRS_Moving" styleClass="GS_CI9_">Moving</link:movingWithKids></li>
+                    <li><link:movingWithKids id="GlobalNav_CTRS_Moving" styleClass="GS_CI9_">Moving with kids</link:movingWithKids></li>
                     <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
