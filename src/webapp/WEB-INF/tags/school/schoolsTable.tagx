@@ -62,7 +62,7 @@
                         District: ${school.district.name}
                     </p>
                 </c:if>
-                <p class="resultcontrols">
+                <div class="resultcontrols">
                     <div class="addToMsl">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
                     </div>
@@ -93,7 +93,7 @@
                         <img src="/res/img/x_11x8.gif" alt="yellow x"/>
                         <link:mySchoolList remove="${school}">Remove from list &gt;</link:mySchoolList>
                     </div>
-                </p>
+                </div>
             </div>
         </c:forEach>
         </form>
