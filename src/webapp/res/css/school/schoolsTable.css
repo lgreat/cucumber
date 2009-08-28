@@ -234,7 +234,8 @@ div#col_right div#compareInCity input.submit {
     margin-top: 5px;
     margin-bottom: 6px;
     height: 13px;
-    position: relative;
+    float:left;
+    /*position: relative;*/
 }
 
 .compare_schools_row label, .compare_schools_row span {
@@ -273,18 +274,19 @@ div#col_right div#compareInCity input.submit {
    border-bottom:none;
 }
 
-div.school {
-    position:relative;
+.school {
+    /*position:relative;*/
 }
 
-div.school div.mslRemove {
-    position:absolute;
-    right:0;
-    bottom:17px;
+.school div.mslRemove {
+    /*position:absolute;*/
+    /*right:0;*/
+    /*bottom:17px;*/
+    float:right;
     font-size:13px;
 }
 
-div.school div.mslRemove img {
+.school div.mslRemove img {
     margin:0 5px 0 0;
 }
 
