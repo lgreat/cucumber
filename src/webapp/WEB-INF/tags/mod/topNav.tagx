@@ -205,13 +205,13 @@
                                 id="GlobalNav_MiddleSchoolButton"
                 >Middle School</link:middle-school></td>
             <!--#14--><td><link:high-school
-                                styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} GS_CI9_ "
+                                styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
-                >High School</link:high-school></td>
+                >High School</link:high-school></td><!-- last pw check first arg would be 'ractive' -->
             <!--#22--><td><link:backToSchool
                                  id="GlobalNav_BackToSchoolButton__Plain"
-                                 styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} inactive GS_CI9_ "
-                >Back to School</link:backToSchool></td>
+                                 styleClass="${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} inactive GS_CI9_ "
+                >Back to School</link:backToSchool></td><!-- pw check first arg would be 'lactive' -->
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
