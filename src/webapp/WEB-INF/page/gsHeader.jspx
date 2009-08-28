@@ -19,6 +19,12 @@
         <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
         <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+        <gsml:url var="jqueryjs" value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+        <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
+        <gsml:url var="topnavbtsjs" value="/res/js/topnavBTS.js?v=$RELEASE_NUMBER"/>
+        <![CDATA[<script type="text/javascript" src="${topnavbtsjs}"></script>]]>
+        <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
+        <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
         <c:if test="${param.community eq 'true'}">
             <gsml:url var="widelayoutcss" value="/res/css/widelayout.css?v=$RELEASE_NUMBER"/>
             <![CDATA[<link rel="stylesheet" type="text/css" href="${widelayoutcss}"></link>]]>
