@@ -34,7 +34,7 @@
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}"/>
                 </link:schoolProfileOverview></h3>
-                <div class="about">
+                <p class="about">
                     <c:set var="schoolTypeRangeString">
                         <span class="st">${school.type.schoolTypeName}</span>
                         <c:if test="${not empty school.gradeLevels.rangeString}">
@@ -50,17 +50,17 @@
                     <c:if test="${not empty school.enrollmentOrCapacity}">
                         &#183; <span class="enrollment">${school.enrollmentOrCapacity} student${(school.enrollmentOrCapacity eq 1) ? '' : 's'}</span>
                     </c:if>
-                </div>
+                </p>
 
-                <address>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></address>
-                <address>${school.physicalAddress.cityStateZip}</address>
-                <div class="phone">${school.phone}<span>|</span></div>
+                <p>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></p>
+                <p>${school.physicalAddress.cityStateZip}</p>
+                <p><span class="phone">${school.phone}|</span>
                 <link:mapSchool school="${school}" styleClass="mapSchoolImage"><img src="/res/img/map_22x15.gif" alt="little map"/></link:mapSchool>
-                <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool>
+                <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool></p>
                 <c:if test="${not empty school.district}">
-                    <div class="district">
+                    <p class="district">
                         District: ${school.district.name}
-                    </div>
+                    </p>
                 </c:if>
                 <div class="resultcontrols">
                     <div class="addToMsl">
@@ -89,11 +89,10 @@
                             </span>
                         </div>
                     </c:if>
-                </div>
-                
-                <div class="mslRemove">
+                    <div class="mslRemove">
                     <img src="/res/img/x_11x8.gif" alt="yellow x"/>
                     <link:mySchoolList remove="${school}">Remove from list &gt;</link:mySchoolList>
+                </div>
                 </div>
             </div>
         </c:forEach>
