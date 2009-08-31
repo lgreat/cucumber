@@ -41,7 +41,7 @@ public class ReadWriteInterceptorTest extends BaseControllerTestCase {
         assertReadWriteStatus(controller, false, null);
 
         Object annotationController = new AccountController();
-        assertReadWriteStatus(annotationController, true, null);
+        assertReadWriteStatus(annotationController, false, null);
     }
 
     private void assertReadWriteStatus(Object controller, boolean isReadOnly, Exception e) throws Exception {
