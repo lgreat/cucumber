@@ -5,7 +5,7 @@
     <jsp:directive.attribute name="topicCenter" required="true" type="gs.data.content.cms.CmsTopicCenter"/>
 
     <div id="feature" class="rounded">
-        <img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
+        <img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}" width="286" height="210" />
 
         <c:if test="${not empty topicCenter.mainFeatureLink}">
             <div id="featuredFeature">
