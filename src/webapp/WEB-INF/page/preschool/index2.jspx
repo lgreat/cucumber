@@ -103,6 +103,7 @@
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
 
 </head>
 
@@ -123,10 +124,10 @@
 <div id="main">
 <h1>Preschool</h1>
 
-<cms:feature topicCenter="${topicCenter}"/>
+<!--<cms:feature topicCenter="${topicCenter}"/>-->
 
 <!-- added for GS-7442 -->
-<div id="introPromo">
+<!--<div id="introPromo">
     <div class="content">
         <div class="text">
             <h2>The Path to Preschool Success</h2>
@@ -148,7 +149,7 @@
             You're the Expert! Submit a preschool review today!
         </span>
     </link:submitParentReviewPreschool>
-</div>
+</div>-->
 
 <!-- commented out for GS-7442 -->
 <!--
@@ -174,6 +175,8 @@
 -->
 
 <div id="content">
+
+<cms:feature topicCenter="${topicCenter}"/>
 
 <div id="main-copy" class="box">
     <div class="inner cleared">
@@ -248,6 +251,17 @@
             <hr/>
         </div>
 
+        <div class="text">
+                <h3>The Path to Preschool Success</h3>
+
+                <c:import
+                    url="/content/editorialLinks.module?page=preschool_PathToSuccess&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+            </div>
+
+        <div class="hr">
+            <hr/>
+        </div>
+
         <h3 class="quotable">Top Questions From Other Parents</h3>
 
 
@@ -317,7 +331,7 @@
 </div>
 
 <div id="supplement">
-
+    <ad:Top_300x137/>
     <ad:AboveFold_300x250/>
 
     <div id="more-info" class="box">
