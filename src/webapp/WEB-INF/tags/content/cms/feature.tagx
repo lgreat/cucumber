@@ -9,7 +9,7 @@
 
         <c:if test="${not empty topicCenter.mainFeatureLink}">
             <div id="featuredFeature">
-            <h3><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
+            <h3 class="featuredTitle"><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
 
             <p>${topicCenter.mainFeatureLink.description}</p>
             </div>

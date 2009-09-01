@@ -74,9 +74,9 @@
         <h1>Elementary School</h1>
 
         <div id="content">
-
+            <cms:feature topicCenter="${topicCenter}"/>
             <div id="intro" class="box">
-                <cms:feature topicCenter="${topicCenter}"/>
+
 
                 <div class="inner cleared">
                     <div class="content">
