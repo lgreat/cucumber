@@ -181,3 +181,33 @@
 .more {
 	text-align: right;
 }
+
+/* ------- */
+/* Feature */
+/* ------- */
+#feature{
+    background:#fff;
+    margin:10px 0 0 0;
+}
+#feature img {
+    float:left;
+    padding:0 15px 10px 0;
+}
+#feature #featuredFeature h3{
+    font:22px Georgia, "Times New Roman", Times, serif;
+    padding:25px 15px 0 15px;
+    text-align:left;
+}
+#feature #featuredFeature p {
+    padding:0 15px;
+}
+#feature ul {
+    clear:both;
+    padding:0 15px 15px 15px;
+}
+.rounded {
+  -moz-border-radius-bottomleft:9px;
+  -moz-border-radius-bottomright:9px;
+  -webkit-border-bottom-left-radius:9px;
+  -webkit-border-bottom-right-radius:9px;
+}
