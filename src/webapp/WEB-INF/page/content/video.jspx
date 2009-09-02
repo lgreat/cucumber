@@ -52,10 +52,10 @@
 
                 <div id="titleRight">
                     <div id="titleRightLeft">
-
+                        Content provided by
                     </div>
                     <div id="titleRightRight">
-                        <p>Content provided by <a href="http://thek5.com" target="_blank"></a><img src="/res/img/content/video/k5.gif" alt="k5"/></p>
+                        <a href="http://thek5.com" target="_blank"></a><img src="/res/img/content/video/k5.gif" alt="k5"/>
                     </div>
                 </div>
 
