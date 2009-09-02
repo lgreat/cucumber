@@ -63,3 +63,6 @@ body.unframed #pageGS {
     border: 1px solid #bbb;
     text-align: left;
 }
+#adLeaderboard table td.ad object{
+    diplay:none;
+}
