@@ -158,7 +158,7 @@
         </div> <!-- end div content -->
 
         <div id="supplement">
-            <ad:Top_300x137/>
+            <!--<ad:Top_300x137/>-->
             <school:findAndCompareNear gradeLevel="h"/>
 
             <ad:AboveFold_300x250/>
