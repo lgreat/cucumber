@@ -38,6 +38,10 @@
 }
 #titleRightRight{
     float:right;
+    display:block;
+}
+#titleRightRight p{
+    vertical-align:middle;
 }
 #leftColumn h3 {
     -x-system-font:none;
