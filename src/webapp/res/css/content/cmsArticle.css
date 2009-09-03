@@ -584,3 +584,9 @@ ul.horizontal li {
     color: #444;
     margin-bottom:15px;
 }
+
+/* GS-8538 For supply list articles */
+#cmsArticleText p.targetCheckbox {
+    background: transparent url(/res/img/promo/target/checkbox.gif) no-repeat scroll 0 3px;
+    padding-left: 23px;
+}

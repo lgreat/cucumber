@@ -1,8 +1,3 @@
-#cmsArticleText p.targetCheckbox {
-    background: transparent url(/res/img/promo/target/checkbox.gif) no-repeat scroll 0 3px;
-    padding-left: 23px;
-}
-
 #cmsArticleText p.targetCheckbox a.targetLink {
     color: #C00;
     text-decoration: none;
