@@ -191,20 +191,21 @@
 }
 #feature img {
     float:left;
-    padding:0 15px 10px 0;
+    padding:0 15px 5px 0;
 }
 #feature #featuredFeature h3.featuredTitle{
     font:22px Georgia, "Times New Roman", Times, serif;
-    padding:25px 15px 0 15px;
+    padding:25px 15px 5px 15px;
     text-align:left;
 }
 #feature #featuredFeature p {
-    padding:0 15px;
+    padding:5px 15px;
+    margin:0;
 }
 #feature ul {
     clear:both;
-    padding:0 15px 15px 15px;
-    line-height:1.2;
+    padding:5px 15px 10px 15px;
+    line-height:1.1;
 }
 .rounded {
   -moz-border-radius-bottomleft:9px;
