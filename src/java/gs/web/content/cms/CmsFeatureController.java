@@ -147,61 +147,8 @@ public class CmsFeatureController extends AbstractController {
 
         model.put("uri", uri + "?content=" + contentId);
 
-        checkTargetSupplyList(feature, model);
-
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
-    }
-
-    /* GS-8341 GS-8407 */
-    protected void checkTargetSupplyList(CmsFeature feature, Map<String, Object> model) {
-        if (feature != null && model != null
-                && feature.getContentKey() != null
-                && StringUtils.equals("Article", feature.getContentKey().getType())
-                && feature.getContentKey().getIdentifier() != null) {
-            ContentKey contentKey = feature.getContentKey();
-            if (contentKey.getIdentifier() == 1082l) {
-                // elementary
-                model.put("targetSupplyItems", TargetSupplyList.getRandomElementaryItems());
-            } else if (contentKey.getIdentifier() == 1084l) {
-                // middle
-                model.put("targetSupplyItems", TargetSupplyList.getRandomMiddleItems());
-            } else if (contentKey.getIdentifier() == 1085l) {
-                // high
-                model.put("targetSupplyItems", TargetSupplyList.getRandomHighItems());
-            } else if (contentKey.getIdentifier() == 109l) {
-                // generic
-                model.put("targetSupplyItems", TargetSupplyList.getRandomGenericItems());
-            }
-        }
-        // GS-8407: OK to remove after 8/12
-        if (model != null && model.get("targetSupplyItems") != null) {
-            // get current date
-            Calendar rightNow = Calendar.getInstance();
-            model.put("currentTimestamp", rightNow.getTime().getTime());
-            // if within 8/3-8/12 (inclusive), add another variable to model
-            Calendar startDate = Calendar.getInstance();
-            startDate.set(Calendar.MONTH, Calendar.AUGUST);
-            startDate.set(Calendar.DAY_OF_MONTH, 3);
-            startDate.set(Calendar.YEAR, 2009);
-            startDate.set(Calendar.HOUR_OF_DAY, 0);
-            startDate.set(Calendar.MINUTE, 0);
-            startDate.set(Calendar.SECOND, 0);
-            startDate.set(Calendar.MILLISECOND, 0);
-
-            Calendar endDate = Calendar.getInstance();
-            endDate.set(Calendar.MONTH, Calendar.AUGUST);
-            endDate.set(Calendar.DAY_OF_MONTH, 13);
-            endDate.set(Calendar.YEAR, 2009);
-            endDate.set(Calendar.HOUR_OF_DAY, 0);
-            endDate.set(Calendar.MINUTE, 0);
-            endDate.set(Calendar.SECOND, 0);
-            endDate.set(Calendar.MILLISECOND, 0);
-
-            if (rightNow.after(startDate) && rightNow.before(endDate)) {
-                model.put("hideLeaderboard", true);
-            }
-        }
     }
 
     /**

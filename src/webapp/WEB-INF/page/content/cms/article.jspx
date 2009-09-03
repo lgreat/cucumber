@@ -432,7 +432,11 @@
             feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
     <c:choose>
-        <!-- GS-8341 -->
+        <!--
+            GS-8341: Initial implementation
+            GS-8538: Removal of code. This block is currently not triggered, but I'm leaving it
+                     in so that it will automatically work if the model is updated.
+         -->
         <c:when test="${not empty requestScope.targetSupplyItems}">
             <pageHelper:externalJavascript file="/res/js/fixedElement.js"/>
             <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'targetContainer', 'main');"/>
