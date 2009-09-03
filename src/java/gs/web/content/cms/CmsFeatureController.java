@@ -19,7 +19,6 @@ import gs.data.cms.IPublicationDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
-import gs.web.content.TargetSupplyList;
 
 public class CmsFeatureController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
