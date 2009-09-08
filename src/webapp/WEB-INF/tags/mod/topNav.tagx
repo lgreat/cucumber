@@ -306,7 +306,8 @@
         </ul>
         <c:choose>
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')
-            or fn:contains(pageContext.request.requestURI,'backToSchool')}">
+            or fn:contains(pageContext.request.requestURI,'backToSchool')
+            or fn:endsWith(pageContext.request.requestURI,'/pledge/')}">
             </c:when>
             <c:otherwise>    
                 <div id="global_nav_promo_865"><ad:Global_Nav_Promo_865x24/></div>
