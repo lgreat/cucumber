@@ -16,7 +16,7 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
     <head>
-        <title>The Great Parents Pledge Sweepstakes | GreatSchools</title>
+        <title>The Great Parents Pledge | GreatSchools</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <meta name="description"
               content="Calling all moms and dads. Make a promise to support your child's education this year. Take the Great Parents Pledge. "/>
@@ -34,7 +34,7 @@
 
         <div id="main">
             <div class="pledgeHeader">
-                <h1>Take three simple steps to get involved:</h1>
+                <h1>The Great Parents Pledge Sweepstakes</h1>
 
                 <p class="boilerplate">Your involvement is the key ingredient to your child's success at school. For
                     the 2009-2010 school year, make a promise to become your child's biggest coach in the areas where
