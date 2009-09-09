@@ -822,5 +822,18 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>hasPermission</name>
+        <description>Evaluates tag body only if user is logged in and has specified permission</description>
+        <tag-class>gs.web.jsp.security.HasPermissionTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>key</name>
+            <description>Permission key of required permission</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
 
