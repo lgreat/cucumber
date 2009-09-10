@@ -174,10 +174,20 @@ public class ArticlesByCategoryController extends AbstractController {
         if (categories == null) {
             return;
         }
+
+        Set<String> categoryNames = new HashSet<String>();
+
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         for (CmsCategory category : categories) {
-            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY_CATEGORY_ID, String.valueOf(category.getId()));
+            categoryNames.add(category.getName());
+            for (CmsCategory breadcrumb : getCmsCategoryBreadcrumbs(category)) {
+                categoryNames.add(breadcrumb.getName());
+            }
+        }
+
+        for (String categoryName : categoryNames) {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, categoryName);
         }
     }
 
