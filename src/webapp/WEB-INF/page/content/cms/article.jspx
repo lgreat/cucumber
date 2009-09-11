@@ -111,20 +111,28 @@
     </c:if>
     <h1>${feature.title}</h1>
 
-    <c:if test="${type eq 'article'}">
-        <c:choose>
-            <c:when test="${article.currentPageNum lt 2}">
-                <div class="summary">
-                    ${fn:escapeXml(article.summary)}
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="pageIdentifier pt">
-                    Page ${article.currentPageNum} of ${article.numPages}
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
+    <c:choose>
+        <c:when test="${type eq 'article'}">
+            <c:choose>
+                <c:when test="${article.currentPageNum lt 2}">
+                    <div class="summary">
+                        ${fn:escapeXml(article.summary)}
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="pageIdentifier pt">
+                        Page ${article.currentPageNum} of ${article.numPages}
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:when test="${type eq 'articleSlideshow'}">
+            <div class="summary">
+                ${fn:escapeXml(articleSlideshow.summary)}
+            </div>
+        </c:when>
+    </c:choose>
+
 </div> <!-- end .bodyHeader -->
 <div class="divider pt clear"><hr /></div>
 
