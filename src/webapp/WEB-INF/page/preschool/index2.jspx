@@ -176,7 +176,7 @@
 
 <div id="content">
 
-<cms:feature topicCenter="${topicCenter}"/>
+<cms:feature topicCenter="${topicCenter}" minOtherFeatureLinks="3" maxOtherFeatureLinks="5"/>
 
 <div id="main-copy" class="box">
     <div class="inner cleared">

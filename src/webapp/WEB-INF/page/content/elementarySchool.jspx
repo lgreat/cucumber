@@ -74,7 +74,7 @@
         <h1>Elementary School</h1>
 
         <div id="content">
-            <cms:feature topicCenter="${topicCenter}"/>
+            <cms:feature topicCenter="${topicCenter}" minOtherFeatureLinks="3" maxOtherFeatureLinks="5"/>
             <div id="intro" class="box">
 
 
