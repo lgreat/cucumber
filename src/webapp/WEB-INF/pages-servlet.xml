@@ -99,6 +99,7 @@
         </property>
         <property name="urlMap">
             <map>
+                <entry key="/admin/resetPassword.page" value="adminResetPasswordController"/>
                 <entry key="/chart/pie.page" value="pieController"/>
                 <entry key="/util/isValidEmail.page" value="isValidEmailController"/>
                 <entry key="/util/gradeToLevelCode.page" value="gradeToLevelCodeController"/>
@@ -1771,6 +1772,10 @@
           autowire="byName"
           class="gs.web.chart.PieController"
           lazy-init="true"/>
+
+    <bean name="adminResetPasswordController"
+          class="gs.web.admin.ResetPasswordController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="isValidEmailController"
           class="gs.web.util.IsValidEmailController"
