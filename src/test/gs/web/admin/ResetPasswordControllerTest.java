@@ -4,7 +4,6 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 
-import javax.servlet.http.HttpServletRequest;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.mock.web.MockHttpServletResponse;
 
