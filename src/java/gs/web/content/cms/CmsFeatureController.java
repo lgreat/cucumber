@@ -25,6 +25,7 @@ public class CmsFeatureController extends AbstractController {
 
     /** Spring Bean ID */
     public static final String BEAN_ID = "/content/cms/feature.page";
+    public static final String ARTICLE_SLIDESHOW_BEAN_ID = "/content/cms/slideshow.page";
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
 
@@ -41,21 +42,31 @@ public class CmsFeatureController extends AbstractController {
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        Long contentId;
-        try {
-            contentId = new Long(request.getParameter("content"));  
-        } catch(Exception e) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ModelAndView("/status/error404.page");
-        }
+        CmsFeature feature = null;
+        boolean showSampleSlideshow = uri.contains("slideshows/sample-slideshow");
 
-        // GS-8490
-        if (contentId == 522L) {
-            UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
-            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
-        }
+        if (!showSampleSlideshow) {
+            Long contentId;
+            try {
+                contentId = new Long(request.getParameter("content"));
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
+            }
 
-        CmsFeature feature = _featureDao.get(contentId);
+            // GS-8490
+            if (contentId == 522L) {
+                UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
+                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+            }
+
+            feature = _featureDao.get(contentId);
+
+        } else {
+            feature = getSampleArticleSlideshow();
+            String slideUri = uri.replaceAll("^.*/(.*)\\.gs","$1");
+            feature.setCurrentSlideIndex(feature.findSlideIndex(slideUri));
+        }
 
         if (feature == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -144,7 +155,7 @@ public class CmsFeatureController extends AbstractController {
         model.put(type, feature);
         model.put("type", type);
 
-        model.put("uri", uri + "?content=" + contentId);
+        model.put("uri", uri + "?content=" + feature.getContentKey().getIdentifier());
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
@@ -185,6 +196,127 @@ public class CmsFeatureController extends AbstractController {
         }
         return currentPage.toString();
     }
+
+    // START sample methods
+
+    private static CmsFeature getSampleArticleSlideshow() {
+        CmsFeature slideshow = new CmsFeature();
+        slideshow.setLanguage("EN");
+        ContentKey contentKey = new ContentKey();
+        contentKey.setType("ArticleSlideshow");
+        contentKey.setIdentifier(123L);
+
+        slideshow.setContentKey(contentKey);
+        slideshow.setFullUri("/parenting/behavior-discipline/discipline-decisions/slideshows/sample-slideshow");
+        slideshow.setSummary("The deck goes here");
+        slideshow.setTitle("Article slideshow title");
+        slideshow.setMetaDescription("meta description goes here");
+        slideshow.setMetaKeywords("meta keywords");
+        slideshow.setAuthors(Arrays.asList("GreatSchools Staff"));
+        /*
+        slideshow.setImageUrl("/res/img/feature_image.jpg");
+        slideshow.setImageAltText("feature image alt text");
+        */
+
+        CmsCategory firstCat = new CmsCategory();
+        firstCat.setId(4);
+        firstCat.setName("Category A");
+        CmsCategory secondCat = new CmsCategory();
+        secondCat.setId(5);
+        secondCat.setName("Category B");
+        CmsCategory thirdCat = new CmsCategory();
+        thirdCat.setId(123);
+        thirdCat.setName("Category C");
+        thirdCat.setType(CmsCategory.TYPE_TOPIC);
+        List<CmsCategory> secondaryKategories = new ArrayList<CmsCategory>();
+        secondaryKategories.add(thirdCat);
+
+        slideshow.setPrimaryKategory(thirdCat);
+        List<CmsCategory> categoryBreadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
+        slideshow.setPrimaryKategoryBreadcrumbs(categoryBreadcrumbs);
+
+        firstCat = new CmsCategory();
+        firstCat.setId(1);
+        firstCat.setName("Category 1");
+        secondCat = new CmsCategory();
+        secondCat.setId(2);
+        secondCat.setName("Category 2");
+        thirdCat = new CmsCategory();
+        thirdCat.setId(3);
+        thirdCat.setName("Category 3");
+        secondaryKategories = new ArrayList<CmsCategory>();
+        secondaryKategories.add(thirdCat);
+
+        slideshow.setSecondaryKategories(secondaryKategories);
+        categoryBreadcrumbs = Arrays.asList(firstCat, secondCat, thirdCat);
+        List<List<CmsCategory>> breadcrumbs = new ArrayList<List<CmsCategory>>();
+        breadcrumbs.add(categoryBreadcrumbs);
+        slideshow.setSecondaryKategoryBreadcrumbs(breadcrumbs);
+
+        List<CmsFeature> slides = new ArrayList<CmsFeature>();
+        List<Long> slideIDs = new ArrayList<Long>();
+        for (int i = 1; i <= 10; i++) {
+            CmsFeature slide = getSampleArticleSlide(i);
+            slides.add(slide);
+            slideIDs.add(slide.getContentKey().getIdentifier());
+        }
+
+        slideshow.setSlides(slides);
+        slideshow.setSlideIDs(slideIDs);
+
+        List<CmsLink> links = new ArrayList<CmsLink>();
+        CmsLink link = new CmsLink();
+        link.setTitle("Lorem Ipsum Dolor Sit Amet");
+        link.setUrl("http://www.google.com");
+        link.setDescription("Quisque eu velit a libero pellentesque ullamcorper.");
+        link.setLinkText("In semper purus eget justo");
+        links.add(link);
+        link = new CmsLink();
+        link.setUrl("http://www.yahoo.com");
+        link.setLinkText("Morbi eu sollicitudin augue");
+        links.add(link);
+        link = new CmsLink();
+        link.setUrl("http://www.jquery.org");
+        link.setLinkText("Nunc sed turpis nisl, ac lacinia sem");
+        links.add(link);
+        link = new CmsLink();
+        link.setUrl("http://www.greatschools.net");
+        link.setLinkText("Nulla sit amet libero orci, sed euismod nisl");
+        links.add(link);
+        link = new CmsLink();
+        link.setUrl("http://www.loremipsum.net");
+        link.setLinkText("In semper purus eget justo");
+        links.add(link);
+        slideshow.setExternalLinks(links);
+
+        return slideshow;
+    }
+
+    private static CmsFeature getSampleArticleSlide(int i) {
+        CmsFeature slide = new CmsFeature();
+        ContentKey contentKey = new ContentKey();
+        contentKey.setType("ArticleSlide");
+        contentKey.setIdentifier(10000L + i);
+
+        slide.setContentKey(contentKey);
+        slide.setUri("slide-" + i);
+        slide.setTitle("article slide title " + i);
+        slide.setMetaDescription("meta description goes here " + i);
+        slide.setMetaKeywords("meta keywords " + i);
+
+        slide.setBody("<p>slide " + i + " body lorem ipsum lorem ipsum blah blah blah blah random sample text goes here</p>");
+
+        if (i % 2 == 0) {
+            slide.setImageUrl("/res/img/content/backtoschool/photo4kids.jpg");
+            slide.setImageAltText("four kids");
+        } else {
+            slide.setImageUrl("/res/img/content/backtoschool/photoOfBoy.jpg");
+            slide.setImageAltText("boy");
+        }
+
+        return slide;
+    }
+    // END sample methods
 
     public void setCmsFeatureDao(ICmsFeatureDao featureDao) {
         _featureDao = featureDao;

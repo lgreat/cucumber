@@ -132,7 +132,6 @@
 <div class="authorPageBar">
     <div class="authors">
         <!-- byline - for articles only -->
-        <!-- Show authors on last page only (and single page view) -->
         <c:if test="${not empty feature.authors}">
             <c:choose>
                 <c:when test="${feature.language eq 'ES'}">Por </c:when>
@@ -180,29 +179,100 @@
 </c:if>
 
 <!-- article text -->
-<div id="cmsArticleText">
-    <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
-        <div class="mainImage">
-            <c:if test="${not empty feature.imageUrl}">
-                <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
+<c:choose>
+    <c:when test="${type eq 'articleSlideshow'}">
+        <!-- HI, RANDALL! -->
+
+        <script type="text/javascript">
+            // JavaScript Document
+            // required to avoid "$j" collisions with Prototype.js
+            jQuery.noConflict();
+            var $j = jQuery;
+
+            $j(document).ready(function() {
+                $j('#slideMenu').change(function() {
+                    $j(this).find('option:selected').each(function() {
+                        window.location.href = $j(this).val();
+                    });
+                });
+            });
+        </script>
+        <select id="slideMenu" onchange="changeSlide()">
+            <option value="">Choose one</option>
+            <c:forEach var="slide" items="${articleSlideshow.slides}">
+                <option value="${articleSlideshow.fullUri}/${slide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">${slide.title}</option>
+            </c:forEach>
+        </select>
+
+        <p>
+
+        <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
+        <c:choose>
+            <c:when test="${hasPreviousSlide}">
+                <a href="${articleSlideshow.fullUri}/${articleSlideshow.previousSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">&amp;lt;&amp;lt;</a>
+            </c:when>
+            <c:otherwise>&amp;lt;&amp;lt;</c:otherwise>
+        </c:choose>
+
+        Page ${articleSlideshow.currentSlideIndex + 1} of ${articleSlideshow.totalSlides}
+
+        <c:set var="hasNextSlide" value="${not empty articleSlideshow.nextSlide}"/>
+        <c:choose>
+            <c:when test="${hasNextSlide}">
+                <a href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">&amp;gt;&amp;gt;</a>
+            </c:when>
+            <c:otherwise>&amp;gt;&amp;gt;</c:otherwise>
+        </c:choose>
+
+        </p>
+
+        <c:set var="slide" value="${articleSlideshow.currentSlide}"/>
+
+        <c:if test="${not empty slide.imageUrl}">
+            <img src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+        </c:if>
+
+        <h2>${slide.title}</h2>
+
+        <div>
+            ${slide.body}
+        </div>
+
+        <c:if test="${hasNextSlide}">
+            <p>
+                <a href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">Next</a>
+            </p>
+        </c:if>
+
+    </c:when>
+    <c:otherwise>
+        <div id="cmsArticleText">
+            <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
+                <div class="mainImage">
+                    <c:if test="${not empty feature.imageUrl}">
+                        <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
+                    </c:if>
+
+                    <div class="caption">${feature.imageTitle}</div>
+                </div>
             </c:if>
 
-            <div class="caption">${feature.imageTitle}</div>
+            <c:choose>
+                <c:when test="${type eq 'article'}">
+                    <!-- the currentPage variable might contain a sidebar inside <div id="cmsArticleSidebar">...</div>;
+                  see CmsFeatureController.java -->
+                    ${currentPage}
+                </c:when>
+                <c:when test="${type eq 'askTheExperts'}">
+                    <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
+                    ${answer}
+                </c:when>
+            </c:choose>
         </div>
-    </c:if>
+        <!-- end #cmsArticleText -->
+    </c:otherwise>
+</c:choose>
 
-    <c:choose>
-        <c:when test="${type eq 'article'}">
-            <!-- the currentPage variable might contain a sidebar inside <div id="cmsArticleSidebar">...</div>;
-          see CmsFeatureController.java -->
-            ${currentPage}
-        </c:when>
-        <c:when test="${type eq 'askTheExperts'}">
-            <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
-            ${answer}
-        </c:when>
-    </c:choose>
-</div> <!-- end #cmsArticleText -->
 <div class="clear">&amp;nbsp;</div>
 
 <c:if test="${type eq 'article'}">
@@ -503,6 +573,12 @@
     <c:when test="${type eq 'askTheExperts'}">
         <mod:tracking pageName="Ask the Experts"
                       hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"
+                      events="event7"/>
+    </c:when>
+    <!-- TODO-8705/8707 -->
+    <c:when test="${type eq 'articleSlideshow'}">
+        <mod:tracking pageName="Article Slideshow"
+                      hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
                       events="event7"/>
     </c:when>
 </c:choose>
