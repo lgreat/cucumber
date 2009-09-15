@@ -381,22 +381,14 @@
             </div>
 
             <div class="ad_middle">
-                <!--
                 <c:choose>
-                    <c:when test="${requestScope.context.cobranded}">
-                        <gsml:a href="/content/healthyKids.page"><gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids"/></gsml:a>
+                    <c:when test="${showSchoolChooserPackPromo}">
+                        <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
                     </c:when>
                     <c:otherwise>
-                -->
-                        <gsweb:adTagGenerator position="Bottom_300x137"/>
-                <!--
+                        <ad:Top_300x137/>
                     </c:otherwise>
                 </c:choose>
-                -->
-            </div>
-
-            <div class="ad_middle">
-                <gsweb:adTagGenerator position="AboveFold2_300x250"/>
             </div>
 
             <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">

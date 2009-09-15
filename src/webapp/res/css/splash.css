@@ -16,7 +16,7 @@
 
 #contentTopDivider {
     width: 8px;
-    height: 261px;
+    height: 291px;
     float: left;
 }
 
@@ -78,7 +78,7 @@ div.compareNearZip div.zipCodeInput .submitButton {
     float:left;
         margin-top:-3px;
 
-   
+
 }
 div.compareNearZip div.zipCodeInput .submitButton input {
     width:41px;
@@ -177,34 +177,8 @@ div#footer { padding-top:2px; }
 
 #contentMiddle {
     width: 870px;
-    height: 277px;
     margin-left: 3px;
-    padding-bottom: 6px;
-}
-
-* html #contentMiddle {
-    padding-bottom: 2px;
-}
-
-* + html #contentMiddle {
-    padding-bottom: 8px;
-}
-
-#contentMiddleLeft {
-    float: left;
-    padding: 4px 5px 0 2px;
-}
-
-* html #contentMiddleLeft {
-    padding-right: 8px;
-}
-
-* + html #contentMiddleLeft {
-    padding-right: 8px;
-}
-
-div#contentMiddleMiddle.moduleBox {
-    float: left;
+    margin-bottom: 2px;
 }
 
 #contentMiddleRight {
@@ -213,17 +187,11 @@ div#contentMiddleMiddle.moduleBox {
 }
 
 #contentBottom {
-    height: 265px;
+    clear: both;
+    width: 880px;
+    height: 235px;
     margin-left: 3px;
     margin-top: 0;
-}
-
-* html #contentBottom {
-    margin-left: 9px;
-}
-
-* + html #contentBottom {
-    margin-left: 7px;
 }
 
 .contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
@@ -329,24 +297,3 @@ ul#frmErrors li {
     font-family:"Trebuchet MS",sans-serif;
     font-size:12px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

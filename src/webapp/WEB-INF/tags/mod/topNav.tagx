@@ -208,15 +208,9 @@
                                 styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
                 >High School</link:high-school></td><!-- last pw check first arg would be 'ractive' -->
-            <!--#22--><td><link:backToSchool
-                                 id="GlobalNav_BackToSchoolButton__Plain"
-                                 styleClass="${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} inactive GS_CI9_ "
-                >Back to School</link:backToSchool></td><!-- pw check first arg would be 'lactive' -->
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
-        <link:backToSchool styleClass="GS_CI9_ " id="GlobalNav_BackToSchoolButton"
-                ><img id="btsTab" class="${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}" src="/res/img/nav/bts_nav_${(pw == tabs.BACK_TO_SCHOOL ? 'on' : 'off')}.gif" alt="Back to School"/></link:backToSchool>
     </div>
 
     <div id="topnav_menusubnav_wrapper">

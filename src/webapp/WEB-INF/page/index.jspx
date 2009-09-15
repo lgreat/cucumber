@@ -249,24 +249,52 @@
 
 <div id="contentMiddle">
 
-    <div id="contentMiddleLeft">
-        <ad:Homepage_Left_300x250/>
-    </div>
-
-
-    <div id="contentMiddleMiddle" class="moduleBox">
+    <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 188px; height: 263px;">
+                <div class="wrapper-content" style="width: 261px; height: 264px; position: relative;">
+                    <!-- Define width (and alternatively height) on .wrapper-content -->
+                    <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school"
+                         title=""/>
+
+                    <img class="leadoff" src="/res/img/home/blog_frontdoor_pencils.jpg" alt="Pencils"/>
+                    <!--
+                    <div style="width: 85px; height: 171px; float: left;">
+                        <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple"/>
+                    </div>
+                    -->
+                    <div id="rightSchoolDiv">
+                        <ul id="rightSchoolLinksDiv">
+                            <li><link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter></li>
+                            <gsweb:articlelink articleId="3704"
+                                               wrappingElement="li">Charter, private or public</gsweb:articlelink>
+                            <gsweb:articlelink articleId="3705"
+                                               wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
+                            <gsweb:articlelink articleId="48"
+                                               wrappingElement="li">My checklist for the school visit</gsweb:articlelink>
+                        </ul>
+
+                        <p class="more right">
+                            <link:schoolChoiceCenter>Read more &gt;</link:schoolChoiceCenter>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="moduleBox">
+        <div class="wrapper-outer">
+            <div class="wrapper-inner">
+                <div class="wrapper-content" style="width: 241px; height: 263px;">
                     <a href="http://blogs.greatschools.net"
-                       onclick="Popup=window.open('http://blogs.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;"><img class="leadoff" src="/res/img/home/blog_frontdoor_hed_narrow.jpg" width="188" height="109" alt="GreatSchools Blog"/></a>
+                       onclick="Popup=window.open('http://blogs.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;"><img class="leadoff" src="/res/img/home/blog_frontdoor_hed.jpg" width="241" height="110" alt="GreatSchools Blog"/></a>
                     <cache:cache scope="application" name="blog" key="bill3">
                         <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                           defaultTitle="GreatSchools blog"
                                           defaultUrl="http://blogs.greatschools.net/greatschoolsblog"
                                           type="splashBlog"
                                           showDate = "true"
-                                          hideAuthorImages="true"
                                 />
                     </cache:cache>
                 </div>
@@ -303,43 +331,11 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 261px; height: 245px; position: relative;">
+                <div class="wrapper-content" style="width: 261px; height: 215px; position: relative;">
                     <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school"
+                    <img class="heading" src="/res/img/home/whats_new.jpg" alt="What's New?"
                          title=""/>
-
-                    <img class="leadoff" src="/res/img/home/blog_frontdoor_pencils.jpg" alt="Pencils"/>
-                    <!--
-                    <div style="width: 85px; height: 171px; float: left;">
-                        <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple"/>
-                    </div>
-                    -->
-                    <div id="rightSchoolDiv">
-                        <ul id="rightSchoolLinksDiv">
-                            <li><link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter></li>
-                            <gsweb:articlelink articleId="3704"
-                                               wrappingElement="li">Charter, private or public</gsweb:articlelink>
-                            <gsweb:articlelink articleId="3705"
-                                               wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
-                        </ul>
-
-                        <p class="more right">
-                            <link:schoolChoiceCenter>Read more &gt;</link:schoolChoiceCenter>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="moduleBox">
-        <div class="wrapper-outer">
-            <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 241px; height: 245px; position: relative;">
-                    <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/whats_new_narrow.jpg" alt="What's New?"
-                         title=""/>
-                    <img class="leadoff" src="/res/img/home/mother_daughter_narrow.jpg" alt="Mother and daughter"/>
+                    <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter"/>
 
                     <ul class="arrows">
                         <c:import
@@ -355,13 +351,13 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 313px; height: 245px; position: relative;">
-                    <div class="blue narrow"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
+                <div class="wrapper-content" style="width: 574px; height: 215px; position: relative;">
+                    <div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
 
-                        <img class="heading" src="/res/img/home/blue_module/parent_to_parent_narrow.png" alt="Parent to Parent"
+                        <img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent"
                              title=""/>
 
-                        <div class="white-box narrow">
+                        <div class="white-box">
                             <h3><img class="heading" src="/res/img/home/blue_module/parent_discussions.png"
                                      alt="Parent Discussions" title=""/></h3>
 
@@ -371,6 +367,22 @@
                                 <a href="http://${communityHost}/q-and-a"><img
                                         src="/res/img/home/blue_module/question_button.png" alt="Ask a Question"
                                         title="" border="0"/></a>
+                            </p>
+                        </div>
+
+                        <div class="transparent-box">
+                            <h3><img class="heading" src="/res/img/home/blue_module/find_parents.png"
+                                     alt="Find Parents Like Me" title=""/></h3>
+
+                            <ul>
+                                <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
+                                <li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
+                                <li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
+                                <li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
+                            </ul>
+
+                            <p class="findMore">
+                                <a href="http://${communityHost}/groups">Find more &gt;</a>
                             </p>
                         </div>
                     </div>
