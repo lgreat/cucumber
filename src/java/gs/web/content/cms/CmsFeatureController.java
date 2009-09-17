@@ -139,6 +139,14 @@ public class CmsFeatureController extends AbstractController {
             model.put("authorBios", authorBios);
         }
 
+        List<CmsFeature> slides = feature.getSlides();
+        if (slides != null) {
+            for (int i = 0; i < slides.size(); i++) {
+                CmsFeature slide = slides.get(i);
+                slide.setBody(insertSpansIntoListItems(slide.getBody()));
+            }
+        }
+
         // for Omniture tracking - commas and double quotes removed
         model.put("commaSeparatedPrimaryKategoryNames", StringEscapeUtils.escapeHtml(feature.getCommaSeparatedPrimaryKategoryNames()));
         model.put("titleForOmniture", StringEscapeUtils.escapeHtml(feature.getTitle().replaceAll(",","").replaceAll("\"","")));
