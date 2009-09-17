@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <c:choose>
+        <c:when test="${not empty requestScope.topicCenter.pageTitle}">
+            <c:set var="pageTitle">${requestScope.topicCenter.pageTitle}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${requestScope.topicCenter.title}</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle} | GreatSchools</title>
+    <meta name="description" content="${requestScope.topicCenter.metaDescription}"/>
+    <meta name="keywords" content="${requestScope.topicCenter.metaKeywords}"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+</head>
+<body>
+
+<p>Discussion board: ${requestScope.discussionBoard.name}</p>
+
+</body>
+</html>
+</jsp:root>

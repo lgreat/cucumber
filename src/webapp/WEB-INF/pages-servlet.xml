@@ -493,6 +493,12 @@
         <property name="useAdKeywords" value="true"/>
     </bean>
 
+    <bean name="/content/cms/discussionBoard.page"
+          class="gs.web.content.cms.CmsDiscussionBoardController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/discussionBoard"/>
+    </bean>
+
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
           autowire="byName" lazy-init="true">
