@@ -499,6 +499,12 @@
         <property name="viewName" value="/content/cms/discussionBoard"/>
     </bean>
 
+    <bean name="/content/cms/discussion.page"
+          class="gs.web.community.DiscussionController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/discussion"/>
+    </bean>
+
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
           autowire="byName" lazy-init="true">

@@ -1,4 +1,4 @@
-package gs.web.content.cms;
+package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -6,37 +6,38 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 
-import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.content.cms.ICmsDiscussionBoardDao;
-import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
-import gs.data.community.Discussion;
 import gs.data.community.IDiscussionDao;
+import gs.data.community.Discussion;
+import gs.data.community.DiscussionReply;
+import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.content.cms.CmsDiscussionBoard;
+import gs.data.content.cms.CmsTopicCenter;
 
-import static gs.data.community.IDiscussionDao.DiscussionSort;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CmsDiscussionBoardController extends AbstractController {
+public class DiscussionController extends AbstractController {
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
-    public static final int DEFAULT_PAGE_SIZE = 5;
+    public static final int DEFAULT_PAGE_SIZE = 10;
     public static final String DEFAULT_SORT = "newest_first";
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
-    public static final String MODEL_DISCUSSION_LIST = "discussionList";
-    public static final String MODEL_TOTAL_DISCUSSIONS = "totalDiscussions";
+    public static final String MODEL_DISCUSSION = "discussion";
+    public static final String MODEL_REPLIES = "replies";
+    public static final String MODEL_TOTAL_REPLIES = "totalReplies";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_TOPIC_CENTER = "topicCenter";
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_SORT = "sort";
-    
+
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
@@ -58,40 +59,34 @@ public class CmsDiscussionBoardController extends AbstractController {
             return new ModelAndView(VIEW_NOT_FOUND);
         }
 
-        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
-
-        // TODO: REMOVE DEBUG CODE!!
-        if (board == null && contentId == 999999l) {
-            board = new CmsDiscussionBoard();
-            board.setName("Anthony's Test Board");
-            board.setMetaDescription("Anthony's Test Board meta description");
-            board.setMetaKeywords("Anthony,Test,Board,Meta,Keywords");
-            board.setTopicCenterId(1541); // LD
-            board.setContentKey(new ContentKey("CmsDiscussionBoard", 999999l));
-        } // END DEBUG CODE
-
-        if (board != null) {
-            model.put("uri", uri + "?content=" + board.getContentKey().getIdentifier());
-            model.put(MODEL_DISCUSSION_BOARD, board);
-            CmsTopicCenter topicCenter = _publicationDao.populateByContentId
-                    (board.getTopicCenterId(), new CmsTopicCenter());
-            if (topicCenter != null) {
+        Discussion discussion = null; //_discussionDao.findById(contentId);
+        if (discussion != null) {
+            model.put("uri", uri + "?content=" + discussion.getId());
+            model.put(MODEL_DISCUSSION, discussion);
+            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(Long.valueOf(discussion.getBoardId()));
+            if (board != null) {
+                model.put(MODEL_DISCUSSION_BOARD, board);
+                CmsTopicCenter topicCenter = _publicationDao
+                        .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter());
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
+
                 int page = getPageNumber(request);
                 int pageSize = getPageSize(request);
-                DiscussionSort sort = getDiscussionSortFromString(request.getParameter(PARAM_SORT));
+                String sort = getDiscussionSortFromString(request.getParameter(PARAM_SORT));
                 model.put(MODEL_PAGE, page);
                 model.put(MODEL_PAGE_SIZE, pageSize);
                 model.put(MODEL_SORT, sort);
-                model.put(MODEL_DISCUSSION_LIST, getDiscussionsForPage(board, page, pageSize, sort));
-                long totalDiscussions = getTotalDiscussions(board);
-                model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
-                model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
+
+                model.put(MODEL_REPLIES, getRepliesForPage(discussion, page, pageSize, sort));
+                long totalReplies = getTotalReplies(discussion);
+                model.put(MODEL_TOTAL_REPLIES, totalReplies);
+                model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
             }
+
         }
         if (model.get(MODEL_TOPIC_CENTER) == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ModelAndView(VIEW_NOT_FOUND);            
+            return new ModelAndView(VIEW_NOT_FOUND);
         }
 
         return new ModelAndView(_viewName, model);
@@ -138,41 +133,29 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Extract the sort enum from a string. Defaults to NEWEST_FIRST
      */
-    protected DiscussionSort getDiscussionSortFromString(String sort) {
+    protected String getDiscussionSortFromString(String sort) {
+        // TODO: replace with enum
         if (StringUtils.equals("oldest_first", sort)) {
-            return DiscussionSort.OLDEST_FIRST;
+            return sort;
         } else if (StringUtils.equals("most_popular", sort)) {
-            return DiscussionSort.MOST_POPULAR;
+            return sort;
         }
-        return DiscussionSort.NEWEST_FIRST;
+        return sort;
     }
 
     /**
-     * Get the list of discussions for this particular page.
-     * @param board Discussion board containing the discussions
+     * Get the list of replies for this particular page.
+     * @param discussion Discussion  containing the replies
      * @param page What page are we on?
-     * @param pageSize How many discussions are there per page?
+     * @param pageSize How many replies are there per page?
      * @param sort What's the sort order?
      * @return non-null list
      */
-    protected List<Discussion> getDiscussionsForPage
-            (CmsDiscussionBoard board, int page, int pageSize, DiscussionSort sort) {
-        List<Discussion> discussions;
+    protected List<DiscussionReply> getRepliesForPage
+            (Discussion discussion, int page, int pageSize, String sort) {
+        List<DiscussionReply> discussions = new ArrayList<DiscussionReply>(0);
 
-        discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort);
-
-        if (board != null && board.getName() != null &&
-                "Anthony's Test Board".equals(board.getName())) {
-            for (int x=0; x < pageSize; x++) {
-                int discussionNum = ((page-1) * pageSize) + (x+1);
-                if (discussionNum > 23) {
-                    break;
-                }
-                Discussion discussion = new Discussion();
-                discussion.setTitle("Discussion " + discussionNum);
-                discussions.add(discussion);
-            }
-        }
+//        discussions = _discussionDao.getRepliesForPage(discussion, page, pageSize, sort);
 
         return discussions;
     }
@@ -180,15 +163,10 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalDiscussions(CmsDiscussionBoard board) {
-        long totalDiscussions;
+    protected long getTotalReplies(Discussion discussion) {
+        long totalDiscussions = 0;
 
-        totalDiscussions = _discussionDao.getTotalDiscussions(board);
-
-        if (board != null && board.getName() != null &&
-                "Anthony's Test Board".equals(board.getName())) {
-            totalDiscussions = 23;
-        }
+        //totalDiscussions = _discussionDao.getTotalReplies(discussion);
 
         return totalDiscussions;
     }
@@ -207,9 +185,8 @@ public class CmsDiscussionBoardController extends AbstractController {
     }
 
     /*
-     * Bean accessors/mutators below here
+     * Bean accessor/mutators below
      */
-
     public String getViewName() {
         return _viewName;
     }
