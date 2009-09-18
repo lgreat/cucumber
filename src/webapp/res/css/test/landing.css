@@ -1,5 +1,24 @@
+.outline{
+    outline:1px solid red;
+}
+
+.white_background{
+    background-color:#fff;
+}
+
+.divider {
+    border-bottom: 10px solid #fff;
+}
+
+.divider hr {
+    display: none;
+}
+
 #leftcol ul {
     width:150px;
+}
+div #main{
+    background:url(/res/img/bg_bar_ddeeee_w204.gif) repeat-y;
 }
 
 .contentGS ul.linkList li {

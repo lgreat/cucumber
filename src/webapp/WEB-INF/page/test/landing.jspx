@@ -12,21 +12,23 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
-          version="2.0" >
+          version="2.0">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <html lang="en">
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
-<c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateAbbrev" value="${stateOrDefault.abbreviationLowerCase}" />
-<c:set var="title" value="${seofootertext}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}"/>
+<c:set var="stateOrNull" value="${requestScope.context.state}"/>
+<c:set var="stateAbbrev" value="${stateOrDefault.abbreviationLowerCase}"/>
+<c:set var="title" value="${seofootertext}"/>
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${longname} test scores for you child's school and compare ${stateOrDefault.longName} ${shortname} test results" />
-    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${longname} Test Results, ${stateOrDefault.abbreviation} ${longname} Test Scores, ${displayname}, ${longname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
+    <meta name="description"
+          content="Find ${stateOrDefault.abbreviation} ${longname} test scores for you child's school and compare ${stateOrDefault.longName} ${shortname} test results"/>
+    <meta name="keywords"
+          content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${longname} Test Results, ${stateOrDefault.abbreviation} ${longname} Test Scores, ${displayname}, ${longname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing "/>
     <title>${title}</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
@@ -131,256 +133,263 @@
     ]]>
 </head>
 
-<pageHelper:addOnLoadHandler handler="adjustLeftColIE6()" />
-<gsml:body adPageName="research" >
+<pageHelper:addOnLoadHandler handler="adjustLeftColIE6()"/>
+<gsml:body adPageName="research">
 
 <div id="main">
+
+<div id="left_col" class="white_background">
+    <div class="content border10">
+        <table width="173" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td colspan="2">
+                    <c:if test="${fn:length(links) > 0}">
+                        <ul class="linkList">
+                            <c:forEach var="anchor" items="${links}">
+                                <c:choose>
+                                    <c:when test="${not empty anchor.href}">
+                                        <li><a class="${anchor.styleClass}"
+                                               href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="break">
+                                            <hr/>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="divider"><hr/></div>
+</div>
+
+<div id="right_col">
 <table id="right" cellspacing="0" cellpadding="0" class="content" border="0">
-    <tr>
-        <td style="width: 9px;" valign="top">
-            <img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-        </td>
-        <td style="width: 651px" valign="top">
-            <table width="651" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td colspan="3">
-                        <h1 id="stateSchools">
-                            ${displayname}
-                        </h1>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
-                    </td>
-                </tr>
-                <c:if test="${(not empty alert) and (alertexpired ne 'true')}">
-                    <tr>
-                        <td colspan="3">
-                            <div id="alert">
-                                <gsml:img src="/res/img/test/exclamation_icon.gif" alt="exclamation icon" />
-                                <div>
-                                     ${alert}
-                                </div>
+<tr>
+<td style="width: 9px;" valign="top">
+    <img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+</td>
+<td style="width: 651px" valign="top">
+    <table width="651" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td colspan="3">
+                <h1 id="stateSchools">
+                    ${displayname}
+                </h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <c:if test="${(not empty alert) and (alertexpired ne 'true')}">
+            <tr>
+                <td colspan="3">
+                    <div id="alert">
+                        <gsml:img src="/res/img/test/exclamation_icon.gif" alt="exclamation icon"/>
+
+                        <div>
+                            ${alert}
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </c:if>
+        <tr>
+            <td valign="top">
+                <div class="middleTitle">
+                    <img src="/res/img/content/research/t_find.gif" width="41" height="19"
+                         alt="Find ${stateOrDefault.abbreviation} ${longname} test scores" border="0"/>
+                </div>
+
+                <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+
+                <div class="findBox">
+                    <div id="achievementBox">
+                        <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>
+
+                        <div id="achievementContent">
+                            <div class="boxText">
+                                <c:choose>
+                                    <c:when test="${levs eq 'e'}">
+                                        <c:set var="levelText" value="elementary"/>
+                                    </c:when>
+                                    <c:when test="${levs eq 'm'}">
+                                        <c:set var="levelText" value="middle"/>
+                                    </c:when>
+                                    <c:when test="${levs eq 'h'}">
+                                        <c:set var="levelText" value="high"/>
+                                    </c:when>
+                                    <c:when test="${levs eq 'e,m'}">
+                                        <c:set var="levelText" value="elementary and middle"/>
+                                    </c:when>
+                                    <c:when test="${levs eq 'm,h'}">
+                                        <c:set var="levelText" value="middle and high"/>
+                                    </c:when>
+                                    <c:when test="${levs eq 'e,h'}">
+                                        <c:set var="levelText" value="elementary and high"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="levelText" value=""/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:out value="${fn:replace(findtext, '$LEVEL', levelText)}" escapeXml="false"/>
                             </div>
+                            <gsweb:form action="/test/landing.page" method="post"
+                                        onsubmit="return checkSchoolSelected(this)">
+                                <input type="hidden" name="type" value="achievement"/>
+                                <input type="hidden" name="state" value="${stateAbbrev}"/>
+                                <input type="hidden" name="tid" value="${param.tid}"/>
+                                <select id="achievementCities" name="city" tabindex="10"
+                                        onchange="changeFindCity(this, '${stateAbbrev}', '${levs}', 'schools');">
+                                    <option selected="selected" value="">1. Choose city</option>
+                                    <c:forEach var="cityOption" items="${cities}">
+                                        <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
 
-                        </td>
-                    </tr>
-                </c:if>
-                <tr>
-                    <td valign="top">
-                        <div class="middleTitle">
-                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${longname} test scores" border="0"/>
-                        </div>
-
-                        <gsml:url var="go" value="/res/img/splash/go.gif"/>
-                        <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-
-                        <div class="findBox">
-                            <div id="achievementBox">
-                                <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                                <div id="achievementContent">
-                                    <div class="boxText">
-                                        <c:choose>
-                                            <c:when test="${levs eq 'e'}">
-                                                <c:set var="levelText" value="elementary" />
-                                            </c:when>
-                                            <c:when test="${levs eq 'm'}">
-                                                <c:set var="levelText" value="middle" />
-                                            </c:when>
-                                            <c:when test="${levs eq 'h'}">
-                                                <c:set var="levelText" value="high" />
-                                            </c:when>
-                                            <c:when test="${levs eq 'e,m'}">
-                                                <c:set var="levelText" value="elementary and middle" />
-                                            </c:when>
-                                            <c:when test="${levs eq 'm,h'}">
-                                                <c:set var="levelText" value="middle and high" />
-                                            </c:when>
-                                            <c:when test="${levs eq 'e,h'}">
-                                                <c:set var="levelText" value="elementary and high" />
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="levelText" value="" />
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <c:out value="${fn:replace(findtext, '$LEVEL', levelText)}" escapeXml="false" />
-                                    </div>
-                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkSchoolSelected(this)">
-                                        <input type="hidden" name="type" value="achievement" />
-                                        <input type="hidden" name="state" value="${stateAbbrev}" />
-                                        <input type="hidden" name="tid" value="${param.tid}" />
-                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeFindCity(this, '${stateAbbrev}', '${levs}', 'schools');">
-                                            <option selected="selected" value="">1. Choose city</option>
-                                            <c:forEach var="cityOption" items="${cities}">
-                                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                                            </c:forEach>
-                                        </select>
-                                        <div id="schools">
-                                            <select id="schoolSelect" name="sid" class="selectSchool">
-                                                <option value="">2. Choose school</option>
-                                            </select>
-                                        </div>
-                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${longname} test scores"
-                                               style="width:41px;height:26px;margin-top: 10px;"
-                                               class="button" onmouseover="this.src='${goOver}';"
-                                               onmouseout="this.src='${go}';" />
-                                    </gsweb:form>
+                                <div id="schools">
+                                    <select id="schoolSelect" name="sid" class="selectSchool">
+                                        <option value="">2. Choose school</option>
+                                    </select>
                                 </div>
+                                <input id="goAchieve" type="image" src="${go}" alt="Find ${longname} test scores"
+                                       style="width:41px;height:26px;margin-top: 10px;"
+                                       class="button" onmouseover="this.src='${goOver}';"
+                                       onmouseout="this.src='${go}';"/>
+                            </gsweb:form>
+                        </div>
+                    </div>
+
+                    <c:if test="${compare ne 'no'}">
+                        <![CDATA[<div class="blueDash"></div>]]>
+                        <div id="compareBox">
+                            <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>
+
+                            <div class="boxText">
+                                <c:out value="${comparetext}" escapeXml="false"/>
                             </div>
-
-                            <c:if test="${compare ne 'no'}">
-                                <![CDATA[<div class="blueDash"></div>]]>
-                                <div id="compareBox">
-                                    <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                                    <div class="boxText">
-                                        <c:out value="${comparetext}" escapeXml="false" />
-                                    </div>
-                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCompareFields(this, '${levs}')">
-                                        <input type="hidden" name="type" value="compare" />
-                                        <input type="hidden" name="state" value="${stateAbbrev}" />
-                                        <input type="hidden" name="tab" value="${compare}" />
-                                        <select id="compareCities" name="city" tabindex="5"
-                                                onchange="changeCompareCity(this, '${stateAbbrev}', '${levs}', '');">
-                                            <option selected="selected" value="">1. Choose city</option>
-                                            <c:forEach var="cityOption" items="${cities}">
-                                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                                            </c:forEach>
-                                        </select>
-                                        <select id="compareLevels" name="level" tabindex="6">
-                                            <option selected="selected" value="">2. Choose level</option>
-                                            <c:forEach var="levelOption" items="${levels}">
-                                                <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
-                                            </c:forEach>
-                                        </select>
-                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${shortname} test results"
-                                               style="width:41px;height:26px;margin-top: 10px;"
-                                               class="button" onmouseover="this.src='${goOver}';"
-                                               onmouseout="this.src='${go}';" />
-                                    </gsweb:form>
-                                </div>
-                            </c:if>
+                            <gsweb:form action="/test/landing.page" method="post"
+                                        onsubmit="return checkCompareFields(this, '${levs}')">
+                                <input type="hidden" name="type" value="compare"/>
+                                <input type="hidden" name="state" value="${stateAbbrev}"/>
+                                <input type="hidden" name="tab" value="${compare}"/>
+                                <select id="compareCities" name="city" tabindex="5"
+                                        onchange="changeCompareCity(this, '${stateAbbrev}', '${levs}', '');">
+                                    <option selected="selected" value="">1. Choose city</option>
+                                    <c:forEach var="cityOption" items="${cities}">
+                                        <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                                <select id="compareLevels" name="level" tabindex="6">
+                                    <option selected="selected" value="">2. Choose level</option>
+                                    <c:forEach var="levelOption" items="${levels}">
+                                        <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
+                                    </c:forEach>
+                                </select>
+                                <input id="goCompare" type="image" src="${go}" alt="Compare ${shortname} test results"
+                                       style="width:41px;height:26px;margin-top: 10px;"
+                                       class="button" onmouseover="this.src='${goOver}';"
+                                       onmouseout="this.src='${go}';"/>
+                            </gsweb:form>
                         </div>
-                    </td>
-                    <td>
-                        <img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
-                    <td valign="top">
-                        <div class="middleTitle">
-                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${longname}" border="0"/>
-                        </div>
-                        <div class="findBox" id="learnBox">
-                            ${info}
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    </c:if>
+                </div>
+            </td>
+            <td>
+                <img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </td>
+            <td valign="top">
+                <div class="middleTitle">
+                    <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16"
+                         alt="About the ${stateOrDefault.abbreviation} ${longname}" border="0"/>
+                </div>
+                <div class="findBox" id="learnBox">
+                    ${info}
+                </div>
+            </td>
+        </tr>
+    </table>
 
-            <table width="649" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td valign="top" colspan="6">
-                        <gsml:img style="height: 14px;" alt="" src="/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" colspan="6" class="blueDot">
-                        <gsml:img style="height: 1px;" alt="" src="/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" colspan="6">
-                        <gsml:img style="height: 6px;" alt="" src="/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="middle" align="center">
-                        <gsml:img id="map" src="/res/img/content/research/map/map_${requestScope.context.state.abbreviationLowerCase}.gif"
-                                  alt="${not empty stateOrNull ? stateOrNull.longName : 'Nationwide'} Schools"/>
-                    </td>
-                    <td valign="top">
-                    </td>
-                    <td valign="top" class="blueDotVert">
-                        <img style="width: 1px; height: 153px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                    <td valign="top">
-                        <img style="width: 27px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
-                    <td valign="top">
-                        <img style="width: 305px; height: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
-                        ${datablurb}
+    <table width="649" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td valign="top" colspan="6">
+                <gsml:img style="height: 14px;" alt="" src="/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" colspan="6" class="blueDot">
+                <gsml:img style="height: 1px;" alt="" src="/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" colspan="6">
+                <gsml:img style="height: 6px;" alt="" src="/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" align="center">
+                <gsml:img id="map"
+                          src="/res/img/content/research/map/map_${requestScope.context.state.abbreviationLowerCase}.gif"
+                          alt="${not empty stateOrNull ? stateOrNull.longName : 'Nationwide'} Schools"/>
+            </td>
+            <td valign="top">
+            </td>
+            <td valign="top" class="blueDotVert">
+                <img style="width: 1px; height: 153px;" alt=""
+                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+            <td valign="top">
+                <img style="width: 27px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </td>
+            <td valign="top">
+                <img style="width: 305px; height: 5px;" alt=""
+                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
+                ${datablurb}
 
-                        <div class="updatesText">
-                            <c:choose>
-                                <c:when test="${stateAbbrev eq 'DC'}">
-                                    <a href="http://data.greatschools.net/district_of_columbia/index.html">Read more about data updates in Washington DC</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="mungedState" value="${fn:replace(fn:toLowerCase(stateOrDefault.longName), ' ', '_')}" />
-                                    <a href="http://data.greatschools.net/${mungedState}/index.html">Read more about data updates in ${stateOrDefault.longName}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                <div class="updatesText">
+                    <c:choose>
+                        <c:when test="${stateAbbrev eq 'DC'}">
+                            <a href="http://data.greatschools.net/district_of_columbia/index.html">Read more about data updates in Washington DC</a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="mungedState"
+                                   value="${fn:replace(fn:toLowerCase(stateOrDefault.longName), ' ', '_')}"/>
+                            <a href="http://data.greatschools.net/${mungedState}/index.html">Read more about data updates in ${stateOrDefault.longName}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
 
-                        <div class="updatesText">
-                            <span class="printName">Elizabeth Gardner</span>
-                            <span class="italicTitle">Senior Education Data Specialist</span>
-                        </div>
-                    </td>
-                    <td valign="top"><img style="width: 30px;" alt=""
-                                          src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" colspan="6">
-                        <img style="height: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" colspan="6" class="blueDot">
-                        <img style="height: 1px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
-                </tr>
-            </table>
+            </td>
+            <td valign="top"><img style="width: 30px;" alt=""
+                                  src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" colspan="6">
+                <img style="height: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" colspan="6" class="blueDot">
+                <img style="height: 1px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </td>
+        </tr>
+    </table>
 
-            <div class="blueDot"></div>
+    <div class="blueDot"></div>
 
 </td>
 </tr>
 </table>
-
-<div id="left_col" class="content border10">
-    <table width="173" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <td id="editorPhoto">
-                <div class="lisaDashedBorder">
-                    <div class="lisa" title="Photo of GreatSchools Assistant Managing Editor, Lisa Rosenthal">Photo of GreatSchools Assistant Managing Editor, Lisa Rosenthal</div>
-                </div>
-            </td>
-            <td id="editorText">
-                <span class="photoName">Lisa Rosenthal</span><br />
-                <span class="photoCaption">Assistant<br />Managing Editor</span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="listTitle">Editor's Picks</div>
-                <c:if test="${fn:length(links) > 0}">
-                    <ul class="linkList">
-                        <c:forEach var="anchor" items="${links}">
-                            <c:choose>
-                                <c:when test="${not empty anchor.href}">
-                                    <li><a class="${anchor.styleClass}" href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="break"><hr/></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-            </td>
-        </tr>
-    </table>
 </div>
+
 </div>
 
 <footer:editorialFooter/>
