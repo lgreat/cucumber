@@ -51,8 +51,8 @@
 
 
                 <div id="titleRight">
-                    <div id="titleRightRight"><a href="http://thek5.com" target="_blank"></a><img src="/res/img/content/video/k5.gif" alt="k5"/></div>
-                    <div id="titleRightLeft">Content provided by </div>
+                    <div id="titleRightRight"><a href="http://thek5.com" target="_blank"><img src="/res/img/content/video/k5.gif" alt="k5"/></a></div>
+                    <div id="titleRightLeft"><a href="http://thek5.com" target="_blank">Content provided by </a></div>
                 </div>
 
 
