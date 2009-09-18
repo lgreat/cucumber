@@ -40,7 +40,9 @@
     </c:choose>
 
     <meta name="keywords" content="${feature.metaKeywords}"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+    <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <c:choose>
@@ -134,8 +136,11 @@
     </c:choose>
 
 </div> <!-- end .bodyHeader -->
-<div class="divider pt clear"><hr /></div>
-
+<c:if test="${type eq 'askTheExperts' or type eq 'article'}">
+    <div class="divider pt clear">
+        <hr/>
+    </div>
+</c:if>
 <!-- authors -->
 <div class="authorPageBar">
     <div class="authors">
@@ -189,68 +194,87 @@
 <!-- article text -->
 <c:choose>
     <c:when test="${type eq 'articleSlideshow'}">
-        <!-- HI, RANDALL! -->
 
-        <script type="text/javascript">
-            // JavaScript Document
-            // required to avoid "$j" collisions with Prototype.js
-            jQuery.noConflict();
-            var $j = jQuery;
+        <c:set var="stepNavContent"><!-- Previous and Next button implementation -->
+            <div class="stepNav">
 
-            $j(document).ready(function() {
-                $j('#slideMenu').change(function() {
-                    $j(this).find('option:selected').each(function() {
-                        window.location.href = $j(this).val();
-                    });
-                });
-            });
-        </script>
-        <select id="slideMenu" onchange="changeSlide()">
-            <option value="">Choose one</option>
-            <c:forEach var="slide" items="${articleSlideshow.slides}">
-                <option value="${articleSlideshow.fullUri}/${slide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">${slide.title}</option>
-            </c:forEach>
-        </select>
+                <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
+                <c:choose>
+                    <c:when test="${hasPreviousSlide}">
+                        <div class="prev"><a
+                                href="${articleSlideshow.fullUri}/${articleSlideshow.previousSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><img
+                                src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="prev"><img src="/res/img/slideShow/prev_off.png" width="60" height="17" alt="previous"/></div>
+                    </c:otherwise>
+                </c:choose>
 
-        <p>
+                <div class="stepNavText">
+                    Page ${articleSlideshow.currentSlideIndex + 1} of ${articleSlideshow.totalSlides}
+                </div>
 
-        <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
-        <c:choose>
-            <c:when test="${hasPreviousSlide}">
-                <a href="${articleSlideshow.fullUri}/${articleSlideshow.previousSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">&amp;lt;&amp;lt;</a>
-            </c:when>
-            <c:otherwise>&amp;lt;&amp;lt;</c:otherwise>
-        </c:choose>
+                <c:set var="hasNextSlide" value="${not empty articleSlideshow.nextSlide}"/>
+                <c:choose>
+                    <c:when test="${hasNextSlide}">
+                        <div class="next"><a
+                                href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><img
+                                src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="next"><img src="/res/img/slideShow/next_off.png" width="60" height="17" alt="next"/></div>
+                    </c:otherwise>
+                </c:choose>
 
-        Page ${articleSlideshow.currentSlideIndex + 1} of ${articleSlideshow.totalSlides}
+            </div>
+        </c:set>
 
-        <c:set var="hasNextSlide" value="${not empty articleSlideshow.nextSlide}"/>
-        <c:choose>
-            <c:when test="${hasNextSlide}">
-                <a href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">&amp;gt;&amp;gt;</a>
-            </c:when>
-            <c:otherwise>&amp;gt;&amp;gt;</c:otherwise>
-        </c:choose>
+        <div id="slideshow" class="rounded">
+            <div id="ss_header" class="rounded_top">
 
-        </p>
+                <ul id="ss_jsddm">
+                    <li><a class="choose" href="#">&amp;nbsp;</a>
+                        <ul>
+                            <c:forEach var="slide" items="${articleSlideshow.slides}">
+                                <li><a href="${articleSlideshow.fullUri}/${slide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><c:out value="${slide.title}"/></a></li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </ul>
 
-        <c:set var="slide" value="${articleSlideshow.currentSlide}"/>
+                ${stepNavContent}
 
-        <c:if test="${not empty slide.imageUrl}">
-            <img src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
-        </c:if>
+                <c:set var="slide" value="${articleSlideshow.currentSlide}"/>
 
-        <h2>${slide.title}</h2>
+            </div><!-- ss_header -->
 
-        <div>
-            ${slide.body}
-        </div>
+            <div id="ss_body">
 
-        <c:if test="${hasNextSlide}">
-            <p>
-                <a href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">Next</a>
-            </p>
-        </c:if>
+                <c:if test="${not empty slide.imageUrl}">
+                    <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+                </c:if>
+
+                <h2 class="ss_title">${slide.title}</h2>
+
+                <div class="ss_text">
+                    ${slide.body}
+                </div>
+
+                <c:if test="${hasNextSlide}">
+                    <p class="ss_text ss_next">Next: <a
+                            href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">Build a bird feeder &amp;raquo;</a>
+                    </p>
+                </c:if>
+
+            </div><!-- ss_body -->
+
+            <div id="ss_footer" class="rounded_bottom">
+                <!-- share this -->
+                <cms:communityDistribution feature="${feature}"/>
+                ${stepNavContent}
+            </div><!-- ss_footer -->
+
+        </div><!-- slideshow -->
 
     </c:when>
     <c:otherwise>
@@ -349,17 +373,15 @@
     </c:if>
 
     <div id="disclaimer">
-        <p>
-            Advice from our experts is not a substitude for medical or other professional
-            advice and services from a qualified health-care provider familiar with your
-            unique situation. We recommend consulting a qualified professional if you have
-            concerns about your child's medical or emotional condition.
-        </p>
+        <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
     </div>
 </c:if>
 
 <!-- share this -->
-<cms:communityDistribution feature="${feature}" />
+<c:if test="${type eq 'askTheExperts' or type eq 'article'}">
+    <cms:communityDistribution feature="${feature}"/>
+    <div class="clear">&amp;nbsp;</div>
+</c:if>
 
 <!-- Related links -->
 <c:if test="${not empty feature.relatedArticles or not empty feature.externalLinks}">
