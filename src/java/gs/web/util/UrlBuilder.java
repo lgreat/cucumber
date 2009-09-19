@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.177 2009/08/27 22:40:33 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.178 2009/09/19 02:06:30 yfan Exp $
  */
 
 package gs.web.util;
@@ -455,8 +455,16 @@ public class UrlBuilder {
         Publication publication = getPublicationDao().findByContentKey(contentKey);
 
         String extension = null;
-        if ("Article".equals(contentKey.getType()) || "AskTheExperts".equals(contentKey.getType())) {
+        String fullUriSuffix = null;
+        if ("Article".equals(contentKey.getType()) || "AskTheExperts".equals(contentKey.getType()) ||
+            "ArticleSlide".equals(contentKey.getType()) || "ArticleSlideshow".equals(contentKey.getType()) ||
+            "DiscussionBoard".equals(contentKey.getType())) {
+            // TODO-8705 article slideshow and article slide urls
             extension = "gs";
+
+            if ("DiscussionBoard".equals(contentKey.getType())) {
+                fullUriSuffix = "/community";
+            }
         } else if ("TopicCenter".equals(contentKey.getType())) {
             extension = "topic";
 
@@ -470,7 +478,7 @@ public class UrlBuilder {
         _perlPage = false;
         if (!specialCase) {
             if (publication != null) {
-                _path = publication.getFullUri() + "." + extension;
+                _path = publication.getFullUri() + (fullUriSuffix != null ? fullUriSuffix : "") + "." + extension;
             }
             setParameter("content", contentKey.getIdentifier().toString());
         }
