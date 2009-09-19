@@ -63,7 +63,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         // TODO: REMOVE DEBUG CODE!!
         if (board == null && contentId == 999999l) {
             board = new CmsDiscussionBoard();
-            board.setName("Anthony's Test Board");
+            board.setTitle("Anthony's Test Board");
             board.setMetaDescription("Anthony's Test Board meta description");
             board.setMetaKeywords("Anthony,Test,Board,Meta,Keywords");
             board.setTopicCenterId(1541); // LD
@@ -161,8 +161,8 @@ public class CmsDiscussionBoardController extends AbstractController {
 
         discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort);
 
-        if (board != null && board.getName() != null &&
-                "Anthony's Test Board".equals(board.getName())) {
+        if (board != null && board.getTitle() != null &&
+                "Anthony's Test Board".equals(board.getTitle())) {
             for (int x=0; x < pageSize; x++) {
                 int discussionNum = ((page-1) * pageSize) + (x+1);
                 if (discussionNum > 23) {
@@ -185,8 +185,8 @@ public class CmsDiscussionBoardController extends AbstractController {
 
         totalDiscussions = _discussionDao.getTotalDiscussions(board);
 
-        if (board != null && board.getName() != null &&
-                "Anthony's Test Board".equals(board.getName())) {
+        if (board != null && board.getTitle() != null &&
+                "Anthony's Test Board".equals(board.getTitle())) {
             totalDiscussions = 23;
         }
 
