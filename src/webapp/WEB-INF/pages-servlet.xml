@@ -49,6 +49,9 @@
              class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
            <property name="urlMap">
                <map>
+                   <!-- TODO-8717, TODO-8761 -->
+                   <!--entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/-->
+                   <!--entry key="/**/discussion.gs" value="/content/cms/discussion.page"/-->
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
                </map>
