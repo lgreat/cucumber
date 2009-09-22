@@ -24,7 +24,7 @@
     </head>
     <body>
 
-    <p>Discussion board: ${requestScope.discussionBoard.name}</p>
+    <p>Discussion board: ${requestScope.discussionBoard.title}</p>
 
     <c:choose>
         <c:when test="${fn:length(requestScope.discussionList) > 0}">
@@ -34,6 +34,13 @@
             <ol>
                 <c:forEach var="discussion" items="${requestScope.discussionList}">
                     <li>Discussion: ${discussion.title}</li>
+                    <c:if test="${fn:length(discussion.replies) > 0}">
+                        <ol style="margin-left: 15px;">
+                            <c:forEach var="reply" items="${discussion.replies}">
+                                <li>Reply: ${reply.body}</li>
+                            </c:forEach>
+                        </ol>
+                    </c:if>
                 </c:forEach>
             </ol>
         </c:when>

@@ -6,9 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
@@ -17,6 +15,7 @@ import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.Discussion;
 import gs.data.community.IDiscussionDao;
+import gs.data.community.DiscussionReply;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
 
@@ -75,6 +74,10 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao.populateByContentId
                     (board.getTopicCenterId(), new CmsTopicCenter());
+            if (topicCenter == null && contentId == 999999l) {
+                topicCenter = new CmsTopicCenter();
+                topicCenter.setTitle("Anthony Topic Center");
+            }
             if (topicCenter != null) {
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
                 int page = getPageNumber(request);
@@ -170,6 +173,24 @@ public class CmsDiscussionBoardController extends AbstractController {
                 }
                 Discussion discussion = new Discussion();
                 discussion.setTitle("Discussion " + discussionNum);
+                Set<DiscussionReply> replies = new HashSet<DiscussionReply>(2);
+                DiscussionReply reply = new DiscussionReply();
+                reply.setDiscussion(discussion);
+                reply.setActive(true);
+                reply.setBody("First reply.");
+                reply.setAuthorId(18283);
+                reply.setDateCreated(new Date());
+                reply.setId(1);
+                replies.add(reply);
+                reply = new DiscussionReply();
+                reply.setDiscussion(discussion);
+                reply.setActive(true);
+                reply.setBody("Second reply. This one is a bit longer. Well, more than a bit. Maybe a little. A medium amount. An indeterminate amount that is neither too little nor too large, much like the perfect serving size of the perfect meal.");
+                reply.setAuthorId(18283);
+                reply.setDateCreated(new Date());
+                reply.setId(2);
+                replies.add(reply);
+                discussion.setReplies(replies);
                 discussions.add(discussion);
             }
         }
