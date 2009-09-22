@@ -3,6 +3,8 @@ package gs.web.community;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,19 +13,22 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.IDiscussionDao;
 import gs.data.community.Discussion;
 import gs.data.community.DiscussionReply;
+import gs.data.community.IDiscussionReplyDao;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.ContentKey;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+
+import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class DiscussionController extends AbstractController {
+    protected final Log _log = LogFactory.getLog(getClass());
+
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final String DEFAULT_SORT = "newest_first";
@@ -45,46 +50,76 @@ public class DiscussionController extends AbstractController {
     private String _viewName;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
+    private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
         Map<String, Object> model = new HashMap<String, Object>();
 
-        Long contentId;
+        Integer contentId;
         try {
-            contentId = new Long(request.getParameter("content"));
+            contentId = new Integer(request.getParameter("content"));
         } catch (Exception e) {
+            _log.warn("Invalid discussion id provided: " + request.getParameter("content"));
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
         }
 
-        Discussion discussion = null; //_discussionDao.findById(contentId);
+        Discussion discussion = _discussionDao.findById(contentId);
+
+        // TODO: REMOVE DEBUG CODE!!
+        if (discussion == null && contentId == 999999l) {
+            discussion = new Discussion();
+            discussion.setTitle("Anthony's Test Discussion");
+            discussion.setActive(true);
+            discussion.setAuthorId(18283);
+            discussion.setBoardId(1542l);
+            discussion.setBody("This is a test post. Please reply to me!");
+            discussion.setDateCreated(new Date());
+            discussion.setDateUpdated(new Date());
+            discussion.setId(999999);
+        } // END DEBUG CODE
+
         if (discussion != null) {
             model.put("uri", uri + "?content=" + discussion.getId());
             model.put(MODEL_DISCUSSION, discussion);
-            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(Long.valueOf(discussion.getBoardId()));
+            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+            if (board == null && contentId == 999999l) {
+                board = new CmsDiscussionBoard();
+                board.setTitle("Anthony's Test Board");
+                board.setMetaDescription("Anthony's Test Board meta description");
+                board.setMetaKeywords("Anthony,Test,Board,Meta,Keywords");
+                board.setTopicCenterId(1541);
+                board.setContentKey(new ContentKey("CmsDiscussionBoard", 1542l));
+            }
             if (board != null) {
                 model.put(MODEL_DISCUSSION_BOARD, board);
                 CmsTopicCenter topicCenter = _publicationDao
                         .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter());
+                if (topicCenter == null && contentId == 999999l) {
+                    topicCenter = new CmsTopicCenter();
+                    topicCenter.setTitle("Anthony's Topic Center");
+                }
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
 
                 int page = getPageNumber(request);
                 int pageSize = getPageSize(request);
-                String sort = getDiscussionSortFromString(request.getParameter(PARAM_SORT));
+                DiscussionReplySort sort = getReplySortFromString(request.getParameter(PARAM_SORT));
                 model.put(MODEL_PAGE, page);
                 model.put(MODEL_PAGE_SIZE, pageSize);
                 model.put(MODEL_SORT, sort);
 
                 model.put(MODEL_REPLIES, getRepliesForPage(discussion, page, pageSize, sort));
-                long totalReplies = getTotalReplies(discussion);
+                int totalReplies = getTotalReplies(discussion);
                 model.put(MODEL_TOTAL_REPLIES, totalReplies);
                 model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
             }
-
+        } else {
+            _log.warn("Can't find discussion with id " + contentId);
         }
         if (model.get(MODEL_TOPIC_CENTER) == null) {
+            _log.warn("Can't find topic center for discussion with id " + contentId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
         }
@@ -133,14 +168,12 @@ public class DiscussionController extends AbstractController {
     /**
      * Extract the sort enum from a string. Defaults to NEWEST_FIRST
      */
-    protected String getDiscussionSortFromString(String sort) {
-        // TODO: replace with enum
+    protected DiscussionReplySort getReplySortFromString(String sort) {
         if (StringUtils.equals("oldest_first", sort)) {
-            return sort;
-        } else if (StringUtils.equals("most_popular", sort)) {
-            return sort;
+            return DiscussionReplySort.OLDEST_FIRST;
+        } else  {
+            return DiscussionReplySort.NEWEST_FIRST;
         }
-        return sort;
     }
 
     /**
@@ -152,33 +185,56 @@ public class DiscussionController extends AbstractController {
      * @return non-null list
      */
     protected List<DiscussionReply> getRepliesForPage
-            (Discussion discussion, int page, int pageSize, String sort) {
-        List<DiscussionReply> discussions = new ArrayList<DiscussionReply>(0);
+            (Discussion discussion, int page, int pageSize, DiscussionReplySort sort) {
+        List<DiscussionReply> replies;
 
-//        discussions = _discussionDao.getRepliesForPage(discussion, page, pageSize, sort);
+        replies = _discussionReplyDao.getRepliesForPage(discussion, page, pageSize, sort);
 
-        return discussions;
+        if (replies.size() == 0 && "Anthony's Test Discussion".equals(discussion.getTitle())) {
+            DiscussionReply reply;
+            for (int x=0; x < pageSize; x++) {
+                int replyNum = ((page-1) * pageSize) + (x+1);
+                if (replyNum > 18) {
+                    break;
+                }
+
+                reply = new DiscussionReply();
+                reply.setActive(true);
+                reply.setAuthorId(18283);
+                reply.setBody("Reply " + replyNum);
+                reply.setDateCreated(new Date());
+                reply.setId(replyNum);
+                reply.setDiscussion(discussion);
+                replies.add(reply);
+            }
+        }
+
+        return replies;
     }
 
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalReplies(Discussion discussion) {
-        long totalDiscussions = 0;
+    protected int getTotalReplies(Discussion discussion) {
+        int totalReplies;
 
-        //totalDiscussions = _discussionDao.getTotalReplies(discussion);
+        totalReplies = _discussionReplyDao.getTotalReplies(discussion);
 
-        return totalDiscussions;
+        if (totalReplies == 0 && "Anthony's Test Discussion".equals(discussion.getTitle())) {
+            totalReplies = 18;
+        }
+
+        return totalReplies;
     }
 
     /**
      * Calculate how many pages are needed to display totalDiscussions given pageSize
      */
-    protected long getTotalPages(int pageSize, long totalDiscussions) {
-        long totalPages = 1;
+    protected int getTotalPages(int pageSize, int totalReplies) {
+        int totalPages = 1;
 
-        if (pageSize > 0 && totalDiscussions > 0 && totalDiscussions > pageSize) {
-            totalPages = ((totalDiscussions + pageSize - 1) / pageSize);
+        if (pageSize > 0 && totalReplies > 0 && totalReplies > pageSize) {
+            totalPages = ((totalReplies + pageSize - 1) / pageSize);
         }
 
         return totalPages;
@@ -209,6 +265,14 @@ public class DiscussionController extends AbstractController {
 
     public void setDiscussionDao(IDiscussionDao discussionDao) {
         _discussionDao = discussionDao;
+    }
+
+    public IDiscussionReplyDao getDiscussionReplyDao() {
+        return _discussionReplyDao;
+    }
+
+    public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
+        _discussionReplyDao = discussionReplyDao;
     }
 
     public IPublicationDao getPublicationDao() {

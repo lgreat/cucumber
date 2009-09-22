@@ -49,9 +49,8 @@
              class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
            <property name="urlMap">
                <map>
-                   <!-- TODO-8717, TODO-8761 -->
-                   <!--entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/-->
-                   <!--entry key="/**/discussion.gs" value="/content/cms/discussion.page"/-->
+                   <entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/>
+                   <entry key="/**/discussion.gs" value="/community/discussion.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
                </map>
@@ -502,7 +501,7 @@
         <property name="viewName" value="/content/cms/discussionBoard"/>
     </bean>
 
-    <bean name="/content/cms/discussion.page"
+    <bean name="/community/discussion.page"
           class="gs.web.community.DiscussionController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/discussion"/>
