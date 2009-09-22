@@ -24,6 +24,7 @@ public class CmsTopicCenterController extends AbstractController {
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
     private String _viewName;
     private IPublicationDao _publicationDao;
+    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
 
@@ -50,12 +51,16 @@ public class CmsTopicCenterController extends AbstractController {
                     contentId = getTopicCenterContentID();
                 }
 
-                topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());                
+                topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());
             }
 
             if (topicCenter == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
+            }
+
+            if (topicCenter.getDiscussionBoardId() != null) {
+                model.put("discussionBoard", _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId()));
             }
 
             try {
@@ -234,6 +239,10 @@ public class CmsTopicCenterController extends AbstractController {
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
+    }
+
+    public void setCmsDiscussionBoardDao(ICmsDiscussionBoardDao cmsDiscussionBoardDao) {
+        _cmsDiscussionBoardDao = cmsDiscussionBoardDao;
     }
 
     public String getViewName() {
