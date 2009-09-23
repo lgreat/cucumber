@@ -22,6 +22,7 @@ import gs.data.content.cms.ContentKey;
 import java.util.*;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
+import gs.web.util.SitePrefCookie;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -46,6 +47,8 @@ public class DiscussionController extends AbstractController {
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
+
+    public static final String COOKIE_SORT_PROPERTY = "dReplySort";
 
     private String _viewName;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
@@ -105,7 +108,7 @@ public class DiscussionController extends AbstractController {
 
                 int page = getPageNumber(request);
                 int pageSize = getPageSize(request);
-                DiscussionReplySort sort = getReplySortFromString(request.getParameter(PARAM_SORT));
+                DiscussionReplySort sort = getReplySort(request, response);
                 model.put(MODEL_PAGE, page);
                 model.put(MODEL_PAGE_SIZE, pageSize);
                 model.put(MODEL_SORT, sort);
@@ -158,11 +161,31 @@ public class DiscussionController extends AbstractController {
                 // nothing
             }
         } else {
-            // otherwise check for cookied value
-            // TODO: read cookie
+            // otherwise check for cookied value ?? Or is this a cookied preference?
         }
 
         return pageSize;
+    }
+
+    protected DiscussionReplySort getReplySort(HttpServletRequest request, HttpServletResponse response) {
+        DiscussionReplySort sort = DiscussionReplySort.NEWEST_FIRST;
+
+        String sortParam = request.getParameter(PARAM_SORT);
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+        if (sortParam != null) {
+            // if there is a request parameter, use it and write it into the site pref cookie
+            sort = getReplySortFromString(sortParam);
+            // write cookie
+            cookie.setProperty(COOKIE_SORT_PROPERTY, sortParam);
+        } else {
+            // otherwise check for cookied value
+            String sortCookieVal = cookie.getProperty(COOKIE_SORT_PROPERTY);
+            if (sortCookieVal != null) {
+                sort = getReplySortFromString(sortCookieVal);
+            }
+        }
+
+        return sort;
     }
 
     /**

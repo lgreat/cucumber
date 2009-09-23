@@ -37,6 +37,26 @@
             <p>Displaying 
             ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.replies)}
             of ${requestScope.totalReplies} replies</p>
+            <p>
+                Sort by:
+                <c:choose>
+                    <c:when test="${requestScope.sort == 'newest_first'}">
+                        Newest first
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                    </c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${requestScope.sort == 'oldest_first'}">
+                        Newest first
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                    </c:otherwise>
+                </c:choose>
+            </p>
             <ol>
                 <c:forEach var="reply" items="${requestScope.replies}">
                     <li>Reply: ${reply.body}</li>
