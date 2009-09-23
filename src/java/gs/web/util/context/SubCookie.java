@@ -33,11 +33,7 @@ public class SubCookie {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
-
-
-
     public SubCookie(HttpServletRequest request, HttpServletResponse response){
-        _log.info("SubCookie");
         this.request = request;
         this.response = response;
         readCookie();
@@ -48,7 +44,7 @@ public class SubCookie {
         writeCookie();
     }
 
-    public Object getProperty(String property){
+    public String getProperty(String property){
         return properties.get(property);
     }
 
@@ -60,8 +56,7 @@ public class SubCookie {
     protected void readCookie(){
         properties = new HashMap<String, String>();
 
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        CookieGenerator generator = context.getSessionContextUtil().getOmnitureSubCookieGenerator();
+        CookieGenerator generator = getCookieGenerator();
         Cookie[] cookies = request.getCookies();
 
         if (cookies == null) {
@@ -74,6 +69,12 @@ public class SubCookie {
         }
     }
 
+    protected CookieGenerator getCookieGenerator() {
+        return SessionContextUtil
+                .getSessionContext(request)
+                .getSessionContextUtil()
+                .getOmnitureSubCookieGenerator();
+    }
 
     protected void writeCookie() {
         String cookieValue = encodeProperties(this.properties);
@@ -83,8 +84,7 @@ public class SubCookie {
         } catch (UnsupportedEncodingException e) {
             _log.warn("Unable to encode parameter");
         }
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        CookieGenerator generator = context.getSessionContextUtil().getOmnitureSubCookieGenerator();
+        CookieGenerator generator = getCookieGenerator();
 
         if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             // don't set domain for developer workstations
@@ -93,7 +93,7 @@ public class SubCookie {
         } else {
             generator.setCookieDomain(".greatschools.net");
         }
-        _log.info("setting omniture cookie: " + cookieValue + ", " + generator.getCookieName() + ", " + generator.getCookieDomain());
+        _log.debug("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " + generator.getCookieDomain());
         generator.addCookie(response,cookieValue);
     }
 
@@ -117,7 +117,7 @@ public class SubCookie {
         String value = cookie.getValue();
         Map<String, String> decodedProperties = new HashMap<String, String>();
 
-        _log.info("SubCookie.decodeProperties: " + value);
+        _log.debug("SubCookie.decodeProperties: " + value);
 
 
         try {
@@ -155,5 +155,13 @@ public class SubCookie {
         }
         _log.debug("normal exit");
         return decodedProperties;
+    }
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public HttpServletResponse getResponse() {
+        return response;
     }
 }

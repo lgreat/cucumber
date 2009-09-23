@@ -117,6 +117,12 @@
                 <property name="cookieName" value="CITYID"/>
             </bean>
         </property>
+        <property name="sitePrefCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="site_pref"/>
+                <property name="cookieDomain" value=".greatschools.net"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

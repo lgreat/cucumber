@@ -3,6 +3,8 @@ package gs.web.content.cms;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +20,14 @@ import gs.data.community.IDiscussionDao;
 import gs.data.community.DiscussionReply;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
+import gs.web.util.SitePrefCookie;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class CmsDiscussionBoardController extends AbstractController {
+    protected final Log _log = LogFactory.getLog(getClass());
+
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 5;
     public static final String DEFAULT_SORT = "newest_first";
@@ -40,6 +45,8 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
 
+    public static final String COOKIE_SORT_PROPERTY = "dBoardSort";
+
     private String _viewName;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
@@ -53,6 +60,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         try {
             contentId = new Long(request.getParameter("content"));
         } catch (Exception e) {
+            _log.warn("Invalid content identifier: " + request.getParameter("content"));
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
         }
@@ -82,7 +90,7 @@ public class CmsDiscussionBoardController extends AbstractController {
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
                 int page = getPageNumber(request);
                 int pageSize = getPageSize(request);
-                DiscussionSort sort = getDiscussionSortFromString(request.getParameter(PARAM_SORT));
+                DiscussionSort sort = getDiscussionSort(request, response);
                 model.put(MODEL_PAGE, page);
                 model.put(MODEL_PAGE_SIZE, pageSize);
                 model.put(MODEL_SORT, sort);
@@ -90,7 +98,11 @@ public class CmsDiscussionBoardController extends AbstractController {
                 long totalDiscussions = getTotalDiscussions(board);
                 model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
                 model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
+            } else {
+                _log.warn("Can't find topic center with id " + board.getTopicCenterId());
             }
+        } else {
+            _log.warn("Can't find board with id " + contentId);
         }
         if (model.get(MODEL_TOPIC_CENTER) == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -136,6 +148,26 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
 
         return pageSize;
+    }
+
+    protected DiscussionSort getDiscussionSort(HttpServletRequest request, HttpServletResponse response) {
+        DiscussionSort sort = DiscussionSort.NEWEST_FIRST;
+        String sortParam = request.getParameter(PARAM_SORT);
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+        if (sortParam != null) {
+            // if there is a request parameter, use it and write it into the site pref cookie
+            sort = getDiscussionSortFromString(sortParam);
+            // write cookie
+            cookie.setProperty(COOKIE_SORT_PROPERTY, sortParam);
+        } else {
+            // otherwise check for cookied value
+            String sortCookieVal = cookie.getProperty(COOKIE_SORT_PROPERTY);
+            if (sortCookieVal != null) {
+                sort = getDiscussionSortFromString(sortCookieVal);
+            }
+        }
+
+        return sort;
     }
 
     /**

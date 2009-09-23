@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.62 2009/07/10 19:35:09 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.63 2009/09/23 15:16:56 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -113,6 +113,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _communityCookieGenerator;
     private CookieGenerator _tempMsgCookieGenerator;
     private CookieGenerator _cityIdCookieGenerator;
+    private CookieGenerator _sitePrefCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
@@ -444,6 +445,14 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void setCityIdCookieGenerator(CookieGenerator cityIdCookieGenerator) {
         _cityIdCookieGenerator = cityIdCookieGenerator;
+    }
+
+    public CookieGenerator getSitePrefCookieGenerator() {
+        return _sitePrefCookieGenerator;
+    }
+
+    public void setSitePrefCookieGenerator(CookieGenerator sitePrefCookieGenerator) {
+        _sitePrefCookieGenerator = sitePrefCookieGenerator;
     }
 
     /**

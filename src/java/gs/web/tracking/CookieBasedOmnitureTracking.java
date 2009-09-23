@@ -28,7 +28,7 @@ public class CookieBasedOmnitureTracking extends OmnitureTracking{
         _request = request;
         _response = response;
         _subCookie = new SubCookie(request, response);
-        _events = (String) _subCookie.getProperty("events");
+        _events = _subCookie.getProperty("events");
         _events = _events == null ? "" : _events;
 
         _log.info("events: " + _events);

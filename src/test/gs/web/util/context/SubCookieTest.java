@@ -4,14 +4,12 @@ import gs.web.BaseTestCase;
 
 import javax.servlet.http.Cookie;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
  * @author jnorton
  */
 public class SubCookieTest extends BaseTestCase {
-    private final String cookieName = "Omniture";
     private Map<String, String> propertySetEmpty = null;
     private Map<String, String> propertySetOneValuePair = null;
     private Map<String, String> propertySetManyValuePairs = null;
@@ -59,13 +57,9 @@ public class SubCookieTest extends BaseTestCase {
     }
 
     public void testDecodeProperties(){
-
-        Map<String, String> result;
         Cookie cookie;
         
         cookie = new Cookie("name","");
-
-        String domain = cookie.getDomain();
 
         validateDecodeResult(cookie, propertySetEmpty) ;
 
