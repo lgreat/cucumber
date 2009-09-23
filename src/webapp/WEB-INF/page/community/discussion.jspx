@@ -84,7 +84,15 @@
         </div>
     </c:if>
 
-
+    <c:if test="${requestScope.validUser != null}">
+        <c:if test="${requestScope.userReplyMessage != null}">
+            <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+        </c:if>
+        <form action="${requestScope.uri}" method="POST">
+            <textarea rows="5" cols="30" class="replybox" name="userReply"><!-- no collapse -->${requestScope.userReply}</textarea>
+            <input type="submit" name="submit" value="submit"/>
+        </form>
+    </c:if>
     </body>
     </html>
 </jsp:root>

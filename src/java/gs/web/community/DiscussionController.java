@@ -2,6 +2,8 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,24 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.data.cms.IPublicationDao;
-import gs.data.community.IDiscussionDao;
-import gs.data.community.Discussion;
-import gs.data.community.DiscussionReply;
-import gs.data.community.IDiscussionReplyDao;
+import gs.data.community.*;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.ContentKey;
 
 import java.util.*;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
 import gs.web.util.SitePrefCookie;
+import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class DiscussionController extends AbstractController {
+public class DiscussionController extends AbstractController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
@@ -43,10 +45,14 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_SORT = "sort";
+    public static final String MODEL_VALID_USER = "validUser";
+    public static final String MODEL_USER_REPLY_MESSAGE = "userReplyMessage";
+    public static final String MODEL_USER_REPLY = "userReply";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
+    public static final String PARAM_USER_REPLY = "userReply";
 
     public static final String COOKIE_SORT_PROPERTY = "dReplySort";
 
@@ -56,6 +62,32 @@ public class DiscussionController extends AbstractController {
     private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
 
+    protected boolean isPost(HttpServletRequest request) {
+        return request.getMethod().equals("POST");
+    }
+
+    protected void handlePost(HttpServletRequest request, Map<String, Object> model) {
+        User user = (User)model.get(MODEL_VALID_USER);
+        if (user != null) {
+            String post = request.getParameter(PARAM_USER_REPLY);
+            if (post.length() < 5) {
+                model.put(MODEL_USER_REPLY, post);
+                model.put(MODEL_USER_REPLY_MESSAGE, "Cannot submit post with 5 or fewer characters.");
+                return;
+            }
+
+            // TODO: profanity filter
+            // TODO: more validation?
+            // TODO: sanitize string (strip HTML? JS? SQL?)?
+            
+            DiscussionReply reply = new DiscussionReply();
+            reply.setDiscussion((Discussion)model.get(MODEL_DISCUSSION));
+            reply.setBody(post);
+            reply.setAuthorId(user.getId());
+            _discussionReplyDao.save(reply);
+        }
+    }
+    
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
         Map<String, Object> model = new HashMap<String, Object>();
@@ -70,57 +102,48 @@ public class DiscussionController extends AbstractController {
         }
 
         Discussion discussion = _discussionDao.findById(contentId);
-
-        // TODO: REMOVE DEBUG CODE!!
-        if (discussion == null && contentId == 999999l) {
-            discussion = new Discussion();
-            discussion.setTitle("Anthony's Test Discussion");
-            discussion.setActive(true);
-            discussion.setAuthorId(18283);
-            discussion.setBoardId(1542l);
-            discussion.setBody("This is a test post. Please reply to me!");
-            discussion.setDateCreated(new Date());
-            discussion.setDateUpdated(new Date());
-            discussion.setId(999999);
-        } // END DEBUG CODE
-
-        if (discussion != null) {
-            model.put("uri", uri + "?content=" + discussion.getId());
-            model.put(MODEL_DISCUSSION, discussion);
-            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
-            if (board == null && contentId == 999999l) {
-                board = new CmsDiscussionBoard();
-                board.setTitle("Anthony's Test Board");
-                board.setMetaDescription("Anthony's Test Board meta description");
-                board.setMetaKeywords("Anthony,Test,Board,Meta,Keywords");
-                board.setTopicCenterId(1541);
-                board.setContentKey(new ContentKey("CmsDiscussionBoard", 1542l));
-            }
-            if (board != null) {
-                model.put(MODEL_DISCUSSION_BOARD, board);
-                CmsTopicCenter topicCenter = _publicationDao
-                        .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter());
-                if (topicCenter == null && contentId == 999999l) {
-                    topicCenter = new CmsTopicCenter();
-                    topicCenter.setTitle("Anthony's Topic Center");
-                }
-                model.put(MODEL_TOPIC_CENTER, topicCenter);
-
-                int page = getPageNumber(request);
-                int pageSize = getPageSize(request);
-                DiscussionReplySort sort = getReplySort(request, response);
-                model.put(MODEL_PAGE, page);
-                model.put(MODEL_PAGE_SIZE, pageSize);
-                model.put(MODEL_SORT, sort);
-
-                model.put(MODEL_REPLIES, getRepliesForPage(discussion, page, pageSize, sort));
-                int totalReplies = getTotalReplies(discussion);
-                model.put(MODEL_TOTAL_REPLIES, totalReplies);
-                model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
-            }
-        } else {
+        if (discussion == null) {
             _log.warn("Can't find discussion with id " + contentId);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView(VIEW_NOT_FOUND);
         }
+        model.put(MODEL_DISCUSSION, discussion);
+        model.put("uri", uri + "?content=" + discussion.getId());
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user;
+        if(PageHelper.isMemberAuthorized(request)){
+            user = sessionContext.getUser();
+            if (user != null) {
+                model.put(MODEL_VALID_USER, user);
+                if (isPost(request)) {
+                    handlePost(request, model);
+                }
+            }
+        }
+        
+        // TODO: switch to read only
+
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+        if (board != null) {
+            model.put(MODEL_DISCUSSION_BOARD, board);
+            CmsTopicCenter topicCenter = _publicationDao
+                    .populateByContentId(1541L, new CmsTopicCenter()); // TODO don't hardcode TC id
+            model.put(MODEL_TOPIC_CENTER, topicCenter);
+
+            int page = getPageNumber(request);
+            int pageSize = getPageSize(request);
+            DiscussionReplySort sort = getReplySort(request, response);
+            model.put(MODEL_PAGE, page);
+            model.put(MODEL_PAGE_SIZE, pageSize);
+            model.put(MODEL_SORT, sort);
+
+            model.put(MODEL_REPLIES, getRepliesForPage(discussion, page, pageSize, sort));
+            int totalReplies = getTotalReplies(discussion);
+            model.put(MODEL_TOTAL_REPLIES, totalReplies);
+            model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
+        }
+
         if (model.get(MODEL_TOPIC_CENTER) == null) {
             _log.warn("Can't find topic center for discussion with id " + contentId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
