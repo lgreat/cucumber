@@ -2,8 +2,6 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,6 +46,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
     public static final String MODEL_VALID_USER = "validUser";
     public static final String MODEL_USER_REPLY_MESSAGE = "userReplyMessage";
     public static final String MODEL_USER_REPLY = "userReply";
+    public static final String MODEL_CURRENT_DATE = "currentDate";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -142,6 +141,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
             int totalReplies = getTotalReplies(discussion);
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
+            model.put(MODEL_CURRENT_DATE, new Date());
         }
 
         if (model.get(MODEL_TOPIC_CENTER) == null) {

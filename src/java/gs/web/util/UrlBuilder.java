@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.178 2009/09/19 02:06:30 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.179 2009/09/23 21:44:11 aroy Exp $
  */
 
 package gs.web.util;
@@ -493,7 +493,11 @@ public class UrlBuilder {
     }
 
     private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
-        _path = fullUri + (".gs");
+        if (StringUtils.equals("DiscussionBoard", contentKey.getType())) {
+            _path = fullUri + "/community.gs";
+        } else {
+            _path = fullUri + (".gs");
+        }
         setParameter("content", contentKey.getIdentifier().toString());
     }
 
