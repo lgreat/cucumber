@@ -335,7 +335,6 @@ public class Util {
         int aDayOrMore = period.getDays() + period.getWeeks() + period.getYears();
         int hours = period.getHours();
         int minutes = period.getMinutes();
-        System.err.println("other=" + aDayOrMore + "; hours=" + hours + "; minutes=" + minutes + "; period=" + period);
         String commentTimeStr;
         String plural = "";
 
