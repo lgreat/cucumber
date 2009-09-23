@@ -60,6 +60,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
+    private IUserDao _userDao;
 
     protected boolean isPost(HttpServletRequest request) {
         return request.getMethod().equals("POST");
@@ -127,7 +128,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
         if (board != null) {
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao
-                    .populateByContentId(1541L, new CmsTopicCenter()); // TODO don't hardcode TC id
+                    .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter()); // TODO don't hardcode TC id
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
             int page = getPageNumber(request);
@@ -137,7 +138,9 @@ public class DiscussionController extends AbstractController implements ReadWrit
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
 
-            model.put(MODEL_REPLIES, getRepliesForPage(discussion, page, pageSize, sort));
+            List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort);
+            updateRepliesWithUsers(replies);
+            model.put(MODEL_REPLIES, replies);
             int totalReplies = getTotalReplies(discussion);
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
@@ -258,6 +261,37 @@ public class DiscussionController extends AbstractController implements ReadWrit
         return replies;
     }
 
+    protected void updateRepliesWithUsers(List<DiscussionReply> replies) {
+        Map<Integer, List<DiscussionReply>> userIdToReplyMap = new HashMap<Integer, List<DiscussionReply>>(replies.size());
+        // for each reply
+        for (DiscussionReply reply: replies) {
+            // add reply to map of author id to list of replies
+            List<DiscussionReply> replyList = userIdToReplyMap.get(reply.getAuthorId());
+            if (replyList == null) {
+                replyList = new ArrayList<DiscussionReply>();
+            }
+            replyList.add(reply);
+            userIdToReplyMap.put(reply.getAuthorId(), replyList);
+        }
+        if (userIdToReplyMap.isEmpty()) {
+            return;
+        }
+        // get list of users from set of author ids
+        List<User> users = _userDao.findUsersFromIds(new ArrayList<Integer>(userIdToReplyMap.keySet()));
+        // for each user
+        for (User user: users) {
+            // get list of replies for that user id
+            List<DiscussionReply> replyList = userIdToReplyMap.get(user.getId());
+            if (replyList != null) {
+                // for each reply
+                for (DiscussionReply reply: replyList) {
+                    // set user
+                    reply.setUser(user);
+                }
+            }
+        }
+    }
+
     /**
      * Get the total number of discussions in the provided board.
      */
@@ -327,5 +361,13 @@ public class DiscussionController extends AbstractController implements ReadWrit
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }

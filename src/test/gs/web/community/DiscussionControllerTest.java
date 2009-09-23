@@ -5,10 +5,7 @@ import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ContentKey;
 import gs.data.content.cms.CmsTopicCenter;
-import gs.data.community.IDiscussionDao;
-import gs.data.community.IDiscussionReplyDao;
-import gs.data.community.Discussion;
-import gs.data.community.DiscussionReply;
+import gs.data.community.*;
 import gs.data.cms.IPublicationDao;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +24,7 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     IDiscussionDao _discussionDao;
     IDiscussionReplyDao _discussionReplyDao;
     IPublicationDao _publicationDao;
+    IUserDao _userDao;
 
     @Override
     public void setUp() throws Exception {
@@ -39,18 +37,24 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         _publicationDao = createStrictMock(IPublicationDao.class);
         _discussionDao = createStrictMock(IDiscussionDao.class);
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
+        _userDao = createStrictMock(IUserDao.class);
         _controller.setCmsDiscussionBoardDao(_discussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
+        _controller.setUserDao(_userDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
+        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
+        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
+    }
+
+    private void resetAllMocks() {
+        resetMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
     }
 
     public void testBasics() {
@@ -226,5 +230,46 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         assertEquals(17, totalDiscussions);
     }
 
+    public void testUpdateRepliesWithUsers() {
+        List<DiscussionReply> replies = new ArrayList<DiscussionReply>();
+        replayAllMocks();
+        _controller.updateRepliesWithUsers(replies);
+        verifyAllMocks();
+        resetAllMocks();
+
+        DiscussionReply reply_1;
+        reply_1 = new DiscussionReply();
+        reply_1.setAuthorId(1);
+        replies.add(reply_1);
+
+        DiscussionReply reply_1_b;
+        reply_1_b = new DiscussionReply();
+        reply_1_b.setAuthorId(1);
+        replies.add(reply_1_b);
+
+        DiscussionReply reply_2;
+        reply_2 = new DiscussionReply();
+        reply_2.setAuthorId(2);
+        replies.add(reply_2);
+
+        List<User> users = new ArrayList<User>();
+        User user_1 = new User();
+        user_1.setId(1);
+        users.add(user_1);
+        User user_2 = new User();
+        user_2.setId(2);
+        users.add(user_2);
+
+        expect(_userDao.findUsersFromIds(isA(List.class))).andReturn(users);
+
+        replayAllMocks();
+        _controller.updateRepliesWithUsers(replies);
+        verifyAllMocks();
+
+        for (DiscussionReply reply: replies) {
+            assertNotNull(reply.getUser());
+            assertEquals(reply.getAuthorId(), reply.getUser().getId());
+        }
+    }
 
 }
