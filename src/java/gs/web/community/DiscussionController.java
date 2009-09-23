@@ -2,6 +2,7 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,14 +67,14 @@ public class DiscussionController extends AbstractController implements ReadWrit
         return request.getMethod().equals("POST");
     }
 
-    protected void handlePost(HttpServletRequest request, Map<String, Object> model) {
+    protected boolean handlePost(HttpServletRequest request, Map<String, Object> model) {
         User user = (User)model.get(MODEL_VALID_USER);
         if (user != null) {
             String post = request.getParameter(PARAM_USER_REPLY);
             if (post.length() < 5) {
                 model.put(MODEL_USER_REPLY, post);
                 model.put(MODEL_USER_REPLY_MESSAGE, "Cannot submit post with 5 or fewer characters.");
-                return;
+                return false;
             }
 
             // TODO: profanity filter
@@ -85,7 +86,10 @@ public class DiscussionController extends AbstractController implements ReadWrit
             reply.setBody(post);
             reply.setAuthorId(user.getId());
             _discussionReplyDao.save(reply);
+            return true;
         }
+
+        return false;
     }
     
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
@@ -117,7 +121,13 @@ public class DiscussionController extends AbstractController implements ReadWrit
             if (user != null) {
                 model.put(MODEL_VALID_USER, user);
                 if (isPost(request)) {
-                    handlePost(request, model);
+                    boolean postSaved = handlePost(request, model);
+                    if (postSaved) {
+                        // Redirect back so the browser won't try to post again on a refresh
+                        StringBuffer url = request.getRequestURL();
+                        url.append("?").append(request.getQueryString());
+                        return new ModelAndView(new RedirectView(url.toString()));
+                    }
                 }
             }
         }
@@ -128,7 +138,17 @@ public class DiscussionController extends AbstractController implements ReadWrit
         if (board != null) {
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao
-                    .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter()); // TODO don't hardcode TC id
+                    .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter());
+            if (topicCenter == null) {
+                String topicCenterParam = request.getParameter("topicCenterId");
+                if (topicCenterParam != null) {
+                    topicCenter = _publicationDao.populateByContentId(new Long(topicCenterParam), new CmsTopicCenter());
+                }
+            }
+            if (topicCenter == null) {
+               topicCenter = _publicationDao.populateByContentId(15L, new CmsTopicCenter());
+            }
+
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
             int page = getPageNumber(request);

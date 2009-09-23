@@ -63,7 +63,7 @@
                 |
                 <c:choose>
                     <c:when test="${requestScope.sort == 'oldest_first'}">
-                        Newest first
+                        Oldest first
                     </c:when>
                     <c:otherwise>
                         <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
