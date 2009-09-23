@@ -318,6 +318,50 @@ public class Util {
         return dateAsWord;
     }
 
+    public static String detailedPeriodBetweenDates(Date start, Date end) {
+        if (null == start || null == end) {
+            return "";
+        }
+
+        DateTime dtStart = new DateTime(start.getTime());
+        DateTime dtEnd = new DateTime(end.getTime());
+
+        if (dtStart.isAfter(dtEnd)) {
+            _log.error("End date prior to start date.  Start date: " + dtStart + ".  End date: " + dtEnd);
+            return "";
+        }
+
+        Period period = new Period(dtStart, dtEnd, PeriodType.yearWeekDayTime());
+        int aDayOrMore = period.getDays() + period.getWeeks() + period.getYears();
+        int hours = period.getHours();
+        int minutes = period.getMinutes();
+        System.err.println("other=" + aDayOrMore + "; hours=" + hours + "; minutes=" + minutes + "; period=" + period);
+        String commentTimeStr;
+        String plural = "";
+
+        if (aDayOrMore > 0) {
+            // display timestamp as Month, DD, YYYY: September 30, 2009
+            commentTimeStr = LONG_DATE_FORMAT.format(start);
+        } else if (hours > 0) {
+            // display timestamp as "1 hour ago, 2 hours ago, 14 hours ago, 23 hours ago"
+            if (hours > 1) {
+                plural = "s";
+            }
+            commentTimeStr = hours + " hour" + plural + " ago";
+        } else if (minutes > 0) {
+            // display timestamp as "1 minute ago, 20 minutes ago, 59 minutes ago"
+            if (minutes > 1) {
+                plural = "s";
+            }
+            commentTimeStr = minutes + " minute" + plural + " ago";
+        } else {
+            // display timestamp as "a moment ago"
+            commentTimeStr = "a moment ago";
+        }
+        return commentTimeStr;
+    }
+
+
     /**
      *
      * @param firstName null or firstName

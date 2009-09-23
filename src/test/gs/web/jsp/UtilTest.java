@@ -176,9 +176,37 @@ public class UtilTest extends TestCase {
         assertEquals("Thursday, January 31, 2002", d("2002-1-31", "2002-2-3"));
     }
 
+    public void testDetailedPeriodBetweenDates() throws ParseException {
+        assertEquals("a moment ago", dd("2009-09-23 12:05:15", "2009-09-23 12:05:18"));
+        assertEquals("a moment ago", dd("2009-09-23 12:05:15", "2009-09-23 12:06:14"));
+
+        assertEquals("1 minute ago",   dd("2009-09-23 12:05:15", "2009-09-23 12:06:15"));
+        assertEquals("1 minute ago",   dd("2009-09-23 12:05:15", "2009-09-23 12:07:14"));
+        assertEquals("2 minutes ago",  dd("2009-09-23 12:05:15", "2009-09-23 12:07:15"));
+        assertEquals("59 minutes ago", dd("2009-09-23 12:05:15", "2009-09-23 13:05:14"));
+
+        assertEquals("1 hour ago",   dd("2009-09-23 12:05:15", "2009-09-23 13:05:15"));
+        assertEquals("1 hour ago",   dd("2009-09-23 12:05:15", "2009-09-23 14:05:14"));
+        assertEquals("2 hours ago",  dd("2009-09-23 12:05:15", "2009-09-23 14:05:15"));
+        assertEquals("23 hours ago", dd("2009-09-23 12:05:15", "2009-09-24 11:05:15"));
+        assertEquals("23 hours ago", dd("2009-09-23 12:05:15", "2009-09-24 12:05:14"));
+
+        assertEquals("September 23, 2009", dd("2009-09-23 12:05:15", "2009-09-24 12:05:15"));
+        assertEquals("September 23, 2009", dd("2009-09-23 12:05:15", "2009-10-21 12:05:15"));
+        assertEquals("September 23, 2009", dd("2009-09-23 12:05:15", "2009-11-18 12:05:15"));
+        assertEquals("September 23, 2009", dd("2009-09-23 12:05:15", "2010-09-23 12:05:15"));
+
+        assertEquals("a moment ago", dd("2009-12-31 23:59:38", "2010-01-01 00:00:18"));        
+    }
+
     static String d(String start, String end) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return Util.periodBetweenDates(df.parse(start), df.parse(end));
+    }
+
+    static String dd(String start, String end) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return Util.detailedPeriodBetweenDates(df.parse(start), df.parse(end));
     }
 
     public void testEscapeHtml() {
