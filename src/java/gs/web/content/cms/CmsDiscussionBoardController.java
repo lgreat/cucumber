@@ -13,14 +13,13 @@ import java.util.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
-import gs.data.community.Discussion;
-import gs.data.community.IDiscussionDao;
-import gs.data.community.DiscussionReply;
+import gs.data.community.*;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
 import gs.web.util.SitePrefCookie;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -40,6 +39,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_SORT = "sort";
+    public static final String MODEL_CURRENT_DATE = "currentDate";
     
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -51,6 +51,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
     private IPublicationDao _publicationDao;
+    private IUserDao _userDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -67,25 +68,23 @@ public class CmsDiscussionBoardController extends AbstractController {
 
         CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
 
-        // TODO: REMOVE DEBUG CODE!!
-        if (board == null && contentId == 999999l) {
-            board = new CmsDiscussionBoard();
-            board.setTitle("Anthony's Test Board");
-            board.setMetaDescription("Anthony's Test Board meta description");
-            board.setMetaKeywords("Anthony,Test,Board,Meta,Keywords");
-            board.setTopicCenterId(1541); // LD
-            board.setContentKey(new ContentKey("CmsDiscussionBoard", 999999l));
-        } // END DEBUG CODE
-
         if (board != null) {
             model.put("uri", uri + "?content=" + board.getContentKey().getIdentifier());
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao.populateByContentId
                     (board.getTopicCenterId(), new CmsTopicCenter());
-            if (topicCenter == null && contentId == 999999l) {
-                topicCenter = new CmsTopicCenter();
-                topicCenter.setTitle("Anthony Topic Center");
+            if (topicCenter == null) {
+                String topicCenterParam = request.getParameter("topicCenterId");
+                if (topicCenterParam != null) {
+                    topicCenter = _publicationDao.populateByContentId(new Long(topicCenterParam), new CmsTopicCenter());
+                }
             }
+
+            // TODO REMOVE THIS USE OF SAMPLE DATA
+            if (topicCenter == null) {
+               topicCenter = _publicationDao.populateByContentId(15L, new CmsTopicCenter());
+            }
+
             if (topicCenter != null) {
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
                 int page = getPageNumber(request);
@@ -94,10 +93,18 @@ public class CmsDiscussionBoardController extends AbstractController {
                 model.put(MODEL_PAGE, page);
                 model.put(MODEL_PAGE_SIZE, pageSize);
                 model.put(MODEL_SORT, sort);
-                model.put(MODEL_DISCUSSION_LIST, getDiscussionsForPage(board, page, pageSize, sort));
+
+                List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
+                updateAllPostsWithUsers(discussions);
+                model.put(MODEL_DISCUSSION_LIST, discussions);
+
                 long totalDiscussions = getTotalDiscussions(board);
                 model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
                 model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
+                model.put(MODEL_CURRENT_DATE, new Date());
+
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                model.put("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
             } else {
                 _log.warn("Can't find topic center with id " + board.getTopicCenterId());
             }
@@ -196,37 +203,6 @@ public class CmsDiscussionBoardController extends AbstractController {
 
         discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort);
 
-        if (board != null && board.getTitle() != null &&
-                "Anthony's Test Board".equals(board.getTitle())) {
-            for (int x=0; x < pageSize; x++) {
-                int discussionNum = ((page-1) * pageSize) + (x+1);
-                if (discussionNum > 23) {
-                    break;
-                }
-                Discussion discussion = new Discussion();
-                discussion.setTitle("Discussion " + discussionNum);
-                Set<DiscussionReply> replies = new HashSet<DiscussionReply>(2);
-                DiscussionReply reply = new DiscussionReply();
-                reply.setDiscussion(discussion);
-                reply.setActive(true);
-                reply.setBody("First reply.");
-                reply.setAuthorId(18283);
-                reply.setDateCreated(new Date());
-                reply.setId(1);
-                replies.add(reply);
-                reply = new DiscussionReply();
-                reply.setDiscussion(discussion);
-                reply.setActive(true);
-                reply.setBody("Second reply. This one is a bit longer. Well, more than a bit. Maybe a little. A medium amount. An indeterminate amount that is neither too little nor too large, much like the perfect serving size of the perfect meal.");
-                reply.setAuthorId(18283);
-                reply.setDateCreated(new Date());
-                reply.setId(2);
-                replies.add(reply);
-                discussion.setReplies(replies);
-                discussions.add(discussion);
-            }
-        }
-
         return discussions;
     }
 
@@ -237,11 +213,6 @@ public class CmsDiscussionBoardController extends AbstractController {
         long totalDiscussions;
 
         totalDiscussions = _discussionDao.getTotalDiscussions(board);
-
-        if (board != null && board.getTitle() != null &&
-                "Anthony's Test Board".equals(board.getTitle())) {
-            totalDiscussions = 23;
-        }
 
         return totalDiscussions;
     }
@@ -257,6 +228,37 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
 
         return totalPages;
+    }
+
+    protected void updateAllPostsWithUsers(List<Discussion> posts) {
+        Map<Integer, List<IUserContent>> userIdToPostMap = new HashMap<Integer, List<IUserContent>>(posts.size());
+        // for each post
+        for (Discussion discussion: posts) {
+            // add post to map of author id to list of post
+            List<IUserContent> postList = userIdToPostMap.get(discussion.getAuthorId());
+            if (postList == null) {
+                postList = new ArrayList<IUserContent>();
+                userIdToPostMap.put(discussion.getAuthorId(), postList);
+            }
+            postList.add(discussion);
+        }
+        if (userIdToPostMap.isEmpty()) {
+            return;
+        }
+        // get list of users from set of author ids
+        List<User> users = _userDao.findUsersFromIds(new ArrayList<Integer>(userIdToPostMap.keySet()));
+        // for each user
+        for (User user: users) {
+            // get list of replies for that user id
+            List<IUserContent> replyList = userIdToPostMap.get(user.getId());
+            if (replyList != null) {
+                // for each reply
+                for (IUserContent post: replyList) {
+                    // set user
+                    post.setUser(user);
+                }
+            }
+        }
     }
 
     /*
@@ -293,5 +295,13 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }

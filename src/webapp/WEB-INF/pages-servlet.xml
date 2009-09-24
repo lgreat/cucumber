@@ -50,7 +50,7 @@
            <property name="urlMap">
                <map>
                    <entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/>
-                   <entry key="/**/discussion.gs" value="/community/discussion.page"/>
+                   <entry key="/**/community/discussion.gs" value="/community/discussion.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
                </map>

@@ -72,7 +72,14 @@
             </p>
             <ol>
                 <c:forEach var="reply" items="${requestScope.replies}">
-                    <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)} by ${reply.user.userProfile.screenName}): ${reply.body}</li>
+                    <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}
+                        by
+                        <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                            <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=30&amp;height=30" alt="Avatar" width="30" height="30" style="border: 1px solid blue;"/>
+                            ${reply.user.userProfile.screenName}
+                        </gsml:a>)
+                        : ${reply.body}
+                    </li>
                 </c:forEach>
             </ol>
         </c:when>

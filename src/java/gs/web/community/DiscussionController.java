@@ -145,6 +145,8 @@ public class DiscussionController extends AbstractController implements ReadWrit
                     topicCenter = _publicationDao.populateByContentId(new Long(topicCenterParam), new CmsTopicCenter());
                 }
             }
+
+            // TODO REMOVE THIS USE OF SAMPLE DATA
             if (topicCenter == null) {
                topicCenter = _publicationDao.populateByContentId(15L, new CmsTopicCenter());
             }
@@ -165,6 +167,8 @@ public class DiscussionController extends AbstractController implements ReadWrit
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
             model.put(MODEL_CURRENT_DATE, new Date());
+
+            model.put("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
         }
 
         if (model.get(MODEL_TOPIC_CENTER) == null) {
@@ -289,9 +293,9 @@ public class DiscussionController extends AbstractController implements ReadWrit
             List<DiscussionReply> replyList = userIdToReplyMap.get(reply.getAuthorId());
             if (replyList == null) {
                 replyList = new ArrayList<DiscussionReply>();
+                userIdToReplyMap.put(reply.getAuthorId(), replyList);
             }
             replyList.add(reply);
-            userIdToReplyMap.put(reply.getAuthorId(), replyList);
         }
         if (userIdToReplyMap.isEmpty()) {
             return;
