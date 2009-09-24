@@ -45,7 +45,19 @@
     clear: both;
     height: 0;
     font-size: 1px;
-    line-height: 0px;
+    line-height: 0;
+}
+.sdrt{
+    border-top: 1px dotted #999;
+}
+.sdrb{
+    border-bottom: 1px dotted #999;
+}
+.modulespacer{
+    clear:both;
+    height:10px;
+    font-size:1px;
+    line-height:10px;
 }
 .module .header{
     height:36px;
@@ -64,9 +76,7 @@
     background:#fff;
     padding:15px 20px;
 }
-.sdrt{
-    border-top: 1px dotted #999;
-}
-.sdrb{
-    border-bottom: 1px dotted #999;
+.topics li{
+    list-style:disc inside;
+    color:#f4891d;
 }

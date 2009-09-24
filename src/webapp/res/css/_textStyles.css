@@ -123,6 +123,10 @@ h3.orange {
     color: #333;
 }
 
+.text2_180 {
+    font: 13px / 1.8 Arial, Helvetica, sans-serif;
+}
+
 .text2GA {
     font: 13px / 1.3 Georgia, "Times New Roman", Times, serif;
     color: #333;
@@ -136,6 +140,10 @@ h3.orange {
 .text3 {
     font: 12px / 1.3 Arial, Helvetica, sans-serif;
     color: #333;
+}
+
+.text3_230 {
+    font: 12px / 2.3 Arial, Helvetica, sans-serif;
 }
 
 .text3bold {

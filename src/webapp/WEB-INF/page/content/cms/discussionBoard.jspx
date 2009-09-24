@@ -34,18 +34,16 @@
                     <p>Displaying discussion
                         ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
                         of ${requestScope.totalDiscussions} discussion(s)</p>
-                    <ol>
-                        <c:forEach var="discussion" items="${requestScope.discussionList}">
-                            <li>Discussion: ${discussion.title}</li>
-                            <c:if test="${fn:length(discussion.replies) > 0}">
-                                <ol style="margin-left: 15px;">
-                                    <c:forEach var="reply" items="${discussion.replies}">
-                                        <li>Reply: ${reply.body}</li>
-                                    </c:forEach>
-                                </ol>
-                            </c:if>
-                        </c:forEach>
-                    </ol>
+                    <c:forEach var="discussion" items="${requestScope.discussionList}">
+                        <div class="title1">Discussion: ${discussion.title}</div>
+                        <c:if test="${fn:length(discussion.replies) > 0}">
+                            <ol style="margin-left: 15px;">
+                                <c:forEach var="reply" items="${discussion.replies}">
+                                    <li>Reply: ${reply.body}</li>
+                                </c:forEach>
+                            </ol>
+                        </c:if>
+                    </c:forEach>
                 </c:when>
                 <c:otherwise>
                     <p>There are no discussions to display!</p>
@@ -67,7 +65,8 @@
                     </c:forEach>
                 </div>
             </c:if>
-        </div><!--mainContent-->
+        </div>
+        <!--mainContent-->
         <div id="sideBar">
             <div class="module">
                 <div class="header">
@@ -82,22 +81,22 @@
                 <div class="body3bg sdrt">
                     <div class="subhead2">Browse by topic</div>
                     <div class="fltlft">
-                        <ol>
+                        <ul class="topics text2_180">
                             <li><a href="#">Great Parenting</a></li>
                             <li><a href="#">Academics &amp;amp; Activities</a></li>
                             <li><a href="#">Learning Disabilities</a></li>
                             <li><a href="#">Improve Your School</a></li>
                             <li><a href="#">Prep for College</a></li>
-                        </ol>
+                        </ul>
                     </div>
                     <div class="fltlft">
-                        <ol>
+                        <ul class="topics text2_180">
                             <li><a href="#">Finding a School</a></li>
                             <li><a href="#">Preschool</a></li>
                             <li><a href="#">Elementary</a></li>
                             <li><a href="#">Middle School</a></li>
                             <li><a href="#">High School</a></li>
-                        </ol>
+                        </ul>
                     </div>
                     <br class="clearfloat"/>
                 </div>
@@ -112,9 +111,39 @@
                         </select>
                     </form>
                 </div>
-            </div><!--module-->
-        </div><!--sideBar-->
-    </div><!--container-->
+            </div>
+            <!--module-->
+            <br class="modulespacer"/>
+            <div class="module">
+                <div class="header">
+                    <span class="title1white">More in Learning Disabilities</span>
+                </div>
+                <div class="body3bg">
+                    <div class="fltlft">
+                        Most viewed
+                    </div>
+                    <div class="fltlft">
+                        Most viewed
+                    </div>
+                    <br class="clearfloat"/>
+                    <ul class="text3_230">
+                        <li><a href="#">What you can do to stamp out bullying</a></li>
+                        <li><a href="#">Why social skills are key to learning</a></li>
+                        <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
+                        <li><a href="#">Healthy breakfasts for healthy minds</a></li>
+                        <li><a href="#">Does your child's school promote earth-friendly practices?</a></li>
+                        <li><a href="#">Problems in kindergarten: I need advice!</a></li>
+                        <li><a href="#">What you can do to stamp out bullying</a></li>
+                        <li><a href="#">Why social skills are key to learning</a></li>
+                        <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
+                        <li><a href="#">Coping with homework horrors</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--sideBar-->
+    </div>
+    <!--container-->
     </body>
     </html>
 </jsp:root>
