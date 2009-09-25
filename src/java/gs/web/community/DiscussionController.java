@@ -48,6 +48,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
     public static final String MODEL_USER_REPLY_MESSAGE = "userReplyMessage";
     public static final String MODEL_USER_REPLY = "userReply";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_COMMUNITY_HOST = "communityHost";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -168,7 +169,7 @@ public class DiscussionController extends AbstractController implements ReadWrit
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
             model.put(MODEL_CURRENT_DATE, new Date());
 
-            model.put("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+            model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
         }
 
         if (model.get(MODEL_TOPIC_CENTER) == null) {

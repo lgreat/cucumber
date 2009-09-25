@@ -40,6 +40,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_SORT = "sort";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_COMMUNITY_HOST = "communityHost";
     
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -104,7 +105,7 @@ public class CmsDiscussionBoardController extends AbstractController {
                 model.put(MODEL_CURRENT_DATE, new Date());
 
                 SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                model.put("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+                model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
             } else {
                 _log.warn("Can't find topic center with id " + board.getTopicCenterId());
             }
@@ -241,6 +242,8 @@ public class CmsDiscussionBoardController extends AbstractController {
                 userIdToPostMap.put(discussion.getAuthorId(), postList);
             }
             postList.add(discussion);
+
+            // TODO Populate users in replies too
         }
         if (userIdToPostMap.isEmpty()) {
             return;
