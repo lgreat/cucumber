@@ -2,7 +2,6 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +19,6 @@ import java.util.*;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
 import gs.web.util.SitePrefCookie;
-import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -28,7 +26,7 @@ import gs.web.util.context.SessionContextUtil;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class DiscussionController extends AbstractController implements ReadWriteController {
+public class DiscussionController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
@@ -64,35 +62,6 @@ public class DiscussionController extends AbstractController implements ReadWrit
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
 
-    protected boolean isPost(HttpServletRequest request) {
-        return request.getMethod().equals("POST");
-    }
-
-    protected boolean handlePost(HttpServletRequest request, Map<String, Object> model) {
-        User user = (User)model.get(MODEL_VALID_USER);
-        if (user != null) {
-            String post = request.getParameter(PARAM_USER_REPLY);
-            if (post.length() < 5) {
-                model.put(MODEL_USER_REPLY, post);
-                model.put(MODEL_USER_REPLY_MESSAGE, "Cannot submit post with 5 or fewer characters.");
-                return false;
-            }
-
-            // TODO: profanity filter
-            // TODO: more validation?
-            // TODO: sanitize string (strip HTML? JS? SQL?)?
-            
-            DiscussionReply reply = new DiscussionReply();
-            reply.setDiscussion((Discussion)model.get(MODEL_DISCUSSION));
-            reply.setBody(post);
-            reply.setAuthorId(user.getId());
-            _discussionReplyDao.save(reply);
-            return true;
-        }
-
-        return false;
-    }
-    
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
         Map<String, Object> model = new HashMap<String, Object>();
@@ -121,19 +90,8 @@ public class DiscussionController extends AbstractController implements ReadWrit
             user = sessionContext.getUser();
             if (user != null) {
                 model.put(MODEL_VALID_USER, user);
-                if (isPost(request)) {
-                    boolean postSaved = handlePost(request, model);
-                    if (postSaved) {
-                        // Redirect back so the browser won't try to post again on a refresh
-                        StringBuffer url = request.getRequestURL();
-                        url.append("?").append(request.getQueryString());
-                        return new ModelAndView(new RedirectView(url.toString()));
-                    }
-                }
             }
         }
-        
-        // TODO: switch to read only
 
         CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
         if (board != null) {

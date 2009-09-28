@@ -108,8 +108,11 @@
         <c:if test="${requestScope.userReplyMessage != null}">
             <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
         </c:if>
-        <form action="${requestScope.uri}" method="POST">
-            <textarea rows="5" cols="30" class="replybox" name="userReply"><!-- no collapse -->${requestScope.userReply}</textarea>
+        <form action="/community/discussionSubmission.page" method="POST">
+            <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+            <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+            <textarea rows="5" cols="30" class="replybox"
+                      name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
             <input type="submit" name="submit" value="submit"/>
         </form>
     </c:if>

@@ -507,6 +507,13 @@
         <property name="viewName" value="/community/discussion"/>
     </bean>
 
+    <bean name="/community/discussionSubmission.page"
+          class="gs.web.community.DiscussionSubmissionController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="discussionSubmissionCommand"/>
+        <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
+    </bean>
+
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
           autowire="byName" lazy-init="true">
