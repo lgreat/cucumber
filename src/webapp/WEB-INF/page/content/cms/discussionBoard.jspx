@@ -7,156 +7,218 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <html lang="en">
-    <jsp:directive.page contentType="text/html"/>
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <c:choose>
-            <c:when test="${not empty requestScope.topicCenter.pageTitle}">
-                <c:set var="pageTitle">${requestScope.topicCenter.pageTitle} Discussion Board</c:set>
-            </c:when>
-            <c:otherwise>
-                <c:set var="pageTitle">${requestScope.topicCenter.title} Discussion Board</c:set>
-            </c:otherwise>
-        </c:choose>
-        <title>${pageTitle} | GreatSchools</title>
-        <meta name="description" content="${requestScope.discussionBoard.metaDescription}"/>
-        <meta name="keywords" content="${requestScope.discussionBoard.metaKeywords}"/>
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
-        <pageHelper:externalCss file="/res/css/_textStyles.css"/>
-        <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    </head>
-    <body>
-    <div id="container">
-        <div id="mainContent">
-            <p>Discussion board: ${requestScope.discussionBoard.title}</p>
+<head>
+    <c:choose>
+        <c:when test="${not empty requestScope.topicCenter.pageTitle}">
+            <c:set var="pageTitle">${requestScope.topicCenter.pageTitle} Discussion Board</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${requestScope.topicCenter.title} Discussion Board</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle} | GreatSchools</title>
+    <meta name="description" content="${requestScope.discussionBoard.metaDescription}"/>
+    <meta name="keywords" content="${requestScope.discussionBoard.metaKeywords}"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+</head>
+<body>
+<div id="container">
+    <div id="mainContent">
+        <p class="smallAlertText">You are here: ${requestScope.discussionBoard.title}</p>
 
-            <c:choose>
-                <c:when test="${fn:length(requestScope.discussionList) > 0}">
-                    <p>Displaying discussion
-                        ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
-                        of ${requestScope.totalDiscussions} discussion(s)</p>
-                    <c:forEach var="discussion" items="${requestScope.discussionList}">
-                        <div class="title1">Discussion: ${discussion.title}</div>
-                        <div>
-                            <div>${discussion.user.userProfile.screenName}, ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</div>
-                            ${discussion.body}
-                        </div>
-                        <c:if test="${fn:length(discussion.replies) > 0}">
-                            <ol style="margin-left: 15px;">
-                                <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
-                                    <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}
-                                        by
-                                        <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
-                                            <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=30&amp;height=30" alt="Avatar" width="30" height="30" style="border: 1px solid blue;"/>
-                                            ${reply.user.userProfile.screenName}
-                                        </gsml:a>)
-                                        : ${reply.body}
-                                    </li>
-                                </c:forEach>
-                            </ol>
-                        </c:if>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no discussions to display!</p>
-                </c:otherwise>
-            </c:choose>
-
-            <c:if test="${requestScope.totalPages > 1}">
-                <div class="cmsDiscussionPagination">
-                    Page
-                    <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
-                        <c:choose>
-                            <c:when test="${pageNum == requestScope.page}">
-                                <span class="active">${pageNum}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </div>
-            </c:if>
-        </div>
-        <!--mainContent-->
-        <div id="sideBar">
-            <div class="module">
-                <div class="header">
-                    <span class="title1white">Search Community</span>
-                </div>
-                <div class="body1bg">
-                    <form action="">
-                        <input type="text" name="search"/>
-                        <input type="submit" value="Search"/>
-                    </form>
-                </div>
-                <div class="body3bg sdrt">
-                    <div class="subhead2">Browse by topic</div>
-                    <div class="fltlft">
-                        <ul class="topics text2_180">
-                            <li><a href="#">Great Parenting</a></li>
-                            <li><a href="#">Academics &amp;amp; Activities</a></li>
-                            <li><a href="#">Learning Disabilities</a></li>
-                            <li><a href="#">Improve Your School</a></li>
-                            <li><a href="#">Prep for College</a></li>
-                        </ul>
-                    </div>
-                    <div class="fltlft">
-                        <ul class="topics text2_180">
-                            <li><a href="#">Finding a School</a></li>
-                            <li><a href="#">Preschool</a></li>
-                            <li><a href="#">Elementary</a></li>
-                            <li><a href="#">Middle School</a></li>
-                            <li><a href="#">High School</a></li>
-                        </ul>
-                    </div>
-                    <br class="clearfloat"/>
-                </div>
-                <div class="body2bg sdrb">
-                    <form action="">
-                        <span class="subhead2">Browse by city</span>
-                        <select name="cities">
-                            <option value="#">Select city</option>
-                            <option value="SF">San Franciso</option>
-                            <option value="OT">Oakland</option>
-                            <option value="SJ">San Jose</option>
-                        </select>
-                    </form>
-                </div>
+        <div class="module">
+            <div class="header">
+                <span class="title1white fltlft">Learning Disabilities Community</span>
+                <span class="fltrt">Start a discussion</span>
+                <br class="clearfloat"/>
             </div>
-            <!--module-->
-            <br class="modulespacer"/>
-            <div class="module">
-                <div class="header">
-                    <span class="title1white">More in Learning Disabilities</span>
-                </div>
-                <div class="body3bg">
-                    <div class="fltlft">
-                        Most viewed
+
+            <div class="db_body">
+                <c:choose>
+                    <c:when test="${fn:length(requestScope.discussionList) > 0}">
+
+                        <p>Displaying discussion
+                            ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
+                            of ${requestScope.totalDiscussions} discussion(s)</p>
+
+                        <form action="" class="fltlft">
+                            <span class="smallAlertText">Show:</span>
+                            <select name="posts">
+                                <option value="0">no posts</option>
+                                <option value="5" selected="selected">5 posts</option>
+                                <option value="10">10 posts</option>
+                                <option value="15">15 posts</option>
+                            </select>
+                        </form>
+
+                        <p class="fltrt">Sort by: Oldest First | <a href="#">Newest First</a> | <a
+                                href="#">Most Popular</a></p>
+                        <br class="clearfloat "/>
+
+                        <c:forEach var="discussion" items="${requestScope.discussionList}">
+                            <div class="db_discussion">
+                                <h4 class="title1 fltlft">Discussion: ${discussion.title}</h4>
+
+                                <p class="fltrt"><a href="#">Email</a></p>
+                                <br class="clearfloat "/>
+
+                                <div>
+                                    <div class="fltlft">
+                                        <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
+                                            <img class="fltlft"
+                                                 src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;width=48&amp;height=48"
+                                                 alt="Avatar" width="48" height="48"
+                                                 style="border: 1px solid #c6c6c6;"/>
+                                        </gsml:a>
+                                    </div>
+
+                                    <div class="db_discuss fltrt rounded">
+                                        <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
+                                            ${discussion.user.userProfile.screenName}
+                                        </gsml:a>
+
+                                        ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}
+
+
+                                        <p class="smallText1 fltrt"><a href="#">Report it</a></p>
+                                        <br class="clearfloat "/>
+                                        ${discussion.body}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <br class="clearfloat "/>
+                            <c:if test="${fn:length(discussion.replies) > 0}">
+                                <p class="Text1">Most recent replies</p>
+                                <ol style="margin-left: 15px;">
+                                    <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
+                                        <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}
+                                            by
+                                            <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                                <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=48&amp;height=48"
+                                                     alt="Avatar" width="48" height="48"
+                                                     style="border: 1px solid #c6c6c6;"/>
+                                                ${reply.user.userProfile.screenName}
+                                            </gsml:a>)
+                                            : ${reply.body}
+                                        </li>
+                                    </c:forEach>
+                                </ol>
+                            </c:if>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <p>There are no discussions to display!</p>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+
+            <div class="db_footer">
+                <c:if test="${requestScope.totalPages > 1}">
+                    <div class="cmsDiscussionPagination">
+                        Page
+                        <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
+                            <c:choose>
+                                <c:when test="${pageNum == requestScope.page}">
+                                    <span class="active">${pageNum}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                     </div>
-                    <div class="fltlft">
-                        Most viewed
-                    </div>
-                    <br class="clearfloat"/>
-                    <ul class="text3_230">
-                        <li><a href="#">What you can do to stamp out bullying</a></li>
-                        <li><a href="#">Why social skills are key to learning</a></li>
-                        <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                        <li><a href="#">Healthy breakfasts for healthy minds</a></li>
-                        <li><a href="#">Does your child's school promote earth-friendly practices?</a></li>
-                        <li><a href="#">Problems in kindergarten: I need advice!</a></li>
-                        <li><a href="#">What you can do to stamp out bullying</a></li>
-                        <li><a href="#">Why social skills are key to learning</a></li>
-                        <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                        <li><a href="#">Coping with homework horrors</a></li>
+                </c:if>
+            </div>
+        </div>
+    </div>
+    <!--mainContent-->
+    <div id="sideBar">
+        <div class="module">
+            <div class="header">
+                <span class="title1white">Search Community</span>
+            </div>
+            <div class="body1bg">
+                <form action="">
+                    <input type="text" name="search"/>
+                    <input type="submit" value="Search"/>
+                </form>
+            </div>
+            <div class="body3bg sdrt">
+                <div class="subhead2">Browse by topic</div>
+                <div class="fltlft">
+                    <ul class="topics text2_180">
+                        <li><a href="#">Great Parenting</a></li>
+                        <li><a href="#">Academics &amp;amp; Activities</a></li>
+                        <li><a href="#">Learning Disabilities</a></li>
+                        <li><a href="#">Improve Your School</a></li>
+                        <li><a href="#">Prep for College</a></li>
                     </ul>
                 </div>
+                <div class="fltlft">
+                    <ul class="topics text2_180">
+                        <li><a href="#">Finding a School</a></li>
+                        <li><a href="#">Preschool</a></li>
+                        <li><a href="#">Elementary</a></li>
+                        <li><a href="#">Middle School</a></li>
+                        <li><a href="#">High School</a></li>
+                    </ul>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+            <div class="body2bg sdrb">
+                <form action="">
+                    <span class="subhead2">Browse by city</span>
+                    <select name="cities">
+                        <option value="#">Select city</option>
+                        <option value="SF">San Franciso</option>
+                        <option value="OT">Oakland</option>
+                        <option value="SJ">San Jose</option>
+                    </select>
+                </form>
             </div>
         </div>
-        <!--sideBar-->
+        <!--module-->
+        <br class="modulespacer"/>
+        <div class="module">
+            <div class="header">
+                <span class="title1white">More in Learning Disabilities</span>
+            </div>
+            <div class="body3bg">
+                <div class="fltlft">
+                    Most viewed
+                </div>
+                <div class="fltlft">
+                    Most viewed
+                </div>
+                <br class="clearfloat"/>
+                <ul class="text3_230">
+                    <li><a href="#">What you can do to stamp out bullying</a></li>
+                    <li><a href="#">Why social skills are key to learning</a></li>
+                    <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
+                    <li><a href="#">Healthy breakfasts for healthy minds</a></li>
+                    <li><a href="#">Does your child's school promote earth-friendly practices?</a></li>
+                    <li><a href="#">Problems in kindergarten: I need advice!</a></li>
+                    <li><a href="#">What you can do to stamp out bullying</a></li>
+                    <li><a href="#">Why social skills are key to learning</a></li>
+                    <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
+                    <li><a href="#">Coping with homework horrors</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <!--container-->
-    </body>
-    </html>
+    <!--sideBar-->
+</div>
+<!--container-->
+</body>
+</html>
 </jsp:root>

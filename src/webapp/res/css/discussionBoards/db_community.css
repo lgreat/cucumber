@@ -28,16 +28,16 @@
     float: right;
 }
 
-.fltrt {
-/* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
-    float: right;
-    margin-left: 8px;
-}
-
 .fltlft {
 /* this class can be used to float an element left in your page */
     float: left;
-    margin-right: 8px;
+    /*margin-right: 8px;*/
+}
+
+.fltrt {
+/* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+    float: right;
+    /*margin-left: 8px;*/
 }
 
 .clearfloat {
@@ -52,6 +52,10 @@
 }
 .sdrb{
     border-bottom: 1px dotted #999;
+}
+.rounded {
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
 }
 .modulespacer{
     clear:both;
@@ -79,4 +83,18 @@
 .topics li{
     list-style:disc inside;
     color:#f4891d;
+}
+.db_body{
+    border-bottom: 1px solid #999;
+}
+
+.db_discussion{
+    border-top: 1px dotted #999;
+    padding:0 0 0 15px;
+}
+
+.db_discuss{
+    width:454px;
+    background:#ebebeb;
+    padding:12px;
 }
