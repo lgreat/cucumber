@@ -86,15 +86,42 @@
 }
 .db_body{
     border-bottom: 1px solid #999;
+    padding: 15px 0;
+}
+
+.db_deck{
+    /*padding: 0 0 15px 0;*/
 }
 
 .db_discussion{
+    margin:15px 0 0 0;
     border-top: 1px dotted #999;
-    padding:0 0 0 15px;
+    padding:15px 0 0 15px;
+}
+
+.db_discuss_topic{
+    padding:15px 0 0 0;
 }
 
 .db_discuss{
     width:454px;
+    max-height:90px;
     background:#ebebeb;
+    padding:12px;
+}
+
+.db_replies{
+    margin:0 0 0 80px;
+    padding:15px 0 0 0;
+}
+
+.db_reply_topic{
+    padding:15px 0 0 0;
+}
+
+.db_reply{
+    width:387px;
+    max-height:74px;
+    border:1px solid #c6c6c6;
     padding:12px;
 }
