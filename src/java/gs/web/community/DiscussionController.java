@@ -128,6 +128,15 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_CURRENT_DATE, new Date());
 
             model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
+
+            // Sample code to pull out rejected reply body and restore it in field
+//            SitePrefCookie cookie = new SitePrefCookie(request, response);
+//            if (StringUtils.isNotEmpty(cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY))) {
+//                model.put(MODEL_USER_REPLY, cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY));
+//                model.put(MODEL_USER_REPLY_MESSAGE, "Reply must be at least " +
+//                        DiscussionSubmissionController.REPLY_BODY_MINIMUM_LENGTH + " characters.");
+//                cookie.removeProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY);
+//            }
         }
 
         if (model.get(MODEL_TOPIC_CENTER) == null) {

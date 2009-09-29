@@ -9,7 +9,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.SitePrefCookie;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
@@ -73,8 +72,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
         // validation
         if (StringUtils.length(command.getBody()) < REPLY_BODY_MINIMUM_LENGTH) {
-            SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
-            sitePrefCookie.setProperty(COOKIE_REPLY_BODY_PROPERTY, command.getBody());
+            // sample code to store reply body for re-display in form
+//            SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+//            sitePrefCookie.setProperty(COOKIE_REPLY_BODY_PROPERTY, command.getBody());
             // TODO
             command.setRedirect("/community/discussion.gs?content=" + command.getDiscussionId());
             _log.warn("Attempt to submit with body length < " + REPLY_BODY_MINIMUM_LENGTH + " ignored");
