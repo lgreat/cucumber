@@ -19,6 +19,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -248,14 +249,14 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if(command.isSeasonal()){
             if(command.getSeasonalId() > 0){
                 if(_subscriptionDao.findSummerSubscriptions(user).size() != 0 &&!_subscriptionDao.findSummerSubscriptions(user).get(0).getProduct().equals(SubscriptionProduct.getSubscriptionProduct(command.getStartweek()))){
-                     _subscriptionDao.updateSeasonal(command.getStartweek(),user);
+                    _subscriptionDao.updateSeasonal(command.getStartweek(),user);
                 }
             }
             else if(_subscriptionDao.findSummerSubscriptions(user).size() == 0){
-                     _subscriptionDao.addSeasonal(command.getStartweek(),user,state);
-                }
+                _subscriptionDao.addSeasonal(command.getStartweek(),user,state);
+            }
         }
-        
+
         if(command.getSeasonalId() >0 && !command.isSeasonal()){
             _subscriptionDao.removeSubscription(command.getSeasonalId());
         }
@@ -326,6 +327,11 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         _subscriptionDao.addNewsletterSubscriptions(user,subscriptions);
 
+        // DELETE USER FROM EXACT TARGET IF NO SUBSCRIPTIONS
+        if(_subscriptionDao.getUserSubscriptions(user) == null){
+            ExactTargetAPI _etAPI = (ExactTargetAPI)getApplicationContext().getBean(ExactTargetAPI.BEAN_ID);
+            _etAPI.deleteSubscriber(user.getEmail());
+        }
         return new ModelAndView(getSuccessView(), model);
     }
 
@@ -347,7 +353,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if (stateIdStringsFromPage != null) {
             stateIdStringSetFromPage.addAll(Arrays.asList(stateIdStringsFromPage));
         }
-        
+
         // any schools in the existing subscription set that is not represented, remove it
         for (String stateIdStringFromDB: stateIdStringSetFromDB) {
             if (!stateIdStringSetFromPage.contains(stateIdStringFromDB)) {
@@ -400,7 +406,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             if (!stateIdStringSetFromDB.contains(stateIdStringFromPage)) {
                 Subscription s = new Subscription(user,SubscriptionProduct.MYSTAT, stateToAdd);
                 s.setSchoolId(schoolIdToAdd);
-                newSubscriptions.add(s);                
+                newSubscriptions.add(s);
             }
             counter++;
         }
@@ -546,7 +552,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             if (request.getParameter("set" + myNth.getName()) == null) {
                 continue;
             }
-             // this ensures that if a request param sets an nth newsletter to checked, the
+            // this ensures that if a request param sets an nth newsletter to checked, the
             // greatnews will also be checked
             command.setGreatnews(true);
             if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
