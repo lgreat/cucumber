@@ -20,6 +20,7 @@ import java.util.*;
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
@@ -47,6 +48,8 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_USER_REPLY = "userReply";
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
+    public static final String MODEL_URI = "uri";
+    public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -82,7 +85,7 @@ public class DiscussionController extends AbstractController {
             return new ModelAndView(VIEW_NOT_FOUND);
         }
         model.put(MODEL_DISCUSSION, discussion);
-        model.put("uri", uri + "?content=" + discussion.getId());
+        model.put(MODEL_URI, uri + "?content=" + discussion.getId());
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user;
@@ -129,6 +132,8 @@ public class DiscussionController extends AbstractController {
 
             model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
 
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, model.get(MODEL_URI).toString());
+            model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
             // Sample code to pull out rejected reply body and restore it in field
 //            SitePrefCookie cookie = new SitePrefCookie(request, response);
 //            if (StringUtils.isNotEmpty(cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY))) {

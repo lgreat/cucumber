@@ -27,6 +27,18 @@
         <meta name="description" content="TODO"/>
         <meta name="keywords" content="TODO"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
+
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+            $(function() {
+            <c:if test="${requestScope.validUser != null}">
+                $('#upperReplyTrigger').click(function() {
+                    $('#upperReplyForm').show("slow");
+                    return false;
+                });
+            </c:if>
+            });
+        </script>
     </head>
     <body>
 
@@ -44,6 +56,25 @@
     <h2>${requestScope.discussion.title}</h2>
 
     <div class="discussionBody">${requestScope.discussion.body}</div>
+
+    <a id="upperReplyTrigger" href="${requestScope.loginRedirectUrl}">
+        <input type="submit" name="submit" value="Post a Reply"/>
+    </a>
+
+    <c:if test="${requestScope.validUser != null}">
+        <div id="upperReplyForm" style="display:none;">
+            <c:if test="${requestScope.userReplyMessage != null}">
+                <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+            </c:if>
+            <form action="/community/discussionSubmission.page" method="POST">
+                <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+                <textarea rows="5" cols="30" class="replybox"
+                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                <input type="submit" name="submit" value="Post your Reply"/>
+            </form>
+        </div>
+    </c:if>
 
     <c:choose>
         <c:when test="${fn:length(requestScope.replies) > 0}">
@@ -113,7 +144,7 @@
             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
             <textarea rows="5" cols="30" class="replybox"
                       name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-            <input type="submit" name="submit" value="submit"/>
+            <input type="submit" name="submit" value="Post your Reply"/>
         </form>
     </c:if>
     </body>
