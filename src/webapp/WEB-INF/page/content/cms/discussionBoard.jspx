@@ -40,37 +40,40 @@
             <span class="fltrt">Start a discussion</span>
             <br class="clearfloat"/>
         </div>
+        <!-- end header -->
 
         <div class="db_body">
             <c:choose>
                 <c:when test="${fn:length(requestScope.discussionList) > 0}">
 
                     <div class="db_deck">
-                    <p>Displaying discussion
-                        ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
-                        of ${requestScope.totalDiscussions} discussion(s)</p>
+                        <p>Displaying discussion
+                            ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
+                            of ${requestScope.totalDiscussions} discussion(s)</p>
 
-                    <form action="" class="fltlft">
-                        <span class="smallAlertText">Show:</span>
-                        <select name="posts">
-                            <option value="0">no posts</option>
-                            <option value="5" selected="selected">5 posts</option>
-                            <option value="10">10 posts</option>
-                            <option value="15">15 posts</option>
-                        </select>
-                    </form>
+                        <form action="" class="fltlft">
+                            <span class="smallAlertText">Show:</span>
+                            <select name="posts">
+                                <option value="0">no posts</option>
+                                <option value="5" selected="selected">5 posts</option>
+                                <option value="10">10 posts</option>
+                                <option value="15">15 posts</option>
+                            </select>
+                        </form>
 
-                    <p class="fltrt">Sort by: Oldest First | <a href="#">Newest First</a> | <a
-                            href="#">Most Popular</a></p>
-                    <br class="clearfloat "/>
+                        <p class="fltrt">Sort by: Oldest First | <a href="#">Newest First</a> | <a
+                                href="#">Most Popular</a></p>
+                        <br class="clearfloat"/>
                     </div>
+                    <!-- end db_deck -->
 
                     <c:forEach var="discussion" items="${requestScope.discussionList}">
                         <div class="db_discussion sdrt">
-                            <h4 class="fltlft"><link:discussion discussion="${discussion}"><span class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
+                            <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
+                                    class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
 
                             <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
-                            <br class="clearfloat "/>
+                            <br class="clearfloat"/>
 
                             <div class="db_discuss_topic">
                                 <div class="fltlft">
@@ -81,23 +84,28 @@
                                              style="border: 1px solid #c6c6c6;"/>
                                     </gsml:a>
                                 </div>
+                                <!-- end discussion avatar -->
 
                                 <div class="db_discuss fltrt rounded">
-                                    <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
-                                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                                    </gsml:a>
+                                    <p class="fltlft">
+                                        <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
+                                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                        </gsml:a>
 
-                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                    </p>
 
                                     <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                                    <br class="clearfloat "/>
-                                    ${discussion.body}
+                                    <br class="clearfloat"/>
+                                    <span class="text3">${discussion.body}</span>
                                 </div>
+                                <!-- end db_discuss -->
                             </div>
+                            <!-- end db_discuss_topic -->
                         </div>
+                        <!-- end db_discussion -->
 
-                        <br class="clearfloat "/>
+                        <br class="clearfloat"/>
                         <c:if test="${fn:length(discussion.replies) > 0}">
                             <div class="db_replies">
                                 <p class="Text1">Most recent replies</p>
@@ -111,27 +119,33 @@
                                                      alt="Avatar" width="48" height="48"
                                                      style="border: 1px solid #c6c6c6;"/>
                                             </gsml:a>
-
                                         </div>
+                                        <!-- end reply avatar -->
 
                                         <div class="db_reply fltrt rounded">
+                                            <p class="fltlft">
+                                                <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                                    <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                                </gsml:a>
 
-                                            <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
-                                                <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                            </gsml:a>
-
-                                            <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                                            </p>
 
                                             <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                                            <br class="clearfloat "/>
+                                            <br class="clearfloat"/>
 
-                                            ${reply.body}
+                                            <span class="text3">${reply.body}</span>
                                         </div>
+                                        <!-- end db_reply -->
                                     </div>
-                                    <br class="clearfloat "/>
+                                    <!-- end db_reply_topic -->
+                                    <br class="clearfloat"/>
                                 </c:forEach>
-                                <p><a class="text3" href="#">View all replies (28) <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
+
+                                <p><a class="text3" href="#">View all replies (28) <span
+                                        class="alertDoubleArrow">&amp;raquo;</span></a></p>
                             </div>
+                            <!-- end db_replies -->
                         </c:if>
                     </c:forEach>
                 </c:when>
@@ -139,7 +153,9 @@
                     <p>There are no discussions to display!</p>
                 </c:otherwise>
             </c:choose>
+            <br class="clearfloat"/>
         </div>
+        <!-- end db_body -->
 
 
         <div class="db_footer">
@@ -159,9 +175,11 @@
                 </div>
             </c:if>
         </div>
+        <!-- end db_footer -->
     </div>
+    <!-- end module -->
 </div>
-<!--mainContent-->
+<!-- end mainContent -->
 <div id="sideBar">
     <div class="module">
         <div class="header">
@@ -207,7 +225,7 @@
             </form>
         </div>
     </div>
-    <!--module-->
+    <!-- end module -->
     <br class="modulespacer"/>
 
     <div class="module">
@@ -236,10 +254,11 @@
             </ul>
         </div>
     </div>
+    <!-- end module -->
 </div>
-<!--sideBar-->
+<!-- end sideBar -->
 </div>
-<!--container-->
+<!-- end container -->
 </body>
 </html>
 </jsp:root>
