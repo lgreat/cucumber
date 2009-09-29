@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.59 2009/06/18 23:08:22 eingenito Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.60 2009/09/29 16:17:20 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -15,6 +15,7 @@ import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.CmsUtil;
 import gs.data.util.Address;
+import gs.data.community.Discussion;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -252,6 +253,36 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertTrue(caught);
 
         CmsUtil.setCmsEnabled(cmsEnabled);
+    }
+
+    public void testDiscussionTag() {
+        DiscussionTagHandler tagHandler = new DiscussionTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        Discussion discussion = new Discussion();
+        discussion.setId(99);
+        tagHandler.setDiscussion(discussion);
+
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/discussion.gs?content=99", builder.asSiteRelative(null));
+
+        tagHandler = new DiscussionTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        tagHandler.setDiscussionId(99);
+
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/discussion.gs?content=99", builder.asSiteRelative(null));
+
+        tagHandler = new DiscussionTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        try {
+            builder = tagHandler.createUrlBuilder();
+            fail();
+        } catch (RuntimeException re) {
+            // success
+        }
     }
 
     public void testCmsContentTag() {

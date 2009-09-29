@@ -140,7 +140,6 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
 
     public void testGetDiscussionSortFromString() {
         assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString("newest_first"));
-        assertEquals(DiscussionSort.MOST_POPULAR, _controller.getDiscussionSortFromString("most_popular"));
         assertEquals(DiscussionSort.OLDEST_FIRST, _controller.getDiscussionSortFromString("oldest_first"));
         assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString("something_else"));
         assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString(null));

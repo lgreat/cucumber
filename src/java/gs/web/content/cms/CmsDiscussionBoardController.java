@@ -184,8 +184,6 @@ public class CmsDiscussionBoardController extends AbstractController {
     protected DiscussionSort getDiscussionSortFromString(String sort) {
         if (StringUtils.equals("oldest_first", sort)) {
             return DiscussionSort.OLDEST_FIRST;
-        } else if (StringUtils.equals("most_popular", sort)) {
-            return DiscussionSort.MOST_POPULAR;
         }
         return DiscussionSort.NEWEST_FIRST;
     }

@@ -3189,5 +3189,57 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>discussion</name>
+        <tag-class>gs.web.jsp.link.DiscussionTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Discussion</display-name>
+        <description>
+            <![CDATA[Link to a community discussion.]]>
+        </description>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>discussion</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.community.Discussion</type>
+            <description>Desired discussion. Required if discussionId is not specified.</description>
+        </attribute>
+        <attribute>
+            <name>discussionId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Desired discussion's id. Required if discussion is not specified.</description>
+        </attribute>
+    </tag>
+
 </taglib>
 

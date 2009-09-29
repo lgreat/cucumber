@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.179 2009/09/23 21:44:11 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.180 2009/09/29 16:17:20 droy Exp $
  */
 
 package gs.web.util;
@@ -17,6 +17,7 @@ import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
+import gs.data.community.Discussion;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -277,6 +278,11 @@ public class UrlBuilder {
      * Api Pages
      */
     public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
+
+    /**
+     * Community Pages
+     */
+    public static final VPage COMMUNITY_DISCUSSION = new VPage("vpage:communityDiscussion");
 
     /**
      * For converting from constant names to the corresponding VPage constants
@@ -639,6 +645,13 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(Discussion discussion) {
+        _vPage = COMMUNITY_DISCUSSION;
+        _perlPage = false;
+        _path = "/community/discussion.gs";
+        this.setParameter("content", discussion.getId().toString());
+    }
+
     public UrlBuilder(VPage page, State state) {
         init(page, state, null);
     }
@@ -705,6 +718,8 @@ public class UrlBuilder {
             _path = SchoolSearchWidgetController.BEAN_ID;
         } else if (B2S_POLL_LANDING_PAGE.equals(page)) {
             _path = "/news/back-to-school-poll-results.page";
+        } else if (COMMUNITY_DISCUSSION.equals(page)) {
+            _path = "/community/discussion.gs";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
