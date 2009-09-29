@@ -219,6 +219,10 @@ h3.orange {
     color: #d61;
 }
 
+.smallAlertTextBoldNeutral {
+    font: bold 11px / 1.2 Arial, Helvetica, sans-serif;
+}
+
 .errorText {
     font: 11px / 1.2 Arial, Helvetica, sans-serif;
     color: #c03;
@@ -242,7 +246,14 @@ h3.orange {
     color: #c03;
 }
 
+/* ------------- */
+/* MISCELLANEOUS */
+/* ------------- */
 .footerText1 {
     font: 11px / 1.3 Arial, Helvetica, sans-serif;
     color: #999;
+}
+.alertDoubleArrow {
+    font: 15px Arial, Helvetica, sans-serif;
+    color: #d61;
 }

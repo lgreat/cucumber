@@ -10,6 +10,16 @@
     outline: 1px solid blue;
 }
 
+#contentGS {
+    position: relative;
+    zoom: 1.0;
+}
+
+.gainlayout {
+    position: relative;
+    zoom: 1;
+}
+
 #container {
     width: 930px;
     border-top: 2px solid #aaa;
@@ -95,7 +105,6 @@
 
 .db_discussion{
     margin:15px 0 0 0;
-    border-top: 1px dotted #999;
     padding:15px 0 0 15px;
 }
 
