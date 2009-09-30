@@ -73,6 +73,10 @@ public class CmsFeatureController extends AbstractController {
             return new ModelAndView("/status/error404.page");
         }
 
+        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+            processSlideshow(feature, request.getParameter("page"));
+        }
+
         try {
             _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
         } catch(Exception e) {
@@ -88,16 +92,18 @@ public class CmsFeatureController extends AbstractController {
         }
 
         // paginate after transforms have been done on entire body
-        String pageNum = request.getParameter("page");
-        if (StringUtils.equals("all", pageNum) || print) {
-            pageNum = "-1";
-        }
-        if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
-                StringUtils.equals("-1", pageNum)) {
-            try {
-                feature.setCurrentPageNum(Integer.parseInt(pageNum));
-            } catch (NumberFormatException e) {
-                _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+            String pageNum = request.getParameter("page");
+            if (StringUtils.equals("all", pageNum) || print) {
+                pageNum = "-1";
+            }
+            if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
+                    StringUtils.equals("-1", pageNum)) {
+                try {
+                    feature.setCurrentPageNum(Integer.parseInt(pageNum));
+                } catch (NumberFormatException e) {
+                    _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
+                }
             }
         }
 
@@ -139,14 +145,6 @@ public class CmsFeatureController extends AbstractController {
             model.put("authorBios", authorBios);
         }
 
-        List<CmsFeature> slides = feature.getSlides();
-        if (slides != null) {
-            for (int i = 0; i < slides.size(); i++) {
-                CmsFeature slide = slides.get(i);
-                slide.setBody(insertSpansIntoListItems(slide.getBody()));
-            }
-        }
-
         // for Omniture tracking - commas and double quotes removed
         model.put("commaSeparatedPrimaryKategoryNames", StringEscapeUtils.escapeHtml(feature.getCommaSeparatedPrimaryKategoryNames()));
         model.put("titleForOmniture", StringEscapeUtils.escapeHtml(feature.getTitle().replaceAll(",","").replaceAll("\"","")));
@@ -167,6 +165,47 @@ public class CmsFeatureController extends AbstractController {
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    protected void processSlideshow(CmsFeature slideshow, String page) {
+        // populate slideshow with slide objects using slide IDs;
+        // if any of the slides have not been published to the database in cms.properties,
+        // they will be null here and omitted
+        List<CmsFeature> slides = new ArrayList<CmsFeature>();
+        for (Long slideId : slideshow.getSlideIds()) {
+            CmsFeature slide = _featureDao.get(slideId);
+            if (slide != null) {
+                slides.add(slide);
+            }
+        }
+        slideshow.setSlides(slides);
+
+        // selected slide based on page parameter
+        int slideIndex = 0;
+        if (page != null) {
+            try {
+                slideIndex = Integer.parseInt(page) - 1;
+                if (slideIndex < 0 || slideIndex + 1 > slideshow.getTotalSlides()) {
+                    slideIndex = 0;
+                }
+            } catch (NumberFormatException e) {
+                slideIndex = 0;
+            }
+        }
+        slideshow.setCurrentSlideIndex(slideIndex);
+
+        CmsFeature currentSlide = slideshow.getCurrentSlide();
+        if (currentSlide != null) {
+            // handle list item tags in current slide body
+            currentSlide.setBody(insertSpansIntoListItems(currentSlide.getBody()));
+
+            // replace embedded links in current slide
+            try {
+                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(currentSlide);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**

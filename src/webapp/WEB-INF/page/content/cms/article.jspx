@@ -195,6 +195,8 @@
 <c:choose>
     <c:when test="${type eq 'articleSlideshow'}">
 
+        <c:set var="pageNum" value="${articleSlideshow.currentSlideIndex + 1}"/>
+
         <c:set var="stepNavContent"><!-- Previous and Next button implementation -->
             <div class="stepNav">
 
@@ -202,7 +204,7 @@
                 <c:choose>
                     <c:when test="${hasPreviousSlide}">
                         <div class="prev"><a
-                                href="${articleSlideshow.fullUri}/${articleSlideshow.previousSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><img
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}"><img
                                 src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -211,14 +213,14 @@
                 </c:choose>
 
                 <div class="stepNavText">
-                    Page ${articleSlideshow.currentSlideIndex + 1} of ${articleSlideshow.totalSlides}
+                    Page ${pageNum} of ${articleSlideshow.totalSlides}
                 </div>
 
                 <c:set var="hasNextSlide" value="${not empty articleSlideshow.nextSlide}"/>
                 <c:choose>
                     <c:when test="${hasNextSlide}">
                         <div class="next"><a
-                                href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><img
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}"><img
                                 src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -235,8 +237,8 @@
                 <ul id="ss_jsddm">
                     <li><a class="choose" href="#">&amp;nbsp;</a>
                         <ul>
-                            <c:forEach var="slide" items="${articleSlideshow.slides}">
-                                <li><a href="${articleSlideshow.fullUri}/${slide.uri}.gs?content=${articleSlideshow.contentKey.identifier}"><c:out value="${slide.title}"/></a></li>
+                            <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
+                                <li><a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}"><c:out value="${slide.title}"/></a></li>
                             </c:forEach>
                         </ul>
                     </li>
@@ -262,7 +264,7 @@
 
                 <c:if test="${hasNextSlide}">
                     <p class="ss_text ss_next">Next: <a
-                            href="${articleSlideshow.fullUri}/${articleSlideshow.nextSlide.uri}.gs?content=${articleSlideshow.contentKey.identifier}">Build a bird feeder &amp;raquo;</a>
+                            href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">${articleSlideshow.nextSlide.title} &amp;raquo;</a>
                     </p>
                 </c:if>
 
