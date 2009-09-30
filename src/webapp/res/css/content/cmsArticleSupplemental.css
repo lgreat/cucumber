@@ -37,6 +37,11 @@
     display: none;
 }
 
+#slideshow{
+    border: none;
+    width:auto;
+}
+
 /* P R I N T   S T Y L E S */
 @media print {
     /* left-align logo with article text */

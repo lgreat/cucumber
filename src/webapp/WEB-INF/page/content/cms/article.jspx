@@ -232,49 +232,57 @@
         </c:set>
 
         <div id="slideshow" class="rounded">
-            <div id="ss_header" class="rounded_top">
-
-                <ul id="ss_jsddm">
-                    <li><a class="choose" href="#">&amp;nbsp;</a>
-                        <ul>
-                            <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
-                                <li><a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}"><c:out value="${slide.title}"/></a></li>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </ul>
-
-                ${stepNavContent}
-
-                <c:set var="slide" value="${articleSlideshow.currentSlide}"/>
-
-            </div><!-- ss_header -->
-
-            <div id="ss_body">
-
-                <c:if test="${not empty slide.imageUrl}">
-                    <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
-                </c:if>
-
-                <h2 class="ss_title">${slide.title}</h2>
-
-                <div class="ss_text">
-                    ${slide.body}
+            <c:if test="${param.print ne 'true'}">
+                <div id="ss_header" class="rounded_top">
+                    <ul id="ss_jsddm">
+                        <li><a class="choose" href="#">&amp;nbsp;</a>
+                            <ul>
+                                <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
+                                    <li>
+                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}"><c:out
+                                                value="${slide.title}"/></a></li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                    </ul>
+                    ${stepNavContent}
                 </div>
+                <!-- ss_header -->
+            </c:if>
 
-                <c:if test="${hasNextSlide}">
-                    <p class="ss_text ss_next">Next: <a
-                            href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">${articleSlideshow.nextSlide.title} &amp;raquo;</a>
-                    </p>
-                </c:if>
+            <c:forEach var="slide" items="${currentSlides}">
 
-            </div><!-- ss_body -->
+                <div id="ss_body">
 
-            <div id="ss_footer" class="rounded_bottom">
-                <!-- share this -->
-                <cms:communityDistribution feature="${feature}"/>
-                ${stepNavContent}
-            </div><!-- ss_footer -->
+                    <c:if test="${not empty slide.imageUrl}">
+                        <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+                    </c:if>
+
+                    <h2 class="ss_title">${slide.title}</h2>
+
+                    <div class="ss_text">
+                        ${slide.body}
+                    </div>
+
+                    <c:if test="${param.print ne 'true' and hasNextSlide}">
+                        <p class="ss_text ss_next">Next: <a
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">${articleSlideshow.nextSlide.title} &amp;raquo;</a>
+                        </p>
+                    </c:if>
+
+                </div>
+                <!-- ss_body -->
+
+            </c:forEach>
+
+            <c:if test="${param.print ne 'true'}">
+                <div id="ss_footer" class="rounded_bottom">
+                    <!-- share this -->
+                    <cms:communityDistribution feature="${feature}"/>
+                    ${stepNavContent}
+                </div>
+                <!-- ss_footer -->
+            </c:if>
 
         </div><!-- slideshow -->
 

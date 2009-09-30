@@ -73,10 +73,6 @@ public class CmsFeatureController extends AbstractController {
             return new ModelAndView("/status/error404.page");
         }
 
-        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
-            processSlideshow(feature, request.getParameter("page"));
-        }
-
         try {
             _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
         } catch(Exception e) {
@@ -89,6 +85,18 @@ public class CmsFeatureController extends AbstractController {
         if (print && validFromPageNum) {
             // if going to print view, save current page num so we can return to it
             model.put("fromPage", fromPageNum);
+        }
+
+        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+            processSlideshow(feature, request.getParameter("page"));
+            List<CmsFeature> slides;
+            if (print) {
+                slides = feature.getSlides();
+            } else {
+                slides = new ArrayList<CmsFeature>();
+                slides.add(feature.getCurrentSlide());
+            }
+            model.put("currentSlides", slides);
         }
 
         // paginate after transforms have been done on entire body
@@ -194,14 +202,15 @@ public class CmsFeatureController extends AbstractController {
         }
         slideshow.setCurrentSlideIndex(slideIndex);
 
+        // process all slides because they'll be needed for the print view
         CmsFeature currentSlide = slideshow.getCurrentSlide();
-        if (currentSlide != null) {
-            // handle list item tags in current slide body
-            currentSlide.setBody(insertSpansIntoListItems(currentSlide.getBody()));
+        for (CmsFeature slide : slideshow.getSlides()) {
+            // handle list item tags in slide body
+            slide.setBody(insertSpansIntoListItems(slide.getBody()));
 
-            // replace embedded links in current slide
+            // replace embedded links in slide
             try {
-                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(currentSlide);
+                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(slide);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
