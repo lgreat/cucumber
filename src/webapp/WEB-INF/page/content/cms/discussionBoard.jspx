@@ -46,7 +46,7 @@
     </script>
 </head>
 <body>
-<div id="container gainlayout">
+<div id="container" class="gainlayout">
 <div id="mainContent">
     <p class="smallAlertText">You are here: ${requestScope.discussionBoard.title}</p>
 

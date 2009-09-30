@@ -27,126 +27,189 @@
         <meta name="description" content="TODO"/>
         <meta name="keywords" content="TODO"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
+        <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+        <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+        <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+        <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
 
         <script type="text/javascript">
             var $ = jQuery.noConflict();
             $(function() {
-            <c:if test="${requestScope.validUser != null}">
-                $('#upperReplyTrigger').click(function() {
-                    $('#upperReplyForm').show("slow");
-                    return false;
-                });
+            <c:if test = "${requestScope.validUser != null}" >
+                            $('#upperReplyTrigger').click(function() {
+                                $('#upperReplyForm').show("slow");
+                                return false;
+                            });
             </c:if>
             });
         </script>
     </head>
     <body>
+    <div id="container" class="gainlayout">
+        <div id="mainContent">
 
-    <div class="breadcrumbs">
-        You are here:
-        <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                         fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-        &gt;
-        <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                         fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
-        &gt;
-        ${requestScope.discussion.title}
-    </div>
+            <div class="breadcrumbs">
+                You are here:
+                <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                                 fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+                &gt;
+                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                 fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
+                &gt;
+                ${requestScope.discussion.title}
+            </div>
 
-    <h2>${requestScope.discussion.title}</h2>
+            <h2>${requestScope.discussion.title}</h2>
 
-    <div class="discussionBody">${requestScope.discussion.body}</div>
+            <div class="discussionBody">${requestScope.discussion.body}</div>
 
-    <a id="upperReplyTrigger" href="${requestScope.loginRedirectUrl}">
-        <input type="submit" name="submit" value="Post a Reply"/>
-    </a>
+            <a id="upperReplyTrigger" href="${requestScope.loginRedirectUrl}">
+                <input type="submit" name="submit" value="Post a Reply"/>
+            </a>
 
-    <c:if test="${requestScope.validUser != null}">
-        <div id="upperReplyForm" style="display:none;">
-            <c:if test="${requestScope.userReplyMessage != null}">
-                <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+            <c:if test="${requestScope.validUser != null}">
+                <div id="upperReplyForm" style="display:none;">
+                    <c:if test="${requestScope.userReplyMessage != null}">
+                        <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+                    </c:if>
+
+                    <form action="/community/discussionSubmission.page" method="POST">
+                        <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                        <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+                        <textarea rows="5" cols="30" class="replybox"
+                                  name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                        <input type="submit" name="submit" value="Post your Reply"/>
+                    </form>
+                </div>
             </c:if>
-            <form action="/community/discussionSubmission.page" method="POST">
-                <input type="hidden" name="redirect" value="${requestScope.uri}"/>
-                <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-                <textarea rows="5" cols="30" class="replybox"
-                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-                <input type="submit" name="submit" value="Post your Reply"/>
+
+            <c:choose>
+                <c:when test="${fn:length(requestScope.replies) > 0}">
+                    <p>Displaying
+                        ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.replies)}
+                        of ${requestScope.totalReplies} replies</p>
+
+                    <p>
+                        Sort by:
+                        <c:choose>
+                            <c:when test="${requestScope.sort == 'newest_first'}">
+                                Newest first
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                            </c:otherwise>
+                        </c:choose>
+                        |
+                        <c:choose>
+                            <c:when test="${requestScope.sort == 'oldest_first'}">
+                                Oldest first
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                    <ol>
+                        <c:forEach var="reply" items="${requestScope.replies}">
+                            <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}
+                                by
+                                <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                    <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=30&amp;height=30"
+                                         alt="Avatar" width="30" height="30" style="border: 1px solid blue;"/>
+                                    ${reply.user.userProfile.screenName}
+                                </gsml:a>)
+                                : ${reply.body}
+                            </li>
+                        </c:forEach>
+                    </ol>
+                </c:when>
+                <c:otherwise>
+                    <p>There are no replies to display!</p>
+                </c:otherwise>
+            </c:choose>
+
+            <c:if test="${requestScope.totalPages > 1}">
+                <div class="cmsDiscussionPagination">
+                    Page
+                    <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
+                        <c:choose>
+                            <c:when test="${pageNum == requestScope.page}">
+                                <span class="active">${pageNum}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </div>
+            </c:if>
+
+            <c:if test="${requestScope.validUser != null}">
+                <c:if test="${requestScope.userReplyMessage != null}">
+                    <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+                </c:if>
+
+                <form action="/community/discussionSubmission.page" method="POST">
+                    <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                    <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+                    <textarea rows="5" cols="30" class="replybox"
+                              name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                    <input type="submit" name="submit" value="Post your Reply"/>
+                </form>
+            </c:if>
+        </div>
+        <!-- end mainContent -->
+        <div id="sideBar">
+                <div class="module">
+        <div class="header">
+            <span class="title1white">Search Community</span>
+        </div>
+        <div class="body1bg">
+            <form action="">
+                <input type="text" name="search"/>
+                <input type="submit" value="Search"/>
             </form>
         </div>
-    </c:if>
-
-    <c:choose>
-        <c:when test="${fn:length(requestScope.replies) > 0}">
-            <p>Displaying 
-            ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.replies)}
-            of ${requestScope.totalReplies} replies</p>
-            <p>
-                Sort by:
-                <c:choose>
-                    <c:when test="${requestScope.sort == 'newest_first'}">
-                        Newest first
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
-                    </c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${requestScope.sort == 'oldest_first'}">
-                        Oldest first
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
-                    </c:otherwise>
-                </c:choose>
-            </p>
-            <ol>
-                <c:forEach var="reply" items="${requestScope.replies}">
-                    <li>Reply (Posted ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}
-                        by
-                        <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
-                            <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=30&amp;height=30" alt="Avatar" width="30" height="30" style="border: 1px solid blue;"/>
-                            ${reply.user.userProfile.screenName}
-                        </gsml:a>)
-                        : ${reply.body}
-                    </li>
-                </c:forEach>
-            </ol>
-        </c:when>
-        <c:otherwise>
-            <p>There are no replies to display!</p>
-        </c:otherwise>
-    </c:choose>
-
-    <c:if test="${requestScope.totalPages > 1}">
-        <div class="cmsDiscussionPagination">
-            Page
-            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
-                <c:choose>
-                    <c:when test="${pageNum == requestScope.page}">
-                        <span class="active">${pageNum}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
+        <div class="body3bg sdrt">
+            <div class="subhead2">Browse by topic</div>
+            <div class="fltlft">
+                <ul class="topics text2_180">
+                    <li><a href="#">Great Parenting</a></li>
+                    <li><a href="#">Academics &amp;amp; Activities</a></li>
+                    <li><a href="#">Learning Disabilities</a></li>
+                    <li><a href="#">Improve Your School</a></li>
+                    <li><a href="#">Prep for College</a></li>
+                </ul>
+            </div>
+            <div class="fltlft">
+                <ul class="topics text2_180">
+                    <li><a href="#">Finding a School</a></li>
+                    <li><a href="#">Preschool</a></li>
+                    <li><a href="#">Elementary</a></li>
+                    <li><a href="#">Middle School</a></li>
+                    <li><a href="#">High School</a></li>
+                </ul>
+            </div>
+            <br class="clearfloat"/>
         </div>
-    </c:if>
-
-    <c:if test="${requestScope.validUser != null}">
-        <c:if test="${requestScope.userReplyMessage != null}">
-            <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
-        </c:if>
-        <form action="/community/discussionSubmission.page" method="POST">
-            <input type="hidden" name="redirect" value="${requestScope.uri}"/>
-            <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-            <textarea rows="5" cols="30" class="replybox"
-                      name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-            <input type="submit" name="submit" value="Post your Reply"/>
-        </form>
-    </c:if>
+        <div class="body2bg sdrb">
+            <form action="">
+                <span class="subhead2">Browse by city</span>
+                <select name="cities">
+                    <option value="#">Select city</option>
+                    <option value="SF">San Franciso</option>
+                    <option value="OT">Oakland</option>
+                    <option value="SJ">San Jose</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <!-- end module -->
+            <br class="modulespacer"/>
+        </div>
+        <!-- end sideBar -->
+    </div>
+    <!-- end container -->
     </body>
     </html>
 </jsp:root>
