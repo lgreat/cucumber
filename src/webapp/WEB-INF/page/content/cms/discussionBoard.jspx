@@ -37,7 +37,7 @@
     <div class="module">
         <div class="header">
             <span class="title1white fltlft">Learning Disabilities Community</span>
-            <span class="fltrt">Start a discussion</span>
+            <button class="fltrt button2" type="button">Start a discussion</button>
             <br class="clearfloat"/>
         </div>
         <!-- end header -->
@@ -61,7 +61,7 @@
                             </select>
                         </form>
 
-                        <p class="fltrt">Sort by: Oldest First | <a href="#">Newest First</a> | <a
+                        <p class="fltrt smallAlertText">Sort by: Oldest First | <a href="#">Newest First</a> | <a
                                 href="#">Most Popular</a></p>
                         <br class="clearfloat"/>
                     </div>

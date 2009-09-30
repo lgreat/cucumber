@@ -257,3 +257,30 @@ h3.orange {
     font: 15px Arial, Helvetica, sans-serif;
     color: #d61;
 }
+/* ----- */
+/* LINKS */
+/* ----- */
+a {
+    color: #06b;
+    font-weight:normal;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color:#06b;
+}
+/* ------- */
+/* BUTTONS */
+/* ------- */
+.button1{
+    font: 20px Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+}
+.button2{
+    font: 14px Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+}
