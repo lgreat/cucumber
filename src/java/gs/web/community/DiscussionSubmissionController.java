@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
@@ -27,8 +28,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected final Log _log = LogFactory.getLog(getClass());
 
     public final static int REPLY_BODY_MINIMUM_LENGTH = 5;
+    public final static int REPLY_BODY_MAXIMUM_LENGTH = 1024;
     public final static int DISCUSSION_BODY_MINIMUM_LENGTH = 5;
+    public final static int DISCUSSION_BODY_MAXIMUM_LENGTH = 1024;
     public final static int DISCUSSION_TITLE_MINIMUM_LENGTH = 5;
+    public final static int DISCUSSION_TITLE_MAXIMUM_LENGTH = 128;
     public final static String COOKIE_REPLY_BODY_PROPERTY = "replyBody";
 
     private IDiscussionReplyDao _discussionReplyDao;
@@ -40,20 +44,15 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
         DiscussionSubmissionCommand command = (DiscussionSubmissionCommand) commandObj;
 
-        handleSubmission(request, response, command);
-
-        return new ModelAndView(new RedirectView(command.getRedirect()));
-    }
-
-    protected void handleSubmission(HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command) {
         if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
-        } else if (command.getDiscussionBoardId() != null && command.getTopicCenterId() != null) {
+        } else if (command.getTopicCenterId() != null) {
             handleDiscussionSubmission(request, response, command);
         } else {
-            _log.warn("Unknown submission type -- has no discussion id or (discussion board id and topic center id)");
-            // TODO: Handle other forms of submits
+            _log.warn("Unknown submission type -- has no discussion id or topic center id");
         }
+
+        return new ModelAndView(new RedirectView(command.getRedirect()));
     }
 
     protected void handleDiscussionSubmission
@@ -92,21 +91,31 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
         // validation
         if (StringUtils.length(command.getTitle()) < DISCUSSION_TITLE_MINIMUM_LENGTH) {
-            // TODO
-            command.setRedirect("/community.gs?content=" + command.getDiscussionBoardId());
+            UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
+            command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with title length < " + DISCUSSION_TITLE_MINIMUM_LENGTH + " ignored");
         } else if (StringUtils.length(command.getBody()) < DISCUSSION_BODY_MINIMUM_LENGTH) {
-            // TODO
-            command.setRedirect("/community.gs?content=" + command.getDiscussionBoardId());
+            UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
+            command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
         } else {
+            // TODO: profanity filter
+            // TODO: more validation?
+            // TODO: sanitize string (strip HTML? JS? SQL?)?
+
             Discussion discussion = new Discussion();
             discussion.setAuthorId(user.getId());
             discussion.setBoardId(board.getContentKey().getIdentifier());
-            discussion.setBody(command.getBody());
-            discussion.setTitle(command.getTitle());
+            discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
+            discussion.setTitle(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
+
+            if (StringUtils.isEmpty(command.getRedirect())) {
+                // default to forwarding to the discussion board page
+                UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
+                command.setRedirect(urlBuilder.asSiteRelative(request));
+            }
         }
     }
 
@@ -139,8 +148,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             // sample code to store reply body for re-display in form
 //            SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
 //            sitePrefCookie.setProperty(COOKIE_REPLY_BODY_PROPERTY, command.getBody());
-            // TODO
-            command.setRedirect("/community/discussion.gs?content=" + command.getDiscussionId());
+            UrlBuilder urlBuilder = new UrlBuilder(discussion);
+            command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + REPLY_BODY_MINIMUM_LENGTH + " ignored");
         } else {
 
@@ -150,13 +159,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             DiscussionReply reply = new DiscussionReply();
             reply.setDiscussion(discussion);
-            reply.setBody(command.getBody());
+            reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
             reply.setAuthorId(user.getId());
-            _log.info("Saving reply " + reply);
             _discussionReplyDao.save(reply);
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
-                command.setRedirect("/community/discussion.gs?content=" + command.getDiscussionId());
+                UrlBuilder urlBuilder = new UrlBuilder(discussion);
+                command.setRedirect(urlBuilder.asSiteRelative(request));
             }
         }
     }

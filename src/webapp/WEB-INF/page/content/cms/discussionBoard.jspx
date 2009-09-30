@@ -61,7 +61,6 @@
         <div id="startADiscussionDialog" style="display: none;">
             <form action="/community/discussionSubmission.page" method="POST">
                 <input type="hidden" name="redirect" value="${requestScope.uri}"/>
-                <input type="hidden" name="discussionBoardId" value="${requestScope.discussionBoard.contentKey.identifier}"/>
                 <div class="topicSelect">
                     <label for="topicSelect">Topic</label>
                     <select id="topicSelect" name="topicCenterId">
