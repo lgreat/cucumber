@@ -18,6 +18,8 @@ import gs.data.community.*;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
 import gs.web.util.SitePrefCookie;
+import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
@@ -40,8 +42,12 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_SORT = "sort";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_VALID_USER = "validUser";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
-    
+    public static final String MODEL_DISCUSSION_TOPICS = "discussionTopics";
+    public static final String MODEL_URI = "uri";
+    public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
@@ -70,7 +76,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
 
         if (board != null) {
-            model.put("uri", uri + "?content=" + board.getContentKey().getIdentifier());
+            model.put(MODEL_URI, uri + "?content=" + board.getContentKey().getIdentifier());
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao.populateByContentId
                     (board.getTopicCenterId(), new CmsTopicCenter());
@@ -87,6 +93,15 @@ public class CmsDiscussionBoardController extends AbstractController {
             }
 
             if (topicCenter != null) {
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                User user;
+                if(PageHelper.isMemberAuthorized(request)){
+                    user = sessionContext.getUser();
+                    if (user != null) {
+                        model.put(MODEL_VALID_USER, user);
+                    }
+                }
+
                 model.put(MODEL_TOPIC_CENTER, topicCenter);
                 int page = getPageNumber(request);
                 int pageSize = getPageSize(request);
@@ -104,8 +119,11 @@ public class CmsDiscussionBoardController extends AbstractController {
                 model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
                 model.put(MODEL_CURRENT_DATE, new Date());
 
-                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
                 model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
+                populateModelWithListOfValidDiscussionTopics(model);
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
+                        model.get(MODEL_URI).toString());
+                model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
             } else {
                 _log.warn("Can't find topic center with id " + board.getTopicCenterId());
             }
@@ -118,6 +136,22 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected void populateModelWithListOfValidDiscussionTopics(Map<String, Object> model) {
+        Collection<CmsTopicCenter> topicCenters =
+                _publicationDao.populateAllByContentType("TopicCenter", new CmsTopicCenter());
+        SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
+            public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+        for (CmsTopicCenter topicCenter: topicCenters) {
+            if (topicCenter.getDiscussionBoardId() != null && topicCenter.getDiscussionBoardId() > 0) {
+                sortedTopics.add(topicCenter);
+            }
+        }
+        model.put(MODEL_DISCUSSION_TOPICS, sortedTopics);
     }
 
     /**

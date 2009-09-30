@@ -12,6 +12,10 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
+import gs.data.content.cms.CmsDiscussionBoard;
+import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.content.cms.CmsTopicCenter;
+import gs.data.cms.IPublicationDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +27,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected final Log _log = LogFactory.getLog(getClass());
 
     public final static int REPLY_BODY_MINIMUM_LENGTH = 5;
+    public final static int DISCUSSION_BODY_MINIMUM_LENGTH = 5;
+    public final static int DISCUSSION_TITLE_MINIMUM_LENGTH = 5;
     public final static String COOKIE_REPLY_BODY_PROPERTY = "replyBody";
 
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
+    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private IPublicationDao _publicationDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -40,9 +48,65 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected void handleSubmission(HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command) {
         if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
+        } else if (command.getDiscussionBoardId() != null && command.getTopicCenterId() != null) {
+            handleDiscussionSubmission(request, response, command);
         } else {
-            _log.warn("Unknown submission type -- has no discussion id");
+            _log.warn("Unknown submission type -- has no discussion id or (discussion board id and topic center id)");
             // TODO: Handle other forms of submits
+        }
+    }
+
+    protected void handleDiscussionSubmission
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            throws IllegalStateException {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        // error checking
+        if (sessionContext == null) {
+            _log.warn("Attempt to submit with no SessionContext rejected");
+            throw new IllegalStateException("No SessionContext found in request");
+        }
+        if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
+            _log.warn("Attempt to submit with no valid user rejected");
+            throw new IllegalStateException("Discussion submission occurred but no valid user is cookied!");
+        }
+        User user = sessionContext.getUser();
+
+        CmsTopicCenter topicCenter = _publicationDao.populateByContentId
+                (command.getTopicCenterId(), new CmsTopicCenter());
+
+        if (topicCenter == null) {
+            _log.warn("Attempt to submit with unknown topic center id (" +
+                    command.getTopicCenterId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown topic center id! id=" +
+                    command.getTopicCenterId());
+        }
+
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId());
+
+        if (board == null) {
+            _log.warn("Attempt to submit with unknown discussion board id (" +
+                    topicCenter.getDiscussionBoardId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
+                    topicCenter.getDiscussionBoardId());
+        }
+
+        // validation
+        if (StringUtils.length(command.getTitle()) < DISCUSSION_TITLE_MINIMUM_LENGTH) {
+            // TODO
+            command.setRedirect("/community.gs?content=" + command.getDiscussionBoardId());
+            _log.warn("Attempt to submit with title length < " + DISCUSSION_TITLE_MINIMUM_LENGTH + " ignored");
+        } else if (StringUtils.length(command.getBody()) < DISCUSSION_BODY_MINIMUM_LENGTH) {
+            // TODO
+            command.setRedirect("/community.gs?content=" + command.getDiscussionBoardId());
+            _log.warn("Attempt to submit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
+        } else {
+            Discussion discussion = new Discussion();
+            discussion.setAuthorId(user.getId());
+            discussion.setBoardId(board.getContentKey().getIdentifier());
+            discussion.setBody(command.getBody());
+            discussion.setTitle(command.getTitle());
+
+            _discussionDao.save(discussion);
         }
     }
 
@@ -60,13 +124,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
         if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
             _log.warn("Attempt to submit with no valid user rejected");
-            throw new IllegalStateException("Discussion submission occurred but no valid user is cookied!");
+            throw new IllegalStateException("Discussion reply submission occurred but no valid user is cookied!");
         }
         User user = sessionContext.getUser();
         Discussion discussion = _discussionDao.findById(command.getDiscussionId());
         if (discussion == null) {
             _log.warn("Attempt to submit with unknown discussion id (" + command.getDiscussionId() + ") rejected");
-            throw new IllegalStateException("Discussion submission with unknown discussion id! id=" +
+            throw new IllegalStateException("Discussion reply submission with unknown discussion id! id=" +
                     command.getDiscussionId());
         }
 
@@ -111,5 +175,21 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setDiscussionDao(IDiscussionDao discussionDao) {
         _discussionDao = discussionDao;
+    }
+
+    public ICmsDiscussionBoardDao getCmsDiscussionBoardDao() {
+        return _cmsDiscussionBoardDao;
+    }
+
+    public void setCmsDiscussionBoardDao(ICmsDiscussionBoardDao cmsDiscussionBoardDao) {
+        _cmsDiscussionBoardDao = cmsDiscussionBoardDao;
+    }
+
+    public IPublicationDao getPublicationDao() {
+        return _publicationDao;
+    }
+
+    public void setPublicationDao(IPublicationDao publicationDao) {
+        _publicationDao = publicationDao;
     }
 }

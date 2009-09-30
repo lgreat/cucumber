@@ -28,6 +28,22 @@
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#upperStartADiscussion').click(function() {
+                <c:choose>
+                    <c:when test="${requestScope.validUser != null}">
+                        $('#startADiscussionDialog').show();
+                        return false;
+                    </c:when>
+                    <c:otherwise>
+                        document.location='${requestScope.loginRedirectUrl}';
+                    </c:otherwise>
+                </c:choose>
+            });
+        });
+    </script>
 </head>
 <body>
 <div id="container gainlayout">
@@ -37,10 +53,36 @@
     <div class="module">
         <div class="header">
             <span class="title1white fltlft">Learning Disabilities Community</span>
-            <button class="fltrt button2" type="button">Start a discussion</button>
+            <button id="upperStartADiscussion" class="fltrt button2" type="button">Start a discussion</button>
             <br class="clearfloat"/>
         </div>
         <!-- end header -->
+
+        <div id="startADiscussionDialog" style="display: none;">
+            <form action="/community/discussionSubmission.page" method="POST">
+                <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                <input type="hidden" name="discussionBoardId" value="${requestScope.discussionBoard.contentKey.identifier}"/>
+                <div class="topicSelect">
+                    <label for="topicSelect">Topic</label>
+                    <select id="topicSelect" name="topicCenterId">
+                        <c:forEach var="myTc" items="${requestScope.discussionTopics}">
+                            <gsml:selectOption value="${myTc.contentKey.identifier}"
+                                               selected="${myTc.contentKey.identifier == requestScope.topicCenter.contentKey.identifier}">${myTc.title}</gsml:selectOption>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="titleInput">
+                    <label for="titleInput">Title</label>
+                    <input id="titleInput" type="text" name="title" value="${requestScope.userTitle}"/>
+                </div>
+                <div class="bodyInput">
+                    <label for="bodyInput">Details</label>
+                    <textarea id="bodyInput"  class="bodyInput" rows="5" cols="30"
+                              name="body"><!-- no collapse -->${requestScope.userBody}</textarea>
+                </div>
+                <input type="submit" name="submit" value="Start a Discussion"/>
+            </form>
+        </div>
 
         <div class="db_body">
             <c:choose>
