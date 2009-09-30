@@ -270,7 +270,7 @@ public class CmsFeatureController extends AbstractController {
         }
 
         slideshow.setSlides(slides);
-        slideshow.setSlideIDs(slideIDs);
+        slideshow.setSlideIds(slideIDs);
 
         List<CmsLink> links = new ArrayList<CmsLink>();
         CmsLink link = new CmsLink();
