@@ -63,7 +63,7 @@ public class CmsFeatureController extends AbstractController {
             feature = _featureDao.get(contentId);
 
         } else {
-            feature = getSampleArticleSlideshow();
+            feature = getSampleArticleSlideshow(null);
             String slideUri = uri.replaceAll("^.*/(.*)\\.gs","$1");
             feature.setCurrentSlideIndex(feature.findSlideIndex(slideUri));
         }
@@ -87,7 +87,11 @@ public class CmsFeatureController extends AbstractController {
             model.put("fromPage", fromPageNum);
         }
 
-        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType()) ||
+            CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+            if (CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+                feature = getSampleArticleSlideshow(feature.getContentKey().getIdentifier());
+            }
             processSlideshow(feature, request.getParameter("page"));
             List<CmsFeature> slides;
             if (print) {
@@ -255,12 +259,17 @@ public class CmsFeatureController extends AbstractController {
 
     // START sample methods
 
-    private static CmsFeature getSampleArticleSlideshow() {
+    private static CmsFeature getSampleArticleSlideshow(Long slideId) {
         CmsFeature slideshow = new CmsFeature();
         slideshow.setLanguage("EN");
         ContentKey contentKey = new ContentKey();
         contentKey.setType("ArticleSlideshow");
-        contentKey.setIdentifier(123L);
+
+        if (slideId != null) {
+            contentKey.setIdentifier(slideId);
+        } else {
+            contentKey.setIdentifier(123L);
+        }
 
         slideshow.setContentKey(contentKey);
         slideshow.setFullUri("/parenting/behavior-discipline/discipline-decisions/slideshows/sample-slideshow");
@@ -309,16 +318,22 @@ public class CmsFeatureController extends AbstractController {
         breadcrumbs.add(categoryBreadcrumbs);
         slideshow.setSecondaryKategoryBreadcrumbs(breadcrumbs);
 
-        List<CmsFeature> slides = new ArrayList<CmsFeature>();
-        List<Long> slideIDs = new ArrayList<Long>();
-        for (int i = 1; i <= 10; i++) {
-            CmsFeature slide = getSampleArticleSlide(i);
-            slides.add(slide);
-            slideIDs.add(slide.getContentKey().getIdentifier());
-        }
+        if (slideId != null) {
+            List<Long> slideIDs = new ArrayList<Long>();
+            slideIDs.add(slideId);
+            slideshow.setSlideIds(slideIDs);
+        } else {
+            List<CmsFeature> slides = new ArrayList<CmsFeature>();
+            List<Long> slideIDs = new ArrayList<Long>();
+            for (int i = 1; i <= 10; i++) {
+                CmsFeature slide = getSampleArticleSlide(i);
+                slides.add(slide);
+                slideIDs.add(slide.getContentKey().getIdentifier());
+            }
 
-        slideshow.setSlides(slides);
-        slideshow.setSlideIds(slideIDs);
+            slideshow.setSlides(slides);
+            slideshow.setSlideIds(slideIDs);
+        }
 
         List<CmsLink> links = new ArrayList<CmsLink>();
         CmsLink link = new CmsLink();

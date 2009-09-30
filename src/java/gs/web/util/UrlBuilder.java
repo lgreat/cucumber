@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.180 2009/09/29 16:17:20 droy Exp $
+ * $Id: UrlBuilder.java,v 1.181 2009/09/30 21:02:04 yfan Exp $
  */
 
 package gs.web.util;
@@ -461,17 +461,20 @@ public class UrlBuilder {
         Publication publication = getPublicationDao().findByContentKey(contentKey);
 
         String extension = null;
+        String fullUriPrefix = null;
         String fullUriSuffix = null;
-        if ("Article".equals(contentKey.getType()) || "AskTheExperts".equals(contentKey.getType()) ||
-            "ArticleSlide".equals(contentKey.getType()) || "ArticleSlideshow".equals(contentKey.getType()) ||
-            "DiscussionBoard".equals(contentKey.getType())) {
-            // TODO-8705 article slideshow and article slide urls
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(contentKey.getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(contentKey.getType()) ||
+            CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(contentKey.getType()) || CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(contentKey.getType()) ||
+            CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE.equals(contentKey.getType())) {
             extension = "gs";
 
-            if ("DiscussionBoard".equals(contentKey.getType())) {
+            if (CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(contentKey.getType())) {
+                fullUriPrefix = "/slide";
+            }
+            if (CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE.equals(contentKey.getType())) {
                 fullUriSuffix = "/community";
             }
-        } else if ("TopicCenter".equals(contentKey.getType())) {
+        } else if (CmsConstants.TOPIC_CENTER_CONTENT_TYPE.equals(contentKey.getType())) {
             extension = "topic";
 
             // specially handle grade-level topic centers
@@ -484,7 +487,7 @@ public class UrlBuilder {
         _perlPage = false;
         if (!specialCase) {
             if (publication != null) {
-                _path = publication.getFullUri() + (fullUriSuffix != null ? fullUriSuffix : "") + "." + extension;
+                _path = (fullUriPrefix != null ? fullUriPrefix : "") + publication.getFullUri() + (fullUriSuffix != null ? fullUriSuffix : "") + "." + extension;
             }
             setParameter("content", contentKey.getIdentifier().toString());
         }
@@ -499,7 +502,7 @@ public class UrlBuilder {
     }
 
     private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
-        if (StringUtils.equals("DiscussionBoard", contentKey.getType())) {
+        if (StringUtils.equals(CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE, contentKey.getType())) {
             _path = fullUri + "/community.gs";
         } else {
             _path = fullUri + (".gs");
