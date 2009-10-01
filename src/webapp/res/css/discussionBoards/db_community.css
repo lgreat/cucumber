@@ -67,6 +67,23 @@
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
 }
+
+#mainContent .breadCrumbs{
+    padding:0 0 10px 0;
+}
+
+.shareThis{
+    padding:10px 0;
+}
+
+.mostRecent{
+    padding:5px 0;
+}
+
+#mainContent .viewAll{
+    padding:10px 0 15px 0;
+}
+
 .modulespacer{
     clear:both;
     height:10px;
@@ -96,7 +113,11 @@
 }
 .db_body{
     border-bottom: 1px solid #999;
-    padding: 15px 0;
+    padding:0 0 15px 0;
+}
+
+.db_title{
+    padding: 0 0 15px 0;
 }
 
 .db_deck{
@@ -104,12 +125,12 @@
 }
 
 .db_discussion{
-    margin:15px 0 0 0;
+    /*margin:15px 0 0 0;*/
     padding:15px 0 0 15px;
 }
 
 .db_discuss_topic{
-    padding:15px 0 0 0;
+    padding:0 0 15px 0;
 }
 
 .db_discuss{
@@ -127,7 +148,7 @@
 
 .db_replies{
     margin:0 0 0 80px;
-    padding:15px 0 0 0;
+    /*padding:15px 0 0 0;*/
 }
 
 .db_reply_topic{

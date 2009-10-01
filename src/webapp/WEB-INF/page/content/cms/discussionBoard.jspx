@@ -57,7 +57,7 @@
 <body>
 <div id="container" class="gainlayout">
 <div id="mainContent">
-    <p class="smallAlertText">You are here: ${requestScope.discussionBoard.title}</p>
+    <p class="breadCrumbs smallAlertText">You are here: ${requestScope.discussionBoard.title}</p>
 
     <div class="module">
         <div class="header">
@@ -120,13 +120,15 @@
 
                     <c:forEach var="discussion" items="${requestScope.discussionList}">
                         <div class="db_discussion sdrt">
-                            <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
-                                    class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
+                            <div class="db_title gainlayout">
+                                <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
+                                        class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
 
-                            <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
-                            <br class="clearfloat"/>
+                                <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
+                                <br class="clearfloat"/>
+                            </div>
 
-                            <div class="db_discuss_topic">
+                            <div class="db_discuss_topic gainlayout">
                                 <div class="fltlft">
                                     <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
                                         <img class="fltlft"
@@ -151,6 +153,7 @@
                                     <span class="text3">${discussion.body}</span>
                                 </div>
                                 <!-- end db_discuss -->
+                                <br class="clearfloat"/>
                             </div>
                             <!-- end db_discuss_topic -->
                         </div>
@@ -193,7 +196,7 @@
                                     <br class="clearfloat"/>
                                 </c:forEach>
 
-                                <p><a class="text3" href="#">View all replies (28) <span
+                                <p class="viewAll"><a class="text3" href="#">View all replies (28) <span
                                         class="alertDoubleArrow">&amp;raquo;</span></a></p>
                             </div>
                             <!-- end db_replies -->
