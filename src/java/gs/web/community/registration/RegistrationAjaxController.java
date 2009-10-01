@@ -80,9 +80,11 @@ public class RegistrationAjaxController implements Controller {
 
     protected void validateUsername(HttpServletRequest request, PrintWriter out) {
         String username = request.getParameter(USER_NAME_PARAM);
-
-        if (username.length() < UserCommandValidator.SCREEN_NAME_MINIMUM_LENGTH || username.length() > UserCommandValidator.SCREEN_NAME_MAXIMUM_LENGTH) {
-            out.print("invalid");
+         UserCommandValidator validator = new UserCommandValidator();
+        if (username.length() < UserCommandValidator.SCREEN_NAME_MINIMUM_LENGTH || username.length() > UserCommandValidator.SCREEN_NAME_MAXIMUM_LENGTH ) {
+           out.print("invalid");
+        }else if(validator.screenNameHasInvalidCharacters(username)){
+             out.print("invalidchars");
         } else if (_userDao.findUserFromScreenNameIfExists(username) != null) {
             out.print("inuse");
         } else {

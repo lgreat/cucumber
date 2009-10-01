@@ -219,6 +219,9 @@ function validateUN() {
             } else if (transport.responseText == "invalid") {
                 notice.update('Username must be 6-14 characters.').style.display = '';
                 notice.className = "ajaxMessage ajaxError";
+            } else if (transport.responseText == "invalidchars") {
+                notice.update('Username may only contain letters and numbers.').style.display = '';
+                notice.className = "ajaxMessage ajaxError";
             } else if (transport.responseText == "valid") {
                 notice.update('').style.display = '';
                 notice.className = "ajaxMessage ajaxSuccess";
