@@ -123,7 +123,9 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_SORT, sort);
 
             List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort);
-            updateRepliesWithUsers(replies);
+            List<IUserContent> userContents = new ArrayList<IUserContent>(replies);
+            userContents.add(discussion);
+            _userDao.populateWithUsers(userContents);
             model.put(MODEL_REPLIES, replies);
             int totalReplies = getTotalReplies(discussion);
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
@@ -256,37 +258,6 @@ public class DiscussionController extends AbstractController {
         }
 
         return replies;
-    }
-
-    protected void updateRepliesWithUsers(List<DiscussionReply> replies) {
-        Map<Integer, List<DiscussionReply>> userIdToReplyMap = new HashMap<Integer, List<DiscussionReply>>(replies.size());
-        // for each reply
-        for (DiscussionReply reply: replies) {
-            // add reply to map of author id to list of replies
-            List<DiscussionReply> replyList = userIdToReplyMap.get(reply.getAuthorId());
-            if (replyList == null) {
-                replyList = new ArrayList<DiscussionReply>();
-                userIdToReplyMap.put(reply.getAuthorId(), replyList);
-            }
-            replyList.add(reply);
-        }
-        if (userIdToReplyMap.isEmpty()) {
-            return;
-        }
-        // get list of users from set of author ids
-        List<User> users = _userDao.findUsersFromIds(new ArrayList<Integer>(userIdToReplyMap.keySet()));
-        // for each user
-        for (User user: users) {
-            // get list of replies for that user id
-            List<DiscussionReply> replyList = userIdToReplyMap.get(user.getId());
-            if (replyList != null) {
-                // for each reply
-                for (DiscussionReply reply: replyList) {
-                    // set user
-                    reply.setUser(user);
-                }
-            }
-        }
     }
 
     /**

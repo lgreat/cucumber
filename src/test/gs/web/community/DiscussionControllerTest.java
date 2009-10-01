@@ -230,46 +230,4 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         assertEquals(17, totalDiscussions);
     }
 
-    public void testUpdateRepliesWithUsers() {
-        List<DiscussionReply> replies = new ArrayList<DiscussionReply>();
-        replayAllMocks();
-        _controller.updateRepliesWithUsers(replies);
-        verifyAllMocks();
-        resetAllMocks();
-
-        DiscussionReply reply_1;
-        reply_1 = new DiscussionReply();
-        reply_1.setAuthorId(1);
-        replies.add(reply_1);
-
-        DiscussionReply reply_1_b;
-        reply_1_b = new DiscussionReply();
-        reply_1_b.setAuthorId(1);
-        replies.add(reply_1_b);
-
-        DiscussionReply reply_2;
-        reply_2 = new DiscussionReply();
-        reply_2.setAuthorId(2);
-        replies.add(reply_2);
-
-        List<User> users = new ArrayList<User>();
-        User user_1 = new User();
-        user_1.setId(1);
-        users.add(user_1);
-        User user_2 = new User();
-        user_2.setId(2);
-        users.add(user_2);
-
-        expect(_userDao.findUsersFromIds(isA(List.class))).andReturn(users);
-
-        replayAllMocks();
-        _controller.updateRepliesWithUsers(replies);
-        verifyAllMocks();
-
-        for (DiscussionReply reply: replies) {
-            assertNotNull(reply.getUser());
-            assertEquals(reply.getAuthorId(), reply.getUser().getId());
-        }
-    }
-
 }
