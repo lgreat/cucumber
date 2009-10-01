@@ -97,10 +97,10 @@
             <c:choose>
                 <c:when test="${fn:length(requestScope.discussionList) > 0}">
 
-                    <div class="db_deck">
-                        <p>Displaying discussion
+                    <div class="db_deck gainlayout">
+                        <!--<p>Displaying discussion
                             ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
-                            of ${requestScope.totalDiscussions} discussion(s)</p>
+                            of ${requestScope.totalDiscussions} discussion(s)</p>-->
 
                         <form action="" class="fltlft">
                             <span class="smallAlertText">Show:</span>
