@@ -230,7 +230,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
      * @param sn screen name
      * @return true if screen name contains all valid characters or is null
      */
-    protected boolean screenNameHasInvalidCharacters(String sn) {
+    public boolean screenNameHasInvalidCharacters(String sn) {
         // valid characters are all alphanumeric, hyphen, underscore
         return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_]*");
     }
