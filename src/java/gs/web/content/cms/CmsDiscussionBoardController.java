@@ -113,8 +113,9 @@ public class CmsDiscussionBoardController extends AbstractController {
                 model.put(MODEL_SORT, sort);
 
                 List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
-                updateAllPostsWithUsers(discussions);
-                model.put(MODEL_DISCUSSION_LIST,populateFacades(board, discussions));
+                List<DiscussionFacade> facades = populateFacades(board, discussions);
+                populateWithUsers(discussions, facades);
+                model.put(MODEL_DISCUSSION_LIST, facades);
 
                 long totalDiscussions = getTotalDiscussions(board);
                 model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
@@ -278,37 +279,13 @@ public class CmsDiscussionBoardController extends AbstractController {
         return totalPages;
     }
 
-    protected void updateAllPostsWithUsers(List<Discussion> posts) {
-        Map<Integer, List<IUserContent>> userIdToPostMap = new HashMap<Integer, List<IUserContent>>(posts.size());
-        // for each post
-        for (Discussion discussion: posts) {
-            // add post to map of author id to list of post
-            List<IUserContent> postList = userIdToPostMap.get(discussion.getAuthorId());
-            if (postList == null) {
-                postList = new ArrayList<IUserContent>();
-                userIdToPostMap.put(discussion.getAuthorId(), postList);
-            }
-            postList.add(discussion);
-
-            // TODO Populate users in replies too
+    protected void populateWithUsers(List<Discussion> discussions, List<DiscussionFacade> facades) {
+        List<IUserContent> userContents = new ArrayList<IUserContent>();
+        for (DiscussionFacade facade: facades) {
+            userContents.addAll(facade.getReplies());
         }
-        if (userIdToPostMap.isEmpty()) {
-            return;
-        }
-        // get list of users from set of author ids
-        List<User> users = _userDao.findUsersFromIds(new ArrayList<Integer>(userIdToPostMap.keySet()));
-        // for each user
-        for (User user: users) {
-            // get list of replies for that user id
-            List<IUserContent> replyList = userIdToPostMap.get(user.getId());
-            if (replyList != null) {
-                // for each reply
-                for (IUserContent post: replyList) {
-                    // set user
-                    post.setUser(user);
-                }
-            }
-        }
+        userContents.addAll(discussions);
+        _userDao.populateWithUsers(userContents);
     }
 
     /*

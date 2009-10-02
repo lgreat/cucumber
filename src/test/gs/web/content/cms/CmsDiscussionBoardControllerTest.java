@@ -7,10 +7,7 @@ import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
-import gs.data.community.IDiscussionDao;
-import gs.data.community.Discussion;
-import gs.data.community.IDiscussionReplyDao;
-import gs.data.community.DiscussionReply;
+import gs.data.community.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
@@ -29,6 +26,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     IDiscussionDao _discussionDao;
     IDiscussionReplyDao _discussionReplyDao;
     IPublicationDao _publicationDao;
+    IUserDao _userDao;
 
     @Override
     public void setUp() throws Exception {
@@ -41,25 +39,29 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         _publicationDao = createStrictMock(IPublicationDao.class);
         _discussionDao = createStrictMock(IDiscussionDao.class);
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
+        _userDao = createStrictMock(IUserDao.class);
         _controller.setCmsDiscussionBoardDao(_discussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
+        _controller.setUserDao(_userDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
+        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
+        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
     }
 
     public void testBasics() {
         assertEquals("myView", _controller.getViewName());
         assertSame(_discussionBoardDao, _controller.getCmsDiscussionBoardDao());
         assertSame(_discussionDao, _controller.getDiscussionDao());
+        assertSame(_discussionReplyDao, _controller.getDiscussionReplyDao());
         assertSame(_publicationDao, _controller.getPublicationDao());
+        assertSame(_userDao, _controller.getUserDao());
     }
 
     public void testNoContent() {
@@ -117,6 +119,8 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
 
         expect(_publicationDao.populateAllByContentType(eq("TopicCenter"), isA(CmsTopicCenter.class)))
                 .andReturn(new ArrayList<CmsTopicCenter>(0));
+        _userDao.populateWithUsers(isA(List.class));
+        
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAllMocks();
