@@ -214,7 +214,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 // make sure user object is in original state
                 user.setPlaintextPassword(command.getOldPassword());
                 user.setEmailProvisional(command.getOldPassword());
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
                 builder.addParameter("message", "We're sorry! There was an error updating your password. " +
                         "Please try again in a few minutes.");
                 targetUrl = builder.asFullUrl(request);

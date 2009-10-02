@@ -54,7 +54,7 @@ public class MySchoolListConfirmationEmail extends AbstractSendEmailBean {
             urlBuilder.addParameter("cpn", cpn);
             emailHelper.addInlineReplacement("SCHOOL_CHOICE_CENTER",
                     urlBuilder.asFullUrl(request));
-            urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, null, null);
+            urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, null, (String)null);
             urlBuilder.addParameter("cpn", cpn);
             emailHelper.addInlineReplacement("MY_SCHOOL_LIST",
                     urlBuilder.asFullUrl(request));

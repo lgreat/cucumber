@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.106 2009/07/15 18:41:30 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.107 2009/10/02 01:06:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -374,7 +374,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.RESEARCH, State.WY, null);
         assertEquals("/modperl/go/WY", builder.asSiteRelative(request));
 
-        builder = new UrlBuilder(UrlBuilder.RESEARCH, null, null);
+        builder = new UrlBuilder(UrlBuilder.RESEARCH, null, (String)null);
         assertEquals("/school/research.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.ADD_PARENT_REVIEW_SEARCH, State.AZ, null);
@@ -390,7 +390,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, "eford@gs.net");
         assertEquals("/cgi-bin/logout/AZ?email=eford%40gs.net", builder.asSiteRelative(request));
 
-        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, null);
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, (String)null);
         assertEquals("/community/registration.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, "email@address.org");
         assertEquals("/community/registration.page?email=email%40address.org", builder.asSiteRelative(request));
@@ -400,7 +400,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/registrationConfirm.page?id=myParam", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, "myParam2");
         assertEquals("/community/registrationRemove.page?id=myParam2", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, null);
+        builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, (String)null);
         assertEquals("/community/forgotPassword.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, "myEmail");
         assertEquals("/community/forgotPassword.page?email=myEmail", builder.asSiteRelative(request));
@@ -410,15 +410,15 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/requestEmailValidation.page?email=myEmail", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, "myParam");
         assertEquals("/community/loginOrRegister.page?redirect=myParam", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, null);
+        builder = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, (String)null);
         assertEquals("/community/changeEmail.page", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+        builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, (String)null);
         assertEquals("/community/communityLanding.page", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+        builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, (String)null);
         assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
         assertEquals("/cgi-bin/ca/district-profile/135", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
+        builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, (String)null);
         assertEquals("/promo/webbyAwardWinner.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.PARENT_RATING_EXPLAINED, State.CA, null);
         assertEquals("/definitions/parent_rating_categories.html", builder.asSiteRelative(request));

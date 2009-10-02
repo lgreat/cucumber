@@ -3239,6 +3239,13 @@
             <type>java.lang.Integer</type>
             <description>Desired discussion's id. Required if discussion is not specified.</description>
         </attribute>
+        <attribute>
+            <name>fullUri</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Desired discussion's full URI. Required if discussion is not specified.</description>
+        </attribute>
     </tag>
 
 </taglib>

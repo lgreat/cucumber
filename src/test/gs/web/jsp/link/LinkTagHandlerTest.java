@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.60 2009/09/29 16:17:20 droy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.61 2009/10/02 01:06:44 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -270,9 +270,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
 
         tagHandler.setDiscussionId(99);
+        tagHandler.setFullUri("/uri");
 
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/community/discussion.gs?content=99", builder.asSiteRelative(null));
+        assertEquals("/uri/community/discussion.gs?content=99", builder.asSiteRelative(null));
 
         tagHandler = new DiscussionTagHandler();
         tagHandler.setPageContext(new MockPageContext());

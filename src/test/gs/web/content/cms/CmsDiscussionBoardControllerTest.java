@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.community.DiscussionFacade;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
@@ -8,6 +9,8 @@ import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.IDiscussionDao;
 import gs.data.community.Discussion;
+import gs.data.community.IDiscussionReplyDao;
+import gs.data.community.DiscussionReply;
 import org.springframework.web.servlet.ModelAndView;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
@@ -24,6 +27,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     CmsDiscussionBoardController _controller;
     ICmsDiscussionBoardDao _discussionBoardDao;
     IDiscussionDao _discussionDao;
+    IDiscussionReplyDao _discussionReplyDao;
     IPublicationDao _publicationDao;
 
     @Override
@@ -36,17 +40,19 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         _discussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
         _discussionDao = createStrictMock(IDiscussionDao.class);
+        _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _controller.setCmsDiscussionBoardDao(_discussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setDiscussionDao(_discussionDao);
+        _controller.setDiscussionReplyDao(_discussionReplyDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionBoardDao, _discussionDao, _publicationDao);
+        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionBoardDao, _discussionDao, _publicationDao);
+        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao);
     }
 
     public void testBasics() {
@@ -215,5 +221,42 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         assertEquals(1, _controller.getTotalPages(50, 10));
         assertEquals(1, _controller.getTotalPages(50, 50));
         assertEquals(2, _controller.getTotalPages(50, 51));
+    }
+
+    public void testPopulateFacadesWithNoDiscussions() {
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        List<Discussion> discussions = new ArrayList<Discussion>(0);
+
+        replayAllMocks();
+        List<DiscussionFacade> facades = _controller.populateFacades(board, discussions);
+        verifyAllMocks();
+
+        assertNotNull(facades);
+        assertEquals(0, facades.size());
+    }
+
+    public void testPopulateFacades() {
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        List<Discussion> discussions = new ArrayList<Discussion>(1);
+        Discussion discussion = new Discussion();
+        discussions.add(discussion);
+
+        List<DiscussionReply> replies = new ArrayList<DiscussionReply>(1);
+        DiscussionReply reply1 = new DiscussionReply();
+        replies.add(reply1);
+
+        expect(_discussionReplyDao.getRepliesForPage
+                (discussion, 1, 2, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST)).andReturn(replies);
+
+        replayAllMocks();
+        List<DiscussionFacade> facades = _controller.populateFacades(board, discussions);
+        verifyAllMocks();
+
+        assertNotNull("Expect a facade to be returned", facades);
+        assertEquals("Expect a facade to be returned", 1, facades.size());
+        assertNotNull("Expect the facade to have a list of replies", facades.get(0).getReplies());
+        assertEquals("Expect the facade to have exactly 1 reply", 1, facades.get(0).getReplies().size());
+        assertSame("Expect the reply to be the same as the one returned from the dao",
+                reply1, facades.get(0).getReplies().get(0));
     }
 }

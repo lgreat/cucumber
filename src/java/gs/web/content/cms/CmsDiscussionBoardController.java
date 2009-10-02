@@ -22,6 +22,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.community.DiscussionFacade;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -57,6 +58,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     private String _viewName;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
+    private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
 
@@ -112,7 +114,7 @@ public class CmsDiscussionBoardController extends AbstractController {
 
                 List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
                 updateAllPostsWithUsers(discussions);
-                model.put(MODEL_DISCUSSION_LIST, discussions);
+                model.put(MODEL_DISCUSSION_LIST,populateFacades(board, discussions));
 
                 long totalDiscussions = getTotalDiscussions(board);
                 model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
@@ -136,6 +138,19 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected List<DiscussionFacade> populateFacades(CmsDiscussionBoard board, List<Discussion> discussions) {
+        List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
+
+        for (Discussion discussion: discussions) {
+            discussion.setDiscussionBoard(board);
+            List<DiscussionReply> replies = _discussionReplyDao.getRepliesForPage
+                    (discussion, 1, 2, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST);
+            DiscussionFacade facade = new DiscussionFacade(discussion, replies);
+            facades.add(facade);
+        }
+        return facades;
     }
 
     protected void populateModelWithListOfValidDiscussionTopics(Map<String, Object> model) {
@@ -322,6 +337,14 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public void setDiscussionDao(IDiscussionDao discussionDao) {
         _discussionDao = discussionDao;
+    }
+
+    public IDiscussionReplyDao getDiscussionReplyDao() {
+        return _discussionReplyDao;
+    }
+
+    public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
+        _discussionReplyDao = discussionReplyDao;
     }
 
     public IPublicationDao getPublicationDao() {

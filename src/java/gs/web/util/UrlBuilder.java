@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.181 2009/09/30 21:02:04 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.182 2009/10/02 01:06:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -666,6 +666,13 @@ public class UrlBuilder {
      */
     public UrlBuilder(VPage page) {
         init(page);
+    }
+    
+    public UrlBuilder(VPage page, String fullUri, Long contentIdentifier) {
+        _perlPage = false;
+        if (COMMUNITY_DISCUSSION.equals(page)) {
+            _path = fullUri + "/community/discussion.gs?content=" + contentIdentifier;
+        }
     }
 
     protected void init(VPage page) {

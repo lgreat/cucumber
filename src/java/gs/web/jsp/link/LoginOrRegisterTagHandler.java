@@ -21,7 +21,7 @@ public class LoginOrRegisterTagHandler extends LinkTagHandler {
     }
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
         if (StringUtils.isNotEmpty(_redirect)) {
             urlBuilder.setParameter("redirect", _redirect);
         }

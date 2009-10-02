@@ -64,10 +64,10 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
         emailHelper.addInlineReplacement("USER_PASSWORD", passwordPlaintext);
         emailHelper.addInlineReplacement("LOCAL_TAB", localUrl);
         emailHelper.addInlineReplacement("CITY_NAME", city.getName());
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, null, null);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, null, (String)null);
         urlBuilder.addParameter("cpn", cpn);
         emailHelper.addInlineReplacement("ALL_ARTICLES", urlBuilder.asFullUrl(request));
-        urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, null, null);
+        urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, null, (String)null);
         urlBuilder.addParameter("cpn", cpn);
         emailHelper.addInlineReplacement("MY_SCHOOL_LIST", urlBuilder.asFullUrl(request));
         urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, sc.getStateOrDefault(), null);

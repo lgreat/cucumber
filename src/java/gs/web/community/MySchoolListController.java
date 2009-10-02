@@ -79,7 +79,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
             if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {
                 // if you aren't signed in, go to community sign in
                 if (user == null) {
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
                     urlBuilder.setParameter("redirect", BEAN_ID);
                     //urlBuilder.setParameter("message", "Please login or register to access My School List");
                     return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
