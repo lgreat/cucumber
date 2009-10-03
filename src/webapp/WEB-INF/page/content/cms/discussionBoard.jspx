@@ -270,20 +270,20 @@
             <div class="subhead2">Browse by topic</div>
             <div class="fltlft">
                 <ul class="topics text2_180">
-                    <li><a href="#">Great Parenting</a></li>
-                    <li><a href="#">Academics &amp;amp; Activities</a></li>
-                    <li><a href="#">Learning Disabilities</a></li>
-                    <li><a href="#">Improve Your School</a></li>
-                    <li><a href="#">Prep for College</a></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Great Parenting</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Academics &amp;amp; Activities</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Learning Disabilities</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Improve Your School</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Prep for College</link:discussion></li>
                 </ul>
             </div>
             <div class="fltlft">
                 <ul class="topics text2_180">
-                    <li><a href="#">Finding a School</a></li>
-                    <li><a href="#">Preschool</a></li>
-                    <li><a href="#">Elementary</a></li>
-                    <li><a href="#">Middle School</a></li>
-                    <li><a href="#">High School</a></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Finding a School</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Preschool</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Elementary</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">Middle School</link:discussion></li>
+                    <li><link:discussion discussionId="1" fullUri="uri">>High School</link:discussion></li>
                 </ul>
             </div>
             <br class="clearfloat"/>
