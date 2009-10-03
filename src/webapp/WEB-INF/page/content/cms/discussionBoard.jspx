@@ -112,8 +112,28 @@
                             </select>
                         </form>
 
-                        <p class="fltrt smallAlertText">Sort by: Oldest First | <a href="#">Newest First</a> | <a
-                                href="#">Most Popular</a></p>
+                        <p class="fltrt smallAlertText">
+                        Sort by:
+                        <c:choose>
+                            <c:when test="${requestScope.sort == 'newest_first'}">
+                                Newest first
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                            </c:otherwise>
+                        </c:choose>
+                        |
+                        <c:choose>
+                            <c:when test="${requestScope.sort == 'oldest_first'}">
+                                Oldest first
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                            </c:otherwise>
+                        </c:choose>
+
+                        | <a href="#">Most Popular (what is this???)</a>
+                        </p>
                         <br class="clearfloat"/>
                     </div>
                     <!-- end db_deck -->
