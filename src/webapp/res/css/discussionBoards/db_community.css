@@ -92,7 +92,7 @@
 }
 .module .header{
     height:36px;
-    background:#1d55a2;
+    background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     padding:0 15px;
 }
 .module .body1bg{
