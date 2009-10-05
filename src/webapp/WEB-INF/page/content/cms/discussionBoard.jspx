@@ -43,6 +43,10 @@
                 $('#startADiscussionDialog').dialog("close");
             });
 
+            $("#postCountSelect").change(function() {
+                document.location='${requestScope.uri}&amp;amp;pageSize=' + this.value;
+            });
+
             $('#upperStartADiscussion').click(function() {
                 //<c:choose><c:when test="${requestScope.validUser != null}">
                     $('#startADiscussionDialog').dialog("open");
@@ -68,7 +72,7 @@
         <!-- end header -->
 
         <div id="startADiscussionDialog" style="display:none;">
-            <form action="/community/discussionSubmission.page" method="POST">
+            <form action="/community/discussionSubmission.page" method="post">
                 <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                 <div class="topicSelect">
                     <label for="topicSelect">Topic</label>
@@ -98,19 +102,13 @@
                 <c:when test="${fn:length(requestScope.discussionList) > 0}">
 
                     <div class="db_deck gainlayout">
-                        <!--<p>Displaying discussion
-                            ${(requestScope.page - 1) * requestScope.pageSize + 1} - ${(requestScope.page - 1) * requestScope.pageSize + fn:length(requestScope.discussionList)}
-                            of ${requestScope.totalDiscussions} discussion(s)</p>-->
-
-                        <form action="" class="fltlft">
-                            <span class="smallAlertText">Show:</span>
-                            <select name="posts">
-                                <option value="0">no posts</option>
-                                <option value="5" selected="selected">5 posts</option>
-                                <option value="10">10 posts</option>
-                                <option value="15">15 posts</option>
-                            </select>
-                        </form>
+                        <span class="smallAlertText">Show:</span>
+                        <select id="postCountSelect" name="posts">
+                            <gsml:selectOption value="0" selected="${requestScope.pageSize eq 0}">no posts</gsml:selectOption>
+                            <gsml:selectOption value="5" selected="${requestScope.pageSize eq 5}">5</gsml:selectOption>
+                            <gsml:selectOption value="10" selected="${requestScope.pageSize eq 10}">10</gsml:selectOption>
+                            <gsml:selectOption value="15" selected="${requestScope.pageSize eq 15}">15</gsml:selectOption>
+                        </select>
 
                         <p class="fltrt smallAlertText">
                         Sort by:
@@ -119,7 +117,7 @@
                                 Newest first
                             </c:when>
                             <c:otherwise>
-                                <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                                <a href="${requestScope.uri}&amp;amp;sort=newest_first">Newest first</a>
                             </c:otherwise>
                         </c:choose>
                         |
@@ -128,7 +126,7 @@
                                 Oldest first
                             </c:when>
                             <c:otherwise>
-                                <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                                <a href="${requestScope.uri}&amp;amp;sort=oldest_first">Oldest first</a>
                             </c:otherwise>
                         </c:choose>
 
@@ -153,7 +151,7 @@
                                 <div class="fltlft">
                                     <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
                                         <img class="fltlft"
-                                             src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;width=48&amp;height=48"
+                                             src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
                                              alt="Avatar" width="48" height="48"
                                              style="border: 1px solid #c6c6c6;"/>
                                     </gsml:a>
@@ -190,7 +188,7 @@
                                     <div class="db_reply_topic">
                                         <div class="fltlft">
                                             <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
-                                                <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=48&amp;height=48"
+                                                <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;amp;width=48&amp;amp;height=48"
                                                      alt="Avatar" width="48" height="48"
                                                      style="border: 1px solid #c6c6c6;"/>
                                             </gsml:a>
@@ -243,7 +241,7 @@
                                 <span class="active">${pageNum}</span>
                             </c:when>
                             <c:otherwise>
-                                <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
+                                <a href="${uri}&amp;amp;page=${pageNum}">${pageNum}</a>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
