@@ -632,11 +632,14 @@ ul.horizontal li {
 #slideshow .ss_title{
     font:bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
     color:#444;
-    margin:0;
+    margin:15px 0;
 }
 .ss_text{
     font:13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#444;
+}
+.ss_text p{
+    margin-bottom:15px;
 }
 .ss_list{
     list-style:inside;
@@ -722,7 +725,7 @@ ul.horizontal li {
 }
 
 #ss_jsddm li a:hover {
-/*background: #f3f3f3;*/
+    /*background: #f3f3f3;*/
 }
 
 #ss_jsddm li ul {
@@ -730,7 +733,8 @@ ul.horizontal li {
     padding: 0 10px;
     position: absolute;
     visibility: hidden;
-    border-top: 1px solid white;
+    /*border-top: 1px solid white;*/
+    /*border-bottom: 1px solid #6cd;*/
 }
 
 #ss_jsddm li ul li {
@@ -745,6 +749,7 @@ ul.horizontal li {
     padding:2px 10px;
     border-right: 1px solid #39a;
     border-left: 1px solid #6cd;
+    border-bottom: 1px solid #6cd;
 }
 
 #ss_jsddm li ul li a:hover {
