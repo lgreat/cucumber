@@ -269,12 +269,12 @@ function validateConfirmPW() {
 }
 
 function validateAndSubmit(element){
-    if(document.getElementById("brainDrainNewsletterField").checked && document.getElementById("startweek").value == ''){
-             alert("Please select a start week for your school so we can personalize your emails.");
-             return false;
-      }else{
+//    if(document.getElementById("brainDrainNewsletterField").checked && document.getElementById("startweek").value == ''){
+//             alert("Please select a start week for your school so we can personalize your emails.");
+//             return false;
+//      }else{
         doSingleClick(element);
-    }
+//    }
 }
 
 function doSingleClick(element) {

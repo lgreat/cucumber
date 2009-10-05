@@ -285,13 +285,14 @@
                     </div>
                    
                     <div id="newsletterCol2">
+                        <!-- GS-8784
                         <div class="brainDrainModule">
                             <gsml:img src="/res/img/email/boy_with_book.jpg"
                                       alt="weeklyUpdatesImage" styleClass="brainDrainImage"/>
                             <div class="brainDrain"><h3>Back-to-school countdown tips</h3>
                                 <p class="newsletterText">
                                     Engage your child in learning over the break and ease him into
-                                    the next school year with our daily tips and activities. 
+                                    the next school year with our daily tips and activities.
                                 </p>
                                 <form:checkbox path="userCmd.brainDrainNewsletter" id="brainDrainNewsletterField"
                                                onclick="displayStartWeekDropdowns();" tabindex="13"/>
@@ -313,10 +314,10 @@
                                 </div>
                             </div>
                         </div>
+                        -->
 
 
-
-                        <div class="newletterDivider">
+                        <div class="newletterNoDivider valuableOffersWrapper">
                             <div class="valuableOffers">
                                 <gsml:img src="/res/img/email/pencils.jpg"
                                   alt="weeklyUpdatesImage" styleClass="valuableOffersImage"/>

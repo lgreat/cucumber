@@ -488,6 +488,11 @@ width:auto;
     padding-bottom:30px;
 }
 
+.valuableOffersWrapper {
+    padding-bottom: 81px;
+    border-bottom: solid 1px #ccc;
+}
+
 /* end the bottom newsletter subscriptions */
 
 

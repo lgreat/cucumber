@@ -211,7 +211,9 @@
                 </td>
 
                 <td valign="top" class="newsletterColumn" width="50%">
-                    <div>
+                    <!-- GS-8784 -->
+                    <c:set var="showBrainDrain" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
+                    <div class="${showBrainDrain}">
                         <img src="/res/img/email/boy_with_book.jpg" alt="boy with book" class="newsletterImage"/>
 
                         <div class="newsletterInfo">
@@ -248,7 +250,9 @@
                         </div>
                     </div>
 
-                    <div class="rule"><!-- don't collapse --></div>
+                    <c:if test="${emailCmd.seasonal}">
+                        <div class="rule"><!-- don't collapse --></div>
+                    </c:if>
 
                     <div>
                         <img src="/res/img/email/boy_with_dad.jpg" alt="boy with dad" class="newsletterImage"/>
