@@ -1,6 +1,5 @@
 package gs.web.cbi;
 
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,13 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.community.*;
+import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.PrintWriter;
 import java.util.*;
 
-public class CBIIntegrationController implements Controller {
+public class CBIIntegrationController implements ReadWriteController {
 
     /** Spring BEAN id */
     public static final String BEAN_ID = "/cbi/integration.page";
@@ -24,6 +24,10 @@ public class CBIIntegrationController implements Controller {
     private static final String SECRET_KEY = "cbounder";
     /** Keys to the actions supported by this controller */
     public static final String SEND_TRIGGERED_EMAIL = "send_triggered_email";
+    public static final String SUBSCRIBE_CB_NL = "subscribe_cb_nl";
+    public static final String UNSUBSCRIBE_CB_NL = "unsubscribe_cb_nl";
+    public static final String SUBSCRIBE_CB_COURSE_COMPLETE = "subscribe_cb_coursecomplete";
+    public static final String UNSUBSCRIBE_CB_COURSE_COMPLETE = "unsubscribe_cb_coursecomplete";
     private ExactTargetAPI _exactTargetAPI;
     protected IUserDao _userDao;
 
@@ -39,6 +43,14 @@ public class CBIIntegrationController implements Controller {
             String action = request.getParameter(ACTION_PARAM);
             if (SEND_TRIGGERED_EMAIL.equals(action)) {
                 out.print(sendExactTargetTriggeredEmail(request));
+            }else if(UNSUBSCRIBE_CB_NL.equals(action)){
+                out.print(unsubscribeCollegeBoundNewsletter(request.getParameter("email")));
+            }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
+                out.print(unsubscribeCourseCompletionEmail(request.getParameter("email")));
+            }else if(SUBSCRIBE_CB_NL.equals(action)){
+                out.print(subscribeCollegeBoundNewsletter(request.getParameter("email"),request.getParameter("state")));
+            }else if(SUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
+                out.print(subscribeCourseCompletionEmail(request.getParameter("email"),request.getParameter("state")));
             }
         }
         response.setContentType("text/plain");
@@ -68,6 +80,68 @@ public class CBIIntegrationController implements Controller {
             }            
         }
         return response.toString();
+    }
+
+
+    public String subscribeCourseCompletionEmail(String email,String state) {
+        StringBuilder response = new StringBuilder();
+        User user = _userDao.findUserFromEmailIfExists(email);
+        if(user != null){
+            Subscription courseCompleteSubscription = new Subscription();
+            setSubscriptionData(courseCompleteSubscription,user, state);
+            courseCompleteSubscription.setProduct(SubscriptionProduct.CB_COURSE_COMPLETE);
+            _subscriptionDao.saveSubscription(courseCompleteSubscription);
+             response.append("success");
+        }
+         return response.toString();
+    }
+
+    public String subscribeCollegeBoundNewsletter(String email, String state) {
+        StringBuilder response = new StringBuilder();
+        User user = _userDao.findUserFromEmailIfExists(email);
+        if(user != null){
+                Subscription nlSubscription = new Subscription();
+                setSubscriptionData(nlSubscription,user, state);
+                nlSubscription.setProduct(SubscriptionProduct.CB_NEWSLETTER);
+                _subscriptionDao.saveSubscription(nlSubscription);
+             response.append("success");
+        }
+        return response.toString();
+    }
+
+    public String unsubscribeCourseCompletionEmail(String email){
+        return unsubscribeUser(email,SubscriptionProduct.CB_COURSE_COMPLETE);
+    }
+
+    public String unsubscribeCollegeBoundNewsletter(String email){
+        return unsubscribeUser(email,SubscriptionProduct.CB_NEWSLETTER);
+    }
+
+    public String unsubscribeUser(String email,SubscriptionProduct sub){
+        StringBuilder response = new StringBuilder();
+        User user = _userDao.findUserFromEmailIfExists(email);
+        if(user != null){
+            Set<Subscription> subs = user.getSubscriptions();
+            for (Subscription sub1 : subs) {
+                if (sub1.getProduct().getLongName().equals(sub.getLongName())) {
+                    _subscriptionDao.removeSubscription(sub1.getId());
+                    response.append("success");
+                }
+            }
+            if(_subscriptionDao.getUserSubscriptions(user) == null){
+                _exactTargetAPI.deleteSubscriber(email);
+            }
+        }
+         return response.toString();
+    }
+
+    public void setSubscriptionData(Subscription sub,User user,String state){
+        sub.setUser(user);
+        if(StringUtils.isNotBlank(state)){
+        sub.setState(State.fromString(state));
+        }else{
+        sub.setState(State.CA);
+        }
     }
 
     public ExactTargetAPI getExactTargetAPI() {
