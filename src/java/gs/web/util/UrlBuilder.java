@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.182 2009/10/02 01:06:44 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.183 2009/10/06 18:41:59 droy Exp $
  */
 
 package gs.web.util;
@@ -635,9 +635,7 @@ public class UrlBuilder {
         _vPage = page;
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _path = "/city/";
-            this.setParameter("city", city.getName());
-            this.setParameter("state", city.getState().getAbbreviation());
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(city.getState(), city.getName());
         } else if (CITIES_MORE_NEARBY.equals(page)) {
             _perlPage = false;
             _path = "/cities.page";
@@ -857,9 +855,7 @@ public class UrlBuilder {
 
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _path = "/city/";
-            setParameter("city", param0);
-            setParameter("state", state.getAbbreviation());
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0);
         } else if (WEBBY_AWARD_THANKS.equals(page)) {
             _perlPage = false;
             _path = "/promo/webbyAwardWinner.page";
@@ -890,11 +886,9 @@ public class UrlBuilder {
                 _perlPage = false;
                 _path = "/school/research.page";
             } else {
-                _perlPage = true; // well, it looks like one
-                _path = "/modperl/go/" + state.getAbbreviation();
+                _perlPage = false;
+                _path = DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state);
             }
-            //_perlPage = false;
-            //_path = "/path/choose.page";
         } else if (HOME.equals(page)) {
             _perlPage = false;
             _path = "/";
@@ -1253,39 +1247,25 @@ public class UrlBuilder {
             sb = sb.deleteCharAt(0);
         }
 
-        // City page's parameters get stuck in the first part of the
-        // URL for SEO purposes.
-        if (CITY_PAGE.equals(_vPage)) {
-            String[] values = (String[]) _parameters.get("city");
-            final String cityName = values[0];
-            // undo encoding...
-            sb.append(cityName.replaceAll("%27", "'").replaceAll("\\+", "_"));
-            // ...minimal encoding. See http://www.rfc-editor.org/rfc/rfc1738.txt
-            sb.append("/");
-            values = (String[]) _parameters.get("state");
-            sb.append(values[0]);
-        } else {
-            if (_parameters != null && _parameters.size() > 0) {
-                sb.append("?");
-                List keys = new ArrayList(_parameters.keySet());
-                Collections.sort(keys);
-                for (Iterator iter = keys.iterator(); iter.hasNext();) {
-                    String key = (String) iter.next();
-                    String[] values = (String[]) _parameters.get(key);
-                    for (int i = 0; i < values.length; i++) {
-                        sb.append(key);
-                        sb.append("=" + values[i]);
-                        if (i < (values.length - 1) || iter.hasNext()) {
-                            sb.append("&");
-                        }
+        if (_parameters != null && _parameters.size() > 0) {
+            sb.append("?");
+            List keys = new ArrayList(_parameters.keySet());
+            Collections.sort(keys);
+            for (Iterator iter = keys.iterator(); iter.hasNext();) {
+                String key = (String) iter.next();
+                String[] values = (String[]) _parameters.get(key);
+                for (int i = 0; i < values.length; i++) {
+                    sb.append(key);
+                    sb.append("=" + values[i]);
+                    if (i < (values.length - 1) || iter.hasNext()) {
+                        sb.append("&");
                     }
                 }
-
             }
+
         }
 
-        String s = sb.toString();
-        return s;
+        return sb.toString();
     }
 
     /**

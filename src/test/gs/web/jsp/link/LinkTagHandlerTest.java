@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.61 2009/10/02 01:06:44 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.62 2009/10/06 18:42:00 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -308,7 +308,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setState(State.AZ);
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/city/Stockton/AZ", builder.asSiteRelative(null));
+        assertEquals("/arizona/stockton/", builder.asSiteRelative(null));
     }
 
     public void testMySchoolList() {

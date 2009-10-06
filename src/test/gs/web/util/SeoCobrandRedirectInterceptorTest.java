@@ -125,7 +125,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
         assertEquals("Expected no-cache to keep ZXTM from caching 301 response", "no-cache", getResponse().getHeader("Cache-Control"));
-        assertEquals("http://www.greatschools.net/modperl/go/CA", getResponse().getHeader("Location"));
+        assertEquals("http://www.greatschools.net/california/", getResponse().getHeader("Location"));
     }
 
     /**

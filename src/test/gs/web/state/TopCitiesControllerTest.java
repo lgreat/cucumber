@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.11 2008/08/01 19:23:26 yfan Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.12 2009/10/06 18:42:00 droy Exp $
  */
 
 package gs.web.state;
@@ -40,10 +40,10 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertTrue(results.size() > 4);
         Anchor la = (Anchor) results.get(0);
         assertEquals("Los Angeles schools", la.getContents());
-        assertEquals("/city/Los_Angeles/CA", la.getHref());
+        assertEquals("/california/los-angeles/", la.getHref());
         Anchor sf = (Anchor) results.get(3);
         assertEquals("San Francisco schools", sf.getContents());
-        assertEquals("/city/San_Francisco/CA", sf.getHref());
+        assertEquals("/california/san-francisco/", sf.getHref());
         assertNotNull(modelAndView.getModel().get(AnchorListModel.RESULTS));
 
         Anchor veryLast = (Anchor) results.get(results.size() - 1);
@@ -62,7 +62,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals("/washington-dc/washington/schools/", la.getHref());
         la = (Anchor) results.get(1);
         assertEquals("View city information", la.getContents());
-        assertEquals("/city/Washington/DC", la.getHref());
+        assertEquals("/washington-dc/washington/", la.getHref());
 
         // Special case NYC
         context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
@@ -72,7 +72,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertNotNull(results);
         Anchor nyc = (Anchor) results.get(0);
         assertEquals("New York City schools", nyc.getContents());
-        assertEquals("/city/New_York/NY", nyc.getHref());
+        assertEquals("/new-york/new-york-city/", nyc.getHref());
         assertNotNull(modelAndView.getModel().get(AnchorListModel.RESULTS));
     }
 

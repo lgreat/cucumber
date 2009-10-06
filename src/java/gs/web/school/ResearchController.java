@@ -18,6 +18,8 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.path.DirectoryStructureUrlFields;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
@@ -31,7 +33,7 @@ import gs.data.util.table.ITableRow;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class ResearchController extends AbstractController {
+public class ResearchController extends AbstractController implements IDirectoryStructureUrlController {
 
     /** Used to identify which form on the page was submitted */
     public final static String FORM_PARAM = "form";
@@ -237,6 +239,15 @@ public class ResearchController extends AbstractController {
             cities.add(data);
         }
         return cities;
+    }
+
+    // required to implement IDirectoryStructureUrlController
+    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
+        if (fields == null) {
+            return false;
+        }
+
+        return fields.hasState() && !fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
     }
 
     public String getViewName() {

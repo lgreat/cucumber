@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.26 2008/08/01 19:23:26 yfan Exp $
+* $Id: TopCitiesController.java,v 1.27 2009/10/06 18:42:00 droy Exp $
 */
 
 package gs.web.state;
@@ -63,7 +63,6 @@ public class TopCitiesController extends AbstractController {
             model.put(AnchorListModel.RESULTS, items);
 
         } else {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, "");
 
             int cityCount = state.getTopCityCount();
             if (!StringUtils.isEmpty(request.getParameter(PARAM_COUNT))) {
@@ -79,7 +78,7 @@ public class TopCitiesController extends AbstractController {
             List items = new ArrayList(cityCount);
             for (int i = 0; i < cityCount; i++) {
                 String city = cities[i];
-                builder.setParameter("city", city);
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, city);
                 // special case for New York City...
                 String label = ((city.equals(state.getLongName())) ? city + " City" : city) + " schools";
                 Anchor anchor = builder.asAnchor(request, label);

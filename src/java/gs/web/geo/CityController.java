@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.54 2009/02/26 01:05:55 eddie Exp $
+ * $Id: CityController.java,v 1.55 2009/10/06 18:41:59 droy Exp $
  */
 
 package gs.web.geo;
@@ -15,11 +15,15 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.data.test.rating.ICityRatingDao;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.UrlBuilder;
+import gs.web.util.RedirectView301;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +44,7 @@ import java.util.regex.Pattern;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class CityController extends AbstractController {
+public class CityController extends AbstractController  implements IDirectoryStructureUrlController {
 
     public static final String PARAM_CITY = "city";
 
@@ -57,6 +61,7 @@ public class CityController extends AbstractController {
     //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of AnchorListModel object
     private static final Log _log = LogFactory.getLog(CityController.class);
 
+    private static final Pattern UNDERLINE_PATTERN = Pattern.compile("_");
 
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
@@ -66,7 +71,6 @@ public class CityController extends AbstractController {
     private AnchorListModelFactory _anchorListModelFactory;
 
     public static final int MAX_SCHOOLS = 10;
-    private static final Pattern UNDERLINE_PATTERN = Pattern.compile("_");
 
     public CityController() {
     }
@@ -78,19 +82,27 @@ public class CityController extends AbstractController {
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String cityNameParam = request.getParameter(PARAM_CITY);
-
+        boolean redirectToNewStyleUrl = false;
+        
         // Look in the URL if they aren't in parameters
         if (StringUtils.isEmpty(cityNameParam)) {
             String r = request.getRequestURI();
-            //_log.error(r);
-            r = r.replaceAll("/gs-web", "");
-            r = r.replaceAll("/city/", "");
-            // _log.error(r);
-            String[] rs = StringUtils.split(r, "/");
-            if (rs.length == 2) {
-                cityNameParam = UNDERLINE_PATTERN.matcher(rs[0]).replaceAll(" ");
-                state = _stateManager.getState(rs[1]);
-                ((SessionContext) sessionContext).setState(state);
+            if (r.startsWith("/gsweb/city/") || r.startsWith("/city/")) {
+                //_log.error(r);
+                r = r.replaceAll("/gs-web", "");
+                r = r.replaceAll("/city/", "");
+                // _log.error(r);
+                String[] rs = StringUtils.split(r, "/");
+                if (rs.length == 2) {
+                    cityNameParam = UNDERLINE_PATTERN.matcher(rs[0]).replaceAll(" ");
+                    state = _stateManager.getState(rs[1]);
+                    redirectToNewStyleUrl = true;
+                }
+            } else {
+                DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+                if (fields != null) {
+                    cityNameParam = fields.getCityName();
+                }
             }
         }
 
@@ -102,8 +114,8 @@ public class CityController extends AbstractController {
         }
 
         if (StringUtils.isEmpty(cityNameParam)) {
-            // no city name found, so redirect to /modperl/go/[state]
-            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviation());
+            // no city name found, so redirect to /california or whichever state they did provide
+            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
             return new ModelAndView(redirectView);
         }
 
@@ -116,6 +128,11 @@ public class CityController extends AbstractController {
             return new ModelAndView(redirectView);
         }
 
+        if (redirectToNewStyleUrl) {
+            UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+            View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
+            return new ModelAndView(redirectView);
+        }
 
         Map model = new HashMap();
 
@@ -176,6 +193,15 @@ public class CityController extends AbstractController {
         model.put("levelCode",_schoolDao.getLevelCodeInCity(city.getName(),state));
 
         return new ModelAndView("geo/city", model);
+    }
+
+    // required to implement IDirectoryStructureUrlController
+    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
+        if (fields == null) {
+            return false;
+        }
+
+        return fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
     }
 
     public ISchoolDao getSchoolDao() {

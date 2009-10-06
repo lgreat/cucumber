@@ -1,6 +1,8 @@
 package gs.web.util;
 
 import gs.web.util.context.SessionContext;
+import gs.data.state.State;
+import gs.data.url.DirectoryStructureUrlFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -36,7 +38,8 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
                 } else if ("/school/overview.page".equals(uri)) {
                     newUrl.append("/modperl/browse_school/").append(request.getParameter("state")).append("/").append(request.getParameter("id"));
                 } else if ("/school/research.page".equals(uri)) {
-                    newUrl.append("/modperl/go/").append(request.getParameter("state"));
+                    State state = State.fromString(request.getParameter("state"));
+                    newUrl.append("/").append(DirectoryStructureUrlFactory.getStateNameForUrl(state)).append("/");
                 } else {
                     // Otherwise use the same URI and request parameters
                     newUrl.append(uri);

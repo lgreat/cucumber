@@ -19,11 +19,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Created by IntelliJ IDEA.
- * User: youngfan
- * Date: Sep 25, 2008
- * Time: 1:00:33 PM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:yfan@greatschools.net">Young Fan</a>
  */
 public class DirectoryStructureUrlFields {
     private State _state = null;
@@ -51,14 +47,14 @@ public class DirectoryStructureUrlFields {
     public DirectoryStructureUrlFields(HttpServletRequest request) {
         // require that the request uri starts and ends with /
         String requestUri = request.getRequestURI();
+        requestUri = requestUri.replaceAll("/gs-web", "");
         if (StringUtils.isBlank(requestUri) || !requestUri.startsWith("/")) {
             return;
         }
 
         // state: always take from session context
         SessionContext context = SessionContextUtil.getSessionContext(request);
-        State state = context.getState();
-        _state = state;
+        _state = context.getState();
 
         String[] pathComponents = requestUri.split("/");
 
@@ -66,9 +62,11 @@ public class DirectoryStructureUrlFields {
         // the Java String split function does not include trailing empty strings in the resulting array. 
         // second, this also means element [0] is an empty string and element [n-1] is the last string before the closing slash
         // third, we ignore element [1] because that would be the state long name
-        // fourth, the /california/ case should never occur, i.e. never will pathComponents.length = 3 due to apache redirects that send those requests to R&C 
 
-        if (pathComponents.length == 3) {
+        if (pathComponents.length == 2) {
+            // /california
+            // this could have just been the default case, but this is more explicit
+        } else if (pathComponents.length == 3) {
             // /california/sonoma/
             _cityName = pathComponents[2];
         } else if (pathComponents.length == 4) {
@@ -120,6 +118,9 @@ public class DirectoryStructureUrlFields {
 
         if (StringUtils.isNotBlank(_cityName)) {
             _cityName = _cityName.replaceAll("-", " ").replaceAll("_", "-");
+            if (_state.equals(State.NY) &&_cityName.equalsIgnoreCase("new york city")) {
+                _cityName = "new york";
+            }
         }
 
         if (StringUtils.isNotBlank(_districtName)) {

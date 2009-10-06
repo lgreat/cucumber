@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.23 2009/04/17 18:33:22 droy Exp $
+ * $Id: CityControllerTest.java,v 1.24 2009/10/06 18:42:00 droy Exp $
  */
 
 package gs.web.geo;
@@ -14,10 +14,13 @@ import gs.data.state.StateManager;
 import gs.data.test.rating.ICityRatingDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -142,23 +145,39 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
 
-    public void testSearchEngineFriendlyUrlsWork() throws Exception {
+    public void testRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/city/Anchorage/AK");
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(modelAndView.getView() instanceof RedirectView301);
+    }
+
+    public void testSearchEngineFriendlyUrlsWork() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/alaska/anchorage");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
         ICity city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Anchorage", city.getName());
         assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/city/Big_Lake/AK");
+        request.setRequestURI("/alaska/big-lake");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
-         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Big Lake", city.getName());
         assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/city/St._Marys/AK");
+        request.setRequestURI("/alaska/st.-marys");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
@@ -179,21 +198,30 @@ public class CityControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
         // Make sure gs-web gets stripped off
-        request.setRequestURI("/gs-web/city/Anchorage/AK");
+        request.setRequestURI("/gs-web/alaska/anchorage");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
          modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Anchorage", city.getName());
         assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/gs-web/city/Big_Lake/AK");
+        request.setRequestURI("/gs-web/alaska/big-lake");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
-         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Big Lake", city.getName());
         assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/gs-web/city/St._Marys/AK");
+        request.setRequestURI("/gs-web/alaska/st.-marys");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);

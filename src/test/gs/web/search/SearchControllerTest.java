@@ -267,7 +267,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/go/WY", view.getUrl());
+        assertEquals("/wyoming/", view.getUrl());
     }
 
     public void testSendEmptyGeneralQueriesToStateHome() throws Exception {
@@ -281,6 +281,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/go/WY", view.getUrl());
+        assertEquals("/wyoming/", view.getUrl());
     }
 }

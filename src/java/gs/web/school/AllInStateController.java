@@ -28,6 +28,8 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.util.Address;
+import gs.web.util.UrlBuilder;
+import gs.web.util.RedirectView301;
 
 /**
  * This controller builds the model for the "all schools",
@@ -110,7 +112,15 @@ public class AllInStateController extends AbstractController {
 
         ModelAndView mAndV;
         if (StringUtils.isNotBlank(path) && state != null) {
-            mAndV = new ModelAndView("school/allInState", buildModel(path));
+            Map model = buildModel(state, path);
+            if (model.get(MODEL_TYPE).equals(SCHOOLS_TYPE)) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
+                String redirectPath = urlBuilder.asSiteRelative(request);
+                mAndV = new ModelAndView(new RedirectView301(redirectPath));
+                return mAndV;
+            }
+
+            mAndV = new ModelAndView("school/allInState", model);
         } else {
             mAndV = new ModelAndView("status/error");
         }
@@ -125,7 +135,7 @@ public class AllInStateController extends AbstractController {
      * @throws Exception - if something goes haywire.
      * @return a Map populated with the model elements.
      */
-    protected Map buildModel(String path) throws Exception {
+    protected Map buildModel(State state, String path) throws Exception {
 
         Map model = new HashMap();
 
@@ -144,7 +154,6 @@ public class AllInStateController extends AbstractController {
         // We need to remember this value to build the page title. 
         int selectedSpanWidth = 1; //default
 
-        State state = getStateFromPath(path);
         int page = getPageFromPath(path);
 
         // Get *all* the results for a state

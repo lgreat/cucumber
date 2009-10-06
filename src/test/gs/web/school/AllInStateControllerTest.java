@@ -2,17 +2,19 @@ package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.util.RedirectView301;
 import gs.data.search.GSAnalyzer;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.data.school.School;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.Hits;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -45,9 +47,7 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
 
         request.setPathInfo("/California/CA");
         mAndView = _controller.handleRequest(request, getResponse());
-        assertEquals("school/allInState", mAndView.getViewName());
-        assertEquals("Type should be 'school'", "school", 
-                (String)mAndView.getModel().get(AllInStateController.MODEL_TYPE));
+        assertTrue("The redirect should be a 301", mAndView.getView() instanceof RedirectView301);
 
         request.setPathInfo("/cities/Florida/FL");
         mAndView = _controller.handleRequest(request, getResponse());
@@ -119,22 +119,6 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         assertEquals("AL-BE", _controller.getSpan(list, 2));
     }
 
-    public void testSearchReturnsProperSchoolObjects() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-        request.setMethod("GET");
-        request.setPathInfo("/California/CA");
-        ModelAndView mAndView = _controller.handleRequest(request, getResponse());
-        List list = (List)mAndView.getModel().get(AllInStateController.MODEL_LIST);
-        for (Object aList : list) {
-            Map m = (Map) aList;
-            School s = (School) m.get("school");
-            assertNotNull("School name must not be null", s.getName());
-            assertNotNull("School state must not be null", s.getId());
-            assertNotNull("School id must not be null", s.getDatabaseState());
-            assertNotNull("School type must not be null", s.getType());
-        }
-    }
-
     public void testBuildTitle() throws Exception {
         String title = _controller.buildTitle(AllInStateController.DISTRICTS_TYPE,
                 State.CA, "Aa-Ar");
@@ -143,14 +127,14 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
 
     public void testBuildModel() throws Exception {
         _controller.SCHOOLS_PAGE_SIZE = 50;
-        Map model = _controller.buildModel("schools/Alaska/AK");
+        Map model = _controller.buildModel(State.AK, "schools/Alaska/AK");
         List list = (List)model.get(AllInStateController.MODEL_LIST);
         assertEquals(50, list.size());
         String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
         assertTrue(pageLinks.contains("AU-AY"));
         
         _controller.CITIES_PAGE_SIZE = 10;
-        model = _controller.buildModel("schools/cities/Alaska/AK/5");
+        model = _controller.buildModel(State.AK, "schools/cities/Alaska/AK/5");
         list = (List)model.get(AllInStateController.MODEL_LIST);
         assertEquals(10, list.size());
         pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);

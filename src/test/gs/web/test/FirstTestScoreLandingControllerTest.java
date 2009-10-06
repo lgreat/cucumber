@@ -69,7 +69,7 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
         assertNotNull(mAndV.getView());
         assertTrue(mAndV.getView() instanceof RedirectView);
         RedirectView rView = (RedirectView) mAndV.getView();
-        assertEquals("/modperl/go/AK", rView.getUrl());
+        assertEquals("/alaska/", rView.getUrl());
     }
 
     public void testHandleRequestInternalWithScid() throws Exception {
@@ -143,7 +143,7 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
 
         String url = _controller.getTestScoreLandingPagePath(state, id, null);
 
-        assertEquals("/modperl/go/CA", url);
+        assertEquals("/california/", url);
     }
 
     public void testGetTestScoreLandingPagePathWithScid() {
@@ -161,6 +161,6 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
 
         String url = _controller.getTestScoreLandingPagePath(state, id, "bar");
 
-        assertEquals("/modperl/go/CA?s_cid=bar", url);
+        assertEquals("/california/?s_cid=bar", url);
     }
 }

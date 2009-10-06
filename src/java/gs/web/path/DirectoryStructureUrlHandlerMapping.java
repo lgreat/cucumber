@@ -8,15 +8,11 @@ import java.util.HashMap;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.util.SpringUtil;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.jsp.Util;
 
 /**
- * Created by IntelliJ IDEA.
- * User: youngfan
- * Date: Jul 24, 2008
- * Time: 1:08:22 PM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:yfan@greatschools.net">Young Fan</a>
  */
 public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping {
 
@@ -24,7 +20,7 @@ public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping
 
     static {
         for (State state : StateManager.getList()) {
-            String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
+            String stateNameForUrl = DirectoryStructureUrlFactory.getStateNameForUrl(state);
             String pattern = "/" + stateNameForUrl + "/**";
             _map.put(pattern, "/directoryStructureUrlRequest.page");
             pattern = "/" + Util.capitalize(stateNameForUrl) + "/**";
