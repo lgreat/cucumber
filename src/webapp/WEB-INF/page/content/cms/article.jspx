@@ -266,8 +266,18 @@
                             <ul>
                                 <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
                                     <li>
-                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}"><c:out
-                                                value="${slide.title}"/></a></li>
+                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}">
+                                            <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
+                                            <c:choose>
+                                                <c:when test="${hasSlidePromo}">
+                                                    <c:out value="${slide.promo}"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:out value="${slide.title}"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </li>
@@ -292,8 +302,18 @@
                     </div>
 
                     <c:if test="${param.print ne 'true' and hasNextSlide}">
-                        <p class="ss_text ss_next">Next: <a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">${articleSlideshow.nextSlide.title} &amp;raquo;</a>
+                        <p class="ss_text ss_next">Next:&amp;nbsp;
+                            <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">
+                                <c:set var="nextSlideHasPromo" value="${not empty articleSlideshow.nextSlide.promo}"/>
+                                <c:choose>
+                                    <c:when test="${nextSlideHasPromo}">
+                                        <c:out value="${articleSlideshow.nextSlide.promo}"/> &amp;raquo;
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="${articleSlideshow.nextSlide.title}"/> &amp;raquo;
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
                         </p>
                     </c:if>
 
