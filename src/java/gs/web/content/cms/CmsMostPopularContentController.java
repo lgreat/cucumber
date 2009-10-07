@@ -21,6 +21,10 @@ public class CmsMostPopularContentController extends AbstractController {
     private IPublicationDao _publicationDao;
 
     final private static String MODEL_LINKS = "links";
+    final private static String MODEL_STYLE = "style";
+
+    /** Style information (e.g. "Fall 2009") to decide how to present the view */
+    public static final String PARAM_STYLE = "style";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -48,6 +52,7 @@ public class CmsMostPopularContentController extends AbstractController {
             }
 
             model.put(MODEL_LINKS, links);
+            model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
         }
 
         return new ModelAndView(_viewName, model);

@@ -6,11 +6,15 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          version="2.0"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:link="urn:www.greatschools.net/taglib/link"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+
+<ad:setSlotPrefix slotPrefix="DiscussionBoard"/>
 
 <head>
     <c:set var="pageTitle" value="${discussionBoard.title}"/>
@@ -259,83 +263,14 @@
     <!-- end module -->
 </div>
 <!-- end mainContent -->
-<div id="sideBar">
-    <div class="module">
-        <div class="header">
-            <span class="title1white">Search Community</span>
-        </div>
-        <div class="body1bg">
-            <form action="">
-                <input type="text" name="search"/>
-                <input type="submit" value="Search"/>
-            </form>
-        </div>
-        <div class="body3bg sdrt">
-            <div class="subhead2">Browse by topic</div>
-            <div class="fltlft">
-                <ul class="topics text2_180">
-                    <li><link:discussion discussionId="1" fullUri="uri">Great Parenting</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Academics &amp;amp; Activities</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Learning Disabilities</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Improve Your School</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Prep for College</link:discussion></li>
-                </ul>
-            </div>
-            <div class="fltlft">
-                <ul class="topics text2_180">
-                    <li><link:discussion discussionId="1" fullUri="uri">Finding a School</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Preschool</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Elementary</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">Middle School</link:discussion></li>
-                    <li><link:discussion discussionId="1" fullUri="uri">>High School</link:discussion></li>
-                </ul>
-            </div>
-            <br class="clearfloat"/>
-        </div>
-        <div class="body2bg sdrb">
-            <form action="">
-                <span class="subhead2">Browse by city</span>
-                <select name="cities">
-                    <option value="#">Select city</option>
-                    <option value="SF">San Franciso</option>
-                    <option value="OT">Oakland</option>
-                    <option value="SJ">San Jose</option>
-                </select>
-            </form>
-        </div>
-    </div>
-    <!-- end module -->
-    <br class="modulespacer"/>
 
-    <div class="module">
-        <div class="header">
-            <span class="title1white">More in Learning Disabilities</span>
-        </div>
-        <div class="body3bg">
-            <div class="fltlft">
-                Most viewed
-            </div>
-            <div class="fltlft">
-                Most viewed
-            </div>
-            <br class="clearfloat"/>
-            <ul class="text3_230">
-                <li><a href="#">What you can do to stamp out bullying</a></li>
-                <li><a href="#">Why social skills are key to learning</a></li>
-                <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                <li><a href="#">Healthy breakfasts for healthy minds</a></li>
-                <li><a href="#">Does your child's school promote earth-friendly practices?</a></li>
-                <li><a href="#">Problems in kindergarten: I need advice!</a></li>
-                <li><a href="#">What you can do to stamp out bullying</a></li>
-                <li><a href="#">Why social skills are key to learning</a></li>
-                <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                <li><a href="#">Coping with homework horrors</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- end module -->
-</div>
-<!-- end sideBar -->
+<!-- sidebar that shows More-In: -->
+<cms:communitySidebar content="${requestScope.discussionBoard}"/>
+
+<!-- RANDALL: Comment out the communitySidebar above and uncomment the one below, to get the popular articles box to show up -->
+<!-- sidebar that shows Most Popular: -->
+<!-- cms:communitySidebar/ -->
+
 </div>
 <!-- end container -->
 <c:set var="boardTitle" value="${discussionBoard.title}"/>

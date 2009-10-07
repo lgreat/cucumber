@@ -48,8 +48,12 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOPICS = "topics";
     protected static final String MODEL_GRADES = "grades";
     protected static final String MODEL_SUBJECTS = "subjects";
+    protected static final String MODEL_TOPIC_IDS = "topicIds";
+    protected static final String MODEL_GRADE_IDS = "gradeIds";
+    protected static final String MODEL_SUBJECT_IDS = "subjectIds";
     protected static final String MODEL_MAX_RESULTS = "maxResults";
     protected static final String MODEL_BREADCRUMBS = "breadcrumbs";
+    protected static final String MODEL_STYLE = "style";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -71,6 +75,10 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String PARAM_STRICT = "strict";
     /** Language (e.g. "ES" or "EN") to limit matches to */
     public static final String PARAM_LANGUAGE = "language";
+    /** Style information (e.g. "Fall 2009") to decide how to present the view */
+    public static final String PARAM_STYLE = "style";
+    /** Max number of results to show. Optional, but if specified, it overrides the number from spring config (modules/pages-servlet.xml). */
+    public static final String PARAM_MAX_RESULTS = "maxResults";
 
     /** Results per page */
     public static final int PAGE_SIZE = 10;
@@ -218,8 +226,11 @@ public class ArticlesByCategoryController extends AbstractController {
         List<CmsCategory> grades = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_GRADES));
         List<CmsCategory> subjects = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
 
+
+        String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
+
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
-            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language);
+            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
 
             if (categories.size() == 1) {
                 List<CmsCategory> breadcrumbs = getCmsCategoryBreadcrumbs(categories.get(0));
@@ -233,9 +244,15 @@ public class ArticlesByCategoryController extends AbstractController {
             model.put(MODEL_SUBJECTS, subjects);
             model.put(MODEL_CATEGORIES, categories);
 
+            model.put(MODEL_TOPIC_IDS, CmsUtil.getCommaSeparatedCategoryIds(topics));
+            model.put(MODEL_GRADE_IDS, CmsUtil.getCommaSeparatedCategoryIds(grades));
+            model.put(MODEL_SUBJECT_IDS, CmsUtil.getCommaSeparatedCategoryIds(subjects));
+
             if (topics.size() == 1) {
                 model.put(MODEL_CATEGORY, topics.get(0));
             }
+
+            model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
         }
 
         return model;
@@ -265,7 +282,7 @@ public class ArticlesByCategoryController extends AbstractController {
      * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
      * will not populate those variables.
      */
-    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
         // set up search query
         // articles should be in the particular category
         BooleanQuery bq = new BooleanQuery();
@@ -349,9 +366,19 @@ public class ArticlesByCategoryController extends AbstractController {
             model.put(MODEL_TOTAL_HITS, hits.length());
             ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
 
-            if (isRandomResults() && getMaxResults() > 0) {
-                model.put(MODEL_RESULTS, getRandomResults(hits, getMaxResults()));
-                model.put(MODEL_MAX_RESULTS, getMaxResults());                
+            // allow parameter override of maxResults from spring config
+            int maxResults = getMaxResults();
+            if (maxResultsParam != null) {
+                try {
+                    maxResults = Integer.parseInt(maxResultsParam);
+                } catch (NumberFormatException e) {
+                    // keep maxResults as value from spring config
+                }
+            }
+
+            if (isRandomResults() && maxResults > 0) {
+                model.put(MODEL_RESULTS, getRandomResults(hits, maxResults));
+                model.put(MODEL_MAX_RESULTS, maxResults);                
             } else {
                 model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
             }

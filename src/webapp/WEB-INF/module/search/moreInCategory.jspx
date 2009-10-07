@@ -10,12 +10,31 @@
     <c:if test="${not empty mainResults}">
         <pageHelper:externalCss file="/res/css/content/moreInCategory.css"/>
 
+        <c:choose>
+            <c:when test="${style eq 'fall2009'}">
+                Randall, this is the Fall 2009 style.
+            </c:when>
+            <c:otherwise>
+                <!-- I'm not putting anything in here so it doesn't show up on production on existing pages. -->
+            </c:otherwise>
+        </c:choose>
+
         <div id="cmsRelatedArticles">
             <div>
                 <img width="300" height="15" alt="" src="/res/img/box/morein_top.gif"/>
             </div>
             <div id="cmsRelatedArticleContent">
-                <h2>More in ${gsweb:toLowerCase(category.name)}</h2>
+                <h2>
+                    More in
+                    <c:choose>
+                        <c:when test="${fn:length(categories) eq 1}">
+                            ${gsweb:toLowerCase(category.name)}
+                        </c:when>
+                        <c:otherwise>
+                            this topic
+                        </c:otherwise>
+                    </c:choose>                    
+                </h2>
 
                 <c:choose>
                     <c:when test="${total lt maxResults}">
@@ -49,8 +68,16 @@
                 </c:forEach>
 
                 <c:if test="${total gt maxResults}">
-                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
-                            class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                    <c:choose>
+                        <c:when test="${fn:length(categories) eq 1}">
+                            <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
+                                    class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                        </c:when>
+                        <c:otherwise>
+                            <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}" gradeIDs="${gradeIds}" language="${param.language}"><span
+                                    class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                        </c:otherwise>
+                    </c:choose>
                 </c:if>
             </div>
             <!-- end #cmsRelatedArticleContent -->

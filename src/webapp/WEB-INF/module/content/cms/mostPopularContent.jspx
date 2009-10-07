@@ -8,7 +8,14 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link">
 
-    <!-- TODO: this layout is very similar to moreInCategory.jspx -->
+    <c:choose>
+        <c:when test="${style eq 'fall2009'}">
+            Randall, this is the Fall 2009 style.
+        </c:when>
+        <c:otherwise>
+            <!-- I'm not putting anything in here so it doesn't show up on production on existing pages. -->
+        </c:otherwise>
+    </c:choose>
 
     <c:if test="${not empty links}">
         <pageHelper:externalCss file="/res/css/content/mostPopularContent.css"/>
