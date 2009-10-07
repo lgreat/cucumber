@@ -692,9 +692,9 @@ ul.horizontal li {
     height:17px;
 }
 /*  */
-/*#slideMenu{
+#slideMenu{
     float:left;
-}*/
+}
 /*  */
 .choose {
     background: url(/res/img/slideShow/choose.png) no-repeat;
@@ -702,58 +702,59 @@ ul.horizontal li {
     height: 24px;
 }
 
-#ss_jsddm {
-    margin: 0;
-    padding: 0;
+#ss_jsddm{
+	margin: 0;
+	padding: 0;
 }
 
-#ss_jsddm li {
-    float: left;
-    list-style: none;
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
+	#ss_jsddm li{
+		float: left;
+		list-style: none;
+		font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	}
 
-#ss_jsddm li a {
-    display: block;
-    /*background-color:#fff;
-     padding: 1px 12px;*/
-    text-decoration: none;
-    /*border:1px solid #39a;
-     width: 70px;
-     color:#000;*/
-    white-space: nowrap;
-}
+	#ss_jsddm li a{
+		display: block;
+		margin:0;
+		padding:0;
+		width: 140px;
+		height: 24px;
+		/*background:url(/res/img/slideShow/choose.png) no-repeat;*/
+	}
 
-#ss_jsddm li a:hover {
-    /*background: #f3f3f3;*/
-}
+	#ss_jsddm li a:hover{
+		background:url(/res/img/slideShow/choose_on.png) no-repeat;
+	}
 
-#ss_jsddm li ul {
-    margin: 0;
-    padding: 0 10px;
-    position: absolute;
-    visibility: hidden;
-    /*border-top: 1px solid white;*/
-    /*border-bottom: 1px solid #6cd;*/
-}
+		#ss_jsddm li ul{
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			visibility: hidden;
+			border: 1px solid #6cd;
+		}
 
-#ss_jsddm li ul li {
-    float: none;
-    display: inline;
-}
+		#ss_jsddm li ul li{
+			float: none;
+			display: inline;
+		}
 
-#ss_jsddm li ul li a {
-    width: auto;
-    color: #444;
-    background-color: #fff;
-    padding:2px 10px;
-    border-right: 1px solid #39a;
-    border-left: 1px solid #6cd;
-    border-bottom: 1px solid #6cd;
-}
+		#ss_jsddm li ul li a{
+			position: relative;
+			display: block;
+			margin: 0;
+			padding: 6px 30px 6px 6px;
+			width: auto;
+			height: auto;
+			white-space: nowrap;
+			text-align: left;
+			text-decoration: none;
+			background: #fff;
+			color: #3399a9;
+			font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+		}
 
-#ss_jsddm li ul li a:hover {
-    background-color: #f3f3f3;
-}
-
-/*  */
+		#ss_jsddm li ul li a:hover{
+			background: #6cd;
+			color: #fff;
+		}
