@@ -12,6 +12,8 @@ import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
@@ -111,6 +113,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             _discussionDao.save(discussion);
 
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
+
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion board page
                 UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
@@ -162,6 +167,10 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
             reply.setAuthorId(user.getId());
             _discussionReplyDao.save(reply);
+
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
+
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
                 UrlBuilder urlBuilder = new UrlBuilder(discussion);

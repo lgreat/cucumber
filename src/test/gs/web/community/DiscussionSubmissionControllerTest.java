@@ -67,6 +67,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         _command = new DiscussionSubmissionCommand();
 
+        getRequest().setServerName("localhost");
+        
         SessionContext sessionContext = new SessionContext();
         getRequest().setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
         SessionContextUtil scu = new SessionContextUtil();
@@ -75,6 +77,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         CookieGenerator scGen = new CookieGenerator();
         scGen.setCookieName("user_pref");
         scu.setSitePrefCookieGenerator(scGen);
+        CookieGenerator otGen = new CookieGenerator();
+        otGen.setCookieName("omniture");
+        scu.setOmnitureSubCookieGenerator(otGen);
     }
 
     @Override
@@ -149,6 +154,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
 
         assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
     }
 
     public void testHandleDiscussionSubmissionNoRedirect() {
@@ -378,6 +385,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
 
         assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event17%3B", getResponse().getCookie("omniture").getValue());        
     }
 
     public void testHandleDiscussionReplySubmissionNoRedirect() {

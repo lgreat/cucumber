@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.10 2009/06/18 23:08:23 eingenito Exp $
+ * $Id: BaseControllerTestCase.java,v 1.11 2009/10/07 15:00:50 aroy Exp $
  */
 
 package gs.web;
@@ -11,6 +11,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+
+import javax.servlet.http.Cookie;
 
 /**
  * Provides...
@@ -39,7 +41,17 @@ public class BaseControllerTestCase extends BaseTestCase {
         ServletRequestAttributes attrbs = new ServletRequestAttributes(_request);
         RequestContextHolder.setRequestAttributes(attrbs);
 
-        _response = new MockHttpServletResponse();
+        // Overridden so that successive calls to addCookie with the same cookie will overwrite the previous value
+        // This is the behavior of the real HttpServletResponse so I'm unclear on why the mock one fails so hard
+        _response = new MockHttpServletResponse() {
+            @Override
+            public void addCookie(Cookie cookie) {
+                if (getCookie(cookie.getName()) != null) {
+                    getCookie(cookie.getName()).setValue(cookie.getValue());
+                }
+                super.addCookie(cookie);
+            }
+        };
     }
 
     protected void tearDown() throws Exception {
@@ -47,7 +59,7 @@ public class BaseControllerTestCase extends BaseTestCase {
     }
 
     public SessionContext getSessionContext() {
-        return (SessionContext) SessionContextUtil.getSessionContext(_request);
+        return SessionContextUtil.getSessionContext(_request);
     }
 
     public GsMockHttpServletRequest getRequest() {

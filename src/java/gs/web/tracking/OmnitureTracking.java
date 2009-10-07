@@ -72,6 +72,8 @@ public abstract class  OmnitureTracking {
         ParentReview(9),
         ParentSurvey(10),
         NewNewsLetterSubscriber(11),
+        CommunityDiscussionPost(16),
+        CommunityDiscussionReplyPost(17),
         ChoicePackRequest(18);
 
         private int _eventNumber;
