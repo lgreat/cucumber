@@ -82,58 +82,43 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao.populateByContentId
                     (board.getTopicCenterId(), new CmsTopicCenter());
-            if (topicCenter == null) {
-                String topicCenterParam = request.getParameter("topicCenterId");
-                if (topicCenterParam != null) {
-                    topicCenter = _publicationDao.populateByContentId(new Long(topicCenterParam), new CmsTopicCenter());
+
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            User user;
+            if(PageHelper.isMemberAuthorized(request)){
+                user = sessionContext.getUser();
+                if (user != null) {
+                    model.put(MODEL_VALID_USER, user);
                 }
             }
 
-            // TODO REMOVE THIS USE OF SAMPLE DATA
-            if (topicCenter == null) {
-               topicCenter = _publicationDao.populateByContentId(15L, new CmsTopicCenter());
-            }
+            model.put(MODEL_TOPIC_CENTER, topicCenter);
+            int page = getPageNumber(request);
+            int pageSize = getPageSize(request);
+            DiscussionSort sort = getDiscussionSort(request, response);
+            model.put(MODEL_PAGE, page);
+            model.put(MODEL_PAGE_SIZE, pageSize);
+            model.put(MODEL_SORT, sort);
 
-            if (topicCenter != null) {
-                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                User user;
-                if(PageHelper.isMemberAuthorized(request)){
-                    user = sessionContext.getUser();
-                    if (user != null) {
-                        model.put(MODEL_VALID_USER, user);
-                    }
-                }
+            List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
+            List<DiscussionFacade> facades = populateFacades(board, discussions);
+            populateWithUsers(discussions, facades);
+            model.put(MODEL_DISCUSSION_LIST, facades);
 
-                model.put(MODEL_TOPIC_CENTER, topicCenter);
-                int page = getPageNumber(request);
-                int pageSize = getPageSize(request);
-                DiscussionSort sort = getDiscussionSort(request, response);
-                model.put(MODEL_PAGE, page);
-                model.put(MODEL_PAGE_SIZE, pageSize);
-                model.put(MODEL_SORT, sort);
+            long totalDiscussions = getTotalDiscussions(board);
+            model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
+            model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
+            model.put(MODEL_CURRENT_DATE, new Date());
 
-                List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
-                List<DiscussionFacade> facades = populateFacades(board, discussions);
-                populateWithUsers(discussions, facades);
-                model.put(MODEL_DISCUSSION_LIST, facades);
-
-                long totalDiscussions = getTotalDiscussions(board);
-                model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
-                model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
-                model.put(MODEL_CURRENT_DATE, new Date());
-
-                model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
-                populateModelWithListOfValidDiscussionTopics(model);
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
-                        model.get(MODEL_URI).toString());
-                model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
-            } else {
-                _log.warn("Can't find topic center with id " + board.getTopicCenterId());
-            }
+            model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
+            populateModelWithListOfValidDiscussionTopics(model);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
+                    model.get(MODEL_URI).toString());
+            model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
         } else {
             _log.warn("Can't find board with id " + contentId);
         }
-        if (model.get(MODEL_TOPIC_CENTER) == null) {
+        if (model.get(MODEL_DISCUSSION_BOARD) == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);            
         }

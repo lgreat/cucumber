@@ -16,14 +16,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <c:choose>
-        <c:when test="${not empty requestScope.topicCenter.pageTitle}">
-            <c:set var="pageTitle">${requestScope.topicCenter.pageTitle} Discussion Detail</c:set>
-        </c:when>
-        <c:otherwise>
-            <c:set var="pageTitle">${requestScope.topicCenter.title} Discussion Detail</c:set>
-        </c:otherwise>
-    </c:choose>
+    <c:set var="pageTitle">${discussionBoard.title} Discussion Detail</c:set>
     <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
@@ -51,9 +44,11 @@
 
 <p class="breadCrumbs smallAlertText">
     You are here:
-    <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                     fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-    &gt;
+    <c:if test="${topicCenter ne null}">
+        <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                         fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+        &gt;
+    </c:if>
     <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                      fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
     &gt;

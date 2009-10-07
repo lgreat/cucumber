@@ -101,17 +101,6 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_DISCUSSION_BOARD, board);
             CmsTopicCenter topicCenter = _publicationDao
                     .populateByContentId(board.getTopicCenterId(), new CmsTopicCenter());
-            if (topicCenter == null) {
-                String topicCenterParam = request.getParameter("topicCenterId");
-                if (topicCenterParam != null) {
-                    topicCenter = _publicationDao.populateByContentId(new Long(topicCenterParam), new CmsTopicCenter());
-                }
-            }
-
-            // TODO REMOVE THIS USE OF SAMPLE DATA
-            if (topicCenter == null) {
-               topicCenter = _publicationDao.populateByContentId(15L, new CmsTopicCenter());
-            }
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
@@ -146,8 +135,8 @@ public class DiscussionController extends AbstractController {
 //            }
         }
 
-        if (model.get(MODEL_TOPIC_CENTER) == null) {
-            _log.warn("Can't find topic center for discussion with id " + contentId);
+        if (model.get(MODEL_DISCUSSION_BOARD) == null) {
+            _log.warn("Can't find discussion board for discussion with id " + contentId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
         }
