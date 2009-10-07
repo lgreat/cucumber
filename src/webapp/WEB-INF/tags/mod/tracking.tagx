@@ -69,6 +69,10 @@
             name="sortSelection"
             description="School browse sort selection"
             required="false"/>
+    <jsp:directive.attribute
+            name="community"
+            description="Is this a community page"
+            required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -154,7 +158,7 @@
             } 
 
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
-            s.prop11 = clickCapture.getProp(11,"GreatSchools");
+            s.prop11 = clickCapture.getProp(11,"${community?'Community':'GreatSchools'}");
 
             //s.prop13 is being set on the article.page to distinguish new and old articles
             s.prop13 = "${articleStyle}";

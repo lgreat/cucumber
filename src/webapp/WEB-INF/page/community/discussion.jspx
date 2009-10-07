@@ -305,7 +305,16 @@
 </div>
 <!-- end sideBar -->
 </div>
+<c:set var="boardTitle" value="${discussionBoard.title}"/>
+<c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
+<c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
+<c:set var="discussionTitle" value="${discussion.title}"/>
+<c:set var="discussionTitle" value="${fn:replace(discussionTitle, ',', '')}"/>
+<c:set var="discussionTitle" value='${fn:replace(discussionTitle, "\"", "")}'/>
 <!-- end container -->
+<mod:tracking pageName="Discussion Detail Page"
+              hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},${discussion.id}:${discussionTitle}"
+              community="true"/>
 </body>
 </html>
 </jsp:root>
