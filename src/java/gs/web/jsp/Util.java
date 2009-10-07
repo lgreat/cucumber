@@ -266,6 +266,13 @@ public class Util {
         }
     }
 
+    public static boolean dateWithinXMinutes(Date date, int numMinutes) {
+        DateTime xMinutesAgo = new DateTime(new Date().getTime() - (1000 * 60 * numMinutes));
+        DateTime dateInQuestion = new DateTime(date.getTime());
+
+        return dateInQuestion.isAfter(xMinutesAgo);
+    }
+    
     /**
      * Wordify the period between two dates according to these rules-
 

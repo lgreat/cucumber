@@ -58,6 +58,13 @@
     </function>
 
     <function>
+        <name>dateWithinXMinutes</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>boolean
+            dateWithinXMinutes(java.util.Date, int)</function-signature>
+    </function>
+
+    <function>
         <name>periodBetweenDates</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String

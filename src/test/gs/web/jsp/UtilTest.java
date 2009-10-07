@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -146,6 +147,23 @@ public class UtilTest extends TestCase {
             Util.pluralize(0, null, null);
             fail("passed a null word and plural word");
         } catch(IllegalArgumentException e) {}
+    }
+
+    public void testDateWithinXMinutes() throws Exception {
+        Date now = new Date();
+        assertTrue("Current date should be within 120 minutes of now", Util.dateWithinXMinutes(now, 120));
+        Date h1 = new Date(now.getTime() - (1000 * 60 * 60));
+        assertTrue("One hour ago should be within 120 minutes of now", Util.dateWithinXMinutes(h1, 120));
+        Date h3 = new Date(now.getTime() - (1000 * 60 * 60 * 3));
+        assertFalse("Three hours ago should not be within 120 minutes of now", Util.dateWithinXMinutes(h3, 120));
+        assertFalse("Three hours ago should not be within 179 minutes of now", Util.dateWithinXMinutes(h3, 179));
+        assertTrue("Three hours ago should be within 181 minutes of now", Util.dateWithinXMinutes(h3, 181));
+        assertTrue("Three hours ago should be within 240 minutes of now", Util.dateWithinXMinutes(h3, 240));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date longAgo = df.parse("2008-04-25");
+        assertFalse("Really old date should not be within 120 minutes of now", Util.dateWithinXMinutes(longAgo, 120));
+        assertFalse("Really old date should not be within 240 minutes of now", Util.dateWithinXMinutes(longAgo, 240));
+        assertFalse("Really old date should not be within 1440 minutes of now", Util.dateWithinXMinutes(longAgo, 1440));
     }
 
     public void testPeriodBetweenDates() throws Exception {
