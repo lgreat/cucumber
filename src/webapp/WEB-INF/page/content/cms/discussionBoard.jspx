@@ -45,7 +45,7 @@
             });
 
             $("#postCountSelect").change(function() {
-                document.location='${requestScope.uri}&amp;amp;pageSize=' + this.value;
+                document.location='${requestScope.uri}&amp;pageSize=' + this.value;
             });
 
             $('#upperStartADiscussion').click(function() {
@@ -75,6 +75,12 @@
         <div id="startADiscussionDialog" style="display:none;">
             <form action="/community/discussionSubmission.page" method="post">
                 <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                <div class="communityGuidelines">
+                    Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                               title="GreatSchools Community Standards"
+                                               href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                                               tabIndex="18">Community Guidelines</gsml:popupWindow>
+                </div>
                 <div class="topicSelect">
                     <label for="topicSelect">Topic</label>
                     <select id="topicSelect" name="topicCenterId">
@@ -105,10 +111,10 @@
                     <div class="db_deck gainlayout">
                         <span class="smallAlertText">Show:</span>
                         <select id="postCountSelect" name="posts">
-                            <gsml:selectOption value="0" selected="${requestScope.pageSize eq 0}">no posts</gsml:selectOption>
-                            <gsml:selectOption value="5" selected="${requestScope.pageSize eq 5}">5</gsml:selectOption>
                             <gsml:selectOption value="10" selected="${requestScope.pageSize eq 10}">10</gsml:selectOption>
                             <gsml:selectOption value="15" selected="${requestScope.pageSize eq 15}">15</gsml:selectOption>
+                            <gsml:selectOption value="20" selected="${requestScope.pageSize eq 20}">20</gsml:selectOption>
+                            <gsml:selectOption value="25" selected="${requestScope.pageSize eq 25}">25</gsml:selectOption>
                         </select>
 
                         <p class="fltrt smallAlertText">

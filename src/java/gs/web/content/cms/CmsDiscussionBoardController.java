@@ -31,7 +31,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
-    public static final int DEFAULT_PAGE_SIZE = 5;
+    public static final int DEFAULT_PAGE_SIZE = 10;
     public static final String DEFAULT_SORT = "newest_first";
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
