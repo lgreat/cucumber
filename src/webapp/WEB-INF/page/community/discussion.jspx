@@ -51,8 +51,6 @@
     </c:if>
     <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                      fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
-    &gt;
-    ${requestScope.discussion.title}
 </p>
 
 <div class="module">
