@@ -193,7 +193,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_LENGTH);
             _log.info("Registration error: " + ERROR_SCREEN_NAME_LENGTH);
             snError = true;
-        } else if (screenNameHasInvalidCharacters(sn)) {
+        } else if (screenNameHasInvalidCharacters(sn,false)) {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_BAD);
             _log.info("Registration error: " + ERROR_SCREEN_NAME_BAD);
             snError = true;
@@ -228,11 +228,18 @@ public class UserCommandValidator implements IRequestAwareValidator {
     /**
      * Returns true if the screen name has no invalid characters.
      * @param sn screen name
+     * @param cbicall since the username in Collegeboud shuold allow period
+     * cbicall is used to verify if the method is being called from CB.
      * @return true if screen name contains all valid characters or is null
      */
-    public boolean screenNameHasInvalidCharacters(String sn) {
+    public boolean screenNameHasInvalidCharacters(String sn,boolean cbicall) {
         // valid characters are all alphanumeric, hyphen, underscore
-        return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_]*");
+        if(cbicall){
+            return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_\\.]*");
+        }else{
+            return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_]*");
+        }
+
     }
 
     /**

@@ -35,6 +35,7 @@ public class RegistrationAjaxController implements Controller {
     final public static String FIRST_NAME_PARAM = "fn";
     final public static String CITY_TYPE = "city";
     final public static String COUNTY_TYPE = "county";
+    final public static String CBI_CALL = "cbicall";
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
@@ -80,10 +81,14 @@ public class RegistrationAjaxController implements Controller {
 
     protected void validateUsername(HttpServletRequest request, PrintWriter out) {
         String username = request.getParameter(USER_NAME_PARAM);
+        boolean cbcall = false;
+        if(request.getParameter(CBI_CALL) != null){
+            cbcall = true;
+        }
          UserCommandValidator validator = new UserCommandValidator();
         if (username.length() < UserCommandValidator.SCREEN_NAME_MINIMUM_LENGTH || username.length() > UserCommandValidator.SCREEN_NAME_MAXIMUM_LENGTH ) {
            out.print("invalid");
-        }else if(validator.screenNameHasInvalidCharacters(username)){
+        }else if(validator.screenNameHasInvalidCharacters(username,cbcall)){
              out.print("invalidchars");
         } else if (_userDao.findUserFromScreenNameIfExists(username) != null) {
             out.print("inuse");
