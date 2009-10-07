@@ -225,22 +225,6 @@
         <c:set var="stepNavContent"><!-- Previous and Next button implementation -->
             <div class="stepNav">
 
-                <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
-                <c:choose>
-                    <c:when test="${hasPreviousSlide}">
-                        <div class="prev"><a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}"><img
-                                src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="prev"><img src="/res/img/slideShow/prev_off.png" width="60" height="17" alt="previous"/></div>
-                    </c:otherwise>
-                </c:choose>
-
-                <div class="stepNavText">
-                    Page ${pageNum} of ${articleSlideshow.totalSlides}
-                </div>
-
                 <c:set var="hasNextSlide" value="${not empty articleSlideshow.nextSlide}"/>
                 <c:choose>
                     <c:when test="${hasNextSlide}">
@@ -249,7 +233,25 @@
                                 src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="next"><img src="/res/img/slideShow/next_off.png" width="60" height="17" alt="next"/></div>
+                        <div class="next"><img src="/res/img/slideShow/next_off.png" width="60" height="17" alt="next"/>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
+                <div class="stepNavText">
+                    Page ${pageNum} of ${articleSlideshow.totalSlides}
+                </div>
+
+                <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
+                <c:choose>
+                    <c:when test="${hasPreviousSlide}">
+                        <div class="prev"><a
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}"><img
+                                src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="prev"><img src="/res/img/slideShow/prev_off.png" width="60" height="17"
+                                               alt="previous"/></div>
                     </c:otherwise>
                 </c:choose>
 

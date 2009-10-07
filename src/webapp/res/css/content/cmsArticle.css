@@ -627,7 +627,7 @@ ul.horizontal li {
 }
 .ss_image{
     float:left;
-    padding:0 10px 10px 0;
+    padding:17px 10px 10px 0;
 }
 #slideshow .ss_title{
     font:bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
@@ -674,20 +674,18 @@ ul.horizontal li {
     padding:3px 0;
 }
 .prev{
-    float:left;
-    /*background:url(/res/img/slideShow/prev.png) no-repeat;*/
+    float:right;
     width:60px;
     height:17px;
 }
 .stepNavText{
-    float:left;
+    float:right;
     font:11px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color:#444;
     padding:1px 8px;
 }
 .next{
-    float:left;
-    /*background:url(/res/img/slideShow/next.png) no-repeat;*/
+    float:right;
     width:60px;
     height:17px;
 }
