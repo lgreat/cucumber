@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: DiscussionTagHandler.java,v 1.2 2009/10/02 01:06:44 aroy Exp $
+ * $Id: DiscussionTagHandler.java,v 1.3 2009/10/08 23:28:26 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -11,7 +11,7 @@ import gs.data.community.Discussion;
 /**
  * Generates link to a discussion.
  *
- * @author Andrew Peterson <mailto:apeterson@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.net>
  */
 public class DiscussionTagHandler extends LinkTagHandler {
     private Discussion _discussion;

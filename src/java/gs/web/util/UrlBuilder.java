@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.183 2009/10/06 18:41:59 droy Exp $
+ * $Id: UrlBuilder.java,v 1.184 2009/10/08 23:28:27 droy Exp $
  */
 
 package gs.web.util;
@@ -18,6 +18,7 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.Discussion;
+import gs.data.community.User;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -151,6 +152,7 @@ public class UrlBuilder {
     public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
+    public static final VPage USER_PROFILE = new VPage("vpage:userProfile");
     /**
      * for the four part tip sheet promo
      */
@@ -651,6 +653,17 @@ public class UrlBuilder {
         _perlPage = false;
         _path = "/community/discussion.gs";
         this.setParameter("content", discussion.getId().toString());
+    }
+
+    public UrlBuilder(User user, VPage page) {
+        _vPage = page;
+        if (USER_PROFILE.equals(page)) {
+            _perlPage = false;
+            _path = "/community/userProfile.page";
+            this.setParameter("memberId", user.getId().toString());
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
     }
 
     public UrlBuilder(VPage page, State state) {

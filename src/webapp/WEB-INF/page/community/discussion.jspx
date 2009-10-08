@@ -98,20 +98,20 @@
 
             <div class="db_discuss_topic gainlayout">
                 <div class="fltlft">
-                    <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
+                    <link:userProfile user="${discussion.user}">
                         <img class="fltlft"
                              src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;width=48&amp;height=48"
                              alt="Avatar" width="48" height="48"
                              style="border: 1px solid #c6c6c6;"/>
-                    </gsml:a>
+                    </link:userProfile>
                 </div>
                 <!-- end discussion avatar -->
 
                 <div class="db_discuss_full fltrt rounded">
                     <p class="fltlft">
-                        <gsml:a href="http://${communityHost}/members/${discussion.user.userProfile.screenName}">
+                        <link:userProfile user="${discussion.user}">
                             <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                        </gsml:a>
+                        </link:userProfile>
 
                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                         <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}" contentPostedDate="${discussion.dateCreated}">
@@ -151,11 +151,11 @@
                         </c:if>
 
                         <div class="fltlft">
-                            <gsml:a href="http://${communityHost}/members/${requestScope.validUser.userProfile.screenName}">
+                            <link:userProfile user="${requestScope.validUser}">
                                 <img src="http://${communityHost}/avatar?id=${requestScope.validUser.id}&amp;width=48&amp;height=48"
                                      alt="Avatar" width="48" height="48"
                                      style="border: 1px solid #c6c6c6;"/>
-                            </gsml:a>
+                            </link:userProfile>
                         </div>
 
                         <form action="/community/discussionSubmission.page" method="POST">
@@ -217,11 +217,11 @@
 
                         <div class="db_reply_topic">
                             <div class="fltlft">
-                                <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                <link:userProfile user="${reply.user}">
                                     <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=48&amp;height=48"
                                          alt="Avatar" width="48" height="48"
                                          style="border: 1px solid #c6c6c6;"/>
-                                </gsml:a>
+                                </link:userProfile>
                             </div>
                             <!-- end reply avatar -->
 
@@ -229,9 +229,9 @@
 
                                 <div class="db_reply_full fltrt rounded">
                                     <p class="fltlft">
-                                        <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                        <link:userProfile user="${reply.user}">
                                             <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                        </gsml:a>
+                                        </link:userProfile>
 
                                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                                         <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
