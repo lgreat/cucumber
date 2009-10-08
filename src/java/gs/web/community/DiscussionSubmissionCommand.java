@@ -12,6 +12,7 @@ public class DiscussionSubmissionCommand {
     // Fields for both Discussion and DiscussionReply
     private String _body;
     private String _redirect;
+    private Integer _discussionReplyId;
 
     public Integer getDiscussionId() {
         return _discussionId;
@@ -51,5 +52,13 @@ public class DiscussionSubmissionCommand {
 
     public void setRedirect(String redirect) {
         _redirect = redirect;
+    }
+
+    public Integer getDiscussionReplyId() {
+        return _discussionReplyId;
+    }
+
+    public void setDiscussionReplyId(Integer discussionReplyId) {
+        _discussionReplyId = discussionReplyId;
     }
 }

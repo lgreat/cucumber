@@ -36,6 +36,24 @@
                 $('#upperReplyForm').show("slow");
                 return false;
             });
+
+            $('.editLink').click(function() {
+                var container = $(this).parents('.db_reply_container');
+                var reply = container.children('.db_reply_full');
+                var body = reply.children('.replyBody');
+                var replyId = reply.children('.replyId').text();
+                var replyFormContainer = $('#upperReplyForm').clone();
+                replyFormContainer.find('textarea').html(body.html());
+                var replyForm = replyFormContainer.find('form');
+                var replyIdElem = document.createElement('input');
+                $(replyIdElem).attr('name','discussionReplyId');
+                $(replyIdElem).attr('type','hidden');
+                $(replyIdElem).attr('value',replyId);
+                replyForm.append(replyIdElem);
+                container.append(replyFormContainer);
+                reply.slideUp();
+                replyFormContainer.slideDown();
+            });
         //</c:if>
         });
     </script>
@@ -189,24 +207,31 @@
                             </div>
                             <!-- end reply avatar -->
 
-                            <div class="db_reply_full fltrt rounded">
-                                <p class="fltlft">
-                                    <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
-                                        <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                    </gsml:a>
+                            <div class="db_reply_container">
 
-                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                    <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}" contentPostedDate="${reply.dateCreated}">
-                                        | <a href="#" class="editLink" onclick="return false;">Edit</a>
-                                    </gsml:ifUserCanEditContent>
-                                </p>
+                                <div class="db_reply_full fltrt rounded">
+                                    <p class="fltlft">
+                                        <gsml:a href="http://${communityHost}/members/${reply.user.userProfile.screenName}">
+                                            <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                        </gsml:a>
 
-                                <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                                <br class="clearfloat"/>
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                                        <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
+                                                                   contentPostedDate="${reply.dateCreated}">
+                                            | <a href="#" class="editLink" onclick="return false;">Edit</a>
+                                        </gsml:ifUserCanEditContent>
+                                    </p>
 
-                                <span class="text3">${reply.body}</span>
+                                    <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
+                                    <br class="clearfloat"/>
+
+                                    <span class="text3 replyBody">${reply.body}</span>
+                                    <span class="hidden replyId">${reply.id}</span>
+                                </div>
+                                <!-- end db_reply_full -->
+
                             </div>
-                            <!-- end db_replyz_full -->
+                            <!-- end db_reply_container -->
                         </div>
                         <!-- end db_reply_topic -->
                         <br class="clearfloat"/>

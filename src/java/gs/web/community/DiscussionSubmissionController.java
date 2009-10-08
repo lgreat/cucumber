@@ -162,14 +162,22 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             // TODO: more validation?
             // TODO: sanitize string (strip HTML? JS? SQL?)?
 
-            DiscussionReply reply = new DiscussionReply();
+            DiscussionReply reply;
+            if (command.getDiscussionReplyId() == null) {
+                reply = new DiscussionReply();
+            } else {
+                reply = _discussionReplyDao.findById(command.getDiscussionReplyId());
+            }
             reply.setDiscussion(discussion);
             reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
             reply.setAuthorId(user.getId());
             _discussionReplyDao.save(reply);
 
-            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
+            // omniture success event only if new discussion reply
+            if (command.getDiscussionReplyId() == null) {
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
+            }
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
