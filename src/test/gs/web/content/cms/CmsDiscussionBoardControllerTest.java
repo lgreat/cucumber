@@ -251,6 +251,8 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
 
         expect(_discussionReplyDao.getRepliesForPage
                 (discussion, 1, 2, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST)).andReturn(replies);
+        expect(_discussionReplyDao.getTotalReplies
+                (discussion)).andReturn(3);
 
         replayAllMocks();
         List<DiscussionFacade> facades = _controller.populateFacades(board, discussions);
@@ -260,6 +262,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         assertEquals("Expect a facade to be returned", 1, facades.size());
         assertNotNull("Expect the facade to have a list of replies", facades.get(0).getReplies());
         assertEquals("Expect the facade to have exactly 1 reply", 1, facades.get(0).getReplies().size());
+        assertEquals("Expect the facade to report 3 total replies", 3, facades.get(0).getTotalReplies());
         assertSame("Expect the reply to be the same as the one returned from the dao",
                 reply1, facades.get(0).getReplies().get(0));
     }
