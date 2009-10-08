@@ -203,31 +203,31 @@ ul.horizontal li {
 }
 
 #cmsArticleText h1 {
-    font: bold 18px / 1.0 Georgia, "Times New Roman", Times, serif;
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
     color: #444;
     margin-bottom: 10px;
 }
 
 #cmsArticleText h2 {
-    font: bold 18px / 1.0 Georgia, "Times New Roman", Times, serif;
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
     color: #444;
     margin-bottom: 10px;
 }
 
 #cmsArticleText h3 {
-    font: bold 16px / 1.0 Georgia, "Times New Roman", Times, serif;
+    font: bold 16px/1.0 Georgia, "Times New Roman", Times, serif;
     color: #444;
     margin-bottom: 10px;
 }
 
 #cmsArticleText h4 {
-    font: bold 16px / 1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 16px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 0px;
 }
 
 #cmsArticleText p {
-    font: 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin-bottom: 10px;
 }
@@ -236,7 +236,7 @@ ul.horizontal li {
     #cmsArticleText ol,
     #authorBio ul,
     #authorBio ol {
-    font: 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin-bottom: 10px;
 }
@@ -264,7 +264,7 @@ ul.horizontal li {
     padding: 5px 10px;
     border-collapse: collapse;
     line-height: 19px;
-    font: 13px "Trebuchet MS", Helvetica, sans-serif;
+    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 0 0 10px 0;
 }
@@ -307,7 +307,7 @@ ul.horizontal li {
 }
 
 #cmsArticleSidebar ul, #cmsArticleSidebar ol {
-    font: 13px / 1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
     margin: 15px 0;
 }
 
@@ -330,7 +330,7 @@ ul.horizontal li {
 }
 
 .authors p, .attribution p {
-    font: 13px / 1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #999;
     margin: 10px 0;
 }
@@ -370,12 +370,12 @@ ul.horizontal li {
 }
 
 #relatedLinks h4 {
-    font: 16px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 16px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
 }
 
 #relatedLinks ul {
-    font: 14px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #39a;
     padding-bottom: 20px;
 }
@@ -424,13 +424,13 @@ ul.horizontal li {
 }
 
 #cmsArticleForm p {
-    font: 13px / 1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 0 0 10px 25px;
 }
 
 #cmsArticleForm h4 {
-    font: 16px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 16px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 10px 0;
 }
@@ -445,7 +445,7 @@ ul.horizontal li {
 }
 
 #cmsArticleForm label {
-    font: 13px / 2.1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/2.1 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     width: 100px;
 }
@@ -455,7 +455,7 @@ ul.horizontal li {
 }
 
 #cmsArticleForm input.btn {
-    font: bold 14px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 14px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: white;
     height: 20px;
     width: 60px;
@@ -473,18 +473,18 @@ ul.horizontal li {
 }
 
 #cmsArticleComments h4 {
-    font: 14px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 5px 0;
 }
 
 #cmsArticleComments .comment-text {
-    font: 13px / 1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
 }
 
 #cmsArticleComments .comment-date {
-    font: 11px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 11px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 16px 0 5px 0;
 }
@@ -494,7 +494,7 @@ ul.horizontal li {
 /* ------------------ */
 
 #shareThis {
-    font: 11px / 1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 11px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     float: left;
     padding: 3px 0;
 }
@@ -518,7 +518,7 @@ ul.horizontal li {
 /* --------------------- */
 
 #bodyHeader h3 {
-    font: bold 13px / 0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #5bc;
     margin: 10px 0 10px 0;
 }
@@ -532,13 +532,13 @@ ul.horizontal li {
 }
 
 #cmsAskTheExpertsQuestion h3 {
-    font: bold 12px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 12px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 10px 0;
 }
 
 #cmsAskTheExpertsQuestion p {
-    font: 14px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 0 0 10px 0;
 }
@@ -548,7 +548,7 @@ ul.horizontal li {
 /* --------------------- */
 
 #cmsAskTheExpertsAnswer h3 {
-    font: bold 12px / 1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 12px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 10px 0;
 }
@@ -558,7 +558,7 @@ ul.horizontal li {
 /* ------------------ */
 
 .authorBio {
-    font: 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin: 20px 0 10px 0;
 }
@@ -568,7 +568,7 @@ ul.horizontal li {
 /* ------------------------- */
 
 #disclaimer p {
-    font: italic 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: italic 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
     margin-bottom: 15px;
 }
@@ -620,13 +620,13 @@ ul.horizontal li {
 }
 
 #slideshow .ss_title {
-    font: bold 18px / 1.0 Georgia, "Times New Roman", Times, serif;
+    font: bold 18px/1.0 Georgia, "Times New Roman", Times, serif;
     color: #444;
     padding:0 0 15px 0;
 }
 
 .ss_text {
-    font: 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #444;
 }
 
@@ -636,7 +636,7 @@ ul.horizontal li {
 
 .ss_list {
     list-style: inside;
-    font: 13px / 1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #F90;
 }
 
