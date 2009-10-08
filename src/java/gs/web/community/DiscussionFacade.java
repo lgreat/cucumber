@@ -15,7 +15,8 @@ import java.util.Date;
 public class DiscussionFacade {
     private Discussion _discussion;
     private List<DiscussionReply> _replies;
-    
+    private int _totalReplies = 0;
+
     public DiscussionFacade(Discussion parent, List<DiscussionReply> replies) {
         _discussion = parent;
         _replies = replies;
@@ -43,6 +44,14 @@ public class DiscussionFacade {
 
     public List<DiscussionReply> getReplies() {
         return _replies;
+    }
+
+    public int getTotalReplies() {
+        return _totalReplies;
+    }
+
+    public void setTotalReplies(int totalReplies) {
+        _totalReplies = totalReplies;
     }
 
     public Integer getId() {

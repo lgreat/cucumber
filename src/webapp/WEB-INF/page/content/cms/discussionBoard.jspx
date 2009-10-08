@@ -225,8 +225,12 @@
                                     <br class="clearfloat"/>
                                 </c:forEach>
 
-                                <p class="viewAll"><a class="text3" href="#">View all replies (28) <span
-                                        class="alertDoubleArrow">&amp;raquo;</span></a></p>
+                                <p class="viewAll">
+                                    <link:discussion discussionId="${discussion.id}"
+                                                 fullUri="${discussion.fullUri}"
+                                                 styleClass="text3">View all replies (${discussion.totalReplies}) <span
+                                        class="alertDoubleArrow">&amp;raquo;</span></link:discussion>
+                                </p>
                             </div>
                             <!-- end db_replies -->
                         </c:if>

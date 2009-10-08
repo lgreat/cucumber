@@ -133,7 +133,9 @@ public class CmsDiscussionBoardController extends AbstractController {
             discussion.setDiscussionBoard(board);
             List<DiscussionReply> replies = _discussionReplyDao.getRepliesForPage
                     (discussion, 1, 2, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST);
+            int totalReplies = _discussionReplyDao.getTotalReplies(discussion);
             DiscussionFacade facade = new DiscussionFacade(discussion, replies);
+            facade.setTotalReplies(totalReplies);
             facades.add(facade);
         }
         return facades;
