@@ -195,7 +195,7 @@
             <c:choose>
                 <c:when test="${fn:length(requestScope.replies) > 0}">
 
-                    <c:forEach var="reply" items="${discussion.replies}">
+                    <c:forEach var="reply" items="${requestScope.replies}">
 
                         <div class="db_reply_topic">
                             <div class="fltlft">
