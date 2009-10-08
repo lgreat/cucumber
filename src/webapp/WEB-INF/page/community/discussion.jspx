@@ -33,26 +33,31 @@
         $(function() {
         //<c:if test = "${requestScope.validUser != null}" >
             $('#upperReplyTrigger').click(function() {
-                $('#upperReplyForm').show("slow");
+                $('.replyForm:first').show("slow");
                 return false;
             });
 
+            $('.replyForm:last').show();
+
             $('.editLink').click(function() {
+                var wrapper = $(this).parents('.db_reply_topic');
                 var container = $(this).parents('.db_reply_container');
                 var reply = container.children('.db_reply_full');
                 var body = reply.children('.replyBody');
                 var replyId = reply.children('.replyId').text();
-                var replyFormContainer = $('#upperReplyForm').clone();
-                replyFormContainer.find('textarea').html(body.html());
-                var replyForm = replyFormContainer.find('form');
+                var replyForm = $('.replyForm:first form').clone();
+                replyForm.find('textarea').html(body.html());
+                replyForm.find('input[name=submit]').val('Edit this reply');
                 var replyIdElem = document.createElement('input');
                 $(replyIdElem).attr('name','discussionReplyId');
                 $(replyIdElem).attr('type','hidden');
                 $(replyIdElem).attr('value',replyId);
                 replyForm.append(replyIdElem);
-                container.append(replyFormContainer);
-                reply.slideUp();
-                replyFormContainer.slideDown();
+                container.append(replyForm);
+                wrapper.css('margin-left','0');
+                reply.hide();
+                replyForm.show();
+
             });
         //</c:if>
         });
@@ -138,6 +143,41 @@
             ${shareThis}
             <!-- end share this -->
 
+            <c:set var="replyForm">
+                <c:if test="${requestScope.validUser != null}">
+                    <div class="replyForm" style="display:none;">
+                        <c:if test="${requestScope.userReplyMessage != null}">
+                            <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+                        </c:if>
+
+                        <div class="fltlft">
+                            <gsml:a href="http://${communityHost}/members/${requestScope.validUser.userProfile.screenName}">
+                                <img src="http://${communityHost}/avatar?id=${requestScope.validUser.id}&amp;width=48&amp;height=48"
+                                     alt="Avatar" width="48" height="48"
+                                     style="border: 1px solid #c6c6c6;"/>
+                            </gsml:a>
+                        </div>
+
+                        <form action="/community/discussionSubmission.page" method="POST">
+                            <input type="hidden" name="redirect" value="${requestScope.uri}"/>
+                            <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+                            <textarea rows="5" cols="30" class="replybox"
+                                      name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                            <input type="submit" name="submit" value="Post your Reply"/>
+
+                            <div class="communityGuidelines">
+                                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                           title="GreatSchools Community Standards"
+                                                           href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                                                           tabIndex="18">Community Guidelines</gsml:popupWindow>
+                            </div>
+                        </form>
+                    </div>
+                </c:if>
+            </c:set>
+
+            ${replyForm}
+
             <c:if test="${fn:length(requestScope.replies) > 0}">
                 <div class="mostRecent gainlayout sdrt sdrb">
                     <p class="fltlft">Most Recent Replies</p>
@@ -170,28 +210,6 @@
         <!-- end db_discussion -->
 
         <div class="db_replies">
-            <c:if test="${requestScope.validUser != null}">
-                <div id="upperReplyForm" style="display:none;">
-                    <c:if test="${requestScope.userReplyMessage != null}">
-                        <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
-                    </c:if>
-
-                    <form action="/community/discussionSubmission.page" method="POST">
-                        <input type="hidden" name="redirect" value="${requestScope.uri}"/>
-                        <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-                        <textarea rows="5" cols="30" class="replybox"
-                                  name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-                        <input type="submit" name="submit" value="Post your Reply"/>
-                        <div class="communityGuidelines">
-                            Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                       title="GreatSchools Community Standards"
-                                                       href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                                                       tabIndex="18">Community Guidelines</gsml:popupWindow>
-                        </div>                        
-                    </form>
-                </div>
-            </c:if>
-
             <c:choose>
                 <c:when test="${fn:length(requestScope.replies) > 0}">
 
@@ -264,25 +282,7 @@
             </div>
         </c:if>
 
-        <c:if test="${requestScope.validUser != null}">
-            <c:if test="${requestScope.userReplyMessage != null}">
-                <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
-            </c:if>
-
-            <form action="/community/discussionSubmission.page" method="POST">
-                <input type="hidden" name="redirect" value="${requestScope.uri}"/>
-                <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-                <textarea rows="5" cols="30" class="replybox"
-                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-                <input type="submit" name="submit" value="Post your Reply"/>
-                <div class="communityGuidelines">
-                    Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                               title="GreatSchools Community Standards"
-                                               href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                                               tabIndex="18">Community Guidelines</gsml:popupWindow>
-                </div>                
-            </form>
-        </c:if>
+        ${replyForm}
 
         <!-- share this -->
         ${shareThis}

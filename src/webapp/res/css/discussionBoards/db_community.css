@@ -149,12 +149,9 @@
     padding:12px;
 }
 
-.db_replies{
-    margin:0 0 0 80px;
-    /*padding:15px 0 0 0;*/
-}
 
 .db_reply_topic{
+    margin:0 0 0 80px;
     padding:15px 0 0 0;
 }
 
