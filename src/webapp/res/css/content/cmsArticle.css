@@ -616,13 +616,13 @@ ul.horizontal li {
 
 .ss_image {
     float: left;
-    padding: 17px 10px 10px 0;
+    padding: 0 10px 10px 0;
 }
 
 #slideshow .ss_title {
     font: bold 18px / 1.0 Georgia, "Times New Roman", Times, serif;
     color: #444;
-    margin: 15px 0;
+    padding:0 0 15px 0;
 }
 
 .ss_text {
