@@ -14,6 +14,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.jsp.Util;
 import gs.data.community.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
@@ -22,6 +23,7 @@ import gs.data.cms.IPublicationDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -162,16 +164,26 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             // TODO: more validation?
             // TODO: sanitize string (strip HTML? JS? SQL?)?
 
+            boolean canSave = false;
             DiscussionReply reply;
             if (command.getDiscussionReplyId() == null) {
                 reply = new DiscussionReply();
+                canSave = true;
             } else {
                 reply = _discussionReplyDao.findById(command.getDiscussionReplyId());
+                // choosing 150 minutes instead of 120 to give people time to compose their changes
+                if (Util.dateWithinXMinutes(reply.getDateCreated(), 150) &&
+                    reply.getAuthorId().equals(user.getId())) {
+                    canSave = true;
+                }
             }
-            reply.setDiscussion(discussion);
-            reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
-            reply.setAuthorId(user.getId());
-            _discussionReplyDao.save(reply);
+
+            if (canSave) {
+                reply.setDiscussion(discussion);
+                reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
+                reply.setAuthorId(user.getId());
+                _discussionReplyDao.save(reply);
+            }
 
             // omniture success event only if new discussion reply
             if (command.getDiscussionReplyId() == null) {
