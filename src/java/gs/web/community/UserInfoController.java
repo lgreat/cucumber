@@ -41,8 +41,6 @@ public class UserInfoController extends AbstractController {
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
 
-    public static final String PARAM_MEMBER_ID = "memberId";
-
     private String _viewName;
     private boolean _defaultToCurrentUser;
     private String _pageType;
