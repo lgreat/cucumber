@@ -90,6 +90,8 @@ public class UserInfoController extends AbstractController {
             if (pageUser == null && _defaultToCurrentUser) {
                 pageUser = viewer;
                 viewingOwnProfile = true;
+            } else if (pageUser.getId() == viewer.getId()) {
+                viewingOwnProfile = true;
             }
         }
 

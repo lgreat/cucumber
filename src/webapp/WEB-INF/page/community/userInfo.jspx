@@ -80,6 +80,9 @@
 <div class="module">
     <div class="userInfo">
     <div>${requestScope.pageHeading}</div>
+    <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
+        <div><a href="#">Report this user</a></div>
+    </c:if>
     <div>Member since: <fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></div>
     <div class="aboutMe">
         <div class="heading">
