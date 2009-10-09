@@ -15,7 +15,7 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<ad:setSlotPrefix slotPrefix="DiscussionDetail"/>
+<ad:setSlotPrefix slotPrefix="Discussion"/>
 
 <head>
     <c:set var="pageTitle">${discussionBoard.title} Discussion Detail</c:set>
