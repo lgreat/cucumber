@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.184 2009/10/08 23:28:27 droy Exp $
+ * $Id: UrlBuilder.java,v 1.185 2009/10/09 23:09:06 yfan Exp $
  */
 
 package gs.web.util;
@@ -153,6 +153,7 @@ public class UrlBuilder {
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
     public static final VPage USER_PROFILE = new VPage("vpage:userProfile");
+    public static final VPage USER_ACCOUNT = new VPage("vpage:userAccount");
     /**
      * for the four part tip sheet promo
      */
@@ -659,8 +660,7 @@ public class UrlBuilder {
         _vPage = page;
         if (USER_PROFILE.equals(page)) {
             _perlPage = false;
-            _path = "/community/userProfile.page";
-            this.setParameter("memberId", user.getId().toString());
+            _path = "/members/" + user.getUserProfile().getScreenName() + "/";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -1118,6 +1118,9 @@ public class UrlBuilder {
                 sb.append(param0);
             }
             _path = sb.toString();
+        } else if(USER_ACCOUNT.equals(page)){
+            _perlPage = false;
+            _path = "/account/";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

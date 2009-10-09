@@ -130,6 +130,16 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/account/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/members/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/alabama/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -671,6 +681,16 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/account/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/members/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/alabama/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -1207,6 +1227,22 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/pledge/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/account/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/members/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2012,6 +2048,16 @@
      <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/back-to-school/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/account/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/members/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

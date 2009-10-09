@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+
+<ad:setSlotPrefix slotPrefix="MemberProfile"/>
+
+<head>
+    <title>${requestScope.pageHeading} | GreatSchools</title>
+    <meta name="description" content="TODO"/>
+    <meta name="keywords" content="TODO"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        $(function() {
+            //<c:if test = "${requestScope.viewingOwnProfile}" >
+
+            // =========================================================================
+            // about me
+            // -------------------------------------------------------------------------
+
+            function toggleAboutMe() {
+                if ($('.aboutMe .bioText').is(':visible')) {
+                    $('.aboutMe .bioText').hide();
+                    $('.aboutMe form').show();
+                    $('.aboutMe .editAboutMe').hide();
+                } else {
+                    $('.aboutMe .bioText').show();
+                    $('.aboutMe form').hide();
+                    $('.aboutMe .editAboutMe').show();                                        
+                }
+            }
+
+            $('.aboutMe .editAboutMe').click(function() {
+                $('.aboutMe .bioInput').val($('.aboutMe .bioText').text());
+                toggleAboutMe();
+                return false;
+            });
+
+            $('.aboutMe .aboutMeSave').click(function() {
+                $('.aboutMe .bioText').text($('.aboutMe .bioInput').val());
+                toggleAboutMe();
+            });
+
+            $('.aboutMe .aboutMeCancel').click(function() {
+                toggleAboutMe();
+            });
+
+            // =========================================================================
+
+            //</c:if>
+        });
+    </script>
+
+</head>
+<body>
+<div id="container" class="gainlayout">
+<div id="mainContent">
+
+<p class="breadCrumbs smallAlertText">
+</p>
+
+<div class="module">
+    <div class="userInfo">
+    <div>${requestScope.pageHeading}</div>
+    <div>Member since: <fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></div>
+    <div class="aboutMe">
+        <div class="heading">
+            About me
+            <c:if test="${requestScope.viewingOwnProfile}"><a href="#" class="editAboutMe">Edit</a></c:if>
+        </div>
+        <div class="bioText">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        <form action="/" method="POST" style="display:none">
+            <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
+            <textarea name="bio" rows="5" cols="60" class="bioInput"><!-- --></textarea>
+            <br/>
+            <input type="button" name="Save" value="Save" class="aboutMeSave"/>
+            <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>
+        </form>
+    </div>
+    <img src="/res/img/api/poweredby.gif" alt="User Avatar" width="95" height="95" style="border: red 1px solid"/>
+    <c:if test="${requestScope.viewingOwnProfile}"><a href="#">Update my photo</a></c:if>
+    </div>
+
+    <c:if test="${requestScope.pageType eq 'userAccount'}">
+        <div>
+            <ul>
+                <li><link:changeEmail>Update my email address</link:changeEmail></li>
+                <li><link:resetPassword>Change my password</link:resetPassword></li>
+                <li><link:accountInfo>Update my account</link:accountInfo></li>
+                <li><link:newsletterManagement>Manage newsletters</link:newsletterManagement></li>
+                <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
+            </ul>
+        </div>
+    </c:if>
+
+    <hr/>
+    
+    <div>${requestScope.pageUser.userProfile.screenName}'s recent activity</div><a href="#">View all activity</a>
+    <div>
+        <div>Post in: "<a href="#">Afternoon Preschool -- What happens...</a>" April 6, 2009</div>
+        <div>You can't control your son's every move, but you can definitely monitor his usage while she's at home.  make him give you ... <a href="#">More</a></div>
+    </div>
+</div>
+<!-- end module -->
+</div>
+<!-- end mainContent -->
+
+<cms:communitySidebar content="${requestScope.discussionBoard}"/>
+
+</div>
+<!-- end container -->
+<mod:tracking pageName="${requestScope.omniturePagename}"
+              hier1="${requestScope.omnitureHierarchy}"
+              community="true"/>
+</body>
+</html>
+</jsp:root>

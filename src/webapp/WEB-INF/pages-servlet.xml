@@ -51,6 +51,8 @@
                <map>
                    <entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/>
                    <entry key="/**/community/discussion.gs" value="/community/discussion.page"/>
+                   <entry key="/account/**" value="/community/userAccount.page"/>
+                   <entry key="/members/**" value="/community/userProfile.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
                </map>
@@ -514,10 +516,19 @@
         <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
     </bean>
 
+   <bean name="/community/userAccount.page"
+         class="gs.web.community.UserInfoController"
+         autowire="byName" lazy-init="true">
+       <property name="viewName" value="/community/userInfo"/>
+       <property name="defaultToCurrentUser" value="true"/>
+       <property name="pageType" value="userAccount"/>
+   </bean>
+
     <bean name="/community/userProfile.page"
-          class="gs.web.community.UserProfileController"
+          class="gs.web.community.UserInfoController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/userProfile"/>
+        <property name="viewName" value="/community/userInfo"/>
+        <property name="pageType" value="userProfile"/>
     </bean>
 
     <bean name="/content/allArticles.page"
