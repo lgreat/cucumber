@@ -15,7 +15,7 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<ad:setSlotPrefix slotPrefix="UserProfile"/>
+<ad:setSlotPrefix slotPrefix="MemberProfile"/>
 
 <head>
     <c:set var="pageTitle">${requestScope.pageUser.userProfile.screenName}'s Profile</c:set>
