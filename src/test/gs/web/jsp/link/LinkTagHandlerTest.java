@@ -1,14 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.62 2009/10/06 18:42:00 droy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.63 2009/10/12 14:46:15 aroy Exp $
  */
 
 package gs.web.jsp.link;
 
-import gs.data.content.Article;
 import gs.data.content.cms.CmsContent;
 import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.Publication;
 import gs.data.school.Grade;
 import gs.data.school.School;
 import gs.data.school.district.District;
@@ -16,6 +14,8 @@ import gs.data.state.State;
 import gs.data.util.CmsUtil;
 import gs.data.util.Address;
 import gs.data.community.Discussion;
+import gs.data.community.UserProfile;
+import gs.data.community.User;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -704,5 +704,34 @@ public class LinkTagHandlerTest extends BaseTestCase {
         builder = handler.createUrlBuilder();
         assertEquals("/definitions/preschool_rating_categories.html",
                 builder.asSiteRelative(null));
+    }
+
+    public void testUserProfileTagHandler() {
+        User user = new User();
+        user.setEmail("testUserProfileTagHandler@greatschools.net");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setScreenName("screenie");
+
+        UserProfileTagHandler handler = new UserProfileTagHandler();
+        handler.setPageContext(new MockPageContext());
+
+        try {
+            handler.createUrlBuilder();
+            fail("Shouldn't be able to generate a user profile link when user is null");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+
+        handler.setUser(user);
+        try {
+            handler.createUrlBuilder();
+            fail("Shouldn't be able to generate a user profile link when user has no user profile");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+
+        user.setUserProfile(userProfile);
+        UrlBuilder builder = handler.createUrlBuilder();
+        assertEquals("/members/screenie/", builder.asSiteRelative(null));
     }
 }
