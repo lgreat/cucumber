@@ -275,12 +275,12 @@ a:visited {
 /* BUTTONS */
 /* ------- */
 .button1{
-    font: 20px Arial, Helvetica, sans-serif;
+    font: bold 20px Arial, Helvetica, sans-serif;
     color: #fff;
-    text-shadow: 1px 1px 1px #000;
+    text-shadow: 1px 1px 1px #444;
 }
 .button2{
-    font: 14px Arial, Helvetica, sans-serif;
+    font: bold 14px Arial, Helvetica, sans-serif;
     color: #fff;
-    text-shadow: 1px 1px 1px #000;
+    text-shadow: 1px 1px 1px #444;
 }
