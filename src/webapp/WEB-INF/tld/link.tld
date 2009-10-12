@@ -3246,6 +3246,13 @@
             <type>java.lang.String</type>
             <description>Desired discussion's full URI. Required if discussion is not specified.</description>
         </attribute>
+        <attribute>
+            <name>discussionReplyId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Optional discussion reply id. If present, will load the correct page showing that reply.</description>
+        </attribute>
     </tag>
 
     <tag>

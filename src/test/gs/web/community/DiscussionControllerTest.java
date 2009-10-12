@@ -149,15 +149,15 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     }
     
     public void testGetPage() {
-        assertEquals("Expect default page to be 1", 1, _controller.getPageNumber(getRequest()));
+        assertEquals("Expect default page to be 1", 1, _controller.getPageNumber(getRequest(), null, 1, null));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "1");
-        assertEquals(1, _controller.getPageNumber(getRequest()));
+        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "51");
-        assertEquals(51, _controller.getPageNumber(getRequest()));
+        assertEquals(51, _controller.getPageNumber(getRequest(), null, 1, null));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "foo");
-        assertEquals(1, _controller.getPageNumber(getRequest()));
+        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "-1");
-        assertEquals("Any integer should be accepted?", -1, _controller.getPageNumber(getRequest()));
+        assertEquals("Any integer should be accepted?", -1, _controller.getPageNumber(getRequest(), null, 1, null));
     }
 
     public void testGetPageSize() {

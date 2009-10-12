@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.63 2009/10/12 14:46:15 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.64 2009/10/12 20:41:28 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -266,6 +266,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/discussion.gs?content=99", builder.asSiteRelative(null));
 
+        tagHandler.setDiscussionReplyId(15);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/discussion.gs?content=99&discussionReplyId=15", builder.asSiteRelative(null));
+
         tagHandler = new DiscussionTagHandler();
         tagHandler.setPageContext(new MockPageContext());
 
@@ -275,11 +279,15 @@ public class LinkTagHandlerTest extends BaseTestCase {
         builder = tagHandler.createUrlBuilder();
         assertEquals("/uri/community/discussion.gs?content=99", builder.asSiteRelative(null));
 
+        tagHandler.setDiscussionReplyId(15);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/uri/community/discussion.gs?content=99&discussionReplyId=15", builder.asSiteRelative(null));
+
         tagHandler = new DiscussionTagHandler();
         tagHandler.setPageContext(new MockPageContext());
 
         try {
-            builder = tagHandler.createUrlBuilder();
+            tagHandler.createUrlBuilder();
             fail();
         } catch (RuntimeException re) {
             // success

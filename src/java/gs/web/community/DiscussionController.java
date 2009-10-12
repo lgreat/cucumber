@@ -55,6 +55,7 @@ public class DiscussionController extends AbstractController {
     public static final String PARAM_PAGE_SIZE = "pageSize";
     public static final String PARAM_SORT = "sort";
     public static final String PARAM_USER_REPLY = "userReply";
+    public static final String PARAM_DISCUSSION_REPLY_ID = "discussionReplyId";
 
     public static final String COOKIE_SORT_PROPERTY = "dReplySort";
 
@@ -104,12 +105,12 @@ public class DiscussionController extends AbstractController {
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
-            int page = getPageNumber(request);
             int pageSize = getPageSize(request);
             DiscussionReplySort sort = getReplySort(request, response);
-            model.put(MODEL_PAGE, page);
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
+            int page = getPageNumber(request, discussion, pageSize, sort);
+            model.put(MODEL_PAGE, page);
 
             List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort);
             List<IUserContent> userContents = new ArrayList<IUserContent>(replies);
@@ -145,10 +146,30 @@ public class DiscussionController extends AbstractController {
     }
 
     /**
-     * Extract the page number from the request. Defaults to 1.
+     * Extract the page number from the request. Defaults to 1. If a discussion reply id is specified,
+     * then uses that reply to determine what page to show.
      */
-    protected int getPageNumber(HttpServletRequest request) {
-        int page = 1;
+    protected int getPageNumber(HttpServletRequest request, Discussion discussion, int pageSize, DiscussionReplySort sort) {
+        int page = -1;
+        if (request.getParameter(PARAM_DISCUSSION_REPLY_ID) != null) {
+            try {
+                int discussionReplyId = Integer.valueOf(request.getParameter(PARAM_DISCUSSION_REPLY_ID));
+                DiscussionReply reply = _discussionReplyDao.findById(discussionReplyId);
+                if (reply != null && reply.getDiscussion().getId().equals(discussion.getId())) {
+                    page = _discussionReplyDao.getPageForReply(discussion, reply, pageSize, sort);
+                    _log.info("Page with discussion is " + page);
+                }
+            } catch (NumberFormatException nfe) {
+                // nothing
+            } catch (Exception e) {
+                _log.warn("Error attempting to determine what page discussion " +
+                        request.getParameter(PARAM_DISCUSSION_REPLY_ID) + " lies on", e);
+            }
+        }
+
+        if (page < 1) {
+            page = 1; // default back to 1
+        }
         String pageParam = request.getParameter(PARAM_PAGE);
         if (pageParam != null) {
             try {
@@ -227,25 +248,6 @@ public class DiscussionController extends AbstractController {
 
         replies = _discussionReplyDao.getRepliesForPage(discussion, page, pageSize, sort);
 
-        if (replies.size() == 0 && "Anthony's Test Discussion".equals(discussion.getTitle())) {
-            DiscussionReply reply;
-            for (int x=0; x < pageSize; x++) {
-                int replyNum = ((page-1) * pageSize) + (x+1);
-                if (replyNum > 18) {
-                    break;
-                }
-
-                reply = new DiscussionReply();
-                reply.setActive(true);
-                reply.setAuthorId(18283);
-                reply.setBody("Reply " + replyNum);
-                reply.setDateCreated(new Date());
-                reply.setId(replyNum);
-                reply.setDiscussion(discussion);
-                replies.add(reply);
-            }
-        }
-
         return replies;
     }
 
@@ -256,10 +258,6 @@ public class DiscussionController extends AbstractController {
         int totalReplies;
 
         totalReplies = _discussionReplyDao.getTotalReplies(discussion);
-
-        if (totalReplies == 0 && "Anthony's Test Discussion".equals(discussion.getTitle())) {
-            totalReplies = 18;
-        }
 
         return totalReplies;
     }
