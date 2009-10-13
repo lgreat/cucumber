@@ -113,7 +113,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         CmsUtil.enableCms();
 
         CmsFeature content = new CmsFeature();
-        content.setContentKey(new ContentKey("article", 102L));
+        content.setContentKey(new ContentKey("Article", 102L));
         content.setFullUri("/Topic/Category/Title");
         content.setTitle("Title");
 
@@ -135,7 +135,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         CmsUtil.enableCms();
 
         CmsFeature content = new CmsFeature();
-        content.setContentKey(new ContentKey("article", 102L));
+        content.setContentKey(new ContentKey("Article", 102L));
         content.setFullUri("/Topic/Category/Title");
         content.setTitle("Title");
 

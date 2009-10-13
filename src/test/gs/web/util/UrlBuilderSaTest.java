@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.108 2009/10/06 18:41:59 droy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.109 2009/10/13 22:30:54 yfan Exp $
  */
 
 package gs.web.util;
@@ -88,7 +88,7 @@ public class UrlBuilderSaTest extends TestCase {
             public Publication getPublication(Integer legacyId) {
                 Publication pub = new Publication();
                 pub.setLegacyId(Long.valueOf(legacyId));
-                pub.setContentKey(new ContentKey("article", 35L));
+                pub.setContentKey(new ContentKey("Article", 35L));
                 pub.setFullUri("/Topic/Category/Title");
                 return pub;
             }
