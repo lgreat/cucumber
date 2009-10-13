@@ -70,7 +70,7 @@
     <div class="module">
         <div class="header">
             <span class="title1white fltlft">Learning Disabilities Community</span>
-            <button id="upperStartADiscussion" class="fltrt button2" type="button">Start a discussion</button>
+            <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
         </div>
         <!-- end header -->
@@ -246,6 +246,8 @@
 
 
         <div class="db_footer">
+            <div class="fltlft"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
+            <br class="clearfloat"/>
             <c:if test="${requestScope.totalPages > 1}">
                 <div class="cmsDiscussionPagination">
                     Page

@@ -14,10 +14,11 @@
                 <span class="title1white">Search Community</span>
             </div>
             <div class="body1bg">
-                <form action="">
-                    <input type="text" name="search"/>
-                    <input type="submit" value="Search"/>
+                <form action="#">
+                    <input class="fltlft" type="text" name="search"/>
+                    <button class="btn25ni" type="submit"><span><span>Search</span></span></button>
                 </form>
+                <br class="clearfloat"/>
             </div>
             <div class="body3bg sdrt">
                 <div class="subhead2">Browse by topic</div>
@@ -63,7 +64,7 @@
 
         <c:choose>
             <c:when test="${not empty content}">
-                <jsp:include page="/content/cms/moreInCategory.module?topics=${
+                <jsp:include page="/content/cms/moreInCategory.module?maxResults=10&amp;topics=${
                   content.commaSeparatedTopicIds}&amp;subjects=${
                   content.commaSeparatedSubjectIds}&amp;grades=${
                   content.commaSeparatedGradeIds}&amp;excludeType=${

@@ -95,6 +95,9 @@
     background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     padding:0 15px;
 }
+.module .header div{
+    padding:5px 0;
+}
 .module .body1bg{
     background:#fc6;
     padding:15px;
@@ -168,6 +171,280 @@
     padding:12px;
 }
 
+.db_footer{
+    padding:15px 0;
+}
+
 .hidden {
-    display:none;
+    display: none;
+}
+
+/* ------------------------------ */
+/* SLIDING DOOR BUTTON (NO ICONS) */
+/* ------------------------------ */
+
+.clear {
+/* generic container (i.e. div) for floating buttons */
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ------------ */
+/* Thin buttons */
+/* ------------ */
+
+.btn25ni {
+    display: block;
+    background: none;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    overflow: visible;
+    font: bold 14px / 1.0 Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px #444;
+    text-decoration: none;
+    color: white;
+}
+
+a.btn25ni span span {
+    text-decoration: none;
+    color: white;
+}
+
+a.btn25ni:hover span, a.btn25ni:hover span span {
+    text-decoration: none;
+    color: white;
+}
+
+.btn25ni span {
+    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top right;
+    display: block;
+    float: left;
+    height: 25px;
+    margin-right: 0;
+    padding-right: 15px; /* sliding doors padding */
+}
+
+.btn25ni span span {
+    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top left;
+    display: block;
+    line-height: 24px;
+    padding: 0 0 0 15px;
+}
+
+.btn25ni:active span, .btn25ni:hover span {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+.btn25ni:active span span, .btn25ni:hover span span {
+    background-position: bottom left;
+}
+
+/* ----------- */
+/* Fat buttons */
+/* ----------- */
+
+.btn35ni {
+    display: block;
+    background: none;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    overflow: visible;
+    font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px #444;
+    text-decoration: none;
+    color: white;
+}
+
+a.btn35ni span span {
+    text-decoration: none;
+    color: white;
+}
+
+a.btn35ni:hover span, a.btn35ni:hover span span {
+    text-decoration: none;
+    color: white;
+}
+
+.btn35ni span {
+    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top right;
+    display: block;
+    float: left;
+    height: 35px;
+    margin-right: 0;
+    padding-right: 15px; /* sliding doors padding */
+}
+
+.btn35ni span span {
+    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top left;
+    display: block;
+    line-height: 34px;
+    padding: 0 0 0 15px;
+}
+
+.btn35ni:active span, .btn35ni:hover span {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+.btn35ni:active span span, .btn35ni:hover span span {
+    background-position: bottom left;
+}
+
+/* Immediately below is a temporary hack to serve the
+following margin values only to Gecko browsers
+Gecko browsers add an extra 3px of left/right
+padding to button elements which can't be overriden.
+Thus, we use -3px of left/right margin to overcome this. */
+/*html:not([lang*=""])*/
+@-moz-document url-prefix() {
+	button.btn25ni {
+		margin:0 -3px;
+	}
+}
+
+@-moz-document url-prefix() {
+	button.btn35ni {
+		margin:0 -3px;
+	}
+}
+
+/* -------------------------------- */
+/* SLIDING DOOR BUTTON (WITH ICONS) */
+/* -------------------------------- */
+
+/* ------------ */
+/* Thin buttons */
+/* ------------ */
+
+.btn25wi {
+    display: block;
+    background: none;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    overflow: visible;
+    font: bold 14px / 1.0 Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px #444;
+    text-decoration: none;
+    color: white;
+}
+
+a.btn25wi span span {
+    text-decoration: none;
+    color: white;
+}
+
+a.btn25wi:hover span, a.btn25wi:hover span span {
+    text-decoration: none;
+    color: white;
+}
+
+.btn25wi span {
+    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top right;
+    display: block;
+    float: left;
+    height: 25px;
+    margin-right: 0;
+    padding-right: 15px; /* sliding doors padding */
+}
+
+.btn25wi span span {
+    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top left;
+    display: block;
+    line-height: 24px;
+    padding: 0 0 0 11px;
+}
+
+.btn25wi span span img {
+    border: none;
+}
+
+.btn25wi:active span, .btn25wi:hover span {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+.btn25wi:active span span, .btn25wi:hover span span {
+    background-position: bottom left;
+}
+
+/* ----------- */
+/* Fat buttons */
+/* ----------- */
+
+.btn35wi {
+    display: block;
+    background: none;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    overflow: visible;
+    font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px #444;
+    text-decoration: none;
+    color: white;
+}
+
+a.btn35wi span span {
+    text-decoration: none;
+    color: white;
+}
+
+a.btn35wi:hover span, a.btn35wi:hover span span {
+    text-decoration: none;
+    color: white;
+}
+
+.btn35wi span {
+    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top right;
+    display: block;
+    float: left;
+    height: 35px;
+    margin-right: 0;
+    padding-right: 15px; /* sliding doors padding */
+}
+
+.btn35wi span span {
+    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top left;
+    display: block;
+    line-height: 34px;
+    padding: 0 0 0 11px;
+}
+
+.btn35wi span span img {
+    border: none;
+}
+
+a.btn35wi span span img {
+    padding: 5px 0 0 0;
+}
+
+.btn35wi:active span, .btn35wi:hover span {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+.btn35wi:active span span, .btn35wi:hover span span {
+    background-position: bottom left;
+}
+
+/* Immediately below is a temporary hack to serve the
+following margin values only to Gecko browsers
+Gecko browsers add an extra 3px of left/right
+padding to button elements which can't be overriden.
+Thus, we use -3px of left/right margin to overcome this. */
+/*html:not([lang*=""])*/
+@-moz-document url-prefix() {
+	button.btn25wi {
+		margin:0 -3px;
+	}
+}
+
+@-moz-document url-prefix() {
+	button.btn35wi {
+		margin:0 -3px;
+	}
 }

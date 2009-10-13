@@ -81,8 +81,8 @@
 <div class="module">
     <div class="header">
         <span class="title1white fltlft">${requestScope.discussion.title}</span>
-        <button id="upperStartADiscussion" class="fltrt button2" type="button">Start a discussion</button>
-        <br class="clearfloat"/>
+        <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
+            <br class="clearfloat"/>
     </div>
     <!-- end header -->
 
@@ -128,9 +128,10 @@
             </div>
             <!-- end db_discuss_topic -->
 
-            <a id="upperReplyTrigger" href="${requestScope.loginRedirectUrl}">
-                <input type="submit" name="submit" value="Post a Reply"/>
-            </a>
+            <div>
+                <a id="upperReplyTrigger" class="btn25ni" href="${requestScope.loginRedirectUrl}" onclick="this.blur();"><span><span>Post a Reply</span></span></a>
+            </div>
+            <br class="clearfloat"/>
 
             <!-- share this -->
             <c:set var="shareThis">
