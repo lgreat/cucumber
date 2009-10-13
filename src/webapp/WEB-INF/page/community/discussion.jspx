@@ -81,7 +81,7 @@
 <div class="module">
     <div class="header">
         <span class="title1white fltlft">${requestScope.discussion.title}</span>
-        <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
+        <div id="btn2" class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
     </div>
     <!-- end header -->
@@ -128,7 +128,7 @@
             </div>
             <!-- end db_discuss_topic -->
 
-            <div>
+            <div id="btn1">
                 <a id="upperReplyTrigger" class="btn25ni" href="${requestScope.loginRedirectUrl}" onclick="this.blur();"><span><span>Post a Reply</span></span></a>
             </div>
             <br class="clearfloat"/>

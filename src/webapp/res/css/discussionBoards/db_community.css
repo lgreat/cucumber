@@ -193,6 +193,11 @@
 /* Thin buttons */
 /* ------------ */
 
+#btn1 a, #btn2 a, #btn3 a, #btn4 a{
+    text-decoration: none;
+    color: white;
+}
+
 .btn25ni {
     display: block;
     background: none;
@@ -202,16 +207,6 @@
     overflow: visible;
     font: bold 14px / 1.0 Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
-}
-
-a.btn25ni span span {
-    text-decoration: none;
-    color: white;
-}
-
-a.btn25ni:hover span, a.btn25ni:hover span span {
     text-decoration: none;
     color: white;
 }
@@ -235,10 +230,12 @@ a.btn25ni:hover span, a.btn25ni:hover span span {
 .btn25ni:active span, .btn25ni:hover span {
     background-position: bottom right;
     outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
 }
 
 .btn25ni:active span span, .btn25ni:hover span span {
     background-position: bottom left;
+    text-decoration: none;
 }
 
 /* ----------- */
@@ -254,16 +251,6 @@ a.btn25ni:hover span, a.btn25ni:hover span span {
     overflow: visible;
     font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
-}
-
-a.btn35ni span span {
-    text-decoration: none;
-    color: white;
-}
-
-a.btn35ni:hover span, a.btn35ni:hover span span {
     text-decoration: none;
     color: white;
 }
@@ -332,16 +319,6 @@ Thus, we use -3px of left/right margin to overcome this. */
     color: white;
 }
 
-a.btn25wi span span {
-    text-decoration: none;
-    color: white;
-}
-
-a.btn25wi:hover span, a.btn25wi:hover span span {
-    text-decoration: none;
-    color: white;
-}
-
 .btn25wi span {
     background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top right;
     display: block;
@@ -384,16 +361,6 @@ a.btn25wi:hover span, a.btn25wi:hover span span {
     overflow: visible;
     font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
-}
-
-a.btn35wi span span {
-    text-decoration: none;
-    color: white;
-}
-
-a.btn35wi:hover span, a.btn35wi:hover span span {
     text-decoration: none;
     color: white;
 }
