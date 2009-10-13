@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.24 2009/10/06 18:42:00 droy Exp $
+ * $Id: CityControllerTest.java,v 1.25 2009/10/13 21:40:27 droy Exp $
  */
 
 package gs.web.geo;
@@ -58,7 +58,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     public void testFindDistricts() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
-        request.setParameter("city", "Alameda");
+        request.setParameter("city", "alameda");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
@@ -103,7 +103,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     public void testOakland() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
-        request.addParameter("city", "Oakland");
+        request.addParameter("city", "oakland");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
@@ -117,7 +117,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     public void testAlamedaHasSchools() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
-        request.addParameter("city", "Alameda");
+        request.addParameter("city", "alameda");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
@@ -136,7 +136,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     public void testSFIsAvalidCity() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
-        request.addParameter("city", "San Francisco");
+        request.addParameter("city", "san francisco");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
@@ -185,7 +185,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals(State.AK, city.getState());
 
         // Make sure old one works
-        request.addParameter("city", "St. Marys");
+        request.addParameter("city", "st. marys");
         request.addParameter("state", "AK");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         modelAndView = _controller.handleRequestInternal(request, getResponse());
