@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.55 2009/10/06 18:41:59 droy Exp $
+ * $Id: CityController.java,v 1.56 2009/10/13 21:30:34 droy Exp $
  */
 
 package gs.web.geo;
@@ -129,6 +129,14 @@ public class CityController extends AbstractController  implements IDirectoryStr
         }
 
         if (redirectToNewStyleUrl) {
+            // Redirect to the new city url if we got here via the old one
+            UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+            View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
+            return new ModelAndView(redirectView);
+        }
+
+        if (!cityNameParam.equals(cityNameParam.toLowerCase())) {
+            // Redirect to the lowercase name of the city if it isn't already lowercase
             UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
             View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
             return new ModelAndView(redirectView);
