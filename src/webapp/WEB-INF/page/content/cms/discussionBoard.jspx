@@ -70,7 +70,7 @@
 
     <div class="module">
         <div class="header">
-            <span class="title1white fltlft">Learning Disabilities Community</span>
+            <span class="title1white fltlft">${discussionBoard.title}</span>
             <div id="btn3" class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
         </div>
@@ -78,7 +78,6 @@
 
         <div id="startADiscussionDialog" style="display:none;">
             <form action="/community/discussionSubmission.page" method="post">
-                <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                 <div class="communityGuidelines">
                     Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                title="GreatSchools Community Standards"
