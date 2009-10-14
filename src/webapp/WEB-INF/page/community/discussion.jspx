@@ -107,7 +107,7 @@
                 </div>
                 <!-- end discussion avatar -->
 
-                <div class="db_discuss_full fltrt rounded">
+                <div class="db_discuss_full fltrt rnd8">
                     <p class="fltlft">
                         <link:userProfile user="${discussion.user}">
                             <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
@@ -228,7 +228,7 @@
 
                             <div class="db_reply_container">
 
-                                <div class="db_reply_full fltrt rounded">
+                                <div class="db_reply_full fltrt rnd8">
                                     <p class="fltlft">
                                         <link:userProfile user="${reply.user}">
                                             <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
