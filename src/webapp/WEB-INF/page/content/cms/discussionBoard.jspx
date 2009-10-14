@@ -71,7 +71,7 @@
     <div class="module">
         <div class="header">
             <span class="title1white fltlft">${discussionBoard.title}</span>
-            <div id="btn3" class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
+            <div id="btn3" class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
         </div>
         <!-- end header -->
@@ -259,7 +259,7 @@
 
 
         <div class="db_footer">
-            <div id="btn4" class="fltlft"><a class="btn25wi" href="#" onclick="this.blur();"><span><span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
+            <div id="btn4" class="fltlft"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
             <c:if test="${requestScope.totalPages > 1}">
                 <div class="cmsDiscussionPagination">

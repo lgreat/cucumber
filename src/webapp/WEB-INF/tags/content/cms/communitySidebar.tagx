@@ -16,7 +16,7 @@
             <div class="body1bg">
                 <form action="#">
                     <input class="fltlft" type="text" name="search"/>
-                    <button class="btn25ni" type="submit"><span><span>Search</span></span></button>
+                    <button class="btn25ni" type="submit"><span class="rnd4"><span class="rnd4">Search</span></span></button>
                 </form>
                 <br class="clearfloat"/>
             </div>
