@@ -113,7 +113,7 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_PAGE, page);
 
             List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort);
-            List<IUserContent> userContents = new ArrayList<IUserContent>(replies);
+            List<UserContent> userContents = new ArrayList<UserContent>(replies);
             userContents.add(discussion);
             _userDao.populateWithUsers(userContents);
             model.put(MODEL_REPLIES, replies);

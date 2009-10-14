@@ -267,7 +267,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     }
 
     protected void populateWithUsers(List<Discussion> discussions, List<DiscussionFacade> facades) {
-        List<IUserContent> userContents = new ArrayList<IUserContent>();
+        List<UserContent> userContents = new ArrayList<UserContent>();
         for (DiscussionFacade facade: facades) {
             userContents.addAll(facade.getReplies());
         }
