@@ -46,7 +46,7 @@
                 document.location='${requestScope.uri}&amp;pageSize=' + this.value;
             });
 
-            $('#upperStartADiscussion').click(function() {
+            $('#btn3,#btn4').click(function() {
                 //<c:choose><c:when test="${requestScope.validUser != null}">
                     $('#startADiscussionDialog').dialog("open");
                     return false;
