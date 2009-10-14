@@ -32,6 +32,7 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 10;
+    public static final int DEFAULT_REPLIES_PER_DISCSSION = 2;
     public static final String DEFAULT_SORT = "newest_first";
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
@@ -48,6 +49,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_DISCUSSION_TOPICS = "discussionTopics";
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+    public static final String MODEL_REPLIES_PER_DISCUSSION = "repliesPerDiscussion";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -115,6 +117,7 @@ public class CmsDiscussionBoardController extends AbstractController {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
                     model.get(MODEL_URI).toString());
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+            model.put(MODEL_REPLIES_PER_DISCUSSION, DEFAULT_REPLIES_PER_DISCSSION);
         } else {
             _log.warn("Can't find board with id " + contentId);
         }
@@ -132,7 +135,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         for (Discussion discussion: discussions) {
             discussion.setDiscussionBoard(board);
             List<DiscussionReply> replies = _discussionReplyDao.getRepliesForPage
-                    (discussion, 1, 2, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST);
+                    (discussion, 1, DEFAULT_REPLIES_PER_DISCSSION, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST);
             int totalReplies = _discussionReplyDao.getTotalReplies(discussion);
             DiscussionFacade facade = new DiscussionFacade(discussion, replies);
             facade.setTotalReplies(totalReplies);

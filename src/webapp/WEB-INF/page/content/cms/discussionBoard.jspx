@@ -239,9 +239,17 @@
                                 </c:forEach>
 
                                 <p class="viewAll">
+                                    <c:choose>
+                                        <c:when test="${discussion.totalReplies gt requestScope.repliesPerDiscussion}">
+                                            <c:set var="viewMoreRepliesLabel">View all replies (${discussion.totalReplies})</c:set>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="viewMoreRepliesLabel">View replies</c:set>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <link:discussion discussionId="${discussion.id}"
                                                  fullUri="${discussion.fullUri}"
-                                                 styleClass="text3">View all replies (${discussion.totalReplies}) <span
+                                                 styleClass="text3">${viewMoreRepliesLabel} <span
                                         class="alertDoubleArrow">&amp;raquo;</span></link:discussion>
                                 </p>
                             </div>
