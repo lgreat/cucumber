@@ -15,12 +15,12 @@
             </div>
             <div class="body1bg">
                 <form action="#">
-                    <input class="fltlft" type="text" name="search"/>
-                    <button class="btn25ni" type="submit"><span class="rnd4"><span class="rnd4">Search</span></span></button>
+                    <input class="fltlft db_search_input" type="text" name="search" size="24"/>
+                    <button class="fltrt btn25ni" type="submit"><span class="rnd4"><span class="rnd4">Search</span></span></button>
                 </form>
                 <br class="clearfloat"/>
             </div>
-            <div class="body3bg sdrt">
+            <div class="body2bg sdrt">
                 <div class="subhead2">Browse by topic</div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
@@ -43,14 +43,16 @@
                 </div>
                 <br class="clearfloat"/>
             </div>
-            <div class="body2bg sdrb">
-                <form action="">
-                    <span class="subhead2">Browse by city</span>
-                    <select name="cities">
-                        <option value="#">Select city</option>
-                        <option value="SF">San Franciso</option>
-                        <option value="OT">Oakland</option>
-                        <option value="SJ">San Jose</option>
+            <div class="body3bg sdrb">
+                <form action="#">
+                    <label class="db_select_label" for="db_cities"><span class="subhead2">Browse by city</span></label>
+                    <select id="db_cities" name="cities">
+                        <option selected="selected">Select city</option>
+                        <option>San Franciso</option>
+                        <option>Oakland</option>
+                        <option>San Jose</option>
+                        <option>San Jose</option>
+                        <option>Mooselookmeguntic</option>
                     </select>
                 </form>
             </div>

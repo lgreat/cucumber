@@ -113,17 +113,29 @@
     background:#fc6;
     padding:15px;
 }
+.body1bg .db_search_input{
+    padding:5px 0 0 0;
+}
 .module .body2bg{
+    background:#fff;
+    padding:15px 0 15px 20px;
+}
+.body2bg .topics {
+    padding:10px 0 0 0;
+}
+.topics li{
+    list-style:disc outside;
+    color:#f4891d;
+    margin:0 0 0 15px;
+    padding:0 5px 0 0;
+    width:135px;
+}
+.module .body3bg{
     background:#f9eccd;
     padding:15px 20px;
 }
-.module .body3bg{
-    background:#fff;
-    padding:15px 20px;
-}
-.topics li{
-    list-style:disc inside;
-    color:#f4891d;
+.body3bg .db_select_label{
+    padding:0 10px 0 0;
 }
 .db_body{
     border-bottom: 1px solid #999;
