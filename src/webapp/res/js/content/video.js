@@ -1,28 +1,17 @@
-
 function delvePlayerCallback(playerId, eventName, data) {
     switch (eventName) {
-        case 'onChannelLoad':
-            doOnChannelLoad(data);
-            break;
+        case 'onAdComplete':
+            doOnAdComplete(data);
     }
 }
 
-function doOnPlayerLoad() {
-}
 
-function doOnChannelLoad(e) {
+function doOnAdComplete(e) {
+    DelvePlayer.doSetAd('preroll','None','');
     var vid = getParam('id');
     vid = vid > 0 ? vid - 1 : 0;
     DelvePlayer.doSkipToIndex(vid);
-}
-
-function doOnMediaLoad(e) {
-}
-
-function doOnPlayStateChanged(e) {
-}
-
-function doOnPlayheadUpdate(e) {
+    DelvePlayer.doPlay()
 }
 
 function getParam( name )
