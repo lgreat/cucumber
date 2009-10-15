@@ -1,7 +1,9 @@
 @charset "UTF-8";
-/* ------------------ */
-/* PAGE LAYOUT STYLES */
-/* ------------------ */
+
+/* ---------------- */
+/* DEBUGGING SYTLES */
+/* ---------------- */
+
 .outline1 {
     outline: 1px solid red;
 }
@@ -10,10 +12,9 @@
     outline: 1px solid blue;
 }
 
-/*#contentGS {
-    position: relative;
-    zoom: 1.0;
-}*/
+/* ------------------ */
+/* PAGE LAYOUT STYLES */
+/* ------------------ */
 
 .gainlayout {
     position: relative;
@@ -64,11 +65,13 @@
     border-bottom: 1px dotted #999;
 }
 .rnd4 {
+/* this class should be used to round the corners on 25 px height buttons */
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
 }
 
 .rnd6 {
+/* this class should be used to round the corner on 35 px height buttons */
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
 }
@@ -94,6 +97,8 @@
     padding:10px 0 15px 0;
     margin: 0 0 0 80px;
 }
+
+/* These classes are used by communitySidebar.tagx */
 
 .modulespacer{
     clear:both;
@@ -137,6 +142,9 @@
 .body3bg .db_select_label{
     padding:0 10px 0 0;
 }
+
+/* End of classes used by communitySidebar.tagx */
+
 .db_body{
     border-bottom: 1px solid #999;
     padding:0 0 15px 0;
@@ -154,7 +162,6 @@
 }
 
 .db_discussion{
-    /*margin:15px 0 0 0;*/
     padding:15px 0 0 15px;
 }
 
@@ -216,10 +223,14 @@
 /* Thin buttons */
 /* ------------ */
 
-#btn1 a, #btn2 a, #btn3 a, #btn4 a{
+#btn1 a, #btn2 a, #btn3 a, #btn4 a{ /* Required to override default link styles */
     text-decoration: none;
     color: white;
 }
+
+/* btn = button */
+/* 25 = 25 px height of the button */
+/* ni = no icon */
 
 .btn25ni {
     display: block;
@@ -265,6 +276,10 @@
 /* Fat buttons */
 /* ----------- */
 
+/* btn = button */
+/* 35 = 35 px height of the button */
+/* ni = no icon */
+
 .btn35ni {
     display: block;
     background: none;
@@ -303,12 +318,12 @@
     background-position: bottom left;
 }
 
-/* Immediately below is a temporary hack to serve the
-following margin values only to Gecko browsers
-Gecko browsers add an extra 3px of left/right
-padding to button elements which can't be overriden.
-Thus, we use -3px of left/right margin to overcome this. */
-/*html:not([lang*=""])*/
+/* Immediately below is a temporary hack to serve the */
+/* following margin values only to Gecko browsers */
+/* Gecko browsers add an extra 3px of left/right */
+/* padding to button elements which can't be overriden. */
+/* Thus, we use -3px of left/right margin to overcome this. */
+
 @-moz-document url-prefix() {
 	button.btn25ni {
 		margin:0 -3px;
@@ -328,6 +343,10 @@ Thus, we use -3px of left/right margin to overcome this. */
 /* ------------ */
 /* Thin buttons */
 /* ------------ */
+
+/* btn = button */
+/* 25 = 25 px height of the button */
+/* wi = with icon */
 
 .btn25wi {
     display: block;
@@ -375,6 +394,10 @@ Thus, we use -3px of left/right margin to overcome this. */
 /* Fat buttons */
 /* ----------- */
 
+/* btn = button */
+/* 35 = 35 px height of the button */
+/* wi = with icon */
+
 .btn35wi {
     display: block;
     background: none;
@@ -421,12 +444,12 @@ a.btn35wi span span img {
     background-position: bottom left;
 }
 
-/* Immediately below is a temporary hack to serve the
-following margin values only to Gecko browsers
-Gecko browsers add an extra 3px of left/right
-padding to button elements which can't be overriden.
-Thus, we use -3px of left/right margin to overcome this. */
-/*html:not([lang*=""])*/
+/* Immediately below is a temporary hack to serve the */
+/* following margin values only to Gecko browsers */
+/* Gecko browsers add an extra 3px of left/right */
+/* padding to button elements which can't be overriden. */
+/* Thus, we use -3px of left/right margin to overcome this. */
+
 @-moz-document url-prefix() {
 	button.btn25wi {
 		margin:0 -3px;
@@ -438,3 +461,7 @@ Thus, we use -3px of left/right margin to overcome this. */
 		margin:0 -3px;
 	}
 }
+
+/* --- */
+/* EOF */
+/* --- */

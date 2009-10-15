@@ -66,16 +66,17 @@
 
         <c:choose>
             <c:when test="${not empty content}">
-                <jsp:include page="/content/cms/moreInCategory.module?maxResults=10&amp;topics=${
+                <jsp:include page="/content/cms/moreInCategory.module?topics=${
                   content.commaSeparatedTopicIds}&amp;subjects=${
                   content.commaSeparatedSubjectIds}&amp;grades=${
                   content.commaSeparatedGradeIds}&amp;excludeType=${
                   content.contentKey.type}&amp;excludeContentId=${
                   content.contentKey.identifier}&amp;language=${
-                  content.language}&amp;strict=true&amp;style=fall2009"/>
+                  content.language}&amp;strict=true&amp;style=fall2009&amp;maxResults=10"/>
                 <!-- RANDALL: The default max results is 5. If you need it different here
                      than on the other pages, you can add &amp;maxResults=15 (or some other number)
                      to the end of the url above. -->
+                <!-- TO YOUNG: Done. Thanks. -->
             </c:when>
             <c:otherwise>
                 <jsp:include page="/content/cms/mostPopularContent.module?style=fall2009"/>

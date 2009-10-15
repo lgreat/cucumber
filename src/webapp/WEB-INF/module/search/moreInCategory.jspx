@@ -12,6 +12,7 @@
 
         <c:choose>
             <c:when test="${style eq 'fall2009'}">
+                <c:out value="${style}"/>
                 Randall, this is the Fall 2009 style.
             </c:when>
             <c:otherwise>
