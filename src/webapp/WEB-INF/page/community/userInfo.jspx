@@ -121,6 +121,10 @@
         <div>Post in: "<a href="#">Afternoon Preschool -- What happens...</a>" April 6, 2009</div>
         <div>You can't control your son's every move, but you can definitely monitor his usage while she's at home.  make him give you ... <a href="#">More</a></div>
     </div>
+
+    <c:if test="${requestScope.pageType eq 'userAccount'}">
+        <jsp:include page="/mySchoolList.module"/>
+    </c:if>
 </div>
 <!-- end module -->
 </div>

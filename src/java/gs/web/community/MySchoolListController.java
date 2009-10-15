@@ -3,6 +3,8 @@ package gs.web.community;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
+import gs.data.school.review.Review;
+import gs.data.school.review.IReviewDao;
 import gs.data.community.IUserDao;
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
@@ -15,6 +17,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.school.review.ReviewFacade;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -41,6 +44,8 @@ public class MySchoolListController extends AbstractController implements ReadWr
     private IUserDao _userDao;
     private StateManager _stateManager;
     private IGeoDao _geoDao;
+    private boolean _showRecentReviews = false;
+    private IReviewDao _reviewDao;
 
     /** query parameters accepted by this controller */
     public static final String PARAM_COMMAND = "command";
@@ -62,6 +67,11 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_PRESCHOOL_ONLY = "preschoolOnly";
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_CITY_NAME = "cityName";
+    public static final String MODEL_RECENT_REVIEWS = "recentReviews";
+    public static final String MODEL_CURRENT_DATE = "currentDate";
+
+    /** constants */
+    public static final int RECENT_REVIEWS_LIMIT = 5;
 
     /** Used to sort schools by name */
     private Comparator<School> _schoolNameComparator;
@@ -86,7 +96,11 @@ public class MySchoolListController extends AbstractController implements ReadWr
                 }
             }
             if (user != null) {
-                view = LIST_VIEW_NAME;
+                if (getViewName() != null) {
+                    view = getViewName();
+                } else {
+                    view = LIST_VIEW_NAME;
+                }
                 model = buildModel(user);
             } else {
                 view = INTRO_VIEW_NAME;
@@ -96,7 +110,11 @@ public class MySchoolListController extends AbstractController implements ReadWr
                 processCommand(command, request, user);
                 SessionContextUtil util = sessionContext.getSessionContextUtil();
                 util.saveCookies(response, sessionContext);
-                view = LIST_VIEW_NAME;
+                if (getViewName() != null) {
+                    view = getViewName();
+                } else {
+                    view = LIST_VIEW_NAME;
+                }
                 model = buildModel(user);
             } else {
                 StringBuilder sb = new StringBuilder();
@@ -112,7 +130,36 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
         determineLocalCity(request, response, model);
 
+        if (isShowRecentReviews()) {
+            List<School> schools = (List<School>)model.get(MODEL_SCHOOLS);
+            createRecentReviewsModel(schools, model);
+        }
+
         return new ModelAndView(view, model);
+    }
+
+    // GS-8811
+    protected void createRecentReviewsModel(Collection<School> schools, Map<String, Object> model) {
+        List<Review> reviews = new ArrayList<Review>();
+        List<ReviewFacade> recentReviews = new ArrayList<ReviewFacade>();
+
+        // get recent reviews for each school in MSL
+        for (School school : schools) {
+            reviews.addAll(getReviewDao().getPublishedReviewsBySchool(school, RECENT_REVIEWS_LIMIT));
+        }
+
+        // sort them
+        Collections.sort(reviews, Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+
+        // take only the most recent RECENT_REVIEWS_LIMIT number of reviews and create ReviewFacades for them
+        int numReviews = reviews.size();
+        for (int i = 1; i <= RECENT_REVIEWS_LIMIT && i <= numReviews; i++) {
+            Review review = reviews.get(i-1);
+            recentReviews.add(new ReviewFacade(review.getSchool(), review));
+        }
+
+        model.put(MODEL_RECENT_REVIEWS, recentReviews);
+        model.put(MODEL_CURRENT_DATE, new Date());
     }
 
     /**
@@ -378,5 +425,21 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public boolean isShowRecentReviews() {
+        return _showRecentReviews;
+    }
+
+    public void setShowRecentReviews(boolean showRecentReviews) {
+        _showRecentReviews = showRecentReviews;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }

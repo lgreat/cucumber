@@ -388,6 +388,14 @@
         <property name="viewName" value="/promo/hotProducts"/>
     </bean>
 
+    <bean name="/mySchoolList.module"
+          class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>community/mySchoolList</value>
+        </property>
+        <property name="showRecentReviews" value="true"/>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

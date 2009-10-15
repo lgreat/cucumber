@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.9 2009/03/27 05:26:55 droy Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.10 2009/10/15 00:24:56 yfan Exp $
  */
 
 package gs.web.school.review;
@@ -51,7 +51,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+        List<IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertNotNull(parentReviewList);
@@ -72,7 +72,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+        List<IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertNotNull(parentReviewList);
@@ -91,7 +91,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+        List<IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertNotNull(parentReviewList);
@@ -110,7 +110,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+        List<IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertNotNull(parentReviewList);
@@ -128,7 +128,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+        List<IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertNotNull(parentReviewList);

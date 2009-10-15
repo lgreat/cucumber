@@ -1874,9 +1874,7 @@
 
     <bean name="/mySchoolList.page"
           class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>community/mySchoolList</value>
-        </property>
+        <!-- logic depends on not having viewName property here; see controller -->
     </bean>
 
     <bean name="/mySchoolListLogin.page"
