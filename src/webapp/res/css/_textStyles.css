@@ -10,22 +10,22 @@
 /* ------- */
 /* HEADERS */
 /* ------- */
-h1 {
+.contentGS h1 {
     font: 30px Georgia, "Times New Roman", Times, serif;
     color: #d61;
 }
 
-h2 {
+.contentGS h2 {
     font: 24px Georgia, "Times New Roman", Times, serif;
     color: #d61;
 }
 
-h3 {
+.contentGS h3 {
     font: 20px Arial, Helvetica, sans-serif;
     color: #666;
 }
 
-h3.orange {
+.contentGS h3.orange {
     font: 20px Arial, Helvetica, sans-serif;
     color: #d61;
 }

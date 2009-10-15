@@ -64,6 +64,9 @@
 .sdrb{
     border-bottom: 1px dotted #999;
 }
+.sdrl{
+    border-left: 1px dotted #999;
+}
 .rnd4 {
 /* this class should be used to round the corners on 25 px height buttons */
     -moz-border-radius:4px;
@@ -212,6 +215,48 @@
 .hidden {
     display: none;
 }
+/* begin profile/myaccount pages */
+.userInfo {
+    position: relative;
+    background: #f9eccd;
+    padding: 15px;
+    overflow: hidden;
+}
+.userInfo h2 {
+    margin-bottom: 15px;
+}
+.userVitals {
+    padding: 0 15px 0 105px;
+    position: relative;
+    float: left;
+    width: 144px;
+}
+.userVitals ul {
+    min-height: 115px;
+}
+.userVitals .avatar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+
+}
+.aboutMe {
+    position: relative;
+    float: left;
+    padding: 0 15px;
+    width: 230px;
+}
+.aboutMe h3.text1 {
+    color: #d61;
+    font-size: 14px;
+}
+.aboutMe p.text3 {
+    font: 12px/1.3 Arial, Helvetica, sans-serif;
+}
+
+/* end profile/myaccount pages */
+
 
 /* ------------------------------ */
 /* SLIDING DOOR BUTTON (NO ICONS) */

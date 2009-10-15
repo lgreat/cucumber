@@ -80,17 +80,26 @@
 
 <div class="module">
     <div class="userInfo">
-    <div>${requestScope.pageHeading}</div>
+    <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <div><a href="#">Report this user</a></div>
+        <span class="fltrt"><a href="#">Report this user</a></span>
     </c:if>
-    <div>Member since: <fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></div>
-    <div class="aboutMe">
-        <div class="heading">
+    </h2>
+    <div class="userVitals">
+        <ul>
+            <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
+        </ul>
+        <p class="avatar">
+            <img src="/res/img/api/poweredby.gif" alt="User Avatar" width="95" height="95" style="border: red 1px solid"/>
+        <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
+        </p>
+    </div>
+    <div class="aboutMe sdrl">
+        <h3 class="text1">
             About me
-            <c:if test="${requestScope.viewingOwnProfile}"><a href="#" class="editAboutMe">Edit</a></c:if>
-        </div>
-        <div class="bioText">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <c:if test="${requestScope.viewingOwnProfile}"><span class="fltrt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
+        </h3>
+        <p class="bioText text3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <form action="/" method="POST" style="display:none">
             <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" rows="5" cols="60" class="bioInput"><!-- --></textarea>
@@ -99,8 +108,6 @@
             <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>
         </form>
     </div>
-    <img src="/res/img/api/poweredby.gif" alt="User Avatar" width="95" height="95" style="border: red 1px solid"/>
-    <c:if test="${requestScope.viewingOwnProfile}"><a href="#">Update my photo</a></c:if>
     </div>
 
     <c:if test="${requestScope.pageType eq 'userAccount'}">
