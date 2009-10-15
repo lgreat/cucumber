@@ -36,6 +36,7 @@
                         </c:otherwise>
                     </c:choose>
 
+                    <div class="body2bg">
                     <c:forEach var="result" items="${mainResults}" varStatus="status">
 
                         <c:if test="${status.count le actualMax}">
@@ -71,6 +72,7 @@
                             </c:otherwise>
                         </c:choose>
                     </c:if>
+                    </div> <!-- end body2bg -->
                 </div>
                 <!-- end module -->
 
