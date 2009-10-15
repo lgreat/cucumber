@@ -73,40 +73,15 @@
                   content.contentKey.type}&amp;excludeContentId=${
                   content.contentKey.identifier}&amp;language=${
                   content.language}&amp;strict=true&amp;style=fall2009&amp;maxResults=10"/>
-                <!-- RANDALL: The default max results is 5. If you need it different here
+                <!-- NOTE: The default max results is 5. If you need it different here
                      than on the other pages, you can add &amp;maxResults=15 (or some other number)
                      to the end of the url above. -->
-                <!-- TO YOUNG: Done. Thanks. -->
             </c:when>
             <c:otherwise>
                 <jsp:include page="/content/cms/mostPopularContent.module?style=fall2009"/>
             </c:otherwise>
         </c:choose>
 
-        <!-- RANDALL: This is what I copied from your original right sidebar. Remove this when you're done. -->
-        <!--
-        <div class="module">
-            <div class="header">
-                <span class="title1white">More in Learning Disabilities</span>
-            </div>
-            <div class="body3bg">
-                <br class="clearfloat"/>
-                <ul class="text3_230">
-                    <li><a href="#">What you can do to stamp out bullying</a></li>
-                    <li><a href="#">Why social skills are key to learning</a></li>
-                    <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                    <li><a href="#">Healthy breakfasts for healthy minds</a></li>
-                    <li><a href="#">Does your child's school promote earth-friendly practices?</a></li>
-                    <li><a href="#">Problems in kindergarten: I need advice!</a></li>
-                    <li><a href="#">What you can do to stamp out bullying</a></li>
-                    <li><a href="#">Why social skills are key to learning</a></li>
-                    <li><a href="#">My 5-Year-Old's behavior's changing</a></li>
-                    <li><a href="#">Coping with homework horrors</a></li>
-                </ul>
-            </div>
-        </div>
-        -->
-        <!-- end module -->
     </div>
     <!-- end sideBar -->
 

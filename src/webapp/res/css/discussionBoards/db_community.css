@@ -142,6 +142,10 @@
 .body3bg .db_select_label{
     padding:0 10px 0 0;
 }
+.morein li{
+    list-style:none outside;
+    padding:0 20px 0 0;
+}
 
 /* End of classes used by communitySidebar.tagx */
 
@@ -227,7 +231,7 @@
     text-decoration: none;
     color: white;
 }
-
+/*a.btn25ni:hover {text-d}*/
 /* btn = button */
 /* 25 = 25 px height of the button */
 /* ni = no icon */
