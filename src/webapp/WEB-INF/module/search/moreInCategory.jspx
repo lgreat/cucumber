@@ -50,7 +50,7 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <div class="${className}">
+                            <div class="text3_230 ${className}">
                                 <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}">
                                     <c:out value="${result.headline}" escapeXml="false"/>
                                 </link:cmsContent>
