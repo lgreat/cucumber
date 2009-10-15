@@ -53,7 +53,12 @@
 
                     <p>${review.quip}</p>
 
-                    <h5>Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</h5>
+                    <p>Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
+
+                    <!-- TODO-8811: need count of reviews for each school? -->
+
+                    <p><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
+                        Read all reviews</link:schoolProfileParentReview></p>
                 </c:forEach>
 
             </c:if>
@@ -62,7 +67,10 @@
             <p>You haven't saved any schools yet.</p>
 
             <p>Find the right school for your child and track its stats from test scores to
-              teacher quality. [link to state home]Save schools to your school list now >[/link]</p> 
+              teacher quality.
+                <link:research state="${requestScope.context.state}"
+                >Save schools to your school list now &amp;raquo;</link:research>
+            </p> 
         </c:otherwise>
     </c:choose>
 
