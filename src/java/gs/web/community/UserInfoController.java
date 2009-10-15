@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.content.cms.CmsDiscussionBoard;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -47,6 +48,7 @@ public class UserInfoController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
+    private IUserContentDao _userContentDao;
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
 
@@ -104,6 +106,22 @@ public class UserInfoController extends AbstractController {
             model.put(MODEL_OMNITURE_HIERARCHY, "Community,Members,User Profile," + username);
             model.put(MODEL_AD_SLOT_PREFIX, "MemberProfile");
         }
+
+        List<UserContent> recentContent = _userContentDao.findAllContentByAuthor(pageUser, 5);
+        for (UserContent content: recentContent) {
+            Discussion discussion = null;
+            if (content.getType().equals("Discussion")) {
+                discussion = (Discussion)content;
+            } else if (content.getType().equals("DiscussionReply")) {
+                discussion = ((DiscussionReply)content).getDiscussion();
+            }
+
+            if (discussion != null) {
+                CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+                discussion.setDiscussionBoard(board);
+            }
+        }
+        model.put(MODEL_RECENT_POSTS, recentContent);
 
         model.put(MODEL_PAGE_USER, pageUser);
         model.put(MODEL_VIEWING_OWN_PROFILE, viewingOwnProfile);
@@ -178,5 +196,13 @@ public class UserInfoController extends AbstractController {
 
     public void setPageType(String pageType) {
         _pageType = pageType;
+    }
+
+    public IUserContentDao getUserContentDao() {
+        return _userContentDao;
+    }
+
+    public void setUserContentDao(IUserContentDao userContentDao) {
+        _userContentDao = userContentDao;
     }
 }
