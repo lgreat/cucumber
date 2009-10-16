@@ -63,19 +63,17 @@
 
     <span class="${textSpanClass}">${teaserBody}</span>
 
-    <c:if test="${teaserBodyAbbreviated}">
-        <c:choose>
-            <c:when test="${discussionReplyId ne null}">
-                <link:discussion discussionId="${discussionId}"
-                                 fullUri="${discussionFullUri}"
-                                 discussionReplyId="${discussionReplyId}"
-                                 styleClass="${linkClass}">More &amp;raquo;</link:discussion>
-            </c:when>
-            <c:when test="${discussionId ne null}">
-                <link:discussion discussionId="${discussionId}"
-                                 fullUri="${discussionFullUri}"
-                                 styleClass="${linkClass}">More &amp;raquo;</link:discussion>
-            </c:when>
-        </c:choose>
-    </c:if>
+    <c:choose>
+        <c:when test="${discussionReplyId ne null}">
+            <link:discussion discussionId="${discussionId}"
+                             fullUri="${discussionFullUri}"
+                             discussionReplyId="${discussionReplyId}"
+                             styleClass="${linkClass}">More &amp;raquo;</link:discussion>
+        </c:when>
+        <c:when test="${discussionId ne null}">
+            <link:discussion discussionId="${discussionId}"
+                             fullUri="${discussionFullUri}"
+                             styleClass="${linkClass}">More &amp;raquo;</link:discussion>
+        </c:when>
+    </c:choose>
 </jsp:root>

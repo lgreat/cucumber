@@ -2,6 +2,7 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +18,8 @@ import gs.data.content.cms.CmsDiscussionBoard;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
+import gs.web.util.RedirectView301;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -28,6 +31,8 @@ public class UserInfoController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
+    public static final String URI_USER_ACCOUNT = "/account/";
+    public static final String URI_PREFIX_USER_PROFILE = "/members/";
 
     public static final String MODEL_PAGE_TYPE = "pageType";
     public static final String MODEL_PAGE_USER = "pageUser";
@@ -38,9 +43,13 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_OMNITURE_HIERARCHY = "omnitureHierarchy";
     public static final String MODEL_AD_SLOT_PREFIX = "adSlotPrefix";
     public static final String MODEL_PAGE_HEADING = "pageHeading";
+    public static final String MODEL_URI = "uri";
+    public static final String MODEL_VIEW_ALL_ACTIVITY = "viewAllActivity";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
+
+    public static final String PARAM_VIEW_ALL_ACTIVITY = "viewAllActivity";
 
     private String _viewName;
     private boolean _defaultToCurrentUser;
@@ -93,7 +102,20 @@ public class UserInfoController extends AbstractController {
             } else if (pageUser.getId() == viewer.getId()) {
                 viewingOwnProfile = true;
             }
+        } else if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
+            // if viewing My Account and user is not logged in, redirect to login page
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, URI_USER_ACCOUNT);
+            return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request)));
         }
+
+        String viewAllActivity = request.getParameter(PARAM_VIEW_ALL_ACTIVITY);
+        if (StringUtils.isNotBlank(viewAllActivity) && "true".equals(viewAllActivity)) {
+            model.put(MODEL_VIEW_ALL_ACTIVITY, true);
+        } else {
+            model.put(MODEL_VIEW_ALL_ACTIVITY, false);
+        }
+
+        model.put(MODEL_URI, request.getRequestURI());
 
         if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
             model.put(MODEL_PAGE_HEADING, "My account");

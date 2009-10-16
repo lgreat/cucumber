@@ -79,6 +79,7 @@
 </p>
 
 <div class="module">
+    <c:if test="${!requestScope.viewAllActivity}">
     <div class="userInfo">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
@@ -123,9 +124,39 @@
     </c:if>
 
     <hr/>
+    </c:if>
 
     <!-- Recent Activity -->
-    <div>${requestScope.pageUser.userProfile.screenName}'s recent activity</div><a href="#">View all activity</a>
+    <c:set var="recentActivityTitle">
+    <c:choose>
+        <c:when test="${requestScope.pageType eq 'userAccount'}">
+            My recent activity
+        </c:when>
+        <c:otherwise>
+            ${requestScope.pageUser.userProfile.screenName}'s recent activity
+        </c:otherwise>
+    </c:choose>
+    </c:set>
+    <div>${recentActivityTitle}</div>
+
+    <c:choose>
+        <c:when test="${requestScope.viewAllActivity}">
+            <a href="${requestScope.uri}">Return to
+                <c:choose>
+                    <c:when test="${requestScope.pageType eq 'userAccount'}">
+                        account
+                    </c:when>
+                    <c:otherwise>
+                        profile
+                    </c:otherwise>
+                </c:choose>
+            </a>
+        </c:when>
+        <c:otherwise>
+            <a href="${requestScope.uri}?viewAllActivity=true">View all activity</a>
+        </c:otherwise>
+    </c:choose>
+
     <c:forEach var="content" items="${requestScope.recentPosts}">
         <c:choose>
             <c:when test="${content.type == 'Discussion'}">
@@ -167,9 +198,10 @@
     </c:forEach>
     <!-- End Recent Activity -->
 
-    <c:if test="${requestScope.pageType eq 'userAccount'}">
+    <c:if test="${!requestScope.viewAllActivity and requestScope.pageType eq 'userAccount'}">
         <jsp:include page="/mySchoolList.module"/>
     </c:if>
+
 </div>
 <!-- end module -->
 </div>

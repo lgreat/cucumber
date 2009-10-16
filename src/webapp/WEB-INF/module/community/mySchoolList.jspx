@@ -55,8 +55,6 @@
 
                     <p>Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
 
-                    <!-- TODO-8811: need count of reviews for each school? -->
-
                     <p><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
                         Read all reviews</link:schoolProfileParentReview></p>
                 </c:forEach>
