@@ -145,7 +145,7 @@
 .body3bg .db_select_label{
     padding:0 10px 0 0;
 }
-.morein li{
+.morein li, .mostpop li{
     list-style:none outside;
     padding:0 20px 0 0;
 }
@@ -206,6 +206,12 @@
     width:387px;
     border:1px solid #c6c6c6;
     padding:12px;
+}
+
+.db_post_reply{
+    width:454px; height:233px;
+    background:#fc6;
+    padding:12px 15px;
 }
 
 .db_footer{

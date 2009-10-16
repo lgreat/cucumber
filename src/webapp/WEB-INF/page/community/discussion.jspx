@@ -197,6 +197,7 @@
                             </link:userProfile>
                         </div>
 
+                        <div class="db_post_reply fltrt rnd8">
                         <form action="/community/discussionSubmission.page" method="POST">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
@@ -211,6 +212,7 @@
                                                            tabIndex="18">Community Guidelines</gsml:popupWindow>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </c:if>
             </c:set>
