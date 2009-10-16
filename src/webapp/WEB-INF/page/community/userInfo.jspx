@@ -198,8 +198,11 @@
     </c:forEach>
 
     <c:if test="${requestScope.viewAllActivity and requestScope.totalPages > 1}">
-        <div class="recentActivityPagination">
-            Page
+        <div class="viewAllActivityPagination">
+            <c:if test="${requestScope.page gt 1}">
+                <c:set var="previousPageNum" value="${requestScope.page - 1}"/>
+                <a href="${uri}?viewAllActivity=true&amp;page=${previousPageNum}">Previous</a>
+            </c:if>
             <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
                 <c:choose>
                     <c:when test="${pageNum == requestScope.page}">
@@ -210,6 +213,10 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+            <c:if test="${requestScope.page lt requestScope.totalPages}">
+                <c:set var="nextPageNum" value="${requestScope.page + 1}"/>
+                <a href="${uri}?viewAllActivity=true&amp;page=${nextPageNum}">Next</a>
+            </c:if>
         </div>
     </c:if>
     <!-- End Recent Activity -->
