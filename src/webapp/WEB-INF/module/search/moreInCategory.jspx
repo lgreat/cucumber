@@ -65,14 +65,14 @@
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
                                     <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}">
-                                        <span class="text3_230 bolder">More </span>
+                                        <span class="text3_230">More </span>
                                         <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:when>
                                 <c:otherwise>
                                     <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
                                                             gradeIDs="${gradeIds}" language="${param.language}">
-                                        <span class="text3_230 bolder">More </span>
+                                        <span class="text3_230">More </span>
                                         <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:otherwise>

@@ -71,7 +71,7 @@
     <div class="module">
         <div class="header">
             <span class="title1white fltlft">${discussionBoard.title}</span>
-            <div id="btn3" class="fltrt">
+            <div class="fltrt">
                 <c:set var="startDiscussButton">
                     <a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img
                             class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25"
@@ -274,7 +274,7 @@
 
 
         <div class="db_footer">
-            <div id="btn4" class="fltlft">
+            <div class="fltlft">
                 ${startDiscussButton}
             </div>
             <br class="clearfloat"/>

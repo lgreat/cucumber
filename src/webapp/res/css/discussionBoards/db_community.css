@@ -272,16 +272,11 @@
 /* Thin buttons */
 /* ------------ */
 
-#btn1 a, #btn2 a, #btn3 a, #btn4 a{ /* Required to override default link styles */
-    text-decoration: none;
-    color: white;
-}
-/*a.btn25ni:hover {text-d}*/
 /* btn = button */
 /* 25 = 25 px height of the button */
 /* ni = no icon */
 
-.btn25ni {
+#contentGS .btn25ni {
     display: block;
     background: none;
     margin: 0;
@@ -329,7 +324,7 @@
 /* 35 = 35 px height of the button */
 /* ni = no icon */
 
-.btn35ni {
+#contentGS .btn35ni {
     display: block;
     background: none;
     margin: 0;
@@ -397,7 +392,7 @@
 /* 25 = 25 px height of the button */
 /* wi = with icon */
 
-.btn25wi {
+#contentGS .btn25wi {
     display: block;
     background: none;
     margin: 0;
@@ -447,7 +442,7 @@
 /* 35 = 35 px height of the button */
 /* wi = with icon */
 
-.btn35wi {
+#contentGS .btn35wi {
     display: block;
     background: none;
     margin: 0;
