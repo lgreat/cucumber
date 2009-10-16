@@ -31,7 +31,7 @@
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
-        //<c:if test = "${requestScope.validUser != null}" >
+            //<c:if test = "${requestScope.validUser != null}" >
             $('#upperReplyTrigger').click(function() {
                 $('.replyForm:first').show("slow");
                 return false;
@@ -61,17 +61,17 @@
                 replyForm.find('textarea').html(body.html());
                 replyForm.find('input[name=submit]').val('Edit this reply');
                 var replyIdElem = document.createElement('input');
-                $(replyIdElem).attr('name','discussionReplyId');
-                $(replyIdElem).attr('type','hidden');
-                $(replyIdElem).attr('value',replyId);
+                $(replyIdElem).attr('name', 'discussionReplyId');
+                $(replyIdElem).attr('type', 'hidden');
+                $(replyIdElem).attr('value', replyId);
                 replyForm.append(replyIdElem);
                 container.append(replyForm);
-                wrapper.css('margin-left','0');
+                wrapper.css('margin-left', '0');
                 reply.hide();
                 replyForm.show();
 
             });
-        //</c:if>
+            //</c:if>
         });
         function createEditDiscussionForm(existingBody, discussionId) {
             var form = $(document.createElement('form'));
@@ -84,10 +84,10 @@
             submitButton.attr('type', 'submit').attr('name', 'submit').val('Edit this discussion');
             form.append(submitButton);
             var discussionIdElem = $(document.createElement('input'));
-            discussionIdElem.attr('name','discussionId').attr('type','hidden').attr('value',discussionId);
-            form.append(discussionIdElem);            
+            discussionIdElem.attr('name', 'discussionId').attr('type', 'hidden').attr('value', discussionId);
+            form.append(discussionIdElem);
             var submitType = $(document.createElement('input'));
-            submitType.attr('name','type').attr('type','hidden').attr('value','editDiscussion');
+            submitType.attr('name', 'type').attr('type', 'hidden').attr('value', 'editDiscussion');
             form.append(submitType);
             return form;
         }
@@ -110,100 +110,107 @@
 </p>
 
 <div class="module">
-    <div class="header">
-        <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
-        <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
-            <br class="clearfloat"/>
+<div class="header">
+    <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
+
+    <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img
+            class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles"/>Start a discussion</span></span></a>
     </div>
-    <!-- end header -->
+    <br class="clearfloat"/>
+</div>
+<!-- end header -->
 
-    <div class="db_body">
-        <div class="db_discussion">
-            <div class="db_title gainlayout">
-                <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
-                        class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
+<div class="db_body">
+    <div class="db_discussion">
+        <div class="db_title gainlayout">
+            <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
+                    class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
 
-                <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
-                <br class="clearfloat"/>
+            <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
+            <br class="clearfloat"/>
+        </div>
+
+        <div class="db_discuss_topic gainlayout">
+            <div class="fltlft">
+                <link:userProfile user="${discussion.user}">
+                    <img class="fltlft"
+                         src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;width=48&amp;height=48"
+                         alt="Avatar" width="48" height="48"
+                         style="border: 1px solid #c6c6c6;"/>
+                </link:userProfile>
             </div>
+            <!-- end discussion avatar -->
 
-            <div class="db_discuss_topic gainlayout">
-                <div class="fltlft">
+            <div class="db_discuss_full fltrt rnd8">
+                <p class="fltlft">
                     <link:userProfile user="${discussion.user}">
-                        <img class="fltlft"
-                             src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;width=48&amp;height=48"
-                             alt="Avatar" width="48" height="48"
-                             style="border: 1px solid #c6c6c6;"/>
+                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
                     </link:userProfile>
-                </div>
-                <!-- end discussion avatar -->
 
-                <div class="db_discuss_full fltrt rnd8">
-                    <p class="fltlft">
-                        <link:userProfile user="${discussion.user}">
-                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                        </link:userProfile>
+                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                    <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
+                                               contentPostedDate="${discussion.dateCreated}">
+                        | <a href="#" class="editLink">Edit</a>
+                    </gsml:ifUserCanEditContent>
+                </p>
 
-                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                        <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}" contentPostedDate="${discussion.dateCreated}">
-                            | <a href="#" class="editLink">Edit</a>
-                        </gsml:ifUserCanEditContent>
-                    </p>
-
-                    <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                    <br class="clearfloat"/>
-                    <span class="text3 discussionBody">${discussion.body}</span>
-                </div>
-                <!-- end db_discuss_full -->
+                <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
                 <br class="clearfloat"/>
+                <span class="text3 discussionBody">${discussion.body}</span>
             </div>
-            <!-- end db_discuss_topic -->
+            <!-- end db_discuss_full -->
+            <br class="clearfloat"/>
+        </div>
+        <!-- end db_discuss_topic -->
 
-            <div>
-                <c:set var="postReplyButton">
-                <a id="upperReplyTrigger" class="btn25ni" href="${requestScope.loginRedirectUrl}" onclick="this.blur();">
+        <div>
+            <c:set var="postReplyButton">
+                <a id="upperReplyTrigger" class="btn25ni" href="${requestScope.loginRedirectUrl}"
+                   onclick="this.blur();">
                     <span class="rnd4">
                         <span class="rnd4">Post a Reply</span>
                     </span>
                 </a>
-                </c:set>
-                ${postReplyButton}
-            </div>
-            <br class="clearfloat"/>
-
-            <!-- share this -->
-            <c:set var="shareThis">
-                <div class="shareThis smallText1 gainlayout">
-                    <span class="fltlft"><cms:communityDistribution feature="${feature}"/></span>
-                    <span class="fltrt"><a href="#">RSS</a></span>
-                    <br class="clearfloat"/>
-                </div>
             </c:set>
-            ${shareThis}
-            <!-- end share this -->
+            ${postReplyButton}
+        </div>
+        <br class="clearfloat"/>
 
-            <c:set var="replyForm">
-                <c:if test="${requestScope.validUser != null}">
-                    <div class="replyForm" style="display:none;">
-                        <c:if test="${requestScope.userReplyMessage != null}">
-                            <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
-                        </c:if>
+        <!-- share this -->
+        <c:set var="shareThis">
+            <div class="shareThis smallText1 gainlayout">
+                <span class="fltlft"><cms:communityDistribution feature="${feature}"/></span>
+                <span class="fltrt"><a href="#">RSS</a></span>
+                <br class="clearfloat"/>
+            </div>
+        </c:set>
+        ${shareThis}
+        <!-- end share this -->
 
-                        <div class="fltlft">
-                            <link:userProfile user="${requestScope.validUser}">
-                                <img src="http://${communityHost}/avatar?id=${requestScope.validUser.id}&amp;width=48&amp;height=48"
-                                     alt="Avatar" width="48" height="48"
-                                     style="border: 1px solid #c6c6c6;"/>
-                            </link:userProfile>
-                        </div>
+        <c:set var="replyForm">
+            <c:if test="${requestScope.validUser != null}">
+                <div class="replyForm" style="display:none;">
+                    <c:if test="${requestScope.userReplyMessage != null}">
+                        <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+                    </c:if>
 
-                        <div class="db_post_reply fltrt rnd8">
-                            <span class="text1bold">Post a reply to: </span>
-                            <span class="text1">${discussion.title} </span>
+                    <div class="fltlft">
+                        <link:userProfile user="${requestScope.validUser}">
+                            <img src="http://${communityHost}/avatar?id=${requestScope.validUser.id}&amp;width=48&amp;height=48"
+                                 alt="Avatar" width="48" height="48"
+                                 style="border: 1px solid #c6c6c6;"/>
+                        </link:userProfile>
+                    </div>
+
+                    <div class="db_post_reply fltrt rnd8">
+                        <span class="text1bold">Post a reply to: </span>
+                        <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
                             <span class="text3bold">by
-                                <link:userProfile user="${discussion.user}">${requestScope.validUser.userProfile.screenName}
+                                <link:userProfile
+                                        user="${discussion.user}">${requestScope.validUser.userProfile.screenName}
                                 </link:userProfile>
                             </span>
+
                         <form action="/community/discussionSubmission.page" method="POST">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
@@ -222,129 +229,130 @@
                                                            tabIndex="18">Community Guidelines</gsml:popupWindow>
                             </div>
                         </form>
-                        </div>
-                    </div>
-                </c:if>
-            </c:set>
-
-            ${replyForm}
-
-            <c:if test="${fn:length(requestScope.replies) > 0}">
-                <div class="mostRecent gainlayout sdrt sdrb">
-                    <p class="fltlft">Most Recent Replies</p>
-
-                    <p class="fltrt">
-                        Sort by:
-                        <c:choose>
-                            <c:when test="${requestScope.sort == 'newest_first'}">
-                                Newest first
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
-                            </c:otherwise>
-                        </c:choose>
-                        |
-                        <c:choose>
-                            <c:when test="${requestScope.sort == 'oldest_first'}">
-                                Oldest first
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </p>
-                    <br class="clearfloat"/>
-                </div>
-                <!-- end most recent -->
-            </c:if>
-        </div>
-        <!-- end db_discussion -->
-
-        <div class="db_replies">
-            <c:choose>
-                <c:when test="${fn:length(requestScope.replies) > 0}">
-
-                    <c:forEach var="reply" items="${requestScope.replies}">
-
-                        <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-                        <div class="db_reply_topic">
-                            <div class="fltlft">
-                                <link:userProfile user="${reply.user}">
-                                    <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=48&amp;height=48"
-                                         alt="Avatar" width="48" height="48"
-                                         style="border: 1px solid #c6c6c6;"/>
-                                </link:userProfile>
-                            </div>
-                            <!-- end reply avatar -->
-
-                            <div class="db_reply_container">
-
-                                <div class="db_reply_full fltrt rnd8">
-                                    <p class="fltlft">
-                                        <link:userProfile user="${reply.user}">
-                                            <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                        </link:userProfile>
-
-                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                        <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
-                                                                   contentPostedDate="${reply.dateCreated}">
-                                            | <a href="#" class="editLink" onclick="return false;">Edit</a>
-                                        </gsml:ifUserCanEditContent>
-                                    </p>
-
-                                    <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                                    <br class="clearfloat"/>
-
-                                    <span class="text3 replyBody">${reply.body}</span>
-                                    <span class="hidden replyId">${reply.id}</span>
-                                </div>
-                                <!-- end db_reply_full -->
-
-                            </div>
-                            <!-- end db_reply_container -->
-                        </div>
-                        <!-- end db_reply_topic -->
                         <br class="clearfloat"/>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no replies to display!</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <!-- end db_replies -->
-        <br class="clearfloat"/>
-    </div>
-    <!-- end db_body -->
-
-    <div class="db_footer">
-        <c:if test="${requestScope.totalPages > 1}">
-            <div class="cmsDiscussionPagination">
-                Page
-                <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
-                    <c:choose>
-                        <c:when test="${pageNum == requestScope.page}">
-                            <span class="active">${pageNum}</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${uri}&amp;page=${pageNum}&amp;amp;pageSize=${pageSize}">${pageNum}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </div>
-        </c:if>
-
+                    </div>
+                </div>
+            </c:if>
+        </c:set>
 
         ${replyForm}
-        <div>
-        ${postReplyButton}
-        </div>
-        <br class="clearfloat"/>
-        <!-- share this -->
-        ${shareThis}
-        <!-- end share this -->
+
+        <c:if test="${fn:length(requestScope.replies) > 0}">
+            <div class="mostRecent gainlayout sdrt sdrb">
+                <p class="fltlft">Most Recent Replies</p>
+
+                <p class="fltrt">
+                    Sort by:
+                    <c:choose>
+                        <c:when test="${requestScope.sort == 'newest_first'}">
+                            Newest first
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                        </c:otherwise>
+                    </c:choose>
+                    |
+                    <c:choose>
+                        <c:when test="${requestScope.sort == 'oldest_first'}">
+                            Oldest first
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                        </c:otherwise>
+                    </c:choose>
+                </p>
+                <br class="clearfloat"/>
+            </div>
+            <!-- end most recent -->
+        </c:if>
     </div>
-    <!-- end db_footer -->
+    <!-- end db_discussion -->
+
+    <div class="db_replies">
+        <c:choose>
+            <c:when test="${fn:length(requestScope.replies) > 0}">
+
+                <c:forEach var="reply" items="${requestScope.replies}">
+
+                    <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
+                    <div class="db_reply_topic">
+                        <div class="fltlft">
+                            <link:userProfile user="${reply.user}">
+                                <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;width=48&amp;height=48"
+                                     alt="Avatar" width="48" height="48"
+                                     style="border: 1px solid #c6c6c6;"/>
+                            </link:userProfile>
+                        </div>
+                        <!-- end reply avatar -->
+
+                        <div class="db_reply_container">
+
+                            <div class="db_reply_full fltrt rnd8">
+                                <p class="fltlft">
+                                    <link:userProfile user="${reply.user}">
+                                        <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                    </link:userProfile>
+
+                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                                    <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
+                                                               contentPostedDate="${reply.dateCreated}">
+                                        | <a href="#" class="editLink" onclick="return false;">Edit</a>
+                                    </gsml:ifUserCanEditContent>
+                                </p>
+
+                                <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
+                                <br class="clearfloat"/>
+
+                                <span class="text3 replyBody">${reply.body}</span>
+                                <span class="hidden replyId">${reply.id}</span>
+                            </div>
+                            <!-- end db_reply_full -->
+
+                        </div>
+                        <!-- end db_reply_container -->
+                    </div>
+                    <!-- end db_reply_topic -->
+                    <br class="clearfloat"/>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p>There are no replies to display!</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <!-- end db_replies -->
+    <br class="clearfloat"/>
+</div>
+<!-- end db_body -->
+
+<div class="db_footer">
+    <c:if test="${requestScope.totalPages > 1}">
+        <div class="cmsDiscussionPagination">
+            Page
+            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
+                <c:choose>
+                    <c:when test="${pageNum == requestScope.page}">
+                        <span class="active">${pageNum}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${uri}&amp;page=${pageNum}&amp;amp;pageSize=${pageSize}">${pageNum}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </div>
+    </c:if>
+
+
+    ${replyForm}
+    <div>
+        ${postReplyButton}
+    </div>
+    <br class="clearfloat"/>
+    <!-- share this -->
+    ${shareThis}
+    <!-- end share this -->
+</div>
+<!-- end db_footer -->
 </div>
 <!-- end module -->
 </div>
