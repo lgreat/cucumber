@@ -198,12 +198,23 @@
                         </div>
 
                         <div class="db_post_reply fltrt rnd8">
+                            <span class="text1bold">Post a reply to: </span>
+                            <span class="text1">${discussion.title} </span>
+                            <span class="text3bold">by </span>
+                            <link:userProfile user="${discussion.user}">
+                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                            </link:userProfile>
                         <form action="/community/discussionSubmission.page" method="POST">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
                             <textarea rows="5" cols="30" class="replybox"
                                       name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-                            <input type="submit" name="submit" value="Post your Reply"/>
+                            <button class="btn25ni" type="submit">
+                                <span class="rnd4"><span class="rnd4">Preview</span></span>
+                            </button>
+                            <button class="btn25ni" type="submit">
+                                <span class="rnd4"><span class="rnd4">Post your reply</span></span>
+                            </button>
 
                             <div class="communityGuidelines">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
