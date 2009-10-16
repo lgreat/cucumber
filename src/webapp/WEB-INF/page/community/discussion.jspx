@@ -207,7 +207,7 @@
                         <form action="/community/discussionSubmission.page" method="POST">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-                            <textarea rows="10" cols="50" class="replybox"
+                            <textarea rows="13" cols="55" class="replybox"
                                       name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             <button class="btn25ni fltlft" type="submit">
                                 <span class="rnd4"><span class="rnd4">Preview</span></span>
@@ -215,8 +215,7 @@
                             <button class="btn25ni fltlft" type="submit">
                                 <span class="rnd4"><span class="rnd4">Post your reply</span></span>
                             </button>
-                            <br class="clearfloat"/>
-                            <div class="smallText2">
+                            <div class="smallText2 fltlft">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                            title="GreatSchools Community Standards"
                                                            href="/cgi-bin/static/terms.html/$STATE#communityStandards"
