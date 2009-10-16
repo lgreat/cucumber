@@ -51,7 +51,6 @@ public class UserInfoController extends AbstractController {
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
 
     public static final int RECENT_ACTIVITY_PAGE_SIZE = 5;
-    // TODO-8811, TODO-8810 - set correct page size
     public static final int VIEW_ALL_ACTIVITY_PAGE_SIZE = 10;
 
     public static final String PARAM_VIEW_ALL_ACTIVITY = "viewAllActivity";
