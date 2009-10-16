@@ -158,6 +158,7 @@
     </c:choose>
 
     <c:forEach var="content" items="${requestScope.recentPosts}">
+        <c:set var="supportedContentType" value="${true}"/>
         <c:choose>
             <c:when test="${content.type == 'Discussion'}">
                 <c:set var="discussion" value="${content}"/>
@@ -172,29 +173,29 @@
                 <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
             </c:when>
             <c:otherwise>
-                <!-- TODO: This won't fail gracefully for new content types. -->
-                <c:set var="discussion" value=""/>
-                <c:set var="replyId" value=""/>
-                <c:set var="introLabel" value="Submitted"/>
+                <c:set var="supportedContentType" value="${false}"/>
             </c:otherwise>
         </c:choose>
-        <div>
-            ${introLabel}: "<link:discussion discussionId="${discussion.id}"
-                                 fullUri="${discussionFullUri}"
-                                 discussionReplyId="${replyId}"
-                                 styleClass="text3">${discussion.title}</link:discussion>"
-            <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}" />
-        </div>
-        <div>
-            <community:userContentTeaserText
-                                            textToDisplay="${content.body}"
-                                            minLength="143" maxLength="163"
-                                            discussionId="${discussion.id}"
-                                            discussionReplyId="${replyId}"
-                                            discussionFullUri="${discussionFullUri}"
-                                            textSpanClass="text3"
-                                            linkClass="text3"/>
-        </div>
+
+        <c:if test="${supportedContentType}">
+            <div>
+                ${introLabel}: "<link:discussion discussionId="${discussion.id}"
+                                                 fullUri="${discussionFullUri}"
+                                                 discussionReplyId="${replyId}"
+                                                 styleClass="text3">${discussion.title}</link:discussion>"
+                <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
+            </div>
+            <div>
+                <community:userContentTeaserText
+                        textToDisplay="${content.body}"
+                        minLength="143" maxLength="163"
+                        discussionId="${discussion.id}"
+                        discussionReplyId="${replyId}"
+                        discussionFullUri="${discussionFullUri}"
+                        textSpanClass="text3"
+                        linkClass="text3"/>
+            </div>
+        </c:if>
     </c:forEach>
 
     <c:if test="${requestScope.viewAllActivity and requestScope.totalPages > 1}">
