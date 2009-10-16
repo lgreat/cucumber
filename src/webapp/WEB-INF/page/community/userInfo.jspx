@@ -196,6 +196,22 @@
                                             linkClass="text3"/>
         </div>
     </c:forEach>
+
+    <c:if test="${requestScope.viewAllActivity and requestScope.totalPages > 1}">
+        <div class="recentActivityPagination">
+            Page
+            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
+                <c:choose>
+                    <c:when test="${pageNum == requestScope.page}">
+                        <span class="active">${pageNum}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${uri}?viewAllActivity=true&amp;page=${pageNum}">${pageNum}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </div>
+    </c:if>
     <!-- End Recent Activity -->
 
     <c:if test="${!requestScope.viewAllActivity and requestScope.pageType eq 'userAccount'}">

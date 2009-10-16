@@ -19,10 +19,8 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
-import gs.web.util.RedirectView301;
 
 import java.util.*;
-import java.text.SimpleDateFormat;
 
 /**
  * @author Dave Roy <mailto:droy@greatschools.net>
@@ -45,11 +43,19 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_PAGE_HEADING = "pageHeading";
     public static final String MODEL_URI = "uri";
     public static final String MODEL_VIEW_ALL_ACTIVITY = "viewAllActivity";
+    public static final String MODEL_TOTAL_USER_CONTENT = "totalUserContent";
+    public static final String MODEL_PAGE = "page";
+    public static final String MODEL_TOTAL_PAGES = "totalPages";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
 
+    public static final int RECENT_ACTIVITY_PAGE_SIZE = 5;
+    // TODO-8811, TODO-8810 - set correct page size
+    public static final int VIEW_ALL_ACTIVITY_PAGE_SIZE = 10;
+
     public static final String PARAM_VIEW_ALL_ACTIVITY = "viewAllActivity";
+    public static final String PARAM_PAGE = "page";
 
     private String _viewName;
     private boolean _defaultToCurrentUser;
@@ -108,28 +114,24 @@ public class UserInfoController extends AbstractController {
             return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request)));
         }
 
+        List<UserContent> recentContent;
+
         String viewAllActivity = request.getParameter(PARAM_VIEW_ALL_ACTIVITY);
         if (StringUtils.isNotBlank(viewAllActivity) && "true".equals(viewAllActivity)) {
+            int pageSize = VIEW_ALL_ACTIVITY_PAGE_SIZE;
             model.put(MODEL_VIEW_ALL_ACTIVITY, true);
+            int totalUserContent = getTotalUserContent(pageUser);
+            model.put(MODEL_TOTAL_USER_CONTENT, totalUserContent);
+            model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalUserContent));
+            int page = getPageNumber(request); 
+            model.put(MODEL_PAGE, page);
+            recentContent = getUserContentForPage(pageUser.getId(), page, pageSize);
+
         } else {
             model.put(MODEL_VIEW_ALL_ACTIVITY, false);
+            recentContent = _userContentDao.findAllContentByAuthor(pageUser, RECENT_ACTIVITY_PAGE_SIZE);
         }
 
-        model.put(MODEL_URI, request.getRequestURI());
-
-        if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
-            model.put(MODEL_PAGE_HEADING, "My account");
-            model.put(MODEL_OMNITURE_PAGENAME, "My Account");
-            model.put(MODEL_OMNITURE_HIERARCHY, "Account,My Account");
-            model.put(MODEL_AD_SLOT_PREFIX, "MyAccount");
-        } else if (USER_PROFILE_PAGE_TYPE.equals(_pageType)) {
-            model.put(MODEL_PAGE_HEADING, username + "'s profile");
-            model.put(MODEL_OMNITURE_PAGENAME, "Member Profile");
-            model.put(MODEL_OMNITURE_HIERARCHY, "Community,Members,User Profile," + username);
-            model.put(MODEL_AD_SLOT_PREFIX, "MemberProfile");
-        }
-
-        List<UserContent> recentContent = _userContentDao.findAllContentByAuthor(pageUser, 5);
         for (UserContent content: recentContent) {
             Discussion discussion = null;
             if (content.getType().equals("Discussion")) {
@@ -145,12 +147,83 @@ public class UserInfoController extends AbstractController {
         }
         model.put(MODEL_RECENT_POSTS, recentContent);
 
+        model.put(MODEL_URI, request.getRequestURI());
+
+        if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
+            model.put(MODEL_PAGE_HEADING, "My account");
+            model.put(MODEL_OMNITURE_PAGENAME, "My Account");
+            model.put(MODEL_OMNITURE_HIERARCHY, "Account,My Account");
+            model.put(MODEL_AD_SLOT_PREFIX, "MyAccount");
+        } else if (USER_PROFILE_PAGE_TYPE.equals(_pageType)) {
+            model.put(MODEL_PAGE_HEADING, username + "'s profile");
+            model.put(MODEL_OMNITURE_PAGENAME, "Member Profile");
+            model.put(MODEL_OMNITURE_HIERARCHY, "Community,Members,User Profile," + username);
+            model.put(MODEL_AD_SLOT_PREFIX, "MemberProfile");
+        }
+
         model.put(MODEL_PAGE_USER, pageUser);
         model.put(MODEL_VIEWING_OWN_PROFILE, viewingOwnProfile);
 
         model.put(MODEL_PAGE_TYPE, _pageType);
 
         return new ModelAndView(_viewName, model);
+    }
+
+    /**
+     * Extract the page number from the request. Defaults to 1.
+     */
+    protected int getPageNumber(HttpServletRequest request) {
+        int page = 1;
+
+        String pageParam = request.getParameter(PARAM_PAGE);
+        if (pageParam != null) {
+            try {
+                page = Integer.valueOf(pageParam);
+            } catch (NumberFormatException nfe) {
+                // nothing
+            }
+        }
+        return page;
+    }
+
+    /**
+     * Get the list of user content for this particular page.
+     * @param userId id of User authoringt he content
+     * @param page What page are we on?
+     * @param pageSize How many items of user content are there per page?
+     * @return non-null list
+     */
+    protected List<UserContent> getUserContentForPage
+            (int userId, int page, int pageSize) {
+        List<UserContent> content;
+
+        content = _userContentDao.getContentByAuthorForPage(userId, page, pageSize);
+
+        return content;
+    }
+
+    /**
+     * Get the total number of user content items by this user.
+     */
+    protected int getTotalUserContent(User user) {
+        int totalUserContent;
+
+        totalUserContent = _userContentDao.getTotalUserContent(user.getId());
+
+        return totalUserContent;
+    }
+
+    /**
+     * Calculate how many pages are needed to display totalDiscussions given pageSize
+     */
+    protected int getTotalPages(int pageSize, int totalItems) {
+        int totalPages = 1;
+
+        if (pageSize > 0 && totalItems > 0 && totalItems > pageSize) {
+            totalPages = ((totalItems + pageSize - 1) / pageSize);
+        }
+
+        return totalPages;
     }
 
     /*
