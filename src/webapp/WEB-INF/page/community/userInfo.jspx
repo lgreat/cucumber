@@ -80,13 +80,13 @@
 
 <div class="module">
     <c:if test="${!requestScope.viewAllActivity}">
-    <div class="userInfo">
+    <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
         <span class="fltrt"><a href="#">Report this user</a></span>
     </c:if>
     </h2>
-    <div class="userVitals">
+    <div class="userVitals col">
         <ul>
             <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
         </ul>
@@ -95,15 +95,15 @@
         <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
         </p>
     </div>
-    <div class="aboutMe sdrl">
+    <div class="aboutMe col sdrl">
         <h3 class="text1">
             About me
-            <c:if test="${requestScope.viewingOwnProfile}"><span class="fltrt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
+            <c:if test="${requestScope.viewingOwnProfile}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
         </h3>
         <p class="bioText text3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <form action="/" method="POST" style="display:none">
             <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
-            <textarea name="bio" rows="5" cols="60" class="bioInput"><!-- --></textarea>
+            <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>
             <br/>
             <input type="button" name="Save" value="Save" class="aboutMeSave"/>
             <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>
@@ -112,7 +112,8 @@
     </div>
 
     <c:if test="${requestScope.pageType eq 'userAccount'}">
-        <div>
+        <div class="mgAccount">
+            <h4>Manage my account</h4>
             <ul>
                 <li><link:changeEmail>Update my email address</link:changeEmail></li>
                 <li><link:resetPassword>Change my password</link:resetPassword></li>
@@ -123,7 +124,6 @@
         </div>
     </c:if>
 
-    <hr/>
     </c:if>
 
     <!-- Recent Activity -->
@@ -137,7 +137,11 @@
         </c:otherwise>
     </c:choose>
     </c:set>
-    <div>${recentActivityTitle}</div>
+    <c:set var="myAccClass">
+        <c:out value="${requestScope.pageType eq 'userAccount' ? ' col' : ''}" />
+    </c:set>
+    <div class="md activity ${myAccClass}">
+    <h3 class="subhead1">${recentActivityTitle}<span class="fltrt">
 
     <c:choose>
         <c:when test="${requestScope.viewAllActivity}">
@@ -153,11 +157,13 @@
             </a>
         </c:when>
         <c:otherwise>
-            <a href="${requestScope.uri}?viewAllActivity=true">View all activity</a>
+            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span>&#187;</span></a>
         </c:otherwise>
     </c:choose>
 
-    <c:forEach var="content" items="${requestScope.recentPosts}">
+    </span></h3>
+    <ul>
+        <c:forEach var="content" items="${requestScope.recentPosts}">
         <c:set var="supportedContentType" value="${true}"/>
         <c:choose>
             <c:when test="${content.type == 'Discussion'}">
@@ -178,14 +184,14 @@
         </c:choose>
 
         <c:if test="${supportedContentType}">
-            <div>
-                ${introLabel}: "<link:discussion discussionId="${discussion.id}"
+            <li>
+                <h4 class="text3">${introLabel}: "<link:discussion discussionId="${discussion.id}"
                                                  fullUri="${discussionFullUri}"
                                                  discussionReplyId="${replyId}"
                                                  styleClass="text3">${discussion.title}</link:discussion>"
                 <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
-            </div>
-            <div>
+                </h4>
+            <p>
                 <community:userContentTeaserText
                         textToDisplay="${content.body}"
                         minLength="143" maxLength="163"
@@ -194,10 +200,11 @@
                         discussionFullUri="${discussionFullUri}"
                         textSpanClass="text3"
                         linkClass="text3"/>
-            </div>
+            </p>
+            </li>
         </c:if>
     </c:forEach>
-
+    </ul>
     <c:if test="${requestScope.viewAllActivity and requestScope.totalPages > 1}">
         <div class="viewAllActivityPagination">
             <c:if test="${requestScope.page gt 1}">
@@ -221,7 +228,7 @@
         </div>
     </c:if>
     <!-- End Recent Activity -->
-
+    </div>
     <c:if test="${!requestScope.viewAllActivity and requestScope.pageType eq 'userAccount'}">
         <jsp:include page="/mySchoolList.module"/>
     </c:if>

@@ -10,14 +10,16 @@
         >
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
-<div>
-    <h2>My School List <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)})</c:if></h2>
+<div class="md mySchList col">
+    <h3 class="subhead1">My School List <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) <span class="fltrt"><link:mySchoolList>View school list <span>&#187;</span></link:mySchoolList></span></c:if>
+
+    </h3>
 
     <c:choose>
         <c:when test="${fn:length(schools) gt 0}">
-            <link:mySchoolList>View school list</link:mySchoolList>
 
-            <ul>
+
+            <ul class="schList">
                 <c:forEach var="school" items="${schools}">
                     <li><link:schoolProfileOverview school="${school}" title="${school.name}">
                         <c:out value="${school.name}"/>
@@ -25,16 +27,18 @@
                 </c:forEach>
             </ul>
 
-            <hr/>
 
             <c:if test="${not empty recentReviews}">
 
-                <h3>Recent parent reviews of your schools</h3>
-
+                <h4 class="text1">Recent parent reviews of your schools</h4>
+                <ul class="schRevs">
                 <c:forEach var="review" items="${recentReviews}">
+                    <li>
                     <h4><link:schoolProfileParentReview school="${review.school}" rel="nofollow"><c:out
                             value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
 
+                    <p class="smallText2">Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
+                    <p class="text3">
                     <c:if test="${review.stars eq 1}">
                         <gsml:img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
                     </c:if>
@@ -51,14 +55,16 @@
                         <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
                     </c:if>
 
-                    <p>${review.quip}</p>
+                    ${review.quip}
+                        <span class="fltlt"><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
+                        More  <span>&#187;</span></link:schoolProfileParentReview></span>
+                    </p>
 
-                    <p>Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
 
-                    <p><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
-                        Read all reviews</link:schoolProfileParentReview></p>
+                    </li>
+
                 </c:forEach>
-
+                </ul>
             </c:if>
         </c:when>
         <c:otherwise>

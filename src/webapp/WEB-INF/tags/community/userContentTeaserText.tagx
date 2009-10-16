@@ -61,19 +61,19 @@
         }
     </jsp:scriptlet>
 
-    <span class="${textSpanClass}">${teaserBody}</span>
+    <span class="${textSpanClass}">${teaserBody} </span>
 
     <c:choose>
         <c:when test="${discussionReplyId ne null}">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
                              discussionReplyId="${discussionReplyId}"
-                             styleClass="${linkClass}">More &amp;raquo;</link:discussion>
+                             styleClass="${linkClass}">More <span>&amp;#187;</span></link:discussion>
         </c:when>
         <c:when test="${discussionId ne null}">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
-                             styleClass="${linkClass}">More &amp;raquo;</link:discussion>
+                             styleClass="${linkClass}">More <span>&amp;#187;</span></link:discussion>
         </c:when>
     </c:choose>
 </jsp:root>
