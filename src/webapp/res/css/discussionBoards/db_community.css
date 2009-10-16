@@ -236,7 +236,6 @@
     position: relative;
     margin: 0 0 15px;
     padding: 15px;
-    border: 1px solid #999;
 }
 .col {
     float: left;
@@ -334,6 +333,7 @@ h3.text1 span.fltlt {
 .activity.col {
     width: 43%;
     margin-right: 15px;
+    border: 1px solid #999;
 }
 .md h3.subhead1 {
     margin: 0 0 15px;
@@ -362,6 +362,7 @@ h3.subhead1 span.fltrt {
 .mySchList {
     width: 42.8%;
     margin-right: -100%;
+    border: 1px solid #999;
 }
 
 .mySchList .schList {
