@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: DiscussionTagHandler.java,v 1.5 2009/10/15 16:50:40 droy Exp $
+ * $Id: DiscussionTagHandler.java,v 1.6 2009/10/16 00:52:30 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -31,6 +31,7 @@ public class DiscussionTagHandler extends LinkTagHandler {
 
         if (_discussionReplyId != null) {
             builder.setParameter("discussionReplyId", String.valueOf(_discussionReplyId));
+            setAnchor("#reply_" + _discussionReplyId);
         }
 
         return builder;

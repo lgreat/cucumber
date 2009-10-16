@@ -13,6 +13,7 @@ public class DiscussionSubmissionCommand {
     private String _body;
     private String _redirect;
     private Integer _discussionReplyId;
+    private String _type;
 
     public Integer getDiscussionId() {
         return _discussionId;
@@ -60,5 +61,13 @@ public class DiscussionSubmissionCommand {
 
     public void setDiscussionReplyId(Integer discussionReplyId) {
         _discussionReplyId = discussionReplyId;
+    }
+
+    public String getType() {
+        return _type;
+    }
+
+    public void setType(String type) {
+        _type = type;
     }
 }

@@ -120,6 +120,43 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
     }
 
+    public void testHandleDiscussionEdit() {
+        insertUserIntoRequest();
+
+        _command.setBody(VALID_LENGTH_DISCUSSION_POST);
+        _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        _command.setRedirect("redirect");
+        _command.setDiscussionId(1);
+        _command.setType("editDiscussion");
+
+        Discussion discussion = new Discussion();
+        discussion.setBoardId(2L);
+        discussion.setBody("This is my old body");
+        discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        discussion.setAuthorId(_user.getId());
+        discussion.setId(1);
+
+        expect(_discussionDao.findById(1)).andReturn(discussion);
+        Discussion expectedEditedDiscussion = new Discussion();
+        expectedEditedDiscussion.setBoardId(2L);
+        expectedEditedDiscussion.setBody(VALID_LENGTH_DISCUSSION_POST);
+        expectedEditedDiscussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        expectedEditedDiscussion.setAuthorId(_user.getId());
+        expectedEditedDiscussion.setId(1);
+
+        _discussionDao.save(eqDiscussion(expectedEditedDiscussion));
+
+        replayAllMocks();
+        try {
+            _controller.handleEditDiscussionSubmission(getRequest(), getResponse(), _command);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid edit submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+    }
+
     public void testHandleDiscussionSubmission() {
         insertUserIntoRequest();
 
@@ -191,7 +228,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
 
-        assertEquals("/board/community.gs?content=2", _command.getRedirect());
+        assertEquals("/community/discussion.gs?content=1234", _command.getRedirect());
     }
 
     public void testHandleDiscussionSubmissionNoUser() {

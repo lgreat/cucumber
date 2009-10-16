@@ -39,7 +39,19 @@
 
             $('.replyForm:last').show();
 
-            $('.editLink').click(function() {
+            $('.db_discuss_full .editLink').click(function() {
+                var container = $(this).parents('.db_discuss_full');
+                var body = container.children('.discussionBody');
+                var discussionId = ${discussion.id};
+                var discussionForm = createEditDiscussionForm(body.html(), discussionId);
+                container.append(discussionForm);
+                body.hide();
+                discussionForm.show();
+                $(this).hide();
+                return false;
+            });
+
+            $('.db_replies .editLink').click(function() {
                 var wrapper = $(this).parents('.db_reply_topic');
                 var container = $(this).parents('.db_reply_container');
                 var reply = container.children('.db_reply_full');
@@ -61,6 +73,24 @@
             });
         //</c:if>
         });
+        function createEditDiscussionForm(existingBody, discussionId) {
+            var form = $(document.createElement('form'));
+            form.attr('action', '/community/discussionSubmission.page').attr('method', 'post');
+            var editField = $(document.createElement('textarea'));
+            editField.attr('rows', '5').attr('cols', '30').attr('name', 'body');
+            editField.html(existingBody);
+            form.append(editField);
+            var submitButton = $(document.createElement('input'));
+            submitButton.attr('type', 'submit').attr('name', 'submit').val('Edit this discussion');
+            form.append(submitButton);
+            var discussionIdElem = $(document.createElement('input'));
+            discussionIdElem.attr('name','discussionId').attr('type','hidden').attr('value',discussionId);
+            form.append(discussionIdElem);            
+            var submitType = $(document.createElement('input'));
+            submitType.attr('name','type').attr('type','hidden').attr('value','editDiscussion');
+            form.append(submitType);
+            return form;
+        }
     </script>
 </head>
 <body>
@@ -68,11 +98,12 @@
 <div id="mainContent">
 
 <p class="breadCrumbs smallAlertText">
-    You are here:
+    <link:home>Home</link:home>
+    &amp;gt;
     <c:if test="${topicCenter ne null}">
         <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
                          fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-        &gt;
+        &amp;gt;
     </c:if>
     <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                      fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
@@ -80,7 +111,7 @@
 
 <div class="module">
     <div class="header">
-        <span class="title1white fltlft">${requestScope.discussion.title}</span>
+        <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
         <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles" />Start a discussion</span></span></a></div>
             <br class="clearfloat"/>
     </div>
@@ -115,13 +146,13 @@
 
                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                         <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}" contentPostedDate="${discussion.dateCreated}">
-                            | <a href="#" class="editLink" onclick="return false;">Edit</a>
+                            | <a href="#" class="editLink">Edit</a>
                         </gsml:ifUserCanEditContent>
                     </p>
 
                     <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
                     <br class="clearfloat"/>
-                    <span class="text3">${discussion.body}</span>
+                    <span class="text3 discussionBody">${discussion.body}</span>
                 </div>
                 <!-- end db_discuss_full -->
                 <br class="clearfloat"/>
@@ -223,6 +254,7 @@
 
                     <c:forEach var="reply" items="${requestScope.replies}">
 
+                        <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
                         <div class="db_reply_topic">
                             <div class="fltlft">
                                 <link:userProfile user="${reply.user}">
@@ -283,7 +315,7 @@
                             <span class="active">${pageNum}</span>
                         </c:when>
                         <c:otherwise>
-                            <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
+                            <a href="${uri}&amp;page=${pageNum}&amp;amp;pageSize=${pageSize}">${pageNum}</a>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>

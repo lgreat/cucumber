@@ -23,7 +23,6 @@ import gs.data.cms.IPublicationDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -48,7 +47,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
         DiscussionSubmissionCommand command = (DiscussionSubmissionCommand) commandObj;
 
-        if (command.getDiscussionId() != null) {
+        if (StringUtils.equals("editDiscussion", command.getType())) {
+            handleEditDiscussionSubmission(request, response, command);
+        } else if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
         } else if (command.getTopicCenterId() != null) {
             handleDiscussionSubmission(request, response, command);
@@ -119,10 +120,63 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
 
             if (StringUtils.isEmpty(command.getRedirect())) {
-                // default to forwarding to the discussion board page
-                UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
+                // default to forwarding to the discussion detail page
+                UrlBuilder urlBuilder = new UrlBuilder(discussion);
                 command.setRedirect(urlBuilder.asSiteRelative(request));
             }
+        }
+    }
+
+    protected void handleEditDiscussionSubmission
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            throws IllegalStateException {
+        Discussion discussion = _discussionDao.findById(command.getDiscussionId());
+        if (discussion == null) {
+            _log.warn("Attempt to edit discussion with unknown discussion id! id=" +
+                    command.getDiscussionId());
+            if (StringUtils.isEmpty(command.getRedirect())) {
+                throw new IllegalStateException("Discussion edit with unknown discussion id! id=" +
+                        command.getDiscussionId());
+            } else {
+                return;
+            }
+        }
+
+        UrlBuilder urlBuilder = new UrlBuilder(discussion);
+        if (StringUtils.isEmpty(command.getRedirect())) {
+            // default to forwarding to the discussion detail page
+            command.setRedirect(urlBuilder.asSiteRelative(request));
+        }
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        // error checking
+        if (sessionContext == null) {
+            _log.warn("Attempt to submit with no SessionContext rejected");
+            return;
+        }
+        if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
+            _log.warn("Attempt to edit with no valid user rejected");
+            return;
+        }
+        User user = sessionContext.getUser();
+
+        // validation
+        if (StringUtils.length(command.getBody()) < DISCUSSION_BODY_MINIMUM_LENGTH) {
+            _log.warn("Attempt to edit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
+        } else if (!Util.dateWithinXMinutes(discussion.getDateCreated(), 150)) {
+            _log.warn("Attempt to edit after too much time has passed. discussion_id=" +
+                    discussion.getId() + ";created_date=" + discussion.getDateCreated());
+        } else if (!discussion.getAuthorId().equals(user.getId())) {
+            _log.warn("Attempt to edit but user != author! discussion author_id=" +
+                    discussion.getAuthorId() + "; user_id=" + user.getId());
+        } else {
+            // TODO: profanity filter
+            // TODO: more validation?
+            // TODO: sanitize string (strip HTML? JS? SQL?)?
+
+            discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
+
+            _discussionDao.save(discussion);
         }
     }
 
