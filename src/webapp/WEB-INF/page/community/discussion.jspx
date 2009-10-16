@@ -199,7 +199,7 @@
 
                         <div class="db_post_reply fltrt rnd8">
                             <span class="text1bold">Post a reply to: </span>
-                            <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
+                            <span class="text1">"${discussion.title}" </span>
                             <span class="text3bold">by </span>
                                 <link:userProfile user="${requestScope.validUser.user}">
                                 <span class="smallAlertTextBoldNeutral">${requestScope.validUser.userProfile.screenName}</span>
