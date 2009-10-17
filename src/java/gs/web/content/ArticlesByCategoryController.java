@@ -240,6 +240,15 @@ public class ArticlesByCategoryController extends AbstractController {
                 }
             }
 
+            Set<CmsCategory> uniqueCategories = new HashSet<CmsCategory>();
+            // breadcrumbs don't include the categories themselves!
+            uniqueCategories.addAll(categories);
+            // now add the breadcrumb categories
+            for (CmsCategory category : categories) {
+                uniqueCategories.addAll(getCmsCategoryBreadcrumbs(category));
+            }
+            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(uniqueCategories));
+
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
