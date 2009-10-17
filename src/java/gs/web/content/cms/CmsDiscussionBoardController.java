@@ -50,6 +50,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_REPLIES_PER_DISCUSSION = "repliesPerDiscussion";
+    public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -118,6 +119,8 @@ public class CmsDiscussionBoardController extends AbstractController {
                     model.get(MODEL_URI).toString());
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
             model.put(MODEL_REPLIES_PER_DISCUSSION, DEFAULT_REPLIES_PER_DISCSSION);
+
+            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
         } else {
             _log.warn("Can't find board with id " + contentId);
         }

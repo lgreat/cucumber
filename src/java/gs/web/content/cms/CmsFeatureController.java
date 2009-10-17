@@ -175,6 +175,8 @@ public class CmsFeatureController extends AbstractController {
 
         model.put("uri", uri + "?content=" + feature.getContentKey().getIdentifier());
 
+        model.put("almondNetCategory", CmsContentUtils.getAlmondNetCategory(feature));
+
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
     }

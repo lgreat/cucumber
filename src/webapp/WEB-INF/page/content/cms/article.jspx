@@ -664,22 +664,29 @@
     </c:choose>
 </div>
 
+<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+
 <c:choose>
     <c:when test="${type eq 'article'}">
         <mod:tracking pageName="article"
                       hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
-                      events="event7"/>
+                      events="event7"
+                      omitAlmondNet="${true}"
+                />
     </c:when>
     <c:when test="${type eq 'askTheExperts'}">
         <mod:tracking pageName="Ask the Experts"
                       hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"
-                      events="event7"/>
+                      events="event7"
+                      omitAlmondNet="${true}"
+                />
     </c:when>
-    <!-- TODO-8705/8707 -->
     <c:when test="${type eq 'articleSlideshow'}">
         <mod:tracking pageName="Article Slideshow"
                       hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
-                      events="event7"/>
+                      events="event7"
+                      omitAlmondNet="${true}"
+                />
     </c:when>
 </c:choose>
 

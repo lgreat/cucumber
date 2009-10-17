@@ -297,8 +297,12 @@
 </div>
 <!-- end #main -->
 
+<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+
 <mod:tracking pageName="${omnitureTopicCenterName} Landing Page"
-              hier1="Topic Centers,${omnitureTopicCenterName}"/>
+              hier1="Topic Centers,${omnitureTopicCenterName}"
+              omitAlmondNet="${true}"
+        />
 
 </body>
 </html>

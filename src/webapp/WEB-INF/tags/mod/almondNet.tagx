@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+    <!-- GS-8657: AlmondNet -->
+    <jsp:directive.tag body-content="empty"/>    
+    <!-- category must be one of: preschool, elementary school, middle school, high school, college prep, education --> 
+    <jsp:directive.attribute
+            name="category"
+            description="category"
+            required="false"/>
+    <jsp:directive.attribute
+            name="title"
+            description="Page title"
+            required="false"/>
+
+    <c:url var="iframeUrl" value="http://pbid.pro-market.net/engine">
+        <c:param name="site" value="120697"/>
+        <c:param name="size" value="1x1"/>
+        <c:choose>
+            <c:when test="${empty category}">
+                <c:param name="category" value="education"/>
+            </c:when>
+            <c:otherwise>
+                <c:param name="category" value="${category}"/>
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${empty title}">
+                <c:param name="kw" value="greatschools"/>
+            </c:when>
+            <c:otherwise>
+                <c:param name="kw" value="${title}"/>
+            </c:otherwise>
+        </c:choose>
+    </c:url>
+
+    <c:set var="xmlEscapedIframeUrl"><c:out value="${iframeUrl}" escapeXml="true"/></c:set>
+
+    <iframe width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"
+            src="${xmlEscapedIframeUrl}"><!-- don't collapse --></iframe>
+
+    <!--
+    <iframe width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"
+            src="http://pbid.pro-market.net/engine?site=120697&size=1x1&category=education;kw=greatschools"></iframe>
+    -->
+
+</jsp:root>

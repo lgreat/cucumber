@@ -7,18 +7,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 import gs.web.util.UrlBuilder;
 import gs.data.cms.IPublicationDao;
 import gs.data.util.SpringUtil;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.CmsLink;
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.*;
 
 public class CmsContentUtils {
     public static final String URL_PREFIX = "gs://";
@@ -132,5 +126,70 @@ public class CmsContentUtils {
         }
 
         return breadcrumbs;
+    }
+
+    private static final String ALMOND_NET_CATEGORY_PRESCHOOL = "preschool";
+    private static final String ALMOND_NET_CATEGORY_ELEMENTARY_SCHOOL = "elementary school";
+    private static final String ALMOND_NET_CATEGORY_MIDDLE_SCHOOL = "middle school";
+    private static final String ALMOND_NET_CATEGORY_HIGH_SCHOOL = "high school";
+    private static final String ALMOND_NET_CATEGORY_COLLEGE_PREP = "college prep";
+    private static final String ALMOND_NET_CATEGORY_EDUCATION = "education";
+
+    public static String getAlmondNetCategory(Set<CmsCategory> categories) {
+        if (categories == null) {
+            throw new IllegalArgumentException("Content cannot be null");
+        }
+
+        boolean isCollegePrep = false;
+        boolean isPreschool = false;
+        boolean isElementary = false;
+        boolean isMiddle = false;
+        boolean isHigh = false;
+        int numGrades = 0;
+
+        for (CmsCategory category : categories) {
+            if (category.getId() == CmsConstants.COLLEGE_PREP_CATEGORY_ID) {
+                isCollegePrep = true;
+            } else if (category.getId() == CmsConstants.PRESCHOOL_CATEGORY_ID) {
+                isPreschool = true;
+                numGrades++;
+            } else if (category.getId() == CmsConstants.ELEMENTARY_SCHOOL_CATEGORY_ID) {
+                isElementary = true;
+                numGrades++;
+            } else if (category.getId() == CmsConstants.MIDDLE_SCHOOL_CATEGORY_ID) {
+                isMiddle = true;
+                numGrades++;
+            } else if (category.getId() == CmsConstants.HIGH_SCHOOL_CATEGORY_ID) {
+                isHigh = true;
+                numGrades++;
+            }
+        }
+
+        if (isCollegePrep) {
+            return ALMOND_NET_CATEGORY_COLLEGE_PREP;
+        } else if (numGrades == 1) {
+            if (isPreschool) {
+                return ALMOND_NET_CATEGORY_PRESCHOOL;
+            } else if (isElementary) {
+                return ALMOND_NET_CATEGORY_ELEMENTARY_SCHOOL;
+            } else if (isMiddle) {
+                return ALMOND_NET_CATEGORY_MIDDLE_SCHOOL;
+            } else if (isHigh) {
+                return ALMOND_NET_CATEGORY_HIGH_SCHOOL;
+            } else {
+                // this should never happen
+                return ALMOND_NET_CATEGORY_EDUCATION;
+            }
+        } else {
+            return ALMOND_NET_CATEGORY_EDUCATION;
+        }
+    }
+
+    public static String getAlmondNetCategory(CmsContent content) {
+        if (content == null) {
+            throw new IllegalArgumentException("Content cannot be null");
+        }
+
+        return getAlmondNetCategory(content.getUniqueKategoryBreadcrumbs());
     }
 }

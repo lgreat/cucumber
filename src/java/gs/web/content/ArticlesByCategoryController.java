@@ -54,6 +54,7 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_MAX_RESULTS = "maxResults";
     protected static final String MODEL_BREADCRUMBS = "breadcrumbs";
     protected static final String MODEL_STYLE = "style";
+    protected static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";

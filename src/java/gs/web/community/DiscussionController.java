@@ -23,6 +23,7 @@ import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.content.cms.CmsContentUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -50,6 +51,7 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+    public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -126,6 +128,8 @@ public class DiscussionController extends AbstractController {
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, model.get(MODEL_URI).toString());
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+
+            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
             // Sample code to pull out rejected reply body and restore it in field
 //            SitePrefCookie cookie = new SitePrefCookie(request, response);
 //            if (StringUtils.isNotEmpty(cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY))) {

@@ -310,12 +310,15 @@
 
 </div>
 <!-- end container -->
+<mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
 <c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
 <mod:tracking pageName="Discussion Board"
               hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle}"
-              community="true"/>
+              community="true"
+              omitAlmondNet="${true}"
+        />
 
 </body>
 </html>

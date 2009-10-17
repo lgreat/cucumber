@@ -361,6 +361,7 @@
 <cms:communitySidebar content="${requestScope.discussionBoard}"/>
 
 </div>
+<mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
 <c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
@@ -370,7 +371,9 @@
 <!-- end container -->
 <mod:tracking pageName="Discussion Detail Page"
               hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},${discussion.id}:${discussionTitle}"
-              community="true"/>
+              community="true"
+              omitAlmondNet="${true}"
+        />
 </body>
 </html>
 </jsp:root>
