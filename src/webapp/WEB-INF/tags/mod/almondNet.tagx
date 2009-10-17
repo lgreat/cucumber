@@ -42,14 +42,8 @@
     <c:set var="xmlEscapedIframeUrl"><c:out value="${iframeUrl}" escapeXml="true"/></c:set>
 
     <![CDATA[
-    <!-- iframe width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"
-            src="${xmlEscapedIframeUrl}" --><!-- don't collapse --><!-- /iframe -->
-
+    <iframe width="1" height="1" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"
+            src="${xmlEscapedIframeUrl}"><!-- don't collapse --></iframe>
     ]]>
-
-    <!--
-    <iframe width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"
-            src="http://pbid.pro-market.net/engine?site=120697&size=1x1&category=education;kw=greatschools"></iframe>
-    -->
 
 </jsp:root>
