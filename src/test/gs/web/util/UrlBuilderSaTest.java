@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.109 2009/10/13 22:30:54 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.110 2009/10/19 16:45:40 droy Exp $
  */
 
 package gs.web.util;
@@ -163,6 +163,7 @@ public class UrlBuilderSaTest extends TestCase {
     public void testSchoolBuilder() {
         School school = new School();
         school.setDatabaseState(State.WY);
+        school.setName("Wowochocho High School");
         school.setId(new Integer(8));
         Address address = new Address("123 way", "CityName", State.WY, "12345");
         school.setLevelCode(LevelCode.ELEMENTARY);
@@ -181,15 +182,15 @@ public class UrlBuilderSaTest extends TestCase {
 
         school.setType(SchoolType.PUBLIC);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelativeXml(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/", builder.asSiteRelativeXml(null));
 
         school.setType(SchoolType.CHARTER);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelativeXml(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/", builder.asSiteRelativeXml(null));
 
         school.setType(SchoolType.PRIVATE);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelativeXml(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/", builder.asSiteRelativeXml(null));
 
         School school2 = new School();
         school2.setDatabaseState(State.CA);
@@ -572,7 +573,7 @@ public class UrlBuilderSaTest extends TestCase {
 
         // school profile page
         urlBuilder = new UrlBuilder("schoolProfile?state=AK&id=20");
-        assertEquals("/modperl/browse_school/ak/20", urlBuilder.asSiteRelative(getMockRequest()));
+        assertEquals("/alaska/newtok/20-Ayaprun-School/", urlBuilder.asSiteRelative(getMockRequest()));
 
         // test score page
         urlBuilder = new UrlBuilder("testScoreLanding?state=CA&tid=2");

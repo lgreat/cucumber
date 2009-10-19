@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolController.java,v 1.4 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: RedirectToSampleSchoolController.java,v 1.5 2009/10/19 16:45:40 droy Exp $
  */
 package gs.web.school;
 
@@ -10,6 +10,7 @@ import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -35,13 +36,13 @@ public class RedirectToSampleSchoolController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-       //SessionContext sessionContext = SessionContext.getInstance(request);
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         State state = sessionContext.getState();
         School school = _schoolDao.getSampleSchool(state);
 
-        View redirectView = new RedirectView("/modperl/browse_school/"+state.getAbbreviationLowerCase()+"/"+school.getId()+"/");
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        View redirectView = new RedirectView(urlBuilder.asSiteRelative(request));
         return new ModelAndView(redirectView);
     }
 

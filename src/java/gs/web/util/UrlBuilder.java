@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.187 2009/10/13 21:45:35 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.188 2009/10/19 16:45:40 droy Exp $
  */
 
 package gs.web.util;
@@ -808,16 +808,18 @@ public class UrlBuilder {
                     WordUtils.capitalize(school.getName().replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", ""), new char[]{'-'}) +
                     "/" + school.getId() + "/" +
                     (showConfirmation ? "?confirm=true" : "");
-        } else if (school.getType().equals(SchoolType.PRIVATE)) {
-            _path = "/cgi-bin/" +
-                    school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/private/" + school.getId() +
-                    (showConfirmation ? "?confirm=true" : "");
         } else {
-            _path = "/modperl/browse_school/" +
-                    school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/" + school.getId() +
-                    (showConfirmation ? "?confirm=true" : "");
+            StringBuffer path = new StringBuffer(DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(school.getDatabaseState(),
+                                                                            school.getPhysicalAddress().getCity()));
+            path.append(school.getId()).append("-");
+            path.append(WordUtils.capitalize(school.getName().replaceAll(" ", "-")
+                                .replaceAll("/", "-")
+                                .replaceAll("#", ""), new char[]{'-'}));
+            path.append("/");
+            if (showConfirmation) {
+                path.append("?confirm=true");
+            }
+            _path = path.toString();
         }
     }
 

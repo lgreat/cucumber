@@ -5,6 +5,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.CmsUtil;
+import gs.data.util.Address;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
 import gs.data.content.cms.ICmsFeatureDao;
@@ -44,6 +45,8 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         _school.setName(SCHOOL_TEST_NAME);
         _school.setActive(true);
         _school.setDatabaseState(State.CA);
+        Address address = new Address("123 way", "CityName", State.CA, "12345");
+        _school.setPhysicalAddress(address);
 
         _schoolDao = createStrictMock(ISchoolDao.class);
         _controller.setSchoolDao(_schoolDao);
@@ -89,7 +92,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
 
         assertTrue(command.getMessage().indexOf(SCHOOL_TEST_NAME) > -1);
         //link to school profile page is part of the message
-        assertTrue(command.getMessage().indexOf("browse_school") > -1);
+        assertTrue(command.getMessage().indexOf("/california/cityname/1-TestNameSchool/") > -1);
         assertTrue(command.getSubject().indexOf(SCHOOL_TEST_NAME) > -1);
     }
 

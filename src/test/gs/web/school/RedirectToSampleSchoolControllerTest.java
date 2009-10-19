@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolControllerTest.java,v 1.5 2008/05/30 19:11:44 cpickslay Exp $
+ * $Id: RedirectToSampleSchoolControllerTest.java,v 1.6 2009/10/19 16:45:41 droy Exp $
  */
 package gs.web.school;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
@@ -37,6 +38,10 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
    public void testGetSampleCASchool() throws Exception {
        School school = new School();
        school.setId(1);
+       school.setName("Alameda High School");
+       Address address = new Address("123 way", "CityName", State.CA, "12345");
+       school.setPhysicalAddress(address);
+
        expect(_schoolDao.getSampleSchool(State.CA)).andReturn(school);
        replay(_schoolDao);
 
@@ -48,12 +53,16 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
 
         RedirectView view = (RedirectView)mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/browse_school/ca/1/", view.getUrl());
+        assertEquals("/california/cityname/1-Alameda-High-School/", view.getUrl());
    }
 
    public void testGetSampleAKSchool() throws Exception {
        School school = new School();
        school.setId(329);
+       school.setName("Alaska High School");
+       Address address = new Address("123 way", "CityName", State.AK, "12345");
+       school.setPhysicalAddress(address);
+
        expect(_schoolDao.getSampleSchool(State.AK)).andReturn(school);
        replay(_schoolDao);
 
@@ -65,7 +74,7 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
         RedirectView view = (RedirectView)mav.getView();
         assertNotNull(view.getUrl());
 
-        assertEquals("/modperl/browse_school/ak/329/", view.getUrl());
+        assertEquals("/alaska/cityname/329-Alaska-High-School/", view.getUrl());
    }
 
 

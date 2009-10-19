@@ -43,6 +43,8 @@ public class DirectoryStructureUrlFields {
         Pattern.compile("^(schools|preschools|elementary-schools|middle-schools|high-schools)$");
     public static final Pattern SCHOOL_TYPE_PATTERN =
         Pattern.compile("^(public|private|charter|public-private|public-charter|private-charter)$");
+    public static final Pattern SCHOOL_NAME_OVERVIEW_PATTERN =
+        Pattern.compile("^(\\d+)-(.+)$");
 
     public DirectoryStructureUrlFields(HttpServletRequest request) {
         // require that the request uri starts and ends with /
@@ -72,13 +74,18 @@ public class DirectoryStructureUrlFields {
         } else if (pathComponents.length == 4) {
             // /california/sonoma/schools/ or /california/sonoma/preschools/ or /california/sonoma/public-charter/
             // or /california/san-francisco/San-Francisco-Unified-School-District/
+            // or /california/alameda/1-Alameda-High-School/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
+            Matcher schoolNameMatcher = SCHOOL_NAME_OVERVIEW_PATTERN.matcher(pathComponents[3]);
             if (schoolTypeMatcher.find()) {
                 populateSchoolTypesFromLabel(pathComponents[3]);
             } else if (levelCodeMatcher.find()) {
                 populateLevelCodeFromLabel(pathComponents[3]);
+            } else if (schoolNameMatcher.matches()) {
+                _schoolID = schoolNameMatcher.group(1);
+                _schoolName = schoolNameMatcher.group(2);
             } else {
                 try {
                     _districtName = URLDecoder.decode(pathComponents[3], "UTF-8");
@@ -178,6 +185,31 @@ public class DirectoryStructureUrlFields {
         } else {
             _hasSchoolsLabel = false;
         }
+    }
+
+    public void populateSchoolInfoFromLabel(String label) {
+        String[] paramSchoolType = null;
+        Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
+        List<String> schoolTypes = new ArrayList<String>();
+        if (label.contains(SchoolType.PUBLIC.getSchoolTypeName())) {
+            schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
+            schoolTypeSet.add(SchoolType.PUBLIC);
+        }
+        if (label.contains(SchoolType.PRIVATE.getSchoolTypeName())) {
+            schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
+            schoolTypeSet.add(SchoolType.PRIVATE);
+        }
+        if (label.contains(SchoolType.CHARTER.getSchoolTypeName())) {
+            schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
+            schoolTypeSet.add(SchoolType.CHARTER);
+        }
+
+        if (schoolTypes.size() > 0) {
+            paramSchoolType = schoolTypes.toArray(new String[schoolTypes.size()]);
+        }
+
+        _schoolTypes = schoolTypeSet;
+        _schoolTypesParams = paramSchoolType;
     }
 
     public State getState() {

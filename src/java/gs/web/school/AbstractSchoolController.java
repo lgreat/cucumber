@@ -82,7 +82,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                 }
             } else if (this instanceof SchoolOverviewController) {
                 DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-                if (shouldHandleRequest(fields)) {
+                //if (shouldHandleRequest(fields)) {
                     try {
                         Integer id = new Integer(fields.getSchoolID());
                         School s = _schoolDao.getSchoolById(state, id);
@@ -101,7 +101,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                         _log.warn("Could not get a valid or active school: " +
                                 fields.getSchoolID() + " in state: " + state, e);
                     }
-                }
+                //}
             }
         }
 
@@ -117,9 +117,10 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
         }
         return fields.hasState() && fields.hasCityName() &&
             fields.hasSchoolTypes() && fields.getSchoolTypes().isEmpty() &&
-            // this line about level codes would have to be changed if non-preschools are to be supported
-            fields.hasLevelCode() && fields.getLevelCode().equals(LevelCode.PRESCHOOL) &&
-            fields.hasSchoolName() && fields.hasSchoolID();
+            // Check for the PK version or the public/private version
+            ((fields.hasLevelCode() && fields.getLevelCode().equals(LevelCode.PRESCHOOL) &&
+                fields.hasSchoolName() && fields.hasSchoolID()) ||
+             (!fields.hasLevelCode() && fields.hasSchoolName() && fields.hasSchoolID()));
     }
 
     /**

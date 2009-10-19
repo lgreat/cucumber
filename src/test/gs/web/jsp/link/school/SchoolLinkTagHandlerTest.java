@@ -18,6 +18,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
 
     public void testSchoolProfileTags() {
         School school = new School();
+        school.setName("Wowochocho High School");
         school.setDatabaseState(State.WY);
         school.setId(Integer.valueOf("8"));
 
@@ -50,7 +51,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new OverviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/", builder.asSiteRelative(null));
 
         tagHandler = new ParentReviewTagHandler();
         tagHandler.setSchool(school);

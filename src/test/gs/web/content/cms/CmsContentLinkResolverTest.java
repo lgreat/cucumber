@@ -38,7 +38,7 @@ public class CmsContentLinkResolverTest extends BaseControllerTestCase {
 
         new CmsContentLinkResolver().replaceEmbeddedLinks(testContent);
 
-        assertEquals("/modperl/browse_school/ca/1", testContent.getReplaceMe());
+        assertEquals("/california/alameda/1-Alameda-High-School/", testContent.getReplaceMe());
         assertEquals("gs://schoolProfile?state=CA&id=1", testContent.getLeaveMe());
 
     }
@@ -77,7 +77,7 @@ public class CmsContentLinkResolverTest extends BaseControllerTestCase {
         testContent.setLeaveMe(link);
 
         new CmsContentLinkResolver().replaceEmbeddedLinks(testContent);
-        assertEquals("/modperl/browse_school/ca/1", testContent.getReplaceMe().getUrl());
+        assertEquals("/california/alameda/1-Alameda-High-School/", testContent.getReplaceMe().getUrl());
         assertEquals("gs://schoolProfile?state=CA&id=1", testContent.getLeaveMe().getUrl());
     }
 
@@ -138,7 +138,7 @@ public class CmsContentLinkResolverTest extends BaseControllerTestCase {
 
         new CmsContentLinkResolver().replaceEmbeddedLinks(testContent);
 
-        assertEquals("/modperl/browse_school/ca/1", testContent.getReplaceMe().get(0).getUrl());
+        assertEquals("/california/alameda/1-Alameda-High-School/", testContent.getReplaceMe().get(0).getUrl());
         assertEquals("gs://schoolProfile?state=CA&id=1", testContent.getLeaveMe().get(0).getUrl());
 
     }
