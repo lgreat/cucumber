@@ -22,20 +22,20 @@
         <c:param name="site" value="120697"/>
         <c:param name="size" value="1x1"/>
         <c:choose>
-            <c:when test="${empty category}">
+            <c:when test="${empty pageScope.category}">
                 <c:param name="category" value="education"/>
             </c:when>
             <c:otherwise>
-                <c:param name="category" value="${category}"/>
+                <c:param name="category" value="${pageScope.category}"/>
             </c:otherwise>
         </c:choose>
         <c:choose>
-            <c:when test="${empty title}">
+            <c:when test="${empty pageScope.title}">
                 <c:param name="kw" value="greatschools"/>
             </c:when>
             <c:otherwise>
-                <c:param name="kw" value="${title}"/>
-            </c:otherwise>
+                <c:param name="kw" value="${pageScope.title}"/>
+            </c:otherwise>      å
         </c:choose>
     </c:url>
 
