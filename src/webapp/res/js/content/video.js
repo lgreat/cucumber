@@ -1,17 +1,18 @@
 function delvePlayerCallback(playerId, eventName, data) {
     switch (eventName) {
-        case 'onAdComplete':
-            doOnAdComplete(data);
+        case 'onChannelLoad':
+            doOnChannelLoad(data);
     }
 }
 
 
-function doOnAdComplete(e) {
-    DelvePlayer.doSetAd('preroll','None','');
+function doOnChannelLoad(e) {
+    DelvePlayer.doSetAd("preroll", "Acudeo","programId=4a8d97cdc8979");
     var vid = getParam('id');
     vid = vid > 0 ? vid - 1 : 0;
     DelvePlayer.doSkipToIndex(vid);
-    DelvePlayer.doPlay()
+    DelvePlayer.doPlay();
+    DelvePlayer.doSetAdFrequency(1);
 }
 
 function getParam( name )
