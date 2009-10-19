@@ -45,8 +45,9 @@
                     <h3>Watch and Learn</h3>
                 </div>
 
-<object width="610" height="1000" id="delve_player453770o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player453770e" wmode="window" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
+<!-- <object width="610" height="1000" id="delve_player453770o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player453770e" wmode="window" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>   -->
 
+                <object width="610" height="1000" id="delve_player862068o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="window"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player862068e" wmode="window" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
                 
 
 
@@ -59,8 +60,18 @@
             </div>
             <div id="rightColumn">
                 <ad:Top_300x137/>
-                <ad:AboveFold_300x600/>
-                <jsp:include page="/content/cms/mostPopularContent.module"/>
+                <div id="adCompanionBanner" style="visibility:hidden">Companion Banner(iFrame)</div>
+                <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
+                <script type="text/javascript">
+                    function displayCompanionBanners(banners) {
+                        tmDisplayBanner(banners, "adCompanionBanner", 300, 250);
+                    }
+                    function hideCompanionBanners(banners) {
+                        tmHideBanner("adCompanionBanner");
+                    }
+                </script>
+                <!-- <ad:AboveFold_300x600/>   -->
+            <!--    <jsp:include page="/content/cms/mostPopularContent.module"/> -->
             </div>
         </div>
 
