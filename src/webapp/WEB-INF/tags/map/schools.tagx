@@ -13,7 +13,8 @@
 <jsp:directive.tag import="java.util.List"/>
 <jsp:directive.tag import="java.util.ArrayList"/>
 <jsp:directive.tag import="gs.data.school.School"/>
-<jsp:directive.tag body-content="empty"
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
                    description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
@@ -94,18 +95,13 @@ function initSchoolInfo() {
 
 <c:forEach var="school" items="${mapSchools}">
   <c:if test="${not empty school.lon}">
-    <c:choose>
-      <c:when test="${'private' == school.type.schoolTypeName}">
-        <gsml:url var="hrefbase"
-                  value="/cgi-bin/${school.databaseState.abbreviationLowerCase}/private/${school.id}"/>
-      </c:when>
-      <c:otherwise>
-        <gsml:url var="hrefbase"
-                  value="/modperl/browse_school/${school.databaseState.abbreviationLowerCase}/${school.id}"/>
-      </c:otherwise>
-    </c:choose>
+    <jsp:useBean id="school" type="gs.data.school.School" />
+    <jsp:scriptlet><![CDATA[
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        request.setAttribute("schoolUrl", urlBuilder.asSiteRelativeXml(request));
+    ]]></jsp:scriptlet>
     mySchool = new Object();
-    mySchool.link = "${hrefbase}";
+    mySchool.link = "${schoolUrl}";
     mySchool.name = "${school.name}";
     mySchool.location = new GLatLng(${school.lat},${school.lon});
     <c:if test="${not empty bubbles}">

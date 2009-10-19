@@ -85,19 +85,8 @@
                         </tr>
                         <c:forEach items="${topRatedSchools}" var="s">
                             <tr>
-                                <c:choose>
-                                    <c:when test="${'private' == s.school.type.schoolTypeName}">
-                                        <c:set var="hrefbase"
-                                               value="/cgi-bin/${stateAbbrevLowerCase}/private/"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="hrefbase"
-                                               value="/modperl/browse_school/${stateAbbrevLowerCase}/"/>
-                                    </c:otherwise>
-                                </c:choose>
-
                                 <td class="dottedLineBottomBox" colspan="2">
-                                    <gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
+                                    <link:schoolProfileOverview school="${s.school}" title="${s.name}">${s.name}</link:schoolProfileOverview>
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                     <c:if test="${s.rating > 0}">

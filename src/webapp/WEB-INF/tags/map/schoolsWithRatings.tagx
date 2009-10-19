@@ -11,6 +11,7 @@
 <!-- Created for GS-7643 School Search Widget -->
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
+<jsp:directive.tag import="gs.web.util.UrlBuilder"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
@@ -106,21 +107,16 @@ function initSchoolInfo() {
 <c:forEach var="schoolWithRatings" items="${mapSchools}">
   <c:set var="curSchool" value="${schoolWithRatings.school}"/>
   <c:if test="${not empty curSchool.lon}">
-    <c:choose>
-      <c:when test="${'private' == curSchool.type.schoolTypeName}">
-        <c:set var="hrefbase"
-                  value="/cgi-bin/${curSchool.databaseState.abbreviationLowerCase}/private/${curSchool.id}"/>
-      </c:when>
-      <c:otherwise>
-        <c:set var="hrefbase"
-                  value="/modperl/browse_school/${curSchool.databaseState.abbreviationLowerCase}/${curSchool.id}"/>
-      </c:otherwise>
-    </c:choose>
+    <jsp:useBean id="curSchool" type="gs.data.school.School" />
+    <jsp:scriptlet><![CDATA[
+      UrlBuilder urlBuilder = new UrlBuilder(curSchool, UrlBuilder.SCHOOL_PROFILE);
+      request.setAttribute("schoolUrl", urlBuilder.asSiteRelativeXml(request));
+    ]]></jsp:scriptlet>
 
     mySchool = new Object();
 
     mySchool.name = "${curSchool.name}";
-    mySchool.link = "${hrefbase}";
+    mySchool.link = "${schoolUrl}";
     <c:if test="${s_cid ne null and s_cid > ''}">
     mySchool.link += "?s_cid=${s_cid}";
     </c:if>

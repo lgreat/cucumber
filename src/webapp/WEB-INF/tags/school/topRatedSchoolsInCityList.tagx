@@ -21,16 +21,6 @@
                             <span class="rightHeader">GreatSchools<br/>Rating</span>
                         </div>
                         <c:forEach items="${topRatedSchools}" var="s">
-                            <c:choose>
-                                    <c:when test="${'private' == s.school.type.schoolTypeName}">
-                                        <c:set var="hrefbase"
-                                               value="/cgi-bin/${stateAbbrevLowerCase}/private/"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="hrefbase"
-                                               value="/modperl/browse_school/${stateAbbrevLowerCase}/"/>
-                                    </c:otherwise>
-                                </c:choose>
                                <div class="dottedLineBottomBox">
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
@@ -42,7 +32,7 @@
                                             alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
                                             styleClass="ratingImage"/>
                                    </span>
-                                   <span  class="name"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
+                                   <span  class="name"><link:schoolProfileOverview school="${s.school}" title="${s.name}">${s.name}</link:schoolProfileOverview>
                                    </span>
 
 
