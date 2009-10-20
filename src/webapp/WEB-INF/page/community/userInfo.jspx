@@ -182,7 +182,7 @@
     </span></c:if></h3>
 
     <c:choose>
-        <c:when test="${not empty requestScope.recentPosts}">
+        <c:when test="${empty requestScope.recentPosts}">
             <p>You haven't posted anything yet.</p>
             <p>Share stories about your child's success in and out of the classroom
                in our community.</p>
