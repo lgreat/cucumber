@@ -348,6 +348,10 @@ h3.subhead1 span.fltrt {
 .activity li {
     border-bottom: 1px dotted #999;
     padding: 15px 0 15px 25px;
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -512px no-repeat;
+}
+* html .activity li {
+    background-image: url('res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
 .activity li:last-child {
     border: 0;
