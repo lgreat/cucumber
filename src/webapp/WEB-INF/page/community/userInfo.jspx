@@ -57,7 +57,11 @@
 
             $('.aboutMe .aboutMeSave').click(function() {
                 $('.aboutMe .bioText').text($('.aboutMe .bioInput').val());
+                var ajaxUrl = '/community/userAccountAjax.page';
                 toggleAboutMe();
+                $.post(ajaxUrl, {aboutMe:$('.aboutMe .bioInput').val()});
+//                window.location.href=window.location.href;
+//                window.location.reload();
             });
 
             $('.aboutMe .aboutMeCancel').click(function() {
@@ -100,7 +104,7 @@
             About me
             <c:if test="${requestScope.viewingOwnProfile}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
         </h3>
-        <p class="bioText text3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="bioText text3">${fn:escapeXml(pageUser.userProfile.aboutMe)}</p>
         <form action="/" method="POST" style="display:none">
             <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>

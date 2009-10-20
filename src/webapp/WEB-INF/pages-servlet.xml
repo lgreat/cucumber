@@ -524,6 +524,11 @@
        <property name="pageType" value="userAccount"/>
    </bean>
 
+    <bean name="/community/userAccountAjax.page"
+          class="gs.web.community.UserInfoAjaxController"
+          autowire="byName" lazy-init="true">
+    </bean>
+
     <bean name="/community/userProfile.page"
           class="gs.web.community.UserInfoController"
           autowire="byName" lazy-init="true">
