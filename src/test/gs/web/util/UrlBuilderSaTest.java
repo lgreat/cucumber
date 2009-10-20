@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.110 2009/10/19 16:45:40 droy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.111 2009/10/20 18:28:05 yfan Exp $
  */
 
 package gs.web.util;
@@ -417,7 +417,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, (String)null);
         assertEquals("/community/communityLanding.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, (String)null);
-        assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
+        assertEquals("/accountInformation.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
         assertEquals("/cgi-bin/ca/district-profile/135", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, (String)null);
