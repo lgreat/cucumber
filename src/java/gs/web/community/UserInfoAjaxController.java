@@ -13,6 +13,7 @@ import gs.data.community.User;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -37,6 +38,10 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         }
         if (user.getUserProfile() == null) {
             _log.warn("User in request has no user profile (email=" + user.getEmail() + ").");
+            return null;
+        }
+        if (!PageHelper.isMemberAuthorized(request)) {
+            _log.warn("User in request is not authorized (email=" + user.getEmail() + ").");
             return null;
         }
 
