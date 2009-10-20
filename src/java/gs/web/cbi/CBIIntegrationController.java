@@ -44,13 +44,13 @@ public class CBIIntegrationController implements ReadWriteController {
             if (SEND_TRIGGERED_EMAIL.equals(action)) {
                 out.print(sendExactTargetTriggeredEmail(request));
             }else if(UNSUBSCRIBE_CB_NL.equals(action)){
-                out.print(unsubscribeCollegeBoundNewsletter(request.getParameter("email")));
+                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
             }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
-                out.print(unsubscribeCourseCompletionEmail(request.getParameter("email")));
+                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_COURSE_COMPLETE));
             }else if(SUBSCRIBE_CB_NL.equals(action)){
-                out.print(subscribeCollegeBoundNewsletter(request.getParameter("email"),request.getParameter("state")));
+                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_NEWSLETTER));
             }else if(SUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
-                out.print(subscribeCourseCompletionEmail(request.getParameter("email"),request.getParameter("state")));
+                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COURSE_COMPLETE));
             }
         }
         response.setContentType("text/plain");
@@ -68,7 +68,9 @@ public class CBIIntegrationController implements ReadWriteController {
             if(user != null){
                 Map attributesMap = constructETAttributesMap(request,user);
                 if(!attributesMap.isEmpty()){
+                    //if course completion email
                     if(isCourseCompletionEmail){
+                        //check if the user is subscribed to course completion emails
                         if(isUserSubscribedToCourseCompletion(user)){
                             _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
                         }
@@ -81,41 +83,19 @@ public class CBIIntegrationController implements ReadWriteController {
         }
         return response.toString();
     }
-
-
-    public String subscribeCourseCompletionEmail(String email,String state) {
+    
+     public String subscribeUser(String email,String state,SubscriptionProduct subProduct) {
         StringBuilder response = new StringBuilder();
         User user = _userDao.findUserFromEmailIfExists(email);
         if(user != null){
-            Subscription courseCompleteSubscription = new Subscription();
-            setSubscriptionData(courseCompleteSubscription,user, state);
-            courseCompleteSubscription.setProduct(SubscriptionProduct.CB_COURSE_COMPLETE);
-            _subscriptionDao.saveSubscription(courseCompleteSubscription);
-             response.append("success");
-        }
-         return response.toString();
-    }
-
-    public String subscribeCollegeBoundNewsletter(String email, String state) {
-        StringBuilder response = new StringBuilder();
-        User user = _userDao.findUserFromEmailIfExists(email);
-        if(user != null){
-                Subscription nlSubscription = new Subscription();
-                setSubscriptionData(nlSubscription,user, state);
-                nlSubscription.setProduct(SubscriptionProduct.CB_NEWSLETTER);
-                _subscriptionDao.saveSubscription(nlSubscription);
-             response.append("success");
+            Subscription sub = new Subscription();
+            setSubscriptionData(sub,user, state);
+            sub.setProduct(subProduct);
+            _subscriptionDao.saveSubscription(sub);
+            response.append("success");
         }
         return response.toString();
-    }
-
-    public String unsubscribeCourseCompletionEmail(String email){
-        return unsubscribeUser(email,SubscriptionProduct.CB_COURSE_COMPLETE);
-    }
-
-    public String unsubscribeCollegeBoundNewsletter(String email){
-        return unsubscribeUser(email,SubscriptionProduct.CB_NEWSLETTER);
-    }
+     }
 
     public String unsubscribeUser(String email,SubscriptionProduct sub){
         StringBuilder response = new StringBuilder();
