@@ -39,10 +39,14 @@
 
             function toggleAboutMe() {
                 if ($('.aboutMe .bioText').is(':visible')) {
+                    $('.aboutMe .defaultBioText').hide();
                     $('.aboutMe .bioText').hide();
                     $('.aboutMe form').show();
                     $('.aboutMe .editAboutMe').hide();
                 } else {
+                    if ($('.aboutMe .bioText').text() == '') {
+                        $('.aboutMe .defaultBioText').show();
+                    }
                     $('.aboutMe .bioText').show();
                     $('.aboutMe form').hide();
                     $('.aboutMe .editAboutMe').show();                                        
@@ -67,6 +71,10 @@
             $('.aboutMe .aboutMeCancel').click(function() {
                 toggleAboutMe();
             });
+
+            //<c:if test="${empty pageUser.userProfile.aboutMe}">
+            $('.defaultBioText').show();
+            //</c:if>
 
             // =========================================================================
 
@@ -104,7 +112,13 @@
             About me
             <c:if test="${requestScope.viewingOwnProfile}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
         </h3>
-        <p class="bioText text3">${fn:escapeXml(pageUser.userProfile.aboutMe)}</p>
+
+        <p class="defaultBioText">
+            Welcome to the GreatSchools community!
+            <a href="#" class="editAboutMe">Tell us about yourself</a>.
+            (Final text TBD)
+        </p>
+        <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" method="POST" style="display:none">
             <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>
@@ -145,7 +159,7 @@
         <c:out value="${requestScope.pageType eq 'userAccount' and !requestScope.viewAllActivity ? ' col' : ''}" />
     </c:set>
     <div class="md activity ${myAccClass}">
-    <h3 class="subhead1">${recentActivityTitle}<span class="fltrt">
+    <h3 class="subhead1">${recentActivityTitle}<c:if test="${not empty requestScope.recentPosts}"><span class="fltrt">
 
     <c:choose>
         <c:when test="${requestScope.viewAllActivity}">
@@ -165,72 +179,91 @@
         </c:otherwise>
     </c:choose>
 
-    </span></h3>
-    <ul>
-        <c:forEach var="content" items="${requestScope.recentPosts}">
-        <c:set var="supportedContentType" value="${true}"/>
-        <c:choose>
-            <c:when test="${content.type == 'Discussion'}">
-                <c:set var="discussion" value="${content}"/>
-                <c:set var="replyId" value="${null}"/>
-                <c:set var="introLabel" value="Started discussion"/>
-                <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
-            </c:when>
-            <c:when test="${content.type == 'DiscussionReply'}">
-                <c:set var="discussion" value="${content.discussion}"/>
-                <c:set var="replyId" value="${content.id}"/>
-                <c:set var="introLabel" value="Post in"/>
-                <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="supportedContentType" value="${false}"/>
-            </c:otherwise>
-        </c:choose>
+    </span></c:if></h3>
 
-        <c:if test="${supportedContentType}">
-            <li>
-                <h4 class="text3">${introLabel}: "<link:discussion discussionId="${discussion.id}"
-                                                 fullUri="${discussionFullUri}"
-                                                 discussionReplyId="${replyId}"
-                                                 styleClass="text3">${discussion.title}</link:discussion>"
-                <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
-                </h4>
-            <p>
-                <community:userContentTeaserText
-                        textToDisplay="${content.body}"
-                        minLength="143" maxLength="163"
-                        discussionId="${discussion.id}"
-                        discussionReplyId="${replyId}"
-                        discussionFullUri="${discussionFullUri}"
-                        textSpanClass="text3"
-                        linkClass="text3"/>
-            </p>
-            </li>
-        </c:if>
-    </c:forEach>
-    </ul>
-    <c:if test="${requestScope.viewAllActivity and requestScope.totalPages gt 1}">
-        <div class="viewAllActivityPagination">
-            <c:if test="${requestScope.page gt 1}">
-                <c:set var="previousPageNum" value="${requestScope.page - 1}"/>
-                <a href="${uri}?viewAllActivity=true&amp;amp;page=${previousPageNum}">Previous</a>
+    <c:choose>
+        <c:when test="${not empty requestScope.recentPosts}">
+            <p>You haven't posted anything yet.</p>
+            <p>Share stories about your child's success in and out of the classroom
+               in our community.</p>
+            <p>Our community wants to hear from you about:</p>
+            <ul>
+                <li><link:discussion discussionId="1" fullUri="uri">Health and development</link:discussion></li>
+                <li><link:discussion discussionId="1" fullUri="uri">Academics and activities</link:discussion></li>
+                <li><link:discussion discussionId="1" fullUri="uri">Learning difficulties</link:discussion></li>
+                <li><link:discussion discussionId="1" fullUri="uri">Improving schools</link:discussion></li>
+                <li><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></li>
+            </ul>
+        </c:when>
+        <c:otherwise>
+            <ul>
+                <c:forEach var="content" items="${requestScope.recentPosts}">
+                    <c:set var="supportedContentType" value="${true}"/>
+                    <c:choose>
+                        <c:when test="${content.type == 'Discussion'}">
+                            <c:set var="discussion" value="${content}"/>
+                            <c:set var="replyId" value="${null}"/>
+                            <c:set var="introLabel" value="Started discussion"/>
+                            <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
+                        </c:when>
+                        <c:when test="${content.type == 'DiscussionReply'}">
+                            <c:set var="discussion" value="${content.discussion}"/>
+                            <c:set var="replyId" value="${content.id}"/>
+                            <c:set var="introLabel" value="Post in"/>
+                            <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="supportedContentType" value="${false}"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:if test="${supportedContentType}">
+                        <li>
+                            <h4 class="text3">${introLabel}: "<link:discussion discussionId="${discussion.id}"
+                                                                               fullUri="${discussionFullUri}"
+                                                                               discussionReplyId="${replyId}"
+                                                                               styleClass="text3">${discussion.title}</link:discussion>"
+                                <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
+                            </h4>
+
+                            <p>
+                                <community:userContentTeaserText
+                                        textToDisplay="${content.body}"
+                                        minLength="143" maxLength="163"
+                                        discussionId="${discussion.id}"
+                                        discussionReplyId="${replyId}"
+                                        discussionFullUri="${discussionFullUri}"
+                                        textSpanClass="text3"
+                                        linkClass="text3"/>
+                            </p>
+                        </li>
+                    </c:if>
+                </c:forEach>
+            </ul>
+            <c:if test="${requestScope.viewAllActivity and requestScope.totalPages gt 1}">
+                <div class="viewAllActivityPagination">
+                    <c:if test="${requestScope.page gt 1}">
+                        <c:set var="previousPageNum" value="${requestScope.page - 1}"/>
+                        <a href="${uri}?viewAllActivity=true&amp;amp;page=${previousPageNum}">Previous</a>
+                    </c:if>
+                    <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
+                        <c:choose>
+                            <c:when test="${pageNum == requestScope.page}">
+                                <span class="active">${pageNum}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${uri}?viewAllActivity=true&amp;amp;page=${pageNum}">${pageNum}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${requestScope.page lt requestScope.totalPages}">
+                        <c:set var="nextPageNum" value="${requestScope.page + 1}"/>
+                        <a href="${uri}?viewAllActivity=true&amp;amp;page=${nextPageNum}">Next</a>
+                    </c:if>
+                </div>
             </c:if>
-            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
-                <c:choose>
-                    <c:when test="${pageNum == requestScope.page}">
-                        <span class="active">${pageNum}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${uri}?viewAllActivity=true&amp;amp;page=${pageNum}">${pageNum}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-            <c:if test="${requestScope.page lt requestScope.totalPages}">
-                <c:set var="nextPageNum" value="${requestScope.page + 1}"/>
-                <a href="${uri}?viewAllActivity=true&amp;amp;page=${nextPageNum}">Next</a>
-            </c:if>
-        </div>
-    </c:if>
+        </c:otherwise>
+    </c:choose>
     <!-- End Recent Activity -->
     </div>
     <c:if test="${!requestScope.viewAllActivity and requestScope.pageType eq 'userAccount'}">
