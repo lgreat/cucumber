@@ -244,7 +244,7 @@
                 <div class="viewAllActivityPagination">
                     <c:if test="${requestScope.page gt 1}">
                         <c:set var="previousPageNum" value="${requestScope.page - 1}"/>
-                        <a href="${uri}?viewAllActivity=true&amp;amp;page=${previousPageNum}">Previous</a>
+                        <span class="prv_nxt"><a href="${uri}?viewAllActivity=true&amp;amp;page=${previousPageNum}">&amp;#171; Previous</a></span>
                     </c:if>
                     <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
                         <c:choose>
@@ -252,13 +252,13 @@
                                 <span class="active">${pageNum}</span>
                             </c:when>
                             <c:otherwise>
-                                <a href="${uri}?viewAllActivity=true&amp;amp;page=${pageNum}">${pageNum}</a>
+                                <span><a href="${uri}?viewAllActivity=true&amp;amp;page=${pageNum}">${pageNum}</a></span>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <c:if test="${requestScope.page lt requestScope.totalPages}">
                         <c:set var="nextPageNum" value="${requestScope.page + 1}"/>
-                        <a href="${uri}?viewAllActivity=true&amp;amp;page=${nextPageNum}">Next</a>
+                        <span class="prv_nxt"><a href="${uri}?viewAllActivity=true&amp;amp;page=${nextPageNum}">Next &amp;#187;</a></span>
                     </c:if>
                 </div>
             </c:if>
