@@ -182,13 +182,13 @@
     padding:0 0 15px 0;
 }
 
-.db_discussContainer{
-    display:block;
-    position:relative;
-    padding:0 0 0 15px;
-}
+/* ------------- */
+/* BUBBLE ARROWS */
+/* ------------- */
 
-.db_replyContainer{
+/* Disussions */
+
+.db_discussContainer{
     display:block;
     position:relative;
     padding:0 0 0 15px;
@@ -201,6 +201,19 @@
 	border-top: 7px solid white;
 	border-right: 10px solid #ebebeb;
 	border-bottom: 7px solid white;
+}
+
+.db_discussContainer b.db_discussArrow{
+    position:absolute;
+    left:5px; top:18px;
+}
+
+/* Replies */
+
+.db_replyContainer{
+    display:block;
+    position:relative;
+    padding:0 0 0 15px;
 }
 
 .db_replyContainer b.db_replyPointLeft{
@@ -239,11 +252,6 @@
 	border-bottom:7px dashed black;
 }
 
-.db_discussContainer b.db_discussArrow{
-    position:absolute;
-    left:5px; top:18px;
-}
-
 .db_replyContainer b.db_replyArrow{
     position:absolute;
     left:5px; top:18px;
@@ -254,6 +262,32 @@
 	left:7px; top:18px;
     z-index:20;
 }
+
+/* Posting replies */
+
+.db_postReplyContainer{
+    display:block;
+    position:relative;
+    padding:0 0 0 15px;
+}
+
+.db_postReplyContainer b.db_postPointLeft{
+	font-size: 0px;
+	line-height: 0%;
+	width: 0px;
+	border-top: 7px solid white;
+	border-right: 10px solid #fc6;
+	border-bottom: 7px solid white;
+}
+
+.db_postReplyContainer b.db_postArrow{
+    position:absolute;
+    left:5px; top:18px;
+}
+
+/* ----------------- */
+/* END BUBBLE ARROWS */
+/* ----------------- */
 
 .db_discuss{
     width:454px;
