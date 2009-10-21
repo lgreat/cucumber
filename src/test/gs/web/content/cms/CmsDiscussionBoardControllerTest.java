@@ -117,8 +117,6 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
 
         expect(_discussionDao.getTotalDiscussions(board)).andReturn(0);
 
-        expect(_publicationDao.populateAllByContentType(eq("TopicCenter"), isA(CmsTopicCenter.class)))
-                .andReturn(new ArrayList<CmsTopicCenter>(0));
         _userDao.populateWithUsers(isA(List.class));
         
         replayAllMocks();

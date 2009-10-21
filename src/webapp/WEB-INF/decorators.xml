@@ -20,6 +20,7 @@
         <pattern>/school/thankYouHover.page*</pattern>        
         <pattern>/school/aboutPublicCharter.page*</pattern>
         <pattern>/community/registration/popup/*</pattern>
+        <pattern>/community/hover/*</pattern>
     </decorator>
 
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">

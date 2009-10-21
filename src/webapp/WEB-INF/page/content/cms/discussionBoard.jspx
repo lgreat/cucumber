@@ -31,15 +31,30 @@
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
 
     <script type="text/javascript">
+        if (GS == undefined) {
+            var GS = {};
+            GS.closeDialogHandlers = [];
+            GS.registerCloseDialogHandler = function(f) {
+                GS.closeDialogHandlers.push(f);
+            };
+            GS.closeDialogs = function() {
+                for (var i=0; i &lt; GS.closeDialogHandlers.length; i++) {
+                    GS.closeDialogHandlers[i]();
+                }
+            };
+        }
+
         $(function() {
             $("#startADiscussionDialog").dialog({
                 autoOpen: false,
                 resizable: false,
                 modal: true,
-                draggable: false
+                draggable: false,
+                width: 400,
+                title: "Start a discussion"
             });
 
-            $("#dialogCancelButton").click(function() {
+            GS.registerCloseDialogHandler(function() {
                 $('#startADiscussionDialog').dialog("close");
             });
 
@@ -97,34 +112,8 @@
 <!-- end header -->
 
 <div id="startADiscussionDialog" style="display:none;">
-    <form action="/community/discussionSubmission.page" method="post">
-        <div class="communityGuidelines">
-            Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                       title="GreatSchools Community Standards"
-                                       href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                >Community Guidelines</gsml:popupWindow>
-        </div>
-        <div class="topicSelect">
-            <label for="topicSelect">Topic</label>
-            <select id="topicSelect" name="topicCenterId">
-                <c:forEach var="myTc" items="${requestScope.discussionTopics}">
-                    <gsml:selectOption value="${myTc.contentKey.identifier}"
-                                       selected="${myTc.contentKey.identifier == requestScope.topicCenter.contentKey.identifier}">${myTc.title}</gsml:selectOption>
-                </c:forEach>
-            </select>
-        </div>
-        <div class="titleInput">
-            <label for="titleInput">Title</label>
-            <input id="titleInput" type="text" name="title" value="${requestScope.userTitle}"/>
-        </div>
-        <div class="bodyInput">
-            <label for="bodyInput">Details</label>
-            <textarea id="bodyInput" class="bodyInput" rows="5" cols="30"
-                      name="body"><!-- no collapse -->${requestScope.userBody}</textarea>
-        </div>
-        <input type="submit" name="submit" value="Start a Discussion"/>
-        <input id="dialogCancelButton" type="button" value="Cancel"/>
-    </form>
+    <iframe src="/community/hover/startDiscussionHover.page?topicCenterId=${topicCenter.contentKey.identifier}"
+            frameborder="0" height="250"><!-- don't collapse --></iframe>
 </div>
 
 <div class="db_body">

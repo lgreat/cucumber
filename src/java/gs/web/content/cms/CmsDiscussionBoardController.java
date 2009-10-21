@@ -46,7 +46,6 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_VALID_USER = "validUser";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
-    public static final String MODEL_DISCUSSION_TOPICS = "discussionTopics";
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_REPLIES_PER_DISCUSSION = "repliesPerDiscussion";
@@ -114,7 +113,6 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_CURRENT_DATE, new Date());
 
             model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
-            populateModelWithListOfValidDiscussionTopics(model);
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
                     model.get(MODEL_URI).toString());
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
@@ -145,22 +143,6 @@ public class CmsDiscussionBoardController extends AbstractController {
             facades.add(facade);
         }
         return facades;
-    }
-
-    protected void populateModelWithListOfValidDiscussionTopics(Map<String, Object> model) {
-        Collection<CmsTopicCenter> topicCenters =
-                _publicationDao.populateAllByContentType("TopicCenter", new CmsTopicCenter());
-        SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
-            public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
-                return o1.getTitle().compareTo(o2.getTitle());
-            }
-        });
-        for (CmsTopicCenter topicCenter: topicCenters) {
-            if (topicCenter.getDiscussionBoardId() != null && topicCenter.getDiscussionBoardId() > 0) {
-                sortedTopics.add(topicCenter);
-            }
-        }
-        model.put(MODEL_DISCUSSION_TOPICS, sortedTopics);
     }
 
     /**

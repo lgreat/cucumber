@@ -516,6 +516,13 @@
         <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
     </bean>
 
+    <bean name="/community/hover/startDiscussionHover.page"
+          class="gs.web.community.StartDiscussionHoverController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/hover/startDiscussionHover"/>
+        <!--<property name="hoverView" value="/community/registration/popup/sendToDestination.page"/>-->
+    </bean>
+
    <bean name="/community/userAccount.page"
          class="gs.web.community.UserInfoController"
          autowire="byName" lazy-init="true">
