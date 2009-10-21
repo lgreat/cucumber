@@ -95,11 +95,7 @@
 </head>
 <body>
 
-<![CDATA[<!--[if lt IE 7 ]> <div id="container" class="ie6 gainlayout"> <![endif]-->]]>
-<![CDATA[<!--[if IE 7 ]>    <div id="container" class="ie7 gainlayout"> <![endif]-->]]>
-<![CDATA[<!--[if IE 8 ]>    <div id="container" class="ie8 gainlayout"> <![endif]-->]]>
-<![CDATA[<!--[if !IE]><!-->]]> <div id="container"> <![CDATA[<!--<![endif]-->]]>
-
+<div id="container">
 <div id="mainContent">
 
 <p class="breadCrumbs smallAlertText">
