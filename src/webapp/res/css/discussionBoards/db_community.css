@@ -93,6 +93,7 @@
 }
 
 .mostRecent{
+    margin:10px 0;
     padding:5px 0;
 }
 
@@ -325,8 +326,7 @@
     padding:15px 0;
 }
 .db_post_reply{
-    width:454px;
-    /*height:233px;*/
+    width:448px;
     background:#fc6;
     padding:12px 15px 15px 15px;
 }

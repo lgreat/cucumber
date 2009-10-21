@@ -131,7 +131,7 @@
         <br class="clearfloat"/>
     </div>
 
-    <div class="db_discuss_topic gainlayout">
+    <div class="db_discussTopic gainlayout">
         <div class="fltlft">
             <link:userProfile user="${discussion.user}">
                 <img class="fltlft"
@@ -193,6 +193,7 @@
     <!-- end share this -->
 
     <c:set var="replyForm">
+        <br class="clearfloat"/>
         <c:if test="${requestScope.validUser != null}">
             <div class="replyForm" style="display:none;">
                 <c:if test="${requestScope.userReplyMessage != null}">
@@ -246,6 +247,7 @@
             </div>
             <!-- end replyForm -->
         </c:if>
+        <br class="clearfloat"/>
     </c:set>
 
     ${replyForm}
@@ -342,6 +344,7 @@
 <!-- end db_body -->
 
 <div class="db_footer">
+    <div class="db_discussion">
     <c:if test="${requestScope.totalPages > 1}">
         <div class="cmsDiscussionPagination">
             Page
@@ -366,6 +369,7 @@
     ${shareThis}
     <!-- end share this -->
     ${replyForm}
+    </div>
 </div>
 <!-- end db_footer -->
 </div>
