@@ -276,6 +276,8 @@
                         href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a>
             </p>
         </div>
+        
+        <c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
     </div>
 </div>
 

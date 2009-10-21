@@ -1,0 +1,96 @@
+package gs.web.community;
+
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
+import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.content.cms.CmsDiscussionBoard;
+import gs.data.community.Discussion;
+import gs.data.community.IDiscussionDao;
+import gs.data.community.IDiscussionReplyDao;
+
+/**
+ * @author npatury
+ */
+
+public class RecentDiscussionsController extends AbstractController {
+    protected final Log _log = LogFactory.getLog(getClass());
+
+    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private IDiscussionDao _discussionDao;
+    private IDiscussionReplyDao _discussionReplyDao;
+    private String _viewName;
+
+    public static final String VIEW_NOT_FOUND = "/status/error404.page";
+    public static final String PARAM_BOARD_ID = "board_id";
+    public static final String PARAM_LIMIT = "limit";
+    public static final String MODEL_DISCUSSION_LIST = "discussions";
+    public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> model = new HashMap<String, Object>();
+        try {
+            Long contentId = new Long(request.getParameter(PARAM_BOARD_ID));
+            Integer limit = new Integer(request.getParameter(PARAM_LIMIT));
+            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
+
+            if (board != null) {
+                model.put(MODEL_DISCUSSION_BOARD, board);
+                List<Discussion> discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY);
+                List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
+                for (Discussion discussion : discussions) {
+                    DiscussionFacade facade = new DiscussionFacade(discussion, null);
+                    facade.setTotalReplies(_discussionReplyDao.getTotalReplies(discussion));
+                    facades.add(facade);
+                }
+                model.put(MODEL_DISCUSSION_LIST, facades);
+            }
+        } catch (Exception e) {
+            // do nothing, module will render blank
+        }
+
+        return new ModelAndView(_viewName, model);
+    }
+
+    public ICmsDiscussionBoardDao getCmsDiscussionBoardDao() {
+        return _cmsDiscussionBoardDao;
+    }
+
+    public void setCmsDiscussionBoardDao(ICmsDiscussionBoardDao cmsDiscussionBoardDao) {
+        _cmsDiscussionBoardDao = cmsDiscussionBoardDao;
+    }
+
+    public IDiscussionDao getDiscussionDao() {
+        return _discussionDao;
+    }
+
+    public void setDiscussionDao(IDiscussionDao discussionDao) {
+        _discussionDao = discussionDao;
+    }
+
+    public IDiscussionReplyDao getDiscussionReplyDao() {
+        return _discussionReplyDao;
+    }
+
+    public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
+        _discussionReplyDao = discussionReplyDao;
+    }
+
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
+    }
+}

@@ -41,6 +41,8 @@
                              description="Full URI of the discussion that owns the reply, for linking to discussions or discussion replies."/>
     <jsp:directive.attribute name="discussionReplyId" required="false" type="java.lang.Integer"
                              description="Id of the discussion reply to link to."/>
+    <jsp:directive.attribute name="numReplies" required="false" type="java.lang.Integer"
+                             description="Number of replies the discussion has.  Changes the link text."/>
     <!-- Optional attributes for CSS class names -->
     <jsp:directive.attribute name="textSpanClass" required="false" type="java.lang.String"
                              description="Class for the span that wraps the text."/>
@@ -64,16 +66,26 @@
     <span class="${textSpanClass}">${teaserBody} </span>
 
     <c:choose>
+        <c:when test="${!empty numReplies and numReplies eq 1}">
+            <c:set var="moreLink">(${numReplies} reply)</c:set>
+        </c:when>
+        <c:when test="${!empty numReplies and (numReplies eq 0 or numReplies gt 1)}">
+            <c:set var="moreLink">(${numReplies} replies)</c:set>
+        </c:when>
+        <c:otherwise><c:set var="moreLink">More <span>&amp;#187;</span></c:set></c:otherwise>
+    </c:choose>
+
+    <c:choose>
         <c:when test="${discussionReplyId ne null}">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
                              discussionReplyId="${discussionReplyId}"
-                             styleClass="${linkClass}">More <span>&amp;#187;</span></link:discussion>
+                             styleClass="${linkClass}">${moreLink}</link:discussion>
         </c:when>
         <c:when test="${discussionId ne null}">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
-                             styleClass="${linkClass}">More <span>&amp;#187;</span></link:discussion>
+                             styleClass="${linkClass}">${moreLink}</link:discussion>
         </c:when>
     </c:choose>
 </jsp:root>

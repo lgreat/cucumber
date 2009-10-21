@@ -120,6 +120,12 @@
         </property>
     </bean> 
 
+    <bean name="/community/recentDiscussions.module"
+          class="gs.web.community.RecentDiscussionsController"
+          autowire="byName">
+        <property name="viewName" value="/community/recentDiscussions"/>
+    </bean>
+
     <bean id="testScoreLandingLinksTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
