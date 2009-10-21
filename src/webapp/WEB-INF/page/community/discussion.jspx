@@ -185,7 +185,7 @@
     <c:set var="shareThis">
         <div class="shareThis smallText1 gainlayout">
             <span class="fltlft"><cms:communityDistribution feature="${feature}"/></span>
-            <span class="fltrt"><a href="#">RSS</a></span>
+            <!--<span class="fltrt"><a href="#">RSS</a></span>-->
             <br class="clearfloat"/>
         </div>
     </c:set>
