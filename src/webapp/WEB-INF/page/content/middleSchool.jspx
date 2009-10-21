@@ -134,22 +134,31 @@
                 </div>
             </div>
 
-            <div id="communityModule" class="box">
-                <div class="inner">
-                    <div class="content cleared">
-                        <h2 class="quotable">Talk back</h2>
-                        <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
-                        <div class="column">
-                            <c:import
-                                    url="/content/editorialLinks.module?page=middle_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=MiddleLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
-                            <p class="more">
-                                <gsml:a styleClass="GS_EV5_" id="MiddleLanding_CommDisc__aMore"
-                                        href="http://${communityHost}/groups/11528">Join other middle school parents &amp;gt;</gsml:a>
-                            </p>
+            <c:set var="recentDiscussions"><c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/></c:set>
+            <c:choose>
+                <c:when test="${empty recentDiscussions}">
+                    <div id="communityModule" class="box">
+                        <div class="inner">
+                            <div class="content cleared">
+                                <h2 class="quotable">Talk back</h2>
+                                <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
+                                <div class="column">
+                                    <c:import
+                                            url="/content/editorialLinks.module?page=middle_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=MiddleLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+                                    <p class="more">
+                                        <gsml:a styleClass="GS_EV5_" id="MiddleLanding_CommDisc__aMore"
+                                                href="http://${communityHost}/groups/11528">Join other middle school parents &amp;gt;</gsml:a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </c:when>
+                <c:otherwise>
+                    ${recentDiscussions}
+                </c:otherwise>
+            </c:choose>
+
             <br class="cleared"/>
         </div> <!-- end div content -->
 

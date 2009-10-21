@@ -262,22 +262,27 @@
             <hr/>
         </div>
 
-        <h3 class="quotable">Top Questions From Other Parents</h3>
+        <c:set var="recentDiscussions"><c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/></c:set>
+        <c:choose>
+            <c:when test="${empty recentDiscussions}">
+                <h3 class="quotable">Top Questions From Other Parents</h3>
 
 
-        <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+                <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
 
-        <div class="column">
-            <c:import
-                    url="/content/editorialLinks.module?page=preschool_TopQuestions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+                <div class="column">
+                    <c:import
+                            url="/content/editorialLinks.module?page=preschool_TopQuestions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
 
-            <p class="more">
-                <gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__aMore"
-                        href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a>
-            </p>
-        </div>
-        
-        <c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
+                    <p class="more">
+                        <gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__aMore"
+                                href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a>
+                    </p>
+                </div>
+            </c:when>
+            <c:otherwise>${recentDiscussions}</c:otherwise>
+        </c:choose>
+
     </div>
 </div>
 
@@ -360,17 +365,19 @@
             </ul>
             </div>
 
-            <div class="hr">
-                <hr/>
-            </div>
+            <c:if test="${empty recentDiscussions}">
+                <div class="hr">
+                    <hr/>
+                </div>
 
-            <h3 class="quotable topKDiscussions">Discussions About Kindergarten</h3>
+                <h3 class="quotable topKDiscussions">Discussions About Kindergarten</h3>
 
-            <c:import
-                    url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=topKDiscussions&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
+                <c:import
+                        url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=topKDiscussions&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
 
-            <p class="more"><gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__bMore"
-                                    href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a></p>
+                <p class="more"><gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__bMore"
+                                        href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a></p>
+            </c:if>
         </div>
     </div>
 
