@@ -9,11 +9,11 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
     <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
+        <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
         <h2>${requestScope.discussionBoard.title}</h2>
         <ul>
             <c:forEach var="discussion" items="${requestScope.discussions}">
                 <li>
-                    <c:set var="discussionFullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
                     <link:userProfile user="${discussion.user}">
                         <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
@@ -21,7 +21,7 @@
                              style="border: 1px solid #c6c6c6;"/>
                     </link:userProfile>
                     <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
-                                                        fullUri="${discussionFullUri}"
+                                                        fullUri="${fullUri}"
                                                         styleClass="text3">${discussion.title}</link:discussion>"
                     </h4>
 
@@ -36,7 +36,7 @@
                                 textToDisplay="${discussion.body}"
                                 minLength="143" maxLength="163"
                                 discussionId="${discussion.id}"
-                                discussionFullUri="${discussionFullUri}"
+                                discussionFullUri="${fullUri}"
                                 numReplies="${discussion.totalReplies}"
                                 textSpanClass="text3"
                                 linkClass="text3"/>
@@ -44,5 +44,8 @@
                 </li>
             </c:forEach>
         </ul>
+        Start a discussion button &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                         fullUri="${fullUri}">More discussions &amp;#187;</link:cmsContent>
+
     </c:if>
 </jsp:root>
