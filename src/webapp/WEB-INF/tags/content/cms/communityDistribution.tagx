@@ -26,7 +26,6 @@
                 } else if (url != null) {
                     UrlBuilder builder = new UrlBuilder(request, url);
                     request.setAttribute("fullUrl", URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
-                    System.out.println("fullUrl = " + URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
                 }
                 if (title != null) {
                     request.setAttribute("encodedTitle", URLEncoder.encode(title, "UTF-8"));
