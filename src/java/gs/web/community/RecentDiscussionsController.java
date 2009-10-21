@@ -8,16 +8,13 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.community.Discussion;
-import gs.data.community.IDiscussionDao;
-import gs.data.community.IDiscussionReplyDao;
+import gs.data.community.*;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * @author npatury
@@ -29,6 +26,7 @@ public class RecentDiscussionsController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
+    private IUserDao _userDao;
     private String _viewName;
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
@@ -36,6 +34,8 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_LIMIT = "limit";
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
+    public static final String MODEL_COMMUNITY_HOST = "communityHost";
+    public static final String MODEL_CURRENT_DATE = "currentDate";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -47,6 +47,9 @@ public class RecentDiscussionsController extends AbstractController {
             if (board != null) {
                 model.put(MODEL_DISCUSSION_BOARD, board);
                 List<Discussion> discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY);
+                List<UserContent> userContents = new ArrayList<UserContent>(discussions);
+                _userDao.populateWithUsers(userContents);
+
                 List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
                 for (Discussion discussion : discussions) {
                     DiscussionFacade facade = new DiscussionFacade(discussion, null);
@@ -54,6 +57,10 @@ public class RecentDiscussionsController extends AbstractController {
                     facades.add(facade);
                 }
                 model.put(MODEL_DISCUSSION_LIST, facades);
+                model.put(MODEL_CURRENT_DATE, new Date());
+
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
             }
         } catch (Exception e) {
             // do nothing, module will render blank
@@ -84,6 +91,14 @@ public class RecentDiscussionsController extends AbstractController {
 
     public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
         _discussionReplyDao = discussionReplyDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 
     public String getViewName() {

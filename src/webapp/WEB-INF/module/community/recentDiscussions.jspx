@@ -14,12 +14,23 @@
             <c:forEach var="discussion" items="${requestScope.discussions}">
                 <li>
                     <c:set var="discussionFullUri" value="${requestScope.discussionBoard.fullUri}"/>
+
+                    <link:userProfile user="${discussion.user}">
+                        <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
+                             alt="Avatar" width="48" height="48"
+                             style="border: 1px solid #c6c6c6;"/>
+                    </link:userProfile>
                     <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
                                                         fullUri="${discussionFullUri}"
                                                         styleClass="text3">${discussion.title}</link:discussion>"
-                        <fmt:formatDate pattern="MMMMM d, yyyy" value="${discussion.dateCreated}"/>
                     </h4>
 
+                    <br/>
+
+                    <link:userProfile user="${discussion.user}">
+                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                    </link:userProfile>
+                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>    
                     <p>
                         <community:userContentTeaserText
                                 textToDisplay="${discussion.body}"
