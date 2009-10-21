@@ -325,7 +325,7 @@
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_footer" class="rounded_bottom">
                     <!-- share this -->
-                    <cms:communityDistribution feature="${feature}"/>
+                    <cms:communityDistribution content="${feature}"/>
                     ${stepNavContent}
                 </div>
                 <!-- ss_footer -->
@@ -436,7 +436,7 @@
 
 <!-- share this -->
 <c:if test="${type eq 'askTheExperts' or type eq 'article'}">
-    <cms:communityDistribution feature="${feature}"/>
+    <cms:communityDistribution content="${feature}"/>
     <div class="clear">&amp;nbsp;</div>
 </c:if>
 

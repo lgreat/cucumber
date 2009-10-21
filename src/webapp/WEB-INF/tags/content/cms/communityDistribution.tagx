@@ -4,25 +4,29 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag import="java.net.URLEncoder"/>
-    <!-- you must either pass in a feature, or both a (url or UrlBuilder vpage) and a title -->
-    <jsp:directive.attribute name="feature" required="false" type="gs.data.content.cms.CmsFeature"/>
+    <!-- you must either pass in a CMS content object, or both a (url or UrlBuilder vpage) and a title -->
+    <jsp:directive.attribute name="content" required="false" type="gs.data.content.cms.CmsContent"/>
     <jsp:directive.attribute name="url" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="vpage" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="title" required="false" type="java.lang.String"/>
     <jsp:scriptlet>
         <![CDATA[
-            if (feature != null) {
-                UrlBuilder builder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
-                request.setAttribute("url",  URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
-                request.setAttribute("encodedTitle", URLEncoder.encode(feature.getTitle(), "UTF-8"));
-                request.setAttribute("title", feature.getTitle());
+            if (content != null) {
+                UrlBuilder builder = new UrlBuilder(content.getContentKey(), content.getFullUri());
+                request.setAttribute("fullUrl",  URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
+                request.setAttribute("encodedTitle", URLEncoder.encode(content.getTitle(), "UTF-8"));
+                request.setAttribute("title", content.getTitle());
             } else {
                 if (vpage != null) {
                     UrlBuilder.VPage vpageObj = UrlBuilder.getVPage(vpage);
                     if (vpageObj != null) {
                         UrlBuilder builder = new UrlBuilder(vpageObj);
-                        request.setAttribute("url", URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
+                        request.setAttribute("fullUrl", URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
                     }
+                } else if (url != null) {
+                    UrlBuilder builder = new UrlBuilder(request, url);
+                    request.setAttribute("fullUrl", URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
+                    System.out.println("fullUrl = " + URLEncoder.encode(builder.asFullUrl(request), "UTF-8"));
                 }
                 if (title != null) {
                     request.setAttribute("encodedTitle", URLEncoder.encode(title, "UTF-8"));
@@ -34,13 +38,13 @@
     <div id="shareThis">
 
         <!-- Facebook -->
-        <script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&amp;t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><style> html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://b.static.ak.fbcdn.net/images/share/facebook_share_icon.gif?8:26981) no-repeat top left; }</style><a href="http://www.facebook.com/share.php?u=${url}&amp;t=${encodedTitle}" onclick="return fbs_click()" target="_blank" class="fb_share_link">Facebook</a>&amp;nbsp;
+        <script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&amp;t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><style> html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://b.static.ak.fbcdn.net/images/share/facebook_share_icon.gif?8:26981) no-repeat top left; }</style><a href="http://www.facebook.com/share.php?u=${fullUrl}&amp;t=${encodedTitle}" onclick="return fbs_click()" target="_blank" class="fb_share_link">Facebook</a>&amp;nbsp;
 
         <!-- Twitter -->
         <script charset='utf-8' src='http://bit.ly/javascript-api.js?version=latest&amp;login=tweettrackjs&amp;apiKey=R_7e9987b2fd13d7e4e881f9cbb168f523' type='text/javascript'><!--preserve layout--></script>
         <script charset='utf-8' src='http://s.bit.ly/TweetAndTrack.js?v=1.01' type='text/javascript'><!--preserve layout--></script>
         <span style='background: url(http://lh6.ggpht.com/_xn2gmPb9TfM/Sb_fZkjAxpI/AAAAAAAAD3E/_9xpsQgFfTg/s128/twitter-16x16.png) left no-repeat; padding-left: 20px;'>
-            <a onclick="return TweetAndTrack.open(this, '${url}');" href='#'><span style='display:none;'>I'm reading: ${title}</span>Tweet this!</a>
+            <a onclick="return TweetAndTrack.open(this, '${fullUrl}');" href='#'><span style='display:none;'>I'm reading: ${title}</span>Tweet this!</a>
         </span>&amp;nbsp;
 
         <!-- Yahoo Buzz -->
@@ -48,7 +52,7 @@
 
         <!-- Digg -->
         <span style='background: url(http://digg.com/img/badges/16x16-digg-guy.gif) left no-repeat; padding-left: 20px;'>
-            <a target="_blank" href="http://digg.com/submit?url=${url}&amp;title=${encodedTitle}&amp;topic=educational">Digg</a>
+            <a target="_blank" href="http://digg.com/submit?url=${fullUrl}&amp;title=${encodedTitle}&amp;topic=educational">Digg</a>
         </span>&amp;nbsp;
 
         <!-- Share This -->

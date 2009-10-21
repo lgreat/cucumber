@@ -211,7 +211,7 @@
             </div>
 
             <!-- share this -->
-            <cms:communityDistribution feature="${askTheExperts}" />
+            <cms:communityDistribution content="${askTheExperts}" />
 
             <!-- Related links -->
             <c:if test="${not empty askTheExperts.relatedArticles or not empty askTheExperts.externalLinks}">

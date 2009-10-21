@@ -18,7 +18,7 @@
 <ad:setSlotPrefix slotPrefix="Discussion"/>
 
 <head>
-    <c:set var="pageTitle">${discussionBoard.title} Discussion Detail</c:set>
+    <c:set var="pageTitle">${discussion.title}</c:set>
     <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
@@ -184,7 +184,7 @@
     <!-- share this -->
     <c:set var="shareThis">
         <div class="shareThis smallText1 gainlayout">
-            <span class="fltlft"><cms:communityDistribution feature="${feature}"/></span>
+            <span class="fltlft"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
             <!--<span class="fltrt"><a href="#">RSS</a></span>-->
             <br class="clearfloat"/>
         </div>
