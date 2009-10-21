@@ -94,7 +94,12 @@
     </script>
 </head>
 <body>
-<div id="container" class="gainlayout">
+
+<![CDATA[<!--[if lt IE 7 ]> <div id="container" class="ie6 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if IE 7 ]>    <div id="container" class="ie7 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if IE 8 ]>    <div id="container" class="ie8 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if !IE]><!-->]]> <div id="container"> <![CDATA[<!--<![endif]-->]]>
+
 <div id="mainContent">
 
 <p class="breadCrumbs smallAlertText">
@@ -141,24 +146,28 @@
             </div>
             <!-- end discussion avatar -->
 
-            <div class="db_discuss_full fltrt rnd8">
-                <p class="fltlft">
-                    <link:userProfile user="${discussion.user}">
-                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                    </link:userProfile>
+            <div class="db_discussContainer fltlft">
+                <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
 
-                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                    <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
-                                               contentPostedDate="${discussion.dateCreated}">
-                        | <a href="#" class="editLink">Edit</a>
-                    </gsml:ifUserCanEditContent>
-                </p>
+                <div class="db_discuss_full fltrt rnd8">
+                    <p class="fltlft">
+                        <link:userProfile user="${discussion.user}">
+                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                        </link:userProfile>
 
-                <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
-                <br class="clearfloat"/>
-                <span class="text3 discussionBody">${discussion.body}</span>
+                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                        <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
+                                                   contentPostedDate="${discussion.dateCreated}">
+                            | <a href="#" class="editLink">Edit</a>
+                        </gsml:ifUserCanEditContent>
+                    </p>
+
+                    <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
+                    <br class="clearfloat"/>
+                    <span class="text3 discussionBody">${discussion.body}</span>
+                </div>
+                <!-- end db_discuss_full -->
             </div>
-            <!-- end db_discuss_full -->
             <br class="clearfloat"/>
         </div>
         <!-- end db_discuss_topic -->
@@ -214,8 +223,11 @@
                         <form action="/community/discussionSubmission.page" method="POST">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-                            <textarea rows="13" cols="55" class="replybox"
-                                      name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+
+                            <div class="db_textarea">
+                                <textarea rows="9" cols="55" class="replybox"
+                                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                            </div>
                             <button class="btn25ni fltlft" type="submit">
                                 <span class="rnd4"><span class="rnd4">Preview</span></span>
                             </button>
@@ -229,14 +241,14 @@
                                                            tabIndex="18">Community Guidelines</gsml:popupWindow>
                             </div>
                         </form>
-                        <br class="clearfloat"/>
-                    </div>
-                </div>
+                    </div> <!-- end db_post_reply -->
+                </div> <!-- end replyForm -->
             </c:if>
         </c:set>
 
         ${replyForm}
 
+        <br class="clearfloat"/>
         <c:if test="${fn:length(requestScope.replies) > 0}">
             <div class="mostRecent gainlayout sdrt sdrb">
                 <p class="fltlft">Most Recent Replies</p>
@@ -285,7 +297,8 @@
                         </div>
                         <!-- end reply avatar -->
 
-                        <div class="db_reply_container">
+                        <div class="db_replyContainer fltlft">
+                                            <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
                             <div class="db_reply_full fltrt rnd8">
                                 <p class="fltlft">
@@ -309,7 +322,7 @@
                             <!-- end db_reply_full -->
 
                         </div>
-                        <!-- end db_reply_container -->
+                        <!-- end db_replyContainer -->
                     </div>
                     <!-- end db_reply_topic -->
                     <br class="clearfloat"/>
@@ -341,9 +354,6 @@
             </c:forEach>
         </div>
     </c:if>
-
-
-    ${replyForm}
     <div>
         ${postReplyButton}
     </div>
@@ -351,6 +361,7 @@
     <!-- share this -->
     ${shareThis}
     <!-- end share this -->
+    ${replyForm}
 </div>
 <!-- end db_footer -->
 </div>

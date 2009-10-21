@@ -67,7 +67,12 @@
     </script>
 </head>
 <body>
-<div id="container" class="gainlayout">
+
+<![CDATA[<!--[if lt IE 7 ]> <div id="container" class="ie6 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if IE 7 ]>    <div id="container" class="ie7 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if IE 8 ]>    <div id="container" class="ie8 gainlayout"> <![endif]-->]]>
+<![CDATA[<!--[if !IE]><!-->]]> <div id="container"> <![CDATA[<!--<![endif]-->]]>
+
 <div id="mainContent">
     <c:if test="${topicCenter ne null}">
         <p class="breadCrumbs smallAlertText">
@@ -174,7 +179,7 @@
                                 <br class="clearfloat"/>
                             </div>
 
-                            <div class="db_discuss_topic gainlayout">
+                            <div class="db_discussTopic gainlayout">
                                 <div class="fltlft">
                                     <link:userProfile user="${discussion.user}">
                                         <img class="fltlft"
@@ -185,14 +190,16 @@
                                 </div>
                                 <!-- end discussion avatar -->
 
-                                <div class="db_discuss fltrt rnd8">
-                                    <p class="fltlft">
-                                        <link:userProfile user="${discussion.user}">
-                                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                                        </link:userProfile>
+                                <div class="db_discussContainer fltlft">
+                                    <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
+                                    <div class="db_discuss fltrt rnd8">
+                                        <p class="fltlft">
+                                            <link:userProfile user="${discussion.user}">
+                                                <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                            </link:userProfile>
 
-                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                                    </p>
+                                            <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                        </p>
 
                                     <p class="fltrt"><a class="smallText1 reportItLink" href="#">Report it</a></p>
                                     <br class="clearfloat"/>
@@ -204,10 +211,9 @@
                                             textSpanClass="text3"
                                             linkClass="text3"/>
                                 </div>
-                                <!-- end db_discuss -->
                                 <br class="clearfloat"/>
                             </div>
-                            <!-- end db_discuss_topic -->
+                            <!-- end db_discussTopic -->
                         </div>
                         <!-- end db_discussion -->
 
@@ -228,28 +234,7 @@
                                         </div>
                                         <!-- end reply avatar -->
 
-                                        <div class="db_reply fltrt rnd8">
-                                            <p class="fltlft">
-                                                <link:userProfile user="${reply.user}">
-                                                    <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                                </link:userProfile>
-
-                                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                            </p>
-
-                                            <p class="fltrt"><a class="smallText1 reportItLink" href="#">Report it</a></p>
-                                            <br class="clearfloat"/>
-
-                                            <community:userContentTeaserText
-                                                    textToDisplay="${reply.body}"
-                                                    minLength="117" maxLength="138"
-                                                    discussionId="${discussion.id}"
-                                                    discussionFullUri="${discussion.fullUri}" 
-                                                    discussionReplyId="${reply.id}"
-                                                    textSpanClass="text3"
-                                                    linkClass="text3"/>
                                         </div>
-                                        <!-- end db_reply -->
                                     </div>
                                     <!-- end db_reply_topic -->
                                     <br class="clearfloat"/>
