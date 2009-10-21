@@ -103,8 +103,10 @@
             <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
         </ul>
         <p class="avatar">
-            <img src="/res/img/api/poweredby.gif" alt="User Avatar" width="95" height="95" style="border: red 1px solid"/>
-        <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
+            <img src="http://${requestScope.communityHost}/avatar?id=${requestScope.pageUser.id}&amp;amp;width=95&amp;amp;height=95"
+                 alt="User Avatar" width="95" height="95"
+                 style="border: 1px solid #c6c6c6;"/>
+            <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
         </p>
     </div>
     <div class="aboutMe col sdrl">

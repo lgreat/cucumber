@@ -47,6 +47,7 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_TOTAL_USER_CONTENT = "totalUserContent";
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
+    public static final String MODEL_COMMUNITY_HOST = "communityHost";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -169,6 +170,8 @@ public class UserInfoController extends AbstractController {
             model.put(MODEL_AD_SLOT_PREFIX, "MemberProfile");
         }
 
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
         model.put(MODEL_PAGE_USER, pageUser);
         model.put(MODEL_VIEWING_OWN_PROFILE, viewingOwnProfile);
 
