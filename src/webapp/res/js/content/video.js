@@ -1,18 +1,22 @@
 function delvePlayerCallback(playerId, eventName, data) {
     switch (eventName) {
-        case 'onChannelLoad':
-            doOnChannelLoad(data);
+        case 'onMediaLoad':
+            doOnMediaLoad(data);
     }
 }
 
+var initialized = false;
 
-function doOnChannelLoad(e) {
-    DelvePlayer.doSetAd("preroll", "Acudeo","programId=4a8d97cdc8979");
+function doOnMediaLoad() {
+  if (!initialized) {
+    initialized = true;
     var vid = getParam('id');
     vid = vid > 0 ? vid - 1 : 0;
-    DelvePlayer.doSkipToIndex(vid);
+    if (DelvePlayer.doGetCurrentIndex() != vid) {
+      DelvePlayer.doSkipToIndex(vid);
+    }
     DelvePlayer.doPlay();
-    DelvePlayer.doSetAdFrequency(1);
+  }
 }
 
 function getParam( name )
