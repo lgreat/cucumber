@@ -126,7 +126,7 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
 
         CmsDiscussionBoard board = new CmsDiscussionBoard();
         board.setContentKey(new ContentKey("CmsDiscussionBoard", 1081l));
-        board.setTopicCenterId(15);
+        board.setTopicCenterId(15L);
         CmsTopicCenter topicCenter = new CmsTopicCenter();
         expect(_discussionDao.findById(1)).andReturn(discussion);
         expect(_discussionBoardDao.get(discussion.getBoardId())).andReturn(board);
