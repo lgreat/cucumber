@@ -82,8 +82,6 @@ public class CmsDiscussionBoardController extends AbstractController {
         if (board != null) {
             model.put(MODEL_URI, uri + "?content=" + board.getContentKey().getIdentifier());
             model.put(MODEL_DISCUSSION_BOARD, board);
-            CmsTopicCenter topicCenter = _publicationDao.populateByContentId
-                    (board.getTopicCenterId(), new CmsTopicCenter());
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User user;
@@ -94,7 +92,12 @@ public class CmsDiscussionBoardController extends AbstractController {
                 }
             }
 
-            model.put(MODEL_TOPIC_CENTER, topicCenter);
+            if (board.getTopicCenterId() != null) {
+                CmsTopicCenter topicCenter = _publicationDao.populateByContentId
+                        (board.getTopicCenterId(), new CmsTopicCenter());
+                model.put(MODEL_TOPIC_CENTER, topicCenter);
+            }
+            
             int page = getPageNumber(request);
             int pageSize = getPageSize(request);
             DiscussionSort sort = getDiscussionSort(request, response);

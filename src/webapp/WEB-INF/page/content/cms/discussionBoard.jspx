@@ -48,14 +48,28 @@
 
 <div id="container">
 <div id="mainContent">
-<c:if test="${topicCenter ne null}">
-    <p class="breadCrumbs smallAlertText">
-        <link:home>Home</link:home>
-        &amp;gt;
-        <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                         fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-    </p>
-</c:if>
+<c:choose>
+    <c:when test="${discussionBoard.city ne null}">
+        <p class="breadCrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
+            <link:research state="${discussionBoard.city.state}"
+                               title="${discussionBoard.city.state.longName} schools">${discussionBoard.city.state.longName}</link:research>
+            &amp;gt;
+
+            <link:city city="${discussionBoard.city.name}" state="${discussionBoard.city.state}"
+                           title="${discussionBoard.city.name}">${discussionBoard.city.name}</link:city>
+        </p>
+    </c:when>
+    <c:when test="${topicCenter ne null}">
+        <p class="breadCrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
+            <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                             fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+        </p>
+    </c:when>
+</c:choose>
 
 <div class="module">
 <div class="header">
