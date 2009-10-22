@@ -44,6 +44,8 @@
             };
         }
 
+        var startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${topicCenter.contentKey.identifier}';
+
         $(function() {
             $("#startADiscussionDialog").dialog({
                 autoOpen: false,
@@ -64,6 +66,7 @@
 
             $('.startADiscussion').click(function() {
                 //<c:choose><c:when test="${requestScope.validUser != null}">
+                    $('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
                     $('#startADiscussionDialog').dialog("open");
                     return false;
                 //</c:when><c:otherwise>
@@ -112,8 +115,9 @@
 <!-- end header -->
 
 <div id="startADiscussionDialog" style="display:none;">
-    <iframe src="/community/hover/startDiscussionHover.page?topicCenterId=${topicCenter.contentKey.identifier}"
-            frameborder="0" height="250"><!-- don't collapse --></iframe>
+    <iframe src="" id="startADiscussionIFrame"
+            name="startADiscussionIFrame"
+            frameborder="0" height="225" width="340" scrolling="no"><!-- don't collapse --></iframe>
 </div>
 
 <div class="db_body">
