@@ -107,9 +107,9 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
         board.setContentKey(new ContentKey("CmsDiscussionBoard", 1l));
         expect(_discussionBoardDao.get(1l)).andReturn(board);
-        CmsTopicCenter topicCenter = new CmsTopicCenter();
-        expect(_publicationDao.populateByContentId(eq(board.getTopicCenterId()), isA(CmsTopicCenter.class)))
-                .andReturn(topicCenter);
+        //CmsTopicCenter topicCenter = new CmsTopicCenter();
+        //expect(_publicationDao.populateByContentId(eq(board.getTopicCenterId()), isA(CmsTopicCenter.class)))
+        //        .andReturn(topicCenter);
 
         expect(_discussionDao.getDiscussionsForPage
                 (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.NEWEST_FIRST))
@@ -126,8 +126,8 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         assertEquals("myView", mAndV.getViewName());
         assertNotNull(mAndV.getModel().get(CmsDiscussionBoardController.MODEL_DISCUSSION_BOARD));
         assertSame(board, mAndV.getModel().get(CmsDiscussionBoardController.MODEL_DISCUSSION_BOARD));
-        assertNotNull(mAndV.getModel().get(CmsDiscussionBoardController.MODEL_TOPIC_CENTER));
-        assertSame(topicCenter, mAndV.getModel().get(CmsDiscussionBoardController.MODEL_TOPIC_CENTER));
+        //assertNotNull(mAndV.getModel().get(CmsDiscussionBoardController.MODEL_TOPIC_CENTER));
+        //assertSame(topicCenter, mAndV.getModel().get(CmsDiscussionBoardController.MODEL_TOPIC_CENTER));
         assertNotNull(mAndV.getModel().get(CmsDiscussionBoardController.MODEL_DISCUSSION_LIST));
         assertEquals(0l, mAndV.getModel().get(CmsDiscussionBoardController.MODEL_TOTAL_DISCUSSIONS));
     }
