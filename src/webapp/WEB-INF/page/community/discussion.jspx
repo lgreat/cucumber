@@ -31,6 +31,7 @@
 
     <script type="text/javascript">
         var $ = jQuery.noConflict();
+        var postReplyForm;
         $(function() {
             //<c:if test = "${requestScope.validUser != null}" >
             $('#upperReplyTrigger').click(function() {
@@ -72,6 +73,34 @@
                 replyForm.show();
 
             });
+
+            $('#previewReplyDialog').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                draggable: false,
+                width: 600,
+                title: "Preview"
+            });
+
+            $('.previewButton').click(function() {
+                var previewBody = $(this).parent().find(".db_textarea textarea").val();
+                postReplyForm = $(this).closest('form');
+                $('#previewReplyDialog .replyBody').html(previewBody);
+                $('#previewReplyDialog').dialog("open");
+                return false;
+            });
+
+            $('.previewEditButton').click(function() {
+                $('#previewReplyDialog').dialog("close");
+                $(postReplyForm).find(".db_textarea textarea").focus();
+            });
+
+            $('.previewPostButton').click(function() {
+                $('#previewReplyDialog').dialog("close");
+                postReplyForm.submit();
+            });
+
             //</c:if>
         });
         function createEditDiscussionForm(existingBody, discussionId) {
@@ -125,6 +154,50 @@
     <br class="clearfloat"/>
 </div>
 <!-- end header -->
+
+<!-- Preview reply dialog -->
+<c:if test="${validUser ne null}">
+    <div id="previewReplyDialog" style="display:none;">
+        <div class="db_reply_topic">
+            <div class="fltlft">
+                <link:userProfile user="${validUser}">
+                    <community:avatar userId="${validUser.id}" width="48" height="48"
+                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                </link:userProfile>
+            </div>
+            <!-- end preview reply avatar -->
+            <div class="db_replyContainer fltlft">
+                <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
+                    class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+
+                <div class="db_reply_full fltrt rnd8">
+                    <p class="fltlft">
+                        <link:userProfile user="${validUser}">
+                            <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
+                        </link:userProfile>
+
+                        <span class="smallText1">, a moment ago</span>
+                        | <a href="#" class="editLink" onclick="return false;">Edit</a>
+                    </p>
+
+                    <p class="fltrt"><a class="smallText1" href="#" onclick="return false;">Report it</a></p>
+                    <br class="clearfloat"/>
+
+                    <span class="text3 replyBody"><!-- filled in by JS --></span>
+                </div>
+                <!-- end preview db_reply_full -->
+            </div>
+        </div>
+        <button class="btn25ni fltlft previewEditButton" type="cancel">
+            <span class="rnd4"><span class="rnd4">Edit reply</span></span>
+        </button>
+        <button class="btn25ni fltlft previewPostButton" type="submit">
+            <span class="rnd4"><span class="rnd4">Post your reply</span></span>
+        </button>
+
+    </div>
+</c:if>
+<!-- End preview reply dialog -->
 
 <div class="db_body">
 <div class="db_discussion">
@@ -230,7 +303,7 @@
                                 <textarea rows="9" cols="55" class="replybox"
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
-                            <button class="btn25ni fltlft" type="submit">
+                            <button class="btn25ni fltlft previewButton" type="submit">
                                 <span class="rnd4"><span class="rnd4">Preview</span></span>
                             </button>
                             <button class="btn25ni fltlft" type="submit">
