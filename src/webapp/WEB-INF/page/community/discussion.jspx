@@ -34,7 +34,7 @@
         $(function() {
             //<c:if test = "${requestScope.validUser != null}" >
             $('#upperReplyTrigger').click(function() {
-                $('.replyForm:first').show("slow");
+                $('.replyForm:first').slideToggle("normal");
                 return false;
             });
 
@@ -54,7 +54,7 @@
 
             $('.db_replies .editLink').click(function() {
                 var wrapper = $(this).parents('.db_reply_topic');
-                var container = $(this).parents('.db_reply_container');
+                var container = $(this).parents('.db_replyContainer');
                 var reply = container.children('.db_reply_full');
                 var body = reply.children('.replyBody');
                 var replyId = reply.children('.replyId').text();
