@@ -29,12 +29,13 @@
                              description="ID for topic center to pre-select."/>
 
     <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>    
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
 
     <script type="text/javascript">
         var startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}';
-        $(function() {
-            $("#startADiscussionDialog").dialog({
+        jQuery(function() {
+            jQuery("#startADiscussionDialog").dialog({
                 autoOpen: false,
                 resizable: false,
                 modal: true,
@@ -44,13 +45,13 @@
             });
 
             GS.registerCloseDialogHandler(function() {
-                $('#startADiscussionDialog').dialog("close");
+                jQuery('#startADiscussionDialog').dialog("close");
             });
 
-            $('${pageScope.openElementJQuerySelector}').click(function() {
+            jQuery('${pageScope.openElementJQuerySelector}').click(function() {
                 //<c:choose><c:when test="${requestScope.validUser != null}">
-                    $('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
-                    $('#startADiscussionDialog').dialog("open");
+                    jQuery('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
+                    jQuery('#startADiscussionDialog').dialog("open");
                     return false;
                 //</c:when><c:otherwise>
                     document.location='${pageScope.loginRedirectUrl}';
