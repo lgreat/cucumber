@@ -131,10 +131,9 @@
                     <div class="db_discussTopic gainlayout">
                         <div class="fltlft">
                             <link:userProfile user="${discussion.user}">
-                                <img class="fltlft"
-                                     src="http://${communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
-                                     alt="Avatar" width="48" height="48"
-                                     style="border: 1px solid #c6c6c6;"/>
+                                <community:avatar userId="${discussion.user.id}" width="48" height="48"
+                                                  cssClass="fltlft"
+                                                  cssStyle="border: 1px solid #c6c6c6;"/>
                             </link:userProfile>
                         </div>
                         <!-- end discussion avatar -->
@@ -179,9 +178,8 @@
                             <div class="db_reply_topic">
                                 <div class="fltlft">
                                     <link:userProfile user="${reply.user}">
-                                        <img src="http://${communityHost}/avatar?id=${reply.user.id}&amp;amp;width=48&amp;amp;height=48"
-                                             alt="Avatar" width="48" height="48"
-                                             style="border: 1px solid #c6c6c6;"/>
+                                        <community:avatar userId="${reply.user.id}" width="48" height="48"
+                                                          cssStyle="border: 1px solid #c6c6c6;"/>
                                     </link:userProfile>
                                 </div>
                                 <!-- end reply avatar -->

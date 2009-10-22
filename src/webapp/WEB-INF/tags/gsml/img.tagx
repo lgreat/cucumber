@@ -7,6 +7,8 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
+    <jsp:directive.attribute name="width" required="false" type="java.lang.Integer" description="Image width"/>
+    <jsp:directive.attribute name="height" required="false" type="java.lang.Integer" description="Image height"/>
     <jsp:directive.attribute name="title" required="false" description="title text"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="style" required="false" description="CSS style attribute"/>
@@ -31,6 +33,14 @@
 
         // always add alt for XHTML compliance, even if empty
         buffer.append(" alt=\"").append(Util.escapeXml(alt)).append('"');
+
+        if (width != null) {
+            buffer.append(" width=\"").append(width).append('"');
+        }
+
+        if (height != null) {
+            buffer.append(" height=\"").append(height).append('"');
+        }
 
         if (StringUtils.isNotBlank(title)) {
             buffer.append(" title=\"").append(title).append('"');
