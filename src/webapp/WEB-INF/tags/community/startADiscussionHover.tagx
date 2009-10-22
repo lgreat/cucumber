@@ -49,7 +49,7 @@
             });
 
             jQuery('${pageScope.openElementJQuerySelector}').click(function() {
-                //<c:choose><c:when test="${requestScope.validUser != null}">
+                //<c:choose><c:when test="${requestScope.context.user ne null}">
                     jQuery('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
                     jQuery('#startADiscussionDialog').dialog("open");
                     return false;
