@@ -303,3 +303,16 @@ function GS_textSwitch(el, target, replace) {
 function GS_addPledgeCookie() {
     createCookie('pledged', '1', 730);
 }
+
+if (GS == undefined) {
+    var GS = {};
+    GS.closeDialogHandlers = [];
+    GS.registerCloseDialogHandler = function(f) {
+        GS.closeDialogHandlers.push(f);
+    };
+    GS.closeDialogs = function() {
+        for (var i=0; i < GS.closeDialogHandlers.length; i++) {
+            GS.closeDialogHandlers[i]();
+        }
+    };
+}

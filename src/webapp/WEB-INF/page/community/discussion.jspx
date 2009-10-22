@@ -7,6 +7,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -110,11 +111,15 @@
                      fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
 </p>
 
+<community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
+                                 openElementJQuerySelector=".startADiscussion"
+                                 topicCenterId="${topicCenter.contentKey.identifier}"/>
+
 <div class="module">
 <div class="header">
     <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
 
-    <div class="fltrt"><a class="btn25wi" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img
+    <div class="fltrt"><a class="btn25wi startADiscussion" href="#" onclick="this.blur();"><span class="rnd4"><span class="rnd4"><img
             class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles"/>Start a discussion</span></span></a>
     </div>
     <br class="clearfloat"/>

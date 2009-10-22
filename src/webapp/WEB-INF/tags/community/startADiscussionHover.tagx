@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    xmlns:link="urn:www.greatschools.net/taglib/link"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <!--
+        INSTRUCTIONS FOR USE
+
+        You must supply the following parameters:
+        openElementJQuerySelector - JQuery selector for the elements to apply an onClick to that opens the hover.
+                                    e.g. ".startADiscussion"
+        loginRedirectUrl - URL to send the user to if not signed in and clicking on the above elements. Generally
+                           this should be the login page with a link back to you.
+
+        Optional parameter:
+        topicCenterId - ID for topic center to pre-select (for the topic drop-down in the hover).
+
+        @author aroy@greatschools.net
+    -->
+    <!-- Required attributes -->
+    <jsp:directive.attribute name="openElementJQuerySelector" required="true" type="java.lang.String"
+                             description="Jquery selector to apply an onClick function to that opens the hover."/>
+    <jsp:directive.attribute name="loginRedirectUrl" required="true" type="java.lang.String"
+                             description="URL to send the user to if not signed in and clicking on link to open hover."/>
+    <!-- Optional attributes -->
+    <jsp:directive.attribute name="topicCenterId" required="false" type="java.lang.Long"
+                             description="ID for topic center to pre-select."/>
+
+    <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>    
+
+    <script type="text/javascript">
+        var startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}';
+        $(function() {
+            $("#startADiscussionDialog").dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                draggable: false,
+                width: 400,
+                title: "Start a discussion"
+            });
+
+            GS.registerCloseDialogHandler(function() {
+                $('#startADiscussionDialog').dialog("close");
+            });
+
+            $('${pageScope.openElementJQuerySelector}').click(function() {
+                //<c:choose><c:when test="${requestScope.validUser != null}">
+                    $('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
+                    $('#startADiscussionDialog').dialog("open");
+                    return false;
+                //</c:when><c:otherwise>
+                    document.location='${pageScope.loginRedirectUrl}';
+                //</c:otherwise></c:choose>
+            });
+        });
+    </script>
+
+    <div id="startADiscussionDialog" style="display:none;">
+        <iframe src="" id="startADiscussionIFrame"
+                name="startADiscussionIFrame"
+                frameborder="0" height="225" width="340" scrolling="no"><!-- don't collapse --></iframe>
+    </div>
+</jsp:root>
