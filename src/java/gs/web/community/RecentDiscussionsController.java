@@ -15,6 +15,7 @@ import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.community.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.UrlBuilder;
 
 /**
  * @author npatury
@@ -32,17 +33,20 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String PARAM_BOARD_ID = "board_id";
     public static final String PARAM_LIMIT = "limit";
+    public static final String PARAM_CALLER_URI = "uri";
+
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         try {
             Long contentId = new Long(request.getParameter(PARAM_BOARD_ID));
-            Integer limit = new Integer(request.getParameter(PARAM_LIMIT));
             CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
+            Integer limit = new Integer(request.getParameter(PARAM_LIMIT));
 
             if (board != null) {
                 model.put(MODEL_DISCUSSION_BOARD, board);
@@ -61,9 +65,14 @@ public class RecentDiscussionsController extends AbstractController {
 
                 SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
                 model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
+
+                String url = request.getParameter(PARAM_CALLER_URI);
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, url);
+                model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
             }
         } catch (Exception e) {
             // do nothing, module will render blank
+            _log.warn("Invalid invocation of RecentDiscussionController");
         }
 
         return new ModelAndView(_viewName, model);

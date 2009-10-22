@@ -44,7 +44,15 @@
                 </li>
             </c:forEach>
         </ul>
-        Start a discussion button &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+
+        <button class="startADiscussion">Start a discussion button</button>
+        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                 openElementJQuerySelector=".startADiscussion"
+                                 topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+
+        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+
+        <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                          fullUri="${fullUri}">More discussions &amp;#187;</link:cmsContent>
 
     </c:if>

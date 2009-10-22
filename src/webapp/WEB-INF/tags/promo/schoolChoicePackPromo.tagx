@@ -20,7 +20,7 @@
     <jsp:directive.attribute name="caller" required="false" description="Calling page identifier"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
     <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css"/>
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
