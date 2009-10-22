@@ -359,6 +359,7 @@
     position: relative;
     background: #f9eccd;
     padding: 15px;
+    margin-bottom: 15px;
     overflow: hidden;
 }
 *html .userInfo {
@@ -374,61 +375,68 @@
     position: relative;
     top: -24px;
     margin-bottom: -24px;
+}.userInfo h2 span.fltrt a {
+    padding: 5px 0 0 18px;
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -90px no-repeat;
 }
 .userVitals {
     padding: 0 15px 0 105px;
     position: relative;
-    width: 25%;
+    width: 42%;
+}
+.userVitalsFull {
+    padding: 0 15px 0 105px;
+    position: relative;
+    width: auto;
 }
 *html .userVitals {
     display: inline;
     padding: 0 0 0 105px;
-    width: 30%;
+    width: 47%;
     margin: 0;
 }
-.userVitals ul {
-    min-height: 115px;
+.userVitals ul, .userVitalsFull ul {
+    margin-bottom: 9px;
 }
-.userVitals .avatar {
+.userVitals .avatar, .userVitalsFull .avatar  {
     position: absolute;
     left: 0;
     top: 0;
     text-align: center;
 
 }
+.avatar a {
+    font-size: 11px;
+}
 .aboutMe {
-    position: relative;
-    padding: 0 15px;
-    width: 45%;
+    min-height: 88px;
 }
 *html .aboutMe {
-    margin: 0;
+    height: 1%;
+    padding-bottom: 18px;
 }
 
-.md .text1, .aboutMe .text1 {
+.md .text1, .userVitals .text1, .userVitalsFull .text1, .mgAccount h4 {
     color: #d61;
     font-size: 14px;
     margin-bottom: 9px;
 }
 .mgAccount {
     postion: relative;
-    margin: 0 0 15px;
-    padding: 15px;
-    border: solid #999;
-    border-width: 0 1px 1px;
+    padding: 0 15px;
+    width: 28%;
 }
 .mgAccount ul {
     padding: 0 0 0 3px;
     overflow: hidden;
-}.mgAccount li:before {
+}
+.mgAccount li:before {
     content:"\2022 \0020";
     font-size: 12px;
 }
 .mgAccount li {
-    float: left;
     color: #d61;
     text-indent: -3px;
-    width: 33%;
     font-size: 12px;
 }
 h3.text1 span.fltlt {
@@ -474,8 +482,10 @@ h3.subhead1 span.fltrt {
 .activity li h4.text3 {
     font: 12px/1.3 Arial, Helvetica, sans-serif;
 }
-.activity li a.text3 span, h3.subhead1 span.fltrt a span, .schRevs .text3 .fltlt a span  {
+.activity li a.smallText1 span, h3.subhead1 span.fltrt a span, .schRevs .text3 .fltlt a span, .userInfo span.fltrt a span  {
     color: #d61;
+    font-size: 13px;
+    line-height: 1;
 }
 .mySchList {
     width: 42.8%;

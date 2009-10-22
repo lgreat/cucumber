@@ -102,21 +102,14 @@
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <span class="fltrt"><a href="#">Report this user</a></span>
+        <span class="fltrt"><a class="flag" href="#">Report this user <span>&amp;#187;</span></a></span>
     </c:if>
     </h2>
-    <div class="userVitals col">
+    <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col': 'Full'}">
         <ul>
             <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
         </ul>
-        <p class="avatar">
-            <img src="http://${requestScope.communityHost}/avatar?id=${requestScope.pageUser.id}&amp;amp;width=95&amp;amp;height=95"
-                 alt="User Avatar" width="95" height="95"
-                 style="border: 1px solid #c6c6c6;"/>
-            <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
-        </p>
-    </div>
-    <div class="aboutMe col sdrl">
+        <div class="aboutMe">
         <h3 class="text1">
             About me
             <c:if test="${requestScope.viewingOwnProfile}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
@@ -135,11 +128,15 @@
             <input type="button" name="Save" value="Save" class="aboutMeSave"/>
             <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>
         </form>
-    </div>
-    </div>
-
-    <c:if test="${requestScope.pageType eq 'userAccount'}">
-        <div class="mgAccount">
+            </div>
+        <p class="avatar">
+            <img src="http://${requestScope.communityHost}/avatar?id=${requestScope.pageUser.id}&amp;amp;width=95&amp;amp;height=95"
+                 alt="User Avatar" width="95" height="95"
+                 style="border: 1px solid #c6c6c6;"/>
+            <c:if test="${requestScope.viewingOwnProfile}"><br /><a href="#">Update my photo</a></c:if>
+        </p>
+    </div><c:if test="${requestScope.pageType eq 'userAccount'}">
+        <div class="mgAccount col">
             <h4>Manage my account</h4>
             <ul>
                 <li><link:changeEmail>Update my email address</link:changeEmail></li>
@@ -150,6 +147,9 @@
             </ul>
         </div>
     </c:if>
+    </div>
+
+
 
     </c:if>
 
@@ -175,16 +175,16 @@
             <a href="${requestScope.uri}">Return to
                 <c:choose>
                     <c:when test="${requestScope.pageType eq 'userAccount'}">
-                        account
+                        account <span>&amp;#187;</span>
                     </c:when>
                     <c:otherwise>
-                        profile
+                        profile <span>&amp;#187;</span>
                     </c:otherwise>
                 </c:choose>
             </a>
         </c:when>
         <c:otherwise>
-            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span>&#187;</span></a>
+            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span>&amp;#187;</span></a>
         </c:otherwise>
     </c:choose>
 
@@ -243,7 +243,7 @@
                                         discussionReplyId="${replyId}"
                                         discussionFullUri="${discussionFullUri}"
                                         textSpanClass="text3"
-                                        linkClass="text3"/>
+                                        linkClass="smallText1"/>
                             </p>
                         </li>
                     </c:if>
