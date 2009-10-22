@@ -17,7 +17,14 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<ad:setSlotPrefix slotPrefix="MemberProfile"/>
+<c:choose>
+  <c:when test="${requestScope.pageType eq 'userAccount'}">
+      <ad:setSlotPrefix slotPrefix="MyAccount"/>
+  </c:when>
+  <c:when test="${requestScope.pageType eq 'userProfile'}">
+      <ad:setSlotPrefix slotPrefix="MemberProfile"/>
+  </c:when>
+</c:choose>
 
 <head>
     <title>${requestScope.pageHeading} | GreatSchools</title>
