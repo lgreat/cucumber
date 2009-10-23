@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+
+<!-- TODO-8876 use slotPrefix="ContentSearch" when Henry has set up ad slots -->
+<ad:setSlotPrefix slotPrefix="ContentSearch"/>
+
+<head>
+    <title>${requestScope.pageHeading} | GreatSchools</title>
+    <meta name="description" content="TODO"/>
+    <meta name="keywords" content="TODO"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+
+</head>
+<body>
+<div id="container" class="gainlayout">
+<div id="mainContent">
+
+    <c:choose>
+        <c:when test="${requestScope.numResults gt 0}">
+            
+        </c:when>
+        <c:otherwise>
+            <h1>Your search for - ${requestScope.searchQuery} - did not match any articles or discussions</h1>
+
+            <h2>Did you mean: <link:contentSearch styleClass="" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch></h2>
+
+            <h3>Suggestions:</h3>
+
+            <ul>
+                <li>Make sure all words are spelled correctly.</li>
+                <li>Try different or fewer keywords.</li>
+                <li>Try more general keywords.</li>
+            </ul>
+
+            <!-- TODO-8876 Michael/Randall, can you move this into your appropriate CSS file? -->
+            <style type="text/css">
+                #searchAgain .stateMenu {
+                    display: none;
+                }
+            </style>
+
+            <div>
+                <div>Search</div>
+                <div>
+                    Search again for:
+                    <form id="searchAgain" action="/search/contentSearch.page">
+                        <input type="text" name="q" value="${requestScope.searchQuery}"/>
+                        in
+                        <gsweb:stateSelector styleClass="stateMenu" name="state"
+                                                 state="${requestScope.context.state}"/>
+                        <select class="type">
+                            <option value="content">Articles &amp; Community</option>
+                            <option value="schools">Schools</option>
+                        </select>
+                        <input type="button" value="Search" class="searchButton"/>
+                    </form>
+                </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+        <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#searchAgain .type').change(function() {
+                if ($(this).val() == "schools") {
+                    $('#searchAgain .stateMenu').show();
+                    $('form#searchAgain').attr('action','/search/search.page');
+
+                    var form = $('form#searchAgain');
+                    var cHiddenField = $(document.createElement('input'));
+                    cHiddenField.attr('type', 'hidden').attr('name', 'c').attr('class','cHiddenField').val('school');
+                    form.append(cHiddenField);
+                } else {
+                    $('#searchAgain .stateMenu').hide();
+                    $('form#searchAgain').attr('action','/search/contentSearch.page');
+                    $('#searchAgain .cHiddenField').remove();
+                }
+            });
+            $('#searchAgain .searchButton').click(function() {
+                $('#searchAgain').submit();
+            });
+        });
+        </script>
+
+</div>
+<!-- end mainContent -->
+
+<cms:communitySidebar/>
+
+</div>
+<!-- end container -->
+<mod:tracking pageName="${requestScope.omniturePagename}"
+              hier1="${requestScope.omnitureHierarchy}"
+              community="true"/>
+</body>
+</html>
+</jsp:root>

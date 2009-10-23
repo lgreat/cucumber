@@ -414,6 +414,14 @@
 
     <!-- Search end -->
 
+    <!-- Content search begin -->
+    <bean name="/search/contentSearch.page"
+          class="gs.web.search.ContentSearchController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="search/contentResults"/>
+    </bean>
+    <!-- Content search end -->
+
     <!-- Status begin -->
     <!-- Status monitor to verify that database access is working and build version -->
     <bean name="/status/monitor.page"
