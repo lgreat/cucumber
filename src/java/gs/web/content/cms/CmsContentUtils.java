@@ -110,7 +110,7 @@ public class CmsContentUtils {
                     CmsTopicCenter topicCenter = getPublicationDao().populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
                     link.setLinkText(topicCenter.getTitle());
                 } else {
-                    builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, language);
+                    builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), (String)null, (String)null, language);
                     cacheable = false;
                 }
                 if (builder != null) {

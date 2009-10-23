@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.190 2009/10/23 00:08:33 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.191 2009/10/23 23:24:18 yfan Exp $
  */
 
 package gs.web.util;
@@ -833,6 +833,30 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(VPage page, String searchQuery, Integer pageNum, String type, String sample) {
+        // GS-8876
+        if (CONTENT_SEARCH.equals(page)) {
+            _perlPage = false;
+            _path = "/search/contentSearch.page";
+
+            if (searchQuery != null) {
+                this.setParameter("q", searchQuery);
+            }
+
+            if (pageNum != null && pageNum > 1) {                
+                this.setParameter("page", String.valueOf(pageNum));
+            }
+            if (type != null) {
+                this.setParameter("type", type);
+            }
+            if (sample != null) {
+                this.setParameter("sample", sample);
+            }
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
     private void init(VPage page, State state, String param0) {
         _vPage = page;
 
@@ -1042,10 +1066,6 @@ public class UrlBuilder {
             _path = "/search/search.page";
             this.setParameter("c", "topic");
             this.setParameter("search_type", "0");
-            this.setParameter("q", param0);
-        } else if (CONTENT_SEARCH.equals(page)) {
-            _perlPage = false;
-            _path = "/search/contentSearch.page";
             this.setParameter("q", param0);
         } else if (TEST_SCORE_LANDING.equals(page)) {
             _perlPage = false;

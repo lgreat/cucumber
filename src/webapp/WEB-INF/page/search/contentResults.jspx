@@ -17,11 +17,19 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<!-- TODO-8876 use slotPrefix="ContentSearch" when Henry has set up ad slots -->
 <ad:setSlotPrefix slotPrefix="ContentSearch"/>
 
+<c:choose>
+    <c:when test="${requestScope.numResults gt 0}">
+        <c:set var="pageTitle">${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</c:set>
+    </c:when>
+    <c:otherwise>
+        <c:set var="pageTitle">Your search for - <span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span> - did not match any articles or discussions</c:set>
+    </c:otherwise>
+</c:choose>
+
 <head>
-    <title>${requestScope.pageHeading} | GreatSchools</title>
+    <title>${pageScope.pageTitle} | GreatSchools</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
@@ -34,12 +42,80 @@
 <div id="container" class="gainlayout">
 <div id="mainContent">
 
+    <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
+
     <c:choose>
         <c:when test="${requestScope.numResults gt 0}">
-            
+            <h1>${pageScope.pageTitle}</h1>
+
+            <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0}">
+                <div>All results (${requestScope.numResults})</div>
+            </c:if>
+            <div>Articles (${requestScope.numArticles})</div>
+            <div>Community Discussions (${requestScope.numDiscussions})</div>
+
+            <!-- the controller sets the type to null if there are no results for the selected type -->
+            <c:set var="showCommunity" value="${requestScope.type eq 'community' or (empty requestScope.type and requestScope.numDiscussions gt 0)}"/>
+            <c:set var="showArticles" value="${requestScope.type eq 'articles' or (empty requestScope.type and requestScope.numArticles gt 0)}"/>
+            <c:set var="showPagination" value="${not showCommunity or not showArticles}"/>
+            <c:set var="showSeeAllLink" value="${showCommunity and showArticles}"/>
+
+            <c:if test="${showPagination}">
+                <c:choose>
+                    <c:when test="${empty requestScope.type}">
+                        <c:set var="totalResults" value="${requestScope.numResults}" scope="page"/>
+                    </c:when>
+                    <c:when test="${requestScope.type eq 'community'}">
+                        <c:set var="totalResults" value="${requestScope.numDiscussions}" scope="page"/>
+                    </c:when>
+                    <c:when test="${requestScope.type eq 'articles'}">
+                        <c:set var="totalResults" value="${requestScope.numArticles}" scope="page"/>
+                    </c:when>
+                    <c:otherwise>INVALID</c:otherwise>
+                </c:choose>
+                <c:set var="firstOnPage" value="${(requestScope.page-1)*requestScope.pageSize+1}"/>
+                <c:set var="lastOnPage" value="${requestScope.page*requestScope.pageSize}"/>
+                <c:if test="${lastOnPage gt totalResults}">
+                    <c:set var="lastOnPage" value="${totalResults}"/>
+                </c:if>
+
+                <div>Showing ${pageScope.firstOnPage}-${pageScope.lastOnPage} of ${pageScope.totalResults}</div>
+            </c:if>
+
+            <c:if test="${showArticles}">
+                <div>Articles</div>
+
+                <c:forEach var="result" items="${requestScope.articleResults}">
+
+                </c:forEach>
+
+                <c:if test="${showSeeAllLink}">
+                    See all article results &amp;raquo;
+                </c:if>
+            </c:if>
+
+            <c:if test="${showCommunity}">
+                <div>Community</div>
+
+                <c:forEach var="result" items="${requestScope.communityResults}">
+
+                </c:forEach>
+
+                <c:if test="${showSeeAllLink}">
+                    See all community results &amp;raquo;
+                </c:if>
+            </c:if>
+
+            <c:if test="${showPagination}">
+                <community:pagination page="${requestScope.page}"
+                                      totalPages="${requestScope.totalPages}"
+                                      url="${requestScope.urlWithoutPageNum}"
+                                      styleClass=""/>
+            </c:if>
+
         </c:when>
         <c:otherwise>
-            <h1>Your search for - ${requestScope.searchQuery} - did not match any articles or discussions</h1>
+            <h1>${pageScope.pageTitle}</h1>
 
             <h2>Did you mean: <link:contentSearch styleClass="" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch></h2>
 
@@ -58,12 +134,38 @@
                 }
             </style>
 
+            <!-- this javascript should only execute when there are no results -->
+            <script type="text/javascript">
+                var $ = jQuery.noConflict();
+                $(function() {
+                    $('#searchAgain .type').change(function() {
+                        if ($(this).val() == "schools") {
+                            $('#searchAgain .stateMenu').show();
+                            $('form#searchAgain').attr('action', '/search/search.page');
+
+                            var form = $('form#searchAgain');
+                            var cHiddenField = $(document.createElement('input'));
+                            cHiddenField.attr('type', 'hidden').attr('name', 'c').attr('class', 'cHiddenField').val('school');
+                            form.append(cHiddenField);
+                        } else {
+                            $('#searchAgain .stateMenu').hide();
+                            $('form#searchAgain').attr('action', '/search/contentSearch.page');
+                            $('#searchAgain .cHiddenField').remove();
+                        }
+                    });
+                    $('#searchAgain .searchButton').click(function() {
+                        $('#searchAgain').submit();
+                    });
+                });
+            </script>
+
             <div>
                 <div>Search</div>
                 <div>
                     Search again for:
                     <form id="searchAgain" action="/search/contentSearch.page">
-                        <input type="text" name="q" value="${requestScope.searchQuery}"/>
+                        <!-- TODO-8876 escape searchQuery for XML -->
+                        <input type="text" name="q" value="${pageScope.searchQueryForXml}"/>
                         in
                         <gsweb:stateSelector styleClass="stateMenu" name="state"
                                                  state="${requestScope.context.state}"/>
@@ -77,30 +179,6 @@
             </div>
         </c:otherwise>
     </c:choose>
-
-        <script type="text/javascript">
-        var $ = jQuery.noConflict();
-        $(function() {
-            $('#searchAgain .type').change(function() {
-                if ($(this).val() == "schools") {
-                    $('#searchAgain .stateMenu').show();
-                    $('form#searchAgain').attr('action','/search/search.page');
-
-                    var form = $('form#searchAgain');
-                    var cHiddenField = $(document.createElement('input'));
-                    cHiddenField.attr('type', 'hidden').attr('name', 'c').attr('class','cHiddenField').val('school');
-                    form.append(cHiddenField);
-                } else {
-                    $('#searchAgain .stateMenu').hide();
-                    $('form#searchAgain').attr('action','/search/contentSearch.page');
-                    $('#searchAgain .cHiddenField').remove();
-                }
-            });
-            $('#searchAgain .searchButton').click(function() {
-                $('#searchAgain').submit();
-            });
-        });
-        </script>
 
 </div>
 <!-- end mainContent -->

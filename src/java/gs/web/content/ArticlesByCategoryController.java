@@ -144,7 +144,7 @@ public class ArticlesByCategoryController extends AbstractController {
             CmsCategory category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
             if (category != null && CmsCategory.TYPE_TOPIC.equals(category.getType())) {
                 UrlBuilder redirectUrlBuilder =
-                        new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), null, null, request.getParameter("language"));
+                        new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), (String)null, (String)null, request.getParameter("language"));
                 return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
             }
 
