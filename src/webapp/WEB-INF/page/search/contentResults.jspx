@@ -49,10 +49,40 @@
             <h1>${pageScope.pageTitle}</h1>
 
             <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0}">
-                <div>All results (${requestScope.numResults})</div>
+                <div>
+                <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
+                <c:choose>
+                    <c:when test="${empty requestScope.type}">
+                        ${typeButtonText}
+                    </c:when>
+                    <c:otherwise>
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch>
+                    </c:otherwise>
+                </c:choose>
+                </div>
             </c:if>
-            <div>Articles (${requestScope.numArticles})</div>
-            <div>Community Discussions (${requestScope.numDiscussions})</div>
+            <div>
+                <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
+                <c:choose>
+                    <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
+                        ${typeButtonText}
+                    </c:when>
+                    <c:otherwise>
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div>
+                <c:set var="typeButtonText" value="Community Discussions (${requestScope.numDiscussions})"/>
+                <c:choose>
+                    <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
+                        ${typeButtonText}
+                    </c:when>
+                    <c:otherwise>
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
             <!-- the controller sets the type to null if there are no results for the selected type -->
             <c:set var="showCommunity" value="${requestScope.type eq 'community' or (empty requestScope.type and requestScope.numDiscussions gt 0)}"/>
@@ -90,7 +120,9 @@
                 </c:forEach>
 
                 <c:if test="${showSeeAllLink}">
-                    See all article results &amp;raquo;
+                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results &amp;raquo;</link:contentSearch>
+                    </link:contentSearch>
                 </c:if>
             </c:if>
 
@@ -102,7 +134,9 @@
                 </c:forEach>
 
                 <c:if test="${showSeeAllLink}">
-                    See all community results &amp;raquo;
+                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results &amp;raquo;</link:contentSearch>
+                    </link:contentSearch>
                 </c:if>
             </c:if>
 
