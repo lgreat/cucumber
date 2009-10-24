@@ -14,6 +14,9 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms">
+<jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
+<jsp:directive.page import="org.apache.commons.lang.WordUtils"/>
+<jsp:directive.page import="gs.data.search.ContentSearchResult"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
@@ -115,9 +118,38 @@
             <c:if test="${showArticles}">
                 <div>Articles</div>
 
-                <c:forEach var="result" items="${requestScope.articleResults}">
+                <ul>
+                    <c:forEach var="result" items="${requestScope.articleResults}">
+                        <li>
+                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+                                <c:out value="${result.title}" escapeXml="true"/>
+                            </link:cmsContent>
 
-                </c:forEach>
+                            <!-- TODO-8876 refactor this! copied from userContentTeaserText.tagx -->
+                            <jsp:scriptlet>
+                                ContentSearchResult result = (ContentSearchResult)pageContext.getAttribute("result");
+                                int minLength = 143;
+                                int maxLength = 163;
+                                String teaserEnder = "... ";
+                                pageContext.setAttribute("teaserBodyAbbreviated", false);
+                                if (StringUtils.length(result.getResultSummary()) > minLength) {
+                                    String teaserBody = WordUtils.abbreviate(result.getResultSummary(), minLength, maxLength, teaserEnder);
+                                    pageContext.setAttribute("teaserBody", teaserBody);
+                                    if (StringUtils.endsWith(teaserBody, teaserEnder)) {
+                                        pageContext.setAttribute("teaserBodyAbbreviated", true);
+                                    }
+                                } else {
+                                    pageContext.setAttribute("teaserBody", result.getResultSummary());
+                                }
+                            </jsp:scriptlet>
+                            ${pageScope.teaserBody}
+
+                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+                              More &amp;raquo;
+                            </link:cmsContent>
+                        </li>
+                    </c:forEach>
+                </ul>
 
                 <c:if test="${showSeeAllLink}">
                     <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">
@@ -129,9 +161,31 @@
             <c:if test="${showCommunity}">
                 <div>Community</div>
 
-                <c:forEach var="result" items="${requestScope.communityResults}">
+                <ul>
+                    <c:forEach var="result" items="${requestScope.communityResults}">
+                        <li>
+                            <link:discussion discussionId="${result.contentKey.identifier}"
+                                             fullUri="${result.fullUri}">${result.title}</link:discussion>
 
-                </c:forEach>
+                            <!-- TODO-8876 modify and use the link:userProfile link tag handler to accept username instead of user -->
+                            <a href="/members/${result.username}/">${result.username}</a>
+                            in
+                            ${result.discussionBoardName}
+                            ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
+                                <community:userContentTeaserText
+                                        textToDisplay="${result.resultSummary}"
+                                        minLength="143" maxLength="163"
+                                        discussionId="${result.contentKey.identifier}"
+                                        discussionFullUri="${result.fullUri}"
+                                        textSpanClass="text3"
+                                        linkClass="text3"
+                                        numReplies="${result.numReplies}"
+                                        />
+                            <!-- TODO-8876 mockup shows &raquo; after the number of replies, but elsewhere
+                                 userContentTeaserText tag is used there is no &raquo; - can we keep it consistent?? -->
+                        </li>
+                    </c:forEach>
+                </ul>
 
                 <c:if test="${showSeeAllLink}">
                     <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">
