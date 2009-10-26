@@ -13,3 +13,19 @@
   background-image:url(/res/img/content/gradeLanding/activities_header.png);
   padding-top: 5px;
 }
+
+#recentDiscussions {
+
+}
+
+#recentDiscussions .avatar {
+    width:58px;
+}
+
+#recentDiscussions .discussionTopic {
+    width:364px;
+}
+
+#recentDiscussions .discussionHolder {
+    margin:0 0 10px 0;
+}
