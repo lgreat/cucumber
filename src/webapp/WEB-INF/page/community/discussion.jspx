@@ -419,21 +419,8 @@
 
 <div class="db_footer">
     <div class="db_discussion">
-    <c:if test="${requestScope.totalPages > 1}">
-        <div class="cmsDiscussionPagination">
-            Page
-            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum" varStatus="status">
-                <c:choose>
-                    <c:when test="${pageNum == requestScope.page}">
-                        <span class="active">${pageNum}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${uri}&amp;page=${pageNum}&amp;amp;pageSize=${pageSize}">${pageNum}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
-    </c:if>
+        <community:pagination page="${page}" totalPages="${totalPages}"
+                              url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="cmsDiscussionPagination"/>
 
     <div>
         ${postReplyButton}
