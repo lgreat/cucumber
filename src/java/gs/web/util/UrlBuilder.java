@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.191 2009/10/23 23:24:18 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.192 2009/10/26 22:57:26 droy Exp $
  */
 
 package gs.web.util;
@@ -806,7 +806,7 @@ public class UrlBuilder {
             // yes, this does mean there is no way to deterministically get the school name back
             _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
                     school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    WordUtils.capitalize(school.getName().replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", ""), new char[]{'-'}) +
+                    WordUtils.capitalize(school.getName().replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}) +
                     "/" + school.getId() + "/" +
                     (showConfirmation ? "?confirm=true" : "");
         } else {
@@ -815,6 +815,7 @@ public class UrlBuilder {
             path.append(school.getId()).append("-");
             path.append(WordUtils.capitalize(school.getName().replaceAll(" ", "-")
                                 .replaceAll("/", "-")
+                                .replaceAll("`", "")
                                 .replaceAll("#", ""), new char[]{'-'}));
             path.append("/");
             if (showConfirmation) {
