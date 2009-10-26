@@ -49,43 +49,40 @@
 
     <c:choose>
         <c:when test="${requestScope.numResults gt 0}">
-            <h1>${pageScope.pageTitle}</h1>
-
+            <h2 class="srchTitle">${pageScope.pageTitle}</h2>
+            <div class="srchCtrls">
+            <ul class="searchNav">
             <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0}">
-                <div>
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
-                        ${typeButtonText}
+                        <li class="active">${typeButtonText}</li>
                     </c:when>
                     <c:otherwise>
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch>
+                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch></li>
                     </c:otherwise>
                 </c:choose>
-                </div>
             </c:if>
-            <div>
                 <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
-                        ${typeButtonText}
+                        <li class="active">${typeButtonText}</li>
                     </c:when>
                     <c:otherwise>
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch>
+                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch></li>
                     </c:otherwise>
                 </c:choose>
-            </div>
-            <div>
+
                 <c:set var="typeButtonText" value="Community Discussions (${requestScope.numDiscussions})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
-                        ${typeButtonText}
+                        <li class="active">${typeButtonText}</li>
                     </c:when>
                     <c:otherwise>
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
+                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch></li>
                     </c:otherwise>
                 </c:choose>
-            </div>
+            </ul>
 
             <!-- the controller sets the type to null if there are no results for the selected type -->
             <c:set var="showCommunity" value="${requestScope.type eq 'community' or (empty requestScope.type and requestScope.numDiscussions gt 0)}"/>
@@ -112,19 +109,20 @@
                     <c:set var="lastOnPage" value="${totalResults}"/>
                 </c:if>
 
-                <div>Showing ${pageScope.firstOnPage}-${pageScope.lastOnPage} of ${pageScope.totalResults}</div>
+                <span class="srchInfo">Showing ${pageScope.firstOnPage}-${pageScope.lastOnPage} of ${pageScope.totalResults}</span>
             </c:if>
+        </div>
 
             <c:if test="${showArticles}">
-                <div>Articles</div>
+                <h3 class="srchCat">Articles</h3>
 
-                <ul>
+                <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.articleResults}">
                         <li>
-                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+                            <h4><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
-
+                            </h4>
                             <!-- TODO-8876 refactor this! copied from userContentTeaserText.tagx -->
                             <jsp:scriptlet>
                                 ContentSearchResult result = (ContentSearchResult)pageContext.getAttribute("result");
@@ -142,35 +140,40 @@
                                     pageContext.setAttribute("teaserBody", result.getResultSummary());
                                 }
                             </jsp:scriptlet>
-                            ${pageScope.teaserBody}
+                            <p>${pageScope.teaserBody}
 
-                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
-                              More &amp;raquo;
-                            </link:cmsContent>
+                            <span><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1">
+                              More  <span>&amp;raquo;</span>
+                            </link:cmsContent></span>
+                            </p>
                         </li>
                     </c:forEach>
                 </ul>
 
                 <c:if test="${showSeeAllLink}">
-                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results &amp;raquo;</link:contentSearch>
-                    </link:contentSearch>
+                    <p class="moreRslts">
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results <span>&amp;raquo;</span></link:contentSearch>
+                    </p>
                 </c:if>
             </c:if>
 
             <c:if test="${showCommunity}">
-                <div>Community</div>
+                <h3 class="srchCat">Community</h3>
 
-                <ul>
+                <ul class="srchRslts srchCatComm">
                     <c:forEach var="result" items="${requestScope.communityResults}">
                         <li>
-                            <link:discussion discussionId="${result.contentKey.identifier}"
+                            <h4><link:discussion discussionId="${result.contentKey.identifier}"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
 
+                            </h4>
                             <!-- TODO-8876 modify and use the link:userProfile link tag handler to accept username instead of user -->
-                            <a href="/members/${result.username}/">${result.username}</a>
+                            <p class="byline"><a href="/members/${result.username}/">${result.username}</a>
+
                             in
-                            ${result.discussionBoardName}
+                            [${result.discussionBoardName}]
+                                </p>
+                            <p>
                             ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                                 <community:userContentTeaserText
                                         textToDisplay="${result.resultSummary}"
@@ -183,14 +186,15 @@
                                         />
                             <!-- TODO-8876 mockup shows &raquo; after the number of replies, but elsewhere
                                  userContentTeaserText tag is used there is no &raquo; - can we keep it consistent?? -->
+                            </p>
                         </li>
                     </c:forEach>
                 </ul>
 
                 <c:if test="${showSeeAllLink}">
-                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results &amp;raquo;</link:contentSearch>
-                    </link:contentSearch>
+                    <p class="moreRslts">
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results <span>&amp;raquo;</span></link:contentSearch>
+                    </p>
                 </c:if>
             </c:if>
 
@@ -198,7 +202,7 @@
                 <community:pagination page="${requestScope.page}"
                                       totalPages="${requestScope.totalPages}"
                                       url="${requestScope.urlWithoutPageNum}"
-                                      styleClass=""/>
+                                      styleClass="viewAllActivityPagination"/>
             </c:if>
 
         </c:when>

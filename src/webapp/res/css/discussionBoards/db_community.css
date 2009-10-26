@@ -482,7 +482,7 @@ h3.subhead1 span.fltrt {
 .activity li h4.text3 {
     font: 12px/1.3 Arial, Helvetica, sans-serif;
 }
-.activity li a.smallText1 span, h3.subhead1 span.fltrt a span, .schRevs .text3 .fltlt a span, .userInfo span.fltrt a span  {
+.activity li a.smallText1 span, h3.subhead1 span.fltrt a span, .schRevs .text3 .fltlt a span, .userInfo span.fltrt a span, .moreRslts a span, #mainContent .srchRslts li a.smallText1 span {
     color: #d61;
     font-size: 13px;
     line-height: 1;
@@ -547,7 +547,73 @@ h3.subhead1 span.fltrt {
     font-size: 11px;
     text-transform: uppercase;
 }
+h2.srchTitle {
+    margin-bottom: 15px;
+}
+.srchCtrls {
+    position: relative;
+    clear:both;
+    margin-bottom: 15px;
+}
+.srchCtrls .searchNav {
+    height: 25px;
+}
+.srchCtrls .searchNav li {
+    float: left;
+    background: #e1e1e1;
+    margin-right: 9px;
+    padding: 2px 5px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    font-weight: 700;
+    font-size: 12px;
+}
 
+#mainContent .srchCtrls .searchNav li a {
+    color: #0066b8;
+    font-weight: 700;
+    font-size: 12px;
+}
+.srchCtrls .searchNav li.active {
+    background: #d61;
+    color: #fff;
+}
+.srchInfo {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    font-size: 11px;
+    color: #777;
+}
+h3.srchCat {
+    padding: 6px 9px;
+    background: url('/res/img/discussion_boards/db_bg_header.png') repeat-x;
+    color: #fff;
+    font: 700 14px Arial, sans-serif;
+}
+ul.srchRslts {
+    border-bottom: 1px solid #999;
+    margin: 0 0 15px;
+}
+
+ul.srchRslts li {
+    padding: 9px 9px 9px 25px;
+    border-bottom: 1px dotted #999;
+}
+ul.srchRslts li:last-child {
+    border-bottom: 0;
+}
+.srchCatArticles li {
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -256px no-repeat; 
+}
+.srchCatComm li {
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -427px no-repeat;
+}
+p.moreRslts {
+    margin: 0 0 15px;
+    text-align: right;
+    font-size: 11px;
+}
 /* end profile/myaccount pages */
 
 
