@@ -13,10 +13,10 @@
 
         <div id="recentDiscussions" class="box">
             <div class="inner cleared">
-                <div class="content">
+                <div class="content gainlayout">
                     <h2>${requestScope.discussionBoard.title}</h2>
                     <c:forEach var="discussion" items="${requestScope.discussions}">
-                        <div class="discussionHolder sdrb">
+                        <div class="discussionHolder sdrb clearfix">
                             <div class="avatar fltlft">
                                 <link:userProfile user="${discussion.user}">
                                     <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
@@ -51,22 +51,24 @@
                     </c:forEach>
 
                     <div class="fltlft">
-                    <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
-                        <span class="rnd4">
-                            <span class="rnd4"><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" alt="bubbles"/>Start a discussion</span>
+                        <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
+                        <span>
+                            <span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37"
+                                       height="25" alt="bubbles"/>Start a discussion</span>
                         </span>
-                    </a>
-                    <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                     openElementJQuerySelector=".startADiscussion"
-                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                        </a>
+                        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                         openElementJQuerySelector=".startADiscussion"
+                                                         topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+
                     </div>
 
                     <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                     fullUri="${fullUri}">
+                                                      fullUri="${fullUri}">
                         <span class="text3_230">More discussions </span>
                         <span class="alertDoubleArrow">&amp;raquo;</span>
                     </link:cmsContent></p>
-                    <br class="clearfloat"/>
+                        <br class="clearfloat"/>
                 </div>
             </div>
         </div>
