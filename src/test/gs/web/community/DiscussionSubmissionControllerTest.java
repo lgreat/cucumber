@@ -6,11 +6,9 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.cms.IPublicationDao;
-import gs.data.content.cms.ICmsDiscussionBoardDao;
-import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.*;
 import gs.data.util.CmsUtil;
+import gs.data.search.SolrService;
 
 import static org.easymock.EasyMock.*;
 import org.easymock.IArgumentMatcher;
@@ -40,6 +38,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     private IDiscussionReplyDao _discussionReplyDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IPublicationDao _publicationDao;
+    private SolrService _solrService;
     private User _user;
     private DiscussionSubmissionCommand _command;
 
@@ -55,11 +54,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
+        _solrService = createStrictMock(SolrService.class);
 
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
+        _controller.setSolrService(_solrService);
 
         _user = new User();
         _user.setId(5);
@@ -90,11 +91,11 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
+        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
+        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
 //    private void resetAllMocks() {
@@ -136,7 +137,12 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setAuthorId(_user.getId());
         discussion.setId(1);
 
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey(CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE, 2L));
+        board.setTitle("Discussion Board 2");
+
         expect(_discussionDao.findById(1)).andReturn(discussion);
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
         Discussion expectedEditedDiscussion = new Discussion();
         expectedEditedDiscussion.setBoardId(2L);
         expectedEditedDiscussion.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -145,6 +151,11 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expectedEditedDiscussion.setId(1);
 
         _discussionDao.save(eqDiscussion(expectedEditedDiscussion));
+        try {
+            _solrService.updateDocument(expectedEditedDiscussion);
+        } catch (Exception e) {
+            // error is logged
+        }
 
         replayAllMocks();
         try {
