@@ -18,7 +18,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author npatury
+ * @author Dave Roy <mailto:droy@greatschools.net>
  */
 
 public class RecentDiscussionsController extends AbstractController {
