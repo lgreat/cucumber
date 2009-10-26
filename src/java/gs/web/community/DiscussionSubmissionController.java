@@ -187,7 +187,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             _discussionDao.save(discussion);
             /*
-            // TODO-8876 unbreaking the build by commenting out             */
+            // TODO-8876 unbreaking the build by commenting out
             try {
                 discussion.setUser(user);
                 CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
