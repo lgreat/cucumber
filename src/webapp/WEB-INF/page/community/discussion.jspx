@@ -91,12 +91,12 @@
                 return false;
             });
 
-            $('.previewEditButton').click(function() {
+            $('#previewReplyDialog .previewEditButton').click(function() {
                 $('#previewReplyDialog').dialog("close");
                 $(postReplyForm).find(".db_textarea textarea").focus();
             });
 
-            $('.previewPostButton').click(function() {
+            $('#previewReplyDialog .previewPostButton').click(function() {
                 $('#previewReplyDialog').dialog("close");
                 postReplyForm.submit();
             });

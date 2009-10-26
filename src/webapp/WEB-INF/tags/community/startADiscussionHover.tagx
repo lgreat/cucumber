@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
     xmlns:link="urn:www.greatschools.net/taglib/link"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
@@ -34,7 +35,51 @@
 
     <script type="text/javascript">
         var startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}';
+
+        if (GS.types == undefined) {
+           GS.types = {};
+        }
+        //<c:if test="${requestScope.context.user ne null}">
+        GS.types.previewDiscussionHover = function() {
+            this.editFunc = null;
+            this.postFunc = null;
+            this.init = function(parms) {
+                this.editFunc = parms.editFunc;
+                this.postFunc = parms.postFunc;
+                jQuery('#previewDiscussionDialog').dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    draggable: false,
+                    width: 585,
+                    title: "Preview"
+                });
+            };
+            this.open = function(previewBody, previewTitle) {
+                jQuery('#previewDiscussionDialog .previewDiscussionBody').html(previewBody);
+                jQuery('#previewDiscussionDialog .previewDiscussionTitle').html(previewTitle);
+                jQuery('#previewDiscussionDialog').dialog('open');
+            };
+            this.edit = function() {
+                this.editFunc();
+            };
+            this.post = function() {
+                this.postFunc();
+            };
+        };
+        GS.previewDiscussionHover = new GS.types.previewDiscussionHover();
+        // </c:if>
+
         jQuery(function() {
+            jQuery('#previewDiscussionDialog .previewEditButton').click(function() {
+                jQuery('#previewDiscussionDialog').dialog('close');
+                GS.previewDiscussionHover.edit();
+            });
+            jQuery('#previewDiscussionDialog .previewPostButton').click(function() {
+                jQuery('#previewDiscussionDialog').dialog('close');
+                GS.previewDiscussionHover.post();
+            });
+
             jQuery("#startADiscussionDialog").dialog({
                 autoOpen: false,
                 resizable: false,
@@ -55,10 +100,62 @@
                     return false;
                 //</c:when><c:otherwise>
                     document.location='${pageScope.loginRedirectUrl}';
+                    return false;
                 //</c:otherwise></c:choose>
             });
         });
     </script>
+
+<c:if test="${requestScope.context.user ne null}">
+    <div id="previewDiscussionDialog" style="display:none;">
+        <div class="db_discussion sdrt">
+            <div class="db_title gainlayout">
+                <h4 class="fltlft"><a href="#" onclick="return false;"><span
+                        class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></a></h4>
+
+                <p class="fltrt emailItLink"><a class="smallText1" href="#" onclick="return false;">Email</a></p>
+                <br class="clearfloat"/>
+            </div>
+
+            <div class="db_discussTopic gainlayout">
+                <div class="fltlft">
+                    <link:userProfile user="${requestScope.context.user}">
+                        <community:avatar userId="${requestScope.context.user.id}" width="48" height="48"
+                                          cssClass="fltlft"
+                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                    </link:userProfile>
+                </div>
+                <!-- end discussion avatar -->
+
+                <div class="db_discussContainer fltlft">
+                    <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
+
+                    <div class="db_discuss fltrt rnd8">
+                        <p class="fltlft">
+                            <link:userProfile user="${requestScope.context.user}">
+                                <span class="smallAlertTextBoldNeutral">${requestScope.context.user.userProfile.screenName}</span>
+                            </link:userProfile>
+
+                            <span class="smallText1">, a moment ago</span>
+                        </p>
+
+                        <br class="clearfloat"/>
+                        <span class="text3 previewDiscussionBody"><!-- Filled in by JS --></span>
+                    </div>
+                    <!-- end db_discuss -->
+                </div>
+                <br class="clearfloat"/>
+            </div>
+            <!-- end db_discussTopic -->
+        </div>
+        <button class="btn25ni fltlft previewEditButton" type="cancel">
+            <span class="rnd4"><span class="rnd4">Edit discussion</span></span>
+        </button>
+        <button class="btn25ni fltlft previewPostButton" type="submit">
+            <span class="rnd4"><span class="rnd4">Post your discussion</span></span>
+        </button>
+    </div>
+</c:if>
 
     <div id="startADiscussionDialog" style="display:none;">
         <iframe src="" id="startADiscussionIFrame"
