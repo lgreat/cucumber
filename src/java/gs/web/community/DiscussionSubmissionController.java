@@ -186,6 +186,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
+            /*
+            // TODO-8876 unbreaking the build by commenting out             */
             try {
                 discussion.setUser(user);
                 CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
@@ -194,6 +196,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             } catch (Exception e) {
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
             }
+            */
         }
     }
 
