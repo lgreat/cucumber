@@ -12,6 +12,7 @@ import java.util.*;
 
 import gs.web.util.UrlBuilder;
 import gs.data.search.ContentSearchResult;
+import gs.data.search.SolrService;
 import gs.data.content.cms.ContentKey;
 
 /**
@@ -56,6 +57,7 @@ public class ContentSearchController extends AbstractController {
     public static final int ALL_RESULTS_PAGE_SIZE = 5;
 
     private String _viewName;
+    private SolrService _solrService;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
 
@@ -70,10 +72,9 @@ public class ContentSearchController extends AbstractController {
 
         if (isSample) {
             searchQuery = "friendship";
-            populateModelWithSampleResults(model, page, type, sample);
+            populateModelForSample(model, page, type, sample);
         } else {
-            // TODO-8876 use Solr to search
-            model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
+            populateModelForQuery(model, page, type, searchQuery);
         }
 
         model.put(MODEL_SEARCH_QUERY, searchQuery);
@@ -113,35 +114,88 @@ public class ContentSearchController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    protected void populateModelWithSampleResults(Map<String, Object> model, int page, String type, String sample) {
+    protected void populateModelForQuery(Map<String, Object> model, int page, String type, String searchQuery) {
+        int numResults;
+        int numArticles;
+        int numDiscussions;
+        String pageTitlePrefix;
+        try {
+            // TODO-8876 use Solr to search
+            List<ContentSearchResult> results = _solrService.getResults(searchQuery);
+            List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
+            List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
+            for (ContentSearchResult result : results) {
+                if (result.getContentKey().getType().equals("Discussion")) {
+                    communityResults.add(result);
+                } else {
+                    articleResults.add(result);
+                }
+            }
+            numArticles = articleResults.size();
+            numDiscussions = communityResults.size();
+            numResults = numArticles + numDiscussions;
+
+            // TODO-8876 remove me
+            //System.out.println("====== numArticles = " + numArticles + ", numDiscussions = " + numDiscussions + ", numResults = " + numResults);
+
+            if (numResults == 0) {
+                // TODO-8876 use Solr to search
+                model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
+            }
+
+            pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
+
+            model.put(MODEL_ARTICLE_RESULTS, articleResults);
+            model.put(MODEL_COMMUNITY_RESULTS, communityResults);
+
+            model.put(MODEL_NUM_RESULTS, numResults);
+            model.put(MODEL_NUM_ARTICLES, numArticles);
+            model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
+
+            model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
+        } catch (Exception e) {
+            _log.error("Error querying solr for query: " + searchQuery, e);
+        }
+    }
+
+    protected String getPageTitlePrefix(int numArticles, int numDiscussions, String type) {
+        int numResults = numArticles + numDiscussions;
+        if (numResults == 0) {
+            return null;
+        } else if (numResults == numArticles || numResults == numDiscussions) {
+            return "Results for";
+        } else if (TYPE_ARTICLES.equals(type)) {
+            return "Article results for";
+        } else if (TYPE_COMMUNITY.equals(type)) {
+            return "Community results for";
+        } else {
+            return "Results for";
+        }
+    }
+
+    protected void populateModelForSample(Map<String, Object> model, int page, String type, String sample) {
+        int numResults;
         int numArticles;
         int numDiscussions;
         String pageTitlePrefix;
         if (SAMPLE_NO_ARTICLES.equals(sample)) {
             numArticles = 0;
             numDiscussions = 173;
-            pageTitlePrefix = "Results for";
         } else if (SAMPLE_NO_DISCUSSIONS.equals(sample)) {
             numArticles = 68;
             numDiscussions = 0;
-            pageTitlePrefix = "Results for";
         } else if (SAMPLE_ALL_RESULTS.equals(sample)) {
             numArticles = 68;
             numDiscussions = 173;
-            if (TYPE_ARTICLES.equals(type)) {
-                pageTitlePrefix = "Article results for";
-            } else if (TYPE_COMMUNITY.equals(type)) {
-                pageTitlePrefix = "Community results for";
-            } else {
-                pageTitlePrefix = "Results for";
-            }
         } else {
             // SAMPLE_NO_RESULTS
             numArticles = 0;
             numDiscussions = 0;
-            pageTitlePrefix = null;
             model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
         }
+
+        numResults = numArticles + numDiscussions;
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
 
         List<ContentSearchResult> articleResults = getResultsForPage(getSampleArticles(numArticles), page);
         List<ContentSearchResult> communityResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
@@ -149,7 +203,7 @@ public class ContentSearchController extends AbstractController {
         model.put(MODEL_ARTICLE_RESULTS, articleResults);
         model.put(MODEL_COMMUNITY_RESULTS, communityResults);
 
-        model.put(MODEL_NUM_RESULTS, String.valueOf(numArticles + numDiscussions));
+        model.put(MODEL_NUM_RESULTS, numResults);
         model.put(MODEL_NUM_ARTICLES, numArticles);
         model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
         model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
@@ -275,5 +329,13 @@ public class ContentSearchController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public SolrService getSolrService() {
+        return _solrService;
+    }
+
+    public void setSolrService(SolrService solrService) {
+        _solrService = solrService;
     }
 }

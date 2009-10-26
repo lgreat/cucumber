@@ -20,6 +20,7 @@ import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.cms.IPublicationDao;
+import gs.data.search.SolrService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private IDiscussionDao _discussionDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IPublicationDao _publicationDao;
+    private SolrService _solrService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -115,6 +117,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setTitle(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
+            try {
+                discussion.setUser(user);
+                discussion.setDiscussionBoard(board);
+                _solrService.indexDocument(discussion);
+            } catch (Exception e) {
+                _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+            }
 
             OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
             ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
@@ -177,6 +186,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
+            try {
+                discussion.setUser(user);
+                CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+                discussion.setDiscussionBoard(board);
+                _solrService.updateDocument(discussion);
+            } catch (Exception e) {
+                _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+            }
         }
     }
 
@@ -283,5 +300,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
+    }
+
+    public SolrService getSolrService() {
+        return _solrService;
+    }
+
+    public void setSolrService(SolrService solrService) {
+        _solrService = solrService;
     }
 }
