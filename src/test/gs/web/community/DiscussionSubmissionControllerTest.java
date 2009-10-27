@@ -54,13 +54,15 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
-        _solrService = createStrictMock(SolrService.class);
+        // TODO-8876
+        //_solrService = createStrictMock(SolrService.class);
 
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
-        _controller.setSolrService(_solrService);
+        // TODO-8876
+        //_controller.setSolrService(_solrService);
 
         _user = new User();
         _user.setId(5);
@@ -91,11 +93,15 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
+        // TODO-8876
+        //replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
+        // TODO-8876
+        //verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
 //    private void resetAllMocks() {
