@@ -76,6 +76,26 @@ html[xmlns] .clearfix {
 
 /* end clear fix */
 
+/* ------------------------ */
+/* RECENT DISCUSSION STYLES */
+/* ------------------------ */
+
+#recentDiscussions {
+
+}
+
+#recentDiscussions .avatar {
+    width:58px;
+}
+
+#recentDiscussions .discussionTopic {
+    width:364px;
+}
+
+#recentDiscussions .discussionHolder {
+    margin:0 0 10px 0;
+}
+
 /* --------------- */
 /* ORIGINAL STYLES */
 /* --------------- */
