@@ -43,19 +43,8 @@
                 </div>
                 <br class="clearfloat"/>
             </div>
-            <div class="body3bg sdrb">
-                <form action="#">
-                    <label class="db_select_label" for="db_cities"><span class="subhead2">Browse by city</span></label>
-                    <select id="db_cities" name="cities">
-                        <option selected="selected">Select city</option>
-                        <option>San Franciso</option>
-                        <option>Oakland</option>
-                        <option>San Jose</option>
-                        <option>San Jose</option>
-                        <option>Mooselookmeguntic</option>
-                    </select>
-                </form>
-            </div>
+
+            <c:import url="/community/browseLocalBoards.module"/>
         </div>
         <!-- end module -->
 

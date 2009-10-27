@@ -126,6 +126,12 @@
         <property name="viewName" value="/community/recentDiscussions"/>
     </bean>
 
+    <bean name="/community/browseLocalBoards.module"
+          class="gs.web.community.BrowseLocalBoardsController"
+          autowire="byName">
+        <property name="viewName" value="/community/browseLocalBoards"/>
+    </bean>
+
     <bean id="testScoreLandingLinksTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
