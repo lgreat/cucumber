@@ -203,7 +203,7 @@
 <div class="db_discussion">
     <div class="db_title gainlayout">
         <h4 class="fltlft"><link:discussion discussion="${discussion}"><span
-                class="title1">Discussion: ${discussion.title}</span></link:discussion></h4>
+                class="title1">${discussion.title}</span></link:discussion></h4>
 
         <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
         <br class="clearfloat"/>
