@@ -88,9 +88,9 @@
 
                 <div id="recentDiscussions" class="box">
                     <div class="content gainlayout">
-                        <h2>${requestScope.discussionBoard.title}</h2>
+                        <h3>${requestScope.discussionBoard.title}</h3>
                         <c:forEach var="discussion" items="${requestScope.discussions}">
-                            <div class="discussionHolder sdrb clearfix">
+                            <div class="discussionHolder clearfix">
                                 <div class="avatar fltlft">
                                     <link:userProfile user="${discussion.user}">
                                         <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
