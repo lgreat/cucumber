@@ -174,7 +174,7 @@
             </div>
 
             <c:url var="currentPageUri" value="/elementary-school/"/>
-            <c:set var="recentDiscussions"><c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5&amp;uri=${currentPageUri}"/></c:set>
+            <c:set var="recentDiscussions"><c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5&amp;uri=${currentPageUri}&amp;style=fall2009"/></c:set>
             <c:choose>
                 <c:when test="${empty recentDiscussions}">
                     <div id="communityModule" class="box">

@@ -34,12 +34,14 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_BOARD_ID = "board_id";
     public static final String PARAM_LIMIT = "limit";
     public static final String PARAM_CALLER_URI = "uri";
+    public static final String PARAM_STYLE = "style";
 
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+    public static final String MODEL_STYLE = "style";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -69,6 +71,8 @@ public class RecentDiscussionsController extends AbstractController {
                 String url = request.getParameter(PARAM_CALLER_URI);
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, url);
                 model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+
+                model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
             }
         } catch (Exception e) {
             // do nothing, module will render blank
