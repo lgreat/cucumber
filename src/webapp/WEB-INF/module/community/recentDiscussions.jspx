@@ -11,66 +11,148 @@
     <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
-        <div id="recentDiscussions" class="box">
-            <div class="inner cleared">
-                <div class="content gainlayout">
-                    <h2>${requestScope.discussionBoard.title}</h2>
-                    <c:forEach var="discussion" items="${requestScope.discussions}">
-                        <div class="discussionHolder sdrb clearfix">
-                            <div class="avatar fltlft">
-                                <link:userProfile user="${discussion.user}">
-                                    <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
-                                         alt="Avatar" width="48" height="48"
-                                         style="border: 1px solid #c6c6c6;"/>
-                                </link:userProfile>
-                            </div>
-                            <div class="discussionTopic fltlft">
-                                <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
-                                                                    fullUri="${fullUri}"
-                                                                    styleClass="text3">${discussion.title}</link:discussion>"
-                                </h4>
 
-                                <link:userProfile user="${discussion.user}">
-                                    <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                                </link:userProfile>
-                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+        <c:choose>
+            <c:when test="${style eq 'fall2009'}">
 
-                                <p>
-                                    <community:userContentTeaserText
-                                            textToDisplay="${discussion.body}"
-                                            minLength="143" maxLength="163"
-                                            discussionId="${discussion.id}"
-                                            discussionFullUri="${fullUri}"
-                                            numReplies="${discussion.totalReplies}"
-                                            textSpanClass="text3"
-                                            linkClass="text3"/>
-                                </p>
-                            </div>
-                            <br class="clearfloat"/>
-                        </div>
-                    </c:forEach>
+                <div id="recentDiscussions" class="box">
+                    <div class="inner cleared">
+                        <div class="content gainlayout">
+                            <h2>${requestScope.discussionBoard.title}</h2>
+                            <c:forEach var="discussion" items="${requestScope.discussions}">
+                                <div class="discussionHolder sdrb clearfix">
+                                    <div class="avatar fltlft">
+                                        <link:userProfile user="${discussion.user}">
+                                            <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
+                                                 alt="Avatar" width="48" height="48"
+                                                 style="border: 1px solid #c6c6c6;"/>
+                                        </link:userProfile>
+                                    </div>
+                                    <!-- end avatar -->
+                                    <div class="discussionTopic fltlft">
+                                        <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
+                                                                            fullUri="${fullUri}"
+                                                                            styleClass="text3">${discussion.title}</link:discussion>"
+                                        </h4>
 
-                    <div class="fltlft">
-                        <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
+                                        <link:userProfile user="${discussion.user}">
+                                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                        </link:userProfile>
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+
+                                        <p>
+                                            <community:userContentTeaserText
+                                                    textToDisplay="${discussion.body}"
+                                                    minLength="143" maxLength="163"
+                                                    discussionId="${discussion.id}"
+                                                    discussionFullUri="${fullUri}"
+                                                    numReplies="${discussion.totalReplies}"
+                                                    textSpanClass="text3"
+                                                    linkClass="text3"/>
+                                        </p>
+                                    </div>
+                                    <!-- end discussionTopic -->
+                                    <br class="clearfloat"/>
+                                </div>
+                                <!-- end discussionHolder -->
+                            </c:forEach>
+
+                            <div class="fltlft">
+                                <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
                         <span>
                             <span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37"
                                        height="25" alt="bubbles"/>Start a discussion</span>
                         </span>
-                        </a>
-                        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                         openElementJQuerySelector=".startADiscussion"
-                                                         topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                                </a>
+                                <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                                 openElementJQuerySelector=".startADiscussion"
+                                                                 topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                            </div>
+                            <!-- end start a discussion button -->
 
+                            <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                              fullUri="${fullUri}">
+                                <span class="text3_230">More discussions </span>
+                                <span class="alertDoubleArrow">&amp;raquo;</span>
+                            </link:cmsContent></p>
+                            <br class="clearfloat"/>
+                        </div>
+                        <!-- end content -->
                     </div>
-
-                    <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                      fullUri="${fullUri}">
-                        <span class="text3_230">More discussions </span>
-                        <span class="alertDoubleArrow">&amp;raquo;</span>
-                    </link:cmsContent></p>
-                        <br class="clearfloat"/>
+                    <!-- end inner -->
                 </div>
-            </div>
-        </div>
+                <!-- end recentDiscussions -->
+
+            </c:when>
+            <c:otherwise>
+
+                <div id="recentDiscussions" class="box">
+                    <div class="content gainlayout">
+                        <h2>${requestScope.discussionBoard.title}</h2>
+                        <c:forEach var="discussion" items="${requestScope.discussions}">
+                            <div class="discussionHolder sdrb clearfix">
+                                <div class="avatar fltlft">
+                                    <link:userProfile user="${discussion.user}">
+                                        <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
+                                             alt="Avatar" width="48" height="48"
+                                             style="border: 1px solid #c6c6c6;"/>
+                                    </link:userProfile>
+                                </div>
+                                <!-- end avatar -->
+                                <div class="discussionTopic fltlft">
+                                    <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
+                                                                        fullUri="${fullUri}"
+                                                                        styleClass="text3">${discussion.title}</link:discussion>"
+                                    </h4>
+
+                                    <link:userProfile user="${discussion.user}">
+                                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                    </link:userProfile>
+                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+
+                                    <p>
+                                        <community:userContentTeaserText
+                                                textToDisplay="${discussion.body}"
+                                                minLength="143" maxLength="163"
+                                                discussionId="${discussion.id}"
+                                                discussionFullUri="${fullUri}"
+                                                numReplies="${discussion.totalReplies}"
+                                                textSpanClass="text3"
+                                                linkClass="text3"/>
+                                    </p>
+                                </div>
+                                <!-- end discussionTopic -->
+                                <br class="clearfloat"/>
+                            </div>
+                            <!-- end discussionHolder -->
+                        </c:forEach>
+
+                        <div class="fltlft">
+                            <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
+                        <span>
+                            <span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37"
+                                       height="25" alt="bubbles"/>Start a discussion</span>
+                        </span>
+                            </a>
+                            <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                             openElementJQuerySelector=".startADiscussion"
+                                                             topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                        </div>
+                        <!-- end start a discussion button -->
+
+                        <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                          fullUri="${fullUri}">
+                            <span class="text3_230">More discussions </span>
+                            <span class="alertDoubleArrow">&amp;raquo;</span>
+                        </link:cmsContent></p>
+                        <br class="clearfloat"/>
+                    </div>
+                    <!-- end content -->
+                </div>
+                <!-- end recentDiscussions -->
+
+            </c:otherwise>
+        </c:choose>
+
     </c:if>
 </jsp:root>

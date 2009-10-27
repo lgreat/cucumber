@@ -39,6 +39,8 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
     <pageHelper:externalCss file="/res/css/content/preschool.css"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
 
     <![CDATA[
     <!--[if IE]>
