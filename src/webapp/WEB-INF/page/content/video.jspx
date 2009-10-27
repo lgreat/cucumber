@@ -68,8 +68,7 @@
                         tmHideBanner("adCompanionBanner");
                     }
                 </script>
-                <!-- <ad:AboveFold_300x600/>   -->
-            <!--    <jsp:include page="/content/cms/mostPopularContent.module"/> -->
+                 <jsp:include page="/content/cms/mostPopularContent.module"/> 
             </div>
         </div>
 
