@@ -237,7 +237,7 @@ public class ContentSearchController extends AbstractController {
             result.setTitle("This is the title of discussion " + i);
             result.setUsername("chriskimm");
             result.setDiscussionBoardId(14L);
-            result.setDiscussionBoardName("Discussion Board Name");
+            result.setDiscussionBoardTitle("Discussion Board Name");
             result.setFullUri("discussion-full-uri");
             result.setNumReplies((i * 7) % 19);
             Calendar date = Calendar.getInstance();

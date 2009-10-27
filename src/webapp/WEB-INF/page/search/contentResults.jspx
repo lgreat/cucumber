@@ -168,11 +168,10 @@
 
                             </h4>
                             <!-- TODO-8876 modify and use the link:userProfile link tag handler to accept username instead of user -->
-                            <p class="byline"><a href="/members/${result.username}/">${result.username}</a>
-
-                            in
-                            [${result.discussionBoardName}]
-                                </p>
+                            <p class="byline">
+                                <a href="/members/${result.username}/">${result.username}</a>
+                                in ${result.discussionBoardTitle}
+                            </p>
                             <p>
                             ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                                 <community:userContentTeaserText
@@ -182,10 +181,7 @@
                                         discussionFullUri="${result.fullUri}"
                                         textSpanClass="text3"
                                         linkClass="text3"
-                                        numReplies="${result.numReplies}"
                                         />
-                            <!-- TODO-8876 mockup shows &raquo; after the number of replies, but elsewhere
-                                 userContentTeaserText tag is used there is no &raquo; - can we keep it consistent?? -->
                             </p>
                         </li>
                     </c:forEach>
