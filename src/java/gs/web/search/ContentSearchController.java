@@ -5,6 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,6 +74,13 @@ public class ContentSearchController extends AbstractController {
         boolean isSample = StringUtils.isNotBlank(sample);
 
         String searchQuery = request.getParameter(PARAM_SEARCH_QUERY);
+        if (searchQuery != null) {
+            searchQuery = searchQuery.trim();
+            // TODO-8876 do this a better way or refactor
+            // special chars: + - && || ! ( ) { } [ ] ^ " ~ * ? : \
+            // escape by preceding with \ .... how does that work with && or || 
+            searchQuery = searchQuery.replace(":","").replace("(","").replace(")","");
+        }
         int page = getPageNumber(request);
         String type = getType(request);
 
@@ -97,17 +106,21 @@ public class ContentSearchController extends AbstractController {
         }
         model.put(MODEL_TYPE, type);
 
-        // TODO-8876 see if we can get only ALL_RESULTS_PAGE_SIZE results instead of getting
-        // PAGE_SIZE results and then truncating
-        // also, this is a weird way of getting the right number of results
-        if (numArticles > 0 && numDiscussions > 0 && type == null) {
-            List<ContentSearchResult> articleResults = (List<ContentSearchResult>)model.get(MODEL_ARTICLE_RESULTS);
-            articleResults = articleResults.subList(0, (int)Math.min(ALL_RESULTS_PAGE_SIZE, numArticles));
-            model.put(MODEL_ARTICLE_RESULTS, articleResults);
+        if (isSample) {
+            // TODO-8876 see if we can get only ALL_RESULTS_PAGE_SIZE results instead of getting
+            // PAGE_SIZE results and then truncating
+            // also, this is a weird way of getting the right number of results
+            if (numArticles > 0 && numDiscussions > 0 && type == null) {
+                List<ContentSearchResult> articleResults = (List<ContentSearchResult>) model.get(MODEL_ARTICLE_RESULTS);
+                articleResults = articleResults.subList(0, (int) Math.min(ALL_RESULTS_PAGE_SIZE, numArticles));
+                model.put(MODEL_ARTICLE_RESULTS, articleResults);
 
-            List<ContentSearchResult> communityResults = (List<ContentSearchResult>)model.get(MODEL_COMMUNITY_RESULTS);
-            communityResults = communityResults.subList(0, (int)Math.min(ALL_RESULTS_PAGE_SIZE, numDiscussions));
-            model.put(MODEL_COMMUNITY_RESULTS, communityResults);
+                List<ContentSearchResult> communityResults = (List<ContentSearchResult>) model.get(MODEL_COMMUNITY_RESULTS);
+                for (ContentSearchResult r : communityResults) {
+                }
+                communityResults = communityResults.subList(0, (int) Math.min(ALL_RESULTS_PAGE_SIZE, numDiscussions));
+                model.put(MODEL_COMMUNITY_RESULTS, communityResults);
+            }
         }
         
         model.put(MODEL_URL, getUrl(request, searchQuery, page, type, sample));
@@ -119,14 +132,27 @@ public class ContentSearchController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
+    /*
+     * TODO-8876 Use Field Collapsing to reduce the number of queries
+     * @see http://www.lucidimagination.com/search/document/cd9f61be2de88fdd/showing_few_results_for_each_category_facet
+     * @see http://wiki.apache.org/solr/FieldCollapsing
+     * @see https://issues.apache.org/jira/browse/SOLR-236
+     * @see http://osdir.com/ml/solr-dev.lucene.apache.org/2009-08/msg00303.html
+     * 
+     */
     protected void populateModelForQuery(Map<String, Object> model, int page, String type, String searchQuery) {
         long numResults;
         long numArticles = 0;
         long numDiscussions = 0;
         String pageTitlePrefix;
+
+        if (StringUtils.isNotBlank(searchQuery)) {
         try {
             // TODO-8876 use Solr to search
-            QueryResponse rsp = _solrService.getResults(searchQuery, page, PAGE_SIZE, type);
+            SolrServer solr = _solrService.getSolrServer();
+
+            SolrQuery query = _solrService.getFacetCountQuery(searchQuery);
+            QueryResponse rsp = solr.query(query);
 
             FacetField contentTypeFacet = rsp.getFacetField(SolrService.FIELD_CONTENT_TYPE);
             for (FacetField.Count count : contentTypeFacet.getValues()) {
@@ -139,43 +165,44 @@ public class ContentSearchController extends AbstractController {
                 }
             }
 
-            SolrDocumentList docs = rsp.getResults();
-            List<ContentSearchResult> results = rsp.getBeans(ContentSearchResult.class);
-
             List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
-            for (ContentSearchResult result : results) {
-                if (CommunityConstants.DISCUSSION_CONTENT_TYPE.equals(result.getContentKey().getType())) {
-                    communityResults.add(result);
-                } else {
-                    articleResults.add(result);
-                }
+
+            if (TYPE_ARTICLES.equals(type) || (numArticles > 0 && numDiscussions == 0)) {
+                rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_ARTICLES);
+                articleResults = rsp.getBeans(ContentSearchResult.class);
+            } else if (TYPE_COMMUNITY.equals(type) || (numDiscussions > 0 && numArticles == 0)) {
+                rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_COMMUNITY);
+                communityResults = rsp.getBeans(ContentSearchResult.class);
+            } else {
+                rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, TYPE_ARTICLES);
+                articleResults = rsp.getBeans(ContentSearchResult.class);
+                rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, TYPE_COMMUNITY);
+                communityResults = rsp.getBeans(ContentSearchResult.class);
             }
-            //numArticles = articleResults.size();
-            //numDiscussions = communityResults.size();
-            numResults = numArticles + numDiscussions;
-
-            // TODO-8876 remove me
-            //System.out.println("====== numArticles = " + numArticles + ", numDiscussions = " + numDiscussions + ", numResults = " + numResults);
-
-            if (numResults == 0) {
-                // TODO-8876 use Solr spell check plugin to suggest alternate query
-                model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
-            }
-
-            pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
 
             model.put(MODEL_ARTICLE_RESULTS, articleResults);
             model.put(MODEL_COMMUNITY_RESULTS, communityResults);
-
-            model.put(MODEL_NUM_RESULTS, numResults);
-            model.put(MODEL_NUM_ARTICLES, numArticles);
-            model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
-
-            model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
         } catch (Exception e) {
             _log.error("Error querying solr for query: " + searchQuery, e);
         }
+        } else{
+            numResults = 0;
+            
+        }
+
+        numResults = numArticles + numDiscussions;
+        if (numResults == 0) {
+            // TODO-8876 use Solr spell check plugin to suggest alternate query
+            model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
+        }
+
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
+
+        model.put(MODEL_NUM_RESULTS, numResults);
+        model.put(MODEL_NUM_ARTICLES, numArticles);
+        model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
+        model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
     }
 
     protected String getPageTitlePrefix(long numArticles, long numDiscussions, String type) {
