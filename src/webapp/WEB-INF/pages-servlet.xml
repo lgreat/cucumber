@@ -40,11 +40,6 @@
         </property>
     </bean>
 
-    <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
-          class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
-        <property name="lazyInitHandlers" value="true"/>
-    </bean>
-
     <bean name="cmsFeatureHandlerMapping" parent="defaultHandlerMapping"
              class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
            <property name="urlMap">
@@ -57,8 +52,12 @@
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
                </map>
            </property>
-       </bean>
+    </bean>
 
+    <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
+          class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
+        <property name="lazyInitHandlers" value="true"/>
+    </bean>
 
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
