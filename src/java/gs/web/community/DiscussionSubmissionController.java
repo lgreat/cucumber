@@ -140,7 +140,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
-                UrlBuilder urlBuilder = new UrlBuilder(discussion);
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
+                        Long.valueOf(discussion.getId()));
                 command.setRedirect(urlBuilder.asSiteRelative(request));
             }
         }
@@ -161,7 +162,17 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             }
         }
 
-        UrlBuilder urlBuilder = new UrlBuilder(discussion);
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+
+        if (board == null) {
+            _log.warn("Attempt to submit with unknown discussion board id (" +
+                    discussion.getBoardId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
+                    discussion.getBoardId());
+        }
+
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
+                Long.valueOf(discussion.getId()));
         if (StringUtils.isEmpty(command.getRedirect())) {
             // default to forwarding to the discussion detail page
             command.setRedirect(urlBuilder.asSiteRelative(request));
@@ -234,12 +245,22 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     command.getDiscussionId());
         }
 
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+
+        if (board == null) {
+            _log.warn("Attempt to submit with unknown discussion board id (" +
+                    discussion.getBoardId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
+                    discussion.getBoardId());
+        }
+
         // validation
         if (StringUtils.length(command.getBody()) < REPLY_BODY_MINIMUM_LENGTH) {
             // sample code to store reply body for re-display in form
 //            SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
 //            sitePrefCookie.setProperty(COOKIE_REPLY_BODY_PROPERTY, command.getBody());
-            UrlBuilder urlBuilder = new UrlBuilder(discussion);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
+                    Long.valueOf(discussion.getId()));
             command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + REPLY_BODY_MINIMUM_LENGTH + " ignored");
         } else {
@@ -277,7 +298,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
-                UrlBuilder urlBuilder = new UrlBuilder(discussion);
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
+                        Long.valueOf(discussion.getId()));
                 command.setRedirect(urlBuilder.asSiteRelative(request));
             }
         }

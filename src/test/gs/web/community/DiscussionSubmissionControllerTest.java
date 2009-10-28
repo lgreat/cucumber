@@ -148,8 +148,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         board.setTitle("Discussion Board 2");
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
-        // TODO-8876 unbreaking the build by commenting out
-        //expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+        
         Discussion expectedEditedDiscussion = new Discussion();
         expectedEditedDiscussion.setBoardId(2L);
         expectedEditedDiscussion.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -249,7 +249,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
 
-        assertEquals("/community/discussion.gs?content=1234", _command.getRedirect());
+        assertEquals("/board/community/discussion.gs?content=1234", _command.getRedirect());
     }
 
     public void testHandleDiscussionSubmissionByTopicCenterNoUser() {
@@ -427,11 +427,18 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setBoardId(2L);
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
 
         DiscussionReply reply = new DiscussionReply();
         reply.setAuthorId(_user.getId());
@@ -457,11 +464,18 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setBoardId(2L);
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect(null);
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
 
         DiscussionReply reply = new DiscussionReply();
         reply.setAuthorId(_user.getId());
@@ -477,7 +491,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
 
-        assertEquals("/community/discussion.gs?content=1", _command.getRedirect());
+        assertEquals("/uri/community/discussion.gs?content=1", _command.getRedirect());
     }
 
     public void testHandleDiscussionReplySubmissionWithNoUser() {
@@ -523,11 +537,18 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setBoardId(2L);
         _command.setBody(SHORT_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
 
         replayAllMocks();
         try {
@@ -537,7 +558,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
 
-        assertEquals("/community/discussion.gs?content=1", _command.getRedirect());
+        assertEquals("/uri/community/discussion.gs?content=1", _command.getRedirect());
 //        assertNotNull(getResponse().getCookie("user_pref"));
     }
 
@@ -551,11 +572,18 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setBoardId(2L);
         _command.setBody(longBody.toString());
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
 
         DiscussionReply reply = new DiscussionReply();
         reply.setAuthorId(_user.getId());

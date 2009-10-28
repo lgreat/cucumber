@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: DiscussionTagHandler.java,v 1.6 2009/10/16 00:52:30 aroy Exp $
+ * $Id: DiscussionTagHandler.java,v 1.7 2009/10/28 18:39:11 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -22,7 +22,7 @@ public class DiscussionTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
         if (_discussion != null) {
-            builder = new UrlBuilder(_discussion);
+            builder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, _fullUri, Long.valueOf(_discussion.getId()));
         } else if (_discussionId != null) {
             builder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, _fullUri, Long.valueOf(_discussionId));
         } else {

@@ -3292,10 +3292,10 @@
         </attribute>
         <attribute>
             <name>fullUri</name>
-            <required>false</required>
+            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Desired discussion's full URI. Required if discussion is not specified.</description>
+            <description>Desired discussion's full URI.</description>
         </attribute>
         <attribute>
             <name>discussionReplyId</name>
