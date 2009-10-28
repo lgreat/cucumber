@@ -194,7 +194,8 @@ public class ContentSearchController extends AbstractController {
         numResults = numArticles + numDiscussions;
         if (numResults == 0) {
             // TODO-8876 use Solr spell check plugin to suggest alternate query
-            model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
+            //http://markmail.org/search/?q=spellcheck+issues#query:spellcheck%20issues+page:1+mid:e4juvg5eordk2vjw+state:results
+            //model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
         }
 
         pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);

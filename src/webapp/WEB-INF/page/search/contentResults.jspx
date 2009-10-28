@@ -205,7 +205,9 @@
         <c:otherwise>
             <h1>${pageScope.pageTitle}</h1>
 
-            <h2>Did you mean: <link:contentSearch styleClass="" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch></h2>
+            <c:if test="${not empty requestScope.suggestedSearchQuery}">
+                <h2>Did you mean: <link:contentSearch styleClass="" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch></h2>
+            </c:if>
 
             <h3>Suggestions:</h3>
 
@@ -250,10 +252,9 @@
             <div>
                 <div>Search</div>
                 <div>
-                    Search again for:
-                    <form id="searchAgain" action="/search/contentSearch.page">
-                        <!-- TODO-8876 escape searchQuery for XML -->
-                        <input type="text" name="q" value="${pageScope.searchQueryForXml}"/>
+                    Search for:
+                    <form id="search" action="/search/contentSearch.page">
+                        <input type="text" name="q" value=""/>
                         in
                         <gsweb:stateSelector styleClass="stateMenu" name="state"
                                                  state="${requestScope.context.state}"/>

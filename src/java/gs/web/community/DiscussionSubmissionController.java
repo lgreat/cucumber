@@ -127,9 +127,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setTitle(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
+            // needed for indexing
+            discussion.setUser(user);
+            // needed for indexing
+            discussion.setDiscussionBoard(board);
             try {
-                discussion.setUser(user);
-                discussion.setDiscussionBoard(board);
                 _solrService.indexDocument(discussion);
             } catch (Exception e) {
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
@@ -207,17 +209,15 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
-            /*
-            // TODO-8876 unbreaking the build by commenting out
+            // needed for indexing
+            discussion.setUser(user);
+            // needed for indexing
+            discussion.setDiscussionBoard(board);
             try {
-                discussion.setUser(user);
-                CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
-                discussion.setDiscussionBoard(board);
                 _solrService.updateDocument(discussion);
             } catch (Exception e) {
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
             }
-            */
         }
     }
 

@@ -10,7 +10,7 @@ import gs.data.content.cms.*;
 import gs.data.util.CmsUtil;
 import gs.data.search.SolrService;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 import org.easymock.IArgumentMatcher;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.util.CookieGenerator;
@@ -54,15 +54,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
-        // TODO-8876
-        //_solrService = createStrictMock(SolrService.class);
+        _solrService = createStrictMock(SolrService.class);
 
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
-        // TODO-8876
-        //_controller.setSolrService(_solrService);
+        _controller.setSolrService(_solrService);
 
         _user = new User();
         _user.setId(5);
@@ -93,15 +91,11 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
-        // TODO-8876
-        //replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao);
-        // TODO-8876
-        //verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
     }
 
 //    private void resetAllMocks() {
@@ -158,14 +152,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expectedEditedDiscussion.setId(1);
 
         _discussionDao.save(eqDiscussion(expectedEditedDiscussion));
-        // TODO-8876 unbreaking the build by commenting out
-        /*
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
         try {
-            _solrService.updateDocument(expectedEditedDiscussion);
+            _solrService.updateDocument(eqDiscussion(expectedEditedDiscussion));
         } catch (Exception e) {
             // error is logged
         }
-        */
 
         replayAllMocks();
         try {
@@ -202,6 +195,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setAuthorId(_user.getId());
 
         _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
 
         replayAllMocks();
         try {
@@ -240,6 +240,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setAuthorId(_user.getId());
 
         _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
 
         replayAllMocks();
         try {
@@ -410,6 +417,13 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setAuthorId(_user.getId());
 
         _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
 
         replayAllMocks();
         try {
