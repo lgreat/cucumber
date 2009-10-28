@@ -7,6 +7,9 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core">
     <!-- if you pass in content, the More-In module will be shown (using its categories); otherwise, the Most Popular content module -->
     <jsp:directive.attribute name="content" required="false" type="gs.data.content.cms.CmsContent"/>
+    <jsp:directive.attribute name="searchQuery" required="false" type="java.lang.String"/>
+
+    <c:set var="xmlEscapedSearchQuery"><c:out value="${pageScope.searchQuery}" escapeXml="true"/></c:set>
 
     <div id="sideBar">
         <div class="module">
@@ -15,7 +18,7 @@
             </div>
             <div class="body1bg">
                 <form action="/search/contentSearch.page">
-                    <input class="fltlft db_search_input" type="text" name="q" size="24"/>
+                    <input class="fltlft db_search_input" type="text" name="q" size="24" value="${pageScope.xmlEscapedSearchQuery}"/>
                     <button class="fltrt btn25ni" type="submit"><span class="rnd4"><span class="rnd4">Search</span></span></button>
                 </form>
                 <br class="clearfloat"/>

@@ -271,7 +271,7 @@
 </div>
 <!-- end mainContent -->
 
-<cms:communitySidebar/>
+<cms:communitySidebar searchQuery="${requestScope.searchQuery}"/>
 
 </div>
 <!-- end container -->
