@@ -315,7 +315,7 @@
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
 
                             <div class="db_textarea">
-                                <textarea rows="9" cols="55" class="replybox"
+                                <textarea rows="9" cols="53" class="replybox"
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
                             <button class="btn25ni fltlft previewButton" type="submit">
