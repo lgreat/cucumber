@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.192 2009/10/26 22:57:26 droy Exp $
+ * $Id: UrlBuilder.java,v 1.193 2009/10/28 00:13:45 yfan Exp $
  */
 
 package gs.web.util;
@@ -612,6 +612,7 @@ public class UrlBuilder {
         }
     }
 
+    // TODO - this is incorrect; the correct version is public UrlBuilder(VPage page, String fullUri, Long contentIdentifier) 
     public UrlBuilder(Discussion discussion) {
         _vPage = COMMUNITY_DISCUSSION;
         _perlPage = false;
@@ -850,7 +851,7 @@ public class UrlBuilder {
             if (type != null) {
                 this.setParameter("type", type);
             }
-            if (sample != null) {
+            if (StringUtils.isNotBlank(sample)) {
                 this.setParameter("sample", sample);
             }
         } else {
