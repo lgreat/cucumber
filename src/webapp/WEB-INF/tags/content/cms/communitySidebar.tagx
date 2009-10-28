@@ -24,21 +24,19 @@
                 <div class="subhead2">Browse by topic</div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:discussion discussionId="1" fullUri="uri">Great Parenting</link:discussion></li>
-                        <li><link:discussion discussionId="1"
-                                             fullUri="uri">Academics &amp;amp; Activities</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Learning Disabilities</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Improve Your School</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Prep for College</link:discussion></li>
+                        <li><link:discussion discussionId="1636" fullUri="/preschool">Preschool</link:discussion></li>
+                        <li><link:discussion discussionId="1637"
+                                             fullUri="/elementary-school">Elementary School</link:discussion></li>
+                        <li><link:discussion discussionId="1638" fullUri="/middle-school">Middle School</link:discussion></li>
+                        <li><link:discussion discussionId="1639" fullUri="/high-school">High School</link:discussion></li>
                     </ul>
                 </div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:discussion discussionId="1" fullUri="uri">Finding a School</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Preschool</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Elementary</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">Middle School</link:discussion></li>
-                        <li><link:discussion discussionId="1" fullUri="uri">High School</link:discussion></li>
+                        <li><link:discussion discussionId="1640" fullUri="/parenting">Health &amp;amp; Nutrition</link:discussion></li>
+                        <li><link:discussion discussionId="1641" fullUri="/students">Academics &amp;amp; Activities</link:discussion></li>
+                        <li><link:discussion discussionId="1642" fullUri="/LD">Learning Disabilities</link:discussion></li>
+                        <li><link:discussion discussionId="1643" fullUri="/improvement">Improve Your School</link:discussion></li>
                     </ul>
                 </div>
                 <br class="clearfloat"/>
