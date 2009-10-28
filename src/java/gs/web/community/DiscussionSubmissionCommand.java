@@ -8,6 +8,7 @@ public class DiscussionSubmissionCommand {
     private Integer _discussionId;
     // Fields for Discussion
     private Long _topicCenterId;
+    private Long _discussionBoardId;
     private String _title;
     // Fields for both Discussion and DiscussionReply
     private String _body;
@@ -29,6 +30,14 @@ public class DiscussionSubmissionCommand {
 
     public void setTopicCenterId(Long topicCenterId) {
         _topicCenterId = topicCenterId;
+    }
+
+    public Long getDiscussionBoardId() {
+        return _discussionBoardId;
+    }
+
+    public void setDiscussionBoardId(Long discussionBoardId) {
+        _discussionBoardId = discussionBoardId;
     }
 
     public String getTitle() {

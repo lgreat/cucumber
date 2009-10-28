@@ -34,6 +34,24 @@
         $(function() {
             $('#topicSelect').focus();
 
+            $('#topicSelect').change(function() {
+                if (this.value == '-1') {
+                    $('#citySelect').removeAttr('disabled');
+                    $('.citySelect').show();
+                } else {
+                    $('#citySelect').attr('disabled', true);
+                    $('.citySelect').hide();
+                }
+            });
+
+            if ($('#topicSelect').val() == '-1') {
+                $('#citySelect').removeAttr('disabled');
+                $('.citySelect').show();
+            } else {
+                $('#citySelect').attr('disabled', true);
+                $('.citySelect').hide();
+            }
+
             $('#dialogCancelButton').click(function() {
                 parent.GS.closeDialogs();
             });
@@ -65,9 +83,19 @@
         <div class="topicSelect">
             <label for="topicSelect">Topic</label>
             <select id="topicSelect" name="topicCenterId">
+                <gsml:selectOption value="-1">Cities</gsml:selectOption>
                 <c:forEach var="myTc" items="${discussionTopics}">
                     <gsml:selectOption value="${myTc.contentKey.identifier}"
                                        selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="citySelect">
+            <label for="citySelect">City</label>
+            <select id="citySelect" name="discussionBoardId" disabled="disabled">
+                <c:forEach var="localBoard" items="${localBoards}">
+                    <gsml:selectOption value="${localBoard.boardId}"
+                                       selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}</gsml:selectOption>
                 </c:forEach>
             </select>
         </div>

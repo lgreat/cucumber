@@ -51,7 +51,7 @@
                     resizable: false,
                     modal: true,
                     draggable: false,
-                    width: 585,
+                    width: 595,
                     title: "Preview"
                 });
             };

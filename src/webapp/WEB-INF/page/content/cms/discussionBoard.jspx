@@ -50,10 +50,10 @@
 <div id="mainContent">
     <p class="breadCrumbs smallAlertText">
         <link:home>Home</link:home>
-        &amp;gt;
 
         <c:choose>
             <c:when test="${requestScope.discussionBoard.city ne null}">
+                &amp;gt;
                     <link:research state="${requestScope.discussionBoard.city.state}"
                                    title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
                     &amp;gt;
@@ -64,6 +64,7 @@
             </c:when>
 
             <c:when test="${requestScope.topicCenter ne null}">
+                &amp;gt;
                     <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
                                      fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
             </c:when>

@@ -53,13 +53,33 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             handleEditDiscussionSubmission(request, response, command);
         } else if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
-        } else if (command.getTopicCenterId() != null) {
+        } else if (command.getDiscussionBoardId() != null) {
             handleDiscussionSubmission(request, response, command);
+        } else if (command.getTopicCenterId() != null) {
+            handleDiscussionSubmissionByTopicCenter(request, response, command);
         } else {
             _log.warn("Unknown submission type -- has no discussion id or topic center id");
         }
 
         return new ModelAndView(new RedirectView(command.getRedirect()));
+    }
+
+    protected void handleDiscussionSubmissionByTopicCenter
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            throws IllegalStateException {
+        CmsTopicCenter topicCenter = _publicationDao.populateByContentId
+                (command.getTopicCenterId(), new CmsTopicCenter());
+
+        if (topicCenter == null) {
+            _log.warn("Attempt to submit with unknown topic center id (" +
+                    command.getTopicCenterId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown topic center id! id=" +
+                    command.getTopicCenterId());
+        }
+
+        command.setDiscussionBoardId(topicCenter.getDiscussionBoardId());
+
+        handleDiscussionSubmission(request, response, command);
     }
 
     protected void handleDiscussionSubmission
@@ -77,23 +97,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
         User user = sessionContext.getUser();
 
-        CmsTopicCenter topicCenter = _publicationDao.populateByContentId
-                (command.getTopicCenterId(), new CmsTopicCenter());
-
-        if (topicCenter == null) {
-            _log.warn("Attempt to submit with unknown topic center id (" +
-                    command.getTopicCenterId() + ") rejected");
-            throw new IllegalStateException("Discussion submission with unknown topic center id! id=" +
-                    command.getTopicCenterId());
-        }
-
-        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId());
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(command.getDiscussionBoardId());
 
         if (board == null) {
             _log.warn("Attempt to submit with unknown discussion board id (" +
-                    topicCenter.getDiscussionBoardId() + ") rejected");
+                    command.getDiscussionBoardId() + ") rejected");
             throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
-                    topicCenter.getDiscussionBoardId());
+                    command.getDiscussionBoardId());
         }
 
         // validation

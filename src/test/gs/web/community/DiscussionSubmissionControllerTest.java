@@ -178,7 +178,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("redirect", _command.getRedirect());
     }
 
-    public void testHandleDiscussionSubmission() {
+    public void testHandleDiscussionSubmissionByTopicCenter() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -205,7 +205,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on valid submission: " + ise);
         }
@@ -216,7 +216,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
     }
 
-    public void testHandleDiscussionSubmissionNoRedirect() {
+    public void testHandleDiscussionSubmissionByTopicCenterNoRedirect() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -243,7 +243,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on valid submission: " + ise);
         }
@@ -252,14 +252,19 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("/community/discussion.gs?content=1234", _command.getRedirect());
     }
 
-    public void testHandleDiscussionSubmissionNoUser() {
+    public void testHandleDiscussionSubmissionByTopicCenterNoUser() {
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setTopicCenterId(1L);
         _command.setRedirect("redirect");
 
+        CmsTopicCenter topicCenter = new CmsTopicCenter();
+        topicCenter.setDiscussionBoardId(2L);
+
+        expect(_publicationDao.populateByContentId(eq(1L), isA(CmsTopicCenter.class))).andReturn(topicCenter);
+
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
             fail("Expect to receive an exception because there is no authorized user in the request");
         } catch (IllegalStateException ise) {
             // ok
@@ -267,7 +272,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-    public void testHandleDiscussionSubmissionWithNoTopicCenter() {
+    public void testHandleDiscussionSubmissionByTopicCenterWithNoTopicCenter() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -279,7 +284,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
             fail("Expect to receive an exception because topic center id does not exist");
         } catch (IllegalStateException ise) {
             // ok
@@ -287,7 +292,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-    public void testHandleDiscussionSubmissionWithNoDiscussionBoard() {
+    public void testHandleDiscussionSubmissionByTopicCenterWithNoDiscussionBoard() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -303,7 +308,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
             fail("Expect to receive an exception because topic center id does not exist");
         } catch (IllegalStateException ise) {
             // ok
@@ -311,7 +316,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-    public void testHandleDiscussionSubmissionWithTooShortTitle() {
+    public void testHandleDiscussionSubmissionByTopicCenterWithTooShortTitle() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
@@ -331,7 +336,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on submission that fails validation: " + ise);
         }
@@ -340,7 +345,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("/board/community.gs?content=2", _command.getRedirect());
     }
 
-    public void testHandleDiscussionSubmissionWithTooShortBody() {
+    public void testHandleDiscussionSubmissionByTopicCenterWithTooShortBody() {
         insertUserIntoRequest();
 
         _command.setBody(SHORT_DISCUSSION_POST);
@@ -360,7 +365,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on submission that fails validation: " + ise);
         }
@@ -369,7 +374,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("/board/community.gs?content=2", _command.getRedirect());
     }
 
-    public void testHandleDiscussionSubmissionWithTooLongBodyAndTitle() {
+    public void testHandleDiscussionSubmissionByTopicCenterWithTooLongBodyAndTitle() {
         insertUserIntoRequest();
 
         StringBuffer longBody = new StringBuffer(DiscussionSubmissionController.DISCUSSION_BODY_MAXIMUM_LENGTH);
@@ -408,7 +413,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command);
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on valid submission: " + ise);
         }
