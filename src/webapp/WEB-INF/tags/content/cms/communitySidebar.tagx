@@ -24,19 +24,19 @@
                 <div class="subhead2">Browse by topic</div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:discussion discussionId="1636" fullUri="/preschool">Preschool</link:discussion></li>
-                        <li><link:discussion discussionId="1637"
-                                             fullUri="/elementary-school">Elementary School</link:discussion></li>
-                        <li><link:discussion discussionId="1638" fullUri="/middle-school">Middle School</link:discussion></li>
-                        <li><link:discussion discussionId="1639" fullUri="/high-school">High School</link:discussion></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool">Preschool</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1637"
+                                             fullUri="/elementary-school">Elementary School</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school">Middle School</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school">High School</link:cmsContent></li>
                     </ul>
                 </div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:discussion discussionId="1640" fullUri="/parenting">Health &amp;amp; Nutrition</link:discussion></li>
-                        <li><link:discussion discussionId="1641" fullUri="/students">Academics &amp;amp; Activities</link:discussion></li>
-                        <li><link:discussion discussionId="1642" fullUri="/LD">Learning Disabilities</link:discussion></li>
-                        <li><link:discussion discussionId="1643" fullUri="/improvement">Improve Your School</link:discussion></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting">Health &amp;amp; Nutrition</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">Learning Disabilities</link:cmsContent></li>
+                        <li><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement">Improve Your School</link:cmsContent></li>
                     </ul>
                 </div>
                 <br class="clearfloat"/>
