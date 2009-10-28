@@ -273,12 +273,13 @@
 </div>
 <!-- end mainContent -->
 
+<c:set var="moreInContent" value="${requestScope.discussionBoard}"/>
+<c:if test="${requestScope.discussionBoard.city ne null}">
+    <!-- No More In content for local boards -->
+    <c:set var="moreInContent" value=""/>
+</c:if>
 <!-- sidebar that shows More-In: -->
-<cms:communitySidebar content="${requestScope.discussionBoard}"/>
-
-<!-- RANDALL: Comment out the communitySidebar above and uncomment the one below, to get the popular articles box to show up -->
-<!-- sidebar that shows Most Popular: -->
-<!-- cms:communitySidebar/ -->
+<cms:communitySidebar content="${moreInContent}"/>
 
 </div>
 <!-- end container -->
