@@ -126,7 +126,7 @@ public class ContentSearchController extends AbstractController {
         String pageTitlePrefix;
         try {
             // TODO-8876 use Solr to search
-            QueryResponse rsp = _solrService.getResults(searchQuery);
+            QueryResponse rsp = _solrService.getResults(searchQuery, page, PAGE_SIZE, type);
 
             FacetField contentTypeFacet = rsp.getFacetField(SolrService.FIELD_CONTENT_TYPE);
             for (FacetField.Count count : contentTypeFacet.getValues()) {
