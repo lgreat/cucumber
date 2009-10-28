@@ -82,12 +82,14 @@ div#outer table#items tr {
 
 .tableColumn{
     width:400px;
+    margin:0 20px 0 0;
 }
 
 .adColumn{
     width:300px;
-    /*height:200px;*/
-    /*background:blue;*/
+    margin:21px 0 0 0;
+    margin:21px 0 0 0;
+    border-top:1px solid;
 }
 
 .fltlft {
