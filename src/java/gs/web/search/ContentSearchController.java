@@ -18,6 +18,7 @@ import gs.data.search.ContentSearchResult;
 import gs.data.search.SolrService;
 import gs.data.content.cms.ContentKey;
 import gs.data.content.cms.CmsConstants;
+import gs.data.community.CommunityConstants;
 
 /**
  * GS-8876
@@ -126,7 +127,6 @@ public class ContentSearchController extends AbstractController {
         try {
             // TODO-8876 use Solr to search
             QueryResponse rsp = _solrService.getResults(searchQuery);
-            List<FacetField> facetFields = rsp.getFacetFields();
 
             FacetField contentTypeFacet = rsp.getFacetField(SolrService.FIELD_CONTENT_TYPE);
             for (FacetField.Count count : contentTypeFacet.getValues()) {
@@ -134,7 +134,7 @@ public class ContentSearchController extends AbstractController {
                     CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(count.getName()) ||
                     CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(count.getName())) {
                     numArticles += count.getCount();
-                } else if ("Discussion".equals(count.getName())) {
+                } else if (CommunityConstants.DISCUSSION_CONTENT_TYPE.equals(count.getName())) {
                     numDiscussions = count.getCount(); 
                 }
             }
@@ -145,7 +145,7 @@ public class ContentSearchController extends AbstractController {
             List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
             for (ContentSearchResult result : results) {
-                if (result.getContentKey().getType().equals("Discussion")) {
+                if (CommunityConstants.DISCUSSION_CONTENT_TYPE.equals(result.getContentKey().getType())) {
                     communityResults.add(result);
                 } else {
                     articleResults.add(result);
