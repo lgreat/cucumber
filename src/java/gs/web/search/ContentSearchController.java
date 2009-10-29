@@ -5,6 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -130,7 +131,7 @@ public class ContentSearchController extends AbstractController {
      * 
      */
     protected void populateModelForQuery(Map<String, Object> model, int page, String type, String searchQuery) {
-        long numResults;
+        long numResults = 0;
         long numArticles = 0;
         long numDiscussions = 0;
         String pageTitlePrefix;
@@ -155,6 +156,19 @@ public class ContentSearchController extends AbstractController {
                     numDiscussions = count.getCount(); 
                 }
             }
+
+            numResults = numArticles + numDiscussions;
+
+            if (numResults == 0) {
+                SpellCheckResponse spell = rsp.getSpellCheckResponse();
+                String suggestedQuery = searchQuery;
+                for (SpellCheckResponse.Suggestion suggestion : spell.getSuggestions()) {
+                    suggestedQuery =
+                            suggestedQuery.replaceAll(suggestion.getToken(), suggestion.getSuggestions().get(0));
+                }
+                model.put(MODEL_SUGGESTED_SEARCH_QUERY, suggestedQuery);
+            }
+
 
             List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
@@ -183,13 +197,6 @@ public class ContentSearchController extends AbstractController {
         } else{
             numResults = 0;
             
-        }
-
-        numResults = numArticles + numDiscussions;
-        if (numResults == 0) {
-            // TODO-8876 use Solr spell check plugin to suggest alternate query
-            //http://markmail.org/search/?q=spellcheck+issues#query:spellcheck%20issues+page:1+mid:e4juvg5eordk2vjw+state:results
-            //model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
         }
 
         pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
