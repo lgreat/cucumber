@@ -69,7 +69,16 @@
                         <li class="active">${typeButtonText}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch></li>
+                        <li>
+                            <c:choose>
+                                <c:when test="${requestScope.numArticles eq 0}">
+                                    ${typeButtonText}
+                                </c:when>
+                                <c:otherwise>
+                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
                     </c:otherwise>
                 </c:choose>
 
@@ -79,7 +88,16 @@
                         <li class="active">${typeButtonText}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch></li>
+                        <li>
+                            <c:choose>
+                                <c:when test="${requestScope.numDiscussions eq 0}">
+                                    ${typeButtonText}
+                                </c:when>
+                                <c:otherwise>
+                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
@@ -171,9 +189,9 @@
                             <p class="byline">
                                 <a href="/members/${result.username}/">${result.username}</a>
                                 in ${result.discussionBoardTitle}
+                                ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                             </p>
                             <p>
-                            ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                                 <community:userContentTeaserText
                                         textToDisplay="${result.resultSummary}"
                                         minLength="143" maxLength="163"
