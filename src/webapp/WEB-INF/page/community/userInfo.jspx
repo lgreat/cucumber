@@ -228,11 +228,11 @@
 
                     <c:if test="${supportedContentType}">
                         <li>
-                            <h4 class="text3">${introLabel}: "<link:discussion discussionId="${discussion.id}"
-                                                                               fullUri="${discussionFullUri}"
-                                                                               discussionReplyId="${replyId}"
-                                                                               styleClass="text3">${discussion.title}</link:discussion>"
-                                <fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
+                            <h4 class="text3">${introLabel}: <link:discussion discussionId="${discussion.id}"
+                                                                              fullUri="${discussionFullUri}"
+                                                                              discussionReplyId="${replyId}"
+                                                                              styleClass="text3">${discussion.title}</link:discussion>
+                                &amp;nbsp;<fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
                             </h4>
 
                             <p>
