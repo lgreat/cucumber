@@ -67,6 +67,32 @@
 .sdrl{
     border-left: 1px dotted #999;
 }
+
+/* clear fix */
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+/* end clear fix */
+
 .rnd4 {
 /* this class should be used to round the corners on 25 px height buttons */
     -moz-border-radius:4px;

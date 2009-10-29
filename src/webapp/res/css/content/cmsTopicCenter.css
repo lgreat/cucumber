@@ -335,6 +335,16 @@
     padding:0 25px;
 }
 
+#recentDiscussions h2{
+    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d66671;
+    padding:0 0 5px 0;
+}
+
+#recentDiscussions p{
+    padding:0 0 10px 0;
+}
+
 #recentDiscussions .avatar {
     width:58px;
 }
