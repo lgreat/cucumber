@@ -170,6 +170,13 @@
 </div>
 <!-- end header -->
 
+<!-- Report it dialog -->
+<c:if test="${validUser ne null}">
+    <community:reportContentHover openingElementSelector=".reportIt"
+                                  reporterId="${validUser.id}"/>
+</c:if>
+<!-- End report it dialog -->
+
 <!-- Preview reply dialog -->
 <c:if test="${validUser ne null}">
     <div id="previewReplyDialog" style="display:none;">
@@ -192,10 +199,8 @@
                         </link:userProfile>
 
                         <span class="smallText1">, a moment ago</span>
-                        | <a href="#" class="editLink" onclick="return false;">Edit</a>
                     </p>
 
-                    <p class="fltrt"><a class="smallText1" href="#" onclick="return false;">Report it</a></p>
                     <br class="clearfloat"/>
 
                     <span class="text3 replyBody"><!-- filled in by JS --></span>
@@ -249,7 +254,8 @@
                     </gsml:ifUserCanEditContent>
                 </p>
 
-                <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
+                <p class="fltrt"><a class="smallText1 reportIt" href="${loginRedirectUrl}"
+                                    id="report_discussion_${discussion.id}">Report it</a></p>
                 <br class="clearfloat"/>
                 <span class="text3 discussionBody">${discussion.body}</span>
             </div>
@@ -407,7 +413,8 @@
                                 </gsml:ifUserCanEditContent>
                             </p>
 
-                            <p class="fltrt"><a class="smallText1" href="#">Report it</a></p>
+                            <p class="fltrt"><a class="smallText1 reportIt" href="${loginRedirectUrl}"
+                                                id="report_reply_${reply.id}">Report it</a></p>
                             <br class="clearfloat"/>
 
                             <span class="text3 replyBody">${reply.body}</span>

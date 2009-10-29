@@ -527,7 +527,13 @@
           class="gs.web.community.StartDiscussionHoverController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/hover/startDiscussionHover"/>
-        <!--<property name="hoverView" value="/community/registration/popup/sendToDestination.page"/>-->
+    </bean>
+
+    <bean name="/community/reportContent.page"
+          class="gs.web.community.ReportContentAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="reportContentCommand"/>
+        <property name="commandClass" value="gs.web.community.ReportContentCommand"/>
     </bean>
 
    <bean name="/community/userAccount.page"

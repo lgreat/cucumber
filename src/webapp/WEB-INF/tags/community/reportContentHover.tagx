@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+    xmlns:link="urn:www.greatschools.net/taglib/link"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <!--
+        @author aroy@greatschools.net
+    -->
+    <!-- Required attributes -->
+    <jsp:directive.attribute name="openingElementSelector" required="true" type="java.lang.String"
+                             description="Jquery selector to apply an onClick function to that opens the hover. It also replaces this element with a string after the report is submitted."/>
+    <jsp:directive.attribute name="reporterId" required="true" type="java.lang.Integer"
+                             description="ID of user reporting the content"/>
+
+    <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
+
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('${pageScope.openingElementSelector}').click(function() {
+                var idStr = jQuery(this).attr('id');
+                if (idStr.indexOf('reply') > -1) {
+                    jQuery('#reportContentType').val('reply');
+                    jQuery('#reportContentId').val(idStr.substring("report_reply_".length));
+                } else {
+                    jQuery('#reportContentType').val('discussion');
+                    jQuery('#reportContentId').val(idStr.substring("report_discussion_".length));
+                }
+                jQuery('#reportItDialog').dialog('open');
+                jQuery('#reportReason').focus();
+                return false;
+            });
+
+            jQuery('#reportItDialog').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                draggable: false,
+                width: 600,
+                title: "Report this comment as inappropriate",
+                open: function() {
+                    jQuery('#reportReason').val('');
+                }
+            });
+
+            jQuery('.reportCancelButton').click(function() {
+                jQuery('#reportItDialog').dialog('close');
+                return false;
+            });
+
+            jQuery('.reportSendButton').click(function() {
+                jQuery('#reportItDialog').dialog('close');
+
+                var params = {
+                    type: jQuery('#reportContentType').val(),
+                    contentId: jQuery('#reportContentId').val(),
+                    reporterId: jQuery('#reportReporterId').val(),
+                    reason: jQuery('#reportReason').val()
+                };
+
+                jQuery.post('/community/reportContent.page', params);
+
+                jQuery('${pageScope.openingElementSelector}').parent().addClass('reported');
+                jQuery('${pageScope.openingElementSelector}').replaceWith("You've reported this post.");
+                return false;                
+            });
+        });
+    </script>
+
+    <!-- Report it dialog -->
+    <div id="reportItDialog" style="display:none;">
+        <p>
+            Please explain how this comment may have violated our
+            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                              title="GreatSchools Community Standards"
+                              href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                    >Community Guidelines</gsml:popupWindow>
+        </p>
+        <form action="/community/reportContent.page" method="post">
+            <textarea rows="10" cols="60" name="reason" id="reportReason"><!-- don't collapse --></textarea>
+            <div class="buttons">
+                <button class="btn25ni fltlft reportSendButton" type="submit">
+                    <span class="rnd4"><span class="rnd4">Send</span></span>
+                </button>
+                <button class="btn25ni fltlft reportCancelButton" type="cancel">
+                    <span class="rnd4"><span class="rnd4">Cancel</span></span>
+                </button>
+                <a href="#" class="smallText1 whatHappens">What happens when I report a post?</a>
+            </div>
+            <input type="hidden" id="reportContentType" name="type" value="reply"/>
+            <input type="hidden" id="reportContentId" name="contentId" value="-1"/>
+            <input type="hidden" id="reportReporterId" name="reporterId" value="${pageScope.reporterId}"/>
+        </form>
+    </div>
+    <!-- End report it dialog -->
+</jsp:root>
