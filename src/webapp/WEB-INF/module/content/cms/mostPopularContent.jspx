@@ -36,7 +36,7 @@
                     </c:choose>
 
                     <div class="body2bg">
-                        <ul class="mostpop text3_230">
+                        <ul class="mostpop text3">
                             <c:forEach var="link" items="${links}" varStatus="status">
 
                                 <c:if test="${status.count le actualMax}">
@@ -50,7 +50,7 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <li class="${className}">
+                                    <li class="mostpopItem ${className}">
                                         <a href="${link.url}"><c:out value="${link.linkText}"/></a>
                                     </li>
 

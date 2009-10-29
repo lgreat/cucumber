@@ -152,9 +152,12 @@
 .body3bg .db_select_label{
     padding:0 10px 0 0;
 }
-.morein li, .mostpop li{
+#sideBar .morein, #sideBar .mostpop {
     list-style:none outside;
     padding:0 20px 0 0;
+}
+#sideBar .moreinItem, #sideBar .mostpopItem{
+    padding:15px 0 0 0;
 }
 
 /* End of classes used by communitySidebar.tagx */

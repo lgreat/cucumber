@@ -53,7 +53,7 @@
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
 
         <br class="modulespacer"/>
-
+        <!--<c:set var="content" value=""/>-->
         <c:choose>
             <c:when test="${not empty content}">
                 <jsp:include page="/content/cms/moreInCategory.module?topics=${

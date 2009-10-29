@@ -37,7 +37,7 @@
                     </c:choose>
 
                     <div class="body2bg">
-                        <ul class="morein text3_230">
+                        <ul class="morein text3">
                             <c:forEach var="result" items="${mainResults}" varStatus="status">
 
                                 <c:if test="${status.count le actualMax}">
@@ -51,7 +51,7 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <li class="${className}">
+                                    <li class="moreinItem ${className}">
                                         <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}">
                                             <c:out value="${result.headline}" escapeXml="false"/>
                                         </link:cmsContent>
@@ -62,21 +62,23 @@
                         </ul>
 
                         <c:if test="${total gt maxResults}">
+                            <p class="moreinItem">
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
                                     <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}">
-                                        <span class="text3_230">More </span>
+                                        <span class="text3">More </span>
                                         <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:when>
                                 <c:otherwise>
                                     <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
                                                             gradeIDs="${gradeIds}" language="${param.language}">
-                                        <span class="text3_230">More </span>
+                                        <span class="text3">More </span>
                                         <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:otherwise>
                             </c:choose>
+                            </p>
                         </c:if>
                     </div> <!-- end body2bg -->
                 </div>
