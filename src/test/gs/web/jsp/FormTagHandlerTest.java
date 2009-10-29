@@ -30,7 +30,7 @@ public class FormTagHandlerTest extends TestCase {
         _tag.doEndTag();
         String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertEquals("<form accept-charset=\"UTF-8\" " +
-                "action=\"http://dev.greatschools.net/somepage\"></form>", output);
+                "action=\"/somepage\"></form>", output);
         
         _jspContext = new MockPageContext(null, new MockHttpServletRequest());
         _tag.setJspContext(_jspContext);
@@ -44,7 +44,7 @@ public class FormTagHandlerTest extends TestCase {
         _tag.doEndTag();
         output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertEquals("<form accept-charset=\"UTF-8\" id=\"id\" " +
-                "action=\"http://dev.greatschools.net/somepage\" method=\"post\" class=\"style\" " +
+                "action=\"/somepage\" method=\"post\" class=\"style\" " +
                 "onsubmit=\"onsubmit\" target=\"target\"></form>", output);
     }
 

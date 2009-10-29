@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.79 2009/08/26 17:58:04 droy Exp $
+ * $Id: UrlUtil.java,v 1.80 2009/10/29 20:30:08 droy Exp $
  */
 
 package gs.web.util;
@@ -148,7 +148,7 @@ public final class UrlUtil {
         try {
             URL sourceUrl = new URL(srcUri);
             if (isDeveloperWorkstation(sourceUrl.getHost())) {
-                if (destIsPerl) {
+                if (destPath.contains("cgi-bin") || destPath.contains("modperl")) {
                     return "http://dev.greatschools.net" + destPath;
                 } else {
                     return destPath;

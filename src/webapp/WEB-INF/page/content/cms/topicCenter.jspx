@@ -229,36 +229,42 @@
     <div class="clear"><!-- don't collapse --></div>
 
     <!-- Community links -->
-    <div id="community">
-        <c:if test="${not empty topicCenter.communityLinks}">
-
-            <div id="communityNavigation">
-
-
-                <h2>&amp;nbsp;</h2>
-            </div>
-            <div id="communityContent">
-            <img src="/res/img/box/tc_top.gif" height="25" width="480" alt="top border"/>
-                <img class="communityImage" src="/res/img/topicCenter/topiccente_community.jpg" height="150" width="130" alt="topic center community image"/>
-                <h2>Community</h2>
-                <ul>
-                    <c:forEach var="link" items="${topicCenter.communityLinks}">
-                        <c:if test="${not empty link.url}">
-                            <li><a href="${link.url}">${link.linkText}</a></li>
-                        </c:if>
-                    </c:forEach>
-                </ul>
-                <!--<c:if test="${not empty topicCenter.communityMoreLink}">-->
-                    <div class="more">
-                        <!--<a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.title}</a>-->
-                        <a href="http://community.greatschools.net/">More discussions &amp;raquo;</a>
+    <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+    <c:set var="recentDiscussions"><c:import url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5&amp;uri=${myUrl}&amp;style=fall2009"/></c:set>
+    <c:choose>
+        <c:when test="${empty recentDiscussions}">
+            <div id="community">
+                <c:if test="${not empty topicCenter.communityLinks}">
+                    <div id="communityNavigation">
+                        <h2>&amp;nbsp;</h2>
                     </div>
-                <!--</c:if>-->
-            <img src="/res/img/box/tc_bottom.gif" height="25" width="480" alt="bottom border"/>
+                    <div id="communityContent">
+                    <img src="/res/img/box/tc_top.gif" height="25" width="480" alt="top border"/>
+                        <img class="communityImage" src="/res/img/topicCenter/topiccente_community.jpg" height="150" width="130" alt="topic center community image"/>
+                        <h2>Community</h2>
+                        <ul>
+                            <c:forEach var="link" items="${topicCenter.communityLinks}">
+                                <c:if test="${not empty link.url}">
+                                    <li><a href="${link.url}">${link.linkText}</a></li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                        <!--<c:if test="${not empty topicCenter.communityMoreLink}">-->
+                            <div class="more">
+                                <!--<a href="${topicCenter.communityMoreLink.url}">${topicCenter.communityMoreLink.title}</a>-->
+                                <a href="http://community.greatschools.net/">More discussions &amp;raquo;</a>
+                            </div>
+                        <!--</c:if>-->
+                    <img src="/res/img/box/tc_bottom.gif" height="25" width="480" alt="bottom border"/>
+                    </div>
+                    <!-- end #communityContent -->
+                </c:if>
             </div>
-            <!-- end #communityContent -->
-        </c:if>
-    </div>
+        </c:when>
+        <c:otherwise>
+            ${recentDiscussions}
+        </c:otherwise>
+    </c:choose>
     <!-- end #community -->
 </div>
 <!-- end #leftColumn -->

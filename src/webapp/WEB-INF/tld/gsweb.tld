@@ -849,5 +849,28 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>currentAbsolutePath</name>
+        <description>Evaluates the absolute path, plus query string, of the current request
+            (i.e. what's seen in the browser url)</description>
+        <tag-class>gs.web.jsp.RequestUtilTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>var</name>
+            <description>Variable name to store path in</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>urlEncode</name>
+            <description>Urlencode the path or not?</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+
 </taglib>
 
