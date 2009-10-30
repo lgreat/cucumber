@@ -16,6 +16,9 @@
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+<c:if test="${topicCenter.contentKey.identifier eq 1633}">
+    <pageHelper:setPathway pathway="TOP_NAV_PROMO"/>
+</c:if>
 
 <head>
     <c:choose>

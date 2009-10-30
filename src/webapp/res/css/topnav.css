@@ -496,7 +496,7 @@
 }
 
 /* GS-8445 */
-#navWrapper #btsTab {
+#navWrapper #promoTab {
     position: absolute;
     bottom: 0;
     right: 0;

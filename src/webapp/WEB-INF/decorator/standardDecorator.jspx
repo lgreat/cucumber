@@ -63,8 +63,8 @@
     <gsml:url var="jqueryjs" value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
 
-    <gsml:url var="topnavbtsjs" value="/res/js/topnavBTS.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${topnavbtsjs}"></script>]]>
+    <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER"/>
+    <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
 
     <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
     <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
