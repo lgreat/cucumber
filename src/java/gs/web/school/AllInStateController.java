@@ -115,7 +115,9 @@ public class AllInStateController extends AbstractController {
         // set state in session context and call pagehelper to make sure state ad keyword is correct
         SessionContextUtil.getSessionContext(request).setState(state);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        pageHelper.setStateAdKeyword();
+        if (pageHelper != null) {
+            pageHelper.setStateAdKeyword();
+        }
 
         ModelAndView mAndV;
         if (StringUtils.isNotBlank(path) && state != null) {
