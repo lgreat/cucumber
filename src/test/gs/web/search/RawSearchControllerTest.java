@@ -26,6 +26,6 @@ public class RawSearchControllerTest extends BaseControllerTestCase {
         request.addParameter("analyzer", "gs");
         ModelAndView mv = _controller.handleRequestInternal(request, getResponse());
         assertNotNull(mv);
-        assertEquals("4", mv.getModel().get("total"));
+        assertEquals("2", mv.getModel().get("total"));
     }
 }
