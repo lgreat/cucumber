@@ -30,6 +30,8 @@ import gs.data.school.district.District;
 import gs.data.util.Address;
 import gs.web.util.UrlBuilder;
 import gs.web.util.RedirectView301;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * This controller builds the model for the "all schools",
@@ -109,6 +111,11 @@ public class AllInStateController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
         String path = request.getPathInfo();
         State state = getStateFromPath(path);
+
+        // set state in session context and call pagehelper to make sure state ad keyword is correct
+        SessionContextUtil.getSessionContext(request).setState(state);
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        pageHelper.setStateAdKeyword();
 
         ModelAndView mAndV;
         if (StringUtils.isNotBlank(path) && state != null) {

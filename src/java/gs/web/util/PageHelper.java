@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.81 2009/07/14 18:50:30 yfan Exp $
+ * $Id: PageHelper.java,v 1.82 2009/10/30 19:13:00 yfan Exp $
  */
 
 package gs.web.util;
@@ -404,6 +404,10 @@ public class PageHelper {
                 _betaPage = true;
             }
         }
+        setStateAdKeyword();
+    }
+
+    public void setStateAdKeyword() {
         if (null != _sessionContext.getState()) {
             addAdKeyword("state", _sessionContext.getState().getAbbreviation());
         }
