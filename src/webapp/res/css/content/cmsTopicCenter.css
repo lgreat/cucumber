@@ -330,6 +330,10 @@
 /* RECENT DISCUSSION STYLES */
 /* ------------------------ */
 
+.rd_holder{
+    background:url(/res/img/box/tc_sides.gif) repeat-y;
+}
+
 #recentDiscussions {
     width:430px;
     padding:0 25px;
