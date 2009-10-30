@@ -58,12 +58,12 @@
                             </c:forEach>
 
                             <div class="fltlft">
-                                <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
-                        <span>
-                            <span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37"
-                                       height="25" alt="bubbles"/>Start a discussion</span>
-                        </span>
-                                </a>
+            <a class="btn25" href="#" onclick="this.blur();">
+            <span class="lftDoor25">
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
+                                            width="37" height="25" align="absmiddle"/>Start a discussion</span>
+            </span>
+            </a>
                                 <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
                                                                  openElementJQuerySelector=".startADiscussion"
                                                                  topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
@@ -128,12 +128,12 @@
                         </c:forEach>
 
                         <div class="fltlft">
-                            <a class="btn25wi startADiscussion" href="#" onclick="this.blur();">
-                        <span>
-                            <span><img class="fltlft" src="/res/img/discussion_boards/db_speech_bubbles.png" width="37"
-                                       height="25" alt="bubbles"/>Start a discussion</span>
-                        </span>
-                            </a>
+            <a class="btn25" href="#" onclick="this.blur();">
+            <span class="lftDoor25">
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
+                                            width="37" height="25" align="absmiddle"/>Start a discussion</span>
+            </span>
+            </a>
                             <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
                                                              openElementJQuerySelector=".startADiscussion"
                                                              topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>

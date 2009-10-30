@@ -16,10 +16,15 @@
             <div class="header">
                 <span class="title1white">Search Community</span>
             </div>
-            <div class="body1bg">
+            <div class="body1bg clearfix">
                 <form action="/search/contentSearch.page">
-                    <input class="fltlft db_search_input" type="text" name="q" size="24" value="${pageScope.xmlEscapedSearchQuery}"/>
-                    <button class="fltrt btn25ni" type="submit"><span class="rnd4"><span class="rnd4">Search</span></span></button>
+                    <input class="fltlft db_search_input" type="text" name="q" size="24"
+                           value="${pageScope.xmlEscapedSearchQuery}"/>
+                    <button class="btn25 fltrt" type="submit">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">Search</span>
+                        </span>
+                    </button>
                 </form>
                 <br class="clearfloat"/>
             </div>

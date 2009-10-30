@@ -502,7 +502,7 @@ h3.subhead1 span.fltrt {
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -512px no-repeat;
 }
 * html .activity li {
-    background-image: url('res/img/discussion_boards/db_profile_sprites_bg.gif');
+    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
 .activity li:last-child {
     border: 0;
@@ -646,250 +646,154 @@ p.moreRslts {
 /* end profile/myaccount pages */
 
 
-/* ------------------------------ */
-/* SLIDING DOOR BUTTON (NO ICONS) */
-/* ------------------------------ */
+/* ------------------- */
+/* SLIDING DOOR BUTTON */
+/* ------------------- */
 
-.clear {
-/* generic container (i.e. div) for floating buttons */
-    overflow: hidden;
-    width: 100%;
+/* ------------------- */
+/* 25 px height button */
+/* ------------------- */
+
+/* do not change */
+.btn25{
+	cursor: pointer;
+	display:block;
+	margin:0;
+	border:0 none transparent;
+	padding:0;
+	background-color:transparent; /* hide form background color in IE */
 }
 
-/* ------------ */
-/* Thin buttons */
-/* ------------ */
-
-/* btn = button */
-/* 25 = 25 px height of the button */
-/* ni = no icon */
-
-#contentGS .btn25ni {
-    display: block;
-    background: none;
-    margin: 0;
-    padding: 0;
-    border-width: 0;
-    overflow: visible;
-    font: bold 14px / 1.0 Arial, Helvetica, sans-serif;
-    text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
+.lftDoor25 {
+	display:inline-block;
+	padding: 0 0 0 15px;
+	line-height: 25px;
+	float:left;
 }
 
-.btn25ni span {
-    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top right;
-    display: block;
-    float: left;
-    height: 25px;
-    margin-right: 0;
-    padding-right: 15px; /* sliding doors padding */
+.rtDoor25 {
+	display: inline-block;
+	padding:0 15px 0 0;
+	height: 25px;
+	line-height: 25px;
 }
 
-.btn25ni span span {
-    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top left;
-    display: block;
-    line-height: 24px;
-    padding: 0 0 0 15px;
+/* skin */
+.lftDoor25 {
+	background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
 }
 
-.btn25ni:active span, .btn25ni:hover span {
-    background-position: bottom right;
-    outline: none; /* hide dotted outline in Firefox */
-    text-decoration: none;
+.rtDoor25 {
+	background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
 }
 
-.btn25ni:active span span, .btn25ni:hover span span {
-    background-position: bottom left;
-    text-decoration: none;
+.btn25:active .lftDoor25, .btn25:hover .lftDoor25{
+	background-position: left bottom;
 }
 
-/* ----------- */
-/* Fat buttons */
-/* ----------- */
-
-/* btn = button */
-/* 35 = 35 px height of the button */
-/* ni = no icon */
-
-#contentGS .btn35ni {
-    display: block;
-    background: none;
-    margin: 0;
-    padding: 0;
-    border-width: 0;
-    overflow: visible;
-    font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
-    text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
+.btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
+	background-position: right bottom;
+  outline: none; /* hide dotted outline in Firefox */
 }
 
-.btn35ni span {
-    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top right;
-    display: block;
-    float: left;
-    height: 35px;
-    margin-right: 0;
-    padding-right: 15px; /* sliding doors padding */
+/* icon */
+.lftDoor25 .rtDoor25 img{
+	margin:0;
+	border:0 none transparent;
 }
 
-.btn35ni span span {
-    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top left;
-    display: block;
-    line-height: 34px;
-    padding: 0 0 0 15px;
+/* font size and family */
+#contentGS .btn25 {
+	font: bold 14px Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #444;
+	color: #fff;
 }
 
-.btn35ni:active span, .btn35ni:hover span {
-    background-position: bottom right;
-    outline: none; /* hide dotted outline in Firefox */
-}
-
-.btn35ni:active span span, .btn35ni:hover span span {
-    background-position: bottom left;
-}
-
-/* Immediately below is a temporary hack to serve the */
-/* following margin values only to Gecko browsers */
-/* Gecko browsers add an extra 3px of left/right */
-/* padding to button elements which can't be overriden. */
-/* Thus, we use -3px of left/right margin to overcome this. */
+/*
+Immediately below is a temporary hack to serve the
+following margin values only to Gecko browsers
+Gecko browsers add an extra 3px of left/right
+padding to button elements which can't be overriden.
+Thus, we use -3px of left/right margin to overcome this.
+*/
 
 @-moz-document url-prefix() {
-	button.btn25ni {
+	button.btn25 {
 		margin:0 -3px;
 	}
 }
 
-@-moz-document url-prefix() {
-	button.btn35ni {
-		margin:0 -3px;
-	}
+/* ------------------- */
+/* 35 px height button */
+/* ------------------- */
+
+/* do not change */
+.btn35{
+	cursor: pointer;
+	display:block;
+	margin:0;
+	border:0 none transparent;
+	padding:0;
+	background-color:transparent; /* hide form background color in IE */
 }
 
-/* -------------------------------- */
-/* SLIDING DOOR BUTTON (WITH ICONS) */
-/* -------------------------------- */
-
-/* ------------ */
-/* Thin buttons */
-/* ------------ */
-
-/* btn = button */
-/* 25 = 25 px height of the button */
-/* wi = with icon */
-
-#contentGS .btn25wi {
-    display: block;
-    background: none;
-    margin: 0;
-    padding: 0;
-    border-width: 0;
-    overflow: visible;
-    font: bold 14px / 1.0 Arial, Helvetica, sans-serif;
-    text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
+.lftDoor35 {
+	display:inline-block;
+	padding: 0 0 0 15px;
+	line-height: 35px;
+	float:left;
 }
 
-.btn25wi span {
-    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top right;
-    display: block;
-    float: left;
-    height: 25px;
-    margin-right: 0;
-    padding-right: 15px; /* sliding doors padding */
+.rtDoor35 {
+	display: inline-block;
+	padding:0 15px 0 0;
+	height: 35px;
+	line-height: 35px;
 }
 
-.btn25wi span span {
-    background: transparent url('/res/img/discussion_boards/db_25px_btn_sprite.png') no-repeat top left;
-    display: block;
-    line-height: 24px;
-    padding: 0 0 0 11px;
+/* skin */
+.lftDoor35 {
+	background: url(/res/img/discussion_boards/db_btn_sprite_35_lft.gif) no-repeat left top;
 }
 
-.btn25wi span span img {
-    border: none;
+.rtDoor35 {
+	background: url(/res/img/discussion_boards/db_btn_sprite_35_rt.gif) no-repeat right top;
 }
 
-.btn25wi:active span, .btn25wi:hover span {
-    background-position: bottom right;
-    outline: none; /* hide dotted outline in Firefox */
+.btn35:active .lftDoor35, .btn35:hover .lftDoor35{
+	background-position: left bottom;
 }
 
-.btn25wi:active span span, .btn25wi:hover span span {
-    background-position: bottom left;
+.btn35:active .rtDoor35, .btn35:hover .rtDoor35 {
+	background-position: right bottom;
+  outline: none; /* hide dotted outline in Firefox */
 }
 
-/* ----------- */
-/* Fat buttons */
-/* ----------- */
-
-/* btn = button */
-/* 35 = 35 px height of the button */
-/* wi = with icon */
-
-#contentGS .btn35wi {
-    display: block;
-    background: none;
-    margin: 0;
-    padding: 0;
-    border-width: 0;
-    overflow: visible;
-    font: bold 20px / 1.0 Arial, Helvetica, sans-serif;
-    text-shadow: 1px 1px 1px #444;
-    text-decoration: none;
-    color: white;
+/* icon */
+.lftDoor35 .rtDoor35 img{
+	margin:0;
+	border:0 none transparent;
 }
 
-.btn35wi span {
-    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top right;
-    display: block;
-    float: left;
-    height: 35px;
-    margin-right: 0;
-    padding-right: 15px; /* sliding doors padding */
+/* font size and family */
+#contentGS .btn35 {
+	font: bold 14px Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #444;
+	color: #fff;
 }
 
-.btn35wi span span {
-    background: transparent url('/res/img/discussion_boards/db_35px_btn_sprite.png') no-repeat top left;
-    display: block;
-    line-height: 34px;
-    padding: 0 0 0 11px;
-}
-
-.btn35wi span span img {
-    border: none;
-}
-
-a.btn35wi span span img {
-    padding: 5px 0 0 0;
-}
-
-.btn35wi:active span, .btn35wi:hover span {
-    background-position: bottom right;
-    outline: none; /* hide dotted outline in Firefox */
-}
-
-.btn35wi:active span span, .btn35wi:hover span span {
-    background-position: bottom left;
-}
-
-/* Immediately below is a temporary hack to serve the */
-/* following margin values only to Gecko browsers */
-/* Gecko browsers add an extra 3px of left/right */
-/* padding to button elements which can't be overriden. */
-/* Thus, we use -3px of left/right margin to overcome this. */
+/*
+Immediately below is a temporary hack to serve the
+following margin values only to Gecko browsers
+Gecko browsers add an extra 3px of left/right
+padding to button elements which can't be overriden.
+Thus, we use -3px of left/right margin to overcome this.
+*/
 
 @-moz-document url-prefix() {
-	button.btn25wi {
-		margin:0 -3px;
-	}
-}
-
-@-moz-document url-prefix() {
-	button.btn35wi {
+	button.btn35 {
 		margin:0 -3px;
 	}
 }
