@@ -218,11 +218,6 @@ public class ArticleLinkTagHandlerTest extends TestCase {
                 _out.getOutputBuffer().toString());
     }
 
-    public void testNoArticleId() throws IOException {
-        _tagHandler.doTag();
-        assertEquals("", _out.getOutputBuffer().toString());
-    }
-
     public void testMissingArticleId() throws IOException {
         _tagHandler.setArticleId(15);
 

@@ -42,35 +42,6 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         _state = State.CA;
     }
 
-    public void testNewStyleArticle() {
-        getRequest().setParameter(ArticleController.PARAM_AID, "78");
-
-        Article article = new Article();
-        article.setArticleText("<div id=\"article-main\">Don't hit your child</div>");
-        expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
-        replay(_articleDao);
-
-        expect(_articleCategoryDao.getArticleCategoriesByArticle(article)).andReturn(new HashSet<ArticleCategory>());
-        replay(_articleCategoryDao);
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        verify(_articleDao);
-        assertEquals(Boolean.TRUE, mAndV.getModel().get(ArticleController.MODEL_NEW_ARTICLE));
-    }
-
-    public void testOldStyleArticle() {
-        getRequest().setParameter(ArticleController.PARAM_AID, "78");
-
-        Article article = new Article();
-        article.setArticleText("<div>Don't hit your child</div>");
-        expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
-        replay(_articleDao);
-        expect(_articleCategoryDao.getArticleCategoriesByArticle(article)).andReturn(new HashSet<ArticleCategory>());
-        replay(_articleCategoryDao);        
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        verify(_articleDao);
-        assertEquals(Boolean.FALSE, mAndV.getModel().get(ArticleController.MODEL_NEW_ARTICLE));
-    }
-
     public void testBadArticleId() {
         getRequest().setParameter(ArticleController.PARAM_AID, "that_one_about_the_mean_girls");
 
