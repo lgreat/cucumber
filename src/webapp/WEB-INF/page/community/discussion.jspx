@@ -212,11 +212,15 @@
                 <!-- end preview db_reply_full -->
             </div>
         </div>
-        <button class="btn25ni fltlft previewEditButton" type="cancel">
-            <span class="rnd4"><span class="rnd4">Edit reply</span></span>
+        <button class="btn25 previewEditButton" type="submit">
+        <span class="lftDoor25">
+            <span class="rtDoor25">Edit reply</span>
+        </span>
         </button>
-        <button class="btn25ni fltlft previewPostButton" type="submit">
-            <span class="rnd4"><span class="rnd4">Post your reply</span></span>
+        <button class="btn25 previewPostButton" type="submit">
+        <span class="lftDoor25">
+            <span class="rtDoor25">Post your reply</span>
+        </span>
         </button>
 
     </div>
@@ -271,11 +275,10 @@
 
     <div>
         <c:set var="postReplyButton">
-            <a id="upperReplyTrigger" class="btn25ni" href="${requestScope.loginRedirectUrl}"
-               onclick="this.blur();">
-                    <span class="rnd4">
-                        <span class="rnd4">Post a Reply</span>
-                    </span>
+            <a id="upperReplyTrigger" class="btn25" href="${requestScope.loginRedirectUrl}" onclick="this.blur();">
+                <span class="lftDoor25">
+                    <span class="rtDoor25">Post a Reply</span>
+                </span>
             </a>
         </c:set>
         ${postReplyButton}
@@ -328,11 +331,18 @@
                                 <textarea rows="9" cols="53" class="replybox"
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
-                            <button class="btn25ni fltlft previewButton" type="submit">
-                                <span class="rnd4"><span class="rnd4">Preview</span></span>
+
+                            <button class="btn25 previewButton" type="submit">
+                                <span class="lftDoor25">
+                                    <span class="rtDoor25">Preview</span>
+                                </span>
                             </button>
-                            <button class="btn25ni fltlft" type="submit">
-                                <span class="rnd4"><span class="rnd4">Post your reply</span></span>
+
+
+                            <button class="btn25" type="submit">
+                                <span class="lftDoor25">
+                                    <span class="rtDoor25">Post your reply</span>
+                                </span>
                             </button>
                             <div class="smallText2 fltlft">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
