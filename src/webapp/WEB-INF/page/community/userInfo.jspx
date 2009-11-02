@@ -250,7 +250,7 @@
                 </c:forEach>
             </ul>
             <c:if test="${requestScope.viewAllActivity}">
-                <community:pagination page="${requestScope.page}" totalPages="${requestScope.totalPages}" url="${uri}?viewAllActivity=true" styleClass="viewAllActivityPagination"/>
+                <community:pagination page="${requestScope.page}" totalPages="${requestScope.totalPages}" url="${uri}?viewAllActivity=true" styleClass="pagination"/>
             </c:if>
         </c:otherwise>
     </c:choose>

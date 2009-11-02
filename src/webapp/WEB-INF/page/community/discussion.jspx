@@ -456,7 +456,7 @@
 <div class="db_footer">
     <div class="db_discussion">
         <community:pagination page="${page}" totalPages="${totalPages}"
-                              url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="cmsDiscussionPagination"/>
+                              url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
 
     <div>
         ${postReplyButton}

@@ -267,7 +267,7 @@
     </div>
     <br class="clearfloat"/>
     <community:pagination page="${page}" totalPages="${totalPages}"
-                          url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="cmsDiscussionPagination"/>
+                          url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
 </div>
 <!-- end db_footer -->
 </div>

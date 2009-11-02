@@ -20,9 +20,31 @@
             <c:if test="${pageScope.page gt 1}">
                 <c:set var="previousPageNum" value="${pageScope.page - 1}" scope="page"/>
             <span class="prv_nxt"><a
-                    href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}">&amp;#171; Previous</a></span>
+                    href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}">&amp;#171; Prev</a></span>
             </c:if>
-            <c:forEach begin="1" end="${pageScope.totalPages}" var="pageNum" varStatus="status">
+
+            <c:choose>
+                <c:when test="${pageScope.page lt 10}">
+                    <c:set var="firstPageInSeries" value="${1}"/>
+                    <c:set var="lastPageInSeries" value="${10}"/>
+                </c:when>
+                <c:when test="${pageScope.page gt (pageScope.totalPages - 9) and pageScope.totalPages gt 10}">
+                    <c:set var="firstPageInSeries" value="${pageScope.totalPages - 9}"/>
+                    <c:set var="lastPageInSeries" value="${pageScope.totalPages}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="firstPageInSeries" value="${pageScope.page - 2}"/>
+                    <c:set var="lastPageInSeries" value="${pageScope.page + 2}"/>
+                </c:otherwise>
+            </c:choose>
+
+            <c:if test="${pageScope.totalPages gt 10 and page ge 10}">
+                <span> <a
+                        href="${pageScope.url}&amp;amp;page=${1}">${1}</a></span>
+                <span class="ellipsis">...</span>
+            </c:if>
+
+            <c:forEach begin="${pageScope.firstPageInSeries}" end="${pageScope.lastPageInSeries}" var="pageNum" varStatus="status">
                 <c:choose>
                     <c:when test="${pageScope.pageNum == pageScope.page}">
                         <span class="active">${pageScope.pageNum}</span>
@@ -33,6 +55,13 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+
+            <c:if test="${pageScope.totalPages gt 10 and page le pageScope.totalPages - 9}">
+                <span class="ellipsis">...</span> 
+                <span> <a
+                        href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}">${pageScope.totalPages}</a></span>
+            </c:if>
+
             <c:if test="${pageScope.page lt pageScope.totalPages}">
                 <c:set var="nextPageNum" value="${pageScope.page + 1}" scope="page"/>
                 <span class="prv_nxt"><a

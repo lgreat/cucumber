@@ -219,7 +219,7 @@
                 <community:pagination page="${requestScope.page}"
                                       totalPages="${requestScope.totalPages}"
                                       url="${requestScope.urlWithoutPageNum}"
-                                      styleClass="viewAllActivityPagination"/>
+                                      styleClass="pagination"/>
             </c:if>
 
         </c:when>
