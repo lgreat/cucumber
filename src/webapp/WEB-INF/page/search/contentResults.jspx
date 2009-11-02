@@ -24,13 +24,13 @@
 
 <c:choose>
     <c:when test="${requestScope.numResults gt 0}">
-        <c:set var="pageTitle">${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</c:set>
+        <c:set var="pageTitle"><h2 class="srchTitle">${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h2></c:set>
     </c:when>
     <c:otherwise>
         <c:set var="pageTitle">
-            Your search for<br/>
-            &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;<br/>
-            did not match any articles or discussions</c:set>
+            <h2 class="srchTitle">Your search for</h2>
+            <h3 class="srchTerm">&amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h3>
+            <p class="noMatch">did not match any articles or discussions</p></c:set>
     </c:otherwise>
 </c:choose>
 
@@ -52,14 +52,14 @@
 
     <c:choose>
         <c:when test="${requestScope.numResults gt 0}">
-            <h2 class="srchTitle">${pageScope.pageTitle}</h2>
+            ${pageScope.pageTitle}
             <div class="srchCtrls">
             <ul class="searchNav">
             <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0}">
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
-                        <li class="active">${typeButtonText}</li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
                     </c:when>
                     <c:otherwise>
                         <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch></li>
@@ -69,7 +69,7 @@
                 <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
-                        <li class="active">${typeButtonText}</li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
                     </c:when>
                     <c:otherwise>
                         <li>
@@ -88,7 +88,7 @@
                 <c:set var="typeButtonText" value="Community Discussions (${requestScope.numDiscussions})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
-                        <li class="active">${typeButtonText}</li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
                     </c:when>
                     <c:otherwise>
                         <li>
@@ -224,27 +224,21 @@
 
         </c:when>
         <c:otherwise>
-            <h2>${pageScope.pageTitle}</h2>
+            ${pageScope.pageTitle}
 
             <c:if test="${not empty requestScope.suggestedSearchQuery}">
-                <h2>Did you mean: <link:contentSearch styleClass="" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch></h2>
+                <h3 class="text1">Did you mean: <link:contentSearch styleClass="srchTerm" query="${requestScope.suggestedSearchQuery}">${requestScope.suggestedSearchQuery}</link:contentSearch>?</h3>
             </c:if>
 
-            <h3>Suggestions:</h3>
+            <h4 class="text3">Suggestions:</h4>
 
-            <ul>
-                <li>Make sure all words are spelled correctly.</li>
-                <li>Try different or fewer keywords.</li>
-                <li>Try more general keywords.</li>
+            <ul class="text3">
+                <li><span>Make sure all words are spelled correctly.</span></li>
+                <li><span>Try different or fewer keywords.</span></li>
+                <li><span>Try more general keywords.</span></li>
             </ul>
 
-            <!-- TODO-8876 Michael/Randall, can you move this into your appropriate CSS file? -->
-            <style type="text/css">
-                #searchAgain .stateMenu {
-                    display: none;
-                }
-            </style>
-
+            
             <!-- this javascript should only execute when there are no results -->
             <script type="text/javascript">
                 var $ = jQuery.noConflict();
@@ -252,6 +246,7 @@
                     $('#searchAgain .type').change(function() {
                         if ($(this).val() == "schools") {
                             $('#searchAgain .stateMenu').show();
+                            $('#searchAgain #stateSelector').focus();
                             $('form#searchAgain').attr('action', '/search/search.page');
 
                             var form = $('form#searchAgain');
@@ -270,23 +265,22 @@
                 });
             </script>
 
-            <div>
-                <div>Search</div>
-                <div>
-                    Search for:
-                    <form id="search" action="/search/contentSearch.page">
-                        <input type="text" name="q" value=""/>
-                        in
-                        <gsweb:stateSelector styleClass="stateMenu" name="state"
-                                                 state="${requestScope.context.state}"/>
-                        <select class="type">
+                <h3 class="header title1white">Search</h3>
+                    <form id="searchAgain" action="/search/contentSearch.page">
+                        <label id="sal">Search again for: <input type="text" name="q" id="q" value=""/></label>
+
+                        <label id="stl">in
+                        <select id="srchType" class="type">
                             <option value="content">Articles &amp; Community</option>
                             <option value="schools">Schools</option>
                         </select>
-                        <input type="button" value="Search" class="searchButton"/>
+                        </label>
+                        <label class="stateMenu">in 
+                        <gsweb:stateSelector name="state"
+                                                 state="${requestScope.context.state}"/>
+                        </label>
+                        <button class="button btn25" type="submit"><span class="lftDoor25"><span class="rtDoor25">Search</span></span></button>
                     </form>
-                </div>
-            </div>
         </c:otherwise>
     </c:choose>
 
