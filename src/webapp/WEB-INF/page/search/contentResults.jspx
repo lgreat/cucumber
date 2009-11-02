@@ -232,7 +232,7 @@
 
             <h4 class="text3">Suggestions:</h4>
 
-            <ul class="text3">
+            <ul class="srchSuggest text3">
                 <li><span>Make sure all words are spelled correctly.</span></li>
                 <li><span>Try different or fewer keywords.</span></li>
                 <li><span>Try more general keywords.</span></li>
