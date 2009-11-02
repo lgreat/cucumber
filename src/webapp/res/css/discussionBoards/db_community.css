@@ -25,6 +25,12 @@
     width: 930px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
+    overflow:hidden;
+}
+
+#container .column{
+    margin-bottom: -1000px;
+    padding-bottom: 1000px;
 }
 
 #mainContent {
@@ -179,11 +185,12 @@ html[xmlns] .clearfix {
     padding:0 10px 0 0;
 }
 #sideBar .morein, #sideBar .mostpop {
-    list-style:none outside;
     padding:0 20px 0 0;
 }
 #sideBar .moreinItem, #sideBar .mostpopItem{
-    padding:15px 0 0 0;
+    margin:0 0 0 15px;
+    padding:5px 0;
+    list-style:disc outside;
 }
 
 /* End of classes used by communitySidebar.tagx */

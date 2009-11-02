@@ -126,7 +126,7 @@
 <body>
 
 <div id="container">
-<div id="mainContent">
+<div id="mainContent" class="column">
 
 <p class="breadCrumbs smallAlertText">
     <link:home>Home</link:home>

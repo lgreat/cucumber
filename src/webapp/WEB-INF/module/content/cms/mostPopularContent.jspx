@@ -50,7 +50,7 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <li class="mostpopItem ${className}">
+                                    <li class="mostpopItem tint_f4891d ${className}">
                                         <a href="${link.url}"><c:out value="${link.linkText}"/></a>
                                     </li>
 

@@ -11,7 +11,7 @@
 
     <c:set var="xmlEscapedSearchQuery"><c:out value="${pageScope.searchQuery}" escapeXml="true"/></c:set>
 
-    <div id="sideBar">
+    <div id="sideBar" class="column">
         <div class="module">
             <div class="header">
                 <span class="title1white">Search Community</span>

@@ -51,7 +51,7 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <li class="moreinItem ${className}">
+                                    <li class="moreinItem tint_f4891d ${className}">
                                         <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}">
                                             <c:out value="${result.headline}" escapeXml="false"/>
                                         </link:cmsContent>
