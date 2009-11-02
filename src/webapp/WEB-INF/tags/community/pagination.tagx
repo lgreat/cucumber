@@ -24,6 +24,10 @@
             </c:if>
 
             <c:choose>
+                <c:when test="${pageScope.totalPages le 10}">
+                    <c:set var="firstPageInSeries" value="${1}"/>
+                    <c:set var="lastPageInSeries" value="${pageScope.totalPages}"/>
+                </c:when>
                 <c:when test="${pageScope.page lt 10}">
                     <c:set var="firstPageInSeries" value="${1}"/>
                     <c:set var="lastPageInSeries" value="${10}"/>
