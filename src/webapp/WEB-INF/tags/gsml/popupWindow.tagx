@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="top" required="true"/>
     <jsp:directive.attribute name="title" required="false"/>
     <jsp:directive.attribute name="tabIndex" required="false"/>
+    <jsp:directive.attribute name="styleClass" required="false"/>
     <jsp:scriptlet>
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         href = urlUtil.buildUrl(href, request);
@@ -22,6 +23,7 @@
                     tabindex="${tabIndex}"
                     style="cursor:hand"
                     title="${title}"
+                    class="${styleClass}"
                 onclick="Popup=window.open('${href}','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=${width},height=${height},left=${left},top=${top}'); return false;">
                 <jsp:doBody/>
             </a>
@@ -30,6 +32,7 @@
             <a href="${href}"
                     style="cursor:hand"
                     title="${title}"
+                    class="${styleClass}"
                 onclick="Popup=window.open('${href}','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=${width},height=${height},left=${left},top=${top}'); return false;">
                 <jsp:doBody/>
             </a>

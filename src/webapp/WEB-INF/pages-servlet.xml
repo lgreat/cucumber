@@ -530,6 +530,17 @@
         <property name="viewName" value="/community/hover/startDiscussionHover"/>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    </bean>
+
+    <bean name="/community/hover/uploadAvatarHover.page"
+          class="gs.web.community.UploadAvatarHoverController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="uploadAvatarCommand"/>
+        <property name="commandClass" value="gs.web.community.UploadAvatarCommand"/>
+        <property name="formView" value="/community/hover/uploadAvatarHover"/>
+    </bean>
+
     <bean name="/community/reportContent.page"
           class="gs.web.community.ReportContentAjaxController"
           autowire="byName" lazy-init="true">

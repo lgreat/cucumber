@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsweb="gstaglib"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+    <![CDATA[
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    ]]>
+    <title>Upload Avatar - GreatSchools</title>
+    <style type="text/css">
+        .photoGuidelines {
+            float: right;
+        }
+        .fileInput {
+            position: relative;
+            text-align: right;
+            width: 100%;
+        }
+        .fileInput label {
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        .fileInput .fakeFileInput {
+            width: 100%;
+        }
+        #fake_avatarFileInput {
+            position: absolute;
+            top: 0;
+            left: 34px;
+            z-index: 5;
+            width: 250px;
+        }
+        .fileInput .fakeFileInput div.filler {
+            padding: 7px;
+        }
+        #avatarFileInput {
+            position: absolute;
+            text-align: right;
+            -moz-opacity: 0;
+            filter: alpha(opacity: 0);
+            opacity: 0;
+            z-index: 2;
+            left: 34px;
+            top: 0;
+            width: 325px;
+        }
+        #fake_avatarFileBrowse {
+            position: absolute;
+            top: -1px;
+            left: 293px;
+            z-index: 1;
+            padding-bottom: 3px;
+            height: 23px;
+            width: 65px;
+        }
+        .error {
+            background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;
+            color: #C03;
+            font-size: 11px;
+            font-style: italic;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+        ul.horizontal {
+            height: 115px;
+            vertical-align: top;
+        }
+        ul.horizontal li {
+            display: inline;
+            position: relative;
+        }
+        ul.horizontal img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        ul.horizontal input {
+            margin-left: 40px;
+            margin-right: 40px;
+            position: relative;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<gsml:body adPageName="community/changePhoto">
+    <c:if test="${closeHover eq true}">
+    <script type="text/javascript">
+        parent.GS.uploadAvatarHover.done();
+    </script>
+    </c:if>
+    <script type="text/javascript">
+        $(function() {
+            $('#avatarFileInput').change(function() {
+              $('#fake_avatarFileInput').val($('#avatarFileInput').val());
+            });
+            $('#avatarFileInput').mouseout(function() {
+              $('#fake_avatarFileInput').val($('#avatarFileInput').val());
+            });
+            $('.uploadButton').click(function(){
+              var pic = $('#avatarFileInput').val();
+              var temp = pic.split('.');
+              var picFormat = temp[temp.length-1];
+              $('#pic_message').hide(1);
+              if(pic){
+                if(picFormat.toLowerCase() == "jpg"){
+                  $('#pic_message').hide(1);
+                  $('#pic_error').hide(1);
+                  return true;
+                }
+                else if(picFormat.toLowerCase() == "gif"){
+                  $('#pic_message').hide(1);
+                  $('#pic_error').hide(1);
+                  return true;
+                }
+                else {
+                  $('#pic_no').hide(1);
+                  $('#pic_error').hide(1);
+                  $('#pic_message').show(2);
+                  $('#pic_format').show(1);
+                  return false;
+                }
+              }
+              else {
+                $('#pic_message').show(2);
+                $('#pic_no').show(1);
+                $('#pic_error').hide(1);
+                return false;
+              }
+            });
+            $('.saveButton').click(function() {
+                if ($('#standardAvatarForm [name=stockPhoto]:checked').val() == undefined) {
+                    alert("Please choose a standard image from the choices.");
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <p class="text2">Upload a picture or select an image that will represent you in the community.</p>
+
+    <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                       title="GreatSchools Photo Guidelines"
+                                       href="/cgi-bin/static/terms.html/$STATE#photoGuidelines"
+                                       styleClass="text3 photoGuidelines"
+                >GreatSchools photo guidelines</gsml:popupWindow>
+    <p class="text1bold">Upload your own picture</p>
+    <p class="text2">
+        Pictures must be in .jpg or .gif format. Your picture will automatically
+        be resized to fit the standard community dimensions.
+    </p>
+
+    <div style="display:none" class="field_message" id="pic_message">
+        <span style="display:none" id="pic_no" class="error">
+            Please select a picture.
+        </span>
+        <span style="display:none" id="pic_format" class="error">
+            Please upload a photo in jpeg or gif format.
+        </span>
+        <spring:hasBindErrors name="uploadAvatarCommand">
+            <spring:bind path="uploadAvatarCommand.avatar">
+                <script type="text/javascript">
+                    $(function() {
+                        $('#pic_message').show(2);
+                    });
+                </script>
+                <span id="pic_error" class="error">
+                    <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
+                </span>
+            </spring:bind>
+        </spring:hasBindErrors>
+
+    </div>
+
+    <form action="/community/hover/uploadAvatarHover.page" method="post"
+                id="customAvatarForm" enctype="multipart/form-data">
+
+        <div class="fileInput">
+            <label for="avatarFileInput">File:</label>
+            <div class="fakeFileInput">
+                <div class="filler">&amp;nbsp;</div>
+                <input id="fake_avatarFileInput" type="text" name="fakeAvatar"
+                       onkeypress="return (event.keyCode == 9);"/>
+                <input id="avatarFileInput" type="file" name="avatar"/>
+                <button id="fake_avatarFileBrowse" class="btn25ni fltlft browseButton" type="button"
+                        onclick="return false;">
+                    <span class="rnd4"><span class="rnd4">Browse</span></span>
+                </button>
+            </div>
+        </div>
+
+        <button class="btn25ni fltlft uploadButton" type="submit">
+            <span class="rnd4"><span class="rnd4">Upload</span></span>
+        </button>
+    </form>
+
+    <hr class="dotted"/>
+
+    <p class="text1bold">Or, select an image</p>
+    <p class="text2">If you decide not to upload a picture, you can choose a standard image from the choices below.</p>
+
+    <gsweb:form action="/community/hover/uploadAvatarHover.page" method="post"
+                id="standardAvatarForm">
+
+        <ul class="horizontal">
+            <li>
+                <img src="" alt="Stock photo 1" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="1"/>
+            </li>
+            <li>
+                <img src="" alt="Stock photo 2" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="2"/>
+            </li>
+            <li>
+                <img src="" alt="Stock photo 3" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="3"/>
+            </li>
+            <li>
+                <img src="" alt="Stock photo 4" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="4"/>
+            </li>
+            <li>
+                <img src="" alt="Stock photo 5" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="5"/>
+            </li>
+        </ul>
+
+        <button class="btn25ni fltlft saveButton" type="submit">
+            <span class="rnd4"><span class="rnd4">Save</span></span>
+        </button>
+    </gsweb:form>
+
+    <mod:tracking pageName="Change Photo Hover"
+                      hier1="Account,Change Photo Hover"/>
+
+</gsml:body>
+</html>
+</jsp:root>
