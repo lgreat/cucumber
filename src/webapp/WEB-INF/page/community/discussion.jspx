@@ -332,19 +332,19 @@
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
 
-                            <button class="btn25 previewButton" type="submit">
+                            <button class="btn25 fltlft btn_preview" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Preview</span>
                                 </span>
                             </button>
 
 
-                            <button class="btn25" type="submit">
+                            <button class="btn25 fltlft btn_postReply" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Post your reply</span>
                                 </span>
                             </button>
-                            <div class="smallText2 fltlft">
+                            <div class="smallText2 fltlft guidelines">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                            title="GreatSchools Community Standards"
                                                            href="/cgi-bin/static/terms.html/$STATE#communityStandards"

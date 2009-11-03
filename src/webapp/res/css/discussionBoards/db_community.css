@@ -173,7 +173,7 @@ html[xmlns] .clearfix {
 .body2bg .topics {
     padding:10px 0 0 0;
     clear:left;
-    width:99%;
+    width:99%; /* fixes ie bullets missing on first li */
 }
 .topics li{
     list-style:disc outside;
@@ -374,6 +374,14 @@ html[xmlns] .clearfix {
 
 .db_post_reply .db_textarea{
     padding:10px 0 6px 0;
+}
+
+.db_post_reply .btn_postReply{
+    padding:0 0 0 10px;
+}
+
+.db_post_reply .guidelines{
+    padding:0 0 0 10px;
 }
 
 .db_footer{
