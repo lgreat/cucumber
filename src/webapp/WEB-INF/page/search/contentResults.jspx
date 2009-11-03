@@ -237,7 +237,6 @@
                 <li><span>Try different or fewer keywords.</span></li>
                 <li><span>Try more general keywords.</span></li>
             </ul>
-
             
             <!-- this javascript should only execute when there are no results -->
             <script type="text/javascript">
