@@ -1,6 +1,7 @@
 package gs.web.util;
 
 import gs.web.BaseHtmlUnitIntegrationTestCase;
+import gs.data.util.CmsUtil;
 
 /**
  * Add pages that should undergoe XHTML validation to this test
@@ -12,6 +13,14 @@ import gs.web.BaseHtmlUnitIntegrationTestCase;
  * 4. Load up /tmp/out.html in your browser and run it through the W3C validator to troubleshoot 
  */
 public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
+
+    public void setUp() {
+        CmsUtil.enableCms();
+    }
+
+    public void tearDown() {
+        CmsUtil.disableCms();
+    }
 
     public void testHomePage() {
         assertValidXhtml(INTEGRATION_HOST + "/index.page");
