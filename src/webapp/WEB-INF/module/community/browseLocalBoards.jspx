@@ -14,7 +14,7 @@
                 <select id="db_cities" name="cities" onchange="var l = this.options[this.selectedIndex].value; if (l != '') {document.location = l;}">
                     <option value="" selected="selected">Select city</option>
                     <c:forEach var="boardView" items="${requestScope.localBoards}">
-                        <option value="${boardView.boardUrl}">${boardView.localBoard.city.name}</option>
+                        <option value="${boardView.boardUrl}">${boardView.localBoard.city.name}, ${boardView.localBoard.city.state}</option>
                     </c:forEach>
                 </select>
             </form>
