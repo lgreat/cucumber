@@ -71,17 +71,18 @@
             });
         });
     </script>
-
+    <div id="startADiscussion">
+    <h2>Start a discussion</h2>
     <gsweb:form action="/community/discussionSubmission.page" method="post" target="_parent"
                 id="discussionSubmissionForm">
-        <div class="communityGuidelines">
+        <div class="communityGuidelines text3 fltrt">
             Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Community Standards"
                                        href="/cgi-bin/static/terms.html/$STATE#communityStandards"
                 >Community Guidelines</gsml:popupWindow>
         </div>
-        <div class="topicSelect">
-            <label for="topicSelect">Topic</label>
+        <div class="topicSelect fltlft">
+            <label for="topicSelect" class="text2bold tint_333">Topic</label>
             <select id="topicSelect" name="topicCenterId">
                 <gsml:selectOption value="-1">Cities</gsml:selectOption>
                 <c:forEach var="myTc" items="${discussionTopics}">
@@ -90,8 +91,9 @@
                 </c:forEach>
             </select>
         </div>
+        <br class="clearfloat"/>
         <div class="citySelect">
-            <label for="citySelect">City</label>
+            <label for="citySelect" class="text2bold tint_333">City</label>
             <select id="citySelect" name="discussionBoardId" disabled="disabled">
                 <c:forEach var="localBoard" items="${localBoards}">
                     <gsml:selectOption value="${localBoard.boardId}"
@@ -100,22 +102,42 @@
             </select>
         </div>
         <div class="titleInput">
-            <label for="titleInput">Title</label>
-            <input id="titleInput" type="text" name="title" value="${userTitle}"/>
+            <label for="titleInput" class="text2bold tint_333">Title</label>
+            <input id="titleInput" type="text" name="title" size="65" value="${userTitle}"/>
         </div>
         <div class="bodyInput">
-            <label for="bodyInput">Details</label>
-            <textarea id="bodyInput" class="bodyInput" rows="5" cols="30"
+            <label for="bodyInput" class="text2bold tint_333">Details</label>
+            <textarea id="bodyInput" class="bodyInput" 
+                      rows="5" cols="30"
                       name="body"><!-- no collapse -->${userBody}</textarea>
         </div>
-        <input type="button" name="preview" value="Preview" class="previewButton"/>
-        <input type="submit" name="post" value="Start a Discussion" class="submitButton"/>
-        <input id="dialogCancelButton" type="button" value="Cancel"/>
+        <!--<input type="button" name="preview" value="Preview" class="previewButton"/>-->
+        <!--<input type="submit" name="post" value="Start a Discussion" class="submitButton"/>-->
+        <!--<input id="dialogCancelButton" type="button" value="Cancel"/>-->
+        <!--<div>-->
+        <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
+            <span class="lftDoor25">
+                <span class="rtDoor25">Preview</span>
+            </span>
+        </button>
+        <button class="btn25 submitButton fltlft" type="submit" name="post" value="Start a Discussion">
+            <span class="lftDoor25">
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" align="absmiddle" alt="bubbles" />Start&nbsp;a&nbsp;discussion</span>
+            </span>
+        </button>
+        <button class="btn25 dialogCancelButton fltlft" type="submit" value="Cancel">
+            <span class="lftDoor25">
+                <span class="rtDoor25">Cancel</span>
+            </span>
+        </button>
+        <!--</div>-->
+        <!--<br class="clearfloat"/>-->
     </gsweb:form>
 
     <mod:tracking pageName="Post New Discussion Hover"
                       hier1="Community,Actions,Post New Discussion Hover"/>
-
+    </div>
+    <!-- end startADiscussion -->
 </gsml:body>
 </html>
 </jsp:root>

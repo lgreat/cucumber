@@ -471,7 +471,7 @@ html[xmlns] .clearfix {
     margin-bottom: 9px;
 }
 .mgAccount {
-    postion: relative;
+    position: relative;
     padding: 0 15px;
     width: 28%;
 }
@@ -689,7 +689,7 @@ ul.srchRslts li:last-child {
     border-bottom: 0;
 }
 .srchCatArticles li {
-    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -256px no-repeat; 
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -256px no-repeat;
 }
 .srchCatComm li {
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -427px no-repeat;
@@ -759,6 +759,56 @@ h3.title1white {
 }
 /* end profile/myaccount pages */
 
+/* start a discussion hover */
+
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(51, 51, 51, 0.75);
+    }
+.ui-dialog {
+    background: #ebebeb;
+    padding: 2px 12px;
+    border: 2px solid white;
+    }
+.ui-corner-all {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+.ui-dialog-titlebar {
+    position: relative;
+    font-size: 1px;
+    line-height: .1;
+     }
+a.ui-dialog-titlebar-close {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    font-size: 11px;
+    text-decoration: none;
+    color: #777;
+    text-transform: uppercase;
+}
+a.ui-dialog-titlebar-close .ui-icon {
+    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100% 1px no-repeat;
+    padding: 0 15px 0 0;
+}
+#startADiscussion .communityGuidelines{
+    padding:0 3px 0 0;
+}
+#discussionSubmissionForm div{
+    padding:0 0 12px 0;
+}
+#discussionSubmissionForm div label{
+    float:left;
+    width:50px;
+}
+#discussionSubmissionForm div textarea{
+    width:523px; height:250px;
+}
+
+/* end start a discussion hover */
 
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
