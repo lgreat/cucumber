@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.69 2009/10/30 22:54:47 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.70 2009/11/03 23:30:12 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -230,6 +230,29 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setCampaignId("123456");
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/showarticlefeature/8?s_cid=123456", builder.asSiteRelative(null));
+    }
+
+    public void testCmsContentTagWithCmsDisabledThrowsException() {
+        boolean cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.disableCms();
+
+        CmsContentTagHandler tagHandler = new CmsContentTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        CmsContent cmsContent = new CmsContent();
+        cmsContent.setFullUri("/topic/category/title");
+        cmsContent.setContentKey(new ContentKey("Article", 25L));
+
+        boolean caught = false;
+        try {
+            UrlBuilder builder = tagHandler.createUrlBuilder();
+        } catch (Exception e) {
+            caught = true;
+        }
+
+        assertTrue(caught);
+
+        CmsUtil.setCmsEnabled(cmsEnabled);
     }
 
     public void testDiscussionTag() {
