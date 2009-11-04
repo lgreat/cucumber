@@ -779,7 +779,10 @@ h3.title1white {
 .ui-dialog-titlebar {
     position: relative;
     font-size: 1px;
-    line-height: .1;
+    display:none;
+    height: 0;
+    font-size: 1px;
+    line-height: 0;
      }
 a.ui-dialog-titlebar-close {
     position: absolute;
@@ -807,6 +810,18 @@ a.ui-dialog-titlebar-close .ui-icon {
 #discussionSubmissionForm div textarea{
     width:523px; height:250px;
 }
+#discussionSubmissionForm .sd_OuterLayout{
+    padding:0 0 0 50px;
+}
+#discussionSubmissionForm .sd_InnerLayout{
+    padding:0 12px 0 50px;
+}
+/*#startADiscussion .sd_icon{
+    margin:0 0 0 -10px;
+}
+#startADiscussionIFrame, #startADiscussionDialog, .ui-dialog, .ui-widget, .ui-widget-content, .ui-corner-all {
+    overflow:visible;
+}*/
 
 /* end start a discussion hover */
 

@@ -72,7 +72,11 @@
         });
     </script>
     <div id="startADiscussion">
-    <h2>Start a discussion</h2>
+        <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
+                 height="58" alt="big speech bubbles"/>
+
+        <h2 class="fltlft">Start a discussion</h2>
+        <br class="clearfloat"/>
     <gsweb:form action="/community/discussionSubmission.page" method="post" target="_parent"
                 id="discussionSubmissionForm">
         <div class="communityGuidelines text3 fltrt">
@@ -114,15 +118,15 @@
         <!--<input type="button" name="preview" value="Preview" class="previewButton"/>-->
         <!--<input type="submit" name="post" value="Start a Discussion" class="submitButton"/>-->
         <!--<input id="dialogCancelButton" type="button" value="Cancel"/>-->
-        <!--<div>-->
+        <div class="sd_OuterLayout">
         <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
             <span class="lftDoor25">
                 <span class="rtDoor25">Preview</span>
             </span>
         </button>
-        <button class="btn25 submitButton fltlft" type="submit" name="post" value="Start a Discussion">
+        <button class="btn25 submitButton sd_InnerLayout fltlft" type="submit" name="post" value="Start a Discussion">
             <span class="lftDoor25">
-                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" align="absmiddle" alt="bubbles" />Start&nbsp;a&nbsp;discussion</span>
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" align="absmiddle" alt="bubbles" />Start&amp;nbsp;a&amp;nbsp;discussion</span>
             </span>
         </button>
         <button class="btn25 dialogCancelButton fltlft" type="submit" value="Cancel">
@@ -130,7 +134,7 @@
                 <span class="rtDoor25">Cancel</span>
             </span>
         </button>
-        <!--</div>-->
+        </div>
         <!--<br class="clearfloat"/>-->
     </gsweb:form>
 
