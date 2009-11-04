@@ -467,7 +467,7 @@
 </div>
 <!-- end mainContent -->
 
-<cms:communitySidebar content="${requestScope.discussionBoard}"/>
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
 </div>
 <mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>

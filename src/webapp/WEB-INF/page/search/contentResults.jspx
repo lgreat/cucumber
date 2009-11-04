@@ -60,6 +60,7 @@
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <c:set var="searchType" value="all"/>
                     </c:when>
                     <c:otherwise>
                         <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch></li>
@@ -70,6 +71,7 @@
                 <c:choose>
                     <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <c:set var="searchType" value="articles"/>
                     </c:when>
                     <c:otherwise>
                         <li>
@@ -85,10 +87,11 @@
                     </c:otherwise>
                 </c:choose>
 
-                <c:set var="typeButtonText" value="Community Discussions (${requestScope.numDiscussions})"/>
+                <c:set var="typeButtonText" value="Community (${requestScope.numDiscussions})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <c:set var="searchType" value="community"/>
                     </c:when>
                     <c:otherwise>
                         <li>
@@ -262,7 +265,7 @@
 
                 <h3 class="header title1white">Search</h3>
                     <form id="searchAgain" action="/search/contentSearch.page">
-                        <label id="sal">Search again for: <input type="text" name="q" id="q" value=""/></label>
+                        <label id="sal">Search for: <input type="text" name="q" id="q" value=""/></label>
 
                         <label id="stl">in
                         <select id="srchType" class="type">
@@ -282,7 +285,7 @@
 </div>
 <!-- end mainContent -->
 
-<cms:communitySidebar searchQuery="${requestScope.searchQuery}"/>
+<cms:communitySidebar searchQuery="${requestScope.searchQuery}" searchType="${pageScope.searchType}"/>
 
 </div>
 <!-- end container -->

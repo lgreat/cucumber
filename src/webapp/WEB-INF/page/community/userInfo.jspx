@@ -270,7 +270,7 @@
 </div>
 <!-- end mainContent -->
 
-<cms:communitySidebar content="${requestScope.discussionBoard}"/>
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
 </div>
 <!-- end container -->
