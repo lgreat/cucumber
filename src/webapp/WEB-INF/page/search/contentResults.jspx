@@ -160,7 +160,7 @@
                             <p>${pageScope.teaserBody}
 
                             <span><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1">
-                              More  <span>&amp;raquo;</span>
+                              More&amp;nbsp;<span>&amp;raquo;</span>
                             </link:cmsContent></span>
                             </p>
                         </li>
