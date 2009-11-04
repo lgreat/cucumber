@@ -36,7 +36,7 @@
             </div>
             <div class="body1bg clearfix">
                 <form action="/search/contentSearch.page">
-                    <input class="fltlft db_search_input" type="text" name="q" size="24"
+                    <input class="fltlft db_search_input formText2 tint_777" type="text" name="q" size="23"
                            value="${pageScope.xmlEscapedSearchQuery}"/>
                     <c:choose>
                         <c:when test="${pageScope.searchType eq 'articles'}">

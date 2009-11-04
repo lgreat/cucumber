@@ -88,7 +88,7 @@
 /* ------- */
 /* CONTENT */
 /* ------- */
-.introText {
+.contentGS .introText {
     font: 16px / 1.3 Arial, Helvetica, sans-serif;
     color: #333;
 }
@@ -103,7 +103,7 @@
     color: #149;
 }
 
-.text1 {
+.contentGS .text1 {
     font: 14px / 1.3 Arial, Helvetica, sans-serif;
     color: #333;
 }
@@ -170,9 +170,13 @@
     color: #333;
 }
 
-.formText1 {
-    font: 12px / 1.3 Arial, Helvetica, sans-serif;
-    color: #777;
+.contentGS .formText1 {
+    font: 12px Arial, Helvetica, sans-serif;
+    /*color: #777;*/
+}
+
+.contentGS .formText2 {
+    font: 16px Arial, Helvetica, sans-serif;
 }
 
 .smallText1 {
