@@ -144,19 +144,15 @@
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
                             </h4>
-                            <!-- TODO-8876 refactor this! copied from userContentTeaserText.tagx -->
+
                             <jsp:scriptlet>
                                 ContentSearchResult result = (ContentSearchResult)pageContext.getAttribute("result");
                                 int minLength = 143;
                                 int maxLength = 163;
                                 String teaserEnder = "... ";
-                                pageContext.setAttribute("teaserBodyAbbreviated", false);
                                 if (StringUtils.length(result.getResultSummary()) > minLength) {
                                     String teaserBody = WordUtils.abbreviate(result.getResultSummary(), minLength, maxLength, teaserEnder);
                                     pageContext.setAttribute("teaserBody", teaserBody);
-                                    if (StringUtils.endsWith(teaserBody, teaserEnder)) {
-                                        pageContext.setAttribute("teaserBodyAbbreviated", true);
-                                    }
                                 } else {
                                     pageContext.setAttribute("teaserBody", result.getResultSummary());
                                 }
