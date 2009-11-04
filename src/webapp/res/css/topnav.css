@@ -4,6 +4,10 @@
     padding: 0 0 8px 0;
 }
 
+#topnav #GlobalNav_HiTechHolidayButton__Plain {
+    width: 75px;
+}
+
 #topnav  a img {
     border-width: 0;
 }

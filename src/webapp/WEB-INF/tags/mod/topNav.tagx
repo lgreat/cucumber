@@ -208,15 +208,15 @@
                                 styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
                 >High School</link:high-school></td><!-- last pw check first arg would be 'ractive' -->
-            <!--#23--><td><link:cmsContent contentKey="TopicCenter#1633" fullUri="hi-tech-holiday"
+            <!--#23--><td><link:cmsContent contentKey="TopicCenter#1633" fullUri="/hi-tech-holiday"
                                  styleId="GlobalNav_HiTechHolidayButton__Plain"
                                  styleClass="inactive GS_CI9_"
-                >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Holiday&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</link:cmsContent></td>
+                >Holiday</link:cmsContent></td>
             <!-- pw check first arg would be 'lactive' -->
             <td width="28px">&amp;#160;</td>
         </tr>
     </table>
-        <link:cmsContent contentKey="TopicCenter#1633" fullUri="hi-tech-holiday"
+        <link:cmsContent contentKey="TopicCenter#1633" fullUri="/hi-tech-holiday"
                                  styleId="GlobalNav_HiTechHolidayButton"
                                  styleClass="inactive GS_CI9_"
                 ><img id="promoTab" class="${(pw == tabs.TOP_NAV_PROMO ? 'on' : 'off')}" src="/res/img/nav/holiday_nav_${(pw == tabs.TOP_NAV_PROMO ? 'on' : 'off')}.gif" alt="Hi-Tech Holiday"/></link:cmsContent>
