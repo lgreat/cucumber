@@ -49,6 +49,9 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         CookieGenerator _cityIdCookieGenerator = new CookieGenerator();
         _cityIdCookieGenerator.setCookieName("CITYID");
         _sessionContextUtil.setCityIdCookieGenerator(_cityIdCookieGenerator);
+        CookieGenerator _newMemberCookieGenerator = new CookieGenerator();
+        _newMemberCookieGenerator.setCookieName("isMember");
+        _sessionContextUtil.setNewMemberCookieGenerator(_newMemberCookieGenerator);
         _sessionContextUtil.setStateManager(new StateManager());
     }
 
@@ -118,6 +121,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertNotNull("Cookie should exist under name community_dev", cookie);
         assertEquals(".greatschools.net", cookie.getDomain());
         assertEquals(SessionContextUtil.COMMUNITY_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertNotNull("New member cookie should be set on login/register", _response.getCookie("isMember"));
     }
 
     public void testChangeAuthorizationForgetMe() {
@@ -132,6 +136,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertNotNull("Cookie should exist under name community_dev", cookie);
         assertEquals(".greatschools.net", cookie.getDomain());
         assertEquals(-1, cookie.getMaxAge());
+        assertNotNull("New member cookie should be set on login/register", _response.getCookie("isMember"));
     }
 
     public void testChangeAuthorizationDomainStaging() {

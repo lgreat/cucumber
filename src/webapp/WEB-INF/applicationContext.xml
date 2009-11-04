@@ -82,6 +82,11 @@
                 -->
             </bean>
         </property>
+        <property name="newMemberCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="isMember"/>
+            </bean>
+        </property>
         <property name="memberCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="MEMBER"/>

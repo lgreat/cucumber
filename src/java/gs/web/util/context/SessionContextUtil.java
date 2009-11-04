@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.63 2009/09/23 15:16:56 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.64 2009/11/04 01:34:53 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -107,6 +107,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _omnitureSubCookieGenerator;
     private CookieGenerator _stateCookieGenerator;
     private CookieGenerator _memberCookieGenerator;
+    private CookieGenerator _newMemberCookieGenerator;
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
@@ -411,6 +412,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         _memberCookieGenerator = memberCookieGenerator;
     }
 
+    public void setNewMemberCookieGenerator(CookieGenerator newMemberCookieGenerator) {
+        _newMemberCookieGenerator = newMemberCookieGenerator;
+    }
+
+    public CookieGenerator getNewMemberCookieGenerator() {
+        return _newMemberCookieGenerator;
+    }
+
     public void setMemberIdCookieGenerator(CookieGenerator memberIdCookieGenerator) {
         _memberIdCookieGenerator = memberIdCookieGenerator;
     }
@@ -625,8 +634,16 @@ public class SessionContextUtil implements ApplicationContextAware {
         changeAuthorization(request, response, user, hash, false);
     }
 
+    public void setUserIsMember(HttpServletRequest request, HttpServletResponse response) {
+        _newMemberCookieGenerator.addCookie(response, "y");
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _newMemberCookieGenerator.setCookieDomain(".greatschools.net");
+        }
+    }
+
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash, boolean rememberMe) {
         if (user != null) {
+            setUserIsMember(request, response);
             ClientSideSessionCache cache = new ClientSideSessionCache(user);
             cache.setUserHash(hash);
             if (user.getUserProfile() != null) {
