@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.64 2009/11/04 01:34:53 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.65 2009/11/04 02:12:35 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -14,6 +14,7 @@ import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
+import gs.web.util.CookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -592,6 +593,13 @@ public class SessionContextUtil implements ApplicationContextAware {
         updateFromRequestAttributes(request, context);
         updateFromParams(request, response, context);
         saveCookies(response, context);
+        // TODO: GS-8867 Added 11/03/2009, can be removed in ~6 months
+        // Anyone who is signed in but doesn't have the new member cookie, create it now
+        if (PageHelper.isCommunityCookieSet(request)
+                && !CookieUtil.hasCookie(request, _newMemberCookieGenerator.getCookieName())) {
+            setUserIsMember(request, response);
+        }
+        // END GS-8867
         return context;
     }
 
