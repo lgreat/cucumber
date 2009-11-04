@@ -92,7 +92,8 @@
 
 <community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
                                  openElementJQuerySelector=".startADiscussion"
-                                 topicCenterId="${topicCenter.contentKey.identifier}"/>
+                                 topicCenterId="${topicCenter.contentKey.identifier}"
+                                 discussionBoardId="${discussionBoard.contentKey.identifier}"/>
 
 <div class="db_body">
     <c:choose>
@@ -252,9 +253,6 @@
                 </c:if>
             </c:forEach>
         </c:when>
-        <c:otherwise>
-            <p>There are no discussions to display!</p>
-        </c:otherwise>
     </c:choose>
     <br class="clearfloat"/>
 </div>

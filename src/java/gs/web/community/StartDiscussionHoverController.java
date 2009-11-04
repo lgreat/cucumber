@@ -25,6 +25,7 @@ public class StartDiscussionHoverController extends AbstractController {
     public static final String MODEL_DISCUSSION_TOPICS = "discussionTopics";
     public static final String MODEL_LOCAL_BOARDS= "localBoards";
     public static final String MODEL_TOPIC_CENTER_ID = "topicCenterId";
+    public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
 
     private IPublicationDao _publicationDao;
     private ILocalBoardDao _localBoardDao;
@@ -39,6 +40,7 @@ public class StartDiscussionHoverController extends AbstractController {
         populateModelWithListOfValidCities(model);
 
         model.put(MODEL_TOPIC_CENTER_ID, request.getParameter("topicCenterId"));
+        model.put(MODEL_LOCAL_BOARD_ID, request.getParameter("discussionBoardId"));
 
         return new ModelAndView(_viewName, model);
     }

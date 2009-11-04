@@ -157,7 +157,8 @@
 
 <community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
                                  openElementJQuerySelector=".startADiscussion"
-                                 topicCenterId="${topicCenter.contentKey.identifier}"/>
+                                 topicCenterId="${topicCenter.contentKey.identifier}"
+                                 discussionBoardId="${discussionBoard.contentKey.identifier}"/>
 
 <div class="module">
 <div class="header">
