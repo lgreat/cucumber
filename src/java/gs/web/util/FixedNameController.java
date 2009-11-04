@@ -32,14 +32,20 @@ public class FixedNameController  implements Controller{
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response) throws Exception {
         response.setContentType("text/plain");
-        String name = request.getParameter("name");
-        String street = request.getParameter("street");
-        String city = request.getParameter("city");
-        String stateName = request.getParameter("state");
+        String state_id = request.getParameter("state_id") == null ? "" : request.getParameter("state_id");
+        String nces_code = request.getParameter("nces_code") == null ? "" : request.getParameter("nces_code");
+        String vendor_id = request.getParameter("vendor_id") == null ? "" : request.getParameter("vendor_id");
+        String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+        String street = request.getParameter("street") == null ? "" : request.getParameter("street");
+        String city = request.getParameter("city") == null ? "" : request.getParameter("city");
+        String stateName = request.getParameter("state") == null ? "" : request.getParameter("state");
         State state = State.fromString(stateName);
-        String zipcode = request.getParameter("zipcode");
-        String phone = formatter.formatPhoneNumber(request.getParameter("phone"));
-        String level = new Grades(request.getParameter("level")).getCommaSeparatedString();
+        String zipcode = request.getParameter("zipcode") == null ? "" : request.getParameter("zipcode");
+        String phone = formatter.formatPhoneNumber(
+                request.getParameter("phone") == null ? "" : request.getParameter("phone"));
+        String level = new Grades(
+                request.getParameter("level") == null ? "" : request.getParameter("level")
+        ).getCommaSeparatedString();
 
         try {
             String newSchoolName = getImportHelper().fixSchoolName(name, State.CA, SchoolType.CHARTER);
@@ -47,14 +53,16 @@ public class FixedNameController  implements Controller{
             getImportHelper().fixAddress(address,state);
             if (newSchoolName != null) {
                 PrintWriter out = response.getWriter();
-                out.print(
-                                     "name:|:" + newSchoolName
-                                + ":|:street:|:" + address.getStreet()
-                                + ":|:city:|:" + address.getCity()
-                                + ":|:state:|:" + address.getState()
-                                + ":|:zipcode:|:" + address.getZip()
-                                + ":|:phone:|:" + phone
-                                + ":|:level:|:" + level
+                out.print(    "state_id:|:" + state_id
+                        + ":|:nces_code:|:" + nces_code
+                        + ":|:vendor_id:|:" + vendor_id
+                        + ":|:name:|:" + newSchoolName
+                        + ":|:street:|:" + address.getStreet()
+                        + ":|:city:|:" + address.getCity()
+                        + ":|:state:|:" + address.getState()
+                        + ":|:zipcode:|:" + address.getZip()
+                        + ":|:phone:|:" + phone
+                        + ":|:level:|:" + level
                 );
                 out.flush();
             }
