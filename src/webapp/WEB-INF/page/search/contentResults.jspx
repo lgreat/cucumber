@@ -27,7 +27,7 @@
         <c:set var="pageTitle"><h2 class="srchTitle">${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h2></c:set>
     </c:when>
     <c:otherwise>
-        <c:set var="pageTitle"><h2 class="srchTitle">Your search for &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot; did not match any articles or discussions</h2></c:set>
+        <c:set var="pageTitle"><h2 class="srchTitle">Your search for &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot; did not match any results.</h2></c:set>
     </c:otherwise>
 </c:choose>
 
