@@ -83,7 +83,7 @@
                 title: "Preview"
             });
 
-            $('.previewButton').click(function() {
+            $('.btn_preview').click(function() {
                 var previewBody = $(this).parent().find(".db_textarea textarea").val();
                 postReplyForm = $(this).closest('form');
                 $('#previewReplyDialog .replyBody').html(previewBody);
@@ -438,9 +438,6 @@
                 <br class="clearfloat"/>
             </c:forEach>
         </c:when>
-        <c:otherwise>
-            <p>There are no replies to display!</p>
-        </c:otherwise>
     </c:choose>
 </div>
 <!-- end db_replies -->
