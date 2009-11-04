@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.48 2009/07/10 21:48:15 droy Exp $
+ * $Id: PageHelperSaTest.java,v 1.49 2009/11/04 17:15:15 aroy Exp $
  */
 
 package gs.web.util;
@@ -751,6 +751,10 @@ public class PageHelperSaTest extends TestCase {
         final CookieGenerator communityCookieGenerator = new CookieGenerator();
         communityCookieGenerator.setCookieName("community_dev");
         sessionContextUtil.setCommunityCookieGenerator(communityCookieGenerator);
+
+        final CookieGenerator newMemberCookieGenerator = new CookieGenerator();
+        newMemberCookieGenerator.setCookieName("isMember");
+        sessionContextUtil.setNewMemberCookieGenerator(newMemberCookieGenerator);
 
         final CookieGenerator cityIdCookieGenerator = new CookieGenerator();
         cityIdCookieGenerator.setCookieName("CITYID");

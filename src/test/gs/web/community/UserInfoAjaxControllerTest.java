@@ -11,8 +11,6 @@ import gs.data.community.UserProfile;
 import static org.easymock.EasyMock.*;
 import org.springframework.web.util.CookieGenerator;
 
-import javax.servlet.http.Cookie;
-
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -107,6 +105,10 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         CookieGenerator memIdCG = new CookieGenerator();
         memIdCG.setCookieName("MEMID");
         scu.setMemberIdCookieGenerator(memIdCG);
+
+        CookieGenerator newMemCG = new CookieGenerator();
+        newMemCG.setCookieName("isMember");
+        scu.setNewMemberCookieGenerator(newMemCG);
 
         CookieGenerator sessionCacheCG = new CookieGenerator();
         sessionCacheCG.setCookieName("session_cache");
