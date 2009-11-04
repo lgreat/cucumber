@@ -164,7 +164,7 @@
     <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
 
     <div class="fltrt">
-        <a class="btn25" href="#" onclick="this.blur();">
+        <a class="btn25 startADiscussion" href="#" onclick="this.blur();">
             <span class="lftDoor25">
                 <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles" width="37" height="25" align="absmiddle" />Start a discussion</span>
             </span>
@@ -186,10 +186,8 @@
     <div id="previewReplyDialog" style="display:none;">
         <div class="db_reply_topic">
             <div class="fltlft">
-                <link:userProfile user="${validUser}">
-                    <community:avatar userId="${validUser.id}" width="48" height="48"
-                                      cssStyle="border: 1px solid #c6c6c6;"/>
-                </link:userProfile>
+                <community:avatar userId="${validUser.id}" width="48" height="48"
+                                  cssStyle="border: 1px solid #c6c6c6;"/>
             </div>
             <!-- end preview reply avatar -->
             <div class="db_replyContainer fltlft">
@@ -198,10 +196,7 @@
 
                 <div class="db_reply_full fltrt rnd8">
                     <p class="fltlft">
-                        <link:userProfile user="${validUser}">
-                            <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
-                        </link:userProfile>
-
+                        <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
                         <span class="smallText1">, a moment ago</span>
                     </p>
 

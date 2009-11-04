@@ -52,7 +52,7 @@
                 $('.citySelect').hide();
             }
 
-            $('#dialogCancelButton').click(function() {
+            $('.dialogCancelButton').click(function() {
                 parent.GS.closeDialogs();
             });
 

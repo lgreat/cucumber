@@ -111,20 +111,16 @@
     <div id="previewDiscussionDialog" style="display:none;">
         <div class="db_discussion sdrt">
             <div class="db_title gainlayout">
-                <h4 class="fltlft"><a href="#" onclick="return false;"><span
-                        class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></a></h4>
-
-                <p class="fltrt emailItLink"><a class="smallText1" href="#" onclick="return false;">Email</a></p>
+                <h4 class="fltlft"><span
+                        class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></h4>
                 <br class="clearfloat"/>
             </div>
 
             <div class="db_discussTopic gainlayout">
                 <div class="fltlft">
-                    <link:userProfile user="${requestScope.context.user}">
-                        <community:avatar userId="${requestScope.context.user.id}" width="48" height="48"
-                                          cssClass="fltlft"
-                                          cssStyle="border: 1px solid #c6c6c6;"/>
-                    </link:userProfile>
+                    <community:avatar userId="${requestScope.context.user.id}" width="48" height="48"
+                                      cssClass="fltlft"
+                                      cssStyle="border: 1px solid #c6c6c6;"/>
                 </div>
                 <!-- end discussion avatar -->
 
@@ -133,10 +129,7 @@
 
                     <div class="db_discuss fltrt rnd8">
                         <p class="fltlft">
-                            <link:userProfile user="${requestScope.context.user}">
-                                <span class="smallAlertTextBoldNeutral">${requestScope.context.user.userProfile.screenName}</span>
-                            </link:userProfile>
-
+                            <span class="smallAlertTextBoldNeutral">${requestScope.context.user.userProfile.screenName}</span>
                             <span class="smallText1">, a moment ago</span>
                         </p>
 
