@@ -14,16 +14,6 @@ import gs.data.util.CmsUtil;
  */
 public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
 
-    public void setUp() {
-        super.setUp();
-        CmsUtil.enableCms();
-    }
-
-    public void tearDown() throws Exception {
-        super.tearDown();
-        CmsUtil.disableCms();
-    }
-
     public void testHomePage() {
         assertValidXhtml(INTEGRATION_HOST + "/index.page");
     }
