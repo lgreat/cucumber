@@ -209,6 +209,9 @@ html[xmlns] .clearfix {
 .db_title{
     padding: 0 0 15px 0;
 }
+.db_title h4{
+    width:475px;
+}
 .db_title p{
     padding:8px 0 0 0;
 }
