@@ -178,7 +178,7 @@
                                         discussionId="${discussion.id}"
                                         discussionFullUri="${discussion.fullUri}"
                                         textSpanClass="text3"
-                                        linkClass="text3"/>
+                                        linkClass="text3 link"/>
                             </div>
                             <!-- end db_discuss -->
                         </div>
@@ -211,7 +211,7 @@
                                     <div class="db_reply fltrt rnd8">
                                         <p class="fltlft">
                                             <link:userProfile user="${reply.user}">
-                                                <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                                <span class="smallAlertTextBoldNeutral link">${reply.user.userProfile.screenName}</span>
                                             </link:userProfile>
 
                                             <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
@@ -227,7 +227,7 @@
                                                 discussionFullUri="${discussion.fullUri}"
                                                 discussionReplyId="${reply.id}"
                                                 textSpanClass="text3"
-                                                linkClass="text3"/>
+                                                linkClass="text3 link"/>
                                     </div>
                                     <!-- end db_reply -->
                                 </div>
@@ -248,7 +248,7 @@
                             </c:choose>
                             <link:discussion discussionId="${discussion.id}"
                                              fullUri="${discussion.fullUri}"
-                                             styleClass="text3">${viewMoreRepliesLabel} <span
+                                             styleClass="text3 link">${viewMoreRepliesLabel} <span
                                     class="alertDoubleArrow">&amp;raquo;</span></link:discussion>
                         </p>
                     </div>

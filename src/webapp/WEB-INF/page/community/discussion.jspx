@@ -278,7 +278,7 @@
                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                     <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
                                                contentPostedDate="${discussion.dateCreated}">
-                        | <a href="#" class="editLink">Edit</a>
+                        | <a href="#" class="editLink link">Edit</a>
                     </gsml:ifUserCanEditContent>
                 </p>
 
@@ -370,7 +370,7 @@
     <br class="clearfloat"/>
     <c:if test="${fn:length(requestScope.replies) > 0}">
         <div class="mostRecent gainlayout sdrt sdrb">
-            <p class="fltlft">Most Recent Replies</p>
+            <p class="fltlft">Replies</p>
 
             <p class="fltrt">
                 Sort by:
@@ -379,7 +379,7 @@
                         Newest first
                     </c:when>
                     <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=newest_first">Newest first</a>
+                        <a href="${requestScope.uri}&amp;sort=newest_first" class="link">Newest first</a>
                     </c:otherwise>
                 </c:choose>
                 |
@@ -388,7 +388,7 @@
                         Oldest first
                     </c:when>
                     <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=oldest_first">Oldest first</a>
+                        <a href="${requestScope.uri}&amp;sort=oldest_first" class="link">Oldest first</a>
                     </c:otherwise>
                 </c:choose>
             </p>
@@ -422,17 +422,17 @@
                         <div class="db_reply_full fltrt rnd8">
                             <p class="fltlft">
                                 <link:userProfile user="${reply.user}">
-                                    <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                    <span class="smallAlertTextBoldNeutral link">${reply.user.userProfile.screenName}</span>
                                 </link:userProfile>
 
                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                                 <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
                                                            contentPostedDate="${reply.dateCreated}">
-                                    | <a href="#" class="editLink" onclick="return false;">Edit</a>
+                                    | <a href="#" class="editLink link" onclick="return false;">Edit</a>
                                 </gsml:ifUserCanEditContent>
                             </p>
 
-                            <p class="fltrt"><a class="smallText1 reportIt" href="${loginRedirectUrl}"
+                            <p class="fltrt"><a class="smallText1 reportIt link" href="${loginRedirectUrl}"
                                                 id="report_reply_${reply.id}">Report it</a></p>
                             <br class="clearfloat"/>
 
@@ -459,15 +459,16 @@
     <div class="db_discussion">
         <community:pagination page="${page}" totalPages="${totalPages}"
                               url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
-
-    <div>
-        ${postReplyButton}
-    </div>
-    <br class="clearfloat"/>
-    <!-- share this -->
-    ${shareThis}
-    <!-- end share this -->
-    ${replyForm}
+        <c:if test="${fn:length(requestScope.replies) > 3}">
+            <div>
+                ${postReplyButton}
+            </div>
+            <br class="clearfloat"/>
+            <!-- share this -->
+            ${shareThis}
+            <!-- end share this -->
+            ${replyForm}
+        </c:if>
     </div>
 </div>
 <!-- end db_footer -->
