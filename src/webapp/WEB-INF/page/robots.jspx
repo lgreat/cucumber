@@ -92,7 +92,10 @@ Disallow: /*/public-private/*
 Disallow: /search/feedback.page
 Disallow: /support_code/
 Disallow: /templates/
-    
+Disallow: /content/holidayGiving.page
+Disallow: /holiday-giving/
+Disallow: /content/holidayLearning.page
+
 </c:set>
 
 <c:choose>
