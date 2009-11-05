@@ -229,6 +229,25 @@
 <!-- End preview reply dialog -->
 
 <div class="db_body">
+
+<!-- post a reply button -->
+<c:set var="postReplyButton">
+    <a id="upperReplyTrigger" class="btn25" href="${requestScope.loginRedirectUrl}" onclick="this.blur();">
+                <span class="lftDoor25">
+                    <span class="rtDoor25">Post a Reply</span>
+                </span>
+    </a>
+</c:set>
+<!-- end post a reply button -->
+
+<!-- share this -->
+<c:set var="shareThis">
+    <div class="shareThis smallText1 gainlayout">
+        <span class="fltlft"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
+    </div>
+</c:set>
+<!-- end share this -->
+
 <div class="db_discussion">
     <div class="db_title gainlayout">
         <h4 class="fltlft"><link:discussion discussion="${discussion}" fullUri="${discussionBoard.fullUri}"><span
@@ -270,32 +289,16 @@
             </div>
             <!-- end db_discuss_full -->
         </div>
+        <!-- end db_discussContainer -->
         <br class="clearfloat"/>
     </div>
-    <!-- end db_discuss_topic -->
+    <!-- end db_discussTopic -->
 
-    <div>
-        <c:set var="postReplyButton">
-            <a id="upperReplyTrigger" class="btn25" href="${requestScope.loginRedirectUrl}" onclick="this.blur();">
-                <span class="lftDoor25">
-                    <span class="rtDoor25">Post a Reply</span>
-                </span>
-            </a>
-        </c:set>
+    <div class="db_replyOrShare">
         ${postReplyButton}
+        <br class="clearfloat"/>
+        ${shareThis}
     </div>
-    <br class="clearfloat"/>
-
-    <!-- share this -->
-    <c:set var="shareThis">
-        <div class="shareThis smallText1 gainlayout">
-            <span class="fltlft"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
-            <!--<span class="fltrt"><a href="#">RSS</a></span>-->
-            <br class="clearfloat"/>
-        </div>
-    </c:set>
-    ${shareThis}
-    <!-- end share this -->
 
     <c:set var="replyForm">
         <br class="clearfloat"/>

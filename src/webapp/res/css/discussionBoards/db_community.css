@@ -331,6 +331,10 @@ html[xmlns] .clearfix {
     left:5px; top:18px;
 }
 
+.db_replyOrShare{
+    padding:0 0 0 65px;
+}
+
 /* ----------------- */
 /* END BUBBLE ARROWS */
 /* ----------------- */
