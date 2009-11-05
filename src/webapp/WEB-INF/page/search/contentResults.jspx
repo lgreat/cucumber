@@ -67,7 +67,7 @@
                 <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
-                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="articles"/>
                     </c:when>
                     <c:otherwise>
@@ -87,7 +87,7 @@
                 <c:set var="typeButtonText" value="Community (${requestScope.numDiscussions})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
-                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="community"/>
                     </c:when>
                     <c:otherwise>
