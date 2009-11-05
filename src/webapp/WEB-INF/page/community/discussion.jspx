@@ -129,30 +129,35 @@
 <div id="mainContent" class="column">
 
 <p class="breadCrumbs smallAlertText">
-    <link:home>Home</link:home>
+    <link:home styleClass="link">Home</link:home>
     &amp;gt;
     <c:choose>
 
         <c:when test="${requestScope.discussionBoard.city ne null}">
             <link:research state="${requestScope.discussionBoard.city.state}"
-                               title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
+                           title="${requestScope.discussionBoard.city.state.longName} schools"
+                           styleClass="link">${requestScope.discussionBoard.city.state.longName}</link:research>
             &amp;gt;
 
-            <link:city city="${requestScope.discussionBoard.city.name}" state="${requestScope.discussionBoard.city.state}"
-                           title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
+            <link:city city="${requestScope.discussionBoard.city.name}"
+                       state="${requestScope.discussionBoard.city.state}"
+                       title="${requestScope.discussionBoard.city.name}"
+                       styleClass="link">${requestScope.discussionBoard.city.name}</link:city>
             &amp;gt;
         </c:when>
 
         <c:when test="${topicCenter ne null}">
             <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                             fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+                             fullUri="${requestScope.topicCenter.fullUri}"
+                             styleClass="link">${requestScope.topicCenter.title}</link:cmsContent>
             &amp;gt;
         </c:when>
 
     </c:choose>
 
     <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                     fullUri="${requestScope.discussionBoard.fullUri}">${requestScope.discussionBoard.title}</link:cmsContent>
+                     fullUri="${requestScope.discussionBoard.fullUri}"
+                     styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent>
 </p>
 
 <community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
@@ -229,7 +234,7 @@
         <h4 class="fltlft"><link:discussion discussion="${discussion}" fullUri="${discussionBoard.fullUri}"><span
                 class="title1">${discussion.title}</span></link:discussion></h4>
 
-        <p class="fltrt"><a class="smallText1" href="#">Email</a></p>
+        <p class="fltrt"><a class="smallText1 link" href="#">Email</a></p>
         <br class="clearfloat"/>
     </div>
 
@@ -248,7 +253,7 @@
             <div class="db_discuss_full fltrt rnd8">
                 <p class="fltlft">
                     <link:userProfile user="${discussion.user}">
-                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                        <span class="smallAlertTextBoldNeutral link">${discussion.user.userProfile.screenName}</span>
                     </link:userProfile>
 
                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
@@ -258,7 +263,7 @@
                     </gsml:ifUserCanEditContent>
                 </p>
 
-                <p class="fltrt"><a class="smallText1 reportIt" href="${loginRedirectUrl}"
+                <p class="fltrt"><a class="smallText1 reportIt link" href="${loginRedirectUrl}"
                                     id="report_discussion_${discussion.id}">Report it</a></p>
                 <br class="clearfloat"/>
                 <span class="text3 discussionBody">${discussion.body}</span>
@@ -315,7 +320,7 @@
                         <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
                             <span class="text3bold">by
                                 <link:userProfile
-                                        user="${discussion.user}">${requestScope.validUser.userProfile.screenName}
+                                        user="${discussion.user}" styleClass="link">${requestScope.validUser.userProfile.screenName}
                                 </link:userProfile>
                             </span>
 
@@ -344,7 +349,8 @@
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                            title="GreatSchools Community Standards"
                                                            href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                                                           tabIndex="18">Community Guidelines</gsml:popupWindow>
+                                                           tabIndex="18">
+                                <span class="link">Community Guidelines</span></gsml:popupWindow>
                             </div>
                         </form>
                     </div>

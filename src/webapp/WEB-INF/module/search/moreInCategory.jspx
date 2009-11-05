@@ -52,7 +52,7 @@
                                     </c:choose>
 
                                     <li class="moreinItem tint_f4891d ${className}">
-                                        <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}">
+                                        <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}" styleClass="link">
                                             <c:out value="${result.headline}" escapeXml="false"/>
                                         </link:cmsContent>
                                     </li>
@@ -65,16 +65,16 @@
                             <p class="moreinItem">
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
-                                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}">
-                                        <span class="text3">More </span>
-                                        <span class="alertDoubleArrow">&amp;raquo;</span>
+                                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"
+                                                            styleClass="link text3">
+                                        More <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:when>
                                 <c:otherwise>
                                     <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
-                                                            gradeIDs="${gradeIds}" language="${param.language}">
-                                        <span class="text3">More </span>
-                                        <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                            gradeIDs="${gradeIds}" language="${param.language}"
+                                                            styleClass="link text3">
+                                        More <span class="alertDoubleArrow">&amp;raquo;</span>
                                     </link:cmsCategoryBrowse>
                                 </c:otherwise>
                             </c:choose>

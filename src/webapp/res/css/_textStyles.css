@@ -263,19 +263,18 @@
 /* ----- */
 /* LINKS */
 /* ----- */
-.link{
+#contentGS .link{
     color: #06b;
-    font-weight:normal;
     text-decoration: none;
     cursor: pointer;
 }
-.link:focus, .link:hover {
+#contentGS .link:focus, #contentGS .link:hover {
     text-decoration: underline;
 }
-.link:visited {
+#contentGS .link:visited {
     color:#06b;
 }
-.link span {
+#contentGS .link span {
     color: #d61;
     font-size: 1.1em;
     line-height: .9;

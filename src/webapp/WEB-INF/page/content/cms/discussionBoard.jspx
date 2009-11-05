@@ -49,24 +49,27 @@
 <div id="container">
 <div id="mainContent" class="column">
     <p class="breadCrumbs smallAlertText">
-        <link:home>Home</link:home>
+        <link:home styleClass="link">Home</link:home>
 
         <c:choose>
             <c:when test="${requestScope.discussionBoard.city ne null}">
                 &amp;gt;
                     <link:research state="${requestScope.discussionBoard.city.state}"
-                                   title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
+                                   title="${requestScope.discussionBoard.city.state.longName} schools"
+                                   styleClass="link">${requestScope.discussionBoard.city.state.longName}</link:research>
                     &amp;gt;
 
                     <link:city city="${requestScope.discussionBoard.city.name}"
                                state="${requestScope.discussionBoard.city.state}"
-                               title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
+                               title="${requestScope.discussionBoard.city.name}"
+                               styleClass="link">${requestScope.discussionBoard.city.name}</link:city>
             </c:when>
 
             <c:when test="${requestScope.topicCenter ne null}">
                 &amp;gt;
                     <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                                     fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+                                     fullUri="${requestScope.topicCenter.fullUri}"
+                                     styleClass="link">${requestScope.topicCenter.title}</link:cmsContent>
             </c:when>
         </c:choose>
     </p>
@@ -115,7 +118,7 @@
                             Newest first
                         </c:when>
                         <c:otherwise>
-                            <a href="${requestScope.uri}&amp;amp;sort=newest_first">Newest first</a>
+                            <a href="${requestScope.uri}&amp;amp;sort=newest_first" class="link">Newest first</a>
                         </c:otherwise>
                     </c:choose>
                     |
@@ -124,7 +127,7 @@
                             Oldest first
                         </c:when>
                         <c:otherwise>
-                            <a href="${requestScope.uri}&amp;amp;sort=oldest_first">Oldest first</a>
+                            <a href="${requestScope.uri}&amp;amp;sort=oldest_first" class="link">Oldest first</a>
                         </c:otherwise>
                     </c:choose>
 
@@ -141,7 +144,7 @@
                                                             fullUri="${discussion.fullUri}"><span
                                 class="title1">${discussion.title}</span></link:discussion></h4>
 
-                        <p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>
+                        <p class="fltrt emailItLink"><a class="smallText1 link" href="#">Email</a></p>
                         <br class="clearfloat"/>
                     </div>
 
@@ -161,7 +164,7 @@
                             <div class="db_discuss fltrt rnd8">
                                 <p class="fltlft">
                                     <link:userProfile user="${discussion.user}">
-                                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                        <span class="smallAlertTextBoldNeutral link">${discussion.user.userProfile.screenName}</span>
                                     </link:userProfile>
 
                                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>

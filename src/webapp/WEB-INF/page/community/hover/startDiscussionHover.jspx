@@ -84,8 +84,8 @@
         <div class="communityGuidelines text3 fltrt">
             Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Community Standards"
-                                       href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                >Community Guidelines</gsml:popupWindow>
+                                       href="/cgi-bin/static/terms.html/$STATE#communityStandards">
+            <span class="link">Community Guidelines</span></gsml:popupWindow>
         </div>
         <div class="topicSelect fltlft">
             <label for="topicSelect" class="text2bold tint_333">Topic</label>
