@@ -20,7 +20,6 @@
 <head>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    <!--<pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>-->
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
     <![CDATA[
@@ -57,11 +56,15 @@
             });
 
             $('.previewButton').click(function() {
-                var previewBody = $(".bodyInput textarea").val();
-                var previewTitle = $(".titleInput input").val();
+                var previewBody = escapeHTML($(".bodyInput textarea").val());
+                var previewTitle = escapeHTML($(".titleInput input").val());
                 parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
                 return false;
             });
+
+            function escapeHTML(html) {
+                return html.replace('&amp;', '&amp;amp;').replace('&lt;', '&amp;lt;');
+            }
 
             parent.GS.previewDiscussionHover.init({
                 editFunc: function() {},
@@ -76,7 +79,16 @@
         <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
                  height="58" alt="big speech bubbles" align="absmiddle"/>
 
-        <h2 class="sd_title fltlft">Start a discussion</h2>
+        <h2 class="sd_title fltlft">
+            <c:choose>
+                <c:when test="${param.discussionId gt 0}">
+                    Edit discussion
+                </c:when>
+                <c:otherwise>
+                    Start a discussion
+                </c:otherwise>
+            </c:choose>
+        </h2>
         <br class="clearfloat"/>
         </div>
     <gsweb:form action="/community/discussionSubmission.page" method="post" target="_parent"
@@ -109,26 +121,36 @@
         </div>
         <div class="titleInput">
             <label for="titleInput" class="text2bold tint_333">Title</label>
-            <input id="titleInput" type="text" name="title" size="65" value="${userTitle}"/>
+            <input id="titleInput" type="text" name="title" size="65" value="${param.title}"/>
         </div>
         <div class="bodyInput">
             <label for="bodyInput" class="text2bold tint_333">Details</label>
             <textarea id="bodyInput" class="bodyInput" 
                       rows="5" cols="30"
-                      name="body"><!-- no collapse -->${userBody}</textarea>
+                      name="body"><!-- no collapse -->${param.body}</textarea>
         </div>
-        <!--<input type="button" name="preview" value="Preview" class="previewButton"/>-->
-        <!--<input type="submit" name="post" value="Start a Discussion" class="submitButton"/>-->
-        <!--<input id="dialogCancelButton" type="button" value="Cancel"/>-->
+        <c:if test="${param.discussionId gt 0}">
+            <input type="hidden" name="discussionId" value="${param.discussionId}"/>
+            <input type="hidden" name="type" value="editDiscussion"/>
+        </c:if>
         <div class="sd_OuterLayout">
         <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
             <span class="lftDoor25">
                 <span class="rtDoor25">Preview</span>
             </span>
         </button>
+        <c:choose>
+            <c:when test="${param.discussionId gt 0}">
+                <c:set var="submitButtonText" value="Edit"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="submitButtonText" value="Post&amp;nbsp;discussion"/>
+            </c:otherwise>
+        </c:choose>
+
         <button class="btn25 submitButton sd_InnerLayout fltlft" type="submit" name="post" value="Start a Discussion">
             <span class="lftDoor25">
-                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" align="absmiddle" alt="bubbles" />Post&amp;nbsp;discussion</span>
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25" align="absmiddle" alt="bubbles" />${submitButtonText}</span>
             </span>
         </button>
         <button class="btn25 dialogCancelButton fltlft" type="submit" value="Cancel">

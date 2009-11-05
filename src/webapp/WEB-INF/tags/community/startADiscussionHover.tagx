@@ -37,8 +37,6 @@
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
 
     <script type="text/javascript">
-        var startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}&amp;discussionBoardId=${pageScope.discussionBoardId}';
-
         if (GS.types == undefined) {
            GS.types = {};
         }
@@ -73,6 +71,36 @@
         GS.previewDiscussionHover = new GS.types.previewDiscussionHover();
         // </c:if>
 
+        GS.types.startDiscussionHover = function() {
+            this.startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}&amp;discussionBoardId=${pageScope.discussionBoardId}';
+            this.loginRedirectUrl = '${pageScope.loginRedirectUrl}';
+
+            this.showEdit = function(title, body, discussionId) {
+                var editUrl = this.startADiscussionIframeUrl;
+                editUrl += "&amp;title=" + encodeURIComponent(title);
+                editUrl += "&amp;body=" + encodeURIComponent(body);
+                editUrl += "&amp;discussionId=" + discussionId;
+                jQuery('#startADiscussionIFrame').attr('src', editUrl);
+                jQuery('#startADiscussionDialog').dialog("open");
+                return false;
+            };
+
+            this.showCreate = function() {
+                //<c:choose><c:when test="${requestScope.context.user ne null}">
+                    jQuery('#startADiscussionIFrame').attr('src', this.startADiscussionIframeUrl);
+                    jQuery('#startADiscussionDialog').dialog("open");
+                //</c:when><c:otherwise>
+                    document.location=this.loginRedirectUrl;
+                //</c:otherwise></c:choose>
+                return false;
+            };
+            this.close = function() {
+                jQuery('#startADiscussionDialog').dialog("close");
+            };
+        };
+
+        GS.startDiscussionHover = new GS.types.startDiscussionHover();
+
         jQuery(function() {
             jQuery('#previewDiscussionDialog .previewEditButton').click(function() {
                 jQuery('#previewDiscussionDialog').dialog('close');
@@ -94,18 +122,11 @@
             });
 
             GS.registerCloseDialogHandler(function() {
-                jQuery('#startADiscussionDialog').dialog("close");
+                GS.startDiscussionHover.close();
             });
 
             jQuery('${pageScope.openElementJQuerySelector}').click(function() {
-                //<c:choose><c:when test="${requestScope.context.user ne null}">
-                    jQuery('#startADiscussionIFrame').attr('src', startADiscussionIframeUrl);
-                    jQuery('#startADiscussionDialog').dialog("open");
-                    return false;
-                //</c:when><c:otherwise>
-                    document.location='${pageScope.loginRedirectUrl}';
-                    return false;
-                //</c:otherwise></c:choose>
+                GS.startDiscussionHover.showCreate();
             });
         });
     </script>

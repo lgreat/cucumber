@@ -42,14 +42,12 @@
             $('.replyForm:last').show();
 
             $('.db_discuss_full .editLink').click(function() {
-                var container = $(this).parents('.db_discuss_full');
-                var body = container.children('.discussionBody');
+                var bodyContainer = $(this).parents('.db_discuss_full');
+                var body = bodyContainer.children('.discussionBody').html();
+                var titleContainer = $(this).parents('.db_discussion');
+                var title = titleContainer.find('.db_title span.title1').html();
                 var discussionId = ${discussion.id};
-                var discussionForm = createEditDiscussionForm(body.html(), discussionId);
-                container.append(discussionForm);
-                body.hide();
-                discussionForm.show();
-                $(this).hide();
+                GS.startDiscussionHover.showEdit(title, body, discussionId);
                 return false;
             });
 
@@ -103,24 +101,6 @@
 
             //</c:if>
         });
-        function createEditDiscussionForm(existingBody, discussionId) {
-            var form = $(document.createElement('form'));
-            form.attr('action', '/community/discussionSubmission.page').attr('method', 'post');
-            var editField = $(document.createElement('textarea'));
-            editField.attr('rows', '5').attr('cols', '30').attr('name', 'body');
-            editField.html(existingBody);
-            form.append(editField);
-            var submitButton = $(document.createElement('input'));
-            submitButton.attr('type', 'submit').attr('name', 'submit').val('Edit this discussion');
-            form.append(submitButton);
-            var discussionIdElem = $(document.createElement('input'));
-            discussionIdElem.attr('name', 'discussionId').attr('type', 'hidden').attr('value', discussionId);
-            form.append(discussionIdElem);
-            var submitType = $(document.createElement('input'));
-            submitType.attr('name', 'type').attr('type', 'hidden').attr('value', 'editDiscussion');
-            form.append(submitType);
-            return form;
-        }
     </script>
 </head>
 <body>

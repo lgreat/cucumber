@@ -3,6 +3,7 @@ package gs.web.community;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.HtmlUtils;
 import org.springframework.validation.BindException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,13 +119,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         } else {
             // TODO: profanity filter
             // TODO: more validation?
-            // TODO: sanitize string (strip HTML? JS? SQL?)?
 
             Discussion discussion = new Discussion();
             discussion.setAuthorId(user.getId());
             discussion.setBoardId(board.getContentKey().getIdentifier());
-            discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
-            discussion.setTitle(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
+            discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
+            discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
 
             _discussionDao.save(discussion);
             // needed for indexing
@@ -204,9 +204,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         } else {
             // TODO: profanity filter
             // TODO: more validation?
-            // TODO: sanitize string (strip HTML? JS? SQL?)?
 
-            discussion.setBody(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
+            discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
+            discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
 
             _discussionDao.save(discussion);
             // needed for indexing
@@ -267,7 +267,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             // TODO: profanity filter
             // TODO: more validation?
-            // TODO: sanitize string (strip HTML? JS? SQL?)?
 
             boolean canSave = false;
             DiscussionReply reply;
@@ -285,7 +284,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (canSave) {
                 reply.setDiscussion(discussion);
-                reply.setBody(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
+                reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
                 reply.setAuthorId(user.getId());
                 _discussionReplyDao.save(reply);
             }
