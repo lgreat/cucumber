@@ -168,12 +168,12 @@
             </div>
             <button class="btn25 fltlft previewEditButton" type="submit">
                 <span class="lftDoor25">
-                    <span class="rtDoor25">Edit discussion</span>
+                    <span class="rtDoor25">Edit&amp;nbsp;discussion</span>
                 </span>
             </button>
             <button class="btn25 fltlft previewPostButton" type="submit">
                 <span class="lftDoor25">
-                    <span class="rtDoor25">Post your discussion</span>
+                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;discussion</span>
                 </span>
             </button>
         </div>
