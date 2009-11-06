@@ -222,8 +222,8 @@
 
 <!-- share this -->
 <c:set var="shareThis">
-    <div class="shareThis smallText1 gainlayout">
-        <span class="fltlft"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
+    <div class="shareThis smallText1 clearfix">
+        <span class="fltrt"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
     </div>
 </c:set>
 <!-- end share this -->
@@ -274,16 +274,15 @@
     </div>
     <!-- end db_discussTopic -->
 
-    <div class="db_replyOrShare">
+    <div class="db_replyOrShare sdrb">
         ${postReplyButton}
-        <br class="clearfloat"/>
         ${shareThis}
     </div>
 
     <c:set var="replyForm">
         <br class="clearfloat"/>
         <c:if test="${requestScope.validUser != null}">
-            <div class="replyForm" style="display:none;">
+            <div class="replyForm clearfix sdrb" style="display:none;">
                 <c:if test="${requestScope.userReplyMessage != null}">
                     <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
                 </c:if>
@@ -349,7 +348,7 @@
 
     <br class="clearfloat"/>
     <c:if test="${fn:length(requestScope.replies) > 0}">
-        <div class="mostRecent gainlayout sdrt sdrb">
+        <div class="postedReplies gainlayout sdrb">
             <p class="fltlft">Replies</p>
 
             <p class="fltrt">
@@ -436,20 +435,17 @@
 <!-- end db_body -->
 
 <div class="db_footer">
-    <div class="db_discussion">
+
         <community:pagination page="${page}" totalPages="${totalPages}"
                               url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
         <c:if test="${fn:length(requestScope.replies) > 3}">
             <div>
                 ${postReplyButton}
             </div>
-            <br class="clearfloat"/>
-            <!-- share this -->
             ${shareThis}
-            <!-- end share this -->
             ${replyForm}
         </c:if>
-    </div>
+
 </div>
 <!-- end db_footer -->
 </div>

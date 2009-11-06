@@ -191,7 +191,7 @@
                 <br class="clearfloat"/>
                 <c:if test="${fn:length(discussion.replies) > 0}">
                     <div class="db_replies">
-                        <p class="Text1">Most recent replies</p>
+                        <p class="mostRecent Text1">Most recent replies</p>
 
                         <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
 
