@@ -185,12 +185,12 @@
 /* SHARE THIS */
 /* ---------- */
 
-#shareThis  {
+.shareThis  {
     font: 11px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
     margin: 15px 0 18px 0;
 }
 
-#content #shareThis a {
+#content .shareThis a {
     text-decoration: underline;
     color: #666;
     margin: 0 10px 0 0;

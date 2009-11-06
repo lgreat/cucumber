@@ -4,7 +4,7 @@
 }
 
 /* CMS-article-specific elements to omit from printer-friendly version */
-.breadcrumbs, .headerTools, #leftNav, #boxAd, #houseAd, #popularArticles, #recentPosts, .searchByTopic, .cmsArticlePagination, #cmsArticleLanguages, #cmsArticleFunctions, #shareThis, #relatedLinks, .divider {
+.breadcrumbs, .headerTools, #leftNav, #boxAd, #houseAd, #popularArticles, #recentPosts, .searchByTopic, .cmsArticlePagination, #cmsArticleLanguages, #cmsArticleFunctions, .shareThis, #relatedLinks, .divider {
     display: none;
 }
 
