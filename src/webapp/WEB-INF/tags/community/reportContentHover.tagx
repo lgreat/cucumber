@@ -81,14 +81,20 @@
                               href="/cgi-bin/static/terms.html/$STATE#communityStandards"
                     >Community Guidelines</gsml:popupWindow>
         </p>
+
         <form action="/community/reportContent.page" method="post">
             <textarea rows="10" cols="60" name="reason" id="reportReason"><!-- don't collapse --></textarea>
+
             <div class="buttons">
-                <button class="btn25ni fltlft reportSendButton" type="submit">
-                    <span class="rnd4"><span class="rnd4">Send</span></span>
+                <button class="btn25 fltlft reportSendButton" type="submit">
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">Send</span>
+                    </span>
                 </button>
-                <button class="btn25ni fltlft reportCancelButton" type="cancel">
-                    <span class="rnd4"><span class="rnd4">Cancel</span></span>
+                <button class="btn25 fltlft reportCancelButton" type="submit">
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">Cancel</span>
+                    </span>
                 </button>
                 <a href="#" class="smallText1 whatHappens">What happens when I report a post?</a>
             </div>

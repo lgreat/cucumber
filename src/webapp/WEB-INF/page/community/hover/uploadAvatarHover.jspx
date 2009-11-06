@@ -20,6 +20,7 @@
 
 <head>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <![CDATA[
@@ -193,24 +194,29 @@
     </div>
 
     <form action="/community/hover/uploadAvatarHover.page" method="post"
-                id="customAvatarForm" enctype="multipart/form-data">
+          id="customAvatarForm" enctype="multipart/form-data">
 
         <div class="fileInput">
             <label for="avatarFileInput">File:</label>
+
             <div class="fakeFileInput">
                 <div class="filler">&amp;nbsp;</div>
                 <input id="fake_avatarFileInput" type="text" name="fakeAvatar"
                        onkeypress="return (event.keyCode == 9);"/>
                 <input id="avatarFileInput" type="file" name="avatar"/>
-                <button id="fake_avatarFileBrowse" class="btn25ni fltlft browseButton" type="button"
+                <button id="fake_avatarFileBrowse" class="btn25 fltlft browseButton" type="submit"
                         onclick="return false;">
-                    <span class="rnd4"><span class="rnd4">Browse</span></span>
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">Browse</span>
+                    </span>
                 </button>
             </div>
         </div>
 
-        <button class="btn25ni fltlft uploadButton" type="submit">
-            <span class="rnd4"><span class="rnd4">Upload</span></span>
+        <button class="btn25 fltlft uploadButton" type="submit">
+            <span class="lftDoor25">
+                <span class="rtDoor25">Upload</span>
+            </span>
         </button>
     </form>
 
@@ -245,8 +251,10 @@
             </li>
         </ul>
 
-        <button class="btn25ni fltlft saveButton" type="submit">
-            <span class="rnd4"><span class="rnd4">Save</span></span>
+        <button class="btn25 fltlft saveButton" type="submit">
+            <span class="lftDoor25">
+                <span class="rtDoor25">Browse</span>
+            </span>
         </button>
     </gsweb:form>
 
