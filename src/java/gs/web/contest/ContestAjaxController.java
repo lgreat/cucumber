@@ -40,8 +40,6 @@ public class ContestAjaxController implements ReadWriteController {
             // normalize the email address to reduce the chance of duplicates
             email = email.toLowerCase().trim();
 
-            System.out.println("=======================" + _contestId);
-
             Contest contest = _contestDao.findContestById(_contestId);
             if (contest != null) {
                 ContestEntry entry = _contestDao.findEntry(contest.getId(), email);
@@ -64,8 +62,6 @@ public class ContestAjaxController implements ReadWriteController {
         }
 
         out.print(result);
-
-        System.out.println("=======================" + result);
 
         return null;
     }

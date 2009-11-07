@@ -2374,4 +2374,17 @@
           class="gs.web.cbi.CBIIntegrationController"
           autowire="byName" lazy-init="true"/>
 
+    <!-- TODO-8998 remove this - for testing only -->
+    <bean name="/contest/baseballBashForm.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/contest/baseballBashForm"/>
+    </bean>
+
+    <bean name="/contest/baseballBash.page"
+          class="gs.web.contest.ContestAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="contestId" value="1"/>
+    </bean>
+
 </beans>

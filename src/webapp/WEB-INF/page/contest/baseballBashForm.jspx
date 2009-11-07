@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3c.org/1999/xhtml">
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>Baseball Bash Sweepstakes Form</title>
+    </head>
+
+    <body>
+
+    <style type="text/css">
+        #baseballBlast .invalidEmail, #baseballBlast .confirmation, #baseballBlast .error {
+            display:none;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        jQuery.noConflict();
+        var $j = jQuery;
+
+        $j(document).ready(function() {
+
+            $j('#baseballBlastEmail').focus(function() {
+                if ($j(this).val() == 'Submit your email to enter') {
+                    $j(this).val('');
+                }
+            });
+
+            $j('#baseballBlastEmail').blur(function() {
+                if ($j(this).val() == '') {
+                    $j(this).val('Submit your email to enter');
+                }
+            });
+
+            $j('#baseballBlastForm').submit(function() {
+                var email = $j('#baseballBlastEmail').val();
+                var optInPartner = $j("#baseballBlastForm input[name='optInPartner']").is(':checked');
+                var optInGS = $j("#baseballBlastForm input[name='optInGS']").is(':checked');
+
+                $j.post('/contest/baseballBash.page', { 'email' : email, 'optInPartner' : optInPartner, 'optInGS': optInGS }, function(response) {
+                    if (response == 'ok') {
+                        $j('#baseballBlast .invalidEmail').hide();
+                        $j('#baseballBlast .formContainer').hide();
+                        $j('#baseballBlast .confirmation').show();
+                        $j('#baseballBlast .error').hide();
+
+                    } else if (response == 'invalidEmail') {
+                        $j('#baseballBlast .invalidEmail').show();
+                        $j('#baseballBlast .formContainer').show();
+                        $j('#baseballBlast .confirmation').hide();
+                        $j('#baseballBlast .error').hide();
+                    } else {
+                        $j('#baseballBlast .invalidEmail').hide();
+                        $j('#baseballBlast .formContainer').hide();
+                        $j('#baseballBlast .confirmation').hide();
+                        $j('#baseballBlast .error').show();
+                    }
+                });
+
+                return false;
+            });
+
+        });
+    </script>
+
+    <div id="baseballBlast">
+
+        <h1>Baseball Blast Holiday Sweepstakes</h1>
+
+        <p>Enter by 12/16/09 for a chance to win a copy* of
+            Baseball Blast! in time for the holidays.</p>
+
+        <div class="formContainer">
+
+            <span class="invalidEmail">Please enter a valid email address.</span>
+
+            <form id="baseballBlastForm">
+                <input type="text" id="baseballBlastEmail" value="Submit your email to enter"/>
+                <input type="submit" value="Go"/>
+
+                <div>
+                    <input type="checkbox" name="optInPartner"/>
+                    Yes, send me special offers from Baseball Blast
+                </div>
+                <div>
+                    <input type="checkbox" name="optInGS" checked="checked"/>
+                    Yes, send me periodic updates from GreatSchools
+                </div>
+            </form>
+
+        </div>
+
+        <div class="confirmation">
+            <div class="">Thanks for entering!</div>
+            <a href="#">Learn more about Baseball Blast!</a>
+        </div>
+
+        <div class="error">
+            <p>An error occurred. Please try again later.</p>
+        </div>
+
+        <div class="finePrint">
+            *Win one of 10 copies. <a href="#">Full sweepstakes rules</a>.
+        </div>
+
+    </div>
+
+
+    </body>
+
+    </html>
+
+</jsp:root>
+
