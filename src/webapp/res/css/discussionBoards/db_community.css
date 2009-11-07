@@ -123,8 +123,12 @@ html[xmlns] .clearfix {
     padding:0 0 10px 0;
 }
 
-.shareThis{
-    padding:10px 0;
+#mainContent .shareThis{
+    padding:0;
+}
+
+#mainContent .shareThis a{
+    color:#06b;
 }
 
 #mainContent .mostRecent{
@@ -337,7 +341,7 @@ html[xmlns] .clearfix {
 }
 
 .db_replyOrShare{
-    padding:0 0 0 65px;
+    padding:0 0 20px 65px;
 }
 
 /* ----------------- */

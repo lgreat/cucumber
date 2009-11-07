@@ -280,7 +280,6 @@
     </div>
 
     <c:set var="replyForm">
-        <br class="clearfloat"/>
         <c:if test="${requestScope.validUser != null}">
             <div class="replyForm clearfix sdrb" style="display:none;">
                 <c:if test="${requestScope.userReplyMessage != null}">
@@ -338,42 +337,38 @@
                     </div>
                     <!-- end db_post_reply -->
                 </div>
+                <!-- end db_postReplyContainer -->
             </div>
             <!-- end replyForm -->
-        </c:if>
-        <br class="clearfloat"/>
+        </c:if>       
     </c:set>
 
     ${replyForm}
 
-    <br class="clearfloat"/>
     <c:if test="${fn:length(requestScope.replies) > 0}">
-        <div class="postedReplies gainlayout sdrb">
-            <p class="fltlft">Replies</p>
+        <div class="postedReplies clearfix sdrb">
+            <p class="fltlft text1 tint_333">Replies</p>
 
-            <p class="fltrt">
+            <p class="fltrt text3 tint_777">
                 Sort by:
+
                 <c:choose>
-                    <c:when test="${requestScope.sort == 'newest_first'}">
-                        Newest first
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=newest_first" class="link">Newest first</a>
-                    </c:otherwise>
+                    <c:when test="${requestScope.sort == 'newest_first'}"><span class="tint_333">&amp;nbsp;Newest first&amp;nbsp;</span></c:when>
+                    <c:otherwise><a href="${requestScope.uri}&amp;sort=newest_first"
+                                    class="link">&amp;nbsp;Newest first&amp;nbsp;</a></c:otherwise>
                 </c:choose>
-                |
+
+                <span class="tint_777">&amp;nbsp;|&amp;nbsp;</span>
+
                 <c:choose>
-                    <c:when test="${requestScope.sort == 'oldest_first'}">
-                        Oldest first
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${requestScope.uri}&amp;sort=oldest_first" class="link">Oldest first</a>
-                    </c:otherwise>
+                    <c:when test="${requestScope.sort == 'oldest_first'}"><span class="fltrt text3 tint_777">&amp;nbsp;Oldest first</span></c:when>
+                    <c:otherwise><a href="${requestScope.uri}&amp;sort=oldest_first"
+                                    class="link">&amp;nbsp;Oldest first</a></c:otherwise>
                 </c:choose>
             </p>
-            <br class="clearfloat"/>
+            <br class="clearfloat"/>        
         </div>
-        <!-- end most recent -->
+        <!-- end postedReplies -->
     </c:if>
 </div>
 <!-- end db_discussion -->
@@ -395,8 +390,8 @@
                     <!-- end reply avatar -->
 
                     <div class="db_replyContainer fltlft">
-                        <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                            class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+                        <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b>
+                        <b class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
                         <div class="db_reply_full fltrt rnd8">
                             <p class="fltlft">
@@ -439,9 +434,7 @@
         <community:pagination page="${page}" totalPages="${totalPages}"
                               url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
         <c:if test="${fn:length(requestScope.replies) > 3}">
-            <div>
-                ${postReplyButton}
-            </div>
+            ${postReplyButton}
             ${shareThis}
             ${replyForm}
         </c:if>
