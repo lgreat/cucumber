@@ -94,7 +94,7 @@
 
     <div id="baseballBlast">
 
-        <h1>Baseball Blast Holiday Sweepstakes</h1>
+        <h1><a href="#" target="_blank">Baseball Blast Holiday Sweepstakes</a></h1>
 
         <p>Enter by 12/16/09 for a chance to win a copy* of
             Baseball Blast! in time for the holidays.</p>
@@ -121,7 +121,7 @@
 
         <div class="confirmation">
             <div class="">Thanks for entering!</div>
-            <a href="#">Learn more about Baseball Blast!</a>
+            <a href="#" target="_blank">Learn more about Baseball Blast!</a>
         </div>
 
         <div class="error">
@@ -129,7 +129,7 @@
         </div>
 
         <div class="finePrint">
-            *Win one of 10 copies. <a href="#">Full sweepstakes rules</a>.
+            *Win one of 10 copies. <a href="#" target="_blank">Full sweepstakes rules</a>.
         </div>
 
     </div>
