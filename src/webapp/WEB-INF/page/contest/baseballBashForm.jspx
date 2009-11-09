@@ -27,40 +27,62 @@
 
         $j(document).ready(function() {
 
-            $j('#baseballBlastEmail').focus(function() {
+            function changeFormDisplay(showInvalidEmail, showFormContainer, showConfirmation, showError) {
+                var invalidEmail = $j('#baseballBlast .invalidEmail');
+                var formContainer = $j('#baseballBlast .formContainer');
+                var confirmation = $j('#baseballBlast .confirmation');
+                var error = $j('#baseballBlast .error');
+
+                if (showInvalidEmail) {
+                    invalidEmail.show();
+                } else {
+                    invalidEmail.hide();
+                }
+
+                if (showFormContainer) {
+                    formContainer.show();
+                } else {
+                    formContainer.hide();
+                }
+
+                if (showConfirmation) {
+                    confirmation.show();
+                } else {
+                    confirmation.hide();
+                }
+
+                if (showError) {
+                    error.show();
+                } else {
+                    error.hide();
+                }
+            };
+
+
+            $j("#baseballBlast input[name='email']").focus(function() {
                 if ($j(this).val() == 'Submit your email to enter') {
                     $j(this).val('');
                 }
             });
 
-            $j('#baseballBlastEmail').blur(function() {
+            $j("#baseballBlast input[name='email']").blur(function() {
                 if ($j(this).val() == '') {
                     $j(this).val('Submit your email to enter');
                 }
             });
 
-            $j('#baseballBlastForm').submit(function() {
-                var email = $j('#baseballBlastEmail').val();
-                var optInPartner = $j("#baseballBlastForm input[name='optInPartner']").is(':checked');
-                var optInGS = $j("#baseballBlastForm input[name='optInGS']").is(':checked');
+            $j('#baseballBlast form').submit(function() {
+                var email = $j("#baseballBlast input[name='email']").val();
+                var optInPartner = $j("#baseballBlast input[name='optInPartner']").is(':checked');
+                var optInGS = $j("#baseballBlast input[name='optInGS']").is(':checked');
 
                 $j.post('/contest/baseballBash.page', { 'email' : email, 'optInPartner' : optInPartner, 'optInGS': optInGS }, function(response) {
                     if (response == 'ok') {
-                        $j('#baseballBlast .invalidEmail').hide();
-                        $j('#baseballBlast .formContainer').hide();
-                        $j('#baseballBlast .confirmation').show();
-                        $j('#baseballBlast .error').hide();
-
+                        changeFormDisplay(false, false, true, false);
                     } else if (response == 'invalidEmail') {
-                        $j('#baseballBlast .invalidEmail').show();
-                        $j('#baseballBlast .formContainer').show();
-                        $j('#baseballBlast .confirmation').hide();
-                        $j('#baseballBlast .error').hide();
+                        changeFormDisplay(true, true, false, false);
                     } else {
-                        $j('#baseballBlast .invalidEmail').hide();
-                        $j('#baseballBlast .formContainer').hide();
-                        $j('#baseballBlast .confirmation').hide();
-                        $j('#baseballBlast .error').show();
+                        changeFormDisplay(false, false, false, true);
                     }
                 });
 
@@ -81,8 +103,8 @@
 
             <span class="invalidEmail">Please enter a valid email address.</span>
 
-            <form id="baseballBlastForm">
-                <input type="text" id="baseballBlastEmail" value="Submit your email to enter"/>
+            <form>
+                <input type="text" name="email" value="Submit your email to enter"/>
                 <input type="submit" value="Go"/>
 
                 <div>
