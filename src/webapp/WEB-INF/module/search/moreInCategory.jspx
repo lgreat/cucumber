@@ -65,10 +65,29 @@
                             <p class="moreinItem">
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
-                                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"
-                                                            styleClass="link text3">
-                                        More <span class="alertDoubleArrow">&amp;raquo;</span>
-                                    </link:cmsCategoryBrowse>
+                                    <c:choose>
+                                        <c:when test="${fn:length(topics) eq 1}">
+                                            <link:cmsCategoryBrowse topicIDs="${category.id}"
+                                                                    language="${param.language}"
+                                                                    styleClass="link text3">
+                                                More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                            </link:cmsCategoryBrowse>
+                                        </c:when>
+                                        <c:when test="${fn:length(grades) eq 1}">
+                                            <link:cmsCategoryBrowse gradeIDs="${category.id}"
+                                                                    language="${param.language}"
+                                                                    styleClass="link text3">
+                                                More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                            </link:cmsCategoryBrowse>
+                                        </c:when>
+                                        <c:when test="${fn:length(subjects) eq 1}">
+                                            <link:cmsCategoryBrowse subjectIDs="${category.id}"
+                                                                    language="${param.language}"
+                                                                    styleClass="link text3">
+                                                More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                            </link:cmsCategoryBrowse>
+                                        </c:when>
+                                    </c:choose>
                                 </c:when>
                                 <c:otherwise>
                                     <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
@@ -137,8 +156,20 @@
                         <c:if test="${total gt maxResults}">
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
-                                    <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
-                                            class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                                    <c:choose>
+                                        <c:when test="${fn:length(topics) eq 1}">
+                                            <link:cmsCategoryBrowse topicIDs="${category.id}" language="${param.language}"><span
+                                                    class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                                        </c:when>
+                                        <c:when test="${fn:length(grades) eq 1}">
+                                            <link:cmsCategoryBrowse gradeIDs="${category.id}" language="${param.language}"><span
+                                                    class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                                        </c:when>
+                                        <c:when test="${fn:length(subjects) eq 1}">
+                                            <link:cmsCategoryBrowse subjectIDs="${category.id}" language="${param.language}"><span
+                                                    class="bolder">More  &amp;raquo;</span></link:cmsCategoryBrowse>
+                                        </c:when>
+                                    </c:choose>
                                 </c:when>
                                 <c:otherwise>
                                     <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
