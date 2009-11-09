@@ -446,7 +446,13 @@
 </div>
 <!-- end mainContent -->
 
-<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
+<c:set var="moreInContent" value="${requestScope.discussionBoard}"/>
+<c:if test="${requestScope.discussionBoard.city ne null}">
+    <!-- No More In content for local boards -->
+    <c:set var="moreInContent" value=""/>
+</c:if>
+<!-- sidebar that shows More-In: -->
+<cms:communitySidebar content="${moreInContent}" searchType="community"/>
 
 </div>
 <mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
