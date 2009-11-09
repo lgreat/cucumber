@@ -132,9 +132,7 @@
         </form>
             </div>
         <p class="avatar">
-            <img src="http://${requestScope.communityHost}/avatar?id=${requestScope.pageUser.id}&amp;amp;width=95&amp;amp;height=95"
-                 alt="User Avatar" width="95" height="95"
-                 style="border: 1px solid #c6c6c6;"/>
+            <community:avatar userId="${requestScope.pageUser.id}" width="95" height="95" alt="User Avatar" cssStyle="border: 1px solid #c6c6c6;"/>
             <c:if test="${requestScope.viewingOwnProfile}">
                 <br />
                 <a href="#" id="updateMyPhotoLink">Update my photo</a>
