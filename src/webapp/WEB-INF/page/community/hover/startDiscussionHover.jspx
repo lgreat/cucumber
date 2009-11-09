@@ -141,7 +141,7 @@
         </button>
         <c:choose>
             <c:when test="${param.discussionId gt 0}">
-                <c:set var="submitButtonText" value="Edit"/>
+                <c:set var="submitButtonText" value="Save"/>
             </c:when>
             <c:otherwise>
                 <c:set var="submitButtonText" value="Post&amp;nbsp;discussion"/>
