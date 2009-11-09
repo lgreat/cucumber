@@ -258,8 +258,8 @@ public class ArticlesByCategoryController extends AbstractController {
             model.put(MODEL_GRADE_IDS, CmsUtil.getCommaSeparatedCategoryIds(grades));
             model.put(MODEL_SUBJECT_IDS, CmsUtil.getCommaSeparatedCategoryIds(subjects));
 
-            if (topics.size() == 1) {
-                model.put(MODEL_CATEGORY, topics.get(0));
+            if (categories.size() == 1) {
+                model.put(MODEL_CATEGORY, categories.get(0));
             }
 
             model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
