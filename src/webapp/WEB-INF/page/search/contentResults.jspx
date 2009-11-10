@@ -56,7 +56,7 @@
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
-                        <li class="active">${typeButtonText}<b class="db_pointDn"></b></li>
+                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="all"/>
                     </c:when>
                     <c:otherwise>
