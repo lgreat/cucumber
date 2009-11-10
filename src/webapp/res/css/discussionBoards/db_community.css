@@ -218,7 +218,9 @@ html[xmlns] .clearfix {
     padding:5px 0;
     list-style:disc outside;
 }
-
+#sideBar .body1bg form button{
+    width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
+}
 /* End of classes used by communitySidebar.tagx */
 
 .db_body{
