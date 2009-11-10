@@ -229,7 +229,7 @@
                 <c:choose>
                     <c:when test="${hasNextSlide}">
                         <div class="next"><a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}"><img
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}#slide"><img
                                 src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -246,7 +246,7 @@
                 <c:choose>
                     <c:when test="${hasPreviousSlide}">
                         <div class="prev"><a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}"><img
+                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}#slide"><img
                                 src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -258,6 +258,7 @@
             </div>
         </c:set>
 
+        <a name="slide"><!-- don't collapse --></a>
         <div id="slideshow" class="rounded">
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_header" class="rounded_top">
@@ -266,7 +267,7 @@
                             <ul>
                                 <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
                                     <li>
-                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}">
+                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}#slide">
                                             <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
                                             <c:choose>
                                                 <c:when test="${hasSlidePromo}">
@@ -303,7 +304,7 @@
 
                     <c:if test="${param.print ne 'true' and hasNextSlide}">
                         <p class="ss_text ss_next">Next:&amp;nbsp;
-                            <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}">
+                            <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}#slide">
                                 <c:set var="nextSlideHasPromo" value="${not empty articleSlideshow.nextSlide.promo}"/>
                                 <c:choose>
                                     <c:when test="${nextSlideHasPromo}">
