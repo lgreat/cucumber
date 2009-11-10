@@ -24,16 +24,16 @@
             </c:if>
 
             <c:choose>
-                <c:when test="${pageScope.totalPages le 10}">
+                <c:when test="${pageScope.totalPages le 5}">
                     <c:set var="firstPageInSeries" value="${1}"/>
                     <c:set var="lastPageInSeries" value="${pageScope.totalPages}"/>
                 </c:when>
-                <c:when test="${pageScope.page lt 10}">
+                <c:when test="${pageScope.page lt 5}">
                     <c:set var="firstPageInSeries" value="${1}"/>
-                    <c:set var="lastPageInSeries" value="${10}"/>
+                    <c:set var="lastPageInSeries" value="${5}"/>
                 </c:when>
-                <c:when test="${pageScope.page gt (pageScope.totalPages - 9) and pageScope.totalPages gt 10}">
-                    <c:set var="firstPageInSeries" value="${pageScope.totalPages - 9}"/>
+                <c:when test="${pageScope.page gt (pageScope.totalPages - 4) and pageScope.totalPages gt 5}">
+                    <c:set var="firstPageInSeries" value="${pageScope.totalPages - 4}"/>
                     <c:set var="lastPageInSeries" value="${pageScope.totalPages}"/>
                 </c:when>
                 <c:otherwise>
@@ -42,7 +42,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <c:if test="${pageScope.totalPages gt 10 and page ge 10}">
+            <c:if test="${pageScope.totalPages gt 5 and page ge 5}">
                 <span> <a
                         href="${pageScope.url}&amp;amp;page=${1}">${1}</a></span>
                 <span class="ellipsis">...</span>
@@ -60,7 +60,7 @@
                 </c:choose>
             </c:forEach>
 
-            <c:if test="${pageScope.totalPages gt 10 and page le pageScope.totalPages - 9}">
+            <c:if test="${pageScope.totalPages gt 5 and page le pageScope.totalPages - 4}">
                 <span class="ellipsis">...</span> 
                 <span> <a
                         href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}">${pageScope.totalPages}</a></span>
