@@ -36,7 +36,8 @@
             </div>
             <div class="body1bg clearfix">
                 <form action="/search/contentSearch.page">
-                    <input class="fltlft db_search_input formText2 tint_777" type="text" name="q" size="23"
+                    <input class="fltlft db_search_input formText2 tint_777"
+                           type="text" name="q"
                            value="${pageScope.xmlEscapedSearchQuery}"/>
                     <c:choose>
                         <c:when test="${pageScope.searchType eq 'articles'}">
@@ -54,23 +55,24 @@
                 </form>
                 <br class="clearfloat"/>
             </div>
+            <br class="clearfloat sdrt sdrb"/>
             <div class="body2bg sdrt gainlayout">
                 <div class="subhead2">Browse by topic</div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool" styleClass="link">Preschool</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1637"
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool" styleClass="link">Preschool</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
                                              fullUri="/elementary-school" styleClass="link">Elementary School</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school" styleClass="link">Middle School</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school" styleClass="link">High School</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school" styleClass="link">Middle School</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school" styleClass="link">High School</link:cmsContent></li>
                     </ul>
                 </div>
                 <div class="fltlft">
                     <ul class="topics text2_180">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleClass="link">Health &amp;amp; Development</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleClass="link">Academics &amp;amp; Activities</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD" styleClass="link">Learning Disabilities</link:cmsContent></li>
-                        <li><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement" styleClass="link">Improve Your School</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleClass="link">Health &amp;amp; Development</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleClass="link">Academics &amp;amp; Activities</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD" styleClass="link">Learning Disabilities</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement" styleClass="link">Improve Your School</link:cmsContent></li>
                     </ul>
                 </div>
                 <br class="clearfloat"/>
@@ -83,7 +85,7 @@
         <ad:AboveFold_300x250/>
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
 
-        <br class="modulespacer"/>
+        <br class="modulespacer_10"/>
         <!--<c:set var="content" value=""/>-->
         <c:choose>
             <c:when test="${not empty content}">

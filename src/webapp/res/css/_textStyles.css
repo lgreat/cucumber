@@ -211,9 +211,9 @@
 /* --------- */
 /* MESSAGING */
 /* --------- */
-.smallAlertText {
+#contentGS .smallAlertText {
     font: 11px / 1.2 Arial, Helvetica, sans-serif;
-    color: #333;
+    /*color: #333;*/
 }
 
 .smallAlertTextBold {
