@@ -704,7 +704,7 @@ p.noMatch {
     font-size: 11px;
     color: #777;
 }
-h3.srchCat {
+#mainContent h3.srchCat {
     padding: 6px 9px;
     background: url('/res/img/discussion_boards/db_bg_header.png') repeat-x;
     color: #fff;
