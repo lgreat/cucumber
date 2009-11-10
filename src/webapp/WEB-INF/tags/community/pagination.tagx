@@ -60,7 +60,7 @@
                 </c:choose>
             </c:forEach>
 
-            <c:if test="${pageScope.totalPages gt 5 and page le pageScope.totalPages - 4}">
+            <c:if test="${pageScope.totalPages gt 5 and (page lt 5 or page le pageScope.totalPages - 4)}">
                 <span class="ellipsis">...</span> 
                 <span> <a
                         href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}">${pageScope.totalPages}</a></span>

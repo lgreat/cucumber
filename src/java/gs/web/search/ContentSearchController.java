@@ -328,8 +328,14 @@ public class ContentSearchController extends AbstractController {
         numResults = numArticles + numDiscussions;
         pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
 
-        List<ContentSearchResult> articleResults = getResultsForPage(getSampleArticles(numArticles), page);
-        List<ContentSearchResult> communityResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
+        List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
+        if (!TYPE_COMMUNITY.equals(type)) {
+            articleResults = getResultsForPage(getSampleArticles(numArticles), page);
+        }
+        List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
+        if (!TYPE_ARTICLES.equals(type)) {
+            communityResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
+        }
 
         model.put(MODEL_ARTICLE_RESULTS, articleResults);
         model.put(MODEL_COMMUNITY_RESULTS, communityResults);
