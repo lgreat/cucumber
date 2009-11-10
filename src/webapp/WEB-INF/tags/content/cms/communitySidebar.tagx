@@ -85,7 +85,7 @@
         <ad:AboveFold_300x250/>
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
 
-        <br class="modulespacer_10"/>
+        <br class="spacer_10"/>
         <!--<c:set var="content" value=""/>-->
         <c:choose>
             <c:when test="${not empty content}">

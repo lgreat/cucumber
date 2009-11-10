@@ -68,6 +68,18 @@
     font-size: 1px;
     line-height: 0;
 }
+.spacer_10{
+    clear:both;
+    height:10px;
+    font-size:1px;
+    line-height:10px;
+}
+.spacer_15{
+    clear:both;
+    height:15px;
+    font-size:1px;
+    line-height:15px;
+}
 .sdrt{
     border-top: 1px dotted #999;
 }
@@ -149,12 +161,6 @@ html[xmlns] .clearfix {
 
 /* These classes are used by communitySidebar.tagx */
 
-.modulespacer_10{
-    clear:both;
-    height:10px;
-    font-size:1px;
-    line-height:10px;
-}
 .module {
     overflow: hidden;
 }
@@ -221,7 +227,7 @@ html[xmlns] .clearfix {
 }
 
 .db_title{
-    padding: 0 0 15px 0;
+    padding: 0;
 }
 .db_title h4{
     width:475px;
@@ -239,7 +245,7 @@ html[xmlns] .clearfix {
 }
 
 .db_discussTopic{
-    padding:0 0 15px 0;
+    padding:0;
 }
 
 /* ------------- */
@@ -369,7 +375,7 @@ html[xmlns] .clearfix {
 
 .db_reply_topic{
     margin:0 0 0 80px;
-    padding:15px 0 0 0;
+    padding:0;
 }
 
 .db_reply{

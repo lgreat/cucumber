@@ -103,13 +103,15 @@
         <c:when test="${fn:length(requestScope.discussionList) > 0}">
 
             <div class="db_deck gainlayout">
-                <span class="smallAlertText">Show:</span>
+                <p class="fltlft">
+                <span class="smallAlertText">Show:&amp;nbsp;</span>
                 <select id="postCountSelect" name="posts">
                     <gsml:selectOption value="10" selected="${requestScope.pageSize eq 10}">10 posts</gsml:selectOption>
                     <gsml:selectOption value="15" selected="${requestScope.pageSize eq 15}">15 posts</gsml:selectOption>
                     <gsml:selectOption value="20" selected="${requestScope.pageSize eq 20}">20 posts</gsml:selectOption>
                     <gsml:selectOption value="25" selected="${requestScope.pageSize eq 25}">25 posts</gsml:selectOption>
                 </select>
+                </p>
 
                 <p class="fltrt smallAlertText">
                     Sort by:
@@ -147,7 +149,7 @@
                         <p class="fltrt emailItLink"><a class="smallText1 link" href="#">Email</a></p>
                         <br class="clearfloat"/>
                     </div>
-
+                    <br class="spacer_15"/>
                     <div class="db_discussTopic clearfix">
                         <div class="fltlft">
                             <link:userProfile user="${discussion.user}">
@@ -184,19 +186,21 @@
                         </div>
                         <!--end db_discussContainer-->
                         <!--<br class="clearfloat"/>-->
+                        <br class="spacer_15"/>
                     </div>
                     <!-- end db_discussTopic -->
                     <!--<br class="clearfloat"/>-->
+                    <!--<br class="spacer_15"/>-->
                 </div>
                 <!-- end db_discussion -->
-
+                <br class="spacer_15"/>
                 <!--<br class="clearfloat"/>-->
                 <c:if test="${fn:length(discussion.replies) > 0}">
                     <div class="db_replies gainlayout">
                         <p class="mostRecent Text1 gainlayout">Most recent replies</p>
 
                         <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
-
+                            <br class="spacer_15"/>
                             <div class="db_reply_topic clearfix">
                                 <div class="fltlft">
                                     <link:userProfile user="${reply.user}">
