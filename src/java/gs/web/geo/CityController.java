@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.56 2009/10/13 21:30:34 droy Exp $
+ * $Id: CityController.java,v 1.57 2009/11/11 22:02:17 aroy Exp $
  */
 
 package gs.web.geo;
@@ -16,6 +16,8 @@ import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.data.test.rating.ICityRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -58,6 +60,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
     public static final String MODEL_DISTRICTS = "districts"; // AnchorListModel object
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // AnchorListModel object
 
+    public static final String MODEL_DISCUSSION_BOARD_ID = "discussionBoardId"; // AnchorListModel object
+
     //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of AnchorListModel object
     private static final Log _log = LogFactory.getLog(CityController.class);
 
@@ -69,6 +73,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
     private ICityRatingDao _cityRatingDao;
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
+    private ILocalBoardDao _localBoardDao;
 
     public static final int MAX_SCHOOLS = 10;
 
@@ -147,6 +152,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
         String cityDisplayName = ((City) city).getDisplayName();
         model.put(MODEL_CITY_NAME, cityDisplayName);
         model.put(MODEL_CITY, city);
+
+        System.err.println("Searching for local board for member city with id " + ((City)city).getId());
+        LocalBoard localBoard = _localBoardDao.findByMemberCityId(((City)city).getId());
+        if (localBoard != null) {
+            System.err.println("Found one with board id=" + localBoard.getBoardId());
+            model.put(MODEL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
+        }
 
         int schoolCount = _schoolDao.countSchools(state, null, null, city.getName());
         model.put(MODEL_SCHOOL_COUNT, new Integer(schoolCount));
@@ -258,5 +270,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     public void setAnchorListModelFactory(AnchorListModelFactory anchorListModelFactory) {
         _anchorListModelFactory = anchorListModelFactory;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
     }
 }

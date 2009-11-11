@@ -35,6 +35,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_LIMIT = "limit";
     public static final String PARAM_CALLER_URI = "uri";
     public static final String PARAM_STYLE = "style";
+    public static final String PARAM_CITY_NAME = "cityName";
 
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
@@ -42,6 +43,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_STYLE = "style";
+    public static final String MODEL_CITY_NAME = "cityName";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -73,10 +75,11 @@ public class RecentDiscussionsController extends AbstractController {
                 model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
 
                 model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
+                model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
             }
         } catch (Exception e) {
             // do nothing, module will render blank
-            _log.warn("Invalid invocation of RecentDiscussionController");
+            _log.warn("Invalid invocation of RecentDiscussionController", e);
         }
 
         return new ModelAndView(_viewName, model);

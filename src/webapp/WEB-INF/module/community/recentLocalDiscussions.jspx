@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:gsweb="gstaglib">
+    <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
+        <script type="text/javascript">
+            function checkLogin() {
+                //<c:if test="${requestScope.context.user eq null}">
+                document.location='${loginRedirectUrl}';
+                //</c:if>
+            }
+
+            function getLocalDiscussionTitle() {
+                var title = $('#localDiscussionsTitleBox').val();
+                if (title != 'Ask your community and get an answer') {
+                    return title;
+                }
+                return '';
+            }
+        </script>
+        <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
+        <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
+        <div id="recentDiscussions" class="box">
+            <div class="inner cleared">
+                <div class="content gainlayout">
+                    <h2>${requestScope.discussionBoard.title}</h2>
+                    <c:forEach var="discussion" items="${requestScope.discussions}">
+                        <div class="discussionHolder sdrb clearfix">
+                            <div class="discussionTopic fltlft">
+                                <h4 class="text3"><link:discussion discussionId="${discussion.id}"
+                                                                   fullUri="${fullUri}"
+                                                                   styleClass="text3">${discussion.title}</link:discussion>
+                                </h4>
+                                <p>
+                                    <community:userContentTeaserText
+                                            textToDisplay="${discussion.body}"
+                                            minLength="143" maxLength="163"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${fullUri}"
+                                            numReplies="${discussion.totalReplies}"
+                                            textSpanClass="text3"
+                                            linkClass="text3"/>
+                                </p>
+                            </div>
+                            <!-- end discussionTopic -->
+                            <br class="clearfloat"/>
+                        </div>
+                        <!-- end discussionHolder -->
+                    </c:forEach>
+
+                    <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                      fullUri="${fullUri}">
+                        <span class="text3_230">More discussions </span>
+                        <span class="alertDoubleArrow">&amp;raquo;</span>
+                    </link:cmsContent></p>
+
+                    <h2>Got a question about ${cityName}?</h2>
+                    <textarea id="localDiscussionsTitleBox"
+                              onclick="GS_textSwitch(this, '', 'Ask your community and get an answer'); checkLogin();"
+                              onblur="GS_textSwitch(this, 'Ask your community and get an answer', '');">Ask your community and get an answer</textarea>
+                    <div class="fltlft">
+                        <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
+                                                        width="37" height="25" align="absmiddle"/>Post discussion</span>
+                        </span>
+                        </a>
+                        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                         openElementJQuerySelector=".startADiscussion"
+                                                         topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                                         discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                                         getTitleFunc="getLocalDiscussionTitle()"/>
+                    </div>
+                    <!-- end start a discussion button -->
+                    <br class="clearfloat"/>
+                </div>
+                <!-- end content -->
+            </div>
+            <!-- end inner -->
+        </div>
+        <!-- end recentDiscussions -->
+
+    </c:if>
+</jsp:root>

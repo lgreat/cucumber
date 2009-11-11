@@ -47,6 +47,13 @@
             <type>java.lang.String</type>
             <description>unique identifier for this link element</description>
         </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>link target</description>
+        </attribute>
     </tag>
 
     <tag>

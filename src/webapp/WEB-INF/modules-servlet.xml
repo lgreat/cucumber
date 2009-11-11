@@ -126,6 +126,12 @@
         <property name="viewName" value="/community/recentDiscussions"/>
     </bean>
 
+    <bean name="/community/recentLocalDiscussions.module"
+          class="gs.web.community.RecentDiscussionsController"
+          autowire="byName">
+        <property name="viewName" value="/community/recentLocalDiscussions"/>
+    </bean>
+
     <bean name="/community/browseLocalBoards.module"
           class="gs.web.community.BrowseLocalBoardsController"
           autowire="byName">
