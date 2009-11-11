@@ -286,7 +286,7 @@
                     <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
                 </c:if>
 
-                <div class="fltlft">
+                <div class="db_discussAvatar fltlft">
                     <link:userProfile user="${requestScope.validUser}">
                         <community:avatar userId="${requestScope.validUser.id}" width="48" height="48"
                                           cssStyle="border: 1px solid #c6c6c6;"/>
@@ -436,6 +436,7 @@
         <c:if test="${fn:length(requestScope.replies) > 3}">
             ${postReplyButton}
             ${shareThis}
+            <br class="clearfloat"/>
             ${replyForm}
         </c:if>
 
