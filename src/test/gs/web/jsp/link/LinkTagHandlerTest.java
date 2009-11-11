@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.70 2009/11/03 23:30:12 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.71 2009/11/11 19:50:51 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -741,6 +741,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
         user.setUserProfile(userProfile);
         UrlBuilder builder = handler.createUrlBuilder();
+        assertEquals("/members/screenie/", builder.asSiteRelative(null));
+
+        handler.setUser(null);
+        handler.setUsername("screenie");
+        builder = handler.createUrlBuilder();
         assertEquals("/members/screenie/", builder.asSiteRelative(null));
     }
 }

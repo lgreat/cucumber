@@ -3349,12 +3349,20 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <!-- one or the other of user and username is required, but not both -->
         <attribute>
             <name>user</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.community.User</type>
             <description>User whose profile to link to.</description>
+        </attribute>
+        <attribute>
+            <name>username</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Username of user whose profile to link to.</description>
         </attribute>
     </tag>
 

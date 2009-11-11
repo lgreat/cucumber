@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UserProfileTagHandler.java,v 1.2 2009/10/12 14:46:15 aroy Exp $
+ * $Id: UserProfileTagHandler.java,v 1.3 2009/11/11 19:50:51 yfan Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.web.util.UrlBuilder;
 import gs.data.community.User;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Generates link to a user's profile page.
@@ -15,10 +16,13 @@ import gs.data.community.User;
  */
 public class UserProfileTagHandler extends LinkTagHandler {
     private User _user;
+    private String _username;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
-        if (_user != null && _user.getUserProfile() != null) {
+        if (StringUtils.isNotBlank(_username)) {
+            builder = new UrlBuilder(_username, UrlBuilder.USER_PROFILE);
+        } else if (_user != null && _user.getUserProfile() != null) {
             builder = new UrlBuilder(_user, UrlBuilder.USER_PROFILE);
         } else {
             if (_user == null) {
@@ -38,5 +42,13 @@ public class UserProfileTagHandler extends LinkTagHandler {
 
     public void setUser(User user) {
         _user = user;
+    }
+
+    public String getUsername() {
+        return _username;
+    }
+
+    public void setUsername(String username) {
+        _username = username;
     }
 }

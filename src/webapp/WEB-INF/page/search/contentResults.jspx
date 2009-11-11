@@ -184,9 +184,8 @@
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
 
                             </h4>
-                            <!-- TODO-8876 modify and use the link:userProfile link tag handler to accept username instead of user -->
                             <p class="byline">
-                                <a href="/members/${result.username}/">${result.username}</a>
+                                <link:userProfile username="${result.username}">${result.username}</link:userProfile>
                                 in ${result.discussionBoardTitle}
                                 ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                             </p>
