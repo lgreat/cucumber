@@ -230,24 +230,24 @@
 
         <ul class="horizontal">
             <li>
-                <img src="" alt="Stock photo 1" width="95" height="95"/>
-                <gsml:radio name="stockPhoto" value="1"/>
+                <img src="${requestScope.stockAvatarUrlPrefix}stk-sunflower-95.jpg" alt="Stock photo 1" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="stk-sunflower"/>
             </li>
             <li>
-                <img src="" alt="Stock photo 2" width="95" height="95"/>
-                <gsml:radio name="stockPhoto" value="2"/>
+                <img src="${requestScope.stockAvatarUrlPrefix}stk-cat-95.jpg" alt="Stock photo 2" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="stk-cat"/>
             </li>
             <li>
-                <img src="" alt="Stock photo 3" width="95" height="95"/>
-                <gsml:radio name="stockPhoto" value="3"/>
+                <img src="${requestScope.stockAvatarUrlPrefix}stk-palm-95.jpg" alt="Stock photo 3" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="stk-palm"/>
             </li>
             <li>
-                <img src="" alt="Stock photo 4" width="95" height="95"/>
-                <gsml:radio name="stockPhoto" value="4"/>
+                <img src="${requestScope.stockAvatarUrlPrefix}stk-dog-95.jpg" alt="Stock photo 4" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="stk-dog"/>
             </li>
             <li>
-                <img src="" alt="Stock photo 5" width="95" height="95"/>
-                <gsml:radio name="stockPhoto" value="5"/>
+                <img src="${requestScope.stockAvatarUrlPrefix}stk-dandelion-95.jpg" alt="Stock photo 5" width="95" height="95"/>
+                <gsml:radio name="stockPhoto" value="stk-dandelion"/>
             </li>
         </ul>
 

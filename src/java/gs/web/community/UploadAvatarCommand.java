@@ -1,11 +1,21 @@
 package gs.web.community;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class UploadAvatarCommand {
     private String _stockPhoto;
-    private byte[] _avatar;
+    private MultipartFile avatar;
+
+    public MultipartFile getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(MultipartFile avatar) {
+        this.avatar = avatar;
+    }
 
     public String getStockPhoto() {
         return _stockPhoto;
@@ -13,13 +23,5 @@ public class UploadAvatarCommand {
 
     public void setStockPhoto(String stockPhoto) {
         _stockPhoto = stockPhoto;
-    }
-
-    public byte[] getAvatar() {
-        return _avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        _avatar = avatar;
     }
 }

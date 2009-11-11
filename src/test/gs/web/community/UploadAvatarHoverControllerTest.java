@@ -2,6 +2,8 @@ package gs.web.community;
 
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -36,13 +38,22 @@ public class UploadAvatarHoverControllerTest extends BaseControllerTestCase {
 
         _errors = new BindException(_command, "");
         _command.setStockPhoto(null);
-        _command.setAvatar(new byte[0]);
+        MultipartFile file = new MockMultipartFile("avatar", "mypic.jpg", "image/jpeg", new byte[0]);
+        _command.setAvatar(file);
         assertFalse(_errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertTrue("Expect errors if empty avatar file is uploaded", _errors.hasErrors());
 
         _errors = new BindException(_command, "");
-        _command.setAvatar(new byte[1]);
+        file = new MockMultipartFile("avatar", "mypic.png", "image/png", new byte[1]);
+        _command.setAvatar(file);
+        assertFalse(_errors.hasErrors());
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        assertTrue("Expect errors if png avatar file is uploaded", _errors.hasErrors());
+
+        _errors = new BindException(_command, "");
+        file = new MockMultipartFile("avatar", "mypic.jpg", "image/jpeg", new byte[1]);
+        _command.setAvatar(file);
         assertFalse(_errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Expect no errors if non-empty avatar file is uploaded", _errors.hasErrors());

@@ -1,11 +1,18 @@
 package gs.web.community;
 
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.data.community.User;
+import gs.data.community.IUserDao;
+import gs.data.util.CommunityUtil;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -13,42 +20,88 @@ import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import javax.imageio.ImageIO;
+import javax.naming.OperationNotSupportedException;
 import java.util.Map;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Transparency;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class UploadAvatarHoverController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
-    private final int MAX_UPLOAD_SIZE = 1000000;
+    /** Largest image size in bytes to allow to be uploaded.  */
+    private final int MAX_UPLOAD_SIZE_BYTES = 1000000;
+    /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
+     * our avatars being. */
+    private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
+    private static final String MODEL_STOCK_AVATAR_URL_PREFIX = "stockAvatarUrlPrefix";
+    private IUserDao _userDao;
 
     @Override
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         super.onBindAndValidate(request, commandObj, errors);
         UploadAvatarCommand command = (UploadAvatarCommand) commandObj;
-        if ((command.getAvatar() == null || command.getAvatar().length == 0)
-                && StringUtils.isBlank(command.getStockPhoto())) {
-            errors.rejectValue("avatar", null, "Please upload your own picture or select an image.");
-        } else if (command.getAvatar() != null && command.getAvatar().length > MAX_UPLOAD_SIZE) {
-            errors.rejectValue("avatar", null, "Maximum image size is 1 megabyte.");
+        if (command.getAvatar() == null) {
+            if (StringUtils.isBlank(command.getStockPhoto()) || !isValidStockPhoto(command.getStockPhoto())) {
+                errors.rejectValue("avatar", null, "Please upload your own picture or select an image.");
+            }
+        } else {
+            if (command.getAvatar().getSize() > MAX_UPLOAD_SIZE_BYTES) {
+                errors.rejectValue("avatar", null, "Maximum image size is 1 megabyte.");
+            } else if (command.getAvatar().getSize() == 0) {
+                errors.rejectValue("avatar", null, "Invalid image.");
+            } else if (command.getAvatar().getContentType() == null ||
+                        !(command.getAvatar().getContentType().equals("image/jpeg") ||
+                          command.getAvatar().getContentType().equals("image/gif"))) {
+                errors.rejectValue("avatar", null, "Image must be a jpeg or gif.");
+            }
         }
     }
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object commandObj, BindException errors) throws Exception {
-        UploadAvatarCommand command = (UploadAvatarCommand) commandObj;
-        if (StringUtils.isNotBlank(command.getStockPhoto())) {
-            _log.info("User chose stock photo #" + command.getStockPhoto());
-        } else if (command.getAvatar() != null && command.getAvatar().length > 0) {
-            _log.info("File upload succeeded: " + command.getAvatar().length + " bytes");
+        if (PageHelper.isMemberAuthorized(request)) {
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            User uploader = sessionContext.getUser();
+
+            UploadAvatarCommand command = (UploadAvatarCommand) commandObj;
+            if (StringUtils.isNotBlank(command.getStockPhoto())) {
+                uploader.getUserProfile().setAvatarType(command.getStockPhoto());
+                getUserDao().updateUser(uploader);
+            } else if (command.getAvatar() != null) {
+                BufferedImage incomingImage = ImageIO.read(command.getAvatar().getInputStream());
+                // Remove the file from the command object to save memory
+                command.setAvatar(null);
+
+                // Scaling in java is MUCH faster if the image is RGB, and also crop the image to square if necessary
+                incomingImage = preProcessImage(incomingImage);
+
+                if (incomingImage.getWidth() > MAX_IMAGE_DIMENSIONS_PIXELS || incomingImage.getHeight() > MAX_IMAGE_DIMENSIONS_PIXELS) {
+                    incomingImage = getScaledInstance(incomingImage,
+                                                        MAX_IMAGE_DIMENSIONS_PIXELS, MAX_IMAGE_DIMENSIONS_PIXELS,
+                                                        RenderingHints.VALUE_INTERPOLATION_BILINEAR,
+                                                        true);
+                }
+
+                //storeImage(incomingImage, 48, uploader);
+                //storeImage(incomingImage, 95, uploader);
+            } else {
+                _log.warn("onSubmit reached without valid image!");
+            }
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("closeHover", true);
+            return new ModelAndView(getFormView(), model);
         } else {
-            _log.warn("onSubmit reached without valid image!");
+            throw new OperationNotSupportedException("Cannot upload avatar without a user");
         }
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("closeHover", true);
-        return new ModelAndView(getFormView(), model);
     }
 
     @Override
@@ -58,6 +111,152 @@ public class UploadAvatarHoverController extends SimpleFormController implements
            // we have to register a custom editor
            binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
            // now Spring knows how to handle multipart object and convert them
-       }
+    }
 
+    @Override
+    protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
+           throws Exception {
+        Map<String, String> model = new HashMap<String, String>();
+
+        model.put(MODEL_STOCK_AVATAR_URL_PREFIX, CommunityUtil.getAvatarURLPrefix() + "stock/");
+        return model;
+    }
+
+    protected boolean isValidStockPhoto(String photoKey) {
+        // TODO validate that the posted photoKey is valid for a stock photo
+        return true;
+    }
+
+/*
+    protected void storeImage(BufferedImage source, int size, User user) {
+        BufferedImage thumb = getScaledInstance(source,
+                                                size, size,
+                                                RenderingHints.VALUE_INTERPOLATION_BILINEAR,
+                                                true);
+
+        try {
+            int path1 = user.getId() % 100;
+            int path2 = ((user.getId() % 10000) - path1) / 100;
+            if (ImageIO.write(thumb, "jpg", new File("C:\\dev\\GSWeb\\src\\webapp\\res\\img\\avatar\\custom\\" + path1 + "\\" + path2 + "\\" + user.getId() + "-" + size + ".jpg"))) {
+                _log.info("  Wrote " + size + " image here: C:\\dev\\GSWeb\\src\\webapp\\res\\img\\avatar\\custom\\" + path1 + "\\" + path2 + "\\" + user.getId() + "-" + size + ".jpg");
+            } else {
+                _log.info("  Failed to store image.");
+            }
+        } catch (IOException ioe) {
+            _log.info("  Failed to store image.", ioe);
+        }
+    }
+*/
+    
+    /**
+     * Convenience method that returns a scaled instance of the
+     * provided {@code BufferedImage}.
+     *
+     * @param img           the original image to be scaled
+     * @param targetWidth   the desired width of the scaled instance,
+     *                      in pixels
+     * @param targetHeight  the desired height of the scaled instance,
+     *                      in pixels
+     * @param hint          one of the rendering hints that corresponds to
+     *                      {@code RenderingHints.KEY_INTERPOLATION} (e.g.
+     *                      {@code RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR},
+     *                      {@code RenderingHints.VALUE_INTERPOLATION_BILINEAR},
+     *                      {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
+     * @param higherQuality if true, this method will use a multi-step
+     *                      scaling technique that provides higher quality than the usual
+     *                      one-step technique (only useful in downscaling cases, where
+     *                      {@code targetWidth} or {@code targetHeight} is
+     *                      smaller than the original dimensions, and generally only when
+     *                      the {@code BILINEAR} hint is specified)
+     * @return a scaled version of the original {@code BufferedImage}
+     */
+    protected BufferedImage getScaledInstance(BufferedImage img,
+                                           int targetWidth,
+                                           int targetHeight,
+                                           Object hint,
+                                           boolean higherQuality) {
+        int type = (img.getTransparency() == Transparency.OPAQUE) ?
+                BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+        BufferedImage ret = img;
+        int w, h;
+        if (higherQuality) {
+            // Use multi-step technique: start with original size, then
+            // scale down in multiple passes with drawImage()
+            // until the target size is reached
+            w = img.getWidth();
+            h = img.getHeight();
+        } else {
+            // Use one-step technique: scale directly from original
+            // size to target size with a single drawImage() call
+            w = targetWidth;
+            h = targetHeight;
+        }
+
+        do {
+            if (higherQuality && w > targetWidth) {
+                w /= 2;
+                if (w < targetWidth) {
+                    w = targetWidth;
+                }
+            }
+
+            if (higherQuality && h > targetHeight) {
+                h /= 2;
+                if (h < targetHeight) {
+                    h = targetHeight;
+                }
+            }
+
+            BufferedImage tmp = new BufferedImage(w, h, type);
+            Graphics2D g2 = tmp.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint);
+            g2.drawImage(ret, 0, 0, w, h, null);
+            g2.dispose();
+
+            ret = tmp;
+        } while (w != targetWidth || h != targetHeight);
+
+        return ret;
+    }
+
+    /**
+     * Conver the passed image into an RGB format, and also crop it if it isn't square.
+     *
+     * @param source Image to process
+     * @return processed image
+     */
+    protected BufferedImage preProcessImage(BufferedImage source) {
+        int w = source.getWidth();
+        int h = source.getHeight();
+        
+        int dim;
+        if (w == h) {
+            // If it is already square keep the new square the same size
+            dim = w;
+        } else {
+            if (h > w) {
+                dim = w;
+                // Crop off an equal amount of the top and bottom of the pic to make it square
+                source = source.getSubimage(0, (h-w)/2, dim, dim);
+            } else {
+                dim = h;
+                // Crop off an equal amount of the right and left of the pic to make it square
+                source = source.getSubimage((w-h)/2, 0, dim, dim);
+            }
+        }
+        
+        BufferedImage target = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = target.createGraphics();
+        g.drawRenderedImage(source, null);
+        g.dispose();
+        return target;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
+    }
 }

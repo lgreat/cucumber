@@ -6,6 +6,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.data.util.CommunityUtil"/>
     <jsp:directive.tag body-content="scriptless"/>
     <!-- Required attributes -->
     <jsp:directive.attribute name="user" required="true" type="gs.data.community.User"
@@ -27,16 +28,58 @@
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+
+        int rightTwoDigits = user.getId() % 100;
+        String firstPath = String.valueOf(rightTwoDigits);
+        String secondPath = String.valueOf(((user.getId() % 10000) - rightTwoDigits) / 100);
+        if (firstPath.length() &lt; 2) {
+            firstPath = "0" + firstPath;
+        }
+        if (secondPath.length() &lt; 2) {
+            secondPath = "0" + secondPath;
+        }
+
+        request.setAttribute("customFirstPath", firstPath);
+        request.setAttribute("customSecondPath", secondPath);
+        request.setAttribute("useNewCommunity", CommunityUtil.isNewCommunityEnabled());
+        request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
     </jsp:scriptlet>
 
 
-    <c:if test="${pageScope.alt eq null}">
+    <c:if test="${alt eq null}">
         <c:set var="alt" value="Avatar"/>
     </c:if>
 
-    <gsml:img src="http://${communityHost}/avatar?id=${user.id}&amp;width=${width}&amp;height=${height}"
-              alt="${alt}" width="${width}" height="${height}"
-              styleClass="${cssClass}" style="${cssStyle}"
-              id="${cssId}"/>
+    <c:choose>
+        <c:when test="${useNewCommunity}">
+            <c:set var="avatarUrl" value="stock/default-${width}.jpg"/>
+            <c:choose>
+                <c:when test="${user.userProfile.avatarType eq 'custom'}">
+                    <c:set var="avatarUrl" value="custom/${customFirstPath}/${customSecondPath}/${user.id}-${width}.jpg"/>
+                </c:when>
+                <!-- TODO gsweb tag to validate stock photos -->
+                <c:when test="${user.userProfile.avatarType eq 'stk-sunflower' or
+                                user.userProfile.avatarType eq 'stk-cat' or
+                                user.userProfile.avatarType eq 'stk-dog' or
+                                user.userProfile.avatarType eq 'stk-dandelion' or
+                                user.userProfile.avatarType eq 'stk-palm'}">
+                    <c:set var="avatarUrl" value="stock/${user.userProfile.avatarType}-${width}.jpg"/>
+                </c:when>
+            </c:choose>
+
+            <c:set var="avatarVersion" value="${user.userProfile.avatarVersion}"/>
+
+            <gsml:img src="${avatarUrlPrefix}${avatarUrl}?v=${avatarVersion}"
+                      alt="${alt}" width="${width}" height="${height}"
+                      styleClass="${cssClass}" style="${cssStyle}"
+                      id="${cssId}"/>
+        </c:when>
+        <c:otherwise>
+            <gsml:img src="http://${communityHost}/avatar?id=${pageScope.userId}&amp;width=${pageScope.width}&amp;height=${pageScope.height}"
+                      alt="${pageScope.alt}" width="${pageScope.width}" height="${pageScope.height}"
+                      styleClass="${pageScope.cssClass}" style="${pageScope.cssStyle}"
+                      id="${pageScope.cssId}"/>
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>
