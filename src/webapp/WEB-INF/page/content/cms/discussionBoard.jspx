@@ -153,7 +153,7 @@
                     <div class="db_discussTopic gainlayout">
                         <div class="db_discussAvatar fltlft">
                             <link:userProfile user="${discussion.user}">
-                                <community:avatar userId="${discussion.user.id}" width="48" height="48"
+                                <community:avatar user="${discussion.user}" width="48" height="48"
                                                   cssClass="fltlft"
                                                   cssStyle="border: 1px solid #c6c6c6;"/>
                             </link:userProfile>
@@ -205,7 +205,7 @@
                             <div class="db_reply_topic">
                                 <div class="db_discussAvatar fltlft">
                                     <link:userProfile user="${reply.user}">
-                                        <community:avatar userId="${reply.user.id}" width="48" height="48"
+                                        <community:avatar user="${reply.user}" width="48" height="48"
                                                           cssStyle="border: 1px solid #c6c6c6;"/>
                                     </link:userProfile>
                                 </div>

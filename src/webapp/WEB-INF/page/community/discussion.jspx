@@ -172,7 +172,7 @@
     <div id="previewReplyDialog" style="display:none;">
         <div class="db_reply_topic">
             <div class="fltlft">
-                <community:avatar userId="${validUser.id}" width="48" height="48"
+                <community:avatar user="${validUser}" width="48" height="48"
                                   cssStyle="border: 1px solid #c6c6c6;"/>
             </div>
             <!-- end preview reply avatar -->
@@ -240,7 +240,7 @@
     <div class="db_discussTopic gainlayout">
         <div class="fltlft">
             <link:userProfile user="${discussion.user}">
-                <community:avatar userId="${discussion.user.id}" width="48" height="48"
+                <community:avatar user="${discussion.user}" width="48" height="48"
                                   cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"/>
             </link:userProfile>
         </div>
@@ -288,7 +288,7 @@
 
                 <div class="db_discussAvatar fltlft">
                     <link:userProfile user="${requestScope.validUser}">
-                        <community:avatar userId="${requestScope.validUser.id}" width="48" height="48"
+                        <community:avatar user="${requestScope.validUser}" width="48" height="48"
                                           cssStyle="border: 1px solid #c6c6c6;"/>
                     </link:userProfile>
                 </div>
@@ -383,7 +383,7 @@
                 <div class="db_reply_topic">
                     <div class="fltlft">
                         <link:userProfile user="${reply.user}">
-                            <community:avatar userId="${reply.user.id}" width="48" height="48"
+                            <community:avatar user="${reply.user}" width="48" height="48"
                                               cssStyle="border: 1px solid #c6c6c6;"/>
                         </link:userProfile>
                     </div>

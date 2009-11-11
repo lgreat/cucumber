@@ -8,8 +8,8 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag body-content="scriptless"/>
     <!-- Required attributes -->
-    <jsp:directive.attribute name="userId" required="true" type="java.lang.Integer"
-                             description="Member id to output avatar for."/>
+    <jsp:directive.attribute name="user" required="true" type="gs.data.community.User"
+                             description="Member to output avatar for."/>
     <jsp:directive.attribute name="width" required="true" type="java.lang.Integer"
                              description="Width of avatar image."/>
     <jsp:directive.attribute name="height" required="true" type="java.lang.Integer"
@@ -34,9 +34,9 @@
         <c:set var="alt" value="Avatar"/>
     </c:if>
 
-    <gsml:img src="http://${communityHost}/avatar?id=${pageScope.userId}&amp;width=${pageScope.width}&amp;height=${pageScope.height}"
-              alt="${pageScope.alt}" width="${pageScope.width}" height="${pageScope.height}"
-              styleClass="${pageScope.cssClass}" style="${pageScope.cssStyle}"
-              id="${pageScope.cssId}"/>
+    <gsml:img src="http://${communityHost}/avatar?id=${user.id}&amp;width=${width}&amp;height=${height}"
+              alt="${alt}" width="${width}" height="${height}"
+              styleClass="${cssClass}" style="${cssStyle}"
+              id="${cssId}"/>
 
 </jsp:root>

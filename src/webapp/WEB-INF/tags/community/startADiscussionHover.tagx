@@ -142,7 +142,7 @@
 
                 <div class="db_discussTopic gainlayout">
                     <div class="fltlft">
-                        <community:avatar userId="${requestScope.context.user.id}" width="48" height="48"
+                        <community:avatar user="${requestScope.context.user}" width="48" height="48"
                                           cssClass="fltlft"
                                           cssStyle="border: 1px solid #c6c6c6;"/>
                     </div>
