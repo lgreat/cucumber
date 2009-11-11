@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.25 2009/10/13 21:40:27 droy Exp $
+ * $Id: CityControllerTest.java,v 1.26 2009/11/11 23:28:20 aroy Exp $
  */
 
 package gs.web.geo;
@@ -12,6 +12,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.ICityRatingDao;
+import gs.data.community.local.ILocalBoardDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -49,6 +50,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setCityRatingDao((ICityRatingDao) getApplicationContext().getBean(ICityRatingDao.BEAN_ID));
         _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
         _controller.setAnchorListModelFactory( (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
+        _controller.setLocalBoardDao( (ILocalBoardDao) getApplicationContext().getBean(ILocalBoardDao.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
