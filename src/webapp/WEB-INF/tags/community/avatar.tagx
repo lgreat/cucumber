@@ -75,10 +75,10 @@
                       id="${cssId}"/>
         </c:when>
         <c:otherwise>
-            <gsml:img src="http://${communityHost}/avatar?id=${pageScope.userId}&amp;width=${pageScope.width}&amp;height=${pageScope.height}"
-                      alt="${pageScope.alt}" width="${pageScope.width}" height="${pageScope.height}"
-                      styleClass="${pageScope.cssClass}" style="${pageScope.cssStyle}"
-                      id="${pageScope.cssId}"/>
+            <gsml:img src="http://${communityHost}/avatar?id=${user.id}&amp;width=${width}&amp;height=${height}"
+                      alt="${alt}" width="${width}" height="${height}"
+                      styleClass="${cssClass}" style="${cssStyle}"
+                      id="${cssId}"/>
         </c:otherwise>
     </c:choose>
 
