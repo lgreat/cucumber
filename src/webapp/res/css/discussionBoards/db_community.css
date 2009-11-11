@@ -144,9 +144,9 @@ html[xmlns] .clearfix {
     color:#06b;
 }
 
-#mainContent .mostRecent{
-    margin:-3px 0 -2px 80px;
-    padding:0;
+#mainContent .db_recentReplies{
+    margin:0 0 0 65px;
+    padding:15px 0 0 0;
 }
 
 #mainContent .postedReplies{
@@ -246,8 +246,12 @@ html[xmlns] .clearfix {
     padding:15px 0 0 15px;
 }
 
-.db_discussTopic{
+.db_replies{
     padding:0;
+}
+
+.db_discussTopic{
+    padding:15px 0 0 0;
 }
 
 /* ------------- */
@@ -256,8 +260,12 @@ html[xmlns] .clearfix {
 
 /* Disussions */
 
+.db_discussAvatar{
+    display:inline;
+}
+
 .db_discussContainer{
-    display:block;
+    display:inline;
     position:relative;
     padding:0 0 0 15px;
 }
@@ -279,7 +287,7 @@ html[xmlns] .clearfix {
 /* Replies */
 
 .db_replyContainer{
-    display:block;
+    display:inline;
     position:relative;
     padding:0 0 0 15px;
 }
@@ -334,7 +342,7 @@ html[xmlns] .clearfix {
 /* Posting replies */
 
 .db_postReplyContainer{
-    display:block;
+    display:inline;
     position:relative;
     padding:0 0 0 15px;
 }
@@ -354,7 +362,7 @@ html[xmlns] .clearfix {
 }
 
 .db_replyOrShare{
-    padding:0 0 20px 65px;
+    padding:15px 0 20px 65px;
 }
 
 /* ----------------- */
@@ -363,7 +371,7 @@ html[xmlns] .clearfix {
 
 .db_discuss{
     width:454px;
-    max-height:90px;
+    /*max-height:90px;*/
     background:#ebebeb;
     padding:12px;
 }
@@ -377,12 +385,12 @@ html[xmlns] .clearfix {
 
 .db_reply_topic{
     margin:0 0 0 80px;
-    padding:0;
+    padding:15px 0 0 0;
 }
 
 .db_reply{
     width:387px;
-    max-height:74px;
+    /*max-height:74px;*/
     border:1px solid #c6c6c6;
     padding:12px;
 }
