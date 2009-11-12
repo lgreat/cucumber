@@ -32,124 +32,146 @@
                 </div>
             </c:if>
 
+            <div id ="navFooterDots">
+                <c:set var="footerCopyright">
+                      <div id="footerCopyright">
+                          &amp;#169;1998-2009 GreatSchools Inc. All Rights Reserved.
+                          GreatSchools is a 501(c)(3) not-for-profit organization
+                          <link:termsOfUse>Terms of Use</link:termsOfUse>
+                          <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
+                      </div>
+                  </c:set>
+    
+                <gsml:a href="/about/aboutUs.page">About Us</gsml:a>            
+                <link:contactUs>Contact Us</link:contactUs>
+                <link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines>
+                <link:newsletterManagement>Newsletters</link:newsletterManagement>
+                <gsml:a href="/about/linkToUs.page">Free Widgets &amp;amp; Tools</gsml:a>
+                <gsml:a href="/about/partnerOpportunities.page#advertise">Advertisers</gsml:a>
+                <gsml:a href="/about/partnerOpportunities.page">Partners</gsml:a>
+                <gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a>
+                <link:pressRoom>Media Room</link:pressRoom>
+                <gsml:a href="http://blogs.greatschools.net" target="_blank">Blog</gsml:a>
+
+                <p>GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
+                    <br/>effective champions of their children's education at home and in their communities.
+                </p>
+
+                <p>${footerCopyright}</p>
+            </div>
+
             <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
+
+                <p>POPULAR CITIES</p>
+
                 <ul class="navColumns">
                     <li class="first">
-                        <div><link:research state="${context.stateOrDefault}"
-                                            rel="nofollow">Find the Right School</link:research></div>
                         <ul>
-                            <li><link:research state="${context.stateOrDefault}"
-                                               rel="nofollow">Compare Schools</link:research></li>
-                            <c:if test="${context.city ne null}">
-                                <li>
-                                    <link:city city="${context.city.name}" state="${context.city.state}">${context.city.name} Schools</link:city>
-                                </li>
-                            </c:if>
-                            <li><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                            <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
+                            <li>
+                                <link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city>
+                                <br/><link:city city="Anchorage" state="AK">Anchorage, AK</link:city>
+                                <br/><link:city city="Atlanta" state="GA">Atlanta, GA</link:city>
+                                <br/><link:city city="Austin" state="TX">Austin, TX</link:city>
+                                <br/><link:city city="Baltimore" state="MD">Baltimore, MD</link:city>
+                                <br/><link:city city="Billings" state="MT">Billings, MT</link:city>
+                                <br/><link:city city="Birmingham" state="AL">Birmingham, AL</link:city>
+                                <br/><link:city city="Boise" state="ID">Boise, ID</link:city>
+                                <br/><link:city city="Boston" state="MA">Boston, MA</link:city>
+                            </li>
                         </ul>
                     </li>
                     <li class="second">
-                        <div><link:articleLibrary rel="nofollow">Grade-By-Grade Support</link:articleLibrary></div>
                         <ul>
-                            <li><link:preschool>Preschool</link:preschool></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="199" language="EN">Kindergarten</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="200" language="EN">First Grade</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="201" language="EN">Second Grade</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="202" language="EN">Third Grade</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="203" language="EN">Fourth Grade</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="204" language="EN">Fifth Grade</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="205" language="EN">Middle School</link:cmsCategoryBrowse></li>
-                            <li><link:cmsCategoryBrowse gradeIDs="206" language="EN">High School</link:cmsCategoryBrowse></li>
+                            <li>
+                                <link:city city="Bridgeport" state="CT">Bridgeport, CT</link:city>
+                                <br/><link:city city="Burlington" state="VT">Burlington, VT</link:city>
+                                <br/><link:city city="Charleston" state="WV">Charleston, WV</link:city>
+                                <br/><link:city city="Charlotte" state="NC">Charlotte, NC</link:city>
+                                <br/><link:city city="Cheyenne" state="WY">Cheyenne, WY</link:city>
+                                <br/><link:city city="Chicago" state="IL">Chicago, IL</link:city>
+                                <br/><link:city city="Columbia" state="SC">Columbia, SC</link:city>
+                                <br/><link:city city="Columbus" state="OH">Columbus, OH</link:city>
+                                <br/><link:city city="Dallas" state="TX">Dallas, TX</link:city>
+                            </li>
                         </ul>
                     </li>
                     <li class="third">
-                        <div><a href="/education-topics/">Education Topics</a></div>
                         <ul>
-                            <li><link:tutoring>Homework</link:tutoring></li>
-                            <li><link:tutoring>Tutoring</link:tutoring></li>
-                            <li><link:topicSearch query="bullying"
-                                                  rel="nofollow">Bullying</link:topicSearch></li>
-                            <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
-                            <li><link:topicSearch query="standardized tests"
-                                                  rel="nofollow">Standardized Testing</link:topicSearch></li>
-                            <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
-                            <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                            <li><link:newsletterManagement>Free Newsletters</link:newsletterManagement></li>
+                            <li>
+                                <link:city city="Denver" state="CO">Denver, CO</link:city>
+                                <br/><link:city city="Des Moines" state="IA">Des Moines, IA</link:city>
+                                <br/><link:city city="Detroit" state="MI">Detroit, MI</link:city>
+                                <br/><link:city city="El Paso" state="TX">El Paso, TX</link:city>
+                                <br/><link:city city="Fargo" state="ND">Fargo, ND</link:city>
+                                <br/><link:city city="Honolulu" state="HI">Honolulu, HI</link:city>
+                                <br/><link:city city="Houston" state="TX">Houston, TX</link:city>
+                                <br/><link:city city="Indianapolis" state="IN">Indianapolis, IN</link:city>
+                                <br/><link:city city="Jackson" state="MS">Jackson, MS</link:city>
+                            </li>
                         </ul>
                     </li>
                     <li class="fourth">
-                        <div><gsml:a href="http://${communityHost}">Parent Community</gsml:a></div>
                         <ul>
-                            <li><a href="http://${communityHost}/q-and-a">Q&amp;amp;A</a></li>
-                            <li><a href="http://${communityHost}/groups">Groups</a></li>
-                            <li><a href="http://${communityHost}/advice">Advice</a></li>
                             <li>
-                                <c:set var="linkText" value="My Local"/>
-                                <c:if test="${context.cityId gt 0}">
-                                    <c:set var="linkText" value="${context.city.name} Local"/>
-                                </c:if>
-                                <a href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;page=1&amp;amp;order=desc&amp;amp;tab=local">${linkText}</a>
+                                <link:city city="Jacksonville" state="FL">Jacksonville, FL</link:city>
+                                <br/><link:city city="Kansas City" state="MO">Kansas City, MO</link:city>
+                                <br/><link:city city="Las Vegas" state="NV">Las Vegas, NV</link:city>
+                                <br/><link:city city="Little Rock" state="AR">Little Rock, AR</link:city>
+                                <br/><link:city city="Los Angeles" state="CA">Los Angeles, CA</link:city>
+                                <br/><link:city city="Louisville" state="KY">Louisville, KY</link:city>
+                                <br/><link:city city="Manchester" state="NH">Manchester, NH</link:city>
+                                <br/><link:city city="Memphis" state="TN">Memphis, TN</link:city>
+                                <br/><link:city city="Miami" state="FL">Miami, FL</link:city>
                             </li>
-                            <li><link:loginOrRegister rel="nofollow">Join!</link:loginOrRegister></li>
                         </ul>
                     </li>
                     <li class="fifth">
-                        <div><gsml:a href="/about/aboutUs.page" rel="nofollow">About GreatSchools</gsml:a></div>
                         <ul>
-                            <li><gsml:a href="/about/aboutUs.page" rel="nofollow">About Us</gsml:a></li>
-                            <li><gsml:a href="http://blogs.greatschools.net" target="_blank">GreatSchools Blog</gsml:a></li>
-                            <li><link:pressRoom rel="nofollow">Media Room</link:pressRoom></li>
-                            <li><link:webbyAwardThanks rel="nofollow">Our Awards</link:webbyAwardThanks></li>
-                            <li><gsml:a href="/cgi-bin/static/jobs.inc"
-                                        rel="nofollow">Jobs</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page#advertise"
-                                        rel="nofollow">Advertisers</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page#license"
-                                        rel="nofollow">License Our Content</gsml:a></li>
-                            <li><gsml:a href="/about/linkToUs.page"
-                                        rel="nofollow">Free Widgets &amp;amp; Tools</gsml:a></li>
-                            <li><link:contactUs rel="nofollow">Contact Us</link:contactUs></li>
+                            <li>
+                                <link:city city="Milwaukee" state="WI">Milwaukee, WI</link:city>
+                                <br/><link:city city="Minneapolis" state="MN">Minneapolis, MN</link:city>
+                                <br/><link:city city="Nashville" state="TN">Nashville, TN</link:city>
+                                <br/><link:city city="New Orleans" state="LA">New Orleans, LA</link:city>
+                                <br/><link:city city="New York City" state="NY">New York City, NY</link:city>
+                                <br/><link:city city="Newark" state="NJ">Newark, NJ</link:city>
+                                <br/><link:city city="Oakland" state="CA">Oakland, CA</link:city>
+                                <br/><link:city city="Oklahoma City" state="OK">Oklahoma City, OK</link:city>
+                                <br/><link:city city="Omaha" state="NE">Omaha, NE</link:city>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sixth">
+                        <ul>
+                            <li>
+                                <link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city>
+                                <br/><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city>
+                                <br/><link:city city="Portland" state="ME">Portland, ME</link:city>
+                                <br/><link:city city="Portland" state="OR">Portland, OR</link:city>
+                                <br/><link:city city="Providence" state="RI">Providence, RI</link:city>
+                                <br/><link:city city="Sacramento" state="CA">Sacramento, CA</link:city>
+                                <br/><link:city city="Salt Lake City" state="UT">Salt Lake City, UT</link:city>
+                                <br/><link:city city="San Antonio" state="TX">San Antonio, TX</link:city>
+                                <br/><link:city city="San Diego" state="CA">San Diego, CA</link:city>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="seventh">
+                        <ul>
+                            <li>
+                                <link:city city="San Francisco" state="CA">San Francisco, CA</link:city>
+                                <br/><link:city city="San Jose" state="CA">San Jose, CA</link:city>
+                                <br/><link:city city="Seattle" state="WA">Seattle, WA</link:city>
+                                <br/><link:city city="Sioux Falls" state="SD">Sioux Falls, SD</link:city>
+                                <br/><link:city city="Tucson" state="AZ">Tucson, AZ</link:city>
+                                <br/><link:city city="Virginia Beach" state="VA">Virginia Beach, VA</link:city>
+                                <br/><link:city city="Washington" state="DC">Washington, DC</link:city>
+                                <br/><link:city city="Wichita" state="KS">Wichita, KS</link:city>
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </div>
 
-            <div id="footerGS">
-                <c:set var="footerCopyright">
-                    <div id="footerCopyright">
-                        &amp;#169;1998-2009 GreatSchools Inc. All Rights Reserved.
-                        <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
-                        <gsml:a rel="nofollow" href="/about/privacyStatement.page">Privacy Policy</gsml:a>
-                        <br/>GreatSchools is a 501(c)(3) not-for-profit organization
-                    </div>
-                </c:set>
-                <c:choose>
-                    <c:when test="${showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter}">
-                        ${footerCopyright}
-                    </c:when>
-                    <c:otherwise>
-
-                        <div id="footerImg">
-                            <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif"
-                                                             alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
-                        </div>
-
-                        <div id="footerContent">
-                                <div id="footerText">
-                                    GreatSchools empowers and inspires parents to get involved
-                                    in their children's development and educational success.<br/>
-                                    We offer preschool, elementary, middle and high school
-                                    information for public, private and charter schools nationwide.
-                                </div>
-                            <c:if test="${showSeoFooter ne false}">
-                                <mod:seoFooter/>
-                            </c:if>
-                            ${footerCopyright}
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
             <div style="clear:both;" />
         </div>
     </c:if>
