@@ -49,7 +49,14 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
     protected void buildCobrandCookie(HttpServletRequest request, SessionContext sessionContext, HttpServletResponse response) {
         Cookie cobrandCookie = getCookie(request, SessionContextUtil.COBRAND_COOKIE);
         String hostName = sessionContext.getHostName();
-        if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
+        // GS-9049 res* servers should not set cookie
+        if ((cobrandCookie == null || !hostName.equals(cobrandCookie.getValue()))
+                && !StringUtils.startsWith(hostName, "res1.")
+                && !StringUtils.startsWith(hostName, "res2.")
+                && !StringUtils.startsWith(hostName, "res3.")
+                && !StringUtils.startsWith(hostName, "res4.")
+                && !StringUtils.startsWith(hostName, "res5.")
+                && !StringUtils.startsWith(hostName, "res6.")) {
             cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
             cobrandCookie.setPath("/");
             cobrandCookie.setDomain(".greatschools.net");

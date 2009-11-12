@@ -236,6 +236,19 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         assertEquals("Unexpected cobrand cookie age", CookieInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
     }
 
+    public void testRegressionGS_9049() {
+        SessionContext sessionContext = (SessionContext) _request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+        _request.setServerName("res2.greatschools.net");
+        sessionContext.setCobrand("res2");
+        sessionContext.setHostName("res2.greatschools.net");
+
+        _interceptor.buildCobrandCookie(_request,
+                (SessionContext) _request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME), _response);
+
+        Cookie cobrandCookie = findCobrandCookie();
+        assertNull(cobrandCookie);
+    }
+
     private Cookie findCobrandCookie() {
         Cookie cookies[] = _response.getCookies();
         if (cookies != null) {

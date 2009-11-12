@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.62 2009/11/12 20:04:19 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.63 2009/11/12 23:55:34 aroy Exp $
  */
 
 package gs.web.util;
@@ -144,6 +144,13 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("aroy.dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("192.168.1.100"));
         assertNull(_urlUtil.cobrandFromUrl("172.21.1.142"));
+
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res1.greatschools.net"));
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res2.greatschools.net"));
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res3.greatschools.net"));
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res4.greatschools.net"));
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res5.greatschools.net"));
+        assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res6.greatschools.net"));
 
         assertNull("editorial.dev should not be treated as a cobrand", _urlUtil.cobrandFromUrl("editorial.dev.greatschools.net"));
 
