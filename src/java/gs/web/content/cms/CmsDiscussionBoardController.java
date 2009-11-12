@@ -33,7 +33,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int DEFAULT_REPLIES_PER_DISCSSION = 2;
-    public static final String DEFAULT_SORT = "newest_first";
+    public static final String DEFAULT_SORT = "recent_activity";
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_DISCUSSION_LIST = "discussionList";
@@ -187,7 +187,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     }
 
     protected DiscussionSort getDiscussionSort(HttpServletRequest request, HttpServletResponse response) {
-        DiscussionSort sort = DiscussionSort.NEWEST_FIRST;
+        DiscussionSort sort = DiscussionSort.RECENT_ACTIVITY;
         String sortParam = request.getParameter(PARAM_SORT);
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         if (sortParam != null) {
@@ -212,8 +212,10 @@ public class CmsDiscussionBoardController extends AbstractController {
     protected DiscussionSort getDiscussionSortFromString(String sort) {
         if (StringUtils.equals("oldest_first", sort)) {
             return DiscussionSort.OLDEST_FIRST;
+        } else if (StringUtils.equals("newest_first", sort)) {
+            return DiscussionSort.NEWEST_FIRST;
         }
-        return DiscussionSort.NEWEST_FIRST;
+        return DiscussionSort.RECENT_ACTIVITY;
     }
 
     /**

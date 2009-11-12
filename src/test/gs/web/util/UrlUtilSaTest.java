@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.61 2009/06/18 23:08:20 eingenito Exp $
+ * $Id: UrlUtilSaTest.java,v 1.62 2009/11/12 20:04:19 aroy Exp $
  */
 
 package gs.web.util;
@@ -356,6 +356,11 @@ public class UrlUtilSaTest extends TestCase {
 
         assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("http://dev.greatschools.net/mySchoolList.page"));
         assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("/mySchoolList.page"));
+
+        assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("http://localhost/aroy-local-board-2/community.gs?content=21"));
+        assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("/aroy-local-board-2/community.gs?content=21"));
+        assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("http://localhost/aroy-local-board-2/community/discussion.gs?content=22"));
+        assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("/aroy-local-board-2/community/discussion.gs?content=22"));
     }
 
     public void testAddParameterWithoutPreexistingParameters(){

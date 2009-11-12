@@ -4,7 +4,6 @@ import gs.web.BaseControllerTestCase;
 import gs.web.community.DiscussionFacade;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.content.cms.CmsTopicCenter;
 import gs.data.content.cms.ContentKey;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
@@ -112,7 +111,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         //        .andReturn(topicCenter);
 
         expect(_discussionDao.getDiscussionsForPage
-                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.NEWEST_FIRST))
+                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.RECENT_ACTIVITY))
                 .andReturn(new ArrayList<Discussion>(0));
 
         expect(_discussionDao.getTotalDiscussions(board)).andReturn(0);
@@ -150,9 +149,10 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
 
     public void testGetDiscussionSortFromString() {
         assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString("newest_first"));
+        assertEquals(DiscussionSort.RECENT_ACTIVITY, _controller.getDiscussionSortFromString("recent_activity"));
         assertEquals(DiscussionSort.OLDEST_FIRST, _controller.getDiscussionSortFromString("oldest_first"));
-        assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString("something_else"));
-        assertEquals(DiscussionSort.NEWEST_FIRST, _controller.getDiscussionSortFromString(null));
+        assertEquals(DiscussionSort.RECENT_ACTIVITY, _controller.getDiscussionSortFromString("something_else"));
+        assertEquals(DiscussionSort.RECENT_ACTIVITY, _controller.getDiscussionSortFromString(null));
     }
 
     public void testGetNoDiscussionsForPage() {
