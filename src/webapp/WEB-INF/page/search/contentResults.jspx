@@ -186,7 +186,10 @@
                             </h4>
                             <p class="byline">
                                 <link:userProfile username="${result.username}">${result.username}</link:userProfile>
-                                in ${result.discussionBoardTitle}
+                                in
+                                <link:cmsContent contentKey="DiscussionBoard#${result.discussionBoardId}"
+                                                 fullUri="${result.discussionBoardFullUri}"
+                                                 styleClass="link">${result.discussionBoardTitle}</link:cmsContent>
                                 ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
                             </p>
                             <p>
