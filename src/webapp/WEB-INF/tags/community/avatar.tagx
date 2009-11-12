@@ -24,6 +24,8 @@
                              description="CSS style."/>
     <jsp:directive.attribute name="alt" required="false" type="java.lang.String"
                              description="Optional alt tag (defaults to 'Avatar')."/>
+    <jsp:directive.attribute name="anonymous" required="false" type="java.lang.Boolean"
+                             description="If anonymous always use the default avatar."/>
 
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -50,12 +52,21 @@
         <c:set var="alt" value="Avatar"/>
     </c:if>
 
+    <c:if test="${empty anonymous}">
+        <c:set var="anonymous" value="false"/>
+    </c:if>
+
     <c:choose>
         <c:when test="${useNewCommunity}">
             <c:set var="avatarUrl" value="stock/default-${width}.jpg"/>
+            <c:set var="avatarVersion" value=""/>
             <c:choose>
+                <c:when test="${anonymous == true}">
+                    <!-- Do nothing, use the default which has already been set -->
+                </c:when>
                 <c:when test="${user.userProfile.avatarType eq 'custom'}">
                     <c:set var="avatarUrl" value="custom/${customFirstPath}/${customSecondPath}/${user.id}-${width}.jpg"/>
+                    <c:set var="avatarVersion" value="?v=${user.userProfile.avatarVersion}"/>
                 </c:when>
                 <!-- TODO gsweb tag to validate stock photos -->
                 <c:when test="${user.userProfile.avatarType eq 'stk-sunflower' or
@@ -67,9 +78,7 @@
                 </c:when>
             </c:choose>
 
-            <c:set var="avatarVersion" value="${user.userProfile.avatarVersion}"/>
-
-            <gsml:img src="${avatarUrlPrefix}${avatarUrl}?v=${avatarVersion}"
+            <gsml:img src="${avatarUrlPrefix}${avatarUrl}${avatarVersion}"
                       alt="${alt}" width="${width}" height="${height}"
                       styleClass="${cssClass}" style="${cssStyle}"
                       id="${cssId}"/>

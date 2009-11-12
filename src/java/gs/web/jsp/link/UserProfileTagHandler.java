@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UserProfileTagHandler.java,v 1.3 2009/11/11 19:50:51 yfan Exp $
+ * $Id: UserProfileTagHandler.java,v 1.4 2009/11/12 01:37:36 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,6 +8,8 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 import gs.data.community.User;
 import org.apache.commons.lang.StringUtils;
+
+import javax.servlet.jsp.JspException;
 
 /**
  * Generates link to a user's profile page.
@@ -17,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class UserProfileTagHandler extends LinkTagHandler {
     private User _user;
     private String _username;
+    private boolean anonymous = false;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
@@ -36,6 +39,22 @@ public class UserProfileTagHandler extends LinkTagHandler {
         return builder;
     }
 
+    public int doStartTag() throws JspException {
+        if (!anonymous) {
+            return super.doStartTag();
+        }
+
+        return EVAL_BODY_INCLUDE;
+    }
+
+    public int doEndTag() throws JspException {
+        if (!anonymous) {
+            return super.doEndTag();
+        }
+
+        return EVAL_PAGE;
+    }
+
     public User getUser() {
         return _user;
     }
@@ -50,5 +69,13 @@ public class UserProfileTagHandler extends LinkTagHandler {
 
     public void setUsername(String username) {
         _username = username;
+    }
+
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
     }
 }

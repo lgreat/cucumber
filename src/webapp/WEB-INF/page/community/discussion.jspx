@@ -239,9 +239,9 @@
 
     <div class="db_discussTopic gainlayout">
         <div class="fltlft">
-            <link:userProfile user="${discussion.user}">
+            <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
                 <community:avatar user="${discussion.user}" width="48" height="48"
-                                  cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"/>
+                                  cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;" anonymous="${discussion.anonymous}"/>
             </link:userProfile>
         </div>
         <!-- end discussion avatar -->
@@ -251,8 +251,8 @@
 
             <div class="db_discuss_full fltrt rnd8">
                 <p class="fltlft">
-                    <link:userProfile user="${discussion.user}">
-                        <span class="smallAlertTextBoldNeutral link">${discussion.user.userProfile.screenName}</span>
+                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                        <span class="smallAlertTextBoldNeutral link"><community:screenName userContent="${discussion}"/></span>
                     </link:userProfile>
 
                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
@@ -382,9 +382,9 @@
                 <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
                 <div class="db_reply_topic">
                     <div class="fltlft">
-                        <link:userProfile user="${reply.user}">
+                        <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
                             <community:avatar user="${reply.user}" width="48" height="48"
-                                              cssStyle="border: 1px solid #c6c6c6;"/>
+                                              cssStyle="border: 1px solid #c6c6c6;" anonymous="${reply.anonymous}"/>
                         </link:userProfile>
                     </div>
                     <!-- end reply avatar -->
@@ -395,8 +395,8 @@
 
                         <div class="db_reply_full fltrt rnd8">
                             <p class="fltlft">
-                                <link:userProfile user="${reply.user}">
-                                    <span class="smallAlertTextBoldNeutral link">${reply.user.userProfile.screenName}</span>
+                                <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                    <span class="smallAlertTextBoldNeutral link"><community:screenName userContent="${reply}"/></span>
                                 </link:userProfile>
 
                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>

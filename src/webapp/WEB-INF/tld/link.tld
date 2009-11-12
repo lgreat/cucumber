@@ -3371,7 +3371,13 @@
             <type>java.lang.String</type>
             <description>Username of user whose profile to link to.</description>
         </attribute>
+        <attribute>
+            <name>anonymous</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>True if the tag should not omit a link to the user profile to hide the user's identity.</description>
+        </attribute>
     </tag>
 
 </taglib>
-
