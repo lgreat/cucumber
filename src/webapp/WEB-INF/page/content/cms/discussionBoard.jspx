@@ -158,7 +158,6 @@
                         <p class="fltrt emailItLink"><a class="smallText1 link" href="#">Email</a></p>
                         <br class="clearfloat"/>
                     </div>
-                    <!--<br class="spacer_15"/>-->
                     <div class="db_discussTopic gainlayout">
                         <div class="db_discussAvatar fltlft">
                             <link:userProfile user="${discussion.user}">
@@ -195,22 +194,16 @@
                         </div>
                         <!--end db_discussContainer-->
                         <br class="clearfloat"/>
-                        <!--<br class="spacer_15"/>-->
                     </div>
                     <!-- end db_discussTopic -->
-                    <!--<br class="clearfloat"/>-->
-                    <!--<br class="spacer_15"/>-->
                     <div class="db_recentReplies gainlayout">
                         <p class="Text1">Most recent replies</p>
                     </div>
                 </div>
                 <!-- end db_discussion -->
-                <!--<br class="spacer_15"/>-->
-                <!--<br class="clearfloat"/>-->
                 <c:if test="${fn:length(discussion.replies) > 0}">
                     <div class="db_replies">
                         <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
-                            <!--<br class="spacer_15"/>-->
                             <div class="db_reply_topic">
                                 <div class="db_discussAvatar fltlft">
                                     <link:userProfile user="${reply.user}">

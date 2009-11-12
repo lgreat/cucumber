@@ -826,6 +826,13 @@ h3.title1white {
     font-size: 1px;
     line-height: 0;
      }
+.titlebar-close{
+    cursor:pointer;
+}
+.titlebar-close img{
+    position:relative;
+    top:1px;
+}
 a.ui-dialog-titlebar-close {
     position: absolute;
     top: 15px;

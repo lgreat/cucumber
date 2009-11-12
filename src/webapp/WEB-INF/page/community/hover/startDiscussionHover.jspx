@@ -89,6 +89,8 @@
                 </c:otherwise>
             </c:choose>
         </h2>
+        <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                      height="11" alt="close modal"/></p></div>
         <br class="clearfloat"/>
         </div>
     <gsweb:form action="/community/discussionSubmission.page" method="post" target="_parent"

@@ -178,9 +178,9 @@
     font: 16px Arial, Helvetica, sans-serif;
 }
 
-.smallText1 {
+#contentGS .smallText1 {
     font: 11px / 1.3 Arial, Helvetica, sans-serif;
-    color: #777;
+    /*color: #777;*/
 }
 
 .smallText1GA {
