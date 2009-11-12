@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.57 2009/11/11 22:02:17 aroy Exp $
+ * $Id: CityController.java,v 1.58 2009/11/12 01:49:02 aroy Exp $
  */
 
 package gs.web.geo;
@@ -153,10 +153,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
         model.put(MODEL_CITY_NAME, cityDisplayName);
         model.put(MODEL_CITY, city);
 
-        System.err.println("Searching for local board for member city with id " + ((City)city).getId());
-        LocalBoard localBoard = _localBoardDao.findByMemberCityId(((City)city).getId());
+        LocalBoard localBoard = _localBoardDao.findByCityId(((City)city).getId());
         if (localBoard != null) {
-            System.err.println("Found one with board id=" + localBoard.getBoardId());
             model.put(MODEL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
         }
 
