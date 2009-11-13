@@ -1,6 +1,6 @@
 div#editorialBar {
     clear: both;
-    height: 115px;
+    height: 118px;
     padding: 5px 0 5px 0;
     margin-top: 25px;
     border-top: 1px solid #DDDDDD;
@@ -132,4 +132,18 @@ div#editorialBar ul.contentList {
 .contentGS .topSchoolLinkDiv a:link, .contentGS .topSchoolLinkDiv a:visited, .contentGS .topSchoolLinkDiv a:active {
     color: #3399AA;
     font-weight:normal;
+}
+
+#allCitiesLink{
+    color:#888888;
+    font-size:11px;
+    font-weight:normal;
+}
+
+#allCitiesLink a{
+    font-weight: normal;
+}
+
+#compareCitiesWrapper{
+    height:97px;
 }
