@@ -564,3 +564,39 @@ div.top_5_promo_city div span.subline {
 span.nobreak {
     white-space:nowrap;
 }
+
+#recentDiscussions{
+    border:2px solid #eee;
+    margin:10px 0 0 0;
+    padding:20px 17px 14px 18px
+}
+#recentDiscussions img{
+    padding:0.3ex 0 0 0;
+}
+#recentDiscussions h2{
+    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color:#5bc;
+}
+#recentDiscussions h4{
+    margin: 0 .5em 0 0;
+    padding:0 0 0 25px;
+}
+#recentDiscussions p{
+    padding: 0 1em .6em 25px;
+    margin: .3em 0 .3em 0;
+}
+#recentDiscussions .hr{
+    margin:0 0 10px 0;
+    border: 0;
+    color: #ccc;
+    background-color: #ccc;
+    height: 1px;
+    width: 261px;
+    text-align: left;
+}
+#recentDiscussions .textarea{
+    font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color:#666;
+    margin:10px 0;
+    width:259px; height:60px;
+}
