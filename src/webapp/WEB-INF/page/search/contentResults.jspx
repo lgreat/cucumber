@@ -139,7 +139,7 @@
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.articleResults}">
-                        <li>
+                        <li><span class="icon"><!-- icon --></span>
                             <h4><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -160,7 +160,7 @@
                             <p>${pageScope.teaserBody}
 
                             <span><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1">
-                              More&amp;nbsp;<span>&amp;raquo;</span>
+                              More&amp;nbsp;<span class="go">&amp;#187;</span>
                             </link:cmsContent></span>
                             </p>
                         </li>
@@ -169,7 +169,7 @@
 
                 <c:if test="${showSeeAllLink}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results <span>&amp;raquo;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
@@ -179,7 +179,7 @@
 
                 <ul class="srchRslts srchCatComm">
                     <c:forEach var="result" items="${requestScope.communityResults}">
-                        <li>
+                        <li><span class="icon"><!-- icon --></span>
                             <h4><link:discussion discussionId="${result.contentKey.identifier}"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
 
@@ -208,7 +208,7 @@
 
                 <c:if test="${showSeeAllLink}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results <span>&amp;raquo;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>

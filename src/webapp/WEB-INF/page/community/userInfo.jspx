@@ -104,7 +104,7 @@
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <span class="fltrt"><a class="flag" href="#">Report this user <span>&amp;#187;</span></a></span>
+        <span class="fltrt"><a class="flag" href="#">Report this user <span class="go">&amp;#187;</span></a></span>
     </c:if>
     </h2>
     <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col': 'Full'}">
@@ -178,16 +178,16 @@
             <a href="${requestScope.uri}">Return to
                 <c:choose>
                     <c:when test="${requestScope.pageType eq 'userAccount'}">
-                        account <span>&amp;#187;</span>
+                        account <span class="go">&amp;#187;</span>
                     </c:when>
                     <c:otherwise>
-                        profile <span>&amp;#187;</span>
+                        profile <span class="go">&amp;#187;</span>
                     </c:otherwise>
                 </c:choose>
             </a>
         </c:when>
         <c:otherwise>
-            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span>&amp;#187;</span></a>
+            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
         </c:otherwise>
     </c:choose>
 
@@ -230,7 +230,7 @@
                     </c:choose>
 
                     <c:if test="${supportedContentType}">
-                        <li>
+                        <li><span class="icon"><!-- icon --></span>
                             <h4 class="text3">${introLabel}: <link:discussion discussionId="${discussion.id}"
                                                                               fullUri="${discussionFullUri}"
                                                                               discussionReplyId="${replyId}"

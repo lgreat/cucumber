@@ -1,4 +1,30 @@
 @charset "UTF-8";
+
+/* RESET styles from global and widelayout */
+#pageGS {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* ----- */
+/* LINKS */
+/* ----- */
+#contentGS a {
+    color: #06b;
+    text-decoration: none;
+    cursor: pointer;
+}
+#contentGS a:visited {
+    color:#06b;
+}
+#contentGS a:focus, #contentGS a:hover {
+    text-decoration: underline;
+}
+#contentGS a span.go {
+    color: #d61;
+    font-size: 1.2em;
+    line-height: .9;
+}
 /* ------------------ */
 /* GLOBAL TEXT STYLES */
 /* ------------------ */
@@ -259,25 +285,7 @@
     font: 15px Arial, Helvetica, sans-serif;
     color: #d61;
 }
-/* ----- */
-/* LINKS */
-/* ----- */
-#contentGS .link{
-    color: #06b;
-    text-decoration: none;
-    cursor: pointer;
-}
-#contentGS .link:focus, #contentGS .link:hover {
-    text-decoration: underline;
-}
-#contentGS .link:visited {
-    color:#06b;
-}
-#contentGS .link span {
-    color: #d61;
-    font-size: 1.1em;
-    line-height: .9;
-}
+
 /* ------- */
 /* BUTTONS */
 /* ------- */
