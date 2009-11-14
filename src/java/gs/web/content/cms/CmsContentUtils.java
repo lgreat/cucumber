@@ -42,7 +42,7 @@ public class CmsContentUtils {
         return (IPublicationDao) SpringUtil.getApplicationContext().getBean("publicationDao");
     }
 
-    private static final long GREAT_PARENTING_CATEGORY_ID = 123;
+    private static final long HEALTH_AND_DEVELOPMENT_CATEGORY_ID = 123;
     private static final long HEALTH_AND_NUTRITION_CATEGORY_ID = 154;
     private static final long ACADEMICS_AND_ACTIVITIES_CATEGORY_ID = 127;
     private static final long HOMEWORK_HELP_CATEGORY_ID = 140;
@@ -73,7 +73,7 @@ public class CmsContentUtils {
 
     private static final Map<Long, ContentKey> CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP = new HashMap<Long,ContentKey>();
     static {
-        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(GREAT_PARENTING_CATEGORY_ID, new ContentKey("TopicCenter",1539L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(HEALTH_AND_DEVELOPMENT_CATEGORY_ID, new ContentKey("TopicCenter",1539L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(ACADEMICS_AND_ACTIVITIES_CATEGORY_ID, new ContentKey("TopicCenter",1540L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(HOMEWORK_HELP_CATEGORY_ID, new ContentKey("TopicCenter",1544L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(PREP_FOR_COLLEGE_CATEGORY_ID, new ContentKey("TopicCenter",1542L));

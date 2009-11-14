@@ -43,7 +43,7 @@
 
     <c:choose>
         <c:when test="${topicCenter.contentKey.identifier eq 1539}">
-            <pageHelper:setPathway pathway="GREAT_PARENTING"/>
+            <pageHelper:setPathway pathway="HEALTH_AND_DEVELOPMENT"/>
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1540}">
             <pageHelper:setPathway pathway="ACADEMICS_AND_ACTIVITIES"/>

@@ -11,6 +11,10 @@
                          description="Hostname of community server, such as community.greatschools.net"/>
 <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
                          description="True if topnav is loaded via community iframe"/>
+
+    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+[[[new community enabled? ${communityUtil.newCommunityEnabled}]]]
+
     <div id="communityHeader" class="noprint withImages">
         <span class="headerUsername">
             Welcome,

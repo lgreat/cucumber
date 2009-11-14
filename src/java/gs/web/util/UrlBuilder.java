@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.195 2009/11/11 19:50:51 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.196 2009/11/14 01:29:52 yfan Exp $
  */
 
 package gs.web.util;
@@ -190,6 +190,7 @@ public class UrlBuilder {
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
     public static final VPage SCHOOLS_IN_STATE = new VPage("vpage:schoolsInState");
 
+    public static final VPage ABOUT_US = new VPage("vpage:aboutUs");
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
     public static final VPage PRESS_ROOM = new VPage("vpage:pressRoom");
     public static final VPage PRESS_RELEASES = new VPage("vpage:pressReleases");
@@ -712,6 +713,8 @@ public class UrlBuilder {
             _path = "/news/back-to-school-poll-results.page";
         } else if (COMMUNITY_DISCUSSION.equals(page)) {
             _path = "/community/discussion.gs";
+        } else if (ABOUT_US.equals(page)) {
+            _path = "/about/aboutUs.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

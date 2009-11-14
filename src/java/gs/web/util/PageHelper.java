@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.83 2009/10/30 21:41:37 yfan Exp $
+ * $Id: PageHelper.java,v 1.84 2009/11/14 01:29:52 yfan Exp $
  */
 
 package gs.web.util;
@@ -66,7 +66,7 @@ public class PageHelper {
         put("BACK_TO_SCHOOL", "22");
         put("TOP_NAV_PROMO", "23");
 
-        put("GREAT_PARENTING", "23");
+        put("HEALTH_AND_DEVELOPMENT", "23");
         put("ACADEMICS_AND_ACTIVITIES", "24");
         put("LEARNING_DISABILITIES", "25");
         put("IMPROVE_YOUR_SCHOOL", "26");

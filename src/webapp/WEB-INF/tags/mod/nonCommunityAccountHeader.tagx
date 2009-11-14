@@ -7,21 +7,34 @@
     >
 <jsp:directive.tag body-content="empty"/>
 
+    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
     <div id="communityHeader" class="noprint">
-        <span class="headerUsername">Welcome!</span>
-        <span class="headerAccount">
-            <link:loginOrRegister email="${requestScope.context.email}">Sign In</link:loginOrRegister>
-        </span>
-        <span class="headerMsl">
-            <c:choose>
-                <c:when test="${not empty requestScope.context.mslCount}">
-                    <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
-                </c:when>
-                <c:otherwise>
-                    <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
-                </c:otherwise>
-            </c:choose>
-        </span>
+
+        <c:choose>
+            <c:when test="${communityUtil.newCommunityEnabled}">
+                <span class=""><link:aboutUs>About GreatSchools</link:aboutUs></span>
+                <span class=""><link:registration email="${requestScope.context.email}">Join Us</link:registration></span>
+                <span class=""><link:loginOrRegister email="${requestScope.context.email}">Sign In</link:loginOrRegister></span>
+            </c:when>
+            <c:otherwise>
+                <span class="headerUsername">Welcome!</span>
+                <span class="headerAccount">
+                    <link:loginOrRegister email="${requestScope.context.email}">Sign In</link:loginOrRegister>
+                </span>
+                <span class="headerMsl">
+                    <c:choose>
+                        <c:when test="${not empty requestScope.context.mslCount}">
+                            <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
+                        </c:when>
+                        <c:otherwise>
+                            <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
+                        </c:otherwise>
+                    </c:choose>
+                </span>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 
 
