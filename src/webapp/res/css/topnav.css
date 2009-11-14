@@ -343,7 +343,7 @@
 
 /* START subnav spacing */
 
-#topnav ul#topnav_menusubnav li#topnav_gp {
+#topnav ul#topnav_menusubnav li#topnav_hd {
     margin-right: 10px;
 }
 #topnav ul#topnav_menusubnav li#topnav_aa {
@@ -362,7 +362,7 @@
     margin-right: 0;
 }
 
-#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_gp {
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_hd {
     margin-right: 9px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_aa {
