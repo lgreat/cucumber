@@ -13,7 +13,6 @@
                          description="True if topnav is loaded via community iframe"/>
 
     <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-[[[new community enabled? ${communityUtil.newCommunityEnabled}]]]
 
     <div id="communityHeader" class="noprint withImages">
         <span class="headerUsername">
