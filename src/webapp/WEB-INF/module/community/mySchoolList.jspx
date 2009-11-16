@@ -57,7 +57,7 @@
 
                     ${review.quip}
                         <span class="fltlt"><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
-                        More  <span>&#187;</span></link:schoolProfileParentReview></span>
+                        More&amp;nbsp;<span class="go">&amp;#187;</span></link:schoolProfileParentReview></span>
                     </p>
 
 
@@ -73,7 +73,7 @@
             <p>Find the right school for your child and track its stats from test scores to
               teacher quality.
                 <link:research state="${requestScope.context.state}"
-                >Save schools to your school list now &amp;raquo;</link:research>
+                >Save schools to your school list now <span class="go">&amp;#187;</span></link:research>
             </p> 
         </c:otherwise>
     </c:choose>

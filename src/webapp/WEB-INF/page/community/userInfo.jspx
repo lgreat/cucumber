@@ -199,12 +199,12 @@
             <p>Share stories about your child's success in and out of the classroom
                in our community.</p>
             <p>Our community wants to hear from you about:</p>
-            <ul>
-                <li><link:discussion discussionId="1" fullUri="uri">Health and development</link:discussion></li>
-                <li><link:discussion discussionId="1" fullUri="uri">Academics and activities</link:discussion></li>
-                <li><link:discussion discussionId="1" fullUri="uri">Learning difficulties</link:discussion></li>
-                <li><link:discussion discussionId="1" fullUri="uri">Improving schools</link:discussion></li>
-                <li><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></li>
+            <ul class="prompt">
+                <li><span><link:discussion discussionId="1" fullUri="uri">Health and development</link:discussion></span></li>
+                <li><span><link:discussion discussionId="1" fullUri="uri">Academics and activities</link:discussion></span></li>
+                <li><span><link:discussion discussionId="1" fullUri="uri">Learning difficulties</link:discussion></span></li>
+                <li><span><link:discussion discussionId="1" fullUri="uri">Improving schools</link:discussion></span></li>
+                <li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li>
             </ul>
         </c:when>
         <c:otherwise>
