@@ -126,19 +126,10 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
     }
 
     public void testBuildModel() throws Exception {
-        _controller.SCHOOLS_PAGE_SIZE = 50;
-        Map model = _controller.buildModel(State.AK, "schools/Alaska/AK");
-        List list = (List)model.get(AllInStateController.MODEL_LIST);
-        assertEquals(50, list.size());
+        Map model = _controller.buildModel(State.AK, "schools/cities/Alaska/AK/2");
         String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
-        assertTrue(pageLinks.contains("AU-AY"));
-        
-        _controller.CITIES_PAGE_SIZE = 10;
-        model = _controller.buildModel(State.AK, "schools/cities/Alaska/AK/5");
-        list = (List)model.get(AllInStateController.MODEL_LIST);
-        assertEquals(10, list.size());
-        pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
-        assertTrue(pageLinks.contains("<span class=\"pageLink\">CA-CH</span>"));
+        assertTrue(pageLinks.contains("A-M"));
+        assertTrue(pageLinks.contains("N-Y"));
 
     }
 

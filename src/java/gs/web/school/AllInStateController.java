@@ -36,7 +36,7 @@ import gs.web.util.context.SessionContextUtil;
 /**
  * This controller builds the model for the "all schools",
  * "all cities", and "all districts" pages.
- * 
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class AllInStateController extends AbstractController {
@@ -69,14 +69,14 @@ public class AllInStateController extends AbstractController {
 
     /** The max number of items to display on a page */
     protected int SCHOOLS_PAGE_SIZE = 400; //default
-    protected int CITIES_PAGE_SIZE = 700; //default
+    protected int CITIES_PAGE_SIZE = 1000000; //cities will always be a-m and  n-final letter
     protected int DISTRICTS_PAGE_SIZE = 400; //default
-    
+
     /** Lucene query parser */
     private QueryParser _queryParser;
 
-    private Logger _log = Logger.getLogger(AllInStateController.class); 
-    
+    private Logger _log = Logger.getLogger(AllInStateController.class);
+
     public AllInStateController() {
         super();
         _queryParser = new QueryParser("text", new GSAnalyzer());
@@ -174,6 +174,7 @@ public class AllInStateController extends AbstractController {
         StringBuffer linksBuffer = new StringBuffer();
         List<List> pageGroups = new ArrayList<List>();
         List workingGroup = new ArrayList();
+        boolean breakpoint = true;
         for (List alphaGroup : alphaGroups) {
             if (alphaGroup.size() > pageSize) {
                 if (workingGroup.size() > 0) {
@@ -205,9 +206,22 @@ public class AllInStateController extends AbstractController {
                 }
                 linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(subGroup, 2)));
             } else {
-                if ((alphaGroup.size() + workingGroup.size()) < pageSize) {
+                // here's the logic...as soon as we get past "m", we start a new page
+                // we do this by adding 1000000 to the total number of cities as soon as
+                // we see a letter greater than or equal to "n"
+                int count = 0;
+                if(path.contains("/cities/") && alphaGroup.size() > 0){
+                    Map fields = (HashMap) alphaGroup.get(0);
+                    String cityName = (String) fields.get("city");
+                    if(cityName.compareToIgnoreCase("n") > 0 && breakpoint){
+                        count = 1000000;
+                        breakpoint = false;
+                    }
+                }
+                if ((alphaGroup.size() + workingGroup.size() + count) < pageSize) {
                     workingGroup.addAll(alphaGroup);
                 } else {
+                    count = 0;
                     pageGroups.add(workingGroup);
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(workingGroup, 1)));
                     workingGroup = alphaGroup;
@@ -227,7 +241,7 @@ public class AllInStateController extends AbstractController {
             model.put(MODEL_LIST, list);
             String span = getSpan(list, selectedSpanWidth);
             model.put(MODEL_TITLE, buildTitle(type, state, span));
-        } 
+        }
         model.put(MODEL_STATE, state);
 
         return model;
@@ -282,7 +296,7 @@ public class AllInStateController extends AbstractController {
                     }
                     currentLetter = lowerName.charAt(0);
                 }
-                
+
                 if (name.matches("^\\p{Alnum}.*")) {
                     Map fields = new HashMap();
                     fields.put("name", name);
@@ -393,7 +407,7 @@ public class AllInStateController extends AbstractController {
      * @return a String
      */
     protected String buildPageLink(String type, State state, int index,
-                               int selectedIndex, String span) {
+                                   int selectedIndex, String span) {
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("<span class=\"pageLink\">");
@@ -402,7 +416,7 @@ public class AllInStateController extends AbstractController {
             if (CITIES_TYPE.equals(type)) {
                 buffer.append("cities/");
             } else if (DISTRICTS_TYPE.equals(type)) {
-                buffer.append("districts/");                
+                buffer.append("districts/");
             }
             buffer.append(state.getLongName());
             buffer.append("/");
