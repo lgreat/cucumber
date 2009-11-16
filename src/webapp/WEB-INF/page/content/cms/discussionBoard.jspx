@@ -197,7 +197,7 @@
                     </div>
                     <!-- end db_discussTopic -->
                     <div class="db_recentReplies gainlayout">
-                        <p class="Text1">Most recent replies</p>
+                        <!-- don't collapse -->
                     </div>
                 </div>
                 <!-- end db_discussion -->
