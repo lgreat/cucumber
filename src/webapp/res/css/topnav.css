@@ -337,45 +337,45 @@
 }
 
 #topnav ul#topnav_menusubnav li {
-    padding-left: 4px;
+    padding-left: 3px;
     float: left;
 }
 
 /* START subnav spacing */
 
 #topnav ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 #topnav ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 #topnav ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 #topnav ul#topnav_menusubnav li#topnav_c {
     margin-right: 0;
 }
 
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 9px;
+    margin-right: 6px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 9px;
+    margin-right: 6px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 9px;
+    margin-right: 6px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 9px;
+    margin-right: 6px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 9px;
+    margin-right: 6px;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_c {
     margin-right: 0;
@@ -388,7 +388,7 @@
 }
 
 #topnav ul#topnav_menusubnav li.nav_menu {
-    padding-left: 4px;
+    padding-left: 2px;
 }
 
 #topnav ul#topnav_menusubnav li a {
