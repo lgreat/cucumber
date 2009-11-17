@@ -104,7 +104,7 @@
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <span class="fltrt"><a class="flag" href="#">Report this user <span class="go">&amp;#187;</span></a></span>
+        <span class="fltrt"><a class="flag" href="#">Report this member <span class="go">&amp;#187;</span></a></span>
     </c:if>
     </h2>
     <c:choose>
