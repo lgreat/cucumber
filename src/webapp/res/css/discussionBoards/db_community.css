@@ -26,24 +26,25 @@
     border-top: 2px solid #aaa;
     margin: 0 auto;
     overflow:hidden;
+    background:url(/res/img/discussion_boards/db_background.gif);
 }
 
 /* this creates equal height columns */
-#container .column{ 
+/*#container .column{ 
     margin-bottom: -1000px;
     padding-bottom: 1000px;
-}
+}*/
 
 #mainContent {
     width: 558px;
     border-right: 2px solid #aaa;
     padding: 15px 20px;
-    float:left;
+    /*float:left;*/
 }
 
 #sideBar {
     width: 330px;
-    float: right;
+    /*float: right;*/
 }
 
 .fltlft {

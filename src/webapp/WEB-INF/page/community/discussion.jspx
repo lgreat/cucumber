@@ -106,7 +106,7 @@
 <body>
 
 <div id="container">
-<div id="mainContent" class="column">
+<div id="mainContent" class="fltlft">
 
 <p class="breadCrumbs smallAlertText">
     <link:home styleClass="link">Home</link:home>
