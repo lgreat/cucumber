@@ -41,8 +41,8 @@
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
     <pageHelper:externalCss file="/res/css/content/highSchool.css"/>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
 
     <![CDATA[
     <!--[if IE]>

@@ -11,14 +11,20 @@
 /* ----- */
 #contentGS a {
     color: #06b;
-    text-decoration: none;
+    /*text-decoration: none;*/
     cursor: pointer;
 }
-#contentGS a:visited {
-    color:#06b;
+a:link {
+    text-decoration: none
 }
-#contentGS a:focus, #contentGS a:hover {
+/*#contentGS a:visited {
+    color:#06b;
+}*/
+a:focus, a:hover {
     text-decoration: underline;
+}
+a.btn25:focus, a.btn25:hover, a.btn35:focus, a.btn35:hover, .db_discussion h4 a:hover {
+    text-decoration: none;
 }
 #contentGS a span.go {
     color: #d61;
@@ -247,7 +253,7 @@
     color: #d61;
 }
 
-.smallAlertTextBoldNeutral {
+#contentGS .smallAlertTextBoldNeutral {
     font: bold 11px / 1.2 Arial, Helvetica, sans-serif;
 }
 

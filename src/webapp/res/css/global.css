@@ -21,8 +21,7 @@ img {
 
 .contentGS a,
     .contentGS a:link,
-    .contentGS a:visited,
-    .contentGS a:active {
+    .contentGS a:visited {
     text-decoration: none;
     color: #00F;
 }
@@ -30,7 +29,10 @@ img {
 .contentGS  a:hover {
     text-decoration: underline;
 }
-
+.contentGS a:active {
+    text-decoration: none;
+    color: #00F;
+}
 .contentGS a.pad {
     padding: 0px 10px 0px 0px;
     display: inline;
