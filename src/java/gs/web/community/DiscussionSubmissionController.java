@@ -22,6 +22,7 @@ import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.cms.IPublicationDao;
 import gs.data.search.SolrService;
+import gs.data.security.Permission;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +46,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IPublicationDao _publicationDao;
     private SolrService _solrService;
+    private IUserDao _userDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -193,12 +195,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         User user = sessionContext.getUser();
 
         // validation
+        boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS);
+
         if (StringUtils.length(command.getBody()) < DISCUSSION_BODY_MINIMUM_LENGTH) {
             _log.warn("Attempt to edit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
-        } else if (!Util.dateWithinXMinutes(discussion.getDateCreated(), 150)) {
+        } else if (!canEdit && !Util.dateWithinXMinutes(discussion.getDateCreated(), 150)) {
             _log.warn("Attempt to edit after too much time has passed. discussion_id=" +
                     discussion.getId() + ";created_date=" + discussion.getDateCreated());
-        } else if (!discussion.getAuthorId().equals(user.getId())) {
+        } else if (!canEdit && !discussion.getAuthorId().equals(user.getId())) {
             _log.warn("Attempt to edit but user != author! discussion author_id=" +
                     discussion.getAuthorId() + "; user_id=" + user.getId());
         } else {
@@ -210,7 +214,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             _discussionDao.save(discussion);
             // needed for indexing
-            discussion.setUser(user);
+            if (discussion.getAuthorId().equals(user.getId())) {
+                discussion.setUser(user);
+            } else {
+                User author = _userDao.findUserFromId(discussion.getAuthorId());
+                discussion.setUser(author);
+            }
             // needed for indexing
             discussion.setDiscussionBoard(board);
             try {
@@ -342,5 +351,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setSolrService(SolrService solrService) {
         _solrService = solrService;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }

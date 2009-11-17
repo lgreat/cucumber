@@ -301,7 +301,7 @@
                         <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
                             <span class="text3bold">by
                                 <link:userProfile
-                                        user="${discussion.user}" styleClass="link">${requestScope.validUser.userProfile.screenName}
+                                        user="${discussion.user}" styleClass="link">${discussion.user.userProfile.screenName}
                                 </link:userProfile>
                             </span>
 
