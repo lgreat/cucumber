@@ -13,6 +13,8 @@ import gs.data.contest.IContestDao;
 import gs.data.contest.Contest;
 import gs.data.contest.ContestEntry;
 import gs.web.util.ReadWriteController;
+import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 
 /**
  * GS-8998
@@ -51,6 +53,9 @@ public class ContestAjaxController implements ReadWriteController {
                     entry.setOptedInGS("true".equals(optInGS));
 
                     _contestDao.save(entry);
+
+                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.SweepstakesEntered);
                 }
                 result = "ok";
             } else {
