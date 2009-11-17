@@ -277,16 +277,19 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             // TODO: profanity filter
             // TODO: more validation?
 
+            boolean newReply = false;
             boolean canSave = false;
             DiscussionReply reply;
             if (command.getDiscussionReplyId() == null) {
                 reply = new DiscussionReply();
+                newReply = true;
                 canSave = true;
             } else {
                 reply = _discussionReplyDao.findById(command.getDiscussionReplyId());
                 // choosing 150 minutes instead of 120 to give people time to compose their changes
-                if (Util.dateWithinXMinutes(reply.getDateCreated(), 150) &&
-                    reply.getAuthorId().equals(user.getId())) {
+                boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS);
+                if (canEdit || (Util.dateWithinXMinutes(reply.getDateCreated(), 150) &&
+                    reply.getAuthorId().equals(user.getId()))) {
                     canSave = true;
                 }
             }
@@ -294,7 +297,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             if (canSave) {
                 reply.setDiscussion(discussion);
                 reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
-                reply.setAuthorId(user.getId());
+                if (newReply) {
+                    reply.setAuthorId(user.getId());
+                }
                 _discussionReplyDao.save(reply);
             }
 
