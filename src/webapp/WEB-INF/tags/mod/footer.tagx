@@ -57,7 +57,7 @@
                     <br/>effective champions of their children's education at home and in their communities.
                 </p>
 
-                <p>${footerCopyright}</p>
+                ${footerCopyright}
             </div>
 
             <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">

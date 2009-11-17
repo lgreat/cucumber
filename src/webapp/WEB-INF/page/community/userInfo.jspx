@@ -123,7 +123,7 @@
             to start building your profile.
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
-        <form action="/" method="POST" style="display:none">
+        <form action="/" method="post" style="display:none">
             <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>
             <br/>
