@@ -15,6 +15,7 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
+import gs.data.security.Permission;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -49,6 +50,8 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
+    public static final String MODEL_CAN_EDIT_MEMBER = "canEditMember";
+    public static final String MODEL_CAN_BAN_MEMBER = "canBanMember";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -104,12 +107,16 @@ public class UserInfoController extends AbstractController {
             }
         }
 
+        boolean canEdit = false;
+        boolean canBan = false;
         boolean viewingOwnProfile = false;
         if (PageHelper.isMemberAuthorized(request)) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User viewer = sessionContext.getUser();
             if (viewer != null) {
                 model.put(MODEL_VIEWER, viewer);
+                canEdit = viewer.hasPermission(Permission.USER_EDIT_MEMBER_DETAILS);
+                canBan = viewer.hasPermission(Permission.USER_BAN_DEACTIVATE_MEMBER);
             }
 
             if (pageUser == null && _defaultToCurrentUser) {
@@ -123,6 +130,9 @@ public class UserInfoController extends AbstractController {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, URI_USER_ACCOUNT);
             return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request)));
         }
+
+        model.put(MODEL_CAN_EDIT_MEMBER, canEdit);
+        model.put(MODEL_CAN_BAN_MEMBER, canBan);
 
         List<UserContent> recentContent;
 

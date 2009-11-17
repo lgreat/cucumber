@@ -38,7 +38,7 @@
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
-            //<c:if test = "${requestScope.viewingOwnProfile}" >
+            //<c:if test = "${requestScope.canEditMember}" >
 
             // =========================================================================
             // about me
@@ -70,7 +70,7 @@
                 $('.aboutMe .bioText').text($('.aboutMe .bioInput').val());
                 var ajaxUrl = '/community/userAccountAjax.page';
                 toggleAboutMe();
-                $.post(ajaxUrl, {aboutMe:$('.aboutMe .bioInput').val()});
+                $.post(ajaxUrl, {aboutMe:$('.aboutMe .bioInput').val(), memberId:$('.aboutMe .memberId').val()});
 //                window.location.href=window.location.href;
 //                window.location.reload();
             });
@@ -125,7 +125,7 @@
         <div class="aboutMe">
         <h3 class="text1">
             About me
-            <c:if test="${requestScope.viewingOwnProfile}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
+            <c:if test="${requestScope.canEditMember}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
         </h3>
 
         <p class="defaultBioText">
@@ -135,7 +135,7 @@
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" method="post" style="display:none">
-            <input type="hidden" name="memberId" value="${requestScope.pageUser.id}"/>
+            <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>
             <br/>
             <input type="button" name="Save" value="Save" class="aboutMeSave"/>
@@ -144,10 +144,16 @@
             </div>
         <p class="avatar">
             <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar" cssStyle="border: 1px solid #c6c6c6;"/>
-            <c:if test="${requestScope.viewingOwnProfile}">
-                <br />
-                <a href="#" id="updateMyPhotoLink">Update my photo</a>
-            </c:if>
+            <c:choose>
+                <c:when test="${requestScope.viewingOwnProfile}">
+                    <br/>
+                    <a href="#" id="updateMyPhotoLink">Update my photo</a>
+                </c:when>
+                <c:when test="${requestScope.canEditMember}">
+                    <br/>
+                    <a href="#" id="resetPhotoLink">Reset photo</a>
+                </c:when>
+            </c:choose>
         </p>
     </div><c:if test="${requestScope.pageType eq 'userAccount'}">
         <div class="mgAccount col">

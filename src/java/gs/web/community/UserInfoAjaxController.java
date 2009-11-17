@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.security.Permission;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
@@ -21,6 +22,7 @@ import gs.web.util.PageHelper;
 public class UserInfoAjaxController extends AbstractController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String PARAM_ABOUT_ME = "aboutMe";
+    public static final String PARAM_MEMBER_ID = "memberId";
 
     private IUserDao _userDao;
 
@@ -31,17 +33,17 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
             _log.warn("No SessionContext found in request.");
             return null;
         }
-        User user = sessionContext.getUser();
-        if (user == null) {
+        User viewer = sessionContext.getUser();
+        if (viewer == null) {
             _log.warn("No User in request.");
             return null;
         }
-        if (user.getUserProfile() == null) {
-            _log.warn("User in request has no user profile (email=" + user.getEmail() + ").");
+        if (viewer.getUserProfile() == null) {
+            _log.warn("User in request has no user profile (email=" + viewer.getEmail() + ").");
             return null;
         }
         if (!PageHelper.isMemberAuthorized(request)) {
-            _log.warn("User in request is not authorized (email=" + user.getEmail() + ").");
+            _log.warn("User in request is not authorized (email=" + viewer.getEmail() + ").");
             return null;
         }
 
@@ -50,8 +52,25 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
             _log.warn("No aboutMe in request.");
             return null;
         }
-        user.getUserProfile().setAboutMe(aboutMe);
-        _userDao.saveUser(user);
+
+        User pageUser;
+        try {
+            int pageUserId = Integer.parseInt(request.getParameter(PARAM_MEMBER_ID));
+            if (pageUserId != viewer.getId()) {
+                pageUser = _userDao.findUserFromId(pageUserId);
+            } else {
+                pageUser = viewer;
+            }
+        } catch (Exception e) {
+            pageUser = null;
+        }
+
+        boolean canEdit = viewer.hasPermission(Permission.USER_EDIT_MEMBER_DETAILS);
+        if (pageUser != null && (viewer.getId() == pageUser.getId() || canEdit)) {
+            pageUser.getUserProfile().setAboutMe(aboutMe);
+        }
+
+        _userDao.saveUser(pageUser);
         return null;
     }
 
