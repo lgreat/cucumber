@@ -93,8 +93,8 @@
                     //<c:if test="${getTitleFunc ne null}">
                         createUrl += "&amp;title=" + ${getTitleFunc};
                     //</c:if>
-                    jQuery('#startADiscussionIFrame').attr('src', createUrl);
                     jQuery('#startADiscussionDialog').dialog("open");
+                    jQuery('#startADiscussionIFrame').attr('src', createUrl);
                 //</c:when><c:otherwise>
                     document.location=this.loginRedirectUrl;
                 //</c:otherwise></c:choose>
@@ -102,6 +102,9 @@
             };
             this.close = function() {
                 jQuery('#startADiscussionDialog').dialog("close");
+            };
+            this.onClose = function() {
+                jQuery('#startADiscussionIFrame').attr('src', '');
             };
         };
 
@@ -124,7 +127,8 @@
                 draggable: false,
                 width: 606,
                 height: 481,
-                title: "Start a discussion"
+                title: "Start a discussion",
+                close: GS.startDiscussionHover.onClose
             });
 
             GS.registerCloseDialogHandler(function() {

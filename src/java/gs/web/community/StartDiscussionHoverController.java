@@ -32,12 +32,23 @@ public class StartDiscussionHoverController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private String _viewName;
 
+    private void logDuration(long durationInMillis, String eventName) {
+        float seconds = ((float)durationInMillis)/1000f;
+        _log.info(eventName + " took " + seconds + " seconds");
+    }
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         Map<String,Object> model = new HashMap<String, Object>();
 
+        _log.info("---------BEGIN PROFILING FOR StartDiscussionHoverController--------");
+        long startTime = System.currentTimeMillis();
         populateModelWithListOfValidDiscussionTopics(model);
+        logDuration(System.currentTimeMillis() - startTime, "Determining list of valid discussion topics");
+        startTime = System.currentTimeMillis();
         populateModelWithListOfValidCities(model);
+        logDuration(System.currentTimeMillis() - startTime, "Determining list of valid discussion local cities");
+        _log.info("---------END PROFILING FOR StartDiscussionHoverController--------");
 
         model.put(MODEL_TOPIC_CENTER_ID, request.getParameter("topicCenterId"));
         model.put(MODEL_LOCAL_BOARD_ID, request.getParameter("discussionBoardId"));
@@ -46,14 +57,18 @@ public class StartDiscussionHoverController extends AbstractController {
     }
 
     protected void populateModelWithListOfValidCities(Map<String, Object> model) {
+        long startTime = System.currentTimeMillis();
         List<LocalBoard> localBoards = _localBoardDao.getLocalBoards();
+        logDuration(System.currentTimeMillis() - startTime, "Retrieving all local boards");
         Set<Long> ids = new HashSet<Long>();
         for (LocalBoard localBoard : localBoards) {
             ids.add(localBoard.getBoardId());
         }
 
         // Get a mapping of all the board ids to their discussion board objects
+        startTime = System.currentTimeMillis();
         Map<Long, CmsDiscussionBoard> boardMap = _cmsDiscussionBoardDao.get(ids);
+        logDuration(System.currentTimeMillis() - startTime, "Retrieving set of " + ids.size() + " discussion boards");
 
         List<LocalBoard> rval = new ArrayList<LocalBoard>();
         for (LocalBoard localBoard: localBoards) {
