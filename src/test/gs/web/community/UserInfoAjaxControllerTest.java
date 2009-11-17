@@ -123,6 +123,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         PageHelper.setMemberAuthorized(getRequest(), getResponse(), user);
         getRequest().setCookies(getResponse().getCookies());
         getRequest().setParameter(UserInfoAjaxController.PARAM_ABOUT_ME, "This is about me.");
+        getRequest().setParameter(UserInfoAjaxController.PARAM_MEMBER_ID, "1");
         
         _userDao.saveUser(user);
         replayAllMocks();
