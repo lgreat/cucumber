@@ -14,13 +14,18 @@ public class MailToFriendCommand implements ICaptchaCommand {
     private String _refer = "";
     private String _challenge = "";
     private String _response = "";
-
     private int _schoolId;
 
     private int _articleId;
 
     private long _featureId;
 
+    // Added for GS-8839: new email a friend controller
+    private boolean _copy = false;
+    private String _contentUrl;
+    private String _contentTitle;
+    private String _summary;
+    private int _discussionId;
 
     public String getUserEmail() {
         return _userEmail;
@@ -104,6 +109,45 @@ public class MailToFriendCommand implements ICaptchaCommand {
         }
     }
 
+    public boolean isCopy() {
+        return _copy;
+    }
+
+    public void setCopy(boolean copy) {
+        _copy = copy;
+    }
+
+    public String getContentUrl() {
+        return _contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        _contentUrl = contentUrl;
+    }
+
+    public String getContentTitle() {
+        return _contentTitle;
+    }
+
+    public void setContentTitle(String contentTitle) {
+        _contentTitle = contentTitle;
+    }
+
+    public String getSummary() {
+        return _summary;
+    }
+
+    public void setSummary(String summary) {
+        _summary = summary;
+    }
+
+    public int getDiscussionId() {
+        return _discussionId;
+    }
+
+    public void setDiscussionId(int discussionId) {
+        _discussionId = discussionId;
+    }
 
     public String getChallenge(){
         return _challenge;

@@ -1839,6 +1839,18 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
+    <!-- Temporarily removed GS-8839 -->
+    <!--bean name="/community/hover/emailAFriend.page"
+          autowire="byName"
+          class="gs.web.community.EmailAFriendHoverController" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="formView" value="community/hover/emailAFriend"/>
+        <property name="successView" value="community/hover/emailAFriendConfirmation"/>
+        <property name="commandName" value="mailToFriendCmd"/>
+        <property name="commandClass" value="gs.web.community.MailToFriendCommand"/>
+        <property name="mailSender" ref="mailSender"/>
+    </bean-->
+
     <bean name="/table/clear.page"
           autowire="byName"
           class="gs.web.util.ClearTableDaoCacheController" lazy-init="true">
