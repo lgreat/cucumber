@@ -2,6 +2,8 @@ package gs.web.community;
 
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.ClientHttpRequest;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
@@ -28,8 +30,9 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -38,6 +41,9 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     protected final Log _log = LogFactory.getLog(getClass());
     /** Largest image size in bytes to allow to be uploaded.  */
     private final int MAX_UPLOAD_SIZE_BYTES = 1000000;
+    public static final String POST_URL_PROPERTY_KEY = "gs.avatarUploadURL";
+    public static final String SYNCHRONOUS_RESPONSE = "sync";
+    public static final String ASYNCHRONOUS_RESPONSE = "async";
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
     private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
@@ -91,6 +97,19 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                                                         true);
                 }
 
+                String postResponse = postImages(incomingImage, uploader);
+                if (StringUtils.equals(SYNCHRONOUS_RESPONSE, postResponse)) {
+                    SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+                    sitePrefCookie.setProperty("avatarAlertType", "sync");
+                } else if (StringUtils.equals(ASYNCHRONOUS_RESPONSE, postResponse)) {
+                    SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+                    sitePrefCookie.setProperty("avatarAlertType", "async");
+                } else {
+                    // error
+                    SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+                    sitePrefCookie.setProperty("avatarAlertType", "error");
+                }
+
                 //storeImage(incomingImage, 48, uploader);
                 //storeImage(incomingImage, 95, uploader);
             } else {
@@ -126,6 +145,51 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         // TODO validate that the posted photoKey is valid for a stock photo
         return true;
     }
+
+    protected String postImages(BufferedImage source, User user) {
+        URL url = null;
+        try {
+            url = new URL(System.getProperty(POST_URL_PROPERTY_KEY));
+        } catch (MalformedURLException murle) {
+            _log.error("Failed to determine avatar post url from " + POST_URL_PROPERTY_KEY +
+                    " (value=" + System.getProperty(POST_URL_PROPERTY_KEY) + ").", murle);
+        }
+        if (url == null) {
+            return null;
+        }
+
+        int path1 = user.getId() % 100;
+        int path2 = ((user.getId() % 10000) - path1) / 100;
+        String dir = "/avatar/" + path1 + "/" + path2 + "/";
+
+        try {
+            ClientHttpRequest clientHttpRequest = new ClientHttpRequest(url);
+            clientHttpRequest.setParameter("numblobs", 2);
+
+            scaleAndSetImageParameter(source, 48, "image/jpeg", "jpg", user, dir, clientHttpRequest, 1);
+            scaleAndSetImageParameter(source, 95, "image/jpeg", "jpg", user, dir, clientHttpRequest, 2);
+
+            return clientHttpRequest.postAsString();
+        } catch (IOException ioe) {
+            _log.error("Failed to post avatar.", ioe);
+        }
+        return null;
+    }
+
+    protected void scaleAndSetImageParameter(BufferedImage source, int size, String mimetype, String formatName, User user, String dir, ClientHttpRequest clientHttpRequest, int paramNum) throws IOException {
+        BufferedImage thumb = getScaledInstance(source,
+                size, size,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR,
+                true);
+
+        String destFilename = user.getId() + "-" + size + "." + formatName;
+
+        clientHttpRequest.setParameter("blob" + paramNum, destFilename, mimetype, formatName, thumb);
+        clientHttpRequest.setParameter("dir" + paramNum, dir);
+        clientHttpRequest.setParameter("name" + paramNum, destFilename);
+        clientHttpRequest.setParameter("path" + paramNum, dir + destFilename);
+    }
+
 
 /*
     protected void storeImage(BufferedImage source, int size, User user) {

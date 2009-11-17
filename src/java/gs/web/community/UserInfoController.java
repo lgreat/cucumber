@@ -20,6 +20,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.RedirectView301;
+import gs.web.util.SitePrefCookie;
 
 import java.util.*;
 
@@ -176,6 +177,10 @@ public class UserInfoController extends AbstractController {
         model.put(MODEL_VIEWING_OWN_PROFILE, viewingOwnProfile);
 
         model.put(MODEL_PAGE_TYPE, _pageType);
+
+        SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+        model.put("avatarAlertType", sitePrefCookie.getProperty("avatarAlertType"));
+        sitePrefCookie.removeProperty("avatarAlertType");
 
         return new ModelAndView(_viewName, model);
     }
