@@ -110,6 +110,7 @@ public class UserInfoController extends AbstractController {
         boolean canEdit = false;
         boolean canBan = false;
         boolean viewingOwnProfile = false;
+        String currentUser = "unauthenticated user";
         if (PageHelper.isMemberAuthorized(request)) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User viewer = sessionContext.getUser();
@@ -125,6 +126,7 @@ public class UserInfoController extends AbstractController {
             } else if (pageUser.getId() == viewer.getId()) {
                 viewingOwnProfile = true;
             }
+            currentUser = viewer.getUserProfile().getScreenName() + " (" + viewer.getId() + ")";
         } else if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
             // if viewing My Account and user is not logged in, redirect to login page
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, URI_USER_ACCOUNT);
@@ -133,6 +135,13 @@ public class UserInfoController extends AbstractController {
 
         model.put(MODEL_CAN_EDIT_MEMBER, canEdit);
         model.put(MODEL_CAN_BAN_MEMBER, canBan);
+
+        if (!canBan && !pageUser.getUserProfile().isActive()) {
+
+            _log.warn("Attempted access by " + currentUser + " of deactivated user profile for: " + pageUser.getUserProfile().getScreenName());
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView(VIEW_NOT_FOUND);
+        }
 
         List<UserContent> recentContent;
 
