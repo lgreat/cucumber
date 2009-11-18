@@ -60,13 +60,20 @@
             });
 
             jQuery('.reportSendButton').click(function() {
+                var reason = jQuery('#reportReason').val();
+                var type = jQuery('#reportContentType').val();
+                if (reason == null || reason.length == 0) {
+                    alert("Please explain how this " + type +
+                          " may have violated our Terms of Use or Community Guidelines.");
+                    return false;
+                }
                 jQuery('#reportItDialog').dialog('close');
 
                 var params = {
-                    type: jQuery('#reportContentType').val(),
+                    type: type,
                     contentId: jQuery('#reportContentId').val(),
                     reporterId: jQuery('#reportReporterId').val(),
-                    reason: jQuery('#reportReason').val()
+                    reason: reason
                 };
 
                 jQuery.post('/community/reportContent.page', params);

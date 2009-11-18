@@ -203,7 +203,7 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
         u.getUserProfile().setScreenName("Anthony");
 
         replayAllMocks();
-        _controller.sendEmail("url", ReportContentCommand.ReportType.discussion, u);
+        _controller.sendEmail("url", ReportContentCommand.ReportType.discussion, u, "reason");
         verifyAllMocks();
         assertNotNull(_mailSender.getSentMessages());
         assertEquals(1, _mailSender.getSentMessages().size());

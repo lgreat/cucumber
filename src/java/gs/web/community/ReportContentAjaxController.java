@@ -46,17 +46,14 @@ public class ReportContentAjaxController extends SimpleFormController implements
             return null; // early exit
         }
 
-        _log.info("User " + command.getReporterId() + " reported " + command.getType() +
-                " with id " + command.getContentId() + ", with reason \"" + command.getReason() + "\".");
-
         String urlToContent = getLinkForContent(request, command.getContentId(), command.getType());
-        _log.info("Linking to: " + urlToContent);
-        sendEmail(urlToContent, command.getType(), reporter);
+        sendEmail(urlToContent, command.getType(), reporter, command.getReason());
 
         return null;
     }
 
-    protected void sendEmail(String urlToContent, ReportContentCommand.ReportType contentType, User reporter) {
+    protected void sendEmail(String urlToContent, ReportContentCommand.ReportType contentType,
+                             User reporter, String reason) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("aroy@greatschools.net");
         message.setFrom("aroy@greatschools.net");
@@ -66,7 +63,8 @@ public class ReportContentAjaxController extends SimpleFormController implements
         body.append("User ").append(reporter.getUserProfile().getScreenName());
         body.append(" (id=").append(reporter.getId()).append(", email= ").append(reporter.getEmail());
         body.append(") has reported the following ").append(contentType).append(":\n\n");
-        body.append(urlToContent);
+        body.append(urlToContent).append("\n\n");
+        body.append("Reason provided: ").append(reason);
         message.setText(body.toString());
 
         try {
