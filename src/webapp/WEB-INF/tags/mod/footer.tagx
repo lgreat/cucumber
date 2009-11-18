@@ -48,7 +48,7 @@
                 <link:newsletterManagement>Newsletters</link:newsletterManagement>
                 <gsml:a href="/about/linkToUs.page">Free Widgets &amp;amp; Tools</gsml:a>
                 <gsml:a href="/about/partnerOpportunities.page#advertise">Advertisers</gsml:a>
-                <gsml:a href="/about/partnerOpportunities.page">Partners</gsml:a>
+                <gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a>
                 <gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a>
                 <link:pressRoom>Media Room</link:pressRoom>
                 <gsml:a href="http://blogs.greatschools.net" target="_blank">Blog</gsml:a>
@@ -166,6 +166,7 @@
                                 <br/><link:city city="Virginia Beach" state="VA">Virginia Beach, VA</link:city>
                                 <br/><link:city city="Washington" state="DC">Washington, DC</link:city>
                                 <br/><link:city city="Wichita" state="KS">Wichita, KS</link:city>
+                                <br/><link:city city="Wilmington" state="DE">Wilmington, DE</link:city>
                             </li>
                         </ul>
                     </li>
