@@ -83,6 +83,13 @@
             $('.defaultBioText').show();
             //</c:if>
 
+            $('#resetPhotoLink').click(function() {
+                var ajaxUrl = '/community/userAccountAjax.page';
+                $.post(ajaxUrl, {resetPhoto:'true', memberId:$('.aboutMe .memberId').val()});
+                window.location.reload();
+                return false;
+            });
+
             // =========================================================================
 
             //</c:if>
@@ -149,7 +156,7 @@
                     <br/>
                     <a href="#" id="updateMyPhotoLink">Update my photo</a>
                 </c:when>
-                <c:when test="${requestScope.canEditMember}">
+                <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
                     <br/>
                     <a href="#" id="resetPhotoLink">Reset photo</a>
                 </c:when>

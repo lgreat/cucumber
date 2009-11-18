@@ -23,6 +23,7 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String PARAM_ABOUT_ME = "aboutMe";
     public static final String PARAM_MEMBER_ID = "memberId";
+    public static final String PARAM_RESET_PHOTO = "resetPhoto";
 
     private IUserDao _userDao;
 
@@ -47,12 +48,6 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
             return null;
         }
 
-        String aboutMe = request.getParameter(PARAM_ABOUT_ME);
-        if (aboutMe == null) {
-            _log.warn("No aboutMe in request.");
-            return null;
-        }
-
         User pageUser;
         try {
             int pageUserId = Integer.parseInt(request.getParameter(PARAM_MEMBER_ID));
@@ -66,11 +61,29 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         }
 
         boolean canEdit = viewer.hasPermission(Permission.USER_EDIT_MEMBER_DETAILS);
-        if (pageUser != null && (viewer.getId() == pageUser.getId() || canEdit)) {
-            pageUser.getUserProfile().setAboutMe(aboutMe);
+
+        // so far, this controller is used to either:
+        // 1. Edit About Me, or
+        // 2. Reset Photo
+
+        // certain users can reset other users' photos to the default avatar
+        if (canEdit && pageUser != null && "true".equals(request.getParameter(PARAM_RESET_PHOTO))) {
+            pageUser.getUserProfile().setAvatarType(null);
+            _userDao.saveUser(pageUser);
+            return null;
         }
 
-        _userDao.saveUser(pageUser);
+        // edit About Me
+        String aboutMe = request.getParameter(PARAM_ABOUT_ME);
+        if (aboutMe == null) {
+            _log.warn("No aboutMe in request.");
+            return null;
+        } else if (pageUser != null && (viewer.getId() == pageUser.getId() || canEdit)) {
+            pageUser.getUserProfile().setAboutMe(aboutMe);
+            _userDao.saveUser(pageUser);
+            return null;
+        }
+
         return null;
     }
 
