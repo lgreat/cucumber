@@ -52,6 +52,7 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_CAN_EDIT_MEMBER = "canEditMember";
     public static final String MODEL_CAN_BAN_MEMBER = "canBanMember";
+    public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -196,6 +197,9 @@ public class UserInfoController extends AbstractController {
         model.put(MODEL_VIEWING_OWN_PROFILE, viewingOwnProfile);
 
         model.put(MODEL_PAGE_TYPE, _pageType);
+
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, model.get(MODEL_URI).toString());
+        model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
 
         SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
         model.put("avatarAlertType", sitePrefCookie.getProperty("avatarAlertType"));

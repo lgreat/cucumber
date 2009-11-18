@@ -4,12 +4,11 @@ package gs.web.community;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ReportContentCommand {
-    public enum ReportType {reply, discussion}
+    public enum ReportType {reply, discussion, member}
     private ReportType _type;
-    private long _contentId;
+    private int _contentId;
     private String _reason;
     private int _reporterId;
-    private String _redirect;
 
     public ReportType getType() {
         return _type;
@@ -19,11 +18,11 @@ public class ReportContentCommand {
         _type = type;
     }
 
-    public long getContentId() {
+    public int getContentId() {
         return _contentId;
     }
 
-    public void setContentId(long contentId) {
+    public void setContentId(int contentId) {
         _contentId = contentId;
     }
 
@@ -41,13 +40,5 @@ public class ReportContentCommand {
 
     public void setReporterId(int reporterId) {
         _reporterId = reporterId;
-    }
-
-    public String getRedirect() {
-        return _redirect;
-    }
-
-    public void setRedirect(String redirect) {
-        _redirect = redirect;
     }
 }
