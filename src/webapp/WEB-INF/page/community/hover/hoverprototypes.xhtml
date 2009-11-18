@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root
-        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-        xmlns:link="urn:www.greatschools.net/taglib/link"
-        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:gsweb="gstaglib"
-        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-        >
-<html lang="en">
-<jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-<jsp:directive.page contentType="text/html"/>
-
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
-    <![CDATA[
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    ]]>
-    <title>Join - GreatSchools</title>
-</head>
-<gsml:body adPageName="community/join">
-<script type="text/javascript">
+    <title>Hovers</title>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"></script>
+    <script type="text/javascript">
 $(function () {
 	var shwGds=false;
 	$('#grdShow').click(function(){
@@ -47,14 +27,70 @@ $(function () {
 	$('.joinLink').click(function(){
     $('#join_dialog').dialog('open');
 	});
-	$('#join_dialog').dialog({
-        bgiframe: true,
-        modal: true,
-        draggable: false,
-        autoOpen: false,
-        resizable: false,
-        width: 680
- });
+	$('.signinLink').click(function(){
+    $('#signin_dialog').dialog('open');
+    $('#signin_dialog #forgot_password').attr('style', 'display:none');
+    $('#signin_dialog #forgot_password').text('');
+	});
+	$('.forgotLink').click(function(){
+    $('#forgot-password-dialog').dialog('open');
+	});
+  $('#lnchPword').click(function(){
+	  var captEmail = $('#signin_dialog #semail').val();
+		$('#passRecoverAddr').val(captEmail);
+    $('#signin_dialog').dialog('close');
+    $('#forgot-password-dialog').dialog('open');
+		return false;
+  });
+	$('#lnchSignin').click(function(){
+    var captEmail = $('#join_dialog #jemail').val();
+		$('#signin_dialog #semail').val(captEmail);
+    $('#signin_dialog #forgot_password').attr('style', 'display:none');
+    $('#signin_dialog #forgot_password').text('');
+    $('#join_dialog').dialog('close');
+    $('#signin_dialog').dialog('open');
+    $('#signin_dialog #forgot_password').attr('style', 'display:none');
+    return false;
+  });
+	$('#lnchJoin').click(function(){
+	  var captEmail = $('#signin_dialog #semail').val();
+		$('#join_dialog #jemail').val(captEmail);
+        $('#signin_dialog').dialog('close');
+        $('#join_dialog').dialog('open');
+        return false;
+  });
+	$('#passEmail').click(function(){
+    var sentEmail = $('#passRecoverAddr').val();
+		passConfirm(sentEmail);
+    $('#forgot-password-dialog').dialog('close');
+    $('#signin_dialog').dialog('open');
+		return false;
+  });
+  $('#join_dialog').dialog({
+    bgiframe: true,
+		modal: true,
+		draggable: false,
+		autoOpen: false,
+		resizable: false,
+		width: 680
+  });
+  $('#signin_dialog').dialog({
+	  bgiframe: true,
+		modal: true,
+		draggable: false,
+		autoOpen: false,
+		resizable: false,
+		width: 630
+  });
+	$('#forgot-password-dialog').dialog({
+	  bgiframe: true,
+		modal: true,
+		draggable: false,
+		autoOpen: false,
+		resizable: false,
+		width: 400
+  });
+
 	$('#cancelPref').click(function(){
 		document.getElementById('joinGS').reset();
 		$('.error').attr('style','display:none');
@@ -78,7 +114,11 @@ $(function () {
 });
 
 });
-
+var passConfirm = function(email){
+  var confirmMess = "\273 An email has been sent to " + email +" with instructions for selecting a new password."
+	$('#signin_dialog #forgot_password').text(confirmMess);
+	$('#signin_dialog #forgot_password').attr('style', 'display:block');
+}
 var validatePass = function(cleanUp) {
 var pass = $('#pword').val();
 $("#password_message").show();
@@ -205,28 +245,33 @@ $("#process_error").hide();
 
 
 </script>
-<div id="join_dialog" >
-    <h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
-        <div class="dialog_intro">
-            <div class="introTxt col">
-                <h3>Keep tabs on Lowell High School</h3>
+</head>
+<body>
+     <p class="link joinLink">Launch the join modal controller <span>&#187;</span></p>
+<p class="link signinLink">Launch the signin modal controller <span>&#187;</span></p>
+<p class="link forgotLink">Launch the forgot password modal controller <span>&#187;</span></p>
+	<div id="join_dialog" >
+		<h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
+		<div class="dialog_intro">
+    	<div class="introTxt col">
+	        <h3>Keep tabs on Lowell High School</h3>
 				<p>Be the first to know when school performance data is release that affects your child.</p>
-            </div>
-            <img class="stockPhoto col" src="/res/img/discussion_boards/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"  />
         </div>
-    <form id="joinGS">
-        <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
-        <fieldset class="contactPw">
-            <ul>
-                <li>
-                    <label for="fName">First name *</label>
+        <img class="stockPhoto col" src="img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"  />
+     </div>
+     <form id="joinGS">
+     <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
+     	<fieldset class="contactPw">
+        	<ul>
+            	<li>
+                	<label for="fName">First name *</label>
                     <input type="text" id="fName" name="fName" />
                     <div class="errors">
-                        <span id="fn_valid" class="error valid "> <!-- icon --> </span>
+                    	<span id="fn_valid" class="error valid "> </span>
                         <span id="fn_invalid" class="error ">Please enter first name</span>
                         <span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span class="specChars">, . - _ &#38;</span></span>
                     </div>
-                </li>
+                 </li>
 <!--                <li>
                 	<label for="lName">Last name *</label>
                     <input type="text" id="lName" name="lName" />
@@ -237,66 +282,64 @@ $("#process_error").hide();
                     </div>
                 </li> -->
                 <li>
-                    <label for="jemail">Email address *</label>
+                	<label for="email">Email address *</label>
                     <input type="text" id="jemail" name="jemail" />
                     <div class="errors">
-                        <span class="error" id="em_valid"> <!-- icon --> </span>
-                        <span class="error" id="em_invalid">Please enter a valid email</span>
-                    </div>
+                    	<span class="error" id="em_valid"> </span>
+                    	<span class="error" id="em_invalid">Please enter a valid email</span>
+                     </div>
                 </li>
                 <li>
-                    <label for="uName">Username * <br />
-                        <span class="hlpTxt">6-14 characters</span>
-                    </label>
+                	<label for="uName">Username * <br />
+						<span class="hlpTxt">6-14 characters</span></label>
                     <input type="text" id="uName" name="uName" />
                     <div class="errors">
-                        <span class="error valid" id="sn_valid">Your username is available</span>
+					        <span class="error valid" id="sn_valid">Your username is available</span>
                         <span class="error" id="sn_inuse">Someone is already registered with this user name</span>
                         <span class="error" id="sn_invalid">Your user name must be 6-14 characters, with no spaces</span>
                         <span class="error" id="sn_enter">Please enter a user name</span>
                         <span class="error" id="sn_invalid_chars">Username may contain only letters, numbers, and the following punctuation: <span class="specChars">. - _</span></span>
                     </div>
-                    <p class="hlpTxt">Choose carefully 	&#151; this will be your public identity on GreatSchools</p>
+                	<p class="hlpTxt">Choose carefully 	&#151; this will be your public identity on GreatSchools</p>
                 </li>
                 <li>
-                    <label for="pword">Password * <br />
-                        <span class="hlpTxt">6-14 characters</span>
-                    </label>
-                    <input type="password"  id="pword" name="pword" />
+                	<label for="pword">Password * <br />
+                    <span class="hlpTxt">6-14 characters</span></label>
+                    <input type="password"  id="jpword" name="jpword" />
                     <div class="errors">
-                        <span class="error valid" id="pw"> <!-- icon --> </span>
+                    	<span class="error valid" id="pw"> </span>
                         <span class="error" id="pw_invalid">Your password must be 6-14 characters</span>
                         <span class="error" id="nopw">Please enter password</span>
                     </div>
                 </li>
                 <li>
-                    <label for="cpword">Retype password *</label>
+                	<label for="cpword">Retype password *</label>
                     <input type="password" id="cpword" name="cpword" />
                     <div class="errors">
-                        <span class="error valid" id="pwmatch"> <!-- icon --> </span>
+                    	<span class="error valid" id="pwmatch"> </span>
                         <span class="error" id="pwnomatch">Your passwords do not match</span>
                     </div>
                 </li>
             </ul>
         </fieldset>
         <fieldset class="prefs">
-            <ul class="col">
-                <li class="grades">
-                    <input type="checkbox" name="options" value="opt1" id="opt1" /><label for="opt1">Sign me up for weekly emails from GreatSchools with gread-by-grade tips, including perieodic updates about <strong>Lowell High School</strong>.</label>
+        	<ul class="col">
+            	<li class="grades">
+                	<input type="checkbox" name="options" value="opt1" id="opt1" /><label for="opt1">Sign me up for weekly emails from GreatSchools with gread-by-grade tips, including perieodic updates about <strong>Lowell High School</strong>.</label>
                     <p>In 2008-2009 my children are in:</p>
-                    <ul>
-                        <li id="pickGrade">
-                            <input type="checkbox" value="gp" id="gp" name="grades" />
+                	<ul>
+                    	<li id="pickGrade">
+                        	<input type="checkbox" value="gp" id="gp" name="grades" />
                             <label for="gp">Preschool</label><button id="grdShow" type="button" title="show more">show more</button>
                             <div id="moreGrades">
-                                <ul class="col1">
-                                    <li><input type="checkbox" value="gk" id="gk" name="grades" /><label for="gk">Kindergarten</label></li>
+                            	<ul class="col1">
+                                	<li><input type="checkbox" value="gk" id="gk" name="grades" /><label for="gk">Kindergarten</label></li>
                                     <li><input type="checkbox" value="g1" id="g1" name="grades" /><label for="g1">1st Grade</label></li>
                                     <li><input type="checkbox" value="g2" id="g2" name="grades" /><label for="g2">2nd Grade</label></li>
                                     <li><input type="checkbox" value="g3" id="g3" name="grades" /><label for="g3">3rd Grade</label></li>
                                 </ul>
                                 <ul class="col2">
-                                    <li><input type="checkbox" value="g4" id="g4" name="grades" /><label for="g4">4th Grade</label></li>
+                                	<li><input type="checkbox" value="g4" id="g4" name="grades" /><label for="g4">4th Grade</label></li>
                                     <li><input type="checkbox" value="g5" id="g5" name="grades" /><label for="g5">5th Grade</label></li>
                                     <li><input type="checkbox" value="gM" id="gM" name="grades" /><label for="gM">Middle School</label></li>
                                     <li><input type="checkbox" value="gH" id="gH" name="grades" /><label for="gH">High School</label></li>
@@ -310,24 +353,52 @@ $("#process_error").hide();
                 <li><input type="checkbox"  name="options" value="opt3" id="opt3" /><label for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
                 <li><input type="checkbox" name="acceptTerms" value="yes" id="touy" /><label for="touy">I agree to the <a href="#">GreatSchools Terms of Use</a> and <a href="#">Community Guidelines</a>. *</label></li>
             </ul>
-            <div class="hlpTxt col">
-                <p>* Indicates a required field.</p>
-                <p>your privacy is important to us. <a href="#">GreatSchools Privacy Policy</a></p>
-            </div>
+        	<div class="hlpTxt col">
+            <p>* Indicates a required field.</p>
+	        	<p>your privacy is important to us. <a href="#">GreatSchools Privacy Policy</a></p>
+    		</div>
         </fieldset>
         <fieldset class="btns">
-            <button class="button" type="submit" name="joinBtn" id="joinBtn">
-                <span><span>Join now</span></span>
+        	<button class="button" type="submit" name="joinBtn" id="joinBtn">
+            	<span><span>Join now</span></span>
             </button>
             <a href="#" id="cancelPref">No thanks <span>&#187;</span></a>
         </fieldset>
-    </form>
+     </form>
+
+</div>
+<div id="signin_dialog" >
+		<h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
+    <div class="messages">
+        <p id="forgot_password" class="error"><!-- message --></p>
+    </div>
+        <form id="signin">
+        	<fieldset class="signin">
+            	<h3>Sign in with an existing GreatSchools account:</h3>
+                <ul>
+                	<li><label for="email">Email address</label><input type="text" id="semail" name="semail" /></li>
+                  <li><label for="pword">Password</label><input type="password" id="spword" name="spword" /></li>
+                </ul>
+            </fieldset>
+            <fieldset class="btns">
+                <button class="button" type="submit" name="signinBtn" id="signinBtn">
+                    <span><span>Sign in</span></span>
+                </button>
+                <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+            </fieldset>
+        </form>
 
 </div>
 
-
-
-
-</gsml:body>
+    <div id="forgot-password-dialog">
+    	<h2>Forgot Your Password?</h2>
+      <form>
+      	<fieldset>
+	        <p>Forgot your password? Click Send below and we'll email you a page where you can create a new password.</p>
+  	      <p><strong>Email address</strong> <input type="text" id="passRecoverAddr" /></p>
+          <p><button type="submit" class="button" id="passEmail"><span><span>Send &#187;</span></span></button></p>
+        </fieldset>
+        </form>
+    </div>
+</body>
 </html>
-</jsp:root>

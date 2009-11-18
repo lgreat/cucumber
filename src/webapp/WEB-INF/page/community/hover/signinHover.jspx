@@ -52,7 +52,7 @@ $(function () {
         <fieldset class="signin">
             <h3>Sign in with an existing GreatSchools account:</h3>
             <ul>
-                <li><label for="email">Email address</label><input type="text" id="email" name="email" /></li>
+                <li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
                 <li><label for="pword">Password</label><input type="password" id="pword" name="pword" /></li>
             </ul>
         </fieldset>
