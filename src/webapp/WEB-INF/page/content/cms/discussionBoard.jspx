@@ -159,11 +159,20 @@
                     </div>
                     <div class="db_discussTopic gainlayout">
                         <div class="db_discussAvatar fltlft">
-                            <link:userProfile user="${discussion.user}">
-                                <community:avatar user="${discussion.user}" width="48" height="48"
-                                                  cssClass="fltlft"
-                                                  cssStyle="border: 1px solid #c6c6c6;"/>
-                            </link:userProfile>
+                            <c:choose>
+                                <c:when test="${discussion.user.userProfile.active}">
+                                    <link:userProfile user="${discussion.user}">
+                                        <community:avatar user="${discussion.user}" width="48" height="48"
+                                                          cssClass="fltlft"
+                                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                                    </link:userProfile>
+                                </c:when>
+                                <c:otherwise>
+                                    <community:avatar user="${discussion.user}" width="48" height="48"
+                                                      cssClass="fltlft"
+                                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- end discussion avatar -->
 
@@ -172,9 +181,16 @@
 
                             <div class="db_discuss fltrt rnd8">
                                 <p class="fltlft">
-                                    <link:userProfile user="${discussion.user}">
-                                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
-                                    </link:userProfile>
+                                    <c:choose>
+                                        <c:when test="${discussion.user.userProfile.active}">
+                                            <link:userProfile user="${discussion.user}">
+                                                <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                            </link:userProfile>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                        </c:otherwise>
+                                    </c:choose>
 
                                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                                 </p>
@@ -205,10 +221,18 @@
                         <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
                             <div class="db_reply_topic">
                                 <div class="db_discussAvatar fltlft">
-                                    <link:userProfile user="${reply.user}">
-                                        <community:avatar user="${reply.user}" width="48" height="48"
-                                                          cssStyle="border: 1px solid #c6c6c6;"/>
-                                    </link:userProfile>
+                                    <c:choose>
+                                        <c:when test="${reply.user.userProfile.active}">
+                                            <link:userProfile user="${reply.user}">
+                                                <community:avatar user="${reply.user}" width="48" height="48"
+                                                                  cssStyle="border: 1px solid #c6c6c6;"/>
+                                            </link:userProfile>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <community:avatar user="${reply.user}" width="48" height="48"
+                                                              cssStyle="border: 1px solid #c6c6c6;"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <!-- end reply avatar -->
 
@@ -218,9 +242,16 @@
 
                                     <div class="db_reply fltrt rnd8">
                                         <p class="fltlft">
-                                            <link:userProfile user="${reply.user}">
-                                                <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
-                                            </link:userProfile>
+                                            <c:choose>
+                                                <c:when test="${reply.user.userProfile.active}">
+                                                    <link:userProfile user="${reply.user}">
+                                                        <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                                    </link:userProfile>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="smallAlertTextBoldNeutral">${reply.user.userProfile.screenName}</span>
+                                                </c:otherwise>
+                                            </c:choose>
 
                                             <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                                         </p>

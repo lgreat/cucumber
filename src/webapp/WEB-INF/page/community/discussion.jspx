@@ -240,10 +240,20 @@
 
     <div class="db_discussTopic gainlayout">
         <div class="fltlft">
-            <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                <community:avatar user="${discussion.user}" width="48" height="48"
-                                  cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;" anonymous="${discussion.anonymous}"/>
-            </link:userProfile>
+            <c:choose>
+                <c:when test="${discussion.user.userProfile.active}">
+                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                        <community:avatar user="${discussion.user}" width="48" height="48"
+                                          cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
+                                          anonymous="${discussion.anonymous}"/>
+                    </link:userProfile>
+                </c:when>
+                <c:otherwise>
+                    <community:avatar user="${discussion.user}" width="48" height="48"
+                                      cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
+                                      anonymous="${discussion.anonymous}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <!-- end discussion avatar -->
 
@@ -252,9 +262,17 @@
 
             <div class="db_discuss_full fltrt rnd8">
                 <p class="fltlft">
-                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                        <span class="smallAlertTextBoldNeutral link"><community:screenName userContent="${discussion}"/></span>
-                    </link:userProfile>
+                    <c:choose>
+                        <c:when test="${discussion.user.userProfile.active}">
+                            <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                                <span class="smallAlertTextBoldNeutral link"><community:screenName
+                                        userContent="${discussion}"/></span>
+                            </link:userProfile>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="smallAlertTextBoldNeutral link"><community:screenName userContent="${discussion}"/></span>
+                        </c:otherwise>
+                    </c:choose>
 
                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                     <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
@@ -301,9 +319,16 @@
                         <span class="text1bold">Post a reply to: </span>
                         <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
                             <span class="text3bold">by
-                                <link:userProfile
-                                        user="${discussion.user}" styleClass="link">${discussion.user.userProfile.screenName}
-                                </link:userProfile>
+                                <c:choose>
+                                    <c:when test="${discussion.user.userProfile.active}">
+                                        <link:userProfile user="${discussion.user}"
+                                                          styleClass="link">${discussion.user.userProfile.screenName}
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${discussion.user.userProfile.screenName}
+                                    </c:otherwise>
+                                </c:choose>
                             </span>
 
                         <form action="/community/discussionSubmission.page" method="POST">
@@ -383,10 +408,20 @@
                 <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
                 <div class="db_reply_topic">
                     <div class="fltlft">
-                        <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
-                            <community:avatar user="${reply.user}" width="48" height="48"
-                                              cssStyle="border: 1px solid #c6c6c6;" anonymous="${reply.anonymous}"/>
-                        </link:userProfile>
+                        <c:choose>
+                            <c:when test="${reply.userProfile.active}">
+                                <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                    <community:avatar user="${reply.user}" width="48" height="48"
+                                                      cssStyle="border: 1px solid #c6c6c6;"
+                                                      anonymous="${reply.anonymous}"/>
+                                </link:userProfile>
+                            </c:when>
+                            <c:otherwise>
+                                <community:avatar user="${reply.user}" width="48" height="48"
+                                                  cssStyle="border: 1px solid #c6c6c6;" anonymous="${reply.anonymous}"/>
+                            </c:otherwise>
+                        </c:choose>
+
                     </div>
                     <!-- end reply avatar -->
 
@@ -396,9 +431,18 @@
 
                         <div class="db_reply_full fltrt rnd8">
                             <p class="fltlft">
-                                <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
-                                    <span class="smallAlertTextBoldNeutral link"><community:screenName userContent="${reply}"/></span>
-                                </link:userProfile>
+                                <c:choose>
+                                    <c:when test="${reply.userProfile.active}">
+                                        <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                            <span class="smallAlertTextBoldNeutral link"><community:screenName
+                                                    userContent="${reply}"/></span>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="smallAlertTextBoldNeutral link"><community:screenName
+                                                userContent="${reply}"/></span>
+                                    </c:otherwise>
+                                </c:choose>
 
                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                                 <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
