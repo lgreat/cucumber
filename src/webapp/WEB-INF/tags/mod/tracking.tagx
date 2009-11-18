@@ -207,6 +207,14 @@
         <c:if test="${!omitAlmondNet}">
             <mod:almondNet/>
         </c:if>
+
+<!-- Begin Rocket Fuel Conversion Action Tracking Code Version 7 -->
+<![CDATA[
+<img src="http://a.rfihub.com/ca.gif?rb=426&amp;ca=2205&amp;ct=REPLACE_ME_WITH_YOUR_CACHE_BUSTING" height="0" width="0" style="display:none" alt="Rocket Fuel"/>
+]]>
+<!-- End Rocket Fuel Conversion Action Tracking Code Version7 -->
+
+
     <![CDATA[
         <script type="text/javascript">var tcdacmd="dt";</script>
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>
