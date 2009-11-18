@@ -927,6 +927,34 @@ fieldset label {
     padding:0 12px 0 50px;
 }
 
+/* Edit discussion hover */
+
+.ui-dialog .ui-dialog-titlebar {
+    display:none;
+}
+
+.ui-dialog .ui-dialog-content{
+    overflow:hidden;
+}
+
+.ui-dialog-content .ui-widget-content{
+    margin:0;
+    border:0;
+    padding:0;
+    min-height:inherit;
+    /*height:100%;*/
+    /*overflow:none;*/
+}
+
+#startADiscussionDialog{
+    margin:0;
+    border:0;
+    padding:0;
+    overflow:hidden;
+}
+
+/* END Edit discussion hover */
+
 /* signin hover form styles */
 .signin label {
     float: left;
