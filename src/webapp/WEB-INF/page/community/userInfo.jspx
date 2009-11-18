@@ -93,6 +93,25 @@
             // =========================================================================
 
             //</c:if>
+
+            //<c:if test = "${requestScope.canEditMember}" >
+
+            $('#deactivateMember').click(function() {
+                var ajaxUrl = '/community/userAccountAjax.page';
+                $.post(ajaxUrl, {deactivateMember:'true', memberId:$('.aboutMe .memberId').val()});
+                window.location.reload();
+                return false;
+            });
+
+            $('#reactivateMember').click(function() {
+                var ajaxUrl = '/community/userAccountAjax.page';
+                $.post(ajaxUrl, {reactivateMember:'true', memberId:$('.aboutMe .memberId').val()});
+                window.location.reload();
+                return false;
+            });
+
+            //</c:if>
+
         });
     </script>
 
@@ -112,6 +131,16 @@
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
         <span class="fltrt"><a class="flag" href="#">Report this member <span class="go">&amp;#187;</span></a></span>
+    </c:if>
+    <c:if test="${requestScope.canBanMember}">
+        <c:choose>
+            <c:when test="${pageUser.userProfile.active}">
+                <span class="fltrt"><a href="#" id="deactivateMember">Deactivate this member</a></span>
+            </c:when>
+            <c:otherwise>
+                <span class="fltrt"><a href="#" id="reactivateMember">Reactivate this member</a></span>
+            </c:otherwise>
+        </c:choose>
     </c:if>
     </h2>
     <c:choose>

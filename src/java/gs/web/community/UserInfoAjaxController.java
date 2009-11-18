@@ -24,6 +24,8 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
     public static final String PARAM_ABOUT_ME = "aboutMe";
     public static final String PARAM_MEMBER_ID = "memberId";
     public static final String PARAM_RESET_PHOTO = "resetPhoto";
+    public static final String PARAM_DEACTIVATE_MEMBER = "deactivateMember";
+    public static final String PARAM_REACTIVATE_MEMBER = "reactivateMember";
 
     private IUserDao _userDao;
 
@@ -61,14 +63,31 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         }
 
         boolean canEdit = viewer.hasPermission(Permission.USER_EDIT_MEMBER_DETAILS);
+        boolean canBan = viewer.hasPermission(Permission.USER_BAN_DEACTIVATE_MEMBER);
 
         // so far, this controller is used to either:
         // 1. Edit About Me, or
-        // 2. Reset Photo
+        // 2. Reset Photo, or
+        // 3. Deactivate member
+        // 4. Reactivate member
 
         // certain users can reset other users' photos to the default avatar
         if (canEdit && pageUser != null && "true".equals(request.getParameter(PARAM_RESET_PHOTO))) {
             pageUser.getUserProfile().setAvatarType(null);
+            _userDao.saveUser(pageUser);
+            return null;
+        }
+
+        // certain users can deactivate other users
+        if (canBan && pageUser != null && "true".equals(request.getParameter(PARAM_DEACTIVATE_MEMBER))) {
+            pageUser.getUserProfile().setActive(false);
+            _userDao.saveUser(pageUser);
+            return null;
+        }
+
+        // certain users can reactivate other users
+        if (canBan && pageUser != null && "true".equals(request.getParameter(PARAM_REACTIVATE_MEMBER))) {
+            pageUser.getUserProfile().setActive(true);
             _userDao.saveUser(pageUser);
             return null;
         }
