@@ -931,6 +931,9 @@ fieldset label {
 #discussionSubmissionForm .sd_InnerLayout{
     padding:0 12px 0 50px;
 }
+#discussionSubmissionForm .sd_SaveLayout{
+    padding:0 12px 0 0;
+}
 
 /* Edit discussion hover */
 
