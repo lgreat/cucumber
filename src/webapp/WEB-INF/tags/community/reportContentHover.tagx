@@ -16,9 +16,9 @@
     <jsp:directive.attribute name="reporterId" required="true" type="java.lang.Integer"
                              description="ID of user reporting the content"/>
 
-    <!--<pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>-->
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
 
     <script type="text/javascript">
         GS.reportContent_idOfOpeningElement = '';
@@ -29,6 +29,10 @@
             jQuery('#reportHoverIntroContentType').replaceWith(contentType);
             jQuery('#reportHoverHeader').replaceWith(contentType);
         }
+        omnitureEventNotifier.pageName="Report Item Hover";
+        omnitureEventNotifier.heirarchy="Community,Actions,Report Item Hover";
+        omnitureEventNotifier.server="${requestScope.context.hostName}";
+
         jQuery(function() {
             jQuery('${pageScope.openingElementSelector}').click(function() {
                 var idStr = jQuery(this).attr('id');
@@ -42,6 +46,9 @@
                 jQuery('#reportReason').val('');
                 jQuery('#reportItDialog').dialog('open');
                 jQuery('#reportReason').focus();
+
+                omnitureEventNotifier.send(); // trigger pageview
+
                 return false;
             });
 
