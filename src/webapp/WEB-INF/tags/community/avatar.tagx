@@ -31,18 +31,8 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 
-        int rightTwoDigits = user.getId() % 100;
-        String firstPath = String.valueOf(rightTwoDigits);
-        String secondPath = String.valueOf(((user.getId() % 10000) - rightTwoDigits) / 100);
-        if (firstPath.length() &lt; 2) {
-            firstPath = "0" + firstPath;
-        }
-        if (secondPath.length() &lt; 2) {
-            secondPath = "0" + secondPath;
-        }
-
-        request.setAttribute("customFirstPath", firstPath);
-        request.setAttribute("customSecondPath", secondPath);
+        request.setAttribute("avatarPath", CommunityUtil.getAvatarPath(user.getId()));
+        request.setAttribute("avatarName", CommunityUtil.getAvatarFilename(user.getId(), width, "jpg"));
         request.setAttribute("useNewCommunity", CommunityUtil.isNewCommunityEnabled());
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
     </jsp:scriptlet>
@@ -65,7 +55,7 @@
                     <!-- Do nothing, use the default which has already been set -->
                 </c:when>
                 <c:when test="${user.userProfile.avatarType eq 'custom'}">
-                    <c:set var="avatarUrl" value="custom/${customFirstPath}/${customSecondPath}/${user.id}-${width}.jpg"/>
+                    <c:set var="avatarUrl" value="custom/${avatarPath}/${avatarName}"/>
                     <c:set var="avatarVersion" value="?v=${user.userProfile.avatarVersion}"/>
                 </c:when>
                 <!-- TODO gsweb tag to validate stock photos -->

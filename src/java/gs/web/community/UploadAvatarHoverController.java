@@ -165,9 +165,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             return null;
         }
 
-        int path1 = user.getId() % 100;
-        int path2 = ((user.getId() % 10000) - path1) / 100;
-        String dir = "/avatar/" + path1 + "/" + path2 + "/";
+        String dir = CommunityUtil.getAvatarPath(user.getId());
 
         try {
             ClientHttpRequest clientHttpRequest = new ClientHttpRequest(url);
@@ -189,7 +187,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR,
                 true);
 
-        String destFilename = user.getId() + "-" + size + "." + formatName;
+        String destFilename = CommunityUtil.getAvatarFilename(user.getId(), size, formatName);
 
         clientHttpRequest.setParameter("blob" + paramNum, destFilename, mimetype, formatName, thumb);
         clientHttpRequest.setParameter("dir" + paramNum, dir);
