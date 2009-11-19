@@ -124,7 +124,7 @@
               var picFormat = temp[temp.length-1];
               $('#pic_message').hide(1);
               if(pic){
-                if(picFormat.toLowerCase() == "jpg"){
+                if(picFormat.toLowerCase() == "jpg" || picFormat.toLowerCase() == "jpeg"){
                   $('#pic_message').hide(1);
                   $('#pic_error').hide(1);
                   return true;

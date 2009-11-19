@@ -67,6 +67,15 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                         !(command.getAvatar().getContentType().equals("image/jpeg") ||
                           command.getAvatar().getContentType().equals("image/gif"))) {
                 errors.rejectValue("avatar", null, "Image must be a jpeg or gif.");
+            } else {
+                BufferedImage incomingImage = ImageIO.read(command.getAvatar().getInputStream());
+                if (incomingImage == null) {
+                    errors.rejectValue("avatar", null, "The file does not appear to be a valid image.");
+                } else {
+                    // Remove the file from the command object to save memory
+                    command.setAvatar(null);
+                    command.setImage(incomingImage); // this is for onSubmit
+                }
             }
         }
     }
@@ -82,10 +91,8 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             if (StringUtils.isNotBlank(command.getStockPhoto())) {
                 uploader.getUserProfile().setAvatarType(command.getStockPhoto());
                 getUserDao().updateUser(uploader);
-            } else if (command.getAvatar() != null) {
-                BufferedImage incomingImage = ImageIO.read(command.getAvatar().getInputStream());
-                // Remove the file from the command object to save memory
-                command.setAvatar(null);
+            } else if (command.getImage() != null) {
+                BufferedImage incomingImage = command.getImage();
 
                 // Scaling in java is MUCH faster if the image is RGB, and also crop the image to square if necessary
                 incomingImage = preProcessImage(incomingImage);

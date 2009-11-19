@@ -56,6 +56,6 @@ public class UploadAvatarHoverControllerTest extends BaseControllerTestCase {
         _command.setAvatar(file);
         assertFalse(_errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse("Expect no errors if non-empty avatar file is uploaded", _errors.hasErrors());
+        assertTrue("Expect errors if invalid avatar file is uploaded", _errors.hasErrors());
     }
 }
