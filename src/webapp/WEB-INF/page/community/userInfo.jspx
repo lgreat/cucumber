@@ -98,15 +98,20 @@
 
             $('#deactivateMember').click(function() {
                 var ajaxUrl = '/community/userAccountAjax.page';
-                $.post(ajaxUrl, {deactivateMember:'true', memberId:$('.aboutMe .memberId').val()});
-                window.location.reload();
+                $.post(ajaxUrl, {deactivateMember:'true', memberId:$('.aboutMe .memberId').val()},
+                        function(data) {
+                            window.location.reload();
+                        });
+
                 return false;
             });
 
             $('#reactivateMember').click(function() {
                 var ajaxUrl = '/community/userAccountAjax.page';
-                $.post(ajaxUrl, {reactivateMember:'true', memberId:$('.aboutMe .memberId').val()});
-                window.location.reload();
+                $.post(ajaxUrl, {reactivateMember:'true', memberId:$('.aboutMe .memberId').val()},
+                        function(data) {
+                            window.location.reload();
+                        });
                 return false;
             });
 
