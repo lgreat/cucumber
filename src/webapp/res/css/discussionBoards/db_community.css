@@ -145,6 +145,11 @@ html[xmlns] .clearfix {
     color:#06b;
 }
 
+#mainContent .mostRecent {
+    margin: -3px 0 -2px 80px;
+    padding: 0;
+}
+
 #mainContent .db_recentReplies{
     margin:0 0 0 65px;
     padding:15px 0 0 0;
