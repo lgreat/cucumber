@@ -12,235 +12,230 @@
     <script type="text/javascript">
 $(function () {
 	var shwGds=false;
-	$('#grdShow').click(function(){
-		if(!shwGds){
-			$('#grdShow').addClass('active');
-			$('#moreGrades').addClass('show');
-			shwGds=true;
-		}
-		else {
-			$('#grdShow').removeClass('active');
-			$('#moreGrades').removeClass('show');
-			shwGds=false;
-		}
-	});
-	$('.joinLink').click(function(){
-    $('#join_dialog').dialog('open');
-	});
-	$('.signinLink').click(function(){
-    $('#signin_dialog').dialog('open');
-    $('#signin_dialog #forgot_password').attr('style', 'display:none');
-    $('#signin_dialog #forgot_password').text('');
-	});
-	$('.forgotLink').click(function(){
-    $('#forgot-password-dialog').dialog('open');
-	});
-  $('#lnchPword').click(function(){
-	  var captEmail = $('#signin_dialog #semail').val();
-		$('#passRecoverAddr').val(captEmail);
-    $('#signin_dialog').dialog('close');
-    $('#forgot-password-dialog').dialog('open');
-		return false;
-  });
-	$('#lnchSignin').click(function(){
-    var captEmail = $('#join_dialog #jemail').val();
-		$('#signin_dialog #semail').val(captEmail);
-    $('#signin_dialog #forgot_password').attr('style', 'display:none');
-    $('#signin_dialog #forgot_password').text('');
-    $('#join_dialog').dialog('close');
-    $('#signin_dialog').dialog('open');
-    $('#signin_dialog #forgot_password').attr('style', 'display:none');
-    return false;
-  });
-	$('#lnchJoin').click(function(){
-	  var captEmail = $('#signin_dialog #semail').val();
-		$('#join_dialog #jemail').val(captEmail);
+    $('#grdShow').click(function(){
+        if(!shwGds){
+            $('#grdShow').addClass('active');
+            $('#moreGrades').addClass('show');
+            shwGds=true;
+        }
+        else {
+            $('#grdShow').removeClass('active');
+            $('#moreGrades').removeClass('show');
+            shwGds=false;
+        }
+    });
+    $('.joinLink').click(function(){
+        $('#join_dialog').dialog('open');
+    });
+    $('.signinLink').click(function(){
+        $('#signin_dialog').dialog('open');
+        $('#signin_dialog #forgot_password').attr('style', 'display:none');
+        $('#signin_dialog #forgot_password').text('');
+    });
+    $('.forgotLink').click(function(){
+        $('#forgot-password-dialog').dialog('open');
+    });
+    $('#lnchPword').click(function(){
+        var captEmail = $('#signin_dialog #semail').val();
+        $('#passRecoverAddr').val(captEmail);
+        $('#signin_dialog').dialog('close');
+        $('#forgot-password-dialog').dialog('open');
+        return false;
+    });
+    $('#lnchSignin').click(function(){
+        var captEmail = $('#join_dialog #jemail').val();
+        $('#signin_dialog #semail').val(captEmail);
+        $('#signin_dialog #forgot_password').attr('style', 'display:none');
+        $('#signin_dialog #forgot_password').text('');
+        $('#join_dialog').dialog('close');
+        $('#signin_dialog').dialog('open');
+        $('#signin_dialog #forgot_password').attr('style', 'display:none');
+        return false;
+    });
+    $('#lnchJoin').click(function(){
+        var captEmail = $('#signin_dialog #semail').val();
+        $('#join_dialog #jemail').val(captEmail);
         $('#signin_dialog').dialog('close');
         $('#join_dialog').dialog('open');
         return false;
-  });
-	$('#passEmail').click(function(){
-    var sentEmail = $('#passRecoverAddr').val();
-		passConfirm(sentEmail);
-    $('#forgot-password-dialog').dialog('close');
-    $('#signin_dialog').dialog('open');
-		return false;
-  });
-  $('#join_dialog').dialog({
-    bgiframe: true,
-		modal: true,
-		draggable: false,
-		autoOpen: false,
-		resizable: false,
-		width: 680
-  });
-  $('#signin_dialog').dialog({
-	  bgiframe: true,
-		modal: true,
-		draggable: false,
-		autoOpen: false,
-		resizable: false,
-		width: 630
-  });
-	$('#forgot-password-dialog').dialog({
-	  bgiframe: true,
-		modal: true,
-		draggable: false,
-		autoOpen: false,
-		resizable: false,
-		width: 400
-  });
+    });
+    $('#passEmail').click(function(){
+        var sentEmail = $('#passRecoverAddr').val();
+        passConfirm(sentEmail);
+        $('#forgot-password-dialog').dialog('close');
+        $('#signin_dialog').dialog('open');
+        return false;
+    });
+    $('#join_dialog').dialog({
+        bgiframe: true,
+        modal: true,
+        draggable: false,
+        autoOpen: false,
+        resizable: false,
+        width: 680
+    });
+    $('#signin_dialog').dialog({
+        bgiframe: true,
+        modal: true,
+        draggable: false,
+        autoOpen: false,
+        resizable: false,
+        width: 630
+    });
+    $('#forgot-password-dialog').dialog({
+        bgiframe: true,
+        modal: true,
+        draggable: false,
+        autoOpen: false,
+        resizable: false,
+        width: 400
+    });
 
-	$('#cancelPref').click(function(){
-		document.getElementById('joinGS').reset();
-		$('.error').attr('style','display:none');
-		$('#join_dialog').dialog('close');
-	});
-	var eMess = $('.error').attr('style');
-	if (!eMess){
-		$('.error').attr('style','display:none');
-	};
-	$('#gradeDone').click(function(){
-			$('#grdShow').removeClass('active');
-			$('#moreGrades').removeClass('show');
-			shwGds=false;
-			return false;
-	});
-	$('#fName').blur(function() { validateFirstName(true); });
-	$('#lName').blur(function() { validateLastName(true); });
-	$('#pword').blur(function() { validatePass(true); });
-	$("#cpword").keyup(function() {
-    validateConfirm();
-});
-
+    $('#cancelPref').click(function(){
+        document.getElementById('joinGS').reset();
+        $('.error').attr('style','display:none');
+        $('#join_dialog').dialog('close');
+    });
+    var eMess = $('.error').attr('style');
+    if (!eMess){
+        $('.error').attr('style','display:none');
+    };
+    $('#gradeDone').click(function(){
+        $('#grdShow').removeClass('active');
+        $('#moreGrades').removeClass('show');
+        shwGds=false;
+        return false;
+    });
+    $('#fName').blur(function() { validateFirstName(true); });
+    //$('#lName').blur(function() { validateLastName(true); });
+    $('#pword').blur(function() { validatePass(true); });
+    $("#cpword").keyup(function() {
+        validateConfirm();
+    });
 });
 var passConfirm = function(email){
   var confirmMess = "\273 An email has been sent to " + email +" with instructions for selecting a new password."
-	$('#signin_dialog #forgot_password').text(confirmMess);
-	$('#signin_dialog #forgot_password').attr('style', 'display:block');
+    $('#signin_dialog #forgot_password').text(confirmMess);
+    $('#signin_dialog #forgot_password').attr('style', 'display:block');
 }
 var validatePass = function(cleanUp) {
-var pass = $('#pword').val();
-$("#password_message").show();
-if (cleanUp) {
-    if (pass.length > 0) {
-        if(pass.length<6 || pass.length >14) {
-           $("#nopw").hide();
-           $("#pw").hide();
-           $("#pw_invalid").show();
-           return false;
-        }
-			else {
-           $("#pw_invalid").hide();
-           $("#nopw").hide();
-           $("#pw").show();
+    var pass = $('#pword').val();
+    $("#password_message").show();
+    if (cleanUp) {
+        if (pass.length > 0) {
+            if(pass.length<6 || pass.length >14) {
+                $("#nopw").hide();
+                $("#pw").hide();
+                $("#pw_invalid").show();
+                return false;
+            } else {
+                $("#pw_invalid").hide();
+                $("#nopw").hide();
+                $("#pw").show();
+            }
+        } else {
+            $("#pw_invalid").hide();
+            $("#pw").hide();
+            $("#nopw").show();
+            return false;
         }
     }
-		else {
-    	$("#pw_invalid").hide();
-    	$("#pw").hide();
-    	$("#nopw").show();
-    	return false;
-	}
-	}
-return true;
+    return true;
 };
 var validateConfirm = function() {
-var confirm = $("#cpword").val();
-$("#confirm_message").show();
-if (!confirm) {
-    $("#pwnomatch").show();
-    $("#pwmatch").hide();
-    return false;
-} else if ($("#pword").val() != confirm) {
-    $("#pwnomatch").show();
-    $("#pwmatch").hide();
-     return false;
-} else if ($("#pword").val() == confirm){
-    $("#pwmatch").show();
-    $("#pwnomatch").hide();
-}
-
-return true;
+    var confirm = $("#cpword").val();
+    $("#confirm_message").show();
+    if (!confirm) {
+        $("#pwnomatch").show();
+        $("#pwmatch").hide();
+        return false;
+    } else if ($("#pword").val() != confirm) {
+        $("#pwnomatch").show();
+        $("#pwmatch").hide();
+        return false;
+    } else if ($("#pword").val() == confirm){
+        $("#pwmatch").show();
+        $("#pwnomatch").hide();
+    }
+    return true;
 };
 var validateLastName = function(cleanUp) {
-var ln = $('#lName').val();
-var namereg = /^[a-zA-Z0-9-_\.,\s&]*$/;
-$("#last_name_message").show();
-if (cleanUp) {
-    if(!ln) {
+    var ln = $('#lName').val();
+    var namereg = /^[a-zA-Z0-9-_\.,\s&]*$/;
+    $("#last_name_message").show();
+    if (cleanUp) {
+        if(!ln) {
+            $("#ln_valid").hide();
+            $("#ln_invalid").show();
+            $("#ln_no_special_char").hide();
+            return false;
+        } else if(ln && !namereg.test(ln)){
+            $("#ln_valid").hide();
+            $("#ln_invalid").hide();
+            $("#ln_no_special_char").show();
+            return false;
+        } else{
+            $("#ln_invalid").hide();
+            $("#ln_no_special_char").hide();
+            $("#ln_valid").show();
+        }
+    } else if (!ln) {
         $("#ln_valid").hide();
-        $("#ln_invalid").show();
         $("#ln_no_special_char").hide();
+        $("#ln_invalid").show();
         return false;
-    }
-    else if(ln && !namereg.test(ln)){
+    }else if (ln && !namereg.test(ln)){
         $("#ln_valid").hide();
         $("#ln_invalid").hide();
         $("#ln_no_special_char").show();
         return false;
-    }else{
-        $("#ln_invalid").hide();
-        $("#ln_no_special_char").hide();
-        $("#ln_valid").show();
-        }
-} else if (!ln) {
-    $("#ln_valid").hide();
-    $("#ln_no_special_char").hide();
-    $("#ln_invalid").show();
-    return false;
-}else if (ln && !namereg.test(ln)){
-     $("#ln_valid").hide();
-     $("#ln_invalid").hide();
-     $("#ln_no_special_char").show();
-     return false;
-}
-return true;
+    }
+    return true;
 };
 
 var validateFirstName = function(cleanUp) {
-var fn = $('#fName').val();
-var namereg = /^[a-zA-Z0-9-_\.,\s&]*$/;
-$("#first_name_message").show();
-if (cleanUp) {
-    if(!fn) {
-         $("#fn_valid").hide();
-        $("#fn_invalid").show();
-        $("#fn_no_special_char").hide();
-        return false;
-    }else if(fn && !namereg.test(fn)){
+    var fn = $('#fName').val();
+    var namereg = /^[a-zA-Z0-9-_\.,\s&]*$/;
+    $("#first_name_message").show();
+    if (cleanUp) {
+        if(!fn) {
+            $("#fn_valid").hide();
+            $("#fn_invalid").show();
+            $("#fn_no_special_char").hide();
+            return false;
+        } else if(fn && !namereg.test(fn)){
+            $("#fn_valid").hide();
+            $("#fn_invalid").hide();
+            $("#fn_no_special_char").show();
+            return false;
+        } else{
+            $("#fn_invalid").hide();
+            $("#fn_no_special_char").hide();
+            $("#fn_valid").show();
+            return false;
+        }
+    } else if (!fn) {
         $("#fn_valid").hide();
-        $("#fn_invalid").hide();
-        $("#fn_no_special_char").show();
-        return false;
-    }else{
-        $("#fn_invalid").hide();
         $("#fn_no_special_char").hide();
-        $("#fn_valid").show();
+        $("#fn_invalid").show();
+        return false;
+    } else if (fn && !namereg.test(fn)){
+        $("#fn_valid").hide();
+         $("#fn_invalid").hide();
+         $("#fn_no_special_char").show();
         return false;
     }
-} else if (!fn) {
-        $("#fn_valid").hide();
-        $("#fn_no_special_char").hide();
-        $("#fn_invalid").show();
-        return false;
-}else if (fn && !namereg.test(fn)){
-     $("#fn_valid").hide();
-     $("#fn_invalid").hide();
-     $("#fn_no_special_char").show();
-     return false;
-}
-return true;
+    return true;
 };
 
 var setGoInactive = function(){
-$("#joinBtn").addClass("disable");
-$("#process_error").show();
+    $("#joinBtn").addClass("disable");
+    $("#process_error").show();
 };
 
 var setGoActive= function(){
-$("#joinBtn").removeClass("disable");
-$("#process_error").hide();
+    $("#joinBtn").removeClass("disable");
+    $("#process_error").hide();
 };
 
 
@@ -257,7 +252,7 @@ $("#process_error").hide();
 	        <h3>Keep tabs on Lowell High School</h3>
 				<p>Be the first to know when school performance data is release that affects your child.</p>
         </div>
-        <img class="stockPhoto col" src="img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"  />
+        <img class="stockPhoto col" src="/res/img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"  />
      </div>
      <form id="joinGS">
      <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
@@ -282,7 +277,7 @@ $("#process_error").hide();
                     </div>
                 </li> -->
                 <li>
-                	<label for="email">Email address *</label>
+                	<label for="jemail">Email address *</label>
                     <input type="text" id="jemail" name="jemail" />
                     <div class="errors">
                     	<span class="error" id="em_valid"> </span>
@@ -303,7 +298,7 @@ $("#process_error").hide();
                 	<p class="hlpTxt">Choose carefully 	&#151; this will be your public identity on GreatSchools</p>
                 </li>
                 <li>
-                	<label for="pword">Password * <br />
+                	<label for="jpword">Password * <br />
                     <span class="hlpTxt">6-14 characters</span></label>
                     <input type="password"  id="jpword" name="jpword" />
                     <div class="errors">
@@ -376,8 +371,8 @@ $("#process_error").hide();
         	<fieldset class="signin">
             	<h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
-                	<li><label for="email">Email address</label><input type="text" id="semail" name="semail" /></li>
-                  <li><label for="pword">Password</label><input type="password" id="spword" name="spword" /></li>
+                	<li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
+                  <li><label for="spword">Password</label><input type="password" id="spword" name="spword" /></li>
                 </ul>
             </fieldset>
             <fieldset class="btns">

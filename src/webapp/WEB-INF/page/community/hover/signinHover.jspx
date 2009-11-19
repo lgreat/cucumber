@@ -29,40 +29,28 @@
     <title>Signin - GreatSchools</title>
 </head>
 <gsml:body adPageName="community/join">
-<script type="text/javascript">
-$(function () {
 
-	$('.siginLink').click(function(){
-    $('#signin_dialog').dialog('open');
-	});
-	$('#signin_dialog').dialog({
-        bgiframe: true,
-        modal: true,
-        draggable: false,
-        autoOpen: false,
-        resizable: false,
-        width: 630
- });
-});
-</script>
 
 <div id="signin_dialog" >
-    <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
-    <form id="signin">
-        <fieldset class="signin">
-            <h3>Sign in with an existing GreatSchools account:</h3>
-            <ul>
-                <li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
-                <li><label for="pword">Password</label><input type="password" id="pword" name="pword" /></li>
-            </ul>
-        </fieldset>
-        <fieldset class="btns">
-            <button class="button" type="submit" name="signinBtn" id="signinBtn">
-                <span><span>Sign in</span></span>
-            </button>
-            <p><a href="#" id="lnchPword">Forgot your password?</a></p>
-        </fieldset>
-    </form>
+		<h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
+    <div class="messages">
+        <p id="forgot_password" class="error"><!-- message --></p>
+    </div>
+        <form id="signin">
+        	<fieldset class="signin">
+            	<h3>Sign in with an existing GreatSchools account:</h3>
+                <ul>
+                	<li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
+                  <li><label for="spword">Password</label><input type="password" id="spword" name="spword" /></li>
+                </ul>
+            </fieldset>
+            <fieldset class="btns">
+                <button class="button" type="submit" name="signinBtn" id="signinBtn">
+                    <span><span>Sign in</span></span>
+                </button>
+                <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+            </fieldset>
+        </form>
 
 </div>
 
