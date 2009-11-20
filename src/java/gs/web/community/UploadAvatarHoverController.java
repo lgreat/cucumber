@@ -70,7 +70,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             }
         } catch (MaxUploadSizeExceededException musee) {
             request.setAttribute(SIZE_LIMIT_EXCEEDED, true);
-            mAndV = new ModelAndView(getFormView());
+            mAndV = super.handleRequest(request, response);
         }
         logDuration(System.currentTimeMillis() - startTime, "UploadAvatarHoverController handleRequest");
 
