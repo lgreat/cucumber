@@ -975,7 +975,15 @@ fieldset label {
 #signin .btns {
     padding: 0 0 0 104px;
 }
-
+/* double email opt in hovers */
+.dialog_white h2 {
+    margin-bottom: 12px;
+}
+.dialog_white p {
+    padding: 20px;
+    background: #fff;
+    margin: 0;
+}
 
 /* Start Join Hover form styles */
 /*#startADiscussion .sd_icon{
