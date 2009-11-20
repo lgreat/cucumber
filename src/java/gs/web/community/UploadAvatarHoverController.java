@@ -54,18 +54,27 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     private IUserDao _userDao;
     private CommonsMultipartResolver _multipartResolver;
 
+    private void logDuration(long durationInMillis, String eventName) {
+        _log.info(eventName + " took " + durationInMillis + " milliseconds");
+    }
+
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        long startTime = System.currentTimeMillis();
+        ModelAndView mAndV;
         try {
             if (_multipartResolver.isMultipart(request)) {
-                return super.handleRequest(_multipartResolver.resolveMultipart(request), response);
+                mAndV = super.handleRequest(_multipartResolver.resolveMultipart(request), response);
             } else {
-                return super.handleRequest(request, response);
+                mAndV = super.handleRequest(request, response);
             }
         } catch (MaxUploadSizeExceededException musee) {
             request.setAttribute(SIZE_LIMIT_EXCEEDED, true);
-            return super.handleRequest(request, response);
+            mAndV = super.handleRequest(request, response);
         }
+        logDuration(System.currentTimeMillis() - startTime, "UploadAvatarHoverController handleRequest");
+
+        return mAndV;
     }
 
     @Override
