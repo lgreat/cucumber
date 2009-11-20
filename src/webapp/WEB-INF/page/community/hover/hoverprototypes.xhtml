@@ -27,6 +27,21 @@ $(function () {
     $('.joinLink').click(function(){
         $('#join_dialog').dialog('open');
     });
+	$('.valEmailLink').click(function(){
+    	$('#valEmail').dialog('open');
+	});
+	$('.regDoneLink').click(function(){
+    	$('#regDone').dialog('open');
+	});
+	$('.valNewEmailLink').click(function(){
+    	$('#valNewEmail').dialog('open');
+	});
+	$('.valNewEmailDoneLink').click(function(){
+    	$('#valNewEmailDone').dialog('open');
+	});
+	$('.expVerLink').click(function(){
+    	$('#expVer').dialog('open');
+	});
     $('.signinLink').click(function(){
         $('#signin_dialog').dialog('open');
         $('#signin_dialog #forgot_password').attr('style', 'display:none');
@@ -245,6 +260,11 @@ var setGoActive= function(){
      <p class="link joinLink">Launch the join modal controller <span>&#187;</span></p>
 <p class="link signinLink">Launch the signin modal controller <span>&#187;</span></p>
 <p class="link forgotLink">Launch the forgot password modal controller <span>&#187;</span></p>
+<p class="link valEmailLink">Launch the email link modal controller <span>&#187;</span></p>
+<p class="link regDoneLink">Launch the registration done modal controller <span>&#187;</span></p>
+<p class="link valNewEmailLink">Launch the new email link modal controller <span>&#187;</span></p>
+<p class="link valNewEmailDoneLink">Launch the new email done modal controller <span>&#187;</span></p>
+<p class="link expVerLink">Launch the expired link modal controller <span>&#187;</span></p>
 	<div id="join_dialog" >
 		<h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
 		<div class="dialog_intro">
@@ -394,6 +414,31 @@ var setGoActive= function(){
           <p><button type="submit" class="button" id="passEmail"><span><span>Send &#187;</span></span></button></p>
         </fieldset>
         </form>
+    </div>
+     <div id="valEmail" class="dialog_white">
+    	<h2>Great work! Only one more step</h2>
+        <p><strong>Now we just need you to verify you email address</strong>. Please click on the link in the email we just sent you to complete your registration.<br />
+<button class="button" type="button" id="clsValEmail"><span><span>Ok</span></span></button></p>
+    </div>
+    <div id="regDone" class="dialog_white">
+    	<h2>Your registration is complete</h2>
+        <p><strong>Thanks for registering</strong>. Welcome to GreatSchools, the largest online community committed to improving educational outcomes through parental involvement.<br />
+<button class="button" type="button" id="clsRegDone"><span><span>Finish</span></span></button></p>
+    </div>
+    <div id="valNewEmail" class="dialog_white">
+    	<h2>Your new email needs to be verified</h2>
+        <p>Please click on the link in the verification email we just sent you to complete your change of email address.<br />
+<button class="button" type="button" id="clsValNewEmail"><span><span>Ok</span></span></button></p>
+    </div>
+    <div id="valNewEmailDone" class="dialog_white">
+    	<h2>Your registration is complete</h2>
+        <p>Thanks for verifying you updated email address.<br />
+<button class="button" type="button" id="clsValNewEmailDone"><span><span>Finish</span></span></button></p>
+    </div>
+    <div id="expVer" class="dialog_white">
+    	<h2>Verification link expired</h2>
+        <p><strong>Oops! That email verification link has expired</strong>. Please click the button below to receive a new one.<br />
+<button class="button" type="button" id="clsExpVer"><span><span>Send a new email</span></span></button></p>
     </div>
 </body>
 </html>
