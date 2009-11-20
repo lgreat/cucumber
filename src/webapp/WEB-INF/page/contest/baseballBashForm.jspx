@@ -42,7 +42,7 @@
 
         #baseballBlast{
             border:2px solid #5bc;
-            width:300px
+            width:296px
         }
 
         .textTreb13{
@@ -145,7 +145,9 @@
 
     <div id="baseballBlast">
 
-        <h1><a href="#" target="_blank">Baseball Blast Holiday Sweepstakes</a></h1>
+        <a href="#" target="_blank">
+            <img src="/res/img/contest/baseball_blast_header.png" width="296" height="85" alt="header"/>
+        </a>
 
         <p>Enter by 12/16/09 for a chance to win a copy* of
             Baseball Blast! in time for the holidays.</p>
