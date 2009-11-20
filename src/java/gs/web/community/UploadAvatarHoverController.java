@@ -12,6 +12,8 @@ import gs.data.util.CommunityUtil;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -47,14 +49,32 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
     private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
+    private static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
     private static final String MODEL_STOCK_AVATAR_URL_PREFIX = "stockAvatarUrlPrefix";
     private IUserDao _userDao;
+    private CommonsMultipartResolver _multipartResolver;
+
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            if (_multipartResolver.isMultipart(request)) {
+                return super.handleRequest(_multipartResolver.resolveMultipart(request), response);
+            } else {
+                return super.handleRequest(request, response);
+            }
+        } catch (MaxUploadSizeExceededException musee) {
+            request.setAttribute(SIZE_LIMIT_EXCEEDED, true);
+            return super.handleRequest(request, response);
+        }
+    }
 
     @Override
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         super.onBindAndValidate(request, commandObj, errors);
         UploadAvatarCommand command = (UploadAvatarCommand) commandObj;
-        if (command.getAvatar() == null) {
+        if (request.getAttribute(SIZE_LIMIT_EXCEEDED) != null) {
+            errors.rejectValue("avatar", null, "Maximum image size is 1 megabyte.");            
+        } else if (command.getAvatar() == null) {
             if (StringUtils.isBlank(command.getStockPhoto()) || !isValidStockPhoto(command.getStockPhoto())) {
                 errors.rejectValue("avatar", null, "Please upload your own picture or select an image.");
             }
@@ -327,5 +347,13 @@ public class UploadAvatarHoverController extends SimpleFormController implements
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public CommonsMultipartResolver getMultipartResolver() {
+        return _multipartResolver;
+    }
+
+    public void setMultipartResolver(CommonsMultipartResolver multipartResolver) {
+        _multipartResolver = multipartResolver;
     }
 }
