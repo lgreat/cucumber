@@ -15,6 +15,19 @@
     <body>
 
     <style type="text/css">
+
+        /* ---------------- */
+        /* DEBUGGING SYTLES */
+        /* ---------------- */
+
+        .outline1 {
+            outline: 1px solid red;
+        }
+
+        .outline2 {
+            outline: 1px solid blue;
+        }
+
         #baseballBlast .invalidEmail, #baseballBlast .confirmation, #baseballBlast .error {
             display:none;
         }
@@ -40,35 +53,156 @@
             line-height: 0;
         }
 
+        /* clear fix */
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            line-height: 0;
+            height: 0;
+        }
+
+        .clearfix {
+            display: inline-block;
+        }
+
+        html[xmlns] .clearfix {
+            display: block;
+        }
+
+        * html .clearfix {
+            height: 1%;
+        }
+
+        /* end clear fix */
+
         #baseballBlast{
             border:2px solid #5bc;
             width:296px
         }
 
-        .textTreb13{
+        .algnctr{
+            text-align:center;
+        }
+
+        #baseballBlast #contestContainer .treb15{
+            font:15px "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+
+        #baseballBlast #contestContainer .treb13{
             font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
-        .textTreb13Bold{
+        #baseballBlast #contestContainer .treb13Bold{
             font:bold 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
-        .textTreb10{
+        #baseballBlast #contestContainer .treb12Bold{
+            font:bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+
+        #baseballBlast #contestContainer .treb10{
             font:10px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
-        .tint666{
+        #baseballBlast #contestContainer .tint666{
             color:#666;
         }
 
-        .tint5bc{
+        #baseballBlast #contestContainer .tint5bc{
             color:#5bc;
         }
 
-        .tint39a{
+        #baseballBlast #contestContainer .tint39a{
              color:#39a;
         }
 
+        #baseballBlast #contestContainer{
+            padding:11px 0 0 14px;
+            border-top:1px solid #c6c6c6;
+        }
+
+        #baseballBlast #contestContainer form{
+            display:block; 
+            margin:14px 0 0 0;
+        }
+
+        #baseballBlast #contestContainer .txtSubmit{
+
+        }
+
+        #baseballBlast #contestContainer input.txt{
+            color:#666;
+            background-color:#ededed;
+            border: 1px inset #c6c6c6;
+            width:193px;
+            /*margin:0 0 10px 0;*/
+            /*padding:0 5px, 0 0;*/
+        }
+
+        #baseballBlast #contestContainer input.btnImg{
+            margin:0 0 -5px 0;
+        }
+
+        #baseballBlast #contestContainer .ckbx1{
+            margin:8px 0 0 0;
+        }
+
+        #baseballBlast #contestContainer .ckbx2{
+            margin:8px 0 0 0;
+        }
+
+        #baseballBlast #contestContainer input.ckbx{
+            margin:0 5px 0 0;
+        }
+
+        #baseballBlast #contestContainer label.ckbxlbl{
+            display:block;
+            width:85px;
+            margin:-12px 0 0 0;
+            padding:0 0 0 19px;
+        }
+
+        #baseballBlast #contestContainer label{
+            font:10px "Trebuchet MS", Arial, Helvetica, sans-serif;
+            color:#666;
+        }
+
+        #contestFooter{
+            position:relative;
+            width:268px; height:65px;
+            margin:0 0 0 14px;
+        }
+
+        #sponsor1{
+            position:absolute;
+            bottom:9px; right:133px;
+        }
+
+        #sponsor2{
+            position:absolute;
+            bottom:3px; right:5px;
+        }
+
+        #fineprint{
+            position:absolute;
+            bottom:5px; left:-14px;
+            text-decoration:underline;
+        }
+
+        .invalidEmail{
+            margin:0 0 -11px 0;
+        }
+
+        .invalidEmail img{
+            margin:0 0 -4px 0;
+        }
+
+        .lrnMore{
+            margin:14px auto 11px auto;
+        }
 
     </style>
 
@@ -143,49 +277,66 @@
         });
     </script>
 
-    <div id="baseballBlast">
+    <div id="baseballBlast" class="clearfix">
 
         <a href="#" target="_blank">
             <img src="/res/img/contest/baseball_blast_header.png" width="296" height="85" alt="header"/>
         </a>
 
-        <p>Enter by 12/16/09 for a chance to win a copy* of
-            Baseball Blast! in time for the holidays.</p>
+        <div id="contestContainer">
+
 
         <div class="formContainer">
 
-            <span class="invalidEmail">Please enter a valid email address.</span>
+                    <p class="treb13 tint666">Enter by 12/16/09 for a chance to win<br/>
+            <span class="tint5bc">Baseball Blast! for Wii</span> in time for the holidays.</p>
 
-            <form>
-                <input type="text" name="email" value="Submit your email to enter"/>
-                <input type="submit" value="Go"/>
+            <div class="invalidEmail treb10 tint666">
+                <img src="/res/img/contest/iconError.png" width="12" height="14" alt="alert"/>&amp;nbsp;
+                Please enter a valid email address.
+            </div>
 
-                <div>
-                    <input type="checkbox" name="optInPartner"/>
-                    Yes, send me special offers from Baseball Blast
+            <form class="treb10 tint666">
+                <div class="txtSubmit">
+                <input class="txt" type="text" name="email" value="Submit your email to enter"/>&amp;nbsp;
+                <input type="image" src="/res/img/contest/baseball_blast_go_btn.png" class="btnImg"/>
                 </div>
-                <div>
-                    <input type="checkbox" name="optInGS" checked="checked"/>
-                    Yes, send me periodic updates from GreatSchools
+                <div class="ckbx1">
+                <input class="ckbx" type="checkbox" name="optInPartner"/>
+                <label for="optInPartner">Send me offers from Baseball Blast!</label>
+                </div>
+                <div class="ckbx2 fltlft">
+                <input class="ckbx" align="top" type="checkbox" name="optInGS" checked="checked"/>
+                <label class="ckbxlbl" for="optInGS">Send me updates from GreatSchools</label>
                 </div>
             </form>
 
         </div>
+            <!--end formContainer-->
 
         <div class="confirmation">
-            <div class="">Thanks for entering!</div>
-            <a href="#" target="_blank">Learn more about Baseball Blast!</a>
+            <div class="treb15 tint666 algnctr">Thanks for entering!</div>
+            <div class="treb12Bold tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
+            <div class="lrnMore algnctr">
+            <a href="#" target="_blank"><span class="treb10 tint5bc">Learn more about Baseball Blast! ></span></a>
+            </div>
         </div>
 
         <div class="error">
             <p>An error occurred. Please try again later.</p>
         </div>
 
-        <div class="finePrint">
-            *Win one of 10 copies. <a href="#" target="_blank">Full sweepstakes rules</a>.
+        <div id="contestFooter">
+        <img id="sponsor1" class="fltlft" src="/res/img/contest/baseball_blast_sponsor1.png" width="46" height="44" alt="sponsor1"/>
+        <img id="sponsor2" src="/res/img/contest/baseball_blast_sponsor2.png" width="123" height="57" alt="sponsor2"/>
+        <a id="fineprint" class="treb10 tint39a" href="#" target="_blank">Full sweepstakes rules</a>
         </div>
 
+        </div>
+    <!--end contestContainer-->
+
     </div>
+    <!--end baseballBlast-->
 
 
     </body>
