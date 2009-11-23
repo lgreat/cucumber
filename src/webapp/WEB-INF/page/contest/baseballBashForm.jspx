@@ -170,6 +170,10 @@
             color:#666;
         }
 
+        #baseballBlast #contestContainer .confirmation{
+            margin:0 0 0 -6px;
+        }
+
         #contestFooter{
             position:relative;
             width:268px; height:65px;
