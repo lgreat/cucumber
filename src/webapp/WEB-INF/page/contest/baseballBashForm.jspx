@@ -87,8 +87,8 @@
             text-align:center;
         }
 
-        #baseballBlast #contestContainer .treb15{
-            font:15px "Trebuchet MS", Arial, Helvetica, sans-serif;
+        #baseballBlast #contestContainer .treb15Bold{
+            font:bold 15px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
         #baseballBlast #contestContainer .treb13{
@@ -99,8 +99,8 @@
             font:bold 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
-        #baseballBlast #contestContainer .treb12Bold{
-            font:bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+        #baseballBlast #contestContainer .treb12{
+            font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
 
         #baseballBlast #contestContainer .treb10{
@@ -171,7 +171,7 @@
         }
 
         #baseballBlast #contestContainer .confirmation{
-            margin:0 0 0 -15px;
+            margin:0 0 0 -14px;
         }
 
         #contestFooter{
@@ -319,10 +319,10 @@
             <!--end formContainer-->
 
         <div class="confirmation">
-            <div class="treb15 tint666 algnctr">Thanks for entering!</div>
-            <div class="treb12Bold tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
+            <div class="treb15Bold tint666 algnctr">Thanks for entering!</div>
+            <div class="treb12 tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
             <div class="lrnMore algnctr">
-            <a href="#" target="_blank"><span class="treb10 tint5bc">Learn more about Baseball Blast! ></span></a>
+            <a href="#" target="_blank"><span class="treb12 tint5bc">Learn more about Baseball Blast! ></span></a>
             </div>
         </div>
 
