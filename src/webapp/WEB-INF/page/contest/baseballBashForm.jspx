@@ -310,7 +310,7 @@
         </div>
             <!--end formContainer-->
 
-        <div class="confirmation">
+        <div class="confirmation clearfix">
             <div class="treb15Bold tint666 algnctr">Thanks for entering!</div>
             <div class="treb12 tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
             <div class="lrnMore algnctr">
