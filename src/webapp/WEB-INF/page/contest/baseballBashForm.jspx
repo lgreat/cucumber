@@ -88,6 +88,10 @@
             width:296px
         }
 
+        #baseballBlast img{
+            border-bottom:1px solid #c6c6c6;
+        }
+
         .algnctr{
             text-align:center;
         }
@@ -126,12 +130,13 @@
 
         #baseballBlast #contestContainer{
             padding:11px 0 0 14px;
-            border-top:1px solid #c6c6c6;
+            text-align:left;
         }
 
         #baseballBlast #contestContainer form{
             display:block; 
             margin:14px 0 0 0;
+            text-align:left;
         }
 
         #baseballBlast #contestContainer .txtSubmit{
