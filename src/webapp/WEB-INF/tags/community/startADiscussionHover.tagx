@@ -82,8 +82,8 @@
                 editUrl += "&amp;title=" + encodeURIComponent(title);
                 editUrl += "&amp;body=" + encodeURIComponent(body);
                 editUrl += "&amp;discussionId=" + discussionId;
-                jQuery('#startADiscussionIFrame').attr('src', editUrl);
                 jQuery('#startADiscussionDialog').dialog("open");
+                jQuery('#startADiscussionIFrame').attr('src', editUrl);
                 return false;
             };
 

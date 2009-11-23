@@ -43,8 +43,8 @@
                 });
             };
             this.open = function() {
-                jQuery('#uploadAvatarIFrame').attr('src', this.uploadAvatarIframeUrl);
                 jQuery('#uploadAvatarHover').dialog('open');
+                jQuery('#uploadAvatarIFrame').attr('src', this.uploadAvatarIframeUrl);
             };
             this.done = function() {
                 jQuery('#uploadAvatarHover').dialog('close');
