@@ -322,7 +322,7 @@
             <div class="treb15Bold tint666 algnctr">Thanks for entering!</div>
             <div class="treb12 tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
             <div class="lrnMore algnctr">
-            <a href="#" target="_blank"><span class="treb12 tint5bc">Learn more about Baseball Blast! ></span></a>
+            <a class="treb12 tint39a" href="#" target="_blank">Learn more about Baseball Blast! ></a>
             </div>
         </div>
 
