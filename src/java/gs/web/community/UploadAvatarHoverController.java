@@ -44,8 +44,8 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     /** Largest image size in bytes to allow to be uploaded.  */
     private final int MAX_UPLOAD_SIZE_BYTES = 1000000;
     public static final String POST_URL_PROPERTY_KEY = "gs.avatarUploadURL";
-    public static final String SYNCHRONOUS_RESPONSE = "sync";
-    public static final String ASYNCHRONOUS_RESPONSE = "async";
+    public static final String SYNCHRONOUS_RESPONSE = "SUCCESS";
+    public static final String ASYNCHRONOUS_RESPONSE = "ASUCCESS";
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
     private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
@@ -141,13 +141,11 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                     SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
                     sitePrefCookie.setProperty("avatarAlertType", "async");
                 } else {
+                    _log.error("Error posting to content upload service: " + postResponse);
                     // error
                     SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
                     sitePrefCookie.setProperty("avatarAlertType", "error");
                 }
-
-                //storeImage(incomingImage, 48, uploader);
-                //storeImage(incomingImage, 95, uploader);
             } else {
                 _log.warn("onSubmit reached without valid image!");
             }
@@ -173,7 +171,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
            throws Exception {
         Map<String, String> model = new HashMap<String, String>();
 
-        model.put(MODEL_STOCK_AVATAR_URL_PREFIX, CommunityUtil.getAvatarURLPrefix() + "stock/");
+        model.put(MODEL_STOCK_AVATAR_URL_PREFIX, CommunityUtil.getAvatarURLPrefix() + "/content/avatar/stock/");
         return model;
     }
 
@@ -198,11 +196,15 @@ public class UploadAvatarHoverController extends SimpleFormController implements
 
         try {
             ClientHttpRequest clientHttpRequest = new ClientHttpRequest(url);
+            clientHttpRequest.setParameter("upload_type", "cms");
+            clientHttpRequest.setParameter("upload_type", "cms");
             clientHttpRequest.setParameter("numblobs", 2);
+            clientHttpRequest.setParameter("user_id", user.getId());
 
             scaleAndSetImageParameter(source, 48, "image/jpeg", "jpg", user, dir, clientHttpRequest, 1);
             scaleAndSetImageParameter(source, 95, "image/jpeg", "jpg", user, dir, clientHttpRequest, 2);
 
+            _log.info("Posting image to " + url);
             return clientHttpRequest.postAsString();
         } catch (IOException ioe) {
             _log.error("Failed to post avatar.", ioe);
@@ -219,8 +221,8 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         String destFilename = CommunityUtil.getAvatarFilename(user.getId(), size, formatName);
 
         clientHttpRequest.setParameter("blob" + paramNum, destFilename, mimetype, formatName, thumb);
-        clientHttpRequest.setParameter("dir" + paramNum, dir);
-        clientHttpRequest.setParameter("name" + paramNum, destFilename);
+//        clientHttpRequest.setParameter("dir" + paramNum, dir);
+//        clientHttpRequest.setParameter("name" + paramNum, destFilename);
         clientHttpRequest.setParameter("path" + paramNum, dir + destFilename);
     }
 

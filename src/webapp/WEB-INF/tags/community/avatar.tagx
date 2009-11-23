@@ -48,14 +48,14 @@
 
     <c:choose>
         <c:when test="${useNewCommunity}">
-            <c:set var="avatarUrl" value="stock/default-${width}.jpg"/>
+            <c:set var="avatarUrl" value="/content/avatar/stock/default-${width}.jpg"/>
             <c:set var="avatarVersion" value=""/>
             <c:choose>
                 <c:when test="${anonymous == true}">
                     <!-- Do nothing, use the default which has already been set -->
                 </c:when>
                 <c:when test="${user.userProfile.avatarType eq 'custom'}">
-                    <c:set var="avatarUrl" value="custom/${avatarPath}/${avatarName}"/>
+                    <c:set var="avatarUrl" value="${avatarPath}${avatarName}"/>
                     <c:set var="avatarVersion" value="?v=${user.userProfile.avatarVersion}"/>
                 </c:when>
                 <!-- TODO gsweb tag to validate stock photos -->
@@ -64,7 +64,7 @@
                                 user.userProfile.avatarType eq 'stk-dog' or
                                 user.userProfile.avatarType eq 'stk-dandelion' or
                                 user.userProfile.avatarType eq 'stk-palm'}">
-                    <c:set var="avatarUrl" value="stock/${user.userProfile.avatarType}-${width}.jpg"/>
+                    <c:set var="avatarUrl" value="/content/avatar/stock/${user.userProfile.avatarType}-${width}.jpg"/>
                 </c:when>
             </c:choose>
 
