@@ -178,8 +178,12 @@
         }
 
         #baseballBlast #contestContainer .confirmation{
-            height:104px;
+            height:122px;
             margin:0 0 0 -14px;
+        }
+
+        #baseballBlast #contestContainer .error{
+            height:122px;
         }
 
         #contestContainer{
