@@ -96,6 +96,10 @@
             text-align:center;
         }
 
+        .algnlft{
+            text-align:left;
+        }
+
         #baseballBlast #contestContainer .treb15Bold{
             font:bold 15px "Trebuchet MS", Arial, Helvetica, sans-serif;
         }
@@ -130,13 +134,11 @@
 
         #baseballBlast #contestContainer{
             padding:11px 0 0 14px;
-            text-align:left;
         }
 
         #baseballBlast #contestContainer form{
             display:block; 
             margin:14px 0 0 0;
-            text-align:left;
         }
 
         #baseballBlast #contestContainer .txtSubmit{
@@ -288,24 +290,24 @@
 
         <div class="formContainer clearfix">
 
-                    <p class="treb13 tint666">Enter by 12/16/09 for a chance to win<br/>
+                    <p class="treb13 tint666 algnlft">Enter by 12/16/09 for a chance to win<br/>
             <span class="tint5bc">Baseball Blast! for Wii</span> in time for the holidays.</p>
 
-            <div class="invalidEmail treb10 tint666">
+            <div class="invalidEmail treb10 tint666 algnlft">
                 <img src="/res/img/contest/iconError.png" width="12" height="14" alt="alert"/>&amp;nbsp;
                 Please enter a valid email address.
             </div>
 
             <form class="treb10 tint666">
-                <div class="txtSubmit">
+                <div class="txtSubmit algnlft">
                 <input class="txt" type="text" name="email" value="Submit your email to enter"/>&amp;nbsp;
                 <input type="image" src="/res/img/contest/baseball_blast_go_btn.png" class="btnImg"/>
                 </div>
-                <div class="ckbx1">
+                <div class="ckbx1 algnlft">
                 <input class="ckbx" type="checkbox" name="optInPartner"/>
                 <label for="optInPartner">Send me offers from Baseball Blast!</label>
                 </div>
-                <div class="ckbx2 fltlft">
+                <div class="ckbx2 algnlft">
                 <input class="ckbx" type="checkbox" name="optInGS" checked="checked"/>
                 <label for="optInGS">Send me updates</label><br/>
                 <label class="ckbxlbl" for="optInGS">from GreatSchools</label>
@@ -328,7 +330,7 @@
         </div>
 
         <div id="contestFooter" class="clearfix">
-        <a id="fineprint" class="treb10 tint39a clearfix" href="#" target="_blank">Full sweepstakes rules</a>
+        <a id="fineprint" class="treb10 tint39a clearfix algnlft" href="#" target="_blank">Full sweepstakes rules</a>
         </div>
 
         </div>
