@@ -32,6 +32,11 @@
             display:none;
         }
 
+        .gainlayout {
+            position: relative;
+            zoom: 1;
+        }
+
         .fltlft {
             /* this class can be used to float an element left in your page */
             float: left;
@@ -138,8 +143,6 @@
             background-color:#ededed;
             border: 1px inset #c6c6c6;
             width:193px;
-            /*margin:0 0 10px 0;*/
-            /*padding:0 5px, 0 0;*/
         }
 
         #baseballBlast #contestContainer input.btnImg{
@@ -159,10 +162,7 @@
         }
 
         #baseballBlast #contestContainer label.ckbxlbl{
-            display:block;
-            width:85px;
-            margin:-12px 0 0 0;
-            padding:0 0 0 19px;
+            margin:0 0 0 18px;
         }
 
         #baseballBlast #contestContainer label{
@@ -174,25 +174,16 @@
             margin:0 0 0 -14px;
         }
 
+        #contestContainer{
+            background:url(/res/img/contest/baseball_blast_sponsor.png) no-repeat right bottom;
+        }
+
         #contestFooter{
-            position:relative;
-            width:268px; height:65px;
-            margin:0 0 0 14px;
-        }
-
-        #sponsor1{
-            position:absolute;
-            bottom:9px; right:133px;
-        }
-
-        #sponsor2{
-            position:absolute;
-            bottom:3px; right:5px;
+            width:268px;
         }
 
         #fineprint{
-            position:absolute;
-            bottom:5px; left:-14px;
+            margin:10px 0 7px 0;
             text-decoration:underline;
         }
 
@@ -290,7 +281,7 @@
         <div id="contestContainer">
 
 
-        <div class="formContainer">
+        <div class="formContainer clearfix">
 
                     <p class="treb13 tint666">Enter by 12/16/09 for a chance to win<br/>
             <span class="tint5bc">Baseball Blast! for Wii</span> in time for the holidays.</p>
@@ -310,8 +301,9 @@
                 <label for="optInPartner">Send me offers from Baseball Blast!</label>
                 </div>
                 <div class="ckbx2 fltlft">
-                <input class="ckbx" align="top" type="checkbox" name="optInGS" checked="checked"/>
-                <label class="ckbxlbl" for="optInGS">Send me updates from GreatSchools</label>
+                <input class="ckbx" type="checkbox" name="optInGS" checked="checked"/>
+                <label for="optInGS">Send me updates</label><br/>
+                <label class="ckbxlbl" for="optInGS">from GreatSchools</label>
                 </div>
             </form>
 
@@ -330,10 +322,8 @@
             <p>An error occurred. Please try again later.</p>
         </div>
 
-        <div id="contestFooter">
-        <img id="sponsor1" class="fltlft" src="/res/img/contest/baseball_blast_sponsor1.png" width="46" height="44" alt="sponsor1"/>
-        <img id="sponsor2" src="/res/img/contest/baseball_blast_sponsor2.png" width="123" height="57" alt="sponsor2"/>
-        <a id="fineprint" class="treb10 tint39a" href="#" target="_blank">Full sweepstakes rules</a>
+        <div id="contestFooter" class="clearfix">
+        <a id="fineprint" class="treb10 tint39a clearfix" href="#" target="_blank">Full sweepstakes rules</a>
         </div>
 
         </div>
