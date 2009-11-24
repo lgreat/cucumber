@@ -133,12 +133,12 @@
         }
 
         #baseballBlast #contestContainer{
-            padding:11px 0 0 14px;
+            padding:6px 0 0 12px;
         }
 
         #baseballBlast #contestContainer form{
-            display:block; 
-            margin:14px 0 0 0;
+            display:block;
+            margin:10px 0 0 0;
         }
 
         #baseballBlast #contestContainer .txtSubmit{
@@ -146,6 +146,8 @@
         }
 
         #baseballBlast #contestContainer input.txt{
+            font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+            padding:3px;
             color:#666;
             background-color:#ededed;
             border: 1px inset #c6c6c6;
@@ -157,11 +159,11 @@
         }
 
         #baseballBlast #contestContainer .ckbx1{
-            margin:8px 0 0 0;
+            margin:7px 0 0 0;
         }
 
         #baseballBlast #contestContainer .ckbx2{
-            margin:8px 0 0 0;
+            margin:7px 0 0 0;
         }
 
         #baseballBlast #contestContainer input.ckbx{
@@ -178,12 +180,12 @@
         }
 
         #baseballBlast #contestContainer .confirmation{
-            height:122px;
+            height:120px;
             margin:0 0 0 -14px;
         }
 
         #baseballBlast #contestContainer .error{
-            height:122px;
+            height:120px;
         }
 
         #contestContainer{
@@ -195,7 +197,7 @@
         }
 
         #fineprint{
-            margin:10px 0 7px 0;
+            margin:14px 0 7px 0;
             text-decoration:underline;
         }
 
