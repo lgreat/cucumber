@@ -44,8 +44,8 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     /** Largest image size in bytes to allow to be uploaded.  */
     private final int MAX_UPLOAD_SIZE_BYTES = 1000000;
     public static final String POST_URL_PROPERTY_KEY = "gs.avatarUploadURL";
-    public static final String SYNCHRONOUS_RESPONSE = "SUCCESS";
-    public static final String ASYNCHRONOUS_RESPONSE = "ASUCCESS";
+    public static final String SYNCHRONOUS_RESPONSE = "ASUCCESS";
+    public static final String ASYNCHRONOUS_RESPONSE = "SUCCESS";
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
     private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
