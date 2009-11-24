@@ -132,6 +132,16 @@
              color:#39a;
         }
 
+        #baseballBlast #contestContainer .link,
+        #baseballBlast #contestContainer .link:link,
+        #baseballBlast #contestContainer .link:visited,
+        #baseballBlast #contestContainer .link:hover,
+        #baseballBlast #contestContainer .link:focus,
+        #baseballBlast #contestContainer .link:active{
+             text-decoration:underline;
+        }
+
+
         #baseballBlast #contestContainer{
             padding:6px 0 0 12px;
         }
@@ -193,10 +203,11 @@
         }
 
         #contestFooter{
-            width:268px;
+            width:auto;
         }
 
         #fineprint{
+            width:110px;
             margin:14px 0 7px 0;
             text-decoration:underline;
         }
@@ -298,7 +309,7 @@
         <div class="formContainer clearfix">
 
                     <p class="treb13 tint666 algnlft">Enter by 12/16/09 for a chance to win<br/>
-            <span class="tint5bc">Baseball Blast! for Wii</span> in time for the holidays.</p>
+            <a class="link tint39a" href="#" target="_blank">Baseball Blast! for Wii</a> in time for the holidays.</p>
 
             <div class="invalidEmail treb10 tint666 algnlft">
                 <img src="/res/img/contest/iconError.png" width="12" height="14" alt="alert"/>&amp;nbsp;
@@ -328,7 +339,7 @@
             <div class="treb15Bold tint666 algnctr">Thanks for entering!</div>
             <div class="treb12 tint666 algnctr">Ten winners will be announced on 12/17/09<br/>and notified by email.</div>
             <div class="lrnMore algnctr">
-            <a class="treb12 tint39a" href="#" target="_blank">Learn more about Baseball Blast! ></a>
+            <a class="treb12 link tint39a" href="#" target="_blank">Learn more about Baseball Blast! ></a>
             </div>
         </div>
 
@@ -336,9 +347,10 @@
             <p>An error occurred. Please try again later.</p>
         </div>
 
-        <div id="contestFooter" class="clearfix">
-        <a id="fineprint" class="treb10 tint39a clearfix algnlft" href="#" target="_blank">Full sweepstakes rules</a>
-        </div>
+            <div id="contestFooter" class="clearfix">
+                <a id="fineprint" class="treb10 tint39a clearfix algnlft" href="#"
+                   target="_blank">Full sweepstakes rules</a>
+            </div>
 
         </div>
     <!--end contestContainer-->
