@@ -134,13 +134,15 @@
 
         #baseballBlast #contestContainer .link,
         #baseballBlast #contestContainer .link:link,
-        #baseballBlast #contestContainer .link:visited,
+        #baseballBlast #contestContainer .link:visited{
+             text-decoration:none;
+        }
+
         #baseballBlast #contestContainer .link:hover,
         #baseballBlast #contestContainer .link:focus,
         #baseballBlast #contestContainer .link:active{
              text-decoration:underline;
         }
-
 
         #baseballBlast #contestContainer{
             padding:6px 0 0 12px;
@@ -349,7 +351,7 @@
         </div>
 
             <div id="contestFooter" class="clearfix">
-                <a id="fineprint" class="treb10 tint39a clearfix algnlft" href="#"
+                <a id="fineprint" class="link treb10 tint39a clearfix algnlft" href="#"
                    target="_blank">Full sweepstakes rules</a>
             </div>
 
