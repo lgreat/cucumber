@@ -22,10 +22,10 @@
                             <c:forEach var="discussion" items="${requestScope.discussions}">
                                 <div class="discussionHolder sdrb clearfix">
                                     <div class="avatar fltlft">
-                                        <link:userProfile user="${discussion.user}">
-                                            <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
-                                                 alt="Avatar" width="48" height="48"
-                                                 style="border: 1px solid #c6c6c6;"/>
+                                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                                            <community:avatar user="${discussion.user}" width="48" height="48"
+                                                              cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
+                                                              anonymous="${discussion.anonymous}"/>
                                         </link:userProfile>
                                     </div>
                                     <!-- end avatar -->
@@ -35,8 +35,10 @@
                                                                            styleClass="text3">${discussion.title}</link:discussion>
                                         </h4>
 
-                                        <link:userProfile user="${discussion.user}" styleClass="smallAlertTextBoldNeutral">
-                                            ${discussion.user.userProfile.screenName}
+                                        <link:userProfile user="${discussion.user}"
+                                                          styleClass="smallAlertTextBoldNeutral"
+                                                          anonymous="${discussion.anonymous}">
+                                            <community:screenName userContent="${discussion}"/>
                                         </link:userProfile>
                                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
 
@@ -93,10 +95,10 @@
                         <c:forEach var="discussion" items="${requestScope.discussions}">
                             <div class="discussionHolder clearfix">
                                 <div class="avatar fltlft">
-                                    <link:userProfile user="${discussion.user}">
-                                        <img src="http://${requestScope.communityHost}/avatar?id=${discussion.user.id}&amp;amp;width=48&amp;amp;height=48"
-                                             alt="Avatar" width="48" height="48"
-                                             style="border: 1px solid #c6c6c6;"/>
+                                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                                        <community:avatar user="${discussion.user}" width="48" height="48"
+                                                          cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
+                                                          anonymous="${discussion.anonymous}"/>
                                     </link:userProfile>
                                 </div>
                                 <!-- end avatar -->
@@ -106,8 +108,8 @@
                                                                         styleClass="text3">${discussion.title}</link:discussion>"
                                     </h4>
 
-                                    <link:userProfile user="${discussion.user}">
-                                        <span class="smallAlertTextBoldNeutral">${discussion.user.userProfile.screenName}</span>
+                                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                                        <span class="smallAlertTextBoldNeutral"><community:screenName userContent="${discussion}"/></span>
                                     </link:userProfile>
                                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
 

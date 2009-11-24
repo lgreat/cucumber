@@ -150,16 +150,16 @@ public class UserInfoController extends AbstractController {
         if (StringUtils.isNotBlank(viewAllActivity) && "true".equals(viewAllActivity)) {
             int pageSize = VIEW_ALL_ACTIVITY_PAGE_SIZE;
             model.put(MODEL_VIEW_ALL_ACTIVITY, true);
-            int totalUserContent = getTotalUserContent(pageUser);
+            int totalUserContent = getTotalUserContent(pageUser, viewingOwnProfile);
             model.put(MODEL_TOTAL_USER_CONTENT, totalUserContent);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalUserContent));
             int page = getPageNumber(request); 
             model.put(MODEL_PAGE, page);
-            recentContent = getUserContentForPage(pageUser.getId(), page, pageSize);
+            recentContent = getUserContentForPage(pageUser.getId(), page, pageSize, viewingOwnProfile);
 
         } else {
             model.put(MODEL_VIEW_ALL_ACTIVITY, false);
-            recentContent = _userContentDao.findAllContentByAuthor(pageUser, RECENT_ACTIVITY_PAGE_SIZE);
+            recentContent = _userContentDao.findAllContentByAuthor(pageUser, RECENT_ACTIVITY_PAGE_SIZE, viewingOwnProfile);
         }
 
         for (UserContent content: recentContent) {
@@ -233,10 +233,10 @@ public class UserInfoController extends AbstractController {
      * @return non-null list
      */
     protected List<UserContent> getUserContentForPage
-            (int userId, int page, int pageSize) {
+            (int userId, int page, int pageSize, boolean includeAnonymous) {
         List<UserContent> content;
 
-        content = _userContentDao.getContentByAuthorForPage(userId, page, pageSize);
+        content = _userContentDao.getContentByAuthorForPage(userId, page, pageSize, includeAnonymous);
 
         return content;
     }
@@ -244,10 +244,10 @@ public class UserInfoController extends AbstractController {
     /**
      * Get the total number of user content items by this user.
      */
-    protected int getTotalUserContent(User user) {
+    protected int getTotalUserContent(User user, boolean includeAnonymous) {
         int totalUserContent;
 
-        totalUserContent = _userContentDao.getTotalUserContent(user.getId());
+        totalUserContent = _userContentDao.getTotalUserContent(user.getId(), includeAnonymous);
 
         return totalUserContent;
     }
