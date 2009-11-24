@@ -4,7 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
     <!-- Required attributes -->
-    <jsp:directive.attribute name="userContent" required="true" type="gs.data.community.UserContent"
+    <jsp:directive.attribute name="userContent" required="true" type="java.lang.Object"
                              description="UserContent object to print author's screen name for (unless it was posted anonymously)."/>
 
     <c:choose>

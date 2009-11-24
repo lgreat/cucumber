@@ -57,4 +57,8 @@ public class DiscussionFacade {
     public Integer getId() {
         return _discussion.getId();
     }
+
+    public boolean isAnonymous() {
+        return _discussion.isAnonymous();
+    }
 }
