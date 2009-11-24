@@ -204,6 +204,7 @@
 
         #contestFooter{
             width:auto;
+            text-align:left;
         }
 
         #fineprint{
