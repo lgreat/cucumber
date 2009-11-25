@@ -321,12 +321,12 @@
                             <span class="text3bold">by
                                 <c:choose>
                                     <c:when test="${discussion.user.userProfile.active}">
-                                        <link:userProfile user="${discussion.user}"
-                                                          styleClass="link">${discussion.user.userProfile.screenName}
+                                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}"
+                                                          styleClass="link"><community:screenName userContent="${discussion}"/>
                                         </link:userProfile>
                                     </c:when>
                                     <c:otherwise>
-                                        ${discussion.user.userProfile.screenName}
+                                        <community:screenName userContent="${discussion}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </span>
