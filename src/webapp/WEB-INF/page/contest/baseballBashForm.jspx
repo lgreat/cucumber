@@ -229,6 +229,8 @@
 
     </style>
 
+    <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"></script>
+
     <script type="text/javascript">
         jQuery.noConflict();
         var $j = jQuery;
@@ -285,14 +287,19 @@
                 var optInGS = $j("#baseballBlast input[name='optInGS']").is(':checked');
 
                 $j.post('/contest/baseballBash.page', { 'email' : email, 'optInPartner' : optInPartner, 'optInGS': optInGS }, function(response) {
-                    if (response == 'ok') {
+                    if (response.result == 'submitted' || response.result == 'duplicate') {
                         changeFormDisplay(false, false, true, false);
-                    } else if (response == 'invalidEmail') {
+                        if (response.result == 'submitted') {
+                            omnitureEventNotifier.clear();
+                            omnitureEventNotifier.successEvents = response.omnitureTracking.successEvents;
+                            omnitureEventNotifier.send();
+                        }
+                    } else if (response.result == 'invalidEmail') {
                         changeFormDisplay(true, true, false, false);
                     } else {
                         changeFormDisplay(false, false, false, true);
                     }
-                });
+                }, "json");
 
                 return false;
             });

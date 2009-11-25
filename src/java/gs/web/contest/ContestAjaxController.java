@@ -15,6 +15,7 @@ import gs.data.contest.ContestEntry;
 import gs.web.util.ReadWriteController;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.JsonBasedOmnitureTracking;
 
 /**
  * GS-8998
@@ -30,12 +31,13 @@ public class ContestAjaxController implements ReadWriteController {
     private IContestDao _contestDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        PrintWriter out = response.getWriter();
         String result;
 
         String email = request.getParameter(PARAM_EMAIL);
         String optInPartner = request.getParameter(PARAM_OPT_IN_PARTNER);
         String optInGS = request.getParameter(PARAM_OPT_IN_GS);
+
+        JsonBasedOmnitureTracking omnitureTracking = new JsonBasedOmnitureTracking();
 
         EmailValidator emv = EmailValidator.getInstance();
         if (emv.isValid(email)) {
@@ -54,10 +56,11 @@ public class ContestAjaxController implements ReadWriteController {
 
                     _contestDao.save(entry);
 
-                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.SweepstakesEntered);
+                    omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.SweepstakesEntered);
+                    result = "submitted";
+                } else {
+                    result = "duplicate";
                 }
-                result = "ok";
             } else {
                 result = "invalidContestId";
             }
@@ -66,7 +69,13 @@ public class ContestAjaxController implements ReadWriteController {
             result = "invalidEmail";
         }
 
-        out.print(result);
+        response.setContentType("application/json");
+
+        PrintWriter out = response.getWriter();
+        out.println("{");
+        out.println("\"result\":\"" + result + "\",");
+        out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
+        out.println("}");
 
         return null;
     }
