@@ -22,25 +22,25 @@
 <html lang="en">
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>Choosing a School in Milwaukee, Wisconsin</title>
+    <title>Choosing a School in Washington D.C.</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
     <pageHelper:externalCss file="/res/css/geo/landing-ie7.css" userAgentSubstring="IE "/>
     <pageHelper:externalCss file="/res/css/geo/dc.css"/>
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        sessionContext.setState(State.WI);
+        sessionContext.setState(State.DC);
     </jsp:scriptlet>
     <script type="text/javascript">
-        function gotoMilwaukeeCityPage() {
-            window.location.href = '/city/Milwaukee/WI';
+        function gotoDCCityPage() {
+            window.location.href = '/washington-dc/washington/';
         }
-        function gotoMilwaukeeSchoolsPage() {
+        function gotoDCSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = "/wisconsin/milwaukee/" + level + "/";
+            var url = "/washington-dc/washington/schools/" + level + "/";
             window.location.href = decodeURIComponent(url);
         }
         function gotoComparePage() {
-            var url = "/cgi-bin/cs_compare/wi/?sortby=distance%26tab=over%26area=m%26zip=";
+            var url = "/cgi-bin/cs_compare/dc/?sortby=distance%26tab=over%26area=m%26zip=";
             url += document.getElementById('zip').value;
             url += "%26miles=";
             url += document.getElementById('miles').value;
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <ul>
-                <li>Milwaukee parents, here are some great resources to help you choose a school:</li>
+                <li>DC parents, here are some great resources to help you choose a school:</li>
                 <gsweb:articlelink articleId="96" wrappingElement="li"/>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
@@ -79,9 +79,9 @@
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>
             <ul>
-                <li><a href="http://www.archmil.org/education/default.asp" target="_blank">Archdiocese of Milwaukee</a></li>
+                <li><a href="http://www.archmil.org/education/default.asp" target="_blank">Archdiocese of DC</a></li>
                 <li><a href="http://www.itlmuonline.com/" target="_blank">Institute for Transformation of Learning</a></li>
-                <li><a href="http://milwaukee.baeo.org/" target="_blank">Milwaukee Chapter - BAEO</a></li>
+                <li><a href="http://DC.baeo.org/" target="_blank">DC Chapter - BAEO</a></li>
                 <li><a href="http://www.pave.org/" target="_blank">PAVE</a></li>
                 <li><a href="http://www.schoolchoiceinfo.org/" target="_blank">School Choice Wisconsin</a></li>
                 <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
@@ -90,7 +90,7 @@
         </div>
     </div>
     <div id="right-content">
-        <h1>GreatSchools Milwaukee</h1>
+        <h1>GreatSchools D.C.</h1>
         <div id="grid">
             <div class="gridbox top left" id="findAndCompare">
                 <h3 class="grid-header">
@@ -99,24 +99,24 @@
                 <div class="spacer">
                     <div class="row" id="topSchools">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        <span>Find top Milwaukee schools</span>
-                        <input src="/res/img/splash/go.gif" alt="Find Milwaukee Schools" style="width: 41px; height: 26px;"
+                        <span>Find top DC schools</span>
+                        <input src="/res/img/splash/go.gif" alt="Find DC Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                               onclick="gotoMilwaukeeCityPage();" />
+                               onclick="gotoDCCityPage();" />
                     </div>
                     <div class="row" id="findAll">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        <span>Find all Milwaukee</span>
+                        <span>Find all DC</span>
                         <select id="findAllLevel">
                             <option value="elementary-schools">elementary schools</option>
                             <option value="middle-schools">middle schools</option>
                             <option value="high-schools">high schools</option>
                         </select>
-                        <input src="/res/img/splash/go.gif" alt="Find Milwaukee Schools" style="width: 41px; height: 26px;"
+                        <input src="/res/img/splash/go.gif" alt="Find DC Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                               onclick="gotoMilwaukeeSchoolsPage()"/>
+                               onclick="gotoDCSchoolsPage()"/>
                     </div>
 
                     <input type="hidden" name="sortby" value="distance" />
@@ -127,7 +127,7 @@
 
                     <div class="row">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        Compare Milwaukee
+                        Compare DC
                         <select id="compareLevel" name="level">
                             <option value="e">elementary schools</option>
                             <option value="m">middle schools</option>
@@ -148,7 +148,7 @@
                         <span>miles of</span>
                         <input id="zip" type="text" name="zip" class="zip formText" value="53233" size="7"/>
 
-                        <input src="/res/img/splash/go.gif" alt="Compare Milwaukee Schools" style="width: 41px; height: 26px;"
+                        <input src="/res/img/splash/go.gif" alt="Compare DC Schools" style="width: 41px; height: 26px;"
                            class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                            onmouseout="this.src='/res/img/splash/go.gif';" type="image"
                            onclick="gotoComparePage()"/>
@@ -160,11 +160,11 @@
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
                 <ul>
-                    <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
+                    <li><link:article articleId="1141">Find DC School Information Workshops</link:article></li>
 
-                    <!--li><link:article articleId="1142">What's new with GreatSchools Milwaukee</link:article></li-->
+                    <!--li><link:article articleId="1142">What's new with GreatSchools DC</link:article></li-->
                     <li>
-                        <a href="mailto:milwaukee@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
+                        <a href="mailto:DC@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
                 </ul>
             </div>
@@ -173,9 +173,9 @@
                     <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
                 <ul>
-                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
+                    <li><gsml:a href="http://mpsportal.DC.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">DC Public Schools (MPS)</gsml:a></li>
                     <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
-                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
+                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - DC Parental Choice Program</gsml:a></li>
                 </ul>
             </div>
             <div class="gridbox bottom right" id="resources">
@@ -184,12 +184,12 @@
                 </h3>
                 <ul>
                     <li>Call our hotline: 414-297-9715</li>
-                    <li><a href="mailto:milwaukee@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
+                    <li><a href="mailto:DC@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20DC" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/MilwaukeeSchoolChooser.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/DCSchoolChooser.pdf" target="_blank">DC School Chooser</gsml:a>
                     </li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/ListadodeEscuelasdeMilwaukee.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
+                        <gsml:a href="/schoolreports/ListadodeEscuelasdeDC.pdf" target="_blank">Listado de Escuelas de DC</gsml:a>
                     </li>
                     <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
                 </ul>
@@ -200,7 +200,7 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Milwaukee School Chooser and our GreatSchools Milwaukee program.</li>
+                <li>Your contribution helps support DC School Chooser and our GreatSchools DC program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
