@@ -196,8 +196,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
 
         try {
             ClientHttpRequest clientHttpRequest = new ClientHttpRequest(url);
-            clientHttpRequest.setParameter("upload_type", "cms");
-            clientHttpRequest.setParameter("upload_type", "cms");
+            clientHttpRequest.setParameter("upload_type", "avatar");
             clientHttpRequest.setParameter("numblobs", 2);
             clientHttpRequest.setParameter("user_id", user.getId());
 
