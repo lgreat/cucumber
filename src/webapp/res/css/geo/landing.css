@@ -53,20 +53,20 @@ div#left-content {
         text-decoration:underline;
     }
 
-        div#left-content div#partners h3{
+        div#left-content div#partners h3, div#left-content div.module h3{
             height:30px;
             background:#DDEEEE;
             position:relative;
         }
 
-        div#left-content div#partners h3 span {
+        div#left-content div#partners h3 span, div#left-content div.module h3 span {
             padding:5px 0 0 10px;
             color:#55BBCC;
             font-size:15px;
             position:absolute;
         }
 
-        div#left-content div#partners ul {
+        div#left-content div#partners ul, div#left-content div.module ul {
             margin-top:10px;
         }
 
@@ -324,7 +324,7 @@ div#grid div.gridbox {
                top:10px;
            }
 
-           div#grid div#greatschoolsGuides li img, div#grid div#resources li img {
+           div#grid div#greatschoolsGuides li img, div#grid div#resources li img, div#grid div#connectAndLearn li img{
                padding: 0 5px 0 0;
                position: relative;
                top: 3px;
