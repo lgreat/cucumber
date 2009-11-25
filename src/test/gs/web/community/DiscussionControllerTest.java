@@ -149,15 +149,15 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     }
     
     public void testGetPage() {
-        assertEquals("Expect default page to be 1", 1, _controller.getPageNumber(getRequest(), null, 1, null));
+        assertEquals("Expect default page to be 1", 1, _controller.getPageNumber(getRequest(), null, 1, null, false));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "1");
-        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null));
+        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null, false));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "51");
-        assertEquals(51, _controller.getPageNumber(getRequest(), null, 1, null));
+        assertEquals(51, _controller.getPageNumber(getRequest(), null, 1, null, false));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "foo");
-        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null));
+        assertEquals(1, _controller.getPageNumber(getRequest(), null, 1, null, false));
         getRequest().setParameter(DiscussionController.PARAM_PAGE, "-1");
-        assertEquals("Any integer should be accepted?", -1, _controller.getPageNumber(getRequest(), null, 1, null));
+        assertEquals("Any integer should be accepted?", -1, _controller.getPageNumber(getRequest(), null, 1, null, false));
     }
 
     public void testGetPageSize() {
@@ -174,11 +174,11 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     public void testGetNoRepliesForPage() {
         Discussion discussion = new Discussion();
 
-        expect(_discussionReplyDao.getRepliesForPage(discussion, 1, 5, DiscussionReplySort.NEWEST_FIRST))
+        expect(_discussionReplyDao.getRepliesForPage(discussion, 1, 5, DiscussionReplySort.NEWEST_FIRST, false))
                 .andReturn(new ArrayList<DiscussionReply>(0));
 
         replayAllMocks();
-        List<DiscussionReply> replies = _controller.getRepliesForPage(discussion, 1, 5, DiscussionReplySort.NEWEST_FIRST);
+        List<DiscussionReply> replies = _controller.getRepliesForPage(discussion, 1, 5, DiscussionReplySort.NEWEST_FIRST, false);
         verifyAllMocks();
 
         assertNotNull(replies);
@@ -195,11 +195,11 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         replies.add(new DiscussionReply());
         replies.add(new DiscussionReply());
 
-        expect(_discussionReplyDao.getRepliesForPage(discussion, 7, 10, DiscussionReplySort.NEWEST_FIRST))
+        expect(_discussionReplyDao.getRepliesForPage(discussion, 7, 10, DiscussionReplySort.NEWEST_FIRST, false))
                 .andReturn(replies);
 
         replayAllMocks();
-        List<DiscussionReply> rval = _controller.getRepliesForPage(discussion, 7, 10, DiscussionReplySort.NEWEST_FIRST);
+        List<DiscussionReply> rval = _controller.getRepliesForPage(discussion, 7, 10, DiscussionReplySort.NEWEST_FIRST, false);
         verifyAllMocks();
 
         assertNotNull(rval);
@@ -209,10 +209,10 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     public void testGetNoTotalReplies() {
         Discussion discussion = new Discussion();
 
-        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(0);
+        expect(_discussionReplyDao.getTotalReplies(discussion, false)).andReturn(0);
 
         replayAllMocks();
-        int totalDiscussions = _controller.getTotalReplies(discussion);
+        int totalDiscussions = _controller.getTotalReplies(discussion, false);
         verifyAllMocks();
 
         assertEquals(0, totalDiscussions);
@@ -221,10 +221,10 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     public void testGetSomeTotalReplies() {
         Discussion discussion = new Discussion();
 
-        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(17);
+        expect(_discussionReplyDao.getTotalReplies(discussion, false)).andReturn(17);
 
         replayAllMocks();
-        int totalDiscussions = _controller.getTotalReplies(discussion);
+        int totalDiscussions = _controller.getTotalReplies(discussion, false);
         verifyAllMocks();
 
         assertEquals(17, totalDiscussions);
