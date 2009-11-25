@@ -229,7 +229,7 @@
 
     </style>
 
-    <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"></script>
+    <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- don't collapse --></script>
 
     <script type="text/javascript">
         jQuery.noConflict();
