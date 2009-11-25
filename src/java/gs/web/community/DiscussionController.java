@@ -18,6 +18,7 @@ import gs.data.content.cms.CmsTopicCenter;
 import java.util.*;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
+import gs.data.security.Permission;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -91,7 +92,7 @@ public class DiscussionController extends AbstractController {
         model.put(MODEL_URI, uri + "?content=" + discussion.getId());
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user;
+        User user = null;
         if(PageHelper.isMemberAuthorized(request)){
             user = sessionContext.getUser();
             if (user != null) {
@@ -107,19 +108,24 @@ public class DiscussionController extends AbstractController {
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
+            boolean includeInactive = false;
+            if (user != null && user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
+                includeInactive = true;
+            }
+
             int pageSize = getPageSize(request);
             DiscussionReplySort sort = getReplySort(request, response);
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
-            int page = getPageNumber(request, discussion, pageSize, sort);
+            int page = getPageNumber(request, discussion, pageSize, sort, includeInactive);
             model.put(MODEL_PAGE, page);
 
-            List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort);
+            List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort, includeInactive);
             List<UserContent> userContents = new ArrayList<UserContent>(replies);
             userContents.add(discussion);
             _userDao.populateWithUsers(userContents);
             model.put(MODEL_REPLIES, replies);
-            int totalReplies = getTotalReplies(discussion);
+            int totalReplies = getTotalReplies(discussion, includeInactive);
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
             model.put(MODEL_CURRENT_DATE, new Date());
@@ -153,14 +159,15 @@ public class DiscussionController extends AbstractController {
      * Extract the page number from the request. Defaults to 1. If a discussion reply id is specified,
      * then uses that reply to determine what page to show.
      */
-    protected int getPageNumber(HttpServletRequest request, Discussion discussion, int pageSize, DiscussionReplySort sort) {
+    protected int getPageNumber(HttpServletRequest request, Discussion discussion, int pageSize,
+                                DiscussionReplySort sort, boolean includeInactive) {
         int page = -1;
         if (request.getParameter(PARAM_DISCUSSION_REPLY_ID) != null) {
             try {
                 int discussionReplyId = Integer.valueOf(request.getParameter(PARAM_DISCUSSION_REPLY_ID));
                 DiscussionReply reply = _discussionReplyDao.findById(discussionReplyId);
                 if (reply != null && reply.getDiscussion().getId().equals(discussion.getId())) {
-                    page = _discussionReplyDao.getPageForReply(discussion, reply, pageSize, sort);
+                    page = _discussionReplyDao.getPageForReply(discussion, reply, pageSize, sort, includeInactive);
                     _log.info("Page with discussion is " + page);
                 }
             } catch (NumberFormatException nfe) {
@@ -247,21 +254,21 @@ public class DiscussionController extends AbstractController {
      * @return non-null list
      */
     protected List<DiscussionReply> getRepliesForPage
-            (Discussion discussion, int page, int pageSize, DiscussionReplySort sort) {
+            (Discussion discussion, int page, int pageSize, DiscussionReplySort sort, boolean includeInactive) {
         List<DiscussionReply> replies;
 
-        replies = _discussionReplyDao.getRepliesForPage(discussion, page, pageSize, sort);
+        replies = _discussionReplyDao.getRepliesForPage(discussion, page, pageSize, sort, includeInactive);
 
         return replies;
     }
 
     /**
-     * Get the total number of discussions in the provided board.
+     * Get the total number of replies in the provided discussion.
      */
-    protected int getTotalReplies(Discussion discussion) {
+    protected int getTotalReplies(Discussion discussion, boolean includeInactive) {
         int totalReplies;
 
-        totalReplies = _discussionReplyDao.getTotalReplies(discussion);
+        totalReplies = _discussionReplyDao.getTotalReplies(discussion, includeInactive);
 
         return totalReplies;
     }
