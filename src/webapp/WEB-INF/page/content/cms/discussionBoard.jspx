@@ -152,7 +152,11 @@
                     <div class="db_title gainlayout">
                         <h4 class="fltlft"><link:discussion discussionId="${discussion.id}"
                                                             fullUri="${discussion.fullUri}"><span
-                                class="title1">${discussion.title}</span></link:discussion></h4>
+                                class="title1">${discussion.title}</span></link:discussion>
+                            <c:if test="${discussion.active eq false}">
+                                <span class="tint_c03">(Deleted)</span>
+                            </c:if>
+                        </h4>
 
                         <p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>
                         <br class="clearfloat"/>

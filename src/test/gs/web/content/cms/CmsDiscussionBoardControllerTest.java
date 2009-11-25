@@ -111,10 +111,10 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         //        .andReturn(topicCenter);
 
         expect(_discussionDao.getDiscussionsForPage
-                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.RECENT_ACTIVITY))
+                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.RECENT_ACTIVITY, false))
                 .andReturn(new ArrayList<Discussion>(0));
 
-        expect(_discussionDao.getTotalDiscussions(board)).andReturn(0);
+        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(0);
 
         _userDao.populateWithUsers(isA(List.class));
         
@@ -158,11 +158,11 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetNoDiscussionsForPage() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST))
+        expect(_discussionDao.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false))
                 .andReturn(new ArrayList<Discussion>(0));
 
         replayAllMocks();
-        List discussions = _controller.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST);
+        List discussions = _controller.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false);
         verifyAllMocks();
 
         assertNotNull(discussions);
@@ -179,11 +179,11 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         discussions.add(new Discussion());
         discussions.add(new Discussion());
 
-        expect(_discussionDao.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST))
+        expect(_discussionDao.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false))
                 .andReturn(discussions);
 
         replayAllMocks();
-        List rval = _controller.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST);
+        List rval = _controller.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false);
         verifyAllMocks();
 
         assertNotNull(rval);
@@ -193,10 +193,10 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetNoTotalDiscussions() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getTotalDiscussions(board)).andReturn(0);
+        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(0);
 
         replayAllMocks();
-        long totalDiscussions = _controller.getTotalDiscussions(board);
+        long totalDiscussions = _controller.getTotalDiscussions(board, false);
         verifyAllMocks();
 
         assertEquals(0, totalDiscussions);
@@ -205,10 +205,10 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetSomeTotalDiscussions() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getTotalDiscussions(board)).andReturn(51);
+        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(51);
 
         replayAllMocks();
-        long totalDiscussions = _controller.getTotalDiscussions(board);
+        long totalDiscussions = _controller.getTotalDiscussions(board, false);
         verifyAllMocks();
 
         assertEquals(51, totalDiscussions);

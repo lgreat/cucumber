@@ -17,6 +17,8 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
+import gs.data.security.Permission;
+import gs.data.security.Role;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
@@ -84,7 +86,7 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_DISCUSSION_BOARD, board);
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            User user;
+            User user = null;
             if(PageHelper.isMemberAuthorized(request)){
                 user = sessionContext.getUser();
                 if (user != null) {
@@ -105,12 +107,16 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
 
-            List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort);
+            boolean includeInactive = false;
+            if (user != null && user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
+                includeInactive = true;
+            }
+            List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort, includeInactive);
             List<DiscussionFacade> facades = populateFacades(board, discussions);
             populateWithUsers(discussions, facades);
             model.put(MODEL_DISCUSSION_LIST, facades);
 
-            long totalDiscussions = getTotalDiscussions(board);
+            long totalDiscussions = getTotalDiscussions(board, includeInactive);
             model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
             model.put(MODEL_CURRENT_DATE, new Date());
@@ -227,10 +233,10 @@ public class CmsDiscussionBoardController extends AbstractController {
      * @return non-null list
      */
     protected List<Discussion> getDiscussionsForPage
-            (CmsDiscussionBoard board, int page, int pageSize, DiscussionSort sort) {
+            (CmsDiscussionBoard board, int page, int pageSize, DiscussionSort sort, boolean includeInactive) {
         List<Discussion> discussions;
 
-        discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort);
+        discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort, includeInactive);
 
         return discussions;
     }
@@ -238,10 +244,10 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalDiscussions(CmsDiscussionBoard board) {
+    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive) {
         long totalDiscussions;
 
-        totalDiscussions = _discussionDao.getTotalDiscussions(board);
+        totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive);
 
         return totalDiscussions;
     }

@@ -61,4 +61,8 @@ public class DiscussionFacade {
     public boolean isAnonymous() {
         return _discussion.isAnonymous();
     }
+
+    public boolean isActive() {
+        return _discussion.isActive();
+    }
 }
