@@ -519,6 +519,7 @@
 <mod:tracking pageName="Discussion Detail Page"
               hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},${discussion.id}:${discussionTitle}"
               community="true"
+              local="${requestScope.discussionBoard.city ne null?'yes':''}"
               omitAlmondNet="${true}"
         />
 </body>
