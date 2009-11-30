@@ -35,6 +35,8 @@
         request.setAttribute("avatarName", CommunityUtil.getAvatarFilename(user.getId(), width, "jpg"));
         request.setAttribute("useNewCommunity", CommunityUtil.isNewCommunityEnabled());
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
+
+        request.setAttribute("validAvatarSize", CommunityUtil.getClosestValidAvatarSize(width));
     </jsp:scriptlet>
 
 
@@ -48,7 +50,7 @@
 
     <c:choose>
         <c:when test="${useNewCommunity}">
-            <c:set var="avatarUrl" value="/content/avatar/stock/default-${width}.jpg"/>
+            <c:set var="avatarUrl" value="stock/default-${validAvatarSize}.jpg"/>
             <c:set var="avatarVersion" value=""/>
             <c:choose>
                 <c:when test="${anonymous == true}">
@@ -64,7 +66,7 @@
                                 user.userProfile.avatarType eq 'stk-dog' or
                                 user.userProfile.avatarType eq 'stk-dandelion' or
                                 user.userProfile.avatarType eq 'stk-palm'}">
-                    <c:set var="avatarUrl" value="/content/avatar/stock/${user.userProfile.avatarType}-${width}.jpg"/>
+                    <c:set var="avatarUrl" value="stock/${user.userProfile.avatarType}-${validAvatarSize}.jpg"/>
                 </c:when>
             </c:choose>
 

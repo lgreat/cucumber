@@ -171,7 +171,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
            throws Exception {
         Map<String, String> model = new HashMap<String, String>();
 
-        model.put(MODEL_STOCK_AVATAR_URL_PREFIX, CommunityUtil.getAvatarURLPrefix() + "/content/avatar/stock/");
+        model.put(MODEL_STOCK_AVATAR_URL_PREFIX, CommunityUtil.getAvatarURLPrefix() + "stock/");
         return model;
     }
 
@@ -192,7 +192,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             return null;
         }
 
-        String dir = CommunityUtil.getAvatarPath(user.getId());
+        String dir = CommunityUtil.getAvatarUploadFolder(user.getId());
 
         try {
             ClientHttpRequest clientHttpRequest = new ClientHttpRequest(url);
@@ -211,7 +211,9 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         return null;
     }
 
-    protected void scaleAndSetImageParameter(BufferedImage source, int size, String mimetype, String formatName, User user, String dir, ClientHttpRequest clientHttpRequest, int paramNum) throws IOException {
+    protected void scaleAndSetImageParameter(BufferedImage source, int size, String mimetype, String formatName,
+                                             User user, String dir, ClientHttpRequest clientHttpRequest,
+                                             int paramNum) throws IOException {
         BufferedImage thumb = getScaledInstance(source,
                 size, size,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR,
@@ -220,8 +222,6 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         String destFilename = CommunityUtil.getAvatarFilename(user.getId(), size, formatName);
 
         clientHttpRequest.setParameter("blob" + paramNum, destFilename, mimetype, formatName, thumb);
-//        clientHttpRequest.setParameter("dir" + paramNum, dir);
-//        clientHttpRequest.setParameter("name" + paramNum, destFilename);
         clientHttpRequest.setParameter("path" + paramNum, dir + destFilename);
     }
 
