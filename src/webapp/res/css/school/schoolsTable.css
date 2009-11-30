@@ -235,7 +235,7 @@ div#col_right div#compareInCity input.submit {
     margin-bottom: 6px;
     height: 13px;
     float:left;
-    /*position: relative;*/
+    position: relative;
 }
 
 .compare_schools_row label, .compare_schools_row span {
