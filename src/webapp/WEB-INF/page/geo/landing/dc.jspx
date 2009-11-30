@@ -176,9 +176,11 @@
                     <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
                 <ul>
-                    <li><gsml:a href="http://mpsportal.DC.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">D.C. Public Schools (MPS)</gsml:a></li>
-                    <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
-                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - D.C. Parental Choice Program</gsml:a></li>
+                    <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1" target="_blank">Archdiocese of Washington, DC</gsml:a></li>
+                    <li><gsml:a href="http://www.aisgw.org/" target="_blank">Association of Independent Schools of Greater Washington (AISGW)</gsml:a></li>
+                    <li><gsml:a href="http://dcps.dc.gov/" target="_blank">District of Columbia Public Schools (DCPS)</gsml:a></li>
+                    <li><gsml:a href="http://www.osse.dc.gov/" target="_blank">Office of the State Superintendent of Education (OSSE)</gsml:a></li>
+                    <li><gsml:a href="http://www.dcpubliccharter.com/" target="_blank">Public Charter School Board (PCSB)</gsml:a></li>
                 </ul>
             </div>
             <div class="gridbox bottom right" id="resources">
@@ -186,15 +188,10 @@
                     <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
                 <ul>
-                    <li>Call our hotline: 414-297-9715</li>
-                    <li><a href="mailto:DC@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20DC" >E-mail us for more information</a></li>
-                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/DCSchoolChooser.pdf" target="_blank">D.C. School Chooser</gsml:a>
-                    </li>
-                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/ListadodeEscuelasdeDC.pdf" target="_blank">Listado de Escuelas de D.C.</gsml:a>
-                    </li>
-                    <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
+                    <li><a href="mailto:dc@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a></li>
+                    <li>English Parent Hotline: 202-431-5538</li>
+                    <li>L&amp;iacute;nea Directa para Padres de Familia: 202-431-5516</li>
+                    <li><gsml:a href="http://www.greatschools.net/community/loginOrRegister.page?redirect=/email/management.page" target="_blank">Sign up for GreatSchools newsletters</gsml:a></li>
                 </ul>
             </div>
         </div>

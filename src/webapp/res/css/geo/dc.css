@@ -82,6 +82,14 @@ div#promoRulesLink a:active {
     float:left;
 }
 
+div#grid{
+    height:460px;
+}
+
+div#grid div.bottom {
+    height:235px;
+}
+
 /* ---------------- */
 /* DEBUGGING SYTLES */
 /* ---------------- */
