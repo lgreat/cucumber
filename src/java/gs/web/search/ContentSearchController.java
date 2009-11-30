@@ -139,7 +139,7 @@ public class ContentSearchController extends AbstractController {
         if (StringUtils.isNotBlank(searchQuery)) {
         try {
             // TODO-8876 maybe don't expose so much of the solr internals; instead, move to SolrService?
-            SolrServer solr = _solrService.getSolrServer();
+            SolrServer solr = _solrService.getReadOnlySolrServer();
 
             // first query for facets
             SolrQuery query = _solrService.getFacetCountQuery(searchQuery);
