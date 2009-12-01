@@ -278,6 +278,12 @@
         </property>
     </bean>
 
+    <bean name="/terms" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>about/termsOfUse</value>
+        </property>
+    </bean>
+
     <bean name="/widget/editorialWidget.page"
           class="gs.web.util.CacheablePageParameterizableViewController"
           lazy-init="true">
@@ -715,12 +721,18 @@
         </property>
     </bean>
 
-    <bean name="/about/privacyStatement.page"
+    <bean name="/privacy"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/privacyStatement</value>
         </property>
+    </bean>
+
+    <bean name="/about/privacyStatement.page"
+          class="gs.web.util.Redirect301Controller"
+          autowire="byName" lazy-init="true">
+        <property name="redirectPath" value="/privacy"/>
     </bean>
 
     <bean name="/about/testimonials.page"

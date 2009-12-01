@@ -162,7 +162,7 @@
 
     <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Photo Guidelines"
-                                       href="/cgi-bin/static/terms.html/$STATE#photoGuidelines"
+                                       href="/terms?state=$STATE#photoGuidelines"
                                        styleClass="text3 photoGuidelines"
                 >GreatSchools photo guidelines</gsml:popupWindow>
     <p class="text1bold">Upload your own picture</p>

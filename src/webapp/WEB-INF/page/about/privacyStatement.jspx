@@ -20,12 +20,10 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>GreatSchools.net Privacy Statement</title>
+    <title>GreatSchools.net Terms of Use</title>
 </head>
 
 <gsml:body adPageName="privacyStatement" pageLayout="singleTextOnlyColumnLayout">
-
-<mod:tracking pageName="privacyStatement" hier1="Home,Corporate,PrivacyPolicy"/>
 
 <h3>Privacy Statement</h3>
 
@@ -284,6 +282,8 @@
 
 <br/>
 <p>Updated September 30, 2009</p>
+
+<mod:tracking pageName="privacyStatement" hier1="Home,Corporate,PrivacyPolicy"/>
 
 </gsml:body>
 </html>

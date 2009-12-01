@@ -18,7 +18,11 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     }
 
     public void testPrivacyPolicy() {
-        assertValidXhtml(INTEGRATION_HOST + "/about/privacyStatement.page");
+        assertValidXhtml(INTEGRATION_HOST + "/privacy");
+    }
+
+    public void testTermsOfUse() {
+        assertValidXhtml(INTEGRATION_HOST + "/terms");
     }
 
     public void xtestTopSchoolsPage() {

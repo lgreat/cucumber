@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.71 2009/11/11 19:50:51 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.72 2009/12/01 21:53:31 droy Exp $
  */
 
 package gs.web.jsp.link;
@@ -368,7 +368,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         PrivacyPolicyTagHandler tagHandler = new PrivacyPolicyTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/about/privacyStatement.page?state=CA", builder.asSiteRelative(null));
+        assertEquals("/privacy?state=CA", builder.asSiteRelative(null));
     }
 
     public void testPressRoom() {
@@ -570,7 +570,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         TermsOfUseTagHandler tagHandler = new TermsOfUseTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/static/terms.html/CA", builder.asSiteRelative(null));
+        assertEquals("/terms?state=CA", builder.asSiteRelative(null));
     }
 
     public void testChangeEmail() {

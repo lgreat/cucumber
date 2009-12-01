@@ -66,7 +66,7 @@ old user, add new subscriptions
                 <gsml:inputImage src="/res/img/button/btn_go_small.gif" styleClass="btn" alt="GO"/>
             </div>
             <link:newsletterManagement styleClass="small block">Learn More</link:newsletterManagement>
-            <a class="small block" href="/about/privacyStatement.page?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</a>
+            <a class="small block" href="/privacy?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</a>
         </gsweb:form>
     </div>
 
