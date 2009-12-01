@@ -148,7 +148,9 @@
 
 <div class="module">
 <div class="header">
-    <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
+    <span class="title1white fltlft"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                     fullUri="${requestScope.discussionBoard.fullUri}"
+                     styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></span>
 
     <div class="fltrt">
         <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">

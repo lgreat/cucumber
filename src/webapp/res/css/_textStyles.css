@@ -14,6 +14,9 @@
     /*text-decoration: none;*/
     cursor: pointer;
 }
+#contentGS .header .title1white .link {
+    color: #fff;
+}
 a:link {
     text-decoration: none
 }
