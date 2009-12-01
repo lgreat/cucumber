@@ -123,8 +123,10 @@ public class UserInfoController extends AbstractController {
 
             if (pageUser == null && _defaultToCurrentUser) {
                 pageUser = viewer;
+                canEdit = true;
                 viewingOwnProfile = true;
             } else if (pageUser.getId() == viewer.getId()) {
+                canEdit = true;
                 viewingOwnProfile = true;
             }
             currentUser = viewer.getUserProfile().getScreenName() + " (" + viewer.getId() + ")";
