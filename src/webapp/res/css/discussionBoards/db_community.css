@@ -994,7 +994,29 @@ fieldset label {
 }*/
 
 /* end start a discussion hover */
-
+/* start terms of use/privacy policy styles */
+#policy h1, #policy h2 {
+    border: 0;
+}
+#policy h2 {
+    font-size: 18px;
+}
+#policy ol {
+    margin: 0 1em 1em 3em;
+    list-style: decimal outside;
+}
+#policy ol li {
+    margin: 0 0 1em;
+    list-style: decimal outside;
+}
+#policy ol ul {
+    margin: 1em 0 0 3em;
+}
+#policy ol ul li {
+    list-style: disc;
+    background: none;
+}
+/* end terms of use/privacy policy styles */
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
 /* ------------------- */
