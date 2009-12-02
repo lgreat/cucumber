@@ -100,6 +100,14 @@ public class DiscussionController extends AbstractController {
             }
         }
 
+        if (!discussion.isActive()
+                && (user == null
+                || user.getUserProfile() == null
+                || !user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS))) {
+            _log.warn("Attempted accesss of deactivated discussion " + discussion.getId());
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView(VIEW_NOT_FOUND);
+        }
         CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
         if (board != null) {
             model.put(MODEL_DISCUSSION_BOARD, board);

@@ -558,6 +558,13 @@
         <property name="mailSender" ref="mailSender"/>        
     </bean>
 
+    <bean name="/community/deactivateContent.page"
+          class="gs.web.community.DeactivateContentAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="deactivateContentCommand"/>
+        <property name="commandClass" value="gs.web.community.DeactivateContentCommand"/>
+    </bean>
+
    <bean name="/community/userAccount.page"
          class="gs.web.community.UserInfoController"
          autowire="byName" lazy-init="true">
