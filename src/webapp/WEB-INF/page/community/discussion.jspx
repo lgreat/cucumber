@@ -31,7 +31,6 @@
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>
     <script type="text/javascript">
-        var $ = jQuery.noConflict();
         var postReplyForm;
         $(function() {
             //<c:if test = "${requestScope.validUser != null}" >

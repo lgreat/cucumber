@@ -1,30 +1,27 @@
 // JavaScript Document
-// required to avoid "$j" collisions with Prototype.js
-jQuery.noConflict();
-var $j = jQuery;
 
-$j(document).ready(function() {
+jQuery(document).ready(function() {
 
-    $j('#topnav_menusubnav > .nav_menu').hover(function() {
-        $j(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('background-color','#66ccdd');
-        $j(this).children('.nav_group_heading.arrow:not(#GlobalNav_CommunityButton)').css('backgroundImage','url('+'/res/img/nav/down_arrow_selected.png'+')');
-        $j(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('color','#fff');
-        $j(this).children('.nav_group_items').show();
+    jQuery('#topnav_menusubnav > .nav_menu').hover(function() {
+        jQuery(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('background-color','#66ccdd');
+        jQuery(this).children('.nav_group_heading.arrow:not(#GlobalNav_CommunityButton)').css('backgroundImage','url('+'/res/img/nav/down_arrow_selected.png'+')');
+        jQuery(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').css('color','#fff');
+        jQuery(this).children('.nav_group_items').show();
     }, function() {
-        $j(this).children('.nav_group_heading').css('background-color','#fff');
-        $j(this).children('.nav_group_heading.arrow').css('backgroundImage','url('+'/res/img/nav/down_arrow.png'+')');
-        $j(this).children('.nav_group_heading').css('color','#3399aa');
-        $j(this).children('.nav_group_heading.topnav_subnav_active').css('color','#444');
-        $j(this).children('.nav_group_items').hide();
+        jQuery(this).children('.nav_group_heading').css('background-color','#fff');
+        jQuery(this).children('.nav_group_heading.arrow').css('backgroundImage','url('+'/res/img/nav/down_arrow.png'+')');
+        jQuery(this).children('.nav_group_heading').css('color','#3399aa');
+        jQuery(this).children('.nav_group_heading.topnav_subnav_active').css('color','#444');
+        jQuery(this).children('.nav_group_items').hide();
     });
 
-    $j('#topnav_menusubnav li.nav_menu ul.nav_group_items li').hover(function() {
-        $j(this).css('background-color','#66ccdd');
-        $j(this).find('a').css('background-color','#66ccdd');
-        $j(this).find('a').css('color','#fff');
+    jQuery('#topnav_menusubnav li.nav_menu ul.nav_group_items li').hover(function() {
+        jQuery(this).css('background-color','#66ccdd');
+        jQuery(this).find('a').css('background-color','#66ccdd');
+        jQuery(this).find('a').css('color','#fff');
     }, function() {
-        $j(this).css('background-color','#fff');
-        $j(this).children('a').css('background-color','#fff');
-        $j(this).children('a').css('color','#3399aa');
+        jQuery(this).css('background-color','#fff');
+        jQuery(this).children('a').css('background-color','#fff');
+        jQuery(this).children('a').css('color','#3399aa');
     });
 });

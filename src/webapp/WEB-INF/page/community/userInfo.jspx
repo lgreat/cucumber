@@ -36,7 +36,6 @@
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
 
     <script type="text/javascript">
-        var $ = jQuery.noConflict();
         $(function() {
             //<c:if test = "${requestScope.canEditMember}" >
 
