@@ -8,6 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -125,7 +126,7 @@
 
 <p>Users who no longer wish to receive our newsletters or other communications can unsubscribe using the tools
     provided in every email message we send or from the
-    <gsml:a href="/cgi-bin/newsletters/state=$STATE">subscription management page</gsml:a>
+    <link:newsletterManagement>subscription management page</link:newsletterManagement>
     on the site.
 </p>
 
