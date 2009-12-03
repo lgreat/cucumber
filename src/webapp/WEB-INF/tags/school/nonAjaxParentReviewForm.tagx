@@ -98,7 +98,7 @@
                             <tr>
                                 <td>&amp;#160;</td>
                                 <td valign="top">
-                                    <span class="label2">the <gsml:a href="/terms?state=${state}#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
+                                    <span class="label2">the <gsml:a href="/terms/?state=${state}#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
                                 </td>
                             </tr>
                             <c:if test="${school.type.schoolTypeName ne 'private'}">
@@ -123,7 +123,7 @@
                         <div id="acceptTerms">
                             ${cbxPermit}<label>I'm a</label>
                             ${sltWho}
-                            <label>and I accept the <gsml:a href="/terms?state=${state}#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
+                            <label>and I accept the <gsml:a href="/terms/?state=${state}#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
                         </div>
 
                         <c:if test="${school.type.schoolTypeName ne 'private'}">

@@ -347,12 +347,12 @@
                     <label for="termsField" class="terms">I agree to the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
-                            href="/terms?state=$STATE"
+                            href="/terms/?state=$STATE"
                             tabIndex="17">GreatSchools Terms of Use</gsml:popupWindow>
                     and
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Community Standards"
-                            href="/terms?state=$STATE#communityStandards"
+                            href="/terms/?state=$STATE#communityStandards"
                             tabIndex="18">Community Guidelines</gsml:popupWindow>.
                     </label>
                     <span class="termsRequired">*</span>
@@ -362,7 +362,7 @@
             <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                     title="GreatSchools Privacy Policy"
-                    href="/privacy?state=$STATE"
+                    href="/privacy/?state=$STATE"
                     tabIndex="19">Privacy Policy</gsml:popupWindow>
             </p>
 

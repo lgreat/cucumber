@@ -145,7 +145,17 @@
 
     <servlet-mapping>
        <servlet-name>pages</servlet-name>
+       <url-pattern>/terms/</url-pattern>
+   </servlet-mapping>
+
+    <servlet-mapping>
+       <servlet-name>pages</servlet-name>
        <url-pattern>/privacy</url-pattern>
+   </servlet-mapping>
+
+    <servlet-mapping>
+       <servlet-name>pages</servlet-name>
+       <url-pattern>/privacy/</url-pattern>
    </servlet-mapping>
 
     <servlet-mapping>
@@ -706,7 +716,17 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/terms/</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/privacy</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/privacy/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -1278,7 +1298,23 @@
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
+        <url-pattern>/terms/</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>/privacy</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/privacy/</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2103,7 +2139,17 @@
 
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
+        <url-pattern>/terms/</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
         <url-pattern>/privacy</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/privacy/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

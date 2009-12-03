@@ -82,6 +82,6 @@
             </div>
         </gsweb:form>
         <link:newsletterManagement styleClass="small block">Learn More</link:newsletterManagement>
-        <gsml:a styleClass="small block" href="/privacy?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</gsml:a>
+        <gsml:a styleClass="small block" href="/privacy/?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</gsml:a>
     </div>
 </jsp:root>

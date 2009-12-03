@@ -44,7 +44,7 @@
     <p>To subscribe, check the box. To unsubscribe, uncheck the box. Click "Save Settings" when you are finished.</p>
     <p>Read the <gsml:popupWindow width="800" height="600" left="50" top="50"
                                   title="GreatSchools Privacy Policy"
-                                  href="/privacy?state=$STATE"
+                                  href="/privacy/?state=$STATE"
             >GreatSchools Privacy Policy</gsml:popupWindow>.</p>
 
     <form:form name="manage" commandName="emailCmd" method="post" onsubmit="return checkForm();">

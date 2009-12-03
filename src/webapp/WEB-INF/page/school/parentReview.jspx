@@ -170,7 +170,7 @@
                 <option value="other">other</option>
             </select> and I agree to the GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy"
                                         target="_blank">Privacy Policy </gsml:a> &amp;amp; <gsml:a
-                    href="/terms?state=${state}#permission" title="Terms of Use"
+                    href="/terms/?state=${state}#permission" title="Terms of Use"
                     target="_blank">Terms of Use</gsml:a></div></div>
         <![CDATA[<div class="marginEmailField" id="weeklyEmails"></div>]]>
 

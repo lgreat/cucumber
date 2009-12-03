@@ -80,7 +80,7 @@
         <p class="privacyBox" id="privacyBox">Your privacy is important to us. GreatSchools
             <gsml:popupWindow width="800" height="600" left="50" top="50"
                               title="GreatSchools Privacy Policy"
-                              href="/privacy?state=$STATE"
+                              href="/privacy/?state=$STATE"
                               tabIndex="19">Privacy Policy</gsml:popupWindow>
         </p>
     </gsweb:form>
