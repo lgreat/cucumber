@@ -319,6 +319,9 @@
                     <li><link:cmsCategoryBrowse topicIDs="146" language="EN" styleId="GlobalNav_HD_StressManagement" styleClass="GS_CI9_">Stress management</link:cmsCategoryBrowse></li>
                     <li><link:healthyKids styleId="GlobalNav_HD_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; nutrition</link:healthyKids></li>
                     <li><link:cmsCategoryBrowse topicIDs="136" language="EN" styleId="GlobalNav_HD_BuildingCharacter" styleClass="GS_CI9_">Building character</link:cmsCategoryBrowse></li>
+                    <c:if test="${communityUtil.newCommunityEnabled}">
+                        <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting">Community</link:cmsContent></li>
+                    </c:if>
                     <li class="last"><a href="/parenting.topic?content=1539"
                         id="GlobalNav_HealthAndDevelopmentButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -335,6 +338,9 @@
                     <li><link:mediaChoices id="GlobalNav_AA_MediaAndKids" styleClass="GS_CI9_">Media &amp;amp; kids</link:mediaChoices></li>
                     <li><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning activities</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book reviews</link:cmsCategoryBrowse></li>
+                    <c:if test="${communityUtil.newCommunityEnabled}">
+                        <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students">Community</link:cmsContent></li>
+                    </c:if>
                     <li class="last"><a href="/students.topic?content=1540"
                         id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -354,6 +360,9 @@
                     <li><link:cmsCategoryBrowse topicIDs="194" language="EN" styleId="GlobalNav_LD_WritingDifficulties" styleClass="GS_CI9_">Writing difficulties</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="163" language="EN" styleId="GlobalNav_LD_OtherDisorders" styleClass="GS_CI9_">Other disorders</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="188" language="EN" styleId="GlobalNav_LD_AssistiveTechnology" styleClass="GS_CI9_">Assistive technology</link:cmsCategoryBrowse></li>
+                    <c:if test="${communityUtil.newCommunityEnabled}">
+                        <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">Community</link:cmsContent></li>
+                    </c:if>
                     <li class="last"><a href="/LD.topic?content=1541"
                         id="GlobalNav_LearningDisabilitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -368,6 +377,9 @@
                     <li><link:cmsCategoryBrowse topicIDs="135" language="EN" styleId="GlobalNav_IYS_Fundraising" styleClass="GS_CI9_">Fundraising</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="137" language="EN" styleId="GlobalNav_IYS_BuildingCommunity" styleClass="GS_CI9_">Building community</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="126" language="EN" styleId="GlobalNav_IYS_QualityTeaching" styleClass="GS_CI9_">Quality teaching</link:cmsCategoryBrowse></li>
+                    <c:if test="${communityUtil.newCommunityEnabled}">
+                        <li><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement">Community</link:cmsContent></li>
+                    </c:if>
                     <li class="last"><a href="/improvement.topic?content=1543"
                         id="GlobalNav_ImproveYourSchoolButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
