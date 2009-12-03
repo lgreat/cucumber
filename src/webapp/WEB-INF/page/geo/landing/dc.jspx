@@ -252,7 +252,7 @@
 <br class="spacer_10"/>    
 <div id="promoRulesLink">
     <gsml:a href="/cgi-bin/static/DC-Contest-Rules.html" styleClass="treb12 tint888 link2">
-        Click here for official rules for D.C.. School Chooser drawings
+        Click here for official rules for D.C. School Chooser drawings
     </gsml:a>
 </div>
 <mod:tracking pageName="D.C. Landing Page" hier1="Home,Outreach,D.C."/>
