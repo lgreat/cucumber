@@ -21,27 +21,27 @@
     <bean id="schoolFinderWidgetEmail"
           class="gs.web.widget.SchoolFinderWidgetEmail">
         <property name="subject" value="Your customized School Finder Widget code"/>
-        <property name="fromEmail" value="widget@greatschools.net"/>
+        <property name="fromEmail" value="widget@greatschools.org"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
     <bean id="mySchoolListConfirmationEmail"
           class="gs.web.community.MySchoolListConfirmationEmail">
         <property name="subject" value="Your My School List membership is only the beginning"/>
-        <property name="fromEmail" value="gs-batch@greatschools.net"/>
+        <property name="fromEmail" value="gs-batch@greatschools.org"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
     <bean id="registrationConfirmationEmail"
           class="gs.web.community.registration.RegistrationConfirmationEmail">
         <property name="subject" value="Welcome to GreatSchools"/>
-        <property name="fromEmail" value="gs-batch@greatschools.net"/>
+        <property name="fromEmail" value="gs-batch@greatschools.org"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
     <bean id="forgotPasswordEmail" class="gs.web.community.registration.ForgotPasswordEmail">
         <property name="subject" value="GreatSchools reset password link"/>
-        <property name="fromEmail" value="gs-batch@greatschools.net"/>
+        <property name="fromEmail" value="gs-batch@greatschools.org"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
@@ -58,14 +58,14 @@
         <property name="omnitureSubCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="OmnitureTracking"/>
-                <property name="cookieDomain" value=".greatschools.net"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
 
             </bean>
         </property>
         <property name="stateCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="STATE3"/>
-                <property name="cookieDomain" value=".greatschools.net"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
                 <!--
                     The Java site uses a cookie to track the user's locale.
 
@@ -125,7 +125,7 @@
         <property name="sitePrefCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="site_pref"/>
-                <property name="cookieDomain" value=".greatschools.net"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
     </bean>

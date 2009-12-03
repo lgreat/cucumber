@@ -1988,21 +1988,21 @@
         <property name="pageMap">
             <map>
                 <entry key="1"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-does-public-school-enrollment-work-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/How-does-public-school-enrollment-work-in-%CITY%"/>
                 <entry key="2"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-did-you-choose-a-preschool-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/How-did-you-choose-a-preschool-in-%CITY%"/>
                 <entry key="3"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-do-public-and-private-schools-compare-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/How-do-public-and-private-schools-compare-in-%CITY%"/>
                 <entry key="4"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-preschool-do-you-think-is-great-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/What-preschool-do-you-think-is-great-in-%CITY%"/>
                 <entry key="5"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Whats-a-great-elementary-school-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/Whats-a-great-elementary-school-in-%CITY%"/>
                 <entry key="6"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Share-your-experiences-about-a-great-middle-school-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/Share-your-experiences-about-a-great-middle-school-in-%CITY%"/>
                 <entry key="7"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Talk-about-your-experiences-as-parent-of-a-high-schooler-in-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/Talk-about-your-experiences-as-parent-of-a-high-schooler-in-%CITY%"/>
                 <entry key="8"
-                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-school-districts-have-the-best-reputation-in-or-around-%CITY%"/>
+                       value="http://community.greatschools.org/q-and-a/location/%STATE%/%CITY%/What-school-districts-have-the-best-reputation-in-or-around-%CITY%"/>
             </map>
         </property>
     </bean>
@@ -2035,7 +2035,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPreschoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
-        <property name="fromEmail" value="preschools@greatschools.net"/>
+        <property name="fromEmail" value="preschools@greatschools.org"/>
         <property name="type" value="preschool"/>
     </bean>
 
@@ -2047,7 +2047,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPrivateSchoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
-        <property name="fromEmail" value="pvtschools@greatschools.net"/>
+        <property name="fromEmail" value="pvtschools@greatschools.org"/>
         <property name="type" value="private school"/>
     </bean>
 
