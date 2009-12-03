@@ -1,93 +1,195 @@
-div#left-content div#outreachManager div#managerPhoto {
-    background-image: url("/res/img/geo/landing/jodi.jpg");
+@charset "UTF-8";
+/* CSS Document */
+
+/* --------------------- */
+/* PAGE STRUCTURE STYLES */
+/* --------------------- */
+
+#dc_page_content{
+
 }
 
-div#left-content div.module ul {
-    margin-top: 8px;
-    margin-bottom: 3px;
+#colft{
+	width:211px;
+    /*width:215px;*/
+    /*background:red;*/
 }
 
-    div#left-content div.module ul li {
-        line-height: 16px;
-        padding-bottom: 5px;
-    }
-
-    #left-content .module img{
-        border:10px solid white;
-    }
-
-div#right-content div#grid ul {
-    left: 15px;
+#colrt{
+	width:652px;
+    /*width:649px;*/
+    /*background:blue;*/
 }
 
-div#right-content div#grid div.spacer {
-    padding-left: 15px;
+/* ------------------- */
+/* LEFT COLUMN MODULES */
+/* ------------------- */
+
+.module{
+	width:195px;
+	background:#dee;
+	padding:6px;
 }
 
-div#grid h3 {
-    margin-bottom: 22px;
+.m_title{
+	display:block;
+    padding:4px 0 0 5px;
 }
 
-#findAndCompare .row{
-    margin:10px 0;
+.m_content{
+	width:175px;
+	background:#fff;
+	margin-top:7px;
+	padding:10px;
 }
 
-#findAndCompare .row span{
-    vertical-align:50%;
+.m_list{
+	padding:2px 0 5px 0;
 }
 
-#findAndCompare .row img{
-    margin:auto 10px auto 0;
-    vertical-align:50%;
+.m_img{
+	padding:0 0 10px 0;
 }
 
-#findAndCompare .row input.button {
-    margin:0 0 0 10px;
+/* ------------------ */
+/* RIGHT COLUMN UNITS */
+/* ------------------ */
+
+.c_title{
+	width:635px;
+    /*width:632px;*/
+	background:#dee;
+	padding:9px 0 8px 17px;
+	margin-bottom:10px;
 }
 
-#findAndCompare .row select {
-    margin:auto 5px;
-    vertical-align:50%;
+#u1, #u2{
+	height:160px;
 }
 
-#findAndCompare .row input.zip {
-    margin:auto 5px;
-    vertical-align:50%
+#u3, #u4{
+	height:190px;
 }
 
-#right-content #connectAndLearn li{
-    line-height:normal;
-    margin:7px 0;
-    background-position:left 2px;
+.unit{
+	width:315px;
+	background:#6cc;
+	padding:3px;
+	margin-bottom:6px;
 }
 
-div#grid div.gridbox ul {
-    width: 290px;
+.u_title{
+	display:block;
+	padding:2px 0 0 15px;
 }
 
-    div#grid div#greatschoolsGuides ul li {
-        line-height: 21px;
-        background-position: 0 0.65ex;
-    }
-
-div#promoRulesLink a,
-div#promoRulesLink a:link,
-div#promoRulesLink a:visited,
-div#promoRulesLink a:active {
-    text-decoration: underline;
-    color: #888888;
-    font-family:"Trebuchet MS",Arial,sans-serif;
-    font-size:12px;
-    margin: -8px 0 8px 0;
-    float:left;
+.u_content{
+	width:285px;
+	background:#fff;
+	margin-top:7px;
+	padding:15px;
 }
 
-div#grid{
-    height:460px;
+.u_list li{
+	padding:4px 0 7px 0;
+	list-style:url(/res/img/content/research/yellow_arrow.gif);
+	margin-left:15px;
 }
 
-div#grid div.bottom {
-    height:235px;
+/* -------------- */
+/* GRAPHIC SYTLES */
+/* -------------- */
+
+.italic{
+	font-style:italic;
+}
+
+.rule{
+	background-color: #dee;
+ 	color: #dee;
+	height: 1px;
+	border:0;
+	width:205px;
+}
+
+.forms{
+	margin-top:10px;
+}
+
+.inputs{
+    border:1px solid #bbb;
+}
+
+#dc_page_content .cent17{
+	font:17px "Century Gothic", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .cent17B{
+	font:bold 17px "Century Gothic", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb19{
+	font:19px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb17{
+	font:17px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb15{
+	font:15px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb13{
+	font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb13B{
+	font:bold 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#dc_page_content .treb12, #promoRulesLink .treb12{
+	font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#promoRulesLink .tint888{
+	color:#888;
+}
+
+#dc_page_content .tint777{
+	color:#777;
+}
+
+#dc_page_content .tint666{
+	color:#666;
+}
+
+#dc_page_content .tint5bc{
+	color:#5bc;
+}
+
+#dc_page_content .tint39a{
+	color:#39a;
+}
+
+#dc_page_content .tintfff{
+	color:#fff;
+}
+
+/* ----------- */
+/* LINK STYLES */
+/* ----------- */
+
+#dc_page_content .link:link, #dc_page_content .link:visited {
+	text-decoration:none;
+}
+
+#dc_page_content .link:hover, #dc_page_content .link:focus, #dc_page_content .link:active{
+	text-decoration:underline;
+}
+
+#promoRulesLink .link2:link, #promoRulesLink .link2:visited, #promoRulesLink .link2:hover, #promoRulesLink .link2:focus, #promoRulesLink .link2:active{
+    text-decoration:underline;
 }
 
 /* ---------------- */
@@ -99,12 +201,16 @@ div#grid div.bottom {
 }
 
 .outline2 {
+    outline: 1px solid green;
+}
+
+.outline3 {
     outline: 1px solid blue;
 }
 
-/* ------------- */
-/* LAYOUT STYLES */
-/* ------------- */
+/* ------------------ */
+/* PAGE LAYOUT STYLES */
+/* ------------------ */
 
 .gainlayout {
     position: relative;
@@ -114,12 +220,14 @@ div#grid div.bottom {
 .fltlft {
 /* this class can be used to float an element left in your page */
     float: left;
+    /*margin-right: 8px;*/
 }
 
 .fltrt {
 /* this class can be used to float an element right in your page. */
 /* The floated element must precede the element it should be next to on the page. */
     float: right;
+    /*margin-left: 8px;*/
 }
 
 .clearfloat {
@@ -130,6 +238,20 @@ div#grid div.bottom {
     height: 0;
     font-size: 1px;
     line-height: 0;
+}
+
+.spacer_8{
+    clear:both;
+    height:8px;
+    font-size:1px;
+    line-height:8px;
+}
+
+.spacer_4{
+    clear:both;
+    height:4px;
+    font-size:1px;
+    line-height:4px;
 }
 
 /* clear fix */
@@ -156,23 +278,3 @@ html[xmlns] .clearfix {
 }
 
 /* end clear fix */
-
-.treb13Bold {
-    font: bold 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
-
-treb12Bold {
-    font: bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
-
-.tint666 {
-    color: #666;
-}
-
-.tint5bc {
-    color: #5bc;
-}
-
-.italic{
-    font-style:italic;
-}

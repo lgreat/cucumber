@@ -52,173 +52,210 @@
 </head>
 
 <gsml:body adPageName="research">
+    <div id="dc_page_content" class="clearfix">
+        <div id="colft" class="fltlft">
+            <div class="module"><span class="m_title treb15 tint5bc">Meet Our Team</span>
 
-    <div id="left-content">
-        <div class="module mainLeft">
-            <h3><span>Meet Our Team</span></h3>
-            <img src="/res/img/geo/landing/dc_mot.png" width="174" height="103" alt="Nadia, Natanya, Pamela, Hasaani"/>
-            <ul>
-                <li><span class="treb13Bold tint5bc">Nadia Washington</span><br/>Community Outreach Coordinator</li>
-                <li><span class="treb13Bold tint5bc">Natanya Levioff</span><br/>Program Director</li>
-                <li><span
-                        class="treb13Bold tint5bc">Pamela Prudencio</span><br/>Bilingual Community Outreach Coordinator
-                </li>
-                <li><span class="treb13Bold tint5bc">Hasaani Hylton</span><br/>Community Outreach Coordinator</li>
-            </ul>
+                <div class="m_content">
+                    <img class="m_img" name="team" src="/res/img/geo/landing/dc_mot.png" width="174" height="103"
+                         alt="Nadia, Natanya, Pamela, Hasaani"/>
+
+                    <div class="m_list treb13B tint5bc">Nadia Washington<br/>
+                        <span class="treb13 tint666">Community Outreach Coordinator</span></div>
+                    <div class="m_list treb13B tint5bc">Natanya Levioff<br/>
+                        <span class="treb13 tint666">Program Director</span></div>
+                    <div class="m_list treb13B tint5bc">Pamela Prudencio<br/>
+                        <span class="treb13 tint666">Bilingual Community Outreach Coordinator</span></div>
+                    <div class="m_list treb13B tint5bc">Hasaani Hylton<br/>
+                        <span class="treb13 tint666">Community Outreach Coordinator</span></div>
+                </div>
+                <!--end module content -->
+            </div>
+            <!--end module -->
+            <hr class="rule"/>
+            <div class="module"><span class="m_title treb15 tint5bc">Local Strategic Partner</span>
+
+                <div class="m_content">
+                    <a href="http://www.fightforchildren.org/" target="_blank">
+                        <img class="m_img" name="team" src="/res/img/geo/landing/dc_lsp.png" width="154" height="69"
+                             alt="fight for children"/>
+                    </a>
+
+                    <div class="m_list treb13 tint666">Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about good schools in DC and better equipping parents to support their children's education.</div>
+                </div>
+                <!--end module content -->
+            </div>
+            <!--end module -->
+            <hr class="rule"/>
+            <div class="module"><span class="m_title treb15 tint5bc">Our Community Partner</span>
+
+                <div class="m_content">
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://aamaonline.org/"
+                                           target="_blank">African American Music Association</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://ola.dc.gov/ola/site/default.asp"
+                                           target="_blank">The Office of Latino Affairs</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.lifestarts.org/"
+                                           target="_blank"><span class="italic">Life</span>STARTS</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.michaelwaltonfoundation.org/"
+                                           target="_blank">The Michael Walton Foundation</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.mmbcdc.org/"
+                                           target="_blank">Urban Family House of Hope</a></div>
+                </div>
+                <!--end module content -->
+            </div>
+            <!--end module -->
         </div>
-        <hr/>
-        <div class="module mainLeft">
-            <h3><span>Local Strategic Partner</span></h3>
-            <a href="http://www.fightforchildren.org/" target="_blank"><img src="/res/img/geo/landing/dc_lsp.png"
-                                                                            width="154" height="69"
-                                                                            alt="fight for children"/></a>
-            <ul>
-                <li>Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about good schools in DC and better equipping parents to support their children's education.</li>
-            </ul>
-        </div>
-        <hr/>
-        <div class="module mainLeft">
-            <h3><span>Our Community Partners</span></h3>
-            <ul>
-                <li><a href="http://aamaonline.org/" target="_blank">African American Music Association</a></li>
-                <li><a href="http://ola.dc.gov/ola/site/default.asp" target="_blank">The Office of Latino Affairs</a>
-                </li>
-                <li><a href="http://www.lifestarts.org/" target="_blank"><span class="italic">Life</span>STARTS</a></li>
-                <li><a href="http://www.michaelwaltonfoundation.org/" target="_blank">The Michael Walton Foundation</a>
-                </li>
-                <li><a href="http://www.mmbcdc.org/" target="_blank">Urban Family House of Hope</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- end left-content -->
-    <div id="right-content">
-        <h1>GreatSchools D.C.</h1>
-        <div id="grid">
-            <div class="gridbox top left" id="findAndCompare">
-                <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/findandcompare.gif" alt="Find and Compare" />
-                </h3>
-                <div class="spacer">
-                    <div class="row">
-                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        <span>Find top D.C. schools</span>
-                        <input src="/res/img/splash/go.gif" alt="Find D.C. Schools" style="width: 41px; height: 26px;"
-                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                               onclick="gotoDCCityPage();" />
-                    </div>
-                    <div class="row">
-                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        <span>Find all D.C.</span>
-                        <select id="findAllLevel">
+        <!--end colft-->
+        <div id="colrt" class="fltrt">
+            <div class="c_title treb19 tint5bc">GreatSchools D.C.</div>
+            <!--end c_title -->
+            <div class="unit fltlft"><span class="u_title cent17B tintfff">Find and Compare</span>
+
+                <div id="u1" class="u_content">
+                    <form class="forms treb13 tint777">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" width="6" height="11"/>&amp;nbsp;
+                        <label for="top">Find top D.C. schools</label>&amp;nbsp;
+                        <input name="top" type="image" class="button" style="width: 41px; height: 26px;"
+                               onclick="gotoDCCityPage();" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
+                               alt="Find D.C. Schools" align="middle"/>
+                    </form>
+                    <form class="forms treb13 tint777">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
+                        <label for="findAllLevel">Find all D.C.</label>&amp;nbsp;
+                        <select id="findAllLevel" class="inputs tint666" name="findAllLevel">
                             <option value="elementary-schools">elementary schools</option>
                             <option value="middle-schools">middle schools</option>
                             <option value="high-schools">high schools</option>
-                        </select>
-                        <input src="/res/img/splash/go.gif" alt="Find D.C. Schools" style="width: 41px; height: 26px;"
-                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                               onclick="gotoDCSchoolsPage()"/>
-                    </div>
-
-                    <input type="hidden" name="sortby" value="distance" />
-                    <input type="hidden" name="tab" value="over" />
-                    <input type="hidden" name="area" value="m" />
-                    <input type="hidden" name="form" value="address" />
-                    <input type="hidden" name="foo" value="bar" />
-
-                    <div class="row">
-                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        <span>Compare D.C.</span>
-                        <select id="compareLevel" name="level">
-                            <option value="e">elementary schools</option>
-                            <option value="m">middle schools</option>
-                            <option value="h">high schools</option>
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <span>within</span>
-                        <select id="miles" name="miles" class="miles formText">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                            <option value="30">30</option>
-                        </select>
-                        <span>miles of</span>
-                        <input id="zip" type="text" name="zip" class="zip formText" value="20500" size="7"/>
-
-                        <input src="/res/img/splash/go.gif" alt="Compare D.C. Schools" style="width: 41px; height: 26px;"
-                           class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                           onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                           onclick="gotoComparePage()"/>
-                    </div>
+                        </select>&amp;nbsp;
+                        <input type="image" class="button" style="width: 41px; height: 26px;"
+                               onclick="gotoDCSchoolsPage()" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
+                               align="middle"/>
+                    </form>
+                    <form class="forms treb13 tint777">
+                        <div>
+                            <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
+                            <label for="level">Compare D.C.</label>&amp;nbsp;
+                            <select id="compareLevel" class="inputs tint666" name="level">
+                                <option value="e">elementary schools</option>
+                                <option value="m">middle schools</option>
+                                <option value="h">high schools</option>
+                            </select></div>
+                        <div class="spacer_4"><!-- do not collapse --></div>
+                        <div>
+                            <label for="miles">within</label>&amp;nbsp;
+                            <select id="miles" name="miles" class="inputs tint666">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                            </select>&amp;nbsp;
+                            <label for="zip">miles of</label>&amp;nbsp;
+                            <input id="zip" type="text" name="zip" class="inputs tint666" value="20500" size="7"/>&amp;nbsp;
+                            <input type="image" class="button" style="width: 41px; height: 26px;"
+                                   onclick="gotoComparePage()" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                                   onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
+                                   align="middle"/>
+                        </div>
+                    </form>
                 </div>
+                <!--end unit content -->
             </div>
-            <!-- end top left Find and Compare -->
-            <div class="gridbox top right" id="connectAndLearn">
-                <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
+            <!--end unit 1-->
+            <div class="unit fltrt"><span class="u_title cent17B tintfff">Connect and Learn</span>
+
+                <div id="u2" class="u_content">
+                    <ul class="u_list treb13 tint777">
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
+                                href="/pdf/GreatSchools_DC_Coach_Corps_2009.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
+                        <li><link:cmsContent styleClass="treb12 tint39a link" contentKey="Article#33"
+                                             fullUri="/find-a-school/defining-your-ideal/choosing-a-school">Choosing a School: An Overview</link:cmsContent>
+                        </li>
+                        <li><link:cmsContent styleClass="treb12 tint39a link" contentKey="Article#24"
+                                             fullUri="/find-a-school/school-visit/the-school-visit-what-to-look-for-what-to-ask">The School Visit: What to Look For, What to Ask</link:cmsContent>
+                        </li>
+                        <li><link:schoolChoiceCenter
+                                styleClass="treb12 tint39a link">More tips for choosing a school ></link:schoolChoiceCenter>
+                        </li>
+                    </ul>
+                </div>
+                <!--end unit content -->
+            </div>
+            <!--end unit 2-->
+            <br class="clearfloat"/>
+
+            <div class="unit fltlft"><span class="u_title cent17B tintfff">School Resources</span>
+
+                <div id="u3" class="u_content">
+                    <ul class="u_list treb13 tint777">
+                        <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1"
+                                    styleClass="treb12 tint39a link"
+                                    target="_blank">Archdiocese of Washington, DC</gsml:a></li>
+                        <li><gsml:a href="http://www.aisgw.org/" styleClass="treb12 tint39a link"
+                                    target="_blank">Association of Independent Schools of Greater Washington (AISGW)</gsml:a>
+                        </li>
+                        <li><gsml:a href="http://dcps.dc.gov/" styleClass="treb12 tint39a link"
+                                    target="_blank">District of Columbia Public Schools (DCPS)</gsml:a></li>
+                        <li><gsml:a href="http://www.osse.dc.gov/" styleClass="treb12 tint39a link"
+                                    target="_blank">Office of the State Superintendent of Education (OSSE)</gsml:a></li>
+                        <li><gsml:a href="http://www.dcpubliccharter.com/" styleClass="treb12 tint39a link"
+                                    target="_blank">Public Charter School Board (PCSB)</gsml:a></li>
+                    </ul>
+                </div>
+                <!--end unit content -->
+            </div>
+            <!--end unit 3-->
+            <div class="unit fltrt"><span class="u_title cent17B tintfff">GreatSchool Resources</span>
+
+                <div id="u4" class="u_content">
+                    <ul class="u_list treb13 tint777">
+                        <li><a class="treb12 tint39a link"
+                               href="mailto:dc@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a>
+                        </li>
+                        <li>English Parent Hotline: 202-431-5538</li>
+                        <li>L&amp;iacute;nea Directa para Padres de Familia: 202-431-5516</li>
+                        <li><gsml:a
+                                href="http://www.greatschools.net/community/loginOrRegister.page?redirect=/email/management.page"
+                                styleClass="treb12 tint39a link">Sign up for GreatSchools newsletters</gsml:a></li>
+                    </ul>
+                </div>
+                <!--end unit content -->
+            </div>
+            <!--end unit 4-->
+            <br class="clearfloat"/>
+
+            <div id="donate">
+                <h3>
+                    <img src="/res/img/geo/landing/donate.gif" alt="Donate"/>
                 </h3>
                 <ul>
-                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/pdf/GreatSchools_DC_Coach_Corps_2009.pdf" target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
-                    <li><link:cmsContent contentKey="Article#33" fullUri="/find-a-school/defining-your-ideal/choosing-a-school">Choosing a School: An Overview</link:cmsContent></li>
-                    <li><link:cmsContent contentKey="Article#24" fullUri="/find-a-school/school-visit/the-school-visit-what-to-look-for-what-to-ask">The School Visit: What to Look For, What to Ask</link:cmsContent></li>
-                    <li><link:schoolChoiceCenter>More tips for choosing a school ></link:schoolChoiceCenter></li>
+                    <li>Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</li>
                 </ul>
+                <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g">
+                    <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now"/>
+                </gsml:a>
             </div>
-            <!-- end top right Connect and Learn -->
-            <div class="gridbox bottom left" id="greatschoolsGuides">
-                <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
-                </h3>
-                <ul>
-                    <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1" target="_blank">Archdiocese of Washington, DC</gsml:a></li>
-                    <li><gsml:a href="http://www.aisgw.org/" target="_blank">Association of Independent Schools of Greater Washington (AISGW)</gsml:a></li>
-                    <li><gsml:a href="http://dcps.dc.gov/" target="_blank">District of Columbia Public Schools (DCPS)</gsml:a></li>
-                    <li><gsml:a href="http://www.osse.dc.gov/" target="_blank">Office of the State Superintendent of Education (OSSE)</gsml:a></li>
-                    <li><gsml:a href="http://www.dcpubliccharter.com/" target="_blank">Public Charter School Board (PCSB)</gsml:a></li>
-                </ul>
-            </div>
-            <div class="gridbox bottom right" id="resources">
-                <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
-                </h3>
-                <ul>
-                    <li><a href="mailto:dc@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a></li>
-                    <li>English Parent Hotline: 202-431-5538</li>
-                    <li>L&amp;iacute;nea Directa para Padres de Familia: 202-431-5516</li>
-                    <li><gsml:a href="http://www.greatschools.net/community/loginOrRegister.page?redirect=/email/management.page" target="_blank">Sign up for GreatSchools newsletters</gsml:a></li>
-                </ul>
-            </div>
+            <!-- end donate -->
+            <br class="spacer_10"/>
+            <footer:editorialFooter_dc/>
+            <br class="clearfloat"/>
         </div>
-        <!-- end grid -->
-        <div id="donate">
-            <h3>
-                <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
-            </h3>
-            <ul>
-                <li>Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</li>
-            </ul>
-            <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
-                <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
-            </gsml:a>
-        </div>
-        <!-- end donate -->
+        <!--end colrt -->
+        <br class="clearfloat"/>
     </div>
-    <!-- end right-content -->
+    <!-- end dc_page_content -->
 
-
-<footer:editorialFooter/>
+<br class="spacer_10"/>    
 <div id="promoRulesLink">
-    <gsml:a href="/cgi-bin/static/Milwaukee-Contest-Rules.html">
-        Click here for official rules for Milwaukee School Chooser drawings
+    <gsml:a href="/cgi-bin/static/DC-Contest-Rules.html" styleClass="treb12 tint888 link2">
+        Click here for official rules for D.C.. School Chooser drawings
     </gsml:a>
 </div>
-<mod:tracking pageName="Milwaukee Landing Page" hier1="Home,Outreach,Milwaukee"/>
+<mod:tracking pageName="D.C. Landing Page" hier1="Home,Outreach,D.C."/>
 
 </gsml:body>
 </html>
