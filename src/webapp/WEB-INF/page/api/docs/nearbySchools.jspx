@@ -7,7 +7,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
 
@@ -185,13 +185,13 @@
 		&amp;lt;lat&amp;gt;37.7924&amp;lt;/lat&amp;gt;
 		&amp;lt;lon&amp;gt;-122.3921&amp;lt;/lon&amp;gt;
 		&amp;lt;overviewLink&amp;gt;
-		http://www.greatschools.net/cgi-bin/ca/private/11536?s_cid=gsapi
+		http://www.greatschools.org/cgi-bin/ca/private/11536?s_cid=gsapi
 		&amp;lt;/overviewLink&amp;gt;
 		&amp;lt;ratingsLink&amp;gt;
-		http://www.greatschools.net/school/rating.page?state=CA&amp;id=11536&amp;s_cid=gsapi
+		http://www.greatschools.org/school/rating.page?state=CA&amp;id=11536&amp;s_cid=gsapi
 		&amp;lt;/ratingsLink&amp;gt;
 		&amp;lt;reviewsLink&amp;gt;
-		http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=11536&amp;s_cid=gsapi
+		http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=11536&amp;s_cid=gsapi
 		&amp;lt;/reviewsLink&amp;gt;
 	&amp;lt;/school&amp;gt;
 	&amp;lt;school&amp;gt;
@@ -209,13 +209,13 @@
 		&amp;lt;lat&amp;gt;37.791412&amp;lt;/lat&amp;gt;
 		&amp;lt;lon&amp;gt;-122.406784&amp;lt;/lon&amp;gt;
 		&amp;lt;overviewLink&amp;gt;
-		http://www.greatschools.net/cgi-bin/ca/private/8097?s_cid=gsapi
+		http://www.greatschools.org/cgi-bin/ca/private/8097?s_cid=gsapi
 		&amp;lt;/overviewLink&amp;gt;
 		&amp;lt;ratingsLink&amp;gt;
-		http://www.greatschools.net/school/rating.page?state=CA&amp;id=8097&amp;s_cid=gsapi
+		http://www.greatschools.org/school/rating.page?state=CA&amp;id=8097&amp;s_cid=gsapi
 		&amp;lt;/ratingsLink&amp;gt;
 		&amp;lt;reviewsLink&amp;gt;
-		http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=8097&amp;s_cid=gsapi
+		http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=8097&amp;s_cid=gsapi
 		&amp;lt;/reviewsLink&amp;gt;
 	&amp;lt;/school&amp;gt;
 &amp;lt;/schools&amp;gt;
@@ -225,7 +225,7 @@
             <div class="call">
                 <h2>Have Questions?</h2>
                 <div class="questions">To ask questions or to report bugs please email
-                    api-support@greatschools.net. Please do not abuse our API. Review the
+                    api-support@greatschools.org. Please do not abuse our API. Review the
                     <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
                        onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
                 </div>

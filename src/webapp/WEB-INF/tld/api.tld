@@ -5,7 +5,7 @@
     <tlib-version>1.0</tlib-version>
     <jsp-version>1.2</jsp-version>
     <short-name>api</short-name>
-    <uri>urn:www.greatschools.net/taglib/api</uri>
+    <uri>urn:www.greatschools.org/taglib/api</uri>
     <display-name>GreatSchools.net API Tag Library</display-name>
     <description>
         <![CDATA[

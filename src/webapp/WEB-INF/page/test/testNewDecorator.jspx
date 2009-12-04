@@ -6,13 +6,13 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
@@ -93,19 +93,19 @@
             </td>
             <td class="contentCell">
                 <div class="rBox" id="commBlog">
-                    <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                    <gsml:popupWindow href="http://communityblog.greatschools.org" width="800" height="600" left="50" top="50">
                         <gsml:img styleClass="headline" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
                     </gsml:popupWindow>
                     <div>
                         <cache:cache scope="application" name="blog" key="community">
-                            <content:blogFeed atomUrl="http://communityblog.greatschools.net/atom.xml"
+                            <content:blogFeed atomUrl="http://communityblog.greatschools.org/atom.xml"
                                               defaultTitle="GreatSchools Community Blog"
-                                              defaultUrl="http://communityblog.greatschools.net"
+                                              defaultUrl="http://communityblog.greatschools.org"
                                               type="billsBlog"/>
                         </cache:cache>
                         <br/>
                         <gsml:url var="read" value="/res/img/community/registration/read.gif"/>
-                        <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                        <gsml:popupWindow href="http://communityblog.greatschools.org" width="800" height="600" left="50" top="50">
                             <gsml:img styleClass="read" src="${read}" alt="Read the Community Blog"/>
                         </gsml:popupWindow>
                     </div>

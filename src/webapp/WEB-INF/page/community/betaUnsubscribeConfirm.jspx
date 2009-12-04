@@ -15,7 +15,7 @@
         <div class="content">
             Thank you! You have been removed from our beta group.
             <br/><br/>
-            <gsml:a href="http://www.greatschools.net">
+            <gsml:a href="http://www.greatschools.org">
                 <span class="betalink">Return to GreatSchools home</span>
             </gsml:a>
         </div>

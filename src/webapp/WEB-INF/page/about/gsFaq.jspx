@@ -9,7 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -233,7 +233,7 @@ directly for this type of information.</p>
 				<li>
 					<p class="question">How can I get a custom report based on the data shown on GreatSchools.net?</p>
 					<p>All requests for custom reports based on our data should be directed to
-                        <a href="mailto:businessdevelopment@greatschools.net">businessdevelopment@greatschools.net</a>.
+                        <a href="mailto:businessdevelopment@greatschools.org">businessdevelopment@greatschools.org</a>.
 Be sure to let us know if you are a nonprofit or for-profit
 organization and how you intend to utilize our data. Please note, a fee
 may be charged to cover our processing costs.</p>
@@ -390,7 +390,7 @@ already have a school Web site.</p>
 				</li>
 			</ol>
 
-			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.net">Contact us about Enhanced School Profiles</a>.</p>
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.org">Contact us about Enhanced School Profiles</a>.</p>
 
 			<h3 id="faq-ratings">GreatSchools Ratings</h3>
 
@@ -610,7 +610,7 @@ two of our most active online parent groups:</p>
                        <gsml:a href="http://${communityHost}/tour/index.html">tour of the community</gsml:a> or
                        <gsml:a href="http://${communityHost}/faq">read the GreatSchools Parent Community FAQ</gsml:a>.
                        Any questions about the GreatSchools Parent Community can be sent to
-                       <a href="mailto:communitysupport@greatschools.net">communitysupport@greatschools.net</a>.</p>
+                       <a href="mailto:communitysupport@greatschools.org">communitysupport@greatschools.org</a>.</p>
 				</li>
 
 				<li>
@@ -628,7 +628,7 @@ archive page.</p>
 					<p class="question">I've
 saved bookmarks to several articles on SchwabLearning.org. Now that
 SchwabLearning.org is shut down, will those bookmarks link to the
-corresponding articles on GreatSchools.net?</p>
+corresponding articles on greatschools.org?</p>
 					<p>Yes, your saved
 bookmarks will still work, and you will be automatically redirected to
 the corresponding article on GreatSchools.net.</p>

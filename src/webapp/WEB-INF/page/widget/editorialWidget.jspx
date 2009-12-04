@@ -46,7 +46,7 @@
             return true;
         }
     </script>
-    <base href="http://${cobrandSite}.greatschools.net" target="_blank"/>
+    <base href="http://${cobrandSite}.greatschools.org" target="_blank"/>
 </head>
 <body>
     <div class="wrapper">

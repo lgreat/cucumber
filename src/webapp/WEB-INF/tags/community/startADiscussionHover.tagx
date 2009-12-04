@@ -3,7 +3,7 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
     xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-    xmlns:link="urn:www.greatschools.net/taglib/link"
+    xmlns:link="urn:www.greatschools.org/taglib/link"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
     <!--
@@ -19,7 +19,7 @@
         topicCenterId - ID for topic center to pre-select (for the topic drop-down in the hover).
         discussionBoardId - ID for local discussion board to pre-select (for the city drop-down in the hover).
 
-        @author aroy@greatschools.net
+        @author aroy@greatschools.org
     -->
     <!-- Required attributes -->
     <jsp:directive.attribute name="openElementJQuerySelector" required="true" type="java.lang.String"

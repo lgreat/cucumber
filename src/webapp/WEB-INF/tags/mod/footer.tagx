@@ -6,7 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
@@ -51,7 +51,7 @@
                 <gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a>
                 <gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a>
                 <link:pressRoom>Media Room</link:pressRoom>
-                <gsml:a href="http://blogs.greatschools.net" target="_blank">Blog</gsml:a>
+                <gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a>
 
                 <p>GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
                     <br/>effective champions of their children's education at home and in their communities.

@@ -5,7 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link">
+          xmlns:link="urn:www.greatschools.org/taglib/link">
 
     <c:if test="${not empty mainResults}">
         <pageHelper:externalCss file="/res/css/content/moreInCategory.css"/>

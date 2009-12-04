@@ -19,7 +19,7 @@
             <div style="text-align:center"><h2>Move Complete</h2></div>
             <div style="margin-left: 220px">
                 <strong>Update <a target="_blank"
-                                  href="http://wiki.greatschools.net/bin/view/Greatschools/TableToMove">Tables To Move</a> with the following</strong><br/>
+                                  href="http://wiki.greatschools.org/bin/view/Greatschools/TableToMove">Tables To Move</a> with the following</strong><br/>
                 <br/>
                 <pre>${wikiText}</pre>
                 <br/>

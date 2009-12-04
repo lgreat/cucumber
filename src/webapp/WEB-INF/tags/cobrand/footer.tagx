@@ -4,8 +4,8 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <!--
-    This tag pulls in the static cobrand footer as follows. If we're on yahoo.greatschools.net it
-    pulls http://yahoo.greatschools.net/templates/local/nav/bottomnav.insrt
+    This tag pulls in the static cobrand footer as follows. If we're on yahoo.greatschools.org it
+    pulls http://yahoo.greatschools.org/templates/local/nav/bottomnav.insrt
 
     Cobrand footers will eventually need to be moved into a database so we don't have to create a separate
     http request just to fetch them.

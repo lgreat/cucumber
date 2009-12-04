@@ -11,7 +11,7 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:link="urn:www.greatschools.org/taglib/link"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <html lang="en">

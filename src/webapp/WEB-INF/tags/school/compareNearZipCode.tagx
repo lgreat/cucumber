@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -84,10 +84,10 @@
                    onblur="textSwitch(this, 'ZIP code', '');"/>
             <div class="submitButton">
                 <input
-                        onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                        onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                        onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                        onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
                         alt="Compare ${requestScope.context.state.longName} Schools"
-                        src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                        src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
             </div>
         </div>
         <div id = "errorMessageZip" >
@@ -101,7 +101,7 @@
             </c:when>
             <!--c:otherwise>
                 <img style="width: 198px;height: 31px;" alt=""
-                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                     src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
             </c:otherwise-->
         </c:choose>
 

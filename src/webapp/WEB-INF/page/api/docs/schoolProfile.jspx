@@ -7,7 +7,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
 
@@ -124,13 +124,13 @@
     &lt;lat&gt;37.764267&lt;/lat&gt;
     &lt;lon&gt;-122.24818&lt;/lon&gt;
     &lt;overviewLink&gt;
-    http://www.greatschools.net/modperl/browse_school/ca/1?s_cid=gsapi
+    http://www.greatschools.org/modperl/browse_school/ca/1?s_cid=gsapi
     &lt;/overviewLink&gt;
     &lt;ratingsLink&gt;
-    http://www.greatschools.net/school/rating.page?state=CA&amp;id=1&amp;s_cid=gsapi
+    http://www.greatschools.org/school/rating.page?state=CA&amp;id=1&amp;s_cid=gsapi
     &lt;/ratingsLink&gt;
     &lt;reviewsLink&gt;
-    http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi
+    http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi
     &lt;/reviewsLink&gt;
     &lt;parentReviews&gt;
         &lt;review&gt;
@@ -138,7 +138,7 @@
             &lt;schoolAddress&gt;2201 Encinal Ave.,
             Alameda, CA  94501&lt;/schoolAddress&gt;
             &lt;reviewLink&gt;
-            http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps398220
+            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps398220
             &lt;/reviewLink&gt;
             &lt;rating&gt;3&lt;/rating&gt;
             &lt;submitter&gt;former student&lt;/submitter&gt;
@@ -152,7 +152,7 @@
             &lt;schoolAddress&gt;2201 Encinal Ave.,
             Alameda, CA  94501&lt;/schoolAddress&gt;
             &lt;reviewLink&gt;
-            http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps354422
+            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps354422
             &lt;/reviewLink&gt;
             &lt;rating&gt;3&lt;/rating&gt;
             &lt;submitter&gt;parent&lt;/submitter&gt;
@@ -166,7 +166,7 @@
                    &lt;schoolAddress&gt;2201 Encinal Ave.,
                    Alameda, CA  94501&lt;/schoolAddress&gt;
                    &lt;reviewLink&gt;
-            http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps214510
+            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps214510
             &lt;/reviewLink&gt;
             &lt;rating&gt;4&lt;/rating&gt;
             &lt;submitter&gt;parent&lt;/submitter&gt;
@@ -180,7 +180,7 @@
             &lt;schoolAddress&gt;2201 Encinal Ave.,
             Alameda, CA  94501&lt;/schoolAddress&gt;
             &lt;reviewLink&gt;
-            http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps154770
+            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps154770
             &lt;/reviewLink&gt;
             &lt;rating&gt;4&lt;/rating&gt;
             &lt;submitter&gt;parent&lt;/submitter&gt;
@@ -194,7 +194,7 @@
             &lt;schoolAddress&gt;2201 Encinal Ave.,
             Alameda, CA  94501&lt;/schoolAddress&gt;
             &lt;reviewLink&gt;
-            http://www.greatschools.net/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps105868
+            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps105868
             &lt;/reviewLink&gt;
             &lt;rating&gt;3&lt;/rating&gt;
             &lt;submitter&gt;former student&lt;/submitter&gt;
@@ -212,7 +212,7 @@
             <div class="call">
                 <h2>Have Questions?</h2>
                 <div class="questions">To ask questions or to report bugs please email
-                api-support@greatschools.net. Please do not abuse our API. Review the
+                api-support@greatschools.org. Please do not abuse our API. Review the
                     <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
                        onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
                 </div>

@@ -51,7 +51,7 @@
             <div class="yui-gb" style="border: 1px solid; padding: 10px">
                 <div id="tablesets" class="yui-u first" style="margin-top:25px;position:relative;">
                     <a target="_blank" style="position:absolute;left:155px;top:5px;"
-                       href="http://wiki.greatschools.net/bin/view/Greatschools/TableCopyToolSets">Table Set Documentation</a>
+                       href="http://wiki.greatschools.org/bin/view/Greatschools/TableCopyToolSets">Table Set Documentation</a>
                     <ul class="yui-nav">
                         <li class="${(param.tab != '1')?'selected':''}"><a href="#tab-tablesets"><em>Table Sets</em></a></li>
                         <li class="${(param.tab == '1')?'selected':''}"><a href="#tab-tables"><em>Tables</em></a></li>                        

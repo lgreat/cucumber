@@ -24,7 +24,7 @@
         if (serverName.endsWith(".")) {
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
             serverName = StringUtils.chomp(serverName, ".");
-            // http://cpickslay.office.greatschools.net./city/Alameda/CA?cpn=123
+            // http://cpickslay.office.greatschools.org./city/Alameda/CA?cpn=123
             String uri = "http://" + serverName + context.getOriginalRequestURI();
             if (StringUtils.isNotEmpty(request.getQueryString())) {
                 uri = uri + "?" + request.getQueryString();

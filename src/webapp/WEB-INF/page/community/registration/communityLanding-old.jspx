@@ -3,12 +3,12 @@
         xmlns="http://www.w3.org/1999/xhtml" version="2.0"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:link="urn:www.greatschools.org/taglib/link"
         xmlns:gsweb="gstaglib"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-        xmlns:content="urn:www.greatschools.net/taglib/content"
+        xmlns:content="urn:www.greatschools.org/taglib/content"
         xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
         >
 <jsp:directive.page contentType="text/html"/>
@@ -97,7 +97,7 @@
       </td>
 
       <td style="width: 9px;" valign="top"><img style="width: 9px;" alt=""
-                                                src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                                                src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
 
       <!-- right -->
       <td style="width: 651px" valign="top">
@@ -147,7 +147,7 @@
       <tr>
         <td valign="top" colspan="3" class="greyDot">
             <img style="height: 5px;" alt=""
-                 src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                 src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
         </td>
       </tr>
       <tr>
@@ -164,7 +164,7 @@
                     alt="Photo of two parents in discussion" />
           <div class="hotTopicsBox articleBox">
               <div class="introText">What's important in your family<br/>and school?</div>
-              <div class="seeAll"><gsml:a href="http://community.greatschools.net/.598f033b">See all discussions &gt;</gsml:a></div>
+              <div class="seeAll"><gsml:a href="http://community.greatschools.org/.598f033b">See all discussions &gt;</gsml:a></div>
               <ul class="articleList">
                   <gsweb:articleForumLink articleId="614" wrappingElement="li">Help! My child won't listen</gsweb:articleForumLink>
                   <gsweb:articleForumLink articleId="513" wrappingElement="li">Whose science project is it, anyway?</gsweb:articleForumLink>
@@ -172,7 +172,7 @@
               </ul>
           </div>
       </td>
-      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+      <td><img style="width: 6px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
       <!-- School Choice Tips Box -->
       <td valign="top">
           <div class="middleTitle2">
@@ -191,7 +191,7 @@
       </tr>
 
       <tr>
-        <td><img style="height: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+        <td><img style="height: 6px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
       </tr>
 
       <tr>
@@ -211,7 +211,7 @@
               </ul>
           </div>
       </td>
-      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+      <td><img style="width: 6px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
       <!-- 6-12 Academic Success Box -->
       <td valign="top">
           <div class="middleTitle2">

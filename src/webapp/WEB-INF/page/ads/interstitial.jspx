@@ -12,7 +12,7 @@
         Cookie interstitialCookie = new Cookie("gs_interstitial", "viewed");
         interstitialCookie.setMaxAge(86400); // expires in one day
         interstitialCookie.setPath("/");
-        interstitialCookie.setDomain("greatschools.net");
+        interstitialCookie.setDomain("greatschools.org");
         response.addCookie(interstitialCookie);
 
         String uri = request.getParameter("passThroughURI");

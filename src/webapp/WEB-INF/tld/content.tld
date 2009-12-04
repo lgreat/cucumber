@@ -7,7 +7,7 @@
     <tlib-version>1.0</tlib-version>
     <jsp-version>1.2</jsp-version>
     <short-name>content</short-name>
-    <uri>urn:www.greatschools.net/taglib/content</uri>
+    <uri>urn:www.greatschools.org/taglib/content</uri>
     <display-name>GreatSchools.net Content Tag Library</display-name>
     <description>
         <![CDATA[

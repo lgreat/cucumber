@@ -2,13 +2,13 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <!--
     We check for ad free sites because number1expert, mcguire, and framed don't have cobrand headers
 
-    This tag pulls in the static cobrand header as follows. If we're on yahoo.greatschools.net it
-    pulls http://yahoo.greatschools.net/templates/local/nav/topnav.insrt
+    This tag pulls in the static cobrand header as follows. If we're on yahoo.greatschools.org it
+    pulls http://yahoo.greatschools.org/templates/local/nav/topnav.insrt
 
     Cobrand headers will eventually need to be moved into a database so we don't have to create a separate
     http request just to fetch them.

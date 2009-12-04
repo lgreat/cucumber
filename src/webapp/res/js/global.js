@@ -27,7 +27,7 @@ function createCookie(name, value, days) {
     if (location.hostname == "localhost" || location.hostname == "") {
         var domain = "";
     }else{
-        var domain = "; domain=greatschools.net";
+        var domain = "; domain=greatschools.org";
     }
     document.cookie = name + "=" + escape(value) + expires + "; path=/" + domain;
 }

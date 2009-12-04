@@ -6,7 +6,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"

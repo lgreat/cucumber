@@ -9,7 +9,7 @@
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -206,7 +206,7 @@
 
         <div>
             <ul>
-                <li><a href="http://blogs.greatschools.net/press_releases/2009/08/new-poll-finds-20-spike-in-parents-plans-to-volunteer-in-classrooms-this-year-amid-concerns-over-eco.html" target="_blank">Read the Press Release</a></li>
+                <li><a href="http://blogs.greatschools.org/press_releases/2009/08/new-poll-finds-20-spike-in-parents-plans-to-volunteer-in-classrooms-this-year-amid-concerns-over-eco.html" target="_blank">Read the Press Release</a></li>
                 <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School_ExecutiveSummary.pdf" target="_blank">Download the Executive Summary (PDF)</a></li>
                 <li><a href="/pdf/The-Economy's-Impact-on-Back-to-School.pdf" target="_blank">Download the full GreatSchools/Harris Interactive Back-to-School Report (PDF)</a></li>
             </ul>

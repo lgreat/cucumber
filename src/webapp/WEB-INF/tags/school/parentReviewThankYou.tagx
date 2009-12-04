@@ -71,7 +71,7 @@
             <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/><div id="thankyouHeader">Thank you for your review</div>
         </div>
         <div id="mslFlowDialogBody"><p>Thank you for sharing your review and helping other families choose the right school for their children.
-            Our team of parent reviewers will read the review and post it if it meets our <a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">guidelines</a>.</p>
+            Our team of parent reviewers will read the review and post it if it meets our <a href="http://www.greatschools.org/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">guidelines</a>.</p>
             <div id="okBtn"><img src="/res/img/school/parentReviews/ok_button.gif" alt="ok" onclick="closeMslFlowDialog();"/></div>
             <div id="closeWindowDiv">
              <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>

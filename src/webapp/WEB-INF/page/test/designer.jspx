@@ -75,7 +75,7 @@
         <li>References to images in the CSS should always be absolute and not relative to the location of the stylesheet! For example do this <strong>url(/res/img/community/registration/someimage.gif)</strong> but NOT this url(../../../img/community/registration/someimage.gif)</li>
         <li>Images should almost never contain text, text should be text</li>
         <li>Pages should be tested to work properly with Internet Explorer 6 and 7 and Firefox 2</li>
-        <li>Comments on these guidelines should go to thuss@greatschools.net</li>
+        <li>Comments on these guidelines should go to thuss@greatschools.org</li>
     </ol>
     <!-- Remove this -->
 <!-- DESIGNER END -->

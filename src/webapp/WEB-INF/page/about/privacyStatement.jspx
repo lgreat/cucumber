@@ -8,7 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -30,10 +30,10 @@
 
 <p>Effective as of: August 8, 2007</p>
 
-<p>This privacy statement discloses the privacy practices for www.greatschools.net, a Web site owned and operated by
+<p>This privacy statement discloses the privacy practices for www.greatschools.org, a Web site owned and operated by
     GreatSchools Inc. If you have questions or concerns about this privacy policy, you should contact our management
     team by emailing
-    <gsml:mailto address="info@greatschools.net">info@greatschools.net</gsml:mailto>
+    <gsml:mailto address="info@greatschools.org">info@greatschools.org</gsml:mailto>
     . If you do not receive acknowledgment of your inquiry or feel that your inquiry has not been satisfactorily
     addressed, you can call us at (415) 977-0700.
 </p>
@@ -49,7 +49,7 @@
 <p>GreatSchools Inc. deposits cookies on users' hard drives. A cookie is a piece of data stored on the user's hard
     drive containing information about the user. By setting a cookie on our site, a user does not have to log in a
     password more than once and saves time while on our site. Users who reject the cookie may still use
-    GreatSchools.net, but they may be limited in some areas of our site. </p>
+    greatschools.org, but they may be limited in some areas of our site. </p>
 
 <p>Cookies can also enable us to track and target the interests of our users to enhance their experience. Some of
     the information about how our users experience our site, such as page views and specific pages visited, is
@@ -71,9 +71,9 @@
 </p>
 
 <p>
-    GreatSchools is also working with third-party companies to serve ads when you visit www.greatschools.net.
+    GreatSchools is also working with third-party companies to serve ads when you visit www.greatschools.org.
     These companies may use information (not including your name, address, email address or telephone number)
-    about your visits to www.greatschools.net in order to provide advertisements on www.greatschools.net,
+    about your visits to www.greatschools.org in order to provide advertisements on www.greatschools.org,
     other websites and other forms of media about goods and services that may be of interest to you. If you would
     like more information about this practice and to know your choices about not having this information used by
     these companies, please click <a href="http://www.networkadvertising.org/consumer/opt_out.asp" target="_blank">here</a>.
@@ -97,7 +97,7 @@
 <p>We may, however, release information provided by a user to the extent it is required to be disclosed pursuant to
     a valid order or requirement of a governmental agency or court.</p>
 
-<p>The personal information you provide on the www.greatschools.net Web site will be sent directly to GreatSchools
+<p>The personal information you provide on the www.greatschools.org Web site will be sent directly to GreatSchools
     Inc., and will not be retained by any of our partners (such as BVIG, MSN, Yahoo, etc.). However, if you are on
     one of our co-branded partner pages (e.g., BVIG, MSN, Yahoo, etc.), the partner may track your page views of the
     links you click on the page.</p>
@@ -146,7 +146,7 @@
     name and email address. GreatSchools Inc. will automatically send the friend a one-time email inviting them to
     visit the site. GreatSchools Inc. stores this information for the sole purpose of sending this one-time email.
     The friend may contact GreatSchools Inc. at
-    <gsml:mailto address="info@greatschools.net">info@greatschools.net</gsml:mailto>
+    <gsml:mailto address="info@greatschools.org">info@greatschools.org</gsml:mailto>
     to request the removal of this information from our database.
 </p>
 
@@ -174,7 +174,7 @@
     The servers that are used to store personally identifiable information are kept in a secure environment.</p>
 
 <p>If you have any questions about the security at our Web site, you can send an email to
-    <gsml:mailto address="info@greatschools.net">info@greatschools.net</gsml:mailto>
+    <gsml:mailto address="info@greatschools.org">info@greatschools.org</gsml:mailto>
     .
 </p>
 <h4>Compromise of Security</h4>
@@ -277,7 +277,7 @@
 
 <p>It is the policy of GreatSchools to provide notifications, whether such notifications are required by law or are for
     marketing or other business related purposes, to our customers or Web site users, via email notice, written or hard
-    copy notice, or through conspicuous posting of such notice on our Web site page, www.greatschools.net, as determined
+    copy notice, or through conspicuous posting of such notice on our Web site page, www.greatschools.org, as determined
     by GreatSchools in its sole discretion. Notwithstanding the foregoing, GreatSchools reserves the right to determine
     the form and means of providing notifications to our customers or Web site users.</p>
 

@@ -9,7 +9,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">

@@ -9,7 +9,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
 <html lang="en">

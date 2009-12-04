@@ -8,7 +8,7 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
         <title>GreatSchools Articles</title>
-        <link>http://www.greatschools.net/content/allArticles.page</link>
+        <link>http://www.greatschools.org/content/allArticles.page</link>
         <description>GreatSchools Articles</description>
         <copyright>GreatSchools</copyright>
         <language>en-us</language>

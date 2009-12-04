@@ -56,7 +56,7 @@
                 <!-- NOTE CDATA WITH COMMENTS ARE HERE TO MAKE THIS XHTML VALIDATE -->
                 <![CDATA[
                 <!--
-                OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
+                OAS_url = 'http://oascentral.greatschools.org/RealMedia/ads/';
                 OAS_sitepage = '${oas_sitepage}';
                 OAS_listpos = '${OAS_ads}';
                 OAS_query = '${adKeywords}';

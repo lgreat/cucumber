@@ -1,7 +1,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
         >
     <table id="bottomContent" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -31,19 +31,19 @@
             </td>
             <td class="contentCell">
                 <div class="rBox" id="commBlog">
-                    <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                    <gsml:popupWindow href="http://communityblog.greatschools.org" width="800" height="600" left="50" top="50">
                         <gsml:img styleClass="headline" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
                     </gsml:popupWindow>
                     <div>
                         <cache:cache scope="application" name="blog" key="community">
-                            <content:blogFeed atomUrl="http://communityblog.greatschools.net/atom.xml"
+                            <content:blogFeed atomUrl="http://communityblog.greatschools.org/atom.xml"
                                               defaultTitle="GreatSchools Community Blog"
-                                              defaultUrl="http://communityblog.greatschools.net"
+                                              defaultUrl="http://communityblog.greatschools.org"
                                               type="billsBlog"/>
                         </cache:cache>
                         <br/>
                         <gsml:url var="read" value="/res/img/community/local/btn_read.gif"/>
-                        <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                        <gsml:popupWindow href="http://communityblog.greatschools.org" width="800" height="600" left="50" top="50">
                             <gsml:img styleClass="read" src="${read}" alt="Read the Community Blog"/>
                         </gsml:popupWindow>
                     </div>

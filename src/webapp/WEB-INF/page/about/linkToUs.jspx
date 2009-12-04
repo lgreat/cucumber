@@ -9,7 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -86,7 +86,7 @@
                 <tr>
                     <td>
                         <script type="text/javascript"
-                                src="http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js"><!-- no colapse --></script>
+                                src="http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js"><!-- no colapse --></script>
                     </td>
                     <td valign="top" style="padding: 15px  0 0 10px;">
                         <span style="font-weight: bold;">Embed:</span>
@@ -95,14 +95,14 @@
                         <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
                             <input type="text" onclick="this.select()" readonly="readonly"
                                    style="width: 670px; background-color: #D3D3D3;"
-                                   value="&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;"/>
+                                   value="&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;"/>
                         </form>
 
                         <br/>
 
                         <p>
                             <a
-                                href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF"
+                                href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF"
                                 target="_blank">Customize this widget for your site &amp;gt;</a>
                         </p>
                     </td>
@@ -123,7 +123,7 @@
                 <br/>
                 GreatSchools.net &amp;mdash; Elementary, middle and high school information for public, private and charter schools nationwide.
                 <br/>
-                URL: <a href="http://www.greatschools.net">http://www.greatschools.net</a>
+                URL: <a href="http://www.greatschools.org">http://www.greatschools.org</a>
                 <br/>
                 <br/>
                 <b>State or Regional Focus:</b>
@@ -132,17 +132,17 @@
                 <br/>
                 California Schools &amp;mdash; CA Elementary, middle and high school information.
                 <br/>
-                URL: <a href="http://www.greatschools.net/modperl/go/CA">http://www.greatschools.net/modperl/go/CA</a>
+                URL: <a href="http://www.greatschools.org/modperl/go/CA">http://www.greatschools.org/modperl/go/CA</a>
                 <br/>
                 <br/>
                 <b>Specific Topic Focus:</b>
                 <br/>
                 If you would like to link to a specific article, such as "What You Can Do To Stamp Out Bullying," you have our permission to link to the article-specific URL if you place only the title of the article on your Web site. An example is below.
                 <br/>
-                "What You Can Do To Stamp Out Bullying," from GreatSchools.net
+                "What You Can Do To Stamp Out Bullying," from greatschools.org
                 <br/>
                 URL:
-                <a href="http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve</a>
+                <a href="http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve</a>
                 <br/>
                 <br/>
                 If you would like to republish or host the article on your site, the license fee is $200 per year per article. You can download a
@@ -166,7 +166,7 @@
 
             <p>
                 If you would like us to consider linking to your site, please click here to find out how to <a
-                    href="http://www.greatschools.net/about/partnerOpportunities.page?state=tx#advertise">Advertise on GreatSchools.net</a>.
+                    href="http://www.greatschools.org/about/partnerOpportunities.page?state=tx#advertise">Advertise on GreatSchools.net</a>.
             </p>
 
         </div>

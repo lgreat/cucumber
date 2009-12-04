@@ -7,7 +7,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <jsp:directive.page import="java.util.Calendar"/>
@@ -193,10 +193,10 @@
 </td>
 
 <td style="height: 100%; vertical-align: top; width: 10px; border-right: 1px solid #ddd" valign="top">
-    <img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img>
+    <img style="width: 9px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"></img>
 </td>
 <td style="width: 5px;" valign="top">
-    <img style="width: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img>
+    <img style="width: 5px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"></img>
 </td>
 
 <td class="right" style="width: 302px" valign="bottom">
@@ -252,7 +252,7 @@
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &amp;gt;</a>
                 </td>
 
-                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Reading helps prepare your child academically for college. Get reading suggestions from <a href="http://www.collegeboard.com/parents/plan/hs-steps/21276.html" target="_blank">101 Great Books</a>.
@@ -260,7 +260,7 @@
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &amp;gt;</a></td>
             </tr>
             <tr>
-                <td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                <td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"></img></td>
             </tr>
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
@@ -268,7 +268,7 @@
                                Now is the time for your child to start looking for a <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html" target="_blank">summer job</a>, internship or <a href="http://www.collegeboard.com/parents/plan/hs-steps/21285.html" target="_blank">volunteer opportunity</a>.
                            </span> <br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &amp;gt;</a></td>
-                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.org/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                               Your child should meet with her counselor to discuss which <a href="http://www.collegeboard.com/parents/tests/meet-tests/21299.html" target="_blank">AP courses</a> to take senior year. 

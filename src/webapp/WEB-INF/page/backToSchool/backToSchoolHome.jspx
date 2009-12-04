@@ -7,9 +7,9 @@
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -139,9 +139,9 @@
             <div id="momOnFire">
             <div class="momWrapper">
                 <div class="blogHeader">Blog on Fire</div>
-                <content:blogFeed atomUrl="http://blogs.greatschools.net/mom_on_fire/atom.xml"
+                <content:blogFeed atomUrl="http://blogs.greatschools.org/mom_on_fire/atom.xml"
                                               defaultTitle="Mom on Fire"
-                                              defaultUrl="http://blogs.greatschools.net/mom_on_fire"
+                                              defaultUrl="http://blogs.greatschools.org/mom_on_fire"
                                               type="momOnFire"/>
                  <div id="momSponsor"><gsweb:adTagGenerator position="sponsor_90x45" /></div>
                 </div>

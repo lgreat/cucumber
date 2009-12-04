@@ -6,7 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           version="2.0" >
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -485,8 +485,8 @@ than others or who just don't fit in.
             &lt;div class="content"&gt;
               If your kindergartner has an academic or school-related behavior
               problem you would like help solving, send it to
-              &lt;a href="mailto:mykindergartner@greatschools.net"&gt;
-                   mykindergartner@greatschools.net
+              &lt;a href="mailto:mykindergartner@greatschools.org"&gt;
+                   mykindergartner@greatschools.org
               &lt;/a&gt;
 
             &lt;/div&gt;
@@ -502,7 +502,7 @@ than others or who just don't fit in.
         <div class="content">
           If your kindergartner has an academic or school-related behavior
           problem you would like help solving, send it to
-          <a href="mailto:mykindergartner@greatschools.net">mykindergartner@greatschools.net</a>.
+          <a href="mailto:mykindergartner@greatschools.org">mykindergartner@greatschools.org</a>.
         </div>
       </div>
     </div>
@@ -520,8 +520,8 @@ than others or who just don't fit in.
             &lt;div class="content"&gt;
               If your kindergartner has an academic or school-related behavior
               problem you would like help solving, send it to
-              &lt;a href="mailto:mykindergartner@greatschools.net"&gt;
-                   mykindergartner@greatschools.net
+              &lt;a href="mailto:mykindergartner@greatschools.org"&gt;
+                   mykindergartner@greatschools.org
               &lt;/a&gt;
             &lt;/div&gt;
           &lt;/div&gt;
@@ -534,7 +534,7 @@ than others or who just don't fit in.
         <div class="content">
           If your kindergartner has an academic or school-related behavior
           problem you would like help solving, send it to
-          <a href="mailto:mykindergartner@greatschools.net">mykindergartner@greatschools.net</a>.
+          <a href="mailto:mykindergartner@greatschools.org">mykindergartner@greatschools.org</a>.
         </div>
       </div>
     </div>

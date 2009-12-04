@@ -6,7 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
  
           xmlns:form="http://www.springframework.org/tags/form">
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>

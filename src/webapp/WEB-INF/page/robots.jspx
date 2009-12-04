@@ -147,7 +147,7 @@ ${sitemapExcludes}
 
 User-agent: *
 ${excludes}
-Sitemap: http://www.greatschools.net/sitemap/sitemap.xml.gz
+Sitemap: http://www.greatschools.org/sitemap/sitemap.xml.gz
 </c:otherwise>
 </c:choose>
 </jsp:root>

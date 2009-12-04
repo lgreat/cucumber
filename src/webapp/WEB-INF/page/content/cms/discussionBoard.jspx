@@ -8,7 +8,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           version="2.0">

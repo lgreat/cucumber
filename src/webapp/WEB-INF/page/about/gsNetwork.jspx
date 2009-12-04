@@ -8,7 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pagehelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib">
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -141,7 +141,7 @@
     in Dayton, in connection with local partner organizations, to help walk parents through the process of choosing a
     school.
     If you are a parent-serving organization in Dayton and are interested in a GreatSchools Chooser workshop for your
-    parents, contact us at <a href="mailto:GSNetwork@greatschools.net?subject=Dayton Chooser workshop">GSNetwork@greatschools.net</a>.
+    parents, contact us at <a href="mailto:GSNetwork@greatschools.org?subject=Dayton Chooser workshop">GSNetwork@greatschools.org</a>.
 </p>
 
 <p>
@@ -168,8 +168,8 @@
 
 <p>
     If you are interested in learning more about the work we are doing in San Francisco or Dayton, contact
-    <a href="mailto:GSNetwork@greatschools.net">
-        GSNetwork@greatschools.net</a>.
+    <a href="mailto:GSNetwork@greatschools.org">
+        GSNetwork@greatschools.org</a>.
 </p>
 </gsml:body>
 </html>

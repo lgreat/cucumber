@@ -3,7 +3,7 @@
  * Latest version:
  * www.jtricks.com/javascript/navigation/fixed_menu.html
  * 
- * Heavily modified by aroy@greatschools.net:
+ * Heavily modified by aroy@greatschools.org:
  * - Added upper and lower bounds
  * - Remove left/right code so element is fixed inside another element (i.e. right column)
  */

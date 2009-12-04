@@ -9,7 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -88,7 +88,7 @@
             <br/>
             Karissa Sparks<br/>
             415.983.3806<br/>
-            <a href="mailto:pr@greatschools.net">pr@greatschools.net</a><br/>
+            <a href="mailto:pr@greatschools.org">pr@greatschools.org</a><br/>
             <br/>
            
 

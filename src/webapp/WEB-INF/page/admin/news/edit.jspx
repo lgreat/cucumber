@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
         >
@@ -69,7 +69,7 @@
                     <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
                 </c:otherwise>
             </c:choose>
-            <label for="link">Link (optional, use relative links for GreatSchools pages such as /cgi-bin/showarticle/ca/29 without the http://www.greatschools.net)</label>
+            <label for="link">Link (optional, use relative links for GreatSchools pages such as /cgi-bin/showarticle/ca/29 without the http://www.greatschools.org)</label>
             <input type="text" name="link" size="100" maxlength="100" value="${newsItem.link}"/>
             <label for="category">Category</label>
             <c:set var="catNames" value="SPLASH POSITION 1,SPLASH POSITION 2,SPLASH POSITION 3,CONTENT BOX: ARTICLE,CONTEXT BOX: TIP OF THE WEEK,DATA,RESEARCH AND COMPARE DATA UPDATE"/>

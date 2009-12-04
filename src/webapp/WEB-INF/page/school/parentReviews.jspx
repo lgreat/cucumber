@@ -6,7 +6,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -320,7 +320,7 @@
         <c:choose>
             <c:when test="${cmd.totalReviews gt 0}">
                 <p>Were these ratings and reviews helpful to you? <a
-                        href="mailto:commentfeedback@greatschools.net?subject=${school.name} ${stateAbbrev} ${school.id}"
+                        href="mailto:commentfeedback@greatschools.org?subject=${school.name} ${stateAbbrev} ${school.id}"
                         title="Give us feedback">Give us feedback &#62;</a></p>
             </c:when>
             <c:otherwise>

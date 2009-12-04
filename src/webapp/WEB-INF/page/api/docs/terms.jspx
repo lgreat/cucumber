@@ -7,7 +7,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
 
@@ -81,7 +81,7 @@
             <li>Unless otherwise notified to you by GreatSchools.net, You may make up to [5,000] direct server requests to the API per day.  GreatSchools.net reserves the right at its discretion to reduce or increase the maximum number of calls applicable to You immediately and without notice.  In addition, subject to GreatSchools.net's discretion, GreatSchools.net may approve You to make an additional number of direct server calls per day if You adhere to these Terms of Service and pass an GreatSchools.net audit and review. To request an increase in the maximum number of calls, please send an email to --------------</li>
             <li>You agree to refrain from reproducing, modifying, distributing, decompiling, disassembling or reverse engineering any portion of the API or any GreatSchools API Service.</li>
             <li>You understand and agree that You are solely responsible for providing user support and any other technical assistance for any implementation of the API in Your Website.  GreatSchools.net is under no obligation to provide You or Your users with user support or any other technical assistance.</li>
-            <li>If You become aware that any user of Your implementation of the API is in material breach of these Terms of Service (including, without limitation, the Branding Requirements), You agree to notify GreatSchools.net promptly by sending an email to api-support@greatschools.net, and to take prompt, commercially reasonable action at Your expense to remedy the breach.</li>
+            <li>If You become aware that any user of Your implementation of the API is in material breach of these Terms of Service (including, without limitation, the Branding Requirements), You agree to notify GreatSchools.net promptly by sending an email to api-support@greatschools.org, and to take prompt, commercially reasonable action at Your expense to remedy the breach.</li>
         </ol>
         <div class="apiTermsSection">5. Privacy Policy</div>
         <p>GreatSchools.net's collection of personal data is governed by GreatSchools.net's Privacy Policy.  You understand and agree that GreatSchools.net may access, preserve and disclose Your information if required to do so by law or in a good faith belief that such access or disclosure is reasonably necessary to comply with legal process or to protect the rights, property and/or safety of GreatSchools.net, its affiliates or the public.</p>
@@ -119,11 +119,11 @@
         <div class="apiTermsSection">Logo</div>
         <p>All input and output elements must be accompanied by an approved GreatSchools.net logo that links directly to www.GreatSchools.net.  Logos may not be resized or otherwise modified.</p>
         <p>For all pages displaying GreatSchools data:</p>
-        <p>-	Display a "Data powered by [GreatSchools.net]" 	logo linked to http://www.greatschools.net as done below
-        <br/><a href="http://www.greatschools.net" target="_blank"><img border="0" src="/res/img/logo/logo_GS_125x70transparent.gif" alt="powered by GreatSchools"/></a></p>
+        <p>-	Display a "Data powered by [GreatSchools.net]" 	logo linked to http://www.greatschools.org as done below
+        <br/><a href="http://www.greatschools.org" target="_blank"><img border="0" src="/res/img/logo/logo_GS_125x70transparent.gif" alt="powered by GreatSchools"/></a></p>
 
         <div class="apiTermsSection">Links</div>
-        <p>The following output elements must be present and link to http://www.greatschools.net using the standard linking format on your site, with appropriate URL links from the API call. Links to GreatSchools may not include the attribute rel="nofollow".</p>
+        <p>The following output elements must be present and link to http://www.greatschools.org using the standard linking format on your site, with appropriate URL links from the API call. Links to GreatSchools may not include the attribute rel="nofollow".</p>
         <p>API responses should include all of the appropriate links necessary to meet our branding requirements as detailed below.</p>
         <p><span class="apiTermsHighlight">For pages presenting school information</span> you must include a conspicuous link to:</p>
         <p>-	"See more information about [School Name] from GreatSchools.net" where an individual school profile is displayed</p>
@@ -134,7 +134,7 @@
         <div class="apiTermsSection">Disclaimer</div>
         <p>All web pages that display GreatSchools API Service must include the following text:</p>
         <p>&amp;copy; GreatSchools.net, Inc. 2009.  Use is subject to Terms of Service.</p>
-        <p>If you have any questions about the GreatSchools API service, please contact us at <a href="mailto:api-support@greatschools.net">api-support@greatschools.net</a></p>
+        <p>If you have any questions about the GreatSchools API service, please contact us at <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a></p>
 
 
         </div>

@@ -14,7 +14,7 @@
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:link="urn:www.greatschools.org/taglib/link"
         xmlns:gsweb="gstaglib"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>

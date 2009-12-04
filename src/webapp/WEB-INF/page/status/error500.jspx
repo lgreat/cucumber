@@ -10,7 +10,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <jsp:directive.page import="java.io.PrintWriter"/>
     <jsp:directive.page import="java.io.StringWriter"/>
@@ -35,7 +35,7 @@
                 request.setAttribute("requestURI", request.getRequestURI());
                 gs.web.util.PageHelper.setPageName(request, "error500");
             </jsp:scriptlet>
-            <c:if test="${requestScope.context.hostName != 'dev.greatschools.net'}">
+            <c:if test="${requestScope.context.hostName != 'dev.greatschools.org'}">
                 <style type="text/css">
                     div.stackTrace {
                         display: none;

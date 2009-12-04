@@ -10,7 +10,7 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:spring="http://www.springframework.org/tags"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -42,21 +42,21 @@
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 if (pageHelper.isCloneServer()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".clone.greatschools.net");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".clone.greatschools.org");
                     }
                 } else if (pageHelper.isStagingServer()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.org");
                     }
                 } else if (pageHelper.isDevEnvironment()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.org");
                     }
                 } else {
                     if (hasCobrandHostname) {
                         baseHref = cobrandHostname;
                     } else {
-                        baseHref = "www.greatschools.net";
+                        baseHref = "www.greatschools.org";
                     }
                 }
                 
@@ -277,7 +277,7 @@
             </p>
             <p>
                 For more information, visit us at
-                <a href="http://www.greatschools.net/?s_cid=wsbayf93" target="_blank">www.greatschools.net</a>.
+                <a href="http://www.greatschools.org/?s_cid=wsbayf93" target="_blank">www.greatschools.org</a>.
             </p>
         </div>
 

@@ -28,11 +28,11 @@
                                  usingLongNames="false"
                                  state="${requestScope.context.state}" styleClass="formState"/>
             <input
-                onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
                 class="formButton"
                 alt="Find ${requestScope.context.state.longName} Schools"
-                src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
             </gsweb:form>
         </div>
         <div class="hr">
@@ -69,11 +69,11 @@
                     <input type="text" name="zip" id="zipCode" class="formZip" value="ZIP code"
                            onfocus="textSwitch(this, '', 'ZIP code');"
                            onblur="textSwitch(this, 'ZIP code', '');"/>
-                    <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                           onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                    <input onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                           onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
                            class="formButton"
                            alt="Compare ${requestScope.context.state.longName} Schools"
-                           src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                           src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
                 </div>
             </gsweb:form>
         </div>

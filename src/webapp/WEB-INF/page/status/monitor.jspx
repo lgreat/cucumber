@@ -146,7 +146,7 @@
     <c:forEach items="${management}" var="item">
         <tr>
             <td class="statustitle">
-                <a href="http://wiki.greatschools.net/bin/view/Greatschools/WebApplicationMemoryUsage" target="_blank">
+                <a href="http://wiki.greatschools.org/bin/view/Greatschools/WebApplicationMemoryUsage" target="_blank">
                     <c:out value="${item.key}"/>
                 </a>
             </td>

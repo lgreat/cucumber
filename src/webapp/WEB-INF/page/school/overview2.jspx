@@ -7,7 +7,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"

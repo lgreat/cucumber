@@ -59,10 +59,10 @@
         <ul>
             <li>You can bookmark this page.</li>
             <li><a target="_blank"
-                   href="http://wiki.greatschools.net/bin/view/Greatschools/TableCopyToolSets">Table Set Documentation</a>
+                   href="http://wiki.greatschools.org/bin/view/Greatschools/TableCopyToolSets">Table Set Documentation</a>
             </li>
             <li><a target="blank"
-                   href="http://wiki.greatschools.net/bin/view/Greatschools/TableToMove">Tables To Move</a>
+                   href="http://wiki.greatschools.org/bin/view/Greatschools/TableToMove">Tables To Move</a>
             </li>
             <li>Blacklisted tables will not be moved</li>
         </ul>

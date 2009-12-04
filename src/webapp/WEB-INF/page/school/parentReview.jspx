@@ -5,7 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -149,7 +149,7 @@
         <div id="reviewRatingError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a review or rating.</div>
         <div id="emailError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a valid email address.</div>
         <div id="termsError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif" alt="error"></img>Please accept our terms of use.</div>
-        <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines"><a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">Guidelines</a></span>
+        <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span id="guidelines"><a href="http://www.greatschools.org/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">Guidelines</a></span>
 
         </div>
         <div id="reviewCommnents"><textarea id="reviewText"

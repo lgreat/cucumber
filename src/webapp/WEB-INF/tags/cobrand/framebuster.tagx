@@ -10,7 +10,7 @@
             <![CDATA[
             <!--
             if (parent.frames.length > 0 &&
-                document.referrer.indexOf("greatschools.net") != 13) {
+                document.referrer.indexOf("greatschools.org") != 13) {
                 parent.location.href = self.document.location
             }
             -->

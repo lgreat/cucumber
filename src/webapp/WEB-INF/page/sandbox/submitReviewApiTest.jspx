@@ -12,13 +12,13 @@
     <head>
         <title>Test the Submit Review API</title>
         <jsp:scriptlet>
-            String apiHost = "api.greatschools.net";
+            String apiHost = "api.greatschools.org";
             if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 apiHost = "localhost/apiservice";
             } else if (UrlUtil.isStagingServer(request.getServerName())) {
-                apiHost = "api.staging.greatschools.net";
+                apiHost = "api.staging.greatschools.org";
             } else if (UrlUtil.isDevEnvironment(request.getServerName())) {
-                apiHost = "api.dev.greatschools.net";
+                apiHost = "api.dev.greatschools.org";
             }
             request.setAttribute("apiHost", apiHost);
         </jsp:scriptlet>
@@ -47,7 +47,7 @@
         </select>
         <br/>
         <label>Email: </label>
-        <input type="text" name="email" size="64" value="aroy@greatschools.net"/>
+        <input type="text" name="email" size="64" value="aroy@greatschools.org"/>
         <br/>
         <label>User type: </label>
         <select name="user_type">

@@ -6,7 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           version="2.0">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:output doctype-root-element="html"
@@ -88,8 +88,8 @@
             var cityUrl = GS_replaceAll(cityName, "%27", "'");
             cityUrl = GS_replaceAll(cityUrl, " ", "_");
             cityUrl = GS_replaceAll(cityUrl, "+", "_");
-            cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
-            stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
+            cityLink.href = "http://www.greatschools.org/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
+            stateLink.href = "http://www.greatschools.org/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
             if (cityName == "New York" && stateAbbr == "NY") {
                 cityLink.innerHTML = cityName + " City schools";
                 stateLink.innerHTML = stateName + " State schools";
@@ -292,8 +292,8 @@
                 <span class="title">(for GreatSchools cobrand customers only)</span></div>
             <div class="instructions">
                 To link directly to your widget, enter the cobrand URL in the field below. <a
-                    href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
-                Otherwise, leave as www.greatschools.net.
+                    href="mailto:widget@greatschools.org">Learn more &gt;</a><br/>
+                Otherwise, leave as www.greatschools.org.
             </div>
             http://<form:input path="cobrandSite"/>
         </div>
@@ -327,7 +327,7 @@
 
     </form:form>
 
-    <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.
+    <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.org">widget@greatschools.org</a>.
     </p>
 </td>
 <td class="rightSide">
@@ -344,8 +344,8 @@
                     </iframe>
                 </div>
                 <div class="GS_widget_footer">
-                    <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img
-                            src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
+                    <a href="http://www.greatschools.org/?s_cid=wsbay93" target="_blank"><img
+                            src="http://www.greatschools.org/res/img/widget/poweredby_logo.gif"
                             alt="Powered by GreatSchools"/></a>
 
                     <div class="GS_seo">
@@ -375,7 +375,7 @@
                                     </c:choose>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
+                                    <a href="http://www.greatschools.org/city/Fremont/CA?s_cid=wsbay93"
                                        target="_blank" rel="follow follow"
                                        id="GS_city_SEO">Fremont schools</a>
                                 </c:otherwise>
@@ -403,7 +403,7 @@
                                     </c:choose>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
+                                    <a href="http://www.greatschools.org/modperl/go/CA?s_cid=wsbay93"
                                        target="_blank" rel="follow follow"
                                        id="GS_state_SEO">California schools</a>
                                 </c:otherwise>

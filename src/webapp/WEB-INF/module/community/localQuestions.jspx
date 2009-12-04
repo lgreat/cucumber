@@ -5,7 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -42,7 +42,7 @@
                 Date date = calendar.getTime();
                 request.setAttribute("cookieExpires", date);
             </jsp:scriptlet>
-            <meta http-equiv="Set-Cookie" content="CITYID=${cityId};expires=${cookieExpires}; path=/;domain=.greatschools.net"/>
+            <meta http-equiv="Set-Cookie" content="CITYID=${cityId};expires=${cookieExpires}; path=/;domain=.greatschools.org"/>
         </head>
     </c:if>
 
