@@ -1,7 +1,7 @@
 package gs.web.about;
 
 /**
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class PressClipping {
     private String _text;

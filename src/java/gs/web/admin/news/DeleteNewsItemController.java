@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: DeleteNewsItemController.java,v 1.2 2006/07/26 22:29:20 thuss Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: DeleteNewsItemController.java,v 1.3 2009/12/04 20:00:23 npatury Exp $
  */
 
 package gs.web.admin.news;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class DeleteNewsItemController implements ReadWriteController {
 

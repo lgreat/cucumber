@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class PressClippingsController extends AbstractController {
     public static final String BEAN_ID = "/about/pressClippings.module";

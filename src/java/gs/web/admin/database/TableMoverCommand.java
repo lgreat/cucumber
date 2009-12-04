@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.8 2008/09/10 22:11:13 chriskimm Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: TableMoverCommand.java,v 1.9 2009/12/04 20:00:24 npatury Exp $
  */
 package gs.web.admin.database;
 

@@ -4,7 +4,7 @@ import gs.web.BaseTestCase;
 
 /**
  * This class tests the setters and getters of PressClipping
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class PressClippingTest extends BaseTestCase {
     private PressClipping _item;

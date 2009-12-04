@@ -4,7 +4,7 @@ import gs.web.BaseTestCase;
 
 /**
  * This class tests the setters and getters of PressRelease
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class PressReleaseTest extends BaseTestCase {
     private PressRelease _item;

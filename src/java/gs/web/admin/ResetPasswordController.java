@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * usage: http://www.greatschools.net/admin/resetPassword.page?email=tester@greatschools.net 
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ResetPasswordController implements Controller {
 

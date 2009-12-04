@@ -8,7 +8,7 @@ import static org.easymock.classextension.EasyMock.*;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
@@ -25,7 +25,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequest() throws Exception {
         MockHttpServletResponse res = getResponse();
-        String email = "tester@greatschools.net";
+        String email = "tester@greatschools.org";
         getRequest().setParameter("email", email);
 
         User u = new User();

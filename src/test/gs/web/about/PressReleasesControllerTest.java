@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * This class tests the fetching of press releases entries from a Google Spreadsheet.
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class PressReleasesControllerTest extends BaseControllerTestCase {
 
