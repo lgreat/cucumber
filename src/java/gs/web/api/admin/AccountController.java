@@ -107,7 +107,7 @@ public class AccountController implements ReadWriteAnnotationController {
         try {
             EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
             emailHelper.setToEmail(account.getEmail());
-            emailHelper.setFromEmail("api-support@greatschools.net");
+            emailHelper.setFromEmail("api-support@greatschools.org");
             emailHelper.setFromName("GreatSchools API Support");
             emailHelper.setSubject("GreatSchools Api Key");
             StringBuffer message = new StringBuffer();

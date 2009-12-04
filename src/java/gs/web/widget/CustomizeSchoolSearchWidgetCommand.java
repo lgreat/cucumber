@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail {
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetCommand.class);
@@ -255,21 +255,21 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         if (request != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_WIDGET);
 
-            // allways have iframe pull from www.greatschools.net except for internal servers
+            // allways have iframe pull from www.greatschools.org except for internal servers
             SessionContext context = SessionContextUtil.getSessionContext(request);
             PageHelper pageHelper = new PageHelper(context, request);
             // non-developer workstation
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 if (pageHelper.isCloneServer()) {
                     // purposefully include clone to allow testing production behavior without code being on production yet
-                    rval += urlBuilder.asFullUrl("clone.greatschools.net",80);
+                    rval += urlBuilder.asFullUrl("clone.greatschools.org",80);
                 } else if (pageHelper.isStagingServer()) {
-                    rval += urlBuilder.asFullUrl("staging.greatschools.net",80);
+                    rval += urlBuilder.asFullUrl("staging.greatschools.org",80);
                 } else if (pageHelper.isDevEnvironment()) {
-                    rval += urlBuilder.asFullUrl("dev.greatschools.net",80);
+                    rval += urlBuilder.asFullUrl("dev.greatschools.org",80);
                 } else {
-                    // not dev, staging, or developer workstation -- so use www.greatschools.net
-                    rval += urlBuilder.asFullUrl("www.greatschools.net",80);
+                    // not dev, staging, or developer workstation -- so use www.greatschools.org
+                    rval += urlBuilder.asFullUrl("www.greatschools.org",80);
                 }
             } else {
                 // developer workstation, so use own url

@@ -29,13 +29,13 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
     }
 
     public void testRequestToDevSucceeds() throws Exception {
-        _sessionContext.setHostName("dev.greatschools.net");
+        _sessionContext.setHostName("dev.greatschools.org");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view for dev", _controller.getFormView(), modelAndView.getViewName());
     }
 
     public void testRequestToProductionFails() throws Exception {
-        _sessionContext.setHostName("www.greatschools.net");
+        _sessionContext.setHostName("www.greatschools.org");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view for production", _controller._errorView, modelAndView.getViewName());
     }

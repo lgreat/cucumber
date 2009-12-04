@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private RegistrationFollowUpController _controller;
@@ -71,7 +71,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller.setStateManager(stateManager);
 
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
         email.getEmailHelperFactory().setMailSender(_mailSender);
@@ -90,7 +90,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _errors = new BindException(_command, "");
         _user = new User();
         UserProfile userProfile = new UserProfile();
-        _user.setEmail("RegistrationFollowUpControllerTest@greatschools.net");
+        _user.setEmail("RegistrationFollowUpControllerTest@greatschools.org");
         _user.setId(456);
 
         userProfile.setUser(_user);
@@ -348,7 +348,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         followUpCommand.getUser().setUserProfile(userProfile);
         followUpCommand.getUserProfile().setState(State.GA);
 
-        String testRedirectUrl = "community.greatschools.net/advice/write";
+        String testRedirectUrl = "community.greatschools.org/advice/write";
         followUpCommand.setRedirect(testRedirectUrl);
 
 
@@ -396,7 +396,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         followUpCommand.getUser().setUserProfile(userProfile);
         followUpCommand.getUserProfile().setState(State.GA);
 
-        String testRedirectUrl = "community.greatschools.net/advice/write?id=99";
+        String testRedirectUrl = "community.greatschools.org/advice/write?id=99";
         followUpCommand.setRedirect(testRedirectUrl);
 
 
@@ -607,7 +607,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
     public void testNotifyCommunity() {
         try {
-            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -618,9 +618,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityDev() {
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -631,7 +631,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityDevWorkstation() {
-        _request.setServerName("aroy.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.org");
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
@@ -643,9 +643,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityStaging() {
-        _request.setServerName("staging.greatschools.net");
+        _request.setServerName("staging.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -656,9 +656,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityLive() {
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -669,9 +669,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }    
 
     public void testNotifyCommunityLiveCobrand() {
-        _request.setServerName("yahooed.greatschools.net");
+        _request.setServerName("yahooed.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);

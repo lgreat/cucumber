@@ -15,7 +15,7 @@ import org.springframework.validation.BindException;
 import java.util.ArrayList;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class UpdateRatingsControllerTest extends BaseControllerTestCase {
     private UpdateRatingsController _controller;
@@ -35,7 +35,7 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
 
         _command = new ReviewCommand();
-        _command.setEmail("dlee@greatschools.net");
+        _command.setEmail("dlee@greatschools.org");
         _errors = new BindException(_command, "");
         _user = new User();
         _user.setId(1);

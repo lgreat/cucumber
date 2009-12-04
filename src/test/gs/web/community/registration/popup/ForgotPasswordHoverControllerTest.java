@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
     private ForgotPasswordHoverController _controller;
@@ -27,7 +27,7 @@ public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
         MockJavaMailSender _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         ForgotPasswordEmail email = (ForgotPasswordEmail)
                 getApplicationContext().getBean(ForgotPasswordEmail.BEAN_ID);
         email.getEmailHelperFactory().setMailSender(_mailSender);
@@ -38,7 +38,7 @@ public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
     }
 
     public void testOnSubmit() throws Exception {
-        String email = "forgotPasswordTest@greatschools.net";
+        String email = "forgotPasswordTest@greatschools.org";
         User user = new User();
         user.setEmail(email);
         user.setId(123);
@@ -65,7 +65,7 @@ public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
     }
 
     public void testMslUser() throws Exception {
-        String email = "forgotPasswordTest@greatschools.net";
+        String email = "forgotPasswordTest@greatschools.org";
         User user = new User();
         user.setEmail(email);
         user.setId(123);
@@ -92,12 +92,12 @@ public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
 
     public void testEmailProvisionalUser() throws Exception {
         User user = new User();
-        user.setEmail("forgotPasswordTest@greatschools.net");
+        user.setEmail("forgotPasswordTest@greatschools.org");
         user.setId(125);
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
 
-        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
+        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.org")).andReturn(user);
         replay(_userDao);
 
         ForgotPasswordCommand command = new ForgotPasswordCommand();
@@ -111,13 +111,13 @@ public class ForgotPasswordHoverControllerTest extends BaseControllerTestCase {
     
     public void testDisabledUser() throws Exception {
         User user = new User();
-        user.setEmail("forgotPasswordTest@greatschools.net");
+        user.setEmail("forgotPasswordTest@greatschools.org");
         user.setId(125);
         user.setPlaintextPassword("foobar");
         user.setUserProfile(new UserProfile());
         user.getUserProfile().setActive(false);
 
-        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
+        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.org")).andReturn(user);
         replay(_userDao);
 
         ForgotPasswordCommand command = new ForgotPasswordCommand();

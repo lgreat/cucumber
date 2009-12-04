@@ -5,7 +5,7 @@ import gs.data.state.State;
 import gs.data.school.district.District;
 
 /**
- * @author Dave Roy (droy@greatschools.net)
+ * @author Dave Roy (droy@greatschools.org)
  */
 public class DistrictHomeTagHandler extends LinkTagHandler {
     private Integer _schoolId;

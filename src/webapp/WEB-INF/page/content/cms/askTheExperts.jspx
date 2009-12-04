@@ -217,7 +217,7 @@
             <c:if test="${not empty askTheExperts.relatedArticles or not empty askTheExperts.externalLinks}">
                 <div class="relatedLinks">
                     <c:if test="${not empty askTheExperts.relatedArticles}">
-                        <h4>More on GreatSchools.net</h4>
+                        <h4>More on GreatSchools.org</h4>
                         <div>
                             <ul>
                                 <c:forEach var="relatedArticle" items="${askTheExperts.relatedArticles}">
@@ -311,7 +311,7 @@
                                     </span>
                                     <span class="note">
                                         <span class="rlbcopy">Note: </span>Your email address is
-                                        required if you would like a response from GreatSchools.net.
+                                        required if you would like a response from GreatSchools.org.
                                     </span><br/>
                             </div>
                         </form>
@@ -319,7 +319,7 @@
 
                     <c:if test="${not empty articleComments and fn:length(articleComments) gt 0}">
                         <hr width="100%" class="commentDivider"/>
-                        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
+                        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.org Users</span></div>
                         <div id="comments">
                             <c:forEach var="comment" items="${articleComments}">
                                 <div class="comment">

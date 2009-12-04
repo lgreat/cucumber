@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SelectAStateControllerTest.java,v 1.2 2009/12/04 20:54:18 npatury Exp $
+ * $Id: SelectAStateControllerTest.java,v 1.3 2009/12/04 22:27:14 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Tests SelectAStateController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SelectAStateControllerTest extends BaseControllerTestCase {
 

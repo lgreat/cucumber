@@ -8,7 +8,7 @@ import gs.data.util.table.ITableDaoFactory;
  * Implementation of ITableDaoFactory that creates and configures GoogleSpreadsheetDao's.
  *
  * @see GoogleSpreadsheetDao 
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
     public static final String BEAN_ID = "googleSpreadsheetFactory";

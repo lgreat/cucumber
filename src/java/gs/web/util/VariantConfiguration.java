@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
  *   - There can be no fewer than 1 value (1 value DISABLES A/B testing -- users will only see A)
  *
  * @see gs.web.util.CookieInterceptor
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class VariantConfiguration {
     protected static String _lastConfiguration = "";

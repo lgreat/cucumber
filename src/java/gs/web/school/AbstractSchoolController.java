@@ -27,7 +27,7 @@ import java.util.List;
  * This class is intended to be the base class for School Profile pages and other pages that need
  * access to a single school.  The state and the school id are required url parameters.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public abstract class AbstractSchoolController extends WebContentGenerator implements Controller {
 

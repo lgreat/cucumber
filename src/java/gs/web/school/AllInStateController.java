@@ -37,7 +37,7 @@ import gs.web.util.context.SessionContextUtil;
  * This controller builds the model for the "all schools",
  * "all cities", and "all districts" pages.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class AllInStateController extends AbstractController {
 

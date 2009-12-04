@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
     private ArticlesByCategoryController _controller;

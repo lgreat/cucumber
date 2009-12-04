@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: IRatingsDisplay.java,v 1.5 2009/12/04 20:54:12 npatury Exp $
+ * $Id: IRatingsDisplay.java,v 1.6 2009/12/04 22:27:13 chriskimm Exp $
  */
 
 package gs.web.test.rating;
@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Provides clean interface for building the web page. Should support minimal logic within the display code.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public interface IRatingsDisplay {
 

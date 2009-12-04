@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import org.springframework.validation.BindException;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class AddParentReviewsValidatorTest extends TestCase {
     AddParentReviewsValidator _validator;

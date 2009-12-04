@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Parent review page
  *
- * @author <a href="mailto:npatury@greatschools.net">Nanditha Patury</a>
+ * @author <a href="mailto:npatury@greatschools.org">Nanditha Patury</a>
  */
 
 public class ParentReviewAjaxControllerForSchoolInfo implements Controller {

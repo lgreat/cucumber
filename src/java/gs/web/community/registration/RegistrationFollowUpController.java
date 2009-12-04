@@ -34,7 +34,7 @@ import java.util.*;
 /**
  * Handles stage 2 of registration.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationFollowUpController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration2.page";

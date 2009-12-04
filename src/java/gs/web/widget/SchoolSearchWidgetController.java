@@ -33,7 +33,7 @@ import java.net.*;
 import java.io.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SchoolSearchWidgetController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(SchoolSearchWidgetController.class);

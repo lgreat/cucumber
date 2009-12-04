@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * These test states may be indexed while connected to any database as there is
  * local test data for these states included in our dev environments.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SearchManagerController extends AbstractController {
 

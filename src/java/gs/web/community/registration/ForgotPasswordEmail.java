@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Represents the forgot your password email.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "forgotPasswordEmail";

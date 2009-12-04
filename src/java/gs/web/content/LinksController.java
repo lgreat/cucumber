@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * This class fetches links from a Google Spreadsheet for rendering in a list to be shown on a microsite page.
- * @author greatschools.org">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class LinksController extends AbstractController {
     public static final String BEAN_ID = "/content/links.module";

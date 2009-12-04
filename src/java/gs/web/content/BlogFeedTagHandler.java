@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.28 2009/12/04 22:15:14 npatury Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.29 2009/12/04 22:27:11 chriskimm Exp $
  */
 
 package gs.web.content;
@@ -28,7 +28,7 @@ import gs.web.jsp.Util;
 /**
  * Provides...
  *
- * @author greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BlogFeedTagHandler extends SimpleTagSupport {
 
@@ -164,9 +164,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         imageAuthor.put("Chase Nelson", "/res/img/blog_chasenelson.jpg");
 
         /* Uncomment this to use community gifs
-        imageAuthor.put("Bill Jackson","http://community.greatschools.net/avatar?id=1000&height=94&width=94");
-        imageAuthor.put("Kelsey Parker","http://community.greatschools.net/avatar?id=2694028&height=94&width=94");
-        imageAuthor.put("Dave Steer","http://community.greatschools.net/avatar?id=3090256&height=94&width=94");
+        imageAuthor.put("Bill Jackson","http://community.greatschools.org/avatar?id=1000&height=94&width=94");
+        imageAuthor.put("Kelsey Parker","http://community.greatschools.org/avatar?id=2694028&height=94&width=94");
+        imageAuthor.put("Dave Steer","http://community.greatschools.org/avatar?id=3090256&height=94&width=94");
         */
         
         return imageAuthor.get(author) != null ? imageAuthor.get(author).toString() : "/res/img/pixel.gif";
@@ -180,9 +180,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.println("<div class=\"blogTop\">");
             out.println("<div class=\"blogPhoto\">");
             out.println("<a onclick=\"Popup=window.open('" +
-                    "http://blogs.greatschools.net" +
+                    "http://blogs.greatschools.org" +
                     "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
-                    + " href=\"" + "http://blogs.greatschools.net" +"\">"
+                    + " href=\"" + "http://blogs.greatschools.org" +"\">"
                     + "<img src=\"/res/img/about/aboutus_blogphoto.jpg\" "
                     + "alt=\"GreatSchools Blog On School Improvement\"/></a>");
 
@@ -226,10 +226,10 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             GreatSchools Blog
             </div>
 
-            <img width="1" height="6" src="http://www.greatschools.net/res/img/header/clear_pix.gif" alt=""/>
+            <img width="1" height="6" src="http://www.greatschools.org/res/img/header/clear_pix.gif" alt=""/>
             Since President Barack Obama assumed office two months ago, he's put forth an...
             <div style="padding-top: 9px; padding-bottom: 9px;">
-            <a href="http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html" onclick="Popup=window.open('http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;">Read more about "ObamaÕs call for parent involvement" ></a>
+            <a href="http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html" onclick="Popup=window.open('http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;">Read more about "Obamaï¿½s call for parent involvement" ></a>
             </div>
              */
             out.println("<div class=\"billsBlogImg\">Photo of Bill Jackson</div>");

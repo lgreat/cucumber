@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginCommand.java,v 1.3 2009/12/04 22:15:11 npatury Exp $
+ * $Id: LoginCommand.java,v 1.4 2009/12/04 22:27:05 chriskimm Exp $
  */
 package gs.web.community;
 

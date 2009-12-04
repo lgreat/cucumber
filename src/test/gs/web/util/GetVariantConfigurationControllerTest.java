@@ -7,7 +7,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import static org.easymock.EasyMock.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GetVariantConfigurationControllerTest extends BaseControllerTestCase {
     private GetVariantConfigurationController _controller;

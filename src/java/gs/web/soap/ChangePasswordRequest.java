@@ -11,10 +11,10 @@ import javax.xml.rpc.ParameterMode;
 /**
  * Provides Performs a SOAP changeEmailRequest.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangePasswordRequest extends SoapRequest {
-    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/changePassword/";
+    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.org/community/changePassword/";
     public static final int DEFAULT_TIMEOUT = 15000; // 15s in milliseconds
 
     public ChangePasswordRequest() {

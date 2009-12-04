@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * Provides testing for the ArticleForumLinkTagHandler class.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
     private ArticleForumLinkTagHandler _tagHandler;

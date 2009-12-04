@@ -22,7 +22,7 @@ import static org.easymock.classextension.EasyMock.*;
 /**
  * Provides testing for the controller that changes a user's email address.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangeEmailControllerTest extends BaseControllerTestCase {
     private ChangeEmailController _controller;
@@ -156,7 +156,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
         BindException errors = new BindException(command, "emailCmd");
 
-        String email = "aroy@greatschools.net";
+        String email = "aroy@greatschools.org";
         command.setNewEmail(email);
         command.setConfirmNewEmail(email);
 
@@ -190,9 +190,9 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on staging
     public void testNotifyCommunityOnStaging() throws SoapRequestException {
-        _request.setServerName("staging.greatschools.net");
+        _request.setServerName("staging.greatschools.org");
 
-        _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -201,9 +201,9 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on dev
     public void testNotifyCommunityOnDev() throws SoapRequestException {
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
 
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -212,7 +212,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is NOT given a target on developer workstation
     public void testNotifyCommunityOnWorkstation() throws SoapRequestException {
-        _request.setServerName("aroy.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.org");
 
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
@@ -222,9 +222,9 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on live
     public void testNotifyCommunityOnWww() throws SoapRequestException {
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -233,9 +233,9 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on live
     public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
-        _request.setServerName("sfgate.greatschools.net");
+        _request.setServerName("sfgate.greatschools.org");
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.22 2009/12/04 20:54:15 npatury Exp $
+ * $Id: RecentParentReviewsController.java,v 1.23 2009/12/04 22:27:06 chriskimm Exp $
  */
 
 package gs.web.school.review;
@@ -29,7 +29,7 @@ import java.util.List;
  * Output model:
  * <li>reviews - a List of IParentReviewModel objects
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class RecentParentReviewsController extends AbstractController {
 

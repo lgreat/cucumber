@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This controller provides a web interface to gs.data.util.email.EmailUtils.isValidEmail();
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class IsValidEmailController implements Controller {
 

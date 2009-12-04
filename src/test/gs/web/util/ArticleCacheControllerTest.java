@@ -6,7 +6,7 @@ import gs.data.content.IArticleDao;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class ArticleCacheControllerTest extends BaseControllerTestCase {
 

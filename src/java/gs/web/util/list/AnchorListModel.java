@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModel.java,v 1.2 2009/12/04 20:54:16 npatury Exp $
+ * $Id: AnchorListModel.java,v 1.3 2009/12/04 22:27:20 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * The model can either be an instance of this class itself, or it
  * can be a map using the static values identifying the properties.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class AnchorListModel {
 

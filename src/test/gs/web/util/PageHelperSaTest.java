@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.50 2009/12/04 20:54:14 npatury Exp $
+ * $Id: PageHelperSaTest.java,v 1.51 2009/12/04 22:27:04 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -28,7 +28,7 @@ import java.util.Properties;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class PageHelperSaTest extends TestCase {
     private MockHttpServletResponse _response;
@@ -362,15 +362,15 @@ public class PageHelperSaTest extends TestCase {
 
         MockSessionContext sessionFacade = new MockSessionContext();
 
-        sessionFacade.setHostName("www.greatschools.net");
+        sessionFacade.setHostName("www.greatschools.org");
         PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("cobrand.greatschools.net");
+        sessionFacade.setHostName("cobrand.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("yahoo.greatschools.net");
+        sessionFacade.setHostName("yahoo.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
@@ -378,35 +378,35 @@ public class PageHelperSaTest extends TestCase {
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("dev.greatschools.net");
+        sessionFacade.setHostName("dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("cobrand.dev.greatschools.net");
+        sessionFacade.setHostName("cobrand.dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("charterschoolratings.dev.greatschools.net");
+        sessionFacade.setHostName("charterschoolratings.dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("staging.greatschools.net");
+        sessionFacade.setHostName("staging.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("apeterson.dev.greatschools.net");
+        sessionFacade.setHostName("apeterson.dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("apeterson.office.greatschools.net");
+        sessionFacade.setHostName("apeterson.office.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("aroy.dev.greatschools.net");
+        sessionFacade.setHostName("aroy.dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("aroy.office.greatschools.net");
+        sessionFacade.setHostName("aroy.office.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
@@ -418,11 +418,11 @@ public class PageHelperSaTest extends TestCase {
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
-        sessionFacade.setHostName("staging.greatschools.net");
+        sessionFacade.setHostName("staging.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isStagingServer());
 
-        sessionFacade.setHostName("dev.greatschools.net");
+        sessionFacade.setHostName("dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isStagingServer());
 
@@ -431,7 +431,7 @@ public class PageHelperSaTest extends TestCase {
     public void testAdvertising() {
         // Test for the main website
         MockSessionContext sessionFacade = new MockSessionContext();
-        sessionFacade.setHostName("www.greatschools.net");
+        sessionFacade.setHostName("www.greatschools.org");
         PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
         assertFalse(pageHelper.isAdContentFree());
@@ -443,7 +443,7 @@ public class PageHelperSaTest extends TestCase {
 
         // Test for a cobrand that shows ads
         sessionFacade = new MockSessionContext();
-        sessionFacade.setHostName("sfgate.greatschools.net");
+        sessionFacade.setHostName("sfgate.greatschools.org");
         sessionFacade.setCobrand("sfgate");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
@@ -456,7 +456,7 @@ public class PageHelperSaTest extends TestCase {
 
         // Test for an ad free cobrand
         sessionFacade = new MockSessionContext();
-        sessionFacade.setHostName("framed.greatschools.net");
+        sessionFacade.setHostName("framed.greatschools.org");
         sessionFacade.setCobrand("framed");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
@@ -483,14 +483,14 @@ public class PageHelperSaTest extends TestCase {
 
     public void testSetCityCookie() throws Exception {
         String temp = _request.getServerName();
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
         
         City city = new City("Anchorage", State.AK);
         city.setId(54321);
         PageHelper.setCityIdCookie(_request, _response, city);
         Cookie cityIdCookie = _response.getCookie(SessionContextUtil.CITY_ID_COOKIE);
         assertEquals("54321", cityIdCookie.getValue());
-        assertEquals(".greatschools.net", cityIdCookie.getDomain());
+        assertEquals(".greatschools.org", cityIdCookie.getDomain());
 
         _request.setServerName(temp);
     }
@@ -498,7 +498,7 @@ public class PageHelperSaTest extends TestCase {
     public void testSetMemberAuthorized() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(123);
-        user.setEmail("testSetMemberCookie@greatschools.net");
+        user.setEmail("testSetMemberCookie@greatschools.org");
         String hash = "rgTkMapq+oP5MTpxH3lEUQ==123";
         PageHelper.setMemberAuthorized(_request, _response, user);
         Cookie cookie = _response.getCookie("SESSION_CACHE");
@@ -513,13 +513,13 @@ public class PageHelperSaTest extends TestCase {
         User user = new User();
 
         user.setId(123);
-        user.setEmail("testSetMemberCookie@greatschools.net");
+        user.setEmail("testSetMemberCookie@greatschools.org");
         PageHelper.setMemberAuthorized(_request, _response, user);
 
         // this step normally occurs automatically, but for this test must be done programmatically
         SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
         sessionContext.setUser(user);
-        sessionContext.setHostName("dev.greatschools.net");
+        sessionContext.setHostName("dev.greatschools.org");
 
         _request.setCookies(new Cookie[] {_response.getCookie("community_dev")});
         assertTrue(PageHelper.isMemberAuthorized(_request));
@@ -533,7 +533,7 @@ public class PageHelperSaTest extends TestCase {
 
     public void testIsCommunityCookieSet() {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
-        sessionContext.setHostName("dev.greatschools.net");
+        sessionContext.setHostName("dev.greatschools.org");
         assertFalse(PageHelper.isCommunityCookieSet(_request));
 
         _request.setCookies(new Cookie[] {new Cookie("community_dev", "blahblah23")});
@@ -720,17 +720,17 @@ public class PageHelperSaTest extends TestCase {
     public void testIsAdminServer() {
         MockSessionContext sessionFacade = new MockSessionContext();
 
-        sessionFacade.setHostName("admin.greatschools.net");
+        sessionFacade.setHostName("admin.greatschools.org");
         PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
-        assertTrue("Expected true for admin.greatschools.net", pageHelper.isAdminServer());
+        assertTrue("Expected true for admin.greatschools.org", pageHelper.isAdminServer());
 
-        sessionFacade.setHostName("maddy.greatschools.net");
+        sessionFacade.setHostName("maddy.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
-        assertTrue("Expected true for maddy.greatschools.net", pageHelper.isAdminServer());
+        assertTrue("Expected true for maddy.greatschools.org", pageHelper.isAdminServer());
 
-        sessionFacade.setHostName("www.greatschools.net");
+        sessionFacade.setHostName("www.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
-        assertFalse("Expected false for www.greatschools.net", pageHelper.isAdminServer());
+        assertFalse("Expected false for www.greatschools.org", pageHelper.isAdminServer());
     }
 
     protected void setUp() throws Exception {

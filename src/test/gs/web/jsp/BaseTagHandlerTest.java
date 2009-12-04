@@ -12,7 +12,7 @@ import org.easymock.MockControl;
 import org.easymock.classextension.MockClassControl;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BaseTagHandlerTest extends BaseTestCase {
 
@@ -45,7 +45,7 @@ public class BaseTagHandlerTest extends BaseTestCase {
     }
 
     public void testHostnameIsRetrievedFromSessionContext() {
-        String expectedHostname = "www.greatschools.net";
+        String expectedHostname = "www.greatschools.org";
 
         MockControl mockSessionContext = MockClassControl.createControl(SessionContext.class);
         SessionContext sessionContext = (SessionContext) mockSessionContext.getMock();

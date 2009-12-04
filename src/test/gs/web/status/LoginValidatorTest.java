@@ -5,7 +5,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class LoginValidatorTest extends TestCase {
 

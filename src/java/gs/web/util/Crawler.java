@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * based on crawler designs found here:
  * http://www.devarticles.com/c/a/Java/Crawling-the-Web-with-Java/
  * 
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class Crawler {
 

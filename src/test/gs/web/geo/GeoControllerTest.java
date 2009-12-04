@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.13 2009/12/04 20:54:12 npatury Exp $
+ * $Id: GeoControllerTest.java,v 1.14 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Tests GeoController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class GeoControllerTest extends BaseControllerTestCase {
     private SessionContextUtil _sessionContextUtil;

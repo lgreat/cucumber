@@ -19,7 +19,7 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${requestScope.articleTitle} - GreatSchools.net</title>
+        <title>${requestScope.articleTitle} - GreatSchools.org</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/article.css"/>
         <c:choose>
@@ -206,7 +206,7 @@
                                     </span>
                                     <span class="note">
                                         <span class="rlbcopy">Note: </span>Your email address is
-                                        required if you would like a response from GreatSchools.net.
+                                        required if you would like a response from GreatSchools.org.
                                     </span><br />
                                 </div>
                             </form>
@@ -214,7 +214,7 @@
 
                         <c:if test="${requestScope.article.userComments ne null and fn:length(requestScope.article.userComments) gt 0}">
                             <hr width="100%" class="commentDivider"/>
-                            <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
+                            <div class="orangeBold greenHeader"><span>Comments From GreatSchools.org Users</span></div>
                             <div id="comments">
                                 <c:forEach var="comment" items="${requestScope.article.userComments}">
                                     <div class="comment">

@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Generates high-school page tag.
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class HighSchoolTagHandler extends LinkTagHandler {
 

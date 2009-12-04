@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BrowseCitiesControllerTest.java,v 1.4 2009/12/04 20:54:12 npatury Exp $
+ * $Id: BrowseCitiesControllerTest.java,v 1.5 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 /**
  * Provides tests for NearbyCitiesController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BrowseCitiesControllerTest extends BaseControllerTestCase {
 

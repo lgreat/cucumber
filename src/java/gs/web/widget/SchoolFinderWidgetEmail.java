@@ -12,7 +12,7 @@ import java.io.IOException;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "schoolFinderWidgetEmail";

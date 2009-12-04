@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.24 2009/12/04 20:54:15 npatury Exp $
+ * $Id: StatePathwayController.java,v 1.25 2009/12/04 22:27:17 chriskimm Exp $
  */
 package gs.web.state;
 
@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class StatePathwayController extends AbstractController {
 

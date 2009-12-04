@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.19 2009/12/04 20:54:11 npatury Exp $
+ * $Id: SchoolsTagHandler.java,v 1.20 2009/12/04 22:27:02 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -21,7 +21,7 @@ import java.util.HashSet;
 /**
  * Access to the browse schools in {CITY || DISTRICT} page.
  *
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
  */
 public class SchoolsTagHandler extends LinkTagHandler {
 

@@ -109,9 +109,9 @@ public class ReportTagHandler extends SpringTagHandler {
 
         String host = pc.getRequest().getServerName();
         if (host.contains("dev.")) {
-            sb.append("api.dev.greatschools.net");
+            sb.append("api.dev.greatschools.org");
         } else if (host.contains("staging.")) {
-            sb.append("api.staging.greatschools.net");
+            sb.append("api.staging.greatschools.org");
         } else if (UrlUtil.isDeveloperWorkstation(host)) {
             sb.append(host);
             String port = String.valueOf(pc.getRequest().getLocalPort());
@@ -120,7 +120,7 @@ public class ReportTagHandler extends SpringTagHandler {
             }
             sb.append("/apiservice");
         } else {
-            sb.append("api.greatschools.net");
+            sb.append("api.greatschools.org");
         }
 
         sb.append("/reports/").append(getType());

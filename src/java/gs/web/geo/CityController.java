@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.60 2009/12/04 22:15:15 npatury Exp $
+ * $Id: CityController.java,v 1.61 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
  * Given a city and state in the URL, populates model properties needed
  * for the city view page. These are included in the MODEL_* constants.
  *
- * @author greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class CityController extends AbstractController  implements IDirectoryStructureUrlController {
 

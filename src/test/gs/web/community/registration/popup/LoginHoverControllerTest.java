@@ -37,7 +37,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _controller.setReportLoginRequest(_soapRequest);
 
         _user = new User();
-        _user.setEmail("testLoginController@greatschools.net");
+        _user.setEmail("testLoginController@greatschools.org");
         _user.setId(99);
 
         // this is the IP used when the request attribute is missing
@@ -100,10 +100,10 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _user.setPlaintextPassword("foobar");
         _user.setEmailProvisional("foobar");
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_userDao);
 
-        _command.setEmail("testLoginController@greatschools.net");
+        _command.setEmail("testLoginController@greatschools.org");
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         verify(_userDao);
@@ -113,10 +113,10 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
     public void testBadPassword() throws Exception {
         _user.setPlaintextPassword("foobar");
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_userDao);
 
-        _command.setEmail("testLoginController@greatschools.net");
+        _command.setEmail("testLoginController@greatschools.org");
         _command.setPassword("wrongPassword");
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -129,10 +129,10 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _user.setUserProfile(new UserProfile());
         _user.getUserProfile().setActive(false);
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_userDao);
 
-        _command.setEmail("testLoginController@greatschools.net");
+        _command.setEmail("testLoginController@greatschools.org");
         _command.setPassword("foobar");
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -157,7 +157,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
     public void testJoinFormNoUserValidation() throws Exception {
         getRequest().setParameter("joinForm", "true");
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(null);
         replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -168,7 +168,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
     public void testJoinFormMslUserValidation() throws Exception {
         getRequest().setParameter("joinForm", "true");
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -181,7 +181,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
 
         _user.setPlaintextPassword("foobar");
 
-        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -203,7 +203,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.reportLoginRequest(_user, _ip);
         replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -228,7 +228,7 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.reportLoginRequest(_user, _ip);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);

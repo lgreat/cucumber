@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * This controller handles requests for "compare checked schools" and
  * "add checked to my schools list" actions.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class CompareSchoolsController extends AbstractController {
 

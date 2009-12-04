@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.32 2009/12/04 20:54:18 npatury Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.33 2009/12/04 22:27:19 chriskimm Exp $
  */
 
 package gs.web.school.performance;
@@ -35,7 +35,7 @@ import java.util.*;
  * Output model:
  * <li>reviews - a List of IParentReviewModel objects
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BestPublicSchoolValuesController extends ParameterizableViewController   {
 

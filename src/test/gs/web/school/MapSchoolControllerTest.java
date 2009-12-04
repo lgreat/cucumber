@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Provides testing for the MapSchoolController.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class MapSchoolControllerTest extends BaseControllerTestCase {
     private MapSchoolController _controller;

@@ -34,7 +34,7 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
         _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
-        _mailSender.setHost("greatschools.net");        
+        _mailSender.setHost("greatschools.org");
 
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
         _controller.setDiscussionDao(_discussionDao);
@@ -198,7 +198,7 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
     public void testSendMail() {
         User u = new User();
         u.setId(1);
-        u.setEmail("aroy@greatschools.net");
+        u.setEmail("aroy@greatschools.org");
         u.setUserProfile(new UserProfile());
         u.getUserProfile().setScreenName("Anthony");
 

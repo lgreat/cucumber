@@ -31,7 +31,7 @@ http://nces.ed.gov/ccd/ccseas.asp
 
 <p>
 To learn more about where we get our data, please read our Frequently Asked Questions:<br/>
-http://www.greatschools.net/about/gsFaq.page#pvtdata
+http://www.greatschools.org/about/gsFaq.page#pvtdata
 </p>
 
 <p>

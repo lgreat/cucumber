@@ -43,8 +43,8 @@ import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
 /**
- * @author greatschools.org
- * @author greatschools.org
+ * @author droy@greatschools.org
+ * @author npatury@greatschools.org
  */
 public class DistrictHomeController extends AbstractController  implements IDirectoryStructureUrlController {
     private static Logger _log = Logger.getLogger(DistrictHomeController.class);

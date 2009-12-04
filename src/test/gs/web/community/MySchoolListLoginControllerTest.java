@@ -25,7 +25,7 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         super.setUp();
 
         _testUser = new User();
-        _testUser.setEmail("eford@greatschools.net");
+        _testUser.setEmail("eford@greatschools.org");
         _testUser.setId(1);
 
         _controller = new MySchoolListLoginController();

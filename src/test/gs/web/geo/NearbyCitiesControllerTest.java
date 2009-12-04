@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.12 2009/12/04 20:54:12 npatury Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.13 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -28,7 +28,7 @@ import static org.easymock.classextension.EasyMock.*;
 /**
  * Provides tests for NearbyCitiesController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class NearbyCitiesControllerTest extends BaseControllerTestCase {
 

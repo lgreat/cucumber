@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.34 2009/12/04 20:54:12 npatury Exp $
+ * $Id: SessionContext.java,v 1.35 2009/12/04 22:27:17 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -199,7 +199,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     /**
      * Is this disney's family cobrand?
-     * family.greatschools.net
+     * family.greatschools.org
      */
     public boolean isFamilyCobrand() {
         return isCobranded() &&

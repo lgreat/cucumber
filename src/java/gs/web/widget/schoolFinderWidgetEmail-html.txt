@@ -8,7 +8,7 @@
 <p>Sincerely,</p>
 
 <strong><i>GreatSchools Business Development</i></strong><br/>
-<a href="mailto:widget@greatschools.net">widget@greatschools.net</a><br/>
+<a href="mailto:widget@greatschools.org">widget@greatschools.org</a><br/>
 1-415-977-0700<br/>
 
 <br/>

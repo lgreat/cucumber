@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Dave Roy droy@greatschools.net
+ * @author Dave Roy droy@greatschools.org
  */
 public class TestScoreLandingLinksController extends AbstractController {
     public static final String SHOW_FINDER_PARAM = "showFinder";

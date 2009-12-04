@@ -26,7 +26,7 @@
             <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr class="login">
                     <td class="col1">
-						Welcome to GreatSchools.net,
+						Welcome to GreatSchools.org,
                         <a href="#">${user.email}</a>
                     </td>
                     <td class="col2">

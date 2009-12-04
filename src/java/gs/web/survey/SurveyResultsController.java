@@ -21,7 +21,7 @@ import java.util.Set;
  * <li>level (Survey level code)</li>
  * </ul>
  *
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class SurveyResultsController extends AbstractController {
 

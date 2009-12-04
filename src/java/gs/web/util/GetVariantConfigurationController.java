@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import gs.data.admin.IPropertyDao;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GetVariantConfigurationController  implements Controller {
 

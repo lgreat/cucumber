@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginControllerTest.java,v 1.5 2009/12/04 22:15:09 npatury Exp $
+ * $Id: LoginControllerTest.java,v 1.6 2009/12/04 22:27:07 chriskimm Exp $
  */
 package gs.web.community;
 
@@ -28,7 +28,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _userDao = (IUserDao) getApplicationContext().getBean(IUserDao.BEAN_ID);
 
         _testUser = new User();
-        _testUser.setEmail("logincontrollertest@greatschools.net");
+        _testUser.setEmail("logincontrollertest@greatschools.org");
         _userDao.saveUser(_testUser);
 
     }
@@ -41,7 +41,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     //email does not exist in the database
     public void testOnBindAndValidateBad() {
         LoginCommand command = new LoginCommand();
-        command.setEmail("logincontrollernouserexists@greatschools.net");
+        command.setEmail("logincontrollernouserexists@greatschools.org");
         BindException errors = new BindException(command, "");
         _controller.onBindAndValidate(getRequest(), command, errors);
         assertTrue(errors.hasErrors());
@@ -78,7 +78,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
     //should use default redirect url since one is not specified
     public void testOnSubmitReferrerGoToReferer() {
-        getRequest().addHeader("Referer", "http://dev.greatschools.net/modperl/go");
+        getRequest().addHeader("Referer", "http://dev.greatschools.org/modperl/go");
 
         LoginCommand command = new LoginCommand();
         command.setEmail(_testUser.getEmail());
@@ -89,6 +89,6 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse(errors.hasErrors());
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        assertEquals("redirect:http://dev.greatschools.net/modperl/go", mAndV.getViewName());
+        assertEquals("redirect:http://dev.greatschools.org/modperl/go", mAndV.getViewName());
     }
 }

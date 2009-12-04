@@ -21,7 +21,7 @@ import gs.data.util.table.AbstractCachedTableDao;
  * Implementation of ITableDao backed by a google spreadsheet. This extends AbstractCachedTableDao
  * so it is cached.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     private static final Logger _log = Logger.getLogger(GoogleSpreadsheetDao.class);

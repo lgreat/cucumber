@@ -27,7 +27,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.community.DiscussionFacade;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CmsDiscussionBoardController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

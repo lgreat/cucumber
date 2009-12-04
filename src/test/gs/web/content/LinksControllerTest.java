@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author <a href="yfan@greatschools.net">Young Fan</a>
+ * @author <a href="yfan@greatschools.org">Young Fan</a>
  */
 public class LinksControllerTest extends BaseControllerTestCase {
 
@@ -85,12 +85,12 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_BASIC);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.org");
         expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(hashMapTableRow);
         replay(dao);
@@ -108,7 +108,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
+        assertEquals("Anchor href was not http://www.greatschools.org", "http://www.greatschools.org", anchor.getHref());
 
         reset(dao);
 
@@ -129,12 +129,12 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_BASIC);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.org");
         expect(dao.getRandomRowByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(hashMapTableRow);
         replay(dao);
@@ -152,7 +152,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
+        assertEquals("Anchor href was not http://www.greatschools.org", "http://www.greatschools.org", anchor.getHref());
 
         reset(dao);
 
@@ -173,13 +173,13 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_BASIC);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.org");
         tableRowList.add(hashMapTableRow);
         expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(tableRowList);
@@ -200,7 +200,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
             (AnchorListModel) modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST);
         Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
+        assertEquals("Anchor href was not http://www.greatschools.org", "http://www.greatschools.org", firstAnchor.getHref());
 
         assertNull("Before text should be null", firstAnchor.getBefore());
         assertNull("After text should be null", firstAnchor.getAfter());
@@ -222,30 +222,30 @@ public class LinksControllerTest extends BaseControllerTestCase {
         LinksController controller = (LinksController) getApplicationContext().getBean(LinksController.BEAN_ID);
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) controller.getTableDao();
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getDevWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getStagingWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
     }
 
     public void testGetWorksheet() {
         LinksController controller = (LinksController) getApplicationContext().getBean(LinksController.BEAN_ID);
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         assertEquals("Worksheet name was not dev worksheet name for dev server name",
             controller.getDevWorksheetName(), controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         assertEquals("Worksheet name was not staging worksheet name for staging server name",
             controller.getStagingWorksheetName(), controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         assertEquals("Worksheet name was not production worksheet name for production server name",
             controller.getProductionWorksheetName(), controller.getWorksheet(getRequest()));
     }
@@ -256,13 +256,13 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_BASIC);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.org");
         hashMapTableRow.addCell(LinksController.SPREADSHEET_BEFORE, "before");
         hashMapTableRow.addCell(LinksController.SPREADSHEET_AFTER, "after");
         tableRowList.add(hashMapTableRow);
@@ -285,7 +285,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
             (AnchorListModel) modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST);
         Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
+        assertEquals("Anchor href was not http://www.greatschools.org", "http://www.greatschools.org", firstAnchor.getHref());
 
         assertEquals("Before text should be \"before\"", "before", firstAnchor.getBefore());
         assertEquals("After text should be \"after\"", "after", firstAnchor.getAfter());
@@ -309,12 +309,12 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_IMAGE);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.org");
         expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(hashMapTableRow);
         replay(dao);
@@ -332,7 +332,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
+        assertEquals("Anchor href was not http://www.greatschools.org", "http://www.greatschools.org", anchor.getHref());
 
         reset(dao);
 

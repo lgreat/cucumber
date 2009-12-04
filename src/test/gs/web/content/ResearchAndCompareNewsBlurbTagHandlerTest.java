@@ -15,7 +15,7 @@ import java.util.HashMap;
 import org.easymock.MockControl;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
     private ResearchAndCompareNewsBlurbTagHandler _tag;
@@ -73,7 +73,7 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         StringBuffer output = writer.getOutputBuffer();
         assertNotNull(output);
         assertTrue(output.length() > 0);
-        assertTrue(output.indexOf("http://data.greatschools.net/west_virginia/index.html") > -1);
+        assertTrue(output.indexOf("http://data.greatschools.org/west_virginia/index.html") > -1);
         assertTrue(output.indexOf("2,200") > -1);
         assertTrue(output.indexOf("charter") < 0);
     }
@@ -96,7 +96,7 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         System.out.println ("output:\n" + output);
         assertNotNull(output);
         assertTrue(output.length() > 0);
-        assertTrue(output.indexOf("http://data.greatschools.net/district_of_columbia/index.html") > -1);
+        assertTrue(output.indexOf("http://data.greatschools.org/district_of_columbia/index.html") > -1);
         assertTrue(output.indexOf("300") > -1);
     }
 

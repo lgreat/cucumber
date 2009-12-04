@@ -26,7 +26,7 @@ public class BetaUnsubscribeControllerTest extends BaseControllerTestCase {
     }
 
     public void testUnsubscribeRequest_Unknown_User() throws Exception {
-        String email = "tester@greatschools.net";
+        String email = "tester@greatschools.org";
         BetaSignupCommand command = new BetaSignupCommand();
         command.setEmail(email);
         expect(_mockUserDao.findUserFromEmailIfExists(email)).andReturn(null);
@@ -39,7 +39,7 @@ public class BetaUnsubscribeControllerTest extends BaseControllerTestCase {
     }
 
     public void testUnsubscribeRequest_Known_User() throws Exception {
-        String email = "tester@greatschools.net";
+        String email = "tester@greatschools.org";
         User user = new User();
         user.setEmail(email);
         Set<Subscription> subs = new HashSet<Subscription>();
@@ -60,7 +60,7 @@ public class BetaUnsubscribeControllerTest extends BaseControllerTestCase {
     }
 
     public void testUnsubscribeRequest_Known_User_No_Sub() throws Exception {
-        String email = "tester@greatschools.net";
+        String email = "tester@greatschools.org";
         User user = new User();
         user.setEmail(email);
         BetaSignupCommand command = new BetaSignupCommand();

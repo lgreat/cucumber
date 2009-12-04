@@ -13,7 +13,7 @@ import java.io.Writer;
  * Tests the deferred content handler tag to verify it prints out the marker
  * tag and that it puts the evaluated XHTML into the request scope.
  *
- * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class DeferredContentTagHandlerTest extends TestCase {
 

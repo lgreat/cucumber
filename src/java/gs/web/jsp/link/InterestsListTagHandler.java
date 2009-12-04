@@ -3,7 +3,7 @@ package gs.web.jsp.link;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class InterestsListTagHandler extends SimpleTagSupport {
 //    protected final Log _log = LogFactory.getLog(getClass());

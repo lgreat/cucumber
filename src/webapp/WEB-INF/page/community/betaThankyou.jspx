@@ -20,7 +20,7 @@
 
             <div id="innerbox">
                 <gsml:a href="/">
-                    Return to GreatSchools.net home
+                    Return to GreatSchools.org home
                 </gsml:a>
                 <br/><br/>
                 <gsml:a href="/community/betaUnsubscribe.page?email=${email}&amp;state=${requestScope.context.stateOrDefault}">

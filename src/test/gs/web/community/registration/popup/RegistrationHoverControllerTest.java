@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     private RegistrationHoverController _controller;
@@ -48,7 +48,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _controller.setSoapRequest(_soapRequest);
 
         _command = new RegistrationHoverCommand();
-        _command.setEmail("RegistrationHoverControllerTest@greatschools.net");
+        _command.setEmail("RegistrationHoverControllerTest@greatschools.org");
         _command.getUser().setId(123); // to fake the database save
         _command.setPassword("foobar");
         _command.setConfirmPassword("foobar");
@@ -57,7 +57,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _errors = new BindException(_command, "");
 
         getRequest().setRemoteAddr("127.0.0.1");
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
     }
 
     public void replayMocks() {
@@ -120,7 +120,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(isA(User.class)); // create new user
         _userDao.updateUser(isA(User.class)); // set password
         _userDao.updateUser(isA(User.class)); // update user profile
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -132,13 +132,13 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     public void testOnSubmitExistingUser() throws Exception {
         User user = new User();
         user.setId(123);
-        user.setEmail("RegistrationHoverControllerTest@greatschools.net");
+        user.setEmail("RegistrationHoverControllerTest@greatschools.org");
 
         expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
         _userDao.updateUser(user); // set password
         _userDao.updateUser(user); // update user profile
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -150,7 +150,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     public void testOnSubmitProvisionalUser() throws Exception {
         User user = new User();
         user.setId(123);
-        user.setEmail("RegistrationHoverControllerTest@greatschools.net");
+        user.setEmail("RegistrationHoverControllerTest@greatschools.org");
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
         UserProfile profile = new UserProfile();
@@ -161,7 +161,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
         _userDao.updateUser(user); // set password
         _userDao.updateUser(user); // update user profile
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -178,7 +178,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(isA(User.class)); // set password
         _userDao.updateUser(isA(User.class)); // update user profile
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);

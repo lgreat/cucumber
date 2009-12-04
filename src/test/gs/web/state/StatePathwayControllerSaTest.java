@@ -14,7 +14,7 @@ import java.util.Map;
  * Controller tests for Davids bridge page
  * TODO clean up calls to MockHttpServletResponse
  *
- * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 

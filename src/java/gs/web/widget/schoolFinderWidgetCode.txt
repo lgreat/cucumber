@@ -61,8 +61,8 @@
         var cityUrl = GS_replaceAll(cityName, "%27", "'");
         cityUrl = GS_replaceAll(cityUrl, " ", "_");
         cityUrl = GS_replaceAll(cityUrl, "+", "_");
-        cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
-        stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
+        cityLink.href = "http://www.greatschools.org/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
+        stateLink.href = "http://www.greatschools.org/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
         if (cityName == "New York" && stateAbbr == "NY") {
             cityLink.innerHTML = cityName  + " City schools";
             stateLink.innerHTML = stateName + " State schools";
@@ -97,7 +97,7 @@
                     frameborder="0" scrolling="no"></iframe>
         </div>
         <div class="GS_widget_footer">
-            <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
+            <a href="http://www.greatschools.org/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.org/res/img/widget/poweredby_logo.gif"
                                              alt="Powered by GreatSchools"/></a>
             <div class="GS_seo">
                 <div class="GS_city"><a href="$CITY_URL"
@@ -116,7 +116,7 @@
 <script type="text/javascript">
     pageTracking.pageName = "SchoolFinder Widget External";
     pageTracking.hierarchy = "Widgets,SchoolFinder,$UNIQUE_ID";
-    pageTracking.server = "www.greatschools.net";
+    pageTracking.server = "www.greatschools.org";
     pageTracking.send();
 </script>
 <!-- School Finder Widget ends here -->

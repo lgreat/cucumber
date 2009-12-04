@@ -129,7 +129,7 @@ public class BetaController extends SimpleFormController implements ReadWriteCon
     void sendMessage(BetaSignupCommand command) throws MessagingException, IOException {
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Welcome to the GreatSchools Beta Group!");
-        emailHelper.setFromEmail("beta@greatschools.net");
+        emailHelper.setFromEmail("beta@greatschools.org");
         emailHelper.setFromName("GreatSchools");
 
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.20 2009/12/04 20:54:15 npatury Exp $
+ * $Id: TopDistrictsController.java,v 1.21 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -30,7 +30,7 @@ import java.util.Map;
  * <p/>
  * Uses AnchorListModel to represent the districts.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @see AnchorListModel
  */
 public class TopDistrictsController extends AbstractController {

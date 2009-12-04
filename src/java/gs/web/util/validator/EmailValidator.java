@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 
 /**
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class EmailValidator implements Validator {
     public static interface IEmail {

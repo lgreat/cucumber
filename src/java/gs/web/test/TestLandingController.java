@@ -34,7 +34,7 @@ import java.util.*;
  * This is the controller for the Test Landing Page.  It gets the data for the page
  * model from a google spreadsheet by using the gdata api.  
  *
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class TestLandingController extends SimpleFormController {
 

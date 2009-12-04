@@ -3,7 +3,7 @@ package gs.web.jsp.link.school;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class EspLoginTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {

@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * Interceptor that puts a school into current request if request parameters contain valid id (or schoolId) and state
  *
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());

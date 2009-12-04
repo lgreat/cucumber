@@ -15,7 +15,7 @@ import java.util.HashSet;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticleCategoryBrowseTagHandler extends BaseTagHandler {
     private int _categoryId;

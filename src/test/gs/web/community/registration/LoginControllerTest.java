@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
  */
 public class LoginControllerTest extends BaseControllerTestCase {
     private LoginController _controller;
@@ -35,7 +35,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.setReportLoginRequest(_soapRequest);
 
         _user = new User();
-        _user.setEmail("testLoginController@greatschools.net");
+        _user.setEmail("testLoginController@greatschools.org");
         _user.setId(99);
         _user.setUserProfile(new UserProfile());
 
@@ -70,7 +70,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.reportLoginRequest(_user, _ip);
         replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -89,13 +89,13 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _command.setPassword("foobar");
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
 
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "192.168.0.100");
         _soapRequest.reportLoginRequest(_user, "192.168.0.100");
         replay(_soapRequest);
@@ -105,7 +105,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
-        assertEquals("redirect:http://community.dev.greatschools.net/",
+        assertEquals("redirect:http://community.dev.greatschools.org/",
                 mAndV.getViewName());
     }
 
@@ -117,13 +117,13 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _command.setPassword("foobar");
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
 
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "undefined");
         _request.setRemoteAddr("192.168.0.101");
         // expect it to fall back to remote when attribute is undefined
@@ -135,7 +135,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
-        assertEquals("redirect:http://community.dev.greatschools.net/",
+        assertEquals("redirect:http://community.dev.greatschools.org/",
                 mAndV.getViewName());
     }
 
@@ -147,13 +147,13 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _command.setPassword("foobar");
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
 
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.reportLoginRequest(_user, _ip);
         replay(_soapRequest);
 
@@ -162,7 +162,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
-        assertEquals("redirect:http://community.dev.greatschools.net/",
+        assertEquals("redirect:http://community.dev.greatschools.org/",
                 mAndV.getViewName());
     }
 
@@ -180,7 +180,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.reportLoginRequest(_user, _ip);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
@@ -208,11 +208,11 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _user.setPlaintextPassword("foobar");
         _user.setEmailProvisional("foobar");
 
-        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_mockUserDao);
 
         LoginCommand command = new LoginCommand();
-        command.setEmail("testLoginController@greatschools.net");
+        command.setEmail("testLoginController@greatschools.org");
 
         _controller.onBindOnNewForm(getRequest(), command, _errors);
         _controller.onBindAndValidate(getRequest(), command, _errors);
@@ -223,11 +223,11 @@ public class LoginControllerTest extends BaseControllerTestCase {
     public void testBadPassword() throws Exception {
         _user.setPlaintextPassword("foobar");
 
-        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_mockUserDao);
 
         LoginCommand command = new LoginCommand();
-        command.setEmail("testLoginController@greatschools.net");
+        command.setEmail("testLoginController@greatschools.org");
         command.setPassword("wrongPassword");
 
         _controller.onBindOnNewForm(getRequest(), command, _errors);
@@ -241,11 +241,11 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _user.setUserProfile(new UserProfile());
         _user.getUserProfile().setActive(false);
 
-        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.org")).andReturn(_user);
         replay(_mockUserDao);
 
         LoginCommand command = new LoginCommand();
-        command.setEmail("testLoginController@greatschools.net");
+        command.setEmail("testLoginController@greatschools.org");
         command.setPassword("foobar");
 
         _controller.onBindOnNewForm(getRequest(), command, _errors);
@@ -255,20 +255,20 @@ public class LoginControllerTest extends BaseControllerTestCase {
     }
 
     public void testInitializeRedirectUrl() {
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.dev.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+        assertEquals("http://community.dev.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.staging.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+        assertEquals("http://community.staging.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+        assertEquals("http://community.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
 
-        getRequest().setServerName("yahooed.greatschools.net");
+        getRequest().setServerName("yahooed.greatschools.org");
         _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+        assertEquals("http://community.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
     }
 }

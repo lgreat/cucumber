@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.66 2009/12/04 20:54:12 npatury Exp $
+ * $Id: SessionContextUtil.java,v 1.67 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SessionContextUtil implements ApplicationContextAware {
 
@@ -60,13 +60,13 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String VERSION_PARAM = "version";
 
     /**
-     * Insider log-in cookie, from Java site. Domain is ".greatschools.net".
+     * Insider log-in cookie, from Java site. Domain is ".greatschools.org".
      */
     private static final String MEMBER_ID_INSIDER_COOKIE = "MEMBER";
 
     /**
-     * My School List cookie, for backward compatibility. Domain used to be ".greatschools.net",
-     * but now it the default (www.greatschools.net or cobrand domain).
+     * My School List cookie, for backward compatibility. Domain used to be ".greatschools.org",
+     * but now it the default (www.greatschools.org or cobrand domain).
      */
     public static final String MEMBER_ID_COOKIE = "MEMID";
 
@@ -85,7 +85,7 @@ public class SessionContextUtil implements ApplicationContextAware {
      */
     public static final String COBRAND_TYPE_COOKIE = "COBRAND_TYPE";
 
-    // City ID cookie - id is based on us_geo.city.id  - Domain is ".greatschools.net".
+    // City ID cookie - id is based on us_geo.city.id  - Domain is ".greatschools.org".
     public static final String CITY_ID_COOKIE = "CITYID";
 
     /* Browsing state session cookies */
@@ -116,10 +116,10 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _tempMsgCookieGenerator;
     private CookieGenerator _cityIdCookieGenerator;
     private CookieGenerator _sitePrefCookieGenerator;
-    public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
-    public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
-    public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
-    public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.net:8000";       
+    public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
+    public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
+    public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
+    public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.org:8000";
 
     protected void readCookies(HttpServletRequest httpServletRequest,
                                final SessionContext context) {
@@ -302,7 +302,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         String hostName = StringUtils.isEmpty(paramHost) ? request.getServerName() : paramHost;
 
         // Determine if we're running in the integration test environment
-        if ("localhost.greatschools.net".equals(hostName)) {
+        if ("localhost.greatschools.org".equals(hostName)) {
             context.setIntegrationTest(true);
         }
 
@@ -528,7 +528,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 // so they can still access the cookie!!
                 _stateCookieGenerator.setCookieDomain(null);
             } else {
-                _stateCookieGenerator.setCookieDomain(".greatschools.net");
+                _stateCookieGenerator.setCookieDomain(".greatschools.org");
             }
 
             _stateCookieGenerator.addCookie(httpServletResponse, newState.getAbbreviation());
@@ -630,7 +630,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void changeUser(SessionContext context, HttpServletResponse response, User user) {
         if (user != null) {
-            _memberIdCookieGenerator.setCookieDomain(".greatschools.net");
+            _memberIdCookieGenerator.setCookieDomain(".greatschools.org");
             _memberIdCookieGenerator.addCookie(response, user.getId().toString());
         } else {
             _log.error("Tried to set member id for a null user");
@@ -645,7 +645,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void setUserIsMember(HttpServletRequest request, HttpServletResponse response) {
         _newMemberCookieGenerator.addCookie(response, "y");
         if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            _newMemberCookieGenerator.setCookieDomain(".greatschools.net");
+            _newMemberCookieGenerator.setCookieDomain(".greatschools.org");
         }
     }
 
@@ -663,7 +663,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                     // don't set domain for developer workstations
                     // so they can still access the cookie!!
-                    _communityCookieGenerator.setCookieDomain(".greatschools.net");
+                    _communityCookieGenerator.setCookieDomain(".greatschools.org");
                 }
             }
             if (rememberMe) {
@@ -719,7 +719,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void changeCity(SessionContext context, HttpServletRequest req, HttpServletResponse res, Integer cityId) {
         context.setCityId(cityId);
         if (!UrlUtil.isDeveloperWorkstation(req.getServerName())) {
-            _cityIdCookieGenerator.setCookieDomain(".greatschools.net");
+            _cityIdCookieGenerator.setCookieDomain(".greatschools.org");
         }
         _cityIdCookieGenerator.addCookie(res, cityId.toString());
     }

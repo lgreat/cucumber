@@ -24,7 +24,7 @@ import java.util.Date;
 /**
  * Provides ...
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationControllerTest extends BaseControllerTestCase {
     private RegistrationController _controller;
@@ -48,7 +48,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         _controller.setMailSender(_mailSender);
         _geoDao = createStrictMock(IGeoDao.class);
         _userDao = createStrictMock(IUserDao.class);
@@ -135,7 +135,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         getRequest().addParameter("next", "next"); // submit button for 2-step process
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 
         expect(_tableDao.getFirstRowByKey("ip", getRequest().getRemoteAddr())).andReturn(null);
@@ -268,7 +268,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
         assertTrue ("Request from valid IP address should return non-error viewname",
-                mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
+                mAndV.getViewName().contains("redirect:http://community.greatschools.org"));
     }
 
     public void testIPAddressBlockingWithNoIP() throws Exception {
@@ -280,7 +280,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
         assertTrue ("Request from no IP address should return non-error viewname",
-                mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
+                mAndV.getViewName().contains("redirect:http://community.greatschools.org"));
     }
 
     public void testIPAddressBlockingWithValidRequestIPandBlockedAttributeIP () throws Exception {
@@ -298,7 +298,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     public void testNotifyCommunity() {
         try {
-            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -309,9 +309,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityDev() {
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -322,7 +322,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityDevWorkstation() {
-        _request.setServerName("aroy.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.org");
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
@@ -334,9 +334,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityStaging() {
-        _request.setServerName("staging.greatschools.net");
+        _request.setServerName("staging.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -347,9 +347,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityLive() {
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
         try {
-            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -360,8 +360,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityLiveCobrand() {
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _request.setServerName("encarta.greatschools.net");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
+        _request.setServerName("encarta.greatschools.org");
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
@@ -373,8 +373,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityError() {
-        _request.setServerName("dev.greatschools.net");
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _request.setServerName("dev.greatschools.org");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         ModelAndView mAndV = new ModelAndView();
         _user.setUserProfile(_command.getUserProfile());
         _user.setId(1);
@@ -442,7 +442,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //    public void testRegistrationWithRedirect() throws Exception {
 //        UserCommand userCommand = new UserCommand();
 //        BindException errors = new BindException(userCommand, "");
-//        String testRedirectUrl = "community.greatschools.net/advice/write";
+//        String testRedirectUrl = "community.greatschools.org/advice/write";
 //        userCommand.setRedirectUrl(testRedirectUrl );
 //        setupRegistrationTest(userCommand);
 //
@@ -461,7 +461,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //    public void testRegistrationWithRedirectAndParameters() throws Exception {
 //        UserCommand userCommand = new UserCommand();
 //        BindException errors = new BindException(userCommand, "");
-//        String testRedirectUrl = "community.greatschools.net/advice/write?id=2112";
+//        String testRedirectUrl = "community.greatschools.org/advice/write?id=2112";
 //        userCommand.setRedirectUrl(testRedirectUrl );
 //
 //        setupRegistrationTest(userCommand);
@@ -543,7 +543,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //     * @throws NoSuchAlgorithmException
 //     */
 //    public void xtestExistingUser() throws Exception {
-//        String email = "testExistingUser@greatschools.net";
+//        String email = "testExistingUser@greatschools.org";
 //        Integer userId = 346;
 //
 //        UserCommand userCommand = new UserCommand();
@@ -567,7 +567,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //        _userDao.updateUser(userCommand.getUser());
 ////        _userControl.replay();
 //
-//        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+//        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
 //        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 //        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(userCommand.getUser());
 //        replay(_soapRequest);
@@ -629,7 +629,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //    public void testRegistrationFailureOnExistingUser() {
 //        UserCommand userCommand = new UserCommand();
 //        BindException errors = new BindException(userCommand, "");
-//        String email = "testRegistrationFailureOnExistingUser@greatschools.net";
+//        String email = "testRegistrationFailureOnExistingUser@greatschools.org";
 //        String password = "foobar";
 //        Integer userId = new Integer(348);
 //        userCommand.setEmail(email);
@@ -670,7 +670,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //        assertNull(userCommand.getEmail());
 //
 //        // Test with user found, make sure it clears first
-//        String email = "testRegistrationFailureOnExistingUser@greatschools.net";
+//        String email = "testRegistrationFailureOnExistingUser@greatschools.org";
 //        String password = "foobar";
 //        Integer userId = new Integer(348);
 //        userCommand.setEmail(email);
@@ -703,7 +703,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //       _userControl.replay();
 //    }
 //    private void setUpFindUserFromEmailIfExistsAndSoapRequest(UserCommand userCommand) throws Exception{
-//        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+//        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
 //        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 //        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(null);
 //        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(userCommand.getUser());

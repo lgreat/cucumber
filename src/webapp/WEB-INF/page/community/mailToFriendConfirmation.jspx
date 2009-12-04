@@ -43,7 +43,7 @@
 </head>
 
 <gsml:body adPageName="mail" pageLayout="mail">
-    <h2>Tell a friend about GreatSchools.net</h2>
+    <h2>Tell a friend about GreatSchools.org</h2>
     <p>Mail successfully sent!</p>
 
     <mod:tracking pageName="School Tell a Friend Confirm"

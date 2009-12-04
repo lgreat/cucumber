@@ -5,7 +5,7 @@ import gs.data.util.table.ITableDao;
 
 import static gs.web.util.google.GoogleSpreadsheetDaoFactory.*;
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GoogleSpreadsheetDaoFactoryTest extends BaseTestCase {
     GoogleSpreadsheetDaoFactory _factory;

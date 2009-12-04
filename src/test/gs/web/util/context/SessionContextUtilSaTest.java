@@ -17,7 +17,7 @@ import javax.servlet.http.Cookie;
  * 1.14 of SessionContextUtil and is not comprehensive ... I'm only testing certain methods that I've
  * modified / created in revision 1.14.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  * @TODO Expand test cases to all methods in SessionContextUtil
  */
 public class SessionContextUtilSaTest extends BaseTestCase {
@@ -62,7 +62,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
 
     private static GsMockHttpServletRequest getRequestWithUserAgent(String userAgent) {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setServerName("www.greatschools.net");
+        request.setServerName("www.greatschools.org");
         request.addHeader("User-Agent", userAgent);
         return request;
     }
@@ -85,27 +85,27 @@ public class SessionContextUtilSaTest extends BaseTestCase {
 
     public void testGetServerName() {
         // dev environment
-        setServerName("dev.greatschools.net");
+        setServerName("dev.greatschools.org");
         assertEquals("dev", SessionContextUtil.getServerName(_request));
 
-        setServerName("aroy.office.greatschools.net");
+        setServerName("aroy.office.greatschools.org");
         assertEquals("dev", SessionContextUtil.getServerName(_request));
 
         setServerName("localhost:8080");
         assertEquals("dev", SessionContextUtil.getServerName(_request));
 
         // staging environment
-        setServerName("staging.greatschools.net");
+        setServerName("staging.greatschools.org");
         assertEquals("staging", SessionContextUtil.getServerName(_request));
 
-        setServerName("sfgate.staging.greatschools.net");
+        setServerName("sfgate.staging.greatschools.org");
         assertEquals("staging", SessionContextUtil.getServerName(_request));
 
         // live environment
-        setServerName("www.greatschools.net");
+        setServerName("www.greatschools.org");
         assertEquals("www", SessionContextUtil.getServerName(_request));
 
-        setServerName("sfgate.greatschools.net");
+        setServerName("sfgate.greatschools.org");
         assertEquals("www", SessionContextUtil.getServerName(_request));
     }
 
@@ -114,12 +114,12 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         user.setId(1);
         user.setEmail("email@example.com");
         String hash = "hash";
-        setServerName("dev.greatschools.net");
+        setServerName("dev.greatschools.org");
         _sessionContextUtil.changeAuthorization(_request, _response, user, hash, true);
 
         Cookie cookie = _response.getCookie("community_dev");
         assertNotNull("Cookie should exist under name community_dev", cookie);
-        assertEquals(".greatschools.net", cookie.getDomain());
+        assertEquals(".greatschools.org", cookie.getDomain());
         assertEquals(SessionContextUtil.COMMUNITY_COOKIE_MAX_AGE, cookie.getMaxAge());
         assertNotNull("New member cookie should be set on login/register", _response.getCookie("isMember"));
     }
@@ -129,12 +129,12 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         user.setId(1);
         user.setEmail("email@example.com");
         String hash = "hash";
-        setServerName("dev.greatschools.net");
+        setServerName("dev.greatschools.org");
         _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
 
         Cookie cookie = _response.getCookie("community_dev");
         assertNotNull("Cookie should exist under name community_dev", cookie);
-        assertEquals(".greatschools.net", cookie.getDomain());
+        assertEquals(".greatschools.org", cookie.getDomain());
         assertEquals(-1, cookie.getMaxAge());
         assertNotNull("New member cookie should be set on login/register", _response.getCookie("isMember"));
     }
@@ -146,12 +146,12 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         String hash = "hash";
         Cookie cookie;
 
-        setServerName("staging.greatschools.net");
+        setServerName("staging.greatschools.org");
         _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
 
         cookie = _response.getCookie("community_staging");
         assertNotNull("Cookie should exist under name community_staging", cookie);
-        assertEquals(".greatschools.net", cookie.getDomain());
+        assertEquals(".greatschools.org", cookie.getDomain());
     }
 
     public void testChangeAuthorizationDomainWww() {
@@ -161,12 +161,12 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         String hash = "hash";
         Cookie cookie;
 
-        setServerName("www.greatschools.net");
+        setServerName("www.greatschools.org");
         _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
 
         cookie = _response.getCookie("community_www");
         assertNotNull("Cookie should exist under name community_www", cookie);
-        assertEquals(".greatschools.net", cookie.getDomain());
+        assertEquals(".greatschools.org", cookie.getDomain());
     }
 
     public void testChangeAuthorizationDomainLocalhost() {
@@ -223,40 +223,40 @@ public class SessionContextUtilSaTest extends BaseTestCase {
     }
 
     public void testGetCommunityHostForProduction() {
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
         assertEquals("Unexpected community host", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("sfgate.greatschools.net");
+        _request.setServerName("sfgate.greatschools.org");
         assertEquals("Unexpected community host for sfgate cobrand domain", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("somenewcobrand.greatschools.net");
+        _request.setServerName("somenewcobrand.greatschools.org");
         assertEquals("Unexpected community host for some other cobrand domain", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 
     public void testGetCommunityHostForStaging() {
-        _request.setServerName("staging.greatschools.net");
+        _request.setServerName("staging.greatschools.org");
         assertEquals("Unexpected staging community host", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("sfgate.staging.greatschools.net");
+        _request.setServerName("sfgate.staging.greatschools.org");
         assertEquals("Unexpected community host for sfgate cobrand domain on staging", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("somenewcobrand.staging.greatschools.net");
+        _request.setServerName("somenewcobrand.staging.greatschools.org");
         assertEquals("Unexpected community host for some other cobrand domain on staging", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 
     public void testGetCommunityHostForPrerelease() {
-        _request.setServerName("rithmatic.greatschools.net");
+        _request.setServerName("rithmatic.greatschools.org");
         assertEquals("Unexpected rithmatic community host", SessionContextUtil.COMMUNITY_PRERELEASE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("sfgate.rithmatic.greatschools.net");
+        _request.setServerName("sfgate.rithmatic.greatschools.org");
         assertEquals("Unexpected community host for sfgate cobrand domain on rithmatic", SessionContextUtil.COMMUNITY_PRERELEASE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 
     public void testGetCommunityHostForDev() {
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
         assertEquals("Unexpected dev community host", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("main.dev.greatschools.net");
+        _request.setServerName("main.dev.greatschools.org");
         assertEquals("Unexpected dev community host", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("sfgate.dev.greatschools.net");
+        _request.setServerName("sfgate.dev.greatschools.org");
         assertEquals("Unexpected community host for sfgate cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("somenewcobrand.dev.greatschools.net");
+        _request.setServerName("somenewcobrand.dev.greatschools.org");
         assertEquals("Unexpected community host for some other cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("aroy.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.org");
         assertEquals("Unexpected community host for an office workstation", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 

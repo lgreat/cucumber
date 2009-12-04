@@ -9,10 +9,10 @@ import static org.apache.axis.Constants.XSD_STRING;
 import javax.xml.rpc.ParameterMode;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportLoginRequest extends SoapRequest {
-    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/reportLogin/";
+    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.org/community/reportLogin/";
     public static final int DEFAULT_TIMEOUT = 15000; // 15s in milliseconds
 
     public ReportLoginRequest() {

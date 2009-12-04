@@ -9,7 +9,7 @@ import java.io.StringWriter;
  * JspWriters.  The content writen to the writer is accessed using the
  * getOutputBuffer() method.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class MockJspWriter extends JspWriter {
 

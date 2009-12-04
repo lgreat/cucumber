@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 /**
  * School Profile Private School Quick Facts page
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class PrivateQuickFactsTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {

@@ -6,7 +6,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Healthy Kids Microsite
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class HealthyKidsTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {

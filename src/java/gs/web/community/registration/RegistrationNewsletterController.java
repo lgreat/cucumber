@@ -23,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
  * Handles stage 3 of registration: allowing the user to sign up for the multitude of
  * available and appropriate newsletters.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationNewsletterController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration3.page";

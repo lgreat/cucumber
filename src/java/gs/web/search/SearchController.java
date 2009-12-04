@@ -46,7 +46,7 @@ import java.util.Map;
  * <li>r    :  sort reverse? (t/f)</li>
  * </ul>
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SearchController extends AbstractFormController {
 

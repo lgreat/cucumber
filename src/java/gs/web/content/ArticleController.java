@@ -28,8 +28,8 @@ import java.util.regex.Matcher;
  * This is the controller for the article page.  A single article and any
  * associated tools are displayed on article.page given an article id.
  *
- * @author greatschools.org>
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ArticleController extends AbstractController {
     private static final Logger _log = Logger.getLogger(ArticleController.class);

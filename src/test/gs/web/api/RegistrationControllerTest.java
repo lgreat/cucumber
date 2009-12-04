@@ -34,7 +34,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _controller.setApiAccountDao(_apiAccountDao);
         EmailHelperFactory _factory = new EmailHelperFactory();
         _javaMailSender = new MockJavaMailSender();
-        _javaMailSender.setHost("greatschools.net");
+        _javaMailSender.setHost("greatschools.org");
         _factory.setMailSender(_javaMailSender);
         _controller.setEmailHelperFactory(_factory);
         _exactTargetAPI = createStrictMock(ExactTargetAPI.class);

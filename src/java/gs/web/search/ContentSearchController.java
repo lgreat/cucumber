@@ -25,7 +25,7 @@ import gs.data.community.CommunityConstants;
 /**
  * GS-8876
  * Community and article search controller
- * @author Young Fan <mailto:yfan@greatschools.net>
+ * @author Young Fan <mailto:yfan@greatschools.org>
  */
 public class ContentSearchController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

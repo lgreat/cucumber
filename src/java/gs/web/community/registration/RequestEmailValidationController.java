@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RequestEmailValidationController extends AbstractController {
     public static final String BEAN_ID = "/community/requestEmailValidation.page";
@@ -71,7 +71,7 @@ public class RequestEmailValidationController extends AbstractController {
      */
     public static MimeMessage buildMultipartEmail
             (MimeMessage msg, HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException, MessagingException {
-        msg.setFrom(new InternetAddress("gs-batch@greatschools.net"));
+        msg.setFrom(new InternetAddress("gs-batch@greatschools.org"));
         msg.addRecipient(Message.RecipientType.TO, new InternetAddress(userCommand.getEmail()));
         msg.setSubject("GreatSchools subscription confirmation");
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.74 2009/12/04 20:54:15 npatury Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.75 2009/12/04 22:27:11 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -30,7 +30,7 @@ import java.io.IOException;
 /**
  * Tests all the tags in the link package.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class LinkTagHandlerTest extends BaseTestCase {
 
@@ -404,10 +404,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals(relativeUrl + "&topicOption=Parent_survey",builder.asSiteRelative(null));
 
         //Variation 3: redirect is set
-        tagHandler.setRedirect("http://www.greatschools.net/survey/results.page?id=1&state=ca&level=h&page=0");
+        tagHandler.setRedirect("http://www.greatschools.org/survey/results.page?id=1&state=ca&level=h&page=0");
         tagHandler.setTopicOption(null);
         builder = tagHandler.createUrlBuilder();
-        assertEquals(relativeUrl + "&redirect=http%3A%2F%2Fwww.greatschools.net%2Fsurvey%2Fresults.page%3Fid%3D1%26state%3Dca%26level%3Dh%26page%3D0",builder.asSiteRelative(null));
+        assertEquals(relativeUrl + "&redirect=http%3A%2F%2Fwww.greatschools.org%2Fsurvey%2Fresults.page%3Fid%3D1%26state%3Dca%26level%3Dh%26page%3D0",builder.asSiteRelative(null));
     }
 
     public void testResearch() {
@@ -559,10 +559,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
     public void testRequestEmailValidation() {
         RequestEmailValidationTagHandler tagHandler = new RequestEmailValidationTagHandler();
-        tagHandler.setEmail("testRequestEmailValidation@greatschools.net");
+        tagHandler.setEmail("testRequestEmailValidation@greatschools.org");
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/community/requestEmailValidation.page?email=testRequestEmailValidation%40greatschools.net",
+        assertEquals("/community/requestEmailValidation.page?email=testRequestEmailValidation%40greatschools.org",
                 builder.asSiteRelative(null));
     }
 
@@ -717,7 +717,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
     public void testUserProfileTagHandler() {
         User user = new User();
-        user.setEmail("testUserProfileTagHandler@greatschools.net");
+        user.setEmail("testUserProfileTagHandler@greatschools.org");
         UserProfile userProfile = new UserProfile();
         userProfile.setScreenName("screenie");
 

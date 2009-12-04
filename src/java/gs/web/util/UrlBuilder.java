@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.200 2009/12/04 20:54:13 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.201 2009/12/04 22:27:03 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -51,7 +51,7 @@ import java.util.*;
  * Test coverage should be near 100% for this class, as its functionality is
  * quite critical.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @see <a href="http://www.rfc-editor.org/rfc/rfc1738.txt">RFC 1738</a>
  * @see UrlUtil
  * @see gs.web.jsp.link
@@ -399,7 +399,7 @@ public class UrlBuilder {
         // _log.error("PathTranslated="+request.getPathTranslated()); // yields null
         // _log.error("ServletPath="+request.getServletPath()); // yields "/WEB-INF/page/search/schoolsOnly.jspx"
         // _log.error("requestURI="+request.getRequestURI()); // yields "/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
-        // _log.error("requestURL="+request.getRequestURL()); // yields "http://apeterson.office.greatschools.net:8080/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
+        // _log.error("requestURL="+request.getRequestURL()); // yields "http://apeterson.office.greatschools.org:8080/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
     }
 
     // WARNING: THIS IS SLIGHTLY INCORRECT - IT ONLY WORKS FOR ARTICLES AND ASK THE EXPERTS

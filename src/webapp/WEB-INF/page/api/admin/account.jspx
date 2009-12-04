@@ -17,7 +17,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>GreatSchools.net API Accounts</title>
+        <title>GreatSchools.org API Accounts</title>
         <link rel="stylesheet" href="/res/css/api/admin.css"/>
         <![CDATA[
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>

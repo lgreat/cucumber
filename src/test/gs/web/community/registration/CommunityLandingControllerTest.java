@@ -12,7 +12,7 @@ import gs.web.util.context.SessionContext;
 /**
  * Provides testing for the CommunityLandingController.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CommunityLandingControllerTest extends BaseControllerTestCase {
 

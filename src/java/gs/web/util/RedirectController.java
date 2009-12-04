@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: RedirectController.java,v 1.3 2009/12/04 20:54:13 npatury Exp $
+ * $Id: RedirectController.java,v 1.4 2009/12/04 22:27:03 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Redirects to the URL specified by page. Useful for form processing.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class RedirectController implements Controller {
 

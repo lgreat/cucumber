@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 /**
  * Provides testing for the ChangePasswordRequest class.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangePasswordRequestTest extends BaseTestCase {
     private ChangePasswordRequest _request;
@@ -147,8 +147,8 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
 //    public void testRealRequest() throws RemoteException {
 //        _request = new ChangePasswordRequest();
-//        _request.setTarget("http://community.staging.greatschools.net/soap/user");
-//        //_request.setTarget("http://aroy.dev.greatschools.net/cgi-bin/soap/soapServer.cgi");
+//        _request.setTarget("http://community.staging.greatschools.org/soap/user");
+//        //_request.setTarget("http://aroy.dev.greatschools.org/cgi-bin/soap/soapServer.cgi");
 //        User user = new User();
 //        user.setId(10);
 //        try {

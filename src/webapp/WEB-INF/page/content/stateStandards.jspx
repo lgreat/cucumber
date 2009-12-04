@@ -23,14 +23,14 @@
 <pageHelper:addOnLoadHandler handler="fetchStandards()"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: State Standards"/>
+    <meta name="Description" content="GreatSchools.org: State Standards"/>
     <c:set var="stateOrNull" value="${requestScope.context.state}"/>
     <c:choose>
         <c:when test="${not empty stateOrNull}" >
-            <title>GreatSchools.net: ${stateOrNull.longName} Standards</title>
+            <title>GreatSchools.org: ${stateOrNull.longName} Standards</title>
         </c:when>
         <c:otherwise>
-            <title>GreatSchools.net: State Standards</title>
+            <title>GreatSchools.org: State Standards</title>
         </c:otherwise>
     </c:choose>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>

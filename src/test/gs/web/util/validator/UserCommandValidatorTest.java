@@ -19,10 +19,10 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Provides ...
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UserCommandValidatorTest extends BaseTestCase {
-    private static final String GOOD_EMAIL = "UserCommandValidatorTest@greatschools.net";
+    private static final String GOOD_EMAIL = "UserCommandValidatorTest@greatschools.org";
     private static final String LONG_EMAIL128 =
             "12345678901234567890123456789012345678901234567890" +
                     "12345678901234567890123456789012345678901234567890" +
@@ -61,7 +61,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _userDao = (IUserDao) _userControl.getMock();
         _validator.setUserDao(_userDao);
         _request = new GsMockHttpServletRequest();
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
     }
 
     private UserCommand setupCommand() {

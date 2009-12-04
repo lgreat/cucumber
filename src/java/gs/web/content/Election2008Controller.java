@@ -24,7 +24,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Election2008Controller extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/content/election2008.page";
@@ -140,7 +140,7 @@ public class Election2008Controller extends SimpleFormController implements Read
 
             HttpURLConnection connection = (HttpURLConnection) urlAddress.openConnection();
             // Some websites don't like unknown user agents so we put Mozilla in there to appease them
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; Greatschoolsbot/1.1; +http://www.greatschools.net/cgi-bin/feedback/CA)");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; Greatschoolsbot/1.1; +http://www.greatschools.org/cgi-bin/feedback/CA)");
 
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

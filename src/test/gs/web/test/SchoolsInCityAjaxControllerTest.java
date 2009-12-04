@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
     private SchoolsInCityAjaxController _controller;

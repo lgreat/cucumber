@@ -22,7 +22,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-<title>GreatSchools.net</title>
+<title>GreatSchools.org</title>
 <style type="text/css">
 #contentGS {
     margin: 20px;

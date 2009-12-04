@@ -17,7 +17,7 @@ import java.util.List;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationNewsletterControllerTest extends BaseControllerTestCase {
     private RegistrationNewsletterController _controller;
@@ -50,7 +50,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
     public void testOnNewFormFail() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(new Integer(99));
-        user.setEmail("RegistrationNewsletterControllerTest@greatschools.net");
+        user.setEmail("RegistrationNewsletterControllerTest@greatschools.org");
 
         NewsletterCommand command = new NewsletterCommand();
         command.setUser(user);
@@ -68,7 +68,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
     public void testOnNewForm() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(new Integer(99));
-        user.setEmail("RegistrationNewsletterControllerTest@greatschools.net");
+        user.setEmail("RegistrationNewsletterControllerTest@greatschools.org");
 
         NewsletterCommand command = new NewsletterCommand();
         command.setUser(user);
@@ -382,7 +382,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
     private void setupBindAndValidate(NewsletterCommand command) throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(new Integer(99));
-        user.setEmail("registrationNewsletterControllerTest@greatschools.net");
+        user.setEmail("registrationNewsletterControllerTest@greatschools.org");
         UserProfile profile = new UserProfile();
         profile.setState(State.CA);
         user.setUserProfile(profile);

@@ -10,7 +10,7 @@ import gs.data.api.ApiAccount;
 import java.util.List;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class ApiAccountCommandValidatorTest {
 
@@ -37,7 +37,7 @@ public class ApiAccountCommandValidatorTest {
 
         command.setType("f");
         command.setIndustry("education");
-        command.setWebsite("www.greatschools.net");
+        command.setWebsite("www.greatschools.org");
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("test@test.com");
@@ -50,7 +50,7 @@ public class ApiAccountCommandValidatorTest {
         command = new ApiAccount();
         command.setType("f");
         command.setIndustry("education");
-        command.setWebsite("www.greatschools.net");
+        command.setWebsite("www.greatschools.org");
         command.setOrganization("Big Co");
         command.setName("name");
         command.setEmail("test@test.com");
@@ -66,7 +66,7 @@ public class ApiAccountCommandValidatorTest {
         command = new ApiAccount();
         command.setType("f");
         command.setIndustry("education");
-        command.setWebsite("www.greatschools.net");
+        command.setWebsite("www.greatschools.org");
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("testx@test.com");

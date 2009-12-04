@@ -3,7 +3,7 @@ package gs.web.community.registration;
 import gs.web.util.validator.EmailValidator;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordCommand implements EmailValidator.IEmail {
     private String _email;

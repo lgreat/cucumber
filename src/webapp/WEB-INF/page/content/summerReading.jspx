@@ -22,7 +22,7 @@
 <pageHelper:setPathway pathway="SEASONAL"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>GreatSchools.net: Summer Reading</title>
+    <title>GreatSchools.org: Summer Reading</title>
 
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/summerReading.css"/>

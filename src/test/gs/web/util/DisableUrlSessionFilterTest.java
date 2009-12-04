@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * We disable jsessionid URL rewriting by overloading the encode methods on HttpServletResponse
  *
- * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class DisableUrlSessionFilterTest extends BaseControllerTestCase {
 

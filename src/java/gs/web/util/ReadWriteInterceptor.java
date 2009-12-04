@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 /**
- * @see <a href="http://wiki.greatschools.net/bin/view/Greatschools/DatabaseConnectionManagement">Wiki Documentation</a>
+ * @see <a href="http://wiki.greatschools.org/bin/view/Greatschools/DatabaseConnectionManagement">Wiki Documentation</a>
  * 
  * The read-write intercepter examines a controller to see if it implements the read-write
  * controller interface. If it does NOT it sets the ThreadLocalTransactionManager to read-only
  * so that all database connections will be load balanced across the read-only replicated
  * databases.
  *
- *  @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ *  @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class ReadWriteInterceptor implements HandlerInterceptor {
 

@@ -5,7 +5,7 @@ package gs.web.util;
  * should use a read-write database connection.
  * @see ReadWriteController
  *
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public interface ReadWriteAnnotationController {
 }

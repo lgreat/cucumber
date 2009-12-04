@@ -20,7 +20,7 @@ import java.util.Map;
  * besides the school it probrably makes more sense to write your own class.
  *
  * @see gs.web.school.SchoolPageInterceptor
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public final class SchoolInModelController extends ParameterizableViewController {
     public static final String MODEL_SCHOOL = "school";

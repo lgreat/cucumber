@@ -25,7 +25,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private IApiAccountDao _apiAccountDao;
     private EmailHelperFactory _emailHelperFactory;
     private static final Logger _log = Logger.getLogger("gs.web.api.RegistrationController");
-    static final String API_REQUEST_EMAIL_ADDRESS = "api-request@greatschools.net";
+    static final String API_REQUEST_EMAIL_ADDRESS = "api-request@greatschools.org";
     static final String API_WELCOME_EMAIL_TRIGGER_KEY = "apiWelcomeMessage";
     private ExactTargetAPI _exactTargetAPI;
 

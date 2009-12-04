@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * This controller handles the login authentication for the SearchManager page.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class LoginController extends SimpleFormController {
 

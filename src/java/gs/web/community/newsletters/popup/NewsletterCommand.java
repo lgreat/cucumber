@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.13 2009/12/04 20:54:13 npatury Exp $
+ * $Id: NewsletterCommand.java,v 1.14 2009/12/04 22:27:13 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -12,7 +12,7 @@ import gs.web.util.validator.StateValidator.IState;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class NewsletterCommand implements IEmail, ISchoolId, IState {
     private String _email;

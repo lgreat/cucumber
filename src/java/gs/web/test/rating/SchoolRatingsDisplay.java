@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.39 2009/12/04 20:54:12 npatury Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.40 2009/12/04 22:27:14 chriskimm Exp $
  */
 
 package gs.web.test.rating;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Generates to display based on a RatingsConfig object.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SchoolRatingsDisplay implements IRatingsDisplay {
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.22 2009/12/04 22:15:16 npatury Exp $
+ * $Id: AdTagHandler.java,v 1.23 2009/12/04 22:27:19 chriskimm Exp $
  */
 package gs.web.ads;
 

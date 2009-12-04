@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.86 2009/12/04 20:54:15 npatury Exp $
+ * $Id: SchoolsController.java,v 1.87 2009/12/04 22:27:12 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -47,7 +47,7 @@ import java.util.*;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SchoolsController extends AbstractController implements IDirectoryStructureUrlController {
     public static final String BEAN_ID = "/schools.page";

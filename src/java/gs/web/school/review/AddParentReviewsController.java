@@ -47,9 +47,9 @@ import java.util.regex.Pattern;
 
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  *         <p/>
- *         http://wiki.greatschools.net/bin/view/Greatschools/ParentReviewWebService
+ *         http://wiki.greatschools.org/bin/view/Greatschools/ParentReviewWebService
  */
 public class AddParentReviewsController extends SimpleFormController implements ReadWriteController {
 
@@ -351,7 +351,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Thanks for your feedback");
-        emailHelper.setFromEmail("editorial@greatschools.net");
+        emailHelper.setFromEmail("editorial@greatschools.org");
         emailHelper.setFromName("GreatSchools");
 
         emailHelper.setToEmail(user.getEmail());
@@ -377,7 +377,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Thanks for your feedback");
-        emailHelper.setFromEmail("editorial@greatschools.net");
+        emailHelper.setFromEmail("editorial@greatschools.org");
         emailHelper.setFromName("GreatSchools");
 
         emailHelper.setToEmail(user.getEmail());

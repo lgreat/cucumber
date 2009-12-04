@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.23 2009/12/04 20:54:13 npatury Exp $
+ * $Id: ContentControllerTest.java,v 1.24 2009/12/04 22:27:10 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * The purpose is to test the various controllers in the content package.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  * @noinspection FeatureEnvy,ProhibitedExceptionDeclared,HardcodedFileSeparator
  */
 public class ContentControllerTest extends BaseControllerTestCase {

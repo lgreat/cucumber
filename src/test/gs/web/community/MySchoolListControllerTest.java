@@ -49,7 +49,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         
         _user = new User();
         _user.setId(1);
-        _user.setEmail("aroy@greatschools.net");
+        _user.setEmail("aroy@greatschools.org");
     }
 
     public void testBasics() {
@@ -159,7 +159,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         User user = new User();
         user.setId(1);
-        user.setEmail("eford@greatschools.net");
+        user.setEmail("eford@greatschools.org");
         Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
         favorites.add(createStubFavoriteSchool(1, user));
         favorites.add(createStubFavoriteSchool(2, user));
@@ -188,7 +188,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         User user = new User();
         user.setId(1);
-        user.setEmail("eford@greatschools.net");
+        user.setEmail("eford@greatschools.org");
         Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
         favorites.add(createStubFavoriteSchool(1, user));
         favorites.add(createStubFavoriteSchool(2, user));
@@ -213,7 +213,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
     public void testBuildModel() throws Exception {
         User user = new User();
-        user.setEmail("eford@greatschools.net");
+        user.setEmail("eford@greatschools.org");
         user.setId(1);
         Set<FavoriteSchool> favs = new HashSet<FavoriteSchool>();
         FavoriteSchool fs1 = new FavoriteSchool();

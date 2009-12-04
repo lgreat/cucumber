@@ -13,7 +13,7 @@ import java.util.*;
 import gs.data.community.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GetUserProfileController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

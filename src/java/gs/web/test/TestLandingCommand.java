@@ -4,7 +4,7 @@ import gs.data.state.State;
 import gs.data.school.School;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class TestLandingCommand {
 

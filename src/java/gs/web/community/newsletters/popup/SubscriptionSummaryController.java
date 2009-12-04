@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.22 2009/12/04 20:54:13 npatury Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.23 2009/12/04 22:27:13 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -26,7 +26,7 @@ import java.util.*;
 /**
  * Backs newsletter subscription hover confirmation page.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class SubscriptionSummaryController extends SimpleFormController {
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page3.page";

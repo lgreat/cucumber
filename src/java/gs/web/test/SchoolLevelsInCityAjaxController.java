@@ -20,7 +20,7 @@ import gs.data.school.LevelCode;
  *     state: a 2-letter abbreviation
  *     city: the cannonical city name
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SchoolLevelsInCityAjaxController implements Controller {
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.86 2009/12/04 20:54:13 npatury Exp $
+ * $Id: PageHelper.java,v 1.87 2009/12/04 22:27:02 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -39,7 +39,7 @@ import java.util.*;
  * <p/>
  * There is code in the page interceptor responsible for creating this object and setting its initial values.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class PageHelper {
     public static final Map pageIds = new HashMap<String, String>() {{

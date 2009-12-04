@@ -280,13 +280,13 @@ than others or who just don't fit in.
           <span class="sghead">code:</span>
           <pre>
               <![CDATA[
-          &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+          &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.org&lt;/span&gt;
             ]]>
           </pre>
       </div>
       <div class="style-example">
           <span class="sghead">example:</span>
-          <span class="headline">More on GreatSchools.net</span>
+          <span class="headline">More on GreatSchools.org</span>
       </div>
   </div>
 
@@ -301,7 +301,7 @@ than others or who just don't fit in.
 &lt;div class=&quot;dotted-divider&quot;&gt;&lt;hr /&gt;&lt;/div&gt;
 &lt;div id=&quot;more-about&quot;&gt;
     &lt;div class=&quot;paragraph&quot;&gt;
-        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.org&lt;/span&gt;
         &lt;ul&gt;
             &lt;li&gt;
                 &lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;
@@ -329,7 +329,7 @@ than others or who just don't fit in.
             <div class="dotted-divider"><hr /></div>
             <div class="more-about">
                 <div class="paragraph">
-                    <span class="headline">More on GreatSchools.net</span>
+                    <span class="headline">More on GreatSchools.org</span>
                     <ul>
                         <li><a href="#">How to Take Great Notes</a></li>
                         <li><a href="#">Go Online for Homework Help</a></li>
@@ -356,7 +356,7 @@ than others or who just don't fit in.
         <![CDATA[
 &lt;div id=&quot;more-about&quot;&gt;
     &lt;div class=&quot;paragraph&quot;&gt;
-        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.org&lt;/span&gt;
         &lt;ul&gt;
             &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
             &lt;li class="microsite"&gt;Learn more about how to help
@@ -372,7 +372,7 @@ than others or who just don't fit in.
         <span class="sghead">example:</span>
           <div class="more-about">
               <div class="paragraph">
-                  <span class="headline">More on GreatSchools.net</span>
+                  <span class="headline">More on GreatSchools.org</span>
                   <ul>
                       <li><a href="#">How to Take Great Notes</a></li>
                       <li class="microsite">Learn more about how to help <a href="/content/specialNeeds.page">your child with special needs</a>.</li>

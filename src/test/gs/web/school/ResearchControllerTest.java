@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ResearchControllerTest extends BaseControllerTestCase {
 

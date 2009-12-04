@@ -36,7 +36,7 @@ public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
 
         _relatedPost = new RelatedCategoryPostsController.RelatedCommunityPost();
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
     }
 
     public void testBasics() {
@@ -57,20 +57,20 @@ public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
         assertEquals("link", _relatedPost.getLink());
         assertEquals("title", _relatedPost.getTitle());
 
-        _relatedPost.setType("http://community.greatschools.net/q-and-a/123456/What-is-the-meaning");
+        _relatedPost.setType("http://community.greatschools.org/q-and-a/123456/What-is-the-meaning");
         assertEquals("question", _relatedPost.getType());
 
-        _relatedPost.setType("http://community.greatschools.net/advice/123456/This-is-the-meaning");
+        _relatedPost.setType("http://community.greatschools.org/advice/123456/This-is-the-meaning");
         assertEquals("advice", _relatedPost.getType());
 
-        _relatedPost.setType("http://community.greatschools.net/groups/123456/Searching-for-the-meaning");
+        _relatedPost.setType("http://community.greatschools.org/groups/123456/Searching-for-the-meaning");
         assertEquals("group", _relatedPost.getType());
 
-        _relatedPost.setType("http://community.greatschools.net/groups/123456/Searching-for-the-meaning/discussion/123456");
+        _relatedPost.setType("http://community.greatschools.org/groups/123456/Searching-for-the-meaning/discussion/123456");
         assertEquals("discussion", _relatedPost.getType());
 
         // fallback
-        _relatedPost.setType("http://community.greatschools.net/");
+        _relatedPost.setType("http://community.greatschools.org/");
         assertEquals("Expect default type to be question", "question", _relatedPost.getType());
     }
 
@@ -126,7 +126,7 @@ public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
 
         String url = _controller.getFeedURL(getRequest(), searchTerm);
 
-        assertEquals("http://community.dev.greatschools.net/search/rss/" +
+        assertEquals("http://community.dev.greatschools.org/search/rss/" +
                 "?q=foo&search_type=0&sort=relevance&limit=3", url);
         
         searchTerm = "foo bar";
@@ -134,7 +134,7 @@ public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
         url = _controller.getFeedURL(getRequest(), searchTerm);
 
         assertEquals("Expect URL encoded search term",
-                "http://community.dev.greatschools.net/search/rss/" +
+                "http://community.dev.greatschools.org/search/rss/" +
                 "?q=foo+bar&search_type=0&sort=relevance&limit=3", url);
     }
 
@@ -211,7 +211,7 @@ public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
         SyndEntry entry = createMock(SyndEntry.class);
         feedEntries.add(entry);
 
-        String url = "http://community.dev.greatschools.net/search/rss/" +
+        String url = "http://community.dev.greatschools.org/search/rss/" +
                 "?q=First+Grade&search_type=0&sort=relevance&limit=2";
         expect(_feedDao.getFeedEntries(url, 2)).andReturn(feedEntries);
         replay(_feedDao);

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Provides testing for the AbstractSendEmailBean class.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AbstractSendEmailBeanTest extends BaseControllerTestCase {
     AbstractSendEmailBean _bean;

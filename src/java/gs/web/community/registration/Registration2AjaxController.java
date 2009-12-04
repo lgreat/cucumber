@@ -24,7 +24,7 @@ import gs.data.geo.IGeoDao;
 /**
  * The AJAX controller for registration stage 2.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Registration2AjaxController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());

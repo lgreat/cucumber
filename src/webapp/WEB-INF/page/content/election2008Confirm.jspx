@@ -25,8 +25,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: Education In 2008"/>
-    <title>GreatSchools.net: Education In 2008</title>
+    <meta name="Description" content="GreatSchools.org: Education In 2008"/>
+    <title>GreatSchools.org: Education In 2008</title>
     <pageHelper:externalCss file="/res/css/content/election2008Confirm.css"/>    
 </head>
 <c:set var="pageName" value="Education 2008"/>

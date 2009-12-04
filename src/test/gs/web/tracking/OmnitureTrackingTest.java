@@ -3,7 +3,7 @@ package gs.web.tracking;
 import gs.web.BaseControllerTestCase;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class OmnitureTrackingTest  extends BaseControllerTestCase {
 

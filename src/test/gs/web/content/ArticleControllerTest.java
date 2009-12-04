@@ -19,8 +19,8 @@ import java.util.HashSet;
 /**
  * Unit tests for ArticleController.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ArticleControllerTest extends BaseControllerTestCase {
 

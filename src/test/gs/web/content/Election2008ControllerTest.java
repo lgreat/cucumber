@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Election2008ControllerTest extends BaseControllerTestCase {
     private Election2008Controller _controller;
@@ -42,7 +42,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
      * Test that the onSubmit method inserts the command into the model
      */
     public void testOnSubmitNoParentAdvisor() {
-        _command.setEmail("aroy@greatschools.net");
+        _command.setEmail("aroy@greatschools.org");
 
         replay(_userDao);
         replay(_subscriptionDao);
@@ -62,7 +62,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
     public void testOnSubmitWithParentAdvisor() {
         getRequest().setParameter("parentAdvisor", "checked");
 
-        _command.setEmail("aroy@greatschools.net");
+        _command.setEmail("aroy@greatschools.org");
 
         User user = new User();
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
@@ -93,7 +93,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
     /*
     // commented out due to broken integration test from failing login
     public void testSyncInfoWithConstantContactEuccess() {
-        _command.setEmail("aroy@greatschools.net");
+        _command.setEmail("aroy@greatschools.org");
         _command.setZip("92130");
 
         assertTrue("Expect successful sync", _controller.syncInfoWithConstantContact(_command));
@@ -123,7 +123,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
     }
 
     public void testSubscribeUserToParentAdvisorExistingUser() {
-        String email = "test@greatschools.net";
+        String email = "test@greatschools.org";
         _command.setEmail(email);
 
         User user = new User();
@@ -133,7 +133,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
     }
 
     public void testSubscribeUserToParentAdvisorNewUser() {
-        String email = "test@greatschools.net";
+        String email = "test@greatschools.org";
         _command.setEmail(email);
 
         expect(_userDao.findUserFromEmailIfExists(email)).andReturn(null);

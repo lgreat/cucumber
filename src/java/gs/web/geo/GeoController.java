@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: GeoController.java,v 1.24 2009/12/04 22:15:15 npatury Exp $
+ * $Id: GeoController.java,v 1.25 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -28,7 +28,7 @@ import java.util.Map;
  * <code>PARAM_*</code> constants specify the expected values, and <code>MODEL_</code> specify the output model sent on
  * to the view.
  *
- * @author greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @todo separate out school information. This needs to be separate, more defined classes.
  */
 public class GeoController implements Controller {

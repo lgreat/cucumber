@@ -12,7 +12,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Test school links
  *
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class SchoolLinkTagHandlerTest extends BaseTestCase {
 

@@ -29,7 +29,7 @@ import java.util.Hashtable;
 import static org.easymock.EasyMock.*;
 
 /**
- * @author Andrew Peterson <apeterson@greatschools.net>
+ * @author Andrew Peterson <apeterson@greatschools.org>
  */
 public class SearchControllerTest extends BaseControllerTestCase {
 

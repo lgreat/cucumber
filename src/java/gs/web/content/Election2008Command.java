@@ -1,7 +1,7 @@
 package gs.web.content;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Election2008Command {
     private String _email;

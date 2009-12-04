@@ -1,13 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: Cell.java,v 1.3 2009/12/04 20:54:12 npatury Exp $
+ * $Id: Cell.java,v 1.4 2009/12/04 22:27:13 chriskimm Exp $
  */
 package gs.web.test.rating;
 
 /**
  * Bean
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class Cell implements IRatingsDisplay.IRowGroup.IRow.ICell {
     Integer _rating;

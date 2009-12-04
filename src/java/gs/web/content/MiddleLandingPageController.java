@@ -2,7 +2,7 @@ package gs.web.content;
 
 /**
  * TODO: evaluate necessity of this class
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  * 
  * Tell me this isn't beautiful
  */

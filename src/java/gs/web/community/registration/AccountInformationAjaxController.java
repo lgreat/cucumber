@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AccountInformationAjaxController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());

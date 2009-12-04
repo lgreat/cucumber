@@ -15,7 +15,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 
 /**
- * @author npatury <mailto:npatury@greatschools.net>
+ * @author npatury <mailto:npatury@greatschools.org>
  */
 public class IsZipCodeValid implements Controller {
 

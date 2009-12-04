@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Provides ...
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordTagHandler  extends LinkTagHandler {
 

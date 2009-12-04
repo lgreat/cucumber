@@ -22,7 +22,7 @@ import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class ArticleLinkTagHandlerTest extends TestCase {
     private ArticleLinkTagHandler _tagHandler;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.27 2009/12/04 20:54:12 npatury Exp $
+ * $Id: CityControllerTest.java,v 1.28 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Tests CityController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class CityControllerTest extends BaseControllerTestCase {
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.2 2009/12/04 20:54:18 npatury Exp $
+ * $Id: LinkTagHandler.java,v 1.3 2009/12/04 22:27:19 chriskimm Exp $
  */
 
 package gs.web.jsp.url;
@@ -30,7 +30,7 @@ import java.io.IOException;
  * Subclasses are responsible for generating the correct URL using the UrlBuilder.
  * They must implement {link #createUrlBuilder()}.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @see gs.web.util.UrlBuilder
  */
 public abstract class LinkTagHandler extends TagSupport {

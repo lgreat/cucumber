@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * All schools in a district
  *
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class DistrictsAllSchoolsTagHandler extends LinkTagHandler {
     private String _levelCode;

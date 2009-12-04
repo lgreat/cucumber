@@ -3,7 +3,7 @@ package gs.web.status;
 import junit.framework.TestCase;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class IdentityTest extends TestCase {
     /**

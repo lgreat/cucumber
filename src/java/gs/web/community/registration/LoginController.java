@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.49 2009/12/04 20:54:14 npatury Exp $
+ * $Id: LoginController.java,v 1.50 2009/12/04 22:27:15 chriskimm Exp $
  */
 package gs.web.community.registration;
 
@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * Lets user sign in.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class LoginController extends SimpleFormController {
 

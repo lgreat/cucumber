@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.17 2009/12/04 20:54:16 npatury Exp $
+ * $Id: NthGraderControllerTest.java,v 1.18 2009/12/04 22:27:19 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -30,7 +30,7 @@ import java.util.*;
  * Scenario 2:  As a regular page where only the state is supplied and the user types in his email
  * address
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  * @noinspection ProhibitedExceptionDeclared,HardcodedFileSeparator,FeatureEnvy
  */
 public class NthGraderControllerTest extends BaseControllerTestCase {
@@ -95,7 +95,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
     public void testEmailFromSessionContext() {
 
-        final String email = "dlee@greatschools.net";
+        final String email = "dlee@greatschools.org";
         User user = new User();
         user.setEmail(email);
         getSessionContext().setUser(user);
@@ -114,7 +114,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
     public void testOnSubmitScenario() {
         setUpScenarioOne();
-        final String email = "aroy@greatschools.net";
+        final String email = "aroy@greatschools.org";
 
         _command.setEmail(email);
         _command.setState(State.CA);

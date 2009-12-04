@@ -3,7 +3,7 @@ package gs.web.util;
 import java.net.URL;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class Page {
 

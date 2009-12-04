@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 @Controller
 @RequestMapping("/api/admin_login.page")
@@ -81,7 +81,7 @@ class AdminLoginValidator implements Validator {
 
         String email = command.getEmail();
         if (StringUtils.isNotBlank(email)) {
-            if (!"api-support@greatschools.net".equals(email)) {
+            if (!"api-support@greatschools.org".equals(email)) {
                 errors.rejectValue("email", "user.unknown", "unknown");
             }
         } else {

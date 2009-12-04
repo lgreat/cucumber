@@ -8,7 +8,7 @@ import gs.data.api.ApiAccount;
 import gs.data.util.email.EmailUtils;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class ApiAccountCommandValidator implements Validator {
 

@@ -8,7 +8,7 @@ import org.springframework.mail.MailException;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Young Fan <mailto:yfan@greatschools.net>
+ * @author Young Fan <mailto:yfan@greatschools.org>
  */
 public class Election2008EmailConfirmControllerTest extends BaseControllerTestCase {
     private Election2008EmailConfirmController _controller;

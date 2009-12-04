@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.5 2009/12/04 20:54:13 npatury Exp $
+ * $Id: SessionContextInterceptor.java,v 1.6 2009/12/04 22:27:17 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * <li>puttting calculated values into the SessionContext
  * </ul>
  *
- * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
+ * @author Andrew J. Peterson <mailto:apeterson@greatschools.org>
  */
 public class SessionContextInterceptor implements HandlerInterceptor {
 

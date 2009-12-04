@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Write out an XHTML form tag
  *
- * @author greatschools.org>
+ * @author Todd Huss <mailto:thuss@greatschools.org>
  */
 public class FormTagHandler extends TagSupport {
 

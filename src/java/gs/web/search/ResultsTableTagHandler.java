@@ -13,7 +13,7 @@ import java.util.List;
  * This is a base class for tag handlers that display search results.  Various
  * common methods are collected here.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public abstract class ResultsTableTagHandler extends BaseTagHandler {
 

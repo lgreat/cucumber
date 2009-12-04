@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GetUserProfileControllerTest  extends BaseControllerTestCase {
     private GetUserProfileController _controller;
@@ -42,7 +42,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
     public void testGetUserProfile() throws IOException {
         User user = new User();
         user.setId(new Integer(99));
-        user.setEmail("GetUserProfileControllerTest@greatschools.net");
+        user.setEmail("GetUserProfileControllerTest@greatschools.org");
         user.setFirstName("First");
         user.setLastName("Last");
         Student student = new Student();

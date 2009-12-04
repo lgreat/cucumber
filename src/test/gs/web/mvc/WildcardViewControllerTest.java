@@ -4,7 +4,7 @@ import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class WildcardViewControllerTest extends BaseControllerTestCase {
 

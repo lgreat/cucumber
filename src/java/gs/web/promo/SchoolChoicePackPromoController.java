@@ -22,7 +22,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class SchoolChoicePackPromoController extends AbstractController implements ReadWriteController {
 

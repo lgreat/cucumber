@@ -31,7 +31,7 @@ import java.util.Random;
 import java.text.SimpleDateFormat;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CustomizeSchoolSearchWidgetController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/schoolfinder/widget/customize.page";
@@ -39,7 +39,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
     public static final int MINIMUM_WIDTH = 300;
     public static final int MINIMUM_HEIGHT = 434;
-    public static final String DEFAULT_COBRAND = "www.greatschools.net";
+    public static final String DEFAULT_COBRAND = "www.greatschools.org";
 
     private IUserDao _userDao;
     private ICobrandDao _cobrandDao;
@@ -72,12 +72,12 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             cobrandName = cobrandName.replaceAll("^http://", "");
             // remove any trailing slashes
             cobrandName = cobrandName.replaceAll("/+$","");
-            // if no dot (.) is in the cobrand, append .greatschools.net
+            // if no dot (.) is in the cobrand, append .greatschools.org
             if (!cobrandName.contains(".")) {
-                cobrandName = cobrandName + ".greatschools.net";
+                cobrandName = cobrandName + ".greatschools.org";
             }
 
-            // look for the cobrand; if not found, use www.greatschools.net
+            // look for the cobrand; if not found, use www.greatschools.org
             Cobrand cobrand = _cobrandDao.getCobrandByHostname(cobrandName);
             if (cobrand == null) {
                 command.setCobrandSite(DEFAULT_COBRAND);
@@ -163,7 +163,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         StringBuffer buffer = new StringBuffer();
         BufferedReader reader = null;
         UrlBuilder urlBuilder;
-        String text = "Error creating widget code. Please try again or contact us at widget@greatschools.net";
+        String text = "Error creating widget code. Please try again or contact us at widget@greatschools.org";
         try {
             reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
             String line = reader.readLine();
@@ -183,22 +183,22 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             text = replaceText(text, "UNIQUE_ID", String.valueOf(command.getUniqueId()));
             
             PageHelper pageHelper = new PageHelper(SessionContextUtil.getSessionContext(request), request);
-            String omniture_js = "http://www.greatschools.net/res/js/s_code.js";
+            String omniture_js = "http://www.greatschools.org/res/js/s_code.js";
             if (pageHelper.isDevEnvironment()) {
-                omniture_js = "http://staging.greatschools.net/res/js/s_code_dev.js";
+                omniture_js = "http://staging.greatschools.org/res/js/s_code_dev.js";
             }
             text = replaceText(text, "OMNITURE_JS", omniture_js);
 
-            String externalTrackingJS = "http://www.greatschools.net/res/js/externalTracking.js";
+            String externalTrackingJS = "http://www.greatschools.org/res/js/externalTracking.js";
             if (pageHelper.isDevEnvironment()) {
-                externalTrackingJS = "http://staging.greatschools.net/res/js/externalTracking.js";
+                externalTrackingJS = "http://staging.greatschools.org/res/js/externalTracking.js";
             }
             text = replaceText(text, "EXTERNAL_TRACKING_JS", externalTrackingJS);
 
             if (command.getCity() != null) {
                 City city = command.getCity();
                 urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
-                text = replaceText(text, "CITY_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request) + "?s_cid=wsbay93");
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.org" + urlBuilder.asSiteRelative(request) + "?s_cid=wsbay93");
 
                 if (city.getName().equals("New York") && State.NY.equals(city.getState())) {
                     text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", city.getName() + " City schools");
@@ -210,7 +210,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
                 urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, city.getState(), null);
                 urlBuilder.addParameter("s_cid", "wsbay93");
-                text = replaceText(text, "STATE_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
+                text = replaceText(text, "STATE_URL", "http://www.greatschools.org" + urlBuilder.asSiteRelative(request));
 
                 if (city.getName().equals("New York") && State.NY.equals(city.getState())) {
                     text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", city.getState().getLongName() + " State schools");
@@ -220,9 +220,9 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
                     text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", city.getState().getLongName() + " schools");
                 }
             } else {
-                text = replaceText(text, "CITY_URL", "http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93");
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.org/city/Fremont/CA?s_cid=wsbay93");
                 text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", "Fremont schools");
-                text = replaceText(text, "STATE_URL", "http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93");
+                text = replaceText(text, "STATE_URL", "http://www.greatschools.org/modperl/go/CA?s_cid=wsbay93");
                 text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", "California schools");
             }
 

@@ -14,7 +14,7 @@ import gs.data.school.Grades;
 /**
  * This controller provides a web interface to gs.data.school.LevelCode.createLevelCode();
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class GradeToLevelCodeController implements Controller {
     //private static final Logger _log = Logger.getLogger(GradeToLevelCodeController.class);

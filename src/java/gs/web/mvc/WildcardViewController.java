@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * will resolve "api/docs/test.page" as well as "api/docs/sub1/sub2/test.page"
  * 
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class WildcardViewController extends AbstractController {
 

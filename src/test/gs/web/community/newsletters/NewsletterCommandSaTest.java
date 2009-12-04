@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: NewsletterCommandSaTest.java,v 1.2 2009/12/04 20:54:16 npatury Exp $
+ * $Id: NewsletterCommandSaTest.java,v 1.3 2009/12/04 22:27:20 chriskimm Exp $
  */
 package gs.web.community.newsletters;
 
@@ -16,7 +16,7 @@ import junit.framework.TestCase;
  * @see gs.web.community.newsletters.popup.NthGraderControllerTest
  * @see gs.web.community.newsletters.popup.SubscriptionSummaryTest
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class NewsletterCommandSaTest extends TestCase {
     public void setUp() throws Exception {

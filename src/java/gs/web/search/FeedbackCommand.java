@@ -2,10 +2,10 @@ package gs.web.search;
 
 /**
  * This class represents a the data in a search feedback form as used:
- * here:  http://www.greatschools.net/search/feedback.page
+ * here:  http://www.greatschools.org/search/feedback.page
  * It a simple javabean used to construct the feedback email.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class FeedbackCommand {
 

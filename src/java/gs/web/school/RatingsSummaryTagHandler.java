@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @author jnorton@greatschools.net
+ * @author jnorton@greatschools.org
  */
 public class RatingsSummaryTagHandler extends BaseTagHandler {
 

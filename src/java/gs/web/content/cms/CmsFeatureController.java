@@ -353,7 +353,7 @@ public class CmsFeatureController extends AbstractController {
         link.setLinkText("Nunc sed turpis nisl, ac lacinia sem");
         links.add(link);
         link = new CmsLink();
-        link.setUrl("http://www.greatschools.net");
+        link.setUrl("http://www.greatschools.org");
         link.setLinkText("Nulla sit amet libero orci, sed euismod nisl");
         links.add(link);
         link = new CmsLink();

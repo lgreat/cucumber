@@ -32,15 +32,15 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
 
     static {
         _row1.addCell(PressReleasesController.SPREADSHEET_TEXT, "Item 1");
-        _row1.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.net");
+        _row1.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.org");
         _row1.addCell(PressReleasesController.SPREADSHEET_DATE, "1/1/2008");
 
         _row2.addCell(PressReleasesController.SPREADSHEET_TEXT, "Item 2");
-        _row2.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.net");
+        _row2.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.org");
         _row2.addCell(PressReleasesController.SPREADSHEET_DATE, "1/1/2008");
 
         _row3.addCell(PressReleasesController.SPREADSHEET_TEXT, "Item 3");
-        _row3.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.net");
+        _row3.addCell(PressReleasesController.SPREADSHEET_URL, "http://www.greatschools.org");
         _row3.addCell(PressReleasesController.SPREADSHEET_DATE, "1/1/2008");
 
         _tableRowList.add(_row1);
@@ -65,7 +65,7 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(PressReleasesController.PARAM_FIRST, String.valueOf(numResults));
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getAllRows()).andReturn(_tableRowList);
         replay(dao);
@@ -89,7 +89,7 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
         getRequest().removeParameter(PressReleasesController.PARAM_FIRST);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getAllRows()).andReturn(_tableRowList);
@@ -127,30 +127,30 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
         PressReleasesController controller = (PressReleasesController) getApplicationContext().getBean(PressReleasesController.BEAN_ID);
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) controller.getTableDao();
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
     }
 
     public void testGetWorksheet() {
         PressReleasesController controller = (PressReleasesController) getApplicationContext().getBean(PressReleasesController.BEAN_ID);
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         assertEquals("Worksheet name was not internal worksheet name for dev server name",
             controller.getInternalWorksheetName(), controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         assertEquals("Worksheet name was not internal worksheet name for staging server name",
             controller.getInternalWorksheetName(), controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         assertEquals("Worksheet name was not production worksheet name for production server name",
             controller.getProductionWorksheetName(), controller.getWorksheet(getRequest()));
     }

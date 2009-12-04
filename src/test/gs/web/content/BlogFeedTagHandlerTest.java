@@ -33,9 +33,9 @@ public class BlogFeedTagHandlerTest extends TestCase {
         assertTrue(true);
     }
     public void xtestDoTag() throws IOException, JspException {
-        _tag.setAtomUrl("http://blogs.greatschools.net/billsblog/atom.xml");
+        _tag.setAtomUrl("http://blogs.greatschools.org/billsblog/atom.xml");
         _tag.setDefaultTitle("Bill's thoughts on education");
-        _tag.setDefaultUrl("http://blogs.greatschools.net/billsblog/");
+        _tag.setDefaultUrl("http://blogs.greatschools.org/billsblog/");
         _tag.setType("splashBlog");
         _tag.setShowDate(true);
         _tag.doTag();
@@ -45,7 +45,7 @@ public class BlogFeedTagHandlerTest extends TestCase {
     public void testBlogTag() throws IOException, JspException {
         _tag.setAtomUrl("http://feeds2.feedburner.com/GreatschoolsBlogAdvanced");
 
-        _tag.setDefaultUrl("http://blogs.greatschools.net/billsblog/");
+        _tag.setDefaultUrl("http://blogs.greatschools.org/billsblog/");
         _tag.setType("splashBlog");
         _tag.setShowDate(true);
         _tag.doTag();
@@ -66,11 +66,11 @@ public class BlogFeedTagHandlerTest extends TestCase {
         // Now try it with a feed that works
         // @todo change this to use a mock SyndFeed
         resetJspContext();
-        _tag.setAtomUrl("http://billsblog.greatschools.net/atom.xml");
+        _tag.setAtomUrl("http://billsblog.greatschools.org/atom.xml");
         _tag.doTag();
         output = getJspContextOutput();
         assertTrue(output.indexOf("onclick") > -1);
-        assertTrue(output.indexOf("http://billsblog.greatschools.net") > -1);
+        assertTrue(output.indexOf("http://billsblog.greatschools.org") > -1);
     }
     */
 

@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Provides link handling for links to the community login page.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class LoginOrRegisterTagHandler extends LinkTagHandler {
     private String _redirect;

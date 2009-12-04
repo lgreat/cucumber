@@ -73,21 +73,21 @@ public class BaseGradeLevelLandingPageControllerTest extends BaseControllerTestC
         hashMapTableRow2 = new HashMapTableRow();
         hashMapTableRow2.addCell("key", "callToAction_k");
         hashMapTableRow2.addCell("text", "Find out how childrin develop reading skills >");
-        hashMapTableRow2.addCell("url","http://www.greatschools.net/cgi-bin/showarticle/2037");
+        hashMapTableRow2.addCell("url","http://www.greatschools.org/cgi-bin/showarticle/2037");
         rows.add(hashMapTableRow2);
 
         HashMapTableRow hashMapTableRow3 = new HashMapTableRow();
         hashMapTableRow3 = new HashMapTableRow();
         hashMapTableRow3.addCell("key", "articleLink_k");
         hashMapTableRow3.addCell("text", "Reading");
-        hashMapTableRow3.addCell("url","http://www.greatschools.net/cgi-bin/showarticle/553");
+        hashMapTableRow3.addCell("url","http://www.greatschools.org/cgi-bin/showarticle/553");
         rows.add(hashMapTableRow3);
 
         HashMapTableRow hashMapTableRow4 = new HashMapTableRow();
         hashMapTableRow4 = new HashMapTableRow();
         hashMapTableRow4.addCell("key", "articleLink_k");
         hashMapTableRow4.addCell("text", "Math");
-        hashMapTableRow4.addCell("url","http://www.greatschools.net/cgi-bin/showarticle/395");
+        hashMapTableRow4.addCell("url","http://www.greatschools.org/cgi-bin/showarticle/395");
         rows.add(hashMapTableRow4);
 
         _controller.setTableDao(_tableDao);

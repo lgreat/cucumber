@@ -4,7 +4,7 @@ import gs.web.util.UrlBuilder;
 import gs.data.state.State;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  *
  * This link tag handler creates a link to the browse schools page with preschools selected.
  */

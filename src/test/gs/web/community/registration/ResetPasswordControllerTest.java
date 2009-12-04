@@ -18,7 +18,7 @@ import java.util.Calendar;
 /**
  * Provides testing for the reset password controller.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ResetPasswordControllerTest extends BaseControllerTestCase {
     private ResetPasswordController _controller;
@@ -42,14 +42,14 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunity() throws SoapRequestException {
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
         verify(_soapRequest);
 
         reset(_soapRequest);
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
@@ -60,9 +60,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on dev
     public void testNotifyCommunityOnDev() throws SoapRequestException {
-        _request.setServerName("dev.greatschools.net");
+        _request.setServerName("dev.greatschools.org");
 
-        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -71,7 +71,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is NOT given a target on dev workstation
     public void testNotifyCommunityOnDevWorkstation() throws SoapRequestException {
-        _request.setServerName("aroy.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.org");
 
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
@@ -81,9 +81,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is given a target on staging
     public void testNotifyCommunityOnStaging() throws SoapRequestException {
-        _request.setServerName("staging.greatschools.net");
+        _request.setServerName("staging.greatschools.org");
 
-        _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -92,9 +92,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is NOT given a target on live
     public void testNotifyCommunityOnWww() throws SoapRequestException {
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -103,9 +103,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     // verify that the soap request is NOT given a target on live cobrand
     public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
-        _request.setServerName("framed.greatschools.net");
+        _request.setServerName("framed.greatschools.org");
 
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -118,7 +118,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
         command.setUser(_user);
         command.setNewPassword("123456");
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
 
@@ -138,7 +138,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         command.setUser(_user);
         command.setNewPassword("123456");
         command.setOldPassword("654321");
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
         _soapRequest.changePasswordRequest(_user);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
@@ -237,7 +237,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertTrue(command.getUser().matchesPassword("foobar"));
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertFalse(errors.hasErrors());
-        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.net/dashboard");
+        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.org/dashboard");
         assertTrue(command.getUser().matchesPassword("foobar"));
     }
 
@@ -275,7 +275,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     private User setupUser() {
         User user = new User();
-        user.setEmail("testResetPassword@greatschools.net");
+        user.setEmail("testResetPassword@greatschools.org");
         user.setId(99);
         user.setUserProfile(new UserProfile());
 
@@ -345,14 +345,14 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = new User();
-        user.setEmail("testResetPassword@greatschools.net");
+        user.setEmail("testResetPassword@greatschools.org");
         user.setId(99);
 
         // set password on user
         user.setPlaintextPassword("foobar");
 
         User wrongUser = new User();
-        wrongUser.setEmail("wrongUser@greatschools.net");
+        wrongUser.setEmail("wrongUser@greatschools.org");
         wrongUser.setId(1);
         wrongUser.setPlaintextPassword("wrongwrong");
         reset(_userDao);
@@ -371,7 +371,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = new User();
-        user.setEmail("testResetPassword@greatschools.net");
+        user.setEmail("testResetPassword@greatschools.org");
         user.setId(99);
 
         // set password on user

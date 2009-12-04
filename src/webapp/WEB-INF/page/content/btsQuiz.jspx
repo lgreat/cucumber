@@ -27,8 +27,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: Back to School Quiz"/>
-    <title>GreatSchools.net: Back to School Quiz</title>
+    <meta name="Description" content="GreatSchools.org: Back to School Quiz"/>
+    <title>GreatSchools.org: Back to School Quiz</title>
     <pageHelper:externalCss file="/res/css/content/btsQuiz.css"/>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 </head>

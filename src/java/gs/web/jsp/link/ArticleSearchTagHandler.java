@@ -3,7 +3,7 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticleSearchTagHandler extends LinkTagHandler {
     private String _query;

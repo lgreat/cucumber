@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Provides testing for RegistrationConfirmController
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
     private RegistrationConfirmController _controller;
@@ -35,7 +35,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _controller.setViewName("/room/with/a/view");
 
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
         email.getEmailHelperFactory().setMailSender(_mailSender);
@@ -45,7 +45,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
     public void testRegistrationConfirm() throws NoSuchAlgorithmException {
         // 1) create user record with non-validated password
         User user = new User();
-        user.setEmail("testRegistrationConfirm@greatschools.net");
+        user.setEmail("testRegistrationConfirm@greatschools.org");
         user.setId(new Integer(234));
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");

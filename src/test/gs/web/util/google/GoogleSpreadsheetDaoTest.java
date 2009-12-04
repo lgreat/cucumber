@@ -17,7 +17,7 @@ import com.google.gdata.util.ServiceException;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GoogleSpreadsheetDaoTest extends BaseTestCase {
 
@@ -163,7 +163,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
         service.setUserCredentials("user", "pass");
         expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andReturn(dataWorksheet);
 
-        URL url = new URL("http://dev.greatschools.net");
+        URL url = new URL("http://dev.greatschools.org");
         expect(dataWorksheet.getListFeedUrl()).andReturn(url);
         replay(dataWorksheet);
 

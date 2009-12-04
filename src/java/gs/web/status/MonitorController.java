@@ -177,7 +177,7 @@ public class MonitorController implements ReadWriteController {
     protected String generateFisheyeUrl(String branch, String buildtime, String module) throws ParseException {
         Date builddate = new SimpleDateFormat("yyyyMMddHHmmss").parse(buildtime);
         String fisheyeBuildTime = new SimpleDateFormat("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss.00").format(builddate);
-        return "http://cvsweb.greatschools.net/search/gsrepo/" + module +
+        return "http://cvsweb.greatschools.org/search/gsrepo/" + module +
                 "?ql=select+revisions+from+dir+%2F" + module + "+where+(" + ("HEAD".equals(branch)?"":"on+branch+" + branch + "+and+") + 
 		"date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
     }
@@ -236,7 +236,7 @@ public class MonitorController implements ReadWriteController {
         trackingNumber.setMaxAge(-1);
         if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             // don't set domain for developer workstations so they can still access the cookie!!
-            trackingNumber.setDomain(".greatschools.net");
+            trackingNumber.setDomain(".greatschools.org");
         }
 
         response.addCookie(trackingNumber);

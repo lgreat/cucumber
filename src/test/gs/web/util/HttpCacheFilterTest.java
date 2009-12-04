@@ -12,7 +12,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
- * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class HttpCacheFilterTest extends BaseControllerTestCase {
 

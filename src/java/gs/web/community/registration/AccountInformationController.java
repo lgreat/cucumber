@@ -26,7 +26,7 @@ import java.util.*;
 import java.beans.PropertyEditorSupport;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AccountInformationController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/accountInformation.page";

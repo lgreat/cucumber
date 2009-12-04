@@ -25,8 +25,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: Action for Education Quiz"/>
-    <title>GreatSchools.net: Action for Education Quiz</title>
+    <meta name="Description" content="GreatSchools.org: Action for Education Quiz"/>
+    <title>GreatSchools.org: Action for Education Quiz</title>
     <pageHelper:externalCss file="/res/css/content/election2008Confirm.css"/>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 </head>

@@ -103,7 +103,7 @@
             ${gsweb:districtPageTitle(districtObject)}
         </c:when>
         <c:otherwise>
-            GreatSchools.net Search
+            GreatSchools.org Search
         </c:otherwise>
     </c:choose>
 </c:set>

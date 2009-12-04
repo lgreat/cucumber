@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Provides a base class for beans that wish to send emails.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public abstract class AbstractSendEmailBean {
     /* Spring injected properties */

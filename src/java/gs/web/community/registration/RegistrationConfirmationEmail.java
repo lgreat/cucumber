@@ -24,7 +24,7 @@ import org.apache.commons.codec.binary.Base64;
  * logically be "completed" in multiple places, this code was pulled out to a bean that
  * can be injected into each necessary controller.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "registrationConfirmationEmail";

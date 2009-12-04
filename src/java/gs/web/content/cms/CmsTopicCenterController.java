@@ -136,7 +136,7 @@ public class CmsTopicCenterController extends AbstractController {
         link.setLinkText("Nunc sed turpis nisl, ac lacinia sem");
         featureLinks.add(link);
         link = new CmsLink();
-        link.setUrl("http://www.greatschools.net");
+        link.setUrl("http://www.greatschools.org");
         link.setLinkText("Nulla sit amet libero orci, sed euismod nisl");
         featureLinks.add(link);
         link = new CmsLink();
@@ -159,7 +159,7 @@ public class CmsTopicCenterController extends AbstractController {
         link.setLinkText("Community lorem ipsum lorem ipsum lorem ipsum 3");
         communityLinks.add(link);
         link = new CmsLink();
-        link.setUrl("http://www.greatschools.net");
+        link.setUrl("http://www.greatschools.org");
         link.setLinkText("Community lorem ipsum lorem ipsum lorem ipsum 4");
         communityLinks.add(link);
         link = new CmsLink();
@@ -169,7 +169,7 @@ public class CmsTopicCenterController extends AbstractController {
         topicCenter.setCommunityLinks(communityLinks);
 
         link = new CmsLink();
-        link.setUrl("http://community.greatschools.net");
+        link.setUrl("http://community.greatschools.org");
         link.setLinkText("More discussions &gt;");
         topicCenter.setCommunityMoreLink(link);
 

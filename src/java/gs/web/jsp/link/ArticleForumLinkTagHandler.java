@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Provides a link to the specified article's forum.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticleForumLinkTagHandler extends ArticleLinkTagHandler {
 

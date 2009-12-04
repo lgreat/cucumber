@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.10 2009/12/04 22:15:09 npatury Exp $
+ * $Id: ArticleTagHandler.java,v 1.11 2009/12/04 22:27:01 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Generates link to an article.
  *
- * @author greatschools.org>
+ * @author Andrew Peterson <mailto:apeterson@greatschools.org>
  */
 public class ArticleTagHandler extends LinkTagHandler {
 

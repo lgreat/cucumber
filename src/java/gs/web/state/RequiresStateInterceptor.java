@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.15 2009/12/04 20:54:15 npatury Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.16 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * specific URL has chosen a state first. We look in the URL for
  * the state, and if it's not there, redirect to the "selectAState" page.
  *
- * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
+ * @author Andrew J. Peterson <mailto:apeterson@greatschools.org>
  */
 public class RequiresStateInterceptor
         implements HandlerInterceptor {

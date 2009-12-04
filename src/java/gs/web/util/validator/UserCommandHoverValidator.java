@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Validate registration hover page /community/registration/popup/registrationHover.page
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UserCommandHoverValidator extends UserCommandValidator implements IRequestAwareValidator {
     protected final Log _log = LogFactory.getLog(getClass());

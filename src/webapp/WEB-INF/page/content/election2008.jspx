@@ -26,8 +26,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: Action for Education"/>
-    <title>GreatSchools.net: Action for Education</title>
+    <meta name="Description" content="GreatSchools.org: Action for Education"/>
+    <title>GreatSchools.org: Action for Education</title>
     <pageHelper:externalCss file="/res/css/content/election2008.css"/>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>    
     <script type="text/javascript">

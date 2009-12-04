@@ -91,7 +91,7 @@ public class SubCookie {
             // so they can still access the cookie!!
             generator.setCookieDomain(null);
         } else {
-            generator.setCookieDomain(".greatschools.net");
+            generator.setCookieDomain(".greatschools.org");
         }
         _log.debug("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " + generator.getCookieDomain());
         generator.addCookie(response,cookieValue);

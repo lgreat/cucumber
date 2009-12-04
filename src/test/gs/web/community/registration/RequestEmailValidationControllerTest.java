@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RequestEmailValidationControllerTest extends BaseControllerTestCase {
     private RequestEmailValidationController _controller;
@@ -23,7 +23,7 @@ public class RequestEmailValidationControllerTest extends BaseControllerTestCase
         _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         _controller.setMailSender(_mailSender);
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
@@ -33,7 +33,7 @@ public class RequestEmailValidationControllerTest extends BaseControllerTestCase
 
     public void testRequestEmailValidation() throws Exception {
         // 1) create user record with non-validated password
-        String email = "testRequestEmailValidation@greatschools.net";
+        String email = "testRequestEmailValidation@greatschools.org";
         User user = new User();
         user.setEmail(email);
         user.setId(246);

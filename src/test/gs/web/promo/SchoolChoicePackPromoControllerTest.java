@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase {
 
@@ -80,7 +80,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
     // Will need to replace exact target mock with bean
     public void xtestExactTargetTrigger() throws Exception {
         User u = new User();
-        u.setEmail("tester@greatschools.net");
+        u.setEmail("tester@greatschools.org");
         _controller.triggerPromoPackEmail(u, new String[] {"preschool", "elementary"});
     }
 
@@ -88,7 +88,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
      * Verify that the new user is set to NEVER_SEND as their welcomeMessageStatus
      */
     public void testNewUser() throws Exception {
-        String email = "tester@greatschools.net";
+        String email = "tester@greatschools.org";
         User u = new User();
         u.setEmail(email);
         getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, email);
@@ -128,13 +128,13 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
      */
     public void testMslUserTakenToRegistration() throws Exception {
         getRequest().setParameter(SchoolChoicePackPromoController.LEVELS_PARAM, "e");
-        getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, "aroy@greatschools.net");
+        getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, "aroy@greatschools.org");
         getRequest().setParameter(SchoolChoicePackPromoController.REDIRECT_FOR_CONFIRM, "redirect");
         SessionContext context = SessionContextUtil.getSessionContext(getRequest());
         User mslUser = new User();
         context.setUser(mslUser);
 
-        expect(_mockUserDao.findUserFromEmailIfExists("aroy@greatschools.net")).andReturn(null);
+        expect(_mockUserDao.findUserFromEmailIfExists("aroy@greatschools.org")).andReturn(null);
         _mockUserDao.saveUser(isA(User.class));
 
         expect(_mockSubscriptionDao.isUserSubscribed(isA(User.class), isA(SubscriptionProduct.class), (Date)isNull())).andReturn(true);

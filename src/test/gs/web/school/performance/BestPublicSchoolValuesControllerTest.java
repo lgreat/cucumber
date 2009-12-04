@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BestPublicSchoolValuesControllerTest.java,v 1.8 2009/12/04 20:54:13 npatury Exp $
+ * $Id: BestPublicSchoolValuesControllerTest.java,v 1.9 2009/12/04 22:27:21 chriskimm Exp $
  */
 
 package gs.web.school.performance;
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Tests BestPublicSchoolValuesController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BestPublicSchoolValuesControllerTest extends BaseControllerTestCase {
 

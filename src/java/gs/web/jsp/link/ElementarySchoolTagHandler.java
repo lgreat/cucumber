@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Generates elementary-school page tag.
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class ElementarySchoolTagHandler extends LinkTagHandler {
 

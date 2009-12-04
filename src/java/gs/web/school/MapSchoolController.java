@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * nearest other schools. Each school needs the GS rating as well as the parent rating, which is
  * displayed in an info bubble in the map.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class MapSchoolController extends AbstractSchoolController {
     public static final String BEAN_ID = "/school/mapSchool.page";

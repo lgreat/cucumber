@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Parent review page
  *
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class ParentReviewController extends AbstractController {
 

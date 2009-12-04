@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: Anchor.java,v 1.3 2009/12/04 20:54:16 npatury Exp $
+ * $Id: Anchor.java,v 1.4 2009/12/04 22:27:20 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -10,7 +10,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Bean to hold attributes for an anchor tag.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class Anchor {
     private final String _href;

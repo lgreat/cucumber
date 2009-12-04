@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AccountInformationControllerTest extends BaseControllerTestCase {
     private AccountInformationController _controller;
@@ -56,7 +56,7 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
 
         _user = new User();
         _user.setId(30);
-        _user.setEmail("aroy@greatschools.net");
+        _user.setEmail("aroy@greatschools.org");
         _user.setPlaintextPassword("foobar");
         _user.setUserProfile(new UserProfile());
         _user.getUserProfile().setState(State.CA);

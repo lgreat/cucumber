@@ -37,7 +37,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         _controller = new MailToFriendController();
 
         _sender = new MockJavaMailSender();
-        _sender.setHost("mail.greatschools.net");
+        _sender.setHost("mail.greatschools.org");
         _controller.setMailSender(_sender);
 
         _school = new School();
@@ -60,17 +60,17 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
 
         SessionContext sessionContext = new SessionContext();
-        sessionContext.setEmail("dlee@greatschools.net");
+        sessionContext.setEmail("dlee@greatschools.org");
 
         getRequest().setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
         _controller.onBindOnNewForm(getRequest(), command, errors);
         assertFalse(errors.hasErrors());
-        assertEquals("dlee@greatschools.net", command.getUserEmail());
+        assertEquals("dlee@greatschools.org", command.getUserEmail());
 
         //if user specifies his own email, that should override the one in the session
-        command.setUserEmail("somethingelse@greatschools.net");
+        command.setUserEmail("somethingelse@greatschools.org");
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        assertEquals("somethingelse@greatschools.net", command.getUserEmail());
+        assertEquals("somethingelse@greatschools.org", command.getUserEmail());
 
         assertEquals("", command.getFriendEmail());
         assertEquals("", command.getMessage());
@@ -167,7 +167,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertTrue(errors.hasErrors());
         assertEquals(4, errors.getAllErrors().size());
 
-        command.setUserEmail("dlee@greatschools.net");
+        command.setUserEmail("dlee@greatschools.org");
         errors = new BindException(command, "");
         _controller.onBind(getRequest(), command, errors);
         assertTrue(errors.hasErrors());
@@ -185,13 +185,13 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getAllErrors().size());
 
-        command.setFriendEmail("dlee@greatschools.net,dlee");
+        command.setFriendEmail("dlee@greatschools.org,dlee");
         errors = new BindException(command, "");
         _controller.onBind(getRequest(), command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getAllErrors().size());
 
-        command.setFriendEmail("dlee@greatschools.net,dlee@david.com");
+        command.setFriendEmail("dlee@greatschools.org,dlee@david.com");
         errors = new BindException(command, "");
         _controller.onBind(getRequest(), command, errors);
         assertFalse(errors.hasErrors());
@@ -199,8 +199,8 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
 
     public void testDoSubmitAction() {
         MailToFriendCommand command = new MailToFriendCommand();
-        command.setUserEmail("dlee@greatschools.net");
-        command.setFriendEmail("dlee@greatschools.net");
+        command.setUserEmail("dlee@greatschools.org");
+        command.setFriendEmail("dlee@greatschools.org");
 
         command.setRefer("School Profile");
 
@@ -213,8 +213,8 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
 
     public void testDoSubmitActionAuthorizer() {
         MailToFriendCommand command = new MailToFriendCommand();
-        command.setUserEmail("dlee@greatschools.net");
-        command.setFriendEmail("dlee@greatschools.net");
+        command.setUserEmail("dlee@greatschools.org");
+        command.setFriendEmail("dlee@greatschools.org");
 
         command.setRefer("authorizer");
 
@@ -244,21 +244,21 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
 
     public void testFriendsStringtoFriendsArrayInCommand() {
         MailToFriendCommand command = new MailToFriendCommand();
-        command.setFriendEmail("dlee@greatschools.net");
+        command.setFriendEmail("dlee@greatschools.org");
 
         String [] emails = command.getFriendEmails();
 
         assertEquals(1, emails.length);
-        assertEquals("dlee@greatschools.net", emails[0]);
+        assertEquals("dlee@greatschools.org", emails[0]);
 
         //trim whitespace
-        command.setFriendEmail(" dlee@greatschools.net, david@greatschools.net ");
-        assertEquals("dlee@greatschools.net,david@greatschools.net", command.getFriendEmail());
+        command.setFriendEmail(" dlee@greatschools.org, david@greatschools.org ");
+        assertEquals("dlee@greatschools.org,david@greatschools.org", command.getFriendEmail());
 
         emails = command.getFriendEmails();
         assertEquals(2, emails.length);
-        assertEquals("dlee@greatschools.net", emails[0]);
-        assertEquals("david@greatschools.net", emails[1]);
+        assertEquals("dlee@greatschools.org", emails[0]);
+        assertEquals("david@greatschools.org", emails[1]);
     }
 
 }

@@ -55,7 +55,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _request.setAttribute("school", _school);
 
         _user = new User();
-        _user.setEmail("dlee@greatschools.net");
+        _user.setEmail("dlee@greatschools.org");
         _user.setId(1);
 
         _command = new ReviewCommand();
@@ -63,7 +63,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _errors = new BindException(_command, "");
 
         _sender = new MockJavaMailSender();
-        _sender.setHost("mail.greatschools.net");
+        _sender.setHost("mail.greatschools.org");
 
         _controller.setEmailHelperFactory((EmailHelperFactory) getApplicationContext().getBean(EmailHelperFactory.BEAN_ID));
         _controller.getEmailHelperFactory().setMailSender(_sender);
@@ -267,7 +267,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestSendRejectEmailReal() throws Exception {
-        _user.setEmail("eford@greatschools.net");
+        _user.setEmail("eford@greatschools.org");
         String comments = "this school rocks!";
 
         _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
@@ -276,7 +276,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestSendCommunityEmailReal() throws Exception {
-        _user.setEmail("thuss@greatschools.net");
+        _user.setEmail("thuss@greatschools.org");
         String comments = "this school rocks and I like it a lot!";
 
         EmailContentHelper emailContentHelper = new EmailContentHelper();
@@ -295,7 +295,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     public void testMssSignUp() throws Exception {
         _command.setWantMssNL(true);
 
-        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.org")).andReturn(_user);
 
         Subscription sub = new Subscription(_user, SubscriptionProduct.MYSTAT, _school.getDatabaseState());
         sub.setSchoolId(_school.getId());
@@ -320,7 +320,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     public void testMssSignUpWhenMssAlreadyMaxedOut() throws Exception {
         _command.setWantMssNL(true);
 
-        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(_user);
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.org")).andReturn(_user);
 
         //max out a user's subscriptions
         Set<Subscription> subscriptions = new HashSet<Subscription>();

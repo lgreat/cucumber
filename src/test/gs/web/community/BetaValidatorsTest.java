@@ -34,14 +34,14 @@ public class BetaValidatorsTest extends BaseTestCase {
 
 
         User user = new User();
-        user.setEmail("jimbo_jehosephat@greatschools.net");
+        user.setEmail("jimbo_jehosephat@greatschools.org");
         _userDao.saveUser(user);
         Subscription sub = new Subscription();
         sub.setProduct(SubscriptionProduct.BETA_GROUP);
         sub.setUser(user);
         _subscriptionDao.saveSubscription(sub);
 
-        command.setEmail("jimbo_jehosephat@greatschools.net");
+        command.setEmail("jimbo_jehosephat@greatschools.org");
         errors = new BindException(command, "Test Errors");
         _validator.validate(command, errors);
         */

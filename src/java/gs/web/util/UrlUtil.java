@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.83 2009/12/04 20:54:13 npatury Exp $
+ * $Id: UrlUtil.java,v 1.84 2009/12/04 22:27:03 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
  * These are distinct from the GSData ones, which are general utilities. These have to do
  * with the specific GSWeb environment, especially the session facade.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @see org.springframework.web.util.WebUtils
  */
 public final class UrlUtil {
@@ -81,7 +81,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("profile.dev")
                 && !hostName.startsWith("cpickslay.")
                 && !hostName.startsWith("editorial.")
-                && !(hostName.indexOf("vpn.greatschools.net") != -1)
+                && !(hostName.indexOf("vpn.greatschools.org") != -1)
                 && !hostName.equals("127.0.0.1")
                 && !hostName.startsWith("192.168.")
                 && !hostName.startsWith("172.21.1.142")
@@ -105,7 +105,7 @@ public final class UrlUtil {
      */
     public String buildPerlHostName(String hostName, String cobrand) {
         if (StringUtils.contains(hostName, "localhost")) {
-            String dev = "dev.greatschools.net";
+            String dev = "dev.greatschools.org";
             return (cobrand == null) ? dev : cobrand + "." + dev;
 
             // Else if it's the main website but with the cobrand parameter passed
@@ -114,13 +114,13 @@ public final class UrlUtil {
                 (hostName.startsWith("www") ||
                         hostName.startsWith("staging") ||
                         hostName.startsWith("dev"))) {
-            // dev.greatschools.net?cobrand=sfgate -> sfgate.dev.greatschools.net
+            // dev.greatschools.org?cobrand=sfgate -> sfgate.dev.greatschools.org
             String hn = cobrand + "." + hostName;
-            // azcentral.www.greatschools.net -> azcentral.greatschools.net
+            // azcentral.www.greatschools.org -> azcentral.greatschools.org
             return hn.replaceFirst(".www.", ".");
         } else if (hostName.startsWith("secure")) {
-            // Secure pages link back to www.greatschools.net if we didn't come from a cobrand
-            return "www.greatschools.net";
+            // Secure pages link back to www.greatschools.org if we didn't come from a cobrand
+            return "www.greatschools.org";
         } else {
             return hostName;
         }
@@ -156,7 +156,7 @@ public final class UrlUtil {
             URL sourceUrl = new URL(srcUri);
             if (isDeveloperWorkstation(sourceUrl.getHost())) {
                 if (destPath.contains("cgi-bin") || destPath.contains("modperl")) {
-                    return "http://dev.greatschools.net" + destPath;
+                    return "http://dev.greatschools.org" + destPath;
                 } else {
                     return destPath;
                 }
@@ -301,7 +301,7 @@ public final class UrlUtil {
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches("^172\\.21\\.1.*") ||
                 (hostName.matches(".+\\.office.*") && hostName.indexOf("cpickslay.office") == -1) ||
-                hostName.indexOf("vpn.greatschools.net") != -1 ||
+                hostName.indexOf("vpn.greatschools.org") != -1 ||
                 hostName.indexOf("macbook") > -1;
     }
 
@@ -368,11 +368,11 @@ public final class UrlUtil {
         // if it is non-empty
         if (!StringUtils.isEmpty(url)) {
             // if it points to a community server
-            if (StringUtils.contains(url, "community.greatschools.net") ||
-                    StringUtils.contains(url, "comgen1.greatschools.net") || 
-                    StringUtils.contains(url, "community.clone.greatschools.net") || 
-                    StringUtils.contains(url, "community.dev.greatschools.net") ||
-                    StringUtils.contains(url, "community.staging.greatschools.net")) {
+            if (StringUtils.contains(url, "community.greatschools.org") ||
+                    StringUtils.contains(url, "comgen1.greatschools.org") ||
+                    StringUtils.contains(url, "community.clone.greatschools.org") ||
+                    StringUtils.contains(url, "community.dev.greatschools.org") ||
+                    StringUtils.contains(url, "community.staging.greatschools.org")) {
                 // if it smells like a content creation link
                 if (StringUtils.contains(url, "/advice/write")
                         || StringUtils.contains(url, "/groups/create")

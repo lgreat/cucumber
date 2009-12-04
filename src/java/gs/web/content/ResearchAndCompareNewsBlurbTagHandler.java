@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.text.NumberFormat;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -156,10 +156,10 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print(openParagraph());
 
                 if (State.DC.equals(_state)) {
-                    out.print("<a href=\"http://data.greatschools.net/district_of_columbia/index.html\" class=\"noInterstitial\">" +
+                    out.print("<a href=\"http://data.greatschools.org/district_of_columbia/index.html\" class=\"noInterstitial\">" +
                             "Read more about data updates in Washington DC</a>");                    
                 } else {
-                    out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\" class=\"noInterstitial\">" +
+                    out.print("<a href=\"http://data.greatschools.org/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\" class=\"noInterstitial\">" +
                             "Read more about data updates in "+ _state.getLongName() +"</a>");
                 }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.15 2009/12/04 20:54:12 npatury Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.16 2009/12/04 22:27:15 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -37,7 +37,7 @@ import java.io.IOException;
 /**
  * Tests AnchorListModelFactory.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class AnchorListModelFactoryTest extends BaseTestCase {
 
@@ -50,8 +50,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         _anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
         _searcher = (Searcher) getApplicationContext().getBean(Searcher.BEAN_ID);
         final GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setRequestURI("http://www.greatschools.net/index.html");
-        request.setRemoteHost("www.greatschools.net");
+        request.setRequestURI("http://www.greatschools.org/index.html");
+        request.setRemoteHost("www.greatschools.org");
         _request = request;
     }
 

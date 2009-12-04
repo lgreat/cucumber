@@ -42,10 +42,10 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         _controller.addExtraInfoToModel(model, getRequest());
 
         // test defaults
-        assertEquals("Expect default value", "http://community.greatschools.net", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect default value", "http://community.greatschools.org", model.get(MODEL_QUESTION_LINK));
         assertEquals("Expect default value", DEFAULT_QUESTION_LINK_TEXT,
                 model.get(MODEL_QUESTION_LINK_TEXT));
-        assertEquals("Expect default value", "http://community.greatschools.net/members",
+        assertEquals("Expect default value", "http://community.greatschools.org/members",
                 model.get(MODEL_MEMBER_URL));
         assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
         assertEquals("Expect default value", "/res/img/community/avatar_40x40.gif",
@@ -58,12 +58,12 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         _controller.addExtraInfoToModel(model, getRequest());
 
         assertEquals("Expect relative url converted to absolute",
-                "http://community.greatschools.net/relative-url", model.get(MODEL_QUESTION_LINK));
-        assertEquals("Expect member url", "http://community.greatschools.net/members/username",
+                "http://community.greatschools.org/relative-url", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect member url", "http://community.greatschools.org/members/username",
                 model.get(MODEL_MEMBER_URL));
         assertEquals("Expect avatar alt equal to username", "username", model.get(MODEL_AVATAR_ALT));
         assertEquals("Expect avatar image to point to user with id 15",
-                "http://community.greatschools.net/avatar?id=15&width=40&height=40",
+                "http://community.greatschools.org/avatar?id=15&width=40&height=40",
                 model.get(MODEL_AVATAR_URL));
 
         model.put(MODEL_QUESTION_LINK, "http://absolute.url.com");
@@ -76,7 +76,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     public void testHandleRequestInternal() throws Exception {
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
@@ -86,10 +86,10 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         Map model = mAndV.getModel();
 
-        assertEquals("Expect default value", "http://community.dev.greatschools.net", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect default value", "http://community.dev.greatschools.org", model.get(MODEL_QUESTION_LINK));
         assertEquals("Expect default value", DEFAULT_QUESTION_LINK_TEXT,
                 model.get(MODEL_QUESTION_LINK_TEXT));
-        assertEquals("Expect default value", "http://community.dev.greatschools.net/members",
+        assertEquals("Expect default value", "http://community.dev.greatschools.org/members",
                 model.get(MODEL_MEMBER_URL));
         assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
         assertEquals("Expect default value", "/res/img/community/avatar_40x40.gif",
@@ -174,25 +174,25 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
     public void testGetWorksheet() {
         CommunityQuestionPromoController controller = (CommunityQuestionPromoController) getApplicationContext().getBean(CommunityQuestionPromoController.BEAN_ID);
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         assertEquals("od6", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("sfgate.dev.greatschools.net");
+        getRequest().setServerName("sfgate.dev.greatschools.org");
         assertEquals("od6", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("aroy.dev.greatschools.net");
+        getRequest().setServerName("aroy.dev.greatschools.org");
         assertEquals("od6", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("www.greatschools.net");
+        getRequest().setServerName("www.greatschools.org");
         assertEquals("od4", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("sfgate.greatschools.net");
+        getRequest().setServerName("sfgate.greatschools.org");
         assertEquals("od4", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("staging.greatschools.net");
+        getRequest().setServerName("staging.greatschools.org");
         assertEquals("oda", controller.getWorksheet(getRequest()));
 
-        getRequest().setServerName("sfgate.staging.greatschools.net");
+        getRequest().setServerName("sfgate.staging.greatschools.org");
         assertEquals("oda", controller.getWorksheet(getRequest()));
 
         getRequest().setParameter("worksheet", "od5");
@@ -210,7 +210,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         CommunityQuestionPromoController controller = (CommunityQuestionPromoController) getApplicationContext().getBean(CommunityQuestionPromoController.BEAN_ID);
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) controller.getTableDao();
 
-        getRequest().setServerName("dev.greatschools.net");
+        getRequest().setServerName("dev.greatschools.org");
         controller.injectWorksheetName(getRequest());
         assertEquals("od6", dao.getSpreadsheetInfo().getWorksheetName());
     }

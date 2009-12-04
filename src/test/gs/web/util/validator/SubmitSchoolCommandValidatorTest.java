@@ -26,8 +26,8 @@ public class SubmitSchoolCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_NUM_STUDENTS_ENROLLED = "5";
     private static final String GOOD_PHONE_NUMBER = "1234567890";
     private static final String GOOD_FAX_NUMBER = "1234567890";
-    private static final String GOOD_SCHOOL_WEB_SITE = "www.greatschools.net";
-    private static final String GOOD_SCHOOL_WEB_SITE_FULL = "http://www.greatschools.net";
+    private static final String GOOD_SCHOOL_WEB_SITE = "www.greatschools.org";
+    private static final String GOOD_SCHOOL_WEB_SITE_FULL = "http://www.greatschools.org";
     private static final String GOOD_RELIGION = "Religion";
     private static final String GOOD_ASSOCIATION = "Association";
 

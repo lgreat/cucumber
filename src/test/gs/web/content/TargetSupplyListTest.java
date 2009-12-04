@@ -3,7 +3,7 @@ package gs.web.content;
 import gs.web.BaseTestCase;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class TargetSupplyListTest extends BaseTestCase {
 

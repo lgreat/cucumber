@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <searchtests>
   <baseurl>
-    http://dev.greatschools.net/search/search.page
+    http://dev.greatschools.org/search/search.page
   </baseurl>
   <test>
     <description>Schools by county</description>

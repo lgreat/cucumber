@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.List;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ClearTableDaoCacheControllerTest extends BaseControllerTestCase {
     private ClearTableDaoCacheController _controller;

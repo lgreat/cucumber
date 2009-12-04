@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.21 2009/12/04 20:54:16 npatury Exp $
+ * $Id: MssPaControllerTest.java,v 1.22 2009/12/04 22:27:19 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -26,7 +26,7 @@ import java.util.*;
 /**
  * The purpose is to test the MssPaController.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class MssPaControllerTest extends BaseControllerTestCase {
     private MssPaController _controller;
@@ -100,7 +100,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         school.setName("My School");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
         replay(_schoolDao);
-        final String email = "dlee@greatschools.net";
+        final String email = "dlee@greatschools.org";
 
         User user = new User();
         user.setEmail(email);
@@ -122,10 +122,10 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
     public void testMaxedOutUserOnBindAndValidate() {
         _command.setMystat(true);
-        _command.setEmail("dlee@greatschools.net");
+        _command.setEmail("dlee@greatschools.org");
 
         User user = new User();
-        user.setEmail("dlee@greatschools.net");
+        user.setEmail("dlee@greatschools.org");
         Set<Subscription> subscriptions = new HashSet<Subscription>();
 
         for (int i = 0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
@@ -137,7 +137,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
             subscriptions.add(sub);
         }
         user.setSubscriptions(subscriptions);
-        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(user);
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.org")).andReturn(user);
         replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -152,9 +152,9 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
     public void testNonMaxedOutUserOnBindAndValidate() {
         _command.setMystat(true);
-        _command.setEmail("dlee@greatschools.net");
+        _command.setEmail("dlee@greatschools.org");
 
-        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(new User());
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.org")).andReturn(new User());
         replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -164,7 +164,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
     }
 
     public void testGoodInputOnSubmit() {
-        final String email = "blahblahblah@greatschools.net";
+        final String email = "blahblahblah@greatschools.org";
         final int schoolId = 1;
 
         _command.setSchoolId(schoolId);
@@ -200,7 +200,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
     }
 
     public void testOnSubmitWithNullUser() {
-        final String email = "blahblahblah@greatschools.net";
+        final String email = "blahblahblah@greatschools.org";
         final int schoolId = 1;
 
         _command.setSchoolId(schoolId);

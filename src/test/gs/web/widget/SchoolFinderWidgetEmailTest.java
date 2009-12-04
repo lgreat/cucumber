@@ -22,10 +22,10 @@ import static org.easymock.EasyMock.*;
 /**
  * Provides testing for the RegistrationConfirmationEmail bean.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
-    private static final String FROM_EMAIL = "aroy@greatschools.net";
+    private static final String FROM_EMAIL = "aroy@greatschools.org";
     private static final String FROM_NAME = "Anthony";
     private static final String SUBJECT = "Testing";
     private SchoolFinderWidgetEmail _email;
@@ -38,7 +38,7 @@ public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
         _email.setFromName(FROM_NAME);
         _email.setSubject(SUBJECT);
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         EmailHelperFactory _factory = new EmailHelperFactory();
         _factory.setMailSender(_mailSender);
         _email.setEmailHelperFactory(_factory);
@@ -51,7 +51,7 @@ public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
         assertEquals(FROM_NAME, _email.getFromName());
         // setup
         User user = new User();
-        user.setEmail("aroy+1@greatschools.net");
+        user.setEmail("aroy+1@greatschools.org");
         _email.sendToUser(user, "<widgetCode>", getRequest());
         // verify
         List msgs = _mailSender.getSentMessages();
@@ -68,7 +68,7 @@ public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
         SchoolFinderWidgetEmail email = (SchoolFinderWidgetEmail)
                 getApplicationContext().getBean(SchoolFinderWidgetEmail.BEAN_ID);
         User user = new User();
-        user.setEmail("aroy@greatschools.net");
+        user.setEmail("aroy@greatschools.org");
 
         CustomizeSchoolSearchWidgetController controller = new CustomizeSchoolSearchWidgetController();
         CustomizeSchoolSearchWidgetCommand command = new CustomizeSchoolSearchWidgetCommand();

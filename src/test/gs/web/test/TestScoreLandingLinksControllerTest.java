@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author droy <droy@greatschools.net>
+ * @author droy <droy@greatschools.org>
  */
 public class TestScoreLandingLinksControllerTest  extends BaseControllerTestCase {
     private TestScoreLandingLinksController _controller;

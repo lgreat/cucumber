@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.54 2009/12/04 20:54:16 npatury Exp $
+ * $Id: SchoolsControllerTest.java,v 1.55 2009/12/04 22:27:12 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -32,7 +32,7 @@ import java.util.*;
 /**
  * Tests SchoolsController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SchoolsControllerTest extends BaseControllerTestCase {
 

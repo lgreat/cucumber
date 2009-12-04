@@ -17,7 +17,7 @@ import net.sf.ehcache.Cache;
 /**
  * This controller provides a web interface to expire cached Articles.
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class ArticleCacheController implements Controller {
     //private static final Logger _log = Logger.getLogger(ArticleCacheController.class);

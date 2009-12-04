@@ -55,7 +55,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
     public void testNoUserProfile() throws Exception {
         User user = new User();
-        user.setEmail("testNoUserProfile@greatschools.net");
+        user.setEmail("testNoUserProfile@greatschools.org");
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setUser(user);
         replayAllMocks();
@@ -65,7 +65,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
     public void testNoAboutMe() throws Exception {
         User user = new User();
-        user.setEmail("testNoUserProfile@greatschools.net");
+        user.setEmail("testNoUserProfile@greatschools.org");
         UserProfile userProfile = new UserProfile();
         userProfile.setAboutMe("duh");
         user.setUserProfile(userProfile);
@@ -78,7 +78,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
     public void testNotAuthed() throws Exception {
         User user = new User();
-        user.setEmail("testNoUserProfile@greatschools.net");
+        user.setEmail("testNoUserProfile@greatschools.org");
         UserProfile userProfile = new UserProfile();
         userProfile.setAboutMe("duh");
         user.setUserProfile(userProfile);
@@ -94,7 +94,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
     public void testHandlePost() throws Exception {
         User user = new User();
         user.setId(1);
-        user.setEmail("testNoUserProfile@greatschools.net");
+        user.setEmail("testNoUserProfile@greatschools.org");
         user.setPlaintextPassword("password");
         UserProfile userProfile = new UserProfile();
         userProfile.setAboutMe("duh");

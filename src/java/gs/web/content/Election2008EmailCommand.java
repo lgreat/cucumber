@@ -3,7 +3,7 @@ package gs.web.content;
 import gs.web.community.ICaptchaCommand;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Election2008EmailCommand implements ICaptchaCommand {
     final public static String SUFFIX_SIGN_UP_CONFIRM = "Sign Up Confirm";

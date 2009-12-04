@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: BaseSchoolTagHandler.java,v 1.3 2009/12/04 20:54:11 npatury Exp $
+ * $Id: BaseSchoolTagHandler.java,v 1.4 2009/12/04 22:27:06 chriskimm Exp $
  */
 package gs.web.jsp.link.school;
 
@@ -11,7 +11,7 @@ import gs.web.util.UrlBuilder;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public abstract class BaseSchoolTagHandler extends LinkTagHandler {
     private School _school;

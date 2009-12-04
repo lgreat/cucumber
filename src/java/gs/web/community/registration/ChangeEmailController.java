@@ -24,7 +24,7 @@ import java.util.Date;
  * Provides backing for the change email form, that allows a list_member to update their
  * email address.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangeEmailController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/changeEmail.page";

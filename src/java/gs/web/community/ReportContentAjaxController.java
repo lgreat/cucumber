@@ -55,8 +55,8 @@ public class ReportContentAjaxController extends SimpleFormController implements
     protected void sendEmail(String urlToContent, ReportContentCommand.ReportType contentType,
                              User reporter, String reason) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("aroy@greatschools.net");
-        message.setFrom("aroy@greatschools.net");
+        message.setTo("aroy@greatschools.org");
+        message.setFrom("aroy@greatschools.org");
         message.setSentDate(new Date());
         message.setSubject("Reported content alert");
         StringBuffer body = new StringBuffer();

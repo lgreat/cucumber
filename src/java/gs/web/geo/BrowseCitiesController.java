@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BrowseCitiesController.java,v 1.8 2009/12/04 22:15:15 npatury Exp $
+ * $Id: BrowseCitiesController.java,v 1.9 2009/12/04 22:27:17 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Provides redirection to perl page.
  *
- * @author greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BrowseCitiesController extends AbstractController {
     private SessionContextUtil _sessionContextUtil;

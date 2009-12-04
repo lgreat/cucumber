@@ -14,7 +14,7 @@ import java.util.List;
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
-    private static final String FROM_EMAIL = "aroy@greatschools.net";
+    private static final String FROM_EMAIL = "aroy@greatschools.org";
     private static final String FROM_NAME = "Anthony";
     private static final String SUBJECT = "Testing";
     private MySchoolListConfirmationEmail _email;
@@ -27,7 +27,7 @@ public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
         _email.setFromName(FROM_NAME);
         _email.setSubject(SUBJECT);
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         EmailHelperFactory _factory = new EmailHelperFactory();
         _factory.setMailSender(_mailSender);
         _email.setEmailHelperFactory(_factory);
@@ -40,7 +40,7 @@ public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
         assertEquals(FROM_NAME, _email.getFromName());
         // setup
         User user = new User();
-        user.setEmail("aroy+1@greatschools.net");
+        user.setEmail("aroy+1@greatschools.org");
         // call
         _email.sendToUser(user, getRequest());
         // verify
@@ -56,7 +56,7 @@ public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
 
     public void testSendToUndeliverableUser() throws Exception {
         User user = new User();
-        user.setEmail("foobar@greatschools.net");
+        user.setEmail("foobar@greatschools.org");
         user.setUndeliverable(true);
         // call
         _email.sendToUser(user, getRequest());
@@ -72,7 +72,7 @@ public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
         MySchoolListConfirmationEmail email = (MySchoolListConfirmationEmail)
                 getApplicationContext().getBean(MySchoolListConfirmationEmail.BEAN_ID);
         User user = new User();
-        user.setEmail("aroy@greatschools.net");
+        user.setEmail("aroy@greatschools.org");
 
         email.sendToUser(user, getRequest());
     }

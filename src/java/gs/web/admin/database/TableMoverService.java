@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class TableMoverService {
     public static final String LINE_BREAK = "<br />\n";
-    public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
+    public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.org/bin/view/Greatschools/TableToMove";
     public static final String TABLES_TO_MOVE_LINK = "<a href=\"" + TABLES_TO_MOVE_URL + "\" target=\"_blank\">" + TABLES_TO_MOVE_URL + "</a>";
     public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied." + LINE_BREAK +
         "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;

@@ -413,7 +413,7 @@ public class TableMoverServiceSaTest extends BaseTestCase {
         for (Iterator<String> iterator = tables.iterator(); iterator.hasNext(); count++) {
             String databaseAndTable = iterator.next();
             String[] databaseTable = databaseAndTable.split("\\.");
-            tableBuffer.append("<tr><td> DR/<a href=\"http://jira.greatschools.net:8080/browse/GS-3033\" TARGET=\"_blank\">GS-3033</a> </td><td> ");
+            tableBuffer.append("<tr><td> DR/<a href=\"http://jira.greatschools.org:8080/browse/GS-3033\" TARGET=\"_blank\">GS-3033</a> </td><td> ");
             tableBuffer.append(databaseTable[0]);
             tableBuffer.append("  </td><td> <span style='background : #FFFFCE;'><font color=\"#0000FF\">");
             tableBuffer.append(databaseTable[1]);
@@ -433,7 +433,7 @@ public class TableMoverServiceSaTest extends BaseTestCase {
                 " <title> Wiki . Greatschools . TableToMove   </title>\n" +
                 " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n" +
                 "  \n" +
-                " <base href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" />\n" +
+                " <base href=\"http://wiki.greatschools.org/bin/view/Greatschools/TableToMove\" />\n" +
                 "</head>\n" +
                 "\n" +
                 "<body bgcolor=\"white\" text=\"black\" link=\"blue\" alink=\"aqua\" vlink=\"purple\">\n" +

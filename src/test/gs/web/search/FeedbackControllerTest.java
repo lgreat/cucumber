@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.mail.Message;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class FeedbackControllerTest extends BaseControllerTestCase {
 

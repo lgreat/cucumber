@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginCommand.java,v 1.4 2009/12/04 20:54:14 npatury Exp $
+ * $Id: LoginCommand.java,v 1.5 2009/12/04 22:27:15 chriskimm Exp $
  */
 package gs.web.community.registration;
 
@@ -9,7 +9,7 @@ import gs.web.util.validator.EmailValidator;
 /**
  * Backing object for #LoginController
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class LoginCommand implements EmailValidator.IEmail {
     private String _email;

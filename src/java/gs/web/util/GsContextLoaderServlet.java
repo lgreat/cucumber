@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 NDP Software. All Rights Reserved.
- * $Id: GsContextLoaderServlet.java,v 1.2 2005/10/12 16:50:39 apeterson Exp $
+ * $Id: GsContextLoaderServlet.java,v 1.3 2009/12/04 22:27:03 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -20,7 +20,7 @@ import javax.servlet.ServletContext;
  * Without this class, web.xml must list all necessary config files of GSData. This
  * is a maintenance problems, as new files aren't added automatically to both projects.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class GsContextLoaderServlet extends ContextLoaderServlet {
     protected ContextLoader createContextLoader() {

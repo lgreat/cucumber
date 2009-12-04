@@ -31,7 +31,7 @@ import java.util.*;
 
 /**
  * This controller handles requests for the School Profile Overview page:
- * http://www.greatschools.net/school/overview.page?state=tx&id=10683
+ * http://www.greatschools.org/school/overview.page?state=tx&id=10683
  */
 public class SchoolOverviewController extends AbstractSchoolController implements IDirectoryStructureUrlController {
 

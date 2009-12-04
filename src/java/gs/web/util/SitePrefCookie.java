@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SitePrefCookie extends SubCookie {
     public SitePrefCookie(HttpServletRequest request, HttpServletResponse response){

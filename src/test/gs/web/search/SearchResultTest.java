@@ -8,7 +8,7 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.search.Explanation;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SearchResultTest extends TestCase {
 

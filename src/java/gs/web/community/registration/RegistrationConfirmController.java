@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Final stage in the confirmation process when using email validation.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationConfirmController extends AbstractController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registrationConfirm.page";

@@ -23,7 +23,7 @@ import java.util.Map;
  * query parameters are required: <ul> <li>state  : the school's database state</li> <li>school : the charter school's
  * id</li> </ul>
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class AuthorizersController extends AbstractController {
 

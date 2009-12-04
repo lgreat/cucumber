@@ -14,7 +14,7 @@ import java.io.Writer;
 import java.io.IOException;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SiteCheckAjaxController extends AbstractController {
 

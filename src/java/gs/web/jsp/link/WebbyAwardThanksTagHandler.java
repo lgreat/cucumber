@@ -4,7 +4,7 @@ import gs.web.util.UrlBuilder;
 
 /**
  * Webby award thank you page
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class WebbyAwardThanksTagHandler extends LinkTagHandler {
 

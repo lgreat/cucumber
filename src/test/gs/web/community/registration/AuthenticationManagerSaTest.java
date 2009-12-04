@@ -7,14 +7,14 @@ import gs.data.util.DigestUtil;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AuthenticationManagerSaTest extends TestCase {
 
     private User _user;
 
     public void setUp() throws NoSuchAlgorithmException {
-        _user = getUser(155803, "AuthenticationManagerSaTest@greatschools.net");
+        _user = getUser(155803, "AuthenticationManagerSaTest@greatschools.org");
     }
 
     private User getUser(Integer id, String email) {

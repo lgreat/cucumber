@@ -31,7 +31,7 @@ import gs.data.util.table.ITableRow;
  * handle all of the error handling so this page does not use a command object or
  * Spring error handling (binding) system.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ResearchController extends AbstractController implements IDirectoryStructureUrlController {
 

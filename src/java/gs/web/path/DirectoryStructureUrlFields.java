@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author <a href="mailto:yfan@greatschools.net">Young Fan</a>
+ * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlFields {
     private State _state = null;

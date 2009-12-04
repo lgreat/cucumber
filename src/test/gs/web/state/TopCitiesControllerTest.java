@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.13 2009/12/04 20:54:18 npatury Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.14 2009/12/04 22:27:14 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Tests TopCitiesController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class TopCitiesControllerTest extends BaseControllerTestCase {
     public void testTopCitiesController() throws Exception {

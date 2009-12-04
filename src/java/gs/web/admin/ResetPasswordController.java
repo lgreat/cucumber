@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This controller provides a simple web interface to set a user's password to "password".
  *
- * usage: http://www.greatschools.net/admin/resetPassword.page?email=tester@greatschools.net 
+ * usage: http://www.greatschools.org/admin/resetPassword.page?email=tester@greatschools.org
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */

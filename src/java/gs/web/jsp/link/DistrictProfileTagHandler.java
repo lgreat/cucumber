@@ -4,7 +4,7 @@ import gs.web.util.UrlBuilder;
 import gs.data.state.State;
 
 /**
- * @author Anthony Roy (aroy@greatschools.net)
+ * @author Anthony Roy (aroy@greatschools.org)
  */
 public class DistrictProfileTagHandler extends LinkTagHandler {
     private Integer _districtId;

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Provides test class for stage 1 registration's AJAX controller.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
     private RegistrationAjaxController _controller;

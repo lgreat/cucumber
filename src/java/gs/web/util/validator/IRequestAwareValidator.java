@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: IRequestAwareValidator.java,v 1.2 2009/12/04 20:54:17 npatury Exp $
+ * $Id: IRequestAwareValidator.java,v 1.3 2009/12/04 22:27:16 chriskimm Exp $
  */
 package gs.web.util.validator;
 
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * @see org.springframework.web.servlet.mvc.AbstractFormController#onBindAndValidate(javax.servlet.http.HttpServletRequest, Object, org.springframework.validation.BindException)
  * @see org.springframework.validation.Validator
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public interface IRequestAwareValidator {
     

@@ -3,7 +3,7 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangeEmailTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {

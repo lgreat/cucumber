@@ -557,7 +557,7 @@
                             permission to post my comments for other parents to read.</p>
 
                         <p>Note: Your email address is
-                            required if you would like a response from GreatSchools.net.</p>
+                            required if you would like a response from GreatSchools.org.</p>
                     </div>
 
                     <div><input type="image" src="/res/img/button/btn_post.gif" /></div>
@@ -568,7 +568,7 @@
         <div id="cmsArticleComments">
             <c:if test="${not empty comments and fn:length(comments) gt 0}">
                 <!--<hr width="100%" class="commentDivider"/>-->
-                <h4>Comments from GreatSchools.net readers</h4>
+                <h4>Comments from GreatSchools.org readers</h4>
                 <div id="comments">
                     <c:forEach var="comment" items="${comments}">
                         <div class="comment">

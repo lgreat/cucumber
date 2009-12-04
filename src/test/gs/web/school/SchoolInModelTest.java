@@ -6,7 +6,7 @@ import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class SchoolInModelTest extends BaseControllerTestCase {
     private SchoolInModelController _controller;

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: MaximumMssValidator.java,v 1.6 2009/12/04 20:54:17 npatury Exp $
+ * $Id: MaximumMssValidator.java,v 1.7 2009/12/04 22:27:16 chriskimm Exp $
  */
 package gs.web.util.validator;
 
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  *  Validation passes if can sign up for more MSS
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class MaximumMssValidator implements IRequestAwareValidator {
     public static final String ERROR_CODE = "max_mss_reached";

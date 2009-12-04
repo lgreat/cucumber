@@ -21,7 +21,7 @@ import gs.web.util.context.SessionContextUtil;
 /**
  * Provides handling for the community landing page.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CommunityLandingController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

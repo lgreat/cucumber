@@ -22,10 +22,10 @@ import static org.easymock.EasyMock.*;
 /**
  * Provides testing for the RegistrationConfirmationEmail bean.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
-    private static final String FROM_EMAIL = "aroy@greatschools.net";
+    private static final String FROM_EMAIL = "aroy@greatschools.org";
     private static final String FROM_NAME = "Anthony";
     private static final String SUBJECT = "Testing";
     private RegistrationConfirmationEmail _email;
@@ -39,7 +39,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         _email.setFromName(FROM_NAME);
         _email.setSubject(SUBJECT);
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         EmailHelperFactory _factory = new EmailHelperFactory();
         _factory.setMailSender(_mailSender);
         _email.setEmailHelperFactory(_factory);
@@ -54,7 +54,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         assertEquals(FROM_NAME, _email.getFromName());
         // setup
         User user = new User();
-        user.setEmail("aroy+1@greatschools.net");
+        user.setEmail("aroy+1@greatschools.org");
         user.setUserProfile(new UserProfile());
         user.getUserProfile().setScreenName("Anthony");
         user.getUserProfile().setState(State.CA);
@@ -86,7 +86,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         user.getUserProfile().setScreenName("Test GS-7601");
         user.getUserProfile().setState(State.CA);
         user.getUserProfile().setCity("Alameda");
-        user.setEmail("aroy@greatschools.net");
+        user.setEmail("aroy@greatschools.org");
 
         email.sendToUser(user, "password", getRequest());
     }

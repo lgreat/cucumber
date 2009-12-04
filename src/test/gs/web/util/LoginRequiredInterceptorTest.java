@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * Provides ...
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class LoginRequiredInterceptorTest extends BaseControllerTestCase {
     private LoginRequiredInterceptor _interceptor;
@@ -35,7 +35,7 @@ public class LoginRequiredInterceptorTest extends BaseControllerTestCase {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setUser(user);
         String hash = AuthenticationManager.generateCookieValue(user);
-        sc.setHostName("dev.greatschools.net");
+        sc.setHostName("dev.greatschools.org");
         getRequest().setCookies(new Cookie[] {new Cookie("community_dev", hash)});
 
         assertNotNull(SessionContextUtil.getSessionContext(getRequest()).getUser());
@@ -62,7 +62,7 @@ public class LoginRequiredInterceptorTest extends BaseControllerTestCase {
         User user2 = new User();
         user2.setId(2);
         String hash = AuthenticationManager.generateCookieValue(user2);
-        sc.setHostName("dev.greatschools.net");
+        sc.setHostName("dev.greatschools.org");
         getRequest().setCookies(new Cookie[] {new Cookie("community_dev", hash)});
 
         assertNull(getResponse().getRedirectedUrl());

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.6 2009/12/04 20:54:13 npatury Exp $
+ * $Id: RatingsControllerTest.java,v 1.7 2009/12/04 22:27:16 chriskimm Exp $
  */
 package gs.web.test.rating;
 
@@ -27,7 +27,7 @@ import java.util.HashMap;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class RatingsControllerTest extends BaseControllerTestCase {
     RatingsController _controller;

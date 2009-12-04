@@ -11,7 +11,7 @@ import java.io.IOException;
  * This tag replaces the $LONGSTATE text from a string and replaces it with
  * the current state or appriate text.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class LongstateTagHandler extends BaseTagHandler {
 

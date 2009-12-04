@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: TopDistrictsControllerTest.java,v 1.7 2009/12/04 20:54:18 npatury Exp $
+ * $Id: TopDistrictsControllerTest.java,v 1.8 2009/12/04 22:27:14 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Tests TopDistrictsController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class TopDistrictsControllerTest extends BaseControllerTestCase {
     private IDistrictDao _districtDao;

@@ -1,7 +1,7 @@
 package gs.web.tracking;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public abstract class  OmnitureTracking {
 

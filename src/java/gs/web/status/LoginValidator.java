@@ -1,7 +1,7 @@
 package gs.web.status;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 
 import org.apache.commons.logging.Log;

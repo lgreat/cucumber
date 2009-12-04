@@ -25,7 +25,7 @@ public class BetaControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = (BetaController)getApplicationContext().getBean(BetaController.BEAN_ID);
         _sender = new MockJavaMailSender();
-        _sender.setHost("mail.greatschools.net");
+        _sender.setHost("mail.greatschools.org");
         _controller.getEmailHelperFactory().setMailSender(_sender);
         _userDao = (IUserDao)getApplicationContext().getBean(IUserDao.BEAN_ID);
         _subscriptionDao = (ISubscriptionDao)getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);

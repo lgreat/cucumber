@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Tests for the SessionContext object
  *
- * @author Todd Huss <mailto:thuss@greatschools.net>
+ * @author Todd Huss <mailto:thuss@greatschools.org>
  * @noinspection FeatureEnvy,HardcodedFileSeparator,MagicNumber
  */
 public class SessionContextTest extends BaseTestCase {
@@ -64,11 +64,11 @@ public class SessionContextTest extends BaseTestCase {
     public void testIsUserSeemsValid() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(123);
-        user.setEmail("anEmail@greatschools.net");
+        user.setEmail("anEmail@greatschools.org");
         _sessionContext.setMemberId(123);
         _sessionContext.setUser(user);
-        assertEquals("anEmail@greatschools.net", _sessionContext.getEmail());
-        assertEquals("anEmail%40greatschools.net", _sessionContext.getEmailUrlEncoded());
+        assertEquals("anEmail@greatschools.org", _sessionContext.getEmail());
+        assertEquals("anEmail%40greatschools.org", _sessionContext.getEmailUrlEncoded());
 
         Object[] inputs = {User.SECRET_NUMBER, "foobar", user.getId()};
         _sessionContext.setUserHash(DigestUtil.hashObjectArray(inputs) + "123");
@@ -98,14 +98,14 @@ public class SessionContextTest extends BaseTestCase {
 
 
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("dev.greatschools.net", _sessionContext.getHostName());
+        assertEquals("dev.greatschools.org", _sessionContext.getHostName());
         assertFalse(_sessionContext.isCobranded());
         assertFalse(_sessionContext.isYahooCobrand());
 
         // Add the cobrand parameter
         _request.setParameter("cobrand", "number1expert");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("number1expert.dev.greatschools.net", _sessionContext.getHostName());
+        assertEquals("number1expert.dev.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
 
         _request.setParameter("cobrand", "yahoo");
@@ -130,9 +130,9 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testHostCobrandUrlOnLiveSite() {
-        _request.setServerName("sfgate.greatschools.net");
+        _request.setServerName("sfgate.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("sfgate.greatschools.net", _sessionContext.getHostName());
+        assertEquals("sfgate.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertEquals("sfgate", _sessionContext.getCobrand());
         assertNull(_sessionContext.getState());
@@ -154,17 +154,17 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testHostMainUrlOnLiveSiteWithCobrandParameter() {
         // Try developer workstation scenario
-        _request.setServerName("www.greatschools.net");
+        _request.setServerName("www.greatschools.org");
         _request.setParameter("cobrand", "framed");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("framed.greatschools.net", _sessionContext.getHostName());
+        assertEquals("framed.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertEquals("framed", _sessionContext.getCobrand());
     }
 
     public void testPassWWWParamToUnsetCobrand() {
         // Try developer workstation scenario
-        _request.setServerName("desktop-60.greatschools.net");
+        _request.setServerName("desktop-60.greatschools.org");
         _request.setParameter("cobrand", "www");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
         assertFalse(_sessionContext.isCobranded());
@@ -172,31 +172,31 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testHostCobrandUrlOnDevSite() {
         // Try developer workstation scenario
-        _request.setServerName("azcentral.dev.greatschools.net");
+        _request.setServerName("azcentral.dev.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("azcentral.dev.greatschools.net", _sessionContext.getHostName());
+        assertEquals("azcentral.dev.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertEquals("azcentral", _sessionContext.getCobrand());
     }
 
     public void testIsYahooCobrand() {
-        _request.setServerName("yahoo.greatschools.net");
+        _request.setServerName("yahoo.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("yahoo.greatschools.net", _sessionContext.getHostName());
+        assertEquals("yahoo.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertTrue(_sessionContext.isYahooCobrand());
 
-        _request.setServerName("yahooed.greatschools.net");
+        _request.setServerName("yahooed.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("yahooed.greatschools.net", _sessionContext.getHostName());
+        assertEquals("yahooed.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertTrue(_sessionContext.isYahooCobrand());
     }
 
     public void testIsFamilyCobrand() {
-        _request.setServerName("family.greatschools.net");
+        _request.setServerName("family.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("family.greatschools.net", _sessionContext.getHostName());
+        assertEquals("family.greatschools.org", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertTrue(_sessionContext.isFamilyCobrand());
     }
@@ -210,7 +210,7 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testEditorialDevShouldNotBeCobranded() {
-        _request.setServerName("editorial.dev.greatschools.net");
+        _request.setServerName("editorial.dev.greatschools.org");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
         assertTrue("editorial.dev should not be a cobrand", !_sessionContext.isCobranded());
     }
@@ -513,6 +513,6 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testIsFramed() {
         _sessionContext.setCobrand("test");
-        assertTrue("test.greatschools.net should be a framed cobrand", _sessionContext.isFramed());
+        assertTrue("test.greatschools.org should be a framed cobrand", _sessionContext.isFramed());
     }
 }

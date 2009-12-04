@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.14 2009/12/04 20:54:13 npatury Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.15 2009/12/04 22:27:16 chriskimm Exp $
  */
 
 package gs.web.test.rating;
@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * Tests SchoolRatingsDisplay.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class SchoolRatingsDisplayTest extends TestCase {
     protected final Log _log = LogFactory.getLog(SchoolRatingsDisplayTest.class);

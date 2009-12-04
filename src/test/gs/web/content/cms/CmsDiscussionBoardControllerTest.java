@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     CmsDiscussionBoardController _controller;

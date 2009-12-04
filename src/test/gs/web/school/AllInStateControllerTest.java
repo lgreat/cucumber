@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class AllInStateControllerTest extends BaseControllerTestCase {
 

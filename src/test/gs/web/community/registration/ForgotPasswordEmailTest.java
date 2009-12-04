@@ -17,10 +17,10 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Provides ...
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordEmailTest extends BaseControllerTestCase {
-    private static final String FROM_EMAIL = "aroy@greatschools.net";
+    private static final String FROM_EMAIL = "aroy@greatschools.org";
     private static final String FROM_NAME = "Anthony";
     private static final String SUBJECT = "Testing";
     private ForgotPasswordEmail _email;
@@ -33,7 +33,7 @@ public class ForgotPasswordEmailTest extends BaseControllerTestCase {
         _email.setFromName(FROM_NAME);
         _email.setSubject(SUBJECT);
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
         EmailHelperFactory _factory = new EmailHelperFactory();
         _factory.setMailSender(_mailSender);
         _email.setEmailHelperFactory(_factory);
@@ -46,7 +46,7 @@ public class ForgotPasswordEmailTest extends BaseControllerTestCase {
         assertEquals(FROM_NAME, _email.getFromName());
         // setup
         User user = new User();
-        user.setEmail("aroy+1@greatschools.net");
+        user.setEmail("aroy+1@greatschools.org");
         user.setId(new Integer(12345));
         // call
         _email.sendToUser(user, getRequest());

@@ -6,7 +6,7 @@ import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SchoolCommand implements SchoolIdValidator.ISchoolId, StateValidator.IState {
     

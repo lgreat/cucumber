@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author npatury@greatschools.net
+ * @author npatury@greatschools.org
  */
 public class CustomizeSchoolSearchWidgetControllerTest extends BaseControllerTestCase{
     private CustomizeSchoolSearchWidgetController _controller;

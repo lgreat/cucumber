@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Provides backing for the forgot your password form.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ForgotPasswordController extends SimpleFormController {
     public static final String BEAN_ID = "/community/forgotPassword.page";

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.mvc.Controller;
 
 /**
- * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:thuss@greatschools.org">Todd Huss</a>
  */
 public class ReadWriteInterceptorTest extends BaseControllerTestCase {
 

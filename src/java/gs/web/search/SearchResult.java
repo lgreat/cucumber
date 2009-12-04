@@ -11,7 +11,7 @@ import org.apache.lucene.search.Explanation;
 /**
  * This is a data structure to hold search result values based on lucene
  * <code>Document</code> objects.
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SearchResult {
     private static final Log _log = LogFactory.getLog(SearchResult.class);

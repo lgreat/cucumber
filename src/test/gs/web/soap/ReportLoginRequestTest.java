@@ -11,7 +11,7 @@ import javax.xml.rpc.ParameterMode;
 import java.rmi.RemoteException;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportLoginRequestTest extends BaseTestCase {
     private ReportLoginRequest _request;
@@ -147,7 +147,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
 
 //    public void testRealRequest() throws RemoteException {
 //        _request = new ReportLoginRequest();
-//        _request.setTarget("http://community.dev.greatschools.net/soap/user");
+//        _request.setTarget("http://community.dev.greatschools.org/soap/user");
 //        User user = new User();
 //        // comdev aroy=2068065
 //        user.setId(2068065);

@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.*;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class TargetSupplyList {
     private static final int LIST_E = 1;

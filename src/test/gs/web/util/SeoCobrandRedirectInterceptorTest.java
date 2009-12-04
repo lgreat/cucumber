@@ -45,7 +45,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
         assertEquals("Expected no-cache to keep ZXTM from caching 301 response", "no-cache", getResponse().getHeader("Cache-Control"));
-        assertEquals("http://www.greatschools.net/content/allArticles.page?foo=1&bar=2", getResponse().getHeader("Location"));
+        assertEquals("http://www.greatschools.org/content/allArticles.page?foo=1&bar=2", getResponse().getHeader("Location"));
     }
 
     /**
@@ -93,10 +93,10 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
     /**
      * Since we use Apache to rewrite the SPP overview URL we check to make sure the redirect Java is issuing is correct
      * <p/>
-     * For example http://sfgate.greatschools.net/modperl/browse_school/ca/13933 gets rewritten by Apache to
-     * http://sfgate.greatschools.net/school/overview.page?state=ca&id=13933
+     * For example http://sfgate.greatschools.org/modperl/browse_school/ca/13933 gets rewritten by Apache to
+     * http://sfgate.greatschools.org/school/overview.page?state=ca&id=13933
      * but the redirect should go to:
-     * http://www.greatschools.net/modperl/browse_school/ca/13933
+     * http://www.greatschools.org/modperl/browse_school/ca/13933
      *
      * @throws Exception
      */
@@ -109,7 +109,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
         assertEquals("Expected no-cache to keep ZXTM from caching 301 response", "no-cache", getResponse().getHeader("Cache-Control"));
-        assertEquals("http://www.greatschools.net/modperl/browse_school/ca/13933", getResponse().getHeader("Location"));
+        assertEquals("http://www.greatschools.org/modperl/browse_school/ca/13933", getResponse().getHeader("Location"));
     }
 
     /**
@@ -125,7 +125,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
         assertEquals("Expected no-cache to keep ZXTM from caching 301 response", "no-cache", getResponse().getHeader("Cache-Control"));
-        assertEquals("http://www.greatschools.net/california/", getResponse().getHeader("Location"));
+        assertEquals("http://www.greatschools.org/california/", getResponse().getHeader("Location"));
     }
 
     /**
@@ -140,7 +140,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
         assertEquals("Expected no-cache to keep ZXTM from caching 301 response", "no-cache", getResponse().getHeader("Cache-Control"));
-        assertEquals("http://www.greatschools.net/", getResponse().getHeader("Location"));
+        assertEquals("http://www.greatschools.org/", getResponse().getHeader("Location"));
     }
 
 }

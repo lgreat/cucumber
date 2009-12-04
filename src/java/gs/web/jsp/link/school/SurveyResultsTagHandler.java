@@ -3,7 +3,7 @@ package gs.web.jsp.link.school;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class SurveyResultsTagHandler extends BaseSchoolTagHandler {
 

@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.StringTokenizer;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SchoolSearchTagHandler extends LinkTagHandler {
     private String _schoolType;

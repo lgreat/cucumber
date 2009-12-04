@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @see <a href="http://wiki.greatschools.net/bin/view/Greatschools/DatabaseConnectionManagement">Wiki Documentation</a>
+ * @see <a href="http://wiki.greatschools.org/bin/view/Greatschools/DatabaseConnectionManagement">Wiki Documentation</a>
  *
  * Cleans up database connections and hibernate sessions after the view has rendered
  * Logs an error exception if there's a problem

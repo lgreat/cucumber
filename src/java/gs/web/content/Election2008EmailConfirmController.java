@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class Election2008EmailConfirmController extends SimpleFormController {
     public static final String BEAN_ID = "/content/actionForEducationEmail.page";

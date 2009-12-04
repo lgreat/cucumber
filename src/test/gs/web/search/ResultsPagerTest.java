@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ResultsPagerTest extends TestCase {
     private static Hits _hits;

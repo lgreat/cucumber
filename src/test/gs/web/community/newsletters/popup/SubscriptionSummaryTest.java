@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.27 2009/12/04 20:54:16 npatury Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.28 2009/12/04 22:27:19 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -23,7 +23,7 @@ import java.util.*;
 /**
  * Tests SubscriptionSummaryController.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class SubscriptionSummaryTest extends BaseControllerTestCase {
     private SubscriptionSummaryController _controller;
@@ -32,7 +32,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
     private Validator _emailValidator;
     private Validator _stateValidator;
     private Validator _schoolIdValidator;
-    private static final String EMAIL = "someemail@greatschools.net";
+    private static final String EMAIL = "someemail@greatschools.org";
 
     protected void setUp() throws Exception {
         super.setUp();

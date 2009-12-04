@@ -10,7 +10,7 @@
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
-        <title>GreatSchools.net Beta Signup</title>
+        <title>GreatSchools.org Beta Signup</title>
         <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
 

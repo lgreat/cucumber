@@ -4,7 +4,7 @@ import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author greatschools.org>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class AllSchoolsInStateTagHandler extends LinkTagHandler {
     private State _state;

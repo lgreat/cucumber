@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:droy@greatschools.org>
  */
 public class LDRegistrationHoverController extends RegistrationController implements ReadWriteController {
 

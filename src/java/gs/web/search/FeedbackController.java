@@ -27,7 +27,7 @@ import gs.web.util.context.SessionContextUtil;
  * currently no validation, including of email.  Once a user submits the form
  * she is redirected to the feedback thank you page: search/feedback_submit.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class FeedbackController extends SimpleFormController {
 
@@ -97,14 +97,14 @@ public class FeedbackController extends SimpleFormController {
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.smtp.host", "mx3.greatschools.net");
+        props.setProperty("mail.smtp.host", "mx3.greatschools.org");
         Session session = Session.getDefaultInstance(props, null);
 
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("search_feedback@greatschools.net"));
+        msg.setFrom(new InternetAddress("search_feedback@greatschools.org"));
         msg.setSubject("Search Feedback: " + query);
         msg.setSentDate(new Date());
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress("search_feedback@greatschools.net"));
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress("search_feedback@greatschools.org"));
         msg.setText(buffer.toString());
         return msg;
     }

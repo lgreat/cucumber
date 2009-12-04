@@ -30,7 +30,7 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
         if (sessionContext.isCobranded() && sessionContext.isCrawler() && "GET".equals(request.getMethod()) && !"/robots.txt".equals(uri)) {
             // We have to special case Yahoo because as part of our contract Yahoo can crawl their cobrand
             if (!("yahooed".equals(sessionContext.getCobrand()) && request.getHeader("User-Agent").indexOf("Slurp") > -1)) {
-                StringBuffer newUrl = new StringBuffer("http://www.greatschools.net");
+                StringBuffer newUrl = new StringBuffer("http://www.greatschools.org");
 
                 // Handle URL's rewritten behind the scenes by Apache
                 if ("/index.page".equals(uri)) {

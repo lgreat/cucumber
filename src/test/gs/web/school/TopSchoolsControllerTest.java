@@ -30,7 +30,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         GoogleSpreadsheetDao tableDao = createMock(GoogleSpreadsheetDao.class);
         ITableRow row = createMock(ITableRow.class);
         expect(row.getString("title")).andReturn("A Title");
-        expect(row.getString("link")).andReturn("http://www.greatschools.net");
+        expect(row.getString("link")).andReturn("http://www.greatschools.org");
         expect(row.getString("target")).andReturn("_blank");
         expect(row.getString("class")).andReturn("a-class");
         expect(row.getString("text")).andReturn("Some text");
@@ -56,7 +56,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         List<TopSchoolsController.ContentLink> content = (List<TopSchoolsController.ContentLink>) mv.getModel().get(TopSchoolsController.MODEL_WHAT_MAKES_A_SCHOOL_GREAT);
         assertEquals(1, content.size());
         assertEquals("A Title", content.get(0).getTitle());
-        assertEquals("http://www.greatschools.net", content.get(0).getLink());
+        assertEquals("http://www.greatschools.org", content.get(0).getLink());
         assertEquals("_blank", content.get(0).getTarget());
         assertEquals("a-class", content.get(0).getStyleClass());
         assertEquals("Some text", content.get(0).getText());

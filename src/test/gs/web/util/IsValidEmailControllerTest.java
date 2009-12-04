@@ -4,7 +4,7 @@ import gs.web.BaseControllerTestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class IsValidEmailControllerTest extends BaseControllerTestCase {
 
@@ -18,14 +18,14 @@ public class IsValidEmailControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequest() throws Exception {
         MockHttpServletResponse response = getResponse();
-        getRequest().setParameter("email", "fan s d@greatschools.net");
+        getRequest().setParameter("email", "fan s d@greatschools.org");
         _controller.handleRequest(getRequest(), response);
         assertEquals("content type should be \"text/plain\"", "text/plain",
                 response.getContentType());
         assertEquals("false", response.getContentAsString());
 
         response = new MockHttpServletResponse();
-        getRequest().setParameter("email", "valid@greatschools.net");
+        getRequest().setParameter("email", "valid@greatschools.org");
         _controller.handleRequest(getRequest(), response);
         assertEquals("true", response.getContentAsString());        
     }

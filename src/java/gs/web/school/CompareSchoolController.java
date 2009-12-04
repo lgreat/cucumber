@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  * Handles requests from a "compare school" form as found on the school overview page.
  * Simply packages the request parameters in a redirect url.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class CompareSchoolController extends AbstractController {
 

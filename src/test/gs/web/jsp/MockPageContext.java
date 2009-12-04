@@ -3,7 +3,7 @@ package gs.web.jsp;
 import javax.servlet.jsp.JspWriter;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class MockPageContext extends org.springframework.mock.web.MockPageContext {
 

@@ -6,7 +6,7 @@ import gs.web.BaseControllerTestCase;
 import static org.easymock.EasyMock.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class VariantConfigurationTest extends BaseControllerTestCase {
     private IPropertyDao _propertyDao;

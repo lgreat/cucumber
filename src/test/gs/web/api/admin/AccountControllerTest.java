@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class AccountControllerTest {
 
@@ -29,7 +29,7 @@ public class AccountControllerTest {
         _controller.setApiAccountDao(_apiAccountDao);
         EmailHelperFactory _factory = new EmailHelperFactory();
         _javaMailSender = new MockJavaMailSender();
-        _javaMailSender.setHost("greatschools.net");
+        _javaMailSender.setHost("greatschools.org");
         _factory.setMailSender(_javaMailSender);
         _controller.setEmailHelperFactory(_factory);
     }

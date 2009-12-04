@@ -4,7 +4,7 @@ import gs.web.BaseControllerTestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class GradeToLevelCodeControllerTest extends BaseControllerTestCase {
 

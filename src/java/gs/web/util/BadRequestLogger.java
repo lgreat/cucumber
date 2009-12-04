@@ -12,7 +12,7 @@ public class BadRequestLogger {
     public static boolean isGSReferrer(HttpServletRequest request) {
         String referrer = request.getHeader("Referer");
         if (referrer != null) {
-            return referrer.toLowerCase().contains("greatschools.net");
+            return referrer.toLowerCase().contains("greatschools.org");
         }
         return false;
     }
@@ -31,7 +31,7 @@ public class BadRequestLogger {
 
     /**
      * Log a message appended with request URL, referrer, and user-agent
-     * If there is a referrer which contains the string "greatschools.net", log an error; otherwise, log a warning.
+     * If there is a referrer which contains the string "greatschools.org", log an error; otherwise, log a warning.
      * @param log
      * @param request
      * @param message
@@ -42,7 +42,7 @@ public class BadRequestLogger {
 
     /**
      * Log a message appended with request URL, referrer, and user-agent and passing the Throwable to the Logger
-     * If there is a referrer which contains the string "greatschools.net", log an error; otherwise, log a warning.
+     * If there is a referrer which contains the string "greatschools.org", log an error; otherwise, log a warning.
      * @param log
      * @param request
      * @param message
@@ -54,7 +54,7 @@ public class BadRequestLogger {
 
     /**
      * Log a message using the specified logger, optionally logging the request URL, referrer, and user-agent.
-     * If there is a referrer which contains the string "greatschools.net", log an error; otherwise, log a warning.
+     * If there is a referrer which contains the string "greatschools.org", log an error; otherwise, log a warning.
      *
      * Example output:
      *

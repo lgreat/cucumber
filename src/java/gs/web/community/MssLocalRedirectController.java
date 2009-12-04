@@ -17,7 +17,7 @@ import gs.data.state.State;
 import java.util.Map;
 
 /**
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public class MssLocalRedirectController extends AbstractController {
 

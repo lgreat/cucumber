@@ -22,7 +22,7 @@ import java.util.*;
  * page-ready parcels that can be retrieved using the <code>getPage(..)</code>
  * method.
  *
- * @author Chris Kimm<mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm<mailto:chriskimm@greatschools.org>
  * @noinspection CanBeFinal
  */
 public class ResultsPager {

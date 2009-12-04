@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SelectAStateController.java,v 1.2 2009/12/04 20:54:15 npatury Exp $
+ * $Id: SelectAStateController.java,v 1.3 2009/12/04 22:27:18 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class SelectAStateController extends AbstractController {
 

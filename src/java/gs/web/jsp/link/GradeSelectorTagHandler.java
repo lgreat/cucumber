@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This tag handler produces a drop-down &lt;select&gt; element for a child's grade
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class GradeSelectorTagHandler extends SimpleTagSupport {
 

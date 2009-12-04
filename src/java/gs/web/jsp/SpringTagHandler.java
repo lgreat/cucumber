@@ -12,7 +12,7 @@ import javax.servlet.jsp.PageContext;
  * This abstract class provides access to the application context which is
  * extracted from the SessionContext.
  *
- * Created by chriskimm@greatschools.net
+ * Created by chriskimm@greatschools.org
  */
 public abstract class SpringTagHandler extends SimpleTagSupport {
 

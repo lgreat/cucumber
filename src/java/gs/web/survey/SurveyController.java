@@ -43,7 +43,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SurveyController extends SimpleFormController implements ReadWriteController {
 
@@ -470,8 +470,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 if (lastSend == null || !DateUtils.isSameDay(lastSend, now)) {
                     try {
                         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-                        emailHelper.setToEmail("parentsurveyfeedback@greatschools.net");
-                        emailHelper.setFromEmail("survey@greatschools.net");
+                        emailHelper.setToEmail("parentsurveyfeedback@greatschools.org");
+                        emailHelper.setFromEmail("survey@greatschools.org");
                         emailHelper.setFromName("GreatSchools Survey System");
                         emailHelper.setSubject("Survey submit alert for " + school.getName());
                         StringBuffer message = new StringBuffer();
@@ -499,7 +499,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected void sendEmail(User user, School school, HttpServletRequest request) throws MessagingException, IOException {
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setToEmail(user.getEmail());
-        emailHelper.setFromEmail("survey@greatschools.net");
+        emailHelper.setFromEmail("survey@greatschools.org");
         emailHelper.setFromName("GreatSchools");
         emailHelper.setSubject("Thanks for completing the survey about " + school.getName());
         emailHelper.setExtraStyles(".bold {font-weight:bold;} .italic {font-style:italic;} li {padding-bottom:1em;}");

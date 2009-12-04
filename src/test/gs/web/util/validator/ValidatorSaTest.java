@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: ValidatorSaTest.java,v 1.6 2009/12/04 20:54:17 npatury Exp $
+ * $Id: ValidatorSaTest.java,v 1.7 2009/12/04 22:27:01 chriskimm Exp $
  */
 package gs.web.util.validator;
 
@@ -17,14 +17,14 @@ import org.springframework.validation.Validator;
 /**
  * Test Validators.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class ValidatorSaTest extends TestCase {
     private static final Log _log = LogFactory.getLog(ValidatorSaTest.class);
 
     public void testEmailValidator() {
-        final String GOOD_EMAIL = "dlee@greatschools.net";
-        final String BAD_EMAIL = "dleegreatschools.net";
+        final String GOOD_EMAIL = "dlee@greatschools.org";
+        final String BAD_EMAIL = "dleegreatschools.org";
 
         Validator v = new EmailValidator();
         NewsletterCommand command = new NewsletterCommand();

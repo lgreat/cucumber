@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ResultsTableTagHandlerTest extends BaseTestCase {
 

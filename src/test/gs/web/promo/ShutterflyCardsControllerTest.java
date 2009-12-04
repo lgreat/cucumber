@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
     private ShutterflyCardsController _controller;
@@ -24,7 +24,7 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = (ShutterflyCardsController) getApplicationContext().getBean(ShutterflyCardsController.BEAN_ID);
         MockJavaMailSender _sender = new MockJavaMailSender();
-        _sender.setHost("mail.greatschools.net");
+        _sender.setHost("mail.greatschools.org");
         _controller.setMailSender(_sender);
 
     }
@@ -80,10 +80,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
                                                 String expectedImageSrc,
                                                 String expectedPageName) throws Exception {
         MockHttpServletRequest request = getRequest();
-        request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.net");
+        request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.org");
 
         User user = new User();
-        user.setEmail("user@greatschools.net");
+        user.setEmail("user@greatschools.org");
         user.setTimeAdded(joinDate);
 
         PromoCode promoCode = new PromoCode("ABCDEFGHIJKLMN", new Promo());
@@ -102,7 +102,7 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
     public void testUserWithRedeemedPromoCode() throws Exception {
         MockHttpServletRequest request = getRequest();
-        request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.net");
+        request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.org");
 
         Calendar calendar = Calendar.getInstance();
         calendar.clear(Calendar.MILLISECOND);
@@ -113,7 +113,7 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         Date joinDate = calendar.getTime();
 
         User user = new User();
-        user.setEmail("user@greatschools.net");
+        user.setEmail("user@greatschools.org");
         user.setTimeAdded(joinDate);
 
         PromoCode promoCode = new PromoCode("code", new Promo());

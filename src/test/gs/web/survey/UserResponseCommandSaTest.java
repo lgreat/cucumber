@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class UserResponseCommandSaTest extends TestCase {
     UserResponseCommand _command;
@@ -80,7 +80,7 @@ public class UserResponseCommandSaTest extends TestCase {
         school.setId(23);
 
         User user = new User();
-        user.setEmail("dlee@greatschools.net");
+        user.setEmail("dlee@greatschools.org");
 
         _command.setSchool(school);
         _command.setUser(null);

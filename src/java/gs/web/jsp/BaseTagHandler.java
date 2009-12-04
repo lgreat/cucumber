@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 /**
  * This abstract class provides access to varios DAOs.
  *
- * @author greatschools.org>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public abstract class BaseTagHandler extends SpringTagHandler {
 

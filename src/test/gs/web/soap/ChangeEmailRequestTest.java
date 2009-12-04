@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 /**
  * Provides testing for the ChangeEmailRequest class.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ChangeEmailRequestTest extends BaseTestCase {
     private ChangeEmailRequest _request;
@@ -25,7 +25,7 @@ public class ChangeEmailRequestTest extends BaseTestCase {
         _request = new ChangeEmailRequest();
         _user = new User();
         _user.setId(123);
-        _user.setEmail("aroy@greatschools.net");
+        _user.setEmail("aroy@greatschools.org");
         _call = createMock(Call.class);
         _call.addParameter((String) anyObject(), (QName) anyObject(), (ParameterMode) anyObject());
         expectLastCall().times(2);

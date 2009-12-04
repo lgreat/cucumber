@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.28 2009/12/04 20:54:15 npatury Exp $
+* $Id: TopCitiesController.java,v 1.29 2009/12/04 22:27:18 chriskimm Exp $
 */
 
 package gs.web.state;
@@ -28,7 +28,7 @@ import java.util.Map;
  * The number of cities returned is currently set by the State itself.
  * Uses the standard AnchorListModel.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @see AnchorListModel
  */
 public class TopCitiesController extends AbstractController {

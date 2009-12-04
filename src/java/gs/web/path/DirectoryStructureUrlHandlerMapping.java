@@ -12,7 +12,7 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.jsp.Util;
 
 /**
- * @author <a href="mailto:yfan@greatschools.net">Young Fan</a>
+ * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping {
 

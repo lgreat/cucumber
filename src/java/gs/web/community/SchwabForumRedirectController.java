@@ -19,9 +19,9 @@ public class SchwabForumRedirectController implements Controller {
         String threadId = request.getParameter("thread");
 
         String hostPrefix = SessionContextUtil.getServerName(request);
-        String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.net";
+        String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.org";
         String hostInfix = ("www".equals(hostPrefix)) ? "" : "." + hostPrefix;
-        String forumArchiveHostname = "http://schwablearningforumarchive" + hostInfix + ".greatschools.net";
+        String forumArchiveHostname = "http://schwablearningforumarchive" + hostInfix + ".greatschools.org";
 
         // default to /content/specialNeeds.page
         String redirectURL = wwwSiteHostname + "/content/specialNeeds.page?fromSchwab=1";

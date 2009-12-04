@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.114 2009/12/04 20:54:14 npatury Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.115 2009/12/04 22:27:03 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Tests UrlBuilder.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class UrlBuilderSaTest extends TestCase {
 
@@ -362,7 +362,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.TERMS_OF_USE, State.WY, null);
         assertEquals("/terms/?state=WY", builder.asSiteRelative(request));
 
-        final String email = "dlee@greatschools.net";
+        final String email = "dlee@greatschools.org";
         builder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, State.WY, email);
         String encodedEmail = URLEncoder.encode(email,"UTF-8");
         assertEquals("/email/management.page?email="+encodedEmail, builder.asSiteRelative(request));

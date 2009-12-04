@@ -26,7 +26,7 @@ import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
@@ -418,7 +418,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
                 getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         User user = new User();
         user.setId(1234);
-        user.setEmail("tester@greatschools.net");
+        user.setEmail("tester@greatschools.org");
         Set<Subscription> subs = new HashSet<Subscription>();
         Subscription sub_1 = new Subscription();
         sub_1.setUser(user);

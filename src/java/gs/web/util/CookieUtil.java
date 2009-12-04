@@ -14,7 +14,7 @@ public class CookieUtil {
             Cookie cookie = new Cookie(cookieName, new Date().toString());
             cookie.setPath("/");
             cookie.setValue(value);
-            cookie.setDomain(".greatschools.net");
+            cookie.setDomain(".greatschools.org");
             cookie.setMaxAge(maxAge);
             response.addCookie(cookie);
     }

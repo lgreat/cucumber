@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.18 2009/12/04 20:54:12 npatury Exp $
+ * $Id: RatingsController.java,v 1.19 2009/12/04 22:27:14 chriskimm Exp $
  */
 package gs.web.test.rating;
 
@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Draw the rating page
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class RatingsController extends AbstractCommandController {
 

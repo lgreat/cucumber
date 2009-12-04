@@ -14,7 +14,7 @@ import gs.data.util.table.ITableRow;
 import gs.data.util.CachedItem;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ClearTableDaoCacheController implements Controller {
 

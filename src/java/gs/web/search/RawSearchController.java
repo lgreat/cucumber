@@ -25,7 +25,7 @@ import gs.data.search.TermFreq;
  * without using a <code>SearchCommand</code>.  The idea is to use only Lucene classes
  * to view the index.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class RawSearchController extends AbstractController {
 

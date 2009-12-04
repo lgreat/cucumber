@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: StubRatingsConfig.java,v 1.5 2009/12/04 20:54:13 npatury Exp $
+ * $Id: StubRatingsConfig.java,v 1.6 2009/12/04 22:27:16 chriskimm Exp $
  */
 package gs.web.test.rating;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class StubRatingsConfig implements IRatingsConfig {
     public static final State STATE = State.CA;

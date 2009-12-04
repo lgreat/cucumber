@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.11 2009/12/04 20:54:19 npatury Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.12 2009/12/04 22:27:12 chriskimm Exp $
  */
 
 package gs.web.school.review;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 

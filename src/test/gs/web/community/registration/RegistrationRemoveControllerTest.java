@@ -35,7 +35,7 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
     public void testRegistrationRemove() throws Exception {
         // 1) create user record with non-validated password
         User user = new User();
-        user.setEmail("testRegistrationRemove@greatschools.net");
+        user.setEmail("testRegistrationRemove@greatschools.org");
         user.setId(135);
 
         UserProfile userProfile = new UserProfile();
@@ -69,7 +69,7 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
     public void testRegistrationRemoveBadHash() throws NoSuchAlgorithmException {
         // 1) create user record with non-validated password
         User user = new User();
-        user.setEmail("testRegistrationRemove@greatschools.net");
+        user.setEmail("testRegistrationRemove@greatschools.org");
         user.setId(135);
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
@@ -99,7 +99,7 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
     public void testNoPasswordUser() throws Exception {
         // 1) create user record with no password
         User user = new User();
-        user.setEmail("testRegistrationRemove@greatschools.net");
+        user.setEmail("testRegistrationRemove@greatschools.org");
         user.setId(new Integer(135));
 
         assertTrue(user.isPasswordEmpty());

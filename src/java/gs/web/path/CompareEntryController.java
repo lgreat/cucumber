@@ -18,7 +18,7 @@ import gs.data.state.State;
  * There is no validation of parameters: when a user hits the submit
  * button, the controller should alway redirect to the compare schools page.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class CompareEntryController extends AbstractController {
 

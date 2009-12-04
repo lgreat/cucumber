@@ -32,7 +32,7 @@ import gs.web.util.RedirectView301;
 import gs.web.content.cms.CmsContentUtils;
 
 /**
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ArticlesByCategoryController extends AbstractController {
     private static final Log _log = LogFactory.getLog(ArticlesByCategoryController.class);

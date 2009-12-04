@@ -17,7 +17,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Uses spreadsheet at http://spreadsheets.google.com/pub?key=pYwV1uQwaOCJGhxtFDPHjTg
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class FirstTestScoreLandingController extends AbstractController {
     private ITableDao _tableDao;

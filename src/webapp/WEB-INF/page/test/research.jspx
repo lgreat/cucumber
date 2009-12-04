@@ -47,7 +47,7 @@
 </jsp:scriptlet>
 
 <head>
-    <title>GreatSchools.net: Research &amp; Compare</title>
+    <title>GreatSchools.org: Research &amp; Compare</title>
     <style>
         .research h1 {
             font-size: large;

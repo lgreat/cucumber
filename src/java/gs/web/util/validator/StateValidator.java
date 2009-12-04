@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: StateValidator.java,v 1.4 2009/12/04 20:54:17 npatury Exp $
+ * $Id: StateValidator.java,v 1.5 2009/12/04 22:27:16 chriskimm Exp $
  */
 package gs.web.util.validator;
 
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 /**
  * The purpose is ...
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class StateValidator implements Validator {
     public static final String BEAN_ID = "stateValidator";

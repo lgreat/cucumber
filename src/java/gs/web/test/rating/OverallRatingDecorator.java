@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.13 2009/12/04 20:54:12 npatury Exp $
+ * $Id: OverallRatingDecorator.java,v 1.14 2009/12/04 22:27:13 chriskimm Exp $
  */
 package gs.web.test.rating;
 
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Decorate SchoolRatingsDisplay
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class OverallRatingDecorator implements IRatingsDisplay {
     protected final Log _log = LogFactory.getLog(getClass());

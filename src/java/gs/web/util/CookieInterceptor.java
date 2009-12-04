@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Interceptor to set http response headers
  *
- * @author David Lee <mailto:dlee@greatschools.net>
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author David Lee <mailto:dlee@greatschools.org>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
  */
 public class CookieInterceptor extends CookieUtil implements HandlerInterceptor {
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
@@ -59,7 +59,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
                 && !StringUtils.startsWith(hostName, "res6.")) {
             cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
             cobrandCookie.setPath("/");
-            cobrandCookie.setDomain(".greatschools.net");
+            cobrandCookie.setDomain(".greatschools.org");
             response.addCookie(cobrandCookie);
         }
     }
@@ -81,7 +81,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         if (cobrandTypeCookie == null || !value.toString().equals(cobrandTypeCookie.getValue())) {
             cobrandTypeCookie = new Cookie(SessionContextUtil.COBRAND_TYPE_COOKIE, value.toString());
             cobrandTypeCookie.setPath("/");
-            cobrandTypeCookie.setDomain(".greatschools.net");
+            cobrandTypeCookie.setDomain(".greatschools.org");
             response.addCookie(cobrandTypeCookie);
         }
     }
@@ -96,7 +96,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
             cookie.setMaxAge(-1);
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 // don't set domain for developer workstations so they can still access the cookie!!
-                cookie.setDomain(".greatschools.net");
+                cookie.setDomain(".greatschools.org");
             }
             response.addCookie(cookie);
         }

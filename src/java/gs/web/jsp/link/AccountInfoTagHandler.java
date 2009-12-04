@@ -8,7 +8,7 @@ import gs.web.util.UrlBuilder;
 /**
  * Provides handling for account info links.
  *
- * @author greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class AccountInfoTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {

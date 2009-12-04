@@ -23,7 +23,7 @@ import java.util.Set;
  * The tag accepts an optional parameter to allow a non-state selection.  This
  * appears with the option name="state" value="--".
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class StateSelectorTagHandler extends SimpleTagSupport {
 

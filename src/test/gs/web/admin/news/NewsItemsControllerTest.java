@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NewsItemsControllerTest.java,v 1.6 2009/12/04 22:15:17 npatury Exp $
+ * $Id: NewsItemsControllerTest.java,v 1.7 2009/12/04 22:27:11 chriskimm Exp $
  */
 
 package gs.web.admin.news;
@@ -160,7 +160,7 @@ public class NewsItemsControllerTest extends BaseControllerTestCase {
         assertEquals(2, item.getStates().size());
 
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setServerName("www.greatschools.net");
+        request.setServerName("www.greatschools.org");
         controller.onBind(request, item, errors);
         assertEquals(0, errors.getErrorCount());
         assertNull(item.getStates());
