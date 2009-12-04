@@ -15,7 +15,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>GreatSchools.net API Registration Success</title>
+    <title>GreatSchools.org API Registration Success</title>
     <meta content="todo" name="description"/>
     <meta content="todo" name="keywords"/>
 

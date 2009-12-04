@@ -7,10 +7,10 @@
     <jsp-version>1.2</jsp-version>
     <short-name>link</short-name>
     <uri>urn:www.greatschools.org/taglib/link</uri>
-    <display-name>GreatSchools.net Link Tag Library</display-name>
+    <display-name>GreatSchools.org Link Tag Library</display-name>
     <description>
         <![CDATA[
-        The link tag library provides a centralized method for linking to GreatSchools.net pages
+        The link tag library provides a centralized method for linking to GreatSchools.org pages
         from JSP pages. There area several benefits to this:
         <ul>
         <li>a centralized place to change urls</li>

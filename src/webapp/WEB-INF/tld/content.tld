@@ -8,7 +8,7 @@
     <jsp-version>1.2</jsp-version>
     <short-name>content</short-name>
     <uri>urn:www.greatschools.org/taglib/content</uri>
-    <display-name>GreatSchools.net Content Tag Library</display-name>
+    <display-name>GreatSchools.org Content Tag Library</display-name>
     <description>
         <![CDATA[
         The content tag library provides a centralized place for content related tags.

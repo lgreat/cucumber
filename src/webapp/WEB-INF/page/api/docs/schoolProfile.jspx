@@ -20,7 +20,7 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title>GreatSchools.net API School Profile Documentation</title>
+        <title>GreatSchools.org API School Profile Documentation</title>
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
