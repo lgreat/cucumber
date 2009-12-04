@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: ParentPollController.java,v 1.6 2009/12/04 20:54:17 npatury Exp $
+ * $Id: ParentPollController.java,v 1.7 2009/12/04 22:15:14 npatury Exp $
  */
 
 package gs.web.content;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Retrieves the current parent poll id from the database and passes it on
  * to the view.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author greatschools.org">Andrew J. Peterson</a>
  */
 public class ParentPollController extends AbstractController {
 

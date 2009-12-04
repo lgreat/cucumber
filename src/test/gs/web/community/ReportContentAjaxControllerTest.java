@@ -10,7 +10,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
     private ReportContentAjaxController _controller;

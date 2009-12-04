@@ -15,7 +15,7 @@ import org.springframework.mail.MailException;
 import org.apache.log4j.Logger;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class MySchoolListConfirmationEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "mySchoolListConfirmationEmail";

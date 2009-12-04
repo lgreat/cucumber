@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagManagerTest.java,v 1.7 2009/12/04 20:54:18 npatury Exp $
+ * $Id: AdTagManagerTest.java,v 1.8 2009/12/04 22:15:17 npatury Exp $
  */
 package gs.web.ads;
 
@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Test AdTagDaoXmlConfig
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class AdTagManagerTest extends BaseTestCase {
 

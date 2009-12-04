@@ -27,7 +27,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.content.cms.CmsContentUtils;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DiscussionController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

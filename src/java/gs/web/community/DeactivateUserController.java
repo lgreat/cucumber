@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DeactivateUserController implements ReadWriteController {
 

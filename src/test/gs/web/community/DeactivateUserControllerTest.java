@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Test class for the DeactivateUserController
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DeactivateUserControllerTest extends BaseControllerTestCase {
     private DeactivateUserController _controller;

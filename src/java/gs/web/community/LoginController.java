@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.6 2009/12/04 20:54:17 npatury Exp $
+ * $Id: LoginController.java,v 1.7 2009/12/04 22:15:11 npatury Exp $
  */
 package gs.web.community;
 
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Lets user sign in.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class LoginController extends SimpleFormController {
 

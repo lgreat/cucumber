@@ -17,7 +17,7 @@ import gs.web.util.UrlBuilder;
  * to see if the request matches a password-pretected path.  If so, then the
  * request is redirected to a login page.
  *
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 

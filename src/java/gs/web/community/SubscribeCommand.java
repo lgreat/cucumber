@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.3 2009/12/04 20:54:17 npatury Exp $
+ * $Id: SubscribeCommand.java,v 1.4 2009/12/04 22:15:11 npatury Exp $
  */
 package gs.web.community;
 
@@ -15,7 +15,7 @@ import java.io.Serializable;
 /**
  * Value object to hold the data for managing a subscription purchase.
  *
- * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
+ * @author Andrew J. Peterson <mailto:apeterson@greatschools.org>
  */
 public class SubscribeCommand implements Serializable {
 

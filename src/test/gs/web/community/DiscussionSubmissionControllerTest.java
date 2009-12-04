@@ -18,7 +18,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     private static final String VALID_LENGTH_REPLY_POST =

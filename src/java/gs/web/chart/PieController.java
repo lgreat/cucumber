@@ -31,7 +31,7 @@ import java.io.OutputStream;
  * Example input: BEAN_ID?p=33_33_33
  * This will return a pie chart with 3 equal slices.
  *
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class PieController implements Controller {
     public static final String BEAN_ID = "/chart/pie.page";

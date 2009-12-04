@@ -19,7 +19,7 @@ import gs.data.community.IUserDao;
 import gs.web.util.validator.UserCommandValidator;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class RegistrationAjaxController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());

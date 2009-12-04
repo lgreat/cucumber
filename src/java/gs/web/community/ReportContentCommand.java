@@ -1,7 +1,7 @@
 package gs.web.community;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentCommand {
     public enum ReportType {reply, discussion, member}

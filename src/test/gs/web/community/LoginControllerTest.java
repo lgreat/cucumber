@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginControllerTest.java,v 1.4 2009/12/04 20:54:18 npatury Exp $
+ * $Id: LoginControllerTest.java,v 1.5 2009/12/04 22:15:09 npatury Exp $
  */
 package gs.web.community;
 
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * test class for LoginController
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class LoginControllerTest extends BaseControllerTestCase {
     LoginController _controller;

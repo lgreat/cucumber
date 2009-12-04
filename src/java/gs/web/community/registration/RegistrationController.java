@@ -35,8 +35,8 @@ import java.util.*;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
- * @author <a href="mailto:droy@greatschools.net">Dave Roy</a>
+ * @author greatschools.org">Anthony Roy</a>
+ * @author greatschools.org">Dave Roy</a>
  */
 public class RegistrationController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration.page";

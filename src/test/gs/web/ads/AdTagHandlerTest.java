@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.17 2009/12/04 20:54:18 npatury Exp $
+ * $Id: AdTagHandlerTest.java,v 1.18 2009/12/04 22:15:17 npatury Exp $
  */
 package gs.web.ads;
 
@@ -25,7 +25,7 @@ import java.io.Writer;
 /**
  * Test AdTagHandler
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class AdTagHandlerTest extends BaseTestCase {
     AdTagHandler _tag;

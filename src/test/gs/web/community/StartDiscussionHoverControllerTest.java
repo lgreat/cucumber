@@ -9,7 +9,7 @@ import static org.easymock.EasyMock.*;
 import java.util.*;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class StartDiscussionHoverControllerTest extends BaseControllerTestCase {
     private StartDiscussionHoverController _controller;

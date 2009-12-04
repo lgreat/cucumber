@@ -22,7 +22,7 @@ import static org.easymock.classextension.EasyMock.*;
 import java.io.IOException;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class ReportTagHandlerTest extends BaseTestCase {
 

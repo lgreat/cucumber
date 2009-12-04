@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.9 2009/12/04 20:54:18 npatury Exp $
+ * $Id: EditNewsItemController.java,v 1.10 2009/12/04 22:15:16 npatury Exp $
  */
 
 package gs.web.admin.news;
@@ -26,8 +26,8 @@ import java.util.Date;
 /**
  * Provides create and edit capabilities for news item blurbs.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
  */
 public class EditNewsItemController extends SimpleFormController implements ReadWriteController {
 

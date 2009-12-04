@@ -21,8 +21,8 @@ import static org.easymock.EasyMock.*;
 import java.util.List;
 
 /**
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class MailToFriendControllerTest extends BaseControllerTestCase {
     private MailToFriendController _controller;

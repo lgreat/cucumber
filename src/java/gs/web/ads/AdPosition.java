@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.47 2009/12/04 20:54:18 npatury Exp $
+ * $Id: AdPosition.java,v 1.48 2009/12/04 22:15:17 npatury Exp $
  */
 package gs.web.ads;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent Ad Positions
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public class AdPosition extends Enum {
 

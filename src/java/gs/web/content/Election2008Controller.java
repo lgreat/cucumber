@@ -24,7 +24,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class Election2008Controller extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/content/election2008.page";

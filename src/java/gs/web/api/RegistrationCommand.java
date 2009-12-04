@@ -3,7 +3,7 @@ package gs.web.api;
 import gs.data.util.string.StringUtils;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class RegistrationCommand {
 

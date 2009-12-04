@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Read-only facade over a Discussion and a list of replies.
  * 
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DiscussionFacade {
     private Discussion _discussion;

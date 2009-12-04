@@ -14,7 +14,7 @@ import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 
 /**
- * @author npatury@greatschools.net
+ * @author npatury@greatschools.org
  */
 
 public class BackToSchoolHomeController extends AbstractController {

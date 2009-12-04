@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentAjaxController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());

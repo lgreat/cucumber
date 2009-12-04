@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * This controller handles requests for/from the api account details page.
  *
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 @Controller
 @RequestMapping("/api/admin/account.page")

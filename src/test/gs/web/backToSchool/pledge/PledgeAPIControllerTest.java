@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class PledgeAPIControllerTest extends BaseControllerTestCase {
     private PledgeAPIController _controller;

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagManager.java,v 1.4 2009/12/04 20:54:18 npatury Exp $
+ * $Id: AdTagManager.java,v 1.5 2009/12/04 22:15:17 npatury Exp $
  */
 package gs.web.ads;
 
@@ -19,7 +19,7 @@ import java.util.Map;
  * Singleton that retrieves the ad code for cobrands that serve their own ads
  *
  * @see gs.web.util.PageHelper#isAdServedByCobrand()
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author David Lee <mailto:dlee@greatschools.org>
  */
 public final class AdTagManager {
 

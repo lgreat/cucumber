@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class RequestEmailValidationController extends AbstractController {
     public static final String BEAN_ID = "/community/requestEmailValidation.page";

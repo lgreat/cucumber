@@ -8,7 +8,7 @@ import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaSubNotExistsValidator implements Validator {
 

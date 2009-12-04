@@ -13,7 +13,7 @@ import org.displaytag.exception.DecoratorException;
 /**
  * Provides testing for the NewsItemExpirationColumnDecorator class.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class NewsItemExpirationColumnDecoratorTest extends BaseTestCase {
     private NewsItemExpirationColumnDecorator decorator;

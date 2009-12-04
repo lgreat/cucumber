@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase {
     private CommunityQuestionPromoController _controller;

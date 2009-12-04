@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 @Controller
 @RequestMapping("/api/admin/reports.page")

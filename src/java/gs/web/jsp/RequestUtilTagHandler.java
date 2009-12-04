@@ -14,7 +14,7 @@ import java.net.URLEncoder;
  * in the browser.  This has been tested in top level jspx, and modules.  It is possible that it will be incorrect in
  * an included jsp or some other scenario.
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author greatschools.org>
  */
 public class RequestUtilTagHandler extends TagSupport {
     private static final Log _log = LogFactory.getLog(RequestUtilTagHandler.class);

@@ -4,7 +4,7 @@ import gs.web.BaseControllerTestCase;
 import org.jfree.data.general.PieDataset;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class PieControllerTest extends BaseControllerTestCase {
     PieController _controller;

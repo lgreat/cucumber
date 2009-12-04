@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Provides a list of cities in a state on demand.
  * 
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class NearbyCitiesAjaxController  implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());

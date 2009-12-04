@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Access to a local board and extra data for the view.
  *
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class LocalBoardView {
     private LocalBoard _localBoard;

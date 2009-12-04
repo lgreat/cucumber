@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NewsItemsControllerTest.java,v 1.5 2009/12/04 20:54:18 npatury Exp $
+ * $Id: NewsItemsControllerTest.java,v 1.6 2009/12/04 22:15:17 npatury Exp $
  */
 
 package gs.web.admin.news;
@@ -20,8 +20,8 @@ import java.util.Date;
 /**
  * Provides tests for Edit/DeleteNewsItemController.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
+ * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
  */
 public class NewsItemsControllerTest extends BaseControllerTestCase {
 

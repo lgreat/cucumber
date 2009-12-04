@@ -6,7 +6,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author greatschools.org">David Lee</a>
  */
 public abstract class AbstractDeferredContentTagHandler extends SimpleTagSupport {
 

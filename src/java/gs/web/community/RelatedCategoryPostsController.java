@@ -23,7 +23,7 @@ import gs.web.util.context.SessionContextUtil;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RelatedCategoryPostsController extends AbstractController {
     protected static final Log _log = LogFactory.getLog(RelatedCategoryPostsController.class);

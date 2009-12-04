@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.19 2009/12/04 20:54:16 npatury Exp $
+ * $Id: AllArticlesController.java,v 1.20 2009/12/04 22:15:14 npatury Exp $
  */
 package gs.web.content;
 
@@ -23,7 +23,7 @@ import java.util.*;
 /**
  * Controller to display all articles
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author greatschools.org>
  */
 public class AllArticlesController extends AbstractController {
 

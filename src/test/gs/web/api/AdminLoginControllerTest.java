@@ -9,7 +9,7 @@ import org.springframework.ui.ModelMap;
 import javax.servlet.http.Cookie;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class AdminLoginControllerTest {
 

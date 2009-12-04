@@ -29,7 +29,7 @@ import java.util.HashMap;
 /**
  * Provides controller backing for the form that lets a user change their password.
  *
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class ResetPasswordController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/resetPassword.page";

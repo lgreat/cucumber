@@ -17,7 +17,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UserInfoAjaxController extends AbstractController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());

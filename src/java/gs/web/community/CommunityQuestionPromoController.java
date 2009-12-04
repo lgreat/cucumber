@@ -17,7 +17,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.google.GoogleSpreadsheetDao;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class CommunityQuestionPromoController extends AbstractController {
     public static final String BEAN_ID = "/community/communityQuestionPromo.module";

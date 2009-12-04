@@ -27,7 +27,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.school.review.AddParentReviewsController;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:.*@greatschools.org>
  */
 public class PledgeAPIController  implements Controller, ReadWriteController {
     public static enum ContentType {

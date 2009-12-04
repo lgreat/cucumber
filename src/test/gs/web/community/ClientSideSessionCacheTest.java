@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.9 2009/12/04 20:54:18 npatury Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.10 2009/12/04 22:15:09 npatury Exp $
  */
 
 package gs.web.community;
@@ -19,7 +19,7 @@ import java.util.Set;
 /**
  * Tests ClientSideSessionCache class.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  * @noinspection FeatureEnvy,LocalVariableNamingConvention,OverlyLongMethod,MagicNumber
  */
 public class ClientSideSessionCacheTest extends TestCase {

@@ -29,7 +29,7 @@ import gs.data.api.ApiAccount;
  * This tag handler makes an http request to the gs-api report service in
  * order to create api usage reports as html markup.
  * 
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class ReportTagHandler extends SpringTagHandler {
 

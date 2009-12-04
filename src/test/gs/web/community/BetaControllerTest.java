@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaControllerTest extends BaseControllerTestCase {
 

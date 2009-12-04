@@ -6,7 +6,7 @@ import gs.data.community.*;
 import gs.web.util.ReadWriteController;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaUnsubscribeController extends SimpleFormController implements ReadWriteController {
 

@@ -20,7 +20,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 
 /**
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 
 public class BrowseLocalBoardsController extends AbstractController {

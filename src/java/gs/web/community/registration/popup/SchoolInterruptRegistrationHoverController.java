@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class SchoolInterruptRegistrationHoverController extends RegistrationController implements ReadWriteController {
 

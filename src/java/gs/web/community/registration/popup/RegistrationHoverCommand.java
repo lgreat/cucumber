@@ -4,7 +4,7 @@ import gs.web.community.registration.UserCommand;
 import gs.web.util.validator.EmailValidator;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class RegistrationHoverCommand extends UserCommand implements EmailValidator.IEmail{
     private boolean _mslOnly;

@@ -17,7 +17,7 @@ import gs.data.community.local.LocalBoard;
 import gs.data.community.local.ILocalBoardDao;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class StartDiscussionHoverController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

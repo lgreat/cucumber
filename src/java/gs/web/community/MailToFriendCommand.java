@@ -3,7 +3,7 @@ package gs.web.community;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class MailToFriendCommand implements ICaptchaCommand {
     private String _userEmail = "";

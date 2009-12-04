@@ -18,7 +18,7 @@ import javax.mail.MessagingException;
 import java.util.logging.Logger;
 
 /**
- * @author chriskimm@greatschools.net
+ * @author chriskimm@greatschools.org
  */
 public class RegistrationController extends SimpleFormController implements ReadWriteController {
 

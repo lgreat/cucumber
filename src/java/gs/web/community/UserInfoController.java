@@ -26,7 +26,7 @@ import gs.web.util.SitePrefCookie;
 import java.util.*;
 
 /**
- * @author Dave Roy <mailto:droy@greatschools.net>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class UserInfoController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());

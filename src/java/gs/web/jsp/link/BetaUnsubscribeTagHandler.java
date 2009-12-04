@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 /**
  * This tag handler implements the new <link:...> architecture.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author greatschools.org>
  */
 public class BetaUnsubscribeTagHandler extends BetaSignupTagHandler {
 

@@ -9,7 +9,7 @@ import java.io.StringWriter;
  * The content (e.g. ads) can then be written out at the end of the page and then moved to the
  * correct location with javascript.
  *
- * @author Todd Huss <mailto:thuss@greatschools.net>
+ * @author greatschools.org>
  */
 public class DeferredContentTagHandler extends AbstractDeferredContentTagHandler {
 

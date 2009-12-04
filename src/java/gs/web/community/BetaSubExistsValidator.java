@@ -12,7 +12,7 @@ import gs.data.community.SubscriptionProduct;
  * BetaSignupCommand contains an email that is currently
  * subscribed to SubscriptionProduct.BETA_GROUP.
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaSubExistsValidator implements Validator {
 

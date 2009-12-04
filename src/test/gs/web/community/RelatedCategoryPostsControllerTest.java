@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RelatedCategoryPostsControllerTest extends BaseControllerTestCase {
     private RelatedCategoryPostsController _controller;

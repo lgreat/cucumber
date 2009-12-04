@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.10 2009/12/04 20:54:16 npatury Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.11 2009/12/04 22:15:16 npatury Exp $
  */
 
 package gs.web.district;
@@ -35,7 +35,7 @@ import java.util.Map;
  *                                     filter checkboxes will be selected.  If none are passed, then all level filters
  *                                     will be selected by default.
  *
- * @author <a href="mailto:droy@greatschools.net">Dave Roy</a>
+ * @author greatschools.org">Dave Roy</a>
  */
 public class NearbySchoolsInDistrictController extends AbstractController {
     private static final Logger _log = Logger.getLogger(NearbySchoolsInDistrictController.class);

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.text.NumberFormat;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     protected final Log _log = LogFactory.getLog(getClass());

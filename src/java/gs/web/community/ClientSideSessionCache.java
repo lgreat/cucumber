@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.13 2009/12/04 20:54:17 npatury Exp $
+ * $Id: ClientSideSessionCache.java,v 1.14 2009/12/04 22:15:11 npatury Exp $
  */
 
 package gs.web.community;
@@ -31,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
  * from the cookie. This class is Externalizable, and that value is appropriate
  * to stick in a cookie.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class ClientSideSessionCache {
     private String _nickname;

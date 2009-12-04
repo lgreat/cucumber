@@ -12,7 +12,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.web.util.CookieGenerator;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
     private UserInfoAjaxController _controller;

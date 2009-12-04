@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
     private static final String FROM_EMAIL = "aroy@greatschools.net";

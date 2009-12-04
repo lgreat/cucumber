@@ -22,7 +22,7 @@ import java.io.*;
  * Email addresss are validated in the command object before being
  * passed to the onSubmit(...) method.   *
  *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaController extends SimpleFormController implements ReadWriteController {
 

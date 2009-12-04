@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class LoginHoverController extends LoginController {
     public static final String BEAN_ID = "/community/registration/popup/loginOrRegisterHover.page";

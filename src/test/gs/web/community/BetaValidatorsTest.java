@@ -4,7 +4,7 @@ import gs.web.BaseTestCase;
 import gs.data.community.*;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaValidatorsTest extends BaseTestCase {
 

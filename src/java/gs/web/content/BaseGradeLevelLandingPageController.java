@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletResponse;
  * Shared behavior between e/m/h landing page controllers. Subclasses should extend populateModel to do
  * custom processing.
  *
- * @author aroy@greatschools.net
- * @author npatury@greatschools.net
+ * @author greatschools.org
+ * @author greatschools.org
  */
 public class BaseGradeLevelLandingPageController extends AbstractController {
     private ITableDao _tableDao;

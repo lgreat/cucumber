@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This tag handler produces a drop-down &lt;select&gt; element
  *
- * @author Young Fan <mailto:yfan@greatschools.net>
+ * @author greatschools.org>
  */
 public abstract class SelectorTagHandler extends SimpleTagSupport {
 

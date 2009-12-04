@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase {
     private DeactivateContentAjaxController _controller;

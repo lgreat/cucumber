@@ -4,7 +4,7 @@ import gs.web.util.validator.EmailValidator.IEmail;
 import gs.data.state.State;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class BetaSignupCommand implements IEmail {
 

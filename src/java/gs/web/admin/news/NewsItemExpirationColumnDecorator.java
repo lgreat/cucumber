@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class NewsItemExpirationColumnDecorator implements DisplaytagColumnDecorator {
     public static final String EXPIRES_DATE_FORMAT = "EEE'.' MMM d, yyyy";

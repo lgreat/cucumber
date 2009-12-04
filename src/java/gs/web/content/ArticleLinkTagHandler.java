@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.41 2009/12/04 20:54:17 npatury Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.42 2009/12/04 22:15:14 npatury Exp $
  */
 package gs.web.content;
 
@@ -27,8 +27,8 @@ import java.io.IOException;
 /**
  * Write out an article link.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
- * @author Andrew Peterson <mailto:apeterson@greatschools.net>
+ * @author greatschools.org>
+ * @author greatschools.org>
  */
 public class ArticleLinkTagHandler extends BaseTagHandler {
 

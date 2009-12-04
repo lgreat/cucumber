@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UploadAvatarCommand {
     private String _stockPhoto;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NewsItemTagHandler.java,v 1.3 2009/12/04 20:54:17 npatury Exp $
+ * $Id: NewsItemTagHandler.java,v 1.4 2009/12/04 22:15:14 npatury Exp $
  */
 
 package gs.web.content;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author greatschools.org">Andrew J. Peterson</a>
  */
 public class NewsItemTagHandler extends SimpleTagSupport {
 

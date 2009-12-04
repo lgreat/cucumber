@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mock.web.MockMultipartFile;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UploadAvatarHoverControllerTest extends BaseControllerTestCase {
     private UploadAvatarHoverController _controller;

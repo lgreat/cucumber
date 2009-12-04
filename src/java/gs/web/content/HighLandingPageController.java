@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * TODO: evaluate necessity of this class
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  *
  * Everything should be made as simple as possible, but not simpler. Did I go too far?
  */

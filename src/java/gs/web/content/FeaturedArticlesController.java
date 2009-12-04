@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.29 2009/12/04 20:54:17 npatury Exp $
+ * $Id: FeaturedArticlesController.java,v 1.30 2009/12/04 22:15:14 npatury Exp $
  */
 package gs.web.content;
 
@@ -32,7 +32,7 @@ import java.util.*;
  * The single article view receives the article in the "article" model property.
  * The multiple article view receives the UnorderedList model.
  *
- * @author Andrew Peterson <mailto:apeterson@greatschools.net>
+ * @author greatschools.org>
  */
 public class FeaturedArticlesController extends AbstractController {
 

@@ -33,7 +33,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class DonorsChooseController extends AbstractController {
     private static final Log _log = LogFactory.getLog(DonorsChooseController.class);

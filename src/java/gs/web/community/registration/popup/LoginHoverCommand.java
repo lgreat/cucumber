@@ -3,7 +3,7 @@ package gs.web.community.registration.popup;
 import gs.web.community.registration.LoginCommand;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  */
 public class LoginHoverCommand extends LoginCommand {
     private boolean _joinError = false;

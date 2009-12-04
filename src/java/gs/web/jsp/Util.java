@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author greatschools.org>
  */
 public class Util {
 

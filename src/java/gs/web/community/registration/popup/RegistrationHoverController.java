@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  * // TODO: This class is deprecated and may (should?) no longer be in use
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author greatschools.org>
  * @deprecated
  */
 public class RegistrationHoverController extends RegistrationController implements ReadWriteController {

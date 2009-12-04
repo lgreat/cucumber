@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * @author Nanditha Patury <mailto:npatury@greatschools.net>
+ * @author greatschools.org>
  */
 
 public class NthGraderRegistrationHoverController extends RegistrationController implements ReadWriteController {

@@ -37,7 +37,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class UploadAvatarHoverController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());

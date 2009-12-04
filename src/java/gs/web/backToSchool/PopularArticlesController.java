@@ -16,7 +16,7 @@ import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
 
 /**
- * @author npatury@greatschools.net
+ * @author npatury@greatschools.org
  */
 
 public class PopularArticlesController  extends AbstractController {
