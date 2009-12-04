@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentSearchTagHandler.java,v 1.2 2009/10/23 23:24:18 yfan Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: ContentSearchTagHandler.java,v 1.3 2009/12/04 20:54:11 npatury Exp $
  */
 
 package gs.web.jsp.link;

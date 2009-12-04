@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: IRequestAwareValidator.java,v 1.1 2006/07/11 21:14:04 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: IRequestAwareValidator.java,v 1.2 2009/12/04 20:54:17 npatury Exp $
  */
 package gs.web.util.validator;
 

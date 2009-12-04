@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.10 2009/10/15 00:24:56 yfan Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: RecentParentReviewsControllerTest.java,v 1.11 2009/12/04 20:54:19 npatury Exp $
  */
 
 package gs.web.school.review;

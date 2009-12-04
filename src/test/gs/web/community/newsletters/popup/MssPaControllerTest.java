@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.20 2007/09/10 17:43:02 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: MssPaControllerTest.java,v 1.21 2009/12/04 20:54:16 npatury Exp $
  */
 package gs.web.community.newsletters.popup;
 

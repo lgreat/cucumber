@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.12 2008/09/10 22:11:13 chriskimm Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: ClientSideSessionCache.java,v 1.13 2009/12/04 20:54:17 npatury Exp $
  */
 
 package gs.web.community;

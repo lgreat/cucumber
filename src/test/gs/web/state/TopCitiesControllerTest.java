@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.12 2009/10/06 18:42:00 droy Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: TopCitiesControllerTest.java,v 1.13 2009/12/04 20:54:18 npatury Exp $
  */
 
 package gs.web.state;

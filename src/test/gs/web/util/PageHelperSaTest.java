@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.49 2009/11/04 17:15:15 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: PageHelperSaTest.java,v 1.50 2009/12/04 20:54:14 npatury Exp $
  */
 
 package gs.web.util;

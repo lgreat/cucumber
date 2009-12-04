@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StubRatingsConfig.java,v 1.4 2008/03/28 20:51:56 droy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: StubRatingsConfig.java,v 1.5 2009/12/04 20:54:13 npatury Exp $
  */
 package gs.web.test.rating;
 

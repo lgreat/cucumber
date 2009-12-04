@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AddParentReviewSearchTagHandler.java,v 1.1 2006/06/13 22:11:23 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: AddParentReviewSearchTagHandler.java,v 1.2 2009/12/04 20:54:11 npatury Exp $
  */
 package gs.web.jsp.link;
 

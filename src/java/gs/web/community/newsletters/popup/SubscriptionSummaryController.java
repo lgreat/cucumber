@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.21 2008/09/12 01:01:38 chriskimm Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: SubscriptionSummaryController.java,v 1.22 2009/12/04 20:54:13 npatury Exp $
  */
 package gs.web.community.newsletters.popup;
 

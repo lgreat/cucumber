@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommandSaTest.java,v 1.1 2006/08/09 00:33:01 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: NewsletterCommandSaTest.java,v 1.2 2009/12/04 20:54:16 npatury Exp $
  */
 package gs.web.community.newsletters;
 

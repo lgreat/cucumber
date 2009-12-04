@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.10 2008/11/05 19:43:41 thuss Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: FeedTagHandler.java,v 1.11 2009/12/04 20:54:17 npatury Exp $
  */
 
 package gs.web.content;

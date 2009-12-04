@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: HomeTagHandler.java,v 1.1 2006/07/07 20:09:26 apeterson Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: HomeTagHandler.java,v 1.2 2009/12/04 20:54:11 npatury Exp $
  */
 
 package gs.web.jsp.link;

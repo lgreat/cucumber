@@ -1,6 +1,6 @@
 /*
-* Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.34 2008/04/11 21:25:09 chriskimm Exp $
+* Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+* $Id: NearbyCitiesController.java,v 1.35 2009/12/04 20:54:16 npatury Exp $
 */
 
 package gs.web.geo;

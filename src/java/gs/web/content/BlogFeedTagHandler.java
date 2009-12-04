@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.26 2009/07/21 21:00:48 npatury Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: BlogFeedTagHandler.java,v 1.27 2009/12/04 20:54:17 npatury Exp $
  */
 
 package gs.web.content;

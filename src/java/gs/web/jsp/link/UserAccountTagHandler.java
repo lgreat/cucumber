@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UserAccountTagHandler.java,v 1.1 2009/10/09 23:09:06 yfan Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: UserAccountTagHandler.java,v 1.2 2009/12/04 20:54:11 npatury Exp $
  */
 
 package gs.web.jsp.link;

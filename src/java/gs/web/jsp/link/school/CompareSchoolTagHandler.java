@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CompareSchoolTagHandler.java,v 1.3 2007/06/04 21:29:55 chriskimm Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: CompareSchoolTagHandler.java,v 1.4 2009/12/04 20:54:11 npatury Exp $
  */
 package gs.web.jsp.link.school;
 

@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsCommand.java,v 1.7 2006/10/17 17:18:52 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: RatingsCommand.java,v 1.8 2009/12/04 20:54:12 npatury Exp $
  */
 package gs.web.test.rating;
 

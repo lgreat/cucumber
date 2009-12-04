@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.25 2008/12/13 01:05:53 yfan Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: NthGraderController.java,v 1.26 2009/12/04 20:54:14 npatury Exp $
  */
 package gs.web.community.newsletters.popup;
 

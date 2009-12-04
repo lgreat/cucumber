@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.23 2008/02/12 21:54:57 thuss Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: StatePathwayController.java,v 1.24 2009/12/04 20:54:15 npatury Exp $
  */
 package gs.web.state;
 

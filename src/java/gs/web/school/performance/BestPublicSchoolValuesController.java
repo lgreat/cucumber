@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.31 2008/08/04 18:38:53 yfan Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: BestPublicSchoolValuesController.java,v 1.32 2009/12/04 20:54:18 npatury Exp $
  */
 
 package gs.web.school.performance;

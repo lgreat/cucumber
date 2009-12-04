@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.73 2009/12/03 01:12:21 droy Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: LinkTagHandlerTest.java,v 1.74 2009/12/04 20:54:15 npatury Exp $
  */
 
 package gs.web.jsp.link;

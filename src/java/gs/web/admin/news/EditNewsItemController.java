@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.8 2007/01/17 01:25:19 aroy Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: EditNewsItemController.java,v 1.9 2009/12/04 20:54:18 npatury Exp $
  */
 
 package gs.web.admin.news;

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.38 2009/08/07 22:09:55 eddie Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: SchoolRatingsDisplay.java,v 1.39 2009/12/04 20:54:12 npatury Exp $
  */
 
 package gs.web.test.rating;

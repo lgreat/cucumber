@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.33 2009/08/10 22:15:26 yfan Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: SessionContext.java,v 1.34 2009/12/04 20:54:12 npatury Exp $
  */
 package gs.web.util.context;
 

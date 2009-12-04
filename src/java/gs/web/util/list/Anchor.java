@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.2 2007/05/31 19:12:44 droy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: Anchor.java,v 1.3 2009/12/04 20:54:16 npatury Exp $
  */
 
 package gs.web.util.list;

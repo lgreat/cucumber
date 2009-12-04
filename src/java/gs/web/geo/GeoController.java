@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.22 2006/12/28 21:07:14 thuss Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: GeoController.java,v 1.23 2009/12/04 20:54:16 npatury Exp $
  */
 
 package gs.web.geo;

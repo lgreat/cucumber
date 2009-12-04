@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.2 2005/06/17 21:39:20 apeterson Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: SubscribeCommand.java,v 1.3 2009/12/04 20:54:17 npatury Exp $
  */
 package gs.web.community;
 

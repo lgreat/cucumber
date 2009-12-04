@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.63 2009/11/12 23:55:34 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: UrlUtilSaTest.java,v 1.64 2009/12/04 20:54:14 npatury Exp $
  */
 
 package gs.web.util;

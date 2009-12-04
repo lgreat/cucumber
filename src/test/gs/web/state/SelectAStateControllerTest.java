@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SelectAStateControllerTest.java,v 1.1 2006/04/05 22:10:42 apeterson Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: SelectAStateControllerTest.java,v 1.2 2009/12/04 20:54:18 npatury Exp $
  */
 
 package gs.web.state;

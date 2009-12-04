@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManager.java,v 1.3 2008/06/09 19:04:39 jnorton Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: AdTagManager.java,v 1.4 2009/12/04 20:54:18 npatury Exp $
  */
 package gs.web.ads;
 

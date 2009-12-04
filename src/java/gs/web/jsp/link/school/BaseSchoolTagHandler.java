@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseSchoolTagHandler.java,v 1.2 2006/10/17 17:18:52 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: BaseSchoolTagHandler.java,v 1.3 2009/12/04 20:54:11 npatury Exp $
  */
 package gs.web.jsp.link.school;
 

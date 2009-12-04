@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateValidator.java,v 1.3 2006/06/02 19:22:08 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: StateValidator.java,v 1.4 2009/12/04 20:54:17 npatury Exp $
  */
 package gs.web.util.validator;
 

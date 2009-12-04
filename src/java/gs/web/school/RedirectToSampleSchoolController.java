@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolController.java,v 1.5 2009/10/19 16:45:40 droy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: RedirectToSampleSchoolController.java,v 1.6 2009/12/04 20:54:15 npatury Exp $
  */
 package gs.web.school;
 

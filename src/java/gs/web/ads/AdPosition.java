@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.46 2009/08/19 00:31:05 eddie Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: AdPosition.java,v 1.47 2009/12/04 20:54:18 npatury Exp $
  */
 package gs.web.ads;
 

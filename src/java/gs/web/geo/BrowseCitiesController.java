@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BrowseCitiesController.java,v 1.6 2007/08/16 20:00:52 chriskimm Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: BrowseCitiesController.java,v 1.7 2009/12/04 20:54:16 npatury Exp $
  */
 
 package gs.web.geo;

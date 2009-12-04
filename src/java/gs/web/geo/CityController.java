@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.58 2009/11/12 01:49:02 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: CityController.java,v 1.59 2009/12/04 20:54:16 npatury Exp $
  */
 
 package gs.web.geo;

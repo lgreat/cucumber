@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.28 2009/06/18 23:08:19 eingenito Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: FeaturedArticlesController.java,v 1.29 2009/12/04 20:54:17 npatury Exp $
  */
 package gs.web.content;
 

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SignOutTagHandler.java,v 1.1 2006/06/21 22:34:16 apeterson Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: SignOutTagHandler.java,v 1.2 2009/12/04 20:54:11 npatury Exp $
  */
 
 package gs.web.jsp.link;

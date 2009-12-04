@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterManagementTagHandler.java,v 1.5 2009/06/17 22:55:56 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: NewsletterManagementTagHandler.java,v 1.6 2009/12/04 20:54:11 npatury Exp $
  */
 package gs.web.jsp.link;
 

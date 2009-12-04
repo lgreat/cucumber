@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelSaTest.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: AnchorListModelSaTest.java,v 1.4 2009/12/04 20:54:14 npatury Exp $
  */
 
 package gs.web.util;

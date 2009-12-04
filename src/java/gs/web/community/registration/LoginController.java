@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.48 2009/06/24 00:52:05 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: LoginController.java,v 1.49 2009/12/04 20:54:14 npatury Exp $
  */
 package gs.web.community.registration;
 

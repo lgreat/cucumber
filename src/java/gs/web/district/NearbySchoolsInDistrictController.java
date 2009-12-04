@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.9 2009/04/23 23:47:14 npatury Exp $
+ * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
+ * $Id: NearbySchoolsInDistrictController.java,v 1.10 2009/12/04 20:54:16 npatury Exp $
  */
 
 package gs.web.district;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 GreatSchools.net. All Rights Reserved.
+ * Copyright (c) 2006 GreatSchools.org. All Rights Reserved.
  */
 package gs.web.widget;
 

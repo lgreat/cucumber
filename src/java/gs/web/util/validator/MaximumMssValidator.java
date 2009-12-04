@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MaximumMssValidator.java,v 1.5 2007/01/02 20:09:16 cpickslay Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: MaximumMssValidator.java,v 1.6 2009/12/04 20:54:17 npatury Exp $
  */
 package gs.web.util.validator;
 

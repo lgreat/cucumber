@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Cell.java,v 1.2 2007/02/06 19:07:00 dlee Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: Cell.java,v 1.3 2009/12/04 20:54:12 npatury Exp $
  */
 package gs.web.test.rating;
 
