@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.net.URL;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
     private SchoolSearchWidgetController _controller;
@@ -290,7 +290,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
 
         replayAll();
-        _controller.parseSearchQuery("Alameda, CA", _controller.getGoogleApiKey("www.greatschools.net"), _command, getRequest(), _errors);
+        _controller.parseSearchQuery("Alameda, CA", _controller.getGoogleApiKey("www.greatschools.org"), _command, getRequest(), _errors);
         verifyAll();
 
         assertSame(schools, _command.getSchools());

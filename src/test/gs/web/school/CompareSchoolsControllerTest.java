@@ -8,7 +8,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class CompareSchoolsControllerTest extends BaseControllerTestCase {
 
@@ -26,7 +26,7 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(getRequest(), (HttpServletResponse)null);
         RedirectView view = (RedirectView)mav.getView();
-        assertEquals("http://www.greatschools.net/modperl/msl_compare/ca/?ids=ca1,ca2,ca3", view.getUrl());
+        assertEquals("http://www.greatschools.org/modperl/msl_compare/ca/?ids=ca1,ca2,ca3", view.getUrl());
     }
 
     public void testConfirm() throws Exception {

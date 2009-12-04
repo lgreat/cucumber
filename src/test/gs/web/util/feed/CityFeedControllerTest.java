@@ -67,7 +67,7 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
                         "<name>Alameda</name>\n" +
                         "<state>CA</state>\n" +
                         "<rating>8</rating>\n" +
-                        "<url>http://www.greatschools.net/california/alameda/</url>\n" +
+                        "<url>http://www.greatschools.org/california/alameda/</url>\n" +
                         "<lat>37.764</lat>\n" +
                         "<lon>-122.257</lon>\n" +
                         "<active>1</active>\n" +
@@ -84,7 +84,7 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
                         "<name>Alameda</name>\n" +
                         "<state>CA</state>\n" +
                         "<rating>8</rating>\n" +
-                        "<url>http://www.greatschools.net/california/alameda/</url>\n" +
+                        "<url>http://www.greatschools.org/california/alameda/</url>\n" +
                         "<lat>37.764</lat>\n" +
                         "<lon>-122.257</lon>\n" +
                         "<active>1</active>\n" +
@@ -102,7 +102,7 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
                         "<name>Moss Landing</name>\n" +
                         "<state>CA</state>\n" +
                         "<rating/>\n" +
-                        "<url>http://www.greatschools.net/california/moss-landing/</url>\n" +
+                        "<url>http://www.greatschools.org/california/moss-landing/</url>\n" +
                         "<lat>36.7953</lat>\n" +
                         "<lon>-121.785</lon>\n" +
                         "<active>1</active>\n" +

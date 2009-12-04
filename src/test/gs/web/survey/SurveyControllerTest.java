@@ -31,7 +31,7 @@ import java.util.regex.Matcher;
 import java.io.Serializable;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class SurveyControllerTest extends BaseControllerTestCase {
 
@@ -66,7 +66,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.setEmailContentHelper(new MockEmailContentHelper());
 
         _mailSender = new MockJavaMailSender();
-        _mailSender.setHost("greatschools.net");
+        _mailSender.setHost("greatschools.org");
 
         EmailHelperFactory emailHelperFactory = new EmailHelperFactory();
         emailHelperFactory.setMailSender(_mailSender);
@@ -111,7 +111,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public void testPostRequestNewUser() throws Exception {
         getRequest().setMethod("POST");
-        getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("email", "dlee@greatschools.org");
         getRequest().setParameter("year", "2004");
         getRequest().setParameter("level", "test");
 
@@ -156,7 +156,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public void testPostRequestExistingUserFirstSurveyTaken() throws Exception {
         getRequest().setMethod("POST");
-        getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("email", "dlee@greatschools.org");
         getRequest().setParameter("year", "2001");
         getRequest().setParameter("who", "student");
         getRequest().setParameter("level", "test");
@@ -197,7 +197,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public void testPostRequestExistingUserHasTakenSurveyBefore() throws Exception {
         getRequest().setMethod("POST");
-        getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("email", "dlee@greatschools.org");
         getRequest().setParameter("year", "2001");
         getRequest().setParameter("who", "student");
         getRequest().setParameter("level", "test");
@@ -367,7 +367,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         assertNull("temp survey message cookie should not be in response",
                 getResponse().getCookie("TMP_MSG"));
-        assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=h&thanks=true",
+        assertEquals("redirect:http://www.greatschools.org/survey/results.page?id=123&state=WY&level=h&thanks=true",
                 mAndV.getViewName());
     }
 
@@ -394,7 +394,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertNull("temp survey message cookie should not be in response",
                 getResponse().getCookie("TMP_MSG"));
 
-        assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=p&thanks=true",
+        assertEquals("redirect:http://www.greatschools.org/survey/results.page?id=123&state=WY&level=p&thanks=true",
                 mAndV.getViewName());
     }
 
@@ -438,7 +438,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         urc.setPage(survey.getPages().get(2));
         mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
-        assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=m&thanks=true",
+        assertEquals("redirect:http://www.greatschools.org/survey/results.page?id=123&state=WY&level=m&thanks=true",
                 mAndV.getViewName());
     }
 
@@ -507,7 +507,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         if (!newUser) {
             user.setId(1010);
         }
-        user.setEmail("dlee@greatschools.net");
+        user.setEmail("dlee@greatschools.org");
 
         return user;
     }
@@ -557,7 +557,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     public void xtestSendRealEmail() throws Exception {
         EmailHelperFactory emailHelperFactory = new EmailHelperFactory();
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("mail.greatschools.net");
+        mailSender.setHost("mail.greatschools.org");
         emailHelperFactory.setMailSender(mailSender);
         _controller.setEmailHelperFactory(emailHelperFactory);
 
@@ -572,7 +572,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.setEmailContentHelper(emailContentHelper);
 
         User user = createUser(false);
-        user.setEmail("thuss@greatschools.net");
+        user.setEmail("thuss@greatschools.org");
         
         School school = new School();
         school.setDatabaseState(State.CA);

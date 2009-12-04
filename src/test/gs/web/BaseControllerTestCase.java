@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.11 2009/10/07 15:00:50 aroy Exp $
+ * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
+ * $Id: BaseControllerTestCase.java,v 1.12 2009/12/04 19:37:26 npatury Exp $
  */
 
 package gs.web;
@@ -17,13 +17,13 @@ import javax.servlet.http.Cookie;
 /**
  * Provides...
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BaseControllerTestCase extends BaseTestCase {
     protected GsMockHttpServletRequest _request;
     protected MockHttpServletResponse _response;
     protected SessionContext _sessionContext = null;
-    private static final String HOST_NAME = "www.greatschools.net";
+    private static final String HOST_NAME = "www.greatschools.org";
 
     protected void setUp() throws Exception {
         super.setUp();
