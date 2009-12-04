@@ -98,7 +98,7 @@ public class RequestEmailValidationController extends AbstractController {
     private static String getEmailHTML(HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
         emailContent.append("<html><body>");
-        emailContent.append("<h3>Welcome to the GreatSchools.net community!</h3>\n\n");
+        emailContent.append("<h3>Welcome to the GreatSchools.org community!</h3>\n\n");
         emailContent.append("<p>This email is being sent to confirm a subscription request. ");
         emailContent.append("The request was generated for the email address ");
         emailContent.append(userCommand.getEmail()).append(".</p>\n\n");
@@ -115,7 +115,7 @@ public class RequestEmailValidationController extends AbstractController {
         builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + userCommand.getUser().getId());
         emailContent.append(builder.asAbsoluteAnchor(request, "click here to cancel the request").asATag());
         emailContent.append(" and leave your account unchanged.</p>\n<br/>\n");
-        emailContent.append("GreatSchools.net<br/>\n");
+        emailContent.append("GreatSchools.org<br/>\n");
         emailContent.append("160 Spear St., Suite 1020<br/>\n");
         emailContent.append("San Francisco, CA 94105<br/>\n");
         emailContent.append("</body></html>");
@@ -125,7 +125,7 @@ public class RequestEmailValidationController extends AbstractController {
 
     private static String getEmailPlainText(HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
-        emailContent.append("Welcome to the GreatSchools.net community!\n\n");
+        emailContent.append("Welcome to the GreatSchools.org community!\n\n");
         emailContent.append("This email is being sent to confirm a subscription request. ");
         emailContent.append("The request was generated for the email address ");
         emailContent.append(userCommand.getEmail()).append(".\n\n");
@@ -143,7 +143,7 @@ public class RequestEmailValidationController extends AbstractController {
         builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + userCommand.getUser().getId());
         emailContent.append(builder.asFullUrl(request));
         emailContent.append("\n\n");
-        emailContent.append("GreatSchools.net\n");
+        emailContent.append("GreatSchools.org\n");
         emailContent.append("160 Spear St., Suite 1020\n");
         emailContent.append("San Francisco, CA 94105\n");
 

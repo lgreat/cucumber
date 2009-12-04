@@ -100,7 +100,7 @@ public class MailToFriendController extends SimpleFormController {
 
         StringBuffer msgBuffer = new StringBuffer();
         msgBuffer.append("Check out this helpful resource I found").append
-                (" on GreatSchools.net to support my child!").append
+                (" on GreatSchools.org to support my child!").append
                 ("\n\n").append
                 ("Click on this link to learn more:").append
                 ("\n\n").append

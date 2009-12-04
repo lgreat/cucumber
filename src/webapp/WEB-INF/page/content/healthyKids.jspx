@@ -20,7 +20,7 @@
 <pageHelper:setPathway pathway="HEALTHY_KIDS"/>
 
 <head>
-    <title>Greatschools.net: Healthy Kids</title>
+    <title>Greatschools.org: Healthy Kids</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Tips and tricks for parents to support healthy kids:  Making fitness a part of your routine and healthy eating made easy."/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->

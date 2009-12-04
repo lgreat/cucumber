@@ -20,7 +20,7 @@
 <pageHelper:setPathway pathway="MEDIA"/>
 <c:set var="pageName" value="Media and Your Child"/>
 <head>
-    <title>Greatschools.net: ${pageName}</title>
+    <title>Greatschools.org: ${pageName}</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Media and Your Child: How parents can help kids think critically and choose wisely"/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->

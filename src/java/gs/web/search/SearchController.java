@@ -228,7 +228,7 @@ public class SearchController extends AbstractFormController {
             resultsToShow = true;
         }
 
-        model.put(MODEL_TITLE, "Greatschools.net Search: " + queryString);
+        model.put(MODEL_TITLE, "Greatschools.org Search: " + queryString);
         State state = sessionContext.getStateOrDefault();
         if (StringUtils.isNotEmpty(queryString)) {
             BooleanQuery baseQuery = createBaseQuery(sessionContext, state, queryString);
