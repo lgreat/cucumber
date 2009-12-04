@@ -1204,10 +1204,10 @@
         <property name="viewName" value="/geo/landing/milwaukee"/>
     </bean>
 
-    <bean name="/geo/landing/dc.page"
+    <bean name="/geo/landing/washington-dc.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/geo/landing/dc"/>
+        <property name="viewName" value="/geo/landing/washington-dc"/>
     </bean>
 
     <bean name="/promo/shutterfly/cards.page"

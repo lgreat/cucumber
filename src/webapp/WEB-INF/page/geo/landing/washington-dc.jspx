@@ -22,10 +22,14 @@
 <html lang="en">
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>Choosing a School in Washington D.C.</title>
+    <title>Choosing a School in Washington, DC | GreatSchools </title>
+    <meta name="description"
+          content="Local program that helps parents research and choose the best schools in Washington, DC"/>
+    <meta name="keywords"
+          content="Washington DC school choice, Washington DC school guide, DC School Chooser, choosing a school Washington DC, GreatSchools DC, GSDC"/>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
     <pageHelper:externalCss file="/res/css/geo/landing-ie7.css" userAgentSubstring="IE "/>
-    <pageHelper:externalCss file="/res/css/geo/dc.css"/>
+    <pageHelper:externalCss file="/res/css/geo/washington-dc.css"/>
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         sessionContext.setState(State.DC);
