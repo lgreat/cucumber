@@ -221,7 +221,7 @@
                         <li>English Parent Hotline: 202-431-5538</li>
                         <li>L&amp;iacute;nea Directa para Padres de Familia:<br/>202-431-5516</li>
                         <li><gsml:a
-                                href="http://www.greatschools.org/community/loginOrRegister.page?redirect=/email/management.page"
+                                href="/community/loginOrRegister.page?redirect=/email/management.page"
                                 styleClass="treb12 tint39a link">Sign up for GreatSchools newsletters</gsml:a></li>
                     </ul>
                 </div>
