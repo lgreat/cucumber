@@ -120,6 +120,11 @@
     border:1px solid #bbb;
 }
 
+form input.button{
+    display:inline-block;
+    vertical-align:middle;
+}
+
 #dc_page_content .cent17{
 	font:17px "Century Gothic", Arial, Helvetica, sans-serif;
 }

@@ -39,9 +39,9 @@
             window.location.href = '/washington-dc/washington/';
         }
         function gotoDCSchoolsPage() {
-            var level = document.getElementById('findAllLevel').value;
-            var url = "/washington-dc/washington/schools/" + level + "/";
-            window.location.href = decodeURIComponent(url);
+            var url = "/washington-dc/washington/";
+            url += document.getElementById('findAllLevel').value;
+            window.location.href = url;
         }
         function gotoComparePage() {
             var url = "/cgi-bin/cs_compare/dc/?sortby=distance%26tab=over%26area=m%26zip=";
@@ -91,7 +91,7 @@
             </div>
             <!--end module -->
             <hr class="rule"/>
-            <div class="module"><span class="m_title treb15 tint5bc">Our Community Partner</span>
+            <div class="module"><span class="m_title treb15 tint5bc">Our Community Partners</span>
 
                 <div class="m_content">
                     <div class="m_list"><a class="treb12 tint39a link" href="http://aamaonline.org/"
@@ -120,9 +120,9 @@
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" width="6" height="11"/>&amp;nbsp;
                         <label for="top">Find top D.C. schools</label>&amp;nbsp;
                         <input name="top" type="image" class="button" style="width: 41px; height: 26px;"
-                               onclick="gotoDCCityPage();" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onclick="gotoDCCityPage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
-                               alt="Find D.C. Schools" align="middle"/>
+                               alt="Find D.C. Schools"/>
                     </form>
                     <form class="forms treb13 tint777">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
@@ -133,9 +133,8 @@
                             <option value="high-schools">high schools</option>
                         </select>&amp;nbsp;
                         <input type="image" class="button" style="width: 41px; height: 26px;"
-                               onclick="gotoDCSchoolsPage()" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
-                               align="middle"/>
+                               onclick="gotoDCSchoolsPage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
                     </form>
                     <form class="forms treb13 tint777">
                         <div>
@@ -160,9 +159,8 @@
                             <label for="zip">miles of</label>&amp;nbsp;
                             <input id="zip" type="text" name="zip" class="inputs tint666" value="20500" size="7"/>&amp;nbsp;
                             <input type="image" class="button" style="width: 41px; height: 26px;"
-                                   onclick="gotoComparePage()" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                                   onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
-                                   align="middle"/>
+                                   onclick="gotoComparePage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                                   onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
                         </div>
                     </form>
                 </div>
@@ -221,7 +219,7 @@
                                href="mailto:dc@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a>
                         </li>
                         <li>English Parent Hotline: 202-431-5538</li>
-                        <li>L&amp;iacute;nea Directa para Padres de Familia: 202-431-5516</li>
+                        <li>L&amp;iacute;nea Directa para Padres de Familia:<br/>202-431-5516</li>
                         <li><gsml:a
                                 href="http://www.greatschools.org/community/loginOrRegister.page?redirect=/email/management.page"
                                 styleClass="treb12 tint39a link">Sign up for GreatSchools newsletters</gsml:a></li>
@@ -253,13 +251,7 @@
     </div>
     <!-- end dc_page_content -->
 
-<br class="spacer_10"/>    
-<div id="promoRulesLink">
-    <gsml:a href="/cgi-bin/static/DC-Contest-Rules.html" styleClass="treb12 tint888 link2">
-        Click here for official rules for D.C. School Chooser drawings
-    </gsml:a>
-</div>
-<mod:tracking pageName="D.C. Landing Page" hier1="Home,Outreach,D.C."/>
+<mod:tracking pageName="Washington DC Landing Page" hier1="Home,Outreach,Washington DC"/>
 
 </gsml:body>
 </html>
