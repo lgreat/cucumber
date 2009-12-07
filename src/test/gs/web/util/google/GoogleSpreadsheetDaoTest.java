@@ -64,7 +64,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
 
         assertEquals("Other than the education one receives - what makes a school \"great\"?",
                 row.get("text"));
-        assertEquals("http://community.greatschools.net/q-and-a/123301/Other-than-the-education-one-receives-what-makes-a-school-great",
+        assertEquals("http://community.greatschools.org/q-and-a/123301/Other-than-the-education-one-receives-what-makes-a-school-great",
                 row.get("link"));
         assertEquals("Queserasera", row.get("username"));
         assertEquals("2093577", row.get("memberid"));
@@ -72,7 +72,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
         row = _dao.getFirstRowByKey("code", "school/parentReviews.page");
 
         assertEquals("What's the difference?", row.get("text"));
-        assertEquals("http://community.greatschools.net/q-and-a", row.get("link"));
+        assertEquals("http://community.greatschools.org/q-and-a", row.get("link"));
         assertEquals("Anthony", row.get("username"));
         assertEquals("1", row.get("memberid"));
     }
