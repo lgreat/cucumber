@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.67 2009/12/04 22:27:17 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.68 2009/12/07 23:31:23 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -671,7 +671,7 @@ public class SessionContextUtil implements ApplicationContextAware {
             } else {
                 _communityCookieGenerator.setCookieMaxAge(-1);
             }
-            _communityCookieGenerator.addCookie(response, hash);
+            _communityCookieGenerator.addCookie(response, "\"" + hash + "\"");
         } else {
             _log.warn("Attempt to change authorization information on null user ignored.");
         }

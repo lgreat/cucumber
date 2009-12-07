@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -40,7 +41,9 @@ public class AuthenticationManager {
      * @param cookieValue String consisting of an md5 hash concatenated with the user id
      */
     public static Integer getUserIdFromCookieValue(String cookieValue) {
-        String idString = cookieValue.substring(DigestUtil.MD5_HASH_LENGTH);
+        String myCookieValue = StringUtils.replace(cookieValue, "\\\"", "");
+        myCookieValue = StringUtils.replace(myCookieValue, "\"", "");
+        String idString = myCookieValue.substring(DigestUtil.MD5_HASH_LENGTH);
         return new Integer(idString);
     }
 
@@ -51,6 +54,8 @@ public class AuthenticationManager {
      * @param cookieValue String consisting of an md5 hash concatenated with the user id
      */
     public static String getHashFromCookieValue(String cookieValue) {
-        return cookieValue.substring(0, DigestUtil.MD5_HASH_LENGTH);
+        String myCookieValue = StringUtils.replace(cookieValue, "\\\"", "");
+        myCookieValue = StringUtils.replace(myCookieValue, "\"", "");
+        return myCookieValue.substring(0, DigestUtil.MD5_HASH_LENGTH);
     }
 }
