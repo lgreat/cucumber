@@ -42,15 +42,15 @@
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 if (pageHelper.isCloneServer()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".clone.greatschools.org");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.org$",".clone.greatschools.org");
                     }
                 } else if (pageHelper.isStagingServer()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.org");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.org$",".staging.greatschools.org");
                     }
                 } else if (pageHelper.isDevEnvironment()) {
                     if (hasCobrandHostname) {
-                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.org");
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.org$",".dev.greatschools.org");
                     }
                 } else {
                     if (hasCobrandHostname) {
