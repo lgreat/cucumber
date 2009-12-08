@@ -27,81 +27,6 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     ]]>
     <title>Upload Avatar - GreatSchools</title>
-    <style type="text/css">
-        .photoGuidelines {
-            float: right;
-        }
-        .fileInput {
-            position: relative;
-            text-align: right;
-            width: 100%;
-        }
-        .fileInput label {
-            position: absolute;
-            left: 0;
-            top: 2px;
-        }
-        .fileInput .fakeFileInput {
-            width: 100%;
-        }
-        #fake_avatarFileInput {
-            position: absolute;
-            top: 0;
-            left: 34px;
-            z-index: 5;
-            width: 250px;
-        }
-        .fileInput .fakeFileInput div.filler {
-            padding: 7px;
-        }
-        #avatarFileInput {
-            position: absolute;
-            text-align: right;
-            -moz-opacity: 0;
-            filter: alpha(opacity: 0);
-            opacity: 0;
-            z-index: 2;
-            left: 34px;
-            top: 0;
-            width: 325px;
-        }
-        #fake_avatarFileBrowse {
-            position: absolute;
-            top: -1px;
-            left: 293px;
-            z-index: 1;
-            padding-bottom: 3px;
-            height: 23px;
-            width: 65px;
-        }
-        .error {
-            background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;
-            color: #C03;
-            font-size: 11px;
-            font-style: italic;
-            padding-left: 15px;
-            margin-bottom: 5px;
-        }
-        ul.horizontal {
-            height: 115px;
-            vertical-align: top;
-        }
-        ul.horizontal li {
-            display: inline;
-            position: relative;
-        }
-        ul.horizontal img, ul.horizontal label {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        ul.horizontal input {
-            margin-left: 40px;
-            margin-right: 40px;
-            position: relative;
-            top: 100px;
-        }
-    </style>
 </head>
 
 <gsml:body adPageName="community/changePhoto">
@@ -155,22 +80,32 @@
                     return false;
                 }
             });
-        });
-    </script>
 
+            $('.closebtn').click(function() {
+                parent.GS.closeDialogs();
+            });
+
+        });
+
+    </script>
+    <h2 class="title fltlft">Upload a picture</h2>
+
+    <div class="smallText1 tint_777 closebtn fltrt">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                                                             height="11" alt="close modal"/></div>
+    <br class="clearfloat"/>
     <p class="text2">Upload a picture or select an image that will represent you in the community.</p>
 
     <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Photo Guidelines"
                                        href="/terms/?state=$STATE#photoGuidelines"
-                                       styleClass="text3 photoGuidelines"
-                >GreatSchools photo guidelines</gsml:popupWindow>
-    <p class="text1bold">Upload your own picture</p>
-    <p class="text2">
+                                       styleClass="text3 photoGuidelines">
+        GreatSchools photo guidelines</gsml:popupWindow>
+    <div class="text1bold">Upload your own picture</div>
+    <div class="text2">
         Pictures must be in .jpg or .gif format. Your picture will automatically
         be resized to fit the standard community dimensions.
-    </p>
-
+    </div>
+    <div class="spacer_10"><!--do not collapse--></div>
     <div style="display:none" class="field_message" id="pic_message">
         <span style="display:none" id="pic_no" class="error">
             Please select a picture.
@@ -212,19 +147,20 @@
                 </button>
             </div>
         </div>
-
+        <div class="btnholder">
         <button class="btn25 fltlft uploadButton" type="submit">
             <span class="lftDoor25">
                 <span class="rtDoor25">Upload</span>
             </span>
         </button>
+        </div>
     </form>
-
+    <div class="spacer_10"><!--do not collapse--></div>
     <hr class="dotted"/>
-
-    <p class="text1bold">Or, select an image</p>
-    <p class="text2">If you decide not to upload a picture, you can choose a standard image from the choices below.</p>
-
+    <div class="spacer_10"><!--do not collapse--></div>
+    <div class="text1bold">Or, select an image</div>
+    <div class="text2">If you decide not to upload a picture, you can choose a standard image from the choices below.</div>
+    <div class="spacer_10"><!--do not collapse--></div>
     <gsweb:form action="/community/hover/uploadAvatarHover.page" method="post"
                 id="standardAvatarForm">
 
@@ -233,39 +169,39 @@
                 <label for="stk-sunflower">
                     <img src="${requestScope.stockAvatarUrlPrefix}stk-sunflower-95.jpg"
                          alt="Stock photo 1" width="95" height="95"/>
-                </label>
                 <gsml:radio styleId="stk-sunflower" name="stockPhoto" value="stk-sunflower"/>
+                </label>
             </li>
             <li>
                 <label for="stk-cat">
                     <img src="${requestScope.stockAvatarUrlPrefix}stk-cat-95.jpg"
                          alt="Stock photo 2" width="95" height="95"/>
-                </label>
                 <gsml:radio styleId="stk-cat" name="stockPhoto" value="stk-cat"/>
+                </label>
             </li>
             <li>
                 <label for="stk-palm">
                     <img src="${requestScope.stockAvatarUrlPrefix}stk-palm-95.jpg"
                          alt="Stock photo 3" width="95" height="95"/>
-                </label>
                 <gsml:radio styleId="stk-palm" name="stockPhoto" value="stk-palm"/>
+                </label>
             </li>
             <li>
                 <label for="stk-dog">
                     <img src="${requestScope.stockAvatarUrlPrefix}stk-dog-95.jpg"
                          alt="Stock photo 4" width="95" height="95"/>
-                </label>
                 <gsml:radio styleId="stk-dog" name="stockPhoto" value="stk-dog"/>
+                </label>
             </li>
-            <li>
+            <li class="last">
                 <label for="stk-dandelion">
                     <img src="${requestScope.stockAvatarUrlPrefix}stk-dandelion-95.jpg"
                          alt="Stock photo 5" width="95" height="95"/>
-                </label>
                 <gsml:radio styleId="stk-dandelion" name="stockPhoto" value="stk-dandelion"/>
+                </label>
             </li>
         </ul>
-
+        <br class="spacer_10"/>
         <button class="btn25 fltlft saveButton" type="submit">
             <span class="lftDoor25">
                 <span class="rtDoor25">Save</span>

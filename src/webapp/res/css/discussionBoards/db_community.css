@@ -81,6 +81,12 @@
     font-size:1px;
     line-height:15px;
 }
+.spacer_20{
+    clear:both;
+    height:20px;
+    font-size:1px;
+    line-height:20px;
+}
 .sdrt{
     border-top: 1px dotted #999;
 }
@@ -1017,6 +1023,111 @@ fieldset label {
     background: none;
 }
 /* end terms of use/privacy policy styles */
+
+/*BEGIN UPLOAD AVATAR HOVER*/
+
+        .hover{
+            color:#333;
+        }
+        .hover .title{
+            line-height:1.0;
+            margin:0;
+        }
+        .hover .closebtn{
+            display:block;
+            line-height:1.0;
+            margin:0;
+            cursor:pointer;
+        }
+        .dotted{
+            border:1px dotted #333;
+            width:610px;
+        }
+        .photoGuidelines {
+            float: right;
+        }
+        .fileInput {
+            position: relative;
+            text-align: right;
+            width: 100%;
+        }
+        .fileInput label {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color:#333;
+        }
+        .fileInput .fakeFileInput {
+            width: 100%;
+        }
+        #fake_avatarFileInput {
+            position: absolute;
+            top: 0;
+            left: 34px;
+            z-index: 5;
+            width: 425px;
+        }
+        .fileInput .fakeFileInput div.filler {
+            padding: 7px;
+        }
+        #avatarFileInput {
+            position: absolute;
+            text-align: right;
+            -moz-opacity: 0;
+            filter: alpha(opacity: 0);
+            opacity: 0;
+            z-index: 2;
+            left: 34px;
+            top: 0;
+            width: 520px;
+        }
+        #fake_avatarFileBrowse {
+            position: absolute;
+            top: -1px;
+            left: 475px;
+            z-index: 1;
+            padding-bottom: 3px;
+        }
+        .error {
+            background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;
+            color: #C03;
+            font-size: 11px;
+            font-style: italic;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+        .btnholder{
+            margin:0;
+            padding:0 0 0 34px;
+        }
+        ul.horizontal {
+            height: 115px;
+            vertical-align: top;
+            margin:0;
+            padding:0;
+        }
+        ul.horizontal li {
+            display: inline;
+            position: relative;
+            padding:0 64px;
+        }
+        ul.horizontal li.last {
+            padding:0 0 0 64px;
+        }
+        ul.horizontal img, ul.horizontal label {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        ul.horizontal input {
+            margin-left: 40px;
+            margin-right: 40px;
+            position: relative;
+            top: 100px;
+        }
+
+/*END UPLOAD AVATAR HOVER*/
+
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
 /* ------------------- */

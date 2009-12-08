@@ -38,7 +38,7 @@
                     resizable: false,
                     modal: true,
                     draggable: false,
-                    width: 615,
+                    width: 643,
                     title: "Upload a picture"
                 });
             };
@@ -70,6 +70,7 @@
     <div id="uploadAvatarHover" style="display:none;">
         <iframe src="" id="uploadAvatarIFrame"
                 name="uploadAvatarIFrame"
-                frameborder="0" height="430" width="595" scrolling="no"><!-- don't collapse --></iframe>
+                frameborder="0" height="445" width="609" scrolling="no"
+                marginheight="0" marginwidth="0"><!-- don't collapse --></iframe>
     </div>
 </jsp:root>
