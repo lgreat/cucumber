@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.201 2009/12/04 22:27:03 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.202 2009/12/08 22:57:58 yfan Exp $
  */
 
 package gs.web.util;
@@ -590,6 +590,7 @@ public class UrlBuilder {
                     district.getId();
         } else if (DISTRICT_HOME.equals(page)) {
             _perlPage = false;
+            // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
             _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(district.getDatabaseState(), district);
         } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
             _perlPage = false;
@@ -603,6 +604,7 @@ public class UrlBuilder {
         _vPage = page;
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
+            // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
             _path = DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(city.getState(), city.getName());
         } else if (CITIES_MORE_NEARBY.equals(page)) {
             _perlPage = false;
@@ -805,6 +807,7 @@ public class UrlBuilder {
         }
     }
 
+    // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
     public void handleSchoolProfile(School school, boolean showConfirmation) {
         _perlPage = true;
 
@@ -870,6 +873,7 @@ public class UrlBuilder {
 
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
+            // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0);
         } else if (WEBBY_AWARD_THANKS.equals(page)) {
             _perlPage = false;
@@ -905,6 +909,7 @@ public class UrlBuilder {
                 _path = "/school/research.page";
             } else {
                 _perlPage = false;
+                // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
                 _path = DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state);
             }
         } else if (HOME.equals(page)) {
