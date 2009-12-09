@@ -19,7 +19,7 @@ public class MailToFriendControllerWithReCaptcha extends MailToFriendController 
             String response = captchaCommand.getResponse();
 
             ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-            reCaptcha.setPrivateKey("6LfZWAEAAAAAAKt3EpAJngyabjFSywONdA7xqI2C");
+            reCaptcha.setPrivateKey("6LdG4wkAAAAAAKXds4kG8m6hkVLiuQE6aT7rZ_C6");
             ReCaptchaResponse reCaptchaResponse =
                 reCaptcha.checkAnswer(remoteAddr, challenge, response);
 

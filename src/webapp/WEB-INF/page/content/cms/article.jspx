@@ -534,13 +534,13 @@
                             var RecaptchaOptions = {theme:'white', tabindex: 0};
                         </script>
                         <script type="text/javascript"
-                                src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                                src="http://api.recaptcha.net/challenge?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL">
                             /* this comment keeps the tag from collapsing */
                         </script>
 
                         <![CDATA[
                                         <noscript>
-                                           <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                                           <iframe src="http://api.recaptcha.net/noscript?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL"
                                                height="300" width="500" frameborder="0"></iframe><br/>
                                            <textarea name="recaptcha_challenge_field"
                                                      rows="3" cols="40" style="height: 60px;">
