@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.202 2009/12/08 22:57:58 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.203 2009/12/09 01:58:41 yfan Exp $
  */
 
 package gs.web.util;
@@ -466,6 +466,7 @@ public class UrlBuilder {
     }
 
     // unfortunately, changes to this also necessitate changes to PublicationDao.getHttpUrlForContentUrl()
+    // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
     private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
         _perlPage = false;
         if (fullUri != null) {
@@ -717,6 +718,7 @@ public class UrlBuilder {
         } else if (COMMUNITY_DISCUSSION.equals(page)) {
             _path = "/community/discussion.gs";
         } else if (ABOUT_US.equals(page)) {
+            // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = "/about/aboutUs.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
@@ -921,6 +923,7 @@ public class UrlBuilder {
             setParameter("state", state.getAbbreviation());
         } else if (PRESS_ROOM.equals(page)) {
             _perlPage = false;
+            // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = "/about/pressRoom.page";
         } else if (PRESS_RELEASES.equals(page)) {
             _perlPage = false;
