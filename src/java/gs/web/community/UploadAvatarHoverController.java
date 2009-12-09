@@ -29,9 +29,7 @@ import javax.naming.OperationNotSupportedException;
 import java.util.Map;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Transparency;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -48,7 +46,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     public static final String ASYNCHRONOUS_RESPONSE = "SUCCESS";
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
-    private final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
+    public static final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
     private static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
     private static final String MODEL_STOCK_AVATAR_URL_PREFIX = "stockAvatarUrlPrefix";
     private IUserDao _userDao;
@@ -200,6 +198,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             clientHttpRequest.setParameter("numblobs", 2);
             clientHttpRequest.setParameter("user_id", user.getId());
 
+            // All images are stored as jpg because Java 1.5 doesn't have a default gif writing plugin.
             scaleAndSetImageParameter(source, 48, "image/jpeg", "jpg", user, dir, clientHttpRequest, 1);
             scaleAndSetImageParameter(source, 95, "image/jpeg", "jpg", user, dir, clientHttpRequest, 2);
 
@@ -346,7 +345,9 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         
         BufferedImage target = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = target.createGraphics();
-        g.drawRenderedImage(source, null);
+        // Paint the background white so that when converted to jpg the transparent pixels will have some neutral and
+        // default color
+        g.drawImage(source, 0, 0, source.getWidth(), source.getHeight(), Color.WHITE, null);
         g.dispose();
         return target;
     }
