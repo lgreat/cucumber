@@ -38,12 +38,13 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
-
+    <![endif]-->]]>
 </head>
 <body>
 <div id="container" class="gainlayout">
-<div id="mainContent" class="column">
+<div id="mainContent" class="column fltlft">
 
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
 
