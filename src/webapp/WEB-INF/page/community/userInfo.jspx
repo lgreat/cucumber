@@ -172,10 +172,13 @@
             <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
         </ul>
         <div class="aboutMe">
+        
+        <c:if test="${requestScope.viewingOwnProfile or not empty pageUser.userProfile.aboutMe}">
         <h3 class="text1">
             About me
             <c:if test="${requestScope.canEditMember}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
         </h3>
+        </c:if>
 
         <p class="defaultBioText">
             Welcome to the GreatSchools community!
@@ -261,9 +264,10 @@
 
     <c:choose>
         <c:when test="${empty requestScope.recentPosts}">
-            <p>You haven't posted anything yet.</p>
-            <p>Share stories about your child's success in and out of the classroom
-               in our community.</p>
+            <p>${pageUser.userProfile.screenName} hasn't posted anything yet.</p>
+            <c:if test="${requestScope.viewingOwnProfile}">
+                <p>Share stories about your child's success in and out of the classroom in our community.</p>
+            </c:if>
             <p>Our community wants to hear from you about:</p>
             <ul class="prompt">
                 <li><span><link:discussion discussionId="1" fullUri="uri">Health and development</link:discussion></span></li>
