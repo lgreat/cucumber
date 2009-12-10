@@ -158,7 +158,7 @@
                             </c:if>
                         </h4>
 
-                        <p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>
+                        <!--<p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>-->
                         <br class="clearfloat"/>
                     </div>
                     <div class="db_discussTopic gainlayout">
