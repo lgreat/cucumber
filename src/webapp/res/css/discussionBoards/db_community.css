@@ -1033,7 +1033,7 @@ fieldset label {
             line-height:1.0;
             margin:0;
         }
-        .hover .closebtn{
+        .hover .closebtn, .dialogCancelButton{
             display:block;
             line-height:1.0;
             margin:0;
