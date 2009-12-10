@@ -95,11 +95,11 @@
     <br class="clearfloat"/>
     <p class="text2">Upload a picture or select an image that will represent you in the community.</p>
 
-    <gsml:popupWindow width="800" height="600" left="50" top="50"
+<!--    <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Photo Guidelines"
                                        href="/terms/?state=$STATE#photoGuidelines"
                                        styleClass="text3 photoGuidelines">
-        GreatSchools photo guidelines</gsml:popupWindow>
+        GreatSchools photo guidelines</gsml:popupWindow>-->
     <div class="text1bold">Upload your own picture</div>
     <div class="text2">
         Pictures must be in .jpg or .gif format. Your picture will automatically
