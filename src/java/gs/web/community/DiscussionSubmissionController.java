@@ -26,6 +26,7 @@ import gs.data.security.Permission;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -211,8 +212,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
             discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
+            discussion.setDateUpdated(new Date());
 
-            _discussionDao.save(discussion);
+            _discussionDao.saveKeepDates(discussion);
             // needed for indexing
             if (discussion.getAuthorId().equals(user.getId())) {
                 discussion.setUser(user);
@@ -299,8 +301,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
                 if (newReply) {
                     reply.setAuthorId(user.getId());
+                    _discussionReplyDao.save(reply);
+                } else {
+                    reply.setDateUpdated(new Date());
+                    _discussionReplyDao.saveKeepDates(reply);
                 }
-                _discussionReplyDao.save(reply);
             }
 
             // omniture success event only if new discussion reply

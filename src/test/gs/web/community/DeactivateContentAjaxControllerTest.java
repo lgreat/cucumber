@@ -82,7 +82,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         expect(_discussionReplyDao.findById(1)).andReturn(reply);
 
-        _discussionReplyDao.save(reply);
+        _discussionReplyDao.saveKeepDates(reply);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();
@@ -104,7 +104,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         expect(_discussionReplyDao.findById(1)).andReturn(reply);
 
-        _discussionReplyDao.save(reply);
+        _discussionReplyDao.saveKeepDates(reply);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();
@@ -145,7 +145,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
 
-        _discussionDao.save(discussion);
+        _discussionDao.saveKeepDates(discussion);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();
@@ -167,7 +167,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
 
-        _discussionDao.save(discussion);
+        _discussionDao.saveKeepDates(discussion);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();

@@ -13,6 +13,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -35,7 +36,8 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                 if (reply != null && reply.isActive() != command.isReactivate()) {
                     _log.info("Setting reply with id=" + reply.getId() + " to active=" + command.isReactivate());
                     reply.setActive(command.isReactivate());
-                    _discussionReplyDao.save(reply);
+                    reply.setDateUpdated(new Date());
+                    _discussionReplyDao.saveKeepDates(reply);
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
             } else if (command.getContentType() == DeactivateContentCommand.ContentType.discussion) {
@@ -44,7 +46,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     _log.info("Setting discussion with id=" + discussion.getId() +
                             " to active=" + command.isReactivate());
                     discussion.setActive(command.isReactivate());
-                    _discussionDao.save(discussion);
+                    _discussionDao.saveKeepDates(discussion);
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
             }

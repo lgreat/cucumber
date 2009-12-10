@@ -151,7 +151,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expectedEditedDiscussion.setAuthorId(_user.getId());
         expectedEditedDiscussion.setId(1);
 
-        _discussionDao.save(eqDiscussion(expectedEditedDiscussion));
+        _discussionDao.saveKeepDates(eqDiscussion(expectedEditedDiscussion));
         discussion.setUser(_user);
         discussion.setDiscussionBoard(board);
         try {
