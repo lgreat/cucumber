@@ -212,6 +212,7 @@ h3.quotable {
 	background: url(/res/img/library/quote_bubble.png) no-repeat left 4px;
 	min-height: 22px;
 	padding: 2px 0 0 30px;
+    text-transform:capitalize;
 }
 
 div#searchLine2 {

@@ -103,9 +103,9 @@
                                 </div>
                                 <!-- end avatar -->
                                 <div class="discussionTopic fltlft">
-                                    <h4 class="text3">"<link:discussion discussionId="${discussion.id}"
+                                    <h4 class="text3"><link:discussion discussionId="${discussion.id}"
                                                                         fullUri="${fullUri}"
-                                                                        styleClass="text3">${discussion.title}</link:discussion>"
+                                                                        styleClass="text3">${discussion.title}</link:discussion>
                                     </h4>
 
                                     <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
