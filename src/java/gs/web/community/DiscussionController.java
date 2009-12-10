@@ -34,7 +34,6 @@ public class DiscussionController extends AbstractController {
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 10;
-    public static final String DEFAULT_SORT = "newest_first";
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_DISCUSSION = "discussion";
@@ -222,7 +221,7 @@ public class DiscussionController extends AbstractController {
     }
 
     protected DiscussionReplySort getReplySort(HttpServletRequest request, HttpServletResponse response) {
-        DiscussionReplySort sort = DiscussionReplySort.NEWEST_FIRST;
+        DiscussionReplySort sort = DiscussionReplySort.OLDEST_FIRST;
 
         String sortParam = request.getParameter(PARAM_SORT);
         SitePrefCookie cookie = new SitePrefCookie(request, response);

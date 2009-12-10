@@ -6,6 +6,7 @@ import gs.data.community.User;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Collections;
 
 /**
  * Read-only facade over a Discussion and a list of replies.
@@ -20,6 +21,9 @@ public class DiscussionFacade {
     public DiscussionFacade(Discussion parent, List<DiscussionReply> replies) {
         _discussion = parent;
         _replies = replies;
+        if (replies != null) {
+            Collections.reverse(_replies); // GS-9080
+        }
     }
 
     public String getTitle() {

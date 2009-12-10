@@ -443,17 +443,17 @@
                 Sort by:
 
                 <c:choose>
-                    <c:when test="${requestScope.sort == 'newest_first'}"><span class="smallAlertText tint_333">&amp;nbsp;Newest first&amp;nbsp;</span></c:when>
-                    <c:otherwise><a href="${requestScope.uri}&amp;sort=newest_first"
-                                    class="link">&amp;nbsp;Newest first&amp;nbsp;</a></c:otherwise>
+                    <c:when test="${requestScope.sort == 'oldest_first'}"><span class="smallAlertText tint_333">&amp;nbsp;Oldest first</span></c:when>
+                    <c:otherwise><a href="${requestScope.uri}&amp;sort=oldest_first"
+                                    class="link">&amp;nbsp;Oldest first</a></c:otherwise>
                 </c:choose>
 
                 <span class="tint_777">&amp;nbsp;|&amp;nbsp;</span>
 
                 <c:choose>
-                    <c:when test="${requestScope.sort == 'oldest_first'}"><span class="smallAlertText tint_333">&amp;nbsp;Oldest first</span></c:when>
-                    <c:otherwise><a href="${requestScope.uri}&amp;sort=oldest_first"
-                                    class="link">&amp;nbsp;Oldest first</a></c:otherwise>
+                    <c:when test="${requestScope.sort == 'newest_first'}"><span class="smallAlertText tint_333">&amp;nbsp;Newest first&amp;nbsp;</span></c:when>
+                    <c:otherwise><a href="${requestScope.uri}&amp;sort=newest_first"
+                                    class="link">&amp;nbsp;Newest first&amp;nbsp;</a></c:otherwise>
                 </c:choose>
             </p>
             <br class="clearfloat"/>        
