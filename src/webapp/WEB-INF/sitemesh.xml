@@ -10,6 +10,18 @@
     </page-parsers>
 
     <decorator-mappers>
+        <!-- invoke a page with ?decorator=minimalDecorator&confirm=true to change decorators dynamically -->
+        <mapper class= "com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper">
+            <param name="decorator.parameter" value="decorator" />
+            <param name="parameter.name" value="confirm" />
+            <param name="parameter.value" value="true" />
+        </mapper>
+        <!-- put a meta tag with name="decorator" content="minimalDecorator" to choose decorators via page logic -->
+        <!-- mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">
+            <param name="property.1" value="meta.decorator" />
+            <param name="property.2" value="decorator" />
+        </mapper -->
+        <!-- determine decorator from static xml config file -->
         <mapper class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
             <param name="config" value="${decorators-file}" />
         </mapper>

@@ -32,13 +32,12 @@
         <pattern>/ads/serveAds.page*</pattern>
     </decorator>
 
-    <decorator name="newDecorator" page="newDecorator.jspx">
-        <pattern>/test/testNewDecorator.page*</pattern>
-    </decorator>
-
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
         <pattern>/*</pattern>
         <pattern>/sandbox/hoverTest.page</pattern>
+    </decorator>
+
+    <decorator name="standardDecorator2010" page="standardDecorator2010.jspx">
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
