@@ -201,7 +201,7 @@
                 </label>
             </li>
         </ul>
-        <br class="spacer_10"/>
+        <div class="spacer_10"><!--nop--></div>
         <button class="btn25 fltlft saveButton" type="submit">
             <span class="lftDoor25">
                 <span class="rtDoor25">Save</span>
