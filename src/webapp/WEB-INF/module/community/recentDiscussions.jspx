@@ -108,8 +108,8 @@
                                                                         styleClass="text3">${discussion.title}</link:discussion>
                                     </h4>
 
-                                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                                        <span class="smallAlertTextBoldNeutral"><community:screenName userContent="${discussion}"/></span>
+                                    <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}" styleClass="smallAlertTextBoldNeutral">
+                                        <community:screenName userContent="${discussion}"/>
                                     </link:userProfile>
                                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
 
