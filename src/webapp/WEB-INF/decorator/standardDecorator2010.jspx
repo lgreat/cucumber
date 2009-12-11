@@ -40,6 +40,7 @@
     <title>
         2010 <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
+   <!--
     <gsml:url var="globalcss" value="/res/css/global.css?v=$RELEASE_NUMBER"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${globalcss}"></link>]]>
 
@@ -76,8 +77,9 @@
 
     <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
     <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
-    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
+    -->
 
+    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
     <!-- This tag includes ad_popunder.js -->
     <ad:xPopunder/>
 
@@ -86,6 +88,7 @@
     <decorator:head/>
 
     <ad:xGAMSetup/>
+    <link rel="stylesheet" href="/res/css/gs2010_styles.css" type="text/css" />
 </head>
 
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}" onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
@@ -94,25 +97,148 @@
     <community:nthGraderRegistrationHover/>    
 </c:if>
 
-<div id="marginGS" class="marginGS">
+<div id="marginGS">
+    <c:if test="${requestScope.pageHelper.showingLeaderboard}">
+        <div class="gsAd"><ad:x22 position="Header_728x90"/></div>
+    </c:if>
     <cobrand:header/>
 
-    <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <ad:x22 position="Header_728x90"/>
-    </c:if>
 
-    <div id="pageGS" class="pageGS">
-        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-           <mod:topNav />
-        </c:if>
-
-        <div id="contentGS" class="contentGS">
-            <decorator:body/>
+    <div id="pageGS">
+        <div id="header">
+            <img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" alt="GreatSchools" />
+        </div>
+        <div id="navbar">
+            <ul id="globalnav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Find a School</a></li>
+                <li><a href="#">Preschool</a></li>
+                <li><a href="#">Elementary School</a></li>
+                <li><a href="#">Middle School</a></li>
+                <li><a href="#">High School</a></li>
+                <li><a href="#">Hi-tech Holiday</a></li>
+            </ul>
+            <ul id="subnav">
+                <li><a href="#">Health &#38; Development</a></li>
+                <li><a href="#">Academics &#38; Activities</a></li>
+                <li><a href="#">Learning Disabilities</a></li>
+                <li><a href="#">Improve Your School</a></li>
+                <li><a href="#">Choose the Right School</a></li>
+            </ul>
+        </div>
+        <div id="main">
+            <div id="contentGS">
+                <decorator:body/>
+            </div>
         </div>
 
         <cobrand:numberoneexpertFooter/>
 
-        <mod:footer showAd="true" showSeoFooter="true"/>
+        <div id="footer">
+            <c:set var="footerCopyright">
+                <p id="footerCopyright" class="copyright">
+                    &amp;#169;1998-2009 GreatSchools Inc. All Rights Reserved. GreatSchools is a 501(c)(3) not-for-profit organization <link:termsOfUse>Terms of Use</link:termsOfUse> <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
+                </p>
+            </c:set>
+            <ul id="footnav">
+                <li><gsml:a href="/about/aboutUs.page">About Us</gsml:a></li>
+                <li><link:contactUs>Contact Us</link:contactUs></li>
+                <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
+                <li><link:newsletterManagement>Newsletters</link:newsletterManagement></li>
+                <li><gsml:a href="/about/linkToUs.page">Free Widgets &amp;#38; Tools</gsml:a></li>
+                <li><gsml:a href="/about/partnerOpportunities.page#advertise">Advertisers</gsml:a></li>
+                <li><gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a></li>
+                <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
+                <li><link:pressRoom>Media Room</link:pressRoom></li>
+                <li><gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a></li>
+            </ul>
+            <p class="copyright">
+                GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become<br />
+                effective champions of their children's education at home and in their communities.
+            </p>
+            ${footerCopyright}
+            
+    <div class="cities">
+    	<h4>Popular Cities</h4>
+    	<ul>
+            <li><link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city></li>
+            <li><link:city city="Anchorage" state="AK">Anchorage, AK</link:city></li>
+            <li><link:city city="Atlanta" state="GA">Atlanta, GA</link:city></li>
+            <li><link:city city="Austin" state="TX">Austin, TX</link:city></li>
+            <li><link:city city="Baltimore" state="MD">Baltimore, MD</link:city></li>
+            <li><link:city city="Billings" state="MT">Billings, MT</link:city></li>
+            <li><link:city city="Birmingham" state="AL">Birmingham, AL</link:city></li>
+            <li><link:city city="Boise" state="ID">Boise, ID</link:city></li>
+            <li><link:city city="Boston" state="MA">Boston, MA</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Bridgeport" state="CT">Bridgeport, CT</link:city></li>
+            <li><link:city city="Burlington" state="VT">Burlington, VT</link:city></li>
+            <li><link:city city="Charleston" state="WV">Charleston, WV</link:city></li>
+            <li><link:city city="Charlotte" state="NC">Charlotte, NC</link:city></li>
+            <li><link:city city="Cheyenne" state="WY">Cheyenne, WY</link:city></li>
+            <li><link:city city="Chicago" state="IL">Chicago, IL</link:city></li>
+            <li><link:city city="Columbia" state="SC">Columbia, SC</link:city></li>
+            <li><link:city city="Columbus" state="OH">Columbus, OH</link:city></li>
+            <li><link:city city="Dallas" state="TX">Dallas, TX</link:city></li>
+        </ul>
+    	<ul>
+            <li><link:city city="Denver" state="CO">Denver, CO</link:city></li>
+            <li><link:city city="Des Moines" state="IA">Des Moines, IA</link:city></li>
+            <li><link:city city="Detroit" state="MI">Detroit, MI</link:city></li>
+            <li><link:city city="El Paso" state="TX">El Paso, TX</link:city></li>
+            <li><link:city city="Fargo" state="ND">Fargo, ND</link:city></li>
+            <li><link:city city="Honolulu" state="HI">Honolulu, HI</link:city></li>
+            <li><link:city city="Houston" state="TX">Houston, TX</link:city></li>
+            <li><link:city city="Indianapolis" state="IN">Indianapolis, IN</link:city></li>
+            <li><link:city city="Jackson" state="MS">Jackson, MS</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Jacksonville" state="FL">Jacksonville, FL</link:city></li>
+            <li><link:city city="Kansas City" state="MO">Kansas City, MO</link:city></li>
+            <li><link:city city="Las Vegas" state="NV">Las Vegas, NV</link:city></li>
+            <li><link:city city="Little Rock" state="AR">Little Rock, AR</link:city></li>
+            <li><link:city city="Los Angeles" state="CA">Los Angeles, CA</link:city></li>
+            <li><link:city city="Louisville" state="KY">Louisville, KY</link:city></li>
+            <li><link:city city="Manchester" state="NH">Manchester, NH</link:city></li>
+            <li><link:city city="Memphis" state="TN">Memphis, TN</link:city></li>
+            <li><link:city city="Miami" state="FL">Miami, FL</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Milwaukee" state="WI">Milwaukee, WI</link:city></li>
+            <li><link:city city="Minneapolis" state="MN">Minneapolis, MN</link:city></li>
+            <li><link:city city="Nashville" state="TN">Nashville, TN</link:city></li>
+            <li><link:city city="New Orleans" state="LA">New Orleans, LA</link:city></li>
+            <li><link:city city="New York City" state="NY">New York City, NY</link:city></li>
+            <li><link:city city="Newark" state="NJ">Newark, NJ</link:city></li>
+            <li><link:city city="Oakland" state="CA">Oakland, CA</link:city></li>
+            <li><link:city city="Oklahoma City" state="OK">Oklahoma City, OK</link:city></li>
+            <li><link:city city="Omaha" state="NE">Omaha, NE</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city></li>
+            <li><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city></li>
+            <li><link:city city="Portland" state="ME">Portland, ME</link:city></li>
+            <li><link:city city="Portland" state="OR">Portland, OR</link:city></li>
+            <li><link:city city="Providence" state="RI">Providence, RI</link:city></li>
+            <li><link:city city="Sacramento" state="CA">Sacramento, CA</link:city></li>
+            <li><link:city city="Salt Lake City" state="UT">Salt Lake City, UT</link:city></li>
+            <li><link:city city="San Antonio" state="TX">San Antonio, TX</link:city></li>
+            <li><link:city city="San Diego" state="CA">San Diego, CA</link:city></li>
+        </ul>
+    	<ul>
+            <li><link:city city="San Francisco" state="CA">San Francisco, CA</link:city></li>
+            <li><link:city city="San Jose" state="CA">San Jose, CA</link:city></li>
+            <li><link:city city="Seattle" state="WA">Seattle, WA</link:city></li>
+            <li><link:city city="Sioux Falls" state="SD">Sioux Falls, SD</link:city></li>
+            <li><link:city city="Tucson" state="AZ">Tucson, AZ</link:city></li>
+            <li><link:city city="Virginia Beach" state="VA">Virginia Beach, VA</link:city></li>
+            <li><link:city city="Washington" state="DC">Washington, DC</link:city></li>
+            <li><link:city city="Wichita" state="KS">Wichita, KS</link:city></li>
+            <li><link:city city="Wilmington" state="DE">Wilmington, DE</link:city></li>
+        </ul>
+    </div>
+  </div>
     </div>
 </div>
 <cobrand:footer/>

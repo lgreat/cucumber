@@ -41,8 +41,8 @@
                           <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
                       </div>
                   </c:set>
-    
-                <gsml:a href="/about/aboutUs.page">About Us</gsml:a>            
+
+                <gsml:a href="/about/aboutUs.page">About Us</gsml:a>
                 <link:contactUs>Contact Us</link:contactUs>
                 <link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines>
                 <link:newsletterManagement>Newsletters</link:newsletterManagement>

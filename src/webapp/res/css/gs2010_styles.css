@@ -1,0 +1,268 @@
+/* reset default browser styles */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline:0; vertical-align: baseline; background: transparent;}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 1px dotted;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+html {
+    background: #68aaf1  url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
+}
+body {
+    background: url(/res/img/gs_cloud_bg.png) 50%  140px no-repeat;
+    font: 13px/1.3 Arial, sans-serif;
+    color: #333;
+}
+/*
+=text styles
+-------------------------------------------------------------------------------------------
+*/
+h1 {
+    font:  30px/1.3 Georgia, serif;
+    color: #d61;
+}
+h2 {
+    font: 24px/1.3 Georgia, serif;
+}
+h3 {
+    font: 20px/1.3 Arial, sans-serif;
+}
+h4 {
+    font: 700 18px /1.3 Georgia, serif;
+    color: #d61;
+}
+h5 {
+    font: 700 13px/1.3 Arial, sans-serif;
+}
+.alert {
+    color: #d61;
+}
+.title1 {
+    font-family: Georgia, serif;
+    color: #d61;
+}
+.title2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: #fc6;
+}
+.title2dark {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: #d61;
+}
+
+.subhead2, .subhead3, .subhead4 {
+    font-weight: 400;
+}
+.subhead3 {
+	color: #fff;
+}
+.subhead4 {
+    color: #fc6;
+}
+.subhead6 {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+a {
+    color: #0066B8;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+p {
+    margin: 0 0 1.2em;
+}
+/*
+=ads
+-------------------------------------------------------------------------------------------
+*/
+.gsAd, #adLeaderboard {
+    margin: 0 auto;
+    text-align: center;
+    width: 738px;
+}
+
+/*
+=page layouts
+-------------------------------------------------------------------------------------------
+*/
+#pageGS {
+    width: 978px;
+    margin: 0 auto;
+}
+#navbar {
+    padding: 0 4px;
+    height: 68px;
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+}
+#globalnav {
+    height: 34px;
+    margin: 0 auto;
+    background: #2092C4;
+    list-style: none;
+}
+#globalnav li {
+    float: left;
+    padding: 6px 0;
+    width: 136px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid #167eab;
+    border-left-color: #82bcd5
+}
+#globalnav li:first-child {
+    width: 140px;
+}
+#globalnav li a {
+    text-decoration: none;
+    color: #fff;
+}
+#subnav {
+    height: 34px;
+    list-style: none;
+}
+#subnav li {
+    float: left;
+    padding: 3px 0 0;
+    text-align: center;
+    width: 20%;
+}
+#subnav li a {
+    text-decoration: none;
+}
+#main {
+    position: relative;
+    margin: 0 auto;
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding: 0 24px;
+    min-height: 640px;
+}
+.leftside #main {
+    padding: 0 24px 0 344px;
+    width: 610px;
+}
+
+.col {
+    position: relative;
+    float: left;
+}
+
+#contentGS.col {
+    width: 597px;
+    margin: 0 25px 30px 0;
+}
+
+.balanced #contentGS.col {
+    width: 450px;
+    margin: 0 15px 30px 0;
+}
+.leftside #contentGS.col {
+    margin: 0 0 30px 15px;
+}
+#sidebar.col {
+    width: 305px;
+    margin-top: 10px;
+}
+
+.leftside #sidebar.col {
+    margin: 0 0 0 -100%;
+    right: 320px;
+}
+.balanced #sidebar.col {
+    width: 450px;
+    margin-top: 10px;
+}
+
+
+
+
+.mod_hd h3 {
+    padding: 3px;
+    background: #1c509f;
+    border: 1px solid #3399FF;
+}
+
+#sidebar .mod_hd h3 {
+    font-size: 14px;
+}
+.mod_bd {
+    padding: 8px;
+    border: solid #999;
+    border-width: 0 1px 1px;
+}
+
+
+#footer {
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+    font-size: 11px;
+    color: #666;
+}
+
+#footnav {
+    border-top: 3px dotted #666;
+    list-style: none;
+    width: 928px;
+    padding: 10px 0 0;
+    margin: 0 auto;
+    text-align: center;
+}
+#footnav li {
+    display: inline;
+    margin: 0 9px;
+    font-weight: 700;
+}
+#footnav li a, .cities ul a, .copyright a {
+    color: #666;
+}
+.copyright {
+    margin: 1em;
+    text-align: center;
+}
+.copyright a {
+    margin: 0 10px;
+}
+.cities {
+    margin: 20px auto 0;
+    padding: 12px 54px;
+    width: 860px;
+    background: #ebebeb;
+    overflow: hidden;
+}
+.cities h4 {
+    margin: 0 auto 1em;
+    font: 400 12px/1.3 Arial, sans-serif;
+    color: #444;
+    text-align: center;
+    text-transform: uppercase;
+}
+.cities ul {
+    float: left;
+    margin: 0 3px 0 0;
+    list-style: none;
+    width: 13.93%;
+}
