@@ -102,8 +102,8 @@
                                     </link:userProfile>
                                 </div>
                                 <!-- end avatar -->
-                                <div class="discussionTopic fltlft">
-                                    <h4 class="text3"><link:discussion discussionId="${discussion.id}"
+                                <div class="discussionTopic text3 fltlft">
+                                    <h4><link:discussion discussionId="${discussion.id}"
                                                                         fullUri="${fullUri}"
                                                                         styleClass="text3">${discussion.title}</link:discussion>
                                     </h4>
