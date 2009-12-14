@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.40 2009/12/04 22:27:14 chriskimm Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.41 2009/12/14 22:02:24 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -183,6 +183,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.MD)){
                     label = "HSA - All Grades";
+                }
+                else if(state.equals(State.MO)){
+                    label = "EOC - All Grades";
                 }
                 else if(state.equals(State.MS)){
                     label = "SATP - All Grades";
