@@ -28,26 +28,27 @@
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-
     <script type="text/javascript">
         var countWords = makeCountWords(150, "Survey answers are limited to 150 words.")
     </script>
+
     <script type="text/javascript">
-        function toggleLinkedChild(input, child) {
-            var lc = $(child);
-            if (input.value == "yes") {
-                lc.removeClassName("disabled");
-                lc.getElementsBySelector('input').each(function (item) {
-                    item.enable();
-                });
-            } else {
-                lc.addClassName("disabled");
-                lc.getElementsBySelector('input').each(function (item) {
-                    item.disable();
-                    item.checked = false;
-                });
-            }
-        }
+       function toggleLinkedChild(input, child) {
+           var lc = jQuery("#" + child);
+           var inp = jQuery(input);
+           if (inp.val() == 'yes') {
+               lc.removeClass('disabled');
+               lc.find('input').each(function(i) {
+                   jQuery(this).removeAttr('disabled');
+               });
+           } else {
+               lc.addClass('disabled');
+               lc.find('input').each(function(i) {
+                   jQuery(this).attr('disabled', 'disabled');
+                   jQuery(this).removeAttr('checked');
+               });
+           }
+       }
     </script>
 </head>
 <body>
