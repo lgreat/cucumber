@@ -106,17 +106,36 @@
 
     <div id="pageGS">
         <div id="header">
+            <ul id="utilLinks">
+                <li><a href="#">About GreatSchools</a></li>
+                <li><a href="#">Join Us</a></li>
+                <li><a href="#">Sign In</a></li>
+            </ul>
             <img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" alt="GreatSchools" />
+            <form action="" id="searchForm">
+                <fieldset>
+                    <ul>
+                        <li id="srch1" class="active"><a href="#">Schools</a></li>
+                        <li id="srch2"><a href="#">Tools &amp;amp; Advice</a></li>
+                    </ul>
+                    <input type="text" name="srchTerm" id="srchTerm" />
+                    <select id="srchState">
+                        <option>--</option>
+                        <option>CA</option>
+                    </select>
+                    <button type="submit" id="srchBtn" class="btn25"><span class="lftDoor25"><span class="rtDoor25">Search</span></span></button>
+                </fieldset>
+            </form>
         </div>
         <div id="navbar">
             <ul id="globalnav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Find a School</a></li>
-                <li><a href="#">Preschool</a></li>
-                <li><a href="#">Elementary School</a></li>
-                <li><a href="#">Middle School</a></li>
-                <li><a href="#">High School</a></li>
-                <li><a href="#">Hi-tech Holiday</a></li>
+                <li id="n1"><a href="#">Home</a></li>
+                <li id="n2"><a href="#">Find a School</a></li>
+                <li id="n3"><a href="#">Preschool</a></li>
+                <li id="n4"><a href="#">Elementary School</a></li>
+                <li id="n5"><a href="#">Middle School</a></li>
+                <li id="n6"><a href="#">High School</a></li>
+                <li id="n7"><a href="#">Hi-tech Holiday</a></li>
             </ul>
             <ul id="subnav">
                 <li><a href="#">Health &#38; Development</a></li>

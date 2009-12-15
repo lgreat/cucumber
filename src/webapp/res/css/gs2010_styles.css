@@ -30,7 +30,7 @@ html {
     background: #68aaf1  url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
 }
 body {
-    background: url(/res/img/gs_cloud_bg.png) 50%  140px no-repeat;
+    background: url(/res/img/gs_cloud_bg.png) 52%  204px no-repeat;
     font: 13px/1.3 Arial, sans-serif;
     color: #333;
 }
@@ -114,6 +114,112 @@ p {
     width: 978px;
     margin: 0 auto;
 }
+#header {
+    position: relative;
+    height: 116px;
+}
+#utilLinks {
+    position: absolute;
+    height: 18px;
+    list-style: none;
+    top: 10px;
+    right: 4px;
+}
+#utilLinks li {
+    display: inline;
+    padding: 0 6px;
+    border-right: 1px solid #fff;
+    font-size: 11px;
+}
+#utilLinks li:last-child {
+    border: 0;
+}
+#utilLinks li a {
+    color: #fff;
+}
+#logo {
+    position: relative;
+    margin-top: 20px;
+    width: 369px;
+    height: 83px;
+}
+#searchForm {
+    position: relative;
+    float: right;
+    margin: 40px 4px 0 0;
+    width: 449px;
+    height: 59px;
+}
+#searchForm fieldset {
+    position: relative;
+    padding: 28px 15px 0;
+    background: url(/res/img/search/srchBoxSprite_bg.png) 0 20px no-repeat;
+    height: 31px;
+}
+#searchForm ul {
+    position: absolute;
+    top: -28px;
+    left: -15px;
+    list-style: none;
+    height: 28px;
+}
+#searchForm ul li {
+    float: left;
+    padding: 0 0 0 6px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    height: 28px;
+}
+
+#searchForm ul #srch1 {
+    background: url(/res/img/search/srchBoxSprite_bg.png) 0 30px no-repeat;
+}
+#searchForm ul #srch2 {
+    background: url(/res/img/search/srchBoxSprite_bg.png) 0 30px no-repeat;
+}
+#searchForm ul #srch1.active {
+    background-position: 0 -58px;
+}
+#searchForm ul #srch2.active {
+    background-position: 0 -108px;
+}
+#searchForm ul li a {
+    display: block;
+    height: 21px;
+    padding: 3px 15px 3px 7px;
+    color: #fff;
+}
+#searchForm ul #srch1 a {
+    background: url(/res/img/search/srchBoxSprite_bg.png) 100% 30px no-repeat;
+}
+#searchForm ul #srch2 a {
+    background: url(/res/img/search/srchBoxSprite_bg.png) 100% 30px no-repeat;
+}
+#searchForm ul #srch1.active a {
+    background-position: 100% -158px;
+    color: #333;
+}
+#searchForm ul #srch2.active a {
+    background-position: 100% -208px;
+    color: #333;
+}
+#searchForm fieldset input, #searchForm fieldset select {
+    margin: 0 9px 0 0;
+}
+#searchForm fieldset input {
+    width: 270px;
+    height: 18px;
+}
+#searchForm fieldset select {
+    height: 24px;
+
+}
+#searchForm button {
+    position: relative;
+    top: -2px;
+    float: right;
+}
 #navbar {
     padding: 0 4px;
     height: 68px;
@@ -122,25 +228,59 @@ p {
 #globalnav {
     height: 34px;
     margin: 0 auto;
-    background: #2092C4;
     list-style: none;
+    background: url(/res/img/nav/nav_bg.png) repeat-x;
 }
 #globalnav li {
     float: left;
-    padding: 6px 0;
-    width: 136px;
-    font-size: 14px;
-    font-weight: 700;
+    padding: 0;
+    height: 32px;
     text-align: center;
     border: 1px solid #167eab;
-    border-left-color: #82bcd5
+    border-left-color: #82bcd5;
+    background: url(/res/img/nav/nav_bg.png) 0 -1px no-repeat;
+    font: 700 14px/1 Georgia, Times New Roman, serif;
 }
-#globalnav li:first-child {
-    width: 140px;
+#globalnav li#n1 {
+    width: 88px;
+}
+#globalnav li#n2 {
+    width: 130px;
+}
+#globalnav li#n3 {
+    width: 114px;
+}
+#globalnav li#n4 {
+    width: 180px;
+}
+#globalnav li#n5 {
+    width: 147px;
+}
+#globalnav li#n6 {
+    width: 130px;
+}
+#globalnav li#n7 {
+    width: 167px;
+}
+#globalnav li:hover, #globalnav li.over, #globalnav li.active {
+    background-position: 0 -35px;
+    border-color: #b76700;
 }
 #globalnav li a {
+    display: block;
+    padding: 6px 0;
     text-decoration: none;
     color: #fff;
+    height: 20px;
+}
+#globalnav li a:hover {
+    color: #333;
+}
+#globalnav li#n7 a {
+    background: url(/res/img/nav/snowFlakes_bg.png) 50% -1px no-repeat;
+}
+#globalnav li#n7 a:hover {
+    background-position: 50% -35px;
 }
 #subnav {
     height: 34px;
@@ -265,4 +405,67 @@ p {
     margin: 0 3px 0 0;
     list-style: none;
     width: 13.93%;
+}
+/* ------------------- */
+/* SLIDING DOOR BUTTON */
+/* ------------------- */
+
+/* ------------------- */
+/* 25 px height button */
+/* ------------------- */
+
+/* do not change */
+.btn25{
+    cursor: pointer;
+    display:block;
+    margin:0;
+    border:0 none transparent;
+    padding:0;
+    background-color:transparent; /* hide form background color in IE */
+}
+
+.lftDoor25 {
+    display:inline-block;
+    padding: 0 0 0 15px;
+    line-height: 25px;
+    float:left;
+}
+
+.rtDoor25 {
+    display: inline-block;
+    padding:0 15px 0 0;
+    height: 25px;
+    line-height: 25px;
+}
+
+/* skin */
+.lftDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
+}
+
+.rtDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
+}
+
+.btn25:active .lftDoor25, .btn25:hover .lftDoor25{
+    background-position: left bottom;
+}
+
+.btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
+    background-position: right bottom;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+/* icon */
+.lftDoor25 .rtDoor25 img{
+    margin:0;
+    border:0 none transparent;
+}
+
+/* font size and family */
+#marginGS .btn25 {
+    font: bold 14px Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #444;
+    color: #fff;
 }
