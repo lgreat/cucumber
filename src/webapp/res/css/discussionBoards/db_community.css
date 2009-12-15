@@ -87,6 +87,12 @@
     font-size:1px;
     line-height:20px;
 }
+.spacer_25{
+    clear:both;
+    height:25px;
+    font-size:1px;
+    line-height:25px;
+}
 .sdrt{
     border-top: 1px dotted #999;
 }
@@ -210,7 +216,7 @@ html[xmlns] .clearfix {
     width:150px;
     line-height:1.3;
 }
-#sideBar .topicItem{
+#sideBar .topicItem, #landing-module .topicItem{
     margin:0 0 0 15px;
     padding:5px 0;
     list-style:disc outside;
@@ -1127,6 +1133,23 @@ fieldset label {
         }
 
 /*END UPLOAD AVATAR HOVER*/
+
+/* ----------------- */
+/* COMMUNITY LANDING */
+/* ----------------- */
+
+#community-photo{
+    border:1px solid #ccc;
+    margin-right:20px;
+}
+
+#landing-module{
+    border:1px solid #ccc;
+    width:540px; height:240px;
+    margin-top:22px;
+}
+
+/* END COMMUNITY LANDING */
 
 /* ------------------- */
 /* SLIDING DOOR BUTTON */

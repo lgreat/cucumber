@@ -22,18 +22,63 @@
     <title>Community Landing | GreatSchools</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>    
 </head>
 <body>
 
-<div id="container">
-    <div id="mainContent" class="fltlft">
-        <h1>GreatSchools Community</h1>
-
-        <p>We've launched a brand new community... Steal the rest from the mock and the community sidebar.</p>
+<div id="community-landing">
+<div class="module">
+    <div class="header">
+        <span class="title1white">GreatSchools Community</span>
     </div>
-    <!-- end mainContent -->
+    <!-- end header -->
+    <div class="spacer_15"><!--do not collapse--></div>
+    <img src="/res/img/community/community_photo.jpg"
+         alt="community photo" name="community-photo" width="300" height="332"
+         id="community-photo" class="fltlft" />
+    <p class="introText">We've launched <span class="bold">a brand new community</span> and the page you're looking for is no longer available. We apologize for the inconvenience.</p>
+    <br class="utilityNavigation"/>
+    <p class="text1 tint_333">Search or browse our new community to find answers to your questions.</p>
+    <div id="landing-module" class="module fltlft">
+        <div class="body2bg sdrt gainlayout">
+            <div class="subhead2">Browse by topic</div>
+            <div class="fltlft">
+                <ul class="topics text2_180">
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
+                                                           fullUri="/preschool">Preschool</link:cmsContent></li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
+                                                           fullUri="/elementary-school">Elementary School</link:cmsContent>
+                    </li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638"
+                                                           fullUri="/middle-school">Middle School</link:cmsContent></li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639"
+                                                           fullUri="/high-school">High School</link:cmsContent></li>
+                </ul>
+            </div>
+            <div class="fltlft">
+                <ul class="topics text2_180">
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640"
+                                                           fullUri="/parenting">Health &amp;amp; Development</link:cmsContent>
+                    </li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641"
+                                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent>
+                    </li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642"
+                                                           fullUri="/LD">Learning Disabilities</link:cmsContent></li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
+                                                           fullUri="/improvement">Improve Your School</link:cmsContent>
+                    </li>
+                </ul>
+            </div>
+            <br class="clearfloat"/>
+        </div>
+        <c:import url="/community/browseLocalBoards.module"/>
+    </div>
+    <!-- end landing-module -->
 </div>
-<!-- end container -->
+<!-- end module -->
+</div>
 
 <mod:tracking pageName="Community Landing Page"
               hier1="Community"

@@ -6,6 +6,12 @@
     color: #333;
 }
 
+/* spannable styles */
+
+.bold{
+    font-weight:bold;
+}
+
 /* ----- */
 /* LINKS */
 /* ----- */
