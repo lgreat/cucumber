@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.203 2009/12/09 01:58:41 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.204 2009/12/15 17:35:26 droy Exp $
  */
 
 package gs.web.util;
@@ -720,6 +720,8 @@ public class UrlBuilder {
         } else if (ABOUT_US.equals(page)) {
             // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = "/about/aboutUs.page";
+        } else if (COMMUNITY_LANDING.equals(page)) {
+            _path = "/community/";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
@@ -1043,7 +1045,7 @@ public class UrlBuilder {
             }
         } else if (COMMUNITY_LANDING.equals(page)) {
             _perlPage = false;
-            _path = "/community/communityLanding.page";
+            _path = "/community/";
         } else if (ACCOUNT_INFO.equals(page)) {
             _perlPage = false;
             _path = "/accountInformation.page";

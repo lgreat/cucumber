@@ -754,6 +754,14 @@
         <property name="redirectPath" value="/privacy/"/>
     </bean>
 
+    <bean name="/community/"
+          class="gs.web.community.CommunityLandingController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>community/communityLanding</value>
+        </property>
+    </bean>
+
     <bean name="/about/testimonials.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
@@ -1493,16 +1501,6 @@
         </property>
     </bean>
 
-    <bean name="/community/registration3.page"
-          class="gs.web.community.registration.RegistrationNewsletterController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="newsletterCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.NewsletterCommand"/>
-        <property name="formView" value="/community/registration/registration3"/>
-        <property name="successView" value="redirect:/community/communityLanding.page"/>
-    </bean>
-
     <bean name="/community/registrationAjax.page"
           class="gs.web.community.registration.RegistrationAjaxController"
           autowire="byName" lazy-init="true"/>
@@ -1653,12 +1651,6 @@
           class="gs.web.community.registration.GetUserProfileController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/getUserProfile"/>
-    </bean>
-
-    <bean name="/community/communityLanding.page"
-          class="gs.web.community.registration.CommunityLandingController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/registration/communityLanding"/>
     </bean>
 
     <bean name="/community/localCommunity.page"
