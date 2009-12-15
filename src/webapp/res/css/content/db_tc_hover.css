@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+/* start a discussion hover */
+
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(51, 51, 51, 0.75);
+}
+.ui-dialog {
+    background: #ebebeb;
+    padding: 2px 12px;
+    border: 2px solid white;
+}
+.ui-corner-all {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+.ui-dialog-titlebar {
+    position: relative;
+    font-size: 1px;
+    line-height: .1;
+    height: 0;
+}
+.ui-dialog .ui-dialog-titlebar {
+    display:none;
+}
