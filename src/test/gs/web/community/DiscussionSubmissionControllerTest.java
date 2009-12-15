@@ -39,6 +39,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IPublicationDao _publicationDao;
     private SolrService _solrService;
+    private IAlertWordDao _alertWordDao;
     private User _user;
     private DiscussionSubmissionCommand _command;
 
@@ -55,12 +56,14 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
         _solrService = createStrictMock(SolrService.class);
+        _alertWordDao = createStrictMock(IAlertWordDao.class);
 
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setSolrService(_solrService);
+        _controller.setAlertWordDao(_alertWordDao);
 
         _user = new User();
         _user.setId(5);
@@ -91,11 +94,11 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService);
+        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao);
     }
 
 //    private void resetAllMocks() {
@@ -105,6 +108,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     public void testBasics() {
         assertSame(_discussionDao, _controller.getDiscussionDao());
         assertSame(_discussionReplyDao, _controller.getDiscussionReplyDao());
+        assertSame(_alertWordDao, _controller.getAlertWordDao());
     }
 
     private void insertUserIntoRequest() {
@@ -151,6 +155,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expectedEditedDiscussion.setAuthorId(_user.getId());
         expectedEditedDiscussion.setId(1);
 
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_POST)).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(false);
+
         _discussionDao.saveKeepDates(eqDiscussion(expectedEditedDiscussion));
         discussion.setUser(_user);
         discussion.setDiscussionBoard(board);
@@ -193,6 +200,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setBody(VALID_LENGTH_DISCUSSION_POST);
         discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
         discussion.setAuthorId(_user.getId());
+
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_POST)).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(false);
 
         _discussionDao.save(eqDiscussion(discussion));
         discussion.setUser(_user);
@@ -238,6 +248,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setBody(VALID_LENGTH_DISCUSSION_POST);
         discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
         discussion.setAuthorId(_user.getId());
+
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_POST)).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(false);
 
         _discussionDao.save(eqDiscussion(discussion));
         discussion.setUser(_user);
@@ -416,6 +429,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
                 DiscussionSubmissionController.DISCUSSION_TITLE_MAXIMUM_LENGTH));
         discussion.setAuthorId(_user.getId());
 
+        expect(_alertWordDao.hasAlertWord(discussion.getBody())).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(discussion.getTitle())).andReturn(false);
+
         _discussionDao.save(eqDiscussion(discussion));
         discussion.setUser(_user);
         discussion.setDiscussionBoard(board);
@@ -453,6 +469,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         board.setFullUri("/uri");
 
         expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_REPLY_POST)).andReturn(false);
 
         DiscussionReply reply = new DiscussionReply();
         reply.setAuthorId(_user.getId());
@@ -490,6 +507,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         board.setFullUri("/uri");
 
         expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_REPLY_POST)).andReturn(false);
 
         DiscussionReply reply = new DiscussionReply();
         reply.setAuthorId(_user.getId());
@@ -604,6 +622,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         reply.setBody(StringUtils.abbreviate(longBody.toString(),
                 DiscussionSubmissionController.REPLY_BODY_MAXIMUM_LENGTH));
         reply.setDiscussion(discussion);
+
+        expect(_alertWordDao.hasAlertWord(reply.getBody())).andReturn(false);
+
         _discussionReplyDao.save(eqDiscussionReply(reply));
 
         replayAllMocks();

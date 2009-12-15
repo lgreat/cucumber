@@ -48,6 +48,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private IPublicationDao _publicationDao;
     private SolrService _solrService;
     private IUserDao _userDao;
+    private IAlertWordDao _alertWordDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -120,7 +121,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
         } else {
-            // TODO: profanity filter
             // TODO: more validation?
 
             Discussion discussion = new Discussion();
@@ -128,6 +128,15 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBoardId(board.getContentKey().getIdentifier());
             discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
             discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
+
+            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                    (_alertWordDao.hasAlertWord(discussion.getBody()) || _alertWordDao.hasAlertWord(discussion.getTitle()))) {
+                // profanity filter
+                // Moderators are always allowed to post profanity
+                // TODO: report post
+                discussion.setActive(false);
+                _log.warn("Discussion edit triggers profanity filter.");
+            }
 
             _discussionDao.save(discussion);
             // needed for indexing
@@ -207,12 +216,20 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             _log.warn("Attempt to edit but user != author! discussion author_id=" +
                     discussion.getAuthorId() + "; user_id=" + user.getId());
         } else {
-            // TODO: profanity filter
             // TODO: more validation?
 
             discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
             discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
             discussion.setDateUpdated(new Date());
+
+            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                    (_alertWordDao.hasAlertWord(command.getBody()) || _alertWordDao.hasAlertWord(command.getTitle()))) {
+                // profanity filter
+                // Moderators are always allowed to post profanity
+                // TODO: report post
+                discussion.setActive(false);
+                _log.warn("Discussion edit triggers profanity filter.");
+            }
 
             _discussionDao.saveKeepDates(discussion);
             // needed for indexing
@@ -275,8 +292,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + REPLY_BODY_MINIMUM_LENGTH + " ignored");
         } else {
-
-            // TODO: profanity filter
             // TODO: more validation?
 
             boolean newReply = false;
@@ -299,6 +314,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             if (canSave) {
                 reply.setDiscussion(discussion);
                 reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
+                if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                        _alertWordDao.hasAlertWord(reply.getBody())) {
+                    // profanity filter
+                    // Moderators are always allowed to post profanity
+                    // TODO: report post
+                    reply.setActive(false);
+                    _log.warn("Reply triggers profanity filter.");
+                }
                 if (newReply) {
                     reply.setAuthorId(user.getId());
                     _discussionReplyDao.save(reply);
@@ -369,5 +392,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public IAlertWordDao getAlertWordDao() {
+        return _alertWordDao;
+    }
+
+    public void setAlertWordDao(IAlertWordDao alertWordDao) {
+        _alertWordDao = alertWordDao;
     }
 }
