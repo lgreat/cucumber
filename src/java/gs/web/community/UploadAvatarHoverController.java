@@ -47,6 +47,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     /** Images larged than this will be scaled down to this size.  This should be larger than we ever anticipate
      * our avatars being. */
     public static final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
+    public static final int MIN_IMAGE_DIMENSIONS_PIXELS = 95;
     private static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
     private static final String MODEL_STOCK_AVATAR_URL_PREFIX = "stockAvatarUrlPrefix";
     private IUserDao _userDao;
@@ -99,9 +100,13 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                 if (incomingImage == null) {
                     errors.rejectValue("avatar", null, "The file does not appear to be a valid image.");
                 } else {
-                    // Remove the file from the command object to save memory
-                    command.setAvatar(null);
-                    command.setImage(incomingImage); // this is for onSubmit
+                    if (incomingImage.getWidth() < MIN_IMAGE_DIMENSIONS_PIXELS || incomingImage.getHeight() < MIN_IMAGE_DIMENSIONS_PIXELS) {
+                        errors.rejectValue("avatar", null, "Minimum image dimensions are 95x95 pixels.");
+                    } else {
+                        // Remove the file from the command object to save memory
+                        command.setAvatar(null);
+                        command.setImage(incomingImage); // this is for onSubmit
+                    }
                 }
             }
         }
