@@ -6,11 +6,6 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.page contentType="text/plain"/>
-<c:set var="sitemapExcludes">
-<!-- List of URL's for the sitemap, to disallow some bots from crawling them -->
-Disallow: /sitemap/
-    
-</c:set>
 <c:set var="excludes">
 <!-- List of URL's no bot should ever crawl -->    
 Disallow: /*&amp;amp;*
@@ -109,23 +104,18 @@ Disallow: /
 <c:when test="${requestScope.context.cobranded}">
 User-agent: Slurp
 ${excludes}
-${sitemapExcludes}
 
 User-agent: Googlebot
 ${excludes}
-${sitemapExcludes}
 
 User-agent: MSNBot
 ${excludes}
-${sitemapExcludes}
 
 User-agent: Teoma
 ${excludes}
-${sitemapExcludes}
 
 User-agent: twiceler
 ${excludes}
-${sitemapExcludes}
 
 User-agent: *
 Disallow: /
@@ -135,19 +125,16 @@ Disallow: /
 <c:otherwise>
 User-agent: Googlebot
 ${excludes}
-${sitemapExcludes}
 
 User-agent: Mediapartners-Google
 ${excludes}
-${sitemapExcludes}
 
 User-agent: Adsbot-Google
 ${excludes}
-${sitemapExcludes}
 
 User-agent: *
 ${excludes}
-Sitemap: http://www.greatschools.org/sitemap/sitemap.xml.gz
+Sitemap: http://www.greatschools.org/sitemap/sitemap.xml
 </c:otherwise>
 </c:choose>
 </jsp:root>
