@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.50 2009/12/04 22:27:15 chriskimm Exp $
+ * $Id: LoginController.java,v 1.51 2009/12/16 23:55:28 droy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.soap.SoapRequestException;
+import gs.data.util.CommunityUtil;
 import gs.web.soap.ReportLoginRequest;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -48,9 +49,13 @@ public class LoginController extends SimpleFormController {
     private ReportLoginRequest _reportLoginRequest;
 
     protected void initializeRedirectUrl(HttpServletRequest request) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
-        DEFAULT_REDIRECT_URL = "http://" + communityHost + "/";
+        if (CommunityUtil.isNewCommunityEnabled()) {
+            DEFAULT_REDIRECT_URL = "/account/";
+        } else {
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
+            DEFAULT_REDIRECT_URL = "http://" + communityHost + "/";
+        }
     }
 
     //set up defaults if none supplied
