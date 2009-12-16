@@ -20,7 +20,9 @@ ins {
 del {
     text-decoration: line-through;
 }
-
+ul, li {
+    list-style: none;
+}
 /* tables still need 'cellspacing="0"' in the markup */
 table {
     border-collapse: collapse;
@@ -295,14 +297,14 @@ p {
 #subnav li a {
     text-decoration: none;
 }
-#main {
+#wrap {
     position: relative;
     margin: 0 auto;
     background: url(/res/img/gs_content_bg.png) repeat-y;
     padding: 0 24px;
     min-height: 640px;
 }
-.leftside #main {
+.leftside #wrap {
     padding: 0 24px 0 344px;
     width: 610px;
 }

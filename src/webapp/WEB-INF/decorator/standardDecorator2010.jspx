@@ -145,7 +145,7 @@
                 <li><a href="#">Choose the Right School</a></li>
             </ul>
         </div>
-        <div id="main">
+        <div id="wrap">
             <div id="contentGS">
                 <decorator:body/>
             </div>
