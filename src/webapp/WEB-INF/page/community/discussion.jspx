@@ -19,7 +19,7 @@
 <ad:setSlotPrefix slotPrefix="Discussion"/>
 
 <head>
-    <c:set var="pageTitle">${discussion.title} a</c:set>
+    <c:set var="pageTitle">${discussion.title}</c:set>
     <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
