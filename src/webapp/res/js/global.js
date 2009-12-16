@@ -290,13 +290,13 @@ function makeCountWords(max, alertText) {
             textField.value = textField.value.substr(0, z);
             var at = alertText;
             if (!at) {
-                at = "Please keep your comments to " + max + " words or less."
+                at = "Please keep your comments to " + max + " words or less.";
             }
             alert(at);
             return false;
         }
         return true;
-    }
+    };
 }
 
 
