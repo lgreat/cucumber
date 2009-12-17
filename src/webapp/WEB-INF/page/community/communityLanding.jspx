@@ -58,8 +58,8 @@
                                                            fullUri="/LD">Learning Disabilities</link:cmsContent></li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
                                                            fullUri="/improvement">Improve Your School</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
-                                                           fullUri="/improvement">Prep for College</link:cmsContent></li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1542"
+                                                           fullUri="/college-prep">Prep for College</link:cmsContent></li>
                 </ul>
             </div>
             <div class="fltlft">
