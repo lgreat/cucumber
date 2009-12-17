@@ -1158,11 +1158,19 @@ fieldset label {
     padding:18px 8px;
 }
 
-#landing-module .body2bg{
+#landing-module .col1 .body2bg{
     /*width:280px;*/
     width:auto;
     /*height:162px;*/
     padding:0 0 0 10px;
+    background:transparent;
+}
+
+#landing-module .col3 .body2bg{
+    /*width:280px;*/
+    width:auto;
+    /*height:162px;*/
+    padding:0;
     background:transparent;
 }
 
@@ -1207,6 +1215,11 @@ fieldset label {
 #landing-module .col3{
     width:276px;
     overflow:hidden;
+}
+
+#landing-module .db_search_input{
+    width:259px;
+    margin:7px 0 4px 0;
 }
 
 /* END COMMUNITY LANDING */
