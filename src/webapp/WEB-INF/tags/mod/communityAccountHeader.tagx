@@ -18,10 +18,24 @@
     <div id="communityHeader" class="noprint withImages">
         <span class="headerUsername">
             Welcome,
-            <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
+            <c:choose>
+                <c:when test="${communityUtil.newCommunityEnabled}">
+                    <gsml:a href="/account/">${requestScope.context.screenName}</gsml:a>                                        
+                </c:when>
+                <c:otherwise>
+                    <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
+                </c:otherwise>
+            </c:choose>
         </span>
         <span class="headerDashboard">
-            <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
+            <c:choose>
+                <c:when test="${communityUtil.newCommunityEnabled}">
+                    <gsml:a href="/account/">My Dashboard</gsml:a>
+                </c:when>
+                <c:otherwise>
+                    <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
+                </c:otherwise>
+            </c:choose>
         </span>
         <span class="headerAccount withAvatar">
             <c:set var="referrer" value=""/>
