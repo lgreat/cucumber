@@ -47,25 +47,7 @@
         <div class="body2bg">
             <div class="subhead2">Browse Community by topic</div>
             <div class="fltlft">
-                <ul class="topics1 text2_180">
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640"
-                                                           fullUri="/parenting">Great Parenting</link:cmsContent>
-                    </li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641"
-                                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent>
-                    </li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642"
-                                                           fullUri="/LD">Learning Disabilities</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
-                                                           fullUri="/improvement">Improve Your School</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1542"
-                                                           fullUri="/college-prep">Prep for College</link:cmsContent></li>
-                </ul>
-            </div>
-            <div class="fltlft">
                 <ul class="topics2 text2_180">
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
-                                                           fullUri="/preschool">Finding a School</link:cmsContent></li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
                                                            fullUri="/preschool">Preschool</link:cmsContent></li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
@@ -75,6 +57,21 @@
                                                            fullUri="/middle-school">Middle School</link:cmsContent></li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639"
                                                            fullUri="/high-school">High School</link:cmsContent></li>
+                </ul>
+            </div>
+            <div class="fltlft">
+                <ul class="topics1 text2_180">
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640"
+                                                           fullUri="/parenting">Health &amp;amp; Development</link:cmsContent>
+                    </li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641"
+                                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent>
+                    </li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642"
+                                                           fullUri="/LD">Learning Disabilities</link:cmsContent></li>
+                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
+                                                           fullUri="/improvement">Improve Your School</link:cmsContent>
+                    </li>
                 </ul>
             </div>
             <br class="clearfloat"/>
