@@ -141,7 +141,7 @@ a.btn25:focus, a.btn25:hover, a.btn35:focus, a.btn35:hover, .db_discussion h4 a:
 
 .certCourse {
     font: italic 16px / 1.3 Georgia, "Times New Roman", Times, serif;
-    color: #149;
+    /*color: #149;*/
 }
 
 #contentGS .text1 {
@@ -163,7 +163,7 @@ a.btn25:focus, a.btn25:hover, a.btn35:focus, a.btn35:hover, .db_discussion h4 a:
     color: #333;
 }
 
-.text2_180 {
+#contentGS .text2_180 {
     font: 13px / 1.8 Arial, Helvetica, sans-serif;
 }
 
