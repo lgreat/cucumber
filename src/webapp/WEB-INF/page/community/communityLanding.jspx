@@ -76,17 +76,9 @@
             </div>
             <br class="clearfloat"/>
         </div>
-        <div class="body3bg">
-            <form action="#">
-                <label class="db_select_label" for="db_cities"><span class="subhead2">Browse by city</span></label>
-                <select id="db_cities" name="cities" onchange="var l = this.options[this.selectedIndex].value; if (l != '') {document.location = l;}">
-                    <option value="" selected="selected">Select city</option>
-                    <c:forEach var="boardView" items="${requestScope.localBoards}">
-                        <option value="${boardView.boardUrl}">${boardView.localBoard.city.name}, ${boardView.localBoard.city.state}</option>
-                    </c:forEach>
-                </select>
-            </form>
-        </div>
+
+        <c:import url="/community/browseLocalBoards.module?outerDivClass=sb3"/>
+            
         </div>
             <div id="cl-or" class="certCourse tint_666 fltlft">Or</div>
         </div>
