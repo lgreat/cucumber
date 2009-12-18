@@ -79,6 +79,7 @@
             </div>
 
             <c:import url="/community/browseLocalBoards.module"/>
+            <div class="clearfloat sdrb"><!-- do not collapse --></div>
         </div>
         <!-- end module -->
 

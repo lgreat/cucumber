@@ -77,7 +77,7 @@
             <br class="clearfloat"/>
         </div>
 
-        <c:import url="/community/browseLocalBoards.module?outerDivClass=sb3"/>
+        <c:import url="/community/browseLocalBoards.module"/>
             
         </div>
             <div id="cl-or" class="certCourse tint_666 fltlft">Or</div>
