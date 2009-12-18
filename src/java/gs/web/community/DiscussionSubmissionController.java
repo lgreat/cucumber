@@ -54,6 +54,19 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
         DiscussionSubmissionCommand command = (DiscussionSubmissionCommand) commandObj;
 
+        /*
+        // TODO-8925
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        if (user != null && !user.getUserProfile().isActive()) {
+            UrlBuilder urlBuilder = new UrlBuilder(board.getContentKey(), board.getFullUri());
+            command.setRedirect(urlBuilder.asSiteRelative(request));
+
+            PageHelper.logout(request, response);
+            return new ModelAndView(new RedirectView(command.getRedirect()));
+        }
+        */
+
         if (StringUtils.equals("editDiscussion", command.getType())) {
             handleEditDiscussionSubmission(request, response, command);
         } else if (command.getDiscussionId() != null) {
