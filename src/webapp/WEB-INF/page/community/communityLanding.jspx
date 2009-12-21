@@ -87,16 +87,8 @@
                 <div class="subhead2">Search Community</div>
                 <form action="/search/contentSearch.page">
                     <input class="db_search_input formText2 tint_777"
-                           type="text" name="q"
-                           value="${pageScope.xmlEscapedSearchQuery}"/>
-                    <c:choose>
-                        <c:when test="${pageScope.searchType eq 'articles'}">
-                            <input type="hidden" name="type" value="articles"/>
-                        </c:when>
-                        <c:when test="${pageScope.searchType eq 'community'}">
-                            <input type="hidden" name="type" value="community"/>
-                        </c:when>
-                    </c:choose>
+                           type="text" name="q" value=""/>
+                    <input type="hidden" name="type" value="community"/>
                     <button class="btn25" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">Search</span>
