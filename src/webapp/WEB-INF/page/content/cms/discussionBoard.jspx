@@ -31,16 +31,17 @@
     <![endif]-->]]>
 
     <script type="text/javascript">
-        $(function() {
-            $("#postCountSelect").change(function() {
+        var $j = jQuery;
+        $j(function() {
+            $j("#postCountSelect").change(function() {
                 document.location='${requestScope.uri}&amp;pageSize=' + this.value;
             });
 
-            $('.emailItLink').click(function() {
+            $j('.emailItLink').click(function() {
                 return false;
             });
 
-            $('.reportItLink').click(function() {
+            $j('.reportItLink').click(function() {
                 return false;
             });
         });
