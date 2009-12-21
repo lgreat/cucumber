@@ -31,39 +31,40 @@
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>
     <script type="text/javascript">
+        var $j = jQuery;
         var postReplyForm;
-        $(function() {
+        $j(function() {
             //<c:if test = "${requestScope.validUser != null}" >
-            $('#upperReplyTrigger').click(function() {
-                $('.replyForm:first').slideToggle("normal");
+            $j('#upperReplyTrigger').click(function() {
+                $j('.replyForm:first').slideToggle("normal");
                 return false;
             });
 
-            $('.replyForm:last').show();
+            $j('.replyForm:last').show();
 
-            $('.db_discuss_full .editLink').click(function() {
-                var bodyContainer = $(this).parents('.db_discuss_full');
+            $j('.db_discuss_full .editLink').click(function() {
+                var bodyContainer = $j(this).parents('.db_discuss_full');
                 var body = bodyContainer.children('.discussionBody').html();
-                var titleContainer = $(this).parents('.db_discussion');
+                var titleContainer = $j(this).parents('.db_discussion');
                 var title = titleContainer.find('.db_title span.title1').html();
                 var discussionId = ${discussion.id};
                 GS.startDiscussionHover.showEdit(title, body, discussionId);
                 return false;
             });
 
-            $('.db_replies .editLink').click(function() {
-                var wrapper = $(this).parents('.db_reply_topic');
-                var container = $(this).parents('.db_replyContainer');
+            $j('.db_replies .editLink').click(function() {
+                var wrapper = $j(this).parents('.db_reply_topic');
+                var container = $j(this).parents('.db_replyContainer');
                 var reply = container.children('.db_reply_full');
                 var body = reply.children('.replyBody');
                 var replyId = reply.children('.replyId').text();
-                var replyForm = $('.replyForm:first form').clone();
+                var replyForm = $j('.replyForm:first form').clone();
                 replyForm.find('textarea').html(body.html());
                 replyForm.find('input[name=submit]').val('Edit this reply');
                 var replyIdElem = document.createElement('input');
-                $(replyIdElem).attr('name', 'discussionReplyId');
-                $(replyIdElem).attr('type', 'hidden');
-                $(replyIdElem).attr('value', replyId);
+                $j(replyIdElem).attr('name', 'discussionReplyId');
+                $j(replyIdElem).attr('type', 'hidden');
+                $j(replyIdElem).attr('value', replyId);
                 replyForm.append(replyIdElem);
                 container.append(replyForm);
                 wrapper.css('margin-left', '0');
@@ -72,11 +73,11 @@
             });
 
             //<gsml:ifUserCanDeleteContent pageUser="${validUser}">
-            $('.db_replies .deleteLink').click(function() {
-                var container = $(this).parents('.db_replyContainer');
+            $j('.db_replies .deleteLink').click(function() {
+                var container = $j(this).parents('.db_replyContainer');
                 var reply = container.children('.db_reply_full');
                 var replyId = reply.children('.replyId').text();
-                $.post('/community/deactivateContent.page', {
+                $j.post('/community/deactivateContent.page', {
                     contentId:replyId,
                     contentType:'reply'});
                 window.setTimeout(function() {
@@ -84,11 +85,11 @@
                 }, 250);
             });
 
-            $('.db_replies .undeleteLink').click(function() {
-                var container = $(this).parents('.db_replyContainer');
+            $j('.db_replies .undeleteLink').click(function() {
+                var container = $j(this).parents('.db_replyContainer');
                 var reply = container.children('.db_reply_full');
                 var replyId = reply.children('.replyId').text();
-                $.post('/community/deactivateContent.page', {
+                $j.post('/community/deactivateContent.page', {
                     contentId:replyId,
                     contentType:'reply',
                     reactivate:true});
@@ -97,7 +98,7 @@
                 }, 250);
             });
 
-            $('.db_discuss_full .deleteLink').click(function() {
+            $j('.db_discuss_full .deleteLink').click(function() {
                 $.post('/community/deactivateContent.page', {
                     contentId:${discussion.id},
                     contentType:'discussion'});
@@ -106,7 +107,7 @@
                 }, 250);
             });
 
-            $('.db_discuss_full .undeleteLink').click(function() {
+            $j('.db_discuss_full .undeleteLink').click(function() {
                 $.post('/community/deactivateContent.page', {
                     contentId:${discussion.id},
                     contentType:'discussion',
@@ -118,7 +119,7 @@
 
             //</gsml:ifUserCanDeleteContent>
 
-            $('#previewReplyDialog').dialog({
+            $j('#previewReplyDialog').dialog({
                 autoOpen: false,
                 resizable: false,
                 modal: true,
@@ -127,21 +128,21 @@
                 title: "Preview"
             });
 
-            $('.btn_preview').click(function() {
-                var previewBody = $(this).parent().find(".db_textarea textarea").val();
-                postReplyForm = $(this).closest('form');
-                $('#previewReplyDialog .replyBody').html(previewBody);
-                $('#previewReplyDialog').dialog("open");
+            $j('.btn_preview').click(function() {
+                var previewBody = $j(this).parent().find(".db_textarea textarea").val();
+                postReplyForm = $j(this).closest('form');
+                $j('#previewReplyDialog .replyBody').html(previewBody);
+                $j('#previewReplyDialog').dialog("open");
                 return false;
             });
 
-            $('#previewReplyDialog .previewEditButton').click(function() {
-                $('#previewReplyDialog').dialog("close");
-                $(postReplyForm).find(".db_textarea textarea").focus();
+            $j('#previewReplyDialog .previewEditButton').click(function() {
+                $j('#previewReplyDialog').dialog("close");
+                $j(postReplyForm).find(".db_textarea textarea").focus();
             });
 
-            $('#previewReplyDialog .previewPostButton').click(function() {
-                $('#previewReplyDialog').dialog("close");
+            $j('#previewReplyDialog .previewPostButton').click(function() {
+                $j('#previewReplyDialog').dialog("close");
                 postReplyForm.submit();
             });
 
