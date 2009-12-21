@@ -19,7 +19,7 @@
 <ad:setSlotPrefix slotPrefix="CommunityLanding"/>
 
 <head>
-    <title>Community Landing | GreatSchools</title>
+    <title>GreatSchools Parent Community</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
@@ -104,8 +104,8 @@
 <!-- end module -->
 </div>
 
-<mod:tracking pageName="Community Landing Page"
-              hier1="Community"
+<mod:tracking pageName="Community Home "
+              hier1="Community,Community Home"
               community="true"
               local=""
               omitAlmondNet="${true}"
