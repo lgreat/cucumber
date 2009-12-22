@@ -1145,12 +1145,18 @@ fieldset label {
 /* COMMUNITY LANDING */
 /* ----------------- */
 
+#community-landing{
+    position:relative;
+}
+
 #community-photo{
     border:1px solid #ccc;
     margin-right:20px;
 }
 
 #landing-module{
+    position:absolute;
+    bottom:0; right:0;
     border:1px solid #ccc;
     width:612px;
     /*height:240px;*/
@@ -1215,6 +1221,10 @@ fieldset label {
 #landing-module .col3{
     width:276px;
     overflow:hidden;
+}
+
+#landing-module #db_cities{
+    width:150px;
 }
 
 #landing-module .db_search_input{

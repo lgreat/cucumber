@@ -45,7 +45,7 @@
         <div class="col2 fltlft">
         <div class="col1 fltlft">
         <div class="body2bg">
-            <div class="subhead2">Browse Community by topic</div>
+            <div class="subhead2">Browse community by topic</div>
             <div class="fltlft">
                 <ul class="topics2 text2_180">
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
@@ -84,7 +84,7 @@
         </div>
         <div class="col3 fltlft">
             <div class="body2bg">
-                <div class="subhead2">Search Community</div>
+                <div class="subhead2">Search community</div>
                 <form action="/search/contentSearch.page">
                     <input class="db_search_input formText2 tint_777"
                            type="text" name="q" value=""/>
