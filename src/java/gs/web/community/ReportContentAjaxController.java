@@ -2,6 +2,9 @@ package gs.web.community;
 
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
@@ -21,154 +24,46 @@ import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
+ * @author Dave Roy <mailto:droy@greatschools.org>
  */
 public class ReportContentAjaxController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
-    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
-    private IDiscussionDao _discussionDao;
-    private IDiscussionReplyDao _discussionReplyDao;
-    private IUserDao _userDao;
-    private JavaMailSender _mailSender;
+    private ReportContentService _reportContentService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object commandObj, BindException errors) throws Exception {
         ReportContentCommand command = (ReportContentCommand) commandObj;
 
-        User reporter = null;
-        try {
-            reporter = _userDao.findUserFromId(command.getReporterId());
-        } catch (ObjectRetrievalFailureException orfe) {
-            _log.error("Unknown user tried to report " + command.getType() + " " +
-                    command.getContentId() + ", reporter id=" + command.getReporterId());
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        // error checking
+        if (sessionContext == null) {
+            _log.warn("Attempt to submit with no SessionContext rejected");
+            throw new IllegalStateException("No SessionContext found in request");
         }
+        if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
+            _log.warn("Attempt to submit with no valid user rejected");
+            throw new IllegalStateException("Discussion submission occurred but no valid user is cookied!");
+        }
+        User reporter = sessionContext.getUser();
         if (reporter == null || reporter.getUserProfile() == null) {
             return null; // early exit
         }
-
-        String urlToContent = getLinkForContent(request, command.getContentId(), command.getType());
-        sendEmail(urlToContent, command.getType(), reporter, command.getReason());
-
-        return null;
-    }
-
-    protected void sendEmail(String urlToContent, ReportContentCommand.ReportType contentType,
-                             User reporter, String reason) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("aroy@greatschools.org");
-        message.setFrom("aroy@greatschools.org");
-        message.setSentDate(new Date());
-        message.setSubject("Reported content alert");
-        StringBuffer body = new StringBuffer();
-        body.append("User ").append(reporter.getUserProfile().getScreenName());
-        body.append(" (id=").append(reporter.getId()).append(", email= ").append(reporter.getEmail());
-        body.append(") has reported the following ").append(contentType).append(":\n\n");
-        body.append(urlToContent).append("\n\n");
-        body.append("Reason provided: ").append(reason);
-        message.setText(body.toString());
-
-        try {
-            _mailSender.send(message);
-        }
-        catch (MailException me) {
-            _log.error("Error sending content reported email: urlToContent=" +
-                    urlToContent + "; reporter=" + reporter.getUserProfile().getScreenName(), me);
-        }
-    }
-
-    // for a user, the relevant page to go to is the user profile page
-    // for a discussion -- the discussion detail page
-    // for a discussion reply -- whichever page of the discussion detail page the reply would appear on
-    protected String getLinkForContent(HttpServletRequest request, int contentId,
-                                       ReportContentCommand.ReportType contentType) {
-        Discussion d;
-        UrlBuilder urlBuilder;
-        switch (contentType) {
-            case discussion:
-                d = _discussionDao.findById(contentId);
-                if (d == null || d.getBoardId() == null) {
-                    return null;
-                }
-                urlBuilder = getUrlBuilderForDiscussion(d);
-                if (urlBuilder != null) {
-                    return urlBuilder.asFullUrl(request);
-                }
-                break;
-            case reply:
-                DiscussionReply reply = _discussionReplyDao.findById(contentId);
-                if (reply == null || reply.getDiscussion() == null || reply.getDiscussion().getBoardId() == null) {
-                    return null;
-                }
-                urlBuilder = getUrlBuilderForDiscussion(reply.getDiscussion());
-                if (urlBuilder != null) {
-                    urlBuilder.setParameter("discussionReplyId", String.valueOf(contentId));
-                    return urlBuilder.asFullUrl(request) + "#reply_" + contentId;
-                }
-                break;
-            case member:
-                User u = null;
-
-                try {
-                    u = _userDao.findUserFromId(contentId);
-                } catch (ObjectRetrievalFailureException orfe) {
-                    // handled below
-                }
-                if (u == null || u.getUserProfile() == null) {
-                    return null;
-                }
-                urlBuilder = new UrlBuilder(u, UrlBuilder.USER_PROFILE);
-                return urlBuilder.asFullUrl(request);
-        }
-
-        return null;
-    }
-
-    protected UrlBuilder getUrlBuilderForDiscussion(Discussion d) {
-        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(d.getBoardId());
-        if (board == null) {
+        if (reporter.getId() != command.getReporterId()) {
+            _log.warn("Content reporter id doesn't match submitter cookies.");
             return null;
         }
-        return new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(), (long)d.getId());
 
+        _reportContentService.reportContent(reporter, request, command.getContentId(), command.getType(), command.getReason());
+        
+        return null;
     }
 
-    public ICmsDiscussionBoardDao getCmsDiscussionBoardDao() {
-        return _cmsDiscussionBoardDao;
+    public ReportContentService getReportContentService() {
+        return _reportContentService;
     }
 
-    public void setCmsDiscussionBoardDao(ICmsDiscussionBoardDao cmsDiscussionBoardDao) {
-        _cmsDiscussionBoardDao = cmsDiscussionBoardDao;
-    }
-
-    public IDiscussionDao getDiscussionDao() {
-        return _discussionDao;
-    }
-
-    public void setDiscussionDao(IDiscussionDao discussionDao) {
-        _discussionDao = discussionDao;
-    }
-
-    public IDiscussionReplyDao getDiscussionReplyDao() {
-        return _discussionReplyDao;
-    }
-
-    public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
-        _discussionReplyDao = discussionReplyDao;
-    }
-
-    public IUserDao getUserDao() {
-        return _userDao;
-    }
-
-    public void setUserDao(IUserDao userDao) {
-        _userDao = userDao;
-    }
-
-    public JavaMailSender getMailSender() {
-        return _mailSender;
-    }
-
-    public void setMailSender(JavaMailSender mailSender) {
-        _mailSender = mailSender;
+    public void setReportContentService(ReportContentService reportContentService) {
+        _reportContentService = reportContentService;
     }
 }

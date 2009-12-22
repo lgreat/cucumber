@@ -556,12 +556,17 @@
         <property name="multipartResolver" ref="sizeLimitedMultipartResolver"/>
     </bean>
 
+    <!-- Provides access to content reporting/moderation -->
+    <bean id="reportContentService" class="gs.web.community.ReportContentService">
+        <property name="mailSender" ref="mailSender"/>
+        <property name="moderationEmail" value="moderation@greatschools.org"/>
+    </bean>
+
     <bean name="/community/reportContent.page"
           class="gs.web.community.ReportContentAjaxController"
           autowire="byName" lazy-init="true">
         <property name="commandName" value="reportContentCommand"/>
         <property name="commandClass" value="gs.web.community.ReportContentCommand"/>
-        <property name="mailSender" ref="mailSender"/>        
     </bean>
 
     <bean name="/community/deactivateContent.page"

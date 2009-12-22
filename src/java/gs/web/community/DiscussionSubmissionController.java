@@ -49,6 +49,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private SolrService _solrService;
     private IUserDao _userDao;
     private IAlertWordDao _alertWordDao;
+    private ReportContentService _reportContentService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -142,15 +143,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
             discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
 
-            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    (_alertWordDao.hasAlertWord(discussion.getBody()) || _alertWordDao.hasAlertWord(discussion.getTitle()))) {
-                // profanity filter
-                // Moderators are always allowed to post profanity
-                // TODO: report post
-                discussion.setActive(false);
-                _log.warn("Discussion edit triggers profanity filter.");
-            }
-
             _discussionDao.save(discussion);
             // needed for indexing
             discussion.setUser(user);
@@ -162,16 +154,44 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
             }
 
+            String urlToContent = null;
+            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                    (_alertWordDao.hasAlertWord(discussion.getBody()) || _alertWordDao.hasAlertWord(discussion.getTitle()))) {
+                // profanity filter
+                // Moderators are always allowed to post profanity
+
+                urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
+                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
+                //discussion.setActive(false);
+                _log.warn("Discussion submission triggers profanity filter.");
+            }
+
             OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
             ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
-                        Long.valueOf(discussion.getId()));
-                command.setRedirect(urlBuilder.asSiteRelative(request));
+                if (urlToContent == null) {
+                    urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
+                }
+                command.setRedirect(urlToContent);
             }
         }
+    }
+
+    protected User getAlertWordFilterUser() {
+        User reporter = new User();
+        reporter.setId(-1);
+        reporter.setEmail(_reportContentService.getModerationEmail());
+        reporter.setUserProfile(new UserProfile());
+        reporter.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        return reporter;
+    }
+
+    protected String getDiscussionUrl(HttpServletRequest request, String fullUri, Long contentId) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, fullUri, contentId);
+        return urlBuilder.asSiteRelative(request);
     }
 
     protected void handleEditDiscussionSubmission
@@ -239,8 +259,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     (_alertWordDao.hasAlertWord(command.getBody()) || _alertWordDao.hasAlertWord(command.getTitle()))) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
-                // TODO: report post
-                discussion.setActive(false);
+
+                String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
+                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
                 _log.warn("Discussion edit triggers profanity filter.");
             }
 
@@ -327,14 +348,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             if (canSave) {
                 reply.setDiscussion(discussion);
                 reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
-                if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                        _alertWordDao.hasAlertWord(reply.getBody())) {
-                    // profanity filter
-                    // Moderators are always allowed to post profanity
-                    // TODO: report post
-                    reply.setActive(false);
-                    _log.warn("Reply triggers profanity filter.");
-                }
                 if (newReply) {
                     reply.setAuthorId(user.getId());
                     _discussionReplyDao.save(reply);
@@ -342,6 +355,15 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     reply.setDateUpdated(new Date());
                     _discussionReplyDao.saveKeepDates(reply);
                 }
+            }
+
+            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                    _alertWordDao.hasAlertWord(reply.getBody())) {
+                // profanity filter
+                // Moderators are always allowed to post profanity
+                _reportContentService.reportContent(getAlertWordFilterUser(), request, reply.getId(),
+                        ReportContentService.ReportType.reply, "Contains alert words");
+                _log.warn("Reply triggers profanity filter.");
             }
 
             // omniture success event only if new discussion reply
@@ -413,5 +435,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setAlertWordDao(IAlertWordDao alertWordDao) {
         _alertWordDao = alertWordDao;
+    }
+
+    public ReportContentService getReportContentService() {
+        return _reportContentService;
+    }
+
+    public void setReportContentService(ReportContentService reportContentService) {
+        _reportContentService = reportContentService;
     }
 }

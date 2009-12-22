@@ -4,17 +4,16 @@ package gs.web.community;
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentCommand {
-    public enum ReportType {reply, discussion, member}
-    private ReportType _type;
+    private ReportContentService.ReportType _type;
     private int _contentId;
     private String _reason;
     private int _reporterId;
 
-    public ReportType getType() {
+    public ReportContentService.ReportType getType() {
         return _type;
     }
 
-    public void setType(ReportType type) {
+    public void setType(ReportContentService.ReportType type) {
         _type = type;
     }
 
