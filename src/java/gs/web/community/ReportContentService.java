@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * @author Dave Roy <mailto:droy@greatschools.org>
  */
-public class ReportContentService extends SimpleFormController implements ReadWriteController {
+public class ReportContentService extends SimpleFormController implements IReportContentService {
     protected final Log _log = LogFactory.getLog(getClass());
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;

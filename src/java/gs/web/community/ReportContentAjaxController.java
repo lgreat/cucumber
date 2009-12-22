@@ -28,7 +28,7 @@ import java.util.Date;
  */
 public class ReportContentAjaxController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
-    private ReportContentService _reportContentService;
+    private IReportContentService _reportContentService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -42,8 +42,8 @@ public class ReportContentAjaxController extends SimpleFormController implements
             throw new IllegalStateException("No SessionContext found in request");
         }
         if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
-            _log.warn("Attempt to submit with no valid user rejected");
-            throw new IllegalStateException("Discussion submission occurred but no valid user is cookied!");
+            _log.warn("Attempt to submit with no valid user -- rejected");
+            throw new IllegalStateException("Report content submission occurred but no valid user is cookied!");
         }
         User reporter = sessionContext.getUser();
         if (reporter == null || reporter.getUserProfile() == null) {
@@ -59,11 +59,11 @@ public class ReportContentAjaxController extends SimpleFormController implements
         return null;
     }
 
-    public ReportContentService getReportContentService() {
+    public IReportContentService getReportContentService() {
         return _reportContentService;
     }
 
-    public void setReportContentService(ReportContentService reportContentService) {
+    public void setReportContentService(IReportContentService reportContentService) {
         _reportContentService = reportContentService;
     }
 }
