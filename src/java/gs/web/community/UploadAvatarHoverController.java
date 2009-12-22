@@ -93,7 +93,8 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                 errors.rejectValue("avatar", null, "Invalid image.");
             } else if (command.getAvatar().getContentType() == null ||
                         !(command.getAvatar().getContentType().equals("image/jpeg") ||
-                          command.getAvatar().getContentType().equals("image/gif"))) {
+                          command.getAvatar().getContentType().equals("image/gif") ||
+                          command.getAvatar().getContentType().equals("image/pjpeg"))) {
                 errors.rejectValue("avatar", null, "Image must be a jpeg or gif.");
             } else {
                 BufferedImage incomingImage = ImageIO.read(command.getAvatar().getInputStream());
