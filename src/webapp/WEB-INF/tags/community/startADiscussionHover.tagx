@@ -143,7 +143,18 @@
 
     <c:if test="${requestScope.context.user ne null}">
         <div id="previewDiscussionDialog" style="display:none;">
-            <div class="db_discussion sdrt">
+
+        <div id="sd_header">
+        <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
+                 height="58" alt="big speech bubbles" align="absmiddle"/>
+
+        <h2 class="sd_title fltlft">Preview</h2>
+        <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                      height="11" alt="close modal"/></p></div>
+        <br class="clearfloat"/>
+        </div>
+
+            <div class="db_discussion">
                 <div class="db_title gainlayout">
                     <h4 class="fltlft"><span
                             class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></h4>
@@ -176,7 +187,7 @@
                 </div>
                 <!-- end db_discussTopic -->
             </div>
-            <button class="btn25 fltlft previewEditButton" type="submit">
+            <button class="btn25 fltlft previewEditButton sd-btn-layout" type="submit">
                 <span class="lftDoor25">
                     <span class="rtDoor25">Edit&amp;nbsp;discussion</span>
                 </span>
