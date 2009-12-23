@@ -183,8 +183,8 @@
 
         <p class="defaultBioText">
             Welcome to the GreatSchools community!
-            <a href="#" class="editAboutMe">Tell us about yourself</a>
-            to start building your profile.
+            <a href="#" class="editAboutMe">Tell us about yourself so we can personalize your experience and provide
+            you with the most relevant tips and tools ></a>
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" method="post" style="display:none">
@@ -267,7 +267,12 @@
 
     <c:choose>
         <c:when test="${empty requestScope.recentPosts}">
-            <p>${pageUser.userProfile.screenName} hasn't posted anything yet.</p>
+            <p>
+                <c:choose>
+                    <c:when test="${requestScope.viewingOwnProfile}">You haven't</c:when>
+                    <c:otherwise>${pageUser.userProfile.screenName} hasn't</c:otherwise>
+                </c:choose> posted anything yet.
+            </p>
             <c:if test="${requestScope.viewingOwnProfile}">
                 <p>Share stories about your child's success in and out of the classroom in our community.</p>
             </c:if>
