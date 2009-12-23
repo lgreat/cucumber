@@ -273,11 +273,15 @@
             </c:if>
             <p>Our community wants to hear from you about:</p>
             <ul class="prompt">
-                <li><span><link:discussion discussionId="1" fullUri="uri">Health and development</link:discussion></span></li>
-                <li><span><link:discussion discussionId="1" fullUri="uri">Academics and activities</link:discussion></span></li>
-                <li><span><link:discussion discussionId="1" fullUri="uri">Learning difficulties</link:discussion></span></li>
-                <li><span><link:discussion discussionId="1" fullUri="uri">Improving schools</link:discussion></span></li>
-                <li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li>
+                <li><span><link:cmsContent contentKey="DiscussionBoard#1640"
+                                           fullUri="/parenting">Health and development</link:cmsContent></span></li>
+                <li><span><link:cmsContent contentKey="DiscussionBoard#1641"
+                                           fullUri="/students">Academics and activities</link:cmsContent></span></li>
+                <li><span><link:cmsContent contentKey="DiscussionBoard#1642"
+                                           fullUri="/LD">Learning difficulties </link:cmsContent></span></li>
+                <li><span><link:cmsContent contentKey="DiscussionBoard#1643"
+                                           fullUri="/improvement">Improving schools</link:cmsContent></span></li>
+                <!-- li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li -->
             </ul>
         </c:when>
         <c:otherwise>
