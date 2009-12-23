@@ -219,6 +219,17 @@
 <!-- Preview reply dialog -->
 <c:if test="${validUser ne null}">
     <div id="previewReplyDialog" style="display:none;">
+
+        <div id="sd_header">
+        <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
+                 height="58" alt="big speech bubbles" align="absmiddle"/>
+
+        <h2 class="sd_title fltlft">Preview</h2>
+        <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                      height="11" alt="close modal"/></p></div>
+        <br class="clearfloat"/>
+        </div>
+
         <div class="db_reply_topic">
             <div class="fltlft">
                 <community:avatar user="${validUser}" width="48" height="48"
@@ -231,7 +242,7 @@
 
                 <div class="db_reply_full fltrt rnd8">
                     <p class="fltlft">
-                        <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
+                        <span class="smallAlertTextBoldNeutral link">${validUser.userProfile.screenName}</span>
                         <span class="smallText1">, a moment ago</span>
                     </p>
 
@@ -241,13 +252,14 @@
                 </div>
                 <!-- end preview db_reply_full -->
             </div>
+            <br class="clearfloat"/>
         </div>
-        <button class="btn25 previewEditButton" type="submit">
+        <button class="btn25 previewEditButton fltlft sd-btn-layout" type="submit">
         <span class="lftDoor25">
             <span class="rtDoor25">Edit&amp;nbsp;reply</span>
         </span>
         </button>
-        <button class="btn25 previewPostButton" type="submit">
+        <button class="btn25 previewPostButton fltlft" type="submit">
         <span class="lftDoor25">
             <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
         </span>

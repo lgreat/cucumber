@@ -1234,6 +1234,57 @@ fieldset label {
 
 /* END COMMUNITY LANDING */
 
+/* PREVIEW REPLY HOVER */
+
+#previewReplyDialog p{
+    margin:0; padding:0;
+}
+
+#previewReplyDialog .sd_icon{
+    padding:15px 5px 0 0;
+}
+
+#previewReplyDialog h2 {
+    font: 24px Georgia, "Times New Roman", Times, serif;
+    color: #d61;
+}
+.text2bold {
+    font: bold 13px / 1.3 Arial, Helvetica, sans-serif;
+    /*color: #333;*/
+}
+
+#previewReplyDialog .smallText1 {
+    font: 11px / 1.3 Arial, Helvetica, sans-serif;
+    /*color: #777;*/
+}
+
+#previewReplyDialog .smallAlertTextBoldNeutral {
+    font: bold 11px / 1.2 Arial, Helvetica, sans-serif;
+}
+
+#previewReplyDialog .db_reply_topic{
+    margin:0;
+    padding:20px 0 15px 3px;
+}
+
+#previewReplyDialog .db_replyContainer b.db_replyPointLeft{
+    border-top: 7px solid #ebebeb;
+    border-bottom: 7px solid #ebebeb;
+}
+
+#previewReplyDialog .db_reply_full{
+    width:430px;
+    background:white;
+}
+
+
+
+#previewReplyDialog .sd-btn-layout{
+    margin:0 20px 24px 65px;
+}
+
+/* END PREVIEW REPLY HOVER */
+
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
 /* ------------------- */
