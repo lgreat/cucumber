@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.util.table.ITableDao;
+import gs.data.util.CommunityUtil;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.state.State;
@@ -348,9 +349,14 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setRedirectUrl(getHoverView());
         } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                 !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
-            String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
+            String redirectUrl;
+            if (CommunityUtil.isNewCommunityEnabled()) {
+                redirectUrl = "/account/";
+            } else {
+                redirectUrl = "http://" +
+                        SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                        "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
+            }
             userCommand.setRedirectUrl(redirectUrl);
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
