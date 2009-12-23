@@ -41,6 +41,7 @@
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
     <pageHelper:externalCss file="/res/css/content/middleSchool.css"/>
+    <pageHelper:externalCss file="/res/css/content/db_tc_hover.css"/>
     <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
     <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
 
