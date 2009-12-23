@@ -35,6 +35,9 @@ public class UserInfoController extends AbstractController {
     public static final String URI_USER_ACCOUNT = "/account/";
     public static final String URI_PREFIX_USER_PROFILE = "/members/";
 
+    public static final int RECENT_ACTIVITY_PAGE_SIZE = 5;
+    public static final int VIEW_ALL_ACTIVITY_PAGE_SIZE = 10;
+
     public static final String MODEL_PAGE_TYPE = "pageType";
     public static final String MODEL_PAGE_USER = "pageUser";
     public static final String MODEL_VIEWER = "viewer";
@@ -53,12 +56,10 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_CAN_EDIT_MEMBER = "canEditMember";
     public static final String MODEL_CAN_BAN_MEMBER = "canBanMember";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+    public static final String MODEL_SHOW_VIEW_ALL_ACTIVITY_LINK = "showViewAllActivityLink";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
-
-    public static final int RECENT_ACTIVITY_PAGE_SIZE = 5;
-    public static final int VIEW_ALL_ACTIVITY_PAGE_SIZE = 10;
 
     public static final String PARAM_VIEW_ALL_ACTIVITY = "viewAllActivity";
     public static final String PARAM_PAGE = "page";
@@ -161,7 +162,14 @@ public class UserInfoController extends AbstractController {
 
         } else {
             model.put(MODEL_VIEW_ALL_ACTIVITY, false);
+            /* we need to know if there are any posts not being displayed in the recent activity list to know if we
+               should display the link to view all activity.  Getting the total count of posts is one way, but it
+               might be more efficient to just grab n+1 posts and if we get n+1 only send n to the model and show the
+               link.
+             */
+            int totalPosts = _userContentDao.countAllContentByAuthorId(pageUser.getId(), UserContent.class, viewingOwnProfile);
             recentContent = _userContentDao.findAllContentByAuthor(pageUser, RECENT_ACTIVITY_PAGE_SIZE, viewingOwnProfile);
+            model.put(MODEL_SHOW_VIEW_ALL_ACTIVITY_LINK, totalPosts > recentContent.size());
         }
 
         for (UserContent content: recentContent) {

@@ -257,7 +257,9 @@
             </a>
         </c:when>
         <c:otherwise>
-            <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
+            <c:if test="${requestScope.showViewAllActivityLink}">
+                <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
+            </c:if>
         </c:otherwise>
     </c:choose>
 
