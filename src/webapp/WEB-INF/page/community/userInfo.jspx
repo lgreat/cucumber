@@ -183,8 +183,8 @@
 
         <p class="defaultBioText">
             Welcome to the GreatSchools community!
-            <a href="#" class="editAboutMe">Tell us about yourself so we can personalize your experience and provide
-            you with the most relevant tips and tools ></a>
+            <a href="/accountInformation.page">Tell us about yourself so we can personalize your experience and provide
+            you with the most relevant tips and tools.</a>
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" method="post" style="display:none">
