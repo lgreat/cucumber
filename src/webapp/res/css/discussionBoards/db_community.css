@@ -449,9 +449,9 @@ html[xmlns] .clearfix {
     padding:0 0 0 10px;
 }
 
-.db_post_reply .guidelines{
+/*.db_post_reply .guidelines{
     padding:0 0 0 10px;
-}
+}*/
 
 .db_footer{
     padding:15px 0;
@@ -1356,6 +1356,23 @@ fieldset label {
 }
 
 /* END PREVIEW DISCUSSION DIALOG HOVER */
+
+/* EDIT RECENT REPLY */
+
+.replybox{
+    width:387px;
+    padding:12px;
+}
+
+.db_textarea{
+    padding:0 0 10px 0;
+}
+
+.guidelines{
+    margin:0 0 0 10px;
+}
+
+/* END EDIT RECENT REPLY */
 
 /* ------------------- */
 /* SLIDING DOOR BUTTON */

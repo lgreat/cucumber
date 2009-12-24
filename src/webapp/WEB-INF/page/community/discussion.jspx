@@ -230,7 +230,7 @@
         <br class="clearfloat"/>
         </div>
 
-        <div class="db_reply_topic">
+        <div class="db_reply_topic clearfix">
             <div class="fltlft">
                 <community:avatar user="${validUser}" width="48" height="48"
                                   cssStyle="border: 1px solid #c6c6c6;"/>
@@ -413,15 +413,15 @@
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
 
                             <div class="db_textarea">
-                                <textarea rows="9" cols="53" class="replybox"
+                                <textarea rows="9" cols="53" class="replybox text3"
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
 
-                            <button class="btn25 fltlft btn_preview" type="submit">
+                            <!--<button class="btn25 fltlft btn_preview" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Preview</span>
                                 </span>
-                            </button>
+                            </button>-->
 
 
                             <button class="btn25 fltlft btn_postReply" type="submit">
@@ -483,7 +483,7 @@
             <c:forEach var="reply" items="${requestScope.replies}">
 
                 <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-                <div class="db_reply_topic">
+                <div class="db_reply_topic clearfix">
                     <div class="fltlft">
                         <c:choose>
                             <c:when test="${reply.user.userProfile.active}">
