@@ -182,9 +182,8 @@
         </c:if>
 
         <p class="defaultBioText">
-            Welcome to the GreatSchools community!
-            <a href="/accountInformation.page">Tell us about yourself so we can personalize your experience and provide
-            you with the most relevant tips and tools.</a>
+            Welcome to the GreatSchools community! <a href="/accountInformation.page">Tell us about yourself</a>
+            to start building your profile.
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" method="post" style="display:none">
@@ -275,19 +274,19 @@
             </p>
             <c:if test="${requestScope.viewingOwnProfile}">
                 <p>Share stories about your child's success in and out of the classroom in our community.</p>
-            </c:if>
             <p>Our community wants to hear from you about:</p>
             <ul class="prompt">
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1640"
-                                           fullUri="/parenting">Health and development</link:cmsContent></span></li>
+                                           fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></span></li>
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1641"
-                                           fullUri="/students">Academics and activities</link:cmsContent></span></li>
+                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></span></li>
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1642"
-                                           fullUri="/LD">Learning difficulties </link:cmsContent></span></li>
+                                           fullUri="/LD">Learning Disabilities</link:cmsContent></span></li>
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1643"
-                                           fullUri="/improvement">Improving schools</link:cmsContent></span></li>
+                                           fullUri="/improvement">Improving Schools</link:cmsContent></span></li>
                 <!-- li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li -->
             </ul>
+            </c:if>
         </c:when>
         <c:otherwise>
             <ul>
