@@ -51,7 +51,12 @@ public class AccountInformationController extends SimpleFormController implement
             if (user != null && user.isEmailValidated()) {
                 command.setMemberId(user.getId());
                 command.setGender(user.getGender());
-                command.setState(user.getUserProfile().getState());
+                State userState = user.getUserProfile().getState();
+                if (userState == null) {
+                    // assign a default state for the dropdown
+                    userState = State.CA;
+                }
+                command.setState(userState);
                 command.setCity(user.getUserProfile().getCity());
 
                 List<Student> students = new ArrayList<Student>(user.getStudents());
@@ -106,7 +111,7 @@ public class AccountInformationController extends SimpleFormController implement
         // load the city and school list for each child (state and grade dropdowns are static)
         for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
             command.addCityList(_geoDao.findCitiesByState(student.getState()));
-            if (student.getGrade() != null) {
+            if (student.getGrade() != null && student.getState() != null) {
                 List<School> schools = _schoolDao.findSchoolsInCityByGrade(student.getState(), student.getCity(), student.getGrade());
                 command.addSchools(schools);
             } else {
