@@ -14,11 +14,14 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author thuss
  */
 public class BaseHtmlUnitIntegrationTestCase extends TestCase implements IntegrationTestCase {
-
+    protected final Log _log = LogFactory.getLog(getClass());
     protected WebClient _webClient = null;
 
     public void setUp() {
@@ -57,11 +60,11 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         Matcher matcher = pattern.matcher(source);
         source = matcher.replaceAll("$1><li>placeholder</li></ul>");
 //        try {
-//            File outFile = new File("/tmp/out.html");
+//            File outFile = new File("/tmp/out.html"); // Change folder to be valid for your system
 //            FileWriter out = new FileWriter(outFile);
 //            out.write(source);
 //            out.close();
-//        } catch (Exception e) { /* Do nothing */ }
+//        } catch (Exception e) { _log.warn("Failed to output html: " + e.getMessage()); }
         XhtmlValidator validator = new XhtmlValidator();
         boolean valid = false;
         try {
