@@ -100,7 +100,7 @@
                  height="66" alt="report it flag" align="absmiddle"/>
 
         <h2 class="sd_title fltlft">Report this <span id="reportHoverHeader">content</span> as inappropriate</h2>
-        <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+        <div class="titlebar-close dialogCancelButton reportCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
                       height="11" alt="close modal"/></p></div>
         <br class="clearfloat"/>
         </div>
