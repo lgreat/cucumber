@@ -389,10 +389,12 @@
                     <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
-            <li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"
+            <c:if test="${!communityUtil.newCommunityEnabled}">
+                <li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"
                                          styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "
                                          id="GlobalNav_CommunityButton">Community</gsml:a>
-            </li>
+                </li>
+            </c:if>
         </ul>
         <c:choose>
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')
