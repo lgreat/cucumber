@@ -23,6 +23,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     protected final Log _log = LogFactory.getLog(getClass());
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
+    private IUserDao _userDao;
     private SolrService _solrService;
 
     @Override
@@ -52,12 +53,14 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     ThreadLocalTransactionManager.commitOrRollback();
                     try {
                         if (command.isReactivate()) {
+                            _userDao.populateWithUser(discussion);
                             _solrService.indexDocument(discussion);
                         } else {
                             _solrService.deleteDocument(discussion);
                         }
                     } catch (Exception e) {
-                        _log.error("Could not de-index discussion " + discussion.getId() + " using solr", e);
+                        String action = command.isReactivate() ? "index" : "de-index";
+                        _log.error("Could not " + action + " discussion " + discussion.getId() + " using solr", e);
                     }
                 }
             }
@@ -79,6 +82,14 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setDiscussionDao(IDiscussionDao discussionDao) {
         _discussionDao = discussionDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 
     public SolrService getSolrService() {
