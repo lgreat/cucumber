@@ -10,6 +10,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.security.Permission;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.search.SolrService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     protected final Log _log = LogFactory.getLog(getClass());
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
+    private SolrService _solrService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -48,6 +50,15 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     discussion.setActive(command.isReactivate());
                     _discussionDao.saveKeepDates(discussion);
                     ThreadLocalTransactionManager.commitOrRollback();
+                    try {
+                        if (command.isReactivate()) {
+                            _solrService.indexDocument(discussion);
+                        } else {
+                            _solrService.deleteDocument(discussion);
+                        }
+                    } catch (Exception e) {
+                        _log.error("Could not de-index discussion " + discussion.getId() + " using solr", e);
+                    }
                 }
             }
         }
@@ -68,5 +79,13 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setDiscussionDao(IDiscussionDao discussionDao) {
         _discussionDao = discussionDao;
+    }
+
+    public SolrService getSolrService() {
+        return _solrService;
+    }
+
+    public void setSolrService(SolrService solrService) {
+        _solrService = solrService;
     }
 }
