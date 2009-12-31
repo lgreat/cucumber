@@ -11,6 +11,7 @@ import gs.data.community.*;
 import gs.data.security.Permission;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.search.SolrService;
+import gs.data.content.cms.ICmsDiscussionBoardDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
     private IUserDao _userDao;
+    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private SolrService _solrService;
 
     @Override
@@ -54,6 +56,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     try {
                         if (command.isReactivate()) {
                             _userDao.populateWithUser(discussion);
+                            discussion.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
                             _solrService.indexDocument(discussion);
                         } else {
                             _solrService.deleteDocument(discussion);
@@ -90,6 +93,14 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public ICmsDiscussionBoardDao getCmsDiscussionBoardDao() {
+        return _cmsDiscussionBoardDao;
+    }
+
+    public void setCmsDiscussionBoardDao(ICmsDiscussionBoardDao cmsDiscussionBoardDao) {
+        _cmsDiscussionBoardDao = cmsDiscussionBoardDao;
     }
 
     public SolrService getSolrService() {
