@@ -22,6 +22,8 @@
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
+<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <!-- Allow interstitials for this page.
@@ -665,11 +667,13 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
             <c:set var="callerPagename" value="browsecity"/>
         </c:otherwise>
     </c:choose>
-    <jsp:include page="/community/localQuestions.module">
-        <jsp:param name="cityId" value="${cityId}"/>
-        <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
-        <jsp:param name="callerPagename" value="${callerPagename}"/>
-    </jsp:include>
+    <c:if test="${!communityUtil.newCommunityEnabled}">
+        <jsp:include page="/community/localQuestions.module">
+            <jsp:param name="cityId" value="${cityId}"/>
+            <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
+            <jsp:param name="callerPagename" value="${callerPagename}"/>
+        </jsp:include>
+    </c:if>
 </div>
 
 <br clear="left"/>
