@@ -19,6 +19,8 @@
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page import="gs.data.school.review.Ratings"/>
+<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -324,9 +326,43 @@
                         title="Give us feedback">Give us feedback &#62;</a></p>
             </c:when>
             <c:otherwise>
-                <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br/>GreatSchools Parent
-                    <br/>
-                    Community &#62;</gsml:a></p>
+                <c:choose>
+                <c:when test="${communityUtil.newCommunityEnabled}">
+                    <p>
+                        <c:choose>
+                            <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'p'}">
+                                Connect with other parents.
+                                <link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool">
+                                    Check out preschool discussions &amp;gt;
+                                </link:cmsContent>
+                            </c:when>
+                            <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'e'}">
+                                Connect with other parents.
+                                <link:cmsContent contentKey="DiscussionBoard#1637" fullUri="/elementary-school">
+                                    Check out elementary school discussions &amp;gt;
+                                </link:cmsContent>
+                            </c:when>
+                            <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'm'}">
+                                Connect with other parents.
+                                <link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school">
+                                    Check out middle school discussions &amp;gt;
+                                </link:cmsContent>
+                            </c:when>
+                            <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'h'}">
+                                Connect with other parents.
+                                <link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school">
+                                    Check out high school discussions &amp;gt;
+                                </link:cmsContent>
+                            </c:when>
+                        </c:choose>
+                    </p>
+                </c:when>
+                <c:otherwise>
+                    <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br/>GreatSchools Parent
+                        <br/>
+                        Community &#62;</gsml:a></p>                    
+                </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
     </div>
