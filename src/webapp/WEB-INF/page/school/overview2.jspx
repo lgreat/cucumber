@@ -20,6 +20,8 @@
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -114,10 +116,12 @@
                 </div>
             </c:if>
 
-            <jsp:include page="/community/communityQuestionPromo.module">
-                <jsp:param name="code" value="school/overview.page"/>
-                <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
-            </jsp:include>
+            <c:if test="${!communityUtil.newCommunityEnabled}">
+                <jsp:include page="/community/communityQuestionPromo.module">
+                    <jsp:param name="code" value="school/overview.page"/>
+                    <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
+                </jsp:include>
+            </c:if>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${(not empty latestReviewsModel) }">
