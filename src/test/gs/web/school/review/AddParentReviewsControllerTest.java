@@ -280,13 +280,6 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         String comments = "this school rocks and I like it a lot!";
 
         EmailContentHelper emailContentHelper = new EmailContentHelper();
-        City city = new City();
-        city.setId(433097);
-        city.setName("San Francisco");
-        IGeoDao geoDao = createMock(IGeoDao.class);
-        expect(geoDao.findCity(State.CA, "San Francisco")).andReturn(city);
-        replay(geoDao);
-        emailContentHelper.setGeoDao(geoDao);
         _controller.setEmailContentHelper(emailContentHelper);
         _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
         _controller.sendMessage(_user, comments, _school, "communityEmail.txt");
@@ -413,9 +406,6 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     protected class MockEmailContentHelper extends EmailContentHelper {
         public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
             replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
-            replacements.put(EmailContentHelper.FIELD_CITY_ID, "1234");
-            replacements.put(EmailContentHelper.FIELD_CITY_LINK, "<a href=\"http://city_link\">city link</a>");
-            replacements.put(EmailContentHelper.FIELD_LOCAL_QUESTIONS, "<p><a href=\"http://foo\">Foo</a></p>");
         }
     }
 }

@@ -565,10 +565,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         City city = new City();
         city.setId(433097);
         city.setName("San Francisco");
-        IGeoDao geoDao = createMock(IGeoDao.class);
-        expect(geoDao.findCity(State.CA, "San Francisco")).andReturn(city);
-        replay(geoDao);
-        emailContentHelper.setGeoDao(geoDao);
         _controller.setEmailContentHelper(emailContentHelper);
 
         User user = createUser(false);
@@ -835,9 +831,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     protected class MockEmailContentHelper extends EmailContentHelper {
         public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
             replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
-            replacements.put(EmailContentHelper.FIELD_CITY_ID, "1234");
-            replacements.put(EmailContentHelper.FIELD_CITY_LINK, "<a href=\"http://city_link\">city link</a>");
-            replacements.put(EmailContentHelper.FIELD_LOCAL_QUESTIONS, "<p><a href=\"http://foo\">Foo</a></p>");
         }
     }
 }
