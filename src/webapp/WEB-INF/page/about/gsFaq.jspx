@@ -81,10 +81,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 				<li>
 					<p class="question">Can GreatSchools help my family if we move?</p>
-					<p>We
-sure can. You can look up the best schools in the area you are moving
-to by both the Zip Code and school district or simply ask questions in
-the <gsml:a href="http://${communityHost}/">GreatSchools Parent Community</gsml:a> about where you're going.</p>
+					<p>We sure can. You can look up the best schools in the area you are moving to by ZIP code,
+                        school district or city name.</p>
 				</li>
 
 				<li>
@@ -633,11 +631,8 @@ received this newsletter in 2008, please <link:newsletterManagement>subscribe he
 					<p class="question">Can I still access the SchwabLearning.org message board archive?</p>
 					<p>Yes. The SchwabLearning.org <a href="http://www.schwablearning.org/message%5Fboards/" target="_blank">message board archive</a>
 (a read-only board) is still available and searchable to allow you to
-refer back to previous discussions. The message board archive can be
-accessed via the &amp;quot;<gsml:a href="http://${communityHost}/groups/12143">Schwabbies</gsml:a>&amp;quot;
-group on our community. Any links you have bookmarked to discussions on
-the SchwabLearning.org Message Board should redirect you to the new
-archive page.</p>
+refer back to previous discussions. Any links you have bookmarked to discussions on the SchwabLearning.org Message
+Board should redirect you to the new archive page.</p>
 				</li>
 
 				<li>
