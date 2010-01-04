@@ -15,6 +15,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -363,27 +365,49 @@
 
                             <jsp:include page="/content/links.module?page=home&amp;type=all&amp;layout=list"/>
 
-                            <p class="more">
-                                <a href="http://${communityHost}/q-and-a"><img
-                                        src="/res/img/home/blue_module/question_button.png" alt="Ask a Question"
-                                        title="" border="0"/></a>
-                            </p>
+                            <c:if test="${!communityUtil.newCommunityEnabled}">
+                                <p class="more">
+                                    <a href="http://${communityHost}/q-and-a"><img
+                                            src="/res/img/home/blue_module/question_button.png" alt="Ask a Question"
+                                            title="" border="0"/></a>
+                                </p>
+                            </c:if>
                         </div>
 
                         <div class="transparent-box">
                             <h3><img class="heading" src="/res/img/home/blue_module/find_parents.png"
                                      alt="Find Parents Like Me" title=""/></h3>
 
-                            <ul>
-                                <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
-                                <li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
-                                <li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
-                                <li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
-                            </ul>
+                            <c:choose>
+                                <c:when test="${communityUtil.newCommunityEnabled}">
+                                    <ul>
+                                        <li><link:cmsContent contentKey="DiscussionBoard#1636"
+                                                             fullUri="/preschool">Parents of Preschoolers</link:cmsContent></li>
+                                        <li><link:cmsContent contentKey="DiscussionBoard#1637"
+                                                             fullUri="/elementary-school">Elementary School Parents</link:cmsContent></li>
+                                        <li><link:cmsContent contentKey="DiscussionBoard#1638"
+                                                             fullUri="/middle-school">Middle School Parents</link:cmsContent></li>
+                                        <li><link:cmsContent contentKey="DiscussionBoard#1639"
+                                                             fullUri="/high-school">High School Parents</link:cmsContent></li>
+                                    </ul>
 
-                            <p class="findMore">
-                                <a href="http://${communityHost}/groups">Find more &gt;</a>
-                            </p>
+                                    <!-- p class="findMore">
+                                        <a href="http://${communityHost}/groups">Find more &gt;</a>
+                                    </p -->
+                                </c:when>
+                                <c:otherwise>
+                                    <ul>
+                                        <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
+                                        <li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
+                                        <li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
+                                        <li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
+                                    </ul>
+
+                                    <p class="findMore">
+                                        <a href="http://${communityHost}/groups">Find more &gt;</a>
+                                    </p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
