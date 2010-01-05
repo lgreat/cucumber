@@ -80,9 +80,10 @@
         String output = ser.getXmlAsString(node);
 //        System.out.println("Pre-Output: '" + output + "'");
         // Strip off the html wrapper
-        if (output.length() >= 34) { // At 34 chars our indexes will be 20,20 which is will result in no output.
+        if (output.length() >= 34) { // At 34 chars our indexes will be 20,20 which will result in no output.
             output = output.substring(20, output.length() - 14);
         }
+        output = output.replace("&amp;apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
         request.setAttribute("teaserBody", output);
 //        System.out.println("Output: '" + output + "'");
     </jsp:scriptlet>
