@@ -4,16 +4,16 @@ package gs.web.community;
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentCommand {
-    private ReportContentService.ReportType _type;
+    private IReportContentService.ReportType _type;
     private int _contentId;
     private String _reason;
     private int _reporterId;
 
-    public ReportContentService.ReportType getType() {
+    public IReportContentService.ReportType getType() {
         return _type;
     }
 
-    public void setType(ReportContentService.ReportType type) {
+    public void setType(IReportContentService.ReportType type) {
         _type = type;
     }
 

@@ -27,7 +27,6 @@ public class ReportContentService extends SimpleFormController implements IRepor
     private IUserDao _userDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
-    public enum ReportType {reply, discussion, member}
 
     public void reportContent(User reporter, HttpServletRequest request, int contentId, ReportType type, String reason) {
         String urlToContent = getLinkForContent(request, contentId, type);

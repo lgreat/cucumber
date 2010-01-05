@@ -8,13 +8,16 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.security.Permission;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
+
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -28,6 +31,10 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
     public static final String PARAM_REACTIVATE_MEMBER = "reactivateMember";
 
     private IUserDao _userDao;
+    private ISubscriptionDao _subscriptionDao;
+    private IAlertWordDao _alertWordDao;
+    private IReportContentService _reportContentService;
+    private ExactTargetAPI _etAPI;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
@@ -82,6 +89,14 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         if (canBan && pageUser != null && "true".equals(request.getParameter(PARAM_DEACTIVATE_MEMBER))) {
             pageUser.getUserProfile().setActive(false);
             _userDao.saveUser(pageUser);
+            List<Subscription> subs = _subscriptionDao.getUserSubscriptions(pageUser);
+            if (subs != null) {
+                for (Subscription sub: subs) {
+                    _subscriptionDao.removeSubscription(sub.getId());
+                }
+
+                _etAPI.deleteSubscriber(pageUser.getEmail());
+            }
             return null;
         }
 
@@ -97,7 +112,14 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         if (aboutMe == null) {
             _log.warn("No aboutMe in request.");
             return null;
-        } else if (pageUser != null && (viewer.getId() == pageUser.getId() || canEdit)) {
+        } else if (pageUser != null && (viewer.getId().equals(pageUser.getId()) || canEdit)) {
+            if (!canEdit && _alertWordDao.hasAlertWord(aboutMe)) {
+                // A non moderator is submitting an alert word
+
+                UrlBuilder urlBuilder = new UrlBuilder(pageUser, UrlBuilder.USER_PROFILE);
+                String urlToContent = urlBuilder.asFullUrl(request);
+                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.member, "Bio contains alert words");
+            }
             pageUser.getUserProfile().setAboutMe(aboutMe);
             _userDao.saveUser(pageUser);
             return null;
@@ -106,11 +128,53 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         return null;
     }
 
+    protected User getAlertWordFilterUser() {
+        User reporter = new User();
+        reporter.setId(-1);
+        reporter.setEmail(_reportContentService.getModerationEmail());
+        reporter.setUserProfile(new UserProfile());
+        reporter.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        return reporter;
+    }
+
     public IUserDao getUserDao() {
         return _userDao;
     }
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
+
+    public IAlertWordDao getAlertWordDao() {
+        return _alertWordDao;
+    }
+
+    public void setAlertWordDao(IAlertWordDao alertWordDao) {
+        _alertWordDao = alertWordDao;
+    }
+
+    public IReportContentService getReportContentService() {
+        return _reportContentService;
+    }
+
+    public void setReportContentService(IReportContentService reportContentService) {
+        _reportContentService = reportContentService;
+    }
+
+    public ExactTargetAPI getEtAPI() {
+        return _etAPI;
+    }
+
+    public void setEtAPI(ExactTargetAPI etAPI) {
+        _etAPI = etAPI;
     }
 }

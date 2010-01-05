@@ -49,7 +49,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private SolrService _solrService;
     private IUserDao _userDao;
     private IAlertWordDao _alertWordDao;
-    private ReportContentService _reportContentService;
+    private IReportContentService _reportContentService;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -437,11 +437,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         _alertWordDao = alertWordDao;
     }
 
-    public ReportContentService getReportContentService() {
+    public IReportContentService getReportContentService() {
         return _reportContentService;
     }
 
-    public void setReportContentService(ReportContentService reportContentService) {
+    public void setReportContentService(IReportContentService reportContentService) {
         _reportContentService = reportContentService;
     }
 }
