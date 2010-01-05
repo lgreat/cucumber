@@ -31,6 +31,14 @@
     margin: 0;
 }
 
+#topnav #communityHeader #myAccountMenu li.nav_menu {
+    text-align: left;
+}
+
+#topnav #communityHeader #myAccountMenu {
+    float: right;
+}
+
 #topnav #communityHeader.withImages {
     padding-top: 1px;
 }
@@ -42,6 +50,38 @@
 
 #topnav #communityHeader a:hover {
     text-decoration: underline;
+}
+
+#topnav #communityHeader #myAccountMenu li.nav_menu a:hover {
+    text-decoration: none;
+}
+
+#topnav #communityHeader .left.username {
+    font-weight: bold;
+}
+
+#topnav #communityHeader .left {
+    padding: 0 10px 0 0;
+    position: relative;
+    margin: 0;
+}
+
+#topnav #communityHeader .middle {
+    padding: 0 10px 0 10px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCCCCC;
+}
+
+#topnav #communityHeader span.right {
+    padding: 0 0 0 10px;
+}
+
+#topnav #communityHeader li.right {
+    padding: 0 0 0 6px;
 }
 
 #topnav #communityHeader span.headerUsername {
@@ -336,9 +376,13 @@
     color: #D66671;
 }
 
-#topnav ul#topnav_menusubnav li {
+#topnav ul#topnav_menusubnav li, #myAccountMenu li {
     padding-left: 3px;
     float: left;
+}
+
+#myAccountMenu li.nav_menu {
+    margin-top: -5px;
 }
 
 /* START subnav spacing */
@@ -387,10 +431,11 @@
     /*padding-left: 10px;*/
 }
 
-#topnav ul#topnav_menusubnav li.nav_menu {
+#topnav ul#topnav_menusubnav li.nav_menu, #myAccountMenu li.nav_menu {
     padding-left: 2px;
 }
 
+/* Intentionally exclude #myAccountMenu because we want it to keep the same font characteristics as other links near it */
 #topnav ul#topnav_menusubnav li a {
     font-size: 12px;
     font-family: Trebuchet MS, Arial, sans-serif;
@@ -402,7 +447,7 @@
     text-decoration: underline;
 }
 
-#topnav ul#topnav_menusubnav li a.topnav_subnav_active {
+#topnav ul#topnav_menusubnav li a.topnav_subnav_active, #myAccountMeu li a.topnav_subnav_active {
     color: #444;
 }
 
@@ -410,18 +455,18 @@
 
 /* START menu navigation */
 
-#topnav_menusubnav li {
+#topnav_menusubnav li, #myAccountMenu li {
     list-style: none;
     white-space: nowrap;
     background-color: #fff;
 }
 
-#topnav_menusubnav li.nav_menu {
+#topnav_menusubnav li.nav_menu, #myAccountMenu li.nav_menu {
     position: relative;
     z-index: 25;
 }
 
-#topnav_menusubnav li.nav_menu a {
+#topnav_menusubnav li.nav_menu a, #myAccountMenu li.nav_menu a {
     display: block;
     text-decoration: none;
 }
@@ -434,7 +479,15 @@
     padding-right: 15px;
 }
 
-#topnav_menusubnav li.nav_menu ul.nav_group_items {
+#myAccountMenu li.nav_menu a.nav_group_heading {
+    text-decoration: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+#topnav_menusubnav li.nav_menu ul.nav_group_items, #myAccountMenu li.nav_menu ul.nav_group_items {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -455,7 +508,20 @@
     background-color: #fff;
 }
 
-#topnav_menusubnav li.nav_menu ul.nav_group_items li.first {
+#myAccountMenu li.nav_menu ul.nav_group_items li {
+    width: 110px;
+    clear: left;
+    white-space: nowrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-left: 1px solid #66ccdd;
+    border-right: 1px solid #66ccdd;
+    background-color: #fff;
+    z-index: 10;
+    /* http://archivist.incutio.com/viewlist/css-discuss/56326 */
+}
+
+#topnav_menusubnav li.nav_menu ul.nav_group_items li.first, #myAccountMenu li.nav_menu ul.nav_group_items li.first {
     border-top: 1px solid #66ccdd;
 }
 
@@ -464,11 +530,15 @@
     border-bottom: 1px solid #66ccdd;
 }
 
-#topnav_menusubnav li.nav_menu ul.nav_group_items li.last a {
+#myAccountMenu li.nav_menu ul.nav_group_items li.last {
+    border-bottom: 1px solid #66ccdd;
+}
+
+#topnav_menusubnav li.nav_menu ul.nav_group_items li.last a, #myAccountMenu li.nav_menu ul.nav_group_items li.last a {
     font-weight: bold;
 }
 
-#topnav_menusubnav li.nav_menu ul.nav_group_items li a {
+#topnav_menusubnav li.nav_menu ul.nav_group_items li a, #myAccountMenu li.nav_menu ul.nav_group_items li a {
     padding-left: 8px;
     padding-right: 12px;
 }
@@ -485,6 +555,18 @@
     background: url(/res/img/nav/down_arrow.png) no-repeat right 9px;
 }
 
+#myAccountMenu li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 5px;
+}
+
+#myAccountMenu li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 7px;
+}
+
+* + html #myAccountMenu li.nav_menu a.nav_group_heading.arrow {
+    background: url(/res/img/nav/down_arrow.png) no-repeat right 7px;
+}
+
 /* GS-8445 */
 #topnav #navWrapper {
     position: relative;
@@ -492,6 +574,8 @@
     height: 30px;
     margin: 0 auto;
     padding: 0;
+    z-index: 1;
+    position: static;
 }
 
 /* GS-8445 */

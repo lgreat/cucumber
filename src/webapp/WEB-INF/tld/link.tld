@@ -3425,5 +3425,51 @@
             <description>True if the tag should not omit a link to the user profile to hide the user's identity.</description>
         </attribute>
     </tag>
+    <tag>
+        <name>userAccount</name>
+        <tag-class>gs.web.jsp.link.UserAccountTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>User account</display-name>
+        <description>
+            <![CDATA[Edit your account info.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>recentActivity</name>
+        <tag-class>gs.web.jsp.link.RecentActivityTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>User's recent activity</display-name>
+        <description>
+            <![CDATA[View user's recent activity.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
 
 </taglib>

@@ -16,51 +16,64 @@
     <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
     <div id="communityHeader" class="noprint withImages">
-        <span class="headerUsername">
-            Welcome,
-            <c:choose>
-                <c:when test="${communityUtil.newCommunityEnabled}">
-                    <gsml:a href="/account/">${requestScope.context.screenName}</gsml:a>                                        
-                </c:when>
-                <c:otherwise>
+
+        <c:choose>
+            <c:when test="${communityUtil.newCommunityEnabled}">
+                <ul id="myAccountMenu">
+                    <li class="left username">
+                        Welcome,
+                        <link:userProfile
+                                username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
+                    </li>
+                    <li class="middle">
+                        <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
+                    </li>
+                    <li class="right nav_menu"><link:userAccount
+                            styleClass="arrow nav_group_heading">My account</link:userAccount>
+                        <ul class="nav_group_items">
+                            <li class="first">
+                                <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
+                            </li>
+                            <li><link:recentActivity>My recent activity</link:recentActivity></li>
+                            <li><link:userProfile
+                                    username="${requestScope.context.screenName}">My profile</link:userProfile></li>
+                            <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
+                        </ul>
+                    </li>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <span class="headerUsername">
+                    Welcome,
                     <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
-                </c:otherwise>
-            </c:choose>
-        </span>
-        <span class="headerDashboard">
-            <c:choose>
-                <c:when test="${communityUtil.newCommunityEnabled}">
-                    <gsml:a href="/account/">My Dashboard</gsml:a>
-                </c:when>
-                <c:otherwise>
+                </span>
+                <span class="headerDashboard">
                     <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
-                </c:otherwise>
-            </c:choose>
-        </span>
-        <span class="headerAccount withAvatar">
-            <c:set var="referrer" value=""/>
-            <c:if test="${inCommunity eq true}">
-                <jsp:scriptlet>
-                    if (request.getHeader("referer") != null) {
-                        request.setAttribute("referrer", "&amp;referrer=" + URLEncoder.encode(request.getHeader("referer"), "UTF-8"));
-                    }
-                </jsp:scriptlet>
-            </c:if>
-            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-        </span>
-        <br/>
-        <span class="headerMsl withAvatar">
-            <c:choose>
-                <c:when test="${not empty requestScope.context.mslCount}">
-                    <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
-                </c:when>
-                <c:otherwise>
-                    <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
-                </c:otherwise>
-            </c:choose>
-        </span>
-        <span class="headerAvatar">
-            <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}"><community:avatar user="${requestScope.context.user}" anonymous="false" height="30" width="30"/></gsml:a>
-        </span>
+                </span>
+                <span class="headerAccount withAvatar">
+                    <c:set var="referrer" value=""/>
+                    <c:if test="${inCommunity eq true}">
+                        <jsp:scriptlet>
+                            if (request.getHeader("referer") != null) {
+                                request.setAttribute("referrer", "&amp;referrer=" + URLEncoder.encode(request.getHeader("referer"), "UTF-8"));
+                            }
+                        </jsp:scriptlet>
+                    </c:if>
+                    <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                </span>
+                        <br/>
+                <span class="headerMsl withAvatar">
+                    <c:choose>
+                        <c:when test="${not empty requestScope.context.mslCount}">
+                            <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
+                        </c:when>
+                        <c:otherwise>
+                            <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
+                        </c:otherwise>
+                    </c:choose>
+                </span>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 </jsp:root>

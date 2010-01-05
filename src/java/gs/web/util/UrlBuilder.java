@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.204 2009/12/15 17:35:26 droy Exp $
+ * $Id: UrlBuilder.java,v 1.205 2010/01/05 22:51:23 yfan Exp $
  */
 
 package gs.web.util;
@@ -156,6 +156,7 @@ public class UrlBuilder {
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
     public static final VPage USER_PROFILE = new VPage("vpage:userProfile");
     public static final VPage USER_ACCOUNT = new VPage("vpage:userAccount");
+    public static final VPage RECENT_ACTIVITY = new VPage("vpage:recentActivity");
     /**
      * for the four part tip sheet promo
      */
@@ -1137,6 +1138,10 @@ public class UrlBuilder {
         } else if(USER_ACCOUNT.equals(page)){
             _perlPage = false;
             _path = "/account/";
+        } else if(RECENT_ACTIVITY.equals(page)){
+            _perlPage = false;
+            _path = "/account/";
+            setParameter("viewAllActivity","true");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
