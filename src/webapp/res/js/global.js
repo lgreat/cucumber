@@ -115,6 +115,7 @@ function topNavSubmitSearch(theForm) {
  */
 function topNavNewCommunitySubmitSearch(theForm) {
     var val = document.getElementById('stateSelector').value;
+    var articlesAndCommunity = false;
     var c = getRadioValue(theForm.c);
     if (c != 'articlesAndCommunity') {
         if (val == "--" || val == "") {
@@ -132,8 +133,11 @@ function topNavNewCommunitySubmitSearch(theForm) {
     if (articlesAndCommunity) {
         var q = document.getElementById('articlesAndCommunityQ');
         q.value = textField.value;
+        document.getElementById('topnav_search_articlesAndCommunity').submit();
+    } else {
+        document.getElementById('topnav_search_schools').submit();
     }
-    document.getElementById('topnav_search_articlesAndCommunity').submit();
+
     return false;
 }
 

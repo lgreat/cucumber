@@ -115,7 +115,7 @@
               <gsweb:form method="get" id="topnav_search_articlesAndCommunity" action="${articlesAndCommunitySearchAction}">
                   <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
               </gsweb:form>
-            <gsweb:form method="get" id="topnav_search" action="${searchFormAction}" onsubmit="return topNavNewCommunitySubmitSearch(this)">
+            <gsweb:form method="get" id="topnav_search_schools" action="${localSearchAction}" onsubmit="return topNavNewCommunitySubmitSearch(this)">
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
