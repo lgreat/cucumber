@@ -48,7 +48,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
      * our avatars being. */
     public static final int MAX_IMAGE_DIMENSIONS_PIXELS = 600;
     public static final int MIN_IMAGE_DIMENSIONS_PIXELS = 95;
-    private static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
+    protected static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
     private static final String MODEL_STOCK_AVATAR_URL_PREFIX = "stockAvatarUrlPrefix";
     private IUserDao _userDao;
     private CommonsMultipartResolver _multipartResolver;
@@ -61,15 +61,20 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         long startTime = System.currentTimeMillis();
         ModelAndView mAndV;
+        // add redirect to model for the subclass UploadAvatarRedirectController
         try {
             if (_multipartResolver.isMultipart(request)) {
-                mAndV = super.handleRequest(_multipartResolver.resolveMultipart(request), response);
+                HttpServletRequest mpRequest = _multipartResolver.resolveMultipart(request);
+                mAndV = super.handleRequest(mpRequest, response);
+                mAndV.getModel().put("redirect", mpRequest.getParameter("redirect"));
             } else {
                 mAndV = super.handleRequest(request, response);
+                mAndV.getModel().put("redirect", request.getParameter("redirect"));
             }
         } catch (MaxUploadSizeExceededException musee) {
             request.setAttribute(SIZE_LIMIT_EXCEEDED, true);
             mAndV = super.handleRequest(request, response);
+            mAndV.getModel().put("redirect", request.getParameter("redirect"));
         }
         logDuration(System.currentTimeMillis() - startTime, "UploadAvatarHoverController handleRequest");
 
