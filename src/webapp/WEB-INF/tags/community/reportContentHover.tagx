@@ -130,9 +130,9 @@
             <input type="hidden" id="reportContentId" name="contentId" value="-1"/>
             <input type="hidden" id="reportReporterId" name="reporterId" value="${pageScope.reporterId}"/>
         </form>
-        <div class="text3 fltrt sd-btn-layout">
+<!--        <div class="text3 fltrt sd-btn-layout">
         <a href="#">What happens when I report a post a user?</a>
-        </div>
+        </div>-->
     </div>
     <!-- End report it dialog -->
 </jsp:root>
