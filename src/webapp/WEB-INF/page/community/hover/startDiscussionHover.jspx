@@ -55,11 +55,39 @@
             });
 
             $('.previewButton').click(function() {
-                var previewBody = escapeHTML($(".bodyInput textarea").val());
-                var previewTitle = escapeHTML($(".titleInput input").val());
-                parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
+                if (validPost()) {
+                    var previewBody = escapeHTML($(".bodyInput textarea").val());
+                    var previewTitle = escapeHTML($(".titleInput input").val());
+                    parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
+                }
                 return false;
             });
+
+            $('.submitButton').click(function() {
+                return validPost();
+            });
+
+            function validPost() {
+                var title = escapeHTML($(".titleInput input").val());
+                var body = escapeHTML($(".bodyInput textarea").val());
+
+                if (title == '' &amp;&amp; body == '') {
+                    alert("Please enter a title and details for your discussion");
+                    return false;
+                }
+
+                if (title == '') {
+                    alert("Please enter a title");
+                    return false;
+                }
+
+                if (body == '') {
+                    alert("Please enter details for your discussion");
+                    return false;
+                }
+
+                return true;
+            }
 
             function escapeHTML(html) {
                 return html.replace('&amp;', '&amp;amp;').replace('&lt;', '&amp;lt;');
