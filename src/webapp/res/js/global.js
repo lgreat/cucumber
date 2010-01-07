@@ -135,7 +135,7 @@ function topNavNewCommunitySubmitSearch(theForm) {
         q.value = textField.value;
         document.getElementById('topnav_search_articlesAndCommunity').submit();
     } else {
-        document.getElementById('topnav_search_schools').submit();
+        document.getElementById('topnav_search').submit();
     }
 
     return false;
