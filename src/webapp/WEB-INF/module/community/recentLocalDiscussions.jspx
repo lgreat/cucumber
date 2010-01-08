@@ -11,6 +11,18 @@
           xmlns:gsweb="gstaglib">
     <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
         <script type="text/javascript">
+            jQuery(function() {
+                jQuery(".startADiscussion").click(function(event) {
+                    var valid = validPost();
+                    if (!valid) {
+                        // Prevent the hover from opening which happens in a subsequent click handler.
+                        event.stopImmediatePropagation();
+                    }
+
+                    return valid;
+                });
+            });
+
             function checkLogin() {
                 //<c:if test="${requestScope.context.user eq null}">
                 document.location='${loginRedirectUrl}';
@@ -18,11 +30,20 @@
             }
 
             function getLocalDiscussionTitle() {
-                var title = $('#localDiscussionsTitleBox').val();
+                var title = jQuery('#localDiscussionsTitleBox').val();
                 if (title != 'Ask your community and get an answer') {
                     return title;
                 }
                 return '';
+            }
+
+            function validPost() {
+                if (getLocalDiscussionTitle() == '') {
+                    alert("Please enter a question or discussion title.");
+                    return false;
+                }
+
+                return true;
             }
         </script>
         <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>

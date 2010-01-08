@@ -72,17 +72,17 @@
                 var body = escapeHTML($(".bodyInput textarea").val());
 
                 if (title == '' &amp;&amp; body == '') {
-                    alert("Please enter a title and details for your discussion");
+                    alert("Please enter a title and details for your discussion.");
                     return false;
                 }
 
                 if (title == '') {
-                    alert("Please enter a title");
+                    alert("Please enter a title.");
                     return false;
                 }
 
                 if (body == '') {
-                    alert("Please enter details for your discussion");
+                    alert("Please enter details for your discussion.");
                     return false;
                 }
 
