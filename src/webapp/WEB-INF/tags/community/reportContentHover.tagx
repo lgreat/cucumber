@@ -71,8 +71,7 @@
                 var reason = jQuery('#reportReason').val();
                 var type = jQuery('#reportContentType').val();
                 if (reason == null || reason.length == 0) {
-                    alert("Please explain how this " + type +
-                          " may have violated our Terms of Use or Community Guidelines.");
+                    alert("Please enter a description for your report.");
                     return false;
                 }
                 jQuery('#reportItDialog').dialog('close');
