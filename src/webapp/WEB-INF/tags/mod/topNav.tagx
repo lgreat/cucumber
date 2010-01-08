@@ -395,6 +395,15 @@
                                          id="GlobalNav_CommunityButton">Community</gsml:a>
                 </li>
             </c:if>
+            <c:if test="${communityUtil.newCommunityEnabled}">
+                <li id="topnav_sm" class="nav_menu">
+                    <div class="socialMedia">
+                        <span class="text">Find us on:</span>
+                        <a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank"><img src="/res/img/nav/facebook_19px.png" width="19" height="19" alt="Facebook" class="facebook"/></a>
+                        <a href="http://twitter.com/greatschoolsorg" title="Twitter" target="_blank"><img src="/res/img/nav/twitter_19px.png" width="19" height="19" alt="Twitter" class="twitter"/></a>
+                    </div>
+                </li>
+            </c:if>
         </ul>
         <c:choose>
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')

@@ -422,44 +422,74 @@
 /* START subnav spacing */
 
 #topnav ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 4px;
+    margin-right: 1px;
 }
 #topnav ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 4px;
+    margin-right: 1px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 4px;
+    margin-right: 1px;
 }
 #topnav ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 4px;
+    margin-right: 1px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 4px;
+    margin-right: 1px;
 }
 #topnav ul#topnav_menusubnav li#topnav_c {
     margin-right: 0;
 }
 
+#topnav ul#topnav_menusubnav li#topnav_sm {
+    margin-right: 0;
+}
+
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 3px;
+    margin-right: 0;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 3px;
+    margin-right: 0;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 3px;
+    margin-right: 0;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 3px;
+    margin-right: 0;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 3px;
+    margin-right: 0;
 }
 #topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_c {
     margin-right: 0;
 }
+#topnav #topnav_menusubnav_wrapper.perl ul#topnav_menusubnav li#topnav_sm {
+    margin-right: 0;
+}
 
 /* END subnav spacing */
+
+#topnav_sm .socialMedia {
+    font-family: Trebuchet MS, Arial, sans-serif;
+    font-size: 11px;
+    color: #444;
+    position: relative;
+    margin-left: 12px;
+}
+#topnav_sm .text {
+    position: absolute;
+    top: 6px;
+    left: 0;
+}
+#topnav_sm .facebook {
+    position: absolute;
+    top: 3px;
+    left: 60px;
+}
+#topnav_sm .twitter {
+    position: absolute;
+    top: 3px;
+    left: 84px;
+}
 
 #topnav ul#topnav_menusubnav li.nav_menu.firstHeading {
     /*padding-left: 10px;*/

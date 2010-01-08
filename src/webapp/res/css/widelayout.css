@@ -42,21 +42,24 @@
 /* START subnav spacing */
 
 #topnav ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 #topnav ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 #topnav ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 #topnav ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 20px;
+    margin-right: 18px;
 }
 #topnav ul#topnav_menusubnav li#topnav_c {
+    margin-right: 0;
+}
+#topnav ul#topnav_menusubnav li#topnav_sm {
     margin-right: 0;
 }
 
