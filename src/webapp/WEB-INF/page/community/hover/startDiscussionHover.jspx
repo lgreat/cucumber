@@ -162,15 +162,15 @@
             <input type="hidden" name="discussionId" value="${param.discussionId}"/>
             <input type="hidden" name="type" value="editDiscussion"/>
         </c:if>
-        <div class="sd_OuterLayout">
+        <div class="sd_OuterLayout clearfix">
             <c:choose>
                 <c:when test="${param.discussionId gt 0}">
                 </c:when>
                 <c:otherwise>
-                    <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
-            <span class="lftDoor25">
-                <span class="rtDoor25">Preview</span>
-            </span>
+                    <button class="btn25 fltlft" type="submit" name="preview" value="Preview">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">Preview</span>
+                        </span>
                     </button>
                 </c:otherwise>
             </c:choose>
@@ -186,34 +186,40 @@
 
         <c:choose>
             <c:when test="${param.discussionId gt 0}">
-                <c:set var="submitButtonStyle" value="btn25 submitButton sd_SaveLayout fltlft"/>
+                <c:set var="submitButtonStyle" value="btn25 fltlft sd_SaveLayout"/>
             </c:when>
             <c:otherwise>
-                <c:set var="submitButtonStyle" value="btn25 submitButton sd_InnerLayout fltlft"/>
+                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_InnerLayout"/>
             </c:otherwise>
         </c:choose>
 
-            <button class="${submitButtonStyle}" type="submit" name="post">
-            <span class="lftDoor25">
-                <span class="rtDoor25">
-                    <c:choose>
-                        <c:when test="${param.discussionId gt 0}">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25"
-                                 align="absmiddle"
-                                 alt="bubbles"/>
-                        </c:otherwise>
-                    </c:choose>
-                    ${submitButtonText}</span>
-            </span>
-            </button>
-        <button class="btn25 dialogCancelButton fltlft" type="submit" value="Cancel">
+            <c:choose>
+                <c:when test="${param.discussionId gt 0}">
+                    <button class="${submitButtonStyle}" type="submit" name="post">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">${submitButtonText}</span>
+                        </span>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button class="${submitButtonStyle}" type="submit" name="post">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">
+                                <img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25"
+                                     align="absmiddle"
+                                     alt="bubbles"/>${submitButtonText}</span>
+                        </span>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+
+        <button class="btn25 fltlft dialogCancelButton" type="submit" value="Cancel">
             <span class="lftDoor25">
                 <span class="rtDoor25">Cancel</span>
             </span>
         </button>
         </div>
+        <!-- end sd_OuterLayout -->
         <!--<br class="clearfloat"/>-->
     </gsweb:form>
 

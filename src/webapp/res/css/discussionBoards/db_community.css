@@ -872,7 +872,7 @@ ul.srchSuggest li span {
     opacity: 0.75;
     }
 .ui-dialog {
-    background: #ebebeb;
+    background-color: #ebebeb;
     padding: 2px 12px;
     border: 2px solid white;
     }
@@ -1381,6 +1381,10 @@ fieldset label {
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
 /* ------------------- */
+
+button {
+    overflow: visible;
+}
 
 /* ------------------- */
 /* 25 px height button */

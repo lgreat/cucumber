@@ -126,7 +126,7 @@
                 modal: true,
                 draggable: false,
                 width: 606,
-                height: 481,
+//                height: 481,
                 title: "Start a discussion",
                 close: GS.startDiscussionHover.onClose
             });

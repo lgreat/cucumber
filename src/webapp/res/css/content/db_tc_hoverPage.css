@@ -82,6 +82,10 @@
 /* SLIDING DOOR BUTTON */
 /* ------------------- */
 
+button {
+    overflow: visible;
+}
+
 /* ------------------- */
 /* 25 px height button */
 /* ------------------- */
