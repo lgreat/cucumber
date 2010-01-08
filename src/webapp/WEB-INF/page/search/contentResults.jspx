@@ -289,9 +289,23 @@
 
 </div>
 <!-- end container -->
+
+<c:choose>
+    <c:when test="${requestScope.type eq 'community'}">
+        <c:set var="siteSearchFilterType" value="Community"/>
+    </c:when>
+    <c:when test="${requestScope.type eq 'articles'}">
+        <c:set var="siteSearchFilterType" value="Articles"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="siteSearchFilterType" value="All"/>
+    </c:otherwise>
+</c:choose>
+
 <mod:tracking pageName="${requestScope.omniturePagename}"
               hier1="${requestScope.omnitureHierarchy}"
-              community="true"/>
+              community="true"
+              siteSearchFilterType="${siteSearchFilterType}"/>
 </body>
 </html>
 </jsp:root>

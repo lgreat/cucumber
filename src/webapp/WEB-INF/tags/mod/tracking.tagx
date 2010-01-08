@@ -84,6 +84,11 @@
             name="local"
             description="Local page, yes or no"
             required="false"/>
+    <!-- See GS-9100 for siteSearchFilterType -->
+    <jsp:directive.attribute
+            name="siteSearchFilterType"
+            description="Content search results filter: All, Community, or Articles"
+            required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -181,6 +186,7 @@
             s.prop14 = "${not empty(articleId) ? articleId : ''}";
 
             s.prop15 = clickCapture.getProp(15,"${sortSelection}");
+            s.prop20 = clickCapture.getProp(20,"${empty(siteSearchFilterType) ? '' : siteSearchFilterType}");
 
             s.prop25 = clickCapture.getProp(25,"${local}");
 
