@@ -29,6 +29,7 @@
     position: relative;
     padding: 0;
     margin: 0;
+    float: right;
 }
 
 #topnav #communityHeader #myAccountMenu li.nav_menu {
@@ -74,6 +75,7 @@
 
 #topnav #communityHeader .left {
     padding: 0 10px 0 0;
+    float: left;
 }
 
 #topnav #communityHeader .middle {
@@ -84,10 +86,12 @@
     border-right-width: 1px;
     border-right-style: solid;
     border-right-color: #CCCCCC;
+    float: left;
 }
 
 #topnav #communityHeader span.right {
     padding: 0 0 0 10px;
+    float: left;
 }
 
 #topnav #communityHeader li.right {
