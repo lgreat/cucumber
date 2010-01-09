@@ -496,7 +496,7 @@
 }
 
 #topnav ul#topnav_menusubnav li.nav_menu, #myAccountMenu li.nav_menu {
-    padding-left: 2px;
+    padding-left: 0px;
 }
 
 /* Intentionally exclude #myAccountMenu because we want it to keep the same font characteristics as other links near it */
