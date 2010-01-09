@@ -258,6 +258,7 @@
 /* Search area */
 #topnav div.search {
     margin-top:41px;
+    clear: right;
     float: right;
 }
 
