@@ -83,6 +83,9 @@ public class StartDiscussionHoverController extends AbstractController {
     }
 
     protected void populateModelWithListOfValidDiscussionTopics(Map<String, Object> model) {
+        // TODO: this call pulls all topic center data out of the db, when we only need some topic centers.
+        // When running on localhost there is significant network traffic during this call (some 5MB) and the delay
+        // is noticeable.  Can we make a DAO method that 
         Collection<CmsTopicCenter> topicCenters =
                 _publicationDao.populateAllByContentType("TopicCenter", new CmsTopicCenter());
         SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
