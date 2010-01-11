@@ -770,12 +770,16 @@ ul.srchRslts {
     margin: 0 0 15px;
 }
 
-ul.srchRslts li {
+ul.srchRslts li.srchRslt {
     position: relative;
     padding: 9px 9px 9px 25px;
     border-bottom: 1px dotted #999;
 }
-ul.srchRslts li:last-child {
+ul.srchRslts li.srchRslt:last-child {
+    border-bottom: 0;
+}
+/* To work around IE lack of support for :last-child */
+ul.srchRslts li.srchRsltLast {
     border-bottom: 0;
 }
 .srchCatArticles li span.icon {
