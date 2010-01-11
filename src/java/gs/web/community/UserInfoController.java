@@ -107,11 +107,11 @@ public class UserInfoController extends AbstractController {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView(VIEW_NOT_FOUND);
             }
+
+            // Reset this variable to have the proper capitalization, rather than whatever was in the URL bar
+            username = pageUser.getUserProfile().getScreenName();
         }
 
-        // Reset this variable to have the proper capitalization, rather than whatever was in the URL bar
-        username = pageUser.getUserProfile().getScreenName();
-        
         boolean canEdit = false;
         boolean canBan = false;
         boolean viewingOwnProfile = false;
