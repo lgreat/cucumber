@@ -167,7 +167,7 @@
                 <c:when test="${param.discussionId gt 0}">
                 </c:when>
                 <c:otherwise>
-                    <button class="btn25 fltlft" type="submit" name="preview" value="Preview">
+                    <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
                         <span class="lftDoor25">
                             <span class="rtDoor25">Preview</span>
                         </span>

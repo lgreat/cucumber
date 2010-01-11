@@ -69,6 +69,9 @@
             this.post = function() {
                 this.postFunc();
             };
+            this.close = function() {
+                jQuery('#previewDiscussionDialog').dialog("close");
+            };
         };
         GS.previewDiscussionHover = new GS.types.previewDiscussionHover();
         // </c:if>
@@ -118,6 +121,10 @@
             jQuery('#previewDiscussionDialog .previewPostButton').click(function() {
                 jQuery('#previewDiscussionDialog').dialog('close');
                 GS.previewDiscussionHover.post();
+            });
+
+            $('#previewDiscussionDialog .dialogCancelButton').click(function() {
+                GS.previewDiscussionHover.close();
             });
 
             jQuery("#startADiscussionDialog").dialog({
