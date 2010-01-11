@@ -149,7 +149,7 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass}"><span class="icon"><!-- icon --></span>
-                            <p class="smallText1bold"><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+                            <p class="text3bold"><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
                             </p>
@@ -197,7 +197,7 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass}"><span class="icon"><!-- icon --></span>
-                            <p class="smallText1bold"><link:discussion discussionId="${result.contentKey.identifier}"
+                            <p class="text3bold"><link:discussion discussionId="${result.contentKey.identifier}"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
 
                             </p>
