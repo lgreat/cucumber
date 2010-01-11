@@ -128,6 +128,20 @@
                 title: "Preview"
             });
 
+            $j('.btn_postReply').click(function() {
+                return validPost(this);
+            });
+
+            function validPost(button) {
+                var body = $j(button).parent().find(".db_textarea textarea").val();
+                if (body == undefined || body == '' ) {
+                    alert("Please enter a reply. ");
+                    return false;
+                }
+
+                return true;
+            }
+
             $j('.btn_preview').click(function() {
                 var previewBody = $j(this).parent().find(".db_textarea textarea").val();
                 postReplyForm = $j(this).closest('form');
