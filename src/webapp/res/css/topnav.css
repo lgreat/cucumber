@@ -266,9 +266,13 @@
     margin:0 0 0 10px;
 }
 
+#topnav div.search table#searchTable {
+    width: 305px;
+}
+
 #topnav div.search td#searchBox {
     white-space:nowrap;
-    width:257px;
+    float: left;
 }
 
 #topnav div.search td#searchBox input {

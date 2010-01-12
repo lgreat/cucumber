@@ -120,10 +120,10 @@
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
                 <input type="hidden" name="search_type" value="0"/>
-                <table cellpadding="0" cellspacing="0">
+                <table id="searchTable" cellpadding="0" cellspacing="0">
                     <tr>
                         <td id="searchBox">
-                            <input type="text" name="q" id="q" style="${searchBoxStyle}"
+                            <input type="text" name="q" id="qNew" style="${searchBoxStyle}"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
                             <div id="stateDropDown" style="${searchStateStyle}">
                                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
@@ -134,13 +134,13 @@
                         </td>
                         <td>
                             <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
-                            <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
+                            <input type="image" src="${go}" alt="GO" style="width:37px;height:20px;float:right"
                                    class="button"/>
                         </td>
                     </tr>
                     <tr>
                         <td style="height:21px" class="searchRadios" colspan="2">
-                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavSelectSchoolSearch(this, '${localSearchAction}');"
+                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
                                         checked="${searchRadioSchoolChecked}"/>
                             <label for="topnavSchoolRadio">Schools</label>
                             &#160;
