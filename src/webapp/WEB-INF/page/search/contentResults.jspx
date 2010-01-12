@@ -189,7 +189,7 @@
                 <ul class="srchRslts srchCatComm">
                     <c:forEach var="result" items="${requestScope.communityResults}">
                         <c:choose>
-                            <c:when test="${status.count == fn:length(requestScope.articleResults)}">
+                            <c:when test="${status.count == fn:length(requestScope.communityResults)}">
                                 <c:set var="srchRsltSupplClass" value="srchRsltLast"/>
                             </c:when>
                             <c:otherwise>
