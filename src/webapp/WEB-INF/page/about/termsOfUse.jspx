@@ -55,7 +55,7 @@
   <h2 id="s12">Miscellaneous</h2>
   <p>This Agreement shall be deemed to include all other notices, policies, disclaimers, and other terms contained in this Web site; provided, however, that in the event of a conflict between such other terms and the terms of this Agreement, the terms of this Agreement shall control. This Agreement has been made in and shall be construed and enforced in accordance with California law. Any action to enforce this agreement shall be brought in the federal or state courts located in San Francisco, California. If any provision is deemed to be unlawful or unenforceable, that shall not affect the validity and enforceability of the remaining provisions. </p>
   <h2 id="s13">Copyright Information</h2>
-  <p>Except where noted otherwise, all Web site contents Copyright &#169; 2009 GreatSchools.org. All rights reserved under United States and foreign law. No part of the materials on the Web site, including but not limited to the text, graphics and html code, may be reproduced or transmitted in any form by any means without GreatSchools' written permission. </p>
+  <p>Except where noted otherwise, all Web site contents Copyright &#169; 2010 GreatSchools.org. All rights reserved under United States and foreign law. No part of the materials on the Web site, including but not limited to the text, graphics and html code, may be reproduced or transmitted in any form by any means without GreatSchools' written permission. </p>
     <c:choose>
             <c:when test="${!communityUtil.newCommunityEnabled}">
     <h2 id="s14">GreatSchools Parent Community Guidelines</h2>
