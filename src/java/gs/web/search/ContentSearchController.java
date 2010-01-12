@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
 import gs.data.search.ContentSearchResult;
 import gs.data.search.SolrService;
 import gs.data.content.cms.ContentKey;
 import gs.data.content.cms.CmsConstants;
 import gs.data.community.CommunityConstants;
+import gs.data.util.CommunityUtil;
 
 /**
  * GS-8876
@@ -106,6 +108,11 @@ public class ContentSearchController extends AbstractController {
         long numDiscussions = (Long)model.get(MODEL_NUM_DISCUSSIONS);
         if (TYPE_COMMUNITY.equals(type) && numDiscussions == 0) {
             type = null;
+        }
+        if (TYPE_COMMUNITY.equals(type)) {
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
         }
         model.put(MODEL_TYPE, type);
 

@@ -18,7 +18,7 @@ import gs.data.community.*;
 
 import static gs.data.community.IDiscussionDao.DiscussionSort;
 import gs.data.security.Permission;
-import gs.data.security.Role;
+import gs.data.util.CommunityUtil;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
@@ -128,6 +128,10 @@ public class CmsDiscussionBoardController extends AbstractController {
             model.put(MODEL_REPLIES_PER_DISCUSSION, DEFAULT_REPLIES_PER_DISCSSION);
 
             model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
+
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
         } else {
             _log.warn("Can't find board with id " + contentId);
         }

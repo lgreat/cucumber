@@ -19,6 +19,7 @@ import java.util.*;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
 import gs.data.security.Permission;
+import gs.data.util.CommunityUtil;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -143,6 +144,10 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
 
             model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
+
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
             // Sample code to pull out rejected reply body and restore it in field
 //            SitePrefCookie cookie = new SitePrefCookie(request, response);
 //            if (StringUtils.isNotEmpty(cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY))) {

@@ -16,6 +16,7 @@ import gs.data.community.*;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.security.Permission;
+import gs.data.util.CommunityUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -217,6 +218,10 @@ public class UserInfoController extends AbstractController {
         SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
         model.put("avatarAlertType", sitePrefCookie.getProperty("avatarAlertType"));
         sitePrefCookie.removeProperty("avatarAlertType");
+
+        // Google Ad Manager ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
 
         return new ModelAndView(_viewName, model);
     }
