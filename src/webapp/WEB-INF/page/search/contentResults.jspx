@@ -187,7 +187,7 @@
                 <h3 class="srchCat">Community</h3>
 
                 <ul class="srchRslts srchCatComm">
-                    <c:forEach var="result" items="${requestScope.communityResults}">
+                    <c:forEach var="result" items="${requestScope.communityResults}" varStatus="status">
                         <c:choose>
                             <c:when test="${status.count == fn:length(requestScope.communityResults)}">
                                 <c:set var="srchRsltSupplClass" value="srchRsltLast"/>
