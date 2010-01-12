@@ -1350,6 +1350,7 @@ fieldset label {
 #previewDiscussionDialog .db_discuss{
     width:430px;
     background:white;
+    float:left;
 }
 
 #previewDiscussionDialog .sd-btn-layout{
