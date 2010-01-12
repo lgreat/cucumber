@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.PageHelper;
 import gs.web.community.DiscussionFacade;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
@@ -44,6 +45,9 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setUserDao(_userDao);
+
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
     private void replayAllMocks() {

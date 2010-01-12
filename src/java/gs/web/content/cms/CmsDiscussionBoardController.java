@@ -13,6 +13,7 @@ import java.util.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.CmsCategory;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
 
@@ -132,6 +133,14 @@ public class CmsDiscussionBoardController extends AbstractController {
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
             pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
+            if (board.getCity() != null) {
+                pageHelper.addAdKeyword(CommunityUtil.CITY_GAM_AD_ATTRIBUTE_KEY, board.getCity().getName());
+                pageHelper.addAdKeyword(CommunityUtil.STATE_GAM_AD_ATTRIBUTE_KEY, board.getCity().getState().getAbbreviation());
+            } else {
+                for (CmsCategory category : board.getUniqueKategoryBreadcrumbs()) {
+                    pageHelper.addAdKeywordMulti(CommunityUtil.EDITORIAL_GAM_AD_ATTRIBUTE_KEY, category.getName());
+                }
+            }
         } else {
             _log.warn("Can't find board with id " + contentId);
         }

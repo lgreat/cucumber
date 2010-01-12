@@ -14,6 +14,7 @@ import gs.data.community.*;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.CmsCategory;
 
 import java.util.*;
 
@@ -148,6 +149,15 @@ public class DiscussionController extends AbstractController {
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
             pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
+            if (board.getCity() != null) {
+                pageHelper.addAdKeyword(CommunityUtil.CITY_GAM_AD_ATTRIBUTE_KEY, board.getCity().getName());
+                pageHelper.addAdKeyword(CommunityUtil.STATE_GAM_AD_ATTRIBUTE_KEY, board.getCity().getState().getAbbreviation());
+            } else {
+                for (CmsCategory category : board.getUniqueKategoryBreadcrumbs()) {
+                    pageHelper.addAdKeywordMulti(CommunityUtil.EDITORIAL_GAM_AD_ATTRIBUTE_KEY, category.getName());
+                }
+            }
+
             // Sample code to pull out rejected reply body and restore it in field
 //            SitePrefCookie cookie = new SitePrefCookie(request, response);
 //            if (StringUtils.isNotEmpty(cookie.getProperty(DiscussionSubmissionController.COOKIE_REPLY_BODY_PROPERTY))) {
