@@ -210,6 +210,9 @@
     <div id="startADiscussionDialog" style="display:none;">
         <iframe src="" id="startADiscussionIFrame"
                 name="startADiscussionIFrame"
-                frameborder="0" height="480" width="610" scrolling="no"><!-- don't collapse --></iframe>
+                frameborder="0"
+                height="520" 
+                width="610"
+                scrolling="no"><!-- don't collapse --></iframe>
     </div>
 </jsp:root>
