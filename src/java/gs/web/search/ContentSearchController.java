@@ -171,7 +171,7 @@ public class ContentSearchController extends AbstractController {
                 String suggestedQuery = searchQuery;
                 for (SpellCheckResponse.Suggestion suggestion : spell.getSuggestions()) {
                     suggestedQuery =
-                            suggestedQuery.replaceAll(suggestion.getToken(), suggestion.getSuggestions().get(0));
+                            suggestedQuery.replaceAll(suggestion.getToken(), suggestion.getAlternatives().get(0));
                 }
                 model.put(MODEL_SUGGESTED_SEARCH_QUERY, suggestedQuery);
             }
