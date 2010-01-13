@@ -29,7 +29,7 @@ table {
     border-spacing: 0;
 }
 html {
-    background: #68aaf1  url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
+    background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
 }
 body {
     background: url(/res/img/gs_cloud_bg.png) 52%  204px no-repeat;
@@ -60,6 +60,7 @@ h5 {
 .alert {
     color: #d61;
 }
+/* clases applied to h3 */
 .title1 {
     font-family: Georgia, serif;
     color: #d61;
@@ -139,9 +140,14 @@ p {
 #utilLinks li a {
     color: #fff;
 }
-#logo {
+#logoBox {
     position: relative;
     margin-top: 20px;
+    width: 369px;
+    height: 83px;
+}
+#logo {
+    position: relative;
     width: 369px;
     height: 83px;
 }
@@ -210,7 +216,7 @@ p {
     margin: 0 9px 0 0;
 }
 #searchForm fieldset input {
-    width: 270px;
+    width: 264px;
     height: 18px;
 }
 #searchForm fieldset select {
@@ -297,14 +303,14 @@ p {
 #subnav li a {
     text-decoration: none;
 }
-#wrap {
+#mainWrap {
     position: relative;
     margin: 0 auto;
     background: url(/res/img/gs_content_bg.png) repeat-y;
     padding: 0 24px;
     min-height: 640px;
 }
-.leftside #wrap {
+.leftside #mainWrap {
     padding: 0 24px 0 344px;
     width: 610px;
 }

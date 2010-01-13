@@ -40,7 +40,7 @@
     <title>
         2010 <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
-   <!--
+   
     <gsml:url var="globalcss" value="/res/css/global.css?v=$RELEASE_NUMBER"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${globalcss}"></link>]]>
 
@@ -77,7 +77,7 @@
 
     <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
     <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
-    -->
+
 
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
     <!-- This tag includes ad_popunder.js -->
@@ -111,7 +111,9 @@
                 <li><a href="#">Join Us</a></li>
                 <li><a href="#">Sign In</a></li>
             </ul>
-            <img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" alt="GreatSchools" />
+            <div id="logoBox">
+                <img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" alt="GreatSchools" />
+            </div>
             <form action="" id="searchForm">
                 <fieldset>
                     <ul>
@@ -145,7 +147,7 @@
                 <li><a href="#">Choose the Right School</a></li>
             </ul>
         </div>
-        <div id="wrap">
+        <div id="mainWrap">
             <div id="contentGS">
                 <decorator:body/>
             </div>

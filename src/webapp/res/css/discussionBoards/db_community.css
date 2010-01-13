@@ -128,7 +128,7 @@ html[xmlns] .clearfix {
     display: block;
 }
 
-* html .clearfix {
+body.ie6 .clearfix {
     height: 1%;
 }
 
@@ -188,7 +188,7 @@ html[xmlns] .clearfix {
 .module {
     overflow: hidden;
 }
-*html .module {
+body.ie6 .module {
     heigth: 1%;
 }
 .module .header{
@@ -468,6 +468,7 @@ html[xmlns] .clearfix {
 }
 .col {
     float: left;
+    display: inline;
 }
 .pad {
     margin-bottom: 15px;
@@ -480,7 +481,7 @@ html[xmlns] .clearfix {
     margin-bottom: 15px;
     overflow: hidden;
 }
-*html .userInfo {
+body.ie6 .userInfo {
     height: 1%;
 }
 .userInfo h2 {
@@ -489,7 +490,7 @@ html[xmlns] .clearfix {
 .userInfo h2 span.fltrt {
     font: 11px/1.3 Arial, sans-serif;
 }
-*html .userInfo h2 span.fltrt {
+body.ie6 .userInfo h2 span.fltrt {
     position: relative;
     top: -24px;
     margin-bottom: -24px;
@@ -507,7 +508,7 @@ html[xmlns] .clearfix {
     position: relative;
     width: auto;
 }
-*html .userVitals {
+body.ie6 .userVitals {
     display: inline;
     padding: 0 0 0 105px;
     width: 47%;
@@ -529,7 +530,7 @@ html[xmlns] .clearfix {
 .aboutMe {
     min-height: 88px;
 }
-*html .aboutMe {
+body.ie6 .aboutMe {
     height: 1%;
     padding-bottom: 18px;
 }
@@ -616,7 +617,7 @@ h3.subhead1 span.fltrt {
     display: block;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -512px no-repeat;
 }
-* html .activity li {
+body.ie6 .activity li span.icon  {
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
 .activity li:last-child {
