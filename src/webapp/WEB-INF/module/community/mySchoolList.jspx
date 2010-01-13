@@ -11,7 +11,7 @@
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
 <div class="md mySchList col">
-    <h3 class="subhead1">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) <span class="fltrt"><link:mySchoolList>View school list <span>&#187;</span></link:mySchoolList></span></c:if>
+    <h3 class="subhead1">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) <span class="fltrt"><link:mySchoolList>View full school list <span>&#187;</span></link:mySchoolList></span></c:if>
 
     </h3>
 
@@ -20,10 +20,13 @@
 
 
             <ul class="schList">
-                <c:forEach var="school" items="${schools}">
-                    <li><link:schoolProfileOverview school="${school}" title="${school.name}">
-                        <c:out value="${school.name}"/>
-                    </link:schoolProfileOverview></li>
+                <c:forEach var="school" items="${schools}" varStatus="status">
+                    <!-- show at most three schools -->
+                    <c:if test="${status.count lt 4}">
+                        <li><link:schoolProfileOverview school="${school}" title="${school.name}">
+                            <c:out value="${school.name}"/>
+                        </link:schoolProfileOverview></li>
+                    </c:if>
                 </c:forEach>
             </ul>
 

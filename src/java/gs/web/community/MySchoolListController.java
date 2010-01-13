@@ -71,7 +71,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_CURRENT_DATE = "currentDate";
 
     /** constants */
-    public static final int RECENT_REVIEWS_LIMIT = 5;
+    public static final int RECENT_REVIEWS_LIMIT = 3;
 
     /** Used to sort schools by name */
     private Comparator<School> _schoolNameComparator;
