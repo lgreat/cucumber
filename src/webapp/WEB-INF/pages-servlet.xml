@@ -889,12 +889,6 @@
           class="gs.web.geo.CityController"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/geo/landing/dayton_ohio.page"
-          class="gs.web.util.Redirect301Controller"
-          autowire="byName" lazy-init="true">
-        <property name="redirectPath" value="/ohio/dayton/"/>
-    </bean>
-
     <bean name="/city/"
           class="gs.web.geo.CityController"
           autowire="byName" lazy-init="true"/>
