@@ -21,14 +21,12 @@
 <head>
     <c:set var="pageTitle">${discussion.title}</c:set>
     <title>${pageTitle} | GreatSchools</title>
-    <meta name="description" content="TODO"/>
-    <meta name="keywords" content="TODO"/>
+    <meta name="description" content="Join parents as they discuss '${discussion.title}' on GreatSchools."/>
+    <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    <![CDATA[<!--[if !IE]>]
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
-    <![endif]-->]]>
+    <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
     <script type="text/javascript">
         var $j = jQuery;
         var postReplyForm;
