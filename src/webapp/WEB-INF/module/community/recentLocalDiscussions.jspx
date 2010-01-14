@@ -13,6 +13,9 @@
         <script type="text/javascript">
             jQuery(function() {
                 jQuery(".startADiscussion").click(function(event) {
+                    if (!checkLogin()) {
+                        return false;
+                    }
                     var valid = validPost();
                     if (!valid) {
                         // Prevent the hover from opening which happens in a subsequent click handler.
@@ -23,11 +26,17 @@
                 });
             });
 
-            function checkLogin() {
-                //<c:if test="${requestScope.context.user eq null}">
-                document.location='${loginRedirectUrl}';
-                //</c:if>
-            }
+            //<c:if test="${requestScope.context.user eq null}">
+                function checkLogin() {
+                    document.location='${loginRedirectUrl}';
+                    return false;
+                }
+            //</c:if>
+            //<c:if test="${requestScope.context.user ne null}">
+                function checkLogin() {
+                    return true;
+                }
+            //</c:if>
 
             function getLocalDiscussionTitle() {
                 var title = jQuery('#localDiscussionsTitleBox').val();
