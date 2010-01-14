@@ -335,7 +335,7 @@ body.ie6 .module {
 	border-bottom:7px solid rgba(255, 255, 255, 0.0);
 }
 
-.ie6 .db_replyContainer b.db_replyPointLeft, .ie7 .db_replyContainer b.db_replyPointLeft, .ie8 .db_replyContainer b.db_replyPointLeft {
+body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.db_replyPointLeft, body.ie8 .db_replyContainer b.db_replyPointLeft {
 	font-size: 0px;
 	line-height: 0%;
 	width: 0px;
@@ -494,7 +494,8 @@ body.ie6 .userInfo h2 span.fltrt {
     position: relative;
     top: -24px;
     margin-bottom: -24px;
-}.userInfo h2 span.fltrt a {
+}
+.userInfo h2 span.fltrt a {
     padding: 5px 0 0 18px;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -90px no-repeat;
 }
@@ -511,8 +512,9 @@ body.ie6 .userInfo h2 span.fltrt {
 body.ie6 .userVitals {
     display: inline;
     padding: 0 0 0 105px;
-    width: 47%;
+    width: 222px;
     margin: 0;
+    border: 0;
 }
 .userVitals ul, .userVitalsFull ul {
     margin-bottom: 9px;
@@ -523,6 +525,9 @@ body.ie6 .userVitals {
     top: 0;
     text-align: center;
 
+}
+body.ie6 .userVitalsFull .avatar {
+    left: -105px;
 }
 .avatar a {
     font-size: 11px;
@@ -543,7 +548,12 @@ body.ie6 .aboutMe {
 .mgAccount {
     position: relative;
     padding: 0 15px;
+    border: 0;
     width: 28%;
+}
+body.ie6 .mgAccount {
+    border: 0;
+    width: 148px;
 }
 .mgAccount ul {
     padding: 0 0 0 3px;
@@ -619,6 +629,7 @@ h3.subhead1 span.fltrt {
 }
 body.ie6 .activity li span.icon  {
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
+    left: -25px;
 }
 .activity li:last-child {
     border: 0;
