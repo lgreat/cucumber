@@ -2,11 +2,9 @@ package gs.web.community.registration.popup;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.soap.ReportLoginRequest;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.soap.SoapRequestException;
 import org.springframework.validation.BindException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,10 +18,8 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
     private LoginHoverController _controller;
     private IUserDao _userDao;
     private User _user;
-    private String _ip;
     private LoginHoverCommand _command;
     private BindException _errors;
-    private ReportLoginRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -33,15 +29,9 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _userDao = createStrictMock(IUserDao.class);
         _controller.setUserDao(_userDao);
 
-        _soapRequest = createMock(ReportLoginRequest.class);
-        _controller.setReportLoginRequest(_soapRequest);
-
         _user = new User();
         _user.setEmail("testLoginController@greatschools.org");
         _user.setId(99);
-
-        // this is the IP used when the request attribute is missing
-        _ip = "127.0.0.1";
 
         _command = new LoginHoverCommand();
         _command.setEmail(_user.getEmail());
@@ -203,38 +193,8 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.reportLoginRequest(_user, _ip);
-        replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_userDao);
-        verify(_soapRequest);
-        assertFalse("Controller has errors on submit", _errors.hasErrors());
-
-        assertTrue(mAndV.getViewName().startsWith("redirect:"));
-        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
-    }
-
-    public void testOnSubmitWithSoapError() throws Exception {
-        // expect login to proceed despite error
-        _user.setPlaintextPassword("foobar");
-        expect(_userDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
-        expect(_userDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
-        replay(_userDao);
-
-        _command.setPassword("foobar");
-
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse("Controller has errors on validate", _errors.hasErrors());
-
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.reportLoginRequest(_user, _ip);
-        expectLastCall().andThrow(new SoapRequestException());
-        replay(_soapRequest);
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verify(_userDao);
-        verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
@@ -245,11 +205,9 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         // join submits are forwarded to registration
         getRequest().setParameter("joinForm", "true");
         replay(_userDao);
-        replay(_soapRequest);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_userDao);
-        verify(_soapRequest);
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
         assertTrue("Expect forward to registration", StringUtils.contains(mAndV.getViewName(), "registration"));
@@ -262,7 +220,6 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_userDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
         replay(_userDao);
-        replay(_soapRequest);
 
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -270,7 +227,6 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_userDao);
-        verify(_soapRequest);
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
         assertTrue("Expect forward to registration", StringUtils.contains(mAndV.getViewName(), "registration"));

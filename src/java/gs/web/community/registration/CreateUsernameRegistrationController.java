@@ -81,16 +81,11 @@ public class CreateUsernameRegistrationController extends RegistrationController
         getUserDao().updateUser(user);
 
         ModelAndView mAndV = new ModelAndView();
-        if (!notifyCommunity(user, userCommand, mAndV, request)) {
-            return mAndV; // early exit!
-        }
 
         PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
         if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
-            String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
+            String redirectUrl = "/account/";
             userCommand.setRedirectUrl(redirectUrl);
         }
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());

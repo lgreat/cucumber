@@ -1,14 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.51 2009/12/16 23:55:28 droy Exp $
+ * $Id: LoginController.java,v 1.52 2010/01/14 02:24:17 aroy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.soap.SoapRequestException;
 import gs.data.util.CommunityUtil;
-import gs.web.soap.ReportLoginRequest;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -46,16 +44,9 @@ public class LoginController extends SimpleFormController {
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
-    private ReportLoginRequest _reportLoginRequest;
 
     protected void initializeRedirectUrl(HttpServletRequest request) {
-        if (CommunityUtil.isNewCommunityEnabled()) {
-            DEFAULT_REDIRECT_URL = "/account/";
-        } else {
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
-            DEFAULT_REDIRECT_URL = "http://" + communityHost + "/";
-        }
+        DEFAULT_REDIRECT_URL = "/account/";
     }
 
     //set up defaults if none supplied
@@ -213,34 +204,12 @@ public class LoginController extends SimpleFormController {
             redirectUrl = builder.asFullUrl(request);
         } else {
             // The password has validated, so set the cookies and send them onward
-            // only notify community on final step
-            try {
-                notifyCommunity(user, request);
-            } catch (SoapRequestException sre) {
-                _log.error("SOAP error - " + sre.getErrorCode() + ": " + sre.getErrorMessage());
-                // If this fails, let login continue but log it. This is not a fatal error, nor
-                // should it be user-facing.
-            }
             PageHelper.setMemberAuthorized(request, response, user, loginCommand.isRememberMe());
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 
         mAndV.setViewName("redirect:" + redirectUrl);
         return mAndV;
-    }
-
-    protected void notifyCommunity(User user, HttpServletRequest request) throws SoapRequestException {
-        ReportLoginRequest soapRequest = getReportLoginRequest();
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
-            requestIP = request.getRemoteAddr();
-        }
-        soapRequest.reportLoginRequest(user, requestIP);
     }
 
     public IUserDao getUserDao() {
@@ -257,16 +226,5 @@ public class LoginController extends SimpleFormController {
 
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         _authenticationManager = authenticationManager;
-    }
-
-    public ReportLoginRequest getReportLoginRequest() {
-        if (_reportLoginRequest == null) {
-            _reportLoginRequest = new ReportLoginRequest();
-        }
-        return _reportLoginRequest;
-    }
-
-    public void setReportLoginRequest(ReportLoginRequest reportLoginRequest) {
-        _reportLoginRequest = reportLoginRequest;
     }
 }

@@ -138,14 +138,6 @@ public class LoginHoverController extends LoginController {
                     URLEncoder.encode(email, "UTF-8") + "&msl=1&how=" + loginCommand.getHow();
         } else {
             // The password has validated, so set the cookies and send them onward
-            // only notify community on final step
-            try {
-                notifyCommunity(user, request);
-            } catch (SoapRequestException sre) {
-                _log.error("SOAP error - " + sre.getErrorCode() + ": " + sre.getErrorMessage());
-                // If this fails, let login continue but log it. This is not a fatal error, nor
-                // should it be user-facing.
-            }
             PageHelper.setMemberAuthorized(request, response, user, loginCommand.isRememberMe());
 
             redirectUrl = "/community/registration/popup/sendToDestination.page";

@@ -9,15 +9,12 @@ import org.apache.commons.logging.LogFactory;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.validator.UserCommandValidator;
-import gs.web.soap.ChangePasswordRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +36,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
-    private ChangePasswordRequest _soapRequest;
 
     protected void createGenericValidationError(HttpServletRequest request, BindException errors) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
@@ -175,10 +171,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                                  Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
-        String comLandingUrl = "http://" +
-                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                "/dashboard";
-        String targetUrl = comLandingUrl;
+        String targetUrl = "/account/";
         if (!suppressValidation(request, objCommand)) {
             // at this point everything has been validated. Proceed with the password change request
             ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
@@ -200,69 +193,17 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 mAndV = new ModelAndView("/community/registration/createUsername", model);
                 return mAndV; // early exit!
             }
-            if (notifyCommunity(user, request)) {
-                // success
-                // save user
-                user.setUpdated(new Date());
-                getUserDao().updateUser(user);
-                // log in user automatically
-                PageHelper.setMemberAuthorized(request, response, user);
-                // triggers msg #25 on community (include/message_list.php)
-                targetUrl += "?msg=B1C4-0FF2-3D70-BD27";
-            } else {
-                // failure
-                // make sure user object is in original state
-                user.setPlaintextPassword(command.getOldPassword());
-                user.setEmailProvisional(command.getOldPassword());
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
-                builder.addParameter("message", "We're sorry! There was an error updating your password. " +
-                        "Please try again in a few minutes.");
-                targetUrl = builder.asFullUrl(request);
-            }
+            // save user
+            user.setUpdated(new Date());
+            getUserDao().updateUser(user);
+            // log in user automatically
+            PageHelper.setMemberAuthorized(request, response, user);
+            // triggers msg #25 on community (include/message_list.php)
+            targetUrl += "?msg=B1C4-0FF2-3D70-BD27";
         }
         mAndV.setViewName("redirect:" + targetUrl);
 
         return mAndV;
-    }
-
-    /**
-     * Fires off a SOAP request to community updating the password. If there is an error,
-     * this method returns FALSE, otherwise TRUE.
-     * @param user User
-     * @return TRUE if successful, FALSE Otherwise
-     */
-    protected boolean notifyCommunity(User user, HttpServletRequest request) {
-        _log.info(user.getPasswordMd5());
-        ChangePasswordRequest soapRequest = getSoapRequest();
-        UrlUtil urlUtil = new UrlUtil();
-        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        try {
-            soapRequest.changePasswordRequest(user);
-        } catch (SoapRequestException couure) {
-            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
-            // send to error page
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Encapsulate into method so the testing class can mock it
-     */
-    public ChangePasswordRequest getSoapRequest() {
-        if (_soapRequest == null) {
-            _soapRequest = new ChangePasswordRequest();
-        }
-        return _soapRequest;
-    }
-
-    public void setSoapRequest(ChangePasswordRequest soapRequest) {
-        _soapRequest = soapRequest;
     }
 
     protected Object formBackingObject(HttpServletRequest request) {

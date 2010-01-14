@@ -118,9 +118,6 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
             mAndV.setViewName(getErrorView());
             return mAndV;
         }
-        if (!notifyCommunity(user, userCommand, mAndV, request)) {
-            return mAndV; // early exit!
-        }
 
         PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
         mAndV.setViewName("redirect:" + getHoverView());

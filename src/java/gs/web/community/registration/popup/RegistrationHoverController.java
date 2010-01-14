@@ -105,7 +105,6 @@ public class RegistrationHoverController extends RegistrationController implemen
             mAndV.setViewName(getErrorView());
             return mAndV;
         }
-        notifyCommunity(user, userCommand, mAndV, request);
 
         mAndV.setViewName("redirect:/community/registration/popup/sendToDestination.page");
 

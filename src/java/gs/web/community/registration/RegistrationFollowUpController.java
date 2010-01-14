@@ -7,9 +7,6 @@ import gs.data.geo.IGeoDao;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.soap.CreateOrUpdateUserRequest;
-import gs.data.soap.CreateOrUpdateUserRequestBean;
-import gs.data.soap.SoapRequestException;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
@@ -56,7 +53,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private AuthenticationManager _authenticationManager;
     private String _errorView;
-    private CreateOrUpdateUserRequest _soapRequest;
 
     private Set<String> _contactSubs;
 
@@ -256,22 +252,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // for repeat submits of this page (useful for debugging) don't do soap request
         if (user.isEmailProvisional()) {
             // only notify community on final step
-            String password = user.getPasswordMd5().substring
-                    (user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX) +
-                            User.EMAIL_PROVISIONAL_PREFIX.length());
             passwordPlaintext = user.getPasswordMd5().substring
                     (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
-            try {
-                notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(),
-                        password, existingProfile.getUpdated(), request);
-            } catch (SoapRequestException couure) {
-                _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
-                // undo registration
-                // the user is already provisional at this point since they haven't agreed to the terms
-                // send to error page
-                mAndV.setViewName(getErrorView());
-                return mAndV; // early exit!
-            }
         }
 
         if (user.getStudents() != null) {
@@ -360,23 +342,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 
         return mAndV;
-    }
-
-    protected void notifyCommunity(Integer userId, String screenName, String email, String password,
-                                   Date dateCreated, HttpServletRequest request) throws SoapRequestException {
-        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
-            requestIP = request.getRemoteAddr();
-        }
-        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, password, dateCreated, requestIP);
-        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        soapRequest.createOrUpdateUserRequest(bean);
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user, HttpServletRequest request, HttpServletResponse response) {
@@ -503,16 +468,5 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setErrorView(String errorView) {
         _errorView = errorView;
-    }
-
-    public CreateOrUpdateUserRequest getSoapRequest() {
-        if (_soapRequest == null) {
-            _soapRequest = new CreateOrUpdateUserRequest();
-        }
-        return _soapRequest;
-    }
-
-    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
-        _soapRequest = soapRequest;
     }
 }

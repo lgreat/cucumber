@@ -12,12 +12,6 @@
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>
       <title>Change Email - GreatSchools</title>
-      <jsp:scriptlet>
-          String comHost =
-                  SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
-          String dashboardUrl = "http://" + comHost + "/dashboard";
-          request.setAttribute("dashboardUrl", dashboardUrl);
-      </jsp:scriptlet>
   </head>
   <gsml:body adPageName="changeEmail">
       <![CDATA[
@@ -33,7 +27,7 @@
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2>Update My Email Address</h2>
 
-          <a href="${dashboardUrl}"
+          <a href="/account/"
              id="dashboardLink" tabindex="1">Go to my dashboard &gt;</a>
 
           <gsweb:form action="/community/changeEmail.page" method="post">

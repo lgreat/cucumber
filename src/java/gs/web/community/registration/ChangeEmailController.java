@@ -9,11 +9,8 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
-import gs.data.soap.SoapRequestException;
-import gs.web.soap.ChangeEmailRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +32,6 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
-    private ChangeEmailRequest _soapRequest;
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
@@ -88,53 +84,17 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             String message;
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
-            String oldEmail = user.getEmail();
             user.setEmail(command.getNewEmail());
-            if (notifyCommunity(user, request)) {
-                // success
-                // save user
-                user.setUpdated(new Date());
-                _userDao.updateUser(user);
-                PageHelper.setMemberAuthorized(request, response, user);
-                message = "4F3C-46E1-82EF-126A";
-            } else {
-                // failure
-                user.setEmail(oldEmail);
-                message = "We're sorry! There was an error updating your email. " +
-                        "Please try again in a few minutes.";
-            }
+            // save user
+            user.setUpdated(new Date());
+            _userDao.updateUser(user);
+            PageHelper.setMemberAuthorized(request, response, user);
+            message = "4F3C-46E1-82EF-126A";
             mAndV.getModel().put("msg", message);
         }
 
-        String comHost =
-                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
-        mAndV.setViewName("redirect:http://" + comHost + "/dashboard");
+        mAndV.setViewName("redirect:/account/");
         return mAndV;
-    }
-
-    /**
-     * Fires off a SOAP request to community updating the email address. If there is an error,
-     * this method returns FALSE, otherwise TRUE.
-     * @param user User with updated email address
-     * @return TRUE if successful, FALSE Otherwise
-     */
-    protected boolean notifyCommunity(User user, HttpServletRequest request) {
-        ChangeEmailRequest soapRequest = getSoapRequest();
-        UrlUtil urlUtil = new UrlUtil();
-        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        try {
-            soapRequest.changeEmailRequest(user);
-        } catch (SoapRequestException couure) {
-            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
-            // send to error page
-            return false;
-        }
-
-        return true;
     }
 
     public IUserDao getUserDao() {
@@ -143,20 +103,6 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    /**
-     * Encapsulate into method so the testing class can mock it
-     */
-    public ChangeEmailRequest getSoapRequest() {
-        if (_soapRequest == null) {
-            _soapRequest = new ChangeEmailRequest();
-        }
-        return _soapRequest;
-    }
-
-    public void setSoapRequest(ChangeEmailRequest soapRequest) {
-        _soapRequest = soapRequest;
     }
 
     public static class ChangeEmailCommand implements EmailValidator.IEmail {

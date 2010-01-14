@@ -10,16 +10,12 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.geo.IGeoDao;
-import gs.data.soap.CreateOrUpdateUserRequest;
-import gs.data.soap.CreateOrUpdateUserRequestBean;
-import gs.data.soap.SoapRequestException;
 import gs.data.school.ISchoolDao;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import static org.easymock.classextension.EasyMock.*;
 
 import java.util.List;
-import java.util.Date;
 
 /**
  * Provides ...
@@ -37,7 +33,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private ITableDao _tableDao;
 
     private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
-    private CreateOrUpdateUserRequest _soapRequest;
 
     private UserCommand _command;
     private User _user;
@@ -55,14 +50,12 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _schoolDao = createStrictMock(ISchoolDao.class);
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
         _tableDao = createStrictMock(ITableDao.class);
-        _soapRequest = createStrictMock(CreateOrUpdateUserRequest.class);
 
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSchoolDao(_schoolDao);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setTableDao(_tableDao);
-        _controller.setSoapRequest(_soapRequest);
 
         _controller.setSuccessView(SUCCESS_VIEW);
 
@@ -93,20 +86,19 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         assertNotNull(_controller.getTableDao());
         assertSame(_subscriptionDao, _controller.getSubscriptionDao());
         assertSame(_mailSender, _controller.getMailSender());
-        assertSame(_soapRequest, _controller.getSoapRequest());
         assertSame(_tableDao, _controller.getTableDao());
     }
 
     public void replayAllMocks() {
-        replayMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _soapRequest, _tableDao);
+        replayMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _tableDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _soapRequest, _tableDao);
+        verifyMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _tableDao);
     }
 
     public void resetAllMocks() {
-        resetMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _soapRequest, _tableDao);
+        resetMocks(_userDao, _schoolDao, _geoDao, _subscriptionDao, _tableDao);
     }
 
     /**
@@ -114,7 +106,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      * @param userCommand
      * @throws SoapRequestException
      */
-    private void setupBasicOnSubmit(UserCommand userCommand) throws SoapRequestException {
+    private void setupBasicOnSubmit(UserCommand userCommand) {
         String email = "testRegistration@RegistrationControllerTest.com";
         String password = "foobar";
         userCommand.setEmail(email);
@@ -134,9 +126,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromId(userCommand.getUser().getId())).andReturn(userCommand.getUser());
 
         getRequest().addParameter("next", "next"); // submit button for 2-step process
-
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 
         expect(_tableDao.getFirstRowByKey("ip", getRequest().getRemoteAddr())).andReturn(null);
     }
@@ -294,100 +283,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
         assertEquals("Error view should be returned when the request is from a blocked IP.",
                 _controller.getErrorView(), mAndV.getViewName());
-    }
-
-    public void testNotifyCommunity() {
-        try {
-            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityDev() {
-        _request.setServerName("dev.greatschools.org");
-        try {
-            _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityDevWorkstation() {
-        _request.setServerName("aroy.office.greatschools.org");
-        try {
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityStaging() {
-        _request.setServerName("staging.greatschools.org");
-        try {
-            _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityLive() {
-        _request.setServerName("www.greatschools.org");
-        try {
-            _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityLiveCobrand() {
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _request.setServerName("encarta.greatschools.org");
-        try {
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
-            verify(_soapRequest);
-        } catch (SoapRequestException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    public void testNotifyCommunityError() {
-        _request.setServerName("dev.greatschools.org");
-        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-        ModelAndView mAndV = new ModelAndView();
-        _user.setUserProfile(_command.getUserProfile());
-        _user.setId(1);
-        try {
-            _user.setPlaintextPassword("123456");
-            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-            expectLastCall().andThrow(new SoapRequestException());
-            replay(_soapRequest);
-            _controller.notifyCommunity(_user, _command, mAndV, getRequest());
-            verify(_soapRequest);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
     }
 
     // test that if an exception occurs during registration, after user creation, but before
@@ -567,16 +462,12 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //        _userDao.updateUser(userCommand.getUser());
 ////        _userControl.replay();
 //
-//        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-//        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 //        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(userCommand.getUser());
-//        replay(_soapRequest);
 //        replay(_userDao);
 //
 //        try {
 //            _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
 //            _userControl.verify();
-//            verify(_soapRequest);
 //            verify(_userDao);
 //            assertTrue(userCommand.getUser().isEmailProvisional());
 //            assertFalse(userCommand.getUser().isPasswordEmpty());
@@ -703,14 +594,11 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //       _userControl.replay();
 //    }
 //    private void setUpFindUserFromEmailIfExistsAndSoapRequest(UserCommand userCommand) throws Exception{
-//        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-//        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
 //        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(null);
 //        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(userCommand.getUser());
 //        _userDao.saveUser(userCommand.getUser());
 //        _userDao.updateUser(userCommand.getUser());
 //        _userDao.updateUser(userCommand.getUser());
-//        replay(_soapRequest);
 //        replay(_userDao);
 //
 //    }

@@ -190,13 +190,6 @@ public class AccountInformationController extends SimpleFormController implement
     }
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) {
-        if (StringUtils.isEmpty(getSuccessView())) {
-            String redirectUrl = "redirect:http://" +
-                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                "/dashboard?msg=B5B3-2863-F4CD-6C77";
-            setSuccessView(redirectUrl);
-        }
-
         Date updated = new Date();
 
         AccountInformationCommand command = (AccountInformationCommand) commandObj;
@@ -238,6 +231,7 @@ public class AccountInformationController extends SimpleFormController implement
         // saves gender, state, city, students
         _userDao.saveUser(user);
 
+        // msg=B5B3-2863-F4CD-6C77
         return new ModelAndView(getSuccessView());
     }
 

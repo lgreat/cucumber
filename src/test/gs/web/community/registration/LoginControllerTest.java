@@ -1,11 +1,9 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.soap.ReportLoginRequest;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.soap.SoapRequestException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,10 +16,8 @@ public class LoginControllerTest extends BaseControllerTestCase {
     private LoginController _controller;
     private IUserDao _mockUserDao;
     private User _user;
-    private String _ip;
     private LoginCommand _command;
     private BindException _errors;
-    private ReportLoginRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -31,16 +27,10 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _mockUserDao = createMock(IUserDao.class);
         _controller.setUserDao(_mockUserDao);
 
-        _soapRequest = createMock(ReportLoginRequest.class);
-        _controller.setReportLoginRequest(_soapRequest);
-
         _user = new User();
         _user.setEmail("testLoginController@greatschools.org");
         _user.setId(99);
         _user.setUserProfile(new UserProfile());
-
-        // this is the IP used when the request attribute is missing
-        _ip = "127.0.0.1";
 
         _command = new LoginCommand();
         _command.setEmail(_user.getEmail());
@@ -70,73 +60,11 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.reportLoginRequest(_user, _ip);
-        replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_mockUserDao);
-        verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
-    }
-
-    public void testOnSubmitWithIPAttribute() throws Exception {
-        _user.setPlaintextPassword("foobar");
-        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
-        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
-        replay(_mockUserDao);
-
-        _command.setPassword("foobar");
-
-        getRequest().setServerName("dev.greatschools.org");
-
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse("Controller has errors on validate", _errors.hasErrors());
-
-        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-        _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "192.168.0.100");
-        _soapRequest.reportLoginRequest(_user, "192.168.0.100");
-        replay(_soapRequest);
-
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verify(_mockUserDao);
-        verify(_soapRequest);
-        assertFalse("Controller has errors on submit", _errors.hasErrors());
-
-        assertEquals("redirect:http://community.dev.greatschools.org/",
-                mAndV.getViewName());
-    }
-
-    public void testOnSubmitWithIPAttributeUndefined() throws Exception {
-        _user.setPlaintextPassword("foobar");
-        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
-        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
-        replay(_mockUserDao);
-
-        _command.setPassword("foobar");
-
-        getRequest().setServerName("dev.greatschools.org");
-
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse("Controller has errors on validate", _errors.hasErrors());
-
-        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-        _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "undefined");
-        _request.setRemoteAddr("192.168.0.101");
-        // expect it to fall back to remote when attribute is undefined
-        _soapRequest.reportLoginRequest(_user, "192.168.0.101");
-        replay(_soapRequest);
-
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verify(_mockUserDao);
-        verify(_soapRequest);
-        assertFalse("Controller has errors on submit", _errors.hasErrors());
-
-        assertEquals("redirect:http://community.dev.greatschools.org/",
-                mAndV.getViewName());
     }
 
     public void testOnSubmitNoRedirect() throws Exception {
@@ -153,43 +81,13 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
-        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-        _soapRequest.reportLoginRequest(_user, _ip);
-        replay(_soapRequest);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_mockUserDao);
-        verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
-        assertEquals("redirect:http://community.dev.greatschools.org/",
+        assertEquals("redirect:/account/",
                 mAndV.getViewName());
-    }
-
-    public void testOnSubmitWithSoapError() throws Exception {
-        // expect login to proceed despite error
-        _user.setPlaintextPassword("foobar");
-        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
-        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
-        replay(_mockUserDao);
-
-        _command.setPassword("foobar");
-        _command.setRedirect("/?14@@.598dae0f");
-
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse("Controller has errors on validate", _errors.hasErrors());
-
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.reportLoginRequest(_user, _ip);
-        expectLastCall().andThrow(new SoapRequestException());
-        replay(_soapRequest);
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verify(_mockUserDao);
-        verify(_soapRequest);
-        assertFalse("Controller has errors on submit", _errors.hasErrors());
-
-        assertTrue(mAndV.getViewName().startsWith("redirect:"));
     }
 
     public void testNonexistantUser() throws Exception {
@@ -255,20 +153,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     }
 
     public void testInitializeRedirectUrl() {
-        getRequest().setServerName("dev.greatschools.org");
         _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.dev.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
-
-        getRequest().setServerName("staging.greatschools.org");
-        _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.staging.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
-
-        getRequest().setServerName("www.greatschools.org");
-        _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
-
-        getRequest().setServerName("yahooed.greatschools.org");
-        _controller.initializeRedirectUrl(getRequest());
-        assertEquals("http://community.greatschools.org/", LoginController.DEFAULT_REDIRECT_URL);
+        assertEquals("/account/", LoginController.DEFAULT_REDIRECT_URL);
     }
 }

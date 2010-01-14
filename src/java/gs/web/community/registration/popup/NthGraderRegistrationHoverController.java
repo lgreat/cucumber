@@ -113,9 +113,6 @@ public class NthGraderRegistrationHoverController extends RegistrationController
             mAndV.setViewName(getErrorView());
             return mAndV;
         }
-        if (!notifyCommunity(user, userCommand, mAndV, request)) {
-            return mAndV; // early exit!
-        }
 
         PageHelper.setMemberAuthorized(request, response, getUserDao().findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
         if(StringUtils.isNotBlank(getHoverView())) {

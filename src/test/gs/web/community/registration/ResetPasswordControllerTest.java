@@ -1,8 +1,6 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.soap.ChangePasswordRequest;
-import gs.data.soap.SoapRequestException;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
@@ -24,7 +22,6 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     private ResetPasswordController _controller;
 
     private IUserDao _userDao;
-    private ChangePasswordRequest _soapRequest;
     private User _user;
 
     protected void setUp() throws Exception {
@@ -32,122 +29,25 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         _controller = new ResetPasswordController();
 
         _userDao = createMock(IUserDao.class);
-        _soapRequest = createMock(ChangePasswordRequest.class);
 
         _controller.setUserDao(_userDao);
         _controller.setAuthenticationManager(new AuthenticationManager());
-        _controller.setSoapRequest(_soapRequest);
 
         _user = setupUser();
     }
 
-    public void testNotifyCommunity() throws SoapRequestException {
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-
-        reset(_soapRequest);
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        expectLastCall().andThrow(new SoapRequestException());
-        replay(_soapRequest);
-
-        assertFalse(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    // verify that the soap request is given a target on dev
-    public void testNotifyCommunityOnDev() throws SoapRequestException {
-        _request.setServerName("dev.greatschools.org");
-
-        _soapRequest.setTarget("http://community.dev.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    // verify that the soap request is NOT given a target on dev workstation
-    public void testNotifyCommunityOnDevWorkstation() throws SoapRequestException {
-        _request.setServerName("aroy.office.greatschools.org");
-
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    // verify that the soap request is given a target on staging
-    public void testNotifyCommunityOnStaging() throws SoapRequestException {
-        _request.setServerName("staging.greatschools.org");
-
-        _soapRequest.setTarget("http://community.staging.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    // verify that the soap request is NOT given a target on live
-    public void testNotifyCommunityOnWww() throws SoapRequestException {
-        _request.setServerName("www.greatschools.org");
-
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    // verify that the soap request is NOT given a target on live cobrand
-    public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
-        _request.setServerName("framed.greatschools.org");
-
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user, _request));
-        verify(_soapRequest);
-    }
-
-    public void testOnSubmitNoSoapError() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmit() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
 
         command.setUser(_user);
         command.setNewPassword("123456");
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        replay(_soapRequest);
 
         reset(_userDao);
         _userDao.updateUser(_user);
         replay(_userDao);
 
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        verify(_soapRequest);
-        verify(_userDao);
-    }
-
-    public void testOnSubmitYesSoapError() throws NoSuchAlgorithmException, SoapRequestException {
-        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
-        BindException errors = new BindException(command, "");
-
-        command.setUser(_user);
-        command.setNewPassword("123456");
-        command.setOldPassword("654321");
-        _soapRequest.setTarget("http://community.greatschools.org/soap/user");
-        _soapRequest.changePasswordRequest(_user);
-        expectLastCall().andThrow(new SoapRequestException());
-        replay(_soapRequest);
-
-        reset(_userDao);
-        replay(_userDao);
-
-        _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        verify(_soapRequest);
         verify(_userDao);
     }
 
@@ -237,7 +137,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertTrue(command.getUser().matchesPassword("foobar"));
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertFalse(errors.hasErrors());
-        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.org/dashboard");
+        assertEquals(mAndV.getViewName(), "redirect:/account/");
         assertTrue(command.getUser().matchesPassword("foobar"));
     }
 

@@ -1658,6 +1658,7 @@
         <property name="commandName" value="command"/>
         <property name="commandClass" value="gs.web.community.registration.AccountInformationCommand"/>
         <property name="formView" value="/community/registration/accountInformation"/>
+        <property name="successView" value="redirect:/account/"/>
     </bean>
 
     <bean name="/accountInformationAjax.page"

@@ -7,9 +7,6 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.soap.SoapRequestException;
-import gs.data.soap.CreateOrUpdateUserRequestBean;
-import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.Grade;
 import gs.data.school.School;
@@ -54,7 +51,6 @@ public class RegistrationController extends SimpleFormController implements Read
     private String _errorView;
     /** If defined, the view that this controller should redirect to. Special casing for hovers. **/
     private String _hoverView;
-    private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
     private String _how;
     public static final String CITY_PARAMETER = "city";
@@ -340,9 +336,6 @@ public class RegistrationController extends SimpleFormController implements Read
             mAndV.setViewName(getErrorView());
             return mAndV;
         }
-        if (!notifyCommunity(user, userCommand, mAndV, request)) {
-            return mAndV; // early exit!
-        }
 
         PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
         if(StringUtils.isNotBlank(getHoverView())) {
@@ -441,23 +434,6 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
         user.getUserProfile().setNumSchoolChildren(numRealChildren);
-    }
-
-    protected boolean notifyCommunity(User user, UserCommand userCommand, ModelAndView mAndV, HttpServletRequest request) {
-        // only notify community on final step
-        try {
-            notifyCommunity(user.getId(), user.getUserProfile().getScreenName(), user.getEmail(),
-                    user.getPasswordMd5(), user.getUserProfile().getUpdated(), request);
-        } catch (SoapRequestException couure) {
-            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
-            // undo registration
-            user.setEmailProvisional(userCommand.getPassword());
-            _userDao.updateUser(user);
-            // send to error page
-            mAndV.setViewName(getErrorView());
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -573,24 +549,6 @@ public class RegistrationController extends SimpleFormController implements Read
         return false;
     }
 
-    protected void notifyCommunity(Integer userId, String screenName, String email, String password,
-                                   Date dateCreated,
-                                   HttpServletRequest request) throws SoapRequestException {
-        String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
-            requestIP = request.getRemoteAddr();
-        }
-        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, password, dateCreated, requestIP);
-        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        soapRequest.createOrUpdateUserRequest(bean);
-    }
-
     public IUserDao getUserDao() {
         return _userDao;
     }
@@ -645,18 +603,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
-    }
-
-    // this eases unit testing by allowing this to be mocked out
-    public CreateOrUpdateUserRequest getSoapRequest() {
-        if (_soapRequest == null) {
-            _soapRequest = new CreateOrUpdateUserRequest();
-        }
-        return _soapRequest;
-    }
-
-    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
-        _soapRequest = soapRequest;
     }
 
     public ITableDao getTableDao() {
