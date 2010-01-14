@@ -13,16 +13,7 @@
         <script type="text/javascript">
             jQuery(function() {
                 jQuery(".startADiscussion").click(function(event) {
-                    if (!checkLogin()) {
-                        return false;
-                    }
-                    var valid = validPost();
-                    if (!valid) {
-                        // Prevent the hover from opening which happens in a subsequent click handler.
-                        event.stopImmediatePropagation();
-                    }
-
-                    return valid;
+                    return checkLogin();
                 });
             });
 
@@ -44,15 +35,6 @@
                     return title;
                 }
                 return '';
-            }
-
-            function validPost() {
-                if (getLocalDiscussionTitle() == '') {
-                    alert("Please enter a question or discussion title.");
-                    return false;
-                }
-
-                return true;
             }
         </script>
         <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
