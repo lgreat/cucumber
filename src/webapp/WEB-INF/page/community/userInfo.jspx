@@ -28,8 +28,8 @@
 
 <head>
     <title>${requestScope.pageHeading} | GreatSchools</title>
-    <meta name="description" content="TODO"/>
-    <meta name="keywords" content="TODO"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
