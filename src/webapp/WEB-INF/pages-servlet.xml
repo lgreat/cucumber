@@ -564,6 +564,10 @@
         <property name="multipartResolver" ref="sizeLimitedMultipartResolver"/>
     </bean>
 
+    <bean name="/community/avatar.page"
+          class="gs.web.community.AvatarController"
+          autowire="byName" lazy-init="true"/>
+
     <!-- Provides access to content reporting/moderation -->
     <bean id="reportContentService" class="gs.web.community.ReportContentService">
         <property name="mailSender" ref="mailSender"/>
