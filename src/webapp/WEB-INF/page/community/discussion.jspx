@@ -26,7 +26,6 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    <!-- pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/ -->
     <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>
@@ -40,7 +39,10 @@
                 return false;
             });
 
-            $j('.replyForm:last').show();
+            var replyForms = $j('.replyForm');
+            if (replyForms.size() > 1) {
+                replyForms.eq(1).show();
+            }
 
             $j('.db_discuss_full .editLink').click(function() {
                 var bodyContainer = $j(this).parents('.db_discuss_full');
