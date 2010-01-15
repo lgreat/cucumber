@@ -105,7 +105,7 @@
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
+    <!--pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/-->
 
 </head>
 
