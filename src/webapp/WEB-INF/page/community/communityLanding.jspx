@@ -19,7 +19,7 @@
 <ad:setSlotPrefix slotPrefix="CommunityLanding"/>
 
 <head>
-    <title>GreatSchools Parent Community</title>
+    <title>GreatSchools Community</title>
     <meta name="description" content="TODO"/>
     <meta name="keywords" content="TODO"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
@@ -45,13 +45,13 @@
         <div class="col2 fltlft">
         <div class="col1 fltlft">
         <div class="body2bg">
-            <div class="subhead2">Browse community by topic</div>
+            <div class="title1">Browse community by topic</div>
             <div class="fltlft">
                 <ul class="topics2 text2_180">
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
                                                            fullUri="/preschool">Preschool</link:cmsContent></li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
-                                                           fullUri="/elementary-school">Elementary</link:cmsContent>
+                                                           fullUri="/elementary-school">Elementary School</link:cmsContent>
                     </li>
                     <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638"
                                                            fullUri="/middle-school">Middle School</link:cmsContent></li>
@@ -84,7 +84,7 @@
         </div>
         <div class="col3 fltlft">
             <div class="body2bg">
-                <div class="subhead2">Search community</div>
+                <div class="title1">Search community</div>
                 <form action="/search/contentSearch.page">
                     <input class="db_search_input formText2 tint_777"
                            type="text" name="q" value=""/>
