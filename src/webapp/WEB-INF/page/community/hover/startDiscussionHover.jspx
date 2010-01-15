@@ -213,7 +213,7 @@
                 </c:otherwise>
             </c:choose>
 
-        <button class="btn25 fltlft dialogCancelButton" type="submit" value="Cancel">
+        <button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
             <span class="lftDoor25">
                 <span class="rtDoor25">Cancel</span>
             </span>
