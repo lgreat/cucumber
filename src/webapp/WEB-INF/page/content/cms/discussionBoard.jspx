@@ -20,8 +20,8 @@
 <head>
     <c:set var="pageTitle" value="${discussionBoard.title}"/>
     <title>${pageTitle} | GreatSchools</title>
-    <meta name="description" content="${requestScope.discussionBoard.metaDescription}"/>
-    <meta name="keywords" content="${requestScope.discussionBoard.metaKeywords}"/>
+    <meta name="description" content="Join parents as they discuss ${fn:escapeXml(discussionBoard.title)} on GreatSchools."/>
+    <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>

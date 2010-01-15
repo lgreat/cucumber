@@ -21,7 +21,7 @@
 <head>
     <c:set var="pageTitle">${discussion.title}</c:set>
     <title>${pageTitle} | GreatSchools</title>
-    <meta name="description" content="Join parents as they discuss '${discussion.title}' on GreatSchools."/>
+    <meta name="description" content="Join parents as they discuss '${fn:escapeXml(discussion.title)}' on GreatSchools."/>
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
