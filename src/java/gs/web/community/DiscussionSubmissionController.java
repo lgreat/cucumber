@@ -35,9 +35,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected final Log _log = LogFactory.getLog(getClass());
 
     public final static int REPLY_BODY_MINIMUM_LENGTH = 5;
-    public final static int REPLY_BODY_MAXIMUM_LENGTH = 1024;
+    public final static int REPLY_BODY_MAXIMUM_LENGTH = 128000;
     public final static int DISCUSSION_BODY_MINIMUM_LENGTH = 5;
-    public final static int DISCUSSION_BODY_MAXIMUM_LENGTH = 1024;
+    public final static int DISCUSSION_BODY_MAXIMUM_LENGTH = 128000;
     public final static int DISCUSSION_TITLE_MINIMUM_LENGTH = 5;
     public final static int DISCUSSION_TITLE_MAXIMUM_LENGTH = 128;
     public final static String COOKIE_REPLY_BODY_PROPERTY = "replyBody";
@@ -101,6 +101,29 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         handleDiscussionSubmission(request, response, command);
     }
 
+    public static String cleanUpText(String text, int maxLength) {
+        // first truncate to max length in case the submission is really long
+        text = StringUtils.abbreviate(text, maxLength);
+        // then html escape the body
+        text = HtmlUtils.htmlEscape(text);
+        // then put in line breaks
+        text = StringUtils.replace(text, "\r\n", "<br/>");
+        text = StringUtils.replace(text, "\r", "<br/>");
+        text = StringUtils.replace(text, "\n", "<br/>");
+        // then clean up high ascii characters
+        text = StringUtils.replace(text, "\u0082", ",");
+        text = StringUtils.replace(text, "\u0085", "...");
+        text = StringUtils.replace(text, "\u0091", "`");
+        text = StringUtils.replace(text, "\u0092", "'");
+        text = StringUtils.replace(text, "\u0093", "\"");
+        text = StringUtils.replace(text, "\u0094", "\"");
+        text = StringUtils.replace(text, "\u0095", "*");
+        text = StringUtils.replace(text, "\u0096", "-");
+        text = StringUtils.replace(text, "\u0097", "--");
+
+        return text;
+    }
+    
     protected void handleDiscussionSubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
@@ -135,13 +158,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
         } else {
-            // TODO: more validation?
-
             Discussion discussion = new Discussion();
             discussion.setAuthorId(user.getId());
             discussion.setBoardId(board.getContentKey().getIdentifier());
-            discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
-            discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
+            discussion.setBody(cleanUpText(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
+            discussion.setTitle(cleanUpText(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
 
             _discussionDao.save(discussion);
             // needed for indexing
@@ -249,10 +270,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             _log.warn("Attempt to edit but user != author! discussion author_id=" +
                     discussion.getAuthorId() + "; user_id=" + user.getId());
         } else {
-            // TODO: more validation?
-
-            discussion.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH)));
-            discussion.setTitle(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH)));
+            discussion.setBody(cleanUpText(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
+            discussion.setTitle(cleanUpText(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
             discussion.setDateUpdated(new Date());
 
             if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
@@ -326,8 +345,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             command.setRedirect(urlBuilder.asSiteRelative(request));
             _log.warn("Attempt to submit with body length < " + REPLY_BODY_MINIMUM_LENGTH + " ignored");
         } else {
-            // TODO: more validation?
-
             boolean newReply = false;
             boolean canSave = false;
             DiscussionReply reply;
@@ -347,7 +364,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (canSave) {
                 reply.setDiscussion(discussion);
-                reply.setBody(HtmlUtils.htmlEscape(StringUtils.abbreviate(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH)));
+                reply.setBody(cleanUpText(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
                 if (newReply) {
                     reply.setAuthorId(user.getId());
                     _discussionReplyDao.save(reply);

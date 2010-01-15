@@ -145,6 +145,9 @@
 
             $j('.btn_preview').livequery('click', function() {
                 var previewBody = $j(this).parent().find(".db_textarea textarea").val();
+                <![CDATA[
+                previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
+                ]]>
                 postReplyForm = $j(this).closest('form');
                 $j('#previewReplyDialog .replyBody').html(previewBody);
                 $j('#previewReplyDialog').dialog("open");
@@ -428,7 +431,7 @@
                                 </c:choose>
                             </span>
 
-                        <form action="/community/discussionSubmission.page" method="POST">
+                        <form action="/community/discussionSubmission.page" method="POST" accept-charset="Windows-1252">
                             <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
 

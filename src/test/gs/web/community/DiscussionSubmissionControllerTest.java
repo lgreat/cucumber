@@ -10,6 +10,7 @@ import gs.data.content.cms.*;
 import gs.data.util.CmsUtil;
 import gs.data.search.SolrService;
 
+import static gs.web.community.DiscussionSubmissionController.cleanUpText;
 import static org.easymock.classextension.EasyMock.*;
 import org.easymock.IArgumentMatcher;
 import org.apache.commons.lang.StringUtils;
@@ -202,6 +203,71 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setAuthorId(_user.getId());
 
         expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_POST)).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(false);
+
+        _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
+
+        replayAllMocks();
+        try {
+            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
+    }
+
+    public void testCleanUpText() {
+        assertEquals("First paragraph.", cleanUpText("First paragraph.", 1000));
+        assertEquals("First paragraph.<br/><br/>Second paragraph.",
+                     cleanUpText("First paragraph.\r\n\r\nSecond paragraph.", 1000));
+        assertEquals("First paragraph.<br/><br/>Second paragraph.",
+                     cleanUpText("First paragraph.\r\rSecond paragraph.", 1000));
+        assertEquals("First paragraph.<br/><br/>Second paragraph.",
+                     cleanUpText("First paragraph.\n\nSecond paragraph.", 1000));
+        assertEquals("First paragraph.&lt;br/&gt;<br/>&lt;br/&gt;<br/>Second paragraph.",
+                     cleanUpText("First paragraph.<br/>\n<br/>\nSecond paragraph.", 1000));
+        assertEquals("A \"quote\".", cleanUpText("A \u0093quote\u0094.", 1000));
+
+        assertEquals("12345...", cleanUpText("123456789", 8));
+        assertEquals("12345...", cleanUpText("12345\n789", 8));
+        assertEquals("1234<br/>...", cleanUpText("1234\n6789", 8));
+    }
+
+    public void testDiscussionBodyWithLineFeeds() {
+        insertUserIntoRequest();
+
+        _command.setBody("First paragraph.\n\nSecond paragraph.");
+        _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        _command.setTopicCenterId(1L);
+        _command.setRedirect("redirect");
+
+        CmsTopicCenter topicCenter = new CmsTopicCenter();
+        topicCenter.setDiscussionBoardId(2L);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+
+        expect(_publicationDao.populateByContentId(eq(1L), isA(CmsTopicCenter.class))).andReturn(topicCenter);
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        Discussion discussion = new Discussion();
+        discussion.setBoardId(2L);
+        discussion.setBody("First paragraph.<br/><br/>Second paragraph.");
+        discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        discussion.setAuthorId(_user.getId());
+
+        expect(_alertWordDao.hasAlertWord("First paragraph.<br/><br/>Second paragraph.")).andReturn(false);
         expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(false);
 
         _discussionDao.save(eqDiscussion(discussion));
@@ -488,6 +554,44 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("redirect", _command.getRedirect());
         assertNotNull(getResponse().getCookie("omniture"));
         assertEquals("events%24%24%3A%24%24event17%3B", getResponse().getCookie("omniture").getValue());        
+    }
+
+    public void testHandleDiscussionReplySubmissionWithLineFeeds() {
+        insertUserIntoRequest();
+
+        Discussion discussion = new Discussion();
+        discussion.setId(1);
+        discussion.setBoardId(2L);
+        _command.setBody("Hi there.\n\nSup?");
+        _command.setDiscussionId(1);
+        _command.setRedirect("redirect");
+
+        expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+        expect(_alertWordDao.hasAlertWord("Hi there.<br/><br/>Sup?")).andReturn(false);
+
+        DiscussionReply reply = new DiscussionReply();
+        reply.setAuthorId(_user.getId());
+        reply.setBody("Hi there.<br/><br/>Sup?");
+        reply.setDiscussion(discussion);
+        _discussionReplyDao.save(eqDiscussionReply(reply));
+
+        replayAllMocks();
+        try {
+            _controller.handleDiscussionReplySubmission(getRequest(), getResponse(), _command);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event17%3B", getResponse().getCookie("omniture").getValue());
     }
 
     public void testHandleDiscussionReplySubmissionNoRedirect() {

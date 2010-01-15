@@ -57,6 +57,9 @@
             $('.previewButton').click(function() {
                 if (validPost()) {
                     var previewBody = escapeHTML($(".bodyInput textarea").val());
+                    <![CDATA[
+                    previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
+                    ]]>
                     var previewTitle = escapeHTML($(".titleInput input").val());
                     parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
                 }
@@ -120,8 +123,8 @@
                       height="11" alt="close modal"/></p></div>
         <br class="clearfloat"/>
         </div>
-    <gsweb:form action="/community/discussionSubmission.page" method="post" target="_parent"
-                id="discussionSubmissionForm">
+    <form action="/community/discussionSubmission.page" method="post" target="_parent"
+                id="discussionSubmissionForm" accept-charset="Windows-1252">
         <div class="communityGuidelines text3 fltrt">
             Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Community Standards"
@@ -221,7 +224,7 @@
         </div>
         <!-- end sd_OuterLayout -->
         <!--<br class="clearfloat"/>-->
-    </gsweb:form>
+    </form>
 
     <mod:tracking pageName="Post New Discussion Hover"
                       hier1="Community,Actions,Post New Discussion Hover"/>
