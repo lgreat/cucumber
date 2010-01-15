@@ -166,8 +166,7 @@
 
             <div class="db_discussion">
                 <div class="db_title gainlayout">
-                    <h4 class="fltlft"><span
-                            class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></h4>
+                    <h4 class="fltlft"><span class="title1 previewDiscussionTitle"><!-- filled in by JS --></span></h4>
                     <br class="clearfloat"/>
                 </div>
 
