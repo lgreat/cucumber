@@ -26,6 +26,7 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
     <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
     <script type="text/javascript">
         var $j = jQuery;
@@ -142,7 +143,7 @@
                 return true;
             }
 
-            $j('.btn_preview').click(function() {
+            $j('.btn_preview').livequery('click', function() {
                 var previewBody = $j(this).parent().find(".db_textarea textarea").val();
                 postReplyForm = $j(this).closest('form');
                 $j('#previewReplyDialog .replyBody').html(previewBody);
@@ -150,12 +151,17 @@
                 return false;
             });
 
-            $j('#previewReplyDialog .previewEditButton').click(function() {
+            $j('#previewReplyDialog .previewEditButton').livequery('click', function() {
                 $j('#previewReplyDialog').dialog("close");
                 $j(postReplyForm).find(".db_textarea textarea").focus();
             });
 
-            $j('#previewReplyDialog .previewPostButton').click(function() {
+            $j('#previewReplyDialog .dialogCancelButton').livequery('click', function() {
+                $j('#previewReplyDialog').dialog("close");
+                $j(postReplyForm).find(".db_textarea textarea").focus();
+            });
+
+            $j('#previewReplyDialog .previewPostButton').livequery('click', function() {
                 $j('#previewReplyDialog').dialog("close");
                 postReplyForm.submit();
             });
@@ -431,11 +437,11 @@
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
 
-                            <!--<button class="btn25 fltlft btn_preview" type="submit">
+                            <button class="btn25 fltlft btn_preview" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Preview</span>
                                 </span>
-                            </button>-->
+                            </button>
 
 
                             <button class="btn25 fltlft btn_postReply" type="submit">

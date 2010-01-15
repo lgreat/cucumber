@@ -449,6 +449,10 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
     padding:0 0 0 10px;
 }
 
+.db_replyContainer .btn_postReply{
+    padding:0 0 0 10px;
+}
+
 /*.db_post_reply .guidelines{
     padding:0 0 0 10px;
 }*/
