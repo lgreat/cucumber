@@ -460,6 +460,12 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
 .hidden {
     display: none;
 }
+
+div.db_no_replies {
+    font: 14px/1.3 Arial, sans-serif;
+    font-style: italic;
+    margin-top: 12px;
+}
 /* begin profile/myaccount pages */
 .md {
     position: relative;

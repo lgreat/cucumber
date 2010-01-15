@@ -32,7 +32,7 @@
         var postReplyForm;
         $j(function() {
             //<c:if test = "${requestScope.validUser != null}" >
-            $j('#upperReplyTrigger').click(function() {
+            $j('#upperReplyTrigger, a.openPostBox').click(function() {
                 $j('.replyForm:first').slideToggle("normal");
                 return false;
             });
@@ -483,12 +483,25 @@
                                     class="link">&amp;nbsp;Newest first&amp;nbsp;</a></c:otherwise>
                 </c:choose>
             </p>
-            <br class="clearfloat"/>        
+            <br class="clearfloat"/>
         </div>
         <!-- end postedReplies -->
     </c:if>
 </div>
 <!-- end db_discussion -->
+
+<c:if test="${fn:length(requestScope.replies) eq 0}">
+    <div class="db_no_replies">There are no replies yet to this discussion. Be the first to
+        <c:choose>
+            <c:when test = "${requestScope.validUser != null}" >
+                <c:set var="postAReplyHref" value="#"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="postAReplyHref" value="${loginRedirectUrl}"/>
+            </c:otherwise>
+        </c:choose>
+        <a href="${postAReplyHref}" class="openPostBox">post a reply</a>!</div>
+</c:if>
 
 <div class="db_replies">
     <c:choose>
