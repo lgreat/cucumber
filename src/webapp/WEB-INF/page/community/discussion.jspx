@@ -605,7 +605,9 @@
         <community:pagination page="${page}" totalPages="${totalPages}"
                               url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
         <c:if test="${fn:length(requestScope.replies) > 3}">
-            ${postReplyButton}
+            <c:if test="${empty validUser}">
+                ${postReplyButton}
+            </c:if>
             ${shareThis}
             <br class="clearfloat"/>
             ${replyForm}
