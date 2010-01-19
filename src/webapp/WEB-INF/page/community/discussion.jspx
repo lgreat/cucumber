@@ -140,17 +140,24 @@
                     return false;
                 }
 
+                if (body.length &lt; 5) {
+                    alert("Please enter at least 5 characters for your reply.");
+                    return false;
+                }
+
                 return true;
             }
 
             $j('.btn_preview').livequery('click', function() {
-                var previewBody = $j(this).parent().find(".db_textarea textarea").val();
-                <![CDATA[
-                previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
-                ]]>
-                postReplyForm = $j(this).closest('form');
-                $j('#previewReplyDialog .replyBody').html(previewBody);
-                $j('#previewReplyDialog').dialog("open");
+                if (validPost(this)) {
+                    var previewBody = $j(this).parent().find(".db_textarea textarea").val();
+                    <![CDATA[
+                    previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
+                    ]]>
+                    postReplyForm = $j(this).closest('form');
+                    $j('#previewReplyDialog .replyBody').html(previewBody);
+                    $j('#previewReplyDialog').dialog("open");
+                }
                 return false;
             });
 
