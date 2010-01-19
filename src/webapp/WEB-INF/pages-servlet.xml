@@ -1218,7 +1218,7 @@
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"
-          class="gs.web.util.Redirect301Controller"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="redirectPath" value="/ohio/dayton"/>
     </bean>
