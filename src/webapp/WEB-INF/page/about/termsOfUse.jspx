@@ -58,6 +58,7 @@
   <p>Except where noted otherwise, all Web site contents Copyright &#169; 2010 GreatSchools.org. All rights reserved under United States and foreign law. No part of the materials on the Web site, including but not limited to the text, graphics and html code, may be reproduced or transmitted in any form by any means without GreatSchools' written permission. </p>
     <c:choose>
             <c:when test="${!communityUtil.newCommunityEnabled}">
+    <a name="communityStandards"></a>
     <h2 id="s14">GreatSchools Parent Community Guidelines</h2>
   <p>The GreatSchools online community gives you the opportunity to connect with other parents who are passionate about education and to communicate and inspire one another. Please share your opinions, questions and advice with others in the GreatSchools community. </p>
   <p>When you post on GreatSchools, you are agreeing to abide by the GreatSchools Parent Community Guidelines described below. Please respect them, and use common sense and good manners to ensure that your experiences with the GreatSchools community are positive ones. </p>
