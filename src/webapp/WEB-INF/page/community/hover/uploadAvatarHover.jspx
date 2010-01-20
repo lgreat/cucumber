@@ -209,7 +209,8 @@
     </gsweb:form>
 
     <mod:tracking pageName="Change Photo Hover"
-                      hier1="Account,Change Photo Hover"/>
+                  hier1="Account,Change Photo Hover"
+                  community="true"/>
 
 </gsml:body>
 </html>
