@@ -85,25 +85,33 @@
                              alt="fight for children"/>
                     </a>
 
-                    <div class="m_list treb13 tint666">Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about good schools in DC and better equipping parents to support their children's education.</div>
+                    <div class="m_list treb13 tint666">Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about schools in D.C. and better equipping parents to support their children's education.</div>
                 </div>
                 <!--end module content -->
             </div>
             <!--end module -->
             <hr class="rule"/>
-            <div class="module"><span class="m_title treb15 tint5bc">Our Community Partners</span>
+            <div class="module"><span class="m_title treb15 tint5bc">More Community Partners</span>
 
                 <div class="m_content">
                     <div class="m_list"><a class="treb12 tint39a link" href="http://aamaonline.org/"
                                            target="_blank">African American Music Association</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://ola.dc.gov/ola/site/default.asp"
-                                           target="_blank">The Office on Latino Affairs</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.lifestarts.org/"
-                                           target="_blank"><span class="italic">Life</span>STARTS</a></div>
                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.michaelwaltonfoundation.org/"
-                                           target="_blank">The Michael Walton Foundation</a></div>
+                                                        target="_blank">Michael Walton Foundation</a></div>
                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.mmbcdc.org/"
-                                           target="_blank">Urban Family House of Hope</a></div>
+                                                                  target="_blank">Urban Family's House of Hope</a></div>
+                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.aje-dc.org/"
+                                                                  target="_blank">Advocates for Justice in Education</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.centronia.org/"
+                                                                  target="_blank">CentroNia</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.erfsc.org/"
+                                                                  target="_blank">East River FSC</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.focusdc.org/"
+                                                                  target="_blank">Friends of Choice in Urban Schools</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.lifestarts.org/"
+                                                        target="_blank"><span class="italic">Life</span>STARTS</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://ola.dc.gov/ola/site/default.asp"
+                                           target="_blank">Office on Latino Affairs</a></div>
                 </div>
                 <!--end module content -->
             </div>
@@ -220,6 +228,18 @@
                         </li>
                         <li>English Parent Hotline: 202-431-5538</li>
                         <li>L&amp;iacute;nea Directa para Padres de Familia:<br/>202-431-5516</li>
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
+                                href="/pdf/DC_School_Chooser_2010-2011.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">D.C. School Chooser 2010-2011</gsml:a></li>
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
+                                href="/pdf/DC_School_Chooser_Workbook.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">D.C. School Chooser workbook</gsml:a></li>
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
+                                href="/pdf/Listado_de_Escuelas_de_DC_2010-2011.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">Listado de Escuelas de D.C. 2010-2011</gsml:a></li>
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
+                                href="/pdf/Cuaderno_de_Listado_de_Escuelas_de_DC.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">Cuaderno de Listado de Escuelas de D.C.</gsml:a></li>
                         <li><gsml:a
                                 href="/community/loginOrRegister.page?redirect=/email/management.page"
                                 styleClass="treb12 tint39a link">Sign up for GreatSchools newsletters</gsml:a></li>
