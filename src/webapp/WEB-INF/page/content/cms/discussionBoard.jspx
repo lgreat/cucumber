@@ -18,7 +18,14 @@
 <ad:setSlotPrefix slotPrefix="DiscussionBoard"/>
 
 <head>
-    <c:set var="pageTitle" value="${discussionBoard.title}"/>
+    <c:choose>
+        <c:when test="${not empty discussionBoard.pageTitle}">
+            <c:set var="pageTitle">${discussionBoard.pageTitle}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${discussionBoard.title}</c:set>
+        </c:otherwise>
+    </c:choose>
     <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="Join parents as they discuss ${fn:escapeXml(discussionBoard.title)} on GreatSchools."/>
     <meta name="keywords" content=""/>
