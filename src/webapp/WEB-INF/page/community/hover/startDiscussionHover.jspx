@@ -242,7 +242,8 @@
     </form>
 
     <mod:tracking pageName="Post New Discussion Hover"
-                      hier1="Community,Actions,Post New Discussion Hover"/>
+                  hier1="Community,Actions,Post New Discussion Hover"
+                  community="true"/>
     </div>
     <!-- end startADiscussion -->
 </gsml:body>
