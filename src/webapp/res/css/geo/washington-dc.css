@@ -282,4 +282,8 @@ html[xmlns] .clearfix {
     height: 1%;
 }
 
+.contribution{
+    color:#666666;
+}
+
 /* end clear fix */

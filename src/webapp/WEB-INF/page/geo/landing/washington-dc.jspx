@@ -183,13 +183,13 @@
                                 href="/pdf/GreatSchools_DC_Coach_Corps_2009.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
                         <li><link:cmsContent styleClass="treb12 tint39a link" contentKey="Article#33"
-                                             fullUri="/find-a-school/defining-your-ideal/choosing-a-school">Choosing a School: An Overview</link:cmsContent>
+                                             fullUri="/find-a-school/defining-your-ideal/choosing-a-school">Choosing a school: An overview</link:cmsContent>
                         </li>
                         <li><link:cmsContent styleClass="treb12 tint39a link" contentKey="Article#24"
-                                             fullUri="/find-a-school/school-visit/the-school-visit-what-to-look-for-what-to-ask">The School Visit: What to Look For, What to Ask</link:cmsContent>
+                                             fullUri="/find-a-school/school-visit/the-school-visit-what-to-look-for-what-to-ask">The school visit: What to look for, what to ask</link:cmsContent>
                         </li>
                         <li><link:schoolChoiceCenter
-                                styleClass="treb12 tint39a link">More tips for choosing a school ></link:schoolChoiceCenter>
+                                styleClass="treb12 tint39a link">More tips for choosing a school</link:schoolChoiceCenter>
                         </li>
                     </ul>
                 </div>
@@ -204,7 +204,7 @@
                     <ul class="u_list treb13 tint777">
                         <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1"
                                     styleClass="treb12 tint39a link"
-                                    target="_blank">Archdiocese of Washington, DC</gsml:a></li>
+                                    target="_blank">Archdiocese of Washington, D.C.</gsml:a></li>
                         <li><gsml:a href="http://www.aisgw.org/" styleClass="treb12 tint39a link"
                                     target="_blank">Association of Independent Schools of Greater Washington (AISGW)</gsml:a>
                         </li>
@@ -255,7 +255,7 @@
                     <img src="/res/img/geo/landing/donate.gif" alt="Donate"/>
                 </h3>
                 <ul>
-                    <li>Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</li>
+                    <li><span class="contribution">Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</span></li>
                 </ul>
                 <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g">
                     <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now"/>
