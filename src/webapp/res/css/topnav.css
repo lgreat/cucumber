@@ -36,10 +36,6 @@
     text-align: left;
 }
 
-#topnav #communityHeader #myAccountMenu {
-    float: right;
-}
-
 #topnav #communityHeader.withImages {
     padding-top: 1px;
 }
