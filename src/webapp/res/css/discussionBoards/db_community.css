@@ -1306,6 +1306,7 @@ fieldset label {
 #previewReplyDialog .db_reply_full{
     width:430px;
     background:white;
+    float:left;
 }
 
 #previewReplyDialog .sd-btn-layout{
