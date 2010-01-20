@@ -37,8 +37,9 @@
                 return '';
             }
         </script>
-        <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
         <pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>
+        <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+        <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
         <div id="recentDiscussions" class="clearfix">
