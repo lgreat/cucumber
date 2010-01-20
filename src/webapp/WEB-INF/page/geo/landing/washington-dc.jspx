@@ -64,14 +64,14 @@
                     <img class="m_img" name="team" src="/res/img/geo/landing/dc_mot.png" width="174" height="103"
                          alt="Nadia, Natanya, Pamela, Hasaani"/>
 
-                    <div class="m_list treb13B tint5bc">Nadia Washington<br/>
-                        <span class="treb13 tint666">Community Outreach Coordinator</span></div>
-                    <div class="m_list treb13B tint5bc">Natanya Levioff<br/>
-                        <span class="treb13 tint666">Program Director</span></div>
-                    <div class="m_list treb13B tint5bc">Pamela Prudencio<br/>
-                        <span class="treb13 tint666">Bilingual Community Outreach Coordinator</span></div>
-                    <div class="m_list treb13B tint5bc">Hasaani Hylton<br/>
-                        <span class="treb13 tint666">Community Outreach Coordinator</span></div>
+                    <div class="m_list treb12B tint5bc">Nadia Washington<br/>
+                        <span class="treb12 tint666">Community Outreach Coordinator</span></div>
+                    <div class="m_list treb12B tint5bc">Natanya Levioff<br/>
+                        <span class="treb12 tint666">Program Director</span></div>
+                    <div class="m_list treb12B tint5bc">Pamela Prudencio<br/>
+                        <span class="treb12 tint666">Bilingual Community Outreach Coordinator</span></div>
+                    <div class="m_list treb12B tint5bc">Hasaani Hylton<br/>
+                        <span class="treb12 tint666">Community Outreach Coordinator</span></div>
                 </div>
                 <!--end module content -->
             </div>
@@ -85,7 +85,7 @@
                              alt="fight for children"/>
                     </a>
 
-                    <div class="m_list treb13 tint666">Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about schools in D.C. and better equipping parents to support their children's education.</div>
+                    <div class="m_list treb12 tint666">Together, GreatSchools and Fight for Children are enhancing the quality and quantity of information about schools in D.C. and better equipping parents to support their children's education.</div>
                 </div>
                 <!--end module content -->
             </div>
@@ -124,7 +124,7 @@
             <div class="unit fltlft"><span class="u_title cent17B tintfff">Find and Compare</span>
 
                 <div id="u1" class="u_content">
-                    <form class="forms treb13 tint777">
+                    <form class="forms treb12 tint777">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" width="6" height="11"/>&amp;nbsp;
                         <label for="top">Find top D.C. schools</label>&amp;nbsp;
                         <input name="top" type="image" class="button" style="width: 41px; height: 26px;"
@@ -132,7 +132,7 @@
                                onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"
                                alt="Find D.C. Schools"/>
                     </form>
-                    <form class="forms treb13 tint777">
+                    <form class="forms treb12 tint777">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
                         <label for="findAllLevel">Find all D.C.</label>&amp;nbsp;
                         <select id="findAllLevel" class="inputs tint666" name="findAllLevel">
@@ -144,7 +144,7 @@
                                onclick="gotoDCSchoolsPage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
                     </form>
-                    <form class="forms treb13 tint777">
+                    <form class="forms treb12 tint777">
                         <div>
                             <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
                             <label for="level">Compare D.C.</label>&amp;nbsp;
@@ -178,7 +178,7 @@
             <div class="unit fltrt"><span class="u_title cent17B tintfff">Connect and Learn</span>
 
                 <div id="u2" class="u_content">
-                    <ul class="u_list treb13 tint777">
+                    <ul class="u_list treb12 tint777">
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
                                 href="/pdf/GreatSchools_DC_Coach_Corps_2009.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
@@ -201,7 +201,7 @@
             <div class="unit fltlft"><span class="u_title cent17B tintfff">School Resources</span>
 
                 <div id="u3" class="u_content">
-                    <ul class="u_list treb13 tint777">
+                    <ul class="u_list treb12 tint777">
                         <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1"
                                     styleClass="treb12 tint39a link"
                                     target="_blank">Archdiocese of Washington, D.C.</gsml:a></li>
@@ -222,7 +222,7 @@
             <div class="unit fltrt"><span class="u_title cent17B tintfff">GreatSchools Resources</span>
 
                 <div id="u4" class="u_content">
-                    <ul class="u_list treb13 tint777">
+                    <ul class="u_list treb12 tint777">
                         <li><a class="treb12 tint39a link"
                                href="mailto:dc@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a>
                         </li>

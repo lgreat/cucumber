@@ -157,6 +157,10 @@ form input.button{
 	font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+#dc_page_content .treb12B{
+	font:bold 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
 #promoRulesLink .tint888{
 	color:#888;
 }
