@@ -257,7 +257,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
         assertTrue ("Request from valid IP address should return non-error viewname",
-                mAndV.getViewName().contains("redirect:http://community.greatschools.org"));
+                mAndV.getViewName().contains("redirect:/account/"));
     }
 
     public void testIPAddressBlockingWithNoIP() throws Exception {
@@ -269,7 +269,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
         assertTrue ("Request from no IP address should return non-error viewname",
-                mAndV.getViewName().contains("redirect:http://community.greatschools.org"));
+                mAndV.getViewName().contains("redirect:/account/"));
     }
 
     public void testIPAddressBlockingWithValidRequestIPandBlockedAttributeIP () throws Exception {

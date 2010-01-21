@@ -162,7 +162,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.dev.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
@@ -179,7 +179,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.dev.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
@@ -196,7 +196,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.staging.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
@@ -213,7 +213,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
@@ -230,7 +230,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
@@ -266,7 +266,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         verify(_userDao);
 
-        assertEquals("redirect:http://community.dev.greatschools.org/", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
     }
