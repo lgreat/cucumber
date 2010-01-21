@@ -93,6 +93,11 @@
         if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
         for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
             pageHelper.addAdKeywordMulti("level", level.getName());
+
+        String q = request.getParameter("q");
+        if (q != null &amp;&amp; q.trim().matches("^\\d{5}$")) {
+            pageHelper.addAdKeyword("zipcode", q);
+        }
     </jsp:scriptlet>
 </head>
 
