@@ -90,7 +90,7 @@
                 }
 
                 if (title.length &lt; 5) {
-                    alert("Please enter at least 5 characters for your discussion title.")
+                    alert("Please enter at least 5 characters for your discussion title.");
                     return false;
                 }
 
@@ -100,7 +100,7 @@
                 }
 
                 if (body.length &lt; 5) {
-                    alert("Please enter at least 5 characters for your discussion details.")
+                    alert("Please enter at least 5 characters for your discussion details.");
                     return false;
                 }
 
@@ -108,7 +108,7 @@
             }
 
             function escapeHTML(html) {
-                return html.replace('&amp;', '&amp;amp;').replace('&lt;', '&amp;lt;');
+                return html.replace(/\&amp;/g, '&amp;amp;').replace(/\&lt;/g, '&amp;lt;');
             }
 
             parent.GS.previewDiscussionHover.init({
@@ -126,7 +126,7 @@
 
         <h2 class="sd_title fltlft">
             <c:choose>
-                <c:when test="${param.discussionId gt 0}">
+                <c:when test="${discussionId gt 0}">
                     Edit discussion
                 </c:when>
                 <c:otherwise>
@@ -168,21 +168,21 @@
         </div>
         <div class="titleInput">
             <label for="titleInput" class="text2bold tint_333">Title</label>
-            <input id="titleInput" type="text" name="title" size="65" value="${param.title}"/>
+            <input id="titleInput" type="text" name="title" size="65" value="${discussionTitle}"/>
         </div>
         <div class="bodyInput">
             <label for="bodyInput" class="text2bold tint_333">Details</label>
             <textarea id="bodyInput" class="bodyInput" 
                       rows="5" cols="30"
-                      name="body"><!-- no collapse -->${param.body}</textarea>
+                      name="body"><!-- no collapse -->${discussionBody}</textarea>
         </div>
-        <c:if test="${param.discussionId gt 0}">
-            <input type="hidden" name="discussionId" value="${param.discussionId}"/>
+        <c:if test="${discussionId gt 0}">
+            <input type="hidden" name="discussionId" value="${discussionId}"/>
             <input type="hidden" name="type" value="editDiscussion"/>
         </c:if>
         <div class="sd_OuterLayout clearfix">
             <c:choose>
-                <c:when test="${param.discussionId gt 0}">
+                <c:when test="${discussionId gt 0}">
                 </c:when>
                 <c:otherwise>
                     <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
@@ -194,7 +194,7 @@
             </c:choose>
 
         <c:choose>
-            <c:when test="${param.discussionId gt 0}">
+            <c:when test="${discussionId gt 0}">
                 <c:set var="submitButtonText" value="Save"/>
             </c:when>
             <c:otherwise>
@@ -203,7 +203,7 @@
         </c:choose>
 
         <c:choose>
-            <c:when test="${param.discussionId gt 0}">
+            <c:when test="${discussionId gt 0}">
                 <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_SaveLayout"/>
             </c:when>
             <c:otherwise>
@@ -212,7 +212,7 @@
         </c:choose>
 
             <c:choose>
-                <c:when test="${param.discussionId gt 0}">
+                <c:when test="${discussionId gt 0}">
                     <button class="${submitButtonStyle}" type="submit" name="post">
                         <span class="lftDoor25">
                             <span class="rtDoor25">${submitButtonText}</span>

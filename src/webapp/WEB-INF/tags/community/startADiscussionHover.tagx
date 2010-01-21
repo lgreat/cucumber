@@ -84,8 +84,6 @@
 
             this.showEdit = function(title, body, discussionId) {
                 var editUrl = this.startADiscussionIframeUrl;
-                editUrl += "&amp;title=" + encodeURIComponent(title);
-                editUrl += "&amp;body=" + encodeURIComponent(body);
                 editUrl += "&amp;discussionId=" + discussionId;
                 jQuery('#startADiscussionDialog').dialog("open");
                 jQuery('#startADiscussionIFrame').attr('src', editUrl);

@@ -1,5 +1,8 @@
 package gs.web.community;
 
+import gs.data.community.Discussion;
+import gs.data.community.IDiscussionDao;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -15,6 +18,7 @@ import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.cms.IPublicationDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.community.local.ILocalBoardDao;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -26,10 +30,14 @@ public class StartDiscussionHoverController extends AbstractController {
     public static final String MODEL_LOCAL_BOARDS= "localBoards";
     public static final String MODEL_TOPIC_CENTER_ID = "topicCenterId";
     public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
+    public static final String MODEL_BODY = "discussionBody";
+    public static final String MODEL_TITLE = "discussionTitle";
+    public static final String MODEL_DISCUSSION_ID = "discussionId";
 
     private IPublicationDao _publicationDao;
     private ILocalBoardDao _localBoardDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private IDiscussionDao _discussionDao;
     private String _viewName;
 
     private void logDuration(long durationInMillis, String eventName) {
@@ -52,6 +60,26 @@ public class StartDiscussionHoverController extends AbstractController {
 
         model.put(MODEL_TOPIC_CENTER_ID, request.getParameter("topicCenterId"));
         model.put(MODEL_LOCAL_BOARD_ID, request.getParameter("discussionBoardId"));
+
+        if (request.getParameter("discussionId") != null) {
+            try {
+                Discussion d = _discussionDao.findById(Integer.parseInt(request.getParameter("discussionId")));
+                if (d != null) {
+                    model.put(MODEL_TITLE, d.getTitle());
+                    model.put(MODEL_DISCUSSION_ID, d.getId());
+                    String body = d.getBody();
+                    if (StringUtils.isNotBlank(body)) {
+                        body = StringUtils.replace(body, "<br/>", "\n");
+                        body = StringUtils.replace(body, "<br>", "\n");
+                        body = HtmlUtils.htmlUnescape(body);
+                        model.put(MODEL_BODY, body);
+                    }
+                }
+            } catch (Exception e) {
+                _log.error("Error retrieving discussion " + request.getParameter("discussionId") +
+                        ": " + e, e);
+            }
+        }
 
         return new ModelAndView(_viewName, model);
     }
@@ -131,5 +159,13 @@ public class StartDiscussionHoverController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public IDiscussionDao getDiscussionDao() {
+        return _discussionDao;
+    }
+
+    public void setDiscussionDao(IDiscussionDao discussionDao) {
+        _discussionDao = discussionDao;
     }
 }
