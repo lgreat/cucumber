@@ -446,7 +446,6 @@
                             </span>
 
                         <form action="/community/discussionSubmission.page" method="POST" accept-charset="Windows-1252">
-                            <input type="hidden" name="redirect" value="${requestScope.uri}"/>
                             <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
 
                             <div class="db_textarea">

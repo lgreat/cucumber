@@ -393,7 +393,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 // default to forwarding to the discussion detail page
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
                         Long.valueOf(discussion.getId()));
-                command.setRedirect(urlBuilder.asSiteRelative(request));
+                urlBuilder.setParameter("discussionReplyId", String.valueOf(reply.getId()));
+                command.setRedirect(urlBuilder.asSiteRelative(request) + "#reply_" + reply.getId());
+                _log.info("Setting redirect to " + command.getRedirect());
             }
         }
     }
