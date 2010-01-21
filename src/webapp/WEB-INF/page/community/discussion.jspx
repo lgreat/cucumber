@@ -59,10 +59,11 @@
                 var container = $j(this).parents('.db_replyContainer');
                 var reply = container.children('.db_reply_full');
                 var body = reply.children('.replyBody').html();
-                body = body.replace(/\&lt;br\/\&gt;/g, '\n').replace(/\&lt;br\&gt;/g, '\n');
+                body = body.replace(/\&lt;br[^&gt;]*\&gt;/gi, '\n');
+                body = unescapeHTML(body);
                 var replyId = reply.children('.replyId').text();
                 var replyForm = $j('.replyForm:first form').clone();
-                replyForm.find('textarea').html(body);
+                replyForm.find('textarea').val(body);
                 replyForm.find('input[name=submit]').val('Edit this reply');
                 var replyIdElem = document.createElement('input');
                 $j(replyIdElem).attr('name', 'discussionReplyId');
@@ -166,6 +167,10 @@
 
             function escapeHTML(html) {
                 return html.replace(/\&amp;/g, '&amp;amp;').replace(/\&lt;/g, '&amp;lt;');
+            }
+
+            function unescapeHTML(html) {
+                return html.replace(/\&amp;amp;/g, '&amp;').replace(/\&amp;lt;/g, '&lt;').replace(/\&amp;gt;/g, '&gt;');
             }
 
             $j('#previewReplyDialog .previewEditButton').livequery('click', function() {
