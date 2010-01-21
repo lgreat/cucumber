@@ -331,13 +331,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-        UrlUtil urlUtil = new UrlUtil();
         if (StringUtils.isEmpty(fupCommand.getRedirect()) ||
-                !urlUtil.isCommunityContentLink(fupCommand.getRedirect())) {
-            String redirectUrl = "http://" +
-                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
-            fupCommand.setRedirect(redirectUrl);
+                !UrlUtil.isCommunityContentLink(fupCommand.getRedirect())) {
+            fupCommand.setRedirect("/account/");
         }
         mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 

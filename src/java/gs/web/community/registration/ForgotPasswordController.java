@@ -111,9 +111,7 @@ public class ForgotPasswordController extends SimpleFormController {
         } else {
             String redirectUrl = forgotPasswordCommand.getReferrer();
             if (StringUtils.isEmpty(redirectUrl) || StringUtils.contains(redirectUrl, "login_iframe")) {
-                redirectUrl = "http://" +
-                        SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                        "/";
+                redirectUrl = "/account/";
             }
             mAndV.setViewName("redirect:" + redirectUrl);
         }
