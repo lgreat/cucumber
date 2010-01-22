@@ -1,8 +1,15 @@
 package gs.web.community;
 
+import gs.data.community.Discussion;
+import gs.data.community.IDiscussionDao;
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
+import gs.data.content.cms.CmsDiscussionBoard;
+import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.web.BaseControllerTestCase;
 import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.CmsTopicCenter;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.*;
 
@@ -14,6 +21,9 @@ import java.util.*;
 public class StartDiscussionHoverControllerTest extends BaseControllerTestCase {
     private StartDiscussionHoverController _controller;
     private IPublicationDao _publicationDao;
+    private ILocalBoardDao _localBoardDao;
+    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private IDiscussionDao _discussionDao;
 
     @Override
     public void setUp() throws Exception {
@@ -22,21 +32,30 @@ public class StartDiscussionHoverControllerTest extends BaseControllerTestCase {
         _controller = new StartDiscussionHoverController();
 
         _publicationDao = createStrictMock(IPublicationDao.class);
+        _localBoardDao = createStrictMock(ILocalBoardDao.class);
+        _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
+        _discussionDao = createStrictMock(IDiscussionDao.class);
 
         _controller.setPublicationDao(_publicationDao);
+        _controller.setLocalBoardDao(_localBoardDao);
+        _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
+        _controller.setDiscussionDao(_discussionDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_publicationDao);
+        replayMocks(_publicationDao, _localBoardDao, _cmsDiscussionBoardDao, _discussionDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_publicationDao);
+        verifyMocks(_publicationDao, _localBoardDao, _cmsDiscussionBoardDao, _discussionDao);
     }
 
     public void testBasics() {
         replayAllMocks();
         assertSame(_publicationDao, _controller.getPublicationDao());
+        assertSame(_localBoardDao, _controller.getLocalBoardDao());
+        assertSame(_cmsDiscussionBoardDao, _controller.getCmsDiscussionBoardDao());
+        assertSame(_discussionDao, _controller.getDiscussionDao());
         verifyAllMocks();
     }
 
@@ -71,5 +90,44 @@ public class StartDiscussionHoverControllerTest extends BaseControllerTestCase {
         tcArr = sortedSet.toArray(tcArr);
         assertEquals("B Title", tcArr[0].getTitle());
         assertEquals("Z Title", tcArr[1].getTitle());
+    }
+
+    public void testHandleRequestInternalWithTitle() throws Exception {
+        expect(_publicationDao.populateAllByContentType(eq("TopicCenter"), isA(CmsTopicCenter.class))).andReturn(new ArrayList<CmsTopicCenter>());
+        expect(_localBoardDao.getLocalBoards()).andReturn(new ArrayList<LocalBoard>());
+        expect(_cmsDiscussionBoardDao.get(isA(Set.class))).andReturn(new HashMap<Long, CmsDiscussionBoard>());
+
+        getRequest().setParameter("title", "My title");
+        
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+
+        assertNotNull(mAndV);
+        assertEquals("My title", mAndV.getModel().get(StartDiscussionHoverController.MODEL_TITLE));
+    }
+
+    public void testHandleRequestInternalWithEdit() throws Exception {
+        expect(_publicationDao.populateAllByContentType(eq("TopicCenter"), isA(CmsTopicCenter.class))).andReturn(new ArrayList<CmsTopicCenter>());
+        expect(_localBoardDao.getLocalBoards()).andReturn(new ArrayList<LocalBoard>());
+        expect(_cmsDiscussionBoardDao.get(isA(Set.class))).andReturn(new HashMap<Long, CmsDiscussionBoard>());
+
+        getRequest().setParameter("title", "My title");
+        getRequest().setParameter("discussionId", "1");
+
+        Discussion d = new Discussion();
+        d.setId(1);
+        d.setTitle("My real title");
+        d.setBody("My body");
+        expect(_discussionDao.findById(1)).andReturn(d);
+
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+
+        assertNotNull(mAndV);
+        assertEquals("My real title", mAndV.getModel().get(StartDiscussionHoverController.MODEL_TITLE));
+        assertEquals("My body", mAndV.getModel().get(StartDiscussionHoverController.MODEL_BODY));
+        assertEquals(1, mAndV.getModel().get(StartDiscussionHoverController.MODEL_DISCUSSION_ID));
     }
 }

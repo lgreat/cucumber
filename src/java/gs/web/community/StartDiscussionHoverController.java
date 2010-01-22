@@ -60,6 +60,9 @@ public class StartDiscussionHoverController extends AbstractController {
 
         model.put(MODEL_TOPIC_CENTER_ID, request.getParameter("topicCenterId"));
         model.put(MODEL_LOCAL_BOARD_ID, request.getParameter("discussionBoardId"));
+        if (request.getParameter("title") != null) {
+            model.put(MODEL_TITLE, request.getParameter("title"));
+        }
 
         if (request.getParameter("discussionId") != null) {
             try {
