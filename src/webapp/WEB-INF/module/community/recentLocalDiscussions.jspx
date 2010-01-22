@@ -32,7 +32,7 @@
             function getLocalDiscussionTitle() {
                 var title = jQuery('#localDiscussionsTitleBox').val();
                 if (title != 'Ask your community and get an answer') {
-                    return title;
+                    return encodeURIComponent(title);
                 }
                 return '';
             }
