@@ -212,7 +212,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     protected String getDiscussionUrl(HttpServletRequest request, String fullUri, Long contentId) {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, fullUri, contentId);
-        return urlBuilder.asSiteRelative(request);
+        return urlBuilder.asFullUrl(request);
     }
 
     protected void handleEditDiscussionSubmission

@@ -335,7 +335,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
 
-        assertEquals("/board/community/discussion.gs?content=1234", _command.getRedirect());
+        assertEquals("http://localhost/board/community/discussion.gs?content=1234", _command.getRedirect());
     }
 
     public void testHandleDiscussionSubmissionByTopicCenterNoUser() {
