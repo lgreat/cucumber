@@ -128,7 +128,8 @@
     </div>
 
     <form action="/community/hover/uploadAvatarHover.page" method="post"
-          id="customAvatarForm" enctype="multipart/form-data">
+          id="customAvatarForm" enctype="multipart/form-data"
+          style="margin: 0; padding: 0;">
 
         <div class="fileInput">
             <label for="avatarFileInput">File:</label>
@@ -160,8 +161,8 @@
     <div class="text1bold">Or, select an image</div>
     <!-- div class="text2">If you decide not to upload a picture, you can choose a standard image from the choices below.</div -->
     <div class="spacer_10"><!--do not collapse--></div>
-    <gsweb:form action="/community/hover/uploadAvatarHover.page" method="post"
-                id="standardAvatarForm">
+    <form action="/community/hover/uploadAvatarHover.page" method="post"
+          id="standardAvatarForm" style="margin: 0; padding: 0;">
 
         <ul class="horizontal">
             <li>
@@ -206,7 +207,7 @@
                 <span class="rtDoor25">Save</span>
             </span>
         </button>
-    </gsweb:form>
+    </form>
 
     <mod:tracking pageName="Change Photo Hover"
                   hier1="Account,Change Photo Hover"

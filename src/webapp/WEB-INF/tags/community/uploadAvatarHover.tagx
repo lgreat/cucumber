@@ -39,7 +39,7 @@
                     resizable: false,
                     modal: true,
                     draggable: false,
-                    width: 643,
+                    width: 645,
                     title: "Upload a picture",
                     bgiframe: true
                 });
