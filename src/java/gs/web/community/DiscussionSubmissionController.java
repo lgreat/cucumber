@@ -182,7 +182,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 // Moderators are always allowed to post profanity
 
                 urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
                 //discussion.setActive(false);
                 _log.warn("Discussion submission triggers profanity filter.");
             }
@@ -280,7 +280,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 // Moderators are always allowed to post profanity
 
                 String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
                 _log.warn("Discussion edit triggers profanity filter.");
             }
 
@@ -378,7 +378,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     _alertWordDao.hasAlertWord(reply.getBody())) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
-                _reportContentService.reportContent(getAlertWordFilterUser(), request, reply.getId(),
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
                         ReportContentService.ReportType.reply, "Contains alert words");
                 _log.warn("Reply triggers profanity filter.");
             }

@@ -118,7 +118,7 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
 
                 UrlBuilder urlBuilder = new UrlBuilder(pageUser, UrlBuilder.USER_PROFILE);
                 String urlToContent = urlBuilder.asFullUrl(request);
-                _reportContentService.reportContent(getAlertWordFilterUser(), urlToContent, ReportContentService.ReportType.member, "Bio contains alert words");
+                _reportContentService.reportContent(getAlertWordFilterUser(), pageUser, urlToContent, ReportContentService.ReportType.member, "Bio contains alert words");
             }
             pageUser.getUserProfile().setAboutMe(aboutMe);
             _userDao.saveUser(pageUser);

@@ -28,26 +28,30 @@ public class ReportContentService extends SimpleFormController implements IRepor
     private JavaMailSender _mailSender;
     private String _moderationEmail;
 
-    public void reportContent(User reporter, HttpServletRequest request, int contentId, ReportType type, String reason) {
+    public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, ReportType type, String reason) {
         String urlToContent = getLinkForContent(request, contentId, type);
-        reportContent(reporter, urlToContent, type, reason);
+        reportContent(reporter, reportee, urlToContent, type, reason);
     }
 
-    public void reportContent(User reporter, String urlToContent, ReportType type, String reason) {
-        sendEmail(urlToContent, type, reporter, reason);
+    public void reportContent(User reporter, User reportee, String urlToContent, ReportType type, String reason) {
+        sendEmail(urlToContent, type, reporter, reportee, reason);
     }
 
     protected void sendEmail(String urlToContent, ReportType contentType,
-                             User reporter, String reason) {
+                             User reporter, User reportee, String reason) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(_moderationEmail);
         message.setFrom(_moderationEmail);
         message.setSentDate(new Date());
         message.setSubject("Reported content alert");
         StringBuffer body = new StringBuffer();
-        body.append("User ").append(reporter.getUserProfile().getScreenName());
-        body.append(" (id=").append(reporter.getId()).append(", email= ").append(reporter.getEmail());
-        body.append(") has reported the following ").append(contentType).append(":\n\n");
+        body.append("User ").append(formatUserString(reporter));
+        body.append(" has reported ");
+        if (contentType != IReportContentService.ReportType.member) {
+            body.append("a ").append(contentType).append(" by ");
+        }
+        body.append("user ").append(formatUserString(reportee));
+        body.append(":\n\n");
         body.append(urlToContent).append("\n\n");
         body.append("Reason provided: ").append(reason);
         message.setText(body.toString());
@@ -59,6 +63,15 @@ public class ReportContentService extends SimpleFormController implements IRepor
             _log.error("Error sending content reported email: urlToContent=" +
                     urlToContent + "; reporter=" + reporter.getUserProfile().getScreenName(), me);
         }
+    }
+
+    protected StringBuffer formatUserString(User user) {
+        StringBuffer text = new StringBuffer();
+        text.append(user.getUserProfile().getScreenName());
+        text.append(" (id=").append(user.getId()).append(", email= ").append(user.getEmail());
+        text.append(")");
+
+        return text;
     }
 
     // for a user, the relevant page to go to is the user profile page

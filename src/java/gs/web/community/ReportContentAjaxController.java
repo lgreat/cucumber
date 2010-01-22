@@ -29,6 +29,8 @@ import java.util.Date;
 public class ReportContentAjaxController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
     private IReportContentService _reportContentService;
+    private IUserDao _userDao;
+    private IUserContentDao _userContentDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -54,7 +56,38 @@ public class ReportContentAjaxController extends SimpleFormController implements
             return null;
         }
 
-        _reportContentService.reportContent(reporter, request, command.getContentId(), command.getType(), command.getReason());
+        User reportee = null;
+        Integer authorId = null;
+        if (command.getType() == IReportContentService.ReportType.discussion ||
+                command.getType() == IReportContentService.ReportType.reply) {
+            UserContent uc = _userContentDao.findById(command.getContentId());
+            if (uc == null) {
+                return null;
+            }
+            authorId = uc.getAuthorId();
+        } else if (command.getType() == IReportContentService.ReportType.member) {
+            authorId = command.getContentId();
+        } else {
+            _log.warn("Unknown report content type: " + command.getType());
+            return null;
+        }
+
+        if (authorId == null) {
+            _log.warn("Could not determine reportee's member id for content: '" + command.getContentId() + "'");
+            return null;
+        }
+
+        try {
+            reportee = _userDao.findUserFromId(authorId);
+        } catch (ObjectRetrievalFailureException orfe) {
+            // reportee stays null
+        }
+
+        if (reportee == null || reportee.getUserProfile() == null) {
+            _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");
+            return null;
+        }
+        _reportContentService.reportContent(reporter, reportee, request, command.getContentId(), command.getType(), command.getReason());
         
         return null;
     }
@@ -65,5 +98,21 @@ public class ReportContentAjaxController extends SimpleFormController implements
 
     public void setReportContentService(IReportContentService reportContentService) {
         _reportContentService = reportContentService;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
+    }
+
+    public IUserContentDao getUserContentDao() {
+        return _userContentDao;
+    }
+
+    public void setUserContentDao(IUserContentDao userContentDao) {
+        _userContentDao = userContentDao;
     }
 }

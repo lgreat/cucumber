@@ -19,9 +19,10 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
 //    private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
 //    private IDiscussionDao _discussionDao;
 //    private IDiscussionReplyDao _discussionReplyDao;
-//    private IUserDao _userDao;
+    private IUserDao _userDao;
 //    private MockJavaMailSender _mailSender;
     private IReportContentService _reportContentService;
+    private IUserContentDao _userContentDao;
 
     @Override
     public void setUp() throws Exception {
@@ -32,7 +33,8 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
 //        _cmsDiscussionBoardDao = createStrictMock(ICmsDiscussionBoardDao.class);
 //        _discussionDao = createStrictMock(IDiscussionDao.class);
 //        _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
-//        _userDao = createStrictMock(IUserDao.class);
+        _userDao = createStrictMock(IUserDao.class);
+        _userContentDao = createStrictMock(IUserContentDao.class);
 //
 //        _mailSender = new MockJavaMailSender();
 //        // have to set host else the mock mail sender will throw an exception
@@ -44,14 +46,15 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
 //        _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoardDao);
 //        _controller.setDiscussionDao(_discussionDao);
 //        _controller.setDiscussionReplyDao(_discussionReplyDao);
-//        _controller.setUserDao(_userDao);
+        _controller.setUserDao(_userDao);
+        _controller.setUserContentDao(_userContentDao);
 //        _controller.setMailSender(_mailSender);
         getRequest().setServerName("localhost");
     }
 
     public void replayAllMocks() {
 //        replayMocks(_cmsDiscussionBoardDao, _discussionDao, _discussionReplyDao, _userDao);
-        replayMocks(_reportContentService);
+        replayMocks(_reportContentService, _userDao, _userContentDao);
     }
 
     public void verifyAllMocks() {
@@ -83,7 +86,20 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
         User reporter = new User();
         reporter.setId(18283);
         reporter.setUserProfile(new UserProfile());
-        _reportContentService.reportContent(reporter, getRequest(), command.getContentId(), command.getType(), command.getReason());
+
+        UserContent offensiveContent = new UserContent();
+        offensiveContent.setAuthorId(99);
+
+        User reportee = new User();
+        reportee.setId(offensiveContent.getAuthorId());
+        reportee.setEmail("fido@greatschools.org");
+        reportee.setUserProfile(new UserProfile());
+        reportee.getUserProfile().setScreenName("fido");
+
+        expect(_userContentDao.findById(command.getContentId())).andReturn(offensiveContent);
+        expect(_userDao.findUserFromId(reportee.getId())).andReturn(reportee);
+
+        _reportContentService.reportContent(reporter, reportee, getRequest(), command.getContentId(), command.getType(), command.getReason());
         replayAllMocks();
         try {
             SessionContext sc = SessionContextUtil.getSessionContext(getRequest());

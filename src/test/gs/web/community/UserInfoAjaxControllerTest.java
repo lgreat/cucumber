@@ -183,7 +183,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
         expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn(true);
         UrlBuilder urlBuilder = new UrlBuilder(user, UrlBuilder.USER_PROFILE);
-        _reportContentService.reportContent(_controller.getAlertWordFilterUser(), urlBuilder.asFullUrl(getRequest()), IReportContentService.ReportType.member, "Bio contains alert words");
+        _reportContentService.reportContent(_controller.getAlertWordFilterUser(), user, urlBuilder.asFullUrl(getRequest()), IReportContentService.ReportType.member, "Bio contains alert words");
         expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
         replayAllMocks();
         _controller.handleRequestInternal(getRequest(), getResponse());
