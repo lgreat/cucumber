@@ -170,11 +170,11 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
         _reportContentService = reportContentService;
     }
 
-    public ExactTargetAPI getEtAPI() {
+    public ExactTargetAPI getExactTargetAPI() {
         return _etAPI;
     }
 
-    public void setEtAPI(ExactTargetAPI etAPI) {
+    public void setExactTargetAPI(ExactTargetAPI etAPI) {
         _etAPI = etAPI;
     }
 }
