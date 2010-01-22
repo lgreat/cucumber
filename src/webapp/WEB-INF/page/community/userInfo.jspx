@@ -43,18 +43,21 @@
             // about me
             // -------------------------------------------------------------------------
 
+
             function toggleAboutMe() {
                 if ($('.aboutMe .bioText').is(':visible')) {
                     $('.aboutMe .defaultBioText').hide();
                     $('.aboutMe .bioText').hide();
-                    $('.aboutMe form').show();
+                    $('.aboutMe #accountEditBio').show();
+                    $('.aboutMe #accountEditBio').attr('style','display:block;');
                     $('.aboutMe .editAboutMe').hide();
                 } else {
                     if ($('.aboutMe .bioText').text() == '') {
                         $('.aboutMe .defaultBioText').show();
                     }
                     $('.aboutMe .bioText').show();
-                    $('.aboutMe form').hide();
+                    $('.aboutMe #accountEditBio').hide();
+                    $('.aboutMe #accountEditBio').attr('style','display:none;');
                     $('.aboutMe .editAboutMe').show();                                        
                 }
             }
@@ -185,9 +188,9 @@
             to start building your profile.
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
-        <form action="/" method="post" style="display:none">
+        <form action="/" id="accountEditBio" method="post">
             <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
-            <textarea name="bio" rows="5" cols="28" class="bioInput"><!-- --></textarea>
+            <textarea name="bio" class="bioInput"><!-- --></textarea>
             <br/>
             <input type="button" name="Save" value="Save" class="aboutMeSave"/>
             <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>

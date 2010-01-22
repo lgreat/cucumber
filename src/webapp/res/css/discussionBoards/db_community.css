@@ -518,6 +518,7 @@ body.ie6 .userInfo h2 span.fltrt {
     padding: 0 15px 0 105px;
     position: relative;
     width: auto;
+    min-height: 112px;
 }
 body.ie6 .userVitals {
     display: inline;
@@ -537,14 +538,28 @@ body.ie6 .userVitals {
 
 }
 body.ie6 .userVitalsFull .avatar {
-    left: -105px;
+    left: 0;
 }
 .avatar a {
     font-size: 11px;
 }
 .aboutMe {
-    min-height: 88px;
+    position: relative;
 }
+.aboutMe #accountEditBio {
+    height: 130px;
+    width: 222px;
+    display: none;
+}
+#accountEditBio .bioInput {
+    width: 222px;
+    height: 96px;
+    margin-bottom: 5px;
+}
+#accountEditBio input {
+    margin-right: 9px;
+}
+
 body.ie6 .aboutMe {
     height: 1%;
     padding-bottom: 18px;
