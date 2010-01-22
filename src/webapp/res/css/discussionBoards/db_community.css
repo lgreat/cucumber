@@ -518,14 +518,23 @@ body.ie6 .userInfo h2 span.fltrt {
     padding: 0 15px 0 105px;
     position: relative;
     width: auto;
-    min-height: 112px;
+    min-height: 112px
 }
-body.ie6 .userVitals {
+body.ie6 .userVitals, body.ie7 .userVitals {
     display: inline;
     padding: 0 0 0 105px;
     width: 222px;
     margin: 0;
     border: 0;
+}
+body.ie6 .userVitalsFull, body.ie7 .userVitalsFull {
+    width: 408px;
+}
+body.ie7 .userVitalsFull {
+    min-height: 100%;
+}
+body.ie7 .userVitalsFull .bioText {
+    height: expression( this.scrollHeight < 49 ? "48px" : "auto" );
 }
 .userVitals ul, .userVitalsFull ul {
     margin-bottom: 9px;
@@ -536,9 +545,6 @@ body.ie6 .userVitals {
     top: 0;
     text-align: center;
 
-}
-body.ie6 .userVitalsFull .avatar {
-    left: 0;
 }
 .avatar a {
     font-size: 11px;

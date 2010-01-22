@@ -171,11 +171,8 @@
         </c:when>
     </c:choose>
     <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col': 'Full'}">
-        <ul>
-            <li>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></li>
-        </ul>
         <div class="aboutMe">
-        
+        <p>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></p>
         <c:if test="${requestScope.viewingOwnProfile or not empty pageUser.userProfile.aboutMe}">
         <h3 class="text1">
             About me
