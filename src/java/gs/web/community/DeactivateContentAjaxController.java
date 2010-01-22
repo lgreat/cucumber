@@ -16,6 +16,7 @@ import gs.data.content.cms.ICmsDiscussionBoardDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -52,6 +53,11 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                             " to active=" + command.isReactivate());
                     discussion.setActive(command.isReactivate());
                     _discussionDao.saveKeepDates(discussion);
+                    Set<DiscussionReply> replies = discussion.getReplies();
+                    for (DiscussionReply reply : replies) {
+                        reply.setActive(command.isReactivate());
+                        _discussionReplyDao.saveKeepDates(reply);
+                    }
                     ThreadLocalTransactionManager.commitOrRollback();
                     try {
                         if (command.isReactivate()) {
