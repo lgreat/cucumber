@@ -22,10 +22,18 @@
 <pageHelper:setPathway pathway="PRESCHOOL"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 
 <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
+
+<jsp:scriptlet>
+    PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    if (pageHelper != null) {
+        pageHelper.addAdKeyword("editorial", "Preschool");
+    }
 </jsp:scriptlet>
 
 <head>
