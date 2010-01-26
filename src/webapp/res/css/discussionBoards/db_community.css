@@ -912,24 +912,27 @@ ul.srchSuggest li span {
     position: absolute;
     top: 0;
     left: 0;
-    background-color:#333;
+    background:#333 !important;
     filter:alpha(opacity=75);
     -moz-opacity:0.75;
     -khtml-opacity: 0.75;
     opacity: 0.75;
     }
+.ui-widget-content {
+    background:#ebebeb !important;
+}
 .ui-dialog {
     background-color: #ebebeb;
     padding: 2px 12px;
     border: 2px solid white;
     }
 .ui-corner-all {
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
 }
 .ui-dialog-titlebar {
     position: relative;
- 	font-size: 1px;
+    font-size: 1px;
     line-height: .1;
     height: 0;
 }
@@ -958,7 +961,7 @@ a.ui-dialog-titlebar-close .ui-icon {
 .ui-dialog-content h2 span {
     float: right;
     margin: 12px 0 0;
-	font: 11px Arial, sans-serif;
+    font: 11px Arial, sans-serif;
     color: #333;
 }
 .ui-dialog-content h2 span a {
