@@ -1334,6 +1334,10 @@ fieldset label {
     margin:0 20px 24px 65px;
 }
 
+.ie6 #previewReplyDialog .sd-btn-layout{
+    margin:0 20px 24px 34px;
+}
+
 /* END PREVIEW REPLY HOVER */
 
 /* PREVIEW DISCUSSION DIALOG HOVER */
