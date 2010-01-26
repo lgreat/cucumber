@@ -1341,6 +1341,9 @@ fieldset label {
     margin:0 20px 24px 34px;
 }
 
+.ie7 #previewReplyDialog .sd-btn-layout, .ie8 #previewReplyDialog .sd-btn-layout{
+    margin:0 20px 24px 68px;
+}
 /* END PREVIEW REPLY HOVER */
 
 /* PREVIEW DISCUSSION DIALOG HOVER */
