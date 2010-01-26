@@ -137,7 +137,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(UserInfoAjaxController.PARAM_MEMBER_ID, "1");
         
         _userDao.saveUser(user);
-        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn(false);
+        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn(null);
         replayAllMocks();
         _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAllMocks();
@@ -181,9 +181,9 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
         _userDao.saveUser(user);
 
-        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn(true);
+        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn("foo");
         UrlBuilder urlBuilder = new UrlBuilder(user, UrlBuilder.USER_PROFILE);
-        _reportContentService.reportContent(_controller.getAlertWordFilterUser(), user, urlBuilder.asFullUrl(getRequest()), IReportContentService.ReportType.member, "Bio contains alert words");
+        _reportContentService.reportContent(_controller.getAlertWordFilterUser(), user, urlBuilder.asFullUrl(getRequest()), IReportContentService.ReportType.member, "Bio contains alert word \"foo\"");
         expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
         replayAllMocks();
         _controller.handleRequestInternal(getRequest(), getResponse());

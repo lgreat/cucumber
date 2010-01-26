@@ -175,14 +175,24 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
             }
 
+            String bodyWord = _alertWordDao.hasAlertWord(discussion.getBody());
+            String titleWord = _alertWordDao.hasAlertWord(discussion.getTitle());
             String urlToContent = null;
             if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    (_alertWordDao.hasAlertWord(discussion.getBody()) || _alertWordDao.hasAlertWord(discussion.getTitle()))) {
+                    (bodyWord != null || titleWord != null)) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
 
                 urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
+                String reason = "Contains the alert word \"";
+                if (bodyWord != null) {
+                    reason += bodyWord;
+                } else {
+                    reason += titleWord;
+                }
+                reason += "\"";
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent,
+                                                    ReportContentService.ReportType.discussion, reason);
                 //discussion.setActive(false);
                 _log.warn("Discussion submission triggers profanity filter.");
             }
@@ -274,13 +284,24 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setTitle(cleanUpText(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
             discussion.setDateUpdated(new Date());
 
+            String bodyWord = _alertWordDao.hasAlertWord(command.getBody());
+            String titleWord = _alertWordDao.hasAlertWord(command.getTitle());
             if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    (_alertWordDao.hasAlertWord(command.getBody()) || _alertWordDao.hasAlertWord(command.getTitle()))) {
+                    (bodyWord != null || titleWord != null)) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
 
+                String reason = "Contains the alert word \"";
+                if (bodyWord != null) {
+                    reason += bodyWord;
+                } else {
+                    reason += titleWord;
+                }
+                reason += "\"";
                 String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent, ReportContentService.ReportType.discussion, "Contains alert words");
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent,
+                                                    ReportContentService.ReportType.discussion,
+                                                    reason);
                 _log.warn("Discussion edit triggers profanity filter.");
             }
 
@@ -374,12 +395,16 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 }
             }
 
+            String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());
             if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    _alertWordDao.hasAlertWord(reply.getBody())) {
+                    bodyWord != null) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
+                String reason = "Contains the alert word \"";
+                reason += bodyWord;
+                reason += "\"";
                 _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
-                        ReportContentService.ReportType.reply, "Contains alert words");
+                        ReportContentService.ReportType.reply, reason);
                 _log.warn("Reply triggers profanity filter.");
             }
 

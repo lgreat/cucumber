@@ -113,12 +113,15 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
             _log.warn("No aboutMe in request.");
             return null;
         } else if (pageUser != null && (viewer.getId().equals(pageUser.getId()) || canEdit)) {
-            if (!canEdit && _alertWordDao.hasAlertWord(aboutMe)) {
+            String alertWord = _alertWordDao.hasAlertWord(aboutMe);
+            if (!canEdit && alertWord != null) {
                 // A non moderator is submitting an alert word
 
                 UrlBuilder urlBuilder = new UrlBuilder(pageUser, UrlBuilder.USER_PROFILE);
                 String urlToContent = urlBuilder.asFullUrl(request);
-                _reportContentService.reportContent(getAlertWordFilterUser(), pageUser, urlToContent, ReportContentService.ReportType.member, "Bio contains alert words");
+                _reportContentService.reportContent(getAlertWordFilterUser(), pageUser, urlToContent,
+                                                    ReportContentService.ReportType.member,
+                                                    "Bio contains alert word \"" + alertWord + "\"");
             }
             pageUser.getUserProfile().setAboutMe(aboutMe);
             _userDao.saveUser(pageUser);
