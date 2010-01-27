@@ -44,6 +44,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     reply.setActive(command.isReactivate());
                     reply.setDateUpdated(new Date());
                     _discussionReplyDao.saveKeepDates(reply);
+                    _discussionDao.recalculateDateThreadUpdated(reply.getDiscussion());
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
             } else if (command.getContentType() == DeactivateContentCommand.ContentType.discussion) {
