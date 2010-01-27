@@ -75,10 +75,12 @@
                 $.post(ajaxUrl, {aboutMe:$('.aboutMe .bioInput').val(), memberId:$('.aboutMe .memberId').val()});
 //                window.location.href=window.location.href;
 //                window.location.reload();
+                return false;
             });
 
             $('.aboutMe .aboutMeCancel').click(function() {
                 toggleAboutMe();
+                return false
             });
 
             //<c:if test="${empty pageUser.userProfile.aboutMe}">
@@ -189,8 +191,12 @@
             <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
             <textarea name="bio" class="bioInput"><!-- --></textarea>
             <br/>
-            <input type="button" name="Save" value="Save" class="aboutMeSave"/>
-            <input type="button" name="Cancel" value="Cancel" class="aboutMeCancel"/>
+            <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
+                <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
+            </button>
+            <button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
+                <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+            </button>
         </form>
             </div>
         <p class="avatar">

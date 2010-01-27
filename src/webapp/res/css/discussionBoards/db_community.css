@@ -562,7 +562,7 @@ body.ie7 .userVitalsFull .bioText {
     height: 96px;
     margin-bottom: 5px;
 }
-#accountEditBio input {
+#accountEditBio button {
     margin-right: 9px;
 }
 
