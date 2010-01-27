@@ -583,9 +583,12 @@
                                 <c:choose>
                                     <c:when test="${reply.active eq false}">
                                         | <span class="tint_c03"> (Deleted) </span>
-                                        <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                            <a href="#" class="undeleteLink link" onclick="return false;">Undelete</a>
-                                        </gsml:ifUserCanDeleteContent>
+                                        <c:if test="${discussion.active eq true}">
+                                            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                                <a href="#" class="undeleteLink link"
+                                                   onclick="return false;">Undelete</a>
+                                            </gsml:ifUserCanDeleteContent>
+                                        </c:if>
                                     </c:when>
                                     <c:otherwise>
                                         <gsml:ifUserCanDeleteContent pageUser="${validUser}">
