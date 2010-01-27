@@ -17,6 +17,19 @@
 	background: url(/res/img/schoolChoice/schoolchoice_headerbar.gif) no-repeat left top;
 }
 
+#pageWrapper .more {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+* html #pageWrapper .more {
+    margin-bottom: 0;
+}
+
+* + html #pageWrapper .more {
+    margin-bottom: 0;
+}
+
 #intro {
 	background-image: url(/res/img/library/middle-box-bottom.png);
 }
@@ -44,7 +57,7 @@
     height: 100px;
 }
 
-#quizDiv {
+.steplinks {
     padding-top: 5px;
 }
 
@@ -211,6 +224,10 @@
     padding-right: 5px;
 }
 
+#houseAd {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
 
 
 #top5 {
@@ -334,4 +351,55 @@
 
 #moving.box .inner {
     padding-right: 0;
+}
+
+p.searchOr {
+    margin-top: 10px;
+}
+
+h3.searchHeader {
+    color: #55bbcc;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+h3.searchHeader .gray {
+    color: #666;
+}
+
+.compareSchoolForm {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+* + html .compareSchoolForm {
+    margin-top: -6px;
+}
+
+div.compareSchoolForm input.formZip, div.compareSchoolForm select.formLevel, div.compareSchoolForm select.formMiles {
+    color: #777;
+    margin: 0 4px;
+}
+
+div.compareSchoolForm input.formZip {
+    width: 55px;
+    margin: 0 5px;
+}
+
+div.compareSchoolForm input.formButton {
+    position: relative;
+    top: 6px;
+}
+
+div.compareSchoolForm span {
+    position: relative;
+    top: 0;
+}
+
+* html div.compareSchoolForm span {
+    top: -2px;
+}
+
+* + html div.compareSchoolForm span {
+    top: -2px;
 }

@@ -110,7 +110,7 @@
             <content:librarySidebar/>
 
             <div id="skyscraper">
-                <ad:adTag position="AboveFold_Left_160x600"/>
+                <ad:adTag position="AboveFold_Left_160x600"/> 
             </div>
         </div>
 
@@ -119,39 +119,6 @@
 
             <div id="content">
 
-                <div id="intro" class="box">
-                    <div class="inner cleared">
-                        <h2>GreatSchools 101</h2>
-
-                        <div>
-
-                            <div class="description">
-                                <p>Watch this short video to learn how to use our site and choose a school where your child will thrive.</p>
-                            </div>
-
-                            <div class="video" id="schoolChoiceVideo">
-                                <!-- http://validifier.com/ -->
-                                <!-- http://www.howtocreate.co.uk/tutorials/javascript/incorporate -->
-                                <script type="text/javascript">
-                                <!--//--><![CDATA[//><!--
-                                document.write('<object width="300" height="166">');
-                                document.write('    <param name="allowfullscreen" value="true"/>');
-                                document.write('    <param name="allowscriptaccess" value="always"/>');
-                                document.write('    <param name="wmode" value="opaque"/>');
-                                document.write('    <param name="movie"');
-                                document.write('           value="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"/>');
-                                document.write('    <embed src="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"');
-                                document.write('           type="application/x-shockwave-flash" allowfullscreen="true" wmode="opaque"');
-                                document.write('           allowscriptaccess="always" width="300" height="166"></embed>');
-                                document.write('</object>');
-                                //--> ]]>
-                                </script>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
                 <div id="main-copy" class="box">
                     <div class="inner cleared">
                         <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your ideal school</h2>
@@ -167,15 +134,15 @@
                             </div>
                         </div>
 
-                        <div id="quizDiv">
-
+                        <div class="steplinks">
                             <ul>
-                                <li><gsweb:articlelink
-                                        articleId="3705">Which educational qualities matter most? </gsweb:articlelink>
-                                </li>
-                                <li><gsweb:articlelink articleId="3704">Charter, private or public &amp;mdash; what's right for you?</gsweb:articlelink></li>
+                                <li><link:cmsContent contentKey="Article#33" fullUri="find-a-school/defining-your-ideal/choosing-a-school">Choosing a school: an overview</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#97" fullUri="find-a-school/defining-your-ideal/considering-family-needs-values">Considering your family needs</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#59" fullUri="find-a-school/defining-your-ideal/private-vs-public-schools">Private vs. public</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#574" fullUri="find-a-school/defining-your-ideal/traditional-school-alternatives-is-one-right-for-your-child">Traditional school alternatives</link:cmsContent></li>
                             </ul>
 
+                            <span class="more right"><link:cmsCategoryBrowse topicIDs="145" language="EN">More &amp;raquo;</link:cmsCategoryBrowse></span>
                         </div>
 
                         <div class="hr">
@@ -186,6 +153,8 @@
 
                         <p>Find schools in your area. First search by school name, city or district. Then narrow
                            your search by public, charter or private and by school level.</p>
+
+                        <h3 class="searchHeader">Find a school</h3>
 
                         <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
@@ -208,6 +177,51 @@
 
                         </form>
 
+                        <p class="searchOr">OR</p>
+
+                        <h3 class="searchHeader">Compare schools <span class="gray">near an address</span></h3>
+
+                        <div class="compareSchoolForm">
+                            <gsweb:form action="/school/research.page" id="compareModuleForm" method="get"
+                                        styleClass="goInterstitial" onsubmit="return validateZipCode('zipCode');">
+                                <input type="hidden" name="sortby" value="distance"/>
+                                <input type="hidden" name="tab" value="over"/>
+                                <input type="hidden" name="area" value="m"/>
+                                <input type="hidden" name="form" value="address"/>
+
+                                <div class="showMeLine">
+                                    <span>Show</span>
+                                    <select name="level" class="formLevel">
+                                        <gsml:selectOption value="e"
+                                                           selected="${gradeLevel eq 'e'}">elementary</gsml:selectOption>
+                                        <gsml:selectOption value="m"
+                                                           selected="${gradeLevel eq 'm'}">middle</gsml:selectOption>
+                                        <gsml:selectOption value="h"
+                                                           selected="${gradeLevel eq 'h'}">high</gsml:selectOption>
+
+                                    </select>
+                                    <span>schools within</span>
+                                    <select name="miles" class="formMiles">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                    <span>miles of</span>
+                                    <input type="text" name="zip" id="zipCode" class="formZip" value="ZIP code"
+                                           onfocus="textSwitch(this, '', 'ZIP code');"
+                                           onblur="textSwitch(this, 'ZIP code', '');"/>
+                                    <input onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                                           onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
+                                           class="formButton"
+                                           alt="Compare ${requestScope.context.state.longName} Schools"
+                                           src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
+                                </div>
+                            </gsweb:form>
+                        </div>
+
                         <div class="hr">
                             <hr/>
                         </div>
@@ -226,13 +240,26 @@
                         <div id="downloadWorksheetDiv">
                             <p><span id="downloadWorksheetText">Download checklist for</span>
                                 <select id="worksheet">
-                                    <option value="/pdf/schq_visit_preschool.pdf">Preschool</option>
-                                    <option value="/pdf/schq_visit_elem.pdf">Elementary</option>
-                                    <option value="/pdf/schq_visit_middle.pdf">Middle</option>
-                                    <option value="/pdf/schq_visit_high.pdf">High</option>
+                                    <option value="/catalog/pdf/schq_visit_preschool.pdf">Preschool</option>
+                                    <option value="/catalog/pdf/schq_visit_elem.pdf">Elementary</option>
+                                    <option value="/catalog/pdf/schq_visit_middle.pdf">Middle</option>
+                                    <option value="/catalog/pdf/schq_visit_high.pdf">High</option>
                                 </select>
                                 <a href="#" onclick="return downloadWorksheet();"><img src="/res/img/button/go.gif" id="worksheetGo" alt="Go"/></a>
                             </p>
+                        </div>
+
+                        <div class="steplinks">
+                            <ul>
+                                <li>Insider tricks to assessing a <link:cmsContent contentKey="Article#1627" fullUri="find-a-school/defining-your-ideal/insider-tricks-for-assessing-preschools">preschool</link:cmsContent>,
+                                    <link:cmsContent contentKey="Article#1628" fullUri="find-a-school/defining-your-ideal/insider-tricks-for-assessing-elementary-schools">elementary school</link:cmsContent>,
+                                    <link:cmsContent contentKey="Article#1629" fullUri="find-a-school/defining-your-ideal/insider-tricks-for-assessing-middle-schools">middle school</link:cmsContent>,
+                                    and <link:cmsContent contentKey="Article#1630" fullUri="find-a-school/defining-your-ideal/insider-tricks-for-assessing-high-schools">high school</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#35" fullUri="find-a-school/school-visit/the-achievement-gap-is-your-school-helping-all-students-succeed">Assessing a school's achievement gap</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#1690" fullUri="find-a-school/defining-your-ideal/sizing-up-school-safety">Searching for security</link:cmsContent></li>
+                            </ul>
+
+                            <span class="more right"><link:cmsCategoryBrowse topicIDs="197" language="EN">More &amp;raquo;</link:cmsCategoryBrowse></span>
                         </div>
 
                         <div class="hr">
@@ -244,12 +271,16 @@
                         <div class="column">
                             <p>After you've made your choice, find out the application deadline, assemble all the necessary documents and apply.
                                 Have a plan B, in case you don't get your first choice. </p>
+                        </div>
+
+                        <div class="steplinks clear">
                             <ul>
-                                <li><gsweb:articlelink
-                                        articleId="3698">School enrollment requirements</gsweb:articlelink>
-                                </li>
-                                <li><gsweb:articlelink articleId="490">Have a plan B</gsweb:articlelink></li>
+                                <li><link:cmsContent contentKey="Article#1158" fullUri="find-a-school/applying-enrolling/school-enrollment-requirements">School enrollment requirements</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#1658" fullUri="find-a-school/making-a-school-district-work-for-you">Making the school district work for you</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="Article#194" fullUri="find-a-school/applying-enrolling/working-the-system">Working the system to get into the school you want</link:cmsContent></li>
                             </ul>
+
+                            <span class="more right"><link:cmsCategoryBrowse topicIDs="195" language="EN">More &amp;raquo;</link:cmsCategoryBrowse></span>
                         </div>
 
                     </div>
@@ -295,10 +326,8 @@
                     </div>
                 </div>
 
-                <div id="top5" class="box">
-                    <div class="inner">
-                        <school:top5/>
-                    </div>
+                <div id="houseAd">
+                    <ad:adTag position="House_Ad_300x137"/>
                 </div>
 
                 <ad:AboveFold_300x600/>
