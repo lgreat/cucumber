@@ -1,6 +1,8 @@
 function delvePlayerCallback(playerId, eventName, data) {
     switch (eventName) {
-        case 'onMediaLoad':
+        //case 'onMediaLoad':
+        //    doOnMediaLoad(data);
+        case 'onChannelLoad':
             doOnMediaLoad(data);
     }
 }
@@ -15,7 +17,7 @@ function doOnMediaLoad() {
     if (DelvePlayer.doGetCurrentIndex() != vid) {
       DelvePlayer.doSkipToIndex(vid);
     }
-    DelvePlayer.doPlay();
+    setTimeout(DelvePlayer.doPlay(),4000);
   }
 }
 
