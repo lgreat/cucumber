@@ -62,7 +62,7 @@
                 }
             }
 
-            $('.aboutMe .editAboutMe').click(function() {
+            $('.aboutMe .editAboutMe, .aboutMe .editAboutMeSecondaryLink').click(function() {
                 $('.aboutMe .bioInput').val($('.aboutMe .bioText').text());
                 toggleAboutMe();
                 return false;
@@ -190,7 +190,7 @@
         </c:if>
 
         <p class="defaultBioText">
-            Welcome to the GreatSchools community! <a href="/accountInformation.page">Tell us about yourself</a>
+            Welcome to the GreatSchools community! <a href="#" class="editAboutMeSecondaryLink">Tell us about yourself</a>
             to start building your profile.
         </p>
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
