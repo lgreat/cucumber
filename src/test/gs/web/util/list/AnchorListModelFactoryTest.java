@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.16 2009/12/04 22:27:15 chriskimm Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.17 2010/01/27 20:18:14 droy Exp $
  */
 
 package gs.web.util.list;
@@ -189,7 +189,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
                             SchoolType.PUBLIC,
                             20,
                             false);
-                assertEquals(anchorListModel.getResults().size(),1);
+                assertEquals(1, anchorListModel.getResults().size());
             cityHits = _searcher.searchForCities("laurel",State.DC);
             anchorListModel =
                     anchorListModelFactory.createCitiesListModel(_request,
@@ -197,7 +197,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
                             SchoolType.PUBLIC,
                             20,
                             false);
-            assertEquals(anchorListModel.getResults().size(),0);
+            assertEquals(0,anchorListModel.getResults().size());
     }
 
     private Set<SchoolType> createSchoolTypeSet(SchoolType... types) {
