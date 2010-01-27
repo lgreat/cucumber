@@ -73,14 +73,18 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
         _sessionContext.setUser(_user);
         _user.addRole(_moderator);
 
-        _command.setContentId(1);
+        _command.setContentId(2);
         _command.setContentType(DeactivateContentCommand.ContentType.reply);
         _command.setReactivate(false);
-        
-        DiscussionReply reply = new DiscussionReply();
-        reply.setId(1);
 
-        expect(_discussionReplyDao.findById(1)).andReturn(reply);
+        Discussion discussion = new Discussion();
+        discussion.setId(1);
+        DiscussionReply reply = new DiscussionReply();
+        reply.setId(2);
+        reply.setDiscussion(discussion);
+
+        expect(_discussionReplyDao.findById(2)).andReturn(reply);
+        _discussionDao.recalculateDateThreadUpdated(discussion);
 
         _discussionReplyDao.saveKeepDates(reply);
         replayAllMocks();
@@ -94,15 +98,19 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
         _sessionContext.setUser(_user);
         _user.addRole(_moderator);
 
-        _command.setContentId(1);
+        _command.setContentId(2);
         _command.setContentType(DeactivateContentCommand.ContentType.reply);
         _command.setReactivate(true);
 
+        Discussion discussion = new Discussion();
+        discussion.setId(1);
         DiscussionReply reply = new DiscussionReply();
         reply.setId(1);
         reply.setActive(false);
+        reply.setDiscussion(discussion);
 
-        expect(_discussionReplyDao.findById(1)).andReturn(reply);
+        expect(_discussionReplyDao.findById(2)).andReturn(reply);
+        _discussionDao.recalculateDateThreadUpdated(discussion);
 
         _discussionReplyDao.saveKeepDates(reply);
         replayAllMocks();
