@@ -177,13 +177,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             String bodyWord = _alertWordDao.hasAlertWord(discussion.getBody());
             String titleWord = _alertWordDao.hasAlertWord(discussion.getTitle());
-            String urlToContent = null;
             if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
                     (bodyWord != null || titleWord != null)) {
                 // profanity filter
                 // Moderators are always allowed to post profanity
 
-                urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
                 String reason = "Contains the alert word \"";
                 if (bodyWord != null) {
                     reason += bodyWord;
@@ -191,8 +189,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     reason += titleWord;
                 }
                 reason += "\"";
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent,
-                                                    ReportContentService.ReportType.discussion, reason);
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, request, discussion.getId(),
+                                                    ReportedEntity.ReportedEntityType.discussion, reason);
                 //discussion.setActive(false);
                 _log.warn("Discussion submission triggers profanity filter.");
             }
@@ -202,9 +200,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
-                if (urlToContent == null) {
-                    urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                }
+                String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
                 command.setRedirect(urlToContent);
             }
         }
@@ -298,9 +294,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     reason += titleWord;
                 }
                 reason += "\"";
-                String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, urlToContent,
-                                                    ReportContentService.ReportType.discussion,
+                _reportContentService.reportContent(getAlertWordFilterUser(), user, request, discussion.getId(),
+                                                    ReportedEntity.ReportedEntityType.discussion,
                                                     reason);
                 _log.warn("Discussion edit triggers profanity filter.");
             }
@@ -404,7 +399,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 reason += bodyWord;
                 reason += "\"";
                 _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
-                        ReportContentService.ReportType.reply, reason);
+                        ReportedEntity.ReportedEntityType.reply, reason);
                 _log.warn("Reply triggers profanity filter.");
             }
 

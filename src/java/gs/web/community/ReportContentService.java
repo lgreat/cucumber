@@ -18,26 +18,75 @@ import java.util.Date;
 
 /**
  * @author Dave Roy <mailto:droy@greatschools.org>
+ * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
-public class ReportContentService extends SimpleFormController implements IReportContentService {
+public class ReportContentService extends SimpleFormController
+        implements IReportContentService, ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
+    private IReportedEntityDao _reportedEntityDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
 
-    public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, ReportType type, String reason) {
-        String urlToContent = getLinkForContent(request, contentId, type);
-        reportContent(reporter, reportee, urlToContent, type, reason);
+    public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, 
+                              ReportedEntity.ReportedEntityType type, String reason) {
+        try {
+            String urlToContent = null;
+            switch (type) {
+                case discussion:
+                    Discussion d = _discussionDao.findById(contentId);
+                    urlToContent = getLinkForEntity(request, d);
+                    if (d != null && urlToContent != null) {
+                        int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                        if (numTimesReported == 1) {
+                            // if this is the second time this discussion is reported, disable it
+                            d.setActive(false);
+                            _discussionDao.save(d);
+                        }
+                    }
+                    break;
+                case reply:
+                    DiscussionReply reply = _discussionReplyDao.findById(contentId);
+                    urlToContent = getLinkForEntity(request, reply);
+                    if (reply != null && urlToContent != null) {
+                        int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                        if (numTimesReported == 1) {
+                            // if this is the second time this reply is reported, disable it
+                            reply.setActive(false);
+                            _discussionReplyDao.save(reply);
+                        }
+                    }
+                    break;
+                case member:
+                    User user = null;
+                    try {
+                        user = _userDao.findUserFromId(contentId);
+                    } catch (ObjectRetrievalFailureException orfe) {
+                        // handled below
+                    }
+                    urlToContent = getLinkForEntity(request, user);
+                    if (user != null && user.getUserProfile() != null && urlToContent != null) {
+                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                    }
+                    break;
+            }
+            if (urlToContent != null) {
+                sendEmail(urlToContent, type, reporter, reportee, reason);
+            } else {
+                _log.warn("Unable to determine URL for reported content " + type + ":" + contentId +
+                        ", reason \"" + reason + "\"");
+            }
+        } catch (Exception e) {
+            _log.error("Error reporting content " + type + ": " + contentId, e);
+        }
     }
-
-    public void reportContent(User reporter, User reportee, String urlToContent, ReportType type, String reason) {
-        sendEmail(urlToContent, type, reporter, reportee, reason);
-    }
-
-    protected void sendEmail(String urlToContent, ReportType contentType,
+    
+    protected void sendEmail(String urlToContent, ReportedEntity.ReportedEntityType contentType,
                              User reporter, User reportee, String reason) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(_moderationEmail);
@@ -47,7 +96,7 @@ public class ReportContentService extends SimpleFormController implements IRepor
         StringBuffer body = new StringBuffer();
         body.append("User ").append(formatUserString(reporter));
         body.append(" has reported ");
-        if (contentType != IReportContentService.ReportType.member) {
+        if (contentType != ReportedEntity.ReportedEntityType.member) {
             body.append("a ").append(contentType).append(" by ");
         }
         body.append("user ").append(formatUserString(reportee));
@@ -74,51 +123,34 @@ public class ReportContentService extends SimpleFormController implements IRepor
         return text;
     }
 
-    // for a user, the relevant page to go to is the user profile page
-    // for a discussion -- the discussion detail page
-    // for a discussion reply -- whichever page of the discussion detail page the reply would appear on
-    protected String getLinkForContent(HttpServletRequest request, int contentId,
-                                       ReportType contentType) {
-        Discussion d;
-        UrlBuilder urlBuilder;
-        switch (contentType) {
-            case discussion:
-                d = _discussionDao.findById(contentId);
-                if (d == null || d.getBoardId() == null) {
-                    return null;
-                }
-                urlBuilder = getUrlBuilderForDiscussion(d);
-                if (urlBuilder != null) {
-                    return urlBuilder.asFullUrl(request);
-                }
-                break;
-            case reply:
-                DiscussionReply reply = _discussionReplyDao.findById(contentId);
-                if (reply == null || reply.getDiscussion() == null || reply.getDiscussion().getBoardId() == null) {
-                    return null;
-                }
-                urlBuilder = getUrlBuilderForDiscussion(reply.getDiscussion());
-                if (urlBuilder != null) {
-                    urlBuilder.setParameter("discussionReplyId", String.valueOf(contentId));
-                    return urlBuilder.asFullUrl(request) + "#reply_" + contentId;
-                }
-                break;
-            case member:
-                User u = null;
-
-                try {
-                    u = _userDao.findUserFromId(contentId);
-                } catch (ObjectRetrievalFailureException orfe) {
-                    // handled below
-                }
-                if (u == null || u.getUserProfile() == null) {
-                    return null;
-                }
-                urlBuilder = new UrlBuilder(u, UrlBuilder.USER_PROFILE);
-                return urlBuilder.asFullUrl(request);
+    protected String getLinkForEntity(HttpServletRequest request, Discussion d) {
+        if (d == null || d.getBoardId() == null) {
+            return null;
         }
-
+        UrlBuilder urlBuilder = getUrlBuilderForDiscussion(d);
+        if (urlBuilder != null) {
+            return urlBuilder.asFullUrl(request);
+        }
         return null;
+    }
+
+    protected String getLinkForEntity(HttpServletRequest request, DiscussionReply reply) {
+        if (reply == null || reply.getDiscussion() == null || reply.getDiscussion().getBoardId() == null) {
+            return null;
+        }
+        UrlBuilder urlBuilder = getUrlBuilderForDiscussion(reply.getDiscussion());
+        if (urlBuilder != null) {
+            urlBuilder.setParameter("discussionReplyId", String.valueOf(reply.getId()));
+            return urlBuilder.asFullUrl(request) + "#reply_" + reply.getId();
+        }
+        return null;
+    }
+
+    protected String getLinkForEntity(HttpServletRequest request, User u) {
+        if (u == null || u.getUserProfile() == null) {
+            return null;
+        }
+        return new UrlBuilder(u, UrlBuilder.USER_PROFILE).asFullUrl(request);
     }
 
     protected UrlBuilder getUrlBuilderForDiscussion(Discussion d) {
@@ -176,5 +208,13 @@ public class ReportContentService extends SimpleFormController implements IRepor
 
     public void setModerationEmail(String moderationEmail) {
         _moderationEmail = moderationEmail;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

@@ -1,26 +1,19 @@
 package gs.web.community;
 
 import gs.web.util.ReadWriteController;
-import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
-import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.content.cms.ICmsDiscussionBoardDao;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.MailException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -57,15 +50,15 @@ public class ReportContentAjaxController extends SimpleFormController implements
         }
 
         User reportee = null;
-        Integer authorId = null;
-        if (command.getType() == IReportContentService.ReportType.discussion ||
-                command.getType() == IReportContentService.ReportType.reply) {
+        Integer authorId;
+        if (command.getType() == ReportedEntity.ReportedEntityType.discussion ||
+                command.getType() == ReportedEntity.ReportedEntityType.reply) {
             UserContent uc = _userContentDao.findById(command.getContentId());
             if (uc == null) {
                 return null;
             }
             authorId = uc.getAuthorId();
-        } else if (command.getType() == IReportContentService.ReportType.member) {
+        } else if (command.getType() == ReportedEntity.ReportedEntityType.member) {
             authorId = command.getContentId();
         } else {
             _log.warn("Unknown report content type: " + command.getType());
@@ -87,7 +80,8 @@ public class ReportContentAjaxController extends SimpleFormController implements
             _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");
             return null;
         }
-        _reportContentService.reportContent(reporter, reportee, request, command.getContentId(), command.getType(), command.getReason());
+        _reportContentService.reportContent(reporter, reportee, request, command.getContentId(),
+                                            command.getType(), command.getReason());
         
         return null;
     }

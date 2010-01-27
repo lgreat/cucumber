@@ -565,12 +565,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expect(_alertWordDao.hasAlertWord(VALID_LENGTH_DISCUSSION_TITLE)).andReturn(null);
 
         expect(_reportContentService.getModerationEmail()).andReturn("moderator@greatschools.org");
-        _reportContentService.reportContent(reporter, _user,
-                                            _controller.getDiscussionUrl
-                                                    (getRequest(),
-                                                     board.getFullUri(),
-                                                     Long.valueOf(discussion.getId())),
-                                            ReportContentService.ReportType.discussion,
+        _reportContentService.reportContent(reporter, _user, getRequest(), 1234,
+                                            ReportedEntity.ReportedEntityType.discussion,
                                             "Contains the alert word \"foo\"");
 
         replayAllMocks();

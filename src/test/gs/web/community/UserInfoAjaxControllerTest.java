@@ -1,14 +1,10 @@
 package gs.web.community;
 
+import gs.data.community.*;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.IAlertWordDao;
 
 import static org.easymock.EasyMock.*;
 import org.springframework.web.util.CookieGenerator;
@@ -37,18 +33,17 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao);
-        verifyMocks(_alertWordDao);
+        verifyMocks(_userDao, _alertWordDao, _reportContentService);
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao);
-        replayMocks(_alertWordDao);
+        replayMocks(_userDao, _alertWordDao, _reportContentService);
     }
 
     public void testBasics() {
         assertSame(_userDao, _controller.getUserDao());
         assertSame(_alertWordDao, _controller.getAlertWordDao());
+        assertSame(_reportContentService, _controller.getReportContentService());
     }
 
     public void testNoSessionContext() throws Exception {
@@ -144,7 +139,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         assertEquals("This is about me.", user.getUserProfile().getAboutMe());
     }
 
-    public void xtestHandlePostWithAlertWords() throws Exception {
+    public void testHandlePostWithAlertWords() throws Exception {
         User user = new User();
         user.setId(1);
         user.setEmail("testNoUserProfile@greatschools.org");
@@ -181,13 +176,19 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
 
         _userDao.saveUser(user);
 
-        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn("foo");
-        UrlBuilder urlBuilder = new UrlBuilder(user, UrlBuilder.USER_PROFILE);
-        _reportContentService.reportContent(_controller.getAlertWordFilterUser(), user, urlBuilder.asFullUrl(getRequest()), IReportContentService.ReportType.member, "Bio contains alert word \"foo\"");
+        expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME)))
+                .andReturn("foo");
+        User reporter = new User();
+        reporter.setId(-1);
+        reporter.setEmail("moderation@greatschools.org");
+//        reporter.setUserProfile(new UserProfile());
+//        reporter.getUserProfile().setScreenName("gs_alert_word_filter");
         expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
+        _reportContentService.reportContent(reporter, user, getRequest(), 1,
+                                            ReportedEntity.ReportedEntityType.member, "Bio contains alert word \"foo\"");
         replayAllMocks();
         _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAllMocks();
-        assertEquals("This is about me.", user.getUserProfile().getAboutMe());
+        assertEquals("Expect bio to be posted anyway", "This is some nasty text.", user.getUserProfile().getAboutMe());
     }
 }

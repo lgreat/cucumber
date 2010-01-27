@@ -1,19 +1,21 @@
 package gs.web.community;
 
+import gs.data.community.ReportedEntity;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class ReportContentCommand {
-    private IReportContentService.ReportType _type;
+    private ReportedEntity.ReportedEntityType _type;
     private int _contentId;
     private String _reason;
     private int _reporterId;
 
-    public IReportContentService.ReportType getType() {
+    public ReportedEntity.ReportedEntityType getType() {
         return _type;
     }
 
-    public void setType(IReportContentService.ReportType type) {
+    public void setType(ReportedEntity.ReportedEntityType type) {
         _type = type;
     }
 

@@ -15,7 +15,6 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 
 import java.util.List;
 
@@ -117,10 +116,8 @@ public class UserInfoAjaxController extends AbstractController implements ReadWr
             if (!canEdit && alertWord != null) {
                 // A non moderator is submitting an alert word
 
-                UrlBuilder urlBuilder = new UrlBuilder(pageUser, UrlBuilder.USER_PROFILE);
-                String urlToContent = urlBuilder.asFullUrl(request);
-                _reportContentService.reportContent(getAlertWordFilterUser(), pageUser, urlToContent,
-                                                    ReportContentService.ReportType.member,
+                _reportContentService.reportContent(getAlertWordFilterUser(), pageUser, request, pageUser.getId(),
+                                                    ReportedEntity.ReportedEntityType.member,
                                                     "Bio contains alert word \"" + alertWord + "\"");
             }
             pageUser.getUserProfile().setAboutMe(aboutMe);
