@@ -833,6 +833,10 @@ ul.srchRslts li.srchRsltLast {
     height: 33px;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -256px no-repeat;
 }
+body.ie6 .srchCatArticles li span.icon {
+    left: -25px;
+    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
+}
 .srchCatComm li span.icon {
     position: absolute;
     top: 0;
@@ -840,6 +844,10 @@ ul.srchRslts li.srchRsltLast {
     width: 17px;
     height: 33px;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -427px no-repeat;
+}
+body.ie6 .srchCatComm li span.icon {
+    left: -25px;
+    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
 p.moreRslts {
     margin: 0 0 15px;
