@@ -141,8 +141,12 @@ public class DiscussionController extends AbstractController {
 
             model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
 
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, model.get(MODEL_URI).toString());
-            model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+            if (user == null) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, model.get(MODEL_URI).toString());
+                model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+            } else {
+                model.put(MODEL_LOGIN_REDIRECT, "#");                
+            }
 
             model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
 
