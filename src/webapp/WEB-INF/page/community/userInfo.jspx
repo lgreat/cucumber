@@ -147,8 +147,15 @@
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
     <h2>${requestScope.pageHeading}
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <span class="fltrt"><a class="flag reportIt" id="report_member_${pageUser.id}"
-                               href="${loginRedirectUrl}">Report this member <span class="go">&amp;#187;</span></a></span>
+        <c:choose>
+            <c:when test="${requestScope.memberReport eq true}">
+                <span class="fltrt reported">You've reported this member.</span>
+            </c:when>
+            <c:otherwise>
+                <span class="fltrt"><a class="flag reportIt" id="report_member_${pageUser.id}"
+                                       href="${loginRedirectUrl}">Report this member <span class="go">&amp;#187;</span></a></span>
+            </c:otherwise>
+        </c:choose>
     </c:if>
     <c:if test="${requestScope.canBanMember}">
         <c:choose>

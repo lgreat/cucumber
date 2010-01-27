@@ -54,6 +54,8 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
+    public static final String MODEL_REPLY_REPORTS = "replyReports";    
+    public static final String MODEL_DISCUSSION_REPORT = "discussionReport";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -69,6 +71,7 @@ public class DiscussionController extends AbstractController {
     private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
+    private IReportedEntityDao _reportedEntityDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -130,10 +133,16 @@ public class DiscussionController extends AbstractController {
             model.put(MODEL_PAGE, page);
 
             List<DiscussionReply> replies = getRepliesForPage(discussion, page, pageSize, sort, includeInactive);
+            Map<Integer, Boolean> reports = getReportsForReplies(user, replies);
+            if (user != null) {
+                model.put(MODEL_DISCUSSION_REPORT, _reportedEntityDao.hasUserReportedEntity
+                        (user, ReportedEntity.ReportedEntityType.discussion, discussion.getId()));
+            }
             List<UserContent> userContents = new ArrayList<UserContent>(replies);
             userContents.add(discussion);
             _userDao.populateWithUsers(userContents);
             model.put(MODEL_REPLIES, replies);
+            model.put(MODEL_REPLY_REPORTS, reports);
             int totalReplies = getTotalReplies(discussion, includeInactive);
             model.put(MODEL_TOTAL_REPLIES, totalReplies);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalReplies));
@@ -179,6 +188,19 @@ public class DiscussionController extends AbstractController {
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    private Map<Integer, Boolean> getReportsForReplies(User user, List<DiscussionReply> replies) {
+        if (replies == null || user == null) {
+            return null;
+        }
+        Map<Integer, Boolean> reports = new HashMap<Integer, Boolean>(replies.size());
+        for (DiscussionReply reply: replies) {
+            reports.put(reply.getId(),
+                        _reportedEntityDao.hasUserReportedEntity
+                                (user, ReportedEntity.ReportedEntityType.reply, reply.getId()));
+        }
+        return reports;
     }
 
     /**
@@ -361,5 +383,13 @@ public class DiscussionController extends AbstractController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

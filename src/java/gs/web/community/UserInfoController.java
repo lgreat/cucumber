@@ -58,6 +58,7 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_CAN_BAN_MEMBER = "canBanMember";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_SHOW_VIEW_ALL_ACTIVITY_LINK = "showViewAllActivityLink";
+    public static final String MODEL_MEMBER_REPORT = "memberReport";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -74,6 +75,7 @@ public class UserInfoController extends AbstractController {
     private IUserContentDao _userContentDao;
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
+    private IReportedEntityDao _reportedEntityDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -135,6 +137,10 @@ public class UserInfoController extends AbstractController {
                 viewingOwnProfile = true;
             }
             currentUser = viewer.getUserProfile().getScreenName() + " (" + viewer.getId() + ")";
+            if (viewer != null && pageUser != null && !viewingOwnProfile) {
+                model.put(MODEL_MEMBER_REPORT, _reportedEntityDao.hasUserReportedEntity
+                        (viewer, ReportedEntity.ReportedEntityType.member, pageUser.getId()));
+            }
         } else if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
             // if viewing My Account and user is not logged in, redirect to login page
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, URI_USER_ACCOUNT);
@@ -356,5 +362,13 @@ public class UserInfoController extends AbstractController {
 
     public void setUserContentDao(IUserContentDao userContentDao) {
         _userContentDao = userContentDao;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

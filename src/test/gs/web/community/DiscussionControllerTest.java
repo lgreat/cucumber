@@ -25,6 +25,7 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     IDiscussionReplyDao _discussionReplyDao;
     IPublicationDao _publicationDao;
     IUserDao _userDao;
+    IReportedEntityDao _reportedEntityDao;
 
     @Override
     public void setUp() throws Exception {
@@ -38,23 +39,25 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         _discussionDao = createStrictMock(IDiscussionDao.class);
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _userDao = createStrictMock(IUserDao.class);
+        _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
         _controller.setCmsDiscussionBoardDao(_discussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setUserDao(_userDao);
+        _controller.setReportedEntityDao(_reportedEntityDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
+        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
+        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
     }
 
     private void resetAllMocks() {
-        resetMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao);
+        resetMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
     }
 
     public void testBasics() {
