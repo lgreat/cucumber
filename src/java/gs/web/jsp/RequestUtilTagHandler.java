@@ -43,13 +43,17 @@ public class RequestUtilTagHandler extends TagSupport {
     }
 
     private String currentAbsolutePath(HttpServletRequest request) {
-        StringBuffer uri = new StringBuffer((String)request.getAttribute("javax.servlet.forward.request_uri"));
+        String uri = (String)request.getAttribute("javax.servlet.forward.request_uri");
+        if (uri == null) {
+            return null;
+        }
+        StringBuffer fullUri = new StringBuffer(uri);
         String query = (String)request.getAttribute("javax.servlet.forward.query_string");
         if (query != null && query.length() > 0) {
-            uri.append("?").append(query);
+            fullUri.append("?").append(query);
         }
 
-        return uri.toString();
+        return fullUri.toString();
     }
 
     public String getVar() {
