@@ -249,3 +249,12 @@ ul.navColumns div {
     color: #666;
 }
 
+#footerAd table img {
+    padding: 0 1px 0 2px;
+}
+
+#footerAd table {
+    margin: 0 auto;
+    padding: 0;
+    width: 738px;
+}
