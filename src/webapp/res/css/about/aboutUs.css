@@ -1,123 +1,87 @@
-/* top of page */
-
-.pageTitle h2 {
-    font-size: 19px;
-    color: #55BBCC;
-    margin-top: 13px;
-    margin-bottom: 11px;
+.clearfloat {
+/* this class should be placed on a div or break element and */
+/* should be the final element before the close of a container */
+/* that should fully contain a float */
+    clear: both;
+    height: 0;
+    font-size: 1px;
+    line-height: 0;
 }
 
-/* content top */
-
-.contentTop {
+div.contentLeft {
+    width: 160px;
     float: left;
-    width: 952px;
-    height: 335px;
 }
 
-.contentTopRight h3 {
-    font-size: 19px;
-    color: #118899;
-    margin-bottom: 8px;
+.contentLeft .marginTop {
+    margin-top: 15px;
 }
 
-.contentTopRightDivider {
-    text-align: center;
-    background: url(/res/img/about/aboutus_horiz_leaderdots.gif) no-repeat left bottom;
-    width: 265px;
-    height: 4px;
-    margin-top: 19px;
-    margin-bottom: 17px;
-}
-
-.contentTopRightDivider hr {
-    display: none;
-    width: 0;
-}
-
-.contentTopLeft {
+div.main {
+    width: 753px;
     float: left;
-    width: 628px;
-    height: 335px;
+    margin-left: 15px;
 }
 
-.contentTopRight {
-    float: right;
-    width: 265px; /* 312 - 23 - 24 = 265 */
-    height: 315px; /* 335 - 20 - 0 = 295 */
-    padding: 20px 23px 0 24px;
-    background: url(/res/img/about/blue_gradation_1px.jpg) repeat-x;
+.module {
+    overflow: hidden;
 }
-
-.contentTopRightDivider hr {
-    background: url(/res/img/about/aboutus_horiz_leaderdots.gif) no-repeat;
+.contentLeft .module .header{
+    height:26px;
+    background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
+    padding:0 10px;
 }
-
-/* who we are */
-
-.whoWeAre {
-    height: 34px;
+.contentLeft .module .header .text2bold {
+    color: #fff;
+    padding-top: 5px;
 }
-
-.aboutUs .whoWeAre ul li {
-    background: url(/res/img/bullet/orange_bullet_onblue.gif) no-repeat left 5px;
-    padding-left: 10px;
-    font-size: 13px;
-    line-height: 18px;
+.contentLeft .module .body {
+    border: 1px solid #ccc;
+    padding: 10px 12px 15px 12px;
 }
-
-#people {
-    float: left;
-    width: 140px;
+.contentLeft .module span, .contentLeft .module a {
+    display: block;
 }
-
-#other {
-    float: right;
-    width: 110px;
+.contentLeft .module .body span, .contentLeft .module .body a {
+    margin-top: 5px;
 }
-
-/* bill's blog */
-#billsBlog{
+.contentLeft .module .body span.noMargin {
+    margin-top: 0;
 }
-
-.blogTop{
-     height:80px;
-}
-
-.blogPhoto{
-    float:left;
-}
-
-.blogDescription{
-    float:left;
-    height:60px;
-    width:150px;
-    font-size:13px;
-    line-height:20px;
-    padding-left:10px;
-}
-
-.blogTitle{
-    padding-top: 9px;
-    padding-bottom: 9px;
-}
-
-.readBlogImage{
-    margin: 5px 0pt 4px -2px;
-}
-
-#billsBlog div.rss {
+.contentLeft .module .body span.extraMargin {
     margin-top: 10px;
-    font-size: 12px;
-    line-height: 15px;
 }
 
-#billsBlog a, #billsBlog a:hover, #billsBlog a:visited {
-    text-decoration: underline;
+.main img {
+    display: block;
+}
+.main .guides .module {
+    width: 237px;
+    float: left;
+    margin: 15px 0 0 20px;
+}
+.main .guides .module.noMargin {
+    margin-left: 0;
+}
+.main .module .header {
+    margin-bottom: 5px;
 }
 
-#readBillsBlog {
-    float: right;
+hr.dotted {
+    border: none;
+    border-bottom: medium dotted #999;
+    width: 753px;
+    margin: 20px 0;
+}
+
+.main .thinkLocal {
+    padding-left: 181px;
+    position: relative;
+}
+.main .thinkLocal img {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 div#tracking {
