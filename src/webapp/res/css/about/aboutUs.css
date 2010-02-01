@@ -8,6 +8,10 @@
     line-height: 0;
 }
 
+.breadcrumbs {
+    margin-bottom: 14px;
+}
+
 div.contentLeft {
     width: 160px;
     float: left;

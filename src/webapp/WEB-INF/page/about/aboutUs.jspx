@@ -33,6 +33,11 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="aboutUs">
 
+        <div class="breadcrumbs smallAlertText">
+            <link:aboutUs>About us</link:aboutUs>
+            &amp;gt; Overview
+        </div>
+
         <div class="contentLeft">
             <about:aboutGreatSchools/>
 
@@ -42,23 +47,23 @@
                 </div>
                 <div class="body">
                     <span class="text2bold noMargin">National Funders</span>
-                    <a class="text2" target="_blank" href="#">Bill &amp;amp; Melinda Gates Foundation</a>
-                    <a class="text2" target="_blank" href="#">Robertson Foundation</a>
-                    <a class="text2" target="_blank" href="#">Walton Family Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.gatesfoundation.org/">Bill &amp;amp; Melinda Gates Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.robertsonfoundation.org/">Robertson Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.waltonfamilyfoundation.org/">Walton Family Foundation</a>
                     <span class="text2bold extraMargin">Milwaukee, WI</span>
-                    <a class="text2" target="_blank" href="#">Kern Family Foundation</a>
-                    <a class="text2" target="_blank" href="#">The Joyce Foundation</a>
-                    <a class="text2" target="_blank" href="#">Bradley Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.kffdn.org/">The Kern Family Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.joycefdn.org/">The Joyce Foundation</a>
+                    <a class="text2" target="_blank" href="http://www.bradleyfdn.org/">The Bradley Foundation</a>
                     <span class="text2bold extraMargin">Washington, DC</span>
-                    <a class="text2" target="_blank" href="#">NewSchools Venture Fund</a>
+                    <a class="text2" target="_blank" href="http://www.newschools.org/">NewSchools Venture Fund</a>
                     <span class="text2bold extraMargin">Newark, NJ</span>
-                    <a class="text2" target="_blank" href="#">Newark Charter School Fund</a>
+                    <a class="text2" target="_blank" href="http://www.ncsfund.org/">Newark Charter School Fund</a>
                 </div>
             </div>
         </div>
 
         <div class="main">
-            <gsml:img width="753" height="350" src=""
+            <gsml:img width="753" height="340" src="/res/img/about/about_us_main.jpg"
                       alt="We want to see every child succeed. How does it start? Involved parents."/>
 
             <div class="guides">
@@ -102,16 +107,17 @@
             <hr class="dotted"/>
 
             <div class="thinkLocal">
-                <gsml:img src="" alt="School Chooser guides" width="170" height="75"/>
+                <gsml:img src="/res/img/about/about_us_localprogram.jpg" alt="School Chooser guides"
+                          width="172" height="103"/>
                 <div class="module">
                     <div class="header">
                         <span class="subhead2">Think local</span>
                     </div>
                     <div class="body text3">
                         Headquartered in San Francisco, GreatSchools also operates local programs in
-                        <a target="_blank" href="#">Washington, D.C.</a>,
-                        <a target="_blank" href="#">Milwaukee, WI</a> and
-                        <a target="_blank" href="#">Newark, NJ</a>.
+                        <a href="/geo/landing/washington-dc.page">Washington, D.C.</a>,
+                        <a href="/geo/landing/milwaukee.page">Milwaukee, WI</a> and
+                        <a href="/new-jersey/newark/">Newark, NJ</a>.
                         In these cities, GreatSchools publishes annual
                         <span class="bold">School Chooser guides and distributes them at
                             no cost to thousands of parents</span>
