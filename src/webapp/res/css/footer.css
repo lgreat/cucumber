@@ -258,3 +258,52 @@ ul.navColumns div {
     padding: 0;
     width: 738px;
 }
+#footer {
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+    font-size: 11px;
+    color: #666;
+}
+
+#footnav {
+    border-top: 3px dotted #666;
+    list-style: none;
+    width: 928px;
+    padding: 10px 0 0;
+    margin: 0 auto;
+    text-align: center;
+}
+#footnav li {
+    display: inline;
+    margin: 0 9px;
+    font-weight: 700;
+}
+#footnav li a, .cities ul a, .copyright a {
+    color: #666;
+}
+.copyright {
+    margin: 1em;
+    text-align: center;
+}
+.copyright a {
+    margin: 0 10px;
+}
+.cities {
+    margin: 20px auto 0;
+    padding: 12px 54px;
+    width: 860px;
+    background: #ebebeb;
+    overflow: hidden;
+}
+.cities h4 {
+    margin: 0 auto 1em;
+    font: 400 12px/1.3 Arial, sans-serif;
+    color: #444;
+    text-align: center;
+    text-transform: uppercase;
+}
+.cities ul {
+    float: left;
+    margin: 0 3px 0 0;
+    list-style: none;
+    width: 13.93%;
+}
