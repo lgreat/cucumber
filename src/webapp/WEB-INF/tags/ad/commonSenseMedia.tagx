@@ -7,7 +7,7 @@
         >
     <jsp:directive.tag body-content="empty"/>
         <div id="adCommonSenseMedia">
-            <div id="header">
+            <div id="adCommmonHeader">
                 FROM OUR PARTNER<br/>
                 Find the movies, TV shows, games and<br/>
                 books that are right for your family.
