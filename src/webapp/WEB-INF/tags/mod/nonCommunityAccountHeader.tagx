@@ -9,19 +9,19 @@
         >
     <jsp:directive.tag body-content="empty"/>
 
-    <div id="communityHeader" class="noprint">
+    <ul id="utilLinks">
 
         <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
         <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
             <c:set var="myUrl" value=""/>
         </c:if>
-        <span class="left"><link:aboutUs>About GreatSchools</link:aboutUs></span>
-        <span class="middle"><link:registration
-                email="${requestScope.context.email}">Join Us</link:registration></span>
-        <span class="right"><link:loginOrRegister email="${requestScope.context.email}"
-                                                  redirect="${myUrl}">Sign In</link:loginOrRegister></span>
+        <li><link:aboutUs>About GreatSchools</link:aboutUs></li>
+        <li><link:registration
+                email="${requestScope.context.email}">Join Us</link:registration></li>
+        <li><link:loginOrRegister email="${requestScope.context.email}"
+                                                  redirect="${myUrl}">Sign In</link:loginOrRegister></li>
 
-    </div>
+    </ul>
 
 
 </jsp:root>

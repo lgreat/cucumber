@@ -25,155 +25,122 @@
     </jsp:scriptlet>
 
     <c:if test="${requestScope.pageHelper.showingFooter}">
-        <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
-            <c:if test="${showAd ne false}">
+        <c:if test="${showAd ne false}">
                 <div id="footerAd">
                     <ad:footerAd/>
                 </div>
             </c:if>
+        <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
 
-            <div id ="navFooterDots">
+
                 <c:set var="footerCopyright">
-                      <div id="footerCopyright">
+                <p id="footerCopyright" class="copyright">
                           &amp;#169;1998-2010 GreatSchools Inc. All Rights Reserved.
                           GreatSchools is a 501(c)(3) not-for-profit organization
                           <link:termsOfUse>Terms of Use</link:termsOfUse>
                           <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
-                      </div>
+                      </p>
                   </c:set>
 
-                <gsml:a href="/about/aboutUs.page">About Us</gsml:a>
-                <link:contactUs>Contact Us</link:contactUs>
-                <link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines>
-                <link:newsletterManagement>Newsletters</link:newsletterManagement>
-                <gsml:a href="/about/linkToUs.page">Free Widgets &amp;amp; Tools</gsml:a>
-                <gsml:a href="/about/partnerOpportunities.page#advertise">Advertise With Us</gsml:a>
-                <gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a>
-                <gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a>
-                <link:pressRoom>Media Room</link:pressRoom>
-                <gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a>
+            <ul id="footnav">
+                <li><gsml:a href="/about/aboutUs.page">About Us</gsml:a></li>
+                <li><link:contactUs>Contact Us</link:contactUs></li>
+                <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
+                <li><link:newsletterManagement>Newsletters</link:newsletterManagement></li>
+                <li><gsml:a href="/about/linkToUs.page">Free Widgets &amp;#38; Tools</gsml:a></li>
+                <li><gsml:a href="/about/partnerOpportunities.page#advertise">Advertise With Us</gsml:a></li>
+                <li><gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a></li>
+                <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
+                <li><link:pressRoom>Media Room</link:pressRoom></li>
+                <li><gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a></li>
+            </ul>
+            <p class="copyright">
+                GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become<br />
+                effective champions of their children's education at home and in their communities.
+            </p>
+            ${footerCopyright}
 
-                <p>GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
-                    <br/>effective champions of their children's education at home and in their communities.
-                </p>
+            <div id="navFooter" class="cities ${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
 
-                ${footerCopyright}
+                <h4>Popular Cities</h4>
+    	<ul>
+            <li><link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city></li>
+            <li><link:city city="Anchorage" state="AK">Anchorage, AK</link:city></li>
+            <li><link:city city="Atlanta" state="GA">Atlanta, GA</link:city></li>
+            <li><link:city city="Austin" state="TX">Austin, TX</link:city></li>
+            <li><link:city city="Baltimore" state="MD">Baltimore, MD</link:city></li>
+            <li><link:city city="Billings" state="MT">Billings, MT</link:city></li>
+            <li><link:city city="Birmingham" state="AL">Birmingham, AL</link:city></li>
+            <li><link:city city="Boise" state="ID">Boise, ID</link:city></li>
+            <li><link:city city="Boston" state="MA">Boston, MA</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Bridgeport" state="CT">Bridgeport, CT</link:city></li>
+            <li><link:city city="Burlington" state="VT">Burlington, VT</link:city></li>
+            <li><link:city city="Charleston" state="WV">Charleston, WV</link:city></li>
+            <li><link:city city="Charlotte" state="NC">Charlotte, NC</link:city></li>
+            <li><link:city city="Cheyenne" state="WY">Cheyenne, WY</link:city></li>
+            <li><link:city city="Chicago" state="IL">Chicago, IL</link:city></li>
+            <li><link:city city="Columbia" state="SC">Columbia, SC</link:city></li>
+            <li><link:city city="Columbus" state="OH">Columbus, OH</link:city></li>
+            <li><link:city city="Dallas" state="TX">Dallas, TX</link:city></li>
+        </ul>
+    	<ul>
+            <li><link:city city="Denver" state="CO">Denver, CO</link:city></li>
+            <li><link:city city="Des Moines" state="IA">Des Moines, IA</link:city></li>
+            <li><link:city city="Detroit" state="MI">Detroit, MI</link:city></li>
+            <li><link:city city="El Paso" state="TX">El Paso, TX</link:city></li>
+            <li><link:city city="Fargo" state="ND">Fargo, ND</link:city></li>
+            <li><link:city city="Honolulu" state="HI">Honolulu, HI</link:city></li>
+            <li><link:city city="Houston" state="TX">Houston, TX</link:city></li>
+            <li><link:city city="Indianapolis" state="IN">Indianapolis, IN</link:city></li>
+            <li><link:city city="Jackson" state="MS">Jackson, MS</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Jacksonville" state="FL">Jacksonville, FL</link:city></li>
+            <li><link:city city="Kansas City" state="MO">Kansas City, MO</link:city></li>
+            <li><link:city city="Las Vegas" state="NV">Las Vegas, NV</link:city></li>
+            <li><link:city city="Little Rock" state="AR">Little Rock, AR</link:city></li>
+            <li><link:city city="Los Angeles" state="CA">Los Angeles, CA</link:city></li>
+            <li><link:city city="Louisville" state="KY">Louisville, KY</link:city></li>
+            <li><link:city city="Manchester" state="NH">Manchester, NH</link:city></li>
+            <li><link:city city="Memphis" state="TN">Memphis, TN</link:city></li>
+            <li><link:city city="Miami" state="FL">Miami, FL</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Milwaukee" state="WI">Milwaukee, WI</link:city></li>
+            <li><link:city city="Minneapolis" state="MN">Minneapolis, MN</link:city></li>
+            <li><link:city city="Nashville" state="TN">Nashville, TN</link:city></li>
+            <li><link:city city="New Orleans" state="LA">New Orleans, LA</link:city></li>
+            <li><link:city city="New York City" state="NY">New York City, NY</link:city></li>
+            <li><link:city city="Newark" state="NJ">Newark, NJ</link:city></li>
+            <li><link:city city="Oakland" state="CA">Oakland, CA</link:city></li>
+            <li><link:city city="Oklahoma City" state="OK">Oklahoma City, OK</link:city></li>
+            <li><link:city city="Omaha" state="NE">Omaha, NE</link:city></li>
+        </ul>
+    	<ul>
+        	<li><link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city></li>
+            <li><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city></li>
+            <li><link:city city="Portland" state="ME">Portland, ME</link:city></li>
+            <li><link:city city="Portland" state="OR">Portland, OR</link:city></li>
+            <li><link:city city="Providence" state="RI">Providence, RI</link:city></li>
+            <li><link:city city="Sacramento" state="CA">Sacramento, CA</link:city></li>
+            <li><link:city city="Salt Lake City" state="UT">Salt Lake City, UT</link:city></li>
+            <li><link:city city="San Antonio" state="TX">San Antonio, TX</link:city></li>
+            <li><link:city city="San Diego" state="CA">San Diego, CA</link:city></li>
+        </ul>
+    	<ul>
+            <li><link:city city="San Francisco" state="CA">San Francisco, CA</link:city></li>
+            <li><link:city city="San Jose" state="CA">San Jose, CA</link:city></li>
+            <li><link:city city="Seattle" state="WA">Seattle, WA</link:city></li>
+            <li><link:city city="Sioux Falls" state="SD">Sioux Falls, SD</link:city></li>
+            <li><link:city city="Tucson" state="AZ">Tucson, AZ</link:city></li>
+            <li><link:city city="Virginia Beach" state="VA">Virginia Beach, VA</link:city></li>
+            <li><link:city city="Washington" state="DC">Washington, DC</link:city></li>
+            <li><link:city city="Wichita" state="KS">Wichita, KS</link:city></li>
+            <li><link:city city="Wilmington" state="DE">Wilmington, DE</link:city></li>
+        </ul>
             </div>
-
-            <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
-
-                <p>POPULAR CITIES</p>
-
-                <ul class="navColumns">
-                    <li class="first">
-                        <ul>
-                            <li>
-                                <link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city>
-                                <br/><link:city city="Anchorage" state="AK">Anchorage, AK</link:city>
-                                <br/><link:city city="Atlanta" state="GA">Atlanta, GA</link:city>
-                                <br/><link:city city="Austin" state="TX">Austin, TX</link:city>
-                                <br/><link:city city="Baltimore" state="MD">Baltimore, MD</link:city>
-                                <br/><link:city city="Billings" state="MT">Billings, MT</link:city>
-                                <br/><link:city city="Birmingham" state="AL">Birmingham, AL</link:city>
-                                <br/><link:city city="Boise" state="ID">Boise, ID</link:city>
-                                <br/><link:city city="Boston" state="MA">Boston, MA</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="second">
-                        <ul>
-                            <li>
-                                <link:city city="Bridgeport" state="CT">Bridgeport, CT</link:city>
-                                <br/><link:city city="Burlington" state="VT">Burlington, VT</link:city>
-                                <br/><link:city city="Charleston" state="WV">Charleston, WV</link:city>
-                                <br/><link:city city="Charlotte" state="NC">Charlotte, NC</link:city>
-                                <br/><link:city city="Cheyenne" state="WY">Cheyenne, WY</link:city>
-                                <br/><link:city city="Chicago" state="IL">Chicago, IL</link:city>
-                                <br/><link:city city="Columbia" state="SC">Columbia, SC</link:city>
-                                <br/><link:city city="Columbus" state="OH">Columbus, OH</link:city>
-                                <br/><link:city city="Dallas" state="TX">Dallas, TX</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="third">
-                        <ul>
-                            <li>
-                                <link:city city="Denver" state="CO">Denver, CO</link:city>
-                                <br/><link:city city="Des Moines" state="IA">Des Moines, IA</link:city>
-                                <br/><link:city city="Detroit" state="MI">Detroit, MI</link:city>
-                                <br/><link:city city="El Paso" state="TX">El Paso, TX</link:city>
-                                <br/><link:city city="Fargo" state="ND">Fargo, ND</link:city>
-                                <br/><link:city city="Honolulu" state="HI">Honolulu, HI</link:city>
-                                <br/><link:city city="Houston" state="TX">Houston, TX</link:city>
-                                <br/><link:city city="Indianapolis" state="IN">Indianapolis, IN</link:city>
-                                <br/><link:city city="Jackson" state="MS">Jackson, MS</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="fourth">
-                        <ul>
-                            <li>
-                                <link:city city="Jacksonville" state="FL">Jacksonville, FL</link:city>
-                                <br/><link:city city="Kansas City" state="MO">Kansas City, MO</link:city>
-                                <br/><link:city city="Las Vegas" state="NV">Las Vegas, NV</link:city>
-                                <br/><link:city city="Little Rock" state="AR">Little Rock, AR</link:city>
-                                <br/><link:city city="Los Angeles" state="CA">Los Angeles, CA</link:city>
-                                <br/><link:city city="Louisville" state="KY">Louisville, KY</link:city>
-                                <br/><link:city city="Manchester" state="NH">Manchester, NH</link:city>
-                                <br/><link:city city="Memphis" state="TN">Memphis, TN</link:city>
-                                <br/><link:city city="Miami" state="FL">Miami, FL</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="fifth">
-                        <ul>
-                            <li>
-                                <link:city city="Milwaukee" state="WI">Milwaukee, WI</link:city>
-                                <br/><link:city city="Minneapolis" state="MN">Minneapolis, MN</link:city>
-                                <br/><link:city city="Nashville" state="TN">Nashville, TN</link:city>
-                                <br/><link:city city="New Orleans" state="LA">New Orleans, LA</link:city>
-                                <br/><link:city city="New York City" state="NY">New York City, NY</link:city>
-                                <br/><link:city city="Newark" state="NJ">Newark, NJ</link:city>
-                                <br/><link:city city="Oakland" state="CA">Oakland, CA</link:city>
-                                <br/><link:city city="Oklahoma City" state="OK">Oklahoma City, OK</link:city>
-                                <br/><link:city city="Omaha" state="NE">Omaha, NE</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sixth">
-                        <ul>
-                            <li>
-                                <link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city>
-                                <br/><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city>
-                                <br/><link:city city="Portland" state="ME">Portland, ME</link:city>
-                                <br/><link:city city="Portland" state="OR">Portland, OR</link:city>
-                                <br/><link:city city="Providence" state="RI">Providence, RI</link:city>
-                                <br/><link:city city="Sacramento" state="CA">Sacramento, CA</link:city>
-                                <br/><link:city city="Salt Lake City" state="UT">Salt Lake City, UT</link:city>
-                                <br/><link:city city="San Antonio" state="TX">San Antonio, TX</link:city>
-                                <br/><link:city city="San Diego" state="CA">San Diego, CA</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="seventh">
-                        <ul>
-                            <li>
-                                <link:city city="San Francisco" state="CA">San Francisco, CA</link:city>
-                                <br/><link:city city="San Jose" state="CA">San Jose, CA</link:city>
-                                <br/><link:city city="Seattle" state="WA">Seattle, WA</link:city>
-                                <br/><link:city city="Sioux Falls" state="SD">Sioux Falls, SD</link:city>
-                                <br/><link:city city="Tucson" state="AZ">Tucson, AZ</link:city>
-                                <br/><link:city city="Virginia Beach" state="VA">Virginia Beach, VA</link:city>
-                                <br/><link:city city="Washington" state="DC">Washington, DC</link:city>
-                                <br/><link:city city="Wichita" state="KS">Wichita, KS</link:city>
-                                <br/><link:city city="Wilmington" state="DE">Wilmington, DE</link:city>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div style="clear:both;" />
         </div>
     </c:if>
 </jsp:root>

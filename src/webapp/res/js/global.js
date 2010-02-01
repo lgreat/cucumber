@@ -202,16 +202,15 @@ function topNavNewCommunitySubmitSearch(theForm) {
 }
 
 function topNavNewCommunitySelectSchoolSearch(x, searchFormAction) {
-    var e = document.getElementById('stateDropDown');
+    var e = document.getElementById('stateSelector');
     e.style.display = 'inline';
-    e = document.getElementById('stateSelector');
     e.name = 'state';
 
     e = document.getElementById('qNew');
     if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
         e.value = 'Search for school, district or city';
     }
-    e.style.width = "190px";
+    e.style.width = "264px";
     e.focus();
     e.select();
     var searchForm = document.getElementById('topnav_search');
@@ -222,16 +221,15 @@ function topNavNewCommunitySelectSchoolSearch(x, searchFormAction) {
 }
 
 function topNavSelectArticlesAndCommunitySearch(x, searchFormAction) {
-    var e = document.getElementById('stateDropDown');
+    var e = document.getElementById('stateSelector');
     e.style.display = 'none';
-    e = document.getElementById('stateSelector');
     e.name = 'hiddenState';
 
     e = document.getElementById('qNew');
     if (e.value == 'Search for school, district or city') {
         e.value = 'Search by keyword';
     }
-    e.style.width = "247px";
+    e.style.width = "318px";
     e.focus();
     e.select();
     var searchForm = document.getElementById('topnav_search');

@@ -1,5 +1,6 @@
 #tabbed-info {
     font-size:13px;
+    overflow: hidden;
 }
 #tabbed-info h2 #fun_activities{
     clear:both;

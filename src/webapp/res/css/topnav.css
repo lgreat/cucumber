@@ -572,11 +572,10 @@
     display: none;
     background-color: #fff;
     z-index: 100;
+    left: -10000px;
+    top: 25px;
 }
 
-.ie6 #myAccountMenu li.nav_menu ul.nav_group_items {
-    left:-78px;top:25px;
-}
 
 #topnav_menusubnav li.nav_menu ul.nav_group_items li {
     width: 200px;

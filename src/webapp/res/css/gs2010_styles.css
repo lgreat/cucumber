@@ -120,19 +120,22 @@ p {
 #header {
     position: relative;
     height: 116px;
+    z-index: 4;
 }
 #utilLinks {
     position: absolute;
     height: 18px;
     list-style: none;
     top: 10px;
-    right: 4px;
+    right: 72px;
+    z-index: 3;
 }
 #utilLinks li {
     display: inline;
     padding: 0 6px;
     border-right: 1px solid #fff;
     font-size: 11px;
+    color: #fff;
 }
 #utilLinks li:last-child {
     border: 0;
@@ -140,38 +143,79 @@ p {
 #utilLinks li a {
     color: #fff;
 }
+#utilLinks .nav_menu {
+    position: relative;
+    padding: 0;
+}
+
+#utilLinks .nav_menu a.nav_group_heading {
+    padding: 3px 17px 6px 6px;
+    margin: 0 0 0 6px;
+    background: url(/res/img/nav/topnavSprite_bg.png) 101% -251px;
+    
+}
+#utilLinks .over a.nav_group_heading {
+    background-position: 101% -294px;
+    background-color: #fff;
+    color: #06b;
+}
+#utilLinks li .nav_group_items  {
+    position: absolute;
+    width: 108px;
+    top: 19px;
+    left: -10000px;
+    background: #fff;
+    border: 1px solid #06b;
+}
+#utilLinks li .nav_group_items li {
+    display: block;
+    padding: 6px;
+}
+#utilLinks li.over .nav_group_items  {
+    left: 6px;
+}
+#utilLinks .over .nav_group_items a {
+    background: transparent;
+    color: #06b;
+}
 #logoBox {
     position: relative;
     margin-top: 20px;
     width: 369px;
     height: 83px;
+    z-index: 1;
 }
 #logo {
     position: relative;
     width: 369px;
     height: 83px;
 }
-#searchForm {
+#topnav_search_articlesAndCommunity {
+    dislplay: none;
+}
+#topnav_search  {
     position: relative;
     float: right;
-    margin: 40px 4px 0 0;
+    margin: 0 4px -40px 0;
+    top: -40px;
     width: 449px;
     height: 59px;
+    z-index: 2;
 }
-#searchForm fieldset {
+#topnav_search fieldset {
     position: relative;
     padding: 28px 15px 0;
-    background: url(/res/img/search/srchBoxSprite_bg.png) 0 20px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
     height: 31px;
 }
-#searchForm ul {
+#topnav_search ul {
     position: absolute;
     top: -28px;
     left: -15px;
     list-style: none;
     height: 28px;
 }
-#searchForm ul li {
+#topnav_search ul li {
     float: left;
     padding: 0 0 0 6px;
     text-transform: uppercase;
@@ -180,58 +224,65 @@ p {
     height: 28px;
 }
 
-#searchForm ul #srch1 {
-    background: url(/res/img/search/srchBoxSprite_bg.png) 0 30px no-repeat;
+#topnav_search ul #srch1 {
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
-#searchForm ul #srch2 {
-    background: url(/res/img/search/srchBoxSprite_bg.png) 0 30px no-repeat;
+#topnav_search ul #srch2 {
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
-#searchForm ul #srch1.active {
+#topnav_search ul #srch1.active {
     background-position: 0 -58px;
 }
-#searchForm ul #srch2.active {
+#topnav_search ul #srch2.active {
     background-position: 0 -108px;
 }
-#searchForm ul li a {
+#topnav_search ul li label {
     display: block;
     height: 21px;
     padding: 3px 15px 3px 7px;
     color: #fff;
+    cursor: pointer;
 }
-#searchForm ul #srch1 a {
-    background: url(/res/img/search/srchBoxSprite_bg.png) 100% 30px no-repeat;
+#topnav_search ul #srch1 label {
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
-#searchForm ul #srch2 a {
-    background: url(/res/img/search/srchBoxSprite_bg.png) 100% 30px no-repeat;
+#topnav_search ul #srch2 label {
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
-#searchForm ul #srch1.active a {
+#topnav_search ul #srch1.active label {
     background-position: 100% -158px;
     color: #333;
 }
-#searchForm ul #srch2.active a {
-    background-position: 100% -208px;
+#topnav_search ul #srch2.active label {
+    background-position: 100% -158px;
     color: #333;
 }
-#searchForm fieldset input, #searchForm fieldset select {
+#topnav_search fieldset input, #topnav_search fieldset select {
     margin: 0 9px 0 0;
 }
-#searchForm fieldset input {
+#topnav_search fieldset input {
     width: 264px;
     height: 18px;
+    outline: 0;
 }
-#searchForm fieldset select {
+#topnav_search fieldset select {
     height: 24px;
 
 }
-#searchForm button {
+#topnav_search button {
     position: relative;
     top: -2px;
     float: right;
 }
+#topnav_search #radBtns {
+    position: absolute;
+    left: -10000px;
+}
 #navbar {
-    padding: 0 4px;
+    padding: 0 3px;
     height: 68px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
+    z-index: 2;
 }
 #globalnav {
     height: 34px;
@@ -290,25 +341,130 @@ p {
 #globalnav li#n7 a:hover {
     background-position: 50% -35px;
 }
-#subnav {
+#topnav_menusubnav {
     height: 34px;
     list-style: none;
+    padding: 0 0 0 10px;
 }
-#subnav li {
+#topnav_menusubnav li {
     float: left;
-    padding: 3px 0 0;
+    padding: 3px 3px 0 0;
     text-align: center;
-    width: 20%;
+    width: auto;
+    margin-right: 9px;
+    position: relative;
+    font-size: 12px;
 }
-#subnav li a {
+#topnav_menusubnav  #topnav_sm {
+    background: none;
+    float: right;
+    font-size: 10px;
+}
+#topnav_menusubnav  #topnav_sm .socialMedia {
+    position: relative;
+    margin: 0;
+    vertical-align: middle;
+    top: -4px;
+}
+#topnav_menusubnav  #topnav_sm .socialMedia img {
+    margin: 0 3px 0 3px;
+    position: relative;
+    top: 6px;
+}
+
+#topnav_menusubnav  #topnav_sm a {
+    background: none;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+#topnav_menusubnav li.over {
+    background-color: #06b;
+}
+#topnav_menusubnav li a {
     text-decoration: none;
+    display: block;
+    height: 18px;
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% -198px no-repeat;
+    width: auto;
+    padding: 3px 15px 3px 6px;
 }
+#topnav_menusubnav li.over a {
+    color: #fff;
+    background-position: 100% -222px;
+}
+#topnav_menusubnav ul.nav_group_items {
+    position: absolute;
+    background-color: #fff;
+    z-index: 100;
+    left: -10000px;
+    top: 25px;
+    width: 205px;
+    border: 1px solid #06b;
+}
+#topnav_menusubnav li.over ul.nav_group_items {
+    left: 0;
+}
+#topnav_menusubnav ul.nav_group_items li {
+    float: none;
+    display: block;
+    text-align: left;
+    margin: 0;
+    width: auto;
+}
+#topnav_menusubnav li.over ul.nav_group_items a {
+    color: #06b; 
+}
+#topnav_menusubnav li.over ul.nav_group_items li.over a {
+    color: #fff;
+}
+#topnav_menusubnav ul.nav_group_items li a, #topnav_menusubnav ul.nav_group_items li.over a {
+    background: none;
+}
+/* START list-based subnav */
+
+#topnav #topnav_menusubnav_wrapper {
+    margin: 0 16px 0 18px;
+}
+
+#topnav #topnav_menusubnav_wrapper.perl {
+    margin: 0;
+}
+
+#topnav ul#topnav_menusubnav {
+    height: 28px;
+    /*width: 865px;*/
+    width: 100%;
+    margin: 4px auto 0 auto;
+    padding: 0;
+    border-top: 1px solid #F1F1F1;
+    border-bottom: 1px solid #F1F1F1;
+}
+
+#topnav ul#topnav_menusubnav li a.topnav_subnav_first {
+    color: #D66671;
+}
+
+#myAccountMenu {
+    position: relative;
+}
+
+#topnav ul#topnav_menusubnav li, #myAccountMenu li {
+    padding-left: 3px;
+    float: left;
+}
+
+
+
+/* END subnav spacing */
+
 #mainWrap {
     position: relative;
     margin: 0 auto;
     background: url(/res/img/gs_content_bg.png) repeat-y;
-    padding: 0 24px;
+    padding: 0 10px;
     min-height: 640px;
+    z-index: 1;
 }
 .leftside #mainWrap {
     padding: 0 24px 0 344px;
@@ -365,6 +521,17 @@ p {
 }
 
 
+/*
+=footer
+----------------------------------------------------------------------
+*/
+#footerAd {
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding: 6px 0;
+}
+#footerAd table {
+    margin: auto;
+}
 #footer {
     background: url(/res/img/gs_content_bg.png) repeat-y;
     font-size: 11px;
@@ -418,6 +585,9 @@ p {
 /* SLIDING DOOR BUTTON */
 /* ------------------- */
 
+button {
+    overflow: visible; /*resets ie extra margin added by long strings */
+}
 /* ------------------- */
 /* 25 px height button */
 /* ------------------- */

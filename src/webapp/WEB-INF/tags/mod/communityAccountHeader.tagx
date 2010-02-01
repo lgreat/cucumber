@@ -15,21 +15,19 @@
 
     <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
-    <div id="communityHeader" class="noprint withImages">
-
         <c:choose>
             <c:when test="${communityUtil.newCommunityEnabled}">
-                <ul id="myAccountMenu">
-                    <li class="left username">
+                <ul id="utilLinks">
+                    <li>
                         Welcome,
                         <link:userProfile
                                 username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
                     </li>
-                    <li class="middle">
+                    <li>
                         <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
                     </li>
-                    <li class="right nav_menu"><link:userAccount
-                            styleClass="arrow nav_group_heading">My account</link:userAccount>
+                    <li class="nav_menu"><link:userAccount
+                            styleClass="nav_group_heading">My account</link:userAccount>
                         <ul class="nav_group_items">
                             <li class="first">
                                 <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
@@ -43,14 +41,15 @@
                 </ul>
             </c:when>
             <c:otherwise>
-                <span class="headerUsername">
+                <ul id="utilLinks">
+                <li class="headerUsername">
                     Welcome,
                     <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
-                </span>
-                <span class="headerDashboard">
+                </li>
+                <li class="headerDashboard">
                     <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
-                </span>
-                <span class="headerAccount withAvatar">
+                </li>
+                <li class="headerAccount withAvatar">
                     <c:set var="referrer" value=""/>
                     <c:if test="${inCommunity eq true}">
                         <jsp:scriptlet>
@@ -60,9 +59,8 @@
                         </jsp:scriptlet>
                     </c:if>
                     <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-                </span>
-                        <br/>
-                <span class="headerMsl withAvatar">
+                </li>
+                <li class="headerMsl withAvatar">
                     <c:choose>
                         <c:when test="${not empty requestScope.context.mslCount}">
                             <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
@@ -71,9 +69,10 @@
                             <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
                         </c:otherwise>
                     </c:choose>
-                </span>
+                </li>
+                </ul>
             </c:otherwise>
         </c:choose>
 
-    </div>
+
 </jsp:root>

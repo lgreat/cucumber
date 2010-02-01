@@ -1,0 +1,92 @@
+/*
+=ie styles
+--------------------------------------------------------------------------
+*/
+body.ie #topnav_search ul {
+    top: 0;
+    left: 0;
+}
+body.ie #utilLinks .nav_menu {
+    border: 0;
+}
+body.ie #utilLinks li .nav_group_items  {
+    top: 9px;
+}
+body.ie #utilLinks li.over .nav_group_items  {
+    left: 5px;
+}
+
+
+/*
+=ie7 styles
+--------------------------------------------------------------------------
+*/
+body.ie7 #utilLinks li .nav_group_items  {
+    top: 22px;
+}
+body.ie7 #navbar {
+    position: relative;
+}
+body.ie7 #topnav_search button {
+    top: -28px;
+    margin-bottom: -28px;
+}
+
+/*
+=ie6 only styles
+--------------------------------------------------------------------------
+*/
+body.ie6 {
+    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
+}
+body.ie6 #utilLinks .nav_menu a.nav_group_heading,
+body.ie6 #topnav_search fieldset,
+body.ie6 #topnav_search ul #srch1,
+body.ie6 #topnav_search ul #srch2,
+body.ie6 #topnav_search ul #srch1 label,
+body.ie6 #topnav_search ul #srch2 label,
+body.ie6 #topnav_menusubnav li a {
+    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+}body.ie6 #topnav_menusubnav li ul li a {
+    background-image: none;
+}
+body.ie6 #navbar,
+body.ie6 #mainWrap,
+body.ie6 #footerAd,
+body.ie6 #footer,
+body.ie6 #footer .copyright
+{
+    background-image: url(/res/img/gs_contentIE6_bg.png);
+}
+body.ie6 #logoBox {
+    overflow: hidden;
+}
+
+body.ie6 #logoBox #logo {
+    padding: 83px 0 0;
+    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
+}
+body.ie6 #utilLinks li .nav_group_items {
+    top: 22px;
+}
+body.ie6 #navbar {
+    position: relative;
+}
+body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
+    display: inline-block;
+}
+body.ie6 #topnav_search button {
+    top: -28px;
+    margin-bottom: -28px;
+}
+body.ie6 iframe.ieShim {
+	position: absolute;
+	/* account for the border */
+	left: -0.25em;
+	top: -0.25em;
+	z-index: -1;
+	filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
+}
+
+body.ie6 .utilLinks li.nav_menu { z-index: 201; }
+

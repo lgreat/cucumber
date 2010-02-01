@@ -1,32 +1,11 @@
 #pageGS {
     width: 976px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #666666;
 }
 
-#adLeaderboard {
-    width: 976px;
-}
-
-#topnav table#nav {
-    width: 952px;
-}
-
-#topnav #navWrapper {
-    width: 952px;
-}
-
-#topnav table#topnav_subnav {
-    width: 952px;
-}
-
-#topnav #GlobalNav_HiTechHolidayButton__Plain {
-    width: 60px;
-}
 
 #contentGS {
-    width: 952px;
-    margin: 0 12px 25px;
+    margin: 0;
 }
 
 #contentGS a {
@@ -36,32 +15,10 @@
 /* top nav */
 
 #topnav #topnav_menusubnav_wrapper {
-    margin: 0 12px;
+    margin: 0;
 }
 
-/* START subnav spacing */
 
-#topnav ul#topnav_menusubnav li#topnav_hd {
-    margin-right: 18px;
-}
-#topnav ul#topnav_menusubnav li#topnav_aa {
-    margin-right: 18px;
-}
-#topnav ul#topnav_menusubnav li#topnav_ld {
-    margin-right: 18px;
-}
-#topnav ul#topnav_menusubnav li#topnav_iys {
-    margin-right: 18px;
-}
-#topnav ul#topnav_menusubnav li#topnav_ctrs {
-    margin-right: 18px;
-}
-#topnav ul#topnav_menusubnav li#topnav_c {
-    margin-right: 0;
-}
-#topnav ul#topnav_menusubnav li#topnav_sm {
-    margin-right: 0;
-}
 
 #global_nav_promo_865{
     display:none;

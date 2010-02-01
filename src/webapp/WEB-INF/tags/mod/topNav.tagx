@@ -31,21 +31,12 @@
 <c:set var="communityClassSearch" value=""/>
 <!-- GS-3686: Override a padding value, used in main member td -->
 <c:set var="communityClass" value="communityHeader"/>
-
-<div id="topnav">
-<table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
-<tr>
-<td style="padding-left: 40px">
-    <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif"
-                               alt="GreatSchools: Involved Parents. Successful Kids"
-            /></gsml:a>
-</td>
-<jsp:scriptlet>
+        <div id="header">
+            <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 </jsp:scriptlet>
 <c:if test="${!requestScope.context.crawler}">
-    <td class="member ${communityClass}" >
         <c:choose>
             <!-- Not logged in case -->
             <c:when test="${empty requestScope.context.memberId}">
@@ -70,6 +61,14 @@
                 </c:choose>
             </c:otherwise>
         </c:choose>
+
+            <div id="logoBox">
+            <gsml:a href="/"><gsml:img  id="logo" src="/res/img/logo/logo_GS2010_330x110.png"
+                               alt="GreatSchools: Involved Parents. Successful Kids"
+            /></gsml:a>
+            </div>
+
+
 <c:choose>
     <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
      </c:when>
@@ -111,7 +110,6 @@
                 }
             }
         </script>
-          <div class="search ${communityClassSearch}" >
               <gsweb:form method="get" id="topnav_search_articlesAndCommunity" action="${articlesAndCommunitySearchAction}">
                   <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
               </gsweb:form>
@@ -120,39 +118,33 @@
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
                 <input type="hidden" name="search_type" value="0"/>
-                <table id="searchTable" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td id="searchBox">
-                            <input type="text" name="q" id="qNew" style="${searchBoxStyle}"
-                                   value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
-                            <div id="stateDropDown" style="${searchStateStyle}">
-                                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                                     noStateLabel="--"
-                                                     usingLongNames="false"
-                                                     state="${requestScope.context.state}" styleClass="stateSelect"/>
-                            </div>
-                        </td>
-                        <td>
-                            <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
-                            <input type="image" src="${go}" alt="GO" style="width:37px;height:20px;float:right"
-                                   class="button"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="height:21px" class="searchRadios" colspan="2">
-                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
-                                        checked="${searchRadioSchoolChecked}"/>
-                            <label for="topnavSchoolRadio">Schools</label>
-                            &#160;
-                            <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio" value="articlesAndCommunity" onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
-                                        checked="${searchRadioArticlesAndCommunityChecked}"/>
-                            <label for="topnavArticlesAndCommunityRadio">Articles &amp;amp; Community</label>
-                        </td>
-                    </tr>
-                </table>
+                <fieldset>
+                <ul>
+                    <li id="srch1" class="active">
+                        <label for="topnavSchoolRadio" class="radLabel">Schools</label>
+                    </li>
+                    <li id="srch2"><label for="topnavArticlesAndCommunityRadio" class="radLabel">Articles &amp;amp; Community</label></li>
+                </ul>
+                    <input type="text" name="q" id="qNew"
+                           value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
+                    <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                         noStateLabel="--"
+                                         usingLongNames="false"
+                                         state="${requestScope.context.state}" styleClass="stateSelect"/>
+                    <button type="submit" class="btn25">
+                        <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
+                    </button>
+                </fieldset>
+                <fieldset id="radBtns">
+                    <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
+                                checked="${searchRadioSchoolChecked}"/>
+                    <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio" value="articlesAndCommunity" onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
+                                checked="${searchRadioArticlesAndCommunityChecked}"/>
+
+                </fieldset>
             </gsweb:form>
             <script type="text/javascript">document.forms['topnav_search'].reset();</script><!-- GS-3713 -->
-          </div>
+
     </c:when>
     <c:otherwise>
         <!-- variables holding the search form actions for local and community searches -->
@@ -243,11 +235,8 @@
           </div>
     </c:otherwise>
 </c:choose>
-</td>
 </c:if>
-</tr>
-</table>
-
+</div>
 <!--
      Set the class for the active tab.
      "active" indicates that tab is the currently selected one
@@ -256,49 +245,38 @@
      "ractive" indicates that the border to the right of the tab should be displayed
 -->
 <div class="noprint" id="navbar">
-    <!--<table width="100%" border="0" cellspacing="0" cellpadding="0">-->
-        <!--<tr>-->
-            <!--<td>-->
-
-    <div id="navWrapper">
-    <table cellpadding="0" cellspacing="0" id="nav" class="${navBarClass}">
-        <tr>
-            <td width="28px">&amp;#160;</td>
+    <ul id="globalnav" class="${navBarClass}">
             <c:set var="pw" value="${requestScope.context.pathway}"/>
             <!-- Numbers in comments signify the pageId in PageHelper.java -->
-            <!--#0--><td><link:home
+            <!--#0--><li id="n1"><link:home
                                 styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} GS_CI9_ "
                                 id="GlobalNav_HomeButton"
-                >Home</link:home></td>
-            <!--#1--><td><link:research
+                >Home</link:home></li>
+            <!--#1--><li id="n2"><link:research
                                 styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')} GS_CI9_ "
                                 state="${requestScope.context.state}"
                                 id="GlobalNav_ResearchButton"
-                >Find a School</link:research></td>
-            <!--#11--><td><link:preschool
+                >Find a School</link:research></li>
+            <!--#11--><li id="n3"><link:preschool
                                  id="GlobalNav_PreschoolButton"
                                  styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') } GS_CI9_ "
-                >Preschool</link:preschool></td>
-            <!--#12--><td><link:elementary-school
+                >Preschool</link:preschool></li>
+            <!--#12--><li id="n4"><link:elementary-school
                                 styleClass="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')} GS_CI9_ "
                                 id="GlobalNav_ElementarySchoolButton"
-                >Elementary School</link:elementary-school></td>
-            <!--#13--><td><link:middle-school
+                >Elementary School</link:elementary-school></li>
+            <!--#13--><li id="n5"><link:middle-school
                                 styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')} GS_CI9_ "
                                 id="GlobalNav_MiddleSchoolButton"
-                >Middle School</link:middle-school></td>
-            <!--#14--><td><link:high-school
+                >Middle School</link:middle-school></li>
+            <!--#14--><li id="n6"><link:high-school
                                 styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
-                >High School</link:high-school></td><!-- last pw check first arg would be 'ractive' -->
+                >High School</link:high-school></li><!-- last pw check first arg would be 'ractive' -->
             <!-- pw check first arg would be 'lactive' -->
-            <td width="28px">&amp;#160;</td>
-        </tr>
-    </table>
 
-    </div>
+    </ul>
 
-    <div id="topnav_menusubnav_wrapper">
         <ul id="topnav_menusubnav">
             <li id="topnav_hd" class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
                     id="GlobalNav_HealthAndDevelopmentButton"
@@ -389,19 +367,19 @@
                     <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
-            <c:if test="${!communityUtil.newCommunityEnabled}">
-                <li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"
-                                         styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                                         id="GlobalNav_CommunityButton">Community</gsml:a>
-                </li>
-            </c:if>
+            <!--<c:if test="${communityUtil.newCommunityEnabled}">-->
+                <!--<li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"-->
+                                         <!--styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "-->
+                                         <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
+                <!--</li>-->
+            <!--</c:if>-->
             <c:if test="${communityUtil.newCommunityEnabled}">
                 <li id="topnav_sm" class="nav_menu">
-                    <div class="socialMedia">
-                        <span class="text">Find us on:</span>
+                    <p class="socialMedia">
+                        Find us on:
                         <a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><img src="/res/img/nav/facebook_19px.png" width="19" height="19" alt="Facebook" class="facebook"/></a>
                         <a href="http://twitter.com/greatschoolsorg" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><img src="/res/img/nav/twitter_19px.png" width="19" height="19" alt="Twitter" class="twitter"/></a>
-                    </div>
+                    </p>
                 </li>
             </c:if>
         </ul>
@@ -415,9 +393,7 @@
                 <div id="global_nav_promo_952"><ad:Global_Nav_Promo_952x24/></div>
             </c:otherwise>
         </c:choose>
-    </div>
 
-</div>
 
 </div>
 </jsp:root>
