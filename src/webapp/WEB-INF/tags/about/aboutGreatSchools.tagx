@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           version="2.0">
 
-    <!--<jsp:directive.attribute name="showTopBorder" type="java.lang.Boolean"-->
-                         <!--description="Whether or not to show top border" required="true"/>-->
+    <jsp:directive.attribute name="selected" type="java.lang.String"
+                             description="Which link should be selected" required="false"/>
+    <!--
+        Possible values for selected:
+        overview    
+    -->
 
     <div class="module">
         <div class="header">
             <span class="text2bold fltlft">About GreatSchools</span>
         </div>
         <div class="body">
-            <span class="text2 noMargin">Overview</span>
+            <c:choose>
+                <c:when test="${pageScope.selected eq 'overview'}">
+                    <span class="text2 noMargin">Overview</span>
+                </c:when>
+                <c:otherwise>
+                    <link:aboutUs styleClass="text2">Overview</link:aboutUs>
+                </c:otherwise>
+            </c:choose>
             <a class="text2" href="/about/whoWeAre.page#mngmt">Senior Management</a>
             <a class="text2" href="/about/whoWeAre.page#board">Board of Directors</a>
             <a class="text2" href="/about/whoWeAre.page#learning">Meet our Advisors</a>

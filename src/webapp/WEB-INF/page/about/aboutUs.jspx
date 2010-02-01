@@ -39,7 +39,7 @@
         </div>
 
         <div class="contentLeft">
-            <about:aboutGreatSchools/>
+            <about:aboutGreatSchools selected="overview"/>
 
             <div class="module marginTop">
                 <div class="header">
