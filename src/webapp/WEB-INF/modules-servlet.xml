@@ -364,8 +364,8 @@
         <!-- cached dao properties -->
         <property name="cacheName" value="cityDonorsChooseCache"/>
         <property name="cacheSize" value="3000"/>
-        <property name="cacheEntryTTLSeconds" value="7200"/>
-        <property name="cacheEntryIdleSeconds" value="7200"/>
+        <property name="cacheEntryTTLSeconds" value="86400"/>
+        <property name="cacheEntryIdleSeconds" value="86400"/>
         <property name="failCacheName" value="cityDonorsChooseFailCache"/>
         <property name="failCacheSize" value="80"/>
         <property name="failCacheEntryTTLSeconds" value="60"/>
