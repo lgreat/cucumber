@@ -1,5 +1,6 @@
 package gs.web.about;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,10 +23,18 @@ public class DownloadLogoController implements Controller {
     final static String PARAM_VAL_SMALL = "small";
     final static String PARAM_VAL_MEDIUM = "medium";
     final static String PARAM_VAL_LARGE = "large";
+    final static String PARAM_TYPE = "type";
+    final static String PARAM_EXTENSION = "extension";
+    final static String PARAM_VAL_NEW = "new";
+    final static String PARAM_VAL_GIF = "gif";
+    final static String PARAM_VAL_PNG = "png";
     final static String IMAGE_PATH = "/res/img/logo/";
     final static String SMALL_FILE_NAME = "logo_GS_200x50.gif";
     final static String MEDIUM_FILE_NAME = "logo_GS_233x46.gif";
     final static String LARGE_FILE_NAME = "logo_GS_304x58.gif";
+    final static String NEW_SMALL_FILE_NAME = "logo_GS_200x50";
+    final static String NEW_MEDIUM_FILE_NAME = "logo_GS_233x46";
+    final static String NEW_LARGE_FILE_NAME = "logo_GS_330x110";
 
     final static String IMAGE_PATH_BADGE = "/res/img/school/topSchools/badge/";
     final static String PARAM_BADGE_TYPE_NAME = "badgeTypeAndName";
@@ -87,6 +96,16 @@ public class DownloadLogoController implements Controller {
         }
     }
 
+    public String chooseNewFileName(String size, String extension) {
+        if (PARAM_VAL_SMALL.equals(size)) {
+            return NEW_SMALL_FILE_NAME + "." + extension;
+        } else if (PARAM_VAL_MEDIUM.equals(size)) {
+            return NEW_MEDIUM_FILE_NAME + "." + extension;
+        } else {
+            return NEW_LARGE_FILE_NAME + "." + extension;
+        }
+    }
+
     public String chooseBadge(String typeAndName){
 
          if(PARAM_VAL_TOP_PERFORMING_HIGH_RES_JPEG.equals(typeAndName)){
@@ -138,13 +157,20 @@ public class DownloadLogoController implements Controller {
         String size = request.getParameter(PARAM_SIZE);
         String fileName = "";
         String filePath = "";
+        String extension = request.getParameter(PARAM_EXTENSION);
 
         //size parameter is passed only for the download of GreatSchools Logo and
         // not for the downloads of Top Schools Bagdes.
         if(size != null){
             // set the file name and file path
-            fileName = chooseFileName(size);
-            filePath = IMAGE_PATH + fileName;
+            if (StringUtils.equals(request.getParameter(PARAM_TYPE), PARAM_VAL_NEW)
+                    && StringUtils.isNotBlank(extension)) {
+                fileName = chooseNewFileName(size, extension);
+                filePath = IMAGE_PATH + fileName;
+            } else {
+                fileName = chooseFileName(size);
+                filePath = IMAGE_PATH + fileName;
+            }
         }else{
            String type = request.getParameter(PARAM_BADGE_TYPE_NAME);
            fileName = chooseBadge(type);
@@ -153,7 +179,11 @@ public class DownloadLogoController implements Controller {
 
 
         // set response headers
-        response.setContentType("image/gif");
+        if (StringUtils.equals(extension, PARAM_VAL_PNG)) {
+            response.setContentType("image/png");
+        } else {
+            response.setContentType("image/gif");
+        }
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 
         // build the url for the file
