@@ -179,7 +179,7 @@
 
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"${community?'Community':'GreatSchools'}");
-                            tweeet
+            
             //s.prop13 is being set on the article.page to distinguish new and old articles
             s.prop13 = "${articleStyle}";
 
