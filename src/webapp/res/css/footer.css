@@ -28,11 +28,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-html {
-    background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
-}
 body {
-    background: url(/res/img/gs_cloud_bg.png) 52%  204px no-repeat;
     font: 13px/1.3 Arial, sans-serif;
     color: #333;
 }
@@ -47,6 +43,7 @@ body {
     font-size: 11px;
     color: #666;
     background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding: 0 4px;
 }
 
 #footnav {
@@ -75,7 +72,7 @@ body {
 .cities {
     margin: 20px auto 0;
     padding: 12px 0 12px 54px;
-    width: 924px;
+    width: 913px;
     background: #ebebeb;
     overflow: hidden;
 }
