@@ -201,7 +201,16 @@
 
                             </p>
                             <p class="smallText1">
-                                <span class="smallText1bold"><link:userProfile username="${result.username}">${result.username}</link:userProfile></span>
+                                <span class="smallText1bold">
+                                    <c:choose>
+                                        <c:when test="${not empty result.username}">
+                                            <link:userProfile username="${result.username}">${result.username}</link:userProfile>
+                                        </c:when>
+                                        <c:otherwise>
+                                            Anonymous
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                                 in
                                 <link:cmsContent contentKey="DiscussionBoard#${result.discussionBoardId}"
                                                  fullUri="${result.discussionBoardFullUri}"
