@@ -1,11 +1,51 @@
-#footerGSIframe #footerAd {
-    background: none;
+/* reset default browser styles */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline:0; vertical-align: baseline; background: transparent;}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 1px dotted;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+ul, li {
+    list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+html {
+    background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
+}
+body {
+    background: url(/res/img/gs_cloud_bg.png) 52%  204px no-repeat;
+    font: 13px/1.3 Arial, sans-serif;
+    color: #333;
+}
+#footerFrm {
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+}
+ #footerAd {
     padding: 6px 0;
 }
 #footerAd table {
     margin: auto;
 }
-#footerGSIframe #footer {
+#footer {
     background: none;
     font-size: 11px;
     color: #666;
@@ -36,8 +76,8 @@
 }
 .cities {
     margin: 20px auto 0;
-    padding: 12px 54px;
-    width: 860px;
+    padding: 12px 0 12px 54px;
+    width: 924px;
     background: #ebebeb;
     overflow: hidden;
 }
@@ -53,6 +93,7 @@
     margin: 0 3px 0 0;
     list-style: none;
     width: 13.93%;
+    padding: 0;
 }
 .cities ul li {
     text-align: left;
