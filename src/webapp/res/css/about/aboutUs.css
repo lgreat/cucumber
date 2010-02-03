@@ -87,6 +87,9 @@ hr.dotted {
     top: 0;
     left: 0;
 }
+.ie6 .main .thinkLocal img {
+    left: -181px;
+}
 
 div#tracking {
     clear: both;
