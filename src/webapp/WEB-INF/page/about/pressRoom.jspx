@@ -11,6 +11,8 @@
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -28,90 +30,167 @@
     <title>GreatSchools Media Room</title>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
+    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+    <!-- Make sure dynamic twitter links open in separate window -->
+    <script type="text/javascript">
+        $(function() {
+            $('#twitter_update_list a').attr('target', '_blank');
+        });
+    </script>
 </head>
 
 <ad:setSlotPrefix slotPrefix="Press_Room"/>
 
 <gsml:body adPageName="pressRoom" pageLayout="pressRoom">
 
-    <div class="pageTitle">
-        <h2>Media Room</h2>
-    </div>
-
-    <div class="contentLeft">
-        <div class="content">
-            <h2>Recent Press Releases <img src="/res/img/about/pressroom/pressrelease_rule.jpg" alt=""/></h2>
-
-            <jsp:include page="/about/pressReleases.module?first=5"/>
-
-            <div class="right"><link:pressReleases>View more &amp;gt;</link:pressReleases></div>
+    <div class="main fltlft">
+        <div class="breadcrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
+            <link:aboutUs>About us</link:aboutUs>
         </div>
-        <div class="content">
-            <h2>GreatSchools in the News <img src="/res/img/about/pressroom/news1_rule.jpg" alt=""/></h2>
 
-            <jsp:include page="/about/pressClippings.module?first=5"/>
+        <h1>Media Room</h1>
 
-            <div class="right"><link:pressClippings>View more &amp;gt;</link:pressClippings></div>
+        <div class="callout">
+            &amp;nbsp;
         </div>
-        <div class="content">
-            <h2>GreatSchools Downloadable Logos <img src="/res/img/about/pressroom/logo_rule.jpg" alt=""/></h2>
-            <div class="description">
-                Please contact us if you need a logo or other material not available below.<br/>
-                Logo options: small (200 X 50), medium (233 X 46) or large (304 X 58)
+
+        <div class="mainLeft fltlft">
+            <about:aboutGreatSchools selected="mediaRoom"/>
+        </div>
+
+        <div class="mainRight">
+            <div class="module recentPressReleases">
+                <div class="header">
+                    <span class="title1 tint_fff fltlft">Recent Press Releases</span>
+                </div>
+                <div class="body">
+                    <jsp:include page="/about/pressReleases.module?first=4&amp;display=about"/>
+                    <div class="fltrt moveUp"><link:pressReleases
+                            styleClass="smallAlertText">See more press releases <span class="go">&amp;#187;</span></link:pressReleases></div>
+                    <br class="clearfloat"/>
+                </div>
             </div>
-            
-            <table class="logoTable">
-                <tr>
-                    <td><img src="/res/img/logo/logo_GS_200x50.gif" alt=""/></td>
-                    <td>Download: <a href="/about/downloadLogo.page?size=small">.gif</a></td>
-                </tr>
-                <tr>
-                    <td><img src="/res/img/logo/logo_GS_233x46.gif" alt=""/></td>
-                    <td>Download: <a href="/about/downloadLogo.page?size=medium">.gif</a></td>
-                </tr>
-                <tr>
-                    <td><img src="/res/img/logo/logo_GS_304x58.gif" alt=""/></td>
-                    <td>Download: <a href="/about/downloadLogo.page?size=large">.gif</a></td>
-                </tr>
-            </table>
+            <div class="module gsInTheNews">
+                <div class="header">
+                    <span class="title1 tint_fff fltlft">GreatSchools in the News</span>
+                </div>
+                <div class="body">
+                    <jsp:include page="/about/pressClippings.module?first=5&amp;display=about"/>
+                    <div class="fltrt moveUp"><link:pressClippings
+                            styleClass="smallAlertText">See more news stories <span class="go">&amp;#187;</span></link:pressClippings></div>
+                    <br class="clearfloat"/>
+                </div>
+            </div>
+            <div class="module downloadLogos">
+                <div class="header">
+                    <span class="title1 tint_fff fltlft">Download GreatSchools logos</span>
+                </div>
+                <div class="body">
+                    <div class="text3">
+                        Before downloading these logos, please read our
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Terms of Use"
+                                          href="/terms/?state=$STATE">Terms of Use</gsml:popupWindow>
+                    </div>
 
-        </div>
-    </div>
-
-    <div class="contentRight">
-        <div class="media">
-            <h2>Media Inquiries?</h2>
-
-            <!-- change this to singleSpacedList? -->
-
-            Contact our team:<br/>
-            <br/>
-            Karissa Sparks<br/>
-            415.983.3806<br/>
-            <a href="mailto:pr@greatschools.org">pr@greatschools.org</a><br/>
-            <br/>
-           
-
-        </div>
-        <div class="awards">
-            <h2>Recent Awards</h2>
-
-            <img id="webbyImage" src="/res/img/promo/webby/footer.gif"
-                 alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Award"/>
-
-            <div class="seeAllAwards">
-                <link:webbyAwardThanks>See all awards &amp;gt;</link:webbyAwardThanks>
+                    <ul>
+                        <li class="smallText1 small">
+                            <img src="/res/img/logo/logo_GS_200x50.png" alt="logo"/>
+                            <a href="/about/downloadLogo.page?size=small&amp;amp;extension=png&amp;amp;type=new">200x50.png</a>
+                            <br/>
+                            <a href="/about/downloadLogo.page?size=small&amp;amp;extension=gif&amp;amp;type=new">200x50.gif</a>
+                        </li>
+                        <li class="smallText1 medium">
+                            <img src="/res/img/logo/logo_GS_233x46.png" alt="logo"/>
+                            <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=png&amp;amp;type=new">233x46.png</a>
+                            <br/>
+                            <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=gif&amp;amp;type=new">233x46.gif</a>
+                        </li>
+                        <li class="smallText1 large">
+                            <img src="/res/img/logo/logo_GS_330x110.png" alt="logo"/>
+                            <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
+                            <a class="marginLeft" href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <about:footer showTopBorder="true" firstBoxContent="aboutUs"/>
+    <div class="contentRight fltrt">
+        <div class="mediaInquiries">
+            <span class="subhead2">Media inquiries</span>
+            <span class="text3">Contact our team:</span>
+            <span class="text3">Karissa Sparks</span>
+            <span class="text3">415.983.3806</span>
+            <span class="text3"><a href="mailto:pr@greatschools.org">pr@greatschools.org</a></span>
+            <span class="text3 rss"><a href="http://feeds2.feedburner.com/GreatschoolsBlog"
+                                       target="_blank"><img src="/res/img/icons/rss_19.png"
+                                                            alt="RSS feed"
+                                                            width="19"
+                                                            height="19"/>RSS press feeds</a></span>
+        </div>
+        <!--<div class="module billJackson">-->
+            <!--<div class="header">-->
+                <!--<span class="title1 tint_fff fltlft">Bill Jackson: Perspectives</span>-->
+            <!--</div>-->
+            <!--<div class="body">-->
+                <!--&amp;nbsp;-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="module fromBlog">
+            <div class="header">
+                <span class="title1 tint_fff fltlft">From our Blog</span>
+            </div>
+            <div class="body">
+                <cache:cache scope="application" name="blog" key="bill3">
+                    <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
+                                      defaultTitle="GreatSchools blog"
+                                      defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
+                                      type="aboutBlog"
+                                      showDate="true"
+                            />
+                </cache:cache>
+                <a href="http://blogs.greatschools.org/greatschoolsblog" target="_blank"
+                   class="fltrt smallAlertText moveUp">View more <span class="go">&amp;#187;</span></a>
+                <br class="clearfloat"/>
+            </div>
+        </div>
+        <div class="module twitter">
+            <div class="header">
+                <span class="title1 tint_fff fltlft">Twitter</span>
+            </div>
+            <div class="body">
+                <div id="twitter_div">
+                    <ul id="twitter_update_list"><!-- do not collapse --></ul>
+                    <a href="http://twitter.com/greatschoolsorg" target="_blank"
+                       class="fltrt smallAlertText moveUp" id="twitter-link">View more <span class="go">&amp;#187;</span></a>
+                    <br class="clearfloat"/>
+                </div>
+            </div>
+        </div>
+        <div class="module facebook">
+            <div class="header">
+                <span class="title1 tint_fff fltlft">Facebook</span>
+            </div>
+            <div class="body">
+                &amp;nbsp;
+            </div>
+        </div>
+    </div>
 
+    <br class="clearfloat"/>
 
     <div id="tracking">
         <mod:tracking pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>        
     </div>
 
+    <script type="text/javascript"
+            src="http://twitter.com/javascripts/blogger.js"><!-- Do not collapse --></script>
+    <script type="text/javascript"
+            src="http://twitter.com/statuses/user_timeline/greatschoolsorg.json?callback=twitterCallback2&amp;count=3"><!-- Do not collapse --></script>
 </gsml:body>
 </html>
 </jsp:root>

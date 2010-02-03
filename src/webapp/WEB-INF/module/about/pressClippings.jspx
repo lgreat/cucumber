@@ -22,7 +22,15 @@
             <c:set var="date">
                 <c:out value="${clipping.date}" escapeXml="true"/>
             </c:set>
-            <li><a href="${url}" target="_blank">${text}</a> ${source}, ${date}</li>
+            <c:choose>
+                <c:when test="${param.display eq 'about'}">
+                    <li class="text3"><a href="${url}" target="_blank">${text}</a>
+                        <span class="smallText1"> ${date}, ${source}</span></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="${url}" target="_blank">${text}</a> ${source}, ${date}</li>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
         </ul>
     </c:if>

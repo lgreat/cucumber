@@ -8,10 +8,11 @@
                              description="Which link should be selected" required="false"/>
     <!--
         Possible values for selected:
-        overview    
+        overview
+        mediaRoom
     -->
 
-    <div class="module">
+    <div class="module about_us">
         <div class="header">
             <span class="text2bold fltlft">About GreatSchools</span>
         </div>
@@ -30,7 +31,14 @@
             <!--<a class="text2" href="#">Our Funders</a>-->
             <a class="text2" href="/about/partnerOpportunities.page#advertise">Advertisers</a>
             <a class="text2" href="/about/partnerOpportunities.page#license">Partners</a>
-            <link:pressRoom styleClass="text2">Media Room</link:pressRoom>
+            <c:choose>
+                <c:when test="${pageScope.selected eq 'mediaRoom'}">
+                    <span class="text2">Media Room</span>
+                </c:when>
+                <c:otherwise>
+                    <link:pressRoom styleClass="text2">Media Room</link:pressRoom>
+                </c:otherwise>
+            </c:choose>
             <a class="text2" rel="nofollow" href="/promo/webbyAwardWinner.page">Awards</a>
             <a class="text2" target="_blank" href="http://blogs.greatschools.org">Blog</a>
             <a class="text2" href="/cgi-bin/static/jobs.inc">Jobs</a>

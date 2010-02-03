@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.29 2009/12/04 22:27:11 chriskimm Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.30 2010/02/03 00:06:31 aroy Exp $
  */
 
 package gs.web.content;
@@ -39,6 +39,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private static final String TYPE_SPLASH_BLOG = "splashBlog";
     private static final String TYPE_RESEARCH_BLOG = "researchBlog";
      private static final String TYPE_MOM_BLOG = "momOnFire";
+    private static final String TYPE_ABOUT_BLOG = "aboutBlog";
     private String _defaultTitle;
     private String _atomUrl;
     private String _defaultUrl;
@@ -104,6 +105,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         if (TYPE_SPLASH_BLOG.equals(_type)) {
             displaySplashBlog(title, link, text, author, date);
             displaySplashBlog(title2, link2, text2, author2, date2);
+        } else if (TYPE_ABOUT_BLOG.equals(_type)) {
+            displayAboutBlog(title, link, text, author, date);
+            displayAboutBlog(title2, link2, text2, author2, date2);
         }else{
             display(title, link, text, author, date);
 
@@ -147,6 +151,59 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
             }
             //strippedtext = strippedtext.substring(0,70-title.length());
+            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 68-title.length());
+            out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
+        }
+        out.print("</div>");
+        out.print("</div>");
+    }
+
+    private void displayAboutBlog(String title, String link, String text, String author, Date date) throws IOException {
+        JspWriter out = getJspContext().getOut();
+
+        out.print("<div class=\"blogpromo\">");
+        if (!isHideAuthorImages()) {
+            out.print("<div class=\"blogpromo_image_wrap\">");
+            String authorImage = getAuthorImage(author);
+            if (authorImage != null) {
+                out.print("<a onclick=\"Popup=window.open('" +
+                        link +
+                        "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                        " href=\"" +
+                        link +
+                        "\">");
+                out.print("<img class=\"blogpromo_image\" src=\""
+                        + authorImage + "\" alt=\"" + author + "\"/>");
+                out.print("</a>");
+            } else {
+                out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
+            }
+            out.print("</div>");
+        }
+        out.print("<div class=\"blogpromo_entry text3\">");
+        out.print("<a onclick=\"Popup=window.open('" +
+                link +
+                "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                " href=\"" +
+                link +
+                "\">" +
+                title +
+                "</a> ");
+        out.print("<div class=\"authorDate\">");
+        out.print("<span class=\"smallAlertTextBoldNeutral\">");
+        out.print(author);
+        out.print("</span>");
+        if (date != null) {
+            out.print("<span class=\"smallText1\"> ");
+            out.print(Util.detailedPeriodBetweenDates(date, new Date()));
+            out.print("</span>");
+        }
+        out.print("</div>");
+        if (!StringUtils.isBlank(text)) {
+            String strippedtext = text;
+            if(text.indexOf("<div class=\"feedflare\"") > 0){
+                strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
+            }
             strippedtext = Util.abbreviateAtWhitespace(strippedtext, 68-title.length());
             out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
         }
