@@ -60,7 +60,7 @@
             <about:aboutGreatSchools selected="mediaRoom"/>
         </div>
 
-        <div class="mainRight">
+        <div class="mainRight fltlft">
             <div class="module recentPressReleases">
                 <div class="header">
                     <span class="title1 tint_fff fltlft">Recent Press Releases</span>
@@ -117,6 +117,7 @@
                 </div>
             </div>
         </div>
+        <br class="clearfloat"/>
     </div>
 
     <div class="contentRight fltrt">
