@@ -527,6 +527,7 @@ p {
 */
 #footerAd, #footerFrm {
     background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding-bottom: 10px;
 }
 #footerAd table {
     margin: auto;
