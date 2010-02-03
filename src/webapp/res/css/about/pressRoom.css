@@ -132,12 +132,15 @@
 
 /* Blog */
 .blogpromo{
-    height:60px;
     border-bottom: 1px dotted #999;
     margin-bottom: 15px;
+    padding-bottom: 10px;
+    position: relative;
 }
 .blogpromo_image_wrap{
-    float:left;
+    position: absolute;
+    left: 0;
+    top: 0;
     height:60px;
 }
 .blogpromo_image{
@@ -148,11 +151,9 @@
     width:40px;
 }
 .blogpromo_entry{
-    height:50px;
     width:235px;
-    float:left;
     font-family:georgia,times new roman,times,serif;
-    padding:0 5px;
+    padding:0 5px 0 55px;
 }
 .blogpromo_entry a:link,
     .blogpromo_entry a:active,

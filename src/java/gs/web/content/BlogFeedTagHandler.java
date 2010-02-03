@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.31 2010/02/03 19:32:56 aroy Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.32 2010/02/03 22:03:01 aroy Exp $
  */
 
 package gs.web.content;
@@ -204,7 +204,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             if(text.indexOf("<div class=\"feedflare\"") > 0){
                 strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
             }
-            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 68-title.length());
+            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 45);
             out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
         }
         out.print("</div>");
