@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.30 2010/02/03 00:06:31 aroy Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.31 2010/02/03 19:32:56 aroy Exp $
  */
 
 package gs.web.content;
@@ -81,7 +81,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 }
             }
 
-            if (TYPE_SPLASH_BLOG.equals(_type)) {
+            if (TYPE_SPLASH_BLOG.equals(_type) || TYPE_ABOUT_BLOG.equals(_type)) {
                 SyndEntry entry2 = (SyndEntry) feed.getEntries().get(1);
                 title2 = entry2.getTitle();
                 link2 = entry2.getLink();
