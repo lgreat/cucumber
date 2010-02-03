@@ -30,7 +30,6 @@
 
 .module {
     overflow: hidden;
-    margin-bottom: 15px;
 }
 .module .header {
     background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
@@ -94,6 +93,7 @@
 .downloadLogos ul li.large {
     padding-top: 110px;
     margin-top: 0;
+    height: 14px;
 }
 .downloadLogos a.marginLeft {
     margin-left: 22px;
@@ -182,4 +182,10 @@
     height: 0;
     font-size: 1px;
     line-height: 0;
+}
+.spacer_15{
+    clear:both;
+    height:15px;
+    font-size:1px;
+    line-height:15px;
 }

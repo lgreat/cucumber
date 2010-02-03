@@ -72,6 +72,7 @@
                     <br class="clearfloat"/>
                 </div>
             </div>
+            <br class="spacer_15"/>
             <div class="module gsInTheNews">
                 <div class="header">
                     <span class="title1 tint_fff fltlft">GreatSchools in the News</span>
@@ -83,6 +84,7 @@
                     <br class="clearfloat"/>
                 </div>
             </div>
+            <br class="spacer_15"/>
             <div class="module downloadLogos">
                 <div class="header">
                     <span class="title1 tint_fff fltlft">Download GreatSchools logos</span>
@@ -97,19 +99,19 @@
 
                     <ul>
                         <li class="smallText1 small">
-                            <img src="/res/img/logo/logo_GS_200x50.png" alt="logo"/>
+                            <img src="/res/img/logo/logo_GS_200x50.gif" alt="logo"/>
                             <a href="/about/downloadLogo.page?size=small&amp;amp;extension=png&amp;amp;type=new">200x50.png</a>
                             <br/>
                             <a href="/about/downloadLogo.page?size=small&amp;amp;extension=gif&amp;amp;type=new">200x50.gif</a>
                         </li>
                         <li class="smallText1 medium">
-                            <img src="/res/img/logo/logo_GS_233x46.png" alt="logo"/>
+                            <img src="/res/img/logo/logo_GS_233x46.gif" alt="logo"/>
                             <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=png&amp;amp;type=new">233x46.png</a>
                             <br/>
                             <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=gif&amp;amp;type=new">233x46.gif</a>
                         </li>
                         <li class="smallText1 large">
-                            <img src="/res/img/logo/logo_GS_330x110.png" alt="logo"/>
+                            <img src="/res/img/logo/logo_GS_330x110.gif" alt="logo"/>
                             <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
                             <a class="marginLeft" href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
                         </li>
