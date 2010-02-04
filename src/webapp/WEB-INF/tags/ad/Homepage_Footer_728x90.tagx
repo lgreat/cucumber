@@ -8,8 +8,8 @@
     <table cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
-                <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
+                <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical2.gif"/>
+                <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="13" height="90"/>
             </td>
             <td style="text-align:left;width:728px;height:90px" class="ad">
                 <gsweb:adTagGenerator position="Homepage_Footer_728x90"/>
