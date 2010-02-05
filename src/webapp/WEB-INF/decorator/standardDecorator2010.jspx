@@ -114,7 +114,7 @@
 
 
         <div id="mainWrap">
-            <div id="contentGS">
+            <div id="contentGS" class="col">
                 <decorator:body/>
             </div>
         </div>

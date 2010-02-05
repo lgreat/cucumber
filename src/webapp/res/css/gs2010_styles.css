@@ -466,7 +466,12 @@ p {
     z-index: 1;
 }
 
-#mainGS.col {
+.col {
+    position: relative;
+    float: left;
+}
+
+#contentGS.col {
     width: 968px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
@@ -474,19 +479,12 @@ p {
     background:url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
 
-.leftside #mainWrap {
-    padding: 0 24px 0 344px;
-    width: 610px;
-}
-
-.col {
-    position: relative;
-    float: left;
-}
-
-#contentGS.col {
-    width: 597px;
-    margin: 0 25px 30px 0;
+#mainGS.col {
+    width: 638px;
+    /*border-top: 2px solid #aaa;
+    margin: 0 auto;
+    overflow:hidden;
+    background:url(/res/img/discussion_boards/db_background.gif) 40px 0;*/
 }
 
 #sidebarGS.col {
