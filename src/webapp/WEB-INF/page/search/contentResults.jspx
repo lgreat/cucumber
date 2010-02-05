@@ -48,7 +48,7 @@
 </head>
 <body>
 <div id="mainGS" class="col">
-
+   <div id="srchResults">
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
 
     <c:choose>
@@ -309,6 +309,7 @@
                     </form>
         </c:otherwise>
     </c:choose>
+   </div>
 
 </div>
 <!-- end mainContent -->
