@@ -1,10 +1,10 @@
-#contentGS {
+/*#contentGS {
     padding-top: 0px;
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #666;
     margin: 0 8px;
     width: 884px;
-}
+}*/
 
 /* TOP SECTION */
 
@@ -168,12 +168,12 @@ div#footer { padding-top:2px; }
     clear: both;
 }
 
-#contentTop {
+/*#contentTop {
     width: 865px;
     height: 291px;
     margin-left: 10px;
     margin-bottom: 10px;
-}
+}*/
 
 #contentMiddle {
     width: 870px;

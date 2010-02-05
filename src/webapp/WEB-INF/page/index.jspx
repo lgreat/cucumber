@@ -147,10 +147,11 @@
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
-<div id="contentTop">
 
-    <div id="carousel">
-        <div class="images">
+<div id="mainGS" class="col">
+
+    <div id="carousel" class="fltlft">
+        <div id="image">
             <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
                 <c:choose>
                     <c:when test="${featureLink.newWindow}">
@@ -161,51 +162,67 @@
                     </c:otherwise>
                 </c:choose>
                 <a href="${featureLink.url}" target="${featureLinkTarget}">
-                <img src="${homepage.featureLinks[status.index].imageUrl}"
-                     width="584"
-                     height="291"
-                     alt="${homepage.featureLinks[status.index].imageAltText}"/>
+                    <img src="${homepage.featureLinks[status.index].imageUrl}"
+                         width="584"
+                         height="288"
+                         alt="${homepage.featureLinks[status.index].imageAltText}"/>
                 </a>
             </c:forEach>
         </div>
-        <!-- class="images" -->
-        <div class="bg">
-            <!-- don't collapse -->
-        </div>
-        <!-- class="bg" -->
-        <div class="info">
-            <div class="inner">
-                <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                    <c:choose>
-                        <c:when test="${featureLink.newWindow}">
-                            <c:set var="featureLinkTarget" value="_blank"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="featureLinkTarget" value="_self"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <h3><a href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.title}</a></h3>
-                    <p><a class="description" href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.description}</a>&amp;nbsp;<a href="${featureLink.url}" target="${featureLinkTarget}">${featureLink.linkText}</a></p>
-                </c:forEach>
-            </div>
-            <!-- class="inner" -->
-        </div>
-        <!-- class="info" -->
-        <c:if test="${fn:length(homepage.featureLinks) gt 1}">
-            <!--<div class="navigation">-->
-                <ul id="nav">
-                    <li><a id="al" href="#">arrow left</a></li>
-                    <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                        <li class="navButton"><a id="num${status.index + 1}" href="#">num${status.index + 1}</a></li>
-                    </c:forEach>
-                    <li><a id="ar" href="#">arrow right</a></li>
-                </ul>
-            <!--</div>-->
-            <!-- class="navigation" -->
-        </c:if>
-    </div>
-    <!-- id="carousel" -->
+        <!--image -->
+        <div id="banner"><!--do not collapse --></div>
+        <!--banner -->
+        <div id="info">
+            <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                <c:choose>
+                    <c:when test="${featureLink.newWindow}">
+                        <c:set var="featureLinkTarget" value="_blank"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="featureLinkTarget" value="_self"/>
+                    </c:otherwise>
+                </c:choose>
 
+                <h2 class="headline">
+                    <a href="${featureLink.url}"
+                       target="${featureLinkTarget}">${featureLink.title}</a>
+                </h2>
+
+                <p>
+                    <a class="text3"
+                       href="${featureLink.url}"
+                       target="${featureLinkTarget}">${featureLink.description}</a>&amp;nbsp;
+                    <a class="link"
+                       href="${featureLink.url}"
+                       target="${featureLinkTarget}">${featureLink.linkText}</a>&amp;nbsp;
+                    <span class="alertdblarrow">&amp;raquo;</span>
+                </p>
+            </c:forEach>
+
+            <c:if test="${fn:length(homepage.featureLinks) gt 1}">
+                <div id="nav">
+                    <ul>
+                        <li id="prev" class="prev-position"><!--do not collapse --></li>
+                    </ul>
+                    <ul id="buttons">
+                        <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                            <li id="${status.index + 1}" class="off">${status.index + 1}</li>
+                        </c:forEach>
+                    </ul>
+                    <ul>
+                        <li id="next" class="next-position"><!--do not collapse --></li>
+                    </ul>
+                </div>
+                <!--nav -->
+            </c:if>
+        </div>
+        <!--info -->
+    </div>
+    <!-- carousel -->
+
+    <div id="contentTopDivider">
+        <!-- don't collapse -->
+    </div>
 
     <div id="findAndCompareWrapper">
         <div id="findAndCompare">
@@ -243,11 +260,7 @@
             </div>
         </div>
     </div>
-</div>
 
-<div id="contentTopDivider">
-    <!-- don't collapse -->
-</div>
 
 <div id="contentMiddle">
 
@@ -414,6 +427,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <c:if test="${showAd}">
