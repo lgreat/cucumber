@@ -1,17 +1,20 @@
 div#main {
     position:relative;
     margin:0;
+    overflow:hidden;
 }
 
 div#left_col {
     position:absolute;
     top:0;
+    left: 43px;
 }
 
 /** Adjusting these values will require a change to the js function adjustLeftColAd */
 div#leftcolAd {
     position:absolute;
     top: 278px;
+    left: 43px;
     width: 204px;
     margin: 0 auto 0 auto;
     padding-top: 10px;
@@ -20,7 +23,7 @@ div#leftcolAd {
 
 table#right {
     position:relative;
-    left:205px;
+    left:248px;
 }
 
 a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,

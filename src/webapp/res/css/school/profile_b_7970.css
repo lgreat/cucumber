@@ -29,6 +29,6 @@
     display: none;
 }
 table#navigation {
-    margin-bottom: 8px;
+    margin: 0 auto 8px;
 }
 /* ab test */

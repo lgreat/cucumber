@@ -257,16 +257,15 @@ p {
     background-position: 100% -158px;
     color: #333;
 }
-#topnav_search fieldset input, #topnav_search fieldset select {
-    margin: 0 9px 0 0;
-}
 #topnav_search fieldset input {
     width: 264px;
     height: 18px;
+    margin: 0 9px 0 0;
     outline: 0;
 }
 #topnav_search fieldset select {
     height: 24px;
+    margin: 0 7px 0 0;
 
 }
 #topnav_search button {
@@ -519,12 +518,76 @@ p {
     border: solid #999;
     border-width: 0 1px 1px;
 }
+/*
+=editorialFooter
+--------------------------------------------------------------------
+*/
+#editorialFooter .content {
+    border-bottom: 1px solid #fb0;
+    overflow:hidden;
+}
 
+#editorialFooter .content li {
+    float: left;
+}
+
+#editorialFooter .content li ul.arrowUL li {
+    float: none;
+}
+#editorialFooter .content li.col1 {
+    width: 196px;
+    margin: 3px 8px 0 0;
+}
+#editorialFooter .content li.col2 {
+    width: 439px;
+    margin-right: 8px;
+}
+#editorialFooter .content li .footcol {
+    border: solid #fb0;
+    overflow: hidden;
+}
+#editorialFooter .content li.col3 {
+    margin-top: 3px;
+}
+#editorialFooter .content li.col1 .footcol {
+    height: 334px;
+    border-width: 1px 0 0 1px;
+}
+#editorialFooter .content li.col2 .footcol {
+    height: 337px;
+    border-width: 1px 1px 0 1px;
+}
+#editorialFooter .content li.col3 .footcol {
+    height: 337px;
+    border-width: 1px 1px 0 0;
+    width: 147px;
+}
+
+#editorialFooter .content ul.footcol li {
+    margin: 8px 0;
+    height: 318px;
+}
+#editorialFooter .content ul.footcol li {
+    background: url(/res/img/content/research/red_dot_vert.gif) 100% 0 repeat-y;
+}
+
+#editorialFooter .content ul.footcol li.last {
+    background: none;
+}
 
 /*
 =footer
 ----------------------------------------------------------------------
 */
+h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks {
+    margin-left: 43px;
+}
+h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
+    color:#888888;
+    font-size:12px;
+    font-weight:normal;
+}
+
 #footerAd, #footerFrm {
     background: url(/res/img/gs_content_bg.png) repeat-y;
 }
