@@ -8,8 +8,8 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
-        <div class="body3bg">
-            <form action="#">
+        <div class="mod_bd brwseFrm">
+            <form class="brwseCty" action="#">
                 <label class="db_select_label" for="db_cities"><span class="subhead2">Browse by city</span></label>
                 <select id="db_cities" name="cities" onchange="var l = this.options[this.selectedIndex].value; if (l != '') {document.location = l;}">
                     <option value="" selected="selected">Select city</option>

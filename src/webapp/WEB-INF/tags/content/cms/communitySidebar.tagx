@@ -16,10 +16,10 @@
 
     <c:set var="xmlEscapedSearchQuery"><c:out value="${pageScope.searchQuery}" escapeXml="true"/></c:set>
 
-    <div id="sideBar" class="fltrt">
-        <div class="module">
-            <div class="header">
-                <span class="title1white">
+    <div id="sidebarGS" class="col">
+        <div id="commSearch" class="mod">
+            <div class="mod_hd">
+                <h3>
                     Search
                     <c:choose>
                         <c:when test="${pageScope.searchType eq 'all'}">
@@ -32,10 +32,10 @@
                             Community
                         </c:when>
                     </c:choose>
-                </span>
+                </h3>
             </div>
-            <div class="body1bg clearfix">
-                <form action="/search/contentSearch.page">
+            <div class="mod_bd srchFrm">
+                <form class="srch" action="/search/contentSearch.page">
                     <c:choose>
                         <c:when test="${pageScope.searchType eq 'articles'}">
                             <input type="hidden" name="type" value="articles"/>
@@ -47,48 +47,36 @@
                     <input class="fltlft db_search_input formText2 tint_777"
                            type="text" name="q"
                            value="${pageScope.xmlEscapedSearchQuery}"/>
-                    <div class="lftpdg-15 fltlft">
-                    <button class="btn25" type="submit">
+                    <button class="btn25 fltlt" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">Search</span>
                         </span>
                     </button>
-                    </div>
                 </form>
-                <br class="clearfloat"/>
             </div>
-            <div class="clearfloat sdrb"><!-- do not collapse --></div>
-            <div class="body2bg gainlayout">
-                <div class="subhead2">Browse by topic</div>
-                <div class="fltlft">
-                    <ul class="topics text2_180">
+            <div class="mod_bd brwse">
+                <h4 class="subhead2">Browse by topic</h4>
+                    <ul class="col topics text2_180">
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool">Preschool</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
                                              fullUri="/elementary-school">Elementary School</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school">Middle School</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school">High School</link:cmsContent></li>
                     </ul>
-                </div>
-                <div class="fltlft">
-                    <ul class="topics text2_180">
+                    <ul class="col topics text2_180">
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">Learning Disabilities</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement">Improve Your School</link:cmsContent></li>
                     </ul>
-                </div>
-                <br class="clearfloat"/>
             </div>
 
             <c:import url="/community/browseLocalBoards.module"/>
-            <div class="clearfloat sdrb"><!-- do not collapse --></div>
         </div>
         <!-- end module -->
 
         <ad:AboveFold_300x250/>
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
-
-        <div class="spacer_10"><!--nop--></div>
         <!--<c:set var="content" value=""/>-->
         <c:choose>
             <c:when test="${not empty content}">

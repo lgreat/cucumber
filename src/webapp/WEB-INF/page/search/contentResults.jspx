@@ -24,26 +24,30 @@
 
 <c:choose>
     <c:when test="${requestScope.numResults gt 0}">
-        <c:set var="pageTitle"><h2 class="srchTitle">${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h2></c:set>
+        <c:set var="pageTitle"><h2>${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h2></c:set>
     </c:when>
     <c:otherwise>
-        <c:set var="pageTitle"><h2 class="srchTitle">Your search for &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot; did not match any results.</h2></c:set>
+        <c:set var="pageTitle"><h2>Your search for &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot; did not match any results.</h2></c:set>
+    </c:otherwise>
+</c:choose><c:choose>
+    <c:when test="${requestScope.numResults gt 0}">
+        <c:set var="titleBar">${requestScope.pageTitlePrefix} &amp;quot;<c:out value="${requestScope.searchQuery}" escapeXml="true"/>&amp;quot;</c:set>
+    </c:when>
+    <c:otherwise>
+        <c:set var="titleBar">Your search for &amp;quot;<c:out value="${requestScope.searchQuery}" escapeXml="true"/>&amp;quot; did not match any results.</c:set>
     </c:otherwise>
 </c:choose>
 
 <head>
-    <title>${pageScope.pageTitle} | GreatSchools</title>
+    <title>${pageScope.titleBar} | GreatSchools</title>
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>
 </head>
 <body>
-<div id="container" class="gainlayout">
-<div id="mainContent" class="column fltlft">
+<div id="mainGS" class="col">
 
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
 
@@ -311,8 +315,6 @@
 
 <cms:communitySidebar searchQuery="${requestScope.searchQuery}" searchType="${pageScope.searchType}"/>
 
-</div>
-<!-- end container -->
 
 <c:choose>
     <c:when test="${requestScope.type eq 'community'}">

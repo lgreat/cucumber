@@ -900,7 +900,7 @@ ul.srchSuggest li span {
     margin: .3em 0 1em;
     font: 700 12px/1.3 Arial, sans-serif;
     color: #333;
-    text-align: middle;
+    vertical-align: middle;
 }
 #searchAgain label input, #searchAgain label select{
     position: relative;

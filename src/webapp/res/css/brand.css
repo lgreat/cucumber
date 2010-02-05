@@ -1,17 +1,4 @@
-body, input, select {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 12px;
-	line-height: 15px;
-	color: #666;
-	letter-spacing: 0px;
-}
 
-#contentGS a, #contentGS a:link, #contentGS a:visited, #contentGS a:active,
-    a, a:link, a:visited, a:active {
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	color: #39a;
-	text-decoration: none;
-}
 
 /* callToAction indicates the links we put a greater-than symbol (&#160;&#62;) after and underline */
 #contentGS a.callToAction, #contentGS a.callToAction:link, #contentGS a.callToAction:visited, #contentGS a.callToAction:active,

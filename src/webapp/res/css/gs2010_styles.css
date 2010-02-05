@@ -11,16 +11,21 @@ General comments:
 
 [Table Of Contents]
 
-0- reset
-1- text
-2- ads
-3- global navigation
-4- page layouts
-5-
-6-
-7- editorial footer
-8- footer
-9- buttons
+=0- reset
+=1- text
+=2- ads
+=3- header/topnav
+=3a- utility links
+=3b- logo
+=3c- search
+=3d- global nav
+=3e- subnav menu
+=4- page layouts
+=5-
+=6-
+=7- editorial footer
+=8- footer
+=9- buttons
 
 */
 
@@ -71,6 +76,7 @@ h1 {
 }
 h2 {
     font: 24px/1.3 Georgia, serif;
+    color: #d61;
 }
 h3 {
     font: 20px/1.3 Arial, sans-serif;
@@ -90,6 +96,12 @@ h5 {
     font-family: Georgia, serif;
     color: #d61;
 }
+h3.title1white {
+    background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x scroll 0 0;
+    color:#fff;
+    font:700 14px Arial,sans-serif;
+    padding:6px;
+}
 .title2 {
     font-family: Georgia, serif;
     font-size: 22px;
@@ -101,6 +113,7 @@ h5 {
     color: #d61;
 }
 
+/* clases applied to h4 */
 .subhead2, .subhead3, .subhead4 {
     font-weight: 400;
 }
@@ -114,6 +127,15 @@ h5 {
     font-family: Arial, sans-serif;
     color: #333;
 }
+.text3 {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+.result_title {
+    font-size: 12px;
+    font-weight: 400;
+}
 a {
     color: #0066B8;
     text-decoration: none;
@@ -124,25 +146,33 @@ a:hover {
 p {
     margin: 0 0 1.2em;
 }
-/* =2 ads
--------------------------------------------------------------------------------------------*/
+/*
+=2 ads
+-------------------------------------------------------------------------------------------
+*/
 .gsAd, #adLeaderboard {
     margin: 0 auto;
     text-align: center;
     width: 738px;
 }
-
-/* =3 navigation
--------------------------------------------------------------------------------------------*/
 #pageGS {
     width: 978px;
     margin: 0 auto;
 }
+/*
+=3 header/topnav
+-------------------------------------------------------------------------------------------
+*/
+
 #header {
     position: relative;
     height: 116px;
     z-index: 4;
 }
+/*
+ =3a utitility links
+-------------------------------------------------------------------------------------------
+*/
 #utilLinks {
     position: absolute;
     height: 18px;
@@ -199,6 +229,10 @@ p {
     background: transparent;
     color: #06b;
 }
+/*
+ =3b logo
+-------------------------------------------------------------------------------------------
+*/
 #logoBox {
     position: relative;
     margin-top: 20px;
@@ -211,6 +245,10 @@ p {
     width: 369px;
     height: 83px;
 }
+/*
+ =3c search box
+-------------------------------------------------------------------------------------------
+*/
 #topnav_search_articlesAndCommunity {
     dislplay: none;
 }
@@ -298,6 +336,10 @@ p {
     position: absolute;
     left: -10000px;
 }
+/*
+ =3d global nav
+-------------------------------------------------------------------------------------------
+*/
 #navbar {
     padding: 0 3px;
     height: 68px;
@@ -361,6 +403,10 @@ p {
 #globalnav li#n7 a:hover {
     background-position: 50% -35px;
 }
+/*
+ =3e subnav menus
+-------------------------------------------------------------------------------------------
+*/
 #topnav_menusubnav {
     height: 34px;
     list-style: none;
@@ -493,34 +539,35 @@ p {
     float: left;
 }
 
-#contentGS.col {
+#contentGS {
     width: 968px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
     overflow:hidden;
-    background:url(/res/img/discussion_boards/db_background.gif) 40px 0;
+    background:url(/res/img/discussion_boards/db_background.gif) 38px 0;
 }
 
 #mainGS.col {
-    width: 638px;
-    /*border-top: 2px solid #aaa;
-    margin: 0 auto;
+    width: 596px;
+    border-right: 2px solid #aaa;
+    padding: 15px 20px;
+    /*margin: 0 auto;
     overflow:hidden;
     background:url(/res/img/discussion_boards/db_background.gif) 40px 0;*/
 }
 
 #sidebarGS.col {
-    width: 305px;
-    margin-top: 10px;
+    width: 330px;
 }
 
 
 
 
 .mod_hd h3 {
-    padding: 3px;
-    background: #1c509f;
-    border: 1px solid #3399FF;
+    padding: 0 15px;
+    background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
+    color: #fff;
+    font: 20px/1.7 Georgia,"Times New Roman",Times,serif;
 }
 
 #sidebar .mod_hd h3 {
@@ -528,9 +575,15 @@ p {
 }
 .mod_bd {
     padding: 8px;
-    border: solid #999;
-    border-width: 0 1px 1px;
 }
+
+.fltlft {
+    float:left;
+}
+.fltrt {
+    float:right;
+}
+
 
 /* =7 editorialFooter
 -------------------------------------------------------------------------------------------*/
@@ -586,9 +639,100 @@ p {
 #editorialFooter .content ul.footcol li.last {
     background: none;
 }
+/*
+=communitySidebar
+-------------------------------------------------------------------------------------------
+*/
+ul.srchSuggest {
+    margin:1em 0 1em 2em;
+}
+ul.srchSuggest li {
+    color:#DD6611;
+    line-height:1.3;
+    list-style:disc;
+    margin: 0.6em 0;
+}
+ul.srchSuggest li span {
+    color: #333;
+}
 
-/* =8 footer
--------------------------------------------------------------------------------------------*/
+#commSearch .mod_bd {
+    overflow: hidden;
+}
+.srchFrm {
+    padding: 15px;
+    background: #fc6;
+    overflow: hidden;
+}
+.srchFrm .db_search_input {
+    margin: 1px 0 0;
+    padding: 0;font-family:Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    color: #777;
+}
+.srchFrm button.fltlt {
+    position: relative;
+    left: 15px;
+}
+.brwse {
+    background: #fff;
+    padding:15px 10px 15px 20px;
+}
+.brwse .topics {
+    width: 150px;
+    color: #f4891d;
+}
+.brwse .topics li {
+    list-style: disc;
+    margin: 0 0 0 15px;
+    padding: 5px 0;
+}
+.brwseFrm {
+    background:#f9eccd;
+    padding: 15px 20px;
+    width: 290px;
+    border-bottom: 1px dotted #999;
+}
+.brwseFrm label {
+    color:#d61;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-size: 18px;
+    padding: 0 10px 0 0;
+}
+#searchAgain {
+    background: #ebebeb;
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+}
+#searchAgain .stateMenu {
+    display: none;
+}#searchAgain label {
+    float: left;
+    position: relative;
+    margin: .3em 0 1em;
+    font: 700 12px/1.3 Arial, sans-serif;
+    color: #333;
+    vertical-align: middle;
+}
+#searchAgain label input, #searchAgain label select{
+    position: relative;
+    margin: 0 6px;
+    font-size: 12px;
+}
+#searchAgain label input  {
+    top: 1px;
+    height: 17px;
+}
+
+#searchAgain button {
+    float: right;
+}
+
+/*
+=8 footer
+-------------------------------------------------------------------------------------------
+*/
 h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks {
     margin-left: 43px;
 }
