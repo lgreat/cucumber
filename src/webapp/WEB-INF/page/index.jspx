@@ -128,7 +128,7 @@
 </head>
 
 <gsml:body adPageName="splash">
-<pageHelper:externalCss file="/res/css/splash.css"/>
+<!--<pageHelper:externalCss file="/res/css/splash.css"/>-->
 <pageHelper:externalCss file="/res/css/home/module_base.css"/>
 <pageHelper:externalCss file="/res/css/home/blue_module.css"/>
 <pageHelper:externalCss file="/res/css/home/adbox.css"/>
@@ -150,7 +150,7 @@
 
 <div id="mainGS" class="col">
 
-    <div id="carousel" class="fltlft">
+    <div id="carousel">
         <div id="image">
             <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
                 <c:choose>
@@ -220,179 +220,15 @@
     </div>
     <!-- carousel -->
 
-    <div id="contentTopDivider">
-        <!-- don't collapse -->
-    </div>
-
-
-
-
-<div id="contentMiddle">
-
-    <div class="moduleBox">
-        <div class="wrapper-outer">
-            <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 261px; height: 264px; position: relative;">
-                    <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school"
-                         title=""/>
-
-                    <img class="leadoff" src="/res/img/home/blog_frontdoor_pencils.jpg" alt="Pencils"/>
-                    <!--
-                    <div style="width: 85px; height: 171px; float: left;">
-                        <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple"/>
-                    </div>
-                    -->
-                    <div id="rightSchoolDiv">
-                        <ul id="rightSchoolLinksDiv">
-                            <li><link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter></li>
-                            <gsweb:articlelink articleId="3704"
-                                               wrappingElement="li">Charter, private or public</gsweb:articlelink>
-                            <gsweb:articlelink articleId="3705"
-                                               wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
-                            <gsweb:articlelink articleId="48"
-                                               wrappingElement="li">My checklist for the school visit</gsweb:articlelink>
-                        </ul>
-
-                        <p class="more right">
-                            <link:schoolChoiceCenter>Read more &gt;</link:schoolChoiceCenter>
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <div class="mod">
+        <div class="mod_hd">
+            <h3>Raise your hand</h3>
+        </div>
+        <div class="mod_bd">
+            <!--do not collapse-->
         </div>
     </div>
 
-    <div class="moduleBox">
-        <div class="wrapper-outer">
-            <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 241px; height: 263px;">
-                    <a href="http://blogs.greatschools.org"
-                       onclick="Popup=window.open('http://blogs.greatschools.org','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;"><img class="leadoff" src="/res/img/home/blog_frontdoor_hed.jpg" width="241" height="110" alt="GreatSchools Blog"/></a>
-                    <cache:cache scope="application" name="blog" key="bill3">
-                        <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
-                                          defaultTitle="GreatSchools blog"
-                                          defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
-                                          type="splashBlog"
-                                          showDate = "true"
-                                />
-                    </cache:cache>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div id="contentMiddleRight">
-        <c:choose>
-            <c:when test="${showAd}">
-                <ad:Homepage_300x250/>
-            </c:when>
-            <c:otherwise>
-                <div class="adBox">
-                    <div class="wrapper-outer">
-                        <div class="wrapper-inner">
-                            <div class="wrapper-content">
-                                <a href="/content/healthyKids.page"><img id="adFreeHouseAd"
-                                                                         src="/res/img/home/GS_boxad_healthy2.jpg"
-                                                                         alt="Healthy Kids: No more couch potatoes!"/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
-
-<div id="contentBottom">
-
-    <div class="moduleBox">
-        <div class="wrapper-outer">
-            <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 261px; height: 215px; position: relative;">
-                    <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/whats_new.jpg" alt="What's New?"
-                         title=""/>
-                    <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter"/>
-
-                    <ul class="arrows" style="position: absolute; width: 231px;">
-                        <c:import
-                                url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;&amp;omitUl=true"/>
-                    </ul>
-
-                    <div class="sponsor_ad"><ad:Homepage_185x28/></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="moduleBox">
-        <div class="wrapper-outer">
-            <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 574px; height: 215px; position: relative;">
-                    <div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
-
-                        <img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent"
-                             title=""/>
-
-                        <div class="white-box">
-                            <h3><img class="heading" src="/res/img/home/blue_module/parent_discussions.png"
-                                     alt="Parent Discussions" title=""/></h3>
-
-                            <jsp:include page="/content/links.module?page=home&amp;type=all&amp;layout=list"/>
-
-                            <c:if test="${!communityUtil.newCommunityEnabled}">
-                                <p class="more">
-                                    <a href="http://${communityHost}/q-and-a"><img
-                                            src="/res/img/home/blue_module/question_button.png" alt="Ask a Question"
-                                            title="" border="0"/></a>
-                                </p>
-                            </c:if>
-                        </div>
-
-                        <div class="transparent-box">
-                            <h3><img class="heading" src="/res/img/home/blue_module/find_parents.png"
-                                     alt="Find Parents Like Me" title=""/></h3>
-
-                            <c:choose>
-                                <c:when test="${communityUtil.newCommunityEnabled}">
-                                    <ul>
-                                        <li><link:cmsContent contentKey="DiscussionBoard#1636"
-                                                             fullUri="/preschool">Parents of Preschoolers</link:cmsContent></li>
-                                        <li><link:cmsContent contentKey="DiscussionBoard#1637"
-                                                             fullUri="/elementary-school">Elementary School Parents</link:cmsContent></li>
-                                        <li><link:cmsContent contentKey="DiscussionBoard#1638"
-                                                             fullUri="/middle-school">Middle School Parents</link:cmsContent></li>
-                                        <li><link:cmsContent contentKey="DiscussionBoard#1639"
-                                                             fullUri="/high-school">High School Parents</link:cmsContent></li>
-                                    </ul>
-
-                                    <!-- p class="findMore">
-                                        <a href="http://${communityHost}/groups">Find more &gt;</a>
-                                    </p -->
-                                </c:when>
-                                <c:otherwise>
-                                    <ul>
-                                        <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
-                                        <li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
-                                        <li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
-                                        <li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
-                                    </ul>
-
-                                    <p class="findMore">
-                                        <a href="http://${communityHost}/groups">Find more &gt;</a>
-                                    </p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 
 <div id="sidebarGS" class="col">
@@ -412,7 +248,8 @@
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
                     </c:if>
-                    <input type="text" value="Enter school, city or district" name="q" id="q" size="21" class="textInput"
+                    <input type="text" value="Enter school, city or district" name="q" id="q" size="21"
+                           class="textInput"
                            onfocus="textSwitch(this, '', 'Enter school, city or district');"
                            onblur="textSwitch(this, 'Enter school, city or district', '');"/>
 
@@ -432,13 +269,55 @@
             </div>
         </div>
     </div>
+
+    <div>
+    <c:choose>
+        <c:when test="${showAd}">
+            <ad:Homepage_300x250/>
+        </c:when>
+        <c:otherwise>
+            <div class="adBox">
+                <div class="wrapper-outer">
+                    <div class="wrapper-inner">
+                        <div class="wrapper-content">
+                            <a href="/content/healthyKids.page"><img id="adFreeHouseAd"
+                                                                     src="/res/img/home/GS_boxad_healthy2.jpg"
+                                                                     alt="Healthy Kids: No more couch potatoes!"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+    </div>
+
+    <div class="mod">
+        <div class="mod_hd">
+            <h3>My stuff</h3>
+        </div>
+        <div class="mod_bd">
+
+        </div>
+    </div>
+
+    <div class="mod">
+        <div class="mod_hd">
+            <h3>GreatSchools blog</h3>
+        </div>
+        <div class="mod_bd">
+            <cache:cache scope="application" name="blog" key="bill3">
+                <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
+                                  defaultTitle="GreatSchools blog"
+                                  defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
+                                  type="splashBlog"
+                                  showDate="true"
+                        />
+            </cache:cache>
+        </div>
+    </div>
 </div>
 
-<c:if test="${showAd}">
-    <div id="homepageFooterAd">
-        <ad:Homepage_Footer_728x90/>
-    </div>
-</c:if>
+
 
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>

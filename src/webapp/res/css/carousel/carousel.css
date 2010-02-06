@@ -1,12 +1,8 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.fltlft{
-    float:left;
-}
-
 #carousel{
-    margin:15px 20px;
+    margin:15px 0;
 }
 
 #carousel .headline {

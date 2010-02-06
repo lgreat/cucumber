@@ -93,10 +93,11 @@
     <ad:xGAMSetup/>
 </head>
 
-<body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}" onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
+<body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
+      onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
 <c:if test="${requestScope.pageHelper.showingNthGraderHover}">
-    <community:nthGraderRegistrationHover/>    
+    <community:nthGraderRegistrationHover/>
 </c:if>
 
 <div id="marginGS">
@@ -109,7 +110,7 @@
     <div id="pageGS">
 
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-           <mod:topNav />
+            <mod:topNav/>
         </c:if>
 
 

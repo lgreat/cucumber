@@ -9,6 +9,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag body-content="empty" description="Common GS footer tag"/>
@@ -20,16 +21,33 @@
                              description="Show only the copyright footer."/>
 
     <jsp:scriptlet>
+        request.setAttribute("tabs", PageHelper.pageIds);
+    </jsp:scriptlet>
+
+    <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
 
     <c:if test="${requestScope.pageHelper.showingFooter}">
-        <c:if test="${showAd ne false}">
+
+        <c:set var="pw" value="${requestScope.context.pathway}"/>
+        <c:choose>
+            <c:when test="${pw == tabs.HOME}">
+                <div id="homepageFooterAd">
+                    <ad:Homepage_Footer_728x90/>
+                </div>
+            </c:when>
+            <c:when test="${showAd}">
                 <div id="footerAd">
                     <ad:footerAd/>
                 </div>
-            </c:if>
+            </c:when>
+            <c:otherwise>
+                <!--do not show a footer ad-->
+            </c:otherwise>
+        </c:choose>
+
         <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
 
 

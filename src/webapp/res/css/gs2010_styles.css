@@ -31,10 +31,18 @@ General comments:
 
 /* =0 reset styles
 -------------------------------------------------------------------------------------------*/
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline:0; background: transparent;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
 blockquote, q {
     quotes: none;
 }
+
 blockquote:before, blockquote:after, q:before, q:after {
     content: '';
     content: none;
@@ -49,67 +57,80 @@ blockquote:before, blockquote:after, q:before, q:after {
 ins {
     text-decoration: none;
 }
+
 del {
     text-decoration: line-through;
 }
+
 ul, li {
     list-style: none;
 }
+
 /* tables still need 'cellspacing="0"' in the markup */
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 html {
     background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
 }
+
 body {
-    background: url(/res/img/gs_cloud_bg.png) 52%  204px no-repeat;
-    font: 13px/1.3 Arial, sans-serif;
+    background: url(/res/img/gs_cloud_bg.png) 52% 204px no-repeat;
+    font: 13px / 1.3 Arial, sans-serif;
     color: #333;
 }
+
 /* =1 text styles
 -------------------------------------------------------------------------------------------*/
 h1 {
-    font:  30px/1.3 Georgia, serif;
+    font: 30px / 1.3 Georgia, serif;
     color: #d61;
 }
+
 h2 {
-    font: 24px/1.3 Georgia, serif;
+    font: 24px / 1.3 Georgia, serif;
     color: #d61;
 }
+
 h3 {
-    font: 20px/1.3 Arial, sans-serif;
+    font: 20px / 1.3 Arial, sans-serif;
 }
+
 h4 {
-    font: 700 18px /1.3 Georgia, serif;
+    font: 700 18px / 1.3 Georgia, serif;
     color: #d61;
 }
+
 h5 {
-    font: 700 13px/1.3 Arial, sans-serif;
+    font: 700 13px / 1.3 Arial, sans-serif;
 }
+
 .alert {
     color: #d61;
 }
+
 /* clases applied to h3 */
 .title1 {
-    font-family: Georgia, serif;
+    font: Georgia, serif;
     color: #d61;
 }
+
 h3.title1white {
     background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x scroll 0 0;
-    color:#fff;
-    font:700 14px Arial,sans-serif;
-    padding:6px;
+    color: #fff;
+    font: 700 14px Arial, sans-serif;
+    padding: 6px;
 }
+
 .title2 {
-    font-family: Georgia, serif;
-    font-size: 22px;
+    font: 22px Georgia, serif;
     color: #fc6;
 }
+
 .title2dark {
-    font-family: Georgia, serif;
-    font-size: 22px;
+    font: 22px Georgia, serif;
     color: #d61;
 }
 
@@ -117,62 +138,67 @@ h3.title1white {
 .subhead2, .subhead3, .subhead4 {
     font-weight: 400;
 }
+
 .subhead3 {
-	color: #fff;
+    color: #fff;
 }
+
 .subhead4 {
     color: #fc6;
 }
+
 .subhead6 {
     font-family: Arial, sans-serif;
     color: #333;
 }
+
 .text3 {
-    font-size: 12px;
-    font-family: Arial, sans-serif;
+    font: 12px Arial, sans-serif;
     color: #333;
 }
+
 .result_title {
     font-size: 12px;
     font-weight: 400;
 }
+
 a {
     color: #0066B8;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 p {
     margin: 0 0 1.2em;
 }
-/*
-=2 ads
--------------------------------------------------------------------------------------------
-*/
+
+/* =2 ads
+-------------------------------------------------------------------------------------------*/
 .gsAd, #adLeaderboard {
     margin: 0 auto;
     text-align: center;
     width: 738px;
 }
+
 #pageGS {
     width: 978px;
     margin: 0 auto;
 }
-/*
-=3 header/topnav
--------------------------------------------------------------------------------------------
-*/
+
+/* =3 header/topnav
+-------------------------------------------------------------------------------------------*/
 
 #header {
     position: relative;
     height: 116px;
     z-index: 4;
 }
-/*
- =3a utitility links
--------------------------------------------------------------------------------------------
-*/
+
+/* =3a utitility links
+-------------------------------------------------------------------------------------------*/
 #utilLinks {
     position: absolute;
     height: 18px;
@@ -181,6 +207,7 @@ p {
     right: 72px;
     z-index: 3;
 }
+
 #utilLinks li {
     display: inline;
     padding: 0 6px;
@@ -188,12 +215,15 @@ p {
     font-size: 11px;
     color: #fff;
 }
+
 #utilLinks li:last-child {
     border: 0;
 }
+
 #utilLinks li a {
     color: #fff;
 }
+
 #utilLinks .nav_menu {
     position: relative;
     padding: 0;
@@ -203,14 +233,16 @@ p {
     padding: 3px 17px 6px 6px;
     margin: 0 0 0 6px;
     background: url(/res/img/nav/topnavSprite_bg.png) 101% -251px;
-    
+
 }
+
 #utilLinks .over a.nav_group_heading {
     background-position: 101% -294px;
     background-color: #fff;
     color: #06b;
 }
-#utilLinks li .nav_group_items  {
+
+#utilLinks li .nav_group_items {
     position: absolute;
     width: 108px;
     top: 19px;
@@ -218,21 +250,23 @@ p {
     background: #fff;
     border: 1px solid #06b;
 }
+
 #utilLinks li .nav_group_items li {
     display: block;
     padding: 6px;
 }
-#utilLinks li.over .nav_group_items  {
+
+#utilLinks li.over .nav_group_items {
     left: 6px;
 }
+
 #utilLinks .over .nav_group_items a {
     background: transparent;
     color: #06b;
 }
-/*
- =3b logo
--------------------------------------------------------------------------------------------
-*/
+
+/* =3b logo
+-------------------------------------------------------------------------------------------*/
 #logoBox {
     position: relative;
     margin-top: 20px;
@@ -240,19 +274,20 @@ p {
     height: 83px;
     z-index: 1;
 }
+
 #logo {
     position: relative;
     width: 369px;
     height: 83px;
 }
-/*
- =3c search box
--------------------------------------------------------------------------------------------
-*/
+
+/* =3c search box
+-------------------------------------------------------------------------------------------*/
 #topnav_search_articlesAndCommunity {
     dislplay: none;
 }
-#topnav_search  {
+
+#topnav_search {
     position: relative;
     float: right;
     margin: 0 4px -40px 0;
@@ -261,12 +296,14 @@ p {
     height: 59px;
     z-index: 2;
 }
+
 #topnav_search fieldset {
     position: relative;
     padding: 28px 15px 0;
     background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
     height: 31px;
 }
+
 #topnav_search ul {
     position: absolute;
     top: -28px;
@@ -274,6 +311,7 @@ p {
     list-style: none;
     height: 28px;
 }
+
 #topnav_search ul li {
     float: left;
     padding: 0 0 0 6px;
@@ -286,15 +324,19 @@ p {
 #topnav_search ul #srch1 {
     background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
+
 #topnav_search ul #srch2 {
     background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
+
 #topnav_search ul #srch1.active {
     background-position: 0 -58px;
 }
+
 #topnav_search ul #srch2.active {
     background-position: 0 -108px;
 }
+
 #topnav_search ul li label {
     display: block;
     height: 21px;
@@ -302,56 +344,65 @@ p {
     color: #fff;
     cursor: pointer;
 }
+
 #topnav_search ul #srch1 label {
     background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
+
 #topnav_search ul #srch2 label {
     background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
+
 #topnav_search ul #srch1.active label {
     background-position: 100% -158px;
     color: #333;
 }
+
 #topnav_search ul #srch2.active label {
     background-position: 100% -158px;
     color: #333;
 }
+
 #topnav_search fieldset input {
     width: 264px;
     height: 18px;
     margin: 0 9px 0 0;
     outline: 0;
 }
+
 #topnav_search fieldset select {
     height: 24px;
     margin: 0 7px 0 0;
 
 }
+
 #topnav_search button {
     position: relative;
     top: -2px;
     float: right;
 }
+
 #topnav_search #radBtns {
     position: absolute;
     left: -10000px;
 }
-/*
- =3d global nav
--------------------------------------------------------------------------------------------
-*/
+
+/* =3d global nav
+-------------------------------------------------------------------------------------------*/
 #navbar {
     padding: 0 3px;
     height: 68px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
     z-index: 2;
 }
+
 #globalnav {
     height: 34px;
     margin: 0 auto;
     list-style: none;
     background: url(/res/img/nav/nav_bg.png) repeat-x;
 }
+
 #globalnav li {
     float: left;
     padding: 0;
@@ -360,33 +411,42 @@ p {
     border: 1px solid #167eab;
     border-left-color: #82bcd5;
     background: url(/res/img/nav/nav_bg.png) 0 -1px no-repeat;
-    font: 700 14px/1 Georgia, Times New Roman, serif;
+    font: 700 14px / 1 Georgia, Times New Roman, serif;
 }
+
 #globalnav li#n1 {
     width: 88px;
 }
+
 #globalnav li#n2 {
     width: 130px;
 }
+
 #globalnav li#n3 {
     width: 114px;
 }
+
 #globalnav li#n4 {
     width: 180px;
 }
+
 #globalnav li#n5 {
     width: 147px;
 }
+
 #globalnav li#n6 {
     width: 130px;
 }
+
 #globalnav li#n7 {
     width: 167px;
 }
+
 #globalnav li:hover, #globalnav li.over, #globalnav li.active {
     background-position: 0 -35px;
     border-color: #b76700;
 }
+
 #globalnav li a {
     display: block;
     padding: 6px 0;
@@ -394,24 +454,27 @@ p {
     color: #fff;
     height: 20px;
 }
+
 #globalnav li a:hover {
     color: #333;
 }
+
 #globalnav li#n7 a {
     background: url(/res/img/nav/snowFlakes_bg.png) 50% -1px no-repeat;
 }
+
 #globalnav li#n7 a:hover {
     background-position: 50% -35px;
 }
-/*
- =3e subnav menus
--------------------------------------------------------------------------------------------
-*/
+
+/* =3e subnav menus
+-------------------------------------------------------------------------------------------*/
 #topnav_menusubnav {
     height: 34px;
     list-style: none;
     padding: 0 0 0 10px;
 }
+
 #topnav_menusubnav li {
     float: left;
     padding: 3px 3px 0 0;
@@ -421,17 +484,20 @@ p {
     position: relative;
     font-size: 12px;
 }
+
 #topnav_menusubnav  #topnav_sm {
     background: none;
     float: right;
     font-size: 10px;
 }
+
 #topnav_menusubnav  #topnav_sm .socialMedia {
     position: relative;
     margin: 0;
     vertical-align: middle;
     top: -4px;
 }
+
 #topnav_menusubnav  #topnav_sm .socialMedia img {
     margin: 0 3px 0 3px;
     position: relative;
@@ -444,9 +510,11 @@ p {
     margin: 0;
     display: inline;
 }
+
 #topnav_menusubnav li.over {
     background-color: #06b;
 }
+
 #topnav_menusubnav li a {
     text-decoration: none;
     display: block;
@@ -455,10 +523,12 @@ p {
     width: auto;
     padding: 3px 15px 3px 6px;
 }
+
 #topnav_menusubnav li.over a {
     color: #fff;
     background-position: 100% -222px;
 }
+
 #topnav_menusubnav ul.nav_group_items {
     position: absolute;
     background-color: #fff;
@@ -468,9 +538,11 @@ p {
     width: 205px;
     border: 1px solid #06b;
 }
+
 #topnav_menusubnav li.over ul.nav_group_items {
     left: 0;
 }
+
 #topnav_menusubnav ul.nav_group_items li {
     float: none;
     display: block;
@@ -478,15 +550,19 @@ p {
     margin: 0;
     width: auto;
 }
+
 #topnav_menusubnav li.over ul.nav_group_items a {
-    color: #06b; 
+    color: #06b;
 }
+
 #topnav_menusubnav li.over ul.nav_group_items li.over a {
     color: #fff;
 }
+
 #topnav_menusubnav ul.nav_group_items li a, #topnav_menusubnav ul.nav_group_items li.over a {
     background: none;
 }
+
 /* START list-based subnav */
 
 #topnav #topnav_menusubnav_wrapper {
@@ -498,8 +574,7 @@ p {
 }
 
 #topnav ul#topnav_menusubnav {
-    height: 28px;
-    /*width: 865px;*/
+    height: 28px; /*width: 865px;*/
     width: 100%;
     margin: 4px auto 0 auto;
     padding: 0;
@@ -519,11 +594,11 @@ p {
     padding-left: 3px;
     float: left;
 }
+
 /* END subnav spacing */
 
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
-
 
 #mainWrap {
     position: relative;
@@ -543,15 +618,13 @@ p {
     width: 968px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
-    overflow:hidden;
-    background:url(/res/img/discussion_boards/db_background.gif) 40px 0;
+    overflow: hidden;
+    background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
 
 #mainGS.col {
-    width: 638px;
-    /*margin: 0 auto;
-    overflow:hidden;
-    background:url(/res/img/discussion_boards/db_background.gif) 40px 0;*/
+    width: 598px;
+    padding: 0 20px;
 }
 
 #sidebarGS.col {
@@ -559,36 +632,34 @@ p {
     padding-left: 2px;
 }
 
-
-
-
 .mod_hd h3 {
     padding: 0 15px;
     background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
-    font: 20px/1.7 Georgia,"Times New Roman",Times,serif;
+    font: 20px / 1.7 Georgia, "Times New Roman", Times, serif;
 }
 
-#sidebar .mod_hd h3 {
+#sidebarGS .mod_hd h3 {
     font-size: 14px;
 }
+
 .mod_bd {
     padding: 8px;
 }
 
 .fltlft {
-    float:left;
-}
-.fltrt {
-    float:right;
+    float: left;
 }
 
+.fltrt {
+    float: right;
+}
 
 /* =7 editorialFooter
 -------------------------------------------------------------------------------------------*/
 #editorialFooter .content {
     border-bottom: 1px solid #fb0;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 #editorialFooter .content li {
@@ -598,29 +669,36 @@ p {
 #editorialFooter .content li ul.arrowUL li {
     float: none;
 }
+
 #editorialFooter .content li.col1 {
     width: 196px;
     margin: 3px 8px 0 0;
 }
+
 #editorialFooter .content li.col2 {
     width: 439px;
     margin-right: 8px;
 }
+
 #editorialFooter .content li .footcol {
     border: solid #fb0;
     overflow: hidden;
 }
+
 #editorialFooter .content li.col3 {
     margin-top: 3px;
 }
+
 #editorialFooter .content li.col1 .footcol {
     height: 334px;
     border-width: 1px 0 0 1px;
 }
+
 #editorialFooter .content li.col2 .footcol {
     height: 337px;
     border-width: 1px 1px 0 1px;
 }
+
 #editorialFooter .content li.col3 .footcol {
     height: 337px;
     border-width: 1px 1px 0 0;
@@ -631,6 +709,7 @@ p {
     margin: 8px 0;
     height: 318px;
 }
+
 #editorialFooter .content ul.footcol li {
     background: url(/res/img/content/research/red_dot_vert.gif) 100% 0 repeat-y;
 }
@@ -638,6 +717,7 @@ p {
 #editorialFooter .content ul.footcol li.last {
     background: none;
 }
+
 /*
 =searchResults
 ------------------------------------------------------------------------------
@@ -679,14 +759,16 @@ p {
 -------------------------------------------------------------------------------------------
 */
 ul.srchSuggest {
-    margin:1em 0 1em 2em;
+    margin: 1em 0 1em 2em;
 }
+
 ul.srchSuggest li {
-    color:#DD6611;
-    line-height:1.3;
-    list-style:disc;
+    color: #DD6611;
+    line-height: 1.3;
+    list-style: disc;
     margin: 0.6em 0;
 }
+
 ul.srchSuggest li span {
     color: #333;
 }
@@ -694,43 +776,52 @@ ul.srchSuggest li span {
 #commSearch .mod_bd {
     overflow: hidden;
 }
+
 .srchFrm {
     padding: 15px;
     background: #fc6;
     overflow: hidden;
 }
+
 .srchFrm .db_search_input {
     margin: 1px 0 0;
-    padding: 0;font-family:Arial,Helvetica,sans-serif;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: #777;
 }
+
 .srchFrm button.fltlt {
     position: relative;
     left: 15px;
 }
+
 .brwse {
     background: #fff;
-    padding:15px 10px 15px 20px;
+    padding: 15px 10px 15px 20px;
 }
+
 .brwse .topics {
     width: 149px;
     color: #f4891d;
 }
+
 .brwse .topics li {
     list-style: disc;
     margin: 0 0 0 15px;
     padding: 5px 0;
 }
+
 .brwseFrm {
-    background:#f9eccd;
+    background: #f9eccd;
     padding: 15px 20px;
     width: 290px;
     border-bottom: 1px dotted #999;
 }
+
 .brwseFrm label {
-    color:#d61;
-    font-family: Georgia,"Times New Roman",Times,serif;
+    color: #d61;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 18px;
     padding: 0 10px 0 0;
 }
@@ -742,21 +833,25 @@ ul.srchSuggest li span {
 h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks {
     margin-left: 43px;
 }
+
 h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
-    color:#888888;
-    font-size:12px;
-    font-weight:normal;
+    color: #888888;
+    font-size: 12px;
+    font-weight: normal;
 }
 
-#footerAd, #footerFrm {
+#footerAd, #homepageFooterAd, #footerFrm {
     background: url(/res/img/gs_content_bg.png) repeat-y;
 }
-#footerAd {
+
+#footerAd, #homepageFooterAd {
     padding: 15px 0;
 }
-#footerAd table {
+
+#footerAd table, #homepageFooterAd table {
     margin: auto;
 }
+
 #footer {
     background: url(/res/img/gs_content_bg.png) repeat-y;
     font-size: 11px;
@@ -771,21 +866,26 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
     margin: 0 auto;
     text-align: center;
 }
+
 #footnav li {
     display: inline;
     margin: 0 9px;
     font-weight: 700;
 }
+
 #footnav li a, .cities ul a, .copyright a {
     color: #666;
 }
+
 .copyright {
     margin: 1em;
     text-align: center;
 }
+
 .copyright a {
     margin: 0 10px;
 }
+
 .cities {
     margin: 20px auto 0;
     padding: 12px 54px;
@@ -793,13 +893,15 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
     background: #ebebeb;
     overflow: hidden;
 }
+
 .cities h4 {
     margin: 0 auto 1em;
-    font: 400 12px/1.3 Arial, sans-serif;
+    font: 400 12px / 1.3 Arial, sans-serif;
     color: #444;
     text-align: center;
     text-transform: uppercase;
 }
+
 .cities ul {
     float: left;
     margin: 0 3px 0 0;
@@ -817,30 +919,31 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
 button {
     overflow: visible; /*resets ie extra margin added by long strings */
 }
+
 /* ------------------- */
 /* 25 px height button */
 /* ------------------- */
 
 /* do not change */
-.btn25{
+.btn25 {
     cursor: pointer;
-    display:block;
-    margin:0;
-    border:0 none transparent;
-    padding:0;
-    background-color:transparent; /* hide form background color in IE */
+    display: block;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    background-color: transparent; /* hide form background color in IE */
 }
 
 .lftDoor25 {
-    display:inline-block;
+    display: inline-block;
     padding: 0 0 0 15px;
     line-height: 25px;
-    float:left;
+    float: left;
 }
 
 .rtDoor25 {
     display: inline-block;
-    padding:0 15px 0 0;
+    padding: 0 15px 0 0;
     height: 25px;
     line-height: 25px;
 }
@@ -854,7 +957,7 @@ button {
     background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
 }
 
-.btn25:active .lftDoor25, .btn25:hover .lftDoor25{
+.btn25:active .lftDoor25, .btn25:hover .lftDoor25 {
     background-position: left bottom;
 }
 
@@ -864,9 +967,9 @@ button {
 }
 
 /* icon */
-.lftDoor25 .rtDoor25 img{
-    margin:0;
-    border:0 none transparent;
+.lftDoor25 .rtDoor25 img {
+    margin: 0;
+    border: 0 none transparent;
 }
 
 /* font size and family */
