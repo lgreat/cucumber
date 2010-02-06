@@ -1,3 +1,6 @@
+.leftside #contentGS {
+    background: none;
+}
 .contentFAQ {
 	text-align: left;
 	padding: 10px 25px;

@@ -31,7 +31,7 @@
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
-    <gsml:body adPageName="aboutUs" pageLayout="aboutUs">
+    <gsml:body adPageName="aboutUs" pageLayout="leftside">
 
         <div class="breadcrumbs smallAlertText">
             <link:aboutUs>About us</link:aboutUs>

@@ -26,7 +26,7 @@
         <title>Link To Great Schools</title>
     </head>
 
-    <gsml:body adPageName="linkToUs" pageLayout="gsFaq">
+    <gsml:body adPageName="linkToUs" pageLayout="leftside">
 
         <mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
 

@@ -25,7 +25,7 @@
         <title>Great Schools Partner Opportunities</title>
     </head>
 
-    <gsml:body adPageName="partnerOpportunities" pageLayout="gsFaq">
+    <gsml:body adPageName="partnerOpportunities" pageLayout="leftside">
 
         <mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
 

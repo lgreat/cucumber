@@ -36,7 +36,7 @@
         </script>
     </head>
 
-    <gsml:body adPageName="login">
+    <gsml:body adPageName="login" pageLayout="balanced">
 
     <ad:setSlotPrefix slotPrefix="CommunityLoginOrRegister"/>
     

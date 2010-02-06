@@ -1,8 +1,12 @@
+.balanced #contentGS {
+    background: none;
+}
 #outline {
     border: 4px solid #F2F3DB;
     width: 856px;
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
+    margin: 1em auto;
 }
 
 #newuser {
