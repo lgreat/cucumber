@@ -56,6 +56,7 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
     public static final String MODEL_REPLY_REPORTS = "replyReports";    
     public static final String MODEL_DISCUSSION_REPORT = "discussionReport";
+    public static final String MODEL_ALL_TOPIC_CENTERS = "allTopicCenters";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -185,6 +186,13 @@ public class DiscussionController extends AbstractController {
             _log.warn("Can't find discussion board for discussion with id " + contentId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
+        }
+
+        if (user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND)) {
+            List<CmsTopicCenter> allTopicCenters = _publicationDao
+                    .populateAllByContentType("TopicCenter", new CmsTopicCenter());
+            Collections.sort(allTopicCenters);
+            model.put(MODEL_ALL_TOPIC_CENTERS, allTopicCenters);
         }
 
         return new ModelAndView(_viewName, model);

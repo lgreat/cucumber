@@ -1605,6 +1605,28 @@ Thus, we use -3px of left/right margin to overcome this.
     }
 }
 
+/* --------------- */
+/* RAISE YOUR HAND */
+/* --------------- */
+
+.ryh .assoc {
+    padding-top: 10px;
+}
+
+.ryh .assoc .entry {
+    position: relative;
+}
+
+.ryh .assoc .entry:nth-child(even) {
+    background-color: #ccc;
+}
+
+.ryh .assoc .history {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+}
+
 /* --- */
 /* EOF */
 /* --- */
