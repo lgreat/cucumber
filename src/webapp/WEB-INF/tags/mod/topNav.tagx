@@ -69,10 +69,7 @@
             </div>
 
 
-<c:choose>
-    <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
-     </c:when>
-    <c:when test="${communityUtil.newCommunityEnabled}">
+
         <!-- variables holding the search form actions for local and community searches -->
         <c:set var="localSearchAction" value="/search/search.page"/>
         <c:set var="articlesAndCommunitySearchAction" value="/search/contentSearch.page"/>
@@ -145,96 +142,6 @@
             </gsweb:form>
             <script type="text/javascript">document.forms['topnav_search'].reset();</script><!-- GS-3713 -->
 
-    </c:when>
-    <!--<c:otherwise>-->
-        <!-- variables holding the search form actions for local and community searches -->
-        <!--<c:set var="localSearchAction" value="/search/search.page"/>-->
-        <!--<c:set var="communitySearchAction" value="http://${communityHost}/search"/>-->
-        <!-- variable that holds the actual search form action, populated with one of the above vars -->
-        <!--<c:set var="searchFormAction" value="${localSearchAction}"/>-->
-        <!-- variables holding which search radio should be checked when the page is loaded (overridden below) -->
-        <!--<c:set var="searchRadioCommunityChecked" value="false"/>-->
-        <!--<c:set var="searchRadioSchoolChecked" value="false"/>-->
-        <!--<c:set var="searchRadioArticleChecked" value="false"/>-->
-        <!-- variables controlling search box width and whether the state drop down is shown or hidden -->
-        <!--<c:set var="searchBoxStyle" value="width:247px;"/>-->
-        <!--<c:set var="searchStateStyle" value="display:none;"/>-->
-        <!-- search box on click value ... as this never changes, why is this in a variable?? -->
-        <!--<c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>-->
-        <!--<c:choose>-->
-            <!--<c:when test="${inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING}">-->
-                <!-- Following variable is also hard-coded into global.js -->
-                <!--<c:set var="searchBoxValue" value="Search community by keyword"/>-->
-                <!--<c:set var="searchFormAction" value="${communitySearchAction}"/>-->
-                <!--<c:set var="searchRadioCommunityChecked" value="true"/>-->
-            <!--</c:when>-->
-            <!--<c:when test="${requestScope.context.topicPage}">-->
-                <!-- Following variable is also hard-coded into global.js -->
-                <!--<c:set var="searchBoxValue" value="Search by keyword"/>-->
-                <!--<c:set var="searchRadioArticleChecked" value="true"/>-->
-            <!--</c:when>-->
-            <!--<c:otherwise>-->
-                <!-- Following variable is also hard-coded into global.js -->
-                <!--<c:set var="searchBoxValue" value="Search for school, district or city"/>-->
-                <!--<c:set var="searchRadioSchoolChecked" value="true"/>-->
-                <!-- shorten text box and show state drop down -->
-                <!--<c:set var="searchBoxStyle" value="width:190px;"/>-->
-                <!--<c:set var="searchStateStyle" value="display:block;"/>-->
-            <!--</c:otherwise>-->
-        <!--</c:choose>-->
-        <!-- text in following script also hard-coded into global.js -->
-        <!--<script type="text/javascript">-->
-            <!--function clearValueInBox(x) {-->
-                <!--if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city' || x.value == 'Search community by keyword') {-->
-                    <!--x.value = '';-->
-                <!--}-->
-            <!--}-->
-        <!--</script>-->
-          <!--<div class="search ${communityClassSearch}" >-->
-            <!--<gsweb:form method="get" id="topnav_search" action="${searchFormAction}" onsubmit="return topNavSubmitSearch(this)">-->
-                <!--<c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">-->
-                    <!--<input type="hidden" name="st" value="charter"/>-->
-                <!--</c:if>-->
-                <!--<input type="hidden" name="search_type" value="0"/>-->
-                <!--<table cellpadding="0" cellspacing="0">-->
-                    <!--<tr>-->
-                        <!--<td id="searchBox">-->
-                            <!--<input type="text" name="q" id="q" style="${searchBoxStyle}"-->
-                                   <!--value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>-->
-                            <!--<div id="stateDropDown" style="${searchStateStyle}">-->
-                                <!--<gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"-->
-                                                     <!--noStateLabel="--"-->
-                                                     <!--usingLongNames="false"-->
-                                                     <!--state="${requestScope.context.state}" styleClass="stateSelect"/>-->
-                            <!--</div>-->
-                        <!--</td>-->
-                        <!--<td>-->
-                            <!--<gsml:url var="go" value="/res/img/header/btn_go.gif"/>-->
-                            <!--<input type="image" src="${go}" alt="GO" style="width:37px;height:20px"-->
-                                   <!--class="button"/>-->
-                        <!--</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td style="height:21px" class="searchRadios" colspan="2">-->
-                            <!--<gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavSelectSchoolSearch(this, '${localSearchAction}');"-->
-                                        <!--checked="${searchRadioSchoolChecked}"/>-->
-                            <!--<label for="topnavSchoolRadio">Schools</label>-->
-                            <!--&#160;-->
-                            <!--<gsml:radio name="c" styleId="topnavCommunityRadio" value="community" onclick="topNavSelectCommunitySearch(this, '${communitySearchAction}');"-->
-                                        <!--checked="${searchRadioCommunityChecked}"/>-->
-                            <!--<label for="topnavCommunityRadio">Community</label>-->
-                            <!--&#160;-->
-                            <!--<gsml:radio name="c" styleId="topnavTopicRadio" value="topic" onclick="topNavSelectTopicSearch(this, '${localSearchAction}');"-->
-                                        <!--checked="${searchRadioArticleChecked}"/>-->
-                            <!--<label for="topnavTopicRadio">Articles</label>-->
-                        <!--</td>-->
-                    <!--</tr>-->
-                <!--</table>-->
-            <!--</gsweb:form>-->
-            <!--<script type="text/javascript">document.forms['topnav_search'].reset();</script>--><!-- GS-3713 -->
-          <!--</div>-->
-    <!--</c:otherwise>-->
-</c:choose>
 </c:if>
 </div>
 <!--
