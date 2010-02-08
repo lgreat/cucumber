@@ -27,9 +27,9 @@
             </c:choose>
             <a class="text2" href="/about/whoWeAre.page#mngmt">Senior Management</a>
             <a class="text2" href="/about/whoWeAre.page#board">Board of Directors</a>
-            <a class="text2" href="/about/whoWeAre.page#learning">Meet our Advisors</a>
+            <a class="text2" href="/about/whoWeAre.page#learning">Meet Our Advisors</a>
             <!--<a class="text2" href="#">Our Funders</a>-->
-            <a class="text2" href="/about/partnerOpportunities.page#advertise">Advertisers</a>
+            <a class="text2" href="/about/partnerOpportunities.page#advertise">Advertise With Us</a>
             <a class="text2" href="/about/partnerOpportunities.page#license">Partners</a>
             <c:choose>
                 <c:when test="${pageScope.selected eq 'mediaRoom'}">
