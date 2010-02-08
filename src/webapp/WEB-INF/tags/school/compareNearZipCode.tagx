@@ -56,42 +56,34 @@
         <input type="hidden" name="form" value="address" />
 
 
-        <h3 id="compareSchoolsNearZipHeader">
-            <em>COMPARE SCHOOLS</em>near an address:
-        </h3>
+        <h3 class="title2-333">Compare schools <span class="introTextGA">near an address:</span></h3>
+        <br class="spacer_10"/>
         <div class="levelSelector">
-            Show me
-            <select name="level" class="school formText">
-                <option value="e">elementary</option>
-                <option value="m">middle</option>
-                <option value="h">high</option>
+            <label for="level" class="text2">Show me:&amp;nbsp;</label>
+            <select name="level" class="text2">
+                <option value="e">elementary schools</option>
+                <option value="m">middle schools</option>
+                <option value="h">high schools</option>
             </select>
-            schools
         </div>
-
-        <select name="miles" class="miles formText">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="30">30</option>
-        </select>
+        <br class="spacer_10"/>
         <div class="zipCodeInput">
-            <p>near</p>
-            <input type="text" id="findZipCodeInput" name="zip" class="zip formText" value="ZIP code"
+            <label for="zip" class="text2 fltlft">Near:&amp;nbsp;</label>
+            <input type="text" id="findZipCodeInput" name="zip" class="text2 fltlft" value="ZIP code"
+                   size="5"
                    onfocus="textSwitch(this, '', 'ZIP code');"
                    onblur="textSwitch(this, 'ZIP code', '');"/>
-            <div class="submitButton">
-                <input
-                        onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
-                        onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
-                        alt="Compare ${requestScope.context.state.longName} Schools"
-                        src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
-            </div>
+                <button class="btn25 fltlft" type="submit">
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">GO</span>
+                    </span>
+                </button>
         </div>
+        <br class="clearfloat"/>
         <div id = "errorMessageZip" >
-            <ul id="frmErrors"><li>Please enter a valid ZIP code.</li></ul>
+            <ul id="frmErrors">
+                <li>Please enter a valid ZIP code.</li>
+            </ul>
         </div>
         <c:choose>
             <c:when test="${not empty ziperror}">
@@ -104,7 +96,6 @@
                      src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
             </c:otherwise-->
         </c:choose>
-
 
     </gsweb:form>
 </jsp:root>

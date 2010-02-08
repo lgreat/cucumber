@@ -129,9 +129,27 @@ h3.title1white {
     color: #fc6;
 }
 
-.title2dark {
+.title2bold {
+    font:bold 22px Georgia, serif;
+    color: #fc6;
+}
+
+.title2-d61 {
+/* formerly "title2dark" */
     font: 22px Georgia, serif;
     color: #d61;
+}
+
+.title2-333 {
+/* formerly "title2dark" */
+    font: 22px Georgia, serif;
+    color: #333;
+}
+
+.title2bold-333 {
+/* formerly "title2dark" */
+    font: bold 22px Georgia, serif;
+    color: #333;
 }
 
 /* clases applied to h4 */
@@ -149,6 +167,16 @@ h3.title1white {
 
 .subhead6 {
     font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.introTextGA {
+    font: 16px Georgia, "Times New Roman", Times, serif;
+    color: #333;
+}
+
+.text2 {
+    font: 13px Arial, Helvetica, sans-serif;
     color: #333;
 }
 
@@ -650,11 +678,120 @@ p {
 }
 
 .fltlft {
+/* this class can be used to float an element left in your page */
     float: left;
 }
 
 .fltrt {
+/* this class can be used to float an element right in your page. */
+/* The floated element must precede the element it should be next to on the page. */
     float: right;
+}
+
+.clearfloat {
+/* this class should be placed on a div or break element and */
+/* should be the final element before the close of a container */
+/* that should fully contain a float */
+    clear: both;
+    height: 0;
+    font-size: 1px;
+    line-height: 0;
+}
+
+.spacer_10{
+    clear:both;
+    height:10px;
+    font-size:1px;
+    line-height:10px;
+}
+
+/* clear fix */
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+body.ie6 .clearfix {
+    height: 1%;
+}
+
+/* end clear fix */
+
+/* find-compare
+-------------------------------------------------------------------------------------------*/
+
+#find-compare {
+    background: #fc6;
+}
+
+#find, #compare {
+    padding: 15px 20px;
+}
+
+#find-title{
+    position:absolute;
+    height:26px;
+    /*background:white;*/
+    z-index:20;
+}
+
+#splashStateSelector{
+    margin:0 4px;
+}
+
+#compare {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+#findZipCodeInput{
+    margin-right:4px;
+}
+
+/* arrows
+-------------------------------------------------------------------------------------------*/
+
+#bigArrow-f4891d {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 2px;
+    background: none;
+    border-top: 23px solid rgba(255, 255, 255, 0.0);
+    border-left: 33px solid rgba(244, 137, 29, 0.6);
+    border-bottom: 23px solid rgba(255, 255, 255, 0.0);
+    filter: alpha(opacity = 100);
+    z-index:9;
+}
+
+#bigArrow-fc6 {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 14px;
+    left: 2px;
+    background: none;
+    border-top: 9px solid rgba(255, 255, 255, 0.0);
+    border-left: 13px solid #fc6;
+    border-bottom: 9px solid rgba(255, 255, 255, 0.0);
+    filter: alpha(opacity = 100);
+    z-index:10;
 }
 
 /* =7 editorialFooter
@@ -727,28 +864,34 @@ p {
 #srchResults {
     padding: 15px 20px;
 }
+
 #searchAgain {
     background: #ebebeb;
     overflow: hidden;
     padding: 15px;
     position: relative;
 }
+
 #searchAgain .stateMenu {
     display: none;
-}#searchAgain label {
+}
+
+#searchAgain label {
     float: left;
     position: relative;
     margin: .3em 0 1em;
-    font: 700 12px/1.3 Arial, sans-serif;
+    font: 700 12px / 1.3 Arial, sans-serif;
     color: #333;
     vertical-align: middle;
 }
-#searchAgain label input, #searchAgain label select{
+
+#searchAgain label input, #searchAgain label select {
     position: relative;
     margin: 0 6px;
     font-size: 12px;
 }
-#searchAgain label input  {
+
+#searchAgain label input {
     top: 1px;
     height: 17px;
 }
@@ -756,6 +899,7 @@ p {
 #searchAgain button {
     float: right;
 }
+
 /*
 =terms/privacy
 ----------------------------------------------------------------------------

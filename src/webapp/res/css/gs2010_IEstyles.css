@@ -16,6 +16,39 @@ body.ie #utilLinks li.over .nav_group_items  {
     left: 5px;
 }
 
+/* =ie styles: arrows
+-------------------------------------------------------------------------------------------*/
+
+#bigArrow-f4891d {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 2px;
+    background: none;
+    border-top: 23px solid #fc6;
+    border-left: 33px solid #f4891d;
+    border-bottom: 23px solid #fc6;
+    filter: alpha(opacity = 100);
+    z-index:9;
+}
+
+#bigArrow-fc6 {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 14px;
+    left: 2px;
+    background: none;
+    border-top: 9px dashed black;
+    border-left: 13px solid #fc6;
+    border-bottom: 9px dashed black;
+    filter: alpha(opacity = 100);
+    z-index:10;
+}
+
 
 /*
 =ie7 styles
