@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css" />
     </head>
 
-    <gsml:body adPageName="terms" pageLayout="singleTextOnlyColumnLayout">
+    <gsml:body adPageName="terms" pageLayout="nocol">
 
 
 <div id="policy">

@@ -32,7 +32,7 @@
     </jsp:scriptlet>
 </head>
 
-<gsml:body adPageName="email/management">
+<gsml:body adPageName="email/management" pageLayout="nocol">
 <ad:setSlotPrefix slotPrefix="Email_Management"/>
 
 <div id="border">

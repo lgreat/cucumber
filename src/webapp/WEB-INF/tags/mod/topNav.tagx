@@ -70,8 +70,6 @@
 
 
 <c:choose>
-    <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
-     </c:when>
     <c:when test="${communityUtil.newCommunityEnabled}">
         <!-- variables holding the search form actions for local and community searches -->
         <c:set var="localSearchAction" value="/search/search.page"/>

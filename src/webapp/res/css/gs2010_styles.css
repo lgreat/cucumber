@@ -193,8 +193,9 @@ p {
 
 #header {
     position: relative;
-    height: 116px;
+    height: 99px;
     z-index: 4;
+    margin-top: 5px;
 }
 
 /* =3a utitility links
@@ -269,7 +270,6 @@ p {
 -------------------------------------------------------------------------------------------*/
 #logoBox {
     position: relative;
-    margin-top: 20px;
     width: 369px;
     height: 83px;
     z-index: 1;
@@ -290,8 +290,8 @@ p {
 #topnav_search {
     position: relative;
     float: right;
-    margin: 0 4px -40px 0;
-    top: -40px;
+    margin: 0 4px -56px 0;
+    top: -56px;
     width: 449px;
     height: 59px;
     z-index: 2;
@@ -364,7 +364,7 @@ p {
 }
 
 #topnav_search fieldset input {
-    width: 264px;
+    width: 258px;
     height: 18px;
     margin: 0 9px 0 0;
     outline: 0;
@@ -405,13 +405,13 @@ p {
 
 #globalnav li {
     float: left;
-    padding: 0;
-    height: 32px;
+    padding: 2px 0 0;
+    height: 30px;
     text-align: center;
     border: 1px solid #167eab;
     border-left-color: #82bcd5;
     background: url(/res/img/nav/nav_bg.png) 0 -1px no-repeat;
-    font: 700 14px / 1 Georgia, Times New Roman, serif;
+    font: 16px/1 Georgia, Times New Roman, serif;
 }
 
 #globalnav li#n1 {
