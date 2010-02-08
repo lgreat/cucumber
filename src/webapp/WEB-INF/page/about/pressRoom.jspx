@@ -13,7 +13,13 @@
           xmlns:gsweb="gstaglib"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
+<jsp:directive.page import="gs.data.content.cms.CmsTopicCenter"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.data.cms.IPublicationDao"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -47,14 +53,39 @@
         <div class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
-            <link:aboutUs>About us</link:aboutUs>
+            <link:aboutUs>About Us</link:aboutUs>
         </div>
 
         <h1>Media Room</h1>
 
-        <div class="callout">
-            &amp;nbsp;
-        </div>
+        <c:if test="${topicCenter ne null and topicCenter.imageUrl ne null and topicCenter.mainFeatureLink ne null}">
+            <table cellpadding="0" cellspacing="0" id="featuredPress">
+                <tr>
+                    <td class="image">
+                        <img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
+                    </td>
+                    <td valign="top">
+                        <c:if test="${not empty topicCenter.mainFeatureLink}">
+                            <div id="featuredFeature">
+                                <h3 class="featuredTitle title2"><a
+                                        href="${topicCenter.mainFeatureLink.url}"
+                                        target="_blank">${topicCenter.mainFeatureLink.title}</a></h3>
+
+                                <p class="text3">${topicCenter.mainFeatureLink.description}</p>
+                                <a class="smallAlertText fltrt readMore"
+                                   href="${topicCenter.mainFeatureLink.url}"
+                                   target="_blank">Read press release <span class="go">&amp;#187;</span></a>
+                            </div>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+            <!--<div class="callout">-->
+                <!--<div id="feature" class="rounded">-->
+<!---->
+                <!--</div>-->
+            <!--</div>-->
+        </c:if>
 
         <div class="mainLeft fltlft">
             <about:aboutGreatSchools selected="mediaRoom"/>
@@ -87,7 +118,7 @@
             <br class="spacer_15"/>
             <div class="module downloadLogos">
                 <div class="header">
-                    <span class="title1 tint_fff fltlft">Download GreatSchools logos</span>
+                    <span class="title1 tint_fff fltlft">Download GreatSchools Logos</span>
                 </div>
                 <div class="body">
                     <div class="text3">
@@ -145,7 +176,7 @@
         <!--</div>-->
         <div class="module fromBlog">
             <div class="header">
-                <span class="title1 tint_fff fltlft">From our Blog</span>
+                <span class="title1 tint_fff fltlft">From Our Blog</span>
             </div>
             <div class="body">
                 <cache:cache scope="application" name="blog" key="bill4">

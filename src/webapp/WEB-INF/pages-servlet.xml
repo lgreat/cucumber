@@ -683,7 +683,7 @@
     </bean>
 
     <bean name="/about/pressRoom.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.about.MediaRoomController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/pressRoom</value>

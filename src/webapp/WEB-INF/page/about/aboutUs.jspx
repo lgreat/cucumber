@@ -34,8 +34,9 @@
     <gsml:body adPageName="aboutUs" pageLayout="leftside">
 
         <div class="breadcrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
-            &amp;gt; Overview
         </div>
 
         <div class="contentLeft">
