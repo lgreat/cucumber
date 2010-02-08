@@ -621,7 +621,7 @@ p {
     overflow: hidden;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
-.nocol #contentGS {
+.nocol #contentGS, .cityPage #contentGS {
     background: none;
 }
 #mainGS.col {
@@ -848,6 +848,7 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
     color: #888888;
     font-size: 12px;
     font-weight: normal;
+    margin: 10px 20px 0;
 }
 
 #footerAd, #homepageFooterAd, #footerFrm {
