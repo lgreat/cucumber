@@ -80,7 +80,7 @@
 </head>
 
 
-<gsml:body adPageName="district-home" >
+<gsml:body adPageName="district-home" pageLayout="nocol">
 
     <c:choose>
         <c:when test="${empty school}">

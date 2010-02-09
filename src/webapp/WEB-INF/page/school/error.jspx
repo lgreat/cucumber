@@ -15,7 +15,7 @@
     </style>
     <title>GreatSchools.org - School not found</title>
 </head>
-<body>
+<body class="nocol">
 <div id="error">
     <span class="errorMessage">
         Sorry, this school could not be found.

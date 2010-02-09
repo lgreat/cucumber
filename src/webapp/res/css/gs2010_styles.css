@@ -625,7 +625,7 @@ p {
     overflow: hidden;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
-.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS {
+.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS {
     background: none;
 }
 #mainGS.col {

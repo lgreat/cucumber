@@ -32,7 +32,7 @@
         request.setAttribute("requestURI", request.getRequestURI());
     </jsp:scriptlet>
 
-    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
+    <gsml:body adPageName="www" pageLayout="nocol">
         <mod:tracking pageName="Error:${errorCode} ${requestURI}" hier1="Error,${errorCode}"/>
 
 <div id="mainGS">

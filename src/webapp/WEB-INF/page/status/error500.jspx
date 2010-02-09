@@ -44,7 +44,7 @@
             </c:if>
         </head>
 
-        <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
+        <gsml:body adPageName="www" pageLayout="nocol">
 
             <mod:tracking pageName="Error:500 ${requestURI}" hier1="Error,500"/>
 

@@ -73,7 +73,7 @@
     <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 </head>
 
-<gsml:body adPageName="modal" pageLayout="research">
+<gsml:body adPageName="modal" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/geo/state.css"/>
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 

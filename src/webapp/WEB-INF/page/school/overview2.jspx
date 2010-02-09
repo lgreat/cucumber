@@ -70,7 +70,7 @@
     <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#" />
 </head>
 
-<gsml:body adPageName="overview" pageLayout="research" >
+<gsml:body adPageName="overview" pageLayout="nocol" >
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
