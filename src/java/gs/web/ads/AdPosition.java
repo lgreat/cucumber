@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.49 2009/12/04 22:27:19 chriskimm Exp $
+ * $Id: AdPosition.java,v 1.50 2010/02/09 01:43:21 aroy Exp $
  */
 package gs.web.ads;
 
@@ -121,7 +121,7 @@ public class AdPosition extends Enum {
     public static final AdPosition countdown_b2s_311x250 = new AdPosition("countdown_b2s_311x250", true);
     public static final AdPosition Global_Nav_Promo_865x24 = new AdPosition("Global_Nav_Promo_865x24", true);
     public static final AdPosition Global_Nav_Promo_952x24 = new AdPosition("Global_Nav_Promo_952x24", true);
-
+    public static final AdPosition Facebook_Promo_300x250 = new AdPosition("Facebook_Promo_300x250", true); // GS-9137
 
     private boolean _isGAMPosition;
     private String _baseName = null;
