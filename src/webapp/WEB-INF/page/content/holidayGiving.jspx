@@ -162,6 +162,7 @@
 <div id="contentRight">
     <ad:AboveFold_300x250/>
 
+    <!--
     <div id="donorsChooseWrapper">
     <jsp:include page="/content/donorsChoose.module">
         <jsp:param name="maxProposals" value="${3}"/>
@@ -169,6 +170,7 @@
         <jsp:param name="omnitureCustomLink" value="DonorsChoose_Holiday"/>
     </jsp:include>
     </div>
+    -->
 
 </div>
 

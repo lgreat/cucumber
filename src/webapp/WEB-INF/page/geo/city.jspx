@@ -307,12 +307,14 @@
                 </c:if>
                 <c:choose>
                     <c:when test="${empty recentDiscussions}">
+                        <!--
                         <jsp:include page="/content/donorsChoose.module">
                             <jsp:param name="cityID" value="${cityObject.id}"/>
                             <jsp:param name="state" value="${stateAbbrev}"/>
                             <jsp:param name="maxProposals" value="${3}"/>
                             <jsp:param name="omnitureCustomLink" value="DonorsChoose_citypage"/>
                         </jsp:include>
+                        -->
                     </c:when>
                     <c:otherwise>
                         ${recentDiscussions}

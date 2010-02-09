@@ -190,10 +190,12 @@
             <ad:AboveFold_300x250/>
             <jsp:include page="/backToSchool/popularArticles.module"/>
             <gsweb:adTagGenerator position="House_Ad_300x137_B2S" alwaysShow="true"/>
+            <!--
             <jsp:include page="/content/donorsChoose.module">
                 <jsp:param name="maxProposals" value="${3}"/>
                 <jsp:param name="omnitureCustomLink" value="DonorsChoose_backToSchool"/>
             </jsp:include>
+            -->
         </div>
         
         <div style="display: none;">
