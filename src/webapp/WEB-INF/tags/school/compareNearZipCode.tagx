@@ -60,7 +60,7 @@
         <br class="spacer_10"/>
         <div class="levelSelector">
             <label for="level" class="text2">Show me:&amp;nbsp;</label>
-            <select name="level" class="school text2">
+            <select id="level" name="level" class="school text2">
                 <option value="e">elementary schools</option>
                 <option value="m">middle schools</option>
                 <option value="h">high schools</option>
