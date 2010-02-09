@@ -185,6 +185,26 @@ h3.title1white {
     color: #333;
 }
 
+.smallText1 {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #777;
+}
+
+.smallText2 {
+    font: 10px Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+.smallAlertTextBold {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    color: #d61;
+}
+
+.smallAlertTextBold-333 {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
 .result_title {
     font-size: 12px;
     font-weight: 400;
@@ -746,6 +766,17 @@ body.ie6 .clearfix {
 
 #mostPopular.mod_bd li{
     padding:6px 0;
+}
+
+/* gs blog
+-------------------------------------------------------------------------------------------*/
+
+#gs-blog.mod_bd{
+    padding:15px 20px;
+}
+
+.blogpromo_image{
+    margin-right:8px;
 }
 
 /* arrows

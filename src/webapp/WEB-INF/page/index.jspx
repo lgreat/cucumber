@@ -291,14 +291,14 @@
     </c:choose>
     </div>
 
-    <div class="mod">
+    <!--<div class="mod">
         <div class="mod_hd">
             <h3>My Stuff</h3>
         </div>
         <div class="mod_bd">
 
         </div>
-    </div>
+    </div>-->
 
     <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 
@@ -306,7 +306,7 @@
         <div class="mod_hd">
             <h3>GreatSchools Blog</h3>
         </div>
-        <div class="mod_bd">
+        <div id="gs-blog" class="mod_bd">
             <cache:cache scope="application" name="blog" key="bill3">
                 <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                   defaultTitle="GreatSchools blog"

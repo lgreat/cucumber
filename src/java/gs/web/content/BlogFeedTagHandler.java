@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.32 2010/02/03 22:03:01 aroy Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.33 2010/02/09 23:23:23 rcox Exp $
  */
 
 package gs.web.content;
@@ -128,15 +128,15 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                         " href=\"" +
                         link +
                         "\">");
-                out.print("<img class=\"blogpromo_image\" src=\""
+                out.print("<img class=\"blogpromo_image fltlft\" src=\""
                         + authorImage + "\" alt=\"" + author + "\"/>");
                 out.print("</a>");
             } else {
-                out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
+                out.print("<img class=\"blogpromo_image fltlft\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
             }
-            out.print("</div>");
+            out.print("</div>");// end blogpromo_image_wrap
         }
-        out.print("<div class=\"blogpromo_entry\">");
+        out.print("<div class=\"blogpromo_entry Text3\">");
         out.print("<a onclick=\"Popup=window.open('" +
                 link +
                 "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
@@ -145,6 +145,16 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 "\">" +
                 title +
                 "</a> ");
+        out.print("<div class=\"authorDate\">");
+        out.print("<span class=\"smallAlertTextBold-333\">");
+        out.print(author);
+        out.print("</span>");
+        if (date != null) {
+            out.print("<span class=\"smallText1\"> ");
+            out.print(Util.detailedPeriodBetweenDates(date, new Date()));
+            out.print("</span>");
+        }
+        out.print("</div>");// end authorDate
         if (!StringUtils.isBlank(text)) {
             String strippedtext = text;
             if(text.indexOf("<div class=\"feedflare\"") > 0){
@@ -152,10 +162,13 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             }
             //strippedtext = strippedtext.substring(0,70-title.length());
             strippedtext = Util.abbreviateAtWhitespace(strippedtext, 68-title.length());
-            out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
+            out.print("<span class=\"blogpromo_description Text3\">" + strippedtext + "</span>");
         }
-        out.print("</div>");
-        out.print("</div>");
+        out.print("</div>");// end blogpromo_entry
+
+        out.print("</div>");// end blogpromo
+
+        out.print("<br class=\"clearfloat\"/>");
     }
 
     private void displayAboutBlog(String title, String link, String text, String author, Date date) throws IOException {
@@ -178,7 +191,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             } else {
                 out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
             }
-            out.print("</div>");
+            out.print("</div>");// end blogpromo_image_wrap
         }
         out.print("<div class=\"blogpromo_entry text3\">");
         out.print("<a onclick=\"Popup=window.open('" +
@@ -198,7 +211,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.print(Util.detailedPeriodBetweenDates(date, new Date()));
             out.print("</span>");
         }
-        out.print("</div>");
+        out.print("</div>");// end authorDate
         if (!StringUtils.isBlank(text)) {
             String strippedtext = text;
             if(text.indexOf("<div class=\"feedflare\"") > 0){
@@ -207,18 +220,18 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             strippedtext = Util.abbreviateAtWhitespace(strippedtext, 45);
             out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
         }
-        out.print("</div>");
-        out.print("</div>");
+        out.print("</div>");// end blogpromo_entry
+        out.print("</div>");// end blogpromo
     }
 
     private String getAuthorImage(String author){
         Map imageAuthor = new HashMap();
-        imageAuthor.put("GreatSchools","/res/img/blog_bill.jpg");
-        imageAuthor.put("Bill Jackson","/res/img/blog_billjackson.jpg");
-        imageAuthor.put("Kelsey Parker","/res/img/blog_kelseyparker.jpg");
-        imageAuthor.put("Dave Steer","/res/img/blog_davesteer.jpg");
-        imageAuthor.put("Jim Daly", "/res/img/blog_jimdaly.jpg");
-        imageAuthor.put("Chase Nelson", "/res/img/blog_chasenelson.jpg");
+        imageAuthor.put("GreatSchools","/res/img/blog_bill_40x40.png");
+        imageAuthor.put("Bill Jackson","/res/img/blog_billjackson_40x40.png");
+        imageAuthor.put("Kelsey Parker","/res/img/blog_kelseyparker_40x40.png");
+        imageAuthor.put("Dave Steer","/res/img/blog_davesteer_40x40.png");
+        imageAuthor.put("Jim Daly", "/res/img/blog_jimdaly_40x40.png");
+        imageAuthor.put("Chase Nelson", "/res/img/blog_chasenelson_40x40.png");
 
         /* Uncomment this to use community gifs
         imageAuthor.put("Bill Jackson","http://community.greatschools.org/avatar?id=1000&height=94&width=94");
