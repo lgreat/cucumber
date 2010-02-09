@@ -301,6 +301,8 @@
         </div>
     </div>
 
+    <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+
     <div class="mod">
         <div class="mod_hd">
             <h3>GreatSchools blog</h3>
