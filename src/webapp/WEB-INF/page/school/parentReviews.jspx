@@ -53,7 +53,7 @@
         <pageHelper:addOnLoadHandler handler="showLoginHover();"/>
     </c:if>
 </head>
-<gsml:body adPageName="parentReviews" pageLayout="parentReviews">
+<gsml:body adPageName="parentReviews" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
 
 <school:profile school="${school}" tab="parentReviews">

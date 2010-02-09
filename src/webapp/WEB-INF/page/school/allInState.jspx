@@ -57,7 +57,7 @@
                 "WA":"Washington","WI":"Wisconsin","WV":"West_Virginia","WY":"Wyoming"};
         </script>
     </head>
-    <body>
+    <gsml:body adPageName="allSchoolsInState" pageLayout="nocol">
     <div id="outer">
         <div id="top">
             <div id="navLinks">
@@ -144,6 +144,6 @@
     </div>
 
     <mod:tracking pageName="${pageName}" hier1="Search,Browse"/>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>

@@ -53,7 +53,7 @@
 </head>
 <c:set var="pageName" value="Top High Schools"/>
 <ad:setSlotPrefix slotPrefix="Top_Schools"/>
-<gsml:body adPageName="top-high-schools" pageLayout="topHighSchools" startAdHierarchyAtPage="true">
+<gsml:body adPageName="top-high-schools" pageLayout="nocol" startAdHierarchyAtPage="true">
 
 <div id="pageWrapper" class="cleared">
 

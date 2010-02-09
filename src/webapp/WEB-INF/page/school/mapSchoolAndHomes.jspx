@@ -41,7 +41,7 @@
     <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
 </head>
 
-<gsml:body adPageName="schoolMap">
+<gsml:body adPageName="schoolMap" pageLayout="nocol">
 
     <school:profile school="${school}">
 
