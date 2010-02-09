@@ -15,11 +15,6 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
         >
-<jsp:directive.page import="gs.data.content.cms.CmsTopicCenter"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-<jsp:directive.page import="gs.data.cms.IPublicationDao"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
