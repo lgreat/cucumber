@@ -2,17 +2,17 @@
 =ie styles
 --------------------------------------------------------------------------
 */
-body.ie #topnav_search ul {
+#topnav_search ul {
     top: 0;
     left: 0;
 }
-body.ie #utilLinks .nav_menu {
+#utilLinks .nav_menu {
     border: 0;
 }
-body.ie #utilLinks li .nav_group_items  {
-    top: 9px;
+#utilLinks li .nav_group_items  {
+    top: 7px;
 }
-body.ie #utilLinks li.over .nav_group_items  {
+#utilLinks li.over .nav_group_items  {
     left: -26px;
 }
 

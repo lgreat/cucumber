@@ -101,7 +101,7 @@
     </jsp:scriptlet>
 </head>
 
-<gsml:body adPageName="search">
+<gsml:body adPageName="search" pageLayout="nocol">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>

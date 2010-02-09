@@ -31,7 +31,7 @@
         ]]>
     </head>
 
-    <body>
+    <gsml:body adPageName="schoolProfile" pageLayout="nocol">
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
 
@@ -221,6 +221,6 @@
 
         <!-- <apidoc:sidebar current="schools"/> -->
     </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
