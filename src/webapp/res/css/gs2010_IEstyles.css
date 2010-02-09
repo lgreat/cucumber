@@ -12,6 +12,9 @@
 #utilLinks li .nav_group_items  {
     top: 7px;
 }
+#utilLinks li.last {
+    border:0 none;
+}
 #utilLinks li.over .nav_group_items  {
     left: -26px;
 }
