@@ -159,7 +159,9 @@
                                        target="_blank"><img src="/res/img/icons/rss_19.png"
                                                             alt="RSS feed"
                                                             width="19"
-                                                            height="19"/>RSS press feeds</a></span>
+                                                            height="19"/></a><a
+                    href="http://feeds2.feedburner.com/GreatschoolsBlog"
+                    target="_blank">RSS press feeds</a></span>
         </div>
         <!--<div class="module billJackson">-->
             <!--<div class="header">-->
