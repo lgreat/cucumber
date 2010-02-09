@@ -37,7 +37,11 @@
 
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {
                 if (pageHelper.isShowingFooterAd()) {
-                    adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
+                    if (request.getRequestURI() != null && request.getRequestURI().equals("/index.page")) {
+                        adNames.add(slotPrefix + AdPosition.Homepage_Footer_728x90.getName());
+                    } else {
+                        adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
+                    }
                 }
 
                 if (pageHelper.isShowingBannerAd() && pageHelper.isShowingLeaderboard()) {
