@@ -28,10 +28,12 @@
         <title>Page Not Found</title>
     </head>
 
-    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
+    <gsml:body adPageName="www" pageLayout="nocol">
 
     <mod:tracking pageType="errorPage" pageName="" hier1="Error,404"/>
 
+<div id="mainGS">
+    <div class="mod" style="margin: 1em 20px 0;">
     <h3>Page Not Found</h3>
 
     <p>For some reason, the link you clicked or the URL you typed into your browser did not work.
@@ -44,7 +46,8 @@
     <p>4) Try visiting <gsml:a href="/">our homepage</gsml:a> and see if you can find what you are looking for from there.</p>
     <p>5) If those options don't help, <link:contactUs>Contact Us</link:contactUs> and let us know. Be sure to tell us
           the address that didn't work and how you got here.</p>
-
+        </div>
+    </div>
     </gsml:body>
 </html>
 </page:apply-decorator>

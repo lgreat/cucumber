@@ -62,7 +62,18 @@
             </c:otherwise>
         </c:choose>
 
-            <div id="logoBox">
+
+        <c:set var="pw" value="${requestScope.context.pathway}"/>
+        <c:choose>
+            <c:when test="${pw == tabs.HOME}">
+                <c:set var="noAd" value="noAd" />
+            </c:when>
+            <c:otherwise>
+                <c:set var="noAd" value="" />
+                <!--do not show a header ad-->
+            </c:otherwise>
+        </c:choose>
+            <div id="logoBox" class="${noAd}">
             <gsml:a href="/"><gsml:img  id="logo" src="/res/img/logo/logo_GS2010_330x110.png"
                                alt="GreatSchools: Involved Parents. Successful Kids"
             /></gsml:a>

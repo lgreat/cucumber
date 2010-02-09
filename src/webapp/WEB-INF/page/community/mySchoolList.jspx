@@ -46,7 +46,7 @@
     </jsp:scriptlet>
     <gsml:equalizeColumns ids="'col_left','col_right'"/>
 </head>
-<body>
+<gsml:body adPageName="mySchoolList" pageLayout="nocol">
 
 <c:set var="username" value="${(requestScope.context.screenName != null)?requestScope.context.screenName:fn:substringBefore(requestScope.context.user.email, '@')}" />
 <div id="col_left">
@@ -111,6 +111,6 @@
 </div>
 <mod:tracking pageName="MSL Logged In"
               hier1="MySchoolList,MSLloggedin"/>
-</body>
+</gsml:body>
 </html>
 </jsp:root>

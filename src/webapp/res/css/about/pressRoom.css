@@ -1,10 +1,6 @@
-#mainWrap {
-    padding: 0 0 0 20px;
-    border-top: 2px solid #ccc;
-}
-
 .main {
     width: 598px;
+    margin-left: 20px
 }
 .breadcrumbs {
     margin: 14px 0 12px 0;
@@ -131,9 +127,8 @@
 
 /* Content Right */
 .contentRight {
-    width: 330px;
-    margin-right: 3px;
-    border-left: 2px solid #ccc;
+    padding-left:2px;
+width:328px;
 }
 .contentRight .module .body {
     border: none;

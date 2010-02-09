@@ -221,9 +221,8 @@ p {
 
 #header {
     position: relative;
-    height: 99px;
+    height: 112px;
     z-index: 4;
-    margin-top: 5px;
 }
 
 /* =3a utitility links
@@ -232,8 +231,8 @@ p {
     position: absolute;
     height: 18px;
     list-style: none;
-    top: 10px;
-    right: 72px;
+    top: 7px;
+    right: 4px;
     z-index: 3;
 }
 
@@ -241,7 +240,7 @@ p {
     display: inline;
     padding: 0 6px;
     border-right: 1px solid #fff;
-    font-size: 11px;
+    font-size: 10px;
     color: #fff;
 }
 
@@ -286,7 +285,7 @@ p {
 }
 
 #utilLinks li.over .nav_group_items {
-    left: 6px;
+    left: -26px;
 }
 
 #utilLinks .over .nav_group_items a {
@@ -301,6 +300,7 @@ p {
     width: 369px;
     height: 83px;
     z-index: 1;
+    padding: 20px 0 0 17px;
 }
 
 #logo {
@@ -318,8 +318,8 @@ p {
 #topnav_search {
     position: relative;
     float: right;
-    margin: 0 4px -56px 0;
-    top: -56px;
+    margin: 0 4px -62px 0;
+    top: -62px;
     width: 449px;
     height: 59px;
     z-index: 2;

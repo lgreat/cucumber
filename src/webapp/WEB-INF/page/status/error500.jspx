@@ -48,6 +48,9 @@
 
             <mod:tracking pageName="Error:500 ${requestURI}" hier1="Error,500"/>
 
+<div id="mainGS">
+    <div class="mod" style="margin: 1em 20px 0;">
+
             <h3>Error</h3>
 
             <p>
@@ -71,6 +74,8 @@
         <div class="stackTrace">
             <pre>${printme}</pre>
         </div>
+    </div>
+</div>
         </gsml:body>
     </html>
     </page:apply-decorator>

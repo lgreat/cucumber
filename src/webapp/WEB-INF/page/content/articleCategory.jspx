@@ -27,7 +27,7 @@
     <meta name="robots" content="follow,noindex"/>
 </head>
 
-<gsml:body adPageName="articleCategory">
+<gsml:body adPageName="articleCategory" pageLayout="nocol">
 <pageHelper:setPathway pathway="LIBRARY"/>
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>

@@ -68,7 +68,7 @@
 
 <!-- GS-5462 Force skyscraper ad in left column to stretch entire height -->
 <pageHelper:addOnLoadHandler handler="adjustLeftColAd()" />
-<gsml:body adPageName="research" >
+<gsml:body adPageName="research" pageLayout="nocol">
 
 <div id="main">
 <table id="right" cellspacing="0" cellpadding="0" class="content" border="0">

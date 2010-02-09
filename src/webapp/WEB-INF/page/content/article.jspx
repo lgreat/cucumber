@@ -60,7 +60,7 @@
         </jsp:scriptlet>
         <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
     </head>
-    <body>
+    <body class="nocol">
 
     <table cellspacing="0" cellpadding="0" border="0">
     <tbody>

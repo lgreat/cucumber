@@ -32,7 +32,7 @@
     ]]>
 </head>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Media_Choices"/>
-<gsml:body adPageName="content/mediaChoices" pageLayout="mediaChoices" startAdHierarchyAtPage="true">
+<gsml:body adPageName="content/mediaChoices" pageLayout="nocol" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />

@@ -70,7 +70,7 @@
 
 <c:set var="pageName" value="Middle School Landing Page"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Middle"/>
-<gsml:body adPageName="middle-school/index" pageLayout="middle" startAdHierarchyAtPage="true">
+<gsml:body adPageName="middle-school/index" pageLayout="nocol" startAdHierarchyAtPage="true">
 
 <div id="pageWrapper" class="cleared">
 

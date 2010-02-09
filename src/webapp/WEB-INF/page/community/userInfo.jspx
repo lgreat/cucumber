@@ -126,8 +126,7 @@
 
 </head>
 <body>
-<div id="container" class="gainlayout">
-<div id="mainContent" class="fltlft">
+<div id="mainGS" class="col">
 
 <p class="breadCrumbs smallAlertText">
 </p>
@@ -357,13 +356,11 @@
     </c:if>
 
 </div>
-<!-- end module -->
-</div>
 <!-- end mainContent -->
-
+</div>
 <cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
-</div>
+
 <!-- end container -->
 <mod:tracking pageName="${requestScope.omniturePagename}"
               hier1="${requestScope.omnitureHierarchy}"

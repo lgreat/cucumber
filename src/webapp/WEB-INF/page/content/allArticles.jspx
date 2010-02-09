@@ -106,7 +106,7 @@
 </head>
 <pageHelper:setPathway pathway="LIBRARY" />
 <mod:tracking pageName="AllArticles" hier1="Article,AllArticles"/>
-<gsml:body adPageName="allArticles">
+<gsml:body adPageName="allArticles" pageLayout="nocol">
     <div class="allArticles">
     <div id="articletools">
         <!-- Article Tools and Advert -->

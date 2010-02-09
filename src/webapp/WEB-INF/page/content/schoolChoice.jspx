@@ -102,7 +102,7 @@
 </head>
 
 <ad:setSlotPrefix slotPrefix="Library_Microsite_School_Choice_Tips"/>
-<gsml:body adPageName="content/schoolChoiceTips" pageLayout="schoolChoiceTips" startAdHierarchyAtPage="true">
+<gsml:body adPageName="content/schoolChoiceTips" pageLayout="nocol" startAdHierarchyAtPage="true">
 
     <div id="pageWrapper" class="cleared">
 

@@ -29,7 +29,7 @@
 </head>
 <c:set var="pageName" value="Preschool Microsite"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Preschool"/>
-<gsml:body adPageName="preschool/index" pageLayout="preschool" startAdHierarchyAtPage="true">
+<gsml:body adPageName="preschool/index" pageLayout="nocol" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />

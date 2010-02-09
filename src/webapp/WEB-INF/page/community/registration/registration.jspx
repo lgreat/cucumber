@@ -21,7 +21,7 @@
           PageHelper.hideFooterAd(request);
       </jsp:scriptlet>
   </head>
-  <gsml:body adPageName="registration">
+  <gsml:body adPageName="registration" pageLayout="nocol">
 
   <ad:setSlotPrefix slotPrefix="CommunityRegistration"/>
 

@@ -58,7 +58,7 @@
         </c:when>
     </c:choose>
 </head>
-<body>
+<gsml:body pageLayout="nocol">
 
 <div id="main">
 <div id="content">
@@ -292,6 +292,6 @@
               omitAlmondNet="${true}"
         />
 
-</body>
+</gsml:body>
 </html>
 </jsp:root>
