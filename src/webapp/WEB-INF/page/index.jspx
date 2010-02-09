@@ -221,7 +221,7 @@
 
     <div class="mod">
         <div class="mod_hd">
-            <h3>Raise your hand</h3>
+            <h3>Raise Your Hand</h3>
         </div>
         <div class="mod_bd">
             <!--do not collapse-->
@@ -293,7 +293,7 @@
 
     <div class="mod">
         <div class="mod_hd">
-            <h3>My stuff</h3>
+            <h3>My Stuff</h3>
         </div>
         <div class="mod_bd">
 
@@ -304,7 +304,7 @@
 
     <div class="mod">
         <div class="mod_hd">
-            <h3>GreatSchools blog</h3>
+            <h3>GreatSchools Blog</h3>
         </div>
         <div class="mod_bd">
             <cache:cache scope="application" name="blog" key="bill3">
