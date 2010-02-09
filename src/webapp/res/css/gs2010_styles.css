@@ -783,9 +783,13 @@ body.ie6 .clearfix {
 
 /* =7 editorialFooter
 -------------------------------------------------------------------------------------------*/
+#editorialFooter {
+    margin-left: 20px;
+}
 #editorialFooter .content {
     border-bottom: 1px solid #fb0;
     overflow: hidden;
+    width: 855px;
 }
 
 #editorialFooter .content li {

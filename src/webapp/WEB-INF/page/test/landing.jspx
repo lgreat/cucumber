@@ -134,7 +134,7 @@
 </head>
 
 <pageHelper:addOnLoadHandler handler="adjustLeftColIE6()"/>
-<gsml:body adPageName="research">
+<gsml:body adPageName="research" pageLayout="nocol">
 
 <div id="main">
 

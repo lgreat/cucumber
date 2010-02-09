@@ -34,6 +34,9 @@
 
     <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
         <mod:tracking pageName="Error:${errorCode} ${requestURI}" hier1="Error,${errorCode}"/>
+
+<div id="mainGS">
+    <div class="mod" style="margin: 1em 20px 0;">
         <div style="height:300px;text-align:center;padding:10px;">
             <div class="error">
                 <c:forEach var="error" items="${errors.allErrors}">
@@ -44,6 +47,8 @@
             <c:if test="${showSearchControl != null}">
                 <search:searchControl />
             </c:if>
+        </div>
+        </div>
         </div>
     </gsml:body>
 </html>

@@ -31,7 +31,7 @@
     <c:set var="secondBoxColspan" value="1"/>
 </c:if>
 
-<div id="editorialFooter" style="margin: 0; padding: 0;">
+<div id="editorialFooter">
 <img src="http://www.greatschools.org/res/img/header/clear_pix.gif" width="600" height="${topPadding}" border="0" alt=""/>
 <ul class="content">
     <li class="col1 leftmostBox"><gsml:img

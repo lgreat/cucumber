@@ -1,20 +1,24 @@
 div#main {
     position:relative;
-    margin:0;
+    margin: 0;
+    padding-top: 15px;
     overflow:hidden;
 }
 
 div#left_col {
     position:absolute;
     top:0;
-    left: 43px;
+    left: 20px;
+}
+div#left_col.border10 {
+    top:15px;
 }
 
 /** Adjusting these values will require a change to the js function adjustLeftColAd */
 div#leftcolAd {
     position:absolute;
     top: 278px;
-    left: 43px;
+    left: 20px;
     width: 204px;
     margin: 0 auto 0 auto;
     padding-top: 10px;

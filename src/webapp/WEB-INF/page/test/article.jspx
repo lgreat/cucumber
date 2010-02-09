@@ -81,7 +81,7 @@
     Article article = articleDao.getArticleFromId(new Integer(request.getParameter("id")));
     pageContext.setAttribute("article", article);
 </jsp:scriptlet>
-<gsml:body adPageName="">
+<gsml:body adPageName="" pageLayout="nocol">
 
 
     <div id="toolsMenu" >
