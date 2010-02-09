@@ -418,7 +418,7 @@ p {
 /* =3d global nav
 -------------------------------------------------------------------------------------------*/
 #navbar {
-    padding: 0 3px;
+    padding: 0 5px;
     height: 68px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
     z-index: 2;
@@ -442,33 +442,6 @@ p {
     font: 16px/1 Georgia, Times New Roman, serif;
 }
 
-#globalnav li#n1 {
-    width: 88px;
-}
-
-#globalnav li#n2 {
-    width: 130px;
-}
-
-#globalnav li#n3 {
-    width: 114px;
-}
-
-#globalnav li#n4 {
-    width: 180px;
-}
-
-#globalnav li#n5 {
-    width: 147px;
-}
-
-#globalnav li#n6 {
-    width: 130px;
-}
-
-#globalnav li#n7 {
-    width: 167px;
-}
 
 #globalnav li:hover, #globalnav li.over, #globalnav li.active {
     background-position: 0 -35px;
@@ -477,12 +450,15 @@ p {
 
 #globalnav li a {
     display: block;
-    padding: 6px 0;
+    padding: 6px 37px;
     text-decoration: none;
     color: #fff;
     height: 20px;
 }
 
+#globalnav li#n6 a {
+    padding-right: 34px;
+}
 #globalnav li a:hover {
     color: #333;
 }
@@ -649,7 +625,7 @@ p {
     overflow: hidden;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
-.nocol #contentGS, .cityPage #contentGS {
+.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS {
     background: none;
 }
 #mainGS.col {

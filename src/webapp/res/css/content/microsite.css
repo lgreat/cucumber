@@ -15,7 +15,8 @@
     border-right: 1px solid #ccc;
     height:100%;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 20px;
+    padding: 20px 0 0;
 }
 
 /* Left, nav column */
@@ -217,6 +218,7 @@
 #contentGS #promos {
     float: right;
     width: 300px;
+    margin: 10px 20px 0 0;
 
 
 }

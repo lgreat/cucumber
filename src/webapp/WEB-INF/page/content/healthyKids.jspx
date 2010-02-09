@@ -28,7 +28,7 @@
 </head>
 <c:set var="pageName" value="Healthy Kids"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Healthy_Kids"/>
-<gsml:body adPageName="content/healthyKids" pageLayout="healthyKids" startAdHierarchyAtPage="true">
+<gsml:body adPageName="content/healthyKids" pageLayout="nocol" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
