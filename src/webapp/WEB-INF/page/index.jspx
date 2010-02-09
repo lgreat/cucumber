@@ -47,7 +47,6 @@
 
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
-        PageHelper.hideFooterAd(request);
     </jsp:scriptlet>
 
     <script type="text/javascript" charset="utf-8">

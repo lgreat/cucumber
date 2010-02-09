@@ -19,7 +19,6 @@
                 function checkZipCode(zip){
 
                 var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
-                    elem = document.getElementById("errorMessageZip");
                     if (zip.value.search(re5digit)==-1){ //if match failed
                         alert("Please enter a valid ZIP code.");
                         return false;
@@ -80,22 +79,6 @@
                 </button>
         </div>
         <br class="clearfloat"/>
-        <div id = "errorMessageZip" >
-            <ul id="frmErrors">
-                <li>Please enter a valid ZIP code.</li>
-            </ul>
-        </div>
-        <c:choose>
-            <c:when test="${not empty ziperror}">
-                            <span style="color:red;">
-                                <c:out value="${ziperror}" escapeXml="true" />
-                            </span>
-            </c:when>
-            <!--c:otherwise>
-                <img style="width: 198px;height: 31px;" alt=""
-                     src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
-            </c:otherwise-->
-        </c:choose>
 
     </gsweb:form>
 </jsp:root>
