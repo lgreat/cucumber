@@ -137,6 +137,7 @@ public class CBIIntegrationController implements ReadWriteController {
         String groupName = request.getParameter("groupName");
         String startDate = request.getParameter("startdate");
         String courseIndex = request.getParameter("courseindex");
+        String sponsorId = request.getParameter("sponsorId");
         attributes.put("cbFirstName",user.getFirstName());
         attributes.put("cbUserName",user.getUserProfile().getScreenName());
         if(StringUtils.isNotBlank(groupName)){
@@ -147,6 +148,9 @@ public class CBIIntegrationController implements ReadWriteController {
         }
         if(StringUtils.isNotBlank(courseIndex)){
             attributes.put("cbCourseIndex",courseIndex);
+        }
+        if(StringUtils.isNotBlank(sponsorId)){
+            attributes.put("cbPartnerId",sponsorId);
         }
         
         return attributes;
