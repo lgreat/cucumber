@@ -226,10 +226,10 @@
                     <li><link:mediaChoices id="GlobalNav_AA_MediaAndKids" styleClass="GS_CI9_">Media &amp;amp; kids</link:mediaChoices></li>
                     <li><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning activities</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book reviews</link:cmsCategoryBrowse></li>
+                    <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
                     <c:if test="${communityUtil.newCommunityEnabled}">
                         <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     </c:if>
-                    <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
                     <li class="last"><a href="/students.topic?content=1540"
                         id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
