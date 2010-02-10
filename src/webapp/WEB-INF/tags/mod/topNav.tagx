@@ -229,6 +229,7 @@
                     <c:if test="${communityUtil.newCommunityEnabled}">
                         <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     </c:if>
+                    <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
                     <li class="last"><a href="/students.topic?content=1540"
                         id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
