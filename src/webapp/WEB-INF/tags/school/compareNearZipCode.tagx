@@ -69,7 +69,7 @@
         <div class="zipCodeInput">
             <label for="findZipCodeInput" class="text2 fltlft">Near:&amp;nbsp;</label>
             <input type="text" id="findZipCodeInput" name="zip" class="zip text2 fltlft" value="ZIP code"
-                   size="5"
+                   size="10"
                    onfocus="textSwitch(this, '', 'ZIP code');"
                    onblur="textSwitch(this, 'ZIP code', '');"/>
                 <button class="btn25 fltlft" type="submit">
