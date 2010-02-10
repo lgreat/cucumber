@@ -51,6 +51,7 @@
     left: 0;
     top: 0;
     border: none;
+    display:none;
 }
 
 #carousel #banner {
@@ -76,6 +77,7 @@
     top: 6px;
     margin: 0;
     padding: 0;
+    display:none;
 }
 
 #carousel #info p {
@@ -84,6 +86,7 @@
     bottom: 8px;
     margin: 0;
     padding: 0;
+    display:none;
 }
 
 #carousel #info #nav {
