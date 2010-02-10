@@ -53,7 +53,7 @@
         <input type="hidden" name="tab" value="over" />
         <input type="hidden" name="area" value="m" />
         <input type="hidden" name="form" value="address" />
-
+        <input type="hidden" name="miles" value="5" />
 
         <h3 class="title2-333">Compare schools <span class="introTextGA">near an address:</span></h3>
         <br class="spacer_10"/>
