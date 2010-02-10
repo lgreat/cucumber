@@ -116,7 +116,7 @@
                         <br class="clearfloat"/>
 
                         <!-- RANDALL: remove inline styles -->
-                        <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" style="width: 250px; height: 50px;"><!-- --></textarea>
+                        <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50" style="width: 250px; height: 50px;"><!-- --></textarea>
                         <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
 
                         <br class="clearfloat"/>
