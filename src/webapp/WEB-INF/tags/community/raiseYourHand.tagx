@@ -133,116 +133,119 @@
 
                 <span class="text2bold clear">Recent Answers</span>
 
-                <div id="recentAnswerTemplate" style="display: none;">
-                <div class="db_reply_topic clear">
-                    <div class="db_discussAvatar fltlft">
-                        <link:userProfile user="${validUser}">
-                            <community:avatar user="${validUser}" width="48" height="48"
-                                              cssStyle="border: 1px solid #c6c6c6;"/>
-                        </link:userProfile>
-                    </div>
-                    <!-- end reply avatar -->
+                <c:if test="${signedIn}">
 
-                    <div class="db_replyContainer fltlft">
-                        <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                            class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
-
-                        <div class="db_reply fltrt rnd8">
-                            <p class="fltlft">
+                    <div id="recentAnswerTemplate" style="display: none;">
+                        <div class="db_reply_topic clear">
+                            <div class="db_discussAvatar fltlft">
                                 <link:userProfile user="${validUser}">
-                                    <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
+                                    <community:avatar user="${validUser}" width="48" height="48"
+                                                      cssStyle="border: 1px solid #c6c6c6;"/>
                                 </link:userProfile>
+                            </div>
+                            <!-- end reply avatar -->
 
-                                <span class="smallText1"> a moment ago </span>
-                            </p>
+                            <div class="db_replyContainer fltlft">
+                                <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
+                                    class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
-                            <br class="clearfloat"/>
+                                <div class="db_reply fltrt rnd8">
+                                    <p class="fltlft">
+                                        <link:userProfile user="${validUser}">
+                                            <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
+                                        </link:userProfile>
 
-                            <community:userContentTeaserText
-                                    textToDisplay="DISCUSSION_REPLY_BODY"
-                                    minLength="117" maxLength="138"
-                                    discussionId="${discussion.id}"
-                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                    discussionReplyId="1"
-                                    textSpanClass="text3"
-                                    linkClass="text3"/>
+                                        <span class="smallText1"> a moment ago </span>
+                                    </p>
+
+                                    <br class="clearfloat"/>
+
+                                    <community:userContentTeaserText
+                                            textToDisplay="DISCUSSION_REPLY_BODY"
+                                            minLength="117" maxLength="138"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                            discussionReplyId="1"
+                                            textSpanClass="text3"
+                                            linkClass="text3"/>
+                                </div>
+                                <br class="clearfloat"/>
+                                <!-- end db_reply -->
+                            </div>
+                            <!-- end db_replyContainer -->
                         </div>
+                        <!-- end db_reply_topic -->
                         <br class="clearfloat"/>
-                        <!-- end db_reply -->
                     </div>
-                    <!-- end db_replyContainer -->
-                </div>
-                <!-- end db_reply_topic -->
-                <br class="clearfloat"/>
-                </div>
 
+                </c:if>
 
                 <div class="recentAnswers">
 
-                <c:forEach var="reply" items="${replies}">
+                    <c:forEach var="reply" items="${replies}">
 
-                    <div class="db_reply_topic clear">
-                        <div class="db_discussAvatar fltlft">
-                            <c:choose>
-                                <c:when test="${reply.user.userProfile.active}">
-                                    <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                        <div class="db_reply_topic clear">
+                            <div class="db_discussAvatar fltlft">
+                                <c:choose>
+                                    <c:when test="${reply.user.userProfile.active}">
+                                        <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                            <community:avatar user="${reply.user}" width="48" height="48"
+                                                              cssStyle="border: 1px solid #c6c6c6;"
+                                                              anonymous="${reply.anonymous}"/>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
                                         <community:avatar user="${reply.user}" width="48" height="48"
-                                                          cssStyle="border: 1px solid #c6c6c6;"
-                                                          anonymous="${reply.anonymous}"/>
-                                    </link:userProfile>
-                                </c:when>
-                                <c:otherwise>
-                                    <community:avatar user="${reply.user}" width="48" height="48"
-                                                      anonymous="${reply.anonymous}"
-                                                      cssStyle="border: 1px solid #c6c6c6;"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <!-- end reply avatar -->
+                                                          anonymous="${reply.anonymous}"
+                                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <!-- end reply avatar -->
 
-                        <div class="db_replyContainer fltlft">
-                            <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                                class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+                            <div class="db_replyContainer fltlft">
+                                <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
+                                    class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
-                            <div class="db_reply fltrt rnd8">
-                                <p class="fltlft">
-                                    <c:choose>
-                                        <c:when test="${reply.user.userProfile.active}">
-                                            <link:userProfile user="${reply.user}"
-                                                              anonymous="${reply.anonymous}">
+                                <div class="db_reply fltrt rnd8">
+                                    <p class="fltlft">
+                                        <c:choose>
+                                            <c:when test="${reply.user.userProfile.active}">
+                                                <link:userProfile user="${reply.user}"
+                                                                  anonymous="${reply.anonymous}">
                                                         <span class="smallAlertTextBoldNeutral"><community:screenName
                                                                 userContent="${reply}"/></span>
-                                            </link:userProfile>
-                                        </c:when>
-                                        <c:otherwise>
+                                                </link:userProfile>
+                                            </c:when>
+                                            <c:otherwise>
                                                     <span class="smallAlertTextBoldNeutral"><community:screenName
                                                             userContent="${reply}"/></span>
-                                        </c:otherwise>
-                                    </c:choose>
+                                            </c:otherwise>
+                                        </c:choose>
 
-                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                </p>
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                                    </p>
 
+                                    <br class="clearfloat"/>
+
+                                    <community:userContentTeaserText
+                                            textToDisplay="${reply.body}"
+                                            minLength="117" maxLength="138"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                            discussionReplyId="${reply.id}"
+                                            textSpanClass="text3"
+                                            linkClass="text3"/>
+                                </div>
                                 <br class="clearfloat"/>
-
-                                <community:userContentTeaserText
-                                        textToDisplay="${reply.body}"
-                                        minLength="117" maxLength="138"
-                                        discussionId="${discussion.id}"
-                                        discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                        discussionReplyId="${reply.id}"
-                                        textSpanClass="text3"
-                                        linkClass="text3"/>
+                                <!-- end db_reply -->
                             </div>
-                            <br class="clearfloat"/>
-                            <!-- end db_reply -->
+                            <!-- end db_replyContainer -->
                         </div>
-                        <!-- end db_replyContainer -->
-                    </div>
-                    <!-- end db_reply_topic -->
-                    <br class="clearfloat"/>
+                        <!-- end db_reply_topic -->
+                        <br class="clearfloat"/>
 
-                </c:forEach>
+                    </c:forEach>
 
                 </div>
 
