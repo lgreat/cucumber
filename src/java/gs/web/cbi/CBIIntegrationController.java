@@ -61,7 +61,7 @@ public class CBIIntegrationController implements ReadWriteController {
     protected String sendExactTargetTriggeredEmail(HttpServletRequest request) {
         String exactTargetKey = request.getParameter("etkey");
         String memberid = request.getParameter("memberid");
-        boolean isCourseCompletionEmail = new Boolean(request.getParameter("iscoursecompletion"));
+//        boolean isCourseCompletionEmail = new Boolean(request.getParameter("iscoursecompletion"));
         StringBuilder response = new StringBuilder();
         if(exactTargetKey != null && memberid != null){
             User user = _userDao.findUserFromId(Integer.parseInt(memberid));
@@ -69,14 +69,14 @@ public class CBIIntegrationController implements ReadWriteController {
                 Map attributesMap = constructETAttributesMap(request,user);
                 if(!attributesMap.isEmpty()){
                     //if course completion email
-                    if(isCourseCompletionEmail){
-                        //check if the user is subscribed to course completion emails
-                        if(isUserSubscribedToCourseCompletion(user)){
-                            _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-                        }
-                    }else{
+//                    if(isCourseCompletionEmail){
+//                        //check if the user is subscribed to course completion emails
+//                        if(isUserSubscribedToCourseCompletion(user)){
+//                            _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
+//                        }
+//                    }else{
                         _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-                    }
+//                    }
                 }
                 response.append("success");
             }            
