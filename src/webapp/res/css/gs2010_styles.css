@@ -205,6 +205,11 @@ h3.title1white {
     color: #333;
 }
 
+.alertDoubleArrow {
+    font: 15px Arial, Helvetica, sans-serif;
+    color: #d61;
+}
+
 .result_title {
     font-size: 12px;
     font-weight: 400;
@@ -773,11 +778,34 @@ body.ie6 .clearfix {
 -------------------------------------------------------------------------------------------*/
 
 #gs-blog.mod_bd{
-    padding:15px 20px;
+    padding:15px;
 }
 
+.blogpromo{
+    border-bottom: 1px dotted #999;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    position: relative;
+}
+.blogpromo_image_wrap{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height:60px;
+}
 .blogpromo_image{
-    margin-right:8px;
+    border:1px solid #ccc;
+    padding:1px;
+    margin:0 5px;
+    height:40px;
+    width:40px;
+}
+.blogpromo_entry{
+    width:235px;
+    padding:0 5px 0 55px;
+}
+.blogpromo_description{
+    color:#666666;
 }
 
 /* arrows

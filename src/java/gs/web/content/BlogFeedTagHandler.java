@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.33 2010/02/09 23:23:23 rcox Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.34 2010/02/10 01:06:58 rcox Exp $
  */
 
 package gs.web.content;
@@ -119,7 +119,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
         out.print("<div class=\"blogpromo\">");
         if (!isHideAuthorImages()) {
-            out.print("<div class=\"blogpromo_image_wrap\">");
+            out.print("<div class=\"blogpromo_image_wrap fltlft\">");
             String authorImage = getAuthorImage(author);
             if (authorImage != null) {
                 out.print("<a onclick=\"Popup=window.open('" +
@@ -128,15 +128,15 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                         " href=\"" +
                         link +
                         "\">");
-                out.print("<img class=\"blogpromo_image fltlft\" src=\""
+                out.print("<img class=\"blogpromo_image\" src=\""
                         + authorImage + "\" alt=\"" + author + "\"/>");
                 out.print("</a>");
             } else {
-                out.print("<img class=\"blogpromo_image fltlft\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
+                out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
             }
             out.print("</div>");// end blogpromo_image_wrap
         }
-        out.print("<div class=\"blogpromo_entry Text3\">");
+        out.print("<div class=\"blogpromo_entry\">");
         out.print("<a onclick=\"Popup=window.open('" +
                 link +
                 "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
