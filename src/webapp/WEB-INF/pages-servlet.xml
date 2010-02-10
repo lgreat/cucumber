@@ -284,6 +284,18 @@
         <property name="redirectPath" value="/terms/"/>
     </bean>
 
+    <bean name="/school/"
+          class="gs.web.util.Redirect301Controller"
+          autowire="byName" lazy-init="true">
+        <property name="redirectPath" value="/school/research.page"/>
+    </bean>
+
+    <bean name="/search/"
+          class="gs.web.util.Redirect301Controller"
+          autowire="byName" lazy-init="true">
+        <property name="redirectPath" value="/school/research.page"/>
+    </bean>
+
     <bean name="/terms/" class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>about/termsOfUse</value>
