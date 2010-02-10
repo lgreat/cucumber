@@ -13,6 +13,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
@@ -219,14 +220,7 @@
     </div>
     <!-- carousel -->
 
-    <div class="mod">
-        <div class="mod_hd">
-            <h3>Raise Your Hand</h3>
-        </div>
-        <div class="mod_bd">
-            <!--do not collapse-->
-        </div>
-    </div>
+        <community:raiseYourHand discussion="${ryhDiscussion}" replies="${ryhReplies}" redirectUrl="${requestScope.loginRedirectUrl}" signedIn="${not empty validUser}"/>
 
 </div>
 
