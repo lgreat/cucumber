@@ -10,7 +10,7 @@
     border: 0;
 }
 #utilLinks li .nav_group_items  {
-    top: 7px;
+    top: 8px;
 }
 #utilLinks li.last {
     border:0 none;
@@ -67,6 +67,16 @@ body.ie7 #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
 }
+* + html #utilLinks li .nav_group_items  {
+    top: 22px;
+}
+* + html #navbar {
+    position: relative;
+}
+* + html #topnav_search button {
+    top: -28px;
+    margin-bottom: -28px;
+}
 
 /*
 =ie6 only styles
@@ -94,11 +104,11 @@ body.ie6 #footer .copyright
 {
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
-body.ie6 #logoBox {
+*html #logoBox {
     overflow: hidden;
 }
 
-body.ie6 #logoBox #logo {
+*html #logoBox #logo {
     padding: 83px 0 0;
     background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
 }
@@ -115,7 +125,14 @@ body.ie6 #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
 }
-body.ie6 iframe.ieShim {
+*html #topnav_search ul li label, *html #topnav_menusubnav li a {
+    display: inline-block;
+}
+*html #topnav_search button {
+    top: -28px;
+    margin-bottom: -28px;
+}
+*html iframe.ieShim {
 	position: absolute;
 	/* account for the border */
 	left: -0.25em;
@@ -124,5 +141,5 @@ body.ie6 iframe.ieShim {
 	filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
 
-body.ie6 .utilLinks li.nav_menu { z-index: 201; }
+* html .utilLinks li.nav_menu { z-index: 201; }
 

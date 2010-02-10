@@ -234,6 +234,7 @@ p {
 #pageGS {
     width: 978px;
     margin: 0 auto;
+    padding: 0 9px;
 }
 
 /* =3 header/topnav
@@ -817,12 +818,16 @@ body.ie6 .clearfix {
 #editorialFooter {
     margin-left: 20px;
 }
+.blueDot #editorialFooter .content {
+    border-bottom: 1px solid #fb0;
+    overflow: hidden;
+    width: 651px;
+}
 #editorialFooter .content {
     border-bottom: 1px solid #fb0;
     overflow: hidden;
     width: 855px;
 }
-
 #editorialFooter .content li {
     float: left;
 }
