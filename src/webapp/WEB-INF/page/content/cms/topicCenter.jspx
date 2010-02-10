@@ -58,7 +58,7 @@
         </c:when>
     </c:choose>
 </head>
-<gsml:body pageLayout="nocol">
+<gsml:body adPageName="${omnitureTopicCenterName} Landing Page" pageLayout="nocol">
 
 <div id="main">
 <div id="content">
