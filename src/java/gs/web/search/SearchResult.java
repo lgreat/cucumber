@@ -180,4 +180,12 @@ public class SearchResult {
 
         return _doc.get("id");
     }
+
+    public String getDateCreated() {
+        if (!CmsUtil.isCmsEnabled() && getType() != Type.cms_feature) {
+            throw new UnsupportedOperationException("FullURI property is only available on CMS content.");
+        }
+
+        return _doc.get("dateCreated");
+    }
 }

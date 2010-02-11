@@ -119,8 +119,8 @@ public class CmsHomepageController extends AbstractController {
                 TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
                 Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
                         new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-                Sort sortByLastUpdatedDescending = new Sort(new SortField(Indexer.CMS_DATE_LAST_UPDATED, SortField.STRING, true));
-                Hits hits = _searcher.search(term, sortByLastUpdatedDescending, null, filterOnlyCmsFeatures);
+                Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
+                Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
                 if (hits != null && hits.length() > 0) {
                     ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
                     catToResultMap.put(category.getName(), resultsPager.getResults(1, 6));
