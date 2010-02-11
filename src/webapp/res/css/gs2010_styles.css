@@ -705,14 +705,11 @@ p {
 }
 
 .mod_hd h3 {
+    height:36px;
     padding: 0 15px;
     background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
-    font: 20px / 1.7 Georgia, "Times New Roman", Times, serif;
-}
-
-#sidebarGS .mod_hd h3 {
-    font-size: 14px;
+    font: 20px/1.7 Georgia, "Times New Roman", Times, serif;
 }
 
 .mod_bd {
@@ -807,7 +804,6 @@ body.ie6 .clearfix {
 #find-title{
     position:absolute;
     height:26px;
-    /*background:white;*/
     z-index:20;
 }
 
@@ -818,6 +814,10 @@ body.ie6 .clearfix {
 #compare {
     border-top: 1px solid white;
     border-bottom: 1px solid white;
+}
+
+#compare h3{
+    word-spacing: -1px;
 }
 
 #findZipCodeInput{

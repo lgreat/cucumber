@@ -64,7 +64,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:preschool>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
+                <span class="fltrt"><link:preschool>See more <span class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
             </div>
             <div id="gbg-content-k">
                 <ul>
@@ -72,7 +72,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-1">
                 <ul>
@@ -80,7 +80,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-2">
                 <ul>
@@ -88,7 +88,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-3">
                 <ul>
@@ -96,7 +96,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-4">
                 <ul>
@@ -104,7 +104,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-5">
                 <ul>
@@ -112,7 +112,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+                <span class="fltrt"><link:elementary-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
             </div>
             <div id="gbg-content-m">
                 <ul>
@@ -120,7 +120,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:middle-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
+                <span class="fltrt"><link:middle-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
             </div>
             <div id="gbg-content-h">
                 <ul>
@@ -128,7 +128,7 @@
                         <li><link:cmsContent contentKey="${recentItem.id}" fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent></li>
                     </c:forEach>
                 </ul>
-                <span class="fltrt"><link:high-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
+                <span class="fltrt"><link:high-school>See more <span class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
             </div>
         </div>
     </div>
