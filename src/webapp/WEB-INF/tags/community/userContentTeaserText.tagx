@@ -97,20 +97,24 @@
         <c:when test="${!empty numReplies and (numReplies eq 0 or numReplies gt 1)}">
             <c:set var="moreLink">(${numReplies} replies)</c:set>
         </c:when>
-        <c:otherwise><c:set var="moreLink">More <span class="go">&amp;#187;</span></c:set></c:otherwise>
+        <c:otherwise><c:set var="moreLink"><br />More <span class="alertDoubleArrow">&amp;raquo;</span></c:set></c:otherwise>
     </c:choose>
 
     <c:choose>
         <c:when test="${discussionReplyId ne null}">
+            <span class="smallAlertText">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
                              discussionReplyId="${discussionReplyId}"
                              styleClass="${linkClass}">${moreLink}</link:discussion>
+            </span>
         </c:when>
         <c:when test="${discussionId ne null}">
+            <span class="smallAlertText">
             <link:discussion discussionId="${discussionId}"
                              fullUri="${discussionFullUri}"
                              styleClass="${linkClass}">${moreLink}</link:discussion>
+            </span>
         </c:when>
     </c:choose>
 </jsp:root>

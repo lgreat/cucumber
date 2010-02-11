@@ -289,7 +289,7 @@ a.btn25:focus, a.btn25:hover, a.btn35:focus, a.btn35:hover, .db_discussion h4 a:
     color: #180;
 }
 
-.formHelperText {
+.formErrorText {
     font: italic 11px / 1.0 Arial, Helvetica, sans-serif;
     color: #c03;
 }

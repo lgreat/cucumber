@@ -16,8 +16,8 @@
     <jsp:directive.attribute name="signedIn" required="true" type="java.lang.Boolean"
                              description="Whether or not the user is signed in"/>
 
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
 
     <!--
     RANDALL/MICHAEL:
@@ -98,41 +98,48 @@
         });
     </script>
 
-    <div class="mod">
+    <div id="raise-your-hand" class="mod">
         <div class="mod_hd">
-            <h3>Raise your hand</h3>
+            <h3>Raise Your Hand</h3>
+        </div>
+        <div class="mod_bd">
 
-            <div class="db_discussion sdrt">
+            <div class="ryh-topsection">
+                <div class="ryh-title rnd8 fltlft">
+                    <div id="rhy-downArrow-fff"><!--do not collapse--></div>
+                    <link:discussion discussionId="${discussion.id}"
+                                     fullUri="${discussion.discussionBoard.fullUri}"
+                                     styleClass="title2-d61">${discussion.title}
+                    </link:discussion>
+                </div>
+                <!-- end ryh-title -->
 
-                <div class="db_title gainlayout">
-                    <h4 class="fltlft"><link:discussion discussionId="${discussion.id}"
-                                                        fullUri="${discussion.discussionBoard.fullUri}"><span
-                            class="title1">${discussion.title}</span></link:discussion>
-                    </h4>
+                <div class="ryh-answer">
+                    <form>
+                        <label for="ryhAnswer" class="text1">Your reply:
+                            <span class="formHelperText" id="ryhAnswerCount"><!-- don't collapse --></span></label>
 
-                    <div class="fltrt">
-                        <span class="text2">Your answer:</span>
-                        <span class="formText" id="ryhAnswerCount"><!-- don't collapse --></span>
-                        <br class="clearfloat"/>
-
-                        <!-- RANDALL: remove inline styles -->
-                        <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50" style="width: 250px; height: 50px;"><!-- --></textarea>
+                        <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50"
+                                  style="width: 231px; height: 55px;"><!-- --></textarea>
                         <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
 
-                        <br class="clearfloat"/>
 
                         <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft">
                             <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
                         </button>
-
-                        <br class="clearfloat"/>
-                    </div>
-
-                    <br class="clearfloat"/>
+                    </form>
                 </div>
+                <!-- end ryh-reply -->
+                <br class="clearfloat"/>
+            </div>
+            <!-- end ryh-topsection -->
 
-                <span class="text2bold clear">Recent Answers</span>
+            <div class="ryh-bottomsection">
 
+                <span class="text1bold">Recent replies</span>
+                <div class="spacer_15">
+                    <!-- do not collapse -->
+                </div>
                 <c:if test="${signedIn}">
 
                     <div id="recentAnswerTemplate" style="display: none;">
@@ -184,8 +191,8 @@
 
                     <c:forEach var="reply" items="${replies}">
 
-                        <div class="db_reply_topic clear">
-                            <div class="db_discussAvatar fltlft">
+                        <div class="ryh-reply">
+                            <div class="ryh-avatar fltlft">
                                 <c:choose>
                                     <c:when test="${reply.user.userProfile.active}">
                                         <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
@@ -201,30 +208,27 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <!-- end reply avatar -->
+                            <!-- end ryh-avatar -->
 
-                            <div class="db_replyContainer fltlft">
-                                <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                                    class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+                                <div class="ryh-reply-text fltlft rnd8">
+                                    <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
 
-                                <div class="db_reply fltrt rnd8">
-                                    <p class="fltlft">
                                         <c:choose>
                                             <c:when test="${reply.user.userProfile.active}">
                                                 <link:userProfile user="${reply.user}"
                                                                   anonymous="${reply.anonymous}">
-                                                        <span class="smallAlertTextBoldNeutral"><community:screenName
+                                                        <span class="smallAlertTextBold-06b"><community:screenName
                                                                 userContent="${reply}"/></span>
                                                 </link:userProfile>
                                             </c:when>
                                             <c:otherwise>
-                                                    <span class="smallAlertTextBoldNeutral"><community:screenName
+                                                    <span class="smallAlertTextBold-06b"><community:screenName
                                                             userContent="${reply}"/></span>
                                             </c:otherwise>
                                         </c:choose>
 
                                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                    </p>
+
 
                                     <br class="clearfloat"/>
 
@@ -234,30 +238,37 @@
                                             discussionId="${discussion.id}"
                                             discussionFullUri="${discussion.discussionBoard.fullUri}"
                                             discussionReplyId="${reply.id}"
-                                            textSpanClass="text3"
-                                            linkClass="text3"/>
+                                            textSpanClass="text3"/>
+                                            <!--linkClass="text3"/>-->
                                 </div>
+                                <!-- end ryh-reply -->
                                 <br class="clearfloat"/>
-                                <!-- end db_reply -->
-                            </div>
-                            <!-- end db_replyContainer -->
+
                         </div>
-                        <!-- end db_reply_topic -->
+                        <!-- end ryh-replies -->
                         <br class="clearfloat"/>
 
                     </c:forEach>
 
                 </div>
+                <!-- end recentAnswers -->
 
-                <div class="clear">
+                <div class="fltrt">
+                    <span class="smallAlertText">
                     <link:discussion discussionId="${discussion.id}"
-                                     fullUri="${discussion.discussionBoard.fullUri}"><span>View all answers &amp;raquo;</span></link:discussion>
+                                     fullUri="${discussion.discussionBoard.fullUri}">View all replies <span
+                            class="alertDoubleArrow">&amp;raquo;</span>
+                    </link:discussion>
+                    </span>
                 </div>
+                <br class="clearfloat"/>
 
             </div>
+            <!-- end ryh-bottomsection -->
         </div>
-        <div class="mod_bd">
-            <!--do not collapse-->
-        </div>
+        <!-- end mod_bd -->
     </div>
+    <!-- end raise-your-hand -->
+
+
 </jsp:root>
