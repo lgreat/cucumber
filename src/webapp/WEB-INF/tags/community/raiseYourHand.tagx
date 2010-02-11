@@ -115,7 +115,7 @@
                 <!-- end ryh-title -->
 
                 <div class="ryh-answer">
-                    <form>
+                    <form action="#">
                         <label for="ryhAnswer" class="text1">Your reply:
                             <span class="formHelperText" id="ryhAnswerCount"><!-- don't collapse --></span></label>
 
