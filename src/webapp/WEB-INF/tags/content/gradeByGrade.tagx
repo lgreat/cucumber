@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <style type="text/css">
+        .gbgTabs ul {
+            margin: 10px 0;
+        }
+        .gbgTabs ul.horizontal li {
+            display: inline;
+            padding: 2px;
+            margin-right: 5px;
+            cursor: pointer;
+            border: 1px solid #999;
+        }
+        .gbgTabs ul.horizontal li.selected {
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var myLevels = new Array('p', 'k', '1', '2', '3', '4', '5', 'm', 'h');
+        var selectedLevel = myLevels[Math.floor(Math.random()*9)];
+        jQuery(function() {
+            jQuery('.gbgContent div').hide();
+            jQuery('#gbg-content-' + selectedLevel).show();
+            jQuery('#gbg-tab-' + selectedLevel).addClass('selected');
+
+            jQuery('.gbgTabs ul li').click(function() {
+                var myTab = jQuery(this);
+                var myLevel = myTab.attr('id').substring(8);
+                jQuery('.gbgTabs ul li').removeClass('selected');
+                myTab.addClass('selected');
+                jQuery('.gbgContent div').hide();
+                jQuery('#gbg-content-' + myLevel).show();
+            });
+        });
+    </script>
+
+    <div class="module">
+        <h2>Your child's success</h2>
+        <div class="text1">What he should know,<br/>grade-by-grade</div>
+        <div class="gbgTabs">
+            <ul class="horizontal">
+                <li id="gbg-tab-p">Preschool</li>
+                <li id="gbg-tab-k">Kindergarten</li>
+                <li id="gbg-tab-1">1st</li>
+                <li id="gbg-tab-2">2nd</li>
+                <li id="gbg-tab-3">3rd</li>
+                <li id="gbg-tab-4">4th</li>
+                <li id="gbg-tab-5">5th</li>
+                <li id="gbg-tab-m">Middle School</li>
+                <li id="gbg-tab-h">High School</li>
+            </ul>
+        </div>
+        <div class="gbgContent">
+            <div id="gbg-content-p">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Preschool']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:preschool>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
+            </div>
+            <div id="gbg-content-k">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Kindergarten']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-1">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['First grade']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-2">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Second grade']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-3">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Third grade']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-4">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Fourth grade']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-5">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Fifth grade']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:elementary-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
+            </div>
+            <div id="gbg-content-m">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['Middle school']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:middle-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
+            </div>
+            <div id="gbg-content-h">
+                <ul>
+                    <c:forEach items="${requestScope.recentCmsContent['High school']}" var="recentItem">
+                        <li><a href="${recentItem.fullUri}">${recentItem.headline}</a></li>
+                    </c:forEach>
+                </ul>
+                <span class="fltrt"><link:high-school>See lots more <span class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
+            </div>
+        </div>
+    </div>
+</jsp:root>

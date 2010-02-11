@@ -1,17 +1,20 @@
 package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
-import gs.data.content.cms.CmsHomepage;
-import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.content.cms.*;
+import gs.data.search.*;
+import gs.data.search.Searcher;
 import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
+import gs.web.search.ResultsPager;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -31,6 +34,7 @@ public class CmsHomepageController extends AbstractController {
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_VALID_USER = "validUser";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
+    public static final String MODEL_RECENT_CMS_CONTENT = "recentCmsContent";
 
     private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
@@ -40,6 +44,8 @@ public class CmsHomepageController extends AbstractController {
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
+    private ICmsCategoryDao _cmsCategoryDao;
+    private gs.data.search.Searcher _searcher;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -55,6 +61,7 @@ public class CmsHomepageController extends AbstractController {
                 }
             }
             model.put("homepage", homepage);
+            populateModelWithRecentCMSContent(model); // GS-9160
 
             String raiseYourHandDiscussionId = _propertyDao.getProperty(IPropertyDao.RAISE_YOUR_HAND_DISCUSSION_ID);
             if (raiseYourHandDiscussionId != null) {
@@ -102,6 +109,32 @@ public class CmsHomepageController extends AbstractController {
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    public void populateModelWithRecentCMSContent(Map<String, Object> model) {
+        List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206");
+        if (cats != null && cats.size() == 9) {
+            Map<String, List<Object>> catToResultMap = new HashMap<String, List<Object>>(9);
+            for (CmsCategory category: cats) {
+                TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
+                Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
+                        new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
+                Sort sortByLastUpdatedDescending = new Sort(new SortField(Indexer.CMS_DATE_LAST_UPDATED, SortField.STRING, true));
+                Hits hits = _searcher.search(term, sortByLastUpdatedDescending, null, filterOnlyCmsFeatures);
+                if (hits != null && hits.length() > 0) {
+                    ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
+                    catToResultMap.put(category.getName(), resultsPager.getResults(1, 6));
+                } else {
+                    _log.warn("Can't find any search results for category " + category.getName());
+                }
+            }
+            // don't add to model unless everything worked
+            if (catToResultMap.size() == 9) {
+                model.put(MODEL_RECENT_CMS_CONTENT, catToResultMap);
+            }
+        } else {
+            _log.warn("Can't find all 9 grade level categories using id list 198,199,200,201,202,203,204,205,206");
+        }
     }
 
     public void setPublicationDao(IPublicationDao publicationDao) {
@@ -162,5 +195,21 @@ public class CmsHomepageController extends AbstractController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public ICmsCategoryDao getCmsCategoryDao() {
+        return _cmsCategoryDao;
+    }
+
+    public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
+        _cmsCategoryDao = cmsCategoryDao;
+    }
+
+    public Searcher getSearcher() {
+        return _searcher;
+    }
+
+    public void setSearcher(Searcher searcher) {
+        _searcher = searcher;
     }
 }

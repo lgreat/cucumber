@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:moreContent="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
@@ -220,6 +221,9 @@
     </div>
     <!-- carousel -->
 
+    <c:if test="${requestScope.recentCmsContent ne null}">
+        <moreContent:gradeByGrade/>        
+    </c:if>
         <community:raiseYourHand discussion="${ryhDiscussion}" replies="${ryhReplies}" redirectUrl="${requestScope.loginRedirectUrl}" signedIn="${not empty validUser}"/>
 
 </div>
