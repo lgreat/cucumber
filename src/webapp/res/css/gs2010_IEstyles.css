@@ -78,6 +78,18 @@ body.ie7 #topnav_search button {
     margin-bottom: -28px;
 }
 
+/* =4a-4 raise your hand
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 .ryh-title{
+    margin-bottom:10px;
+}
+
+body.ie7 .ryh-answer{
+    padding-left:0;
+    margin-left:331px;
+}
+
 /*
 =ie6 only styles
 --------------------------------------------------------------------------
@@ -143,3 +155,14 @@ body.ie6 #topnav_search button {
 
 * html .utilLinks li.nav_menu { z-index: 201; }
 
+/* =4a-4 raise your hand
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 .ryh-title{
+    margin-bottom:10px;
+}
+
+body.ie6 .ryh-answer{
+    padding-left:0;
+    margin-left:328px;
+}

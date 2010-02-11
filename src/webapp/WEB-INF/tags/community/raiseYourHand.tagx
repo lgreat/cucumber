@@ -134,7 +134,7 @@
             </div>
             <!-- end ryh-topsection -->
 
-            <div class="ryh-bottomsection">
+            <div class="ryh-bottomsection clearfix">
 
                 <span class="text1bold">Recent replies</span>
                 <div class="spacer_15">
