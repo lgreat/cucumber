@@ -143,47 +143,44 @@
                 <c:if test="${signedIn}">
 
                     <div id="recentAnswerTemplate" style="display: none;">
-                        <div class="db_reply_topic clear">
-                            <div class="db_discussAvatar fltlft">
+                        <div class="ryh-reply">
+                            <div class="ryh-avatar fltlft">
                                 <link:userProfile user="${validUser}">
                                     <community:avatar user="${validUser}" width="48" height="48"
                                                       cssStyle="border: 1px solid #c6c6c6;"/>
                                 </link:userProfile>
                             </div>
-                            <!-- end reply avatar -->
+                            <!-- end ryh-avatar -->
 
-                            <div class="db_replyContainer fltlft">
-                                <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                                    class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+                            <div class="ryh-reply-text fltlft rnd8">
+                                <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
 
-                                <div class="db_reply fltrt rnd8">
-                                    <p class="fltlft">
-                                        <link:userProfile user="${validUser}">
-                                            <span class="smallAlertTextBoldNeutral">${validUser.userProfile.screenName}</span>
-                                        </link:userProfile>
+                                <link:userProfile user="${validUser}">
+                                    <span class="smallAlertTextBold-06b">${validUser.userProfile.screenName}</span>
+                                </link:userProfile>
 
-                                        <span class="smallText1"> a moment ago </span>
-                                    </p>
+                                <span class="smallText1"> a moment ago </span>
 
-                                    <br class="clearfloat"/>
 
-                                    <community:userContentTeaserText
-                                            textToDisplay="DISCUSSION_REPLY_BODY"
-                                            minLength="117" maxLength="138"
-                                            discussionId="${discussion.id}"
-                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                            discussionReplyId="1"
-                                            textSpanClass="text3"
-                                            linkClass="text3"/>
-                                </div>
                                 <br class="clearfloat"/>
-                                <!-- end db_reply -->
+
+                                <community:userContentTeaserText
+                                        textToDisplay="DISCUSSION_REPLY_BODY"
+                                        minLength="117" maxLength="138"
+                                        discussionId="${discussion.id}"
+                                        discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                        discussionReplyId="1"
+                                        textSpanClass="text3"/>
+                                        <!--linkClass="text3"/>-->
                             </div>
-                            <!-- end db_replyContainer -->
+                            <br class="clearfloat"/>
+                            <!-- end ryh-reply-text -->
+
                         </div>
-                        <!-- end db_reply_topic -->
+                        <!-- end ryh-reply -->
                         <br class="clearfloat"/>
                     </div>
+                    <!-- end recentAnswerTemplate -->
 
                 </c:if>
 
