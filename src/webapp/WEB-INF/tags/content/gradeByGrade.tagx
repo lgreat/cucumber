@@ -42,8 +42,8 @@
     </script>
 
     <div class="module">
-        <h2>Your child's success</h2>
-        <div class="text1">What he should know,<br/>grade-by-grade</div>
+        <h2>Your child's progress</h2>
+        <div class="text1">Grade-by-grade<br/>steps to success</div>
         <div class="gbgTabs">
             <ul class="horizontal">
                 <li id="gbg-tab-p">Preschool</li>
