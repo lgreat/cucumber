@@ -2,7 +2,7 @@ package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.*;
-import gs.data.search.*;
+import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
@@ -45,7 +45,7 @@ public class CmsHomepageController extends AbstractController {
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
     private ICmsCategoryDao _cmsCategoryDao;
-    private gs.data.search.Searcher _searcher;
+    private Searcher _searcher;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -118,7 +118,7 @@ public class CmsHomepageController extends AbstractController {
             for (CmsCategory category: cats) {
                 TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
                 Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                        new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
+                        new Term(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
                 Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
                 Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
                 if (hits != null && hits.length() > 0) {
