@@ -72,6 +72,7 @@ public abstract class  OmnitureTracking {
         ParentReview(9),
         ParentSurvey(10),
         NewNewsLetterSubscriber(11),
+        CommunityRaiseYourHand(15),
         CommunityDiscussionPost(16),
         CommunityDiscussionReplyPost(17),
         ChoicePackRequest(18),

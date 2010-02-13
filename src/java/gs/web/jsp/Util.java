@@ -1,17 +1,24 @@
 package gs.web.jsp;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
+import org.htmlcleaner.BrowserCompactXmlSerializer;
+import org.htmlcleaner.TagNode;
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.BreakIterator;
 import java.util.Date;
 import java.util.Random;
+import java.io.StringReader;
+import java.io.IOException;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -193,6 +200,37 @@ public class Util {
         }
 
         return sb.toString();
+    }
+
+    public static String generateTeaserText(String textToDisplay, int minLength, int maxLength) throws IOException {
+        String teaserBody = null;
+        String teaserEnder = "... ";
+        if (StringUtils.length(textToDisplay) > minLength) {
+            teaserBody = WordUtils.abbreviate(textToDisplay, minLength, maxLength, teaserEnder);
+        } else {
+            teaserBody = textToDisplay;
+        }
+
+        HtmlCleaner cleaner = new HtmlCleaner();
+
+        CleanerProperties props = cleaner.getProperties();
+        //props.setOmitHtmlEnvelope(true);
+        props.setOmitDoctypeDeclaration(true);
+        props.setOmitXmlDeclaration(true);
+
+        TagNode node = cleaner.clean(new StringReader(teaserBody));
+        BrowserCompactXmlSerializer ser = new BrowserCompactXmlSerializer(props);
+
+        String output = ser.getXmlAsString(node);
+//        System.out.println("Pre-Output: '" + output + "'");
+        // Strip off the html wrapper
+        if (output.length() >= 34) { // At 34 chars our indexes will be 20,20 which will result in no output.
+            output = output.substring(20, output.length() - 14);
+        }
+        output = output.replace("&amp;apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
+        teaserBody = output;
+
+        return teaserBody;
     }
 
     /**

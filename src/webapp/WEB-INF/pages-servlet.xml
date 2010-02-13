@@ -548,6 +548,13 @@
         <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
     </bean>
 
+    <bean name="/community/raiseYourHandSubmission.page"
+          class="gs.web.community.RaiseYourHandSubmissionController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="discussionSubmissionCommand"/>
+        <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
+    </bean>
+
     <bean name="/community/hover/startDiscussionHover.page"
           class="gs.web.community.StartDiscussionHoverController"
           autowire="byName" lazy-init="true">
@@ -598,6 +605,13 @@
           autowire="byName" lazy-init="true">
         <property name="commandName" value="deactivateContentCommand"/>
         <property name="commandClass" value="gs.web.community.DeactivateContentCommand"/>
+    </bean>
+
+    <bean name="/community/raiseYourHand.page"
+          class="gs.web.community.RaiseYourHandAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="raiseYourHandCommand"/>
+        <property name="commandClass" value="gs.web.community.RaiseYourHandCommand"/>
     </bean>
 
    <bean name="/community/userAccount.page"

@@ -85,6 +85,12 @@
     </function>
 
     <function>
+        <name>generateTeaserText</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String generateTeaserText(java.lang.String,int,int)</function-signature>
+    </function>
+
+    <function>
         <name>pluralize</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String pluralize(int,java.lang.String)</function-signature>

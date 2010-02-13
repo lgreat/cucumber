@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:link="urn:www.greatschools.org/taglib/link"
+    xmlns:gsweb="gstaglib"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="org.apache.commons.lang.WordUtils"/>
@@ -51,44 +52,7 @@
     <jsp:directive.attribute name="linkClass" required="false" type="java.lang.String"
                              description="Class for the More link."/>
 
-    <jsp:scriptlet>
-        String teaserEnder = "... ";
-        request.setAttribute("teaserBodyAbbreviated", false);
-        if (StringUtils.length(textToDisplay) > minLength) {
-            String teaserBody = WordUtils.abbreviate(textToDisplay, minLength, maxLength, teaserEnder);
-            request.setAttribute("teaserBody", teaserBody);
-            if (StringUtils.endsWith(teaserBody, teaserEnder)) {
-                request.setAttribute("teaserBodyAbbreviated", true);
-            }
-        } else {
-            request.setAttribute("teaserBody", textToDisplay);
-        }
-
-        String input = (String)request.getAttribute("teaserBody");
-
-//        System.out.println("Input: '" + input + "'");
-        HtmlCleaner cleaner = new HtmlCleaner();
-
-        CleanerProperties props = cleaner.getProperties();
-        //props.setOmitHtmlEnvelope(true);
-        props.setOmitDoctypeDeclaration(true);
-        props.setOmitXmlDeclaration(true);
-
-        TagNode node = cleaner.clean(new StringReader(input));
-        BrowserCompactXmlSerializer ser = new BrowserCompactXmlSerializer(props);
-
-        String output = ser.getXmlAsString(node);
-//        System.out.println("Pre-Output: '" + output + "'");
-        // Strip off the html wrapper
-        if (output.length() >= 34) { // At 34 chars our indexes will be 20,20 which will result in no output.
-            output = output.substring(20, output.length() - 14);
-        }
-        output = output.replace("&amp;apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
-        request.setAttribute("teaserBody", output);
-//        System.out.println("Output: '" + output + "'");
-    </jsp:scriptlet>
-
-    <span class="${textSpanClass}">${teaserBody} </span>
+    <span class="${textSpanClass}">${gsweb:generateTeaserText(textToDisplay, minLength, maxLength)} </span>
 
     <c:choose>
         <c:when test="${!empty numReplies and numReplies eq 1}">

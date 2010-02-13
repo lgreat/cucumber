@@ -81,33 +81,40 @@
             // TODO-9134
 
             $j('.ryh #activateRYH').click(function() {
-                // TODO-9134 ajax call
-                $j('.ryh #activateRYH').hide();
-                $j('.ryh #deactivateRYH').show();
-                $j('.ryh #activeRYH').show();
-                $j('.ryh #inactiveRYH').hide();
+                $j.post('/community/raiseYourHand.page', {action: 'activate', discussionId: '${discussion.id}'},
+                        function(data) {
+                            $j('.ryh #activateRYH').hide();
+                            $j('.ryh #deactivateRYH').show();
+                            $j('.ryh #activeRYH').show();
+                            $j('.ryh #inactiveRYH').hide();
+                        });
+
                 return false;
             });
 
             $j('.ryh #deactivateRYH').click(function() {
-                // TODO-9134 ajax call
-                $j('.ryh #activateRYH').show();
-                $j('.ryh #deactivateRYH').hide();
-                $j('.ryh #activeRYH').hide();
-                $j('.ryh #inactiveRYH').show();
+
+                $j.post('/community/raiseYourHand.page', {action: 'deactivate', discussionId: '${discussion.id}'},
+                        function(data) {
+                            $j('.ryh #activateRYH').show();
+                            $j('.ryh #deactivateRYH').hide();
+                            $j('.ryh #activeRYH').hide();
+                            $j('.ryh #inactiveRYH').show();
+                        });
+
                 return false;
             });
 
             $j('.ryh input[name=ryhFeature]').change(function() {
-                if (!$j(this).is(':checked')) {
-                    $j(this).siblings('.history').show();
+                if ($j(this).is(':checked')) {
+                    $j.post('/community/raiseYourHand.page', {action: 'feature', discussionId: '${discussion.id}', topicCenterId: $j(this).val()},
+                            function(data) {
+                            });
+                } else {
+                    $j.post('/community/raiseYourHand.page', {action: 'unfeature', discussionId: '${discussion.id}', topicCenterId: $j(this).val()},
+                            function(data) {
+                            });
                 }
-            });
-
-            $j('.ryh .ryhRemove').click(function() {
-                // TODO-9134 ajax call
-                $j(this).parents('.history').remove();
-                return false;
             });
 
             //</gsml:ifUserCanManageRaiseYourHand>
@@ -693,81 +700,50 @@
 <!-- end module -->
 
 <!-- TODO-9134 -->
-<gsml:ifUserCanManageRaiseYourHand pageUser="${validUser}">
-<div class="ryh">
-    <span class="text1bold">Manage &amp;quot;Raise Your Hand&amp;quot;</span><br/>
-    <div class="clear smallText1">
-        <span class="smallText1bold">Status</span>:
+<c:if test="${discussion.active}">
+    <gsml:ifUserCanManageRaiseYourHand pageUser="${validUser}">
+        <div class="ryh">
+            <span class="text1bold">Manage &amp;quot;Raise Your Hand&amp;quot;</span><br/>
 
-        <c:choose>
-            <c:when test="${false}">
-                <c:set var="activateDisplay" value="inline"/>
-                <c:set var="deactivateDisplay" value="none"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="activateDisplay" value="none"/>
-                <c:set var="deactivateDisplay" value="inline"/>
-            </c:otherwise>
-        </c:choose>
-        <c:set var="activeDisplay" value="${deactivateDisplay}"/>
-        <c:set var="inactiveDisplay" value="${activateDisplay}"/>
+            <div class="clear smallText1">
+                <span class="smallText1bold">Status</span>:
 
-        <span class="formAgreeText" id="activeRYH" style="display: ${activeDisplay};">Active</span>
-        <span class="formHelperText" id="inactiveRYH" style="display: ${inactiveDisplay};">Inactive</span>
-        |
-        <a href="#" class="ryhStatusAction" id="activateRYH" style="display: ${activateDisplay};">Activate</a>
-        <a href="#" class="ryhStatusAction" id="deactivateRYH" style="display: ${deactivateDisplay};">Deactivate</a>
-    </div>
-    <div class="assoc">
-        <div>
-            <span class="text2bold">Currently featured on</span>:
-        </div>
-        <div class="entry">
-            <input type="checkbox" name="ryhFeature" value="HOME" id="ryhHome"/>
-            <label for="ryhHome">Home page</label>
-            <c:choose>
-                <c:when test="${false}">
-                    <c:set var="historyDisplay" value="inline"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="historyDisplay" value="none"/>
-                </c:otherwise>
-            </c:choose>
-
-            <span class="history smallText1" style="display: ${historyDisplay};">
-                Previously featured. |
-                <a href="#" class="ryhRemove">Remove
-                    <input type="hidden" class="ryhRemoveId" value="HOME"/>
-                </a>
-            </span>
-        </div>
-
-        <c:forEach var="topicCenter" items="${allTopicCenters}" varStatus="status">
-            <div class="entry">
-                <input type="checkbox" name="ryhFeature" value="${topicCenter.contentKey.identifier}"
-                   id="ryhTc${topicCenter.contentKey.identifier}"/>
-                <label for="ryhTc${topicCenter.contentKey.identifier}">${topicCenter.title}</label>
                 <c:choose>
-                    <c:when test="${status.count == 3 or status.count == 7 or status.count == 8}">
-                        <c:set var="historyDisplay" value="inline"/>
+                    <c:when test="${false}">
+                        <c:set var="activateDisplay" value="inline"/>
+                        <c:set var="deactivateDisplay" value="none"/>
                     </c:when>
                     <c:otherwise>
-                        <c:set var="historyDisplay" value="none"/>
+                        <c:set var="activateDisplay" value="none"/>
+                        <c:set var="deactivateDisplay" value="inline"/>
                     </c:otherwise>
                 </c:choose>
+                <c:set var="activeDisplay" value="${deactivateDisplay}"/>
+                <c:set var="inactiveDisplay" value="${activateDisplay}"/>
 
-                <span class="history smallText1" style="display: ${historyDisplay};">
-                    Previously featured. |
-                    <a href="#" class="ryhRemove">Remove
-                        <input type="hidden" class="ryhRemoveId" value="${topicCenter.contentKey.identifier}"/>
-                    </a>
-                </span>
+                <span class="formAgreeText" id="activeRYH" style="display: ${activeDisplay};">Active</span>
+                <span class="formErrorText" id="inactiveRYH" style="display: ${inactiveDisplay};">Inactive</span>
+                |
+                <a href="#" class="ryhStatusAction" id="activateRYH" style="display: ${activateDisplay};">Activate</a>
+                <a href="#" class="ryhStatusAction" id="deactivateRYH"
+                   style="display: ${deactivateDisplay};">Deactivate</a>
             </div>
-        </c:forEach>
-    </div>
-</div>
-</gsml:ifUserCanManageRaiseYourHand>
+            <div class="assoc">
+                <div>
+                    <span class="text2bold">Currently featured on these topic centers</span>:
+                </div>
 
+                <c:forEach var="topicCenter" items="${allTopicCenters}" varStatus="status">
+                    <div class="entry">
+                        <input type="checkbox" name="ryhFeature" value="${topicCenter.contentKey.identifier}"
+                               id="ryhTc${topicCenter.contentKey.identifier}"/>
+                        <label for="ryhTc${topicCenter.contentKey.identifier}">${topicCenter.title}</label>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </gsml:ifUserCanManageRaiseYourHand>
+</c:if>
 
 </div>
 <!-- end mainContent -->

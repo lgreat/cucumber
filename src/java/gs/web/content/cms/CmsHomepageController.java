@@ -27,7 +27,7 @@ public class CmsHomepageController extends AbstractController {
 
     public static final String BEAN_ID = "/index.page";
 
-    public static final int RAISE_YOUR_HAND_NUM_REPLIES = 5;
+    public static final int RAISE_YOUR_HAND_MAX_NUM_REPLIES = 5;
 
     public static final String MODEL_RAISE_YOUR_HAND_DISCUSSION = "ryhDiscussion";
     public static final String MODEL_RAISE_YOUR_HAND_REPLIES = "ryhReplies";
@@ -35,6 +35,7 @@ public class CmsHomepageController extends AbstractController {
     public static final String MODEL_VALID_USER = "validUser";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_RECENT_CMS_CONTENT = "recentCmsContent";
+    public static final String MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES = "ryhMaxNumReplies";
 
     private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
@@ -73,7 +74,7 @@ public class CmsHomepageController extends AbstractController {
                         userContents.add(discussion);
                         CmsDiscussionBoard discussionBoard = _cmsDiscussionBoardDao.get(discussion.getBoardId());
                         List<DiscussionReply> replies = _discussionReplyDao.getRepliesForPage(
-                                discussion, 1, RAISE_YOUR_HAND_NUM_REPLIES,
+                                discussion, 1, RAISE_YOUR_HAND_MAX_NUM_REPLIES,
                                 IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST, false);
                         userContents.addAll(replies);
 
@@ -83,6 +84,7 @@ public class CmsHomepageController extends AbstractController {
                         model.put(MODEL_RAISE_YOUR_HAND_DISCUSSION, discussion);
                         model.put(MODEL_RAISE_YOUR_HAND_REPLIES, replies);
                         model.put(MODEL_CURRENT_DATE, new Date());
+                        model.put(MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES, RAISE_YOUR_HAND_MAX_NUM_REPLIES);
 
                         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
                         User user = null;

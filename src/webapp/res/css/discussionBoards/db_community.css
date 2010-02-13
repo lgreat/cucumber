@@ -1618,13 +1618,7 @@ Thus, we use -3px of left/right margin to overcome this.
 }
 
 .ryh .assoc .entry:nth-child(even) {
-    background-color: #ccc;
-}
-
-.ryh .assoc .history {
-    position: absolute;
-    top: 3px;
-    right: 5px;
+    background-color: #ebebeb;
 }
 
 /* --- */

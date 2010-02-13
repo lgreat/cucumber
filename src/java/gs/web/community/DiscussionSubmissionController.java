@@ -318,10 +318,22 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
     }
 
+    protected void handleDiscussionReplySubmission
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            throws IllegalStateException {
+        handleDiscussionReplySubmissionHelper(request, response, command);
+
+        // omniture success event only if new discussion reply
+        if (command.getDiscussionReplyId() == null) {
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
+        }
+    }
+
     /**
      * @throws IllegalStateException if this method is called with invalid parameters in the request
      */
-    protected void handleDiscussionReplySubmission
+    protected DiscussionReply handleDiscussionReplySubmissionHelper
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -403,12 +415,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _log.warn("Reply triggers profanity filter.");
             }
 
-            // omniture success event only if new discussion reply
-            if (command.getDiscussionReplyId() == null) {
-                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
-            }
-
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
@@ -417,7 +423,10 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 command.setRedirect(urlBuilder.asSiteRelative(request) + "#reply_" + reply.getId());
                 _log.info("Setting redirect to " + command.getRedirect());
             }
+
+            return reply;
         }
+        return null;
     }
 
     public IDiscussionReplyDao getDiscussionReplyDao() {

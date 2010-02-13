@@ -73,17 +73,25 @@
                     return false;
                 }
 
-                $j.post('/community/discussionSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
+                $j.post('/community/raiseYourHandSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
                         function(data) {
-                            var newRyhPost = $j('#recentAnswerTemplate').clone();
-                            // TODO-9134 FIXME
-                            var replyId = 1234;
-                            newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1','discussionReplyId=' + replyId + '#reply_' + replyId));
-                            newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY',$j('#ryhAnswer').html().text()));
-                            //alert(newRyhPost.html());
-                            $j('.recentAnswers').prepend(newRyhPost.children());
-                            $j('.recentAnswers .db_reply_topic:last').remove();
-                        });
+                            if (data.status == 'ok') {
+                                var newRyhPost = $j('#recentAnswerTemplate').clone();
+                                var replyId = data.replyId;
+                                var body = data.body;
+                                var teaserText = data.teaserText;
+                                newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
+                                newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', teaserText));
+                                $j('.recentAnswers').prepend(newRyhPost.children());
+                                var numRecent = $j('.recentAnswers .ryh-reply').size();
+                                if (numRecent &gt; ${ryhMaxNumReplies}) {
+                                    $j('.recentAnswers .ryh-reply:last').remove();
+                                    $j('.recentAnswers br.clearfloat:last').remove();
+                                }
+                            } else {
+                                alert('An error occurred. Please try again.');
+                            }
+                        }, "json");
                 return true;
             });
 
