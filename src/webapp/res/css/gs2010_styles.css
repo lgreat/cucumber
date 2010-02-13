@@ -26,6 +26,7 @@ General comments:
 =4a-2 most popular
 =4a-3 gs blog
 =4a-4 raise your hand
+=4a-5 grade by grade
 =5-
 =6-
 =7- editorial footer
@@ -935,6 +936,50 @@ body.ie6 .clearfix {
     right: 5px;
 }
 /* end young's styles */
+
+/* =4a-5 grade by grade
+-------------------------------------------------------------------------------------------*/
+
+#grade-by-grade{
+    background: white url(/res/img/gradeByGrade/gbg-kids.jpg) no-repeat right top;
+}
+
+#grade-by-grade .mod_bd{
+    padding:0;
+}
+
+.gbgTabs{
+    margin-top:70px;
+}
+
+.gbgTabs .horizontal{
+    margin:0 25px;
+}
+
+.gbgTabs li{
+    background:#ebebeb;
+}
+
+.gbgSlider{
+    width:598px; height:14px;
+    background:#149;
+}
+
+.gbgContent{
+    background:white;
+    margin-bottom:20px;
+}
+
+.gbgContent ul{
+    line-height:2.3;
+    width:268px;
+    margin:6px 0;
+    padding:0 15px;
+}
+
+.gbgContent .border-left-dotted{
+    border-left:1px dotted #999;
+}
 
 /* arrows
 -------------------------------------------------------------------------------------------*/

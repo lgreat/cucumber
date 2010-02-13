@@ -224,9 +224,11 @@
     <c:if test="${requestScope.recentCmsContent ne null}">
         <moreContent:gradeByGrade/>        
     </c:if>
-        <community:raiseYourHand discussion="${ryhDiscussion}" replies="${ryhReplies}" redirectUrl="${requestScope.loginRedirectUrl}" signedIn="${not empty validUser}"/>
+    <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
+    <community:raiseYourHand discussion="${ryhDiscussion}" replies="${ryhReplies}" redirectUrl="${requestScope.loginRedirectUrl}" signedIn="${not empty validUser}"/>
 
 </div>
+    <!-- end mainGS -->
 
 <div id="sidebarGS" class="col">
     <div id="find-compare">
@@ -267,6 +269,8 @@
             <school:compareNearZipCode/>
         </div>
     </div>
+
+    <gsweb:adTagGenerator position="Homepage_House_Ad_328x150"/>
 
     <div>
     <c:choose>
