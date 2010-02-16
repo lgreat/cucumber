@@ -135,7 +135,7 @@ Parent Review Page
 #parentReview #rateReviewH2 {
     background:#66CCCC none repeat scroll 0%;
     color:#FFFFFF;
-    font-weight:bold;
+    font: 700 14px/1 Arial, sans-serif; 
     height:17px;
     line-height:14px;
     text-indent:0;
@@ -239,7 +239,7 @@ Parent Review Page
     margin-bottom: 16px;
     background: #6cc;
     line-height: 14px;
-    font-weight: bold;
+    font: 700 13px Arial, sans-serif;;
 }
 
 #showParentReviews .reviewTotal {

@@ -70,7 +70,7 @@
             </c:when>
             <c:otherwise>
                 <c:set var="noAd" value="" />
-                <!--do not show a header ad-->
+                <!-- class to style logo for homepage -->
             </c:otherwise>
         </c:choose>
             <div id="logoBox" class="${noAd}">

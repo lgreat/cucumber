@@ -63,7 +63,7 @@
 
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
-<gsml:body adPageName="ratings" pageLayout="ratings">
+<gsml:body adPageName="ratings" pageLayout="nocol">
         <spring:hasBindErrors name="ratingsCmd">
             <c:set var="hasError" value="true"/>
             <ul>

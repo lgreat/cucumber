@@ -16,8 +16,8 @@
 #schoolProfile .ratingSummaryContent h2 {
     padding-top: 0;
     padding-bottom: 5px;
-    color: #cc5566;
-    font-weight: bold;
+    color: #333;
+    font: 700 14px/1 Arial, sans-serif; 
 }
 
 #schoolProfile .ratingSummaryContent p {

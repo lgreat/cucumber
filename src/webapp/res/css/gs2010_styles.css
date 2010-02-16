@@ -273,8 +273,9 @@ p {
 -------------------------------------------------------------------------------------------*/
 .gsAd, #adLeaderboard {
     margin: 0 auto;
-    text-align: center;
-    width: 738px;
+    width: 968px;
+    height: 96px;
+    background: #2f85eb;
 }
 
 #pageGS {
@@ -1289,7 +1290,7 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
 }
 
 #footnav {
-    border-top: 3px dotted #666;
+    border-top: 3px dotted #ccc;
     list-style: none;
     width: 928px;
     padding: 10px 0 0;

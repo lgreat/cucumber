@@ -160,7 +160,9 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
     _float: left;
 }
 
-
+#schoolProfile {
+    padding-top: 20px;
+}
 /* school name */
 #schoolProfile #schoolName { /* has IE 7 equivalent */
     width: 550px;
@@ -380,7 +382,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     font-size:12px;
     text-align:left;
     clear: both;
-    margin: 0 0 0 20px;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 864px;
 }
 
 #schoolProfile #bodyContents h1{
