@@ -116,7 +116,7 @@
     </c:if>
 
 </head>
-<body>
+<gsml:body adPageName="surveyResult" pageLayout="nocol">
 <school:profile school="${school}">
 <c:if test="${not empty param.thanks}">
     <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
@@ -484,6 +484,6 @@
 <mod:tracking pageName="Parent Survey Display: ${pIndex + 1} "
               hier1="School,Parent Survey,Display,Page ${pIndex + 1}"/>
 </school:profile>
-</body>
+</gsml:body>
 </html>
 </jsp:root>

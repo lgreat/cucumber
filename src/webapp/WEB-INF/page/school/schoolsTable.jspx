@@ -373,7 +373,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
 </jsp:scriptlet>
 </head>
 
-<gsml:body adPageName="search">
+<gsml:body adPageName="search" pageLayout="nocol">
 <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>

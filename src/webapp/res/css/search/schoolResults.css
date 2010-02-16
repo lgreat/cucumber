@@ -54,6 +54,7 @@
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 1px solid #cccccc;
+    font: 16px Arial, sans-serif;
 }
 
 .query {
@@ -230,7 +231,7 @@ div.phone {
 
 #searchResults h3 {
     font-size: medium;
-    margin-bottom: 5px;
+    margin-bottom: 0;
 }
 
 

@@ -25,13 +25,16 @@
     .statsModule h3 {
     color: #eb7a31;
     font-size: medium;
-    font-weight: 700;
+    font-weight: 400;
     text-align: left;
+        font-family: Georgia, serif;
 }
     .cityPage h2.sectionHead, .cityPage div#cityStats h3 {
         color:#FFFFFF;
         padding: 2px 0 2px 5px;
         background-color:#66CCCC;
+        font-weight: 400;
+        font-family: Georgia, serif;
     }
 
     .cityPage div.featuredArticles h2 {
@@ -154,6 +157,7 @@
     font-weight: bold;
     font-size: 16px;
     padding-top: 5px;
+    margin-bottom: 0;
 }
 #schoolFinderPromo p{
     color:#666666;
@@ -163,7 +167,7 @@
 .headerBox {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     background-color:#DDEEEE;
-    margin-bottom: 12px;
+    margin: 10px 0 12px;
 }
     .headerBox h1 {
         color:#55BBCC;
