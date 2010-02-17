@@ -527,7 +527,7 @@ p {
 #globalnav li#n6 a {
     padding-right: 34px;
 }
-#globalnav li a:hover {
+#globalnav li a:hover, #globalnav li.active a {
     color: #333;
 }
 
@@ -596,9 +596,12 @@ p {
     padding: 3px 15px 3px 6px;
 }
 
-#topnav_menusubnav li.over a {
+#topnav_menusubnav li.over a.over {
     color: #fff;
     background-position: 100% -222px;
+}
+#topnav_menusubnav li.topnav_subnav_active a {
+    color: #333;
 }
 
 #topnav_menusubnav ul.nav_group_items {

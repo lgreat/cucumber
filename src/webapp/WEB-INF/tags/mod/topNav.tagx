@@ -166,29 +166,29 @@
     <ul id="globalnav" class="${navBarClass}">
             <c:set var="pw" value="${requestScope.context.pathway}"/>
             <!-- Numbers in comments signify the pageId in PageHelper.java -->
-            <!--#0--><li id="n1"><link:home
-                                styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} GS_CI9_ "
+            <!--#0--><li id="n1" class="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')}"><link:home
+                                styleClass=" GS_CI9_ "
                                 id="GlobalNav_HomeButton"
                 >Home</link:home></li>
-            <!--#1--><li id="n2"><link:research
-                                styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')} GS_CI9_ "
+            <!--#1--><li id="n2" class="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')}"><link:research
+                                styleClass=" GS_CI9_ "
                                 state="${requestScope.context.state}"
                                 id="GlobalNav_ResearchButton"
                 >Find a School</link:research></li>
-            <!--#11--><li id="n3"><link:preschool
+            <!--#11--><li id="n3" class="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') }"><link:preschool
                                  id="GlobalNav_PreschoolButton"
-                                 styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') } GS_CI9_ "
+                                 styleClass=" GS_CI9_ "
                 >Preschool</link:preschool></li>
-            <!--#12--><li id="n4"><link:elementary-school
-                                styleClass="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')} GS_CI9_ "
+            <!--#12--><li id="n4" class="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')}"><link:elementary-school
+                                styleClass=" GS_CI9_ "
                                 id="GlobalNav_ElementarySchoolButton"
                 >Elementary School</link:elementary-school></li>
-            <!--#13--><li id="n5"><link:middle-school
-                                styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')} GS_CI9_ "
+            <!--#13--><li id="n5" class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')}"><link:middle-school
+                                styleClass=" GS_CI9_ "
                                 id="GlobalNav_MiddleSchoolButton"
                 >Middle School</link:middle-school></li>
-            <!--#14--><li id="n6"><link:high-school
-                                styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')} GS_CI9_ "
+            <!--#14--><li id="n6" class="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')}"><link:high-school
+                                styleClass=" GS_CI9_ "
                                 id="GlobalNav_HighSchoolButton"
                 >High School</link:high-school></li><!-- last pw check first arg would be 'ractive' -->
             <!-- pw check first arg would be 'lactive' -->
@@ -196,9 +196,9 @@
     </ul>
 
         <ul id="topnav_menusubnav">
-            <li id="topnav_hd" class="nav_menu firstHeading"><a href="/parenting.topic?content=1539"
+            <li id="topnav_hd" class="nav_menu firstHeading ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
                     id="GlobalNav_HealthAndDevelopmentButton"
-                    class="arrow nav_group_heading ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    class="arrow nav_group_heading GS_CI9_ "
                     >Health &amp;amp; Development</a>
                 <ul class="nav_group_items">
                     <li class="first"><link:cmsCategoryBrowse topicIDs="149" language="EN" styleId="GlobalNav_HD_Bullying" styleClass="GS_CI9_">Bullying</link:cmsCategoryBrowse></li>
@@ -215,9 +215,9 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li id="topnav_aa" class="nav_menu"><a href="/students.topic?content=1540"
+            <li id="topnav_aa" class="nav_menu ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')}"><a href="/students.topic?content=1540"
                     id="GlobalNav_AcademicsAndActivitiesButton"
-                    class="arrow nav_group_heading ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    class="arrow nav_group_heading GS_CI9_ "
                     >Academics &amp;amp; Activities</a>
                 <ul class="nav_group_items">
                     <li class="first"><link:cmsCategoryBrowse topicIDs="133" language="EN" styleId="GlobalNav_AA_AcademicSkills" styleClass="GS_CI9_">Academic skills</link:cmsCategoryBrowse></li>
@@ -235,9 +235,9 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li id="topnav_ld" class="nav_menu"><a href="/LD.topic?content=1541"
+            <li id="topnav_ld" class="nav_menu ${(pw == tabs.LEARNING_DISABILITIES ? 'topnav_subnav_active' : '')}"><a href="/LD.topic?content=1541"
                     id="GlobalNav_LearningDisabilitiesButton"
-                    class="arrow nav_group_heading ${(pw == tabs.LEARNING_DISABILITIES ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    class="arrow nav_group_heading GS_CI9_ "
                     >Learning Disabilities</a>
                 <ul class="nav_group_items">
                     <li class="first"><link:cmsCategoryBrowse topicIDs="168" language="EN" styleId="GlobalNav_IdentifyingAnLD" styleClass="GS_CI9_">Identifying an LD</link:cmsCategoryBrowse></li>
@@ -257,9 +257,9 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li id="topnav_iys" class="nav_menu"><a href="/improvement.topic?content=1543"
+            <li id="topnav_iys" class="nav_menu ${(pw == tabs.IMPROVE_YOUR_SCHOOL ? 'topnav_subnav_active' : '')}"><a href="/improvement.topic?content=1543"
                     id="GlobalNav_ImproveYourSchoolButton"
-                    class="arrow nav_group_heading ${(pw == tabs.IMPROVE_YOUR_SCHOOL ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    class="arrow nav_group_heading GS_CI9_ "
                     >Improve Your School</a>
                 <ul class="nav_group_items">
                     <li class="first"><link:cmsCategoryBrowse topicIDs="134" language="EN" styleId="GlobalNav_IYS_Volunteering" styleClass="GS_CI9_">Volunteering</link:cmsCategoryBrowse></li>
@@ -274,9 +274,9 @@
                         class="GS_CI9_">See all &amp;raquo;</a></li>
                 </ul>
             </li>
-            <li id="topnav_ctrs" class="nav_menu"><link:schoolChoiceCenter
+            <li id="topnav_ctrs" class="nav_menu ${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')}"><link:schoolChoiceCenter
                     id="GlobalNav_ChooseTheRightSchoolButton"
-                    styleClass="arrow nav_group_heading ${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                    styleClass="arrow nav_group_heading GS_CI9_ "
                     >Choose the Right School</link:schoolChoiceCenter>
                 <ul class="nav_group_items">
                     <li class="first"><link:cmsCategoryBrowse topicIDs="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining your ideal school</link:cmsCategoryBrowse></li>
