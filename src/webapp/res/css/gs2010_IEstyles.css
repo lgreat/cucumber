@@ -130,19 +130,23 @@ body.ie6 #utilLinks li .nav_group_items {
 body.ie6 #navbar {
     position: relative;
 }
-body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
+body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a, body.ie6 #globalnav li a  {
     display: inline-block;
 }
 body.ie6 #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
 }
-*html #topnav_search ul li label, *html #topnav_menusubnav li a {
+*html #topnav_search ul li label, *html #topnav_menusubnav li a *html #globalnav li a  {
     display: inline-block;
 }
 *html #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
+}
+body.ie6 .srchCatComm li span.icon {
+    left: -25px;
+    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
 *html iframe.ieShim {
 	position: absolute;
