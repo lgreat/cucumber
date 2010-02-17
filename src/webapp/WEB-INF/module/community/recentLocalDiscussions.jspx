@@ -70,7 +70,7 @@
             </c:forEach>
 
             <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                              fullUri="${fullUri}">More discussions &amp;raquo;</link:cmsContent></p>
+                                              fullUri="${fullUri}">More conversations &amp;raquo;</link:cmsContent></p>
             <br class="clearfloat"/>
             <hr class="hr"/>
             <h2>Got a question about ${cityName}?</h2>
@@ -84,7 +84,7 @@
                         <span class="lftDoor25">
                             <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png"
                                                         alt="bubbles"
-                                                        width="37" height="25" align="absmiddle"/>Post discussion</span>
+                                                        width="37" height="25" align="absmiddle"/>Post conversation</span>
                         </span>
                 </a>
                 <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"

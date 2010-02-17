@@ -196,12 +196,12 @@
             </div>
             <button class="btn25 fltlft previewEditButton sd-btn-layout" type="submit">
                 <span class="lftDoor25">
-                    <span class="rtDoor25">Edit&amp;nbsp;discussion</span>
+                    <span class="rtDoor25">Edit&amp;nbsp;conversation</span>
                 </span>
             </button>
             <button class="btn25 fltlft previewPostButton" type="submit">
                 <span class="lftDoor25">
-                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;discussion</span>
+                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;conversation</span>
                 </span>
             </button>
         </div>

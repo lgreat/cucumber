@@ -28,8 +28,12 @@
             GS.reportContent_idOfOpeningElement = idStr;
             jQuery('#reportContentType').val(contentType);
             jQuery('#reportContentId').val(idStr.substring(("report_" + contentType + "_").length));
-            jQuery('#reportHoverIntroContentType').replaceWith(contentType);
-            jQuery('#reportHoverHeader').replaceWith(contentType);
+            var contentTypeNormalized = contentType;
+            if (contentTypeNormalized == 'discussion') {
+                contentTypeNormalized = 'conversation';
+            }
+            jQuery('#reportHoverIntroContentType').replaceWith(contentTypeNormalized);
+            jQuery('#reportHoverHeader').replaceWith(contentTypeNormalized);
         }
         omnitureEventNotifier.pageName="Report Item Hover";
         omnitureEventNotifier.heirarchy="Community,Actions,Report Item Hover";
@@ -88,7 +92,11 @@
                 jQuery.post('/community/reportContent.page', params);
 
                 jQuery('#' + GS.reportContent_idOfOpeningElement).parent().addClass('reported');
-                jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + params.type + ".");
+                var contentTypeNormalized = params.type;
+                if (contentTypeNormalized == 'discussion') {
+                    contentTypeNormalized = 'conversation';
+                }
+                jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + contentTypeNormalized + ".");
                 return false;                
             });
         });

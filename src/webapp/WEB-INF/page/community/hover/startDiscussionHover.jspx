@@ -127,10 +127,10 @@
         <h2 class="sd_title fltlft">
             <c:choose>
                 <c:when test="${discussionId gt 0}">
-                    Edit discussion
+                    Edit conversation
                 </c:when>
                 <c:otherwise>
-                    Start a discussion
+                    Start a conversation
                 </c:otherwise>
             </c:choose>
         </h2>
@@ -198,7 +198,7 @@
                 <c:set var="submitButtonText" value="Save"/>
             </c:when>
             <c:otherwise>
-                <c:set var="submitButtonText" value="Post&amp;nbsp;discussion"/>
+                <c:set var="submitButtonText" value="Post&amp;nbsp;conversation"/>
             </c:otherwise>
         </c:choose>
 

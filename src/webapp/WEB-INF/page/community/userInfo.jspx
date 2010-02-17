@@ -307,7 +307,7 @@
                         <c:when test="${content.type == 'Discussion'}">
                             <c:set var="discussion" value="${content}"/>
                             <c:set var="replyId" value="${null}"/>
-                            <c:set var="introLabel" value="Started discussion"/>
+                            <c:set var="introLabel" value="Started conversation"/>
                             <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
                         </c:when>
                         <c:when test="${content.type == 'DiscussionReply'}">
