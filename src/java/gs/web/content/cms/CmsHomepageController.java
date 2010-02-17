@@ -9,10 +9,6 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.web.search.ResultsPager;
 import gs.web.search.SearchResult;
-import gs.web.util.UrlBuilder;
-import gs.web.util.PageHelper;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
@@ -28,7 +24,6 @@ public class CmsHomepageController extends AbstractController {
 
     public static final String BEAN_ID = "/index.page";
 
-    public static final int RAISE_YOUR_HAND_MAX_NUM_REPLIES = 5;
     public static final int GRADE_BY_GRADE_NUM_CATEGORIES = 9;
     public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
     public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
@@ -36,13 +31,7 @@ public class CmsHomepageController extends AbstractController {
 
     public static final Map<Long, Long> categoryIdToTopicCenterIdMap = new HashMap<Long, Long>(GRADE_BY_GRADE_NUM_CATEGORIES);
 
-    public static final String MODEL_RAISE_YOUR_HAND_DISCUSSION = "ryhDiscussion";
-    public static final String MODEL_RAISE_YOUR_HAND_REPLIES = "ryhReplies";
-    public static final String MODEL_CURRENT_DATE = "currentDate";
-    public static final String MODEL_VALID_USER = "validUser";
-    public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_RECENT_CMS_CONTENT = "recentCmsContent";
-    public static final String MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES = "ryhMaxNumReplies";
 
     private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
@@ -86,51 +75,6 @@ public class CmsHomepageController extends AbstractController {
             }
             model.put("homepage", homepage);
             populateModelWithRecentCMSContent(model); // GS-9160
-
-            String raiseYourHandDiscussionId = _propertyDao.getProperty(IPropertyDao.RAISE_YOUR_HAND_DISCUSSION_ID);
-            if (raiseYourHandDiscussionId != null) {
-                try {
-                    int discussionId = Integer.parseInt(raiseYourHandDiscussionId);
-                    Discussion discussion = _discussionDao.findById(discussionId);
-                    if (discussion != null) {
-                        List<UserContent> userContents = new ArrayList<UserContent>();
-                        userContents.add(discussion);
-                        CmsDiscussionBoard discussionBoard = _cmsDiscussionBoardDao.get(discussion.getBoardId());
-                        List<DiscussionReply> replies = _discussionReplyDao.getRepliesForPage(
-                                discussion, 1, RAISE_YOUR_HAND_MAX_NUM_REPLIES,
-                                IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST, false);
-                        userContents.addAll(replies);
-
-                        discussion.setDiscussionBoard(discussionBoard);
-                        _userDao.populateWithUsers(userContents);
-
-                        model.put(MODEL_RAISE_YOUR_HAND_DISCUSSION, discussion);
-                        model.put(MODEL_RAISE_YOUR_HAND_REPLIES, replies);
-                        model.put(MODEL_CURRENT_DATE, new Date());
-                        model.put(MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES, RAISE_YOUR_HAND_MAX_NUM_REPLIES);
-
-                        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                        User user = null;
-                        if (PageHelper.isMemberAuthorized(request)) {
-                            user = sessionContext.getUser();
-                            if (user != null) {
-                                model.put(MODEL_VALID_USER, user);
-                            }
-                        }
-                        if (user == null) {
-                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, "/");
-                            model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
-                        } else {
-                            model.put(MODEL_LOGIN_REDIRECT, "#");
-                        }
-                    } else {
-                        _log.warn("RAISE_YOUR_HAND_DISCUSSION_ID property specifies invalid discussion ID " + raiseYourHandDiscussionId);
-                    }
-
-                } catch (NumberFormatException e) {
-                    _log.warn("RAISE_YOUR_HAND_DISCUSSION_ID property specifies malformatted number " + raiseYourHandDiscussionId);
-                }
-            }
         }
 
         return new ModelAndView(_viewName, model);

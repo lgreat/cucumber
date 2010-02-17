@@ -202,6 +202,11 @@
                         <li class="srchRslt ${srchRsltSupplClass}"><span class="icon"><!-- icon --></span>
                             <p><link:discussion discussionId="${result.contentKey.identifier}" styleClass="text3bold"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
+                                <!-- TODO-9134 TODO-9419 -->
+                                <c:choose>
+                                    <c:when test="${result.raiseYourHand}"></c:when>
+                                    <c:otherwise></c:otherwise>
+                                </c:choose>
 
                             </p>
                             <p class="smallText1">

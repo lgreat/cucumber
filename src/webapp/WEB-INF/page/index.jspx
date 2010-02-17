@@ -225,7 +225,11 @@
         <moreContent:gradeByGrade/>        
     </c:if>
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
-    <community:raiseYourHand discussion="${ryhDiscussion}" replies="${ryhReplies}" redirectUrl="${requestScope.loginRedirectUrl}" signedIn="${not empty validUser}"/>
+    <c:set var="raiseYourHand">
+        <c:import
+                url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;redirectUrl=${gsweb:urlEncode(requestScope.loginRedirectUrl)}&amp;limit=5&amp;style=homePage"/>
+    </c:set>
+    ${raiseYourHand}
 
 </div>
     <!-- end mainGS -->

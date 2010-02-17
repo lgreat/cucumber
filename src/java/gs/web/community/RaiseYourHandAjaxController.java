@@ -13,9 +13,11 @@ import gs.data.search.SolrService;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.cms.IPublicationDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 public class RaiseYourHandAjaxController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -25,6 +27,7 @@ public class RaiseYourHandAjaxController extends SimpleFormController implements
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private SolrService _solrService;
     private IPublicationDao _publicationDao;
+    private IRaiseYourHandDao _raiseYourHandDao;
 
     final private String ACTION_ACTIVATE = "activate";
     final private String ACTION_DEACTIVATE = "deactivate";
@@ -50,71 +53,46 @@ public class RaiseYourHandAjaxController extends SimpleFormController implements
         if (user != null && user.getUserProfile() != null &&
             user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND) && discussion != null && discussion.isActive()) {
             if (ACTION_ACTIVATE.equals(command.getAction())) {
-                // TODO-9134 make this discussion a RYH
-                // TODO-9134 move it from the original discussion board to the RYH discussion board
-                // TODO-9134 store activated timestamp
-                // TODO-9134 store the original discussion board ID with the RYH
-                System.out.println("TODO-9134 ACTION_ACTIVATE " + discussion.getId());
+                // make this discussion a RYH
+                discussion.setDateRaiseYourHand(new Date());
+                _discussionDao.save(discussion);
+                // re-index discussion in solr
+                _userDao.populateWithUser(discussion);
+                discussion.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
+                _solrService.updateDocument(discussion);
+                ThreadLocalTransactionManager.commitOrRollback();
             } else if (ACTION_DEACTIVATE.equals(command.getAction())) {
-                // TODO-9134 move discussion from the RYH discussion board to the original discussion board
-                // TODO-9134 if tied to home page TC, keep activated timestamp
-                System.out.println("TODO-9134 ACTION_DEACTIVATE " + discussion.getId());
+                // make this discussion not a RYH by clearning the RYH date
+                discussion.setDateRaiseYourHand(null);
+                _discussionDao.save(discussion);
+                // re-index discussion in solr
+                _userDao.populateWithUser(discussion);
+                discussion.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
+                _solrService.updateDocument(discussion);
+                // remove RYH feature entries
+                _raiseYourHandDao.deleteAllFeatures(discussion);
+                ThreadLocalTransactionManager.commitOrRollback();
             } else if (ACTION_FEATURE.equals(command.getAction())) {
                 if (topicCenter != null) {
-                    // TODO-9134 link discussion to TC
-                    System.out.println("TODO-9134 ACTION_FEATURE " + discussion.getId() + ", TC: " + topicCenter.getTitle() + " (" + topicCenter.getContentKey().getIdentifier() + ")");
+                    // link discussion to TC
+                    RaiseYourHandFeature ryhFeature = new RaiseYourHandFeature();
+                    ryhFeature.setDiscussion(discussion);
+                    ryhFeature.setContentKey(topicCenter.getContentKey());
+                    _raiseYourHandDao.save(ryhFeature);
+                    ThreadLocalTransactionManager.commitOrRollback();
                 }
             } else if (ACTION_UNFEATURE.equals(command.getAction())) {
                 if (topicCenter != null) {
-                    // TODO-9134 unlink discussion from TC
-                    System.out.println("TODO-9134 ACTION_UNFEATURE " + discussion.getId() + ", TC: " + topicCenter.getTitle() + " (" + topicCenter.getContentKey().getIdentifier() + ")");
+                    // unlink discussion from TC
+                    RaiseYourHandFeature ryhFeature = _raiseYourHandDao.getRaiseYourHandFeature(discussion, topicCenter.getContentKey());
+                    if (ryhFeature != null) {
+                        _raiseYourHandDao.delete(ryhFeature);
+                        ThreadLocalTransactionManager.commitOrRollback();
+                    }
                 }
             }
         }
-        /*
 
-        User user = SessionContextUtil.getSessionContext(request).getUser();
-        if (user != null && user.getUserProfile() != null
-                && user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
-            if (command.getContentType() == DeactivateContentCommand.ContentType.reply) {
-                DiscussionReply reply = _discussionReplyDao.findById((int)command.getContentId());
-                if (reply != null && reply.isActive() != command.isReactivate()) {
-                    _log.info("Setting reply with id=" + reply.getId() + " to active=" + command.isReactivate());
-                    reply.setActive(command.isReactivate());
-                    reply.setDateUpdated(new Date());
-                    _discussionReplyDao.saveKeepDates(reply);
-                    _discussionDao.recalculateDateThreadUpdated(reply.getDiscussion());
-                    ThreadLocalTransactionManager.commitOrRollback();
-                }
-            } else if (command.getContentType() == DeactivateContentCommand.ContentType.discussion) {
-                Discussion discussion = _discussionDao.findById((int)command.getContentId());
-                if (discussion != null && discussion.isActive() != command.isReactivate()) {
-                    _log.info("Setting discussion with id=" + discussion.getId() +
-                            " to active=" + command.isReactivate());
-                    discussion.setActive(command.isReactivate());
-                    _discussionDao.saveKeepDates(discussion);
-                    Set<DiscussionReply> replies = discussion.getReplies();
-                    for (DiscussionReply reply : replies) {
-                        reply.setActive(command.isReactivate());
-                        _discussionReplyDao.saveKeepDates(reply);
-                    }
-                    ThreadLocalTransactionManager.commitOrRollback();
-                    try {
-                        if (command.isReactivate()) {
-                            _userDao.populateWithUser(discussion);
-                            discussion.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
-                            _solrService.indexDocument(discussion);
-                        } else {
-                            _solrService.deleteDocument(discussion);
-                        }
-                    } catch (Exception e) {
-                        String action = command.isReactivate() ? "index" : "de-index";
-                        _log.error("Could not " + action + " discussion " + discussion.getId() + " using solr", e);
-                    }
-                }
-            }
-        }
-        */
         return null;
     }
 
@@ -164,5 +142,13 @@ public class RaiseYourHandAjaxController extends SimpleFormController implements
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;
+    }
+
+    public IRaiseYourHandDao getRaiseYourHandDao() {
+        return _raiseYourHandDao;
+    }
+
+    public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
+        _raiseYourHandDao = raiseYourHandDao;
     }
 }

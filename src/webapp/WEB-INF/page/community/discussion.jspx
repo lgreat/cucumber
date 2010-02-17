@@ -76,50 +76,6 @@
                 replyForm.show();
             });
 
-            //<gsml:ifUserCanManageRaiseYourHand pageUser="${validUser}">
-
-            // TODO-9134
-
-            $j('.ryh #activateRYH').click(function() {
-                $j.post('/community/raiseYourHand.page', {action: 'activate', discussionId: '${discussion.id}'},
-                        function(data) {
-                            $j('.ryh #activateRYH').hide();
-                            $j('.ryh #deactivateRYH').show();
-                            $j('.ryh #activeRYH').show();
-                            $j('.ryh #inactiveRYH').hide();
-                        });
-
-                return false;
-            });
-
-            $j('.ryh #deactivateRYH').click(function() {
-
-                $j.post('/community/raiseYourHand.page', {action: 'deactivate', discussionId: '${discussion.id}'},
-                        function(data) {
-                            $j('.ryh #activateRYH').show();
-                            $j('.ryh #deactivateRYH').hide();
-                            $j('.ryh #activeRYH').hide();
-                            $j('.ryh #inactiveRYH').show();
-                        });
-
-                return false;
-            });
-
-            $j('.ryh input[name=ryhFeature]').change(function() {
-                if ($j(this).is(':checked')) {
-                    $j.post('/community/raiseYourHand.page', {action: 'feature', discussionId: '${discussion.id}', topicCenterId: $j(this).val()},
-                            function(data) {
-                            });
-                } else {
-                    $j.post('/community/raiseYourHand.page', {action: 'unfeature', discussionId: '${discussion.id}', topicCenterId: $j(this).val()},
-                            function(data) {
-                            });
-                }
-            });
-
-            //</gsml:ifUserCanManageRaiseYourHand>
-
-
             //<gsml:ifUserCanDeleteContent pageUser="${validUser}">
             $j('.db_replies .deleteLink').click(function() {
                 var container = $j(this).parents('.db_replyContainer');
@@ -699,51 +655,7 @@
 </div>
 <!-- end module -->
 
-<!-- TODO-9134 -->
-<c:if test="${discussion.active}">
-    <gsml:ifUserCanManageRaiseYourHand pageUser="${validUser}">
-        <div class="ryh">
-            <span class="text1bold">Manage &amp;quot;Raise Your Hand&amp;quot;</span><br/>
-
-            <div class="clear smallText1">
-                <span class="smallText1bold">Status</span>:
-
-                <c:choose>
-                    <c:when test="${false}">
-                        <c:set var="activateDisplay" value="inline"/>
-                        <c:set var="deactivateDisplay" value="none"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="activateDisplay" value="none"/>
-                        <c:set var="deactivateDisplay" value="inline"/>
-                    </c:otherwise>
-                </c:choose>
-                <c:set var="activeDisplay" value="${deactivateDisplay}"/>
-                <c:set var="inactiveDisplay" value="${activateDisplay}"/>
-
-                <span class="formAgreeText" id="activeRYH" style="display: ${activeDisplay};">Active</span>
-                <span class="formErrorText" id="inactiveRYH" style="display: ${inactiveDisplay};">Inactive</span>
-                |
-                <a href="#" class="ryhStatusAction" id="activateRYH" style="display: ${activateDisplay};">Activate</a>
-                <a href="#" class="ryhStatusAction" id="deactivateRYH"
-                   style="display: ${deactivateDisplay};">Deactivate</a>
-            </div>
-            <div class="assoc">
-                <div>
-                    <span class="text2bold">Currently featured on these topic centers</span>:
-                </div>
-
-                <c:forEach var="topicCenter" items="${allTopicCenters}" varStatus="status">
-                    <div class="entry">
-                        <input type="checkbox" name="ryhFeature" value="${topicCenter.contentKey.identifier}"
-                               id="ryhTc${topicCenter.contentKey.identifier}"/>
-                        <label for="ryhTc${topicCenter.contentKey.identifier}">${topicCenter.title}</label>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
-    </gsml:ifUserCanManageRaiseYourHand>
-</c:if>
+<community:manageRaiseYourHand discussion="${discussion}" topicCenters="${allTopicCenters}" user="${validUser}"/>
 
 </div>
 <!-- end mainContent -->

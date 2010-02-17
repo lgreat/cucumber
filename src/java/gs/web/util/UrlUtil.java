@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.84 2009/12/04 22:27:03 chriskimm Exp $
+ * $Id: UrlUtil.java,v 1.85 2010/02/17 23:28:35 yfan Exp $
  */
 
 package gs.web.util;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
@@ -428,5 +429,10 @@ public final class UrlUtil {
         }
         UrlBuilder builder = new UrlBuilder(articleId, false);
         return builder.toString();
+    }
+
+
+    public static String urlEncode(String input) throws Exception {
+        return URLEncoder.encode(input, "UTF-8");
     }
 }

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:gsweb="gstaglib" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+
+<c:if test="${not empty discussion and not empty replies}">
+
+    <script type="text/javascript">
+        var $j = jQuery;
+        $j(function() {
+            var ryhAnswerCharacterLimit = 250;
+            var ryhCharacterCountText = ' characters left.';
+            $j('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
+
+            //<c:if test="${signedIn}">
+
+            // Counts down the number of characters remaining.
+            function limitChars(textid, limit, divElement) {
+
+                var text = $j('#' + textid).val();
+                var textlength = text.length;
+                <![CDATA[
+                if (textlength > limit) {
+                    $j('#' + textid).val(text.substring(0,limit));
+                    return false;
+                } else {
+
+                    $j('#' + divElement).html((limit - textlength) + ' character' +
+                                              (limit - textlength == 1 ? '' : 's') + ' left.');
+                    return true;
+                }
+                ]]>
+            }
+
+            // Set up the hook
+            $j('#ryhAnswer').keyup(function() {
+                limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
+            });
+
+            // and then after sending, reset the chars left and blank out the box
+            $j('#ryhSubmit').click(function() {
+
+                var body = $j('#ryhAnswer').val();
+                if (body == undefined || body == '' ) {
+                    alert("Please enter a reply. ");
+                    return false;
+                }
+
+                if (body.length &lt; 5) {
+                    alert("Please enter at least 5 characters for your reply.");
+                    return false;
+                }
+
+                $j.post('/community/raiseYourHandSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
+                        function(data) {
+                            if (data.status == 'ok') {
+                                var newRyhPost = $j('#recentAnswerTemplate').clone();
+                                var replyId = data.replyId;
+                                var body = data.body;
+                                var teaserText = data.teaserText;
+                                newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
+                                newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', teaserText));
+                                $j('.recentAnswers').prepend(newRyhPost.children());
+                                var numRecent = $j('.recentAnswers .ryh-reply').size();
+                                if (numRecent &gt; ${ryhMaxNumReplies}) {
+                                    $j('.recentAnswers .ryh-reply:last').remove();
+                                    $j('.recentAnswers br.clearfloat:last').remove();
+                                }
+                            } else {
+                                alert('An error occurred. Please try again.');
+                            }
+                        }, "json");
+                return true;
+            });
+
+            //</c:if>
+
+            //<c:if test="${!signedIn}">
+            $j('#ryhAnswer, #ryhSubmit').focus(function() {
+                window.location.href = '${redirectUrl}';
+            });
+            //</c:if>
+
+        });
+    </script>
+
+    <div id="raise-your-hand" class="mod">
+        <div class="mod_hd">
+            <h3>Raise Your Hand</h3>
+        </div>
+        <div class="mod_bd">
+
+            <div class="ryh-topsection">
+                <div class="ryh-title rnd8 fltlft">
+                    <div id="rhy-downArrow-fff"><!--do not collapse--></div>
+                    <link:discussion discussionId="${discussion.id}"
+                                     fullUri="${discussion.discussionBoard.fullUri}"
+                                     styleClass="title2-d61">${discussion.title}
+                    </link:discussion>
+                </div>
+                <!-- end ryh-title -->
+
+                <div class="ryh-answer">
+                    <!--<form action="#">-->
+                        <label for="ryhAnswer" class="text1">Your reply:
+                            <span class="formHelperText" id="ryhAnswerCount"><!-- don't collapse --></span></label>
+
+                        <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50"
+                                  style="width: 231px; height: 55px;"><!-- --></textarea>
+                        <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
+
+
+                        <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft">
+                            <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
+                        </button>
+                    <!--</form>-->
+                </div>
+                <!-- end ryh-reply -->
+                <br class="clearfloat"/>
+            </div>
+            <!-- end ryh-topsection -->
+
+            <div class="ryh-bottomsection clearfix">
+
+                <span class="text1bold">Recent replies</span>
+                <div class="spacer_15">
+                    <!-- do not collapse -->
+                </div>
+                <c:if test="${signedIn}">
+
+                    <div id="recentAnswerTemplate" style="display: none;">
+                        <div class="ryh-reply">
+                            <div class="ryh-avatar fltlft">
+                                <link:userProfile user="${user}">
+                                    <community:avatar user="${user}" width="48" height="48"
+                                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                                </link:userProfile>
+                            </div>
+                            <!-- end ryh-avatar -->
+
+                            <div class="ryh-reply-text fltlft rnd8">
+                                <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
+
+                                <link:userProfile user="${user}">
+                                    <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
+                                </link:userProfile>
+
+                                <span class="smallText1"> a moment ago </span>
+
+
+                                <br class="clearfloat"/>
+
+                                <community:userContentTeaserText
+                                        textToDisplay="DISCUSSION_REPLY_BODY"
+                                        minLength="117" maxLength="138"
+                                        discussionId="${discussion.id}"
+                                        discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                        discussionReplyId="1"
+                                        textSpanClass="text3"/>
+                                        <!--linkClass="text3"/>-->
+                            </div>
+                            <br class="clearfloat"/>
+                            <!-- end ryh-reply-text -->
+
+                        </div>
+                        <!-- end ryh-reply -->
+                        <br class="clearfloat"/>
+                    </div>
+                    <!-- end recentAnswerTemplate -->
+
+                </c:if>
+
+                <div class="recentAnswers">
+
+                    <c:forEach var="reply" items="${replies}">
+
+                        <div class="ryh-reply">
+                            <div class="ryh-avatar fltlft">
+                                <c:choose>
+                                    <c:when test="${reply.user.userProfile.active}">
+                                        <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                            <community:avatar user="${reply.user}" width="48" height="48"
+                                                              cssStyle="border: 1px solid #c6c6c6;"
+                                                              anonymous="${reply.anonymous}"/>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <community:avatar user="${reply.user}" width="48" height="48"
+                                                          anonymous="${reply.anonymous}"
+                                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <!-- end ryh-avatar -->
+
+                                <div class="ryh-reply-text fltlft rnd8">
+                                    <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
+
+                                        <c:choose>
+                                            <c:when test="${reply.user.userProfile.active}">
+                                                <link:userProfile user="${reply.user}"
+                                                                  anonymous="${reply.anonymous}">
+                                                        <span class="smallAlertTextBold-06b"><community:screenName
+                                                                userContent="${reply}"/></span>
+                                                </link:userProfile>
+                                            </c:when>
+                                            <c:otherwise>
+                                                    <span class="smallAlertTextBold-06b"><community:screenName
+                                                            userContent="${reply}"/></span>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+
+
+                                    <br class="clearfloat"/>
+
+                                    <community:userContentTeaserText
+                                            textToDisplay="${reply.body}"
+                                            minLength="117" maxLength="138"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                            discussionReplyId="${reply.id}"
+                                            textSpanClass="text3"/>
+                                            <!--linkClass="text3"/>-->
+                                </div>
+                                <!-- end ryh-reply -->
+                                <br class="clearfloat"/>
+
+                        </div>
+                        <!-- end ryh-replies -->
+                        <br class="clearfloat"/>
+
+                    </c:forEach>
+
+                </div>
+                <!-- end recentAnswers -->
+
+                <div class="fltrt">
+                    <span class="smallAlertText">
+                    <link:discussion discussionId="${discussion.id}"
+                                     fullUri="${discussion.discussionBoard.fullUri}">View all replies <span
+                            class="alertDoubleArrow">&amp;raquo;</span>
+                    </link:discussion>
+                    </span>
+                </div>
+                <br class="clearfloat"/>
+
+            </div>
+            <!-- end ryh-bottomsection -->
+        </div>
+        <!-- end mod_bd -->
+    </div>
+    <!-- end raise-your-hand -->
+
+</c:if>
+
+
+</jsp:root>

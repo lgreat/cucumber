@@ -202,6 +202,17 @@
         <function-signature>java.lang.String buildArticleUrl(java.lang.Integer)</function-signature>
     </function>
 
+    <function>
+        <name>containsRaiseYourHandFeature</name>
+        <function-class>gs.data.util.CommunityUtil</function-class>
+        <function-signature>boolean containsRaiseYourHandFeature(java.util.Collection, gs.data.community.Discussion, gs.data.content.cms.ContentKey)</function-signature>
+    </function>
+
+    <function>
+        <name>urlEncode</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+    </function>
 
     <tag>
         <name>stateSelector</name>
