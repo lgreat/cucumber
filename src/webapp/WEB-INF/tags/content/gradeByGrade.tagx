@@ -104,7 +104,7 @@
                             class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
     </div>
     <div id="gbg-content-h">
-        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['High grade']}"/>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['High school']}"/>
                     <span class="fltrt smallAlertText"><link:high-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
     </div>
