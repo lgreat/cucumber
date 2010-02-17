@@ -20,8 +20,8 @@
 #rightColumn {
     width: 300px;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 15px;
 }
 
 .pt {
@@ -121,6 +121,7 @@ ul.horizontal li {
 
 #content {
     width: 610px;
+    margin: 10px 0;
 }
 
 /* -------------- */

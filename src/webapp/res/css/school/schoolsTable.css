@@ -269,6 +269,9 @@ div#col_right div#compareInCity input.submit {
     padding:0 0 15px 0;
     border-bottom:1px solid #E2E3CB;
 }
+#schoolsTable .school p {
+    margin: 0;
+}
 
 #schoolsTable .last {
    border-bottom:none;

@@ -549,7 +549,7 @@ p {
 
 #topnav_menusubnav li {
     float: left;
-    padding: 3px 3px 0 0;
+    padding: 6px 3px 4px 0;
     text-align: center;
     width: auto;
     margin-right: 9px;
@@ -606,7 +606,7 @@ p {
     background-color: #fff;
     z-index: 100;
     left: -10000px;
-    top: 25px;
+    top: 34px;
     width: 205px;
     border: 1px solid #06b;
 }
@@ -1269,6 +1269,7 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
     font-size: 12px;
     font-weight: normal;
     margin: 10px 20px 0;
+    font-famliy: Arial, sans-serif;
 }
 
 #footerAd, #homepageFooterAd, #footerFrm {

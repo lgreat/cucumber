@@ -11,13 +11,13 @@
     float: left;
     border-right: 1px solid #ccc;
     padding: 0 10px 0 0;
-    margin-left: 43px;
+    margin: 20px 0 0 43px;
 }
 
 #col_right {
     width: 300px;
     float: right;
-    margin-right: 43px;
+    margin: 20px 43px 0 0;
 }
 #searchResultsList .result .school.wide {
     width: 360px;
