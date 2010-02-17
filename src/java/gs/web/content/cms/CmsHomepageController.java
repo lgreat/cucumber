@@ -146,12 +146,12 @@ public class CmsHomepageController extends AbstractController {
                 // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
                 List<Object> cmsContentForCat = getCmsContentForCategory(category);
                 // Then try to find GRADE_BY_GRADE_NUM_DISCUSSIONS discussions for that category
-                List<Discussion> discussions = getDiscussionsForCat(category);
+                List<Discussion> discussions = getDiscussionsForCategory(category);
                 // for each discussion returned, put it in the list, replacing content if necessary
                 // to keep the total number of items at GRADE_BY_GRADE_NUM_ITEMS
                 List<RecentContent> recentContentList = new ArrayList<RecentContent>(GRADE_BY_GRADE_NUM_ITEMS);
                 for (Discussion d: discussions) {
-                    RecentContent recentContent = new RecentContent(d, "TODO");
+                    RecentContent recentContent = new RecentContent(d, d.getDiscussionBoard().getFullUri());
                     recentContentList.add(recentContent);
                 }
                 while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && !cmsContentForCat.isEmpty()) {
@@ -172,7 +172,7 @@ public class CmsHomepageController extends AbstractController {
         }
     }
 
-    protected List<Discussion> getDiscussionsForCat(CmsCategory cat) {
+    protected List<Discussion> getDiscussionsForCategory(CmsCategory cat) {
         Long topicCenterId = categoryIdToTopicCenterIdMap.get(cat.getId());
         if (topicCenterId != null) {
             CmsTopicCenter topicCenter = _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
@@ -184,12 +184,17 @@ public class CmsHomepageController extends AbstractController {
                             _discussionDao.getDiscussionsForPage(board, 1, 10,
                                                                  IDiscussionDao.DiscussionSort.NEWEST_FIRST);
                     if (myDiscussions != null) {
-                        if (myDiscussions.size() <= GRADE_BY_GRADE_NUM_DISCUSSIONS) {
-                            return myDiscussions;
-                        } else {
-                            // pick GRADE_BY_GRADE_NUM_DISCUSSIONS to return
-                            return myDiscussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
+                        // randomize discussions
+                        Collections.shuffle(myDiscussions);
+                        // truncate to two discussions
+                        if (myDiscussions.size() > GRADE_BY_GRADE_NUM_DISCUSSIONS) {
+                            myDiscussions = myDiscussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
                         }
+                        // set the board on each discussion for URL building later
+                        for (Discussion d: myDiscussions) {
+                            d.setDiscussionBoard(board);
+                        }
+                        return myDiscussions;
                     } else {
                         _log.warn("No discussions found for " + topicCenter.getTitle() + "'s board");
                     }
