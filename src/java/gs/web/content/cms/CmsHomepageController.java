@@ -8,6 +8,7 @@ import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.web.search.ResultsPager;
+import gs.web.search.SearchResult;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -28,6 +29,12 @@ public class CmsHomepageController extends AbstractController {
     public static final String BEAN_ID = "/index.page";
 
     public static final int RAISE_YOUR_HAND_MAX_NUM_REPLIES = 5;
+    public static final int GRADE_BY_GRADE_NUM_CATEGORIES = 9;
+    public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
+    public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
+    public static final int GRADE_BY_GRADE_NUM_DISCUSSIONS = 2;
+
+    public static final Map<Long, Long> categoryIdToTopicCenterIdMap = new HashMap<Long, Long>(GRADE_BY_GRADE_NUM_CATEGORIES);
 
     public static final String MODEL_RAISE_YOUR_HAND_DISCUSSION = "ryhDiscussion";
     public static final String MODEL_RAISE_YOUR_HAND_REPLIES = "ryhReplies";
@@ -47,6 +54,22 @@ public class CmsHomepageController extends AbstractController {
     private IUserDao _userDao;
     private ICmsCategoryDao _cmsCategoryDao;
     private Searcher _searcher;
+
+    static {
+        // Preschool
+        categoryIdToTopicCenterIdMap.put(198L, 1573L);
+        // Elementary
+        categoryIdToTopicCenterIdMap.put(199L, 1574L);
+        categoryIdToTopicCenterIdMap.put(200L, 1574L);
+        categoryIdToTopicCenterIdMap.put(201L, 1574L);
+        categoryIdToTopicCenterIdMap.put(202L, 1574L);
+        categoryIdToTopicCenterIdMap.put(203L, 1574L);
+        categoryIdToTopicCenterIdMap.put(204L, 1574L);
+        // Middle
+        categoryIdToTopicCenterIdMap.put(205L, 1575L);
+        // High
+        categoryIdToTopicCenterIdMap.put(206L, 1576L);
+    }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -114,29 +137,136 @@ public class CmsHomepageController extends AbstractController {
     }
 
     public void populateModelWithRecentCMSContent(Map<String, Object> model) {
-        List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206");
-        if (cats != null && cats.size() == 9) {
-            Map<String, List<Object>> catToResultMap = new HashMap<String, List<Object>>(9);
+        String idList = "198,199,200,201,202,203,204,205,206";
+        List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
+        if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
+            Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);
             for (CmsCategory category: cats) {
-                TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
-                Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                        new Term(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-                Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
-                Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
-                if (hits != null && hits.length() > 0) {
-                    ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-                    catToResultMap.put(category.getName(), resultsPager.getResults(1, 6));
-                } else {
-                    _log.warn("Can't find any search results for category " + category.getName());
+                // first get the cms content for the category
+                // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
+                List<Object> cmsContentForCat = getCmsContentForCategory(category);
+                // Then try to find GRADE_BY_GRADE_NUM_DISCUSSIONS discussions for that category
+                List<Discussion> discussions = getDiscussionsForCat(category);
+                // for each discussion returned, put it in the list, replacing content if necessary
+                // to keep the total number of items at GRADE_BY_GRADE_NUM_ITEMS
+                List<RecentContent> recentContentList = new ArrayList<RecentContent>(GRADE_BY_GRADE_NUM_ITEMS);
+                for (Discussion d: discussions) {
+                    RecentContent recentContent = new RecentContent(d, "TODO");
+                    recentContentList.add(recentContent);
+                }
+                while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && !cmsContentForCat.isEmpty()) {
+                    SearchResult result = (SearchResult) cmsContentForCat.remove(0);
+                    recentContentList.add(new RecentContent(result));
+                }
+                if (!recentContentList.isEmpty()) {
+                    catToResultMap.put(category.getName(), recentContentList);
                 }
             }
             // don't add to model unless everything worked
-            if (catToResultMap.size() == 9) {
+            if (catToResultMap.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
                 model.put(MODEL_RECENT_CMS_CONTENT, catToResultMap);
             }
         } else {
-            _log.warn("Can't find all 9 grade level categories using id list 198,199,200,201,202,203,204,205,206");
+            _log.warn("Can't find all " + GRADE_BY_GRADE_NUM_CATEGORIES +
+                    " grade level categories using id list " + idList);
         }
+    }
+
+    protected List<Discussion> getDiscussionsForCat(CmsCategory cat) {
+        Long topicCenterId = categoryIdToTopicCenterIdMap.get(cat.getId());
+        if (topicCenterId != null) {
+            CmsTopicCenter topicCenter = _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
+            if (topicCenter != null) {
+                Long discussionBoardId = topicCenter.getDiscussionBoardId();
+                if (discussionBoardId != null) {
+                    CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussionBoardId);
+                    List<Discussion> myDiscussions =
+                            _discussionDao.getDiscussionsForPage(board, 1, 10,
+                                                                 IDiscussionDao.DiscussionSort.NEWEST_FIRST);
+                    if (myDiscussions != null) {
+                        if (myDiscussions.size() <= GRADE_BY_GRADE_NUM_DISCUSSIONS) {
+                            return myDiscussions;
+                        } else {
+                            // pick GRADE_BY_GRADE_NUM_DISCUSSIONS to return
+                            return myDiscussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
+                        }
+                    } else {
+                        _log.warn("No discussions found for " + topicCenter.getTitle() + "'s board");
+                    }
+                } else {
+                    _log.warn("Topic center " + topicCenter.getTitle() + " has no discussion board");
+                }
+            } else {
+                _log.warn("Can't find topic center with id " + topicCenterId + " for category " + cat.getName());
+            }
+        } else {
+            _log.warn("Can't find topic center id for category " + cat.getName() + ":" + cat.getId());
+        }
+        return new ArrayList<Discussion>(0);
+    }
+
+    protected List<Object> getCmsContentForCategory(CmsCategory category) {
+        TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
+        Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
+                new Term(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
+        Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
+        Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
+        if (hits != null && hits.length() > 0) {
+            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
+            return resultsPager.getResults(1, GRADE_BY_GRADE_NUM_CMS_CONTENT);
+        } else {
+            _log.warn("Can't find any search results for category " + category.getName());
+        }
+        return new ArrayList<Object>(0);
+    }
+
+    public static class RecentContent {
+        private enum ContentType {cms, discussion}
+
+        private int _id;
+        private String _contentKey;
+        private String _fullUri;
+        private String _title;
+        private ContentType _contentType;
+
+        public RecentContent(SearchResult cmsResult) {
+            _contentType = ContentType.cms;
+            _contentKey = cmsResult.getContentKey();
+            _fullUri = cmsResult.getFullUri();
+            _title = cmsResult.getHeadline();
+        }
+
+        public RecentContent(Discussion discussion, String fullUri) {
+            _contentType = ContentType.discussion;
+            _contentKey = null;
+            _id = discussion.getId();
+            _fullUri = fullUri;
+            _title = discussion.getTitle();
+        }
+
+        public int getId() {
+            return _id;
+        }
+
+        public String getContentKey() {
+            return _contentKey;
+        }
+
+        public String getFullUri() {
+            return _fullUri;
+        }
+
+        public String getTitle() {
+            return _title;
+        }
+
+        public String getContentType() {
+            return _contentType.name();
+        }
+    }
+
+    public IPublicationDao getPublicationDao() {
+        return _publicationDao;
     }
 
     public void setPublicationDao(IPublicationDao publicationDao) {

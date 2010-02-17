@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
         >
     <jsp:directive.tag body-content="scriptless"/>
 
@@ -62,203 +63,48 @@
     <div class="gbgSlider"><!-- do not collapse --></div>
     <div class="gbgContent clearfix">
     <div id="gbg-content-p">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Preschool']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Preschool']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Preschool']}"/>
         <br class="clearfloat"/>
                     <span class="fltrt smallAlertText"><link:preschool>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
     </div>
     <div id="gbg-content-k">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Kindergarten']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Kindergarten']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Kindergarten']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-1">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['First grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['First grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['First grade']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-2">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Second grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Second grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Second grade']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-3">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Third grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Third grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Third grade']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-4">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Fourth grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Fourth grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Fourth grade']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-5">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Fifth grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Fifth grade']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Fifth grade']}"/>
                     <span class="fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
     </div>
     <div id="gbg-content-m">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['Middle school']}" var="recentItem"
-                       varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['Middle school']}" var="recentItem"
-                       varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Middle school']}"/>
                     <span class="fltrt smallAlertText"><link:middle-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
     </div>
     <div id="gbg-content-h">
-        <ul class="fltlft text3">
-            <c:forEach items="${requestScope.recentCmsContent['High school']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count lt 4}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <ul class="fltlft text3 border-left-dotted">
-            <c:forEach items="${requestScope.recentCmsContent['High school']}" var="recentItem" varStatus="status">
-                <c:if test="${status.count gt 3}">
-                    <li><link:cmsContent contentKey="${recentItem.id}"
-                                         fullUri="${recentItem.fullUri}">${recentItem.headline}</link:cmsContent>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
+        <content:gradeByGradeList itemList="${requestScope.recentCmsContent['High grade']}"/>
                     <span class="fltrt smallAlertText"><link:high-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
     </div>

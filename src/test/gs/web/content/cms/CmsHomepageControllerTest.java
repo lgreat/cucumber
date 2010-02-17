@@ -1,9 +1,8 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.CmsFeature;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.ICmsCategoryDao;
+import gs.data.cms.IPublicationDao;
+import gs.data.community.IDiscussionDao;
+import gs.data.content.cms.*;
 import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
@@ -22,6 +21,9 @@ import static org.easymock.classextension.EasyMock.*;
 public class CmsHomepageControllerTest extends BaseControllerTestCase {
     private CmsHomepageController _controller;
     private ICmsCategoryDao _cmsCategoryDao;
+    private IDiscussionDao _discussionDao;
+    private IPublicationDao _publicationDao;
+    private ICmsDiscussionBoardDao _cmsDiscussionBoarDao;
     private Searcher _searcher;
 
     @Override
@@ -32,22 +34,31 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
 
         _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
         _searcher = createStrictMock(Searcher.class);
+        _discussionDao = createStrictMock(IDiscussionDao.class);
+        _publicationDao = createStrictMock(IPublicationDao.class);
+        _cmsDiscussionBoarDao = createStrictMock(ICmsDiscussionBoardDao.class);
 
         _controller.setCmsCategoryDao(_cmsCategoryDao);
         _controller.setSearcher(_searcher);
+        _controller.setDiscussionDao(_discussionDao);
+        _controller.setPublicationDao(_publicationDao);
+        _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoarDao);
     }
 
     public void testBasics() {
         assertSame(_cmsCategoryDao, _controller.getCmsCategoryDao());
         assertSame(_searcher, _controller.getSearcher());
+        assertSame(_discussionDao, _controller.getDiscussionDao());
+        assertSame(_publicationDao, _controller.getPublicationDao());
+        assertSame(_cmsDiscussionBoarDao, _controller.getCmsDiscussionBoardDao());
     }
 
     public void replayAllMocks() {
-        super.replayMocks(_cmsCategoryDao, _searcher);
+        super.replayMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_cmsCategoryDao, _searcher);
+        super.verifyMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao);
     }
 
     protected CmsCategory getCategory(int id, String name) {
@@ -143,6 +154,10 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         categories.add(getCategory(206, "h"));
         expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
         _controller.setSearcher(setupNoResultsSearcher());
+        expect(_publicationDao.populateByContentId(eq(1573L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1574L), isA(CmsTopicCenter.class))).andReturn(null).times(6);
+        expect(_publicationDao.populateByContentId(eq(1575L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1576L), isA(CmsTopicCenter.class))).andReturn(null);
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
@@ -163,6 +178,10 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         categories.add(getCategory(206, "h"));
         expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
         _controller.setSearcher(setupSomeResultsSearcher());
+        expect(_publicationDao.populateByContentId(eq(1573L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1574L), isA(CmsTopicCenter.class))).andReturn(null).times(6);
+        expect(_publicationDao.populateByContentId(eq(1575L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1576L), isA(CmsTopicCenter.class))).andReturn(null);
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
