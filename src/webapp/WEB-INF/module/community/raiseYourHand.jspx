@@ -69,6 +69,8 @@
                                     $j('.recentAnswers .ryh-reply:last').remove();
                                     $j('.recentAnswers br.clearfloat:last').remove();
                                 }
+                                $j('#ryhAnswer').val('');
+                                limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
                             } else {
                                 alert('An error occurred. Please try again.');
                             }
