@@ -716,6 +716,15 @@ p {
     color: #fff;
     font: 20px/1.7 Georgia, "Times New Roman", Times, serif;
 }
+.mod .body1bg{
+    background:#fc6;
+    width:300px;
+    padding:15px;
+}
+.body1bg .db_search_input{
+    padding:0;
+    margin:1px 0 0 0;
+}
 .mod .body2bg{
     width:300px;
     background:#fff;

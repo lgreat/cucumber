@@ -66,9 +66,9 @@
 
             <c:when test="${style eq 'fall2009'}">
 
-                <div class="module">
-                    <div class="header">
-                        <span class="title1white">Most popular</span>
+                <div class="mod">
+                    <div class="mod_hd">
+                        <h3>Most popular</h3>
                     </div>
                     <!-- end header -->
 
@@ -87,7 +87,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <div class="body2bg">
+                    <div class="mod_bd body2bg">
                         <ul class="mostpop text3">
                             <c:forEach var="link" items="${links}" varStatus="status">
 
