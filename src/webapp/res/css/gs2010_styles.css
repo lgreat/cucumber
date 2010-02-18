@@ -28,8 +28,8 @@ General comments:
 =4a-4 raise your hand
 =4a-5 grade by grade
 =5-
-=6-
-=7- editorial footer
+=6- editorialFooter
+=7- communitySidebar
 =8- footer
 =9- buttons
 
@@ -496,48 +496,71 @@ p {
     height: 34px;
     margin: 0 auto;
     list-style: none;
-    background: url(/res/img/nav/nav_bg.png) repeat-x;
 }
 
 #globalnav li {
     float: left;
-    padding: 2px 0 0;
-    height: 30px;
+    padding: 0;
+    height: 34px;
     text-align: center;
-    border: 1px solid #167eab;
-    border-left-color: #82bcd5;
-    background: url(/res/img/nav/nav_bg.png) 0 -1px no-repeat;
     font: 16px/1 Georgia, Times New Roman, serif;
 }
-
-
-#globalnav li:hover, #globalnav li.over, #globalnav li.active {
-    background-position: 0 -35px;
-    border-color: #b76700;
-}
-
 #globalnav li a {
     display: block;
-    padding: 6px 37px;
-    text-decoration: none;
-    color: #fff;
-    height: 20px;
+    height: 34px;
+    overflow: hidden;
+    text-indent: -10000px;
+    background: url(/res/img/nav/topnav_btnsSprite_bg.png) 0 0 no-repeat;
 }
 
+#globalnav li#n1 a {
+    width: 114px;
+    height: 34px;
+}
+#globalnav li#n1:hover a, #globalnav li#n1.active a {
+    background-position: 0 -34px;
+}
+#globalnav li#n2 a {
+    width: 169px;
+    height: 34px;
+    background-position: -114px 0;
+}
+#globalnav li#n2:hover a, #globalnav li#n2.active a {
+    background-position: -114px -34px;
+}
+#globalnav li#n3 a {
+    width: 142px;
+    height: 34px;
+    background-position: -283px 0;
+}
+#globalnav li#n3:hover a, #globalnav li#n3.active a {
+    background-position: -283px -34px;
+}
+#globalnav li#n4 a {
+    width: 208px;
+    height: 34px;
+    background-position: -425px 0;
+}
+#globalnav li#n4:hover a, #globalnav li#n4.active a {
+    background-position: -425px -34px;
+}
+#globalnav li#n5 a {
+    width: 175px;
+    height: 34px;
+    background-position: -633px 0;    
+}
+#globalnav li#n5:hover a, #globalnav li#n5.active a {
+    background-position: -633px -34px;
+}
 #globalnav li#n6 a {
-    padding-right: 34px;
+    width: 160px;
+    height: 34px;
+    background-position: -808px 0;    
 }
-#globalnav li a:hover, #globalnav li.active a {
-    color: #333;
-}
-
-#globalnav li#n7 a {
-    background: url(/res/img/nav/snowFlakes_bg.png) 50% -1px no-repeat;
+#globalnav li#n6:hover a, #globalnav li#n6.active a {
+    background-position: -808px -34px;
 }
 
-#globalnav li#n7 a:hover {
-    background-position: 50% -35px;
-}
 
 /* =3e subnav menus
 -------------------------------------------------------------------------------------------*/
@@ -710,7 +733,7 @@ p {
 }
 
 .mod_hd h3 {
-    height:37px;
+    height:36px;
     padding: 0 15px;
     background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
@@ -1267,7 +1290,7 @@ ul.srchSuggest li span {
     -webkit-border-radius:8px;
 }
 
-/* =7 editorialFooter
+/* =6 editorialFooter
 -------------------------------------------------------------------------------------------*/
 #editorialFooter {
     margin-left: 20px;
@@ -1390,7 +1413,7 @@ ul.srchSuggest li span {
 }
 
 /*
-=communitySidebar
+=7 communitySidebar
 -------------------------------------------------------------------------------------------
 */
 ul.srchSuggest {
@@ -1547,7 +1570,7 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
 }
 
 .copyright {
-    margin: 1em;
+    margin: 1em 0;
     text-align: center;
 }
 

@@ -57,6 +57,10 @@
 =ie7 styles
 --------------------------------------------------------------------------
 */
+body.ie7 #mainWrap {
+    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+}
+}
 body.ie7 #utilLinks li .nav_group_items  {
     top: 22px;
 }
@@ -67,6 +71,18 @@ body.ie7 #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
 }
+body.ie7 #next .inner, body.ie6 #next .inner {
+    height: 127px;
+}
+body.ie7 #footer {
+    height: 293px;
+}
+body.ie7 #footerAd {
+    height: 91px;
+}
+* + html #footerAd {
+    height: 91px;
+}
 * + html #utilLinks li .nav_group_items  {
     top: 22px;
 }
@@ -76,6 +92,9 @@ body.ie7 #topnav_search button {
 * + html #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
+}
+* + html #footer {
+    height: 293px;
 }
 
 /* =4a-4 raise your hand
@@ -130,14 +149,14 @@ body.ie6 #utilLinks li .nav_group_items {
 body.ie6 #navbar {
     position: relative;
 }
-body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a, body.ie6 #globalnav li a  {
+body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
     display: inline-block;
 }
 body.ie6 #topnav_search button {
     top: -28px;
     margin-bottom: -28px;
 }
-*html #topnav_search ul li label, *html #topnav_menusubnav li a *html #globalnav li a  {
+*html #topnav_search ul li label, *html #topnav_menusubnav li a {
     display: inline-block;
 }
 *html #topnav_search button {

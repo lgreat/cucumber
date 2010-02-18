@@ -30,9 +30,4 @@ jQuery(document).ready(function() {
         jQuery(this).parent('li').toggleClass('active', true);
         jQuery(this).parent('li').siblings().toggleClass('active', false);
     });
-    jQuery('#globalnav li').hover(function(){
-        jQuery(this).toggleClass('over');
-    }, function() {
-        jQuery(this).toggleClass('over');
-    });
 });
