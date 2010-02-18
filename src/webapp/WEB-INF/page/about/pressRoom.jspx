@@ -28,7 +28,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools Media Room"/>
-    <title>GreatSchools Media Room</title>
+    <title>GreatSchools Media Room | GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>

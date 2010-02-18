@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.206 2010/02/18 00:59:06 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.207 2010/02/18 21:59:09 aroy Exp $
  */
 
 package gs.web.util;
@@ -195,6 +195,7 @@ public class UrlBuilder {
     public static final VPage ABOUT_US = new VPage("vpage:aboutUs");
     public static final VPage BOARD_OF_DIRECTORS = new VPage("vpage:boardOfDirectors");
     public static final VPage ADVISORS = new VPage("vpage:advisors");
+    public static final VPage SENIOR_MANAGEMENT = new VPage("vpage:seniorManagement");
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
     public static final VPage PRESS_ROOM = new VPage("vpage:pressRoom");
     public static final VPage PRESS_RELEASES = new VPage("vpage:pressReleases");
@@ -727,6 +728,8 @@ public class UrlBuilder {
             _path = "/about/boardOfDirectors.page";
         } else if (ADVISORS.equals(page)) {
             _path = "/about/advisors.page";
+        } else if (SENIOR_MANAGEMENT.equals(page)) {
+            _path = "/about/senior-management.page";
         } else if (COMMUNITY_LANDING.equals(page)) {
             _path = "/community/";
         } else {

@@ -12,6 +12,7 @@
         mediaRoom
         boardOfDirectors
         advisors
+        management
     -->
 
     <div class="module about_us">
@@ -27,7 +28,14 @@
                     <link:aboutUs styleClass="text2">Overview</link:aboutUs>
                 </c:otherwise>
             </c:choose>
-            <a class="text2" href="/about/whoWeAre.page#mngmt">Senior Management</a>
+            <c:choose>
+                <c:when test="${pageScope.selected eq 'management'}">
+                    <span class="text2">Senior Management</span>
+                </c:when>
+                <c:otherwise>
+                    <link:seniorManagement styleClass="text2">Senior Management</link:seniorManagement>
+                </c:otherwise>
+            </c:choose>
             <c:choose>
                 <c:when test="${pageScope.selected eq 'boardOfDirectors'}">
                     <span class="text2">Board of Directors</span>

@@ -16,14 +16,16 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>Meet Our Advisors</title>
+        <title>Meet Our Advisors | GreatSchools</title>
+        <meta name="description" content="An introduction to the GreatSchools advisory panel."/>
+        <meta name="keywords" content="GreatSchools advisors, advisory panel"/>
 
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/_textStyles.css"/>
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
-    <gsml:body adPageName="whoWeAre" pageLayout="leftside meetOurAdvisors">
+    <gsml:body adPageName="aboutUs" pageLayout="leftside meetOurAdvisors">
 
         <div class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
@@ -80,11 +82,53 @@
                 <span class="text3boldOrange">Arlyn Roffman, Ph.D.</span>,
                 an expert on transition issues in special education, is a Professor at Lesley University, where she served as founding director of Threshold, a transition program for young adults with learning disabilities, from 1981 to 1996. She has served on the professional advisory boards of several national LD organizations and maintains a private practice in psychology.
             </div>
+
+            <div class="subhead2">College Bound national advisory board</div>
+
+            <hr class="dotted"/>
+
+            <div class="text3">
+                <span class="text3boldOrange">Guadalupe Vald&amp;eacute;s</span>
+                is the Bonnie Katz Tenenbaum Professor of Education at Stanford University and
+                specializes in language pedagogy and applied linguistics, focusing on the
+                English-Spanish bilingualism of U.S. Latinos Her research on Latino students
+                and families has led to five books and more than 70 articles. She serves on the 
+                editorial boards of several journals including <em>Review of Educational Research</em>,
+                <em>The Modern Language Journal</em>, and <em>Hispanic Journal of the Behavioral Sciences</em>.
+                Vald&amp;eacute;s holds a BA from the University of West Florida and an MA and PhD from
+                Florida State University.
+            </div>
+
+            <div class="text3">
+                <span class="text3boldOrange">Preston Smith</span>
+                is the cofounder and chief academic officer of Rocketship Education. Before
+                starting Rocketship, he was the founder and principal of LUCHA, a small
+                elementary school in San Jose, Calif. In 2007 it received an API score of
+                881 and was the highest-ranked elementary school in the district. Prior to
+                founding LUCHA, Smith taught first grade at Clyde Arbuckle Elementary School
+                and was named Teacher of the Year in 2003.  The same year he was also a
+                finalist for Teach for America's Sue Lehmann Award, given to corps members 
+                with the highest classroom academic gains in the nation. Smith graduated
+                Phi Beta Kappa from the University of North Carolina at Chapel Hill.
+            </div>
+
+            <div class="text3">
+                <span class="text3boldOrange">Patricia B. Martel</span>
+                is an educational consultant and has been an educator for more than 44 years.
+                A specialist in literacy acquisition, Martel served for 10 years as principal
+                of George Moscone Elementary in San Francisco. Under her leadership, the
+                predominantly low-income, ELL school maintained the highest Latino test scores
+                in the city and one of the highest in California. Since retiring from the
+                school district, she has worked as a private educational consultant and
+                speaker. Martel is also a member of the state superintendent's P-16 Council
+                and the San Francisco Education Fund's board of directors. She received her BA
+                from San Jose State University and her MA from the University of San Francisco.
+            </div>
         </div>
 
         <div id="tracking">
             <ad:setSlotPrefix slotPrefix="AboutUs_Advisors"/>
-            <mod:tracking pageName="advisors" hier1="Home,Corporate,AboutUs,Advisors"/>
+            <mod:tracking pageName="Meet Our Advisors" hier1="Home,Corporate,AboutUs,Meet Our Advisors"/>
         </div>
     </gsml:body>
     </html>

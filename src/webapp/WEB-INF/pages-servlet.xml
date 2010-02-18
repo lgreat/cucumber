@@ -757,14 +757,6 @@
         <property name="hideSchoolFinderWidgetPreschools" value="true"/>
     </bean>
 
-    <bean name="/about/whoWeAre.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/whoWeAre</value>
-        </property>
-    </bean>
-
     <bean name="/about/boardOfDirectors.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
@@ -778,6 +770,14 @@
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/advisors</value>
+        </property>
+    </bean>
+
+    <bean name="/about/senior-management.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/seniorManagement</value>
         </property>
     </bean>
 

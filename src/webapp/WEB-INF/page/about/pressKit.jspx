@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
@@ -9,11 +9,12 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
      <pageHelper:hideFooterAd/>
@@ -75,7 +76,7 @@
       <![CDATA[ <a name="bios"></a> ]]>
     <h3>Executive Bios</h3>
 
-    <p>Learn more about our <gsml:a href="/about/whoWeAre.page#mngmt">management team</gsml:a>.</p>
+    <p>Learn more about our <link:seniorManagement>management team</link:seniorManagement>.</p>
        <![CDATA[ <a name="samples"></a> ]]>
     <h3>Sample School Profiles</h3>
 

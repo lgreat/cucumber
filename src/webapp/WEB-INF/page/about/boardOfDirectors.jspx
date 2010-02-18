@@ -20,14 +20,16 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>Board of Directors</title>
+        <title>Board of Directors | GreatSchools</title>
+        <meta name="description" content="An introduction to the GreatSchools Board of Directors."/>
+        <meta name="keywords" content="GreatSchools board of directors, Leanna Landsmann"/>
 
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/_textStyles.css"/>
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
-    <gsml:body adPageName="whoWeAre" pageLayout="leftside boardOfDirectors">
+    <gsml:body adPageName="aboutUs" pageLayout="leftside boardOfDirectors">
 
         <div class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
@@ -198,7 +200,7 @@
 
         <div id="tracking">
             <ad:setSlotPrefix slotPrefix="AboutUs_Board"/>
-            <mod:tracking pageName="boardOfDirectors" hier1="Home,Corporate,AboutUs,BoardOfDirectors"/>
+            <mod:tracking pageName="Board of Directors" hier1="Home,Corporate,AboutUs,Board of Directors"/>
         </div>
     </gsml:body>
     </html>

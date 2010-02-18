@@ -641,7 +641,23 @@
         <body-content>JSP</body-content>
         <display-name>Meet our Advisors</display-name>
         <description>
-            <![CDATA[Link to our Meet our Advisorss page.]]>
+            <![CDATA[Link to our Meet our Advisors page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>seniorManagement</name>
+        <tag-class>gs.web.jsp.link.SeniorManagementTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Senior Management</display-name>
+        <description>
+            <![CDATA[Link to our Senior Management page.]]>
         </description>
         <attribute>
             <name>styleClass</name>
