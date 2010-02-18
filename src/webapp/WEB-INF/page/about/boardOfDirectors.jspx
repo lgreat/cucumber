@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Board of Directors</title>
+
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
+        <pageHelper:externalCss file="/res/css/_textStyles.css"/>
+        <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+    </head>
+
+    <gsml:body adPageName="whoWeAre" pageLayout="leftside boardOfDirectors">
+
+        <div class="breadcrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
+            <link:aboutUs>About Us</link:aboutUs>
+        </div>
+        
+        <h1>Board of Directors</h1>
+
+        <div class="contentLeft">
+            <about:aboutGreatSchools selected="boardOfDirectors"/>
+        </div>
+        <div class="main">
+            <div class="text3boldOrange">Anthony J. Col&amp;#243;n, Board Secretary</div>
+            <div class="text3">
+                Anthony J. Col&amp;#243;n formed AJ Col&amp;#243;n Consulting, LLC, a firm dedicated to
+                training and helping educational systems for low income, minority and
+                underserved children. From 2005 to 2007, he served as senior manager for
+                education investment strategies at Fight For Children (FFC). Anthony was
+                vice president of the National Council of La Raza's Center for Community
+                Educational Excellence. Anthony also served as principal of the Oakland
+                Charter Academy and a member of its board of directors. He has 30 years
+                experience as a teacher and school administrator in public, private and
+                parochial schools, and has served on the faculty of Lehman College at the
+                City University of New York and at Fordham University's Department of
+                Bilingual Services. Anthony is a founding member of the National Alliance
+                for Public Charter schools, serves as chairman of the American Board for
+                Certication of Teacher Excellence and vice-chair of the DC Public Charter
+                School Board. He presently serves as interim president for the Hispanic
+                Council for Reform and Educational Options (HCREO). Anthony holds a master's
+                degree and professional diploma in educational administration from Fordham
+                University in New York, and a bachelor's degree in sociology from St.
+                Francis College in Brooklyn, New York.
+            </div>
+
+            <div class="text3boldOrange">Ramon Cortines, Director</div>
+            <div class="text3">
+                Ramon Cortines has been an educator and administrator since 1956 and has
+                held the positions of chancellor, superintendent, assistant superintendent,
+                principal and others. He was appointed as the senior deputy superintendent
+                of the Los Angeles Unified School District in 2008. From 2006 to 2008, he
+                was the deputy mayor for Education, Youth and Families for the City of Los
+                Angeles, CA. He was an independent education consultant from 2001 to 2006.
+                Since 1956, Mr. Cortines has served six school districts, including as
+                superintendent of schools for Pasadena (11 years), San Jose (2 years), New
+                York City (2 years), San Francisco (6 years) and Los Angeles (6 months).
+                Cortines is a nationally recognized leader in the field of education. He is
+                a trustee emeritus of Brown University and Pacific Oaks College, a member of
+                the board of Scholastic,Inc., and a member of the board of governors of the
+                San Francisco Symphony.
+            </div>
+
+            <div class="text3boldOrange">Bill Jackson, Founder, President and CEO</div>
+            <div class="text3">
+                Bill Jackson is the founder and CEO of GreatSchools, an independent,
+                nonprofit organization that improves education by inspiring parents to get
+                involved. GreatSchools provides parents with information and tools so they
+                can choose the best school for their children, support their children's
+                education, and improve schools in their communities. Since its founding 10
+                years ago, GreatSchools has emerged as the nation's leading source of
+                preschool and K-12 school information, reaching about 1/3 of American K-12
+                parents each year. Bill is also a member of the Parent Association Council
+                at the Chinese American International School, a member of the board of
+                directors of the San Francisco Education Fund and a member of the California
+                P16 Council.
+            </div>
+
+            <div class="text3boldOrange">Larry Kane, Director</div>
+            <div class="text3">
+                Larry Kane is a partner in the emerging company practice group at Orrick,
+                Herrington &amp;amp; Sutcliffe. He represents emerging companies to public companies
+                in a wide area in several areas including formation and structuring,
+                financing, partnerships, mergers and acquisitions, and private and public
+                offerings of securities. For the past 15 years, Larry has also served as
+                volunteer head coach of the wrestling team at Galileo Academy of Science,
+                where he has led hundreds of wrestlers to both athletic and academic
+                success. Larry also serves on the San Francisco Library Commission and ran
+                for a seat on the San Francisco Board of Education in 2004. Larry serves on
+                the board of Aim High, the San Francisco School Alliance and counsels pro
+                bono a number of community groups and organizations, including the Hispanic
+                Scholarship Fund. Larry earned his J.D. from the Columbia University School
+                of Law and his B.A. from Columbia University.
+            </div>
+
+            <div class="text3boldOrange">Leanna Landsmann, Co-Chair</div>
+            <div class="text3">
+                Leanna Landsmann helped to launch and was president of Time For Kids, a
+                magazine reaching more than 4.2 million students nationwide. Before joining
+                Time, she was editor and publisher of Instructor, the nation's leading
+                magazine for teachers and director of Harcourt Brace Children's Books. She
+                founded Leanna Landsmann Inc. (LLI), a company that helped corporations and
+                organizations contribute successfully to schools. She was founding volunteer
+                director of New York City's Principal for a Day and founding board member of
+                PENCIL, Public Education Needs Civic Involvement in Learning. She writes,
+                A+ Advice for Parents, a weekly column syndicated by United Features. She
+                volunteers in schools in Western New York State, where she now resides and
+                recently helped launch the Canandaigua Lake Watershed Alliance Education
+                Program serving three large districts. Landsmann started her career as a
+                teacher in West Africa.
+            </div>
+
+            <div class="text3boldOrange">Sean Ryan, Director</div>
+            <div class="text3">
+                Sean Ryan is the CEO of Meez, a leading social entertainment company combining
+                avatars, games and a virtual world. Sean previously served as vice-
+                president of music services at RealNetworks, where he managed the music
+                division after selling Listen.com to Real in August, 2003. As CEO of
+                Listen.com, Sean helped lead the development and roll-out of the
+                award-winning Rhapsody subscription music service. Prior to joining
+                Listen.Com, Sean ran business development for online game company SegaSoft
+                Networks, spent several years at the GAP helping launch the successful Old
+                Navy clothing line, and worked at Chemical Bank. Sean holds an M.B.A. from
+                UCLA's Anderson Graduate School of Management and a B.A. from Columbia
+                University.
+            </div>
+
+            <div class="text3boldOrange">Michael Schmier, Board Treasurer</div>
+            <div class="text3">
+                Michael Schmier is vice president of media and audience products at Tippit, Inc., a
+                leading innovator in online business-to-business marketing. Previously,
+                Michael held a wide range of executive positions including vice president of
+                products and marketing at BabyCenter, the leading online destination for new
+                and expectant parents, and vice president of product marketing and business
+                development at Merced Systems, a market leader in enterprise performance
+                management and analytics systems. Michael has also served as practice
+                manager at The Advisory Board Company, an industry research and consulting
+                company. He has extensive experience in developing and marketing online
+                products, as well as managing online commerce, media and SaaS business
+                models. Michael received an M.B.A. from the Stanford Graduate School of
+                Business and a B.A. from the University of North Carolina at Chapel Hill.
+            </div>
+
+            <div class="text3boldOrange">Alan Tripp, Director</div>
+            <div class="text3">
+                Alan Tripp has made a career of enhancing student motivation, success and
+                achievement. As founder and CEO of InsideTrack his attention is now focused
+                on the success of college students, as reflected in academic performance,
+                persistence and graduation rates. A wide variety of colleges contract with
+                InsideTrack to provide Success Coaching services directly to students.
+                When students are coached by InsideTrack, they are more likely to engage,
+                achieve and graduate. Previously, Alan launched SCORE! Educational Centers,
+                a national system of K-12 centers aimed at helping students strengthen their
+                academic skills and love for learning. As the founder, CEO, and general
+                manager of SCORE!, Alan helped to grow the company to nearly 100 centers
+                with more than 1,500 employees. The company is now a unit of The Washington
+                Post Company. Alan was a lecturer at the Stanford Graduate Schools of
+                Business and Education from 1999-2004, where he co-taught the core course
+                for education entrepreneurs. He holds a B.A. in Economics and an M.B.A.,
+                both from Stanford University.
+            </div>
+
+            <div class="text3boldOrange">Dr. Jerry Wartgow, Co-Chair</div>
+            <div class="text3">
+                Dr. Jerry Wartgow is currently interim dean of the Morgridge College of
+                Education at the University of Denver. He served as a superintendent of
+                Denver Public Schools from May 2001 to July 2005 and was President of
+                the Colorado Community College System from 1986 to 1998). He has served
+                as deputy executive director of the Colorado Commission on Higher
+                Education and as dean of the International School of Bangkok. Dr.
+                Wartgow holds a doctor of philosophy degree from the University of
+                Denver, a master of education degree from the University of Hawaii, a
+                bachelor of science degree from the University of Wisconsin, and has
+                completed postdoctoral work at the East-West Center in Honolulu and
+                Harvard University. He is the author of Why School Reform is Failing:
+                10 Lessons from the Trenches (Rowman &amp;amp; Littlefield, 2008).
+            </div>
+        </div>
+
+        <div id="tracking">
+            <ad:setSlotPrefix slotPrefix="AboutUs_Board"/>
+            <mod:tracking pageName="boardOfDirectors" hier1="Home,Corporate,AboutUs,BoardOfDirectors"/>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>

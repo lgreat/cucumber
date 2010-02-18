@@ -10,6 +10,8 @@
         Possible values for selected:
         overview
         mediaRoom
+        boardOfDirectors
+        advisors
     -->
 
     <div class="module about_us">
@@ -26,8 +28,22 @@
                 </c:otherwise>
             </c:choose>
             <a class="text2" href="/about/whoWeAre.page#mngmt">Senior Management</a>
-            <a class="text2" href="/about/whoWeAre.page#board">Board of Directors</a>
-            <a class="text2" href="/about/whoWeAre.page#learning">Meet Our Advisors</a>
+            <c:choose>
+                <c:when test="${pageScope.selected eq 'boardOfDirectors'}">
+                    <span class="text2">Board of Directors</span>
+                </c:when>
+                <c:otherwise>
+                    <link:boardOfDirectors styleClass="text2">Board of Directors</link:boardOfDirectors>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${pageScope.selected eq 'advisors'}">
+                    <span class="text2">Meet Our Advisors</span>
+                </c:when>
+                <c:otherwise>
+                    <link:advisors styleClass="text2">Meet Our Advisors</link:advisors>
+                </c:otherwise>
+            </c:choose>
             <!--<a class="text2" href="#">Our Funders</a>-->
             <a class="text2" href="/about/partnerOpportunities.page#advertise">Advertise With Us</a>
             <a class="text2" href="/about/partnerOpportunities.page#license">Partners</a>

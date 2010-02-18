@@ -13,7 +13,7 @@
 }
 
 .breadcrumbs {
-    margin: 5px 0 14px 20px;
+    margin: 10px 0 14px 20px;
 }
 
 div.contentLeft {
@@ -99,3 +99,33 @@ hr.dotted {
 div#tracking {
     clear: both;
 }
+
+
+/**********************
+ * BOARD OF DIRECTORS *
+ **********************/
+.boardOfDirectors h1 {
+    margin: 0 0 15px 20px;
+}
+
+.boardOfDirectors .main .text3 {
+    margin-bottom: 15px;
+}
+
+
+/*********************
+ * MEET OUR ADVISORS *
+ *********************/
+.meetOurAdvisors h1 {
+    margin: 0 0 15px 20px;
+}
+
+.meetOurAdvisors .main .text3 {
+    margin-bottom: 15px;
+}
+
+.meetOurAdvisors hr.dotted {
+    border-bottom: 1px dotted #999;
+    margin: 10px 0;
+}
+

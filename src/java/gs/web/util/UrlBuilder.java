@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.205 2010/01/05 22:51:23 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.206 2010/02/18 00:59:06 aroy Exp $
  */
 
 package gs.web.util;
@@ -193,6 +193,8 @@ public class UrlBuilder {
     public static final VPage SCHOOLS_IN_STATE = new VPage("vpage:schoolsInState");
 
     public static final VPage ABOUT_US = new VPage("vpage:aboutUs");
+    public static final VPage BOARD_OF_DIRECTORS = new VPage("vpage:boardOfDirectors");
+    public static final VPage ADVISORS = new VPage("vpage:advisors");
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
     public static final VPage PRESS_ROOM = new VPage("vpage:pressRoom");
     public static final VPage PRESS_RELEASES = new VPage("vpage:pressReleases");
@@ -721,6 +723,10 @@ public class UrlBuilder {
         } else if (ABOUT_US.equals(page)) {
             // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = "/about/aboutUs.page";
+        } else if (BOARD_OF_DIRECTORS.equals(page)) {
+            _path = "/about/boardOfDirectors.page";
+        } else if (ADVISORS.equals(page)) {
+            _path = "/about/advisors.page";
         } else if (COMMUNITY_LANDING.equals(page)) {
             _path = "/community/";
         } else {

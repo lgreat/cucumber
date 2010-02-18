@@ -777,6 +777,22 @@
         </property>
     </bean>
 
+    <bean name="/about/boardOfDirectors.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/boardOfDirectors</value>
+        </property>
+    </bean>
+
+    <bean name="/about/advisors.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/advisors</value>
+        </property>
+    </bean>
+
     <bean name="/privacy/"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
