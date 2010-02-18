@@ -13,9 +13,9 @@
         <c:choose>
             <c:when test="${style eq 'fall2009'}">
 
-                <div class="module">
-                    <div class="header">
-                        <span class="title1white">
+                <div class="mod">
+                    <div class="mod_hd">
+                        <h3>
                             More in
                             <c:choose>
                                 <c:when test="${fn:length(categories) eq 1}">
@@ -25,7 +25,7 @@
                                     this topic
                                 </c:otherwise>
                             </c:choose>
-                        </span>
+                        </h3>
                     </div> <!-- end header -->
                     <c:choose>
                         <c:when test="${total lt maxResults}">
@@ -36,7 +36,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <div class="body2bg">
+                    <div class="mod_bd body2bg">
                         <ul class="morein text3">
                             <c:forEach var="result" items="${mainResults}" varStatus="status">
 
