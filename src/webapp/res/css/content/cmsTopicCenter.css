@@ -29,7 +29,8 @@
 
 #content {
     overflow: hidden;
-    width: 100%;
+    width: 648px;
+    padding: 20px 0 0;
 }
 
 #leftColumn{
