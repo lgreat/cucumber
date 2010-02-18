@@ -102,6 +102,12 @@ public class DiscussionController extends AbstractController {
             user = sessionContext.getUser();
             if (user != null) {
                 model.put(MODEL_VALID_USER, user);
+                if (user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND)) {
+                    List<CmsTopicCenter> allTopicCenters = _publicationDao
+                            .populateAllByContentType("TopicCenter", new CmsTopicCenter());
+                    Collections.sort(allTopicCenters);
+                    model.put(MODEL_ALL_TOPIC_CENTERS, allTopicCenters);
+                }
             }
         }
 
@@ -186,13 +192,6 @@ public class DiscussionController extends AbstractController {
             _log.warn("Can't find discussion board for discussion with id " + contentId);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
-        }
-
-        if (user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND)) {
-            List<CmsTopicCenter> allTopicCenters = _publicationDao
-                    .populateAllByContentType("TopicCenter", new CmsTopicCenter());
-            Collections.sort(allTopicCenters);
-            model.put(MODEL_ALL_TOPIC_CENTERS, allTopicCenters);
         }
 
         return new ModelAndView(_viewName, model);
