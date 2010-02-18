@@ -271,11 +271,16 @@ p {
 
 /* =2 ads
 -------------------------------------------------------------------------------------------*/
-.gsAd, #adLeaderboard, #Header_728x90, #adHeader_728x90 {
+.gsAd, #adLeaderboard  {
     margin: 0 auto;
     width: 968px;
     height: 96px;
     background: #2f85eb;
+}
+#Header_728x90, #adHeader_728x90 {
+    width: 728px;
+    height: 90px;
+    margin: 0;
 }
 
 #pageGS {
