@@ -156,6 +156,9 @@ body.ie6 .srchCatComm li span.icon {
 	z-index: -1;
 	filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
+.ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button{
+    width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
+}
 
 * html .utilLinks li.nav_menu { z-index: 201; }
 
