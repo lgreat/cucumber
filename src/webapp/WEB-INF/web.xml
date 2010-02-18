@@ -140,16 +140,6 @@
 
     <servlet-mapping>
        <servlet-name>pages</servlet-name>
-       <url-pattern>/school/</url-pattern>
-   </servlet-mapping>
-
-   <servlet-mapping>
-       <servlet-name>pages</servlet-name>
-       <url-pattern>/search/</url-pattern>
-   </servlet-mapping>
-
-    <servlet-mapping>
-       <servlet-name>pages</servlet-name>
        <url-pattern>/terms</url-pattern>
    </servlet-mapping>
 
@@ -722,16 +712,6 @@
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
         <url-pattern>/members/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>disablejsessionid</filter-name>
-        <url-pattern>/school/</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>disablejsessionid</filter-name>
-        <url-pattern>/search/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -1313,22 +1293,6 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/members/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <!-- We want this to run for error pages also! -->
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>opensessioninview</filter-name>
-        <url-pattern>/school/</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <!-- We want this to run for error pages also! -->
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>opensessioninview</filter-name>
-        <url-pattern>/search/</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2184,16 +2148,6 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/members/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/school/</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/search/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
