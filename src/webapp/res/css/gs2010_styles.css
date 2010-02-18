@@ -271,7 +271,7 @@ p {
 
 /* =2 ads
 -------------------------------------------------------------------------------------------*/
-.gsAd, #adLeaderboard {
+.gsAd, #adLeaderboard, #Header_728x90, #adHeader_728x90 {
     margin: 0 auto;
     width: 968px;
     height: 96px;

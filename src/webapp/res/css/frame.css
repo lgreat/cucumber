@@ -28,7 +28,7 @@ body.cobranded {
     height: 100px;
     width: 978px;
     margin:0 auto 6px auto;
-    padding: 7px 0 0 0;
+    padding: 0;
     text-align: center;
     zoom: 1.0;
 }
@@ -44,8 +44,6 @@ body.cobranded {
 #adLeaderboard table {
     padding: 0;
     margin: 0;
-    margin-left: auto;
-    margin-right: auto;
     width: 738px;
 }
 
