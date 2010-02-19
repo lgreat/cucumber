@@ -314,14 +314,14 @@
 }
 
 .badgeLink{
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	color: #3399AA;
 	text-decoration: underline;
 }
 
 .badgeText{
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: 12px;
     font-style:italic;
 }

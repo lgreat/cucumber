@@ -14,7 +14,7 @@
     <style type="text/css">
         iframe.greatschools {border: 1px solid #7BAAD5;}
         body {
-            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-family: Arial, Arial, sans-serif;
         }
         h1, h2 {
             font-size: 18px;

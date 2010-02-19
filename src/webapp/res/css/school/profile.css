@@ -10,7 +10,7 @@
 
 div.printSchoolProfileHeader {
 	display:none;
-    font: bold 24px "Trebuchet MS", Arial, sans-serif;
+    font: bold 24px Arial, Arial, sans-serif;
     color: #5bc;
     position:relative;
     margin-bottom: 10px;
@@ -57,7 +57,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 }
 
 #breadcrumbs ul li {
-	font: 11px "Trebuchet MS", Arial, sans-serif;
+	font: 11px Arial, Arial, sans-serif;
 	color: #888;
 	list-style: none;
 	display: inline;
@@ -76,7 +76,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 	float: right;
 	margin: 16px 20px 0 0;
 	_margin: 16px 5px 0 0; /* IE 6 hack */
-	font: 13px/15px "Trebuchet MS", Arial, sans-serif;
+	font: 13px/15px Arial, Arial, sans-serif;
 	color: #777;
 }
 
@@ -134,7 +134,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 }
 
 #tools a {
-	font: bold 13px/15px "Trebuchet MS", Arial, sans-serif;
+	font: bold 13px/15px Arial, Arial, sans-serif;
 	color: #39a;
 }
 
@@ -142,7 +142,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 	width: 154px;
 	height: 16px;
     _height: 14px;
-    font: 12px/13px "Trebuchet MS", Arial, sans-serif;
+    font: 12px/13px Arial, Arial, sans-serif;
 	color: #777;
 	float: left;
 	margin: 5px 11px 0 17px;
@@ -172,7 +172,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 }
 
 #schoolProfile #schoolProfileHeader h1 {
-    font: bold 24px "Trebuchet MS", Arial, sans-serif;
+    font: bold 24px Arial, Arial, sans-serif;
     color: #5bc;
 }
 
@@ -252,7 +252,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 }
 
 #navigation td {
-	font: bold 11px/13px "Trebuchet MS", Arial, sans-serif;
+	font: bold 11px/13px Arial, Arial, sans-serif;
     color: #fff;
 	text-decoration: none;
 	text-align: center;
@@ -334,7 +334,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #subnav ul li a,#subnavInHeader ul li a {
 	color: #5bc;
-	font: 11px/12px "Trebuchet MS", Arial, sans-serif;
+	font: 11px/12px Arial, Arial, sans-serif;
 	text-decoration: underline;
 	margin: 0;
 	padding: 0 4px 0 4px;

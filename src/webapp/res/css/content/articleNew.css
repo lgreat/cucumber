@@ -47,7 +47,7 @@ ul span.liText {
 }
 
 .abstract {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:15px;
     line-height:20px;
     color:#444444;
@@ -55,14 +55,14 @@ ul span.liText {
 }
 
 .content, #article-main, .subheader {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:15px;
     line-height:22px;
     color:#444444;
 }
 
 #article-main span.caption {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
     line-height:15px;
@@ -83,7 +83,7 @@ ul span.liText {
 
 
 #article-main .header {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:17px;
     font-weight:bold;
     line-height:22px;
@@ -110,7 +110,7 @@ div.dotted-divider {
 }
 
 span.headline {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:17px;
     font-weight:bold;
     color:#99CC66;
@@ -162,7 +162,7 @@ div.blueModule div.blueHeader {
 }
 
 div.blueModule div.blueHeader span {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:14px;
     font-weight:bold;
     line-height:24px;
@@ -204,7 +204,7 @@ div.greenHeader {
 }
 
 div.greenHeader span {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:14px;
     font-weight:bold;
     line-height:24px;
@@ -217,7 +217,7 @@ div#articleComments div#enterComment textarea {
     height:17em;
     border:2px solid #CCCCCC;
     margin:10px 0 0 10px;
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     color:#666666;
 }
 
@@ -225,17 +225,17 @@ div#articleComments div#enterComment div#nameEmail {
     position:absolute;
     top:35px;
     left:355px;
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 div#articleComments div#enterComment input.text {
     border:1px solid #CCCCCC;
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     color:#666666;
 }
 
 div#articleComments div#enterComment div#terms {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:13px;
     padding:30px 10px 10px 20px;
     color:#444444;
@@ -246,7 +246,7 @@ div#articleComments div#enterComment div#terms a {
 }
 
 div#articleComments div#enterComment div#terms span {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     color:#444444;
 }
 
@@ -273,7 +273,7 @@ div#toolsmenu .simplemenu a {
 }
 
 div#articleComments {
-   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-family:Arial, Helvetica, sans-serif;
    font-size:14px;
    font-style:normal;
    color:#666666;
@@ -288,7 +288,7 @@ div#articleComments hr {
 }
 
 div#articleComments span.r2ibcopy {
-   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-family:Arial, Helvetica, sans-serif;
    font-size:11px;
    font-weight:bold;
    font-style:normal;
@@ -296,7 +296,7 @@ div#articleComments span.r2ibcopy {
 }
 
 a.spanish {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:13px;
     font-style:normal;
     color:#3399AA;
@@ -304,7 +304,7 @@ a.spanish {
 }
 
 span.lead-in {
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:15px;
     font-weight:bold;
     font-style:normal;
@@ -455,7 +455,7 @@ div.rightImage div.copyright,
 div.leftImage div.copyright,
 div.expertImage div.copyright,
 div.expertImage div.caption{
-    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
     line-height:15px;
@@ -479,7 +479,7 @@ table.editorialTable {
 		color: #444444;
 		font-weight: bold;
 		font-size: 15px;
-		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
 		line-height: 22px;
 		padding: 5px 20px 5px 20px;
 		text-align: left;
@@ -509,7 +509,7 @@ table.editorialTable {
 		color: #444444;
 		font-weight: normal;
 		font-size: 14px;
-		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
 		line-height: 19px;
 		padding: 5px 20px 5px 20px;
 		vertical-align: top;
@@ -555,7 +555,7 @@ div.articleCopyright {
 	color: #777777;
 	font-weight: normal;
 	font-size: 13px;
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
     line-height:17px;
 }
 

@@ -171,7 +171,6 @@
 }
 
 #shouldKnow, #worksheet, #searchState, #horizontalCompareCitySelect, #compareState, .searchInput, #top5State {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #666666;
     font-size: 13px;
 }

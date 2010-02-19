@@ -1,5 +1,4 @@
 body{
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #666666;
     font-size: 12px;
 }
@@ -7,12 +6,12 @@ body{
 #main{
     float:left;
     width:550px;
-    margin-top:0px;
+    margin:20px 0 0 36px;
 }
 #contentRight{
     float:left;
     width:300px;
-    margin-left: 10px;
+    margin: 20px 0 0 30px;
 }
 
 #contentGS a{
@@ -186,7 +185,7 @@ div#keyTermDefinitions{
 div.recentParentReviews {
     padding: 6px 0 0 0;
     margin: 10px 0 0 0;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 }
 
 .recentParentReviews h2 {
@@ -385,7 +384,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 #breadcrumbs ul li {
-	font: 11px "Trebuchet MS", Arial, sans-serif;
+	font: 11px Arial, Arial, sans-serif;
 	color: #888;
 	list-style: none;
 	display: inline;

@@ -7,7 +7,7 @@
 div#topSchoolsDownload{
     width:560px;
     float:left;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:13px;
 }
 
@@ -42,7 +42,7 @@ div#topSchoolsDownload h2{
 }
 
 .emailText{
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:13px;
 }
 
@@ -63,7 +63,7 @@ div#topSchoolsBW .box {
 }
 
 div#topSchoolsBW .bodytext{
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:13px;
     color:black;
 }

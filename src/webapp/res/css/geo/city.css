@@ -6,7 +6,7 @@
 }
 
 .cityPage {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
     color:#555555;
 }
 
@@ -165,7 +165,6 @@
 }
 
 .headerBox {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     background-color:#DDEEEE;
     margin: 10px 0 12px;
 }
@@ -247,7 +246,7 @@ div.recentParentReviews {
     padding: 6px 0 0 0;
     margin: 10px 0 0 0;
     border-top: 1px solid #DDD;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 }
 
 .recentParentReviews h2 {
@@ -375,7 +374,6 @@ div.statsModule {
     .contentGS a:active {
     text-decoration: none;
     color: #3399AA;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight:bold;
 }
 
@@ -440,7 +438,6 @@ div#testScoreLandingLinks {
 a#nearbyCityLink, #cityrating a#nearbyCityLink, a.callToAction {
     color: #3399AA;
     font-size: 13px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-decoration: none;
 }
 
@@ -452,7 +449,7 @@ a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover
     padding: 10px 5px;
     margin: 10px 0;
     border-top: 2px solid #66CCCC;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 }
 
 div.belowGSBlog {
@@ -540,7 +537,7 @@ div#localQuestionsContainer {
 }
 
 div.top_5_promo_city {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: small;
     color: #666666;
     border: 1px solid #BBBBBB;
@@ -578,7 +575,7 @@ span.nobreak {
     padding:0.3ex 0 0 0;
 }
 #recentDiscussions h2{
-    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 16px Arial, Arial, Helvetica, sans-serif;
     color:#5bc;
 }
 #recentDiscussions h4{
@@ -599,7 +596,7 @@ span.nobreak {
     text-align: left;
 }
 #recentDiscussions .textarea{
-    font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:12px Arial, Arial, Helvetica, sans-serif;
     color:#666;
     margin:10px 0;
     width:259px; height:60px;

@@ -421,7 +421,6 @@ hr { /* has IE 7 equivalent */
 
 #parentReviewsRateIt a,
 #parentReviews a {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     float: right;
 	margin: 4px 25px 0 0;
 }
@@ -1026,7 +1025,6 @@ div#col_right div#nearbySchools {
 ul.compareSchoolB {
     padding-top: 4px;
     padding-bottom: 6px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .compareSchoolB li {

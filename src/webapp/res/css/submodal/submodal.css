@@ -127,7 +127,7 @@ body.hover {
 }
 
 #stateWidget #popupInner #popupTitleBar {
-    font-family:"Trebuchet MS", sans-serif;
+    font-family:Arial, sans-serif;
     background-color: #aaccdd;
     color: #fff;
     font-size: small;

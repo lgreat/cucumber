@@ -6,7 +6,7 @@
         background-color: #FFF;
         width: $WIDGET_WIDTHpx;
         position: relative;
-        font-family: "Trebuchet MS", Arial, sans-serif;
+        font-family: Arial, Arial, sans-serif;
     }
 
     div.GS_widget_innerBorder {

@@ -89,15 +89,15 @@ html[xmlns] .clearfix {
 /* end clear fix */
 
 #editorial_footer .treb12{
-	font:12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font:12px Arial, Arial, Helvetica, sans-serif;
 }
 
 #editorial_footer .treb18{
-	font:18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font:18px Arial, Arial, Helvetica, sans-serif;
 }
 
 #editorial_footer .treb14B{
-	font:bold 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font:bold 14px Arial, Arial, Helvetica, sans-serif;
 }
 
 #editorial_footer .cent16B{
@@ -119,12 +119,12 @@ html[xmlns] .clearfix {
 /* BLOG LINK SYTLE */
 
 #editorial_footer .blogBlurb a:link, #editorial_footer .blogBlurb a:visited{
-    font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 12px Arial, Arial, Helvetica, sans-serif;
 	color: #3399AA;
 	text-decoration: none;
 }
 #editorial_footer .blogBlurb a:hover, #editorial_footer .blogBlurb a:focus, #editorial_footer .blogBlurb a:active{
-    font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 12px Arial, Arial, Helvetica, sans-serif;
 	color: #3399AA;
 	text-decoration: underline;
 }

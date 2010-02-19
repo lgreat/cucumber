@@ -1,5 +1,5 @@
 div.relatedCategoryPosts  {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: 13px;
     padding: 22px 8px 8px 10px;
 
@@ -20,7 +20,7 @@ div.relatedBody {
 
 }
 div.relatedBody  span#description {
-     font-family: "Trebuchet MS", Arial, sans-serif;
+     font-family: Arial, Arial, sans-serif;
     font-size: 13px;
     padding: 8px;
     font-color : #666666;

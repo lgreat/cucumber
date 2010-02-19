@@ -24,7 +24,7 @@ To use:
 .moduleBox {
 	background: url(/res/img/home/module/top_left.png) no-repeat left top;
 	float: left;
-	font: .8125em "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font: .8125em Arial, Arial, Helvetica, sans-serif;
     line-height: 1.25em;
 }
 

@@ -48,7 +48,7 @@
 /* ---- */
 
 #main h1 {
-    font: 24px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 24px/1.2 Arial, Arial, Helvetica, sans-serif;
     color: #55bbcc;
     margin-bottom: 8px;
 }
@@ -63,25 +63,25 @@
 }
 
 #main h2 {
-    font: 18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 18px Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     margin-bottom: 4px;
 }
 
 #main #content h3 {
-    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 16px Arial, Arial, Helvetica, sans-serif;
     color: #333333;
     margin-bottom: 4px;
 }
 
 #main p {
-    font: 13px/1.3 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.3 Arial, Arial, Helvetica, sans-serif;
     color: #666666;
     margin-bottom: 10px;
 }
 
 #main .findings .graphics p {
-    font: 12px/1.3 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 12px/1.3 Arial, Arial, Helvetica, sans-serif;
 }
 
 #main .findings .graphics p.caption {
@@ -107,7 +107,7 @@
 }
 
 #main .intro .text p {
-    font: 15px/1.5 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 15px/1.5 Arial, Arial, Helvetica, sans-serif;
 }
 
 #main .intro img {
@@ -186,7 +186,7 @@
 /* ---------- */
 
 .shareThis  {
-    font: 11px/1.0 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 11px/1.0 Arial, Arial, Helvetica, sans-serif;
     margin: 15px 0 18px 0;
 }
 
@@ -219,11 +219,11 @@
     margin: 0 0 0 0;
 }
 #relatedLinks h4 {
-    font: 16px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 16px/1.6 Arial, Arial, Helvetica, sans-serif;
     color: #444;
 }
 #relatedLinks ul {
-    font: 14px/1.6 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px/1.6 Arial, Arial, Helvetica, sans-serif;
     color: #39a;
     padding-bottom: 0;
 }
@@ -240,13 +240,13 @@
 }
 
 #cmsArticleForm p{
-    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 Arial, Arial, Helvetica, sans-serif;
     color: #444;
     margin: 0 0 10px 25px;
 }
 
 #cmsArticleForm h4{
-    font: 16px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 16px/1 Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 10px 0;
 }
@@ -261,7 +261,7 @@
 }
 
 #cmsArticleForm label {
-    font: 13px/2.1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/2.1 Arial, Arial, Helvetica, sans-serif;
     color: #444;
     width: 100px;
 }
@@ -271,7 +271,7 @@
 }
 
 #cmsArticleForm input.btn {
-    font: bold 14px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 14px/1 Arial, Arial, Helvetica, sans-serif;
     color: white;
     height: 20px;
     width: 60px;
@@ -293,18 +293,18 @@
 }
 
 #cmsArticleComments h4{
-    font: 14px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px/1 Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 0 0 5px 0;
 }
 
 #cmsArticleComments .comment-text {
-    font: 13px/1.4 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.4 Arial, Arial, Helvetica, sans-serif;
     color: #444;
 }
 
 #cmsArticleComments .comment-date {
-    font: 11px/1 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 11px/1 Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     margin: 16px 0 5px 0;
 }

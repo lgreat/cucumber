@@ -12,7 +12,6 @@
 }
 
 #mapContainer div.cityInfoBubble {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
 
@@ -50,7 +49,6 @@
 }
 
 div.learnMore {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 13px;
     float: right;
 }
@@ -80,7 +78,6 @@ div#nearbyCities li.first {
     text-align: left;
     padding-bottom: 4px;
     padding-top:5px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     background-color:#DDEEEE;
     margin-bottom: 10px;
     color:#55BBCC;
@@ -93,7 +90,7 @@ div#nearbyCities li.first img {
 }
 
 div#nearbyCities li a {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
     font-weight:600;
     color:#44aabb;
 }
@@ -142,7 +139,6 @@ div.compareHorizontal {
 .reference {
     position:relative;
     height:50px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size:13px;
     color:#888888;
 }

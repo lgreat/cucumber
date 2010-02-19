@@ -67,7 +67,7 @@
 }
 
 #featured .header h1 {
-    font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 24px Arial, Arial, Helvetica, sans-serif;
     color:white;
 }
 
@@ -93,13 +93,13 @@
 }
 
 #featured .two_of_two p {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px Arial, Arial, Helvetica, sans-serif;
     color:#444;
     padding:0;
 }
 
 #featured .two_of_two ul{
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px Arial, Arial, Helvetica, sans-serif;
     padding:15px 0;
 }
 
@@ -134,7 +134,7 @@
 }
 
 #topicNavigation h2 {
-    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 22px Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     padding:0 0 15px 0;
     text-align:right;
@@ -147,7 +147,7 @@
 
 #topicNavigation li {
     list-style: disc inside;
-    font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 14px Arial, Arial, Helvetica, sans-serif;
     color:#eb9339;
     padding:0 0 10px 5px;
     cursor:pointer;
@@ -204,33 +204,33 @@
 }
 
 #topicContent h3 {
-    font: bold 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 20px Arial, Arial, Helvetica, sans-serif;
     color: #444;
     padding: 0 0 0 30px;
 }
 
 #topicContent p {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px Arial, Arial, Helvetica, sans-serif;
     color: #444;
     padding: 15px 0 0 30px;
 }
 
 #topicContent span {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px Arial, Arial, Helvetica, sans-serif;
 }
 
 #topicContent h4 {
-    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 16px Arial, Arial, Helvetica, sans-serif;
     color: #39a;
     padding: 15px 0 0 30px;
 }
 
 #topicContent h4 a {
-    font: bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: bold 16px Arial, Arial, Helvetica, sans-serif;
 }
 
 #topicContent ul {
-    font: 13px/1.8 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px/1.8 Arial, Arial, Helvetica, sans-serif;
     padding: 5px 25px 0 45px;
 }
 
@@ -241,7 +241,7 @@
 }
 
 #topicContent a {
-    font:13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:13px Arial, Arial, Helvetica, sans-serif;
 }
 
 #topicContent .more {
@@ -274,7 +274,7 @@
 }
 
 #communityNavigation h2 {
-    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 22px Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     padding:0 0 15px 0;
     text-align:right;
@@ -300,13 +300,13 @@
 }
 
 #communityContent h2 {
-    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 22px Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     padding:0 25px;
 }
 
 #communityContent ul {
-    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 13px Arial, Arial, Helvetica, sans-serif;
     padding: 5px 25px 0 25px;
 }
 
@@ -318,7 +318,7 @@
 }
 
 #communityContent a {
-    font:13px/1.2 "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font:13px/1.2 Arial, Arial, Helvetica, sans-serif;
 }
 
 #communityContent .more {
@@ -341,7 +341,7 @@
 }
 
 #recentDiscussions h2{
-    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 22px Arial, Arial, Helvetica, sans-serif;
     color: #d66671;
     padding:0 0 5px 0;
 }

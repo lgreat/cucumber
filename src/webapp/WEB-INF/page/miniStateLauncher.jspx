@@ -30,7 +30,7 @@
     <title>Select a state</title>
     <style type="text/css">
         #marginGS {padding:0; margin:0;width: 450px;font-size:12px;}
-        h2 {font-weight: bold; font-size: 18px; text-align: left; color: #66cccc; padding:0; margin: 0 0 5px 0; font-family:"Trebuchet MS", sans-serif;line-height:100%;}
+        h2 {font-weight: bold; font-size: 18px; text-align: left; color: #66cccc; padding:0; margin: 0 0 5px 0; font-family:Arial, sans-serif;line-height:100%;}
         select {color:#696969;width:190px;font-size:11px;height:200px;font-weight:bold;padding-bottom:0;margin-bottom:0;}
         select option {padding:0}
     </style>

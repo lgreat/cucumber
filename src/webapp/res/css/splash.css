@@ -1,6 +1,6 @@
 /*#contentGS {
     padding-top: 0px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     color: #666;
     margin: 0 8px;
     width: 884px;
@@ -53,7 +53,7 @@ div.compareNearZip{
     font-size:small;
     font-style:normal;
     font-weight:normal;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
 }
 div.compareNearZip div.zipCodeInput {
     height: 24px;
@@ -66,7 +66,7 @@ div.compareNearZip div.zipCodeInput p{
     display: block;
     float:left;
     margin-right:4px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
 }
 div.compareNearZip div.zipCodeInput input{
     float:left;
@@ -294,6 +294,6 @@ ul#frmErrors li {
     background-repeat: no-repeat;
     background-position: 0 0;
     padding: .1em 0 .5em 2em;
-    font-family:"Trebuchet MS",sans-serif;
+    font-family:Arial,sans-serif;
     font-size:12px;
 }

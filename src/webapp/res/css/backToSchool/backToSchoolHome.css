@@ -49,7 +49,7 @@
 #gamePlan {
     height: 366px;
     width: 638px;
-    font-family: "Trebuchet MS";
+    font-family: Arial;
     color: #FFF;
     font-size: 12px;
 }
@@ -177,7 +177,7 @@ div#smartContent {
     top: 388px;
     background: url( /res/img/backToSchool/bts_mom_on_fire_bg.jpg ) no-repeat;
     color: #FFF;
-    font-family: "Trebuchet MS";
+    font-family: Arial;
 }
 
 .momWrapper {

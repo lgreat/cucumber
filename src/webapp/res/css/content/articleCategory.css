@@ -1,6 +1,6 @@
 /* breadcrumbs */
 #breadcrumbs {
-    font: 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font: 11px Arial, Arial, Helvetica, sans-serif;
     color: #666;
     padding-top: 9px;
     padding-bottom: 5px;
@@ -21,7 +21,7 @@
 }
 
 #col_left h1 {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-weight: normal;
     color: #666666;
     margin: 12px 0 10px 0;
@@ -39,7 +39,7 @@
 }
 
 div.abstract {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-weight: normal;
     font-size: 13px;
     color: #666666;

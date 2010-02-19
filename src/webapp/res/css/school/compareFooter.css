@@ -13,7 +13,6 @@ div.editorialMoving, div.editorialChoosing {
     float: left;
     width: 275px;
     height: 109px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight: bold;
     color:#55BBCC;
 }
@@ -86,7 +85,7 @@ div#editorialBar li {
 }
 
 div#editorialBar ul li a {
-    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-family: Arial,Arial,sans-serif;
     font-size:13px;
     color:#3399AA;
     font-weight:normal;
@@ -109,7 +108,7 @@ div#editorialBar ul.contentList {
 
 .topSchoolTextDiv, .topSchoolLinkDiv {
 	padding: 10px 0px 0px 0px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;

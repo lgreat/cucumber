@@ -6,7 +6,6 @@
 }
 
 #pageGS {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 976px;
 }
 
@@ -121,7 +120,6 @@ div#quizSponsor {
 }
 
 span#quizAttribution {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size:small;
     color:#777777;
 }

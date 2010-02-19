@@ -27,7 +27,7 @@
             #pageGS h1 {
                 font-size: 19px;
                 color: #55bbcc;
-                font-family: "Trebuchet MS", sans-serif;
+                font-family: Arial, sans-serif;
                 line-height: 100%;
                 margin: 20px 0;
             }
@@ -55,7 +55,7 @@
                 left: 220px;
                                 font-size: 13px;
                 color: #3399aa;
-                font-family: "Trebuchet MS", sans-serif;
+                font-family: Arial, sans-serif;
             }
         </style>
     </head>

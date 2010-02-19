@@ -1,14 +1,14 @@
 #editorialFooter a.border10Links:link, #editorialFooter a.border10Links:visited,
     #editorialFooter a.border10Links:hover, .contentGS #editorialFooter .billsBlog a:link,
     .contentGS #editorialFooter .billsBlog a:visited, .contentGS #editorialFooter .billsBlog a:hover{
-    font: normal 12px/15px "Trebuchet MS", Arial, sans-serif;
+    font: normal 12px/15px Arial, Arial, sans-serif;
 	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0;
 }
 
 #editorialFooter a.arrowLink:link, #editorialFooter a.arrowLink:visited, #editorialFooter a.arrowLink:active {
-    font: normal 12px/15px "Trebuchet MS", Arial, sans-serif;
+    font: normal 12px/15px Arial, Arial, sans-serif;
 	color: #3399AA;
 	text-decoration: none;
 	letter-spacing: 0;
@@ -31,7 +31,7 @@
 	display: block;
 	padding: 3px 12px 0px 13px;
 	width: 169px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 16px;
 	color: #666666;
@@ -65,7 +65,7 @@
 
 #editorialFooter .k12SuccessSearchKeyword {
 	padding: 7px 0px 0px 0px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 18px;
 }
@@ -90,7 +90,7 @@
 
 #editorialFooter .blueTitleText {
 	padding: 0px 0px 6px 0px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 18px;
 	color: #55BBCC;
@@ -101,7 +101,7 @@
 #editorialFooter .askExperts {
 	padding: 2px 9px 0px 15px;
 	width: 122px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -121,7 +121,7 @@
 #editorialFooter .billsBlog {
 	padding: 2px 7px 0px 10px;
 	width: 129px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -146,7 +146,7 @@
 #editorialFooter div.tutoring {
 	padding: 2px 16px 0px 9px;
 	width: 120px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -181,7 +181,7 @@
 #editorialFooter .editorsPick {
 	padding: 0px 43px 0px 13px;
 	width: 145px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;

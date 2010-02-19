@@ -1,6 +1,6 @@
 #contentGS {
     color: #666666;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: 13px;
     position: relative;
     padding: 10px;
@@ -9,13 +9,13 @@
 
 #contentGS select{
     color: #666666;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: 13px;
 }
 
 #contentGS textarea{
     color: #666666;
-    font-family: "Trebuchet MS";
+    font-family: Arial;
     font-size: 13px;
     width:423px;
     height:165px;
@@ -36,7 +36,7 @@
 
 #contentGS h4 {
     color: #55BBCC;
-    font-family: "Trebuchet MS";
+    font-family: Arial;
     font-size: 18px;
     font-weight: bold;
 }
@@ -180,7 +180,7 @@
 #reviewEmail {
     width: 250px;
     color: #666666;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size: 13px;
 }
 

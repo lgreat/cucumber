@@ -32,7 +32,7 @@ table#right {
 
 a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,
     .contentGS .billsBlog a:visited, .contentGS .billsBlog a:hover{
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
@@ -41,7 +41,7 @@ a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS
 }
 
 a.underline:link, a.underline:visited, a.underline:hover {
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
@@ -50,7 +50,7 @@ a.underline:link, a.underline:visited, a.underline:hover {
 }
 
 a.dearParentsLink:link, a.dearParentsLink:visited {
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
@@ -67,7 +67,7 @@ a.dearParentsLink:hover {
 }
 
 a.arrowLink:link, a.arrowLink:visited, a.arrowLink:active {
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
@@ -145,7 +145,7 @@ a.arrowLink:hover {
 
 .districtText {
 	padding: 5px 0px 0px 15px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 11px;
 	line-height: 10px;
 	color: #777777;
@@ -154,7 +154,7 @@ a.arrowLink:hover {
 
 .districtText2 {
 	padding: 0px 0px 0px 0px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 11px;
 	line-height: 14px;
 	color: #777777;
@@ -172,7 +172,7 @@ a.arrowLink:hover {
 
 h2.topSchoolsHeader {
     color:#55BBcc;
-    font-family:"Trebuchet MS";
+    font-family:Arial;
     font-size:16px;
     font-weight:bold;
     margin-top:5px;
@@ -190,7 +190,7 @@ h2.topSchoolsHeader {
     padding:0 10px 20px 0;
 }*/
 #fourStepsBox h2#fourStepsHeader {
-    font: bold 16px/17px "Trebuchet MS",Arial,sans-serif;
+    font: bold 16px/17px Arial,Arial,sans-serif;
     color:#D66671;
     margin:5px 0 10px;
     float:none;
@@ -232,7 +232,7 @@ h2.topSchoolsHeader {
     margin-top: 6px;
     margin-bottom: 2px;
     color:#666666;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:13px;
 }
 
@@ -242,7 +242,7 @@ h2.topSchoolsHeader {
 
 
 .topSchoolTextDiv {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -450,7 +450,7 @@ input.district {
 
 .blueTitleText {
 	padding: 0px 0px 6px 0px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 18px;
 	color: #55BBCC;
@@ -462,7 +462,7 @@ input.district {
 	display: block;
 	padding: 3px 27px 0px 13px;
 	width: 154px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 16px;
 	color: #666666;
@@ -496,7 +496,7 @@ input.district {
 
 .k12SuccessSearchKeyword {
 	padding: 7px 0px 0px 0px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 18px;
 }
@@ -504,7 +504,7 @@ input.district {
 .askExperts {
 	padding: 2px 14px 0px 15px;
 	width: 117px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -524,7 +524,7 @@ input.district {
 .billsBlog {
 	padding: 2px 12px 0px 15px;
 	width: 119px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -544,7 +544,7 @@ input.district {
 div.healthyKids {
 	padding: 2px 19px 0px 11px;
 	width: 115px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 16px;
 	color: #666666;
@@ -564,7 +564,7 @@ div.healthyKids {
 .editorsPick {
 	padding: 0px 43px 0px 13px;
 	width: 145px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -627,7 +627,7 @@ div.healthyKids {
 
 .printName {
 	padding: 0px 0px 0px 2px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: bold;
@@ -637,7 +637,7 @@ div.healthyKids {
 
 .italicTitle {
 	padding: 0px 0px 0px 2px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: bold;
@@ -649,7 +649,7 @@ div.healthyKids {
 .border10 {
 	border: 6px solid #DDEEEE;
 	padding: 8px 10px 10px 10px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -685,7 +685,7 @@ td#leftBox {
 
 h1#stateSchools {
 	padding: 9px 0px 9px 17px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 19px;
 	line-height: 17px;
 	color: #55BBCC;
@@ -695,7 +695,7 @@ h1#stateSchools {
 
 h2.updatesTitle {
 	padding: 0px 0px 0px 0px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 19px;
 	color: #FFBB00;
@@ -705,7 +705,7 @@ h2.updatesTitle {
 
 .updatesText {
 	padding: 10px 0px 0px 0px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
@@ -737,7 +737,7 @@ body.framed #pageGS {
     position: relative;
     top: 16px;
     left: -7px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: bold;
@@ -771,7 +771,7 @@ input.goImageButton {
 
 
 div#alert {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     margin: 0 0 5px 0;
     border-top:3px solid #DDEEEE;
     border-bottom:3px solid #DDEEEE;
@@ -820,7 +820,7 @@ div#alert div a {
 div.top_5_promo_research {
     margin:10px 0 0 0;
     padding:0 0 0 35px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     font-size:13px;
     color:#444444;
 }

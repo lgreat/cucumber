@@ -51,7 +51,7 @@ div#promoRulesLink a:visited,
 div#promoRulesLink a:active {
     text-decoration: underline;
     color: #888888;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:12px;
     margin: -8px 0 8px 0;
     float:left;

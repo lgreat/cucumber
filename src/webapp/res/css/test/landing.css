@@ -24,7 +24,7 @@ div#main{
 }
 
 .contentGS ul.linkList li {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:12px;
     padding:5px 0 12px 0;
     width:170px;
@@ -60,7 +60,7 @@ ul.linkList hr {
 }
 
 select {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     border:1px solid #999999;
     font-size:11px;
     padding:1px;
@@ -86,7 +86,7 @@ div.boxText {
     position:relative;
     top:0;
     left:10px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:15px;
     width:195px;
 }
@@ -155,7 +155,7 @@ img#learnTitle {
 }
 
 div#alert {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     margin: 0 0 5px 0;
     border-top:3px solid #DDEEEE;
     border-bottom:3px solid #DDEEEE;
@@ -196,7 +196,7 @@ div#alert div span.alert2 {
 }
 
 div#learnBox {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:15px;
     color:#666666;
 }
@@ -204,7 +204,7 @@ div#learnBox {
 div#learnBox .infohead {
     color:#99CC67;
     font-size:15px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-weight:bold;
     margin:0 0 15px 6px;
 }
@@ -228,7 +228,7 @@ div#learnBox a {
 }
 
 div.updatesText .printName, div.updatesText .italicTitle {
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:12px;    
 }
 

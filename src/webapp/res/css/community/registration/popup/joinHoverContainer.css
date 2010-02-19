@@ -243,7 +243,7 @@ PLEASE NOTE:
     text-decoration:none;
     background-color: #E4E4E4;
     color: #333;
-    cursor: hand;
+    cursor: pointer;
     vertical-align: middle;
     border: 2px solid #797979;
     border-top-color:#FFF;
@@ -273,7 +273,7 @@ PLEASE NOTE:
 
 
 .joinDialog {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     position: relative;
     background-color: transparent;
 }

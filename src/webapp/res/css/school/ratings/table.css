@@ -2,7 +2,7 @@
     border-collapse: collapse;
     font-size: 13px;
     font-weight: normal;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
     background-color: #ffffff;
     width:100%;
     color:#666;
@@ -53,7 +53,7 @@ table.tableBody {
     color: #777777;
     text-align:left;
     font-size: 13px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif;
 
 }
 

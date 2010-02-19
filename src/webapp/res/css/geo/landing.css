@@ -3,7 +3,7 @@ div#contentGS {
 }
 
 div#left-content a, div#right-content a {
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-family: Arial, Arial, sans-serif;
 	color: #3399AA;
 	text-decoration: none;
 	letter-spacing: 0;
@@ -15,7 +15,7 @@ div#left-content a:hover, div#right-content a:hover {
 
 div#left-content {
     width:205px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
     font-size:12px;
     letter-spacing:0;
 }
@@ -30,7 +30,7 @@ div#left-content {
 
     div#left-content div.mainLeft {
 	    border: 6px solid #DDEEEE;
-        font-family: "Trebuchet MS", Arial, sans-serif;
+        font-family: Arial, Arial, sans-serif;
 	    font-size: 12px;
 	    line-height: 17px;
 	    color: #666666;
@@ -102,7 +102,7 @@ div#left-content {
         }
 
         div#left-content div#outreachManager div#managerText span.photoName {
-            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-family: Arial, Arial, sans-serif;
             font-size: 13px;
             line-height: 16px;
             font-weight: bold;
@@ -124,7 +124,7 @@ div#right-content {
     div#right-content h1 {
         background-color:#DDEEEE;
         color:#55BBCC;
-        font-family:"Trebuchet MS",Arial,sans-serif;
+        font-family:Arial,Arial,sans-serif;
         font-size:19px;
         line-height:17px;
         padding:11px 0 9px 17px;
@@ -165,7 +165,7 @@ div#grid div.gridbox {
     border:3px solid #66CCCC;
     width:315px;
     height:205px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-family:Arial,Arial,sans-serif;
 }
 
     div#grid div.left {
@@ -200,7 +200,7 @@ div#grid div.gridbox {
 
     div#grid div.row {
         color:#777777;
-        font-family:"Trebuchet MS",Arial,sans-serif;
+        font-family:Arial,Arial,sans-serif;
         font-size:13px;
         letter-spacing:0;
     }
@@ -222,7 +222,7 @@ div#grid div.gridbox {
 
     div#grid div#findAndCompare input.zip,
     div#grid div#findAndCompare select {
-        font-family:"Trebuchet MS",Arial,sans-serif;
+        font-family:Arial,Arial,sans-serif;
         font-size:12px;
         color:#666666;
         border:1px solid #BBBBBB;
