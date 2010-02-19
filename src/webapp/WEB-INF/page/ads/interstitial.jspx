@@ -48,7 +48,7 @@
         </script>
         <pageHelper:addOnLoadHandler handler="setContinueTimeout()"/>
     </head>
-    <body>
+    <gsml:body adPageName="interstitial" pageLayout="interstitial">
     <gsml:a href="/">
         <gsml:img src="/res/img/logo/logo_GS_330x110.gif"
                   alt="GreatSchools: Involved Parents. Successful Kids" id="logo"/>
@@ -98,6 +98,6 @@
     </div>
     <mod:tracking pageName="Interstitial Ad"
                   hier1="Advertising,Interstitial Ad"/>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>

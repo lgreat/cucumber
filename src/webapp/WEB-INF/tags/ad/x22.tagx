@@ -9,22 +9,24 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
-        <div id="adLeaderboard">
-            <table cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
-                        <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical3.gif"/>
-                        <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="20" height="96"/>
-                    </td>
-                    <td style="text-align:left;width:728px;height:90px;padding-right: 7px;" class="ad">
-                        <ad:Header_728x90 position="${position}"/>
-                    </td>
-                    <!--<td style="border: 1px solid #c4c4c4;" class="ad">-->
-                        <!--<ad:Header_212x96 position="${position}"/>-->
-                    <!--</td>-->
+        <div class="gsAd">
+            <div id="adLeaderboard">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical3.gif"/>
+                            <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="20" height="96"/>
+                        </td>
+                        <td style="text-align:left;width:728px;height:90px;padding-right: 7px;" class="ad">
+                            <ad:Header_728x90 position="${position}"/>
+                        </td>
+                        <!--<td style="border: 1px solid #c4c4c4;" class="ad">-->
+                            <!--<ad:Header_212x96 position="${position}"/>-->
+                        <!--</td>-->
                     
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </div>
         </div>
     </c:if>
 </jsp:root>

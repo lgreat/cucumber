@@ -721,7 +721,9 @@ body.cobranded #pageGS {
     min-height: 640px;
     z-index: 1;
 }
-
+.interstitial #mainWrap {
+    margin-top: 36px;
+}
 .col {
     position: relative;
     float: left;
@@ -736,6 +738,10 @@ body.cobranded #pageGS {
 }
 .nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS {
     background: none;
+}
+.interstitial #contentGS {
+    background: none;
+    border: 0;
 }
 #mainGS.col {
     width: 598px;

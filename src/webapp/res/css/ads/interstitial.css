@@ -1,6 +1,8 @@
 #logo {
     float: left;
     margin-left: 40px;
+    width: 330px;
+    height: 110px;
 }
 
 #contentGS {
@@ -21,7 +23,7 @@
 #background {
     clear: left;
     background-color: #DEE;
-    margin-bottom: 18px;
+    margin: 0 20px 18px;
     padding: 11px 0 16px 0;
     text-align: center;
 }
@@ -29,6 +31,7 @@
 table#frame {
     background-color: #8BCBCB;
     text-align: center;
+    margin: auto;
 }
 
 table#frame td {

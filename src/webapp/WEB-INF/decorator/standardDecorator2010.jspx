@@ -102,7 +102,7 @@
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <div class="gsAd"><ad:x22 position="Header_728x90"/></div>
+        <ad:x22 position="Header_728x90"/>
     </c:if>
     <cobrand:header/>
 
