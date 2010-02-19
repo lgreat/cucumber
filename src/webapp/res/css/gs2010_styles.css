@@ -35,7 +35,7 @@ General comments:
 
 */
 
-/* =0 reset styles
+/* =0 reset
 -------------------------------------------------------------------------------------------*/
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
@@ -91,7 +91,7 @@ body.cobranded {
    background: #fff; 
 }
 
-/* =1 text styles
+/* =1 text
 -------------------------------------------------------------------------------------------*/
 a {
     color: #0066B8;
@@ -988,46 +988,119 @@ body.ie6 .clearfix {
 /* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 
-#grade-by-grade{
+#grade-by-grade {
     background: white url(/res/img/gradeByGrade/gbg-kids.jpg) no-repeat right top;
+    width: 598px;
+    position: relative;
 }
 
-#grade-by-grade .mod_bd{
-    padding:0;
+#grade-by-grade .mod_bd {
+    padding: 0;
 }
 
-.gbgTabs{
-    margin-top:70px;
+#gbgTop {
+    height: 200px;
 }
 
-.gbgTabs .horizontal{
-    margin:0 25px;
+#gbgTabs {
+    position: absolute;
+    top: 125px;
+    left: 15px;
+    float: left;
+    z-index: 50;
+    background: none;
+    line-height: normal;
 }
 
-.gbgTabs li{
-    background:#ebebeb;
+#gbgTabs ul {
+    white-space: nowrap;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    list-style: none;
 }
 
-.gbgSlider{
-    width:598px; height:14px;
-    background:#149;
+#gbgTabs li {
+    float: left;
+    display: inline-block;
+    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right -35px;
+    margin: 0 0 0 5px;
+    padding: 0;
 }
 
-.gbgContent{
-    background:white;
-    margin-bottom:20px;
+#gbgTabs a {
+    display: inline-block;
+    font: 10px Arial, Helvetica, sans-serif;
+    color: #333;
+    text-decoration: none;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left -35px;
+    margin: 0 0 0 -5px;
+    padding: 5px 15px;
+    outline: none;
 }
 
-.gbgContent ul{
-    line-height:2.3;
-    width:268px;
-    margin:6px 0;
-    padding:0 15px;
+#gbgTabs .selected {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right top;
+    margin-top: -5px;
 }
 
-.gbgContent .border-left-dotted{
-    border-left:1px dotted #999;
+#gbgTabs .selected a {
+    text-decoration: none;
+    color: black;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
+    padding: 5px 15px 10px 15px;
 }
+
+#gbgSlider {
+    position: absolute;
+    top: 146px;
+    width: 598px;
+    height: 14px;
+    background: white url(/res/img/gradeByGrade/gbg-bg-slider-1.png) no-repeat left top;
+    z-index: 51;
+}
+
+.gbgMarker {
+}
+
+#gbgHandle {
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    left: 15px;
+    top: -3px;
+    width: 19px;
+    height: 20px;
+}
+
+#gbgContent {
+    position: absolute;
+    top: 151px;
+    width: 598px;
+    height: 96px;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    background: white url(/res/img/gradeByGrade/gbg-bg-content-1.png) no-repeat left top;
+}
+
+#gbgContent ul {
+    line-height: 2.3;
+    width: 268px; /*margin:6px 0;*/
+    padding: 0 15px;
+}
+
+#gbgContent .border-left-dotted {
+    border-left: 1px dotted #999;
+}
+
+#gbgContent span {
+    margin: 0 15px 0 0;
+}
+
+#gbgContent span span {
+    margin: 0;
+}
+
 /* pagination styles */
 .pagination {
     float: right;
