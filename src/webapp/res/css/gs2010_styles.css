@@ -986,6 +986,11 @@ body.ie6 .clearfix {
 /* rule to add the icon looks for span with the class icon see content search results for example markup */
 /*
 .ryh span.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 19px;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
 }
 
