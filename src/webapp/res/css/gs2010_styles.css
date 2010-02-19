@@ -983,6 +983,14 @@ body.ie6 .clearfix {
     top: 3px;
     right: 5px;
 }
+/* rule to add the icon looks for span with the class icon see content search results for example markup */
+/*
+.ryh span.icon {
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
+}
+
+*/
+
 /* end young's styles */
 
 /* =4a-5 grade by grade
