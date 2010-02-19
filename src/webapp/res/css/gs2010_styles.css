@@ -277,10 +277,15 @@ p {
     height: 96px;
     background: #2f85eb;
 }
-#Header_728x90, #adHeader_728x90 {
-    width: 728px;
-    height: 90px;
+#adLeaderboard table {
+    padding: 0;
     margin: 0;
+    width: 738px;
+}
+
+#adLeaderboard table td.ad {
+    text-align: left;
+    vertical-align: top;
 }
 
 #pageGS {
