@@ -1115,6 +1115,10 @@ body.ie6 .clearfix {
     margin: 0;
 }
 
+#gbg-content-p, #gbg-content-k, #gbg-content-1, #gbg-content-2, #gbg-content-3, #gbg-content-4, #gbg-content-5, #gbg-content-m, #gbg-content-h{
+    display:none;
+}
+
 /* pagination styles */
 .pagination {
     float: right;
