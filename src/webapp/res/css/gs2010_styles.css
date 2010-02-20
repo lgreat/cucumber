@@ -1084,6 +1084,7 @@ body.ie6 .clearfix {
     top: -3px;
     width: 19px;
     height: 20px;
+    display:none;
 }
 
 #gbgContent {
