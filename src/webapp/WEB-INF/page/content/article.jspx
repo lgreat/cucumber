@@ -60,7 +60,7 @@
         </jsp:scriptlet>
         <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
     </head>
-    <body class="nocol">
+    <gsml:body adPageName="articlePage" pageLayout="nocol">
 
     <table cellspacing="0" cellpadding="0" border="0">
     <tbody>
@@ -523,6 +523,6 @@
         -->]]>
     </script>
 
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
