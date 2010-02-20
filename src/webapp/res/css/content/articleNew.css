@@ -405,14 +405,6 @@ div.pullQuote div.attribute{
     background: url("/res/img/content/article/quoteEnd.GIF") no-repeat;
 }
 
-
-ul, .contentGS ul, ol, .contentGS ol{
-    padding-left: 30px;
-    margin-left: 0;
-}
-#navbar #globalnav {
-    padding: 0;
-}
 div.paragraph {
 	margin-bottom: 22px;
 }
