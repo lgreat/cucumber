@@ -6,12 +6,12 @@ body{
 #main{
     float:left;
     width:550px;
-    margin:20px 0 0 36px;
+    margin:20px 0 0 0;
 }
 #contentRight{
     float:left;
     width:300px;
-    margin: 20px 0 0 30px;
+    margin: 20px 0 0 14px;
 }
 
 #contentGS a{
