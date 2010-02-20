@@ -405,10 +405,6 @@ div.pullQuote div.attribute{
     background: url("/res/img/content/article/quoteEnd.GIF") no-repeat;
 }
 
-li, .contentGS li {
-    list-style-position: outside;
-    margin-bottom: 10px;
-}
 
 ul, .contentGS ul, ol, .contentGS ol{
     padding-left: 30px;
