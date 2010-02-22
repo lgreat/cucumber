@@ -64,16 +64,8 @@
 
 
         <c:set var="pw" value="${requestScope.context.pathway}"/>
-        <c:choose>
-            <c:when test="${pw == tabs.HOME}">
-                <c:set var="noAd" value="noAd" />
-            </c:when>
-            <c:otherwise>
-                <c:set var="noAd" value="" />
-                <!-- class to style logo for homepage -->
-            </c:otherwise>
-        </c:choose>
-            <div id="logoBox" class="${noAd}">
+
+            <div id="logoBox">
             <gsml:a href="/"><gsml:img  id="logo" src="/res/img/logo/logo_GS2010_330x110.png"
                                alt="GreatSchools: Involved Parents. Successful Kids"
             /></gsml:a>
@@ -128,10 +120,10 @@
                 <input type="hidden" name="search_type" value="0"/>
                 <fieldset>
                 <ul>
-                    <li id="srch1" class="active">
+                    <li id="srch1" class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
                         <label for="topnavSchoolRadio" class="radLabel">Schools</label>
                     </li>
-                    <li id="srch2"><label for="topnavArticlesAndCommunityRadio" class="radLabel">Articles &amp;amp; Community</label></li>
+                    <li id="srch2" class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"><label for="topnavArticlesAndCommunityRadio" class="radLabel">Articles &amp;amp; Community</label></li>
                 </ul>
                     <input type="text" name="q" id="qNew"
                            value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>

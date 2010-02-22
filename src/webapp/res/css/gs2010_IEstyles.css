@@ -118,6 +118,9 @@ body.ie7 .ryh-answer{
 body.ie6 {
     background-image: url(/res/img/cbi_cloudIE6_bg.gif);
 }
+*html body {
+    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
+}
 *html body.cobranded {
     background-image: none;
 }
@@ -129,7 +132,18 @@ body.ie6 #topnav_search ul #srch1 label,
 body.ie6 #topnav_search ul #srch2 label,
 body.ie6 #topnav_menusubnav li a {
     background-image: url(/res/img/nav/topnavSprite_bg.gif);
-}body.ie6 #topnav_menusubnav li ul li a {
+}
+*html #utilLinks .nav_menu a.nav_group_heading,
+*html #topnav_search fieldset,
+*html #topnav_search ul #srch1,
+*html #topnav_search ul #srch2,
+*html #topnav_search ul #srch1 label,
+*html #topnav_search ul #srch2 label,
+*html #topnav_menusubnav li a {
+    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+}
+
+body.ie6 #topnav_menusubnav li ul li a {
     background-image: none;
 }
 body.ie6 #navbar,
@@ -137,6 +151,15 @@ body.ie6 #mainWrap,
 body.ie6 #footerAd,
 body.ie6 #footer,
 body.ie6 #footer .copyright
+{
+    background-image: url(/res/img/gs_contentIE6_bg.png);
+}
+
+*html #navbar,
+*html #mainWrap,
+*html #footerAd,
+*html #footer,
+*html #footer .copyright
 {
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
