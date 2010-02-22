@@ -128,7 +128,7 @@
                         <div class="text3boldOrange">David Buxton, Vice President of Technology</div>
                         <div class="text3">
                             With 20 years of software development and 10 years of management under his
-                            belt, David most recently worked at Adobe Systems as director of Web Services.
+                            belt, David most recently worked at Adobe Systems as Director of Web Services.
                             David graduated from the University of Bristol with a degree in computer
                             science. In his final year there, he designed a computer system to help
                             children learn to read which was commissioned by a local elementary school.
@@ -146,20 +146,23 @@
                             Clare guides the strategic development of GreatSchools and our growing
                             community of involved parents. Previously, Clare was the director of
                             content development for Nickelodeon's Family and Kids Division, where
-                            she helped launch ParentsConnect and cofounded GoCityKids. She was the
+                            she helped launch ParentsConnect and manage GoCityKids, which she cofounded.
+                            She was the
                             founding editor in chief of BabyCenter.com and served as the editor of
                             Disney Publishing's <em>FamilyFun</em> magazine. After graduating from Smith
                             College with a BA in English, Clare worked in publishing at <em>Health</em>
-                            magazine, Time-Warner Inc. and McGraw-Hill. She’ll never miss a recital
-                            by either of her two sons after having been one of 24 flautists at
+                            magazine, Time-Warner Inc. and McGraw-Hill. She'll never miss a recital
+                            by either of her two sons after having been one of 24 (or so) flautists in
+                            the
                             <c:choose>
                                 <c:when test="${bronxville_school ne null}">
-                                    <link:schoolProfileOverview school="${bronxville_school}">Bronxville High School</link:schoolProfileOverview>.
+                                    <link:schoolProfileOverview school="${bronxville_school}">Bronxville High School</link:schoolProfileOverview>
                                 </c:when>
                                 <c:otherwise>
-                                    Bronxville High School.
+                                    Bronxville High School
                                 </c:otherwise>
                             </c:choose>
+                            band.
                         </div>
                     </td>
                 </tr>
