@@ -53,6 +53,9 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_REPLIES_PER_DISCUSSION = "repliesPerDiscussion";
     public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
+    public static final String MODEL_RAISE_YOUR_HAND = "raiseYourHand";
+    public static final String MODEL_PAGE_TITLE = "pageTitle";
+    public static final String MODEL_TITLE = "title";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -66,6 +69,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     private IDiscussionReplyDao _discussionReplyDao;
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
+    private Boolean _raiseYourHand;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -104,6 +108,11 @@ public class CmsDiscussionBoardController extends AbstractController {
             int page = getPageNumber(request);
             int pageSize = getPageSize(request);
             DiscussionSort sort = getDiscussionSort(request, response);
+            if (isRaiseYourHand()) {
+                page = 1;
+                pageSize = -1;
+                sort = DiscussionSort.NEWEST_RAISE_YOUR_HAND_DATE;
+            }
             model.put(MODEL_PAGE, page);
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
@@ -112,12 +121,12 @@ public class CmsDiscussionBoardController extends AbstractController {
             if (user != null && user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
                 includeInactive = true;
             }
-            List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort, includeInactive);
+            List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort, includeInactive, isRaiseYourHand());
             List<DiscussionFacade> facades = populateFacades(board, discussions);
             populateWithUsers(discussions, facades);
             model.put(MODEL_DISCUSSION_LIST, facades);
 
-            long totalDiscussions = getTotalDiscussions(board, includeInactive);
+            long totalDiscussions = getTotalDiscussions(board, includeInactive, isRaiseYourHand());
             model.put(MODEL_TOTAL_DISCUSSIONS, totalDiscussions);
             model.put(MODEL_TOTAL_PAGES, getTotalPages(pageSize, totalDiscussions));
             model.put(MODEL_CURRENT_DATE, new Date());
@@ -127,6 +136,22 @@ public class CmsDiscussionBoardController extends AbstractController {
                     model.get(MODEL_URI).toString());
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
             model.put(MODEL_REPLIES_PER_DISCUSSION, DEFAULT_REPLIES_PER_DISCSSION);
+
+            model.put(MODEL_RAISE_YOUR_HAND, isRaiseYourHand());
+
+            String pageTitle = null;
+            String title = null;
+            if (StringUtils.isNotBlank(board.getPageTitle())) {
+                pageTitle = board.getPageTitle().replaceAll(" Community$", "");
+            } else {
+                pageTitle = board.getTitle().replaceAll(" Community$", "");
+            }
+            if (isRaiseYourHand()) {
+                title = pageTitle;
+                pageTitle = pageTitle.replaceAll(" Community$", "") + " Featured Discussions, Parent Community";
+            }
+            model.put(MODEL_PAGE_TITLE, pageTitle);
+            model.put(MODEL_TITLE, title);
 
             model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
 
@@ -246,10 +271,10 @@ public class CmsDiscussionBoardController extends AbstractController {
      * @return non-null list
      */
     protected List<Discussion> getDiscussionsForPage
-            (CmsDiscussionBoard board, int page, int pageSize, DiscussionSort sort, boolean includeInactive) {
+            (CmsDiscussionBoard board, int page, int pageSize, DiscussionSort sort, boolean includeInactive, boolean raiseYourHand) {
         List<Discussion> discussions;
 
-        discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort, includeInactive);
+        discussions = _discussionDao.getDiscussionsForPage(board, page, pageSize, sort, includeInactive, raiseYourHand);
 
         return discussions;
     }
@@ -257,10 +282,10 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive) {
+    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive, boolean raiseYourHand) {
         long totalDiscussions;
 
-        totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive);
+        totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive, raiseYourHand);
 
         return totalDiscussions;
     }
@@ -337,5 +362,13 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public Boolean isRaiseYourHand() {
+        return _raiseYourHand;
+    }
+
+    public void setRaiseYourHand(Boolean raiseYourHand) {
+        _raiseYourHand = raiseYourHand;
     }
 }

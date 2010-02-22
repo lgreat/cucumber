@@ -18,16 +18,15 @@
 <ad:setSlotPrefix slotPrefix="DiscussionBoard"/>
 
 <head>
+    <title>${pageTitle} | GreatSchools</title>
     <c:choose>
-        <c:when test="${not empty discussionBoard.pageTitle}">
-            <c:set var="pageTitle">${discussionBoard.pageTitle}</c:set>
+        <c:when test="${raiseYourHand}">
+            <meta name="description" content="Join parents as they answer questions about ${fn:toLowerCase(fn:escapeXml(discussionBoard.title))} on GreatSchools."/>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTitle">${discussionBoard.title}</c:set>
+            <meta name="description" content="Join parents as they discuss ${fn:toLowerCase(fn:escapeXml(discussionBoard.title))} on GreatSchools."/>
         </c:otherwise>
     </c:choose>
-    <title>${pageTitle} | GreatSchools</title>
-    <meta name="description" content="Join parents as they discuss ${fn:escapeXml(discussionBoard.title)} on GreatSchools."/>
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
@@ -78,6 +77,41 @@
             </c:when>
         </c:choose>
     </p>
+
+<c:choose>
+    <c:when test="${raiseYourHand}">
+        <div class="ryh-list">
+            <h2>Raise Your Hand: <span class="title">${title}</span></h2>
+
+            <c:set var="seeMoreLink">
+                <div class="see-more-wrapper">
+                    <div class="see-more">
+                        <span class="icon"><!-- icon --></span>
+                        <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                            class="alertDoubleArrow">&amp;raquo;</span>
+                    </div>
+                </div>
+            </c:set>
+
+            ${seeMoreLink}
+
+            <c:if test="${fn:length(requestScope.discussionList) > 0}">
+                <ul class="list text2">
+                    <c:forEach var="discussion" items="${requestScope.discussionList}">
+                        <li><link:discussion discussionId="${discussion.id}"
+                                             fullUri="${discussion.fullUri}"><span
+                                class="">${discussion.title}</span></link:discussion>
+                            <c:if test="${discussion.active eq false}">
+                                <span class="tint_c03">(Deleted)</span>
+                            </c:if></li>
+                    </c:forEach>
+                </ul>
+            </c:if>
+
+            ${seeMoreLink}
+        </div>
+    </c:when>
+    <c:otherwise>
 
 <div class="module">
 <div class="header">
@@ -330,6 +364,11 @@
 <!-- end db_footer -->
 </div>
 <!-- end module -->
+
+    </c:otherwise>
+</c:choose>
+
+
 </div>
 <!-- end mainContent -->
 
@@ -347,8 +386,18 @@
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
 <c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
-<mod:tracking pageName="Discussion Board"
-              hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle}"
+<c:choose>
+    <c:when test="${raiseYourHand}">
+        <c:set var="omniturePageName" value="Raise Your Hand List Page"/>
+        <c:set var="omnitureHier1" value="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},Raise Your Hand List Page"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="omniturePageName" value="Discussion Board"/>
+        <c:set var="omnitureHier1" value="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle}"/>
+    </c:otherwise>
+</c:choose>
+<mod:tracking pageName="${omniturePageName}"
+              hier1="${omnitureHier1}"
               community="true"
               local="${requestScope.discussionBoard.city ne null?'yes':''}"
               omitAlmondNet="${true}"

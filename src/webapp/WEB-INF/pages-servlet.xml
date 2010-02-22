@@ -50,6 +50,8 @@
                    <entry key="/members/**" value="/community/userProfile.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
+                   <entry key="/community/questions/" value="/community/raiseYourHandLanding.page"/>
+                   <entry key="/**/questions.gs" value="/community/raiseYourHandList.page"/>
                </map>
            </property>
     </bean>
@@ -513,7 +515,7 @@
     <bean name="/content/cms/topicCenter.page"
           class="gs.web.content.cms.CmsTopicCenterController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/cms/topicCenter"/>
+        <property name="viewName" value="/content/cms/topicCenter2010"/>
         <property name="useAdKeywords" value="true"/>
     </bean>
 
@@ -521,6 +523,7 @@
           class="gs.web.content.cms.CmsDiscussionBoardController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/cms/discussionBoard"/>
+        <property name="raiseYourHand" value="false"/>
     </bean>
 
     <bean name="/community/discussion.page"
@@ -534,6 +537,19 @@
           autowire="byName" lazy-init="true">
         <property name="commandName" value="discussionSubmissionCommand"/>
         <property name="commandClass" value="gs.web.community.DiscussionSubmissionCommand"/>
+    </bean>
+
+    <bean name="/community/raiseYourHandLanding.page"
+          class="gs.web.community.RaiseYourHandLandingPageController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/raiseYourHandLanding"/>
+    </bean>
+
+    <bean name="/community/raiseYourHandList.page"
+          class="gs.web.content.cms.CmsDiscussionBoardController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/discussionBoard"/>
+        <property name="raiseYourHand" value="true"/>
     </bean>
 
     <bean name="/community/raiseYourHandSubmission.page"

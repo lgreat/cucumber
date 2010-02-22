@@ -33,7 +33,7 @@
                             $j('.ryh #inactiveRYH').hide();
                             $j('.ryh .assoc').show();
 
-                            alert('This page will now reload as a Raise Your Hand detail page.'); 
+                            alert('This is now a Raise Your Hand.');
                             window.location.reload(true);
                         });
 
@@ -50,7 +50,7 @@
                             $j('.ryh #inactiveRYH').show();
                             $j('.ryh .assoc').hide();
 
-                            alert('This page will now reload as a Discussion detail page.'); 
+                            alert('This is no longer a Raise Your Hand.'); 
                             window.location.reload(true);
                         });
 

@@ -54,7 +54,7 @@ public class RecentDiscussionsController extends AbstractController {
 
             if (board != null) {
                 model.put(MODEL_DISCUSSION_BOARD, board);
-                List<Discussion> discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY);
+                List<Discussion> discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false);
                 List<UserContent> userContents = new ArrayList<UserContent>(discussions);
                 _userDao.populateWithUsers(userContents);
 

@@ -998,6 +998,43 @@ body.ie6 .clearfix {
 
 /* end young's styles */
 
+/* ryh list page */
+
+.ryh-list h2 .title {
+    color: #333;
+}
+
+.ryh-list .list {
+    width: 149px;
+    color: #f4891d;
+    clear: both;
+}
+
+.ryh-list .list li {
+    list-style:disc outside;
+    margin: 0 0 0 15px;
+    line-height: 2.0;
+}
+
+.ryh-list .see-more-wrapper {
+    float: right;
+}
+
+.ryh-list .see-more {
+    position: relative;
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.ryh-list span.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 19px;
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
+}
+
 /* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 

@@ -115,10 +115,10 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         //        .andReturn(topicCenter);
 
         expect(_discussionDao.getDiscussionsForPage
-                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.RECENT_ACTIVITY, false))
+                (board, 1, CmsDiscussionBoardController.DEFAULT_PAGE_SIZE, DiscussionSort.RECENT_ACTIVITY, false, false))
                 .andReturn(new ArrayList<Discussion>(0));
 
-        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(0);
+        expect(_discussionDao.getTotalDiscussions(board, false, false)).andReturn(0);
 
         _userDao.populateWithUsers(isA(List.class));
         
@@ -162,7 +162,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetNoDiscussionsForPage() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false))
+        expect(_discussionDao.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false, false))
                 .andReturn(new ArrayList<Discussion>(0));
 
         replayAllMocks();
@@ -183,7 +183,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         discussions.add(new Discussion());
         discussions.add(new Discussion());
 
-        expect(_discussionDao.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false))
+        expect(_discussionDao.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false, false))
                 .andReturn(discussions);
 
         replayAllMocks();
@@ -197,7 +197,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetNoTotalDiscussions() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(0);
+        expect(_discussionDao.getTotalDiscussions(board, false, false)).andReturn(0);
 
         replayAllMocks();
         long totalDiscussions = _controller.getTotalDiscussions(board, false);
@@ -209,7 +209,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testGetSomeTotalDiscussions() {
         CmsDiscussionBoard board = new CmsDiscussionBoard();
 
-        expect(_discussionDao.getTotalDiscussions(board, false)).andReturn(51);
+        expect(_discussionDao.getTotalDiscussions(board, false, false)).andReturn(51);
 
         replayAllMocks();
         long totalDiscussions = _controller.getTotalDiscussions(board, false);

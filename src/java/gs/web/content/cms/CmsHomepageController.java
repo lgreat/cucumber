@@ -126,7 +126,7 @@ public class CmsHomepageController extends AbstractController {
                     CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussionBoardId);
                     List<Discussion> myDiscussions =
                             _discussionDao.getDiscussionsForPage(board, 1, 10,
-                                                                 IDiscussionDao.DiscussionSort.NEWEST_FIRST);
+                                                                 IDiscussionDao.DiscussionSort.NEWEST_FIRST, false);
                     if (myDiscussions != null) {
                         // randomize discussions
                         Collections.shuffle(myDiscussions);
