@@ -1035,6 +1035,17 @@ body.ie6 .clearfix {
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
 }
 
+/* ryh content search results */
+
+.srchCatComm li.ryh span.icon {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 17px;
+    height: 19px;
+    background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
+}
+
 /* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 

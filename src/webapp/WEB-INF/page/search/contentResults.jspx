@@ -199,7 +199,18 @@
                                 <c:set var="srchRsltSupplClass" value=""/>
                             </c:otherwise>
                         </c:choose>
-                        <li class="srchRslt ${srchRsltSupplClass}"><span class="icon"><!-- icon --></span>
+                        <c:choose>
+                            <c:when test="${result.raiseYourHand}">
+                                <c:set var="srchRsltSupplClass2" value="ryh"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="srchRsltSupplClass2" value=""/>
+                            </c:otherwise>
+                        </c:choose>
+                        <li class="srchRslt ${srchRsltSupplClass} ${srchRsltSupplClass2}"><span class="icon"><!-- icon --></span>
+                            <c:if test="${result.raiseYourHand}">
+                                <span class="smallAlertText">RAISE YOUR HAND</span><br/>
+                            </c:if>
                             <p><link:discussion discussionId="${result.contentKey.identifier}" styleClass="text3bold"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
                                 <!-- TODO-9134 TODO-9419 -->
@@ -209,23 +220,26 @@
                                 </c:choose>
 
                             </p>
-                            <p class="smallText1">
+                            <c:if test="${!result.raiseYourHand}">
+                                <p class="smallText1">
                                 <span class="smallText1bold">
                                     <c:choose>
                                         <c:when test="${not empty result.username}">
-                                            <link:userProfile username="${result.username}">${result.username}</link:userProfile>
+                                            <link:userProfile
+                                                    username="${result.username}">${result.username}</link:userProfile>
                                         </c:when>
                                         <c:otherwise>
                                             Anonymous
                                         </c:otherwise>
                                     </c:choose>
                                 </span>
-                                in
-                                <link:cmsContent contentKey="DiscussionBoard#${result.discussionBoardId}"
-                                                 fullUri="${result.discussionBoardFullUri}"
-                                                 styleClass="link">${result.discussionBoardTitle}</link:cmsContent>
-                                ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
-                            </p>
+                                    in
+                                    <link:cmsContent contentKey="DiscussionBoard#${result.discussionBoardId}"
+                                                     fullUri="${result.discussionBoardFullUri}"
+                                                     styleClass="link">${result.discussionBoardTitle}</link:cmsContent>
+                                    ${gsweb:detailedPeriodBetweenDates(result.dateCreated,requestScope.currentDate)}
+                                </p>
+                            </c:if>
                             <p>
                                 <community:userContentTeaserText
                                         textToDisplay="${result.resultSummary}"
