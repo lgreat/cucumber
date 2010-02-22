@@ -70,13 +70,21 @@
                     <td valign="top">
                         <div class="text3boldOrange">Bill Jackson, Founder, President, and CEO</div>
                         <div class="text3">
-                            Bill is a member of the Parent Association Council at the Chinese American
-                            International School, the San Francisco Education Fund's board of directors,
-                            and the California P-16 Council. Prior to founding GreatSchools in 1998, Bill 
-                            graduated from Yale University with a degree in mechanical engineering and
-                            spent three years teaching &amp;mdash; first at a university in China and
-                            later at a private K-8 school in Washington, D.C. As the former president of
-                            the Scientific Society at
+                            As a teacher in the U.S. and China in the late 1980s, Bill came to recognize
+                            the extraordinary influence that parents have over their children's
+                            education. Then, as an Internet entrepreneur in the 1990s, he recognized
+                            the extraordinary potential of the Internet as a communications medium to
+                            engage and support parents. He founded GreatSchools in 1998 to tap the
+                            power of this new medium to help parents be more effectively involved in
+                            their children's education. An avid school volunteer, Bill is a member of
+                            the California P-16 Council and serves as secretary of the Parent
+                            Association Council at Chinese American International School and a
+                            volunteer at Miraloma Elementary School. He has also served as a director
+                            of the San Francisco Education Fund and as treasurer for two San Francisco
+                            school financing measures and a school board campaign. Bill holds a degree
+                            in mechanical engineering from Yale University and is a graduate of the
+                            San Francisco Coro Fellows Program. As the former president of the
+                            Scientific Society at
                             <c:choose>
                                 <c:when test="${phillips_school ne null}">
                                     <link:schoolProfileOverview school="${phillips_school}">Phillips Exeter Academy</link:schoolProfileOverview>,
@@ -171,7 +179,7 @@
                     <td valign="top">
                         <div class="text3boldOrange">Lilly Fu, Chief Financial Officer</div>
                         <div class="text3">
-                            Prior to her finance career, Lilly was one of the first recruits of Teach
+                            Lilly was one of the first recruits of Teach
                             for America, where she taught second grade in Oakland, California. Lilly
                             earned her BA in political science and economics from Wellesley College
                             and her MPP from the Harvard Kennedy School. She led the financial metrics
@@ -251,18 +259,16 @@
                     <td valign="top">
                         <div class="text3boldOrange">Molly Vitorte, Vice President, Partner Relationships</div>
                         <div class="text3">
-                            Molly has devoted her career to developing business and partner relationships
-                            that expand college access for minority and low-income students.  Prior to
-                            joining GreatSchools, she was the national director of outreach and alliances
-                            at the Hispanic Scholarship Fund. She graduated from the University of 
-                            Washington with a BA in international studies and earned a PhD in Latin
-                            American Studies from the University of California at Berkeley. She has also
-                            lectured as the associate director of Stanford University's Center for Latin
-                            American Studies. Her diverse experience began at a tiny international school
-                            in Brazil, where during high school Molly was given a position on
-                            <em>every</em> sports team and participated in <em>every</em>
-                            extracurricular activity.
-                        </div>
+                            Molly brings to GreatSchools over 20 years of experience in the nonprofit,
+                            for-profit and higher education sectors, with a focus on improving college
+                            access for minority and low-income students. Previously, she was the
+                            national director of outreach and alliances at the Hispanic Scholarship
+                            Fund and the associate director of Stanford University's Center for Latin
+                            American Studies. She graduated from the University of Washington with a BA
+                            in international studies and earned a PhD in Latin American Studies from
+                            the University of California at Berkeley. Her diverse experience began at a
+                            tiny international school in Brazil. During high school she played the lead
+                            role in several of the city's English-speaking community theatre productions.                         </div>
                     </td>
                 </tr>
             </table>
