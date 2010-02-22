@@ -26,7 +26,7 @@
     <script type="text/javascript">
         var myLevels = new Array('p', 'k', '1', '2', '3', '4', '5', 'm', 'h');
         var selectedLevel = myLevels[Math.floor(Math.random() * 9)];
-        jQuery(window).ready(function() {
+        jQuery(function() {
             jQuery('#gbgContent div').hide();
             jQuery('#gbg-content-' + selectedLevel).show();
             jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
@@ -68,12 +68,15 @@
                 var outerWidth = myTab.outerWidth(true);
                 var handleWidth = myHandle.outerWidth(true);
                 var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2)-myHandleAdjustment;
-                myHandle.animate({ 'left': handlePosition }, 1000);
+                myHandle.animate({ 'left': handlePosition }, 200);
                 jQuery('#gbgTabs ul li').removeClass('selected');
                 myTab.addClass('selected');
                 jQuery('#gbgContent div').hide();
                 jQuery('#gbg-content-' + myLevel).show();
+                return false;
             });
+
+            
             
         });
     </script>
@@ -87,15 +90,15 @@
             <!-- end gbgTop -->
             <div id="gbgTabs">
                 <ul>
-                    <li class="gbg-tab-p"><a href="#" onclick="return false;">Preschool</a></li>
-                    <li class="gbg-tab-k"><a href="#" onclick="return false;">Kindergarten</a></li>
-                    <li class="gbg-tab-1"><a href="#" onclick="return false;">1st</a></li>
-                    <li class="gbg-tab-2"><a href="#" onclick="return false;">2nd</a></li>
-                    <li class="gbg-tab-3"><a href="#" onclick="return false;">3rd</a></li>
-                    <li class="gbg-tab-4"><a href="#" onclick="return false;">4th</a></li>
-                    <li class="gbg-tab-5"><a href="#" onclick="return false;">5th</a></li>
-                    <li class="gbg-tab-m"><a href="#" onclick="return false;">Middle School</a></li>
-                    <li class="gbg-tab-h"><a href="#" onclick="return false;">High School</a></li>
+                    <li class="gbg-tab-p"><a href="#">Preschool</a></li>
+                    <li class="gbg-tab-k"><a href="#">Kindergarten</a></li>
+                    <li class="gbg-tab-1"><a href="#">1st</a></li>
+                    <li class="gbg-tab-2"><a href="#">2nd</a></li>
+                    <li class="gbg-tab-3"><a href="#">3rd</a></li>
+                    <li class="gbg-tab-4"><a href="#">4th</a></li>
+                    <li class="gbg-tab-5"><a href="#">5th</a></li>
+                    <li class="gbg-tab-m"><a href="#">Middle School</a></li>
+                    <li class="gbg-tab-h"><a href="#">High School</a></li>
                 </ul>
             </div>
             <!-- end gbgTabs -->
