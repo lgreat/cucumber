@@ -488,9 +488,9 @@ body.cobranded #pageGS {
 }
 
 #topnav_search button {
-    position: relative;
+    position: absolute;
     top: -2px;
-    float: right;
+    right: 30px;
 }
 
 #topnav_search #radBtns {

@@ -18,6 +18,10 @@
 #utilLinks li.over .nav_group_items  {
     left: -26px;
 }
+#topnav_search button {
+    top: 27px;
+    right: 20px;
+}
 
 /* =ie styles: arrows
 -------------------------------------------------------------------------------------------*/
@@ -64,12 +68,11 @@ body.ie7 #mainWrap {
 body.ie7 #utilLinks li .nav_group_items  {
     top: 22px;
 }
+body.ie7 #topnav_search button {
+    top: 25px;
+}
 body.ie7 #navbar {
     position: relative;
-}
-body.ie7 #topnav_search button {
-    top: -28px;
-    margin-bottom: -28px;
 }
 body.ie7 #next .inner, body.ie6 #next .inner {
     height: 127px;
@@ -80,6 +83,9 @@ body.ie7 #footer {
 body.ie7 #footerAd {
     height: 91px;
 }
+* + html #topnav_search button {
+    top: 25px;
+}
 * + html #footerAd {
     height: 91px;
 }
@@ -88,10 +94,6 @@ body.ie7 #footerAd {
 }
 * + html #navbar {
     position: relative;
-}
-* + html #topnav_search button {
-    top: -28px;
-    margin-bottom: -28px;
 }
 * + html #footer {
     height: 293px;
@@ -115,6 +117,9 @@ body.ie7 .ryh-answer{
 */
 body.ie6 {
     background-image: url(/res/img/cbi_cloudIE6_bg.gif);
+}
+*html body.cobranded {
+    background-image: none;
 }
 body.ie6 #utilLinks .nav_menu a.nav_group_heading,
 body.ie6 #topnav_search fieldset,
@@ -153,15 +158,13 @@ body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
     display: inline-block;
 }
 body.ie6 #topnav_search button {
-    top: -28px;
-    margin-bottom: -28px;
+    top: 25px;
 }
 *html #topnav_search ul li label, *html #topnav_menusubnav li a {
     display: inline-block;
 }
 *html #topnav_search button {
-    top: -28px;
-    margin-bottom: -28px;
+    top: 25px;
 }
 body.ie6 .srchCatComm li span.icon {
     left: -25px;
