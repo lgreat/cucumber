@@ -192,9 +192,10 @@
                 <p>
                     <a class="text3"
                        href="${featureLink.url}"
-                       target="${featureLinkTarget}">${featureLink.description}</a> <a class="link"
+                       target="${featureLinkTarget}">${featureLink.description}</a>
+                    <a class="link"
                        href="${featureLink.url}"
-                       target="${featureLinkTarget}">${featureLink.linkText}</a> <span class="alertdblarrow">&amp;raquo;</span>
+                       target="${featureLinkTarget}"> ${featureLink.linkText} <span class="alertdblarrow">&amp;raquo;</span></a>
                 </p>
             </c:forEach>
 
