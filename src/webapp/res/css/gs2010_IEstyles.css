@@ -143,7 +143,10 @@ body.ie6 #footer .copyright
 *html #logoBox {
     overflow: hidden;
 }
-
+body.ie6 #logoBox #logo {
+    padding: 83px 0 0;
+    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
+}
 *html #logoBox #logo {
     padding: 83px 0 0;
     background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
