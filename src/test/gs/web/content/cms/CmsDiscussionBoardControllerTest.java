@@ -166,7 +166,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
                 .andReturn(new ArrayList<Discussion>(0));
 
         replayAllMocks();
-        List discussions = _controller.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false);
+        List discussions = _controller.getDiscussionsForPage(board, 1, 5, DiscussionSort.NEWEST_FIRST, false, false);
         verifyAllMocks();
 
         assertNotNull(discussions);
@@ -187,7 +187,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
                 .andReturn(discussions);
 
         replayAllMocks();
-        List rval = _controller.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false);
+        List rval = _controller.getDiscussionsForPage(board, 7, 10, DiscussionSort.NEWEST_FIRST, false, false);
         verifyAllMocks();
 
         assertNotNull(rval);
@@ -200,7 +200,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         expect(_discussionDao.getTotalDiscussions(board, false, false)).andReturn(0);
 
         replayAllMocks();
-        long totalDiscussions = _controller.getTotalDiscussions(board, false);
+        long totalDiscussions = _controller.getTotalDiscussions(board, false, false);
         verifyAllMocks();
 
         assertEquals(0, totalDiscussions);
@@ -212,7 +212,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         expect(_discussionDao.getTotalDiscussions(board, false, false)).andReturn(51);
 
         replayAllMocks();
-        long totalDiscussions = _controller.getTotalDiscussions(board, false);
+        long totalDiscussions = _controller.getTotalDiscussions(board, false, false);
         verifyAllMocks();
 
         assertEquals(51, totalDiscussions);
