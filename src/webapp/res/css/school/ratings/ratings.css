@@ -63,6 +63,7 @@
     border: 2px solid #dee;
     float: left;
     margin-right: 10px;
+    display: inline;
 }
 
 #bigPicture a {
@@ -148,12 +149,19 @@
 	width: 235px;
 	font: 12px/16px Arial, sans-serif;;
 	color: #666;
+
 }
 
+* html #compareSchool form {
+    height: 1%;
+}
 #compareSchool table#compareForm {
     width: 225px;
 }
 
+* html #compareSchool table#compareForm {
+    height: 1%;
+}
 #compareSchool form label {
 	display: block;
 	margin: 0 0 6px;

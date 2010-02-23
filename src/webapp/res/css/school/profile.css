@@ -387,6 +387,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     overflow: hidden;
     width: 864px;
 }
+*html #schoolProfile #bodyContents {
+    heigth: 1%;
+}
 
 #schoolProfile #bodyContents h1{
     font-weight:bold;
