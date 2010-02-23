@@ -6,7 +6,7 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
 
-<c:if test="${not empty discussion and not empty replies}">
+<c:if test="${not empty discussion}">
 
     <script type="text/javascript">
         var $j = jQuery;
