@@ -109,6 +109,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
     public void testWithBoard() {
         getRequest().setParameter("content", "1");
         CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setTitle("Discussion Board 1");
         board.setContentKey(new ContentKey("CmsDiscussionBoard", 1l));
         expect(_discussionBoardDao.get(1l)).andReturn(board);
         //CmsTopicCenter topicCenter = new CmsTopicCenter();
