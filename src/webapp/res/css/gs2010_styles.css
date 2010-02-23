@@ -1166,10 +1166,15 @@ body.ie6 .clearfix {
     z-index: 51;
 }
 
-.gbgMarker {
+#gbg-marker-p, #gbg-marker-k, #gbg-marker-1, #gbg-marker-2, #gbg-marker-3, #gbg-marker-4, #gbg-marker-5, #gbg-marker-m, #gbg-marker-h {
+    position:absolute;
+    top:0; left:0;
+    width:1px; height:14px;
+    background-color:#388dd1;
 }
 
 #gbgHandle {
+    background: url(/res/img/gradeByGrade/gbg-handle-2.gif) no-repeat left top;
     cursor: pointer;
     z-index: 100;
     position: absolute;
