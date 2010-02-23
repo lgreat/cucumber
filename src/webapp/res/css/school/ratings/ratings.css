@@ -21,10 +21,11 @@
 }
 
 #schoolProfile .ratingSummaryContent p {
-    font-size: 98%;
+    font-size: 11px;
     color: #666;
     font-weight: normal;
-    line-height: 17px;
+    line-height: 15px;
+    margin-bottom: 0;
 }
 
 #schoolProfile .ratingSummaryContent a,
@@ -153,19 +154,23 @@
     width: 225px;
 }
 
-#compareSchool #compareForm input {
-	float: left;
-	margin: 8px 8px 0 0;
-    height: 15px;
-}
-
 #compareSchool form label {
 	display: block;
-	margin: 8px 0 0 15px;
+	margin: 0 0 6px;
     position: relative;
-    top: -1px;
-    _top: -2px;
 }
+#compareSchool #compareForm input {
+	float: left;
+    position: relative;
+	margin: 0 8px 0 0;
+    height: 15px;
+    top: -2px;
+}
+
+body.ie #compareSchool #compareForm input {
+    top: -2px;
+}
+
 
 #compareSchool form .submit {
     float: right;

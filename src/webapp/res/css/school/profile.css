@@ -408,6 +408,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #schoolProfile .breadcrumb h2 {
     font-size: 12px;
+    font-family: Arial, sans-serif;
 }
 #schoolProfile .breadcrumb a {
     color: #3399aa;

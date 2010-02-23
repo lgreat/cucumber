@@ -88,12 +88,13 @@ Parent Review Page
 
 #showParentRatings .sm_stars {
 	float: right;
-	margin-top: -18px;
-	margin-top: -17px; /* IE 6 hack */
 	width: 70px;
 	height: 14px;
 }
 
+body.ie6 #showParentRatings .sm_stars {
+    margin-top: -17px;
+}
 
 #showParentRatings .categoriesMore {
     float: right;
