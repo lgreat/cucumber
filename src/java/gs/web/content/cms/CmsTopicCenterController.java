@@ -36,14 +36,15 @@ public class CmsTopicCenterController extends AbstractController {
             boolean showSample = (BEAN_ID.equals(uri));
             CmsTopicCenter topicCenter;
 
+            Long contentId = null;
             if (showSample) {
                 topicCenter = getSampleTopicCenter();
             } else {
-                Long contentId;
                 if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
                     } catch (Exception e) {
+                        _log.warn("contentId \"" + request.getParameter("content") + "\" is not a Long");
                         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                         return new ModelAndView("/status/error404.page");
                     }
@@ -55,6 +56,7 @@ public class CmsTopicCenterController extends AbstractController {
             }
 
             if (topicCenter == null) {
+                _log.warn("Error locating topic center with contentId=" + contentId);
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
             }
