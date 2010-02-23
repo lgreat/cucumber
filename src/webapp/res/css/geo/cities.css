@@ -132,7 +132,7 @@ div.compareHorizontal input {
 div.compareHorizontal {
     clear: both;
     height: 35px;
-    padding: 10px 0 10px 0;
+    padding: 20px 20px 10px;
     margin: 0;
 }
 

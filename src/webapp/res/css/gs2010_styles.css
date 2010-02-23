@@ -202,7 +202,10 @@ h3.title1white {
     font:bold 14px Arial, Helvetica, sans-serif;
     color: #333;
 }
-
+.text3bold {
+    font: bold 12px / 1.3 Arial, Helvetica, sans-serif;
+    color: #333;
+}
 .text2 {
     font: 13px Arial, Helvetica, sans-serif;
     color: #333;
@@ -401,8 +404,8 @@ body.cobranded #pageGS {
 #topnav_search {
     position: relative;
     float: right;
-    margin: 0 4px -62px 0;
-    top: -62px;
+    margin: 0 4px -66px 0;
+    top: -66px;
     width: 449px;
     height: 59px;
     z-index: 2;
@@ -532,7 +535,7 @@ body.cobranded #pageGS {
     width: 114px;
     height: 34px;
 }
-#globalnav li#n1:hover a, #globalnav li#n1.active a {
+#globalnav li#n1 a:hover {
     background-position: 0 -34px;
 }
 #globalnav li#n2 a {
@@ -540,7 +543,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -114px 0;
 }
-#globalnav li#n2:hover a, #globalnav li#n2.active a {
+#globalnav li#n2 a:hover {
     background-position: -114px -34px;
 }
 #globalnav li#n3 a {
@@ -548,7 +551,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -283px 0;
 }
-#globalnav li#n3:hover a, #globalnav li#n3.active a {
+#globalnav li#n3 a:hover {
     background-position: -283px -34px;
 }
 #globalnav li#n4 a {
@@ -556,7 +559,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -425px 0;
 }
-#globalnav li#n4:hover a, #globalnav li#n4.active a {
+#globalnav li#n4 a:hover {
     background-position: -425px -34px;
 }
 #globalnav li#n5 a {
@@ -564,7 +567,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -633px 0;    
 }
-#globalnav li#n5:hover a, #globalnav li#n5.active a {
+#globalnav li#n5 a:hover {
     background-position: -633px -34px;
 }
 #globalnav li#n6 a {
@@ -572,7 +575,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -808px 0;    
 }
-#globalnav li#n6:hover a, #globalnav li#n6.active a {
+#globalnav li#n6 a:hover {
     background-position: -808px -34px;
 }
 
@@ -1277,6 +1280,9 @@ ul.srchRslts li.srchRslt {
     position: relative;
     padding: 9px 9px 9px 25px;
     border-bottom: 1px dotted #999;
+}
+ul.srchRslts li.srchRslt p {
+    margin-bottom: 0;
 }
 ul.srchRslts li.srchRslt:last-child {
     border-bottom: 0;

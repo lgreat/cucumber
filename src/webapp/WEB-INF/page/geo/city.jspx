@@ -78,7 +78,7 @@
 
 </head>
 
-<gsml:body adPageName="city" pageLayout="cityPage">
+<gsml:body adPageName="city" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 
 <div class="headerBox">
