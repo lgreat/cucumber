@@ -45,6 +45,7 @@ public class CmsDiscussionBoardControllerTest extends BaseControllerTestCase {
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setUserDao(_userDao);
+        _controller.setRaiseYourHand(false);
 
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
