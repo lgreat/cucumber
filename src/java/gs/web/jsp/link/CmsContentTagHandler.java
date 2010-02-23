@@ -1,6 +1,5 @@
 package gs.web.jsp.link;
 
-import gs.data.content.cms.CmsContent;
 import gs.data.content.cms.ContentKey;
 import gs.web.util.UrlBuilder;
 
@@ -8,9 +7,10 @@ public class CmsContentTagHandler extends LinkTagHandler {
 
     private ContentKey _contentKey;
     private String _fullUri;
+    private Boolean _raiseYourHand;
 
     protected UrlBuilder createUrlBuilder() {
-        return new UrlBuilder(_contentKey, _fullUri);
+        return new UrlBuilder(_contentKey, _fullUri, _raiseYourHand);
     }
 
     public String getContentKey() {
@@ -27,5 +27,13 @@ public class CmsContentTagHandler extends LinkTagHandler {
 
     public void setFullUri(String fullUri) {
         _fullUri = fullUri;
+    }
+
+    public Boolean isRaiseYourHand() {
+        return _raiseYourHand;
+    }
+
+    public void setRaiseYourHand(Boolean raiseYourHand) {
+        _raiseYourHand = raiseYourHand;
     }
 }

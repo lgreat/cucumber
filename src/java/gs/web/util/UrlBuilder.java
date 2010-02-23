@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.208 2010/02/22 23:24:58 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.209 2010/02/23 18:44:51 yfan Exp $
  */
 
 package gs.web.util;
@@ -462,20 +462,32 @@ public class UrlBuilder {
         initializeForCmsContent(contentKey, publication.getFullUri());
     }
 
+    public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
+        if (!CmsUtil.isCmsEnabled()) {
+            throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
+        }
+
+        initializeForCmsContent(contentKey, fullUri, raiseYourHand);
+    }
+
     public UrlBuilder(ContentKey contentKey, String fullUri) {
         if (!CmsUtil.isCmsEnabled()) {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri);
+        initializeForCmsContent(contentKey, fullUri, false);
+    }
+
+    private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
+        initializeForCmsContent(contentKey, fullUri, false);
     }
 
     // unfortunately, changes to this also necessitate changes to PublicationDao.getHttpUrlForContentUrl()
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
-    private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
+    private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
         _perlPage = false;
         if (fullUri != null) {
-            _path = CmsUtil.getUri(contentKey, fullUri);
+            _path = CmsUtil.getUri(contentKey, fullUri, raiseYourHand);
             if (!CmsUtil.hasSpecialCaseUrl(contentKey)) {
                 setParameter("content", contentKey.getIdentifier().toString());
             }

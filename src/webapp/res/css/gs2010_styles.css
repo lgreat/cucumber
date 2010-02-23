@@ -1019,10 +1019,6 @@ body.ie6 .clearfix {
     line-height: 2.0;
 }
 
-.ryh-list .see-more-wrapper {
-    float: right;
-}
-
 .ryh-list .see-more {
     position: relative;
     margin-top: 10px;
@@ -1038,6 +1034,10 @@ body.ie6 .clearfix {
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
 }
 
+.ryh-list .no-ryh {
+    padding-top: 10px;
+}
+
 /* ryh content search results */
 
 .srchCatComm li.ryh span.icon {
@@ -1047,6 +1047,48 @@ body.ie6 .clearfix {
     width: 17px;
     height: 19px;
     background: url('/res/img/discussion_boards/db_profile_sprites_bg.png') 0 -559px no-repeat;
+}
+
+/* ryh landing page */
+
+.ryh-landing h1 {
+    padding-top: 15px;
+}
+
+.ryh-landing h4.subhead3 {
+    color: #333;
+}
+
+.ryh-landing .topics {
+    width: 195px;
+    color: #f4891d;
+    line-height: 1.3;
+}
+
+.ryh-landing .topics li {
+    list-style: disc;
+    margin: 0 0 0 15px;
+    padding: 5px 0;
+}
+
+.ryh-landing .list {
+    width: 149px;
+    color: #f4891d;
+    clear: both;
+}
+
+.ryh-landing .list li {
+    list-style:disc outside;
+    margin: 0 0 0 15px;
+    line-height: 2.0;
+}
+
+.ryh-landing h3.introTextGA {
+    color: #d61;
+}
+
+#raise-your-hand #featured-question-hd {
+    padding-bottom: 10px;
 }
 
 /* =4a-5 grade by grade

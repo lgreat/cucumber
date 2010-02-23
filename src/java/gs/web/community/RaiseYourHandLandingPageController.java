@@ -15,6 +15,9 @@ import gs.data.community.IUserDao;
 import gs.data.community.IRaiseYourHandDao;
 import gs.data.cms.IPublicationDao;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * Created by IntelliJ IDEA.
  * User: youngfan
@@ -34,7 +37,8 @@ public class RaiseYourHandLandingPageController extends AbstractController {
     private IRaiseYourHandDao _raiseYourHandDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        Map<String, Object> model = new HashMap<String, Object>();
+        return new ModelAndView(_viewName, model);
     }
 
     public String getViewName() {

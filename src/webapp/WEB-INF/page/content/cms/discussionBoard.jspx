@@ -83,32 +83,38 @@
         <div class="ryh-list">
             <h2>Raise Your Hand: <span class="title">${title}</span></h2>
 
-            <c:set var="seeMoreLink">
-                <div class="see-more-wrapper">
-                    <div class="see-more">
-                        <span class="icon"><!-- icon --></span>
-                        <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
-                            class="alertDoubleArrow">&amp;raquo;</span>
+            <c:choose>
+                <c:when test="${fn:length(requestScope.discussionList) > 0}">
+                    <c:set var="seeMoreLink">
+                        <div class="fltrt">
+                            <div class="see-more">
+                                <span class="icon"><!-- icon --></span>
+                                <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                                    class="alertDoubleArrow">&amp;raquo;</span>
+                            </div>
+                        </div>
+                    </c:set>
+                    ${seeMoreLink}
+                    <ul class="list text2">
+                        <c:forEach var="discussion" items="${requestScope.discussionList}">
+                            <li><link:discussion discussionId="${discussion.id}"
+                                                 fullUri="${discussion.fullUri}"><span
+                                    class="">${discussion.title}</span></link:discussion>
+                                <c:if test="${discussion.active eq false}">
+                                    <span class="tint_c03">(Deleted)</span>
+                                </c:if></li>
+                        </c:forEach>
+                    </ul>
+                    ${seeMoreLink}
+                </c:when>
+                <c:otherwise>
+                    <div class="no-ryh">
+                        <p class="text2">There are no Raise Your Hand questions about ${title}.
+                            <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                                    class="alertDoubleArrow">&amp;raquo;</span></p>
                     </div>
-                </div>
-            </c:set>
-
-            ${seeMoreLink}
-
-            <c:if test="${fn:length(requestScope.discussionList) > 0}">
-                <ul class="list text2">
-                    <c:forEach var="discussion" items="${requestScope.discussionList}">
-                        <li><link:discussion discussionId="${discussion.id}"
-                                             fullUri="${discussion.fullUri}"><span
-                                class="">${discussion.title}</span></link:discussion>
-                            <c:if test="${discussion.active eq false}">
-                                <span class="tint_c03">(Deleted)</span>
-                            </c:if></li>
-                    </c:forEach>
-                </ul>
-            </c:if>
-
-            ${seeMoreLink}
+                </c:otherwise>
+            </c:choose>
         </div>
     </c:when>
     <c:otherwise>

@@ -90,10 +90,16 @@
     </script>
 
     <div id="raise-your-hand" class="mod">
-        <div class="mod_hd">
-            <h3>Raise Your Hand</h3>
-        </div>
+        <c:if test="${style eq 'homePage'}">
+            <div class="mod_hd">
+                <h3>Raise Your Hand</h3>
+            </div>
+        </c:if>
         <div class="mod_bd">
+
+            <c:if test="${style eq 'ryhLandingPage'}">
+                <div id="featured-question-hd" class="smallAlertText">FEATURED QUESTION</div>
+            </c:if>
 
             <div class="ryh-topsection">
                 <div class="ryh-title rnd8 fltlft">
