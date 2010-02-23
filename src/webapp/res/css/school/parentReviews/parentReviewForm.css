@@ -2,7 +2,7 @@
 #rateReview input, #rateReview form,
 #rateReview textarea, #rateReview select{
     font-size:12px;
-    font-family: Trebuchet MS, sans-serif;
+    font-family: Arial, sans-serif;
     color:#666;
 }
 
@@ -18,7 +18,7 @@
 }
 
 #rateReview,#rateIt {
-    font-family:Trebuchet MS,sans-serif;
+    font-family:Arial,sans-serif;
     border:1px solid #DDDDDD;
     padding: 0 0 10px 20px;
     _padding: 0 0 10px 0px;
