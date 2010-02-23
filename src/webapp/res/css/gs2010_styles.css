@@ -535,7 +535,7 @@ body.cobranded #pageGS {
     width: 114px;
     height: 34px;
 }
-#globalnav li#n1 a:hover {
+#globalnav li#n1 a:hover, #globalnav li#n1.active a {
     background-position: 0 -34px;
 }
 #globalnav li#n2 a {
@@ -543,7 +543,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -114px 0;
 }
-#globalnav li#n2 a:hover {
+#globalnav li#n2 a:hover, #globalnav li#n2.active a {
     background-position: -114px -34px;
 }
 #globalnav li#n3 a {
@@ -551,7 +551,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -283px 0;
 }
-#globalnav li#n3 a:hover {
+#globalnav li#n3 a:hover, #globalnav li#n3.active a {
     background-position: -283px -34px;
 }
 #globalnav li#n4 a {
@@ -559,7 +559,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -425px 0;
 }
-#globalnav li#n4 a:hover {
+#globalnav li#n4 a:hover, #globalnav li#n4.active a {
     background-position: -425px -34px;
 }
 #globalnav li#n5 a {
@@ -567,7 +567,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -633px 0;    
 }
-#globalnav li#n5 a:hover {
+#globalnav li#n5 a:hover, #globalnav li#n5.active a {
     background-position: -633px -34px;
 }
 #globalnav li#n6 a {
@@ -575,7 +575,7 @@ body.cobranded #pageGS {
     height: 34px;
     background-position: -808px 0;    
 }
-#globalnav li#n6 a:hover {
+#globalnav li#n6 a:hover, #globalnav li#n6.active a {
     background-position: -808px -34px;
 }
 

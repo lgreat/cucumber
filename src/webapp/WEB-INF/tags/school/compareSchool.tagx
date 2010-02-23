@@ -33,14 +33,13 @@
             <table id="compareForm" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="left">
-                        <input type="radio" id="compareFormDistance" name="type" value="distance" checked="checked"/>
-                        <label for="compareFormDistance">Nearby ${level} schools</label>
+
+                        <label for="compareFormDistance"><input type="radio" id="compareFormDistance" name="type" value="distance" checked="checked"/> Nearby ${level} schools</label>
                         <c:if test="${school.district ne null}">
-                            <input type="radio" id="compareFormDistrict" name="type" value="district"/>
-                            <label for="compareFormDistrict">District ${level} schools</label>
-                        </c:if>
-                        <input type="radio" id="compareFormCity" name="type" value="city" />
-                        <label for="compareFormCity">City ${level} schools</label>
+                            <label for="compareFormDistrict"><input type="radio" id="compareFormDistrict" name="type" value="district"/> District ${level} schools</label>
+                        </c:if>             
+
+                        <label for="compareFormCity"><input type="radio" id="compareFormCity" name="type" value="city" /> City ${level} schools</label>
                     </td>
                 </tr>
             </table>
