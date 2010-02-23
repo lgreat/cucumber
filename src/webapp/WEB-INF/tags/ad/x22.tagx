@@ -21,7 +21,7 @@
                             <ad:Header_728x90 position="${position}"/>
                         </td>
                         <td class="ad">
-                            <ad:Header_212x96 position="${position}"/>
+                            <ad:Header_212x96 />
                         </td>
                     
                     </tr>

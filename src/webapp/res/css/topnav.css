@@ -23,7 +23,7 @@
 }
 
 #topnav #communityHeader {
-    font: 11px Trebuchet MS, Arial, sans-serif;
+    font: 11px Arial, sans-serif;
     color: #666666;
     text-align: right;
     position: relative;
@@ -286,13 +286,13 @@
 #topnav div.search #searchBox input {
     color: #666666;
     padding-left: 3px;
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 12px;
 }
 
 #topnav div.search .stateSelect {
     font-size: 12px;
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     color: #666666;
 }
 
@@ -338,7 +338,7 @@
     display: block;
     text-align: center;
     text-decoration: none;
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 800;
     font-size: 13px;
     height: 30px;
@@ -474,7 +474,7 @@
 /* END subnav spacing */
 
 #topnav_sm .socialMedia {
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 11px;
     color: #444;
     position: relative;
@@ -507,7 +507,7 @@
 /* Intentionally exclude #myAccountMenu because we want it to keep the same font characteristics as other links near it */
 #topnav ul#topnav_menusubnav li a {
     font-size: 12px;
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     color: #3399AA;
     text-decoration: none;
 }

@@ -24,7 +24,7 @@ table.call_params thead .fields td {
 
 td.label{
     color:#666666;
-    font-family:Trebuchet MS,Arial,sans-serif;
+    font-family: Arial,sans-serif;
     font-size:17px;
     padding:0 0 5px 0;
 }
@@ -51,7 +51,7 @@ div#sidebar .current {
 
 div.call,div.callfirst{
     color:#666666;
-    font-family:Trebuchet MS,Arial,sans-serif;
+    font-family: Arial,sans-serif;
     font-size:13px;
     line-height:17px;
 }

@@ -16,7 +16,7 @@
 
 #content #rightSide p {
     margin-top:20px;
-    font: 14px/16px Trebuchet MS, Arial, sans-serif;
+    font: 14px/16px Arial, sans-serif;
     color: #777777;
 }
 
@@ -42,7 +42,7 @@
 #links li a {
     color: #3399aa;
     text-decoration: underline;
-    font-family:Trebuchet MS,Arial,sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 /* Award panel */
@@ -60,7 +60,7 @@
 
 #awardPanel p.centeredText {
     text-align:center;
-    font: 13px/15px Trebuchet MS, Arial, sans-serif;
+    font: 13px/15px Arial, sans-serif;
     color: #777777;
 }
 

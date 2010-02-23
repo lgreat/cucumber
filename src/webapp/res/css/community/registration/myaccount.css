@@ -8,7 +8,7 @@
 
 	
 p {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font: 13px/16px Arial, Verdana, sans-serif;
 	color: #777777;
 	margin: 0 0 0 3px;
 	padding: 0;
@@ -30,7 +30,7 @@ a {
 #content h2 {
     font-size: large;
     font-weight: bold;
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    font-family: Arial, Verdana, sans-serif;
     color: #99CC66;
     position: relative;
     top: -7px;
@@ -105,7 +105,7 @@ h1 span {
     position: relative;
     top: -25px;
     margin-bottom: 5px;
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    font-family: Arial, Verdana, sans-serif;
     color: #777777;
 }
 
@@ -130,7 +130,7 @@ h1 span {
 	text-decoration: underline;
 	font-size: 13px;
 	line-height: 16px;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	width: 200px;
 	float: left;
 	padding: 0 0 0 9px;
@@ -150,7 +150,7 @@ h1 span {
 #emailAddress h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */
@@ -177,7 +177,7 @@ h1 span {
 #newsletters h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */
@@ -204,7 +204,7 @@ h1 span {
 #myaccount_info #password h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */
@@ -231,7 +231,7 @@ h1 span {
 #mySavedSchools h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */
@@ -258,7 +258,7 @@ h1 span {
 #emailPreferences h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */
@@ -285,7 +285,7 @@ h1 span {
 #photo h3 {
 	font-size: 15px;
 	font-weight: bold;
-	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	color: #55bbcc;
 	background: #e4f2f2;
 	width: 222px; /* 237 true width minus padding */

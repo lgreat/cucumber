@@ -10,7 +10,7 @@
 	background: #6bcacc;
 	color: #fff;
 	padding: 8px 8px 8px 8px;
-	font: bold 15px/16px Trebuchet MS, sans-serif;
+	font: bold 15px/16px Arial, sans-serif;;
 }
 
 #map {
@@ -21,7 +21,7 @@
 }
 
 #nearbySchools .head_top {
-	font: 10px/11px Trebuchet MS, sans-serif;
+	font: 10px/11px Arial, sans-serif;;
 	color: #888;
 	margin: 14px 0 0 0;
 	float: left;
@@ -29,7 +29,7 @@
 }
 
 #nearbySchools .head_rating {
-	font: 10px/11px Trebuchet MS, sans-serif;
+	font: 10px/11px Arial, sans-serif;;
 	color: #888;
 	margin: 8px 0 3px 200px;
 	text-align: center;
@@ -52,7 +52,7 @@
 	list-style: none;
 	margin: 0;
 	padding: 5px 60px 5px 0;
-	font: 11px/11px Trebuchet MS, sans-serif;
+	font: 11px/11px Arial, sans-serif;;
 	color: #666;
 	border-top: 1px solid #ccc;
     position:relative;
@@ -69,8 +69,8 @@
 }
 
 #nearbySchools a {
-	font: bold 13px/14px Trebuchet MS, sans-serif;
-	_font: bold 13px/15px Trebuchet MS, sans-serif; /* IE 6 hack */
+	font: bold 13px/14px Arial, sans-serif;;
+	_font: bold 13px/15px Arial, sans-serif;; /* IE 6 hack */
 	color: #39a;
 	text-decoration: none;
 }

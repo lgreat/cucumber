@@ -15,7 +15,7 @@
 }
 
 #toc ul li {
-    font: bold 13px Trebuchet MS, Arial, sans-serif;
+    font: bold 13px Arial, sans-serif;
     padding: 0px 12px 4px 16px;
     margin-bottom: 1px;
     list-style: none;
@@ -49,7 +49,7 @@
 }
 
 #toc h2 {
-   font: bold 13px Trebuchet MS, Arial, sans-serif;
+   font: bold 13px Arial, sans-serif;
    color:#999999;
    padding: 0 0 0 42px;
    margin-top: 12px;

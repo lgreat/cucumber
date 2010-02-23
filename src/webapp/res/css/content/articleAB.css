@@ -14,7 +14,7 @@ div#more-about-alt li,
 div#more-about-alt a:link,
 div#more-about-alt a:visited{
     text-decoration: none;
-    font-family: Trebuchet MS,Helvetica,sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
 }
 div#more-about-alt a:hover{

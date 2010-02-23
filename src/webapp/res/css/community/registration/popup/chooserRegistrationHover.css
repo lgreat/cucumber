@@ -136,7 +136,7 @@ div#topTextDivId ul li{
 }
 
 #chooserRegistration #schoolChoiceLocation h2 {
-    font-family: Trebuchet MS;
+    font-family: Arial, sans-serif;
     font-size: 14px;
     color:#666666;
     font-weight:normal;
@@ -269,6 +269,6 @@ div#topTextDivId ul li{
 #closeWindowDiv a.closeWindowClass, #closeWindowDiv a.closeWindowClass:active, #closeWindowDiv a.closeWindowClass:hover, #closeWindowDiv a.closeWindowClass:visited {
     text-decoration:none;
     font-size:12px;
-    font-family: Trebuchet MS;
+    font-family: Arial, sans-serif;
     color:#666666;
 }

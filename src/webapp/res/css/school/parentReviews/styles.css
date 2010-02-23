@@ -10,7 +10,7 @@ Parent Review Page
 	width: 864px;
 	float: left;
 	margin: 5px 0 0 0;
-	font-family: Trebuchet MS, sans-serif;
+	font-family: Arial, sans-serif;;
 	color: #666;
 }
 
@@ -115,7 +115,7 @@ Parent Review Page
     #parentReview #rateReview ul li,
     input, form, textarea, select{
     font-size:12px;
-    font-family: Trebuchet MS, sans-serif;
+    font-family: Arial, sans-serif;;
     color:#666;
 }
 #parentReview ul#frmErrors li {

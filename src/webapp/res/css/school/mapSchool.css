@@ -54,7 +54,7 @@ Large Google Map
 #nearbySchools a {
 	color: #39a;
 	font-weight: bold;
-	font-family: Trebuchet MS, sans-serif;
+	font-family: Arial, sans-serif;;
 	text-decoration: none;
 }
 
@@ -67,7 +67,7 @@ Large Google Map
 	color: #fff;
 	padding: 0;
 	margin: 0;
-	font: bold 15px/16px Trebuchet MS, sans-serif;
+	font: bold 15px/16px Arial, sans-serif;;
 }
 
 #nearbySchools .save {
@@ -79,7 +79,7 @@ Large Google Map
 }
 
 #nearbySchools .head_nearby {
-	font: 10px/11px Trebuchet MS, sans-serif;
+	font: 10px/11px Arial, sans-serif;;
 	margin: 10px 0 8px 2px;
 	text-transform: uppercase;
 }
@@ -93,7 +93,7 @@ Large Google Map
 	list-style: none;
 	margin: 0;
 	padding: 5px 10px 5px 0;
-	font: 11px/13px Trebuchet MS, sans-serif;
+	font: 11px/13px Arial, sans-serif;;
 	border-top: 1px solid #ccc;
 }
 
@@ -124,7 +124,7 @@ ul#extraLinks {
 
 ul#extraLinks li {
     text-align: right;
-    font: 11px/13px Trebuchet MS, sans-serif;
+    font: 11px/13px Arial, sans-serif;;
     list-style: none;
     margin: 0;
     width: 170px;
@@ -152,14 +152,14 @@ ul#extraLinks li#nearMore a {
 
 #learnMore h2 {
     color: #888;
-    font: 13px/18px Trebuchet MS, sans-serif;
+    font: 13px/18px Arial, sans-serif;;
     text-transform: uppercase;
     margin-bottom: 10px;
 }
 
 #learnMore li {
     background: url(/res/img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
-    font: 12px/15px Trebuchet MS, sans-serif;
+    font: 12px/15px Arial, sans-serif;;
     padding-left: 10px;
     margin: 0 0 10px 0;
 }
@@ -178,7 +178,7 @@ ul#extraLinks li#nearMore a {
 }
 
 #map div.schoolInfoWindow div.schoolName {
-    font: bold 14px/17px Trebuchet MS, sans-serif;
+    font: bold 14px/17px Arial, sans-serif;;
     margin-bottom: 4px;
 }
 
@@ -196,7 +196,7 @@ ul#extraLinks li#nearMore a {
 }
 
 #map div.schoolInfoWindow address, #map div.schoolInfoWindow p, #map div.schoolInfoWindow a {
-    font: 12px/15px Trebuchet MS, sans-serif;
+    font: 12px/15px Arial, sans-serif;;
 }
 
 #map div.schoolInfoWindow a {

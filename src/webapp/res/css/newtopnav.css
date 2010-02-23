@@ -9,7 +9,7 @@
 
 /* User info block */
 #communityHeader {
-    font: 11px Trebuchet MS, Arial, sans-serif;
+    font: 11px Arial, sans-serif;
     color: #666666;
     text-align: right;
     position: absolute;
@@ -100,7 +100,7 @@
 #mainSearch #q, #mainSearch #stateSelector {
     color: #666666;
     padding-left: 3px;
-    font-family: Trebuchet MS, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 12px;
 }
 

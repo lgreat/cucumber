@@ -55,7 +55,7 @@
 /*********************************/
 
 .resultBox {
-    font: 13px Trebuchet MS, Arial, sans-serif;
+    font: 13px Arial, sans-serif;
     color: #666666;
     border: 1px solid #cccccc;
     position:relative;
@@ -78,7 +78,7 @@
 }
 
 table.complexResults {
-    font: 13px Trebuchet MS, Arial, sans-serif;
+    font: 13px Arial, sans-serif;
     color: #666666;
     border:1px solid #cccccc;
     margin:0 0 15px 0;
@@ -128,7 +128,7 @@ table.complexResults td.value {
     padding-left:40px;
 }
 .resultScale .answer-bar .label-left, .resultScale .answer-bar .label-right {
-    font: 13px Trebuchet MS, Arial, sans-serif;
+    font: 13px Arial, sans-serif;
     color: #666666;
     width:120px;
 }
@@ -175,7 +175,7 @@ div.resultSchool {
 }
 
 .resultSchool p {
-    font: 15px Trebuchet MS, Arial, sans-serif;
+    font: 15px Arial, sans-serif;
     color:#666666;
 }
 .resultSchool ul {
@@ -183,7 +183,7 @@ div.resultSchool {
 }
 
 .resultSchool ul li {
-    font: 13px Trebuchet MS, Arial, sans-serif;
+    font: 13px Arial, sans-serif;
     color:#666666;
 }
 #contentGS .resultSchool ul li a,
@@ -191,7 +191,7 @@ div.resultSchool {
 #contentGS .resultSchool ul li a:visited,
 #contentGS .resultSchool ul li a:hover
 {
-    font: 13px Trebuchet MS, Arial, sans-serif;
+    font: 13px Arial, sans-serif;
     color: #3399AA;
 }
 

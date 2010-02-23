@@ -2,7 +2,7 @@
         width: 356px;
         margin: 0 0 6px 0;
         float: left;
-    font-family: Trebuchet MS, sans-serif;
+    font-family: Arial, sans-serif;;
 }
 
 #rateReview_module {
@@ -21,7 +21,7 @@
 }
 
 #ratingTitle {
-        font: bold 19px/34px Trebuchet MS;
+        font: bold 19px/34px Arial, sans-serif;
         color: #5bc;
         margin: 0;
 }
@@ -34,7 +34,7 @@
 }
 
 #rateReview textarea {
-        font: 12px/15px Trebuchet MS;
+        font: 12px/15px Arial, sans-serif;
         color: #666;
         padding: 4px 0 5px 7px;
         height: 60px;
@@ -76,7 +76,7 @@
         font-size: 12px;
         color: #666;
         margin: 1px 0 10px 6px;
-    font-family: Trebuchet MS, sans-serif;
+    font-family: Arial, sans-serif;;
     _margin: 3px 0 10px 3px; /* IE 6 hack */
     _height: 15px; /* IE 6 hack */
     _float: left; /* IE 6 hack */
@@ -84,7 +84,7 @@
 
 #rateReview .emailAddress {
         margin: 10px 0 0 0;
-        font: 12px/15px Trebuchet MS;
+        font: 12px/15px Arial, sans-serif;
         color: #666;
         padding: 1px;
         padding-left: 4px;
