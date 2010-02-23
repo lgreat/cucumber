@@ -3,6 +3,7 @@
 	width: 164px;
 	float: left;
 	margin-left: 10px;
+    display: inline;
 }
 #librarySidebar.white {
     margin-left: 20px;

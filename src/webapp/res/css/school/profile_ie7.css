@@ -38,7 +38,7 @@ Internet Explorer 7 specific styles
 }
 
 #navigation {
-	margin: 15px 0 0 0;
+	margin: 15px auto 0;
 }
 
 #navigation td a {
@@ -47,7 +47,7 @@ Internet Explorer 7 specific styles
 }
 
 .overview #navigation {
-	margin: 19px 0 0 0;
+	margin: 19px auto 0 ;
 }
 
 #subnav {

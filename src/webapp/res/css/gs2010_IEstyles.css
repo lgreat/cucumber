@@ -64,6 +64,9 @@
 body.ie7 #mainWrap {
     height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
 }
+*+html #mainWrap {
+    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+}
 }
 body.ie7 #utilLinks li .nav_group_items  {
     top: 22px;

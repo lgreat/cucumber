@@ -200,6 +200,7 @@ html[xmlns] .clearfix {
 	float: left;
 	margin: 2px 0 0 10px;
 	width: 761px;
+    display: inline;
 }
 
 #pageWrapper #main h1 {
@@ -261,6 +262,7 @@ html[xmlns] .clearfix {
 	float: left;
 	width: 300px;
 	margin: 0 0 0 9px;
+    display: inline;
 }
 
 #supplement h3 {

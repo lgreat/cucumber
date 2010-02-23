@@ -9,6 +9,7 @@
     width: 300px;
     float: right;
     margin: 10px 20px 0 0;
+    display: inline;
 }
 
 #resultsheader {

@@ -1733,11 +1733,11 @@ ul.srchSuggest li span {
 =8 footer
 -------------------------------------------------------------------------------------------
 */
-h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks {
+h1.sfooter, h1#sfooter, .sfooter, div#testScoreLandingLinks {
     margin-left: 43px;
 }
 
-h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
+h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
     color: #888888;
     font-size: 12px;
     font-weight: normal;
