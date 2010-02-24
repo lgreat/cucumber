@@ -202,7 +202,7 @@
 <body>
 
 <div id="container">
-<div id="mainContent" class="fltlft">
+<div id="mainGS" class="col">
 
 <p class="breadCrumbs smallAlertText">
     <link:home styleClass="link">Home</link:home>
