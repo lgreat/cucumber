@@ -127,6 +127,15 @@ body.ie6 {
 *html body.cobranded {
     background-image: none;
 }
+body.ie6 #contentGS, body.ie6 #mainWrap, body.ie6 .mod, body.ie6 .mod_bd {
+    zoom:1;
+}
+*html #contentGS, *html #mainWrap, *html .mod, *html .mod_bd {
+    zoom:1;
+}
+body.ie6 #grade-by-grade {
+    height: 297px;
+}
 body.ie6 #utilLinks .nav_menu a.nav_group_heading,
 body.ie6 #topnav_search fieldset,
 body.ie6 #topnav_search ul #srch1,
