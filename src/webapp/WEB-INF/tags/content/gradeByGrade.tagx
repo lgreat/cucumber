@@ -20,10 +20,11 @@
             var initHandleAdjustment = initHandleOffset.left;
             var initOffset = initTab.offset();
             var initOffsetX = Math.round(initOffset.left);
-            var initOffsetY = theHandle.offset();
+            //var initOffsetY = theHandle.offset();
             var initOuterWidth = initTab.outerWidth(true);
             var initHandleWidth = theHandle.outerWidth(true);
             var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2) - initHandleAdjustment;
+
             var tabsPosition = jQuery('#gbgTabs').position().left;
 
             var tabp = jQuery('.gbg-tab-p');
@@ -38,49 +39,78 @@
 
             var tabpPosition = Math.round(tabp.position().left);
             var tabpWidth = Math.round(tabp.outerWidth(true));
+            var posp = tabsPosition + tabpPosition;
             var tabpMarkerPosition = tabsPosition + tabpPosition + (tabpWidth / 2);
-//            console.log('tabpMarkerPosition: '+tabpMarkerPosition);
+            //console.log('posp: '+posp);
+            //console.log('tabpMarkerPosition: '+tabpMarkerPosition);
             jQuery('#gbg-marker-p').attr('style', 'left:' + tabpMarkerPosition + 'px;');
 
             var tabkPosition = Math.round(tabk.position().left);
             var tabkWidth = Math.round(tabk.outerWidth(true));
+            var pospk = tabsPosition + tabkPosition - (initHandleWidth / 2);
             var tabkMarkerPosition = tabsPosition + tabkPosition + (tabkWidth / 2);
+            //console.log('pospk: '+pospk);
+            //console.log('tabkMarkerPosition: '+tabkMarkerPosition);
             jQuery('#gbg-marker-k').attr('style', 'left:' + tabkMarkerPosition + 'px;');
 
             var tab1Position = Math.round(tab1.position().left);
             var tab1Width = Math.round(tab1.outerWidth(true));
+            var posk1 = tabsPosition + tab1Position - (initHandleWidth / 2);
             var tab1MarkerPosition = tabsPosition + tab1Position + (tab1Width / 2);
+            //console.log('posk1: '+posk1);
+            //console.log('tab1MarkerPosition: '+tab1MarkerPosition);
             jQuery('#gbg-marker-1').attr('style', 'left:' + tab1MarkerPosition + 'px;');
 
             var tab2Position = Math.round(tab2.position().left);
             var tab2Width = Math.round(tab2.outerWidth(true));
+            var pos12 = tabsPosition + tab2Position - (initHandleWidth / 2);
             var tab2MarkerPosition = tabsPosition + tab2Position + (tab2Width / 2);
+            //console.log('pos12: '+pos12);
+            //console.log('tab2MarkerPosition: '+tab2MarkerPosition);
             jQuery('#gbg-marker-2').attr('style', 'left:' + tab2MarkerPosition + 'px;');
 
             var tab3Position = Math.round(tab3.position().left);
             var tab3Width = Math.round(tab3.outerWidth(true));
+            var pos23 = tabsPosition + tab3Position - (initHandleWidth / 2);
             var tab3MarkerPosition = tabsPosition + tab3Position + (tab3Width / 2);
+            //console.log('pos23: '+pos23);
+            //console.log('tab3MarkerPosition: '+tab3MarkerPosition);
             jQuery('#gbg-marker-3').attr('style', 'left:' + tab3MarkerPosition + 'px;');
 
             var tab4Position = Math.round(tab4.position().left);
             var tab4Width = Math.round(tab4.outerWidth(true));
+            var pos34 = tabsPosition + tab4Position - (initHandleWidth / 2);
             var tab4MarkerPosition = tabsPosition + tab4Position + (tab4Width / 2);
+            //console.log('pos34: '+pos34);
+            //console.log('tab4MarkerPosition: '+tab4MarkerPosition);
             jQuery('#gbg-marker-4').attr('style', 'left:' + tab4MarkerPosition + 'px;');
 
             var tab5Position = Math.round(tab5.position().left);
             var tab5Width = Math.round(tab5.outerWidth(true));
+            var pos45 = tabsPosition + tab5Position - (initHandleWidth / 2);
             var tab5MarkerPosition = tabsPosition + tab5Position + (tab5Width / 2);
+            //console.log('pos45: '+pos45);
+            //console.log('tab5MarkerPosition: '+tab5MarkerPosition);
             jQuery('#gbg-marker-5').attr('style', 'left:' + tab5MarkerPosition + 'px;');
 
             var tabmPosition = Math.round(tabm.position().left);
             var tabmWidth = Math.round(tabm.outerWidth(true));
+            var pos5m = tabsPosition + tabmPosition - (initHandleWidth / 2);
             var tabmMarkerPosition = tabsPosition + tabmPosition + (tabmWidth / 2);
+            //console.log('pos5m: '+pos5m);
+            //console.log('tabmMarkerPosition: '+tabmMarkerPosition);
             jQuery('#gbg-marker-m').attr('style', 'left:' + tabmMarkerPosition + 'px;');
 
             var tabhPosition = Math.round(tabh.position().left);
             var tabhWidth = Math.round(tabh.outerWidth(true));
+            var posmh = tabsPosition + tabhPosition - (initHandleWidth / 2);
             var tabhMarkerPosition = tabsPosition + tabhPosition + (tabhWidth / 2);
+            //console.log('posmh: '+posmh);
+            //console.log('tabhMarkerPosition: '+tabhMarkerPosition);
             jQuery('#gbg-marker-h').attr('style', 'left:' + tabhMarkerPosition + 'px;');
+
+            var posh = tabsPosition + tabhPosition + tabhWidth - initHandleWidth;
+            //console.log('posh: '+posh);
 
             theHandle.attr('style', 'left:' + initHandlePosition + 'px;');
             theHandle.show();
@@ -88,15 +118,16 @@
             jQuery('#gbgTabs ul li').click(function() {
                 var mySlider = jQuery('#gbgSlider');
                 var myTab = jQuery(this);
-                var myLevel = myTab.attr('class').substring(8);
+                var myLevel = myTab.attr('class').substring(8,9);
+                //console.log('myLevel: '+myLevel);
                 var myHandle = jQuery('#gbgHandle');
                 var myHandleOffset = mySlider.offset();
                 var myHandleAdjustment = myHandleOffset.left;
-                //                console.log('myHandleAdjustment ='+myHandleAdjustment);
+                //console.log('myHandleAdjustment ='+myHandleAdjustment);
                 var offset = myTab.offset();
                 var offsetX = Math.round(offset.left);
-                var offsetY = myHandle.offset();
-                //                console.log('myHandle.left ='+offsetY.left);
+                //var offsetY = myHandle.offset();
+                //console.log('myHandle.left ='+offsetY.left);
                 var outerWidth = myTab.outerWidth(true);
                 var handleWidth = myHandle.outerWidth(true);
                 var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2) - myHandleAdjustment;
@@ -112,14 +143,66 @@
             var maxpos = 556;
             var newpos = null;
 
+            var setHandlePosition = function() {
+                //console.log('newpos: '+newpos);
+                switch (newpos &gt;= posp &amp;&amp; newpos &lt;= posh)
+                //switch (true)
+                        {
+                    case (newpos &gt;= minpos &amp;&amp; newpos &lt; pospk):
+                        newpos = tabpMarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = 'p';
+                        break;
+                    case (newpos &gt;= pospk &amp;&amp; newpos &lt; posk1):
+                        newpos = tabkMarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = 'k';
+                        break;
+                    case (newpos &gt;= posk1 &amp;&amp; newpos &lt; pos12):
+                        newpos = tab1MarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = '1';
+                        break;
+                    case (newpos &gt;= pos12 &amp;&amp; newpos &lt; pos23):
+                        newpos = tab2MarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = '2';
+                        break;
+                    case (newpos &gt;= pos23 &amp;&amp; newpos &lt; pos34):
+                        newpos = tab3MarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = '3';
+                        break;
+                    case (newpos &gt;= pos34 &amp;&amp; newpos &lt; pos45):
+                        newpos = tab4MarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = '4';
+                        break;
+                    case (newpos &gt;= pos45 &amp;&amp; newpos &lt; pos5m):
+                        newpos = tab5MarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = '5';
+                        break;
+                    case (newpos &gt;= pos5m &amp;&amp; newpos &lt; posmh):
+                        newpos = tabmMarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = 'm';
+                        break;
+                    case (newpos &gt;= posmh &amp;&amp; newpos &lt;= maxpos):
+                        newpos = tabhMarkerPosition - (initHandleWidth / 2);
+                        selectedLevel = 'h';
+                        break;
+                    default:
+                        alert("A valid position was not set.");
+                }
+                theHandle.stop().animate({ 'left': newpos }, 200);
+                jQuery('#gbgTabs ul li').removeClass('selected');
+                jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
+                jQuery('#gbgContent div').hide();
+                jQuery('#gbg-content-' + selectedLevel).show();
+                return false;
+            };
 
             var mousemoveFunction = function(e) {
-//                console.log('mouse move');
+                //console.log('mouse move');
                 //var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
                 //var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
                 //console.log(pageCoords);
                 //console.log(clientCoords);
                 newpos = e.pageX - (initHandleWidth / 2) - initHandleAdjustment;
+                //console.log('newpos: '+newpos);
 
                 if (newpos &lt; minpos) {
                     newpos = minpos;
@@ -127,22 +210,28 @@
                 if (newpos &gt; maxpos) {
                     newpos = maxpos;
                 }
-                //                console.log(newpos);
+                //console.log('newpos: '+newpos);
                 theHandle.stop().css('left', newpos + 'px');
             };
 
-            theHandle.mousedown(function() {
-//                console.log('mouse down');
-                jQuery('html').bind("mousemove", mousemoveFunction);
+            var handleMousing = false;
 
+            theHandle.mousedown(function() {
+                handleMousing = true;
+                if (handleMousing) {
+                    //console.log('mouse down');
+                    jQuery('html').bind("mousemove", mousemoveFunction);
+                }
             });
 
             jQuery('html').mouseup(function() {
-//                console.log('mouse up');
-                jQuery('html').unbind("mousemove", mousemoveFunction);
+                if (handleMousing) {
+                    //console.log('mouse up');
+                    jQuery('html').unbind("mousemove", mousemoveFunction);
+                    setHandlePosition();
+                }
+                handleMousing = false;
             });
-
-
 
         });
     </script>

@@ -140,6 +140,8 @@
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
 <pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
+<!--<pageHelper:externalJavascript file="/res/js/jquery/ui/minified/ui.core.min.js"/>-->
+<!--<pageHelper:externalJavascript file="/res/js/jquery/ui/minified/ui.draggable.min.js"/>-->
 <pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
