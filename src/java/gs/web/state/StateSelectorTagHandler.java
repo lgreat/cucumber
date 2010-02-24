@@ -4,7 +4,6 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.SpringUtil;
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -40,6 +39,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private int _size = 0;
     private Set _stateSet;
     private int _tabIndex = -1;
+    private String _style;
 
     private static final StateManager _stateManager;
 
@@ -120,6 +120,10 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         }
     }
 
+    public void setStyle(String style) {
+        _style = style;
+    }
+
     /**
      * This option allows you to set an onChange handler on the state dropdown
      *
@@ -172,6 +176,9 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         out.print("\" name=\"" + _name + "\"");
         if (_styleClass != null) {
             out.print(" class=\"" + _styleClass + "\"");
+        }
+        if (_style != null) {
+            out.print(" style=\"" + _style + "\"");
         }
         if (_onChange != null) {
             out.print(" onchange=\"" + _onChange + "\"");

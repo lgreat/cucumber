@@ -258,6 +258,12 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>style</name>
+            <description>CSS style to assign to the select.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>state</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
