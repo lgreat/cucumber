@@ -72,6 +72,13 @@
 
         //-->
         ]]>
+
+        jQuery(function() {
+            if (document.getElementById('pageGS') != null) {
+                jQuery('#schoolInterruptRegistrationHoverDialog').appendTo('#pageGS');
+            }
+            autoMssHover.init();
+        });
     </script>
 
     <div id="schoolInterruptRegistrationHoverDialog" class="joinDialog" style="display: none;">
@@ -101,15 +108,6 @@
             </tr>
         </table>
     </div>
-
-    <script type="text/javascript">
-        <![CDATA[
-        //<!--
-        //loginInterruptHoverInit();
-        autoMssHover.init();
-        //-->
-        ]]>
-    </script>
 
     <!--
      Login hover is now ready for use on your page
