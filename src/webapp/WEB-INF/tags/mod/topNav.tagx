@@ -92,6 +92,7 @@
                 <c:set var="searchBoxValue" value="Search by keyword"/>
                 <c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>
                 <c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>
+                <c:set var="searchStateStyle" value="display:none;"/>
             </c:when>
             <c:otherwise>
                 <!-- Following variable is also hard-coded into global.js -->
@@ -99,7 +100,7 @@
                 <c:set var="searchRadioSchoolChecked" value="true"/>
                 <!-- shorten text box and show state drop down -->
                 <c:set var="searchBoxStyle" value="width:190px;"/>
-                <c:set var="searchStateStyle" value="display:block;"/>
+                <c:set var="searchStateStyle" value="display:inline;"/>
             </c:otherwise>
         </c:choose>
         <!-- text in following script also hard-coded into global.js -->
@@ -130,7 +131,9 @@
                     <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                          noStateLabel="--"
                                          usingLongNames="false"
-                                         state="${requestScope.context.state}" styleClass="stateSelect"/>
+                                         state="${requestScope.context.state}"
+                                         styleClass="stateSelect"
+                                         style="${searchStateStyle}" />
                     <button type="submit" class="btn25">
                         <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
                     </button>
