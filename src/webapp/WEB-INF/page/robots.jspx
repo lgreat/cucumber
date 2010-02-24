@@ -59,6 +59,7 @@ Disallow: /community/mailToFriend.page
 Disallow: /community/newsletters/popup
 Disallow: /community/registration
 Disallow: /community/resetPassword.page
+Disallow: /members/*
 Disallow: /data/
 Disallow: /email/management.page
 Disallow: /icons/
