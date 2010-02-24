@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.209 2010/02/23 18:44:51 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.210 2010/02/24 22:45:01 yfan Exp $
  */
 
 package gs.web.util;
@@ -294,6 +294,7 @@ public class UrlBuilder {
      */
     public static final VPage COMMUNITY_DISCUSSION = new VPage("vpage:communityDiscussion");
     public static final VPage RAISE_YOUR_HAND_LANDING = new VPage("vpage:raiseYourHandLanding");
+    public static final VPage RAISE_YOUR_HAND_FEATURED_QUESTIONS = new VPage("vpage:raiseYourHandFeaturedQuestions");
 
     /**
      * For converting from constant names to the corresponding VPage constants
@@ -747,6 +748,8 @@ public class UrlBuilder {
             _path = "/community/";
         } else if (RAISE_YOUR_HAND_LANDING.equals(page)) {
             _path = "/community/questions/";
+        } else if (RAISE_YOUR_HAND_FEATURED_QUESTIONS.equals(page)) {
+            _path = "/featured/questions/";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

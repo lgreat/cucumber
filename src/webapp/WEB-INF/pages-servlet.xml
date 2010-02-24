@@ -50,6 +50,7 @@
                    <entry key="/members/**" value="/community/userProfile.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
+                   <entry key="/featured/questions/" value="/community/raiseYourHandList.page"/>
                    <entry key="/**/questions.gs" value="/community/raiseYourHandList.page"/>
                </map>
            </property>

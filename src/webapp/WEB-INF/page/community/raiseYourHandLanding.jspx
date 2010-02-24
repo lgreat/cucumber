@@ -45,9 +45,7 @@
 
         <div>
             <ul class="col topics text2_180">
-                <!-- TODO-9419 special case RYH list page for Featured Questions --> 
-                <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
-                                                       fullUri="/preschool" raiseYourHand="true">Featured questions</link:cmsContent></li>
+                <li class="topicItem"><link:raiseYourHandFeaturedQuestions>Featured questions</link:raiseYourHandFeaturedQuestions></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
                                                        fullUri="/preschool" raiseYourHand="true">Preschool</link:cmsContent></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
@@ -84,42 +82,12 @@
 
         </div>
 
-        <div>
-            <div class="col">
-                <div>
-                    <h3 class="introTextGA">Featured Questions</h3>
-                    <ul class="list text2">
-                        <li><link:discussion discussionId="${discussion.id}"
-                                             fullUri="${discussion.fullUri}"><span
-                                class="">asdfasdfasdf sadfdsafsa</span></link:discussion></li>
-                    </ul>
-                    <div class="fltrt">
-                    <span class="smallAlertText">
-                    <link:discussion discussionId="${discussion.id}"
-                                     fullUri="${discussion.discussionBoard.fullUri}">See all <span
-                            class="alertDoubleArrow">&amp;raquo;</span>
-                    </link:discussion>
-                    </span>
-                    </div>
-                </div>
+        <div class="ryh-recent">
+            <div class="col first">
+                <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol1}" discussionLists="${discussionListsCol1}"/>
             </div>
             <div class="col">
-                <div>
-                    <h3 class="introTextGA">Featured Questions</h3>
-                    <ul class="list text2">
-                        <li><link:discussion discussionId="${discussion.id}"
-                                             fullUri="${discussion.fullUri}"><span
-                                class="">asdfasdfasdf sadfdsafsa</span></link:discussion></li>
-                    </ul>
-                    <div class="fltrt">
-                    <span class="smallAlertText">
-                    <link:discussion discussionId="${discussion.id}"
-                                     fullUri="${discussion.discussionBoard.fullUri}">See all <span
-                            class="alertDoubleArrow">&amp;raquo;</span>
-                    </link:discussion>
-                    </span>
-                    </div>
-                </div>
+                <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol2}" discussionLists="${discussionListsCol2}"/>
             </div>
         </div>
 

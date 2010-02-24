@@ -3133,6 +3133,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>raiseYourHandFeaturedQuestions</name>
+        <tag-class>gs.web.jsp.link.RaiseYourHandFeaturedQuestionsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>raiseYourHandFeaturedQuestions</display-name>
+        <description>
+            <![CDATA[Link to our raise your hand featured questions list page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>pressRoom</name>
         <tag-class>gs.web.jsp.link.PressRoomTagHandler</tag-class>
         <body-content>JSP</body-content>

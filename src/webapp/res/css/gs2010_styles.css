@@ -1087,6 +1087,22 @@ body.ie6 .clearfix {
     color: #d61;
 }
 
+.ryh-landing .ryh-recent .col {
+    width: 289px;
+}
+
+.ryh-landing .ryh-recent .col.first {
+    margin-right: 20px;
+}
+
+.ryh-landing .ryh-recent .list {
+    width: 289px;
+}
+
+.ryh-landing .ryh-recent .topic {
+    padding-bottom: 20px;
+}
+
 #raise-your-hand #featured-question-hd {
     padding-bottom: 10px;
 }
