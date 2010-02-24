@@ -13,7 +13,6 @@ District Overview
 
 #districtOverview {
 	width: 864px;
-	float: left;
 	margin: 1px auto 30px; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
 
