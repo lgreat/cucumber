@@ -220,14 +220,14 @@
                 handleMousing = true;
                 if (handleMousing) {
                     //console.log('mouse down');
-                    jQuery('html').bind("mousemove", mousemoveFunction);
+                    jQuery('html').bind('mousemove', mousemoveFunction);
                 }
             });
 
             jQuery('html').mouseup(function() {
                 if (handleMousing) {
                     //console.log('mouse up');
-                    jQuery('html').unbind("mousemove", mousemoveFunction);
+                    jQuery('html').unbind('mousemove', mousemoveFunction);
                     setHandlePosition();
                 }
                 handleMousing = false;

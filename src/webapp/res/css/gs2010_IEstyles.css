@@ -233,3 +233,55 @@ body.ie6 .ryh-answer{
     padding-left:0;
     margin-left:328px;
 }
+
+/* =4a-5 grade by grade
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 #gbgTabs {
+    position: absolute;
+    top: 125px;
+    left: 5px;
+    float: left;
+    z-index: 50;
+    background: none;
+    line-height: normal;
+}
+
+#gbgTabs ul {
+    white-space: nowrap;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    list-style: none;
+}
+
+body.ie6 #gbgTabs li {
+    float: left;
+    display: inline-block;
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -35px;
+    margin: 0 0 0 5px;
+    padding: 0;
+}
+
+body.ie6 #gbgTabs a {
+    display: inline-block;
+    font: 10px Arial, Helvetica, sans-serif;
+    color: #333;
+    text-decoration: none;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -35px;
+    margin: 0 0 0 -5px;
+    padding: 5px 15px;
+    outline: none;
+}
+
+body.ie6 #gbgTabs .selected {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
+    margin-top: -5px;
+}
+
+body.ie6 #gbgTabs .selected a {
+    text-decoration: none;
+    color: black;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
+    padding: 5px 15px 10px 15px;
+}
