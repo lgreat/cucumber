@@ -60,10 +60,10 @@
             <div id="outreachManager">
                 <img src="/res/img/geo/landing/newark_stock_photo.JPG" width="175"/>
             </div>
-            <ul>
+            <ul>         
                 <li>Newark parents, here are some great resources to help you choose a school:</li>
-                <gsweb:articlelink articleId="96" wrappingElement="li"/>
-                <gsweb:articlelink articleId="48" wrappingElement="li"/>
+                <link:cmsContent contentKey="Article#33" fullUri="find-a-school/defining-your-ideal/choosing-a-school">Choosing a school: An overview</link:cmsContent>
+                <link:cmsContent contentKey="Article#24" fullUri="find-a-school/defining-your-ideal/choosing-a-school">The school visit: What to look for, what to ask</link:cmsContent>
                 <li>
                     <link:schoolChoiceCenter styleClass="uline">
                         More tips for choosing a school 
