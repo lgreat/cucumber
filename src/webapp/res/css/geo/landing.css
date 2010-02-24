@@ -70,13 +70,16 @@ div#left-content {
             margin-top:10px;
         }
 
-    div#left-content div#outreachManager {
+    div#left-content div#outreachManager,div#newarkPhoto {
         border-bottom:1px solid #DDEEEE;
         position:relative;
         padding:0 0 10px 0;
         margin:10px 10px 10px 10px;
     }
 
+    div#left-content div#outreachManager,div#newarkPhoto {
+        border:none;          
+    }
         div#left-content div#outreachManager div#managerPhoto {
 	        border: 1px solid #DDEEEE;
             padding: 2px 2px 2px 2px;

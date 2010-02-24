@@ -1276,6 +1276,12 @@
         <property name="viewName" value="/geo/landing/milwaukee"/>
     </bean>
 
+    <bean name="/geo/landing/newark.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/geo/landing/newark"/>
+    </bean>
+
     <bean name="/geo/landing/washington-dc.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
