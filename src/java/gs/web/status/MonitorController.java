@@ -6,13 +6,18 @@ import gs.data.dao.IPartitionDao;
 import gs.data.dao.PartitionedDatabaseTestEntity;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
+import gs.data.util.CommunityUtil;
 import gs.data.util.StackTraceUtil;
 import gs.data.admin.IPropertyDao;
+import gs.web.community.UploadAvatarHoverController;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 import java.text.ParseException;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,6 +44,7 @@ public class MonitorController implements ReadWriteController {
      * The bean name configured in pages-servlet.xml
      */
     public static final String BEAN_ID = "/status/monitor.page";
+    public static final String SECRET_NUMBER = "58742";
 
     private static final Log _log = LogFactory.getLog(MonitorController.class);
 
@@ -170,6 +176,18 @@ public class MonitorController implements ReadWriteController {
 
         model.put("x_cluster_client_ip_attr", request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP"));
         model.put("remote_addr", request.getRemoteAddr());
+
+        if (StringUtils.equals(request.getParameter("secret_number"), SECRET_NUMBER)) {
+            model.put("showExtra", true);
+            model.put("avatarURLPrefix", CommunityUtil.getAvatarURLPrefix());
+            model.put("avatarUploadURL", System.getProperty(UploadAvatarHoverController.POST_URL_PROPERTY_KEY));
+            model.put("new_community", CommunityUtil.isNewCommunityEnabled());
+            model.put("cms_enabled", CmsUtil.isCmsEnabled());
+            model.put("cms_db_url", System.getProperty("cms.db.url"));
+            model.put("solr_ro_server_url", System.getProperty("solr.ro.server.url"));
+            model.put("solr_rw_server_url", System.getProperty("solr.rw.server.url"));
+        }
+
 
         return new ModelAndView(_viewName, model);
     }
