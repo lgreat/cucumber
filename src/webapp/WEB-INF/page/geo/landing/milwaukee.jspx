@@ -51,7 +51,7 @@
     </script>
 </head>
 
-<gsml:body adPageName="research">
+<gsml:body adPageName="research" pageLayout="nocol">
 
     <div id="left-content">
         <div class="mainLeft">
