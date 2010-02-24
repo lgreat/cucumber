@@ -13,27 +13,17 @@
         jQuery(function() {
             jQuery('#gbgContent div').hide();
             jQuery('#gbg-content-' + selectedLevel).show();
-//            jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
             var theSlider = jQuery('#gbgSlider');
             var initTab = jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
             var theHandle = jQuery('#gbgHandle');
             var initHandleOffset = theSlider.offset();
             var initHandleAdjustment = initHandleOffset.left;
-//            console.log('initHandleAdjustment ='+initHandleAdjustment);
             var initOffset = initTab.offset();
             var initOffsetX = Math.round(initOffset.left);
-//            console.log('initOffsetX ='+initOffsetX);
             var initOffsetY = theHandle.offset();
             var initOuterWidth = initTab.outerWidth(true);
-//            console.log('initOuterWidth ='+initOuterWidth);
             var initHandleWidth = theHandle.outerWidth(true);
-//            console.log('initHandleWidth ='+initHandleWidth);
-            var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2)-initHandleAdjustment;
-//            var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2);
-//            console.log('initOffsetY.top ='+initOffsetY.top);
-//            console.log('initHandlePosition ='+initHandlePosition);
-//            theHandle.offset({ top: initOffsetY.top, left: initHandlePosition });
-//            theHandle.attr('top', initOffsetY.top+'px');
+            var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2) - initHandleAdjustment;
             var tabsPosition = jQuery('#gbgTabs').position().left;
 
             var tabp = jQuery('.gbg-tab-p');
@@ -48,53 +38,52 @@
 
             var tabpPosition = Math.round(tabp.position().left);
             var tabpWidth = Math.round(tabp.outerWidth(true));
-            var tabpMarkerPosition = tabsPosition+tabpPosition+(tabpWidth/2);
-            jQuery('#gbg-marker-p').attr('style','left:'+tabpMarkerPosition+'px;');
+            var tabpMarkerPosition = tabsPosition + tabpPosition + (tabpWidth / 2);
+//            console.log('tabpMarkerPosition: '+tabpMarkerPosition);
+            jQuery('#gbg-marker-p').attr('style', 'left:' + tabpMarkerPosition + 'px;');
 
             var tabkPosition = Math.round(tabk.position().left);
             var tabkWidth = Math.round(tabk.outerWidth(true));
-            var tabkMarkerPosition = tabsPosition+tabkPosition+(tabkWidth/2);
-            jQuery('#gbg-marker-k').attr('style','left:'+tabkMarkerPosition+'px;');
+            var tabkMarkerPosition = tabsPosition + tabkPosition + (tabkWidth / 2);
+            jQuery('#gbg-marker-k').attr('style', 'left:' + tabkMarkerPosition + 'px;');
 
             var tab1Position = Math.round(tab1.position().left);
             var tab1Width = Math.round(tab1.outerWidth(true));
-            var tab1MarkerPosition = tabsPosition+tab1Position+(tab1Width/2);
-            jQuery('#gbg-marker-1').attr('style','left:'+tab1MarkerPosition+'px;');
+            var tab1MarkerPosition = tabsPosition + tab1Position + (tab1Width / 2);
+            jQuery('#gbg-marker-1').attr('style', 'left:' + tab1MarkerPosition + 'px;');
 
             var tab2Position = Math.round(tab2.position().left);
             var tab2Width = Math.round(tab2.outerWidth(true));
-            var tab2MarkerPosition = tabsPosition+tab2Position+(tab2Width/2);
-            jQuery('#gbg-marker-2').attr('style','left:'+tab2MarkerPosition+'px;');
+            var tab2MarkerPosition = tabsPosition + tab2Position + (tab2Width / 2);
+            jQuery('#gbg-marker-2').attr('style', 'left:' + tab2MarkerPosition + 'px;');
 
             var tab3Position = Math.round(tab3.position().left);
             var tab3Width = Math.round(tab3.outerWidth(true));
-            var tab3MarkerPosition = tabsPosition+tab3Position+(tab3Width/2);
-            jQuery('#gbg-marker-3').attr('style','left:'+tab3MarkerPosition+'px;');
+            var tab3MarkerPosition = tabsPosition + tab3Position + (tab3Width / 2);
+            jQuery('#gbg-marker-3').attr('style', 'left:' + tab3MarkerPosition + 'px;');
 
             var tab4Position = Math.round(tab4.position().left);
             var tab4Width = Math.round(tab4.outerWidth(true));
-            var tab4MarkerPosition = tabsPosition+tab4Position+(tab4Width/2);
-            jQuery('#gbg-marker-4').attr('style','left:'+tab4MarkerPosition+'px;');
+            var tab4MarkerPosition = tabsPosition + tab4Position + (tab4Width / 2);
+            jQuery('#gbg-marker-4').attr('style', 'left:' + tab4MarkerPosition + 'px;');
 
             var tab5Position = Math.round(tab5.position().left);
             var tab5Width = Math.round(tab5.outerWidth(true));
-            var tab5MarkerPosition = tabsPosition+tab5Position+(tab5Width/2);
-            jQuery('#gbg-marker-5').attr('style','left:'+tab5MarkerPosition+'px;');
+            var tab5MarkerPosition = tabsPosition + tab5Position + (tab5Width / 2);
+            jQuery('#gbg-marker-5').attr('style', 'left:' + tab5MarkerPosition + 'px;');
 
             var tabmPosition = Math.round(tabm.position().left);
             var tabmWidth = Math.round(tabm.outerWidth(true));
-            var tabmMarkerPosition = tabsPosition+tabmPosition+(tabmWidth/2);
-            jQuery('#gbg-marker-m').attr('style','left:'+tabmMarkerPosition+'px;');
+            var tabmMarkerPosition = tabsPosition + tabmPosition + (tabmWidth / 2);
+            jQuery('#gbg-marker-m').attr('style', 'left:' + tabmMarkerPosition + 'px;');
 
             var tabhPosition = Math.round(tabh.position().left);
             var tabhWidth = Math.round(tabh.outerWidth(true));
-            var tabhMarkerPosition = tabsPosition+tabhPosition+(tabhWidth/2);
-            jQuery('#gbg-marker-h').attr('style','left:'+tabhMarkerPosition+'px;');
+            var tabhMarkerPosition = tabsPosition + tabhPosition + (tabhWidth / 2);
+            jQuery('#gbg-marker-h').attr('style', 'left:' + tabhMarkerPosition + 'px;');
 
-            theHandle.attr('style', 'left:'+initHandlePosition+'px;');
+            theHandle.attr('style', 'left:' + initHandlePosition + 'px;');
             theHandle.show();
-
-            var mousedownonHandle = false;
 
             jQuery('#gbgTabs ul li').click(function() {
                 var mySlider = jQuery('#gbgSlider');
@@ -103,15 +92,15 @@
                 var myHandle = jQuery('#gbgHandle');
                 var myHandleOffset = mySlider.offset();
                 var myHandleAdjustment = myHandleOffset.left;
-//                console.log('myHandleAdjustment ='+myHandleAdjustment);
+                //                console.log('myHandleAdjustment ='+myHandleAdjustment);
                 var offset = myTab.offset();
                 var offsetX = Math.round(offset.left);
                 var offsetY = myHandle.offset();
-//                console.log('myHandle.left ='+offsetY.left);
+                //                console.log('myHandle.left ='+offsetY.left);
                 var outerWidth = myTab.outerWidth(true);
                 var handleWidth = myHandle.outerWidth(true);
-                var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2)-myHandleAdjustment;
-                myHandle.animate({ 'left': handlePosition }, 200);
+                var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2) - myHandleAdjustment;
+                myHandle.stop().animate({ 'left': handlePosition }, 200);
                 jQuery('#gbgTabs ul li').removeClass('selected');
                 myTab.addClass('selected');
                 jQuery('#gbgContent div').hide();
@@ -119,67 +108,41 @@
                 return false;
             });
 
-            jQuery(theHandle).mousedown(function() {
-                var cursorPosition;
-                // 1) set down state
-                mousedownonHandle = true;
-                //console.log(mousedownonHandle);
-                if (mousedownonHandle) {
-                     cursorPosition = mousePos.x;
-                }
-            });
+            var minpos = 15;
+            var maxpos = 556;
+            var newpos = null;
 
-            jQuery('#gbgHandle').mousemove(function() {
-                //console.log('the mouse is moving');
-                // 1) detect x-position of cursor
-                // 2) match handle x-position to cursor x-position within tabs
+
+            var mousemoveFunction = function(e) {
+//                console.log('mouse move');
+                //var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+                //var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+                //console.log(pageCoords);
+                //console.log(clientCoords);
+                newpos = e.pageX - (initHandleWidth / 2) - initHandleAdjustment;
+
+                if (newpos &lt; minpos) {
+                    newpos = minpos;
+                }
+                if (newpos &gt; maxpos) {
+                    newpos = maxpos;
+                }
+                //                console.log(newpos);
+                theHandle.stop().css('left', newpos + 'px');
+            };
+
+            theHandle.mousedown(function() {
+//                console.log('mouse down');
+                jQuery('html').bind("mousemove", mousemoveFunction);
+
             });
 
             jQuery('html').mouseup(function() {
-                //console.log('the mouse is up');
-                // 1) clear down state
-                mousedownonHandle = false;
-                //console.log(mousedownonHandle);
-                // 2) capture x-position upon release
-                // 3) calculate distance to closest tab
-                // 4) select closest tab
-                // 5) move handle to center position of selected tab
-                // 6) set the grade content
+//                console.log('mouse up');
+                jQuery('html').unbind("mousemove", mousemoveFunction);
             });
 
 
-            document.onmousemove = mouseMove;
-
-            function mouseMove(ev) {
-                ev = ev || window.event;
-                var mousePos = mouseCoords(ev);
-                //console.log(mousePos.x);
-            }
-
-            function mouseCoords(ev) {
-                if (ev.pageX || ev.pageY) {
-                    return {x:ev.pageX, y:ev.pageY};
-                }
-                return {
-                    x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
-                    y:ev.clientY + document.body.scrollTop - document.body.clientTop
-                };
-            }
-
-
-            document.onmouseup = mouseUp;
-            var dragObject = null;
-
-            function makeClickable(object) {
-                object.onmousedown = function() {
-                    dragObject = this;
-                    console.log('hello');
-                }
-            }
-
-            function mouseUp(ev) {
-                dragObject = null;
-            }
 
         });
     </script>
@@ -268,7 +231,7 @@
             </div>
             <!-- end gbgContent -->
         </div>
-        <!-- end mod_bd -->
+        <!-- end mod_bd -->        
     </div>
     <!-- end mod -->
 </jsp:root>
