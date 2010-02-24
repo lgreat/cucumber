@@ -16,7 +16,14 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<ad:setSlotPrefix slotPrefix="Discussion"/>
+<c:choose>
+    <c:when test="${discussion.raiseYourHand}">
+        <ad:setSlotPrefix slotPrefix="RaiseYourHand"/>
+    </c:when>
+    <c:otherwise>
+        <ad:setSlotPrefix slotPrefix="Discussion"/>
+    </c:otherwise>
+</c:choose>
 
 <head>
     <c:set var="pageTitle">${discussion.title}</c:set>

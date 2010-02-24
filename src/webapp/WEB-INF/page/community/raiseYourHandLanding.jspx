@@ -16,7 +16,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <!-- TODO-9419 FIXME -->
-<ad:setSlotPrefix slotPrefix="DiscussionBoard"/>
+<ad:setSlotPrefix slotPrefix="RaiseYourHandLanding"/>
 
 <head>
     <title>Featured Discussions, Parent Community | GreatSchools</title>
