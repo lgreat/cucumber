@@ -26,7 +26,7 @@
     <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>    
 </head>
-<body>
+<gsml:body adPageName="communtiyLanding" pageLayout="nocol">
 
 <div id="community-landing">
 <div class="module">
@@ -110,6 +110,6 @@
               local=""
               omitAlmondNet="${true}"
         />
-</body>
+</gsml:body>
 </html>
 </jsp:root>

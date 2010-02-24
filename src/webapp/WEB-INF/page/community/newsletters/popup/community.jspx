@@ -18,7 +18,7 @@
       <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
       <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
   </head>
-  <body>
+  <gsml:body adPageName="community" pageLayout="nocol">
   <c:choose>
       <c:when test="${not empty error}">
           Your request could not be processed. Please try again.
@@ -42,6 +42,6 @@
       <div class="left">All newsletters brought to you by:</div>
       <div class="leftlogo"><gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="greatschools"/></div>
   </div>
-  </body>
+  </gsml:body>
 </html>
 </jsp:root>

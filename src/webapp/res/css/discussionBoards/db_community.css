@@ -28,11 +28,9 @@
 }
 
 #container {
-    width: 930px;
-    border-top: 2px solid #aaa;
+    width: 968px;
     margin: 0 auto;
     overflow:hidden;
-    background:url(/res/img/discussion_boards/db_background.gif);
 }
 
 /* this creates equal height columns */
