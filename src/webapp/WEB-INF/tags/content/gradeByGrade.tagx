@@ -23,7 +23,13 @@
             //var initOffsetY = theHandle.offset();
             var initOuterWidth = initTab.outerWidth(true);
             var initHandleWidth = theHandle.outerWidth(true);
-            var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2) - initHandleAdjustment;
+            if (jQuery.browser.msie) {
+                if (parseInt(jQuery.browser.version) == 6) {
+                    var initHandlePosition = (initOffsetX + (initOuterWidth - initHandleWidth) / 2) - initHandleAdjustment;
+                }
+            } else {
+                var initHandlePosition = (initOffsetX - 5 + (initOuterWidth - initHandleWidth) / 2) - initHandleAdjustment;
+            }
 
             var tabsPosition = jQuery('#gbgTabs').position().left;
 
@@ -126,11 +132,18 @@
                 //console.log('myHandleAdjustment ='+myHandleAdjustment);
                 var offset = myTab.offset();
                 var offsetX = Math.round(offset.left);
+                //console.log('offsetX ='+offsetX);
                 //var offsetY = myHandle.offset();
                 //console.log('myHandle.left ='+offsetY.left);
                 var outerWidth = myTab.outerWidth(true);
                 var handleWidth = myHandle.outerWidth(true);
-                var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2) - myHandleAdjustment;
+                if (jQuery.browser.msie) {
+                    if (parseInt(jQuery.browser.version) == 6) {
+                        var handlePosition = (offsetX + (outerWidth - handleWidth) / 2) - myHandleAdjustment;
+                    }
+                } else {
+                    var handlePosition = (offsetX - 5 + (outerWidth - handleWidth) / 2) - myHandleAdjustment;
+                }
                 myHandle.stop().animate({ 'left': handlePosition }, 200);
                 jQuery('#gbgTabs ul li').removeClass('selected');
                 myTab.addClass('selected');

@@ -238,13 +238,13 @@ body.ie6 .ryh-answer{
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 #gbgTabs {
-    position: absolute;
-    top: 125px;
+    /*position: absolute;
+    top: 125px;*/
     left: 5px;
-    float: left;
+    /*float: left;
     z-index: 50;
     background: none;
-    line-height: normal;
+    line-height: normal;*/
 }
 
 #gbgTabs ul {
@@ -256,32 +256,42 @@ body.ie6 #gbgTabs {
 }
 
 body.ie6 #gbgTabs li {
-    float: left;
-    display: inline-block;
+    /*float: left;*/
+    /*display: inline-block;*/
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -35px;
-    margin: 0 0 0 5px;
-    padding: 0;
+    margin:0;
+    /*margin: 0 0 0 5px;*/
+    /*padding: 0;*/
 }
 
 body.ie6 #gbgTabs a {
-    display: inline-block;
-    font: 10px Arial, Helvetica, sans-serif;
-    color: #333;
-    text-decoration: none;
+    /*display: inline-block;*/
+    /*font: 10px Arial, Helvetica, sans-serif;*/
+    /*color: #333;*/
+    /*text-decoration: none;*/
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -35px;
-    margin: 0 0 0 -5px;
-    padding: 5px 15px;
-    outline: none;
+    margin:0;
+    /*margin: 0 0 0 5px;*/
+    /*padding: 5px 15px;*/
+    /*outline: none;*/
 }
 
 body.ie6 #gbgTabs .selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
-    margin-top: -5px;
+    /*margin-top: -5px;*/
 }
 
 body.ie6 #gbgTabs .selected a {
-    text-decoration: none;
-    color: black;
+    /*text-decoration: none;
+    color: black;*/
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
-    padding: 5px 15px 10px 15px;
+    /*padding: 5px 15px 10px 15px;*/
+}
+
+body.ie6 #gbg-marker-p, body.ie6 #gbg-marker-k, body.ie6 #gbg-marker-1, body.ie6 #gbg-marker-2, body.ie6 #gbg-marker-3, body.ie6 #gbg-marker-4, body.ie6 #gbg-marker-5, body.ie6 #gbg-marker-m, body.ie6 #gbg-marker-h {
+    /*position:absolute;
+    top:0; left:0;
+    width:1px; height:14px;
+    background-color:#388dd1;*/
+    overflow:hidden;
 }
