@@ -29,8 +29,6 @@
 <head>
     <title>${requestScope.pageHeading} | GreatSchools</title>
     <meta name="keywords" content=""/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
@@ -57,7 +55,7 @@
                     }
                     $('.aboutMe .bioText').show();
                     $('.aboutMe #accountEditBio').hide();
-                    $('.aboutMe #accountEditBio').attr('style','display:none;');
+                    $('.acommunityboutMe #accountEditBio').attr('style','display:none;');
                     $('.aboutMe .editAboutMe').show();                                        
                 }
             }

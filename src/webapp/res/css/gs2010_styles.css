@@ -218,7 +218,6 @@ h3.title1white {
 
 .smallText1 {
     font: 11px Arial, Helvetica, sans-serif;
-    color: #777;
 }
 
 .smallText2 {
@@ -273,6 +272,11 @@ h3.title1white {
 
 p {
     margin: 0 0 1.2em;
+}
+#contentGS a span.go {
+    color: #d61;
+    font-size: 1.2em;
+    line-height: .9;
 }
 
 /* =2 ads
@@ -455,6 +459,7 @@ body.cobranded #pageGS {
     display: block;
     height: 21px;
     padding: 3px 15px 3px 7px;
+    font-size: 11px;
     color: #fff;
     cursor: pointer;
 }
@@ -1743,6 +1748,9 @@ ul.srchSuggest li span {
     padding:5px 0;
     list-style:disc outside;
     line-height: 1.3;
+}
+#sidebarGS #AboveFold_300x250, #sidebarGS #House_Ad_300x137 {
+    text-align: center;
 }
 
 /*

@@ -127,6 +127,9 @@ body.ie6 {
 *html body.cobranded {
     background-image: none;
 }
+body.ie6 #contentGS {
+    margin: 0;
+}
 body.ie6 #contentGS, body.ie6 #mainWrap, body.ie6 .mod, body.ie6 .mod_bd {
     zoom:1;
 }
@@ -203,6 +206,22 @@ body.ie6 #topnav_search button {
 }
 *html #topnav_search button {
     top: 25px;
+}
+body.ie6 #mainGS.col {
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+}
+body.ie6 .activity li {
+    border-bottom: 1px dotted #999;
+}
+body.ie6 #sidebarGS.col {
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+}
+body.ie6 #sidebarGS .mod {
+    overflow: hidden;
 }
 body.ie6 .srchCatComm li span.icon {
     left: -25px;
