@@ -1,6 +1,11 @@
 .main {
     width: 598px;
-    margin-left: 20px
+    margin-left: 20px;
+}
+body.ie6 .main {
+    width: 608px;
+    margin-left: 20px;
+    display: inline;
 }
 .breadcrumbs {
     margin: 14px 0 12px 0;
@@ -37,6 +42,10 @@
 .module .body {
     border: 1px solid #ccc;
     padding: 15px;
+}
+#sidebarGS .module .body {
+    border: solid #ccc;
+    border-width: 0;
 }
 
 /* Feature */

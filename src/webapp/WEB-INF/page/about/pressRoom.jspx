@@ -44,7 +44,7 @@
 
 <gsml:body adPageName="pressRoom" pageLayout="pressRoom">
 
-    <div class="main fltlft">
+    <div id="mainGS" class="col">
         <div class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
@@ -148,7 +148,7 @@
         <br class="clearfloat"/>
     </div>
 
-    <div class="contentRight fltrt">
+    <div id="sidebarGS" class="col">
         <div class="mediaInquiries">
             <span class="subhead2">Media inquiries</span>
             <span class="text3">Contact our team:</span>
