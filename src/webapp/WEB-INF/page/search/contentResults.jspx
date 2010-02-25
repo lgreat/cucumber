@@ -41,7 +41,6 @@
 <head>
     <title>${pageScope.titleBar} | GreatSchools</title>
     <meta name="keywords" content=""/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>

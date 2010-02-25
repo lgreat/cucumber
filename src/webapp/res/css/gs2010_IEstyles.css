@@ -213,7 +213,8 @@ body.ie6 #mainGS.col {
     margin: 0;
 }
 body.ie6 .activity li {
-    border-bottom: 1px dotted #999;
+    overflow: hidden;
+    background: #fff;
 }
 body.ie6 #sidebarGS.col {
     border: 0;
@@ -222,6 +223,16 @@ body.ie6 #sidebarGS.col {
 }
 body.ie6 #sidebarGS .mod {
     overflow: hidden;
+}
+body.ie6 .brwse .topics {
+    border: 0;
+    width: 149px;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+body.ie6 #searchAgain {
+    height: 1%;
 }
 body.ie6 .srchCatComm li span.icon {
     left: -25px;

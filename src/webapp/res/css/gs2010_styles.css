@@ -27,6 +27,8 @@ General comments:
 =4a-3 gs blog
 =4a-4 raise your hand
 =4a-5 grade by grade
+=4b- community
+=4b-1 cummuntiy landing
 =5-
 =6- editorialFooter
 =7- communitySidebar
@@ -131,8 +133,14 @@ h5 {
 
 /* clases applied to h3 */
 .title1 {
-    font: Georgia, serif;
+    font-family: Georgia, serif;
     color: #d61;
+}
+h2.title1white {
+    background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x scroll 0 0;
+    color: #fff;
+    font: 400 20px Georgia, serif;
+    padding: 6px;
 }
 
 h3.title1white {
@@ -195,27 +203,24 @@ h3.title1white {
 
 .text1 {
     font: 14px Arial, Helvetica, sans-serif;
-    color: #333;
 }
 
 .text1bold {
     font:bold 14px Arial, Helvetica, sans-serif;
-    color: #333;
 }
 .text3bold {
     font: bold 12px / 1.3 Arial, Helvetica, sans-serif;
-    color: #333;
 }
 .text2 {
     font: 13px Arial, Helvetica, sans-serif;
-    color: #333;
 }
 
 .text3 {
     font: 12px Arial, sans-serif;
-    color: #333;
 }
-
+.introText {
+    font: 16px / 1.3 Arial, Helvetica, sans-serif;
+}
 .smallText1 {
     font: 11px Arial, Helvetica, sans-serif;
 }
@@ -258,6 +263,10 @@ h3.title1white {
 .formErrorText {
     font: italic 11px Arial, Helvetica, sans-serif;
     color: #c03;
+}
+.certCourse {
+    font: italic 16px / 1.3 Georgia, "Times New Roman", Times, serif;
+    /*color: #149;*/
 }
 
 .alertDoubleArrow {
@@ -1263,6 +1272,106 @@ body.ie6 .clearfix {
 }
 .pagination span.prv_nxt {
     text-transform: uppercase;
+}
+/*
+=4b-1 cummuntiy landing
+-----------------------------------------------------------------------------------
+*/
+#community-landing{
+    position:relative;
+    width: 952px;
+    margin: 10px auto 0;
+}
+
+#community-photo{
+    border:1px solid #ccc;
+    margin-right:20px;
+}
+
+#landing-module{
+    position:absolute;
+    bottom:0; right:0;
+    border:1px solid #ccc;
+    width:612px;
+    /*height:240px;*/
+    margin-top:22px;
+    padding:18px 8px;
+}
+
+#landing-module .col1 .body2bg{
+    /*width:280px;*/
+    width:auto;
+    /*height:162px;*/
+    padding:0;
+    background:transparent;
+}
+
+#landing-module .col3 .body2bg{
+    /*width:280px;*/
+    width:auto;
+    /*height:162px;*/
+    padding:0;
+    background:transparent;
+}
+
+#landing-module .topics1, #landing-module .topics2 {
+    padding:5px 0 5px 6px;
+    width:99%; /* fixes ie bullets missing on first li */
+}
+#landing-module .topics1{
+    color:#f4891d;
+    width:150px;
+}
+#landing-module .topics2{
+    color:#f4891d;
+    width:130px;
+    /*line-height:23px;*/
+}
+#landing-module .topicItem{
+    margin:0 0 6px 9px;
+    padding:2px 0;
+    list-style:disc outside;
+    line-height: 1.3;
+}
+
+
+#landing-module .body3bg{
+    width:280px;
+    height:22px;
+    padding:8px 5px 10px 5px;
+}
+#landing-module .brwseFrm {
+    background:#f9eccd;
+    height:22px;
+    padding:8px 5px 10px;
+    width:280px;
+    border: 0;
+}
+
+#landing-module .col1{
+    width:310px;
+    border-right:1px dotted #999;
+}
+#landing-module .col2{
+    width:335px;
+}
+#landing-module #cl-or{
+    margin-left:-10px;
+    padding:1px 0 3px 0;
+    background:#fff;
+}
+#landing-module .col3{
+    width:276px;
+    overflow:hidden;
+}
+
+#landing-module #db_cities{
+    width:150px;
+}
+
+#landing-module .db_search_input{
+    width:259px;
+    margin:7px 0 4px 0;
 }
 /*
 =search styles 

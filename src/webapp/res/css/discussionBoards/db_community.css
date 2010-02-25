@@ -1204,6 +1204,8 @@ fieldset label {
 
 #community-landing{
     position:relative;
+    width: 952px;
+    margin: 20px auto 0;
 }
 
 #community-photo{
