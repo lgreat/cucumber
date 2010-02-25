@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.85 2010/02/17 23:28:35 yfan Exp $
+ * $Id: UrlUtil.java,v 1.86 2010/02/25 23:21:52 mwong Exp $
  */
 
 package gs.web.util;
@@ -86,6 +86,7 @@ public final class UrlUtil {
                 && !hostName.equals("127.0.0.1")
                 && !hostName.startsWith("192.168.")
                 && !hostName.startsWith("172.21.1.142")
+                && !hostName.startsWith("172.18.")
                 && hostName.indexOf('.') != -1;
         if (isCobrand) {
             cobrandName = hostName.substring(0, hostName.indexOf("."));
