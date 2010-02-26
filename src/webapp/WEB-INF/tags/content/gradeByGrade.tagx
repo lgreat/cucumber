@@ -11,6 +11,15 @@
         var myLevels = new Array('p', 'k', '1', '2', '3', '4', '5', 'm', 'h');
         var selectedLevel = myLevels[Math.floor(Math.random() * 9)];
         jQuery(function() {
+            var theGradeByGradeContainer = jQuery('#grade-by-grade .mod_bd');
+            var theGradeByGradeContainerWidth = theGradeByGradeContainer.innerWidth();
+            //console.log('theGradeByGradeContainerWidth: ' + theGradeByGradeContainerWidth);
+            var theTabContainer = jQuery('#gbgTabs');
+            var theTabContainerWidth = theTabContainer.outerWidth();
+            //console.log('theTabContainerWidth: ' + theTabContainerWidth);
+            var theTabsLeftMargin = Math.round((theGradeByGradeContainerWidth - theTabContainerWidth) / 2);
+            //console.log('theTabsLeftMargin: ' + theTabsLeftMargin);
+            theTabContainer.css('left', theTabsLeftMargin + 'px');
             jQuery('#gbgContent div').hide();
             jQuery('#gbg-content-' + selectedLevel).show();
             var theSlider = jQuery('#gbgSlider');
@@ -124,7 +133,7 @@
             jQuery('#gbgTabs ul li').click(function() {
                 var mySlider = jQuery('#gbgSlider');
                 var myTab = jQuery(this);
-                var myLevel = myTab.attr('class').substring(8,9);
+                var myLevel = myTab.attr('class').substring(8, 9);
                 //console.log('myLevel: '+myLevel);
                 var myHandle = jQuery('#gbgHandle');
                 var myHandleOffset = mySlider.offset();
@@ -159,7 +168,7 @@
             var setHandlePosition = function() {
                 //console.log('newpos: '+newpos);
                 switch (newpos &gt;= posp &amp;&amp; newpos &lt;= posh)
-                //switch (true)
+                    //switch (true)
                         {
                     case (newpos &gt;= minpos &amp;&amp; newpos &lt; pospk):
                         newpos = tabpMarkerPosition - (initHandleWidth / 2);
