@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.87 2009/12/04 22:27:02 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.88 2010/02/26 21:57:45 yfan Exp $
  */
 
 package gs.web.util;
@@ -505,7 +505,7 @@ public class PageHelper {
     public boolean isAdFree() {
         return !_sessionContext.isAdvertisingOnline() ||
                 (_sessionContext.getCobrand() != null &&
-                 _sessionContext.getCobrand().matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test")
+                 _sessionContext.getCobrand().matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test|momshomeroom\\.msn")
                 ) ||
                 _sessionContext.isCrawler() || _sessionContext.isIntegrationTest();
     }
