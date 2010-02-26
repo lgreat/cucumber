@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.86 2010/02/25 23:21:52 mwong Exp $
+ * $Id: UrlUtil.java,v 1.87 2010/02/26 16:50:17 mwong Exp $
  */
 
 package gs.web.util;
@@ -82,6 +82,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("profile.dev")
                 && !hostName.startsWith("cpickslay.")
                 && !hostName.startsWith("editorial.")
+                && !hostName.startsWith("mwong.dev")
                 && !(hostName.indexOf("vpn.greatschools.org") != -1)
                 && !hostName.equals("127.0.0.1")
                 && !hostName.startsWith("192.168.")
