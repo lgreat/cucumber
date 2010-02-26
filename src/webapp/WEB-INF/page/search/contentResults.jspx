@@ -170,9 +170,9 @@
                             </jsp:scriptlet>
                             <p>${pageScope.teaserBody}
 
-                            <span><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1bold">
+                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1bold">
                               More&amp;nbsp;<span class="go">&amp;#187;</span>
-                            </link:cmsContent></span>
+                            </link:cmsContent>
                             </p>
                         </li>
                     </c:forEach>
