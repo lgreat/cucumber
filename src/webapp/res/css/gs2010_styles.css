@@ -43,7 +43,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     margin: 0;
     padding: 0;
     border: 0;
-    outline: 0;
+    outline: 0 none;
     background: transparent;
 }
 
@@ -1130,6 +1130,8 @@ body.ie6 .clearfix {
     background: white url(/res/img/gradeByGrade/gbg-kids.jpg) no-repeat right top;
     width: 598px;
     position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 #grade-by-grade .mod_bd {
@@ -1143,7 +1145,7 @@ body.ie6 .clearfix {
 #gbgTabs {
     position: absolute;
     top: 125px;
-    left: 15px;
+    /*left: 15px;*/
     float: left;
     z-index: 50;
     background: none;
@@ -1161,7 +1163,7 @@ body.ie6 .clearfix {
 #gbgTabs li {
     float: left;
     display: inline-block;
-    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right -35px;
+    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right -34px;
     margin: 0 0 0 5px;
     padding: 0;
 }
@@ -1171,10 +1173,12 @@ body.ie6 .clearfix {
     font: 10px Arial, Helvetica, sans-serif;
     color: #333;
     text-decoration: none;
-    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left -35px;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left -34px;
     margin: 0 0 0 -5px;
     padding: 5px 15px;
-    outline: none;
+    outline: 0 none;
+    -moz-outline: 0 none;
+    overflow:hidden;
 }
 
 #gbgTabs .selected {
@@ -1210,7 +1214,7 @@ body.ie6 .clearfix {
     cursor: pointer;
     z-index: 100;
     position: absolute;
-    left: 15px;
+    /*left: 15px;*/
     top: -3px;
     width: 19px;
     height: 20px;
