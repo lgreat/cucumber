@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.89 2010/02/26 23:38:27 yfan Exp $
+ * $Id: PageHelper.java,v 1.90 2010/02/27 00:15:56 yfan Exp $
  */
 
 package gs.web.util;
@@ -505,7 +505,7 @@ public class PageHelper {
     public boolean isAdFree() {
         return !_sessionContext.isAdvertisingOnline() ||
                 (_sessionContext.getCobrand() != null &&
-                 _sessionContext.getCobrand().matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test|momshomeroom")
+                 _sessionContext.getCobrand().matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test")
                 ) ||
                 _sessionContext.isCrawler() || _sessionContext.isIntegrationTest();
     }
@@ -531,7 +531,7 @@ public class PageHelper {
 
     public boolean isAdServedByCobrand() {
         return _sessionContext.getCobrand() != null &&
-                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline|ocregister|dallasnews");
+                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline|ocregister|dallasnews|momshomeroom");
     }
     /**
      * A String of the onload script(s) to be included in the body tag.
