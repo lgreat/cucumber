@@ -94,15 +94,10 @@ public class CmsFeatureController extends AbstractController {
                 UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
             }
-            _log.info(uri);
-            _log.info(GS_9512_NEW_CATEGORY_CONTENT_URIS.contains(uri));
-            _log.info(contentId);
-            _log.info(GS_9512_NEW_CATEGORY_CONTENT_IDS.contains(contentId));
             // GS-9512
             if (GS_9512_NEW_CATEGORY_CONTENT_IDS.contains(contentId) &&
                     GS_9512_NEW_CATEGORY_CONTENT_URIS.contains(uri)) {
                 UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
-                _log.info(builder.asSiteRelative(request));
                 // make sure no endless loops ever happen
                 if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
                     return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
