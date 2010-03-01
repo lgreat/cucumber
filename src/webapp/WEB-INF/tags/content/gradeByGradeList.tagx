@@ -10,6 +10,7 @@
 
     <c:set var="optimalTitleLength" value="40"/>
 
+    <!-- GS-9160 See CmsHomePageController.java inner class RecentContent for list of contentType's -->
     <ul class="fltlft text3">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count lt 4}">

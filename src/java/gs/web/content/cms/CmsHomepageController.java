@@ -169,7 +169,9 @@ public class CmsHomepageController extends AbstractController {
         return new ArrayList<Object>(0);
     }
 
+    // Used by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
     public static class RecentContent {
+        // Used for CSS classes by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
         private enum ContentType {cms, discussion}
 
         private int _id;
