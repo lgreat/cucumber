@@ -186,11 +186,6 @@
     
 
 <footer:editorialFooter/>
-<div id="promoRulesLink">
-    <gsml:a href="/cgi-bin/static/Newark-Contest-Rules.html">
-        Click here for official rules for Newark School Chooser drawings
-    </gsml:a>
-</div>
 <mod:tracking pageName="Newark Landing Page" hier1="Home,Outreach,Newark"/>
 
 </gsml:body>
