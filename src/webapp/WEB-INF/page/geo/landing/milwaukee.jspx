@@ -209,7 +209,7 @@
     </div>
 
 
-<footer:editorialFooter/>
+<div id="landingEditorialFooter"><footer:editorialFooter/></div>
 <div id="promoRulesLink">
     <gsml:a href="/cgi-bin/static/Milwaukee-Contest-Rules.html">
         Click here for official rules for Milwaukee School Chooser drawings

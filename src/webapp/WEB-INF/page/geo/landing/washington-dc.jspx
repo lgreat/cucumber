@@ -55,7 +55,7 @@
     </script>
 </head>
 
-<gsml:body adPageName="research">
+<gsml:body adPageName="research" pageLayout="nocol">
     <div id="dc_page_content" class="clearfix">
         <div id="colft" class="fltlft">
             <div class="module"><span class="m_title treb15 tint5bc">Meet Our Team</span>

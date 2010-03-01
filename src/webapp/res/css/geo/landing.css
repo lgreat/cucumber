@@ -18,6 +18,8 @@ div#left-content {
     font-family:Arial,Arial,sans-serif;
     font-size:12px;
     letter-spacing:0;
+    margin-left: 52px;
+    margin-top:20px;
 }
 
     div#left-content hr {
@@ -121,7 +123,8 @@ div#left-content {
 div#right-content {
     position:absolute;
     top:0;
-    left:215px;
+    left:267px;
+    margin-top:20px;
 }
 
     div#right-content h1 {
@@ -374,4 +377,6 @@ div#donate,div#daytondonate {
         left:480px;
     }
 
-
+      div#landingEditorialFooter{
+          margin-left:34px;
+      }

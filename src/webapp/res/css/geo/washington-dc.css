@@ -11,12 +11,16 @@
 
 #colft{
 	width:211px;
+    margin-left:52px;
+    margin-top:20px;
     /*width:215px;*/
     /*background:red;*/
 }
 
 #colrt{
 	width:652px;
+    margin-right:52px;
+    margin-top:20px;
     /*width:649px;*/
     /*background:blue;*/
 }
