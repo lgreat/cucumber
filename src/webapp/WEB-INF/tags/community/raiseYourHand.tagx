@@ -348,7 +348,7 @@
                             </c:choose>
 
                             <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                            <c:if test="${allowEditsAndDeletes}">
+                            <c:if test="${allowEditsDeletesReports}">
                                 <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${reply.user}"
                                                            contentPostedDate="${reply.dateCreated}">
                                     | <a href="#" class="editLink link" onclick="return false;">Edit</a>
