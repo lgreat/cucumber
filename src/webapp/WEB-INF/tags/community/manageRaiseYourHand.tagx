@@ -6,7 +6,6 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
-    <jsp:directive.tag import="gs.data.content.cms.CmsTopicCenter"/>
     <jsp:directive.tag body-content="scriptless"/>
     <!-- Required attributes -->
     <jsp:directive.attribute name="discussion" required="true" type="gs.data.community.Discussion"
@@ -24,14 +23,14 @@
             //<c:if test = "${pageScope.user != null}" >
             //<gsml:ifUserCanManageRaiseYourHand pageUser="${pageScope.user}">
 
-            $j('.ryh #activateRYH').click(function() {
+            $j('.ryh-manage #activateRYH').click(function() {
                 $j.post('/community/raiseYourHand.page', {action: 'activate', discussionId: '${discussion.id}'},
                         function(data) {
-                            $j('.ryh #activateRYH').hide();
-                            $j('.ryh #deactivateRYH').show();
-                            $j('.ryh #activeRYH').show();
-                            $j('.ryh #inactiveRYH').hide();
-                            $j('.ryh .assoc').show();
+                            $j('.ryh-manage #activateRYH').hide();
+                            $j('.ryh-manage #deactivateRYH').show();
+                            $j('.ryh-manage #activeRYH').show();
+                            $j('.ryh-manage #inactiveRYH').hide();
+                            $j('.ryh-manage .assoc').show();
 
                             alert('This is now a Raise Your Hand.');
                             window.location.reload(true);
@@ -40,15 +39,15 @@
                 return false;
             });
 
-            $j('.ryh #deactivateRYH').click(function() {
+            $j('.ryh-manage #deactivateRYH').click(function() {
 
                 $j.post('/community/raiseYourHand.page', {action: 'deactivate', discussionId: '${discussion.id}'},
                         function(data) {
-                            $j('.ryh #activateRYH').show();
-                            $j('.ryh #deactivateRYH').hide();
-                            $j('.ryh #activeRYH').hide();
-                            $j('.ryh #inactiveRYH').show();
-                            $j('.ryh .assoc').hide();
+                            $j('.ryh-manage #activateRYH').show();
+                            $j('.ryh-manage #deactivateRYH').hide();
+                            $j('.ryh-manage #activeRYH').hide();
+                            $j('.ryh-manage #inactiveRYH').show();
+                            $j('.ryh-manage .assoc').hide();
 
                             alert('This is no longer a Raise Your Hand.'); 
                             window.location.reload(true);
@@ -57,7 +56,7 @@
                 return false;
             });
 
-            $j('.ryh input[name=ryhFeature]').change(function() {
+            $j('.ryh-manage input[name=ryhFeature]').change(function() {
                 if ($j(this).is(':checked')) {
                     $j.post('/community/raiseYourHand.page', {action: 'feature', discussionId: '${discussion.id}', topicCenterId: $j(this).val()},
                             function(data) {
@@ -77,7 +76,7 @@
 
     <c:if test="${pageScope.user != null and discussion.active}">
         <gsml:ifUserCanManageRaiseYourHand pageUser="${pageScope.user}">
-            <div class="ryh">
+            <div class="ryh-manage">
                 <span class="text1bold">Manage &amp;quot;Raise Your Hand&amp;quot;</span><br/>
 
                 <div class="clear smallText1">

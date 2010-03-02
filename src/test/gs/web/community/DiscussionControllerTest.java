@@ -164,7 +164,7 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetPageSize() {
-        assertEquals(DiscussionController.DEFAULT_PAGE_SIZE, _controller.getPageSize(getRequest()));
+        assertEquals(DiscussionController.DEFAULT_PAGE_SIZE, _controller.getPageSize(getRequest(), false));
     }
 
     public void testGetDiscussionSortFromString() {

@@ -984,20 +984,24 @@ body.ie6 .clearfix {
     position:relative
 }
 
-/* young's styles */
-.ryh .assoc {
+.ryh-manage {
     padding-top: 10px;
 }
 
-.ryh .assoc .entry {
+/* young's styles */
+.ryh-manage .assoc {
+    padding-top: 10px;
+}
+
+.ryh-manage .assoc .entry {
     position: relative;
 }
 
-.ryh .assoc .entry:nth-child(even) {
+.ryh-manage .assoc .entry:nth-child(even) {
     background-color: #ccc;
 }
 
-.ryh .assoc .history {
+.ryh-manage .assoc .history {
     position: absolute;
     top: 3px;
     right: 5px;
@@ -1035,13 +1039,13 @@ body.ie6 .clearfix {
     line-height: 2.0;
 }
 
-.ryh-list .see-more {
+.ryh-list .see-more, .ryh-detail .see-more {
     position: relative;
     margin-top: 10px;
     padding-left: 20px;
 }
 
-.ryh-list span.icon {
+.ryh-list span.icon, .ryh-detail span.icon {
     position: absolute;
     top: 0;
     left: 0;
@@ -1122,6 +1126,25 @@ body.ie6 .clearfix {
 #raise-your-hand #featured-question-hd {
     padding-bottom: 10px;
 }
+
+/* ryh detail / discussion detail page */
+
+#mainGS.discussion-detail, #mainGS.ryh-detail {
+    padding-top: 15px;
+}
+
+.ryh-detail #raise-your-hand {
+    margin:10px 0;
+}
+
+.ryh-detail .shareThis {
+    padding-top: 3px;
+}
+
+.ryh-detail .see-more-top {
+    margin-top: 7px;
+}
+
 
 /* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/

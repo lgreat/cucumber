@@ -199,8 +199,16 @@
 </head>
 <body>
 
-<div id="container">
-<div id="mainGS" class="col">
+<c:choose>
+    <c:when test="${discussion.raiseYourHand}">
+        <c:set var="mainDivClassSuppl" value="ryh-detail"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="mainDivClassSuppl" value="discussion-detail"/>
+    </c:otherwise>
+</c:choose>
+
+<div id="mainGS" class="col ${mainDivClassSuppl}">
 
 <p class="breadCrumbs smallAlertText">
     <link:home styleClass="link">Home</link:home>
@@ -240,21 +248,42 @@
                                  discussionBoardId="${discussionBoard.contentKey.identifier}"/>
 
 <div class="module">
-<div class="header">
+<c:choose>
+    <c:when test="${discussion.raiseYourHand}">
+        <h1 class="fltlft">Raise Your Hand</h1>
+        <c:set var="seeMoreLink">
+            <div class="fltrt">
+                <div class="see-more smallAlertText">
+                    <span class="icon"><!-- icon --></span>
+                    <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                        class="alertDoubleArrow">&amp;raquo;</span>
+                </div>
+            </div>
+        </c:set>
+        <div class="see-more-top">
+        ${seeMoreLink}
+        </div>
+        <br class="clearfloat"/>
+    </c:when>
+    <c:otherwise>
+        <div class="header">
     <span class="title1white fltlft"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                     fullUri="${requestScope.discussionBoard.fullUri}"
-                     styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></span>
+                                                      fullUri="${requestScope.discussionBoard.fullUri}"
+                                                      styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></span>
 
-    <div class="fltrt">
-        <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
+            <div class="fltrt">
+                <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
             <span class="lftDoor25">
-                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles" width="37" height="25" align="absmiddle" />Start&amp;nbsp;a&amp;nbsp;conversation</span>
+                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
+                                            width="37" height="25" align="absmiddle"/>Start&amp;nbsp;a&amp;nbsp;conversation</span>
             </span>
-        </a>
-    </div>
-    <br class="clearfloat"/>
-</div>
-<!-- end header -->
+                </a>
+            </div>
+            <br class="clearfloat"/>
+        </div>
+        <!-- end header -->
+    </c:otherwise>
+</c:choose>
 
 <!-- Report it dialog -->
 <c:if test="${validUser ne null}">
@@ -335,6 +364,83 @@
     </div>
 </c:set>
 <!-- end share this -->
+
+    <c:set var="replyForm">
+        <c:if test="${requestScope.validUser != null}">
+            <div class="replyForm clearfix sdrb" style="display:none;">
+                <c:if test="${requestScope.userReplyMessage != null}">
+                    <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
+                </c:if>
+
+                <div class="db_discussAvatar fltlft">
+                    <link:userProfile user="${requestScope.validUser}">
+                        <community:avatar user="${requestScope.validUser}" width="48" height="48"
+                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                    </link:userProfile>
+                </div>
+
+                <div class="db_postReplyContainer fltlft">
+                    <b class="db_postPointLeft db_postArrow">&amp;nbsp;</b>
+
+                    <div class="db_post_reply fltrt rnd8">
+                        <span class="text1bold">Post a reply to: </span>
+                        <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
+                            <span class="text3bold">by
+                                <c:choose>
+                                    <c:when test="${discussion.user.userProfile.active}">
+                                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}"
+                                                          styleClass="link"><community:screenName userContent="${discussion}"/>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <community:screenName userContent="${discussion}"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
+
+                        <form action="/community/discussionSubmission.page" method="POST" accept-charset="Windows-1252">
+                            <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
+
+                            <div class="db_textarea">
+                                <textarea rows="9" cols="53" class="replybox text3"
+                                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
+                            </div>
+
+                            <button class="btn25 fltlft btn_preview" type="submit">
+                                <span class="lftDoor25">
+                                    <span class="rtDoor25">Preview</span>
+                                </span>
+                            </button>
+
+
+                            <button class="btn25 fltlft btn_postReply" type="submit">
+                                <span class="lftDoor25">
+                                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
+                                </span>
+                            </button>
+                            <div class="smallText2 fltlft guidelines">
+                                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                           title="GreatSchools Community Standards"
+                                                           href="/terms/?state=$STATE#communityStandards"
+                                                           tabIndex="18">
+                                <span class="link">Community Guidelines</span></gsml:popupWindow>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end db_post_reply -->
+                </div>
+                <!-- end db_postReplyContainer -->
+            </div>
+            <!-- end replyForm -->
+        </c:if>
+    </c:set>
+
+<c:choose>
+    <c:when test="${discussion.raiseYourHand}">
+        <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${validUser}" signedIn="${not empty validUser}" redirectUrl="${loginRedirectUrl}" ryhMaxNumReplies="${pageSize}" style="ryhDetail" showViewAll="false" allowEditsAndDeletes="true"/>
+    </c:when>
+    <c:otherwise>
+
 
 <div class="db_discussion">
     <div class="db_title gainlayout">
@@ -429,76 +535,6 @@
         ${shareThis}
     </div>
 
-    <c:set var="replyForm">
-        <c:if test="${requestScope.validUser != null}">
-            <div class="replyForm clearfix sdrb" style="display:none;">
-                <c:if test="${requestScope.userReplyMessage != null}">
-                    <div class="feedbackMessage">${requestScope.userReplyMessage}</div>
-                </c:if>
-
-                <div class="db_discussAvatar fltlft">
-                    <link:userProfile user="${requestScope.validUser}">
-                        <community:avatar user="${requestScope.validUser}" width="48" height="48"
-                                          cssStyle="border: 1px solid #c6c6c6;"/>
-                    </link:userProfile>
-                </div>
-
-                <div class="db_postReplyContainer fltlft">
-                    <b class="db_postPointLeft db_postArrow">&amp;nbsp;</b>
-
-                    <div class="db_post_reply fltrt rnd8">
-                        <span class="text1bold">Post a reply to: </span>
-                        <span class="text1">&amp;ldquo;${discussion.title}&amp;rdquo; </span>
-                            <span class="text3bold">by
-                                <c:choose>
-                                    <c:when test="${discussion.user.userProfile.active}">
-                                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}"
-                                                          styleClass="link"><community:screenName userContent="${discussion}"/>
-                                        </link:userProfile>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <community:screenName userContent="${discussion}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
-
-                        <form action="/community/discussionSubmission.page" method="POST" accept-charset="Windows-1252">
-                            <input type="hidden" name="discussionId" value="${requestScope.discussion.id}"/>
-
-                            <div class="db_textarea">
-                                <textarea rows="9" cols="53" class="replybox text3"
-                                          name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
-                            </div>
-
-                            <button class="btn25 fltlft btn_preview" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Preview</span>
-                                </span>
-                            </button>
-
-
-                            <button class="btn25 fltlft btn_postReply" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
-                                </span>
-                            </button>
-                            <div class="smallText2 fltlft guidelines">
-                                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                           title="GreatSchools Community Standards"
-                                                           href="/terms/?state=$STATE#communityStandards"
-                                                           tabIndex="18">
-                                <span class="link">Community Guidelines</span></gsml:popupWindow>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- end db_post_reply -->
-                </div>
-                <!-- end db_postReplyContainer -->
-            </div>
-            <!-- end replyForm -->
-        </c:if>       
-    </c:set>
-
     ${replyForm}
 
     <c:if test="${fn:length(requestScope.replies) > 0}">
@@ -528,6 +564,8 @@
     </c:if>
 </div>
 <!-- end db_discussion -->
+    </c:otherwise>
+    </c:choose>
 
 <c:if test="${fn:length(requestScope.replies) eq 0}">
     <div class="db_no_replies">There are no replies yet to this conversation. Be the first to
@@ -541,6 +579,8 @@
         </c:choose>
         <a href="${postAReplyHref}" class="openPostBox">post a reply</a>!</div>
 </c:if>
+
+<c:if test="${!discussion.raiseYourHand}">
 
 <div class="db_replies">
     <c:choose>
@@ -638,27 +678,43 @@
     </c:choose>
 </div>
 <!-- end db_replies -->
-<br class="clearfloat"/>
+</c:if>
+
+    <br class="clearfloat"/>
 </div>
 <!-- end db_body -->
 
 <div class="db_footer">
 
-        <community:pagination page="${page}" totalPages="${totalPages}"
-                              url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
-        <c:if test="${fn:length(requestScope.replies) > 3}">
-            <c:if test="${empty validUser}">
-                ${postReplyButton}
-            </c:if>
-            ${shareThis}
+    <community:pagination page="${page}" totalPages="${totalPages}"
+                          url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
+    <c:choose>
+        <c:when test="${discussion.raiseYourHand}">
             <br class="clearfloat"/>
-            ${replyForm}
-        </c:if>
+            ${seeMoreLink}
+            <br class="clearfloat"/>
+            <div class="fltlft">
+            ${shareThis}
+            </div>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${fn:length(requestScope.replies) > 3}">
+                <c:if test="${empty validUser}">
+                    ${postReplyButton}
+                </c:if>
+                ${shareThis}
+                <br class="clearfloat"/>
+                ${replyForm}
+            </c:if>
+        </c:otherwise>
+    </c:choose>
 
 </div>
 <!-- end db_footer -->
 </div>
 <!-- end module -->
+
+<br class="clearfloat"/>
 
 <community:manageRaiseYourHand discussion="${discussion}" topicCenters="${allTopicCenters}" user="${validUser}"/>
 
@@ -673,7 +729,6 @@
 <!-- sidebar that shows More-In: -->
 <cms:communitySidebar content="${moreInContent}" searchType="community"/>
 
-</div>
 <mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>

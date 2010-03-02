@@ -36,6 +36,7 @@ public class DiscussionController extends AbstractController {
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final int DEFAULT_PAGE_SIZE = 10;
+    public static final int RAISE_YOUR_HAND_PAGE_SIZE = 10;
 
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_DISCUSSION = "discussion";
@@ -132,8 +133,8 @@ public class DiscussionController extends AbstractController {
                 includeInactive = true;
             }
 
-            int pageSize = getPageSize(request);
-            DiscussionReplySort sort = getReplySort(request, response);
+            int pageSize = getPageSize(request, discussion.isRaiseYourHand());
+            DiscussionReplySort sort = getReplySort(request, response, discussion.isRaiseYourHand());
             model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_SORT, sort);
             int page = getPageNumber(request, discussion, pageSize, sort, includeInactive);
@@ -250,7 +251,10 @@ public class DiscussionController extends AbstractController {
     /**
      * Extract the page size from either the request or the cookie.
      */
-    protected int getPageSize(HttpServletRequest request) {
+    protected int getPageSize(HttpServletRequest request, boolean isRaiseYourHand) {
+        if (isRaiseYourHand) {
+            return RAISE_YOUR_HAND_PAGE_SIZE;
+        }
         int pageSize = DEFAULT_PAGE_SIZE;
 
         // use request parameter value if present
@@ -268,7 +272,10 @@ public class DiscussionController extends AbstractController {
         return pageSize;
     }
 
-    protected DiscussionReplySort getReplySort(HttpServletRequest request, HttpServletResponse response) {
+    protected DiscussionReplySort getReplySort(HttpServletRequest request, HttpServletResponse response, boolean isRaiseYourHand) {
+        if (isRaiseYourHand) {
+            return DiscussionReplySort.NEWEST_FIRST;
+        }
         DiscussionReplySort sort = DiscussionReplySort.OLDEST_FIRST;
 
         String sortParam = request.getParameter(PARAM_SORT);

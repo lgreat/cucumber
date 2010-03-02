@@ -94,7 +94,7 @@
                 <c:when test="${fn:length(requestScope.discussionList) > 0}">
                     <c:set var="seeMoreLink">
                         <div class="fltrt">
-                            <div class="see-more">
+                            <div class="see-more smallAlertText">
                                 <span class="icon"><!-- icon --></span>
                                 <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
                                     class="alertDoubleArrow">&amp;raquo;</span>
