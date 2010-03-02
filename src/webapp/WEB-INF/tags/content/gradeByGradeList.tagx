@@ -14,7 +14,7 @@
     <ul class="fltlft text3">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count lt 4}">
-                <li><span class="sprite ${recentItem.contentType}"><!-- do not collapse --></span>
+                <li><span class="sprite ${recentItem.contentType} padrt_10"><!-- do not collapse --></span>
                     <c:choose>
                         <c:when test="${recentItem.contentType eq 'cms'}">
                             <link:cmsContent contentKey="${recentItem.contentKey}"
@@ -32,7 +32,7 @@
     <ul class="fltlft text3 border-left-dotted">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count gt 3}">
-                <li><span class="sprite ${recentItem.contentType}"><!-- do not collapse --></span>
+                <li><span class="sprite ${recentItem.contentType} padrt_10"><!-- do not collapse --></span>
                     <c:choose>
                         <c:when test="${recentItem.contentType eq 'cms'}">
                             <link:cmsContent contentKey="${recentItem.contentKey}"

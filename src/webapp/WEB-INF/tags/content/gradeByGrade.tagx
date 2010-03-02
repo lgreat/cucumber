@@ -294,47 +294,47 @@
                 <div id="gbg-content-p">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Preschool']}"/>
                     <br class="clearfloat"/>
-                    <span class="fltrt smallAlertText"><link:preschool>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:preschool>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
                 </div>
                 <div id="gbg-content-k">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Kindergarten']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-1">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['First grade']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-2">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Second grade']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-3">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Third grade']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-4">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Fourth grade']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-5">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Fifth grade']}"/>
-                    <span class="fltrt smallAlertText"><link:elementary-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
                 <div id="gbg-content-m">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['Middle school']}"/>
-                    <span class="fltrt smallAlertText"><link:middle-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:middle-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
                 </div>
                 <div id="gbg-content-h">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['High school']}"/>
-                    <span class="fltrt smallAlertText"><link:high-school>See more <span
+                    <span class="seeMore fltrt smallAlertText"><link:high-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
                 </div>
             </div>
