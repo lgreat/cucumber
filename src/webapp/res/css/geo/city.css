@@ -20,9 +20,7 @@
     font-weight: normal;
     color: #eb7a31;
 }
-.cityPage h2,
-    .cityPage .hotTopics h3,
-    .statsModule h3 {
+.cityPage h2 {
     color: #eb7a31;
     font-size: medium;
     font-weight: 400;
@@ -162,6 +160,7 @@
 #schoolFinderPromo p{
     color:#666666;
     font-size: 13px;
+    margin-bottom: .5em;
 }
 
 .headerBox {
@@ -174,6 +173,8 @@
     }
     .headerBox td#nearbyCities {
         padding-bottom:2px;
+        vertical-align: middle;
+        text-align: right;
     }
     .headerBox td#nearbyCities a {
         color: #888;
@@ -396,8 +397,7 @@ div.statsModule {
     position:absolute;
     top:11px;
     left:223px;
-    width:280px;
-    padding: 0px 0 0 0;
+    padding: 0;
 }
 
 #cityrating #ratingtext{
@@ -432,11 +432,12 @@ div.statsModule {
 }
 
 div#testScoreLandingLinks {
-    margin-top: 10px;
+    margin: 10px 0 0;
 }
-
+h1.sfooter, h1#sfooter, .sfooter {
+    margin-left: 20px;
+}
 a#nearbyCityLink, #cityrating a#nearbyCityLink, a.callToAction {
-    color: #3399AA;
     font-size: 13px;
     text-decoration: none;
 }
@@ -575,8 +576,7 @@ span.nobreak {
     padding:0.3ex 0 0 0;
 }
 #recentDiscussions h2{
-    font: bold 16px Arial, Arial, Helvetica, sans-serif;
-    color:#5bc;
+    font: 400 16px Arial, Helvetica, sans-serif;
 }
 #recentDiscussions h4{
     margin: 0 .5em 0 0;

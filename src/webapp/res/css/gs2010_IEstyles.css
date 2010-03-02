@@ -271,7 +271,16 @@ body.ie6 .srchCatComm li span.icon {
 .ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button{
     width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
 }
+/* skin */
+body.ie6 .lftDoor25 {
+    background-position: 0 2px;
+    overflow: hidden;
+}
 
+.rtDoor25 {
+    background-position: 100% 2px;
+    overflow: hidden;
+}
 
 /* =4a-4 raise your hand
 -------------------------------------------------------------------------------------------*/
