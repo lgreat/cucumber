@@ -346,3 +346,11 @@ body.ie6 #gbg-marker-p, body.ie6 #gbg-marker-k, body.ie6 #gbg-marker-1, body.ie6
     background-color:#388dd1;*/
     overflow:hidden;
 }
+
+/* =5- icons
+-------------------------------------------------------------------------------------------*/
+
+.ie6 .sprite {
+    display: inline-block;
+    background-image: url(/res/img/discussion_boards/db_profile_sprites_bg.gif);
+}
