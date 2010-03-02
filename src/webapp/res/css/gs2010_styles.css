@@ -1268,6 +1268,10 @@ body.ie6 .clearfix {
     padding: 0 15px;
 }
 
+#gbgContent li span{
+    margin:0 0 -4px 0;
+}
+
 #gbgContent .border-left-dotted {
     border-left: 1px dotted #999;
 }
