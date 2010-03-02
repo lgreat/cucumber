@@ -1688,19 +1688,19 @@ ul.srchSuggest li span {
     background-position: 0 0;
 }
 
-.reportIt-nbg {
+.reportIt-nbg { /* nbg = no background (i.e., transparent) */
     width: 14px;
     height: 17px;
     background-position: 0 -90px;
 }
 
-.reportIt-wbg {
+.reportIt-wbg { /* wbg = with background (i.e., not transparent) */
     width: 13px;
     height: 18px;
     background-position: 0 -180px;
 }
 
-.cms {
+.cms { /* for articles and ask the experts content */
     width: 16px;
     height: 17px;
     background-position: 0 -269px;
@@ -1724,7 +1724,7 @@ ul.srchSuggest li span {
     background-position: 0 -527px;
 }
 
-.ryh {
+.ryh { /* for raise your hand content */
     width: 18px;
     height: 19px;
     background-position: 0 -559px;
