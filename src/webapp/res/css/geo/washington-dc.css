@@ -11,7 +11,7 @@
 
 #colft{
 	width:211px;
-    margin-left:52px;
+    margin-left:48px;
     margin-top:20px;
     /*width:215px;*/
     /*background:red;*/
@@ -19,10 +19,18 @@
 
 #colrt{
 	width:652px;
-    margin-right:52px;
+    margin-right:48px;
     margin-top:20px;
     /*width:649px;*/
     /*background:blue;*/
+}
+
+*html #colft{
+    margin-left:22px;
+}
+
+*html #colrt{
+    margin-right:22px;
 }
 
 /* ------------------- */
