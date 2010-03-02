@@ -277,7 +277,7 @@ body.ie6 .lftDoor25 {
     overflow: hidden;
 }
 
-.rtDoor25 {
+body.ie6 .rtDoor25 {
     background-position: 100% 2px;
     overflow: hidden;
 }
