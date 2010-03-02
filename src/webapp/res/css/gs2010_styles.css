@@ -1688,13 +1688,13 @@ ul.srchSuggest li span {
     background-position: 0 0;
 }
 
-.flagnbg {
+.reportIt-nbg {
     width: 14px;
     height: 17px;
     background-position: 0 -90px;
 }
 
-.flagwbg {
+.reportIt-wbg {
     width: 13px;
     height: 18px;
     background-position: 0 -180px;
