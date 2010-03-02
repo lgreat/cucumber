@@ -162,7 +162,7 @@
                 </h3>
                 <ul>
                     <li><gsml:a href="http://www.rcan.org" target="_blank">Archdiocese of Newark </gsml:a></li>
-                    <li><gsml:a href="http://www.njais.org" target="_blank">New Jersey Association of Independent Schools (NJAIS)</gsml:a></li>
+                    <li><gsml:a href="http://www.njais.org" target="_blank">New Jersey Association of Independent <br/>Schools (NJAIS)</gsml:a></li>
                     <li><gsml:a href="http://www.nps.k12.nj.us" target="_blank">Newark Public Schools (NPS)</gsml:a></li>
                 </ul>
             </div>
