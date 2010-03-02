@@ -834,6 +834,10 @@ body.cobranded #pageGS {
     padding-right:10px;
 }
 
+.hidden {
+    display: none;
+}
+
 /* clear fix */
 
 .clearfix:after {

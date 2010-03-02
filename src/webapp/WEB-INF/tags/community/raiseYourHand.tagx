@@ -16,7 +16,7 @@
 <jsp:directive.attribute name="ryhMaxNumReplies" required="true" type="java.lang.Integer"/>
 <jsp:directive.attribute name="style" required="true" type="java.lang.String"/>
 <jsp:directive.attribute name="showViewAll" required="true" type="java.lang.Boolean"/>
-<jsp:directive.attribute name="allowEditsAndDeletes" required="true" type="java.lang.Boolean"/>
+<jsp:directive.attribute name="allowEditsDeletesReports" required="true" type="java.lang.Boolean"/>
 
 <c:if test="${not empty discussion}">
 
@@ -93,6 +93,8 @@
             return true;
         });
 
+        //<c:if test="${allowEditsDeletesReports}">
+
         $j('.ryh-topsection .editLink').click(function() {
             var ryhContainer = $j(this).parents('.ryh-topsection');
             var body = ryhContainer.children('.discussionBody').html();
@@ -168,8 +170,8 @@
                 window.location.reload();
             }, 250);
         });
-
         //</gsml:ifUserCanDeleteContent>
+        //</c:if>
 
         //</c:if>
 
@@ -202,6 +204,7 @@
                                  fullUri="${discussion.discussionBoard.fullUri}"
                                  styleClass="title2-d61 ryh-discussion-title">${discussion.title}
                 </link:discussion>
+                <c:if test="${allowEditsDeletesReports}">
                     <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${discussion.user}"
                                                contentPostedDate="${discussion.dateCreated}">
                         | <a href="#" class="editLink link">Edit</a>
@@ -220,6 +223,7 @@
                         </c:otherwise>
                     </c:choose>
                 <span class="hidden discussionBody">${discussion.body}</span>
+                </c:if>
             </div>
             <!-- end ryh-title -->
 
@@ -371,12 +375,12 @@
                                 <c:when test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
                                     <p class="fltrt reported">You've reported this reply.</p>
                                 </c:when>
-                                <c:otherwise>
+                                <c:when test="${allowEditsDeletesReports}">
                                     <p class="fltrt">
                                         <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
                                                         id="report_reply_${reply.id}">Report it</a>
                                     </p>
-                                </c:otherwise>
+                                </c:when>
                             </c:choose>
                             <br class="clearfloat"/>
 
