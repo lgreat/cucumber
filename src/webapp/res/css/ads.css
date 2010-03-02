@@ -7,6 +7,10 @@ img {
     font-size: 10px;
 }
 
+.ad span {
+    text-align: center;
+}
+
 .textAd {
     font-family: Arial, Arial, sans-serif;
     text-align: left;
