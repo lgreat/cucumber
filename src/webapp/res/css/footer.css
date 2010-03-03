@@ -47,6 +47,7 @@ body {
 }
 *html #footer {
     background-image: url(/res/img/gs_contentIE6_bg.png);
+    background-color: transparent;
 }
 #footnav {
     border-top: 3px dotted #ccc;
