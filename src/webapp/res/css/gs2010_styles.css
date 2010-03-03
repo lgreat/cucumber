@@ -831,6 +831,10 @@ body.cobranded #pageGS {
     line-height:25px;
 }
 
+.padrt_5{
+    padding-right:5px;
+}
+
 .padrt_10{
     padding-right:10px;
 }
@@ -1476,7 +1480,7 @@ p.noMatch {
 	border-top: 10px solid #d61;
 	border-right: 7px solid white;
     position:absolute;
-    left:27px;
+    left:42px;
     bottom:-10px;
 }
 #mainContent .srchCtrls .searchNav li a {
@@ -1508,7 +1512,7 @@ ul.srchRslts {
 
 ul.srchRslts li.srchRslt {
     position: relative;
-    padding: 9px 9px 9px 25px;
+    padding: 9px 9px 9px 0;
     border-bottom: 1px dotted #999;
 }
 ul.srchRslts li.srchRslt p {

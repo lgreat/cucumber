@@ -203,12 +203,14 @@
                                 <c:set var="srchRsltSupplClass2" value="ryh"/>
                             </c:when>
                             <c:otherwise>
-                                <c:set var="srchRsltSupplClass2" value=""/>
+                                <c:set var="srchRsltSupplClass2" value="discussion"/>
                             </c:otherwise>
                         </c:choose>
-                        <li class="srchRslt ${srchRsltSupplClass} ${srchRsltSupplClass2}"><span class="icon"><!-- icon --></span>
+                        <li class="srchRslt ${srchRsltSupplClass} clearfix">
+                            <span class="sprite ${srchRsltSupplClass2} fltlft padrt_5"><!-- icon --></span>
+                            <div class="fltlft">
                             <c:if test="${result.raiseYourHand}">
-                                <span class="smallAlertText">RAISE YOUR HAND</span><br/>
+                                <p class="smallAlertText">RAISE YOUR HAND</p>
                             </c:if>
                             <p><link:discussion discussionId="${result.contentKey.identifier}" styleClass="text3bold"
                                              fullUri="${result.fullUri}">${result.title}</link:discussion>
@@ -243,6 +245,8 @@
                                         linkClass="smallText1bold"
                                         />
                             </p>
+                                <br class="clearfloat"/>
+                            </div>
                         </li>
                     </c:forEach>
                 </ul>
