@@ -228,6 +228,7 @@ public class Util {
             output = output.substring(20, output.length() - 14);
         }
         output = output.replace("&amp;apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
+        output = output.replace("&apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
         teaserBody = output;
 
         return teaserBody;
