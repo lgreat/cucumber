@@ -27,6 +27,9 @@
 <head>
     <title>${pageTitle} | GreatSchools</title>
     <c:choose>
+        <c:when test="${raiseYourHandFeaturedQuestions}">
+            <meta name="description" content="Join parents as they answer questions about parenting and education on GreatSchools."/>
+        </c:when>
         <c:when test="${raiseYourHand}">
             <meta name="description" content="Join parents as they answer questions about ${fn:toLowerCase(fn:escapeXml(discussionBoard.title))} on GreatSchools."/>
         </c:when>
