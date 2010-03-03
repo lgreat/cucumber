@@ -24,7 +24,7 @@
         <ad:setSlotPrefix slotPrefix="My_School_List"/>
     </head>
 
-    <gsml:body adPageName="mySchoolListLogin" pageLayout="mySchoolListLogin">
+    <gsml:body adPageName="mySchoolListLogin" pageLayout="nocol">
 
         <div class="leftSkyAd">
             <ad:AboveFold_Right_120x600 showAdWord="true"/>

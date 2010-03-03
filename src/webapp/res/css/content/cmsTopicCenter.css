@@ -350,6 +350,10 @@
     padding:0 0 10px 0;
 }
 
+#recentDiscussions .text3 p {
+    padding: 0;
+    margin: 0;
+}
 #recentDiscussions .avatar {
     width:58px;
 }

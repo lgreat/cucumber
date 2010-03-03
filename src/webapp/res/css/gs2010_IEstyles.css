@@ -273,12 +273,12 @@ body.ie6 .srchCatComm li span.icon {
 }
 /* skin */
 body.ie6 .lftDoor25 {
-    background-position: 0 2px;
+    height: 25px;
     overflow: hidden;
 }
 
 body.ie6 .rtDoor25 {
-    background-position: 100% 2px;
+    height: 25px;
     overflow: hidden;
 }
 
@@ -359,7 +359,9 @@ body.ie6 #gbg-marker-p, body.ie6 #gbg-marker-k, body.ie6 #gbg-marker-1, body.ie6
 body.ie6 #gbgContent li {
     padding:5px 0;
 }
-
+body.ie6 #contentRight div.inner div {
+    height: 1%;
+}
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
 

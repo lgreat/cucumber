@@ -380,3 +380,6 @@ div#donate,div#daytondonate {
       div#landingEditorialFooter{
           margin-left:30px;
       }
+#promoRulesLink {
+    margin: 0 0 0 20px;
+}

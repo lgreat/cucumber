@@ -19,7 +19,7 @@
     <div id="sidebarGS" class="col">
         <div id="commSearch" class="mod">
             <div class="mod_hd">
-                <h3 class="title1white">
+                <h3>
                     Search
                     <c:choose>
                         <c:when test="${pageScope.searchType eq 'all'}">

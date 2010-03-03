@@ -41,7 +41,6 @@
 
 #mainContent {
     width: 558px;
-    border-right: 2px solid #aaa;
     padding: 15px 20px;
     /*float:left;*/
 }
@@ -177,6 +176,9 @@ body.ie6 .clearfix {
 #mainGS .postedReplies{
     margin:0 0 0 65px;
     padding:10px 0;
+}
+#mainGS .postedReplies p {
+    margin:0;
 }
 
 #mainGS .viewAll{
@@ -390,6 +392,7 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
     /*max-height:90px;*/
     background:#ebebeb;
     padding:12px;
+    display: inline;
 }
 
 .db_discuss_full{
@@ -415,6 +418,7 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
     width:387px;
     border:1px solid #c6c6c6;
     padding:12px;
+    display: inline;
 }
 
 .replyForm{
