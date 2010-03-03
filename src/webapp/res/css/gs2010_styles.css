@@ -940,11 +940,11 @@ body.ie6 .clearfix {
     height:60px;
 }
 .blogpromo_image{
-    border:1px solid #ccc;
-    padding:1px;
-    margin:0 5px;
-    height:40px;
-    width:40px;
+    border:1px solid #c6c6c6;
+    /*padding:1px;*/
+    /*margin:0 5px;*/
+    /*height:40px;*/
+    /*width:40px;*/
 }
 .blogpromo_entry{
     width:235px;
@@ -2003,7 +2003,7 @@ ul.srchSuggest li span {
 .body2bg .morein, .body2bg .mostpop {
     padding:0 20px 0 0;
 }
-.body2bg .moreinItem, .mostpop .mostpopItem{
+.body2bg .moreinItem{
     margin:0 0 0 15px;
     padding:5px 0;
     list-style:disc;

@@ -230,7 +230,7 @@
             <div class="ryh-answer">
                 <!--<form action="#">-->
                 <label for="ryhAnswer" class="text1">Your reply:
-                    <span class="formHelperText" id="ryhAnswerCount"><!-- don't collapse --></span></label>
+                    <span class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></span></label>
 
                 <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50"
                           style="width: 231px; height: 55px;"><!-- --></textarea>
