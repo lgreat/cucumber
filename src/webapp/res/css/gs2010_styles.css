@@ -1423,6 +1423,9 @@ body.ie6 .clearfix {
     width:259px;
     margin:7px 0 4px 0;
 }
+db_discussContainer .db_discuss_full p {
+    margin: 0;
+}
 /*
 =search styles 
 -----------------------------------------------------------------------------------
