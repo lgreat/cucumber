@@ -874,6 +874,14 @@ body.ie6 .clearfix {
     background: #fc6;
 }
 
+#find input{
+    width: 158.5px;
+}
+
+#find button{
+    margin-top: -4px;
+}
+
 #find, #compare {
     padding: 15px 20px;
 }
