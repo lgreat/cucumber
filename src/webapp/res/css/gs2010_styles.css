@@ -551,14 +551,12 @@ body.cobranded #pageGS {
 
 #globalnav li#n1 a {
     width: 114px;
-    height: 34px;
 }
 #globalnav li#n1 a:hover, #globalnav li#n1.active a {
     background-position: 0 -34px;
 }
 #globalnav li#n2 a {
     width: 169px;
-    height: 34px;
     background-position: -114px 0;
 }
 #globalnav li#n2 a:hover, #globalnav li#n2.active a {
@@ -566,7 +564,6 @@ body.cobranded #pageGS {
 }
 #globalnav li#n3 a {
     width: 142px;
-    height: 34px;
     background-position: -283px 0;
 }
 #globalnav li#n3 a:hover, #globalnav li#n3.active a {
@@ -574,7 +571,6 @@ body.cobranded #pageGS {
 }
 #globalnav li#n4 a {
     width: 208px;
-    height: 34px;
     background-position: -425px 0;
 }
 #globalnav li#n4 a:hover, #globalnav li#n4.active a {
@@ -582,7 +578,6 @@ body.cobranded #pageGS {
 }
 #globalnav li#n5 a {
     width: 175px;
-    height: 34px;
     background-position: -633px 0;    
 }
 #globalnav li#n5 a:hover, #globalnav li#n5.active a {
@@ -590,7 +585,6 @@ body.cobranded #pageGS {
 }
 #globalnav li#n6 a {
     width: 160px;
-    height: 34px;
     background-position: -808px 0;    
 }
 #globalnav li#n6 a:hover, #globalnav li#n6.active a {

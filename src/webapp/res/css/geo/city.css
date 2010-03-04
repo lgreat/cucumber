@@ -265,7 +265,7 @@ div.recentParentReviewsContent {
 }
 
 div.recentParentReviews table tr td {
-    padding: 0 0 3px 0;
+    padding: 0 0 6px 0;
 }
 
 .recentParentReviews h5 {
@@ -292,6 +292,7 @@ div.recentParentReviews table tr td {
 
 .recentParentReviews p {
     font-size: small;
+    margin: 0;
 }
 
 .schoolBreakdown h3,
@@ -576,7 +577,8 @@ span.nobreak {
     padding:0.3ex 0 0 0;
 }
 #recentDiscussions h2{
-    font: 400 16px Arial, Helvetica, sans-serif;
+    font: 400 18px Arial, Helvetica, sans-serif;
+    color: #333;
 }
 #recentDiscussions h4{
     margin: 0 .5em 0 0;
