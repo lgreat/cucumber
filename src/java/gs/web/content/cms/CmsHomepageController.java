@@ -98,13 +98,8 @@ public class CmsHomepageController extends AbstractController {
                     RecentContent recentContent = new RecentContent(d, d.getDiscussionBoard().getFullUri());
                     recentContentList.add(recentContent);
                 }
-                // Temporary debugging to help me identify issues with GS-9160
-                _log.warn("------------------------------------------------------");
-                _log.warn(category.getName());
-                _log.warn("------------------------------------------------------");
                 while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && !cmsContentForCat.isEmpty()) {
                     SearchResult result = (SearchResult) cmsContentForCat.remove(0);
-                    _log.warn(result.getHeadline() + ": " + result.getDateCreated());
                     recentContentList.add(new RecentContent(result));
                 }
                 if (!recentContentList.isEmpty()) {
