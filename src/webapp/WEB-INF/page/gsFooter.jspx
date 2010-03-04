@@ -24,6 +24,7 @@
         <title>gsFooter</title>
         <gsml:url var="footercss" value="/res/css/footer.css"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="/css/gs.css"></link>]]>
         <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
         <style type="text/css">
@@ -37,8 +38,8 @@
         </style>
         <base target="_top"/>
     </head>
-    <body>  
+    <gsml:body adPageName="perFooter" pageLayout="perlFooter">  
     <mod:footer showAd="false" showSeoFooter="false" showOnlyCopyrightFooter="${copyrightOnly}"/>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
