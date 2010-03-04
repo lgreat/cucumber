@@ -1052,7 +1052,7 @@ body.ie6 .clearfix {
 }
 
 .ryh-list .list {
-    width: 149px;
+    /*width: 149px;*/
     color: #f4891d;
     clear: both;
 }

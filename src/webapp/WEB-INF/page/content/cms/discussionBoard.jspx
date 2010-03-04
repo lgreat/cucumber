@@ -64,70 +64,97 @@
 <body>
 
 <div id="container">
-<div id="mainContent" class="fltlft">
-    <p class="breadCrumbs smallAlertText">
-        <link:home>Home</link:home>
 
-        <c:choose>
-            <c:when test="${requestScope.discussionBoard.city ne null}">
-                &amp;gt;
-                    <link:research state="${requestScope.discussionBoard.city.state}"
-                                   title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
-                    &amp;gt;
-
-                    <link:city city="${requestScope.discussionBoard.city.name}"
-                               state="${requestScope.discussionBoard.city.state}"
-                               title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
-            </c:when>
-
-            <c:when test="${requestScope.topicCenter ne null}">
-                &amp;gt;
-                    <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                                     fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-            </c:when>
-        </c:choose>
-    </p>
 
 <c:choose>
-    <c:when test="${raiseYourHand}">
-        <div class="ryh-list">
-            <h2>Raise Your Hand: <span class="title">${title}</span></h2>
+<c:when test="${raiseYourHand}">
+<div id="mainGS" class="col">
+    <p class="breadCrumbs smallAlertText">
+    <link:home>Home</link:home>
 
-            <c:choose>
-                <c:when test="${fn:length(requestScope.discussionList) > 0}">
-                    <c:set var="seeMoreLink">
-                        <div class="fltrt">
-                            <div class="see-more smallAlertText">
-                                <span class="icon"><!-- icon --></span>
-                                <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
-                                    class="alertDoubleArrow">&amp;raquo;</span>
-                            </div>
-                        </div>
-                    </c:set>
-                    ${seeMoreLink}
-                    <ul class="list text2">
-                        <c:forEach var="discussion" items="${requestScope.discussionList}">
-                            <li><link:discussion discussionId="${discussion.id}"
-                                                 fullUri="${discussion.fullUri}"><span
-                                    class="">${discussion.title}</span></link:discussion>
-                                <c:if test="${discussion.active eq false}">
-                                    <span class="tint_c03">(Deleted)</span>
-                                </c:if></li>
-                        </c:forEach>
-                    </ul>
-                    ${seeMoreLink}
-                </c:when>
-                <c:otherwise>
-                    <div class="no-ryh">
-                        <p class="text2">There are no Raise Your Hand questions about ${title}.
+    <c:choose>
+        <c:when test="${requestScope.discussionBoard.city ne null}">
+            &amp;gt;
+            <link:research state="${requestScope.discussionBoard.city.state}"
+                           title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
+            &amp;gt;
+
+            <link:city city="${requestScope.discussionBoard.city.name}"
+                       state="${requestScope.discussionBoard.city.state}"
+                       title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
+        </c:when>
+
+        <c:when test="${requestScope.topicCenter ne null}">
+            &amp;gt;
+            <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                             fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+        </c:when>
+    </c:choose>
+</p>
+
+    <div class="ryh-list">
+        <h2>Raise Your Hand: <span class="title">${title}</span></h2>
+
+        <c:choose>
+            <c:when test="${fn:length(requestScope.discussionList) > 0}">
+                <c:set var="seeMoreLink">
+                    <div class="fltrt">
+                        <div class="see-more smallAlertText">
+                            <span class="icon"><!-- icon --></span>
                             <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
-                                    class="alertDoubleArrow">&amp;raquo;</span></p>
+                                class="alertDoubleArrow">&amp;raquo;</span>
+                        </div>
                     </div>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </c:when>
-    <c:otherwise>
+                </c:set>
+                ${seeMoreLink}
+                <ul class="list text2">
+                    <c:forEach var="discussion" items="${requestScope.discussionList}">
+                        <li><link:discussion discussionId="${discussion.id}"
+                                             fullUri="${discussion.fullUri}"><span
+                                class="">${discussion.title}</span></link:discussion>
+                            <c:if test="${discussion.active eq false}">
+                                <span class="tint_c03">(Deleted)</span>
+                            </c:if></li>
+                    </c:forEach>
+                </ul>
+                ${seeMoreLink}
+            </c:when>
+            <c:otherwise>
+                <div class="no-ryh">
+                    <p class="text2">There are no Raise Your Hand questions about ${title}.
+                        <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                                class="alertDoubleArrow">&amp;raquo;</span></p>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    </div>
+</c:when>
+<c:otherwise>
+
+<div id="mainContent" class="fltlft">
+<p class="breadCrumbs smallAlertText">
+    <link:home>Home</link:home>
+
+    <c:choose>
+        <c:when test="${requestScope.discussionBoard.city ne null}">
+            &amp;gt;
+            <link:research state="${requestScope.discussionBoard.city.state}"
+                           title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
+            &amp;gt;
+
+            <link:city city="${requestScope.discussionBoard.city.name}"
+                       state="${requestScope.discussionBoard.city.state}"
+                       title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
+        </c:when>
+
+        <c:when test="${requestScope.topicCenter ne null}">
+            &amp;gt;
+            <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                             fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+        </c:when>
+    </c:choose>
+</p>
 
 <div class="module">
 <div class="header">
@@ -154,217 +181,218 @@
                                  discussionBoardId="${discussionBoard.contentKey.identifier}"/>
 
 <div class="db_body">
-    <c:choose>
-        <c:when test="${fn:length(requestScope.discussionList) > 0}">
+<c:choose>
+<c:when test="${fn:length(requestScope.discussionList) > 0}">
 
-            <div class="db_deck gainlayout">
-                <div class="fltlft">
-                <label class="smallAlertText" for="posts">Show: </label>
-                <select id="postCountSelect" name="posts">
-                    <gsml:selectOption value="10" selected="${requestScope.pageSize eq 10}">10 posts</gsml:selectOption>
-                    <gsml:selectOption value="15" selected="${requestScope.pageSize eq 15}">15 posts</gsml:selectOption>
-                    <gsml:selectOption value="20" selected="${requestScope.pageSize eq 20}">20 posts</gsml:selectOption>
-                    <gsml:selectOption value="25" selected="${requestScope.pageSize eq 25}">25 posts</gsml:selectOption>
-                </select>
-                </div>
+<div class="db_deck gainlayout">
+    <div class="fltlft">
+        <label class="smallAlertText" for="posts">Show: </label>
+        <select id="postCountSelect" name="posts">
+            <gsml:selectOption value="10" selected="${requestScope.pageSize eq 10}">10 posts</gsml:selectOption>
+            <gsml:selectOption value="15" selected="${requestScope.pageSize eq 15}">15 posts</gsml:selectOption>
+            <gsml:selectOption value="20" selected="${requestScope.pageSize eq 20}">20 posts</gsml:selectOption>
+            <gsml:selectOption value="25" selected="${requestScope.pageSize eq 25}">25 posts</gsml:selectOption>
+        </select>
+    </div>
 
-                <p class="fltrt smallAlertText">
-                    Sort by:
-                    <c:choose>
-                        <c:when test="${requestScope.sort == 'recent_activity'}">
-                            Recently active
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${requestScope.uri}&amp;amp;sort=recent_activity">Recently active</a>
-                        </c:otherwise>
-                    </c:choose>
-                    |
-                    <c:choose>
-                        <c:when test="${requestScope.sort == 'newest_first'}">
-                            Newest first
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${requestScope.uri}&amp;amp;sort=newest_first">Newest first</a>
-                        </c:otherwise>
-                    </c:choose>
-                    |
-                    <c:choose>
-                        <c:when test="${requestScope.sort == 'oldest_first'}">
-                            Oldest first
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${requestScope.uri}&amp;amp;sort=oldest_first">Oldest first</a>
-                        </c:otherwise>
-                    </c:choose>
+    <p class="fltrt smallAlertText">
+        Sort by:
+        <c:choose>
+            <c:when test="${requestScope.sort == 'recent_activity'}">
+                Recently active
+            </c:when>
+            <c:otherwise>
+                <a href="${requestScope.uri}&amp;amp;sort=recent_activity">Recently active</a>
+            </c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${requestScope.sort == 'newest_first'}">
+                Newest first
+            </c:when>
+            <c:otherwise>
+                <a href="${requestScope.uri}&amp;amp;sort=newest_first">Newest first</a>
+            </c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${requestScope.sort == 'oldest_first'}">
+                Oldest first
+            </c:when>
+            <c:otherwise>
+                <a href="${requestScope.uri}&amp;amp;sort=oldest_first">Oldest first</a>
+            </c:otherwise>
+        </c:choose>
 
-                    <!--| <a href="#">Most Popular (what is this???)</a>-->
-                </p>
-                <br class="clearfloat"/>
+        <!--| <a href="#">Most Popular (what is this???)</a>-->
+    </p>
+    <br class="clearfloat"/>
+</div>
+<!-- end db_deck -->
+
+<c:forEach var="discussion" items="${requestScope.discussionList}">
+    <div class="db_discussion sdrt">
+        <div class="db_title gainlayout">
+            <h4 class="fltlft"><link:discussion discussionId="${discussion.id}"
+                                                fullUri="${discussion.fullUri}"><span
+                    class="title1">${discussion.title}</span></link:discussion>
+                <c:if test="${discussion.active eq false}">
+                    <span class="tint_c03">(Deleted)</span>
+                </c:if>
+            </h4>
+
+            <!--<p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>-->
+            <br class="clearfloat"/>
+        </div>
+        <div class="db_discussTopic gainlayout">
+            <div class="db_discussAvatar fltlft">
+                <c:choose>
+                    <c:when test="${discussion.user.userProfile.active}">
+                        <link:userProfile user="${discussion.user}"
+                                          anonymous="${discussion.anonymous}">
+                            <community:avatar user="${discussion.user}" width="48" height="48"
+                                              cssClass="fltlft" anonymous="${discussion.anonymous}"
+                                              cssStyle="border: 1px solid #c6c6c6;"/>
+                        </link:userProfile>
+                    </c:when>
+                    <c:otherwise>
+                        <community:avatar user="${discussion.user}" width="48" height="48"
+                                          cssClass="fltlft" anonymous="${discussion.anonymous}"
+                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                    </c:otherwise>
+                </c:choose>
             </div>
-            <!-- end db_deck -->
+            <!-- end discussion avatar -->
 
-            <c:forEach var="discussion" items="${requestScope.discussionList}">
-                <div class="db_discussion sdrt">
-                    <div class="db_title gainlayout">
-                        <h4 class="fltlft"><link:discussion discussionId="${discussion.id}"
-                                                            fullUri="${discussion.fullUri}"><span
-                                class="title1">${discussion.title}</span></link:discussion>
-                            <c:if test="${discussion.active eq false}">
-                                <span class="tint_c03">(Deleted)</span>
-                            </c:if>
-                        </h4>
+            <div class="db_discussContainer fltlft">
+                <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
 
-                        <!--<p class="fltrt emailItLink"><a class="smallText1" href="#">Email</a></p>-->
-                        <br class="clearfloat"/>
-                    </div>
-                    <div class="db_discussTopic gainlayout">
-                        <div class="db_discussAvatar fltlft">
-                            <c:choose>
-                                <c:when test="${discussion.user.userProfile.active}">
-                                    <link:userProfile user="${discussion.user}"
-                                                      anonymous="${discussion.anonymous}">
-                                        <community:avatar user="${discussion.user}" width="48" height="48"
-                                                          cssClass="fltlft" anonymous="${discussion.anonymous}"
-                                                          cssStyle="border: 1px solid #c6c6c6;"/>
-                                    </link:userProfile>
-                                </c:when>
-                                <c:otherwise>
-                                    <community:avatar user="${discussion.user}" width="48" height="48"
-                                                      cssClass="fltlft" anonymous="${discussion.anonymous}"
-                                                      cssStyle="border: 1px solid #c6c6c6;"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <!-- end discussion avatar -->
-
-                        <div class="db_discussContainer fltlft">
-                            <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
-
-                            <div class="db_discuss fltrt rnd8">
-                                <p class="fltlft">
-                                    <c:choose>
-                                        <c:when test="${discussion.user.userProfile.active}">
-                                            <link:userProfile user="${discussion.user}"
-                                                              anonymous="${discussion.anonymous}">
+                <div class="db_discuss fltrt rnd8">
+                    <p class="fltlft">
+                        <c:choose>
+                            <c:when test="${discussion.user.userProfile.active}">
+                                <link:userProfile user="${discussion.user}"
+                                                  anonymous="${discussion.anonymous}">
                                                 <span class="smallAlertTextBoldNeutral"><community:screenName
                                                         userContent="${discussion}"/></span>
-                                            </link:userProfile>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span class="smallAlertTextBoldNeutral"><community:screenName userContent="${discussion}"/></span>
-                                        </c:otherwise>
-                                    </c:choose>
+                                </link:userProfile>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="smallAlertTextBoldNeutral"><community:screenName
+                                        userContent="${discussion}"/></span>
+                            </c:otherwise>
+                        </c:choose>
 
-                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                                </p>
+                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                    </p>
 
-                                <br class="clearfloat"/>
-                                <community:userContentTeaserText
-                                        textToDisplay="${discussion.body}"
-                                        minLength="143" maxLength="163"
-                                        discussionId="${discussion.id}"
-                                        discussionFullUri="${discussion.fullUri}"
-                                        textSpanClass="text3"
-                                        linkClass="text3"/>
-                            </div>
-                            <!-- end db_discuss -->
-                        </div>
-                        <!--end db_discussContainer-->
-                        <br class="clearfloat"/>
-                    </div>
-                    <!-- end db_discussTopic -->
-                    <div class="db_recentReplies gainlayout">
-                        <!-- don't collapse -->
-                    </div>
+                    <br class="clearfloat"/>
+                    <community:userContentTeaserText
+                            textToDisplay="${discussion.body}"
+                            minLength="143" maxLength="163"
+                            discussionId="${discussion.id}"
+                            discussionFullUri="${discussion.fullUri}"
+                            textSpanClass="text3"
+                            linkClass="text3"/>
                 </div>
-                <!-- end db_discussion -->
-                <c:if test="${fn:length(discussion.replies) > 0}">
-                    <div class="db_replies">
-                        <p class="mostRecent text1 gainlayout">Most recent replies</p>
-                        <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
-                            <div class="db_reply_topic">
-                                <div class="db_discussAvatar fltlft">
-                                    <c:choose>
-                                        <c:when test="${reply.user.userProfile.active}">
-                                            <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
-                                                <community:avatar user="${reply.user}" width="48" height="48"
-                                                                  cssStyle="border: 1px solid #c6c6c6;"
-                                                                  anonymous="${reply.anonymous}"/>
-                                            </link:userProfile>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <community:avatar user="${reply.user}" width="48" height="48"
-                                                              anonymous="${reply.anonymous}"
-                                                              cssStyle="border: 1px solid #c6c6c6;"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <!-- end reply avatar -->
+                <!-- end db_discuss -->
+            </div>
+            <!--end db_discussContainer-->
+            <br class="clearfloat"/>
+        </div>
+        <!-- end db_discussTopic -->
+        <div class="db_recentReplies gainlayout">
+            <!-- don't collapse -->
+        </div>
+    </div>
+    <!-- end db_discussion -->
+    <c:if test="${fn:length(discussion.replies) > 0}">
+        <div class="db_replies">
+            <p class="mostRecent text1 gainlayout">Most recent replies</p>
+            <c:forEach var="reply" items="${discussion.replies}" begin="0" end="1">
+                <div class="db_reply_topic">
+                    <div class="db_discussAvatar fltlft">
+                        <c:choose>
+                            <c:when test="${reply.user.userProfile.active}">
+                                <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                    <community:avatar user="${reply.user}" width="48" height="48"
+                                                      cssStyle="border: 1px solid #c6c6c6;"
+                                                      anonymous="${reply.anonymous}"/>
+                                </link:userProfile>
+                            </c:when>
+                            <c:otherwise>
+                                <community:avatar user="${reply.user}" width="48" height="48"
+                                                  anonymous="${reply.anonymous}"
+                                                  cssStyle="border: 1px solid #c6c6c6;"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <!-- end reply avatar -->
 
-                                <div class="db_replyContainer fltlft">
-                                    <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
-                                        class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
+                    <div class="db_replyContainer fltlft">
+                        <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
+                            class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
-                                    <div class="db_reply fltrt rnd8">
-                                        <p class="fltlft">
-                                            <c:choose>
-                                                <c:when test="${reply.user.userProfile.active}">
-                                                    <link:userProfile user="${reply.user}"
-                                                                      anonymous="${reply.anonymous}">
+                        <div class="db_reply fltrt rnd8">
+                            <p class="fltlft">
+                                <c:choose>
+                                    <c:when test="${reply.user.userProfile.active}">
+                                        <link:userProfile user="${reply.user}"
+                                                          anonymous="${reply.anonymous}">
                                                         <span class="smallAlertTextBoldNeutral"><community:screenName
                                                                 userContent="${reply}"/></span>
-                                                    </link:userProfile>
-                                                </c:when>
-                                                <c:otherwise>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
                                                     <span class="smallAlertTextBoldNeutral"><community:screenName
                                                             userContent="${reply}"/></span>
-                                                </c:otherwise>
-                                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
 
-                                            <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                                        </p>
+                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                            </p>
 
-                                        <!--<p class="fltrt"><a class="smallText1 reportItLink" href="#">Report it</a></p>-->
-                                        <br class="clearfloat"/>
-
-                                        <community:userContentTeaserText
-                                                textToDisplay="${reply.body}"
-                                                minLength="117" maxLength="138"
-                                                discussionId="${discussion.id}"
-                                                discussionFullUri="${discussion.fullUri}"
-                                                discussionReplyId="${reply.id}"
-                                                textSpanClass="text3"
-                                                linkClass="text3"/>
-                                    </div>
-                                    <!-- end db_reply -->
-                                </div>
-                                <!-- end db_replyContainer -->
-                            </div>
-                            <!-- end db_reply_topic -->
+                            <!--<p class="fltrt"><a class="smallText1 reportItLink" href="#">Report it</a></p>-->
                             <br class="clearfloat"/>
-                        </c:forEach>
 
-                        <div class="viewAll gainlayout">
-                            <c:choose>
-                                <c:when test="${discussion.totalReplies gt requestScope.repliesPerDiscussion}">
-                                    <c:set var="viewMoreRepliesLabel">View all replies (${discussion.totalReplies})</c:set>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="viewMoreRepliesLabel">View replies</c:set>
-                                </c:otherwise>
-                            </c:choose>
-                            <link:discussion discussionId="${discussion.id}"
-                                             fullUri="${discussion.fullUri}"
-                                             styleClass="text3">${viewMoreRepliesLabel} <span
-                                    class="alertDoubleArrow">&amp;raquo;</span></link:discussion>
+                            <community:userContentTeaserText
+                                    textToDisplay="${reply.body}"
+                                    minLength="117" maxLength="138"
+                                    discussionId="${discussion.id}"
+                                    discussionFullUri="${discussion.fullUri}"
+                                    discussionReplyId="${reply.id}"
+                                    textSpanClass="text3"
+                                    linkClass="text3"/>
                         </div>
+                        <!-- end db_reply -->
                     </div>
-                    <!-- end db_replies -->
-                </c:if>
+                    <!-- end db_replyContainer -->
+                </div>
+                <!-- end db_reply_topic -->
+                <br class="clearfloat"/>
             </c:forEach>
-        </c:when>
-    </c:choose>
-    <br class="clearfloat"/>
+
+            <div class="viewAll gainlayout">
+                <c:choose>
+                    <c:when test="${discussion.totalReplies gt requestScope.repliesPerDiscussion}">
+                        <c:set var="viewMoreRepliesLabel">View all replies (${discussion.totalReplies})</c:set>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="viewMoreRepliesLabel">View replies</c:set>
+                    </c:otherwise>
+                </c:choose>
+                <link:discussion discussionId="${discussion.id}"
+                                 fullUri="${discussion.fullUri}"
+                                 styleClass="text3">${viewMoreRepliesLabel} <span
+                        class="alertDoubleArrow">&amp;raquo;</span></link:discussion>
+            </div>
+        </div>
+        <!-- end db_replies -->
+    </c:if>
+</c:forEach>
+</c:when>
+</c:choose>
+<br class="clearfloat"/>
 </div>
 <!-- end db_body -->
 
@@ -380,13 +408,12 @@
 <!-- end db_footer -->
 </div>
 <!-- end module -->
-
-    </c:otherwise>
-</c:choose>
-
-
 </div>
 <!-- end mainContent -->
+
+</c:otherwise>
+</c:choose>
+
 
 <c:set var="moreInContent" value="${requestScope.discussionBoard}"/>
 <c:if test="${requestScope.discussionBoard.city ne null}">
