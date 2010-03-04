@@ -1515,7 +1515,7 @@ ul.srchRslts {
 
 ul.srchRslts li.srchRslt {
     position: relative;
-    padding: 9px 9px 9px 0;
+    padding: 9px 0;
     border-bottom: 1px dotted #999;
 }
 ul.srchRslts li.srchRslt p {
@@ -1527,6 +1527,9 @@ ul.srchRslts li.srchRslt:last-child {
 /* To work around IE lack of support for :last-child */
 ul.srchRslts li.srchRsltLast {
     border-bottom: 0;
+}
+.results{
+    width:570px;
 }
 .srchCatArticles li span.icon {
     position: absolute;
@@ -1867,7 +1870,7 @@ ul.srchSuggest li span {
 ------------------------------------------------------------------------------
 */
 #srchResults {
-    padding: 15px 20px;
+    padding: 15px 0;
 }
 
 #searchAgain {

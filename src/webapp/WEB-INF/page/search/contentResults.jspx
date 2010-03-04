@@ -150,7 +150,9 @@
                                 <c:set var="srchRsltSupplClass" value=""/>
                             </c:otherwise>
                         </c:choose>
-                        <li class="srchRslt ${srchRsltSupplClass}"><span class="icon"><!-- icon --></span>
+                        <li class="srchRslt ${srchRsltSupplClass} clearfix" >
+                            <div class="sprite cms fltlft padrt_5"><!-- icon --></div>
+                            <div class="results fltrt">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -174,6 +176,7 @@
                               More&amp;nbsp;<span class="go">&amp;#187;</span>
                             </link:cmsContent>
                             </p>
+                            </div>
                         </li>
                     </c:forEach>
                 </ul>
@@ -207,8 +210,8 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix">
-                            <span class="sprite ${srchRsltSupplClass2} fltlft padrt_5"><!-- icon --></span>
-                            <div class="fltlft">
+                            <div class="sprite ${srchRsltSupplClass2} fltlft padrt_5"><!-- icon --></div>
+                            <div class="results fltrt">
                             <c:if test="${result.raiseYourHand}">
                                 <p class="smallAlertText">RAISE YOUR HAND</p>
                             </c:if>
