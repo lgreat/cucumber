@@ -969,9 +969,12 @@ body.ie6 .clearfix {
     padding:15px;
     background:#ebebeb;
 }
-
+.ryh-topsection {
+    overflow: hidden;
+    padding: 0 0 24px;
+}
 .ryh-title{
-    width:292px; height:60px;
+    width:292px;
     padding:15px;
     background:white;
     position:relative;
