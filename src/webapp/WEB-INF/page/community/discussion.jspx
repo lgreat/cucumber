@@ -437,7 +437,7 @@
 
 <c:choose>
     <c:when test="${discussion.raiseYourHand}">
-        <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${validUser}" signedIn="${not empty validUser}" redirectUrl="${loginRedirectUrl}" ryhMaxNumReplies="${pageSize}" style="ryhDetail" showViewAll="false" allowEditsDeletesReports="true"/>
+        <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${validUser}" signedIn="${not empty validUser}" redirectUrl="${loginRedirectUrl}" ryhMaxNumReplies="${pageSize}" style="ryhDetail" showViewAll="false" allowEditsDeletesReports="true" showFullReplies="true"/>
     </c:when>
     <c:otherwise>
 
@@ -736,7 +736,16 @@
 <c:set var="discussionTitle" value="${fn:replace(discussionTitle, ',', '')}"/>
 <c:set var="discussionTitle" value='${fn:replace(discussionTitle, "\"", "")}'/>
 <!-- end container -->
-<mod:tracking pageName="Discussion Detail Page"
+
+<c:choose>
+    <c:when test="${discussion.raiseYourHand}">
+        <c:set var="omniturePageName" value="Raise Your Hand Detail Page"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="omniturePageName" value="Discussion Detail Page"/>
+    </c:otherwise>
+</c:choose>
+<mod:tracking pageName="${omniturePageName}"
               hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},${discussion.id}:${discussionTitle}"
               community="true"
               local="${requestScope.discussionBoard.city ne null?'yes':''}"

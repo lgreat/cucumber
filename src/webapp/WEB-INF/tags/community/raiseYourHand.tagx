@@ -17,6 +17,7 @@
 <jsp:directive.attribute name="style" required="true" type="java.lang.String"/>
 <jsp:directive.attribute name="showViewAll" required="true" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="allowEditsDeletesReports" required="true" type="java.lang.Boolean"/>
+<jsp:directive.attribute name="showFullReplies" required="true" type="java.lang.Boolean"/>
 
 <c:if test="${not empty discussion}">
 
@@ -284,7 +285,7 @@
 
                             <span class="smallText1"> a moment ago </span>
 
-
+                            <p class="fltrt">&amp;nbsp;</p>
                             <br class="clearfloat"/>
 
                             <community:userContentTeaserText
@@ -294,7 +295,6 @@
                                     discussionFullUri="${discussion.discussionBoard.fullUri}"
                                     discussionReplyId="1"
                                     textSpanClass="text3"/>
-                            <!--linkClass="text3"/>-->
                         </div>
                         <br class="clearfloat"/>
                         <!-- end ryh-reply-text -->
@@ -384,14 +384,20 @@
                             </c:choose>
                             <br class="clearfloat"/>
 
-                            <community:userContentTeaserText
-                                    textToDisplay="${reply.body}"
-                                    minLength="117" maxLength="138"
-                                    discussionId="${discussion.id}"
-                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                    discussionReplyId="${reply.id}"
-                                    textSpanClass="text3"/>
-                            <!--linkClass="text3"/>-->
+                            <c:choose>
+                                <c:when test="${showFullReplies}">
+                                    <span class="text3 replyBody">${reply.body}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <community:userContentTeaserText
+                                            textToDisplay="${reply.body}"
+                                            minLength="117" maxLength="150"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                            discussionReplyId="${reply.id}"
+                                            textSpanClass="text3"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- end ryh-reply -->
                         <span class="hidden replyId">${reply.id}</span>

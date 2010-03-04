@@ -403,6 +403,10 @@
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
 <c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
 <c:choose>
+    <c:when test="${raiseYourHandFeaturedQuestions}">
+        <c:set var="omniturePageName" value="Raise Your Hand List Page"/>
+        <c:set var="omnitureHier1" value="Community,Discussions,Featured Discussions,Raise Your Hand List Page"/>
+    </c:when>
     <c:when test="${raiseYourHand}">
         <c:set var="omniturePageName" value="Raise Your Hand List Page"/>
         <c:set var="omnitureHier1" value="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},Raise Your Hand List Page"/>
