@@ -56,7 +56,7 @@
         <input type="hidden" name="miles" value="5" />
 
         <h3 class="title2-333">Compare schools <span class="introTextGA">near an address:</span></h3>
-        <br class="spacer_10"/>
+        <div class="spacer_10"><!--do not collapse--></div>
         <div class="levelSelector">
             <label for="level" class="text2">Show me:&amp;nbsp;</label>
             <select id="level" name="level" class="school text2">
@@ -65,7 +65,7 @@
                 <option value="h">high schools</option>
             </select>
         </div>
-        <br class="spacer_10"/>
+        <div class="spacer_10"><!--do not collapse--></div>
         <div class="zipCodeInput">
             <label for="findZipCodeInput" class="text2 fltlft">Near:&amp;nbsp;</label>
             <input type="text" id="findZipCodeInput" name="zip" class="zip text2 fltlft" value="ZIP code"
