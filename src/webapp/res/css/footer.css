@@ -56,6 +56,9 @@ body {
     magin-left: -4px
 }
 
+*html #footer {
+    magin-left: -4px
+}
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;

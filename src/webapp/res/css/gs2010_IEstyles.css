@@ -193,7 +193,9 @@ body.ie6 #homepageFooterAd
 *html #footerAd,
 *html #footer,
 *html #footer .copyright,
-*html #homepageFooterAd {
+*html #homepageFooterAd,
+*html #footerFrm
+{
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
 *html #logoBox {
