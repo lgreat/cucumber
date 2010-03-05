@@ -2042,7 +2042,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     background: none;
     margin: 0 0 0 2px;
     width: 970px;
-    height: 293px
+    height: 293px;
 }
 #footerAd, #homepageFooterAd {
     background: url(/res/img/gs_content_bg.png) repeat-y;
