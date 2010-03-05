@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.34 2010/02/10 01:06:58 rcox Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.35 2010/03/05 18:12:20 rcox Exp $
  */
 
 package gs.web.content;
@@ -185,8 +185,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                         " href=\"" +
                         link +
                         "\">");
-                out.print("<img class=\"blogpromo_image\" src=\""
-                        + authorImage + "\" alt=\"" + author + "\"/>");
+                out.print("<img class=\"blogpromo_image\" src=\"" + authorImage + "\" alt=\"" + author + "\"/>");
                 out.print("</a>");
             } else {
                 out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>");
@@ -232,6 +231,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         imageAuthor.put("Dave Steer","/res/img/blog_davesteer_40x40.png");
         imageAuthor.put("Jim Daly", "/res/img/blog_jimdaly_40x40.png");
         imageAuthor.put("Chase Nelson", "/res/img/blog_chasenelson_40x40.png");
+        imageAuthor.put("Clare Ellis", "/res/img/blog_clareellis_40x40.png");
 
         /* Uncomment this to use community gifs
         imageAuthor.put("Bill Jackson","http://community.greatschools.org/avatar?id=1000&height=94&width=94");
