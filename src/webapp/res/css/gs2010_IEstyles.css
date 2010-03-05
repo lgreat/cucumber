@@ -101,6 +101,12 @@ body.ie7 #footerAd {
 * + html #footer {
     height: 293px;
 }
+*+html #footerGSIframe {
+    background: none;
+    margin: 0 0 0 2px;
+    width: 970px;
+    height: 293px
+}
 
 /* =4a-1 find-compare
 -------------------------------------------------------------------------------------------*/
@@ -282,6 +288,13 @@ body.ie6 .srchCatComm li span.icon {
 }
 .ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button{
     width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
+}
+
+*+html #footerGSIframe {
+    background: none;
+    margin: 0 0 0 2px;
+    width: 970px;
+    height: 293px
 }
 /* skin */
 body.ie6 .lftDoor25 {
