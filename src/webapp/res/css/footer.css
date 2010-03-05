@@ -54,6 +54,13 @@ body {
     width: 970px;
     margin: 0 auto;
 }
+*html #footerAd, *html #homepageFooterAd {
+    background-image: url(/res/img/gs_contentIE6_bg.png);
+    background-position:  50% 0;
+    padding: 0;
+    width: 970px;
+    margin: 0 auto;
+}
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;

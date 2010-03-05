@@ -2041,11 +2041,9 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 
 #footerAd, #homepageFooterAd {
     background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding: 15px 0
 }
 
-#footerAd, #homepageFooterAd {
-    padding: 15px 0;
-}
 
 #footerAd table, #homepageFooterAd table {
     margin: auto;
