@@ -254,7 +254,7 @@
         <c:set var="seeMoreLink">
             <div class="fltrt">
                 <div class="see-more smallAlertText">
-                    <span class="sprite ryh"><!-- icon --></span>
+                    <span class="sprite ryh padrt_5"><!-- icon --></span>
                     <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
                         class="alertDoubleArrow">&amp;raquo;</span>
                 </div>
