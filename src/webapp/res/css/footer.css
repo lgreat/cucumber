@@ -39,6 +39,11 @@ body {
 #footerAd table {
     margin: auto;
 }
+
+
+#footerAd, #homepageFooterAd {
+    background: none;
+}
 #footer {
     background: none;
     font-size: 11px;

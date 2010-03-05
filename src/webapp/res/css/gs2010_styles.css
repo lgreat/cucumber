@@ -2056,9 +2056,6 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     font-size: 11px;
     color: #666;
 }
-#footerFrm #footerAd, #footerFrm #footer, #footerFrm #homepageFooterAd {
-    background: none;
-}
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;
