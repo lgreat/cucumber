@@ -177,7 +177,6 @@ body.ie6 #mainWrap,
 body.ie6 #footerAd,
 body.ie6 #footer,
 body.ie6 #footer .copyright,
-body.ie6 #footerAd,
 body.ie6 #homepageFooterAd
 {
     background-image: url(/res/img/gs_contentIE6_bg.png);
@@ -188,7 +187,6 @@ body.ie6 #homepageFooterAd
 *html #footerAd,
 *html #footer,
 *html #footer .copyright,
-*html #footerAd,
 *html #homepageFooterAd {
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
