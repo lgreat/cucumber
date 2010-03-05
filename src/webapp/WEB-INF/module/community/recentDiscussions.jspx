@@ -66,8 +66,7 @@
                                 <a class="btn25 startADiscussion" href="#" onclick="this.blur();return false">
             <span class="lftDoor25">
                 <span class="rtDoor25">
-                    <img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
-                         width="37" height="25" align="absmiddle"/>Start a conversation</span>
+                    <span class="sprite community fltlft martop_2 padrt_5"><!-- icon --></span>Start a conversation</span>
             </span>
                                 </a>
                                 <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
@@ -141,8 +140,7 @@
                         <div class="fltlft">
                             <a class="btn25 startADiscussion" href="#" onclick="this.blur();return false">
             <span class="lftDoor25">
-                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
-                                            width="37" height="25" align="absmiddle"/>Start a conversation</span>
+                <span class="rtDoor25"><span class="sprite community fltlft martop_2 padrt_5"><!-- icon --></span>Start a conversation</span>
             </span>
                             </a>
                             <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
