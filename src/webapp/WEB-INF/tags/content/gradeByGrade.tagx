@@ -253,6 +253,23 @@
             handleMousing = false;
         });
         //
+        // On click of slider region, select a tab, reposition the handle
+        jQuery('#gbgSlider').click(function(e) {
+            //console.log('clicked on the slider region');
+            //var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+            //var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+            //console.log(e.pageX);
+            //console.log(e.clientX);
+            newpos = e.pageX - (theHandleWidth / 2) - sliderPositionLeft;
+            //console.log('newpos: '+newpos);
+            if (newpos &lt; minpos) {
+                newpos = minpos;
+            }
+            if (newpos &gt; maxpos) {
+                newpos = maxpos;
+            }
+            setHandlePosition();
+        });
     });
     </script>
 
