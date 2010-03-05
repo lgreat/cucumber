@@ -2041,9 +2041,11 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 
 #footerAd, #homepageFooterAd {
     background: url(/res/img/gs_content_bg.png) repeat-y;
-    padding: 15px 0
+    padding: 15px 0;
 }
-
+#footerFrm {
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+}
 
 #footerAd table, #homepageFooterAd table {
     margin: auto;
@@ -2054,7 +2056,9 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     font-size: 11px;
     color: #666;
 }
-
+#footerFrm #footerAd, #footerFrm #footer, #footerFrm #homepageFooterAd {
+    background: none;
+}
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;
