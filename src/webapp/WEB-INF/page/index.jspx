@@ -153,7 +153,7 @@
 
 <div id="mainGS" class="col">
 
-    <div id="carousel">
+    <div id="carousel" onselectstart="return false;">
         <div id="image">
             <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
                 <c:choose>
@@ -204,15 +204,15 @@
             <c:if test="${fn:length(homepage.featureLinks) gt 1}">
                 <div id="nav">
                     <ul>
-                        <li id="prev" class="prev-position"><!--do not collapse --></li>
+                        <li id="prev" class="prev-position" hideFocus="true"><!--do not collapse --></li>
                     </ul>
                     <ul id="buttons">
                         <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                            <li id="${status.index + 1}" class="off">${status.index + 1}</li>
+                            <li id="${status.index + 1}" class="off" hideFocus="true">${status.index + 1}</li>
                         </c:forEach>
                     </ul>
                     <ul>
-                        <li id="next" class="next-position"><!--do not collapse --></li>
+                        <li id="next" class="next-position" hideFocus="true"><!--do not collapse --></li>
                     </ul>
                 </div>
                 <!--nav -->

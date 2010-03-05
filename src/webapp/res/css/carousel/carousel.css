@@ -3,6 +3,8 @@
 
 #carousel{
     margin:15px 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 #carousel .headline {
