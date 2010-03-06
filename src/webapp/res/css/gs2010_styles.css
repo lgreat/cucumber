@@ -136,7 +136,7 @@ h5 {
     font-family: Georgia, serif;
     color: #d61;
 }
-h2.title1white, #sidebarGS .mod_hd h3 {
+h2.title1white, .mod_hd h3 {
     background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x;
     color: #fff;
     font: 400 20px Georgia, serif;
