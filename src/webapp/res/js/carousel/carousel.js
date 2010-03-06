@@ -2,6 +2,22 @@
 var $j = jQuery;
 
 $j(document).ready(function() {
+    //
+    // extend the core jQuery with disableSelection
+    jQuery.fn.extend({
+        disableSelection : function() {
+            this.each(function() {
+                this.onselectstart = function() {
+                    return false;
+                };
+                this.unselectable = "on";
+                jQuery(this).css('-moz-user-select', 'none');
+            });
+        }
+    });
+    //
+    // disable selection of grade by grade
+    $j('#carousel').disableSelection();
 
     // initialize state
     $j('#banner').animate({"opacity" : .9}, 0);

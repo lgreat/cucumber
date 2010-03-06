@@ -12,6 +12,20 @@
     var selectedLevel = myLevels[Math.floor(Math.random() * 9)];
     jQuery(function() {
         //
+        // extend the core jQuery with disableSelection 
+        jQuery.fn.extend({
+        disableSelection : function() {
+                this.each(function() {
+                        this.onselectstart = function() { return false; };
+                        this.unselectable = "on";
+                        jQuery(this).css('-moz-user-select', 'none');
+                });
+        }
+        });
+        //
+        // disable selection of grade by grade
+        jQuery('#grade-by-grade').disableSelection();
+        //
         // Center tabs in the GBG module
         var theHandle = jQuery('#gbgHandle');
         var theHandleWidth = theHandle.outerWidth(true);
@@ -273,7 +287,7 @@
     });
     </script>
 
-    <div id="grade-by-grade" class="mod" onselectstart="return false;">
+    <div id="grade-by-grade" class="mod">
         <div class="mod_bd">
             <div id="gbgTop">
                 <h2>Your child's progress</h2>
