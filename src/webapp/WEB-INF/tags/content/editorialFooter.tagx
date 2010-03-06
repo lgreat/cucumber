@@ -16,6 +16,8 @@
                          description="colspan for You Might Also Like, set to 2 for abridged width footer"
                          required="false"/>
 
+<c:if test="${!requestScope.context.cobranded or requestScope.context.cobrand ne 'momshomeroom'}">
+
 <pageHelper:externalCss file="/res/css/content/editorialFooter.css"/>
 
 <c:if test="${topPadding eq null or topPadding eq ''}">
@@ -117,4 +119,7 @@
 </ul>
 <img src="http://www.greatschools.org/res/img/header/clear_pix.gif" width="600" height="${bottomPadding}" border="0" alt=""/>
 </div>
+
+</c:if>
+
 </jsp:root>
