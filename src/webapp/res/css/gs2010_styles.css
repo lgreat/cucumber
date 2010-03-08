@@ -1942,7 +1942,9 @@ ul.srchSuggest li {
 ul.srchSuggest li span {
     color: #333;
 }
-
+#commSearch {
+    margin: 0 0 10px;
+}
 #commSearch .mod_bd {
     overflow: hidden;
 }
