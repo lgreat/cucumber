@@ -28,7 +28,9 @@ General comments:
 =4a-4 raise your hand
 =4a-5 grade by grade
 =4b- community
-=4b-1 cummuntiy landing
+=4b-1 community landing
+=4c- topic centers
+=4c-1 featured
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -131,7 +133,7 @@ h5 {
     color: #d61;
 }
 
-/* clases applied to h3 */
+/* classes applied to h3 */
 .title1 {
     font-family: Georgia, serif;
     color: #d61;
@@ -178,7 +180,7 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
-/* clases applied to h4 */
+/* classes applied to h4 */
 .subhead2, .subhead3, .subhead4 {
     font-weight: 400;
 }
@@ -334,7 +336,7 @@ body.cobranded #pageGS {
     z-index: 1;
 }
 
-/* =3a utitility links
+/* =3a utility links
 -------------------------------------------------------------------------------------------*/
 #utilLinks {
     position: absolute;
@@ -775,6 +777,15 @@ body.cobranded #pageGS {
     padding-left: 2px;
 }
 
+#topicbarGS.col{
+    width: 160px;
+}
+
+#topicMainGS.col{
+    width: 423px;
+    padding-left: 15px;
+}
+
 .mod_hd h3 {
     padding: 0 15px;
     background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
@@ -807,6 +818,13 @@ body.cobranded #pageGS {
     line-height: 0;
 }
 
+/* the following "spacer" classes should NOT be set on the <br/> element */
+.spacer_5{
+    clear:both;
+    height:5px;
+    font-size:1px;
+    line-height:5px;
+}
 .spacer_10{
     clear:both;
     height:10px;
@@ -848,7 +866,8 @@ body.cobranded #pageGS {
     display: none;
 }
 
-/* clear fix */
+/* clear fix
+-------------------------------------------------------------------------------------------*/
 
 .clearfix:after {
     content: ".";
@@ -872,6 +891,86 @@ body.ie6 .clearfix {
 }
 
 /* end clear fix */
+
+/* arrows
+-------------------------------------------------------------------------------------------*/
+
+#fc-bigArrow-f4891d {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 2px;
+    background: none;
+    border-top: 23px solid rgba(255, 255, 255, 0.0);
+    border-left: 33px solid rgba(244, 137, 29, 0.6);
+    border-bottom: 23px solid rgba(255, 255, 255, 0.0);
+    filter: alpha(opacity = 100);
+    z-index:9;
+}
+
+#fc-bigArrow-fc6 {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 14px;
+    left: 2px;
+    background: none;
+    border-top: 9px solid rgba(255, 255, 255, 0.0);
+    border-left: 13px solid #fc6;
+    border-bottom: 9px solid rgba(255, 255, 255, 0.0);
+    filter: alpha(opacity = 100);
+    z-index:10;
+}
+
+#rhy-downArrow-fff {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    bottom: -20px;
+    left: 37px;
+    background: none;
+    border-top: 20px solid white;
+    border-right: 27px solid #ebebeb;
+    filter: alpha(opacity = 100);
+}
+
+#rhy-replyArrow-fff {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 22px;
+    left: -10px;
+    background: none;
+    border-top: 6px solid #ebebeb;
+    border-right: 10px solid white;
+    border-bottom: 6px solid #ebebeb;
+    filter: alpha(opacity = 100);
+}
+
+/* rounded corners
+-------------------------------------------------------------------------------------------*/
+
+.rnd4 {
+/* this class should be used to round the corners on 25 px height buttons */
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+}
+
+.rnd6 {
+/* this class should be used to round the corner on 35 px height buttons */
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+}
+
+.rnd8 {
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+}
 
 /* =4a home page
 -------------------------------------------------------------------------------------------*/
@@ -1336,7 +1435,7 @@ body.ie6 .clearfix {
     text-transform: uppercase;
 }
 /*
-=4b-1 cummuntiy landing
+=4b-1 community landing
 -----------------------------------------------------------------------------------
 */
 #community-landing{
@@ -1624,84 +1723,37 @@ ul.srchSuggest li span {
 #searchAgain button {
     float: right;
 }
-/* arrows
+/* =4c- topic centers
 -------------------------------------------------------------------------------------------*/
 
-#fc-bigArrow-f4891d {
-    font-size: 0;
-    line-height: 0%;
-    width: 0;
-    position: absolute;
-    top: 0;
-    left: 2px;
-    background: none;
-    border-top: 23px solid rgba(255, 255, 255, 0.0);
-    border-left: 33px solid rgba(244, 137, 29, 0.6);
-    border-bottom: 23px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
-    z-index:9;
-}
-
-#fc-bigArrow-fc6 {
-    font-size: 0;
-    line-height: 0%;
-    width: 0;
-    position: absolute;
-    top: 14px;
-    left: 2px;
-    background: none;
-    border-top: 9px solid rgba(255, 255, 255, 0.0);
-    border-left: 13px solid #fc6;
-    border-bottom: 9px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
-    z-index:10;
-}
-
-#rhy-downArrow-fff {
-    font-size: 0;
-    line-height: 0%;
-    width: 0;
-    position: absolute;
-    bottom: -20px;
-    left: 37px;
-    background: none;
-    border-top: 20px solid white;
-    border-right: 27px solid #ebebeb;
-    filter: alpha(opacity = 100);
-}
-
-#rhy-replyArrow-fff {
-    font-size: 0;
-    line-height: 0%;
-    width: 0;
-    position: absolute;
-    top: 22px;
-    left: -10px;
-    background: none;
-    border-top: 6px solid #ebebeb;
-    border-right: 10px solid white;
-    border-bottom: 6px solid #ebebeb;
-    filter: alpha(opacity = 100);
-}
-
-/* rounded corners
+/* =4c-1 featured
 -------------------------------------------------------------------------------------------*/
-
-.rnd4 {
-/* this class should be used to round the corners on 25 px height buttons */
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
+#featured {
+    width:598px;
 }
 
-.rnd6 {
-/* this class should be used to round the corner on 35 px height buttons */
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
+#featured .one_of_two {
+    /*outline:1px solid red;*/
+    width:340px; height:235px;
+    background:white;
+    border:1px solid #c6c6c6;
 }
 
-.rnd8 {
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
+#featured .two_of_two {
+    /*outline:1px solid red;*/
+    width:225px; height:218px;
+    background:url(/res/img/topicCenter/tc_feature_bg.jpg) repeat-x;
+    padding:12px 15px 5px 15px;
+    border-top:1px solid #c6c6c6;
+    border-right:1px solid #c6c6c6;
+    border-bottom:1px solid #c6c6c6;
+}
+
+#featured .two_of_two li{
+    list-style: disc inside;
+    color: #f4891d;
+    border-top:1px dotted #999;
+    padding:5px 0;
 }
 
 /* =5- icons
