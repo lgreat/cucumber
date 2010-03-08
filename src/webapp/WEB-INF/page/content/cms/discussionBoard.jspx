@@ -38,8 +38,6 @@
         </c:otherwise>
     </c:choose>
     <meta name="keywords" content=""/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
     <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
@@ -63,7 +61,6 @@
 </head>
 <body>
 
-<div id="container">
 
 
 <c:choose>
@@ -158,14 +155,13 @@
 
 <div class="module">
 <div class="header">
-    <span class="title1white fltlft">${requestScope.discussionBoard.title}</span>
+    <h2 class="title1white fltlft">${requestScope.discussionBoard.title}</h2>
 
     <div class="fltrt">
         <c:set var="startDiscussButton">
             <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
             <span class="lftDoor25">
-                <span class="rtDoor25"><img src="/res/img/discussion_boards/db_speech_bubbles.png" alt="bubbles"
-                                            width="37" height="25" align="absmiddle"/>Start&amp;nbsp;a&amp;nbsp;conversation</span>
+                <span class="rtDoor25"><span class="sprite community fltlft martop_2 padrt_5"><!-- icon --></span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
             </span>
             </a>
         </c:set>
@@ -267,7 +263,7 @@
             <div class="db_discussContainer fltlft">
                 <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
 
-                <div class="db_discuss fltrt rnd8">
+                <div class="db_discuss fltlft rnd8">
                     <p class="fltlft">
                         <c:choose>
                             <c:when test="${discussion.user.userProfile.active}">
@@ -333,7 +329,7 @@
                         <b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b
                             class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b>
 
-                        <div class="db_reply fltrt rnd8">
+                        <div class="db_reply fltlft rnd8">
                             <p class="fltlft">
                                 <c:choose>
                                     <c:when test="${reply.user.userProfile.active}">
@@ -423,8 +419,6 @@
 <!-- sidebar that shows More-In: -->
 <cms:communitySidebar content="${moreInContent}" searchType="community"/>
 
-</div>
-<!-- end container -->
 <mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>

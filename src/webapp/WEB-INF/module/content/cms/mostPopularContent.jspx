@@ -104,7 +104,7 @@
                                     </c:choose>
 
                                     <li class="mostpopItem tint_f4891d ${className}">
-                                        <a href="${link.url}" class="link"><c:out value="${link.linkText}"/></a>
+                                        <span><a href="${link.url}" class="link"><c:out value="${link.linkText}"/></a></span>
                                     </li>
 
                                 </c:if>

@@ -152,7 +152,8 @@ body.ie6 .clearfix {
 }
 
 #mainGS .breadCrumbs{
-    padding:0 0 10px 0;
+    padding:0 0 10px;
+    margin: 0;
 }
 
 #mainGS .shareThis{

@@ -241,6 +241,9 @@ h3.title1white, h3.srchCat {
     font: bold 11px Arial, Helvetica, sans-serif;
     color: #d61;
 }
+.smallAlertTextBoldNeutral {
+    font: bold 11px / 1.2 Arial, Helvetica, sans-serif;
+}
 
 .smallAlertTextBold-333 {
     font: bold 11px Arial, Helvetica, sans-serif;
@@ -290,6 +293,9 @@ p {
     color: #d61;
     font-size: 1.2em;
     line-height: .9;
+}
+h4.subhead2 a {
+    color: #d61;
 }
 
 /* =2 ads
@@ -751,8 +757,9 @@ body.cobranded #pageGS {
     overflow: hidden;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
-.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS {
+.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS, .framed #mainWrap, .framed #contentGS {
     background: none;
+    padding: 0;
 }
 .interstitial #contentGS {
     background: none;
@@ -1431,6 +1438,9 @@ body.ie6 .clearfix {
 db_discussContainer .db_discuss_full p {
     margin: 0;
 }
+.db_discuss p.fltlft {
+    margin: 0;
+}
 /*
 =search styles 
 -----------------------------------------------------------------------------------
@@ -2011,7 +2021,7 @@ ul.srchSuggest li span {
 .body2bg .morein, .body2bg .mostpop {
     padding:0 20px 0 0;
 }
-.body2bg .moreinItem{
+.body2bg .moreinItem, #sidebarGS .mostpopItem {
     margin:0 0 0 15px;
     padding:5px 0;
     list-style:disc;
