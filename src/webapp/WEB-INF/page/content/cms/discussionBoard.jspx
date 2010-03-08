@@ -65,7 +65,7 @@
 
 <c:choose>
 <c:when test="${raiseYourHand}">
-<div id="mainGS" class="col">
+<div id="mainGS" class="col discussionBrd">
     <p class="breadCrumbs smallAlertText">
     <link:home>Home</link:home>
 
@@ -129,7 +129,7 @@
 </c:when>
 <c:otherwise>
 
-<div id="mainGS" class="col">
+<div id="mainGS" class="col discussionBrd">
 <p class="breadCrumbs smallAlertText">
     <link:home>Home</link:home>
 
@@ -229,9 +229,8 @@
 <c:forEach var="discussion" items="${requestScope.discussionList}">
     <div class="db_discussion sdrt">
         <div class="db_title gainlayout">
-            <h4 class="fltlft"><link:discussion discussionId="${discussion.id}"
-                                                fullUri="${discussion.fullUri}"><span
-                    class="title1">${discussion.title}</span></link:discussion>
+            <h4 class="fltlft subhead2"><link:discussion discussionId="${discussion.id}"
+                                                fullUri="${discussion.fullUri}">${discussion.title}</link:discussion>
                 <c:if test="${discussion.active eq false}">
                     <span class="tint_c03">(Deleted)</span>
                 </c:if>

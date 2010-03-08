@@ -1158,7 +1158,7 @@ body.ie6 .clearfix {
 
 /* ryh detail / discussion detail page */
 
-#mainGS.discussion-detail, #mainGS.ryh-detail {
+#mainGS.discussion-detail, #mainGS.ryh-detail, #mainGS .discussionBrd {
     padding-top: 15px;
 }
 
@@ -1980,7 +1980,7 @@ ul.srchSuggest li span {
 .brwse .topics li {
     list-style: disc;
     margin: 0 0 0 15px;
-    padding: 5px 0;
+    padding: 5px 0 0;
 }
 
 .brwseFrm {
