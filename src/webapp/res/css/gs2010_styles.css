@@ -777,6 +777,10 @@ body.cobranded #pageGS {
     padding-left: 2px;
 }
 
+#topicContentGS{
+    padding-top:15px;
+}
+
 #topicbarGS.col{
     width: 160px;
 }

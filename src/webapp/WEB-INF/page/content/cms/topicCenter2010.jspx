@@ -88,10 +88,10 @@
     </div>
 </div>
 <!-- end #featured -->
-<div class="clear"><!-- don't collapse --></div>
+<div class="clearfloat"><!-- don't collapse --></div>
 <!-- Subtopics -->
-<div id="topics">
-    <c:if test="${not empty topicCenter.subtopics}">
+<div id="topicContentGS">
+
         <div id="topicbarGS" class="col">
 
             <h2>Hot topics</h2>
@@ -112,122 +112,10 @@
             <!-- end #contentProvider -->
 
         </div>
-        <!-- end #topicNavigation -->
+        <!-- end #topicbarGS -->
 
-        <div id="topicContent" class="col">
-            <!--<img src="/res/img/box/tc_top.gif" height="25" width="480" alt="top border"/>-->
-
-            <!-- Subtopic details -->
-            <!--<c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
-                <div class="topic"><![CDATA[&lt;!&ndash; This is an attempted IE6 fix - do not remove! &ndash;&gt;]]>
-
-                    <c:if test="${not empty subtopic.imageUrl}">
-                        <img class="topicImage" src="${subtopic.imageUrl}" alt="${subtopic.imageAltText}"/>
-                    </c:if>
-
-                    <h3>${subtopic.title}</h3>
-
-                    <p>${subtopic.description}</p>
-                    &lt;!&ndash; Optional subtopic image &ndash;&gt;
-
-                    &lt;!&ndash; Subtopic links &ndash;&gt;
-                    <c:if test="${not empty subtopic.links}">
-                        <ul>
-                            <c:forEach var="link" items="${subtopic.links}" varStatus="linkStatus">
-                                <li><a href="${link.url}">${link.linkText}</a></li>
-                            </c:forEach>
-                        </ul>
-
-                        <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
-                        <c:if test="${numSections eq 0}">
-                            <div class="divider tall">
-                                <hr/>
-                            </div>
-                        </c:if>
-
-                        <div class="more">
-                            <c:choose>
-                                <c:when test="${not empty subtopic.moreLink}">
-                                    <a href="${subtopic.moreLink.url}">${subtopic.moreLinkText} &amp;raquo;</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                            gradeIDs="${subtopic.gradeIDs}"
-                                                            subjectIDs="${subtopic.subjectIDs}"
-                                                            language="EN">${subtopic.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        &lt;!&ndash; end .more &ndash;&gt;
-
-                    </c:if>
-
-                    &lt;!&ndash; Subtopic sections &ndash;&gt;
-                    <c:forEach var="section" items="${subtopic.subSubtopics}" varStatus="sectionStatus">
-
-                        &lt;!&ndash; Optional section title &ndash;&gt;
-                        <c:choose>
-                            <c:when test="${not empty section.title and not empty section.moreLink}">
-                                <h4><a href="${section.moreLink.url}">${section.title}</a></h4>
-                            </c:when>
-                            <c:otherwise>
-                                <h4><link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                            gradeIDs="${section.gradeIDs}"
-                                                            subjectIDs="${section.subjectIDs}"
-                                                            language="EN">${section.title}</link:cmsCategoryBrowse></h4>
-                            </c:otherwise>
-                        </c:choose>
-
-                        &lt;!&ndash; Section links &ndash;&gt;
-                        <c:if test="${not empty section.links}">
-                            <ul>
-                                <c:forEach var="link" items="${section.links}" varStatus="linkStatus">
-                                    <li><a href="${link.url}">${link.linkText}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </c:if>
-
-                        <c:set var="numSections" value="${fn:length(subtopic.subSubtopics)}"/>
-                        <c:if test="${numSections eq 1}">
-                            <div class="divider">
-                                <hr/>
-                            </div>
-                        </c:if>
-
-                        &lt;!&ndash; Section more link &ndash;&gt;
-
-                        <div class="more">
-                            <c:choose>
-                                <c:when test="${not empty section.moreLink}">
-                                        <span><a href="${section.moreLink.url}">${section.moreLinkText} &amp;raquo;</a></span>
-                                </c:when>
-                                <c:otherwise>
-                                        <span><link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                      gradeIDs="${section.gradeIDs}"
-                                                                      subjectIDs="${section.subjectIDs}"
-                                                                      language="EN">${section.moreLinkText} &amp;raquo;</link:cmsCategoryBrowse></span>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        &lt;!&ndash; end .more &ndash;&gt;
-
-                        <c:if test="${!(sectionStatus.last) and numSections gt 1}">
-                            <div class="divider taller">
-                                <hr/>
-                            </div>
-                        </c:if>
-
-                    </c:forEach>
-                </div>
-                &lt;!&ndash; end .topic &ndash;&gt;
-
-            </c:forEach>-->
-            <!--<img src="/res/img/box/tc_bottom.gif" height="25" width="480" alt="bottom border"/>-->
-        </div>
-        <!-- end #topicContent -->
-    </c:if>
-
-    <!-- Community links -->
+        <div id="topicMainGS" class="col">
+                <!-- Community links -->
     <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
     <c:set var="recentDiscussions">
         <c:import
@@ -240,10 +128,15 @@
             <!--<img src="/res/img/box/tc_bottom.gif" height="25" width="480" alt="bottom border"/>-->
         </div>
     </c:if>
-    <!-- end #community -->
+        </div>
+        <!-- end #topicMainGS -->
+
+
+
+
 
 </div>
-<!-- end #topics -->
+<!-- end #topicContentGS -->
 
 <div class="clear"><!-- don't collapse --></div>
 
