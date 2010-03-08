@@ -1158,7 +1158,7 @@ body.ie6 .clearfix {
 
 /* ryh detail / discussion detail page */
 
-#mainGS.discussion-detail, #mainGS.ryh-detail, #mainGS .discussionBrd {
+#mainGS.discussion-detail, #mainGS.ryh-detail, #mainGS.discussionBrd {
     padding-top: 15px;
 }
 
