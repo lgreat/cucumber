@@ -758,7 +758,7 @@ body.cobranded #pageGS {
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
 .nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS, .framed #mainWrap, .framed #contentGS {
-    background: none;
+    background: #fff;
     padding: 0;
 }
 .interstitial #contentGS {
