@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -43,6 +44,7 @@ public class RaiseYourHandLandingPageController extends AbstractController {
     public static final String MODEL_DISCUSSION_BOARDS_COL2 = "discussionBoardsCol2";
     public static final String MODEL_DISCUSSION_LISTS_COL1 = "discussionListsCol1";
     public static final String MODEL_DISCUSSION_LISTS_COL2 = "discussionListsCol2";
+    public static final String MODEL_LOGIN_REDIRECT_URL = "loginRedirectUrl";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -52,6 +54,10 @@ public class RaiseYourHandLandingPageController extends AbstractController {
 
         List<List<Discussion>> ryhCol1 = new ArrayList<List<Discussion>>();
         List<List<Discussion>> ryhCol2 = new ArrayList<List<Discussion>>();
+
+        // ryh module
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RAISE_YOUR_HAND_LANDING);
+        model.put(MODEL_LOGIN_REDIRECT_URL, urlBuilder.asSiteRelative(request));
 
         // featured questions
 
