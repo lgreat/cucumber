@@ -95,24 +95,9 @@
         <div id="topicContentGS">
 
             <div id="topicbarGS" class="col">
-
-                <h2>Hot topics</h2>
-                <!-- Subtopic navigation -->
-                <ul>
-                    <c:forEach var="subtopic" items="${topicCenter.subtopics}" varStatus="status">
-                        <li><span>${subtopic.title}</span></li>
-                    </c:forEach>
-                </ul>
-
-                <!-- Content-provided-by logo -->
-                <div id="contentProvider">
-                    <c:if test="${not empty topicCenter.contentProviderLogoUrl and not empty topicCenter.contentProviderLogoAltText}">
-                        <img src="${topicCenter.contentProviderLogoUrl}"
-                             alt="${topicCenter.contentProviderLogoAltText}"/>
-                    </c:if>
-                </div>
-                <!-- end #contentProvider -->
-
+                <!--More on this topic-->
+                <!--Browse by grade-->
+                <!--Browse topics-->
             </div>
             <!-- end #topicbarGS -->
 
