@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gs.data.content.cms.*;
 import gs.data.cms.IPublicationDao;
@@ -27,6 +29,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
+
+    private static final Pattern MORE_ON_THIS_TOPIC_REGEX = Pattern.compile("More on this topic", Pattern.CASE_INSENSITIVE);
+    private static final Pattern BROWSE_TOPICS_REGEX = Pattern.compile("Browse topics", Pattern.CASE_INSENSITIVE);
+
+    private static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
+    private static final String MODEL_MORE_ON_THIS_TOPIC_SECTIONS = "moreOnThisTopicSections";
+    private static final String MODEL_BROWSE_TOPICS_SECTIONS = "browseTopicsSections";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -82,10 +91,39 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
             model.put("omnitureTopicCenterName", topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
 
+            populateBrowseSidebarModel(topicCenter, model);
+
             model.put("topicCenter", topicCenter);
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    private void populateBrowseSidebarModel(CmsTopicCenter topicCenter, Map<String, Object> model) {
+        // TODO-9458
+        List<CmsSubtopic> browseByGradeSubtopics = new ArrayList<CmsSubtopic>();
+        for (CmsSubtopic subtopic : topicCenter.getSubtopics()) {
+            boolean moreInThisTopicMatches = MORE_ON_THIS_TOPIC_REGEX.matcher(subtopic.getTitle()).matches();
+            boolean browseTopicsMatches = BROWSE_TOPICS_REGEX.matcher(subtopic.getTitle()).matches();
+            if (moreInThisTopicMatches) {
+                // if there is more than one subtopic matching the title "More on this topic", we'll just use the last one
+                List<CmsSubSubtopic> moreOnThisTopicSections = new ArrayList<CmsSubSubtopic>();
+                for (CmsSubSubtopic section : subtopic.getSubSubtopics()) {
+                    moreOnThisTopicSections.add(section);
+                }
+                model.put(MODEL_MORE_ON_THIS_TOPIC_SECTIONS, moreOnThisTopicSections);
+            } else if (browseTopicsMatches) {
+                // if there is more than one subtopic matching the title "Browse topics", we'll just use the last one
+                List<CmsSubSubtopic> browseTopicsSections = new ArrayList<CmsSubSubtopic>();
+                for (CmsSubSubtopic section : subtopic.getSubSubtopics()) {
+                    browseTopicsSections.add(section);
+                }
+                model.put(MODEL_BROWSE_TOPICS_SECTIONS, browseTopicsSections);
+            } else {
+                browseByGradeSubtopics.add(subtopic);
+            }
+        }
+        model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, browseByGradeSubtopics);
     }
 
     // START sample topic center methods

@@ -95,9 +95,65 @@
         <div id="topicContentGS">
 
             <div id="topicbarGS" class="col">
+
                 <!--More on this topic-->
+                <c:if test="${not empty moreOnThisTopicSections}">
+                    <h3>More on this topic</h3>
+                    <ul>
+                        <c:forEach var="section" items="${moreOnThisTopicSections}" varStatus="sectionStatus">
+                            <li>
+                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                        gradeIDs="${section.gradeIDs}"
+                                                        subjectIDs="${section.subjectIDs}"
+                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+
                 <!--Browse by grade-->
+                <c:if test="${not empty browseByGradeSubtopics}">
+                    <h3>Browse by grade</h3>
+                    <ul>
+                        <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
+                            <li>
+                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                        gradeIDs="${subtopic.gradeIDs}"
+                                                        subjectIDs="${subtopic.subjectIDs}"
+                                                        language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                <c:if test="${not empty subtopic.subSubtopics}">
+                                    <ul>
+                                        <c:forEach var="section" items="${subtopic.subSubtopics}"
+                                                   varStatus="sectionStatus">
+                                            <li>
+                                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                        gradeIDs="${section.gradeIDs}"
+                                                                        subjectIDs="${section.subjectIDs}"
+                                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:if>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+
                 <!--Browse topics-->
+                <c:if test="${not empty browseTopicsSections}">
+                    <h3>Browse topics</h3>
+                    <ul>
+                        <c:forEach var="section" items="${browseTopicsSections}" varStatus="sectionStatus">
+                            <li>
+                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                        gradeIDs="${section.gradeIDs}"
+                                                        subjectIDs="${section.subjectIDs}"
+                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+
             </div>
             <!-- end #topicbarGS -->
 
