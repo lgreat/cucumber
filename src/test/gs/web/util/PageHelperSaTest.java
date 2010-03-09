@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.51 2009/12/04 22:27:04 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.52 2010/03/09 23:45:15 eddie Exp $
  */
 
 package gs.web.util;
@@ -582,6 +582,22 @@ public class PageHelperSaTest extends TestCase {
         sessionContext.setCobrand("dallasnews");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
         assertEquals("dallasnews ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("connpost");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("connpost ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("greenwichtime");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("greenwichtime ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("newstimes");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("newstimes ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("stamfordadvocate");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("stamfordadvocate ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
 
         sessionContext.setCobrand("sfgate");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());

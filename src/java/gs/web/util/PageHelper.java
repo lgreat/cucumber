@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.90 2010/02/27 00:15:56 yfan Exp $
+ * $Id: PageHelper.java,v 1.91 2010/03/09 23:45:15 eddie Exp $
  */
 
 package gs.web.util;
@@ -531,7 +531,7 @@ public class PageHelper {
 
     public boolean isAdServedByCobrand() {
         return _sessionContext.getCobrand() != null &&
-                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline|ocregister|dallasnews|momshomeroom");
+                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline|ocregister|dallasnews|momshomeroom|connpost|greenwichtime|newstimes|stamfordadvocate");
     }
     /**
      * A String of the onload script(s) to be included in the body tag.

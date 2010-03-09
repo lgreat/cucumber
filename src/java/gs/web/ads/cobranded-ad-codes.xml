@@ -181,7 +181,7 @@
             <![CDATA[
                 <iframe src="http://open.ad.yieldmanager.net/a1?pubId=21107722569&site=dallasnews.com&sz=160x600&rTy=ac&conTy=fn_news&cTopId=20277001&sec=Secondary%20Section%20Front&V=1"
                 width="160" height="600" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
-                frameborder="0" style="border:0px;" scrolling="no"></iframe> 
+                frameborder="0" style="border:0px;" scrolling="no"></iframe>
             ]]>
         </ad>
         <ad id="AboveFold_300x250">
@@ -192,4 +192,45 @@
             ]]>
         </ad>
     </cobrand>
+
+    <cobrand id="connpost">
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <iframe src="http://ctextras.hearstdigitalnews.com/adops/APT/GreatSchools_APT%20Tags%20billboard_connpost.html"
+            width="300" height="250" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+            ]]>
+        </ad>
+    </cobrand>
+
+    <cobrand id="greenwichtime">
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <iframe src="http://ctextras.hearstdigitalnews.com/adops/APT/GreatSchools_APT%20Tags%20billboard_greenwichtime.html"
+            width="300" height="250" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+            ]]>
+        </ad>
+    </cobrand>
+
+    <cobrand id="newstimes">
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <iframe src=" http://ctextras.hearstdigitalnews.com/adops/APT/GreatSchools_APT%20Tags%20billboard_newstimes.html "
+            width="300" height="250" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe> 
+            ]]>
+        </ad>
+    </cobrand>
+
+    <cobrand id="stamfordadvocate">
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <iframe src=" http://ctextras.hearstdigitalnews.com/adops/APT/GreatSchools_APT%20Tags%20billboard_stamfordadvocate.html "
+            width="300" height="250" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe> 
+            ]]>
+        </ad>
+    </cobrand>
+
 </cobrand-ad-codes>
