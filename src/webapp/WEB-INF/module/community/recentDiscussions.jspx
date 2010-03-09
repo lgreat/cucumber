@@ -94,7 +94,7 @@
 
                 <div id="recentDiscussions" class="box">
                     <div class="content gainlayout">
-                        <h3 class="quotable">${requestScope.discussionBoard.title}</h3>
+                        <h3 class="title2-d61">Talk about it</h3>
                         <c:forEach var="discussion" items="${requestScope.discussions}">
                             <div class="discussionHolder clearfix">
                                 <div class="avatar fltlft">
