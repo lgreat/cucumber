@@ -37,7 +37,7 @@
                     </c:choose>
 
                     <div class="mod_bd body2bg">
-                        <ul class="morein text3">
+                        <ul class="morein text3 bullet">
                             <c:forEach var="result" items="${mainResults}" varStatus="status">
 
                                 <c:if test="${status.count le actualMax}">

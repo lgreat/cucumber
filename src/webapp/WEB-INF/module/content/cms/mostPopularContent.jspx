@@ -89,7 +89,7 @@
                     </c:choose>
 
                     <div class="mod_bd body2bg">
-                        <ul class="mostpop text3">
+                        <ul class="mostpop text3 bullet">
                             <c:forEach var="link" items="${links}" varStatus="status">
 
                                 <c:if test="${status.count le actualMax}">
