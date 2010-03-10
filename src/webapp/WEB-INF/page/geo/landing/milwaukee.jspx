@@ -192,7 +192,7 @@
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/ListadodeEscuelasdeMilwaukee.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
                     </li>
-                    <li><gsml:a href="/schoolreports/StatisticalMethodologyForTheMilwaukeeSchoolChooser.docx">Statistical methodology for the Milwaukee School Chooser</gsml:a></li>
+                    <li><gsml:a href="/schoolreports/StatisticalMethodologyForTheMilwaukeeSchoolChooser.doc">Statistical methodology for the Milwaukee School Chooser</gsml:a></li>
                 </ul>
             </div>
         </div>
