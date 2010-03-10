@@ -31,6 +31,7 @@ General comments:
 =4b-1 community landing
 =4c- topic centers
 =4c-1 featured
+=4c-2 left navigation
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -210,15 +211,17 @@ h3.title1white, h3.srchCat {
 .text1bold {
     font:bold 14px Arial, Helvetica, sans-serif;
 }
-.text3bold {
-    font: bold 12px / 1.3 Arial, Helvetica, sans-serif;
-}
 .text2 {
     font: 13px Arial, Helvetica, sans-serif;
 }
-
+.text2bold {
+    font:bold 13px Arial, Helvetica, sans-serif;
+}
 .text3 {
     font: 12px Arial, sans-serif;
+}
+.text3bold {
+    font: bold 12px / 1.3 Arial, Helvetica, sans-serif;
 }
 .introText {
     font: 16px / 1.3 Arial, Helvetica, sans-serif;
@@ -794,13 +797,27 @@ body.cobranded #pageGS {
 
 .mod_hd h3 {
     padding: 0 15px;
-    background: #1c509f url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
+    background: #149 url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
     font: 20px/1.7 Georgia, "Times New Roman", Times, serif;
 }
 
 .mod_bd {
     padding: 8px;
+}
+
+.navmod_hd h5 {
+    padding:0 10px;
+    background: #149 url(/res/img/navmod/nm_bg_header.png) repeat-x left top;
+    font: bold 13px/2.0 Arial, Helvetica, sans-serif;
+    color:white;
+}
+
+.navmod_bd{
+    padding:9px 0 9px 13px;
+    border-right:1px solid #c6c6c6;
+    border-bottom:1px solid #c6c6c6;
+    border-left:1px solid #c6c6c6;
 }
 
 .fltlft {
@@ -856,8 +873,16 @@ body.cobranded #pageGS {
     line-height:25px;
 }
 
-.martop_2{
+.mrgtop_2{
     margin-top:2px;
+}
+
+.mrgrt_5{
+    margin-right:5px;
+}
+
+.mrgrt_10{
+    margin-right:10px;
 }
 
 .padrt_5{
@@ -1395,7 +1420,7 @@ body.ie6 .clearfix {
 }
 
 #gbgContent li span{
-    margin:0 0 -4px 0;
+    margin-bottom:-4px;
 }
 
 #gbgContent .border-left-dotted {
@@ -1762,102 +1787,142 @@ ul.srchSuggest li span {
     padding:5px 0;
 }
 
+/* =4c-2 left navigation
+-------------------------------------------------------------------------------------------*/
+#topicbarGS li{
+    padding:3px 0;
+}
+
+#topicbarGS ul ul{
+    /*display:none;*/
+}
+
+#topicbarGS ul ul li{
+    list-style:disc outside none;
+    color:#f4891d;
+    margin-left:13px;
+}
+
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
 
+/*
+NOTE:
+If space is required around an icon, please use the CSS margin property.
+Defined margin classes can be found in the "=4 page layouts" section.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+1) Viewport: the defined width and height of each icon
+*/
+
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/discussion_boards/db_profile_sprites_bg.png);
-}
-
-.community {
-    width: 33px;
-    height: 21px;
-    background-position: 0 0;
+    background-image: url(/res/img/sprites/iconSprite_v1.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
     width: 14px;
-    height: 17px;
-    background-position: 0 -90px;
+    height: 18px;
+    background-position: 0 0;
 }
 
 .reportIt-wbg { /* wbg = with background (i.e., not transparent) */
-    width: 13px;
+    width: 14px;
     height: 18px;
-    background-position: 0 -180px;
+    background-position: 0 -20px;
 }
 
 .cms { /* for articles and ask the experts content */
     width: 16px;
-    height: 17px;
-    background-position: 0 -269px;
+    height: 16px;
+    background-position: 0 -40px;
 }
 
 .video {
     width: 16px;
-    height: 11px;
-    background-position: 0 -358px;
+    height: 12px;
+    background-position: 0 -60px;
 }
 
 .discussion {
     width: 15px;
     height: 15px;
-    background-position: 0 -440px;
+    background-position: 0 -80px;
 }
 
 .post {
     width: 17px;
     height: 18px;
-    background-position: 0 -527px;
+    background-position: 0 -100px;
 }
 
 .ryh { /* for raise your hand content */
     width: 18px;
     height: 19px;
-    background-position: 0 -559px;
+    background-position: 0 -120px;
+}
+
+.twirlyOpen{
+    width: 14px;
+    height: 13px;
+    background-position: 0 -140px;
+}
+
+.twirlyClosed{
+    width: 14px;
+    height: 13px;
+    background-position: 0 -160px;
 }
 
 .twitter {
     width: 16px;
     height: 16px;
-    background-position: -992px 0;
+    background-position: -20px 0;
 }
 
 .sharethis {
     width: 16px;
     height: 16px;
-    background-position: -992px -88px;
+    background-position: -20px -20px;
 }
 
 .buzz {
     width: 16px;
     height: 16px;
-    background-position: -992px -176px;
+    background-position: -20px -40px;
 }
 
 .facebook {
     width: 14px;
     height: 14px;
-    background-position: -994px -264px;
+    background-position: -20px -60px;
 }
 
 .digg {
     width: 16px;
     height: 14px;
-    background-position: -992px -350px;
+    background-position: -20px -80px;
 }
 
 .rss {
     width: 14px;
     height: 14px;
-    background-position: -994px -436px;
+    background-position: -20px -100px;
 }
 
 .emailIt {
     width: 18px;
     height: 17px;
-    background-position: -990px -521px;
+    background-position: -20px -120px;
+}
+
+.community {
+    width: 33px;
+    height: 20px;
+    background-position: -40px 0;
 }
 
 /* =6 editorialFooter

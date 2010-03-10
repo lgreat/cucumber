@@ -264,7 +264,7 @@
         <c:set var="seeMoreLink">
             <div class="fltrt">
                 <div class="see-more smallAlertText">
-                    <span class="sprite ryh padrt_5"><!-- icon --></span>
+                    <span class="sprite ryh mrgrt_5"><!-- icon --></span>
                     <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
                         class="alertDoubleArrow">&amp;raquo;</span>
                 </div>
@@ -284,7 +284,7 @@
             <div class="fltrt">
                 <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
             <span class="lftDoor25">
-                <span class="rtDoor25"><span class="sprite community fltlft martop_2 padrt_5"><!-- icon --></span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
+                <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
             </span>
                 </a>
             </div>

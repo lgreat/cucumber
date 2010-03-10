@@ -51,7 +51,7 @@
                                     </c:choose>
 
                                     <li class="mostpopItem ${className}">
-                                        <span class="sprite cms fltlft padrt_10"><!-- do not collapse --></span>
+                                        <span class="sprite cms fltlft mrgrt_10"><!-- do not collapse --></span>
                                         <a href="${link.url}" class="link"><c:out value="${link.linkText}"/></a>
                                     </li>
 

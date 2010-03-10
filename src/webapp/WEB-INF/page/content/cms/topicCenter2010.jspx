@@ -98,60 +98,81 @@
 
                 <!--More on this topic-->
                 <c:if test="${not empty moreOnThisTopicSections}">
-                    <h3>More on this topic</h3>
-                    <ul>
-                        <c:forEach var="section" items="${moreOnThisTopicSections}" varStatus="sectionStatus">
-                            <li>
-                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                        gradeIDs="${section.gradeIDs}"
-                                                        subjectIDs="${section.subjectIDs}"
-                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div class="navmod_hd"><h5>More on this topic</h5></div>
+                    <div class="navmod_bd">
+                        <ul>
+                            <c:forEach var="section" items="${moreOnThisTopicSections}" varStatus="sectionStatus">
+                                <li>
+                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                            gradeIDs="${section.gradeIDs}"
+                                                            subjectIDs="${section.subjectIDs}"
+                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </c:if>
 
                 <!--Browse by grade-->
                 <c:if test="${not empty browseByGradeSubtopics}">
-                    <h3>Browse by grade</h3>
-                    <ul>
-                        <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
-                            <li>
-                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                        gradeIDs="${subtopic.gradeIDs}"
-                                                        subjectIDs="${subtopic.subjectIDs}"
-                                                        language="EN">${subtopic.title}</link:cmsCategoryBrowse>
-                                <c:if test="${not empty subtopic.subSubtopics}">
-                                    <ul>
-                                        <c:forEach var="section" items="${subtopic.subSubtopics}"
-                                                   varStatus="sectionStatus">
-                                            <li>
-                                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                        gradeIDs="${section.gradeIDs}"
-                                                                        subjectIDs="${section.subjectIDs}"
-                                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </c:if>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <c:set var="hasNestedItems" value="${false}"/>
+                    <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
+                        <c:if test="${not empty subtopic.subSubtopics}">
+                            <c:set var="hasNestedItems" value="${true}"/>
+                        </c:if>
+                    </c:forEach>
+
+                    <div class="navmod_hd"><h5>Browse by grade</h5></div>
+                    <div class="navmod_bd">
+                        <c:choose>
+                            <c:when test="${hasNestedItems}">
+                                <c:set var="className" value="text2bold"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="className" value=""/>
+                            </c:otherwise>
+                        </c:choose>
+                        <ul class="${className}">
+                            <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
+                                <li>
+                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                            gradeIDs="${subtopic.gradeIDs}"
+                                                            subjectIDs="${subtopic.subjectIDs}"
+                                                            language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                    <c:if test="${not empty subtopic.subSubtopics}">
+                                        <ul class="text2">
+                                            <c:forEach var="section" items="${subtopic.subSubtopics}"
+                                                       varStatus="sectionStatus">
+                                                <li>
+                                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                            gradeIDs="${section.gradeIDs}"
+                                                                            subjectIDs="${section.subjectIDs}"
+                                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </c:if>
 
                 <!--Browse topics-->
                 <c:if test="${not empty browseTopicsSections}">
-                    <h3>Browse topics</h3>
-                    <ul>
-                        <c:forEach var="section" items="${browseTopicsSections}" varStatus="sectionStatus">
-                            <li>
-                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                        gradeIDs="${section.gradeIDs}"
-                                                        subjectIDs="${section.subjectIDs}"
-                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div class="navmod_hd"><h5>Browse topics</h5></div>
+                    <div class="navmod_bd">
+                        <ul>
+                            <c:forEach var="section" items="${browseTopicsSections}" varStatus="sectionStatus">
+                                <li>
+                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                            gradeIDs="${section.gradeIDs}"
+                                                            subjectIDs="${section.subjectIDs}"
+                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </c:if>
 
             </div>
@@ -211,12 +232,12 @@
     <!-- end #sidebarGS -->
 
 
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
-<mod:tracking pageName="${omnitureTopicCenterName} Landing Page"
-              hier1="Topic Centers,${omnitureTopicCenterName}"
-              omitAlmondNet="${true}"
-        />
+    <mod:tracking pageName="${omnitureTopicCenterName} Landing Page"
+                  hier1="Topic Centers,${omnitureTopicCenterName}"
+                  omitAlmondNet="${true}"
+            />
 
 </gsml:body>
 </html>
