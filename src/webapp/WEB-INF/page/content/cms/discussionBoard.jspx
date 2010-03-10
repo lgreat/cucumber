@@ -198,7 +198,7 @@
                 Recently active
             </c:when>
             <c:otherwise>
-                <a href="${requestScope.uri}&amp;amp;sort=recent_activity">Recently active</a>
+                <a href="${requestScope.uri}&amp;amp;sort=recent_activity&amp;amp;pageSize=${requestScope.pageSize}">Recently active</a>
             </c:otherwise>
         </c:choose>
         |
@@ -207,7 +207,7 @@
                 Newest first
             </c:when>
             <c:otherwise>
-                <a href="${requestScope.uri}&amp;amp;sort=newest_first">Newest first</a>
+                <a href="${requestScope.uri}&amp;amp;sort=newest_first&amp;amp;pageSize=${requestScope.pageSize}">Newest first</a>
             </c:otherwise>
         </c:choose>
         |
@@ -216,7 +216,7 @@
                 Oldest first
             </c:when>
             <c:otherwise>
-                <a href="${requestScope.uri}&amp;amp;sort=oldest_first">Oldest first</a>
+                <a href="${requestScope.uri}&amp;amp;sort=oldest_first&amp;amp;pageSize=${requestScope.pageSize}">Oldest first</a>
             </c:otherwise>
         </c:choose>
 
