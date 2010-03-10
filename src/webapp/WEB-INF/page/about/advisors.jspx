@@ -79,28 +79,25 @@
             <hr class="dotted"/>
 
             <div class="text3">
-                <span class="text3boldOrange">Guadalupe Vald&amp;eacute;s</span>
-                is the Bonnie Katz Tenenbaum Professor of Education at Stanford University and
-                specializes in language pedagogy and applied linguistics, focusing on the
-                English-Spanish bilingualism of U.S. Latinos. Her research on Latino students
-                and families has led to five books and more than 70 articles. She serves on the 
-                editorial boards of several journals including <em>Review of Educational Research</em>,
-                <em>The Modern Language Journal</em>, and <em>Hispanic Journal of the Behavioral Sciences</em>.
-                Vald&amp;eacute;s holds a BA from the University of West Florida and an MA and PhD from
-                Florida State University.
+                <span class="text3boldOrange">Michael Carter</span>
+                is the director of special projects at the Monterey Institute for Technology and
+                Education and a principal at Twin Learning. Prior to making educational math games
+                for the Hewlett and Gates Foundations, he directed education research at Apple and
+                designed games to help kids become better storytellers and scientists. More
+                recently he was a principal investigator for a MacArthur Foundation study on kids'
+                informal learning and digital media and the chief playwright at Zookazoo, a virtual
+                world for children. He received his BA, MA, and PhD from Stanford University.
             </div>
 
             <div class="text3">
-                <span class="text3boldOrange">Preston Smith</span>
-                is the cofounder and chief academic officer of Rocketship Education. Before
-                starting Rocketship, he was the founder and principal of LUCHA, a small
-                elementary school in San Jose, Calif. In 2007 it received an API score of
-                881 and was the highest-ranked elementary school in the district. Prior to
-                founding LUCHA, Smith taught first grade at Clyde Arbuckle Elementary School
-                and was named Teacher of the Year in 2003.  The same year he was also a
-                finalist for Teach for America's Sue Lehmann Award, given to corps members 
-                with the highest classroom academic gains in the nation. Smith graduated
-                Phi Beta Kappa from the University of North Carolina at Chapel Hill.
+                <span class="text3boldOrange">Angela Duckworth</span>
+                is an assistant professor of psychology at the University of Pennsylvania. Her
+                research centers on self-control (the ability to regulate emotions, thoughts, and
+                feelings in the service of valued goals) and grit (perseverance and sustained
+                interest in long-term goals). Recently Duckworth has become interested in the
+                intersection of personality psychology and economics and how their distinct
+                methodological advances might benefit one another. She received her BA from
+                Harvard University and her PhD from the University of Pennsylvania.
             </div>
 
             <div class="text3">
@@ -117,32 +114,35 @@
             </div>
 
             <div class="text3">
-                <span class="text3boldOrange">Michael Carter</span>
-                is the director of special projects at the Monterey Institute for Technology and
-                Education and a principal at Twin Learning. Prior to making educational math games
-                for the Hewlett and Gates Foundations, he directed education research at Apple and
-                designed games to help kids become better storytellers and scientists. More
-                recently he was a principal investigator for a MacArthur Foundation study on kids'
-                informal learning and digital media and the chief playwright at Zookazoo, a virtual
-                world for children. He received his BA, MA, and PhD from Stanford University. 
-            </div>
-
-            <div class="text3">
-                <span class="text3boldOrange">Angela Duckworth</span>
-                is an assistant professor of psychology at the University of Pennsylvania. Her
-                research centers on self-control (the ability to regulate emotions, thoughts, and
-                feelings in the service of valued goals) and grit (perseverance and sustained
-                interest in long-term goals). Recently Duckworth has become interested in the
-                intersection of personality psychology and economics and how their distinct
-                methodological advances might benefit one another. She received her BA from
-                Harvard University and her PhD from the University of Pennsylvania.
-            </div>
-
-            <div class="text3">
                 <span class="text3boldOrange">Clessont Mitchell</span>
                 is the president of the Parent Partnership Network in New York City and the
                 parent coordinator for Harlem Village Leadership Academy. Mitchell was an officer
-                of the United Parents Association. 
+                of the United Parents Association.
+            </div>
+
+            <div class="text3">
+                <span class="text3boldOrange">Preston Smith</span>
+                is the cofounder and chief academic officer of Rocketship Education. Before
+                starting Rocketship, he was the founder and principal of LUCHA, a small
+                elementary school in San Jose, Calif. In 2007 it received an API score of
+                881 and was the highest-ranked elementary school in the district. Prior to
+                founding LUCHA, Smith taught first grade at Clyde Arbuckle Elementary School
+                and was named Teacher of the Year in 2003.  The same year he was also a
+                finalist for Teach for America's Sue Lehmann Award, given to corps members
+                with the highest classroom academic gains in the nation. Smith graduated
+                Phi Beta Kappa from the University of North Carolina at Chapel Hill.
+            </div>
+
+            <div class="text3">
+                <span class="text3boldOrange">Guadalupe Vald&amp;eacute;s</span>
+                is the Bonnie Katz Tenenbaum Professor of Education at Stanford University and
+                specializes in language pedagogy and applied linguistics, focusing on the
+                English-Spanish bilingualism of U.S. Latinos. Her research on Latino students
+                and families has led to five books and more than 70 articles. She serves on the 
+                editorial boards of several journals including <em>Review of Educational Research</em>,
+                <em>The Modern Language Journal</em>, and <em>Hispanic Journal of the Behavioral Sciences</em>.
+                Vald&amp;eacute;s holds a BA from the University of West Florida and an MA and PhD from
+                Florida State University.
             </div>
         </div>
 
