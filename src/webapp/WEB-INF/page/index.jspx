@@ -228,7 +228,7 @@
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
     <c:set var="raiseYourHand">
         <c:import
-                url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;redirectUrl=%2F%23ryh&amp;limit=5&amp;style=homePage&amp;showViewAll=true"/>
+                url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;limit=5&amp;style=homePage&amp;showViewAll=true"/>
     </c:set>
     <a name="ryh"><!-- don't collapse --></a>
     ${raiseYourHand}

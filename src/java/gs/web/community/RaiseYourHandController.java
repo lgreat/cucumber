@@ -55,10 +55,6 @@ public class RaiseYourHandController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         String contentKey = request.getParameter(PARAM_FEATURE_CONTENT_KEY);
-        String redirectUrl = request.getParameter(PARAM_REDIRECT_URL);
-        if (redirectUrl == null) {
-            redirectUrl = "/";
-        }
         String limitStr = request.getParameter(PARAM_LIMIT);
         int limit = 5;
         if (limitStr != null) {
@@ -99,8 +95,15 @@ public class RaiseYourHandController extends AbstractController {
             model.put(MODEL_SIGNED_IN, user != null);
             
             if (user == null) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, redirectUrl);
-                model.put(MODEL_REDIRECT_URL, urlBuilder.asSiteRelative(request));
+                String redirectUrl = request.getParameter(PARAM_REDIRECT_URL);
+                UrlBuilder builder;
+                if (redirectUrl == null) {
+                    // if no redirect url specified, use discussion detail page url as redirect url
+                    builder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, discussion.getDiscussionBoard().getFullUri(), new Long(discussion.getId()));
+                    redirectUrl = builder.asSiteRelative(request);
+                }
+                builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, redirectUrl);
+                model.put(MODEL_REDIRECT_URL, builder.asSiteRelative(request));
             } else {
                 model.put(MODEL_REDIRECT_URL, "#");
             }
