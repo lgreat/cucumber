@@ -123,7 +123,7 @@
         <cobrand:numberoneexpertFooter/>
         <mod:footer showAd="true" showSeoFooter="true"/>
     </div>
-    <cobrand:footer/>
+    <div style="text-align:center"><cobrand:footer/></div>
 </div>
 ${modTracking}
 <div id="deferredContent" style="display:none;">
