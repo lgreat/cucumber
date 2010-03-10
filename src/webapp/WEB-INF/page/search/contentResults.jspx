@@ -348,8 +348,8 @@
     </c:otherwise>
 </c:choose>
 
-<mod:tracking pageName="${requestScope.omniturePagename}"
-              hier1="${requestScope.omnitureHierarchy}"
+<mod:tracking pageName="${siteSearchFilterType} Search Results: ${requestScope.page}"
+              hier1="Search,${siteSearchFilterType}"
               community="true"
               siteSearchFilterType="${siteSearchFilterType}"/>
 </body>
