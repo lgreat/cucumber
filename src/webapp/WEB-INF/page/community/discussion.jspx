@@ -239,15 +239,17 @@
 
     <c:choose>
         <c:when test="${discussion.raiseYourHand}">
-            <c:set var="lastBreadcrumbLinkText" value="Raise Your Hand"/>
+            <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                             fullUri="${requestScope.discussionBoard.fullUri}"
+                             raiseYourHand="true"
+                             styleClass="link">Raise Your Hand</link:cmsContent>
         </c:when>
         <c:otherwise>
-            <c:set var="lastBreadcrumbLinkText" value="${requestScope.discussionBoard.title}"/>
+            <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                             fullUri="${requestScope.discussionBoard.fullUri}"
+                             styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent>
         </c:otherwise>
     </c:choose>
-    <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                     fullUri="${requestScope.discussionBoard.fullUri}"
-                     styleClass="link">${lastBreadcrumbLinkText}</link:cmsContent>
 </p>
 
 <community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
