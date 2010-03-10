@@ -166,6 +166,8 @@
                     <li>
                         <a href="mailto:milwaukee@greatschools.org?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
+                    <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
+                    <li>Call our hotline: 414-297-9715</li>
                 </ul>
             </div>
             <div class="gridbox bottom left" id="greatschoolsGuides">
@@ -183,7 +185,6 @@
                     <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
                 <ul>
-                    <li>Call our hotline: 414-297-9715</li>
                     <li><a href="mailto:milwaukee@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/MilwaukeeSchoolChooser.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
@@ -191,7 +192,7 @@
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/ListadodeEscuelasdeMilwaukee.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
                     </li>
-                    <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
+                    <li><gsml:a href="/schoolreports/StatisticalMethodologyForTheMilwaukeeSchoolChooser.docx">Statistical methodology for the Milwaukee School Chooser</gsml:a></li>
                 </ul>
             </div>
         </div>
