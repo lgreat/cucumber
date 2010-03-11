@@ -885,6 +885,10 @@ body.cobranded #pageGS {
     margin-right:10px;
 }
 
+.mrglft_neg5{
+    margin-left:-5px;
+}
+
 .padrt_5{
     padding-right:5px;
 }
@@ -1793,14 +1797,18 @@ ul.srchSuggest li span {
     padding:3px 0;
 }
 
+#topicbarGS span.sprite{
+    cursor:pointer;
+}
+
 #topicbarGS ul ul{
-    /*display:none;*/
+    display:none;
+    margin-left:30px;
 }
 
 #topicbarGS ul ul li{
     list-style:disc outside none;
     color:#f4891d;
-    margin-left:13px;
 }
 
 /* =5- icons
