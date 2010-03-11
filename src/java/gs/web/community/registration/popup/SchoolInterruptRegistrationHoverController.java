@@ -68,7 +68,7 @@ public class SchoolInterruptRegistrationHoverController extends RegistrationCont
         setUsersPassword(user, userCommand, userExists);
 
         if (isRequireEmailValidation()) {
-            sendValidationEmail(user, userCommand, userExists, request);
+            sendValidationEmail(request, user, "/account/"); // TODO
         }
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);

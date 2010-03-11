@@ -59,7 +59,7 @@ public class NthGraderRegistrationHoverController extends RegistrationController
         setUsersPassword(user, userCommand, userExists);
 
         if (_requireEmailValidation) {
-            sendValidationEmail(user, userCommand, userExists, request);
+            sendValidationEmail(request, user, "/account/"); // TODO
         }
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);

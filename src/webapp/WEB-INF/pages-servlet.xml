@@ -1642,6 +1642,7 @@
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
         <property name="successView" value="redirect:/community/loginOrRegister.page"/>
+        <property name="requireEmailValidation" value="false"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -1656,6 +1657,7 @@
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.registration.LoginCommand"/>
         <property name="formView" value="/community/registration/loginOrRegister"/>
+        <property name="requireEmailValidation" value="false"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>

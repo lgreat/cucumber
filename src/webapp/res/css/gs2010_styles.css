@@ -32,6 +32,7 @@ General comments:
 =4c- topic centers
 =4c-1 featured
 =4c-2 left navigation
+=4d community join hovers
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -1575,6 +1576,60 @@ db_discussContainer .db_discuss_full p {
 .db_discuss p.fltlft {
     margin: 0;
 }
+/*
+=4d community join hovers
+-----------------------------------------------------------------------------------
+*/
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:#333 !important;
+    filter:alpha(opacity=75);
+    -moz-opacity:0.75;
+    -khtml-opacity: 0.75;
+    opacity: 0.75;
+    }
+.ui-widget-content {
+    background:#ebebeb !important;
+}
+.ui-dialog {
+    background-color: #ebebeb;
+    padding: 2px 12px;
+    border: 2px solid white;
+    }
+.ui-corner-all {
+    -moz-border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+}
+.ui-dialog-titlebar {
+    position: relative;
+    font-size: 1px;
+    line-height: .1;
+    height: 0;
+}
+a.ui-dialog-titlebar-close {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    font-size: 11px;
+    text-decoration: none;
+    color: #777;
+    text-transform: uppercase;
+}
+a.ui-dialog-titlebar-close .ui-icon {
+    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100% 1px no-repeat;
+    padding: 0 15px 0 0;
+}
+.dialog_white h2 {
+    margin-bottom: 12px;
+}
+.dialog_white p {
+    padding: 20px;
+    background: #fff;
+    margin: 0;
+}
+
 /*
 =search styles 
 -----------------------------------------------------------------------------------

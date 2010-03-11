@@ -18,18 +18,14 @@ import gs.web.tracking.CookieBasedOmnitureTracking;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import javax.mail.internet.MimeMessage;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author <a href="mailto:aroy@greatschools.org">Anthony Roy</a>
@@ -46,6 +42,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
     private JavaMailSender _mailSender;
+    private EmailVerificationEmail _emailVerificationEmail;
     private boolean _requireEmailValidation = true;
     private String _errorView;
     /** If defined, the view that this controller should redirect to. Special casing for hovers. **/
@@ -257,7 +254,19 @@ public class RegistrationController extends SimpleFormController implements Read
         setUsersPassword(user, userCommand, userExists);
 
         if (_requireEmailValidation) {
-            sendValidationEmail(user, userCommand, userExists, request);
+            // Determine redirect URL for validation email
+            String emailRedirectUrl = userCommand.getRedirectUrl();
+            if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+                    !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
+                if (_requireEmailValidation) {
+                    if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                        emailRedirectUrl = "/index.page";
+                    } else {
+                        emailRedirectUrl = "/";
+                    }
+                }
+            }
+            sendValidationEmail(request, user, emailRedirectUrl);
         }
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
@@ -267,13 +276,9 @@ public class RegistrationController extends SimpleFormController implements Read
             persistChildren(userCommand);
         }
 
-        if (user.isEmailProvisional()) {
-            user.setEmailValidated();
-        }
-
         // per GS-8290 All users who complete registration should get a welcome message
         // but only users who haven't already been sent one
-        if (!isChooserRegistration()
+        if (!_requireEmailValidation && !isChooserRegistration()
                 && user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
         }
@@ -336,13 +341,25 @@ public class RegistrationController extends SimpleFormController implements Read
             return mAndV;
         }
 
-        PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+        if (!_requireEmailValidation) {
+            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+        }
+        // Determine redirect URL
         if(StringUtils.isNotBlank(getHoverView())) {
             userCommand.setRedirectUrl(getHoverView());
         } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                 !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
-            userCommand.setRedirectUrl("/account/");
+            if (_requireEmailValidation) {
+                if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                    userCommand.setRedirectUrl("/index.page?showValidateEmailHover=true");
+                } else {
+                    userCommand.setRedirectUrl("/?showValidateEmailHover=true");
+                }
+            } else {
+                userCommand.setRedirectUrl("/account/");
+            }
         }
+
         mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
 
         return mAndV;
@@ -485,22 +502,11 @@ public class RegistrationController extends SimpleFormController implements Read
         return userProfile;
     }
 
-    protected void sendValidationEmail(User user, UserCommand userCommand, boolean userExists, HttpServletRequest request) throws NoSuchAlgorithmException, MessagingException {
-        MimeMessage mm = RequestEmailValidationController.buildMultipartEmail
-                (_mailSender.createMimeMessage(), request, userCommand);
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
         try {
-            _mailSender.send(mm);
-        } catch (MailException me) {
-            _log.error("Error sending email message.", me);
-            if (userExists) {
-                // for existing users, set them back to no password
-                user.setPasswordMd5(null);
-                _userDao.updateUser(user);
-            } else {
-                // for new users, cancel the account on error
-                _userDao.removeUser(user.getId());
-            }
-            throw me;
+            getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+        } catch (Exception e) {
+            _log.error("Error sending email message: " + e, e);
         }
     }
 
@@ -634,5 +640,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setHow(String how) {
         _how = how;
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
     }
 }

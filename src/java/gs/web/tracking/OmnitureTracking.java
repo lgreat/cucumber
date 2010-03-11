@@ -76,7 +76,8 @@ public abstract class  OmnitureTracking {
         CommunityDiscussionPost(16),
         CommunityDiscussionReplyPost(17),
         ChoicePackRequest(18),
-        SweepstakesEntered(19);
+        SweepstakesEntered(19),
+        EmailVerified(29);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

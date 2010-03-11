@@ -1,5 +1,6 @@
 package gs.web.community.registration;
 
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -32,6 +33,8 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
+    private EmailVerificationEmail _emailVerificationEmail;
+    private boolean _requireEmailValidation;
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
@@ -77,23 +80,41 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
                                  HttpServletResponse response,
                                  Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
-        ModelAndView mAndV = new ModelAndView();
+        ModelAndView mAndV = new ModelAndView("redirect:/account/");
 
         if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
             ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
-            String message;
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
             user.setEmail(command.getNewEmail());
             // save user
             user.setUpdated(new Date());
-            _userDao.updateUser(user);
-            PageHelper.setMemberAuthorized(request, response, user);
-            message = "4F3C-46E1-82EF-126A";
-            mAndV.getModel().put("msg", message);
-        }
 
-        mAndV.setViewName("redirect:/account/");
+            if (_requireEmailValidation) {
+                user.setEmailProvisional("changeEmail");
+            }
+            _userDao.updateUser(user);
+            if (_requireEmailValidation) {
+                // GS-8865 If a user changes their email address and clicks save, the new email address should
+                // replace the old one in the database and we should send them the [verification email
+                // (changed email)]. They should also be logged out and taken to the inline sign in page
+                // with the [verify change email hover] open. The user should be put back into the provisional
+                // state in the db.
+                PageHelper.logout(request, response);
+                try {
+                    getEmailVerificationEmail().sendChangedEmailAddress(request, user);
+                } catch (Exception e) {
+                    _log.error("Error sending email verification email to " + user.getEmail() + ": " + e, e);
+                }
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
+                urlBuilder.addParameter("showValidateEditEmailHover", "true");
+                mAndV.setViewName("redirect:" + urlBuilder.asSiteRelative(request));
+            } else {
+                PageHelper.setMemberAuthorized(request, response, user);
+                String message = "4F3C-46E1-82EF-126A";
+                mAndV.getModel().put("msg", message);
+            }
+        }
         return mAndV;
     }
 
@@ -103,6 +124,22 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
+    }
+
+    public boolean isRequireEmailValidation() {
+        return _requireEmailValidation;
+    }
+
+    public void setRequireEmailValidation(boolean requireEmailValidation) {
+        _requireEmailValidation = requireEmailValidation;
     }
 
     public static class ChangeEmailCommand implements EmailValidator.IEmail {

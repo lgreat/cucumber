@@ -25,6 +25,7 @@ import static org.easymock.classextension.EasyMock.*;
 public class ChangeEmailControllerTest extends BaseControllerTestCase {
     private ChangeEmailController _controller;
     private IUserDao _userDao;
+    private EmailVerificationEmail _emailVerificationEmail;
     private User _user;
 
     protected void setUp() throws Exception {
@@ -32,14 +33,18 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _controller = new ChangeEmailController();
 
         _userDao = createMock(IUserDao.class);
+        _emailVerificationEmail = createMock(EmailVerificationEmail.class);
 
         _controller.setUserDao(_userDao);
+        _controller.setEmailVerificationEmail(_emailVerificationEmail);
+        _controller.setRequireEmailValidation(true);
 
         _user = new User();
         _user.setId(123);
         _user.setEmail("oldEmail@address.org");
         _user.setUserProfile(new UserProfile());
         _user.getUserProfile().setScreenName("screenName");
+        _user.setPlaintextPassword("foobar");
     }
 
     public void testValidate() throws Exception {
@@ -51,11 +56,11 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
 
         expect(_userDao.findUserFromEmailIfExists("email@address.org")).andReturn(null);
-        replay(_userDao);
+        replayMocks(_userDao, _emailVerificationEmail);
 
         assertFalse(errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), command, errors);
-        verify(_userDao);
+        verifyMocks(_userDao, _emailVerificationEmail);
         assertFalse(errors.hasErrors());
     }
 
@@ -74,11 +79,12 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         context.setUser(_user);
 
         _userDao.updateUser(_user);
-        replay(_userDao);
+        _emailVerificationEmail.sendChangedEmailAddress(getRequest(), _user);
+        replayMocks(_userDao, _emailVerificationEmail);
 
         getRequest().setParameter("submit", "submit");
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        verify(_userDao);
+        verifyMocks(_userDao, _emailVerificationEmail);
         assertNotNull(mAndV);
         assertEquals("email@address.org", _user.getEmail());
         assertFalse(_user.getUpdated().equals(cal.getTime()));
@@ -96,7 +102,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         assertTrue(errors.hasErrors());
     }
 
-    public void testOnSubmit() throws NoSuchAlgorithmException {
+    public void testOnSubmit() throws Exception {
         ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
         BindException errors = new BindException(command, "emailCmd");
 
@@ -107,11 +113,13 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         context.setUser(_user);
 
         _userDao.updateUser(_user);
-        replay(_userDao);
+
+        _emailVerificationEmail.sendChangedEmailAddress(getRequest(), _user);
+        replayMocks(_userDao, _emailVerificationEmail);
 
         getRequest().setParameter("submit", "submit");
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        verify(_userDao);
+        verifyMocks(_userDao, _emailVerificationEmail);
         assertNotNull(mAndV);
         assertEquals("email@address.org", _user.getEmail());
     }
@@ -157,11 +165,11 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
         User user = new User();
         expect(_userDao.findUserFromEmailIfExists(email)).andReturn(user);
-        replay(_userDao);
+        replayMocks(_userDao, _emailVerificationEmail);
 
         assertFalse(errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), command, errors);
-        verify(_userDao);
+        verifyMocks(_userDao, _emailVerificationEmail);
         assertTrue(errors.hasErrors());
     }
 }

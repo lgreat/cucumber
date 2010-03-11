@@ -3,7 +3,6 @@ package gs.web.community.registration;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.UserCommandValidator;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.User;
@@ -67,7 +66,7 @@ public class CreateUsernameRegistrationController extends RegistrationController
         setUsersPassword(user, userCommand, true);
 
         if (isRequireEmailValidation()) {
-            sendValidationEmail(user, userCommand, true, request);
+            sendValidationEmail(request, user, "/account/");
         }
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);

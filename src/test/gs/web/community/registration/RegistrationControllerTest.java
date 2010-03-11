@@ -67,7 +67,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 //        tableDaoFactory.setProjection("values");
 //        tableDaoFactory.setWorksheetName("od7");
 
-        _controller.setRequireEmailValidation(true);
+        _controller.setRequireEmailValidation(false);
         _controller.setErrorView("error");
         _controller.setStateManager(new StateManager());
         _controller.setHow("RegistrationControllerTest");
@@ -161,6 +161,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _command.setPassword("123456");
         _user.setId(1);
 
+        _controller.setRequireEmailValidation(true);
+
         _userDao.updateUser(_user);
 
         replayAllMocks();
@@ -168,7 +170,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _controller.setUsersPassword(_user, _command, true);
         verifyAllMocks();
         assertFalse(_user.isPasswordEmpty());
-        assertTrue(_user.isEmailProvisional());
+        assertTrue("Expect user to be provisional because of double opt-in", _user.isEmailProvisional());
     }
 
     public void testSetUsersPasswordError() throws Exception {

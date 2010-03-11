@@ -1,0 +1,15 @@
+<p>Hi $FIRST_NAME,</p>
+
+<p>Thanks for joining GreatSchools! We're really excited you're here.</p>
+
+<p>To complete your registration, you'll just need to verify your email by clicking on the link below:</p>
+
+<p>$VERIFICATION_LINK</p>
+
+<p>If that doesn't work, copy and paste it into your browser's address bar.
+If you didn't join GreatSchools with this email address, please ignore this message.</p>
+
+<p>Thanks again,<br/>
+GreatSchools</p>
+
+<br/>

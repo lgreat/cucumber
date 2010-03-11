@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.52 2010/01/14 02:24:17 aroy Exp $
+ * $Id: LoginController.java,v 1.53 2010/03/11 23:52:19 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -44,6 +44,7 @@ public class LoginController extends SimpleFormController {
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
+    private boolean _requireEmailValidation;
 
     protected void initializeRedirectUrl(HttpServletRequest request) {
         DEFAULT_REDIRECT_URL = "/account/";
@@ -118,21 +119,15 @@ public class LoginController extends SimpleFormController {
             isMslSubscriber = (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
         }
 
-        if (user == null || user.isEmailProvisional()) {
+        if (user == null || (user.isEmailProvisional() && !_requireEmailValidation)) {
             errors.reject(null,
                     "There is no account associated with that email address.");
-//        } else if (user.isEmailProvisional()) {
-//            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-
-//            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + user.getId());
-//            String href = builder.asAnchor(request, "reset your account").asATag();
-//            builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
-//            String href2 = builder.asAnchor(request, "(Resend email)").asATag();
-//            errors.reject(USER_PROVISIONAL_CODE, "Before signing in, you must validate your account " +
-//                    "by clicking the link in your registration email. " +
-//                    href2 + "." +
-//                    " If you believe this message to be in error, please " + href + ".");
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
+        } else if (user.isEmailProvisional() && _requireEmailValidation) {
+            errors.reject("email");
+            request.setAttribute("showEmailNotValidatedHover", "true");
+            request.setAttribute("email", user.getEmail());
+            _log.info("Community login: user " + loginCommand.getEmail() + " has not validated their email.");
         } else if (user.isPasswordEmpty()) {
 //            errors.reject("email", "There is no community account associated with that email address.");
             errors.reject("email");
@@ -226,5 +221,13 @@ public class LoginController extends SimpleFormController {
 
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         _authenticationManager = authenticationManager;
+    }
+
+    public boolean isRequireEmailValidation() {
+        return _requireEmailValidation;
+    }
+
+    public void setRequireEmailValidation(boolean requireEmailValidation) {
+        _requireEmailValidation = requireEmailValidation;
     }
 }
