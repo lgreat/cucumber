@@ -1,29 +1,369 @@
+@charset "UTF-8";
+/* CSS Document */
+
 /*
-=ie styles
---------------------------------------------------------------------------
+Theme Name: 2010 Reskin IE exceptions
+Description: All the specific styles for the GreatSchools website to accommodate IE
+Author: Michael Wong, Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+=A- ie
+=B- ie8
+=C- ie7
+=D- ie6
+=A- ie 4a-1 find-compare
+=B- ie8 4a- home page carousel
+=C- ie7 4a- home page carousel
+=C- ie7 4a-4 raise your hand
+=D- ie6 4a- home page carousel
+=D- ie6 4a-4 raise your hand
+=D- ie6 4a-5 grade by grade
+=D- ie6 5- icons
+
 */
+
+/* =A- ie
+-------------------------------------------------------------------------------------------*/
+
 #topnav_search ul {
     top: 0;
     left: 0;
 }
+
 #utilLinks .nav_menu {
     border: 0;
 }
-#utilLinks li .nav_group_items  {
+
+#utilLinks li .nav_group_items {
     top: 8px;
 }
+
 #utilLinks li.last {
-    border:0 none;
+    border: 0 none;
 }
-#utilLinks li.over .nav_group_items  {
+
+#utilLinks li.over .nav_group_items {
     left: -26px;
 }
+
 #topnav_search button {
     top: 27px;
     right: 20px;
 }
 
-/* =ie styles: arrows
+/* =B- ie8
+-------------------------------------------------------------------------------------------*/
+
+/* =C- ie7
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 #mainWrap {
+    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+}
+
+*+html #mainWrap {
+    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+}
+
+body.ie7 #header, *+html #header {
+    z-index: 3;
+}
+
+body.ie7 #navbar, *+html #navbar {
+    z-index: 2;
+}
+
+body.ie7 #mainWrap, *+html #mainWrap {
+    z-index: 1;
+}
+
+body.ie7 #utilLinks, *+html #utilLinks {
+    z-index: 100;
+}
+
+body.ie7 #utilLinks .nav_menu, *+html #utilLinks . nav_menu {
+    z-index: 200;
+}
+
+body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
+    z-index: 300;
+    top: 22px;
+}
+
+body.ie7 #navbar #topnav_menusubnav .nav_menu, *+html #navbar #topnav_menusubnav .nav_menu {
+    z-index: 100;
+}
+
+body.ie7 #navbar #topnav_menusubnav .nav_menu .nav_group_items, *+html #navbar #topnav_menusubnav .nav_menu nav_group_items {
+    z-index: 200;
+}
+
+body.ie7 #utilLinks li .nav_group_items {
+    top: 22px;
+}
+
+body.ie7 #topnav_search button {
+    top: 25px;
+}
+
+body.ie7 #navbar {
+    position: relative;
+}
+
+body.ie7 #next .inner, body.ie6 #next .inner {
+    height: 127px;
+}
+
+body.ie7 #footer {
+    height: 293px;
+}
+
+body.ie7 #footerAd {
+    height: 91px;
+}
+
+* + html #topnav_search button {
+    top: 25px;
+}
+
+* + html #footerAd {
+    height: 91px;
+}
+
+* + html #utilLinks li .nav_group_items {
+    top: 22px;
+}
+
+* + html #navbar {
+    position: relative;
+}
+
+* + html #footer {
+    height: 293px;
+}
+
+*+html #footerGSIframe {
+    background: none;
+    margin: 0 0 0 2px;
+    width: 970px;
+    height: 293px
+}
+
+/* =D- ie6
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 {
+    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
+}
+
+*html body {
+    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
+}
+
+*html body.cobranded {
+    background-image: none;
+}
+
+body.ie6 #contentGS {
+    margin: 0;
+}
+
+body.ie6 #contentGS, body.ie6 #mainWrap, body.ie6 .mod, body.ie6 .mod_bd {
+    zoom: 1;
+}
+
+*html #contentGS, *html #mainWrap, *html .mod, *html .mod_bd {
+    zoom: 1;
+}
+
+body.ie6 #grade-by-grade {
+    height: 297px;
+}
+
+body.ie6 #utilLinks .nav_menu a.nav_group_heading,
+body.ie6 #topnav_search fieldset,
+body.ie6 #topnav_search ul #srch1,
+body.ie6 #topnav_search ul #srch2,
+body.ie6 #topnav_search ul #srch1 label,
+body.ie6 #topnav_search ul #srch2 label,
+body.ie6 #topnav_menusubnav li a {
+    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+}
+
+*html #utilLinks .nav_menu a.nav_group_heading,
+*html #topnav_search fieldset,
+*html #topnav_search ul #srch1,
+*html #topnav_search ul #srch2,
+*html #topnav_search ul #srch1 label,
+*html #topnav_search ul #srch2 label,
+*html #topnav_menusubnav li a {
+    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+}
+
+body.ie6 #topnav_menusubnav li ul li a {
+    background-image: none;
+}
+
+body.ie6 #navbar,
+body.ie6 #mainWrap,
+body.ie6 #footerAd,
+body.ie6 #footer,
+body.ie6 #footer .copyright,
+body.ie6 #homepageFooterAd {
+    background-image: url(/res/img/gs_contentIE6_bg.png);
+}
+
+*html #navbar,
+*html #mainWrap,
+*html #footerAd,
+*html #footer,
+*html #footer .copyright,
+*html #homepageFooterAd,
+*html #footerFrm {
+    background-image: url(/res/img/gs_contentIE6_bg.png);
+}
+
+*html #logoBox {
+    overflow: hidden;
+}
+
+body.ie6 #logoBox #logo {
+    padding: 83px 0 0;
+    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
+}
+
+*html #logoBox #logo {
+    padding: 83px 0 0;
+    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
+}
+
+body.ie6 #header, *html #header {
+    z-index: 3;
+}
+
+body.ie6 #navbar, *html #navbar {
+    z-index: 2;
+}
+
+body.ie6 #mainWrap, *html #mainWrap {
+    z-index: 1;
+}
+
+body.ie6 #utilLinks, *html #utilLinks {
+    z-index: 100;
+}
+
+body.ie6 #utilLinks .nav_menu, *html #utilLinks . nav_menu {
+    z-index: 200;
+}
+
+body.ie6 #utilLinks .nav_menu .nav_group_items, *html #utilLinks .nav_menu .nav_group_items {
+    z-index: 300;
+    top: 22px;
+}
+
+body.ie6 #navbar {
+    position: relative;
+}
+
+body.ie6 #navbar #topnav_menusubnav .nav_menu, *html #navbar #topnav_menusubnav .nav_menu {
+    z-index: 100;
+}
+
+body.ie6 #navbar #topnav_menusubnav .nav_menu .nav_group_items, *html #navbar #topnav_menusubnav .nav_menu nav_group_items {
+    z-index: 200;
+}
+
+body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
+    display: inline-block;
+}
+
+body.ie6 #topnav_search button {
+    top: 25px;
+}
+
+*html #topnav_search ul li label, *html #topnav_menusubnav li a {
+    display: inline-block;
+}
+
+*html #topnav_search button {
+    top: 25px;
+}
+
+body.ie6 #mainGS.col {
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+body.ie6 .activity li {
+    overflow: hidden;
+    background: #fff;
+}
+
+body.ie6 #sidebarGS.col {
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+body.ie6 #sidebarGS .mod {
+    overflow: hidden;
+}
+
+body.ie6 .brwse .topics {
+    border: 0;
+    width: 149px;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+body.ie6 #searchAgain {
+    height: 1%;
+}
+
+body.ie6 .srchCatComm li span.icon {
+    left: -25px;
+    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
+}
+
+*html iframe.ieShim {
+    position: absolute; /* account for the border */
+    left: -0.25em;
+    top: -0.25em;
+    z-index: -1;
+    filter: progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 0);
+}
+
+.ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button {
+    width: 80px; /* set to mitigate the "box model bug" in IE6 & 7 */
+}
+
+*html #footerGSIframe {
+    background: none;
+    margin: 0 0 0 6px;
+    width: 966px;
+    height: 293px;
+}
+
+/* skin */
+body.ie6 .lftDoor25 {
+    height: 25px;
+    overflow: hidden;
+}
+
+body.ie6 .rtDoor25 {
+    height: 25px;
+    overflow: hidden;
+}
+
+/* =A- ie 4a-1 find-compare
 -------------------------------------------------------------------------------------------*/
 
 #fc-bigArrow-f4891d {
@@ -38,7 +378,7 @@
     border-left: 33px solid #f4891d;
     border-bottom: 23px solid #fc6;
     filter: alpha(opacity = 100);
-    z-index:9;
+    z-index: 9;
 }
 
 #fc-bigArrow-fc6 {
@@ -53,367 +393,178 @@
     border-left: 13px solid #fc6;
     border-bottom: 9px dashed black;
     filter: alpha(opacity = 100);
-    z-index:10;
+    z-index: 10;
 }
 
-
-/*
-=ie7 styles
---------------------------------------------------------------------------
-*/
-body.ie7 #mainWrap {
-    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
-}
-*+html #mainWrap {
-    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
-}
-body.ie7 #header, *+html #header {
-    z-index: 3;
-}
-body.ie7 #navbar, *+html #navbar {
-    z-index: 2;
-}
-body.ie7 #mainWrap, *+html #mainWrap {
-    z-index: 1;
-}
-body.ie7 #utilLinks, *+html #utilLinks {
-    z-index: 100;
-}
-body.ie7 #utilLinks .nav_menu, *+html #utilLinks . nav_menu {
-    z-index: 200;
-}
-body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
-    z-index: 300;
-    top: 22px;
-}
-body.ie7 #navbar #topnav_menusubnav .nav_menu, *+html #navbar #topnav_menusubnav .nav_menu {
-    z-index: 100;
-}
-body.ie7 #navbar #topnav_menusubnav .nav_menu .nav_group_items, *+html #navbar #topnav_menusubnav .nav_menu nav_group_items {
-    z-index: 200;
-}
-body.ie7 #utilLinks li .nav_group_items  {
-    top: 22px;
-}
-body.ie7 #topnav_search button {
-    top: 25px;
-}
-body.ie7 #navbar {
-    position: relative;
-}
-body.ie7 #next .inner, body.ie6 #next .inner {
-    height: 127px;
-}
-body.ie7 #footer {
-    height: 293px;
-}
-body.ie7 #footerAd {
-    height: 91px;
-}
-* + html #topnav_search button {
-    top: 25px;
-}
-* + html #footerAd {
-    height: 91px;
-}
-* + html #utilLinks li .nav_group_items  {
-    top: 22px;
-}
-* + html #navbar {
-    position: relative;
-}
-* + html #footer {
-    height: 293px;
-}
-*+html #footerGSIframe {
-    background: none;
-    margin: 0 0 0 2px;
-    width: 970px;
-    height: 293px
-}
-
-/* =4a-1 find-compare
--------------------------------------------------------------------------------------------*/
-
-#find input{
+#find input {
     width: 165px;
 }
 
-#compare button{
+#compare button {
     margin-top: -4px;
 }
 
-/* =4a-4 raise your hand
+/* =B- ie8 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
-body.ie7 .ryh-title{
-    margin-bottom:10px;
+body.ie8 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 9px dashed black;
+    border-right: 9px solid #06b;
+    border-bottom: 9px dashed black;
+    filter: alpha(opacity = 100);
 }
 
-body.ie7 .ryh-answer{
-    padding-left:0;
-    margin-left:331px;
+body.ie8 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 9px dashed black;
+    border-left: 9px solid #06b;
+    border-bottom: 9px dashed black;
+    filter: alpha(opacity = 100);
 }
 
-/*
-=ie6 only styles
---------------------------------------------------------------------------
-*/
-body.ie6 {
-    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
-}
-*html body {
-    background-image: url(/res/img/cbi_cloudIE6_bg.gif);
-}
-*html body.cobranded {
-    background-image: none;
-}
-body.ie6 #contentGS {
-    margin: 0;
-}
-body.ie6 #contentGS, body.ie6 #mainWrap, body.ie6 .mod, body.ie6 .mod_bd {
-    zoom:1;
-}
-*html #contentGS, *html #mainWrap, *html .mod, *html .mod_bd {
-    zoom:1;
-}
-body.ie6 #grade-by-grade {
-    height: 297px;
-}
-body.ie6 #utilLinks .nav_menu a.nav_group_heading,
-body.ie6 #topnav_search fieldset,
-body.ie6 #topnav_search ul #srch1,
-body.ie6 #topnav_search ul #srch2,
-body.ie6 #topnav_search ul #srch1 label,
-body.ie6 #topnav_search ul #srch2 label,
-body.ie6 #topnav_menusubnav li a {
-    background-image: url(/res/img/nav/topnavSprite_bg.gif);
-}
-*html #utilLinks .nav_menu a.nav_group_heading,
-*html #topnav_search fieldset,
-*html #topnav_search ul #srch1,
-*html #topnav_search ul #srch2,
-*html #topnav_search ul #srch1 label,
-*html #topnav_search ul #srch2 label,
-*html #topnav_menusubnav li a {
-    background-image: url(/res/img/nav/topnavSprite_bg.gif);
-}
-
-body.ie6 #topnav_menusubnav li ul li a {
-    background-image: none;
-}
-body.ie6 #navbar,
-body.ie6 #mainWrap,
-body.ie6 #footerAd,
-body.ie6 #footer,
-body.ie6 #footer .copyright,
-body.ie6 #homepageFooterAd
-{
-    background-image: url(/res/img/gs_contentIE6_bg.png);
-}
-
-*html #navbar,
-*html #mainWrap,
-*html #footerAd,
-*html #footer,
-*html #footer .copyright,
-*html #homepageFooterAd,
-*html #footerFrm
-{
-    background-image: url(/res/img/gs_contentIE6_bg.png);
-}
-*html #logoBox {
-    overflow: hidden;
-}
-body.ie6 #logoBox #logo {
-    padding: 83px 0 0;
-    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
-}
-*html #logoBox #logo {
-    padding: 83px 0 0;
-    background: url('/res/img/logo/logo_GS2010_330x110.gif') 0 0 no-repeat;
-}
-body.ie6 #header, *html #header {
-    z-index: 3;
-}
-body.ie6 #navbar, *html #navbar {
-    z-index: 2;
-}
-body.ie6 #mainWrap, *html #mainWrap {
-    z-index: 1;
-}
-body.ie6 #utilLinks, *html #utilLinks {
-    z-index: 100;
-}
-body.ie6 #utilLinks .nav_menu, *html #utilLinks . nav_menu {
-    z-index: 200;
-}
-body.ie6 #utilLinks .nav_menu .nav_group_items, *html #utilLinks .nav_menu .nav_group_items {
-    z-index: 300;
-    top: 22px;
-}
-body.ie6 #navbar {
-    position: relative;
-}
-body.ie6 #navbar #topnav_menusubnav .nav_menu, *html #navbar #topnav_menusubnav .nav_menu {
-    z-index: 100;
-}
-body.ie6 #navbar #topnav_menusubnav .nav_menu .nav_group_items, *html #navbar #topnav_menusubnav .nav_menu nav_group_items {
-    z-index: 200;
-}
-body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
-    display: inline-block;
-}
-body.ie6 #topnav_search button {
-    top: 25px;
-}
-*html #topnav_search ul li label, *html #topnav_menusubnav li a {
-    display: inline-block;
-}
-*html #topnav_search button {
-    top: 25px;
-}
-body.ie6 #mainGS.col {
-    border: 0;
-    overflow: hidden;
-    margin: 0;
-}
-body.ie6 .activity li {
-    overflow: hidden;
-    background: #fff;
-}
-body.ie6 #sidebarGS.col {
-    border: 0;
-    overflow: hidden;
-    margin: 0;
-}
-body.ie6 #sidebarGS .mod {
-    overflow: hidden;
-}
-body.ie6 .brwse .topics {
-    border: 0;
-    width: 149px;
-    display: inline;
-    margin: 0;
-    padding: 0;
-}
-body.ie6 #searchAgain {
-    height: 1%;
-}
-body.ie6 .srchCatComm li span.icon {
-    left: -25px;
-    background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
-}
-*html iframe.ieShim {
-	position: absolute;
-	/* account for the border */
-	left: -0.25em;
-	top: -0.25em;
-	z-index: -1;
-	filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
-}
-.ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button{
-    width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
-}
-
-*html #footerGSIframe {
-    background: none;
-    margin: 0 0 0 6px;
-    width: 966px;
-    height: 293px;
-}
-/* skin */
-body.ie6 .lftDoor25 {
-    height: 25px;
-    overflow: hidden;
-}
-
-body.ie6 .rtDoor25 {
-    height: 25px;
-    overflow: hidden;
-}
-
-/* =4a-4 raise your hand
+/* =C- ie7 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
-body.ie6 .ryh-title{
-    margin-bottom:10px;
+body.ie7 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-right: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
 }
 
-body.ie6 .ryh-answer{
-    padding-left:0;
-    margin-left:328px;
+body.ie7 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-left: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
 }
 
-/* =4a-5 grade by grade
+body.ie7 #carousel .prev-position {
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+body.ie7 #carousel .next-position {
+    position: absolute;
+    right: -10px;
+    top: 0;
+}
+
+/* =C- ie7 4a-4 raise your hand
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 .ryh-title {
+    margin-bottom: 10px;
+}
+
+body.ie7 .ryh-answer {
+    padding-left: 0;
+    margin-left: 331px;
+}
+
+/* =D- ie6 4a- home page carousel
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-right: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie6 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-left: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie6 #carousel .prev-position {
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+body.ie6 #carousel .next-position {
+    position: absolute;
+    right: -10px;
+    top: 0;
+}
+
+/* =D- ie6 4a-4 raise your hand
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 .ryh-title {
+    margin-bottom: 10px;
+}
+
+body.ie6 .ryh-answer {
+    padding-left: 0;
+    margin-left: 328px;
+}
+
+/* =D- ie6 4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 #gbgTabs {
-    /*position: absolute;
-    top: 125px;*/
     left: 5px;
-    /*float: left;
-    z-index: 50;
-    background: none;
-    line-height: normal;*/
-}
-
-#gbgTabs ul {
-    white-space: nowrap;
-    margin: 0;
-    border: 0 none transparent;
-    padding: 0;
-    list-style: none;
 }
 
 body.ie6 #gbgTabs li {
-    /*float: left;*/
-    /*display: inline-block;*/
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -34px;
-    margin:0;
-    /*margin: 0 0 0 5px;*/
-    /*padding: 0;*/
+    margin: 0;
 }
 
 body.ie6 #gbgTabs a {
-    /*display: inline-block;*/
-    /*font: 10px Arial, Helvetica, sans-serif;*/
-    /*color: #333;*/
-    /*text-decoration: none;*/
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -34px;
-    margin:0;
-    /*margin: 0 0 0 5px;*/
-    /*padding: 5px 15px;*/
-    /*outline: none;*/
+    margin: 0;
 }
 
 body.ie6 #gbgTabs .selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
-    /*margin-top: -5px;*/
 }
 
 body.ie6 #gbgTabs .selected a {
-    /*text-decoration: none;
-    color: black;*/
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
-    /*padding: 5px 15px 10px 15px;*/
 }
 
 body.ie6 #gbg-marker-p, body.ie6 #gbg-marker-k, body.ie6 #gbg-marker-1, body.ie6 #gbg-marker-2, body.ie6 #gbg-marker-3, body.ie6 #gbg-marker-4, body.ie6 #gbg-marker-5, body.ie6 #gbg-marker-m, body.ie6 #gbg-marker-h {
-    /*position:absolute;
-    top:0; left:0;
-    width:1px; height:14px;
-    background-color:#388dd1;*/
-    overflow:hidden;
+    overflow: hidden;
 }
 
 body.ie6 #gbgContent li {
-    padding:5px 0;
+    padding: 5px 0;
 }
+
 body.ie6 #contentRight div.inner div {
     height: 1%;
 }
-/* =5- icons
+
+/* =D- ie6 5- icons
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 .sprite {
