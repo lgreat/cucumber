@@ -3,10 +3,6 @@ div#left-content div#partners.mainLeft {
     _padding-bottom: 11px;
 }
 
-div#right-content li {
-    background-position: 0 1.15ex;
-}
-
     div#right-content div#donate li {
         line-height: 18px;
     }
