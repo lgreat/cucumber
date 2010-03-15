@@ -415,6 +415,6 @@
 </school:profile>
 <mod:tracking pageName="Parent Survey Questions:${requestScope.currentPage} "
               hier1="School,Parent Survey,Question,Page ${requestScope.currentPage}"/>
-</body>
+</gsml:body>
 </html>
 </jsp:root>
