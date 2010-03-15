@@ -8,13 +8,9 @@ div#right-content li {
 }
 
     div#right-content div#donate li {
-        background-position: 0 0.55ex;
         line-height: 18px;
     }
 
-div#right-content div#grid div#greatschoolsGuides ul li {
-    background-position: 0 0.85ex;
-}
 
 div#grid div#findAndCompare select#compareLevel {
     position: relative;
