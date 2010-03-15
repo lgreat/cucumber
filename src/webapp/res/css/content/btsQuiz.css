@@ -22,9 +22,6 @@
     margin: 0 12px 25px;
 }
 
-.contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
-    color: #39A;
-}
 
 ul.bulleted {
     /* to handle IE6 bug: http://www.webmasterworld.com/forum83/9077.htm */

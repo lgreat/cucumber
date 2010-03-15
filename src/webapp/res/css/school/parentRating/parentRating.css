@@ -8,7 +8,6 @@ div.rating_parent a:hover,
 div.rating_parent a:active,
 div.rating_parent a:visited{
     font-size: 13px;
-    color:#3399AA;
     text-decoration:underline;
     line-height:16px;
 }

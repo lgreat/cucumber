@@ -56,7 +56,6 @@
    margin-bottom: 6px;
 }
 #toc a, #toc a:link, #toc a:visited, #toc a:hover {
-   color: #3399AA;
    text-decoration: underline;
    font-size: 13px;
 }
@@ -130,7 +129,6 @@ div#intro-results-link {
 div#intro-results-link a {
     text-decoration:underline;
     font-size:13px;
-    color:#3399AA;
 }
 
 /******************** question-group ***************************/
@@ -177,7 +175,6 @@ div.email-subtext{
 }
 
 #left-col .email-subtext a, .contentGS a:link, a:visited{
-    color:#3399AA; /* aqua */
     text-decoration:none;
 }
 
@@ -327,7 +324,6 @@ div.multiAnswerValue div.answerValue {
 
 /******************** feedback  *****************************/
 div.feedback a:link, div.feedback a:visited{
-    color: #3399AA;
     text-decoration: underline;
 }
 
@@ -483,7 +479,6 @@ span#prevCity, span#nextCity {
 }
 
 span#prevCity a, span#nextCity a{
-    color: #3399AA;
 }
 
 div#whoRadioButtons {

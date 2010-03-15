@@ -69,9 +69,8 @@
 }
 
 #nearbySchools a {
-	font: bold 13px/14px Arial, sans-serif;;
-	_font: bold 13px/15px Arial, sans-serif;; /* IE 6 hack */
-	color: #39a;
+	font: bold 13px/14px Arial, sans-serif;
+	_font: bold 13px/15px Arial, sans-serif; /* IE 6 hack */
 	text-decoration: none;
 }
 

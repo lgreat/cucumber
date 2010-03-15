@@ -60,7 +60,6 @@ ul#rightNewsletterList li {
 }
 
 a, a:hover, a:visited, a:active {
-    color: #3399AA;
     text-decoration: underline;
     font-size: 13px;
     font-weight: bold;

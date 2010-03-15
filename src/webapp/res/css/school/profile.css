@@ -135,7 +135,6 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 #tools a {
 	font: bold 13px/15px Arial, Arial, sans-serif;
-	color: #39a;
 }
 
 #tools .enterEmail { /* has IE 7 equivalent */
@@ -415,7 +414,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     font-family: Arial, sans-serif;
 }
 #schoolProfile .breadcrumb a {
-    color: #3399aa;
     text-decoration: underline;
 }
 

@@ -120,12 +120,10 @@ html[xmlns] .clearfix {
 
 #editorial_footer .blogBlurb a:link, #editorial_footer .blogBlurb a:visited{
     font: 12px Arial, Arial, Helvetica, sans-serif;
-	color: #3399AA;
 	text-decoration: none;
 }
 #editorial_footer .blogBlurb a:hover, #editorial_footer .blogBlurb a:focus, #editorial_footer .blogBlurb a:active{
     font: 12px Arial, Arial, Helvetica, sans-serif;
-	color: #3399AA;
 	text-decoration: underline;
 }
 

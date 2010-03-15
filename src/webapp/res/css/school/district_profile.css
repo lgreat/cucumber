@@ -22,7 +22,6 @@ District Overview
 }
 
 #districtOverview a, #districtOverview a:hover {
-	color: #39a;
 	text-decoration: underline;
 }
 
@@ -60,8 +59,7 @@ District Overview
 }
 
 #districtMainList li a, #districtMainList li a:hover {
-	font: bold 13px/22px Arial, sans-serif;;
-	color: #39a;
+	font: bold 13px/22px Arial, sans-serif;
 	padding: 0 0 0 12px;
 	margin: 2px 0 0 0;
 	background: url(/res/img/school/li_red-triangle.gif) left center no-repeat;

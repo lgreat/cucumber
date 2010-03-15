@@ -2,14 +2,12 @@
     #editorialFooter a.border10Links:hover, .contentGS #editorialFooter .billsBlog a:link,
     .contentGS #editorialFooter .billsBlog a:visited, .contentGS #editorialFooter .billsBlog a:hover{
     font: normal 12px/15px Arial, Arial, sans-serif;
-	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0;
 }
 
 #editorialFooter a.arrowLink:link, #editorialFooter a.arrowLink:visited, #editorialFooter a.arrowLink:active {
     font: normal 12px/15px Arial, Arial, sans-serif;
-	color: #3399AA;
 	text-decoration: none;
 	letter-spacing: 0;
 }
@@ -221,7 +219,6 @@
 	background-image: url(/res/img/content/research/pink_arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .5ex;
-	color: #3399AA;
 	font-weight: normal;
 }
 

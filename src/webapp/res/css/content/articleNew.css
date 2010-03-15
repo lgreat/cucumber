@@ -1,7 +1,4 @@
 /* Java compatibility */
-.contentGS .articlecopy a:link, .contentGS .articlecopy a:visited, .contentGS .articlecopy a:hover {
-    color: #3399AA;
-}
 
 .articlecopy {
     border-right: none;
@@ -92,9 +89,6 @@ ul span.liText {
 
 .subheader {
     font-weight:bold;
-}
-#article-main a, .byline a, a {
-    color:#3399AA;
 }
 
 div.dotted-divider hr {
@@ -241,9 +235,6 @@ div#articleComments div#enterComment div#terms {
     color:#444444;
 }
 
-div#articleComments div#enterComment div#terms a {
-    color:#3399AA;
-}
 
 div#articleComments div#enterComment div#terms span {
     font-family:Arial, Helvetica, sans-serif;
@@ -268,9 +259,6 @@ div#articleComments div#enterComment div#terms span.rlbcopy {
     color:#444444;
 }
 
-div#toolsmenu .simplemenu a {
-    color:#3399AA;
-}
 
 div#articleComments {
    font-family:Arial, Helvetica, sans-serif;
@@ -299,7 +287,6 @@ a.spanish {
     font-family:Arial, Helvetica, sans-serif;
     font-size:13px;
     font-style:normal;
-    color:#3399AA;
     text-decoration:none;
 }
 

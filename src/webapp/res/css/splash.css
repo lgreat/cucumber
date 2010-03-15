@@ -194,9 +194,6 @@ div#footer { padding-top:2px; }
     margin-top: 0;
 }
 
-.contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
-    color: #39A;
-}
 
 .more {
     position: absolute;

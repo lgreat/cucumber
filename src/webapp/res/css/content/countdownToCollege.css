@@ -42,7 +42,6 @@
 }
 
 #contentGS .middle li a, #contentGS .middle li a:visited {
-    color: #39a;
     text-decoration:none;
 }
 
@@ -58,7 +57,6 @@
 }
 
 #contentGS .middle p a, #contentGS .middle p a:visited {
-    color: #39a;
     font-weight: 300;
     text-decoration:underline;
 }
@@ -315,17 +313,12 @@ h2#adBlurb {
 
 #contentGS a.seeFullArticle {
 	font-size: 11px;
-	color: #3399AA;
 	line-height: 30px;
 }
 
-#contentGS span.actionTip a, .module a.inModuleLink {
-   color:#3399AA;
-}
 
 #contentGS a.actionTipsLink {
 	font-size: 11px;
-	color: #3399AA;
 	text-decoration:none;
 }
 

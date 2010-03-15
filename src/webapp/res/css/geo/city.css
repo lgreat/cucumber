@@ -375,7 +375,6 @@ div.statsModule {
     .contentGS a:visited,
     .contentGS a:active {
     text-decoration: none;
-    color: #3399AA;
     font-weight:bold;
 }
 
@@ -525,7 +524,6 @@ div.belowGSBlog {
 }
 
 .contentGS .gsBlog a {
-    color: #3399AA;
     font-size: small;
     font-weight: normal;
 }

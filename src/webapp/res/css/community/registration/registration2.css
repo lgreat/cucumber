@@ -52,7 +52,6 @@ div.child label {
 }
 
 #outline div.child a {
-    color: #3399AA;
     font-weight: normal;
     margin-left: 15px;
     font-size: 13px;
@@ -164,9 +163,6 @@ ul#newsletters {
     line-height: 15px;
 }
 
-#newsletters label a {
-    color: #3399AA;
-}
 
 #newsletters label a:hover {
     text-decoration: none;

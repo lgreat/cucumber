@@ -54,7 +54,6 @@
             table#main a  {
                 font-size: small;
                 font-weight: 700;
-                color: #3399aa;
             }
         </style>
     </head>

@@ -162,7 +162,6 @@
 }
 
 #contentGS .middle li a, #contentGS .middle li a:visited {
-    color: #39a;
     text-decoration:none;
 }
 
@@ -178,7 +177,6 @@
 }
 
 #contentGS .middle p a, #contentGS .middle p a:visited {
-    color: #39a;
     font-weight: 300;
     text-decoration:underline;
 }

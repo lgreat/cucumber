@@ -34,9 +34,6 @@ div#topTextDivId ul li{
     position: static;
 }
 
-#chooserRegistration p.warning a, #chooserRegistration p.warning a:link, #chooserRegistration p.warning a:visited, #chooserRegistration p.warning a:active {
-    color: #3399AA;
-}
 
 /* Login details */
 

@@ -35,7 +35,6 @@ a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
-	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0px;
 }
@@ -44,7 +43,6 @@ a.underline:link, a.underline:visited, a.underline:hover {
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
-	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0px;
 }
@@ -53,7 +51,6 @@ a.dearParentsLink:link, a.dearParentsLink:visited {
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
-	color: #3399AA;
 	text-decoration: none;
 	letter-spacing: 0px;
 }
@@ -70,7 +67,6 @@ a.arrowLink:link, a.arrowLink:visited, a.arrowLink:active {
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
-	color: #3399AA;
 	text-decoration: none;
 	letter-spacing: 0px;
 }
@@ -713,7 +709,6 @@ h2.updatesTitle {
 }
 
 .updatesText a:link, .updatesText a:visited, .updatesText a:hover, .updatesText a:active {
-    color: #3399aa;
     text-decoration: underline;
 }
 
@@ -816,7 +811,6 @@ div#alert div span.alert2 {
 
 div#alert div a {
     font-size: 12px;
-    color: #3399AA;
 }
 
 div.top_5_promo_research {
@@ -842,7 +836,6 @@ div.top_5_promo_research div span.subline {
 }
 
 .contentGS div.top_5_promo_research a {
-    color:#3399AA;
     display:block;
 }
 

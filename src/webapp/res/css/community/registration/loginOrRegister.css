@@ -189,7 +189,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    color: #3399AA;
     font-style: italic;
     text-decoration: none;
     font-size: 11px;
@@ -208,7 +207,6 @@ p.infoMessage img {
 }
 
 .contentGS p.infoMessage a, .contentGS p.infoMessage a:hover {
-    color: #3399AA;
     text-decoration: none;
 }
 
@@ -255,6 +253,5 @@ ul.warning {
 
 #outline ul.warning li a {
     text-decoration: none;
-    color: #3399AA;
 }
 

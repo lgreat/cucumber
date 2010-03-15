@@ -192,7 +192,6 @@ div.resultSchool {
 #contentGS .resultSchool ul li a:hover
 {
     font: 13px Arial, sans-serif;
-    color: #3399AA;
 }
 
 .multiColumn {
@@ -229,7 +228,7 @@ div.resultSchool {
     padding: 0px 12px 7px 16px;
 }
 #toc ul li.inactive {
-    background-image: url( "/res/img/bullet/pinkarrow.gif );
+    background-image: url( "/res/img/bullet/pinkarrow.gif");
 }
 
 div.crossPromo {
@@ -255,7 +254,6 @@ div.crossPromoBottom {
 div#contentGS div.crossPromo a {
     text-decoration: underline;
     font-weight: normal;
-    color: #3399AA;
 }
 
 div.displayTypeValues {

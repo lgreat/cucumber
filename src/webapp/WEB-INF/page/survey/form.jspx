@@ -51,7 +51,7 @@
        }
     </script>
 </head>
-<body>
+<gsml:body adPageName="parentSurvey" pageLayout="nocol">
 <school:profile school="${school}" tab="surveys">
 
 <div id="left-col">

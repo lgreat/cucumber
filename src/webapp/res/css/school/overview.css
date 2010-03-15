@@ -12,7 +12,6 @@
 }
 
 #schoolOverview a, #schoolOverview a:hover {
-	color: #39a;
 	text-decoration: underline;
 }
 
@@ -126,7 +125,6 @@ body.ie6 #col_center {
 	float: right;
 	margin: 30px 30px 0 0;
 	_margin: 30px 15px 0 0; /* IE 6 hack */
-	color: #39a;
 	line-height: 14px;
 	font-weight: bold;
 }

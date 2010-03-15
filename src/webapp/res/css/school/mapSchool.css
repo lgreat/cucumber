@@ -52,7 +52,6 @@ Large Google Map
 }
 
 #nearbySchools a {
-	color: #39a;
 	font-weight: bold;
 	font-family: Arial, sans-serif;;
 	text-decoration: none;
@@ -132,7 +131,6 @@ ul#extraLinks li {
 }
 
 ul#extraLinks li#nearMore a {
-    color: #3399AA;
     font-size: 11px;
     font-weight: normal;
     line-height: 13px;
@@ -165,7 +163,6 @@ ul#extraLinks li#nearMore a {
 }
 
 #learnMore li a {
-    color: #39a;
     text-decoration: underline;
 }
 
@@ -200,7 +197,6 @@ ul#extraLinks li#nearMore a {
 }
 
 #map div.schoolInfoWindow a {
-    color: #39a;
     text-decoration: underline;
 }
 

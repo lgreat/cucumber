@@ -34,7 +34,6 @@
     #schoolProfile .ratingSummaryContent a:link,
     #schoolProfile .ratingSummaryContent a:visited
 {
-    color: #3399AA;
     text-decoration: underline;
 }
 
@@ -67,7 +66,6 @@
 }
 
 #bigPicture a {
-    color: #3399AA;
     text-decoration: underline;
 }
 
@@ -106,7 +104,6 @@
 }
 
 #issuesLink a {
-    color: #3399AA;
     text-decoration: underline;
 }
 

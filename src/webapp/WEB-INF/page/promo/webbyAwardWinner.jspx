@@ -13,7 +13,7 @@
         <pageHelper:externalCss file="/res/css/promo/webbyAwardWinner.css"/>
         <pageHelper:hideFooterAd/>
     </head>
-<gsml:body adPageName="promo/webbyAwardWinner">
+<gsml:body adPageName="promo/webbyAwardWinner" pageLayout="nocol">
 
     <ad:setSlotPrefix slotPrefix="WebbyAward"/>
 

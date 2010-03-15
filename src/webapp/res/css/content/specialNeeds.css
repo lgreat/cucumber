@@ -14,17 +14,12 @@ h1#specialNeedsText {
     padding-bottom: 2px;
     border-bottom: 0px;
 }
-div#schwabOnly a {
-    color:#3399AA;
-}
 div#schwabOnly:hover{
-    color:#3399AA;
     text-decoration:underline;
 }
 
 #contentGS div.welcome a {
     font-size: 15px;
-    color:#3399AA;
 }
 #contentGS div.welcome span#msg{
     display: block;
