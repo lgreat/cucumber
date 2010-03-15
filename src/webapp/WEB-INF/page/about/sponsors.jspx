@@ -34,8 +34,9 @@
 </head>
 
 <gsml:body adPageName="sponsors" pageLayout="nocol">
-<div id="mainGS">
-<mod:tracking pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
+<div id="mainGS" class="col">
+    <div id="sponsors" class="mod">
+    <mod:tracking pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
 
 <h3>Sponsors and Partners</h3>
 
@@ -202,6 +203,7 @@
     <li>National Center for Education Statistics</li>
     <li>State departments of education for all 50 states and Washington, D.C.</li>
 </ul>
+        </div>
 </div>
 </gsml:body>
 </html>

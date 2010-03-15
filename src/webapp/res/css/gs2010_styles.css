@@ -34,6 +34,10 @@ General comments:
 =4c-1 featured
 =4c-2 left navigation
 =4d community join hovers
+=4e- about pages
+=4e-5 about sponsors
+=4f- schools
+=4f-1 school profile
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -2022,7 +2026,23 @@ ul.srchSuggest li span {
     list-style:disc outside none;
     color:#f4891d;
 }
+/*
+=4e about pages
+-----------------------------------------------------------------------------
+*/
 
+/*
+=4e-5 about sponsors
+-----------------------------------------------------------------------------
+*/
+/*
+=4f schools
+-----------------------------------------------------------------------------
+*/
+/*
+=4f-1 school profile
+-----------------------------------------------------------------------------
+*/
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
 
