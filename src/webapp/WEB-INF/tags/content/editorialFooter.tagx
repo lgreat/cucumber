@@ -75,12 +75,10 @@
             </li>
             <li>
                 <div class="billsBlog">
-                    <cache:cache scope="application" name="blog" key="blog1">
                         <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                           defaultTitle="Bill's thoughts on education"
                                           defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
                                           type="researchBlog"/>
-                    </cache:cache>
                 </div>
             </li>
             <li class="last">

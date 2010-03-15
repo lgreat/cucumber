@@ -70,12 +70,10 @@
                 <div class="treb14B tint5bc">GreatSchools Blog</div>
                 <div class="spacer_8"><!-- do not collapse --></div>
                 <div class="treb12 tint666">
-                    <cache:cache scope="application" name="blog" key="blog1">
                         <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                           defaultTitle="Bill's thoughts on education"
                                           defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
                                           type="researchBlog"/>
-                    </cache:cache>
                 </div>
             </div>
             <!--end ic2 -->

@@ -97,12 +97,10 @@
                         <gsml:img styleClass="headline" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
                     </gsml:popupWindow>
                     <div>
-                        <cache:cache scope="application" name="blog" key="community">
                             <content:blogFeed atomUrl="http://communityblog.greatschools.org/atom.xml"
                                               defaultTitle="GreatSchools Community Blog"
                                               defaultUrl="http://communityblog.greatschools.org"
                                               type="billsBlog"/>
-                        </cache:cache>
                         <br/>
                         <gsml:url var="read" value="/res/img/community/registration/read.gif"/>
                         <gsml:popupWindow href="http://communityblog.greatschools.org" width="800" height="600" left="50" top="50">

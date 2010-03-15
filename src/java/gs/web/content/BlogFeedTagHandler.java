@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.35 2010/03/05 18:12:20 rcox Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.36 2010/03/15 18:43:52 yfan Exp $
  */
 
 package gs.web.content;
@@ -17,7 +17,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
-import java.net.URL;
+import java.net.*;
 import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private static final String TYPE_GS_BLOG = "gsBlog";
     private static final String TYPE_SPLASH_BLOG = "splashBlog";
     private static final String TYPE_RESEARCH_BLOG = "researchBlog";
-     private static final String TYPE_MOM_BLOG = "momOnFire";
+    private static final String TYPE_MOM_BLOG = "momOnFire";
     private static final String TYPE_ABOUT_BLOG = "aboutBlog";
     private String _defaultTitle;
     private String _atomUrl;
@@ -47,6 +47,33 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private boolean _showDate;
     private boolean _hideAuthorImages = false;
     private SimpleDateFormat _sdf = null;
+
+    private static final String HTTP_PROXY_HOSTNAME_PROPERTY = "http.proxy.hostname";
+    private static final String HTTP_PROXY_PORT_PROPERTY = "http.proxy.port";
+
+    // GS-9667 get xml reader for url directly or via proxy if proxy system properties not set
+    private static XmlReader getXmlReader(URL feedUrl) throws IOException {
+        String hostname = System.getProperty(HTTP_PROXY_HOSTNAME_PROPERTY);
+        String portStr = System.getProperty(HTTP_PROXY_PORT_PROPERTY);
+        int port = (portStr != null ? Integer.parseInt(portStr) : -1);
+
+        HttpURLConnection conn;
+
+        // use proxy if hostname is specified and port is specified and positive number
+        if (hostname != null && port > 0) {
+            InetSocketAddress address = new InetSocketAddress(hostname, port);
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
+            conn = (HttpURLConnection)feedUrl.openConnection(proxy);
+        // otherwise, don't use proxy
+        } else {
+            conn = (HttpURLConnection)feedUrl.openConnection();
+        }
+
+        // pretend to be a web browser
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; Greatschoolsbot/1.1; +http://www.greatschools.org/cgi-bin/feedback/CA)");
+
+        return new XmlReader(conn);
+    }
 
     public void doTag() throws JspException, IOException {
         super.doTag();
@@ -65,7 +92,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
             System.setProperty("sun.net.client.defaultReadTimeout", "5000");
             SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feed = input.build(new XmlReader(feedUrl));
+            SyndFeed feed = input.build(getXmlReader(feedUrl));
             SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
             title = entry.getTitle();
             link = entry.getLink();
