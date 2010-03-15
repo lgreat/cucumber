@@ -141,6 +141,7 @@ div#right-content {
     div#right-content ul {
         position:relative;
         left:20px;
+        width: 290px;
     }
 
     div#right-content li {
