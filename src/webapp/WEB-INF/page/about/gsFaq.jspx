@@ -39,7 +39,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 </head>
 
-<gsml:body adPageName="gsFaq" pageLayout="gsFaq">
+<gsml:body adPageName="gsFaq" pageLayout="nocol">
 
 		<div id="contentFAQ" class="contentFAQ">
 			<h1>Frequently Asked Questions about GreatSchools</h1>
