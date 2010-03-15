@@ -45,7 +45,7 @@
         });
     </script>
 
-    <div id="valNewEmailDone" class="dialog_white">
+    <div id="valNewEmailDone" class="dialog_white" style="display:none;">
         <h2>Your email change is complete</h2>
 
         <p>Thanks for verifying your updated email address.<br/>

@@ -45,7 +45,7 @@
         });
     </script>
 
-    <div id="regDone" class="dialog_white">
+    <div id="regDone" class="dialog_white" style="display:none;">
         <h2>Your registration is complete</h2>
 
         <p><strong>Thanks for registering</strong>. Welcome to GreatSchools, the largest online community committed to

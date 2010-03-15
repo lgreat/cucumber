@@ -45,7 +45,7 @@
         });
     </script>
 
-    <div id="valEditEmail" class="dialog_white">
+    <div id="valEditEmail" class="dialog_white" style="display:none;">
         <h2>Your new email needs to be verified</h2>
 
         <p>Please click on the link in the verification email we just sent you to complete your change of email
