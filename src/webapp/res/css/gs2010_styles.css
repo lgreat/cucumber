@@ -2035,6 +2035,15 @@ ul.srchSuggest li span {
 =4e-5 about sponsors
 -----------------------------------------------------------------------------
 */
+#sponsors ul.singleSpacedList {
+    margin: 1em;
+    padding: 0 1em;
+}
+#sponsors ul.singleSpacedList li {
+    list-style: disc;
+
+}
+
 /*
 =4f schools
 -----------------------------------------------------------------------------
