@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <html lang="en">
@@ -99,7 +101,7 @@
     <li><strong>Do not repost deleted content.</strong> Do not repost something that was deleted from the community. These posts will be deleted as well, and posting privileges may be removed for members who repost deleted content.</li>
     <li><strong>Do not post links to sites that violate our guidelines.</strong></li>
     <li><strong>Report a problem.</strong> If you feel that someone in the GreatSchools community is behaving inappropriately, please click on the "Flag as inappropriate" or "Report user" links and submit the problem to us. We will look into the matter within 48 hours of the report. Please note that we do not publicly discuss flagged content, reported users, warnings, suspensions or bannings, so we may not follow up with you directly about your reported issue.</li>
-    <li><strong>If you have a customer service question please visit our "<a href="/cgi-bin/feedback">Contact Us</a>" page to find the appropriate place to send your query.</strong></li>
+    <li><strong>If you have a customer service question please visit our "<link:contactUs>Contact Us</link:contactUs>" page to find the appropriate place to send your query.</strong></li>
     <li><strong>When you post to our community, discussion boards, blogs or other forums, you are giving GreatSchools permission to use your content.</strong> By posting your comments on GreatSchools, you give us a fully paid, royalty-free, irrevocable, perpetual, transferable, worldwide right and license (with the right to sublicense) to use, copy, modify, publicly perform, publicly display, reformat, translate, excerpt (in whole or in part) and distribute the content from your post and to prepare derivative works of, or incorporate into other works, such content, in any manner and medium.</li>
     <li><strong>We do not review all posts.</strong> However, we do have the right to remove any post at any time and without notice.</li>
   </ol>
@@ -142,7 +144,7 @@
         <li><strong>Do not repost deleted content.</strong> Do not repost something that was deleted from the community. These posts will be deleted as well, and posting privileges may be removed for members who repost deleted content.</li>
         <li><strong>Do not post links to sites that violate our guidelines.</strong></li>
         <li><strong>Report a problem</strong>. If you feel that someone in the GreatSchools community is behaving inappropriately, please click on the "Report post" or "Report member" links and submit the problem to us. We will look into the matter within 48 hours of the report. Please note that we do not publicly discuss flagged content, reported users, warnings, suspensions or bannings, so we may not follow up with you directly about your reported issue.</li>
-        <li><strong>If you have a customer service question please visit our "<a href="/cgi-bin/feedback">Contact Us</a>" page to find the appropriate place to send your query.</strong></li>
+        <li><strong>If you have a customer service question please visit our "<link:contactUs>Contact Us</link:contactUs>" page to find the appropriate place to send your query.</strong></li>
         <li><strong>When you post to our community, discussion boards, blogs or other forums, you are giving GreatSchools permission to use your content</strong>. By posting your comments on GreatSchools, you give us a fully paid, royalty-free, irrevocable, perpetual, transferable, worldwide right and license (with the right to sublicense) to use, copy, modify, publicly perform, publicly display, reformat, translate, excerpt (in whole or in part) and distribute the content from your post and to prepare derivative works of, or incorporate into other works, such content, in any manner and medium.</li>
         <li><strong>We do not review all posts</strong>. However, we do have the right to remove any post at any time and without notice.</li>
     </ol>
