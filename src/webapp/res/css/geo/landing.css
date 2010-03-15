@@ -144,7 +144,7 @@ div#right-content {
     }
 
     div#right-content li {
-        background: url(/res/img/content/research/yellow_arrow.gif) 0 8px no-repeat;
+        background: #fff url(/res/img/content/research/yellow_arrow.gif) 0 8px no-repeat;
         padding: 0 0 2px 16px;
         line-height: 25px;
         color:#777777;
