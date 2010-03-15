@@ -2202,7 +2202,8 @@ additional icons on the sprite.
     margin: 3px 8px 0 0;
 }
 #editorialFooter .content li.col1 .imgheader {
-    padding-bottom: 3px;
+    position: relative;
+    top: -3px;
 }
 
 #editorialFooter .content li.col2 {
@@ -2219,7 +2220,8 @@ additional icons on the sprite.
     margin-top: 3px;
 }
 #editorialFooter .content li.col3 .imgheader {
-    padding-bottom: 4px;
+    position: relative;
+    top: -4px;
 }
 
 #editorialFooter .content li.col1 .footcol {
