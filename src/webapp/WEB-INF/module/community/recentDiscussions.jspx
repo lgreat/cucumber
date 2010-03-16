@@ -94,7 +94,24 @@
 
                 <div id="recentDiscussions" class="box">
                     <div class="content gainlayout">
-                        <h3 class="title2-d61">Talk about it</h3>
+                        <h3 class="title2-d61 fltlft">Talk about it</h3>
+
+                        <div class="fltrt">
+                             <!--class="btn25 startADiscussion"-->
+                            <a class="text3bold startADiscussion" href="#" onclick="this.blur();return false">
+                                <!--<span class="lftDoor25">-->
+                                    <!--<span class="rtDoor25">-->
+                                        <span class="sprite community fltlft mrgrt_5"><!-- icon --></span>Start a conversation
+                                    <!--</span>-->
+                                <!--</span>-->
+                            </a>
+                            <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                             openElementJQuerySelector=".startADiscussion"
+                                                             topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                        </div>
+                        <!-- end start a discussion button -->
+                        <br class="clearfloat"/>
+
                         <c:forEach var="discussion" items="${requestScope.discussions}">
                             <div class="discussionHolder clearfix">
                                 <div class="avatar fltlft">
@@ -105,7 +122,7 @@
                                     </link:userProfile>
                                 </div>
                                 <!-- end avatar -->
-                                <div class="discussionTopic text3 fltlft">
+                                <div class="discussionTopic text3 fltrt">
                                     <h4><link:discussion discussionId="${discussion.id}"
                                                          fullUri="${fullUri}"
                                                          styleClass="text3">${discussion.title}</link:discussion>
@@ -136,18 +153,6 @@
                             </div>
                             <!-- end discussionHolder -->
                         </c:forEach>
-
-                        <div class="fltlft">
-                            <a class="btn25 startADiscussion" href="#" onclick="this.blur();return false">
-            <span class="lftDoor25">
-                <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</span>
-            </span>
-                            </a>
-                            <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                             openElementJQuerySelector=".startADiscussion"
-                                                             topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
-                        </div>
-                        <!-- end start a discussion button -->
 
                         <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                                                           fullUri="${fullUri}">

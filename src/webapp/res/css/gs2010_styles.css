@@ -936,6 +936,12 @@ body.ie6 .clearfix {
 /* rounded corners
 -------------------------------------------------------------------------------------------*/
 
+.rnd3 {
+/* this class is used to round the corners on infinite carousel buttons */
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
 .rnd4 {
 /* this class should be used to round the corners on 25 px height buttons */
     -moz-border-radius:4px;
