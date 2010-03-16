@@ -436,26 +436,25 @@ body.cobranded #pageGS {
 }
 
 #topnav_search {
-    position: relative;
-    float: right;
-    margin: 0 4px -66px 0;
-    top: -66px;
-    width: 449px;
+    position: absolute;
+    bottom: 16px;
+    right: 0;
+    width: 416px;
     height: 59px;
     z-index: 1;
 }
 
 #topnav_search fieldset {
-    position: relative;
-    padding: 28px 15px 0;
+    position: absolute;
     background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
-    height: 31px;
+    height: 59px;
+    width: 416px;
 }
 
 #topnav_search ul {
     position: absolute;
-    top: -28px;
-    left: -15px;
+    top: 0px;
+    left: 0px;
     list-style: none;
     height: 28px;
 }
@@ -513,22 +512,24 @@ body.cobranded #pageGS {
 }
 
 #topnav_search fieldset input {
-    width: 258px;
+    width: 242px;
     height: 18px;
-    margin: 0 9px 0 0;
+    margin: 28px 9px 0 10px;
     outline: 0;
 }
 
 #topnav_search fieldset select {
     height: 24px;
     margin: 0 7px 0 0;
+    position: relative;
+    top: -1px;
 
 }
 
 #topnav_search button {
     position: absolute;
-    top: -2px;
-    right: 30px;
+    bottom: 5px;
+    right: 10px;
 }
 
 #topnav_search #radBtns {

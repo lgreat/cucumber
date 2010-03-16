@@ -30,10 +30,6 @@ General comments:
 /* =A- ie
 -------------------------------------------------------------------------------------------*/
 
-#topnav_search ul {
-    top: 0;
-    left: 0;
-}
 
 #utilLinks .nav_menu {
     border: 0;
@@ -51,9 +47,12 @@ General comments:
     left: -26px;
 }
 
+#topnav_search fieldset select {
+    top: 2px;
+
+}
 #topnav_search button {
-    top: 27px;
-    right: 20px;
+    bottom: 8px;
 }
 
 /* =B- ie8
@@ -73,7 +72,13 @@ body.ie7 #mainWrap {
 body.ie7 #header, *+html #header {
     z-index: 3;
 }
+body.ie7 #topnav_search fieldset select, *+html #topnav_search fieldset select {
+    top: 0;
 
+}
+body.ie7 #topnav_search button, *+html #topnav_search button {
+    bottom: 4px;
+}
 body.ie7 #navbar, *+html #navbar {
     z-index: 2;
 }
@@ -107,9 +112,6 @@ body.ie7 #utilLinks li .nav_group_items {
     top: 22px;
 }
 
-body.ie7 #topnav_search button {
-    top: 25px;
-}
 
 body.ie7 #navbar {
     position: relative;
@@ -127,9 +129,6 @@ body.ie7 #footerAd {
     height: 91px;
 }
 
-* + html #topnav_search button {
-    top: 25px;
-}
 
 * + html #footerAd {
     height: 91px;
@@ -205,6 +204,10 @@ body.ie6 #topnav_menusubnav li a {
     background-image: url(/res/img/nav/topnavSprite_bg.gif);
 }
 
+body.ie6 #topnav_search fieldset select, *html #topnav_search fieldset select  {
+    top: -2px;
+
+}
 body.ie6 #topnav_menusubnav li ul li a {
     background-image: none;
 }
@@ -245,7 +248,9 @@ body.ie6 #logoBox #logo {
 body.ie6 #header, *html #header {
     z-index: 3;
 }
-
+body.ie6 #topnav_search button, *html #topnav_search button {
+    bottom: 3px;
+}
 body.ie6 #navbar, *html #navbar {
     z-index: 2;
 }
@@ -283,17 +288,13 @@ body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
     display: inline-block;
 }
 
-body.ie6 #topnav_search button {
-    top: 25px;
-}
+
 
 *html #topnav_search ul li label, *html #topnav_menusubnav li a {
     display: inline-block;
 }
 
-*html #topnav_search button {
-    top: 25px;
-}
+
 
 body.ie6 #mainGS.col {
     border: 0;

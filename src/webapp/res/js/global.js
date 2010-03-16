@@ -210,7 +210,7 @@ function topNavNewCommunitySelectSchoolSearch(x, searchFormAction) {
     if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
         e.value = 'Search for school, district or city';
     }
-    e.style.width = "258px";
+    e.style.width = "242px";
     e.focus();
     e.select();
     var searchForm = document.getElementById('topnav_search');
@@ -229,7 +229,7 @@ function topNavSelectArticlesAndCommunitySearch(x, searchFormAction) {
     if (e.value == 'Search for school, district or city') {
         e.value = 'Search by keyword';
     }
-    e.style.width = "318px";
+    e.style.width = "300px";
     e.focus();
     e.select();
     var searchForm = document.getElementById('topnav_search');
