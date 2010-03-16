@@ -2061,6 +2061,48 @@ ul.srchSuggest li span {
 */
 #kindercareLeadGen {
     background-color: #F9ECCD;
+    margin: 0 auto;
+    height: 100px;
+    width: 860px;
+    position: relative;
+}
+#kindercareLeadGen .left {
+    float: left;
+    height: 100px;
+    width: 415px;
+}
+#kindercareLeadGen .left img {
+    float: left;
+    margin-right: 20px;
+}
+
+#kindercareLeadGen .right {
+    position: relative;
+}
+#kindercareLeadGen .right form ul li label {
+    width: 75px;
+    float: left;
+}
+#kindercareLeadGen .right form ul li button {
+    margin-left: 75px;
+}
+#kindercareLeadGen .right form .kinder_informed {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 200px;
+}
+#kindercareLeadGen .right form .kinder_offers {
+    position: absolute;
+    top: 45px;
+    right: 15px;
+    width: 200px;
+}
+#kindercareLeadGen .closeButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }
 
 /* =5- icons
