@@ -183,6 +183,8 @@
             </div>
             <!-- end #topicbarGS -->
 
+            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}" items="${requestScope.carouselItems}"/>
+
             <div id="topicMainGS" class="col">
                 <!-- Community links -->
                 <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>

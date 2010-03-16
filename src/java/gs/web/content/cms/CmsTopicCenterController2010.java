@@ -32,7 +32,12 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     private static final Pattern MORE_ON_THIS_TOPIC_REGEX = Pattern.compile("More on this topic", Pattern.CASE_INSENSITIVE);
     private static final Pattern BROWSE_TOPICS_REGEX = Pattern.compile("Browse topics", Pattern.CASE_INSENSITIVE);
+    public static final int MIN_CAROUSEL_ITEMS = 3;
 
+    public static final String MODEL_TOPIC_CENTER = "topicCenter";
+    public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
+    public static final String MODEL_OMNITURE_TOPIC_CENTER_NAME = "omnitureTopicCenterName";
+    public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
     private static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     private static final String MODEL_MORE_ON_THIS_TOPIC_SECTIONS = "moreOnThisTopicSections";
     private static final String MODEL_BROWSE_TOPICS_SECTIONS = "browseTopicsSections";
@@ -71,7 +76,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             }
 
             if (topicCenter.getDiscussionBoardId() != null) {
-                model.put("discussionBoard", _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId()));
+                model.put(MODEL_DISCUSSION_BOARD, _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId()));
             }
 
             try {
@@ -89,14 +94,24 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
             }
 
-            model.put("omnitureTopicCenterName", topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
+            model.put(MODEL_OMNITURE_TOPIC_CENTER_NAME, topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
 
             populateBrowseSidebarModel(topicCenter, model);
+            populateCarouselModel(topicCenter, model);
 
-            model.put("topicCenter", topicCenter);
+            model.put(MODEL_TOPIC_CENTER, topicCenter);
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    private void populateCarouselModel(CmsTopicCenter topicCenter, Map<String, Object> model) {
+        // TODO-9458
+        if (topicCenter.getCarouselLinks() != null && topicCenter.getCarouselLinks().size() >= MIN_CAROUSEL_ITEMS) {
+            List<CmsLink> carouselItems = new ArrayList<CmsLink>(topicCenter.getCarouselLinks());
+            Collections.shuffle(carouselItems);
+            model.put(MODEL_CAROUSEL_ITEMS, carouselItems);
+        }
     }
 
     private void populateBrowseSidebarModel(CmsTopicCenter topicCenter, Map<String, Object> model) {
