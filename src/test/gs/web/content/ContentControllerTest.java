@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.24 2009/12/04 22:27:10 chriskimm Exp $
+ * $Id: ContentControllerTest.java,v 1.25 2010/03/16 21:42:39 droy Exp $
  */
 package gs.web.content;
 
@@ -80,6 +80,13 @@ public class ContentControllerTest extends BaseControllerTestCase {
             }
 
             public void setPropertyAsDate(String key, Date date) {
+            }
+
+            public Integer getPropertyAsInteger(String key) {
+                return null;
+            }
+
+            public void setPropertyAsInteger(String key, Integer value) {
             }
         });
         controller.setViewName("someView");
