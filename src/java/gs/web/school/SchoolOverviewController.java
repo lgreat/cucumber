@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolSubtype;
 import gs.data.school.SchoolType;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
@@ -149,6 +150,10 @@ public class SchoolOverviewController extends AbstractSchoolController implement
                 model.put("hasStudentData", Boolean.TRUE);
             }
             model.put("hasFinanceData", Boolean.TRUE);
+
+            if (school.getPreschoolSubtype() != null && school.getPreschoolSubtype().contains("kindercare")) {
+                model.put("isKindercare", Boolean.TRUE);
+            }
 
             String tempMsg = sessionContext.getTempMsg();
             if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {

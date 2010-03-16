@@ -12,6 +12,7 @@
        default-autowire="byName" default-lazy-init="true">
 
     <context:component-scan base-package="gs.web.api" />
+    <context:component-scan base-package="gs.web.school" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.

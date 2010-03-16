@@ -481,6 +481,9 @@
         </ul>
     </c:if>
 </div>
+<c:if test="${requestScope.isKindercare eq true}">
+    <promo:kindercare school="${school}"/>
+</c:if>
 <!-- end: subnav -->
 <div id="bodyContents">
     <jsp:doBody/>
