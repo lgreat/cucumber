@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -17,27 +18,18 @@ import java.util.*;
 
 public class SearchRealtorDotComController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
-    private String _viewName;
     private IPropertyDao _propertyDao;
 
-    public static final double DEFAULT_SHOW_AD_PCT = 0.5d;
+    public static final double DEFAULT_SHOW_AD_PCT = 0.0d;
     
     public static final String PAGE_AD_RATIO_KEY_PARAM = "pageAdRatioKey";
-    public static final String DEFAULT_CITY_PARAM = "defaultCity";
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
 
-    public static final String MODEL_SHOW_AD = "showAd";
-    public static final String MODEL_DEFAULT_CITY = "defaultCity";
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map<String, Object> model = new HashMap<String, Object>();
-
         String pageAdRatioKey = request.getParameter(PAGE_AD_RATIO_KEY_PARAM);
-        _log.warn(pageAdRatioKey);
         Integer overrideAdPercentage = null;
         if (!StringUtils.isBlank(pageAdRatioKey)) {
             overrideAdPercentage = _propertyDao.getPropertyAsInteger(pageAdRatioKey);
-            _log.warn("get a property " + overrideAdPercentage);
         }
 
         if (overrideAdPercentage == null) {
@@ -57,20 +49,12 @@ public class SearchRealtorDotComController extends AbstractController {
             showAd = true;
         }
 
-        _log.warn("showAd: " + showAd + " with pct " + showAdPct);
-        
-        model.put(MODEL_SHOW_AD, showAd);
-        model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
-        
-        return new ModelAndView(_viewName, model);
-    }
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+        out.print(showAd);
+        out.flush();
 
-    public String getViewName() {
-        return _viewName;
-    }
-
-    public void setViewName(String viewName) {
-        _viewName = viewName;
+        return null;
     }
 
     public IPropertyDao getPropertyDao() {
