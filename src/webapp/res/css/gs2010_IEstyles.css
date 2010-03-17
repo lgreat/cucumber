@@ -405,6 +405,16 @@ body.ie6 .rtDoor25 {
     margin-top: -4px;
 }
 
+/* A=- ie 4f-1 school profile
+-----------------------------------------------------------------------------
+*/
+#kindercareLeadGen .right form ul li {
+    padding-bottom: 1px;
+}
+#kindercareLeadGen .right form ul li button {
+    left: 68px;
+}
+
 /* =B- ie8 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 

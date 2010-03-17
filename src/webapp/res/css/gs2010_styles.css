@@ -2061,7 +2061,7 @@ ul.srchSuggest li span {
 */
 #kindercareLeadGen {
     background-color: #F9ECCD;
-    margin: 0 auto;
+    margin: 0 auto 4px auto;
     height: 110px;
     width: 864px;
     position: relative;
@@ -2097,9 +2097,13 @@ ul.srchSuggest li span {
 #kindercareLeadGen .right form ul li input {
     width: 135px;
 }
-#kindercareLeadGen .right form ul li button, #kindercareLeadGen .right form ul li img {
+#kindercareLeadGen .right form ul li button {
     position: relative;
     left: 65px;
+}
+#kindercareLeadGen .right form ul li img {
+    position: relative;
+    left: 68px;
 }
 #kindercareLeadGen .right form .kinder_informed {
     position: absolute;
