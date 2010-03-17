@@ -1,10 +1,12 @@
 package gs.web.school.review;
 
 import gs.data.school.School;
+import gs.data.school.SchoolSubtype;
 import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.school.AbstractSchoolController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
 import org.easymock.MockControl;
@@ -245,5 +247,25 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         cmd = (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
         assertTrue("on first page since offset is not set so show form", cmd.isShowParentReviewForm());
+    }
+
+    public void testKindercareLeadGen() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setAttribute("state", State.CA);
+        request.setParameter("id", "1");
+        request.setMethod("GET");
+
+        School school = new School();
+        school.setPreschoolSubtype(SchoolSubtype.create("kindercare"));
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+        request.setAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE, school);
+
+        ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
+        assertNotNull(cmd);
+        assertNotNull("ParentReviewController should add kindercare attribute", mAndV.getModelMap().get("leadGenModule"));
+
     }
 }

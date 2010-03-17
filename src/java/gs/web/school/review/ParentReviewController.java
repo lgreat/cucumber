@@ -5,6 +5,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.web.school.AbstractSchoolController;
+import gs.web.school.KindercareLeadGenHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -60,8 +61,10 @@ public class ParentReviewController extends AbstractController {
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map model = new HashMap();
+        Map<String,Object> model = new HashMap<String,Object>();
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
+
+        KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
 
         if (null != school) {
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
@@ -69,7 +72,6 @@ public class ParentReviewController extends AbstractController {
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
             cmd.setRatings(ratings);
-
 
             /**
              * dd - date descending: newer to older
