@@ -4,6 +4,8 @@ jQuery(function() {
     jQuery('#kindercareEmailError').hide();
     jQuery('#kindercareThankyou').hide();
 
+    var kindercareFormSubmitted = false;
+
     function kindercareLeadGenSubmitHandler(data) {
         jQuery('#kindercareSpinny').hide();
         jQuery('#kindercareLeadGenForm').hide();
@@ -14,6 +16,7 @@ jQuery(function() {
         if (dataObject == undefined || dataObject[kindercareCookieKey] == undefined){
             subCookie.setObjectProperty(cookieName, kindercareCookieKey, 1, 9001);
         }
+        kindercareFormSubmitted = true;
     }
 
     jQuery('#kindercareLeadGenSubmit').click(function() {
@@ -39,6 +42,11 @@ jQuery(function() {
     });
 
     jQuery('#kindercareLeadGenClose').click(function() {
+        if (kindercareFormSubmitted) {
+            jQuery('#kindercareLeadGen').hide();
+            return false;
+        }
+        
         var params = {
             schoolId: jQuery('#kinder_schoolId').val(),
             state: jQuery('#kinder_state').val()
