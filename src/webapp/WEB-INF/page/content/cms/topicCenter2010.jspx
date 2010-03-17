@@ -96,94 +96,47 @@
 
             <div id="topicbarGS" class="col">
 
-                <!--More on this topic-->
-                <c:if test="${not empty moreOnThisTopicSections}">
-                    <div class="navmod_hd"><h5>More on this topic</h5></div>
-                    <div class="navmod_bd">
-                        <ul>
-                            <c:forEach var="section" items="${moreOnThisTopicSections}" varStatus="sectionStatus">
-                                <li>
-                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                            gradeIDs="${section.gradeIDs}"
-                                                            subjectIDs="${section.subjectIDs}"
-                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
+                <c:set var="moreOnThisTopic">
+                    <cms:browseSidebar title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
+                </c:set>
 
-                <!--Browse by grade-->
-                <c:if test="${not empty browseByGradeSubtopics}">
-                    <c:set var="hasNestedItems" value="${false}"/>
-                    <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
-                        <c:if test="${not empty subtopic.subSubtopics}">
-                            <c:set var="hasNestedItems" value="${true}"/>
-                        </c:if>
-                    </c:forEach>
+                <c:set var="browseByGrade">
+                    <!-- only shows up for Elementary School, Academics & Activities, Health & Development, and LD topic centers -->
+                    <c:if test="${topicCenter.contentKey.identifier eq 1574 or
+                                  topicCenter.contentKey.identifier eq 1540 or
+                                  topicCenter.contentKey.identifier eq 1539 or
+                                  topicCenter.contentKey.identifier eq 1541}">
+                        <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
+                    </c:if>
+                </c:set>
 
-                    <div class="navmod_hd"><h5>Browse by grade</h5></div>
-                    <div class="navmod_bd">
-                        <c:choose>
-                            <c:when test="${hasNestedItems}">
-                                <c:set var="className1" value="text2bold"/>
-                                <c:set var="className2" value="mrglft_neg5"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="className1" value=""/>
-                                <c:set var="className2" value=""/>
-                            </c:otherwise>
-                        </c:choose>
-                        <ul class="${className1} ${className2}">
-                            <c:forEach var="subtopic" items="${browseByGradeSubtopics}" varStatus="subtopicStatus">
-                                <li>
-                                    <c:if test="${hasNestedItems}">
-                                        <span class='sprite twirlyClosed'><!-- do not collapse --></span>
-                                    </c:if>
-                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                            gradeIDs="${subtopic.gradeIDs}"
-                                                            subjectIDs="${subtopic.subjectIDs}"
-                                                            language="EN">${subtopic.title}</link:cmsCategoryBrowse>
-                                    <c:if test="${not empty subtopic.subSubtopics}">
-                                        <ul class="text2">
-                                            <c:forEach var="section" items="${subtopic.subSubtopics}"
-                                                       varStatus="sectionStatus">
-                                                <li>
-                                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                            gradeIDs="${section.gradeIDs}"
-                                                                            subjectIDs="${section.subjectIDs}"
-                                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
-                                    </c:if>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
-
-                <!--Browse topics-->
-                <c:if test="${not empty browseTopicsSections}">
-                    <div class="navmod_hd"><h5>Browse topics</h5></div>
-                    <div class="navmod_bd">
-                        <ul>
-                            <c:forEach var="section" items="${browseTopicsSections}" varStatus="sectionStatus">
-                                <li>
-                                    <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                            gradeIDs="${section.gradeIDs}"
-                                                            subjectIDs="${section.subjectIDs}"
-                                                            language="EN">${section.title}</link:cmsCategoryBrowse>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
+                <c:choose>
+                    <!-- Elementary school -->
+                    <c:when test="${topicCenter.contentKey.identifier eq 1574}">
+                        ${browseByGrade}
+                        ${moreOnThisTopic}
+                    </c:when>
+                    <c:when test="${topicCenter.contentKey.identifier eq 1540 or
+                                    topicCenter.contentKey.identifier eq 1539 or
+                                    topicCenter.contentKey.identifier eq 1541}">
+                        ${moreOnThisTopic}
+                        ${browseByGrade}
+                    </c:when>
+                    <c:otherwise>
+                        ${moreOnThisTopic}
+                    </c:otherwise>
+                </c:choose>
 
             </div>
             <!-- end #topicbarGS -->
 
             <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}" items="${requestScope.carouselItems}"/>
+
+            <c:set var="raiseYourHand">
+                <c:import
+                        url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true"/>
+            </c:set>
+            ${raiseYourHand}
 
             <div id="topicMainGS" class="col">
                 <!-- Community links -->

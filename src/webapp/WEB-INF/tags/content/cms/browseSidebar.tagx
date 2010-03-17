@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link">
+    <jsp:directive.attribute name="title" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="subtopics" required="false" type="java.util.List"/>
+
+    <c:if test="${not empty pageScope.subtopics}">
+        <c:set var="hasNestedItems" value="${false}"/>
+        <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
+            <c:if test="${not empty subtopic.subSubtopics}">
+                <c:set var="hasNestedItems" value="${true}"/>
+            </c:if>
+        </c:forEach>
+
+        <div class="navmod_hd"><h5>${pageScope.title}</h5></div>
+        <div class="navmod_bd">
+            <c:choose>
+                <c:when test="${hasNestedItems}">
+                    <c:set var="className1" value="text2bold"/>
+                    <c:set var="className2" value="mrglft_neg5"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="className1" value=""/>
+                    <c:set var="className2" value=""/>
+                </c:otherwise>
+            </c:choose>
+            <ul class="${className1} ${className2}">
+                <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
+                    <li>
+                        <c:if test="${hasNestedItems}">
+                            <!-- TODO-9457 RANDALL: please hide triangle if no nested sections in this guy -->
+                            <span class='sprite twirlyClosed'><!-- do not collapse --></span>
+                        </c:if>
+
+                        <c:choose>
+                            <c:when test="${empty subtopic.subSubtopics}">
+                                <!-- no nested items, so don't show triangle, and clicking subtopic title link should send user to browse page -->
+                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                        gradeIDs="${subtopic.gradeIDs}"
+                                                        subjectIDs="${subtopic.subjectIDs}"
+                                                        language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
+                                <!-- TODO-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
+                                <a href="#">${subtopic.title}</a>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:if test="${not empty subtopic.subSubtopics}">
+                            <ul class="text2">
+                                <c:forEach var="section" items="${subtopic.subSubtopics}"
+                                           varStatus="sectionStatus">
+                                    <li>
+                                        <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                gradeIDs="${section.gradeIDs}"
+                                                                subjectIDs="${section.subjectIDs}"
+                                                                language="EN">${section.title}</link:cmsCategoryBrowse>
+                                    </li>
+                                </c:forEach>
+                                <li>
+                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                            gradeIDs="${subtopic.gradeIDs}"
+                                                            subjectIDs="${subtopic.subjectIDs}"
+                                                            language="EN">See all &amp;raquo;</link:cmsCategoryBrowse>
+                                </li>
+                            </ul>
+                        </c:if>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+</jsp:root>

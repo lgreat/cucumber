@@ -7,8 +7,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import gs.data.content.cms.*;
 import gs.data.cms.IPublicationDao;
@@ -30,17 +28,17 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
 
-    private static final Pattern MORE_ON_THIS_TOPIC_REGEX = Pattern.compile("More on this topic", Pattern.CASE_INSENSITIVE);
-    private static final Pattern BROWSE_TOPICS_REGEX = Pattern.compile("Browse topics", Pattern.CASE_INSENSITIVE);
     public static final int MIN_CAROUSEL_ITEMS = 3;
 
     public static final String MODEL_TOPIC_CENTER = "topicCenter";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_OMNITURE_TOPIC_CENTER_NAME = "omnitureTopicCenterName";
     public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
-    private static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
-    private static final String MODEL_MORE_ON_THIS_TOPIC_SECTIONS = "moreOnThisTopicSections";
-    private static final String MODEL_BROWSE_TOPICS_SECTIONS = "browseTopicsSections";
+    public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
+
+    //=========================================================================
+    // spring mvc methods
+    //=========================================================================
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -96,7 +94,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
             model.put(MODEL_OMNITURE_TOPIC_CENTER_NAME, topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
 
-            populateBrowseSidebarModel(topicCenter, model);
+            model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, getBrowseByGradeForTopicCenter(topicCenter.getContentKey().getIdentifier()));
             populateCarouselModel(topicCenter, model);
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
@@ -105,8 +103,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
+    //=========================================================================
+    // carousel
+    //=========================================================================
+
     private void populateCarouselModel(CmsTopicCenter topicCenter, Map<String, Object> model) {
-        // TODO-9458
         if (topicCenter.getCarouselLinks() != null && topicCenter.getCarouselLinks().size() >= MIN_CAROUSEL_ITEMS) {
             List<CmsLink> carouselItems = new ArrayList<CmsLink>(topicCenter.getCarouselLinks());
             Collections.shuffle(carouselItems);
@@ -114,32 +115,159 @@ public class CmsTopicCenterController2010 extends AbstractController {
         }
     }
 
-    private void populateBrowseSidebarModel(CmsTopicCenter topicCenter, Map<String, Object> model) {
-        // TODO-9458
-        List<CmsSubtopic> browseByGradeSubtopics = new ArrayList<CmsSubtopic>();
-        for (CmsSubtopic subtopic : topicCenter.getSubtopics()) {
-            boolean moreInThisTopicMatches = MORE_ON_THIS_TOPIC_REGEX.matcher(subtopic.getTitle()).matches();
-            boolean browseTopicsMatches = BROWSE_TOPICS_REGEX.matcher(subtopic.getTitle()).matches();
-            if (moreInThisTopicMatches) {
-                // if there is more than one subtopic matching the title "More on this topic", we'll just use the last one
-                List<CmsSubSubtopic> moreOnThisTopicSections = new ArrayList<CmsSubSubtopic>();
-                for (CmsSubSubtopic section : subtopic.getSubSubtopics()) {
-                    moreOnThisTopicSections.add(section);
-                }
-                model.put(MODEL_MORE_ON_THIS_TOPIC_SECTIONS, moreOnThisTopicSections);
-            } else if (browseTopicsMatches) {
-                // if there is more than one subtopic matching the title "Browse topics", we'll just use the last one
-                List<CmsSubSubtopic> browseTopicsSections = new ArrayList<CmsSubSubtopic>();
-                for (CmsSubSubtopic section : subtopic.getSubSubtopics()) {
-                    browseTopicsSections.add(section);
-                }
-                model.put(MODEL_BROWSE_TOPICS_SECTIONS, browseTopicsSections);
-            } else {
-                browseByGradeSubtopics.add(subtopic);
-            }
+    //=========================================================================
+    // browse by grade sidebar
+    //=========================================================================
+
+    private static Map<Long,List<CmsSubtopic>> TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP = new HashMap<Long,List<CmsSubtopic>>();
+
+    private static List<CmsSubtopic> getBrowseByGradeForTopicCenter(long topicCenterID) {
+        List<CmsSubtopic> subtopics;
+
+        // check cache
+        if (TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP.containsKey(topicCenterID)) {
+            return TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP.get(topicCenterID);
         }
-        model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, browseByGradeSubtopics);
+
+        CmsCategory cat = new CmsCategory();
+        cat.setType(CmsCategory.TYPE_TOPIC);
+        if (topicCenterID == CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID) {
+            subtopics = getBrowseByGradeForElementary();
+        } else if (topicCenterID == CmsConstants.ACADEMICS_AND_ACTIVITIES_TOPIC_CENTER_ID) {
+            cat.setId(CmsConstants.ACADEMICS_AND_ACTIVITIES_CATEGORY_ID);
+            subtopics =  getBrowseByGradeHelper(cat);
+        } else if (topicCenterID == CmsConstants.HEALTH_AND_DEVELOPMENT_TOPIC_CENTER_ID) {
+            cat.setId(CmsConstants.HEALTH_AND_DEVELOPMENT_CATEGORY_ID);
+            subtopics =  getBrowseByGradeHelper(cat);
+        } else if (topicCenterID == CmsConstants.LEARNING_DISABILITIES_TOPIC_CENTER_ID) {
+            cat.setId(CmsConstants.LEARNING_DISABILITIES_CATEGORY_ID);
+            subtopics =  getBrowseByGradeHelper(cat);
+        } else {
+            subtopics = null;
+        }
+
+        // put in cache
+        TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP.put(topicCenterID, subtopics);
+
+        return subtopics;
     }
+
+    private static List<CmsSubtopic> getBrowseByGradeForElementary() {
+        List<CmsSubtopic> subtopics = new ArrayList<CmsSubtopic>();
+        for (CmsSubtopic subtopic : BROWSE_BY_GRADE_ELEMENTARY_SUBTOPICS_TEMPLATE) {
+            CmsSubtopic copy = CmsSubtopic.deepCopy(subtopic);
+
+            List<CmsSubSubtopic> subSubtopics = new ArrayList<CmsSubSubtopic>();
+            for (CmsSubSubtopic subSubTopic : BROWSE_BY_GRADE_ELEMENTARY_SUBSUBTOPICS_TEMPLATE) {
+                CmsSubSubtopic subCopy = CmsSubSubtopic.deepCopy(subSubTopic);
+
+                List<CmsCategory> cats = subCopy.getKategories();
+                cats.addAll(copy.getKategories());
+
+                subSubtopics.add(subCopy);
+            }
+
+            copy.setSubSubtopics(subSubtopics);
+
+            subtopics.add(copy);
+        }
+        return subtopics;
+    }
+
+    private static void populateBrowseByGradeElementarySubSubtopicsTemplate(String title, List<CmsCategory> categories) {
+        CmsSubSubtopic subSubtopic = new CmsSubSubtopic();
+        subSubtopic.setTitle(title);
+        subSubtopic.setKategories(categories);
+        BROWSE_BY_GRADE_ELEMENTARY_SUBSUBTOPICS_TEMPLATE.add(subSubtopic);
+    }
+
+    private static void populateBrowseByGradeElementarySubtopicsTemplate(String title, List<CmsCategory> categories) {
+        CmsSubtopic subtopic = new CmsSubtopic();
+        subtopic.setTitle(title);
+        subtopic.setKategories(categories);
+        BROWSE_BY_GRADE_ELEMENTARY_SUBTOPICS_TEMPLATE.add(subtopic);
+    }
+
+    private static void populateBrowseByGradeSubtopicsTemplate(String title, List<CmsCategory> categories) {
+        CmsSubtopic subtopic = new CmsSubtopic();
+        subtopic.setTitle(title);
+        subtopic.setKategories(categories);
+        BROWSE_BY_GRADE_SUBTOPICS_TEMPLATE.add(subtopic);
+    }
+
+    private static List<CmsSubtopic> BROWSE_BY_GRADE_SUBTOPICS_TEMPLATE = new ArrayList<CmsSubtopic>();
+    private static List<CmsSubSubtopic> BROWSE_BY_GRADE_ELEMENTARY_SUBSUBTOPICS_TEMPLATE = new ArrayList<CmsSubSubtopic>();
+    private static List<CmsSubtopic> BROWSE_BY_GRADE_ELEMENTARY_SUBTOPICS_TEMPLATE = new ArrayList<CmsSubtopic>();
+    static {
+        List<CmsCategory> pCats = getCategoryList(CmsConstants.PRESCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> kCats = getCategoryList(CmsConstants.KINDERGARTEN_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> firstCats = getCategoryList(CmsConstants.FIRST_GRADE_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> secondCats = getCategoryList(CmsConstants.SECOND_GRADE_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> thirdCats = getCategoryList(CmsConstants.THIRD_GRADE_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> fourthCats = getCategoryList(CmsConstants.FOURTH_GRADE_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> fifthCats = getCategoryList(CmsConstants.FIFTH_GRADE_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> middleCats = getCategoryList(CmsConstants.MIDDLE_SCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+        List<CmsCategory> highCats = getCategoryList(CmsConstants.HIGH_SCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
+
+        List<CmsCategory> readingCats = getCategoryList(CmsConstants.READING_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
+        List<CmsCategory> mathCats = getCategoryList(CmsConstants.MATH_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
+        List<CmsCategory> writingCats = getCategoryList(CmsConstants.WRITING_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
+        List<CmsCategory> learningActivitiesCats = getCategoryList(CmsConstants.LEARNING_ACTIVITIES_CATEGORY_ID, CmsCategory.TYPE_TOPIC);
+
+        // elementary school subsubtopics
+
+        populateBrowseByGradeElementarySubSubtopicsTemplate("Reading", readingCats);
+        populateBrowseByGradeElementarySubSubtopicsTemplate("Math", mathCats);
+        populateBrowseByGradeElementarySubSubtopicsTemplate("Writing", writingCats);
+        populateBrowseByGradeElementarySubSubtopicsTemplate("Learning Activities", learningActivitiesCats);
+
+        // elementary school subtopics
+
+        populateBrowseByGradeElementarySubtopicsTemplate("Kindergarten", kCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("First Grade", firstCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("Second Grade", secondCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("Third Grade", thirdCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("Fourth Grade", fourthCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("Fifth Grade", fifthCats);
+
+        // other subtopics
+
+        populateBrowseByGradeSubtopicsTemplate("Preschool", pCats);
+        populateBrowseByGradeSubtopicsTemplate("Kindergarten", kCats);
+        populateBrowseByGradeSubtopicsTemplate("First Grade", firstCats);
+        populateBrowseByGradeSubtopicsTemplate("Second Grade", secondCats);
+        populateBrowseByGradeSubtopicsTemplate("Third Grade", thirdCats);
+        populateBrowseByGradeSubtopicsTemplate("Fourth Grade", fourthCats);
+        populateBrowseByGradeSubtopicsTemplate("Fifth Grade", fifthCats);
+        populateBrowseByGradeSubtopicsTemplate("Middle School", middleCats);
+        populateBrowseByGradeSubtopicsTemplate("High School", highCats);
+    }
+
+    private static List<CmsCategory> getCategoryList(long categoryId, String categoryType) {
+        CmsCategory cat = new CmsCategory();
+        cat.setId(categoryId);
+        cat.setType(categoryType);
+        List<CmsCategory> cats = new ArrayList<CmsCategory>();
+        cats.add(cat);
+        return cats;
+    }
+
+    private static List<CmsSubtopic> getBrowseByGradeHelper(CmsCategory additionalCategory) {
+        List<CmsSubtopic> subtopics = new ArrayList<CmsSubtopic>();
+        for (CmsSubtopic subtopic : BROWSE_BY_GRADE_SUBTOPICS_TEMPLATE) {
+            CmsSubtopic copy = CmsSubtopic.deepCopy(subtopic);
+
+            List<CmsCategory> cats = copy.getKategories();
+            cats.add(additionalCategory);
+
+            subtopics.add(copy);
+        }
+        return subtopics;
+    }
+
+    //=========================================================================
+    // sample topic center
+    //=========================================================================
 
     // START sample topic center methods
     private CmsTopicCenter getSampleTopicCenter() {
@@ -291,6 +419,10 @@ public class CmsTopicCenterController2010 extends AbstractController {
         return sub;
     }
     // END sample topic center methods
+
+    //=========================================================================
+    // spring-injected beans
+    //=========================================================================
 
     public void setPublicationDao(IPublicationDao publicationDao) {
         _publicationDao = publicationDao;

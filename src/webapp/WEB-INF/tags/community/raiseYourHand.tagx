@@ -186,7 +186,7 @@
 </script>
 
 <div id="raise-your-hand" class="mod">
-    <c:if test="${style eq 'homePage'}">
+    <c:if test="${style eq 'homePage' or style eq 'topicCenter'}">
         <div class="mod_hd">
             <h3>Raise Your Hand</h3>
         </div>
