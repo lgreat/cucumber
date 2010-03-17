@@ -57,7 +57,10 @@
             <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>
         </c:when>
     </c:choose>
+
+    <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 </head>
+
 <gsml:body adPageName="${omnitureTopicCenterName} Landing Page">
 
 
@@ -130,6 +133,16 @@
             </div>
             <!-- end #topicbarGS -->
 
+            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <div class="logoAd">
+                <ad:adTag position="HeaderLogo_88x33"/>
+            </div>
+
+            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <div class="inlineAd">
+                <ad:adTag position="Inline_423x60"/>
+            </div>
+
             <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}" items="${requestScope.carouselItems}"/>
 
             <c:set var="raiseYourHand">
@@ -163,9 +176,6 @@
     <!-- end #mainGS -->
 
     <div id="sidebarGS" class="col">
-
-        <!-- TODO: fix ad slot prefix -->
-        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 
         <div id="seasonalPromo">
             <c:choose>
