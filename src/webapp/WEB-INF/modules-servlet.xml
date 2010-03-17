@@ -147,7 +147,6 @@
     <bean name="/promo/searchRealtorDotCom.module"
           class="gs.web.promo.SearchRealtorDotComController"
           autowire="byName">
-        <property name="viewName" value="/promo/searchRealtorDotCom"/>
     </bean>
 
     <bean id="testScoreLandingLinksTableFactory"
