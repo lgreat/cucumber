@@ -33,7 +33,7 @@ public class KindercareLeadGenHelperTest extends BaseControllerTestCase {
 
     public void testHelper() {
         KindercareLeadGenHelper.checkForKindercare(getRequest(), getResponse(), _school, _model);
-        assertEquals(1, _model.size());
+        assertEquals(2, _model.size());
 
         resetModel();
 
@@ -41,7 +41,7 @@ public class KindercareLeadGenHelperTest extends BaseControllerTestCase {
         cookie.setValue("CA2$$:$$:1");
         getRequest().setCookies(new Cookie[] {cookie});
         KindercareLeadGenHelper.checkForKindercare(getRequest(), getResponse(), _school, _model);
-        assertEquals(1, _model.size());
+        assertEquals(2, _model.size());
 
         resetModel();
 

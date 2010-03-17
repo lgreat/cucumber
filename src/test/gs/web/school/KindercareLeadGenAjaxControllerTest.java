@@ -72,13 +72,13 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
 
     public void testValidate() {
         School school = new School();
-        school.setNotes("notes");
-        School schoolNoNotes = new School();
+        school.setVendorId("vendorId");
+        School schoolNoVendorId = new School();
   
         assertFalse("Expect no school to cause validation error",
                     _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), null));
-        assertFalse("Expect school with no notes field to cause validation error",
-                    _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoNotes));
+        assertFalse("Expect school with no vendor ID to cause validation error",
+                    _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoVendorId));
         assertTrue("Expect reasonable command to pass validation",
                    _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), school));
         assertTrue("Expect reasonable command to pass validation",
@@ -87,8 +87,8 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
     }
     public void testValidateSOAPRequest() {
         School school = new School();
-        school.setNotes("notes");
-        School schoolNoNotes = new School();
+        school.setVendorId("venderId");
+        School schoolNoVendorId = new School();
         assertFalse("Expect no first name to cause validation error",
                     _controller.validateSOAPRequest(getCommand("", "lastName", "email@greatschools.org", false, false), school));
         assertFalse("Expect no first name to cause validation error",
@@ -105,8 +105,8 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
                     _controller.validateSOAPRequest(getCommand("firstName", "lastName", "noneOfYourBusiness", false, false), school));
         assertFalse("Expect no school to cause validation error",
                     _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), null));
-        assertFalse("Expect school with no notes field to cause validation error",
-                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoNotes));
+        assertFalse("Expect school with no vendor ID to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoVendorId));
         assertTrue("Expect reasonable command to pass validation",
                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), school));
     }
@@ -117,7 +117,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        school.setNotes("1234");
+        school.setVendorId("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
         _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), "firstName", 
@@ -140,7 +140,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        school.setNotes("1234");
+        school.setVendorId("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
         _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), null,
@@ -162,7 +162,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        school.setNotes("1234");
+        school.setVendorId("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
         _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), "firstName",
@@ -184,7 +184,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        school.setNotes("1234");
+        school.setVendorId("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
         _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), "",
@@ -204,7 +204,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        school.setNotes("1234");
+        school.setVendorId("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
         _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), "firstName",

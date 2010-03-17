@@ -42,12 +42,12 @@ public class KindercareLeadGenAjaxController {
 
         if (validate(command, school)) {
             // log data
-            logData(command, school.getNotes());
+            logData(command, school.getVendorId());
 
             if (validateSOAPRequest(command,school)) {
                 // submit soap request
                 submitSOAPRequest(request, command.getFirstName(), command.getLastName(), command.getEmail(),
-                              school.getNotes(), command.isInformed(), command.isOffers());
+                              school.getVendorId(), command.isInformed(), command.isOffers());
                 _log.info("Lead generated successfully for " + command.getEmail());
             }
 
@@ -81,8 +81,8 @@ public class KindercareLeadGenAjaxController {
             return false;
         }
 
-        if (StringUtils.isBlank(school.getNotes()))  {
-            _log.warn("Lead gen submitted for school with no Kindercare center id in notes field");
+        if (StringUtils.isBlank(school.getVendorId()))  {
+            _log.warn("Lead gen submitted for school with no Kindercare center id in vendor ID field");
             return false;
         }
         return true;
@@ -95,9 +95,9 @@ public class KindercareLeadGenAjaxController {
             _log.warn("Lead gen submitted with nonexistent school " + command.getState() + ":" + command.getSchoolId());
             return false;
         }
-        // validate not null school notes
-        if (StringUtils.isBlank(school.getNotes())) {
-            _log.warn("Lead gen submitted for school with no Kindercare center id in notes field");
+        // validate not null school vendor ID
+        if (StringUtils.isBlank(school.getVendorId())) {
+            _log.warn("Lead gen submitted for school with no Kindercare center id in vendor ID field");
             return false;
         }
         return true;
