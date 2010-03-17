@@ -11,36 +11,98 @@
 
     <script type="text/javascript">
         jQuery(function() {
+            jQuery('#kindercareFirstNameError').hide();
+            jQuery('#kindercareLastNameError').hide();
+            jQuery('#kindercareEmailError').hide();
+            jQuery('#kindercareThankyou').hide();
+
+            function kindercareLeadGenSubmitHandler(data) {
+                if (true) {
+                    jQuery('#kindercareLeadGenForm').hide();
+                    jQuery('#kindercareThankYou').show();
+                }
+            }
+
             jQuery('#kindercareLeadGenSubmit').click(function() {
+
+                if (validateLeadGenForm()) {
+                    var params = {
+                        firstName: jQuery('#kinder_firstname').val(),
+                        lastName: jQuery('#kinder_lastname').val(),
+                        email: jQuery('#kinder_email').val(),
+                        informed: jQuery('#kinder_informed').is(':checked'),
+                        offers: jQuery('#kinder_offers').is(':checked'),
+                        schoolId: jQuery('#kinder_schoolId').val(),
+                        state: jQuery('#kinder_state').val()
+                    };
+
+                    jQuery.post('/school/kindercareLeadGenAjax.page', params, kindercareLeadGenSubmitHandler);
+                } else {
+                    jQuery('#kindercareIntroText').hide();
+                }
+
+                return false;
+            });
+
+            jQuery('#kindercareLeadGenClose').click(function() {
                 var params = {
-                    firstName: jQuery('#kinder_firstname').val(),
-                    lastName: jQuery('#kinder_lastname').val(),
-                    email: jQuery('#kinder_email').val(),
-                    informed: jQuery('#kinder_informed').is(':checked'),
-                    offers: jQuery('#kinder_offers').is(':checked'),
                     schoolId: jQuery('#kinder_schoolId').val(),
                     state: jQuery('#kinder_state').val()
                 };
                 jQuery.post('/school/kindercareLeadGenAjax.page', params);
+                jQuery('#kindercareLeadGen').hide();
 
                 return false;
             });
+
+            function validateLeadGenForm() {
+                jQuery('#kindercareFirstNameError').hide();
+                jQuery('#kindercareLastNameError').hide();
+                jQuery('#kindercareEmailError').hide();
+
+                passed = true;
+
+                if (jQuery('#kinder_firstname').val() == '') {
+                    jQuery('#kindercareFirstNameError').show();
+                    passed = false;
+                }
+                if (jQuery('#kinder_lastname').val() == '') {
+                    jQuery('#kindercareLastNameError').show();
+                    passed = false;
+                }
+                if (jQuery('#kinder_email').val() == '') {
+                    jQuery('#kindercareEmailError').show();
+                    passed = false;
+                }
+
+                return passed;
+            }
         });
     </script>
     <div id="kindercareLeadGen">
         <div class="left">
             <img src="/res/img/promo/kindercare_logo_100x100.gif" alt="KinderCare Learning Centers"/>
+
             <div class="">
                 Interested in more information from this KinderCare center?
             </div>
-            <div class="">
+            <div class="" id="kindercareIntroText">
                 Submit your name and email and <strong>${school.name}</strong>
                 will contact you soon about tuition, availability &amp;amp; programs
                 for your child.
             </div>
+            <div id="kindercareFirstNameError" class="kindercareLeadGenError formErrorText hidden">
+                Please enter a first name.
+            </div>
+            <div id="kindercareLastNameError" class="kindercareLeadGenError formErrorText hidden">
+                Please enter a last name.
+            </div>
+            <div id="kindercareEmailError" class="kindercareLeadGenError formErrorText hidden">
+                Please enter an email address.
+            </div>
         </div>
         <div class="right">
-            <form action="/school/kindercareLeadGenAjax.page" method="POST">
+            <form id="kindercareLeadGenForm" action="#" method="POST">
                 <ul>
                     <li>
                         <label for="kinder_firstname">First name:</label>
@@ -64,6 +126,7 @@
                 </ul>
                 <input type="hidden" name="schoolId" id="kinder_schoolId" value="${school.id}"/>
                 <input type="hidden" name="state" id="kinder_state" value="${school.databaseState}"/>
+
                 <div class="kinder_informed">
                     <input type="checkbox" name="informed" id="kinder_informed"/>
                     <label for="kinder_informed">Keep me informed about KinderCare programs in my area.</label>
@@ -74,9 +137,13 @@
                         and Knowledge Learning Corporation partners.</label>
                 </div>
             </form>
+            <div id="kindercareThankYou" class="hidden">
+                Thanks for submitting your information! <br/>
+                Someone from kindercare will contact you soon.
+            </div>
         </div>
-        <div class="closeButton">
-            <img src="" alt="Close"/>
+        <div class="closeButton" id="kindercareLeadGenClose">
+            <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" alt="Close"/>
         </div>
     </div>
 </jsp:root>

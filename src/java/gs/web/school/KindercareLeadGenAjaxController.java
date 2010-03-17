@@ -7,6 +7,7 @@ import gs.data.school.School;
 import gs.data.soap.KindercareLeadGenRequest;
 import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,34 +36,52 @@ public class KindercareLeadGenAjaxController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String generateLead(@ModelAttribute("command") KindercareLeadGenCommand command,
-                               HttpServletRequest request, HttpServletResponse response) {
+                               HttpServletRequest request, HttpServletResponse response) throws Exception {
         _log.info(command.toString());
         // collect data for soap request
         School school = _schoolDao.getSchoolById(command.getState(), command.getSchoolId());
+
+
 
         if (validate(command, school)) {
             // log data
             logData(command, school.getNotes());
 
-            // submit soap request
-            submitSOAPRequest(request, command.getFirstName(), command.getLastName(), command.getEmail(),
+            SubCookie kindercareCookie;
+
+            if (validateSOAPRequest(command,school)) {
+                // submit soap request
+                submitSOAPRequest(request, command.getFirstName(), command.getLastName(), command.getEmail(),
                               school.getNotes(), command.isInformed(), command.isOffers());
 
-            // TODO: set cookie?
+                
+            }
+
+           
+
             _log.info("Lead generated successfully for " + command.getEmail());
-            return SUCCESS;
+
+            response.getWriter().print(SUCCESS);
+
+            return null;
         }
 
         _log.warn("Failure generating lead for " + command.getEmail());
-        return FAILURE;
+        response.getWriter().print(FAILURE);
+        return null;
     }
 
-    protected boolean validate(KindercareLeadGenCommand command, School school) {
+    protected boolean validateSOAPRequest(KindercareLeadGenCommand command, School school) {
+        // validate not null school
+        if (school == null) {
+            _log.warn("Lead gen submitted with nonexistent school " + command.getState() + ":" + command.getSchoolId());
+            return false;
+        }
+        
         // validate not null firstname, lastname, email
         if (StringUtils.isBlank(command.getFirstName())
                 || StringUtils.isBlank(command.getLastName())
                 || StringUtils.isBlank(command.getEmail())) {
-            _log.warn("Lead gen submitted without required fields");
             return false;
         }
         // validate format email
@@ -71,6 +90,16 @@ public class KindercareLeadGenAjaxController {
             _log.warn("Lead gen submitted with invalid email: " + command.getEmail());
             return false;
         }
+
+        if (StringUtils.isBlank(school.getNotes()))  {
+            _log.warn("Lead gen submitted for school with no Kindercare center id in notes field");
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean validate(KindercareLeadGenCommand command, School school) {
+
         // validate not null school
         if (school == null) {
             _log.warn("Lead gen submitted with nonexistent school " + command.getState() + ":" + command.getSchoolId());

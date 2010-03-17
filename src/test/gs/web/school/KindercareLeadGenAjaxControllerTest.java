@@ -74,29 +74,44 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         School school = new School();
         school.setNotes("notes");
         School schoolNoNotes = new School();
-        assertFalse("Expect no first name to cause validation error",
-                    _controller.validate(getCommand("", "lastName", "email@greatschools.org", false, false), school));
-        assertFalse("Expect no first name to cause validation error",
-                    _controller.validate(getCommand(null, "lastName", "email@greatschools.org", true, false), school));
-        assertFalse("Expect no last name to cause validation error",
-                    _controller.validate(getCommand("firstName", "", "email@greatschools.org", false, true), school));
-        assertFalse("Expect no last name to cause validation error",
-                    _controller.validate(getCommand("firstName", null, "email@greatschools.org", true, true), school));
-        assertFalse("Expect no email to cause validation error",
-                    _controller.validate(getCommand("firstName", "lastName", "", false, false), school));
-        assertFalse("Expect no email to cause validation error",
-                    _controller.validate(getCommand("firstName", "lastName", null, false, false), school));
-        assertFalse("Expect invalid email to cause validation error",
-                    _controller.validate(getCommand("firstName", "lastName", "noneOfYourBusiness", false, false), school));
+  
         assertFalse("Expect no school to cause validation error",
                     _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), null));
         assertFalse("Expect school with no notes field to cause validation error",
                     _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoNotes));
         assertTrue("Expect reasonable command to pass validation",
                    _controller.validate(getCommand("firstName", "lastName", "email@greatschools.org", false, false), school));
+        assertTrue("Expect reasonable command to pass validation",
+                   _controller.validate(getCommand(null,null,null, false, false), school));
+
+    }
+    public void testValidateSOAPRequest() {
+        School school = new School();
+        school.setNotes("notes");
+        School schoolNoNotes = new School();
+        assertFalse("Expect no first name to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("", "lastName", "email@greatschools.org", false, false), school));
+        assertFalse("Expect no first name to cause validation error",
+                    _controller.validateSOAPRequest(getCommand(null, "lastName", "email@greatschools.org", true, false), school));
+        assertFalse("Expect no last name to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "", "email@greatschools.org", false, true), school));
+        assertFalse("Expect no last name to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", null, "email@greatschools.org", true, true), school));
+        assertFalse("Expect no email to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "", false, false), school));
+        assertFalse("Expect no email to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", null, false, false), school));
+        assertFalse("Expect invalid email to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "noneOfYourBusiness", false, false), school));
+        assertFalse("Expect no school to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), null));
+        assertFalse("Expect school with no notes field to cause validation error",
+                    _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), schoolNoNotes));
+        assertTrue("Expect reasonable command to pass validation",
+                   _controller.validateSOAPRequest(getCommand("firstName", "lastName", "email@greatschools.org", false, false), school));
     }
 
-    public void testSuccess() throws SoapRequestException {
+    public void testSuccess() throws Exception {
         KindercareLeadGenCommand command = getCommand("firstName", "lastName", "email@greatschools.org", true, false);
 
         School school = new School();
@@ -116,10 +131,30 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         String rval = _controller.generateLead(command, getRequest(), getResponse());
         verifyAllMocks();
 
-        assertEquals("Expect successful lead generation", KindercareLeadGenAjaxController.SUCCESS, rval);
+
     }
 
-    public void testSuccessOnLiveSite() throws SoapRequestException {
+    public void testSuccessOnClose() throws Exception {
+        KindercareLeadGenCommand command = getCommand(null,null,null, true, false);
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setNotes("1234");
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+
+        _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), null,
+                                                                            null,null,
+                                                                             true, false, "1234")));
+
+        replayAllMocks();
+        String rval = _controller.generateLead(command, getRequest(), getResponse());
+        verifyAllMocks();
+
+
+    }
+
+    public void testSuccessOnLiveSite() throws Exception {
         getRequest().setServerName("www.greatschools.org");
 
         KindercareLeadGenCommand command = getCommand("firstName", "lastName", "email@greatschools.org", true, false);
@@ -140,10 +175,10 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         String rval = _controller.generateLead(command, getRequest(), getResponse());
         verifyAllMocks();
 
-        assertEquals("Expect successful lead generation", KindercareLeadGenAjaxController.SUCCESS, rval);
+
     }
 
-    public void testFailureOnValidationAbortsLeadGen() throws SoapRequestException {
+    public void testFailureOnValidationAbortsLeadGen() throws Exception {
         KindercareLeadGenCommand command = getCommand("", "lastName", "email@greatschools.org", true, false);
 
         School school = new School();
@@ -152,14 +187,18 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         school.setNotes("1234");
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
 
+        _kindercareLeadGenDao.save(eqKindercareLeadGen(new KindercareLeadGen(1, State.CA, new Date(), "",
+                                                                             "lastName", "email@greatschools.org",
+                                                                             true, false, "1234")));
+
         replayAllMocks();
         String rval = _controller.generateLead(command, getRequest(), getResponse());
         verifyAllMocks();
 
-        assertEquals("Expect failed lead generation", KindercareLeadGenAjaxController.FAILURE, rval);
+
     }
 
-    public void testFailureOnSoapCallStillLogs() throws SoapRequestException {
+    public void testFailureOnSoapCallStillLogs() throws Exception {
         KindercareLeadGenCommand command = getCommand("firstName", "lastName", "email@greatschools.org", true, false);
 
         School school = new School();
@@ -180,8 +219,7 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         String rval = _controller.generateLead(command, getRequest(), getResponse());
         verifyAllMocks();
 
-        assertEquals("Expect successful return value even though soap call failed",
-                     KindercareLeadGenAjaxController.SUCCESS, rval);
+
     }
 
     public KindercareLeadGen eqKindercareLeadGen(KindercareLeadGen in) {
@@ -230,3 +268,4 @@ public class KindercareLeadGenAjaxControllerTest extends BaseControllerTestCase 
         }
     }
 }
+ 
