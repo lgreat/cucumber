@@ -2062,14 +2062,19 @@ ul.srchSuggest li span {
 #kindercareLeadGen {
     background-color: #F9ECCD;
     margin: 0 auto;
-    height: 100px;
-    width: 860px;
+    height: 110px;
+    width: 864px;
     position: relative;
+}
+#kindercareLeadGen .kindercareInner {
+    padding: 5px 15px;
 }
 #kindercareLeadGen .left {
     float: left;
     height: 100px;
-    width: 415px;
+    width: 405px;
+    border-right: 1px dotted #999;
+    margin-right: 15px;
 }
 #kindercareLeadGen .left img {
     float: left;
@@ -2078,24 +2083,43 @@ ul.srchSuggest li span {
 #kindercareLeadGen .right {
     position: relative;
 }
+#kindercareLeadGen .right form ul li {
+    padding-bottom: 3px;
+}
 #kindercareLeadGen .right form ul li label {
-    width: 75px;
+    width: 65px;
     float: left;
+    position: relative;
+    top: 4px;
+    text-align: right;
+    margin-right: 3px;
+}
+#kindercareLeadGen .right form ul li input {
+    width: 135px;
 }
 #kindercareLeadGen .right form ul li button, #kindercareLeadGen .right form ul li img {
-    margin-left: 75px;
+    position: relative;
+    left: 65px;
 }
 #kindercareLeadGen .right form .kinder_informed {
     position: absolute;
     top: 10px;
-    right: 15px;
-    width: 200px;
+    right: 0;
+    width: 195px;
 }
 #kindercareLeadGen .right form .kinder_offers {
     position: absolute;
     top: 45px;
-    right: 15px;
-    width: 200px;
+    right: 0;
+    width: 195px;
+}
+#kindercareLeadGen .right form .kinder_informed label,
+#kindercareLeadGen .right form .kinder_offers label {
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 175px;
 }
 #kindercareLeadGen .closeButton {
     position: absolute;
@@ -2109,6 +2133,7 @@ ul.srchSuggest li span {
 #kindercareLeadGen .kinderTitle {
     font:bold 16px Arial, Helvetica, sans-serif;
     color: #333;
+    margin-bottom: 5px;
 }
 #kindercareLeadGen .kindercareLeadGenError {
     background: url('/res/img/bullet/icon_warning_12x12.gif') no-repeat 120px 1px;
