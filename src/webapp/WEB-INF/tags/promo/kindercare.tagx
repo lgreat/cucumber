@@ -74,9 +74,9 @@
                             and Knowledge Learning Corporation partners.</label>
                     </div>
                 </form>
-                <div id="kindercareThankYou" class="hidden">
+                <div id="kindercareThankYou" class="hidden text1">
                     Thanks for submitting your information! <br/>
-                    Someone from kindercare will contact you soon.
+                    Someone from Kindercare will contact you soon.
                 </div>
             </div>
             <div class="closeButton" id="kindercareLeadGenClose">
