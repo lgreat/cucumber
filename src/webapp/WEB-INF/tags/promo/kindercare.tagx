@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
 
     <script type="text/javascript">
+        var kindercareCookieKey = '${school.databaseState}${school.id}';
         jQuery(function() {
             jQuery('#kindercareFirstNameError').hide();
             jQuery('#kindercareLastNameError').hide();
@@ -17,15 +18,23 @@
             jQuery('#kindercareThankyou').hide();
 
             function kindercareLeadGenSubmitHandler(data) {
+                jQuery('#kindercareSpinny').hide();
                 if (true) {
                     jQuery('#kindercareLeadGenForm').hide();
                     jQuery('#kindercareThankYou').show();
+                    var cookieName = 'kindercare';
+                    var dataObject = subCookie.getObject(cookieName);
+                    // if no cookie, set value to 1 and show hover
+                    if (dataObject == undefined || dataObject[kindercareCookieKey] == undefined){
+                        subCookie.setObjectProperty(cookieName, kindercareCookieKey, 1, 9001);
+                    }
                 }
             }
 
             jQuery('#kindercareLeadGenSubmit').click(function() {
-
                 if (validateLeadGenForm()) {
+                    jQuery('#kindercareLeadGenSubmit').hide();
+                    jQuery('#kindercareSpinny').show();
                     var params = {
                         firstName: jQuery('#kinder_firstname').val(),
                         lastName: jQuery('#kinder_lastname').val(),
@@ -49,7 +58,7 @@
                     schoolId: jQuery('#kinder_schoolId').val(),
                     state: jQuery('#kinder_state').val()
                 };
-                jQuery.post('/school/kindercareLeadGenAjax.page', params);
+                jQuery.post('/school/kindercareLeadGenAjax.page', params, kindercareLeadGenSubmitHandler);
                 jQuery('#kindercareLeadGen').hide();
 
                 return false;
@@ -83,21 +92,21 @@
         <div class="left">
             <img src="/res/img/promo/kindercare_logo_100x100.gif" alt="KinderCare Learning Centers"/>
 
-            <div class="">
+            <div class="kinderTitle">
                 Interested in more information from this KinderCare center?
             </div>
-            <div class="" id="kindercareIntroText">
+            <div class="text3" id="kindercareIntroText">
                 Submit your name and email and <strong>${school.name}</strong>
                 will contact you soon about tuition, availability &amp;amp; programs
                 for your child.
             </div>
-            <div id="kindercareFirstNameError" class="kindercareLeadGenError formErrorText hidden">
+            <div id="kindercareFirstNameError" class="kindercareLeadGenError errorTextBold hidden">
                 Please enter a first name.
             </div>
-            <div id="kindercareLastNameError" class="kindercareLeadGenError formErrorText hidden">
+            <div id="kindercareLastNameError" class="kindercareLeadGenError errorTextBold hidden">
                 Please enter a last name.
             </div>
-            <div id="kindercareEmailError" class="kindercareLeadGenError formErrorText hidden">
+            <div id="kindercareEmailError" class="kindercareLeadGenError errorTextBold hidden">
                 Please enter an email address.
             </div>
         </div>
@@ -122,6 +131,8 @@
                                 <span class="rtDoor25">Submit</span>
                             </span>
                         </button>
+                        <img src="/res/img/community/indicator.gif" alt="Processing..." class="hidden"
+                             id="kindercareSpinny"/>
                     </li>
                 </ul>
                 <input type="hidden" name="schoolId" id="kinder_schoolId" value="${school.id}"/>

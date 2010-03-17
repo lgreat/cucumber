@@ -7,7 +7,6 @@ import gs.data.school.School;
 import gs.data.soap.KindercareLeadGenRequest;
 import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlUtil;
-import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,25 +40,16 @@ public class KindercareLeadGenAjaxController {
         // collect data for soap request
         School school = _schoolDao.getSchoolById(command.getState(), command.getSchoolId());
 
-
-
         if (validate(command, school)) {
             // log data
             logData(command, school.getNotes());
-
-            SubCookie kindercareCookie;
 
             if (validateSOAPRequest(command,school)) {
                 // submit soap request
                 submitSOAPRequest(request, command.getFirstName(), command.getLastName(), command.getEmail(),
                               school.getNotes(), command.isInformed(), command.isOffers());
-
-                
+                _log.info("Lead generated successfully for " + command.getEmail());
             }
-
-           
-
-            _log.info("Lead generated successfully for " + command.getEmail());
 
             response.getWriter().print(SUCCESS);
 
@@ -125,7 +115,7 @@ public class KindercareLeadGenAjaxController {
                                   String centerId, boolean kinderCareOptIn, boolean kinderCarePartnersOptIn) {
         KindercareLeadGenRequest soapRequest = getSoapRequest();
         if (UrlUtil.isDevEnvironment(request.getServerName())) {
-            soapRequest.setTarget(null);
+            soapRequest.setTarget(null); // ensure no leads are generated on dev servers
         }
         try {
             soapRequest.submit(firstName, lastName, email,

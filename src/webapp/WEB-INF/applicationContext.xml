@@ -137,6 +137,12 @@
                 <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
+        <property name="kindercareLeadGenCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="kindercare"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

@@ -2075,7 +2075,6 @@ ul.srchSuggest li span {
     float: left;
     margin-right: 20px;
 }
-
 #kindercareLeadGen .right {
     position: relative;
 }
@@ -2083,7 +2082,7 @@ ul.srchSuggest li span {
     width: 75px;
     float: left;
 }
-#kindercareLeadGen .right form ul li button {
+#kindercareLeadGen .right form ul li button, #kindercareLeadGen .right form ul li img {
     margin-left: 75px;
 }
 #kindercareLeadGen .right form .kinder_informed {
@@ -2106,6 +2105,18 @@ ul.srchSuggest li span {
 }
 #kindercareThankYou {
     padding: 5px;
+}
+#kindercareLeadGen .kinderTitle {
+    font:bold 16px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+#kindercareLeadGen .kindercareLeadGenError {
+    background: url('/res/img/bullet/icon_warning_12x12.gif') no-repeat 120px 1px;
+    padding: 0 0 5px 135px;
+}
+#kindercareLeadGen .errorTextBold {
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #c03;
 }
 
 /* =5- icons

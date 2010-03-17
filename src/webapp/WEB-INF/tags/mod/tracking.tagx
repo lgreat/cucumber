@@ -190,6 +190,8 @@
 
             s.prop25 = clickCapture.getProp(25,"${local}");
 
+            s.prop27 = clickCapture.getProp(27,"${requestScope.leadGenModule}");
+
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
 
