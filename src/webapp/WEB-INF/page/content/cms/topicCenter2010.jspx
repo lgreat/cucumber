@@ -130,6 +130,11 @@
                     </c:otherwise>
                 </c:choose>
 
+                <!-- TODO-9457, TODO-9536 Randall, this ad slot should appear below the browse sidebar -->
+                <div class="skyscraperAd">
+                    <ad:AboveFold_Left_160x600/>
+                </div>
+
             </div>
             <!-- end #topicbarGS -->
 
