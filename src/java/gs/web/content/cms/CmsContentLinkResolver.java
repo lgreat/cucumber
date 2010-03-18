@@ -31,6 +31,8 @@ public class CmsContentLinkResolver {
                             link.setUrl(CmsContentUtils.replaceGreatSchoolsUrlInString(link.getUrl()));
                         }
                     }
+
+                    // TODO this doesn't work for nested items? e.g. CmsTopicCenter -> List<CmsSubtopic> -> List<CmsSubSubtopic> -> List<CmsLink>
                     
                 } else if (CmsLink.class.isAssignableFrom(pd.getPropertyType())) {
                     CmsLink link = (CmsLink) pd.getReadMethod().invoke(content);

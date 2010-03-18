@@ -10,16 +10,16 @@
     <jsp:directive.attribute name="gradeLevel" required="true" description="p, e, m, or h" type="java.lang.String"/>
 
     <c:choose>
-        <c:when test="${gradeLevel eq 'p'}">
+        <c:when test="${pageScope.gradeLevel eq 'p'}">
             <c:set var="suffix" value="preschools"/>
         </c:when>
-        <c:when test="${gradeLevel eq 'e'}">
+        <c:when test="${pageScope.gradeLevel eq 'e'}">
             <c:set var="suffix" value="elementary schools"/>
         </c:when>
-        <c:when test="${gradeLevel eq 'm'}">
+        <c:when test="${pageScope.gradeLevel eq 'm'}">
             <c:set var="suffix" value="middle schools"/>
         </c:when>
-        <c:when test="${gradeLevel eq 'h'}">
+        <c:when test="${pageScope.gradeLevel eq 'h'}">
             <c:set var="suffix" value="high schools"/>
         </c:when>
     </c:choose>

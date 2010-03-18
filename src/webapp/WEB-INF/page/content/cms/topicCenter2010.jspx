@@ -71,27 +71,24 @@
             <h1>${topicCenter.title}</h1>
 
             <!-- Features -->
-            <div class="one_of_two fltlft">
-                <img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
-            </div>
-            <div class="two_of_two fltrt">
-                <c:if test="${not empty topicCenter.mainFeatureLink}">
-                    <h3 class="title2"><a
-                            href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
+            <c:choose>
+                <c:when test="${not empty topicCenter.featureGroups}">
+                    <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
+                        <div>${featureGroup.title}</div>
+                        <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
+                                                imageAltText="${featureGroup.imageAltText}"
+                                                mainFeatureLink="${featureGroup.mainFeatureLink}"
+                                                otherFeatureLinks="${featureGroup.otherFeatureLinks}"/>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
+                                            imageAltText="${topicCenter.imageAltText}"
+                                            mainFeatureLink="${topicCenter.mainFeatureLink}"
+                                            otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
+                </c:otherwise>
+            </c:choose>
 
-                    <div class="spacer_15"><!--do not collapse--></div>
-                    <p class="text3">${topicCenter.mainFeatureLink.description}</p>
-                </c:if>
-                <c:if test="${not empty topicCenter.otherFeatureLinks}">
-                    <ul>
-                        <c:forEach var="featureLink" items="${topicCenter.otherFeatureLinks}" varStatus="status">
-                            <c:if test="${status.count le 3}">
-                                <li><a href="${featureLink.url}">${featureLink.title}</a></li>
-                            </c:if>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-            </div>
         </div>
         <!-- end #featured -->
         <div class="clearfloat"><!-- don't collapse --></div>
