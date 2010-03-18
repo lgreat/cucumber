@@ -53,7 +53,7 @@
                         <div class="formLine2">
                             <input type="checkbox" id="pa" name="pa" checked="checked"/>
                         <span id="paLabel">
-                            <label for="pa">Please send me tips and advice in the bi-monthly Parent Advisor newsletter from GreatSchools.</label>
+                            <label for="pa">Please send me free education tips and tools in the GreatSchools Weekly newsletter.</label>
                         </span>
                         </div>
                     </form:form>
