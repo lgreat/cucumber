@@ -108,6 +108,7 @@
                 <entry key="/admin/resetPassword.page" value="adminResetPasswordController"/>
                 <entry key="/chart/pie.page" value="pieController"/>
                 <entry key="/util/isValidEmail.page" value="isValidEmailController"/>
+                <entry key="/promo/searchRealtorDotCom.page" value="searchRealtorDotComController"/>
                 <entry key="/util/gradeToLevelCode.page" value="gradeToLevelCodeController"/>
                 <entry key="/util/fixedName.page" value="fixedNameController"/>
                 <entry key="/util/articleCacheController.page" value="articleCacheController"/>
@@ -1984,6 +1985,10 @@
 
     <bean name="isValidEmailController"
           class="gs.web.util.IsValidEmailController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="searchRealtorDotComController"
+          class="gs.web.promo.SearchRealtorDotComController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="gradeToLevelCodeController"
