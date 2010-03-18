@@ -41,13 +41,13 @@
     <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
 
     <c:choose>
-        <c:when test="${topicCenter.contentKey.identifier eq 1539}">
+        <c:when test="${topicCenter.healthAndDevelopmentTopicCenter}">
             <pageHelper:setPathway pathway="HEALTH_AND_DEVELOPMENT"/>
         </c:when>
-        <c:when test="${topicCenter.contentKey.identifier eq 1540}">
+        <c:when test="${topicCenter.academicsAndActivitiesTopicCenter}">
             <pageHelper:setPathway pathway="ACADEMICS_AND_ACTIVITIES"/>
         </c:when>
-        <c:when test="${topicCenter.contentKey.identifier eq 1541}">
+        <c:when test="${topicCenter.learningDisabilitiesTopicCenter}">
             <pageHelper:setPathway pathway="LEARNING_DISABILITIES"/>
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1542}">
@@ -104,24 +104,22 @@
                 </c:set>
 
                 <c:set var="browseByGrade">
-                    <!-- only shows up for Elementary School, Academics & Activities, Health & Development, and LD topic centers -->
-                    <c:if test="${topicCenter.contentKey.identifier eq 1574 or
-                                  topicCenter.contentKey.identifier eq 1540 or
-                                  topicCenter.contentKey.identifier eq 1539 or
-                                  topicCenter.contentKey.identifier eq 1541}">
+                    <c:if test="${topicCenter.elementarySchoolTopicCenter or
+                                  topicCenter.academicsAndActivitiesTopicCenter or
+                                  topicCenter.healthAndDevelopmentTopicCenter or
+                                  topicCenter.learningDisabilitiesTopicCenter}">
                         <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
                     </c:if>
                 </c:set>
 
                 <c:choose>
-                    <!-- Elementary school -->
-                    <c:when test="${topicCenter.contentKey.identifier eq 1574}">
+                    <c:when test="${topicCenter.elementarySchoolTopicCenter}">
                         ${browseByGrade}
                         ${moreOnThisTopic}
                     </c:when>
-                    <c:when test="${topicCenter.contentKey.identifier eq 1540 or
-                                    topicCenter.contentKey.identifier eq 1539 or
-                                    topicCenter.contentKey.identifier eq 1541}">
+                    <c:when test="${topicCenter.academicsAndActivitiesTopicCenter or
+                                    topicCenter.healthAndDevelopmentTopicCenter or
+                                    topicCenter.learningDisabilitiesTopicCenter}">
                         ${moreOnThisTopic}
                         ${browseByGrade}
                     </c:when>
@@ -202,6 +200,11 @@
         <!-- end #squareadvert -->
 
         <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+
+        <!-- TODO-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
+        <c:if test="${topicCenter.gradeLevelTopicCenter}">
+            <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
+        </c:if>
 
     </div>
     <!-- end #sidebarGS -->

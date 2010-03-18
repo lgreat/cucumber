@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+    <jsp:directive.attribute name="gradeLevel" required="true" description="p, e, m, or h" type="java.lang.String"/>
+
+    <c:choose>
+        <c:when test="${gradeLevel eq 'p'}">
+            <c:set var="suffix" value="preschools"/>
+        </c:when>
+        <c:when test="${gradeLevel eq 'e'}">
+            <c:set var="suffix" value="elementary schools"/>
+        </c:when>
+        <c:when test="${gradeLevel eq 'm'}">
+            <c:set var="suffix" value="middle schools"/>
+        </c:when>
+        <c:when test="${gradeLevel eq 'h'}">
+            <c:set var="suffix" value="high schools"/>
+        </c:when>
+    </c:choose>
+
+    <div class="mod">
+        <div class="mod_hd">
+            <h3>Browse Schools by City</h3>
+        </div>
+        <div class="mod_bd">
+            <ul class="text3">
+                <li><link:schools cityName="Austin" state="TX">Austin ${suffix}</link:schools></li>
+                <li><link:schools cityName="Baltimore" state="MD">Baltimore ${suffix}</link:schools></li>
+                <li><link:schools cityName="Boston" state="MA">Boston ${suffix}</link:schools></li>
+                <li><link:schools cityName="Charlotte" state="NC">Charlotte ${suffix}</link:schools></li>
+                <li><link:schools cityName="Chicago" state="IL">Chicago ${suffix}</link:schools></li>
+                <li><link:schools cityName="Columbus" state="OH">Columbus ${suffix}</link:schools></li>
+                <li><link:schools cityName="Dallas" state="TX">Dallas ${suffix}</link:schools></li>
+                <li><link:schools cityName="Denver" state="CO">Denver ${suffix}</link:schools></li>
+                <li><link:schools cityName="Detroit" state="MI">Detroit ${suffix}</link:schools></li>
+                <li><link:schools cityName="El Paso" state="TX">El Paso ${suffix}</link:schools></li>
+                <li><link:schools cityName="Fort Worth" state="TX">Fort Worth ${suffix}</link:schools></li>
+                <li><link:schools cityName="Houston" state="TX">Houston ${suffix}</link:schools></li>
+                <li><link:schools cityName="Indianapolis" state="IN">Indianapolis ${suffix}</link:schools></li>
+                <li><link:schools cityName="Jacksonville" state="FL">Jacksonville ${suffix}</link:schools></li>
+                <li><link:schools cityName="Las Vegas" state="NV">Las Vegas ${suffix}</link:schools></li>
+                <li><link:schools cityName="Los Angeles" state="CA">Los Angeles ${suffix}</link:schools></li>
+                <li><link:schools cityName="Memphis" state="TN">Memphis ${suffix}</link:schools></li>
+                <li><link:schools cityName="Milwaukee" state="WI">Milwaukee ${suffix}</link:schools></li>
+                <li><link:schools cityName="Nashville" state="TN">Nashville ${suffix}</link:schools></li>
+                <li><link:schools cityName="New York City" state="NY">New York City ${suffix}</link:schools></li>
+                <li><link:schools cityName="Oklahoma City" state="OK">Oklahoma City ${suffix}</link:schools></li>
+                <li><link:schools cityName="Philadelphia" state="PA">Philadelphia ${suffix}</link:schools></li>
+                <li><link:schools cityName="Phoenix" state="AZ">Phoenix ${suffix}</link:schools></li>
+                <li><link:schools cityName="Portland" state="OR">Portland ${suffix}</link:schools></li>
+                <li><link:schools cityName="San Antonio" state="TX">San Antonio ${suffix}</link:schools></li>
+                <li><link:schools cityName="San Diego" state="CA">San Diego ${suffix}</link:schools></li>
+                <li><link:schools cityName="San Francisco" state="CA">San Francisco ${suffix}</link:schools></li>
+                <li><link:schools cityName="San Jose" state="CA">San Jose ${suffix}</link:schools></li>
+                <li><link:schools cityName="Seattle" state="WA">Seattle ${suffix}</link:schools></li>
+                <li><link:schools cityName="Washington" state="DC">Washington, DC ${suffix}</link:schools></li>
+            </ul>
+        </div>
+        <!-- end mod_bd -->
+    </div>
+    <!-- end mod -->
+</jsp:root>
