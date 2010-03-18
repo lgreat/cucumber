@@ -10,13 +10,7 @@ jQuery(function() {
         jQuery('#kindercareSpinny').hide();
         jQuery('#kindercareLeadGenForm').hide();
         jQuery('#kindercareThankYou').show();
-        var cookieName = 'kindercare';
-        var dataObject = subCookie.getObject(cookieName);
-        // if no cookie, set value to 1 and show hover
-        if (dataObject == undefined || dataObject[kindercareCookieKey] == undefined){
-            subCookie.setObjectProperty(cookieName, kindercareCookieKey, 1, 9001);
-        }
-        kindercareFormSubmitted = true;
+        subCookie.setObjectProperty('kindercare', kindercareCookieKey, 1, 9001);
     }
 
     jQuery('#kindercareLeadGenSubmit').click(function() {
@@ -34,24 +28,22 @@ jQuery(function() {
             };
 
             jQuery.post('/school/kindercareLeadGenAjax.page', params, kindercareLeadGenSubmitHandler);
-        } else {
-            jQuery('#kindercareIntroText').hide();
+            kindercareFormSubmitted = true;
         }
 
         return false;
     });
 
     jQuery('#kindercareLeadGenClose').click(function() {
-        if (kindercareFormSubmitted) {
-            jQuery('#kindercareLeadGen').hide();
-            return false;
+        if (!kindercareFormSubmitted) {
+            kindercareFormSubmitted = true;
+            var params = {
+                schoolId: jQuery('#kinder_schoolId').val(),
+                state: jQuery('#kinder_state').val()
+            };
+            jQuery.post('/school/kindercareLeadGenAjax.page', params, kindercareLeadGenSubmitHandler);
         }
-        
-        var params = {
-            schoolId: jQuery('#kinder_schoolId').val(),
-            state: jQuery('#kinder_state').val()
-        };
-        jQuery.post('/school/kindercareLeadGenAjax.page', params, kindercareLeadGenSubmitHandler);
+
         jQuery('#kindercareLeadGen').hide();
 
         return false;
@@ -62,7 +54,7 @@ jQuery(function() {
         jQuery('#kindercareLastNameError').hide();
         jQuery('#kindercareEmailError').hide();
 
-        passed = true;
+        var passed = true;
 
         if (jQuery('#kinder_firstname').val() == '') {
             jQuery('#kindercareFirstNameError').show();
@@ -75,6 +67,12 @@ jQuery(function() {
         if (jQuery('#kinder_email').val() == '') {
             jQuery('#kindercareEmailError').show();
             passed = false;
+        }
+
+        if (!passed) {
+            jQuery('#kindercareIntroText').hide();
+        } else {
+            jQuery('#kindercareIntroText').show();
         }
 
         return passed;
