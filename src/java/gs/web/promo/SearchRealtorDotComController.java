@@ -18,14 +18,19 @@ import java.util.*;
 
 public class SearchRealtorDotComController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
+    private String _viewName;
     private IPropertyDao _propertyDao;
 
     public static final double DEFAULT_SHOW_AD_PCT = 0.0d;
     
     public static final String PAGE_AD_RATIO_KEY_PARAM = "pageAdRatioKey";
+    public static final String DEFAULT_CITY_PARAM = "defaultCity";
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
 
+    public static final String MODEL_DEFAULT_CITY = "defaultCity";
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         String pageAdRatioKey = request.getParameter(PAGE_AD_RATIO_KEY_PARAM);
         Integer overrideAdPercentage = null;
         if (!StringUtils.isBlank(pageAdRatioKey)) {
@@ -49,12 +54,26 @@ public class SearchRealtorDotComController extends AbstractController {
             showAd = true;
         }
 
+        if (!showAd) {
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
+            return new ModelAndView(_viewName, model);
+        }
+
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
-        out.print(showAd);
+        // print nothing
         out.flush();
 
         return null;
+    }
+
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
     }
 
     public IPropertyDao getPropertyDao() {

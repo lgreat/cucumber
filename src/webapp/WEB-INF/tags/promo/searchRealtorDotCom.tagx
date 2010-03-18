@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="pageAdRatioKey" required="false" type="java.lang.String"
+                             description="Quay in the gs_schooldb.property table where the ad ratio is stored"/>
+    <jsp:directive.attribute name="defaultCity" required="false" type="java.lang.String"
+                             description="Default city to populate in form"/>
+    <jsp:directive.attribute name="showAdPct" required="false" type="java.lang.Integer"
+                             description="Per tag override of default ad ratio"/>
+
+    <c:import url="/promo/searchRealtorDotCom.module" var="showAd">
+        <c:param name="pageAdRatioKey" value="${pageAdRatioKey}"/>
+        <c:param name="showAdPct" value="${showAdPct}"/>
+        <c:param name="defaultCity" value="${defaultCity}"/>
+    </c:import>
+
+    <c:choose>
+        <c:when test="${showAd eq ''}">
+            <jsp:doBody/>
+        </c:when>
+        <c:otherwise>
+            ${showAd}
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>
