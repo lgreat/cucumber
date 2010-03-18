@@ -28,6 +28,7 @@ public class CmsFeatureController extends AbstractController {
     public static final String ARTICLE_SLIDESHOW_BEAN_ID = "/content/cms/slideshow.page";
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
+    public static final String GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID = "referring_topic_center_id";
 
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
 
@@ -183,7 +184,15 @@ public class CmsFeatureController extends AbstractController {
             Matcher matcher = TOPIC_CENTER_URL_PATTERN.matcher(referrer);
             if (matcher.find()) {
                 String referringTopicCenterID = matcher.group(1);
-                pageHelper.addAdKeyword("referring_topic_center_id", referringTopicCenterID);
+                pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, referringTopicCenterID);
+            } else if (referrer.endsWith("/preschool/")) {
+                pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, String.valueOf(CmsConstants.PRESCHOOL_TOPIC_CENTER_ID));
+            } else if (referrer.endsWith("/elementary-school/")) {
+                pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, String.valueOf(CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID));
+            } else if (referrer.endsWith("/middle-school/")) {
+                pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, String.valueOf(CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID));
+            } else if (referrer.endsWith("/high-school/")) {
+                pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, String.valueOf(CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID));
             }
         } 
 
