@@ -11,7 +11,7 @@
     <jsp:directive.attribute name="showAdPct" required="false" type="java.lang.Integer"
                              description="Per tag override of default ad ratio"/>
 
-    <c:import url="/promo/searchRealtorDotCom.module" var="showAd">
+    <c:import url="/promo/searchRealtorDotCom.page" var="showAd">
         <c:param name="pageAdRatioKey" value="${pageAdRatioKey}"/>
         <c:param name="showAdPct" value="${showAdPct}"/>
         <c:param name="defaultCity" value="${defaultCity}"/>

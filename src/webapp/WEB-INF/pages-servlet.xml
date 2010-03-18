@@ -1989,7 +1989,11 @@
 
     <bean name="searchRealtorDotComController"
           class="gs.web.promo.SearchRealtorDotComController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>promo/searchRealtorDotCom</value>
+        </property>
+    </bean>
 
     <bean name="gradeToLevelCodeController"
           class="gs.web.util.GradeToLevelCodeController"
