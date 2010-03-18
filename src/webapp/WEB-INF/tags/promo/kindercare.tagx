@@ -15,9 +15,8 @@
     <![CDATA[<script type="text/javascript" src="/res/js/kindercareLeadGen.js"></script>]]>
     <div id="kindercareLeadGen">
         <div class="kindercareInner">
+            <img src="/res/img/promo/kindercare_logo.png" class="kindercare_logo" alt="KinderCare Learning Centers"/>
             <div class="left">
-                <img src="/res/img/promo/kindercare_logo_100x100.gif" alt="KinderCare Learning Centers"/>
-
                 <div class="kinderTitle">
                     Interested in more information from this KinderCare center?
                 </div>
@@ -36,6 +35,7 @@
                     Please enter an email address.
                 </div>
             </div>
+            <img src="/res/img/promo/dotted_rule.png" class="dotted_rule" alt=""/>
             <div class="right">
                 <form id="kindercareLeadGenForm" action="#" method="POST">
                     <ul>
@@ -52,11 +52,8 @@
                             <input id="kinder_email" name="email"/>
                         </li>
                         <li>
-                            <button class="btn25" id="kindercareLeadGenSubmit" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Submit</span>
-                                </span>
-                            </button>
+                            <img class="submitButton" id="kindercareLeadGenSubmit"
+                                 src="/res/img/button/btn_submit_61x21.png" alt="Submit"/>
                             <img src="/res/img/school/animatedProcessing.gif" alt="Processing..." class="hidden"
                                  id="kindercareSpinny"/>
                         </li>
@@ -79,9 +76,9 @@
                     Someone from Kindercare will contact you soon.
                 </div>
             </div>
-            <div class="closeButton" id="kindercareLeadGenClose">
-                <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" alt="Close"/>
-            </div>
+            <img id="kindercareLeadGenClose" class="closeButton" 
+                 src="/res/img/promo/kindercare_close_box.png" alt="Close"/>
+            <img src="/res/img/promo/kindercare_right_rule.png" class="right_rule" alt=""/>
         </div>
     </div>
 </jsp:root>

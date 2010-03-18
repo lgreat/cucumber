@@ -2064,25 +2064,42 @@ ul.srchSuggest li span {
 -----------------------------------------------------------------------------
 */
 #kindercareLeadGen {
-    background-color: #F9ECCD;
+    background: url("/res/img/promo/kindercare_top_rule.png") repeat-x #F9ECCD;
     margin: 0 auto 4px auto;
-    height: 110px;
+    height: 115px;
     width: 864px;
     position: relative;
+    padding-top: 5px;
 }
 #kindercareLeadGen .kindercareInner {
+    background: url("/res/img/promo/kindercare_bottom_rule.png") repeat-x scroll 0 109px #F9ECCD;
     padding: 5px 15px;
+    height: 105px;
+}
+#kindercareLeadGen .kindercare_logo {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 #kindercareLeadGen .left {
     float: left;
-    height: 100px;
-    width: 405px;
-    border-right: 1px dotted #999;
-    margin-right: 15px;
+    height: 110px;
+    width: 265px;
+    margin-right: 25px;
+    padding-left: 135px;
 }
-#kindercareLeadGen .left img {
-    float: left;
-    margin-right: 20px;
+#kindercareLeadGen .kindercareLeadGenError {
+    background: url('/res/img/bullet/icon_warning_12x12.gif') no-repeat 0 1px;
+    padding: 0 0 5px 15px;
+}
+#kindercareLeadGen .errorTextBold {
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #c03;
+}
+#kindercareLeadGen .dotted_rule {
+    position: absolute;
+    top: 15px;
+    left: 430px;
 }
 #kindercareLeadGen .right {
     position: relative;
@@ -2129,12 +2146,6 @@ ul.srchSuggest li span {
     top: 0;
     width: 175px;
 }
-#kindercareLeadGen .closeButton {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-}
 #kindercareThankYou {
     padding: 5px;
     margin-top: 23px;
@@ -2144,13 +2155,19 @@ ul.srchSuggest li span {
     color: #333;
     margin-bottom: 5px;
 }
-#kindercareLeadGen .kindercareLeadGenError {
-    background: url('/res/img/bullet/icon_warning_12x12.gif') no-repeat 120px 1px;
-    padding: 0 0 5px 135px;
+#kindercareLeadGen .submitButton {
+    cursor: pointer;
 }
-#kindercareLeadGen .errorTextBold {
-    font: bold 12px Arial, Helvetica, sans-serif;
-    color: #c03;
+#kindercareLeadGen .closeButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+#kindercareLeadGen .right_rule {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 /* =5- icons
