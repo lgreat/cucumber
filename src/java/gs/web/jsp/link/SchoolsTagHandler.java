@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.21 2010/03/18 02:28:50 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.22 2010/03/18 20:55:15 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -55,7 +55,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
                 }
             }
 
-            State myState = _city != null ? _city.getState() : (_state != null ? _state : getState());
+            State myState = _city != null ? _city.getState() : (_state != null ? _state : super.getState());
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, myState, _cityName, schoolTypes, levelCode);
         } else {
             urlBuilder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
