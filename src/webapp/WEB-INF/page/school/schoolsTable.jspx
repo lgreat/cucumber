@@ -617,6 +617,9 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         <c:set var="slotPrefix" value="Search_All_Cities"/>
     </c:if>
     <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
+
+    <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_BROWSE" showAdPct="0"/>
+
     <c:choose>
         <c:when test="${isCityBrowse}">
             <c:choose>

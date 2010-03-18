@@ -256,6 +256,10 @@
     <!-- TODO: fix ad slot prefix -->
     <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 
+    <c:if test="${topicCenter.contentKey.identifier eq 2220}">
+        <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
+    </c:if>
+
     <div id="seasonalPromo">
         <c:choose>
             <c:when test="${requestScope.context.cobranded}">

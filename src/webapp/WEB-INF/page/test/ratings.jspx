@@ -118,7 +118,12 @@
                 </div>
                 <div id="promoContent">
                     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Ratings"/>
-                    <ad:Top_300x137/>
+
+                    <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
+                    <promo:searchRealtorDotCom defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_RATINGS" showAdPct="70">
+                        <ad:Top_300x137/>
+                    </promo:searchRealtorDotCom>
+
                     <ad:AboveFold_300x250/>
                     <ad:multiTextAd blurb="Advertiser links"/>
                     <school:nearbySchools school="${school}"/>

@@ -379,10 +379,11 @@
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
-            <div class="ad_top">
-                <c:set var="position300x250" value="AboveFold_300x250" />
+
+            <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
+            <promo:searchRealtorDotCom defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">
                 <ad:AboveFold_300x250/>
-            </div>
+            </promo:searchRealtorDotCom>
 
             <div class="ad_middle">
                 <c:choose>

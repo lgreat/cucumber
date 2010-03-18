@@ -6,6 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
@@ -220,6 +221,8 @@
         </div>
 
         <jsp:include page="/district/nearbyDistricts.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;limit=5"/>
+
+        <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
 
         <div id="ad">
             <ad:House_Ad_300x137  referredBy="${pageName}"/>

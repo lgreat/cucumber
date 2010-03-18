@@ -9,6 +9,7 @@
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -640,6 +641,12 @@
             <div id="squareadvert">
                 <ad:AboveFold_300x250/>
             </div>
+
+            <c:set var="ckid" value="${feature.contentKey.identifier}"/>
+            <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
+                <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0"/>
+            </c:if>
+
             <div id="seasonalPromo">
                 <c:choose>
                     <c:when test="${requestScope.context.cobranded}">

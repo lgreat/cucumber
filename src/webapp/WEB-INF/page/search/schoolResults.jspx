@@ -284,10 +284,12 @@
 </div>
 
 <div id="col_right">
+    <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
+
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
-    <ad:Top_300x137/>
     <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser Links"/>
+    <ad:Top_300x137/>
 </div>
 
 <br clear="left"/>
