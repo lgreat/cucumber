@@ -67,8 +67,14 @@
 
     <div id="mainGS" class="col">
         <div id="featured" class="fltlft">
+            <div class="spacer_10"><!--do not collapse--></div>
+            <h1 class="fltlft">${topicCenter.title}</h1>
+
+            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <div class="logoAd fltrt mrgtop_5">
+                <ad:adTag position="HeaderLogo_88x33"/>
+            </div>
             <div class="spacer_5"><!--do not collapse--></div>
-            <h1>${topicCenter.title}</h1>
 
             <c:set var="showFeatureGroups" value="false"/>
             <c:if test="${not empty topicCenter.featureGroups}">
@@ -139,14 +145,12 @@
                 <div class="skyscraperAd">
                     <ad:AboveFold_Left_160x600/>
                 </div>
+                <br />
 
             </div>
             <!-- end #topicbarGS -->
 
-            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-            <div class="logoAd">
-                <ad:adTag position="HeaderLogo_88x33"/>
-            </div>
+            <div id="topicMainGS" class="col">
 
             <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="inlineAd">
@@ -161,7 +165,6 @@
             </c:set>
             ${raiseYourHand}
 
-            <div id="topicMainGS" class="col">
                 <!-- Community links -->
                 <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
                 <c:set var="recentDiscussions">

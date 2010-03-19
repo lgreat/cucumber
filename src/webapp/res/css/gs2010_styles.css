@@ -33,6 +33,7 @@ General comments:
 =4c- topic centers
 =4c-1 featured
 =4c-2 left navigation
+=4c-3 infinite carousel
 =4d community join hovers
 =4e- about pages
 =4e-5 about sponsors
@@ -882,6 +883,10 @@ body.cobranded #pageGS {
 
 .mrgtop_2{
     margin-top:2px;
+}
+
+.mrgtop_5{
+    margin-top:5px;
 }
 
 .mrgrt_5{
@@ -2037,6 +2042,29 @@ ul.srchSuggest li span {
     list-style:disc outside none;
     color:#f4891d;
 }
+/* =4c-3 infinite carousel
+-------------------------------------------------------------------------------------------*/
+
+/*.captioned_photo {
+}
+
+.captioned_photo img{
+	margin:0;
+	padding:0;
+	display:block;
+}
+
+.captioned_photo  span {
+	width:100%;
+	height:29px;
+	margin:0;
+	margin-top:5px;
+	padding:0;
+	text-align:center;
+	display:block;
+	overflow:hidden;
+}*/
+
 /*
 =4e about pages
 -----------------------------------------------------------------------------
@@ -2698,4 +2726,23 @@ button {
 
 #marginGS{
     /* text-align:center;  */
+}
+
+/* ---------------- */
+/* DEBUGGING SYTLES */
+/* ---------------- */
+
+.outline1 {
+    outline: 1px solid red;
+    /*background:red;*/
+}
+
+.outline2 {
+    outline: 1px solid green;
+    /*background:green;*/
+}
+
+.outline3 {
+    outline: 1px solid blue;
+    /*background:blue;*/
 }
