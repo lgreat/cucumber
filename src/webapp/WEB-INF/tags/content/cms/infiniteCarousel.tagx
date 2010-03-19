@@ -6,6 +6,94 @@
     <jsp:directive.attribute name="name" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="items" required="true" type="java.util.List"/>
 
+    <script type="text/javascript">
+        jQuery.fn.infiniteCarousel = function () {
+
+            function repeat(str, num) {
+                return new Array(num + 1).join(str);
+            }
+
+            return this.each(function () {
+                var ic_wrapper = jQuery('> div', this).css('overflow', 'hidden'),
+                        ic_slider = ic_wrapper.find('> ul'),
+                        ic_items = ic_slider.find('> li'),
+                        ic_single = ic_items.filter(':first'),
+
+                        ic_viewWidth = ic_wrapper.outerWidth();
+                var ic_singleWidth = ic_single.outerWidth(),
+                        ic_visible = Math.ceil(ic_viewWidth / ic_singleWidth),// note: does not include padding or border
+                        ic_currentPage = 1,
+                        ic_pages = Math.ceil(ic_items.length / ic_visible);
+
+                // console.log('ic_viewWidth: '+ic_viewWidth);
+                // console.log('ic_singleWidth: '+ic_singleWidth);
+                // console.log('ic_visible: '+ic_visible);
+                // console.log('ic_pages: '+ic_pages);
+                // console.log('length of all items: '+ic_items.length);
+                // console.log('(length of all items % ic_visible): '+(ic_items.length % ic_visible));
+
+                // 1. Pad so that 'ic_visible' number will always be seen, otherwise create empty items
+                if ((ic_items.length % ic_visible) != 0) {
+                    ic_slider.append(repeat('<li class="empty"></li>', ic_visible - (ic_items.length % ic_visible)));
+                    ic_items = ic_slider.find('> li');
+                }
+
+                // 2. Top and tail the list with 'ic_visible' number of items, top has the last section, and tail has the first
+                ic_items.filter(':first').before(ic_items.slice(- ic_visible).clone().addClass('cloned'));
+                ic_items.filter(':last').after(ic_items.slice(0, ic_visible).clone().addClass('cloned'));
+                ic_items = ic_slider.find('> li'); // reselect
+
+                // 3. Set the left position to the first 'real' item
+                ic_wrapper.scrollLeft(ic_singleWidth * ic_visible);
+                // console.log('first item position: '+(ic_singleWidth * ic_visible));
+
+                // 4. paging function
+                function gotoPage(page) {
+                    var dir = page &lt; ic_currentPage ? -1 : 1,
+                            n = Math.abs(ic_currentPage - page),
+                            left = ic_singleWidth * dir * ic_visible * n;
+
+                    ic_wrapper.filter(':not(:animated)').animate({
+                        scrollLeft : '+=' + left
+                    }, 500, function () {
+                        if (page == 0) {
+                            ic_wrapper.scrollLeft(ic_singleWidth * ic_visible * ic_pages);
+                            page = ic_pages;
+                        } else if (page &gt; ic_pages) {
+                            ic_wrapper.scrollLeft(ic_singleWidth * ic_visible);
+                            // reset back to start position
+                            page = 1;
+                        }
+
+                        ic_currentPage = page;
+                    });
+
+                    return false;
+                }
+
+                ic_pages &gt; 1 ? ic_wrapper.after('<a class="arrow back rnd3">&amp;lsaquo;</a><a class="arrow forward rnd3">&amp;rsaquo;</a>') : ic_wrapper;
+
+                // 5. Bind to the forward and back buttons
+                jQuery('a.back', this).click(function () {
+                    return gotoPage(ic_currentPage - 1);
+                });
+
+                jQuery('a.forward', this).click(function () {
+                    return gotoPage(ic_currentPage + 1);
+                });
+
+                // create a public interface to move to a specific page
+                jQuery(this).bind('goto', function (event, page) {
+                    gotoPage(page);
+                });
+            });
+        };
+
+        jQuery(document).ready(function () {
+            jQuery('.infiniteCarousel').infiniteCarousel();
+        });
+    </script>
+
     <c:if test="${not empty pageScope.name and not empty pageScope.items}">
         <c:set var="numCarouselItems" value="${fn:length(pageScope.items)}"/>
 

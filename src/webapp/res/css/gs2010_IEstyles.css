@@ -20,9 +20,11 @@ General comments:
 =B- ie8 4a- home page carousel
 =C- ie7 4a- home page carousel
 =C- ie7 4a-4 raise your hand
+=C- ie7 4c-3 infinite carousel
 =D- ie6 4a- home page carousel
 =D- ie6 4a-4 raise your hand
 =D- ie6 4a-5 grade by grade
+=D- ie6 4c-3 infinite carousel
 =D- ie6 5- icons
 
 */
@@ -489,6 +491,13 @@ body.ie7 .ryh-answer {
     margin-left: 331px;
 }
 
+/* =C- ie7 4c-3 infinite carousel
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 .infiniteCarousel .arrow{
+    line-height:0.8;
+}
+
 /* =D- ie6 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
@@ -573,6 +582,13 @@ body.ie6 #gbgContent li {
 
 body.ie6 #contentRight div.inner div {
     height: 1%;
+}
+
+/* =D- ie4 4c-3 infinite carousel
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 .infiniteCarousel .arrow{
+    line-height:0.8;
 }
 
 /* =D- ie6 5- icons
