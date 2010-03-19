@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.87 2010/02/26 16:50:17 mwong Exp $
+ * $Id: UrlUtil.java,v 1.88 2010/03/19 18:48:39 yfan Exp $
  */
 
 package gs.web.util;
@@ -67,9 +67,16 @@ public final class UrlUtil {
                 && !hostName.startsWith("res5")
                 && !hostName.startsWith("res6")
                 && !hostName.startsWith("res7")
+                && !hostName.startsWith("app1a")
+                && !hostName.startsWith("app1b")
+                && !hostName.startsWith("app1c")
+                && !hostName.startsWith("app1d")
+                && !hostName.startsWith("app2a")
+                && !hostName.startsWith("app2b")
+                && !hostName.startsWith("app2c")
+                && !hostName.startsWith("app2d")
                 && !hostName.startsWith("staging")
                 && !hostName.startsWith("maddy")
-                && !hostName.startsWith("rithmatic")
                 && !hostName.startsWith("clone")
                 && !hostName.startsWith("cmsqa")
                 && !hostName.startsWith("dev")

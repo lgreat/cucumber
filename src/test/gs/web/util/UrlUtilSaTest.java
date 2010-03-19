@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.65 2009/12/04 22:27:04 chriskimm Exp $
+ * $Id: UrlUtilSaTest.java,v 1.66 2010/03/19 18:48:40 yfan Exp $
  */
 
 package gs.web.util;
@@ -151,6 +151,15 @@ public class UrlUtilSaTest extends TestCase {
         assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res4.greatschools.org"));
         assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res5.greatschools.org"));
         assertNull("Resource servers are not cobrands", _urlUtil.cobrandFromUrl("res6.greatschools.org"));
+
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1a.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1b.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1c.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1d.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2a.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2b.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2c.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2d.greatschools.org"));
 
         assertNull("editorial.dev should not be treated as a cobrand", _urlUtil.cobrandFromUrl("editorial.dev.greatschools.org"));
 
