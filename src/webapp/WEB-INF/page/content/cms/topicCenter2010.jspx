@@ -70,9 +70,18 @@
             <div class="spacer_5"><!--do not collapse--></div>
             <h1>${topicCenter.title}</h1>
 
+            <c:set var="showFeatureGroups" value="false"/>
+            <c:if test="${not empty topicCenter.featureGroups}">
+                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
+                    <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
+                        <c:set var="showFeatureGroups" value="true"/>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+
             <!-- Features -->
             <c:choose>
-                <c:when test="${not empty topicCenter.featureGroups}">
+                <c:when test="${showFeatureGroups}">
                     <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
                         <div>${featureGroup.title}</div>
                         <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
