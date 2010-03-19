@@ -9,22 +9,22 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib">
-    <div style="height: 250px; width: 300px;">
-        <div class="">
-            <h1>Find a Home</h1>
+    <div class="mod" id="realtorDotCom">
+        <div class="mod_hd">
+            <h3>Find a Home</h3>
         </div>
-        <div class="">
-            <span>Find nearby homes for sale. </span>
-            More than 3 million real estate listings, homes for sale, and rental properties.<br/>
-            <label for="rdcCity">Location:</label>
-            <input type="text" name="rdcCity" id="rdcCity" value="${defaultCity}"/><br/>
+        <div class="mod_bd">
+            <p><strong>Find nearby homes for sale. </strong>
+            More than 3 million real estate listings, homes for sale, and rental properties.</p>
+            <p><label for="rdcCity">Location:</label>
+            <input type="text" name="rdcCity" id="rdcCity" value="${defaultCity}"/></p>
 
-            <label for="rdcPriceMin">Price:</label>
-            <input type="text" name="rdcPriceMin" id="rdcPriceMin" style="width: 100px;"/>
-            to
-            <input type="text" name="rdcPriceMax" id="rdcPriceMax" style="width: 100px;"/><br/>
+            <p><label for="rdcPriceMin">Price:</label>
+            <input type="text" name="rdcPriceMin" class="rdPrice" id="rdcPriceMin" />
+            <label for="rdcPriceMax" class="noflt">to</label>
+            <input type="text" name="rdcPriceMax" class="rdPrice" id="rdcPriceMax" /></p>
 
-            <label for="rdcBeds">Beds:</label>
+            <p><label for="rdcBeds">Beds:</label>
             <select name="rdcBeds" id="rdcBeds">
                 <option value="any">Any</option>
                 <option value="1">1+</option>
@@ -32,9 +32,9 @@
                 <option value="3">3+</option>
                 <option value="4">4+</option>
                 <option value="5">5+</option>
-            </select><br/>
+            </select></p>
 
-            <label for="rdcBaths">Baths:</label>
+            <p><label for="rdcBaths">Baths:</label>
             <select name="rdcBaths" id="rdcBaths">
                 <option value="any">Any</option>
                 <option value="1">1+</option>
@@ -42,11 +42,11 @@
                 <option value="3">3+</option>
                 <option value="4">4+</option>
                 <option value="5">5+</option>
-            </select>
-            <button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
+            </select></p>
+            <p><button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
                 <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-            </button>
-            <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by realtor.com" style="float:right; position: relative; top: -10px; right: 5px"/>
+            </button></p>
+            <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
             <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank"><!-- no collapse --></form>
         </div>
 

@@ -44,7 +44,7 @@ General comments:
 =7- communitySidebar
 =8- footer
 =9- buttons
-
+=temporary modules
 */
 
 /* =0 reset
@@ -2728,6 +2728,55 @@ button {
     /* text-align:center;  */
 }
 
+/*
+=temporary modules
+---------------------------------------------------------------------------
+*/
+
+/* Realtor.com */
+.nocol #realtorDotCom .mod_hd h3 {
+    background: #6cc;
+    font-family: Arial, sans-serif;
+}
+#realtorDotCom .mod_bd {
+    position: relative;
+    border: solid #c6c6c6;
+    border-width: 0 1px 1px;
+}
+#realtorDotCom p {
+    margin: 0 0 .7em;
+    font-size: 11px;
+}
+#realtorDotCom p strong {
+    color: #d61;
+    font-size: 12px;
+}
+.nocol #realtorDotCom p strong {
+    color: #d06272;
+}
+#realtorDotCom p label {
+    float: left;
+    width: 56px;
+    font-weight: 700;
+    padding: 3px 0 0;
+}
+#realtorDotCom p label.noflt {
+    float: none;
+    width: auto;
+    padding: 3px 5px 0;
+}
+#realtorDotCom p input {
+    width: 210px;
+}
+
+#realtorDotCom p input.rdPrice {
+    width: 63px;
+}
+#realtorDotCom .logo {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
 /* ---------------- */
 /* DEBUGGING SYTLES */
 /* ---------------- */
