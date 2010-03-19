@@ -35,6 +35,7 @@ General comments:
 =4c-2 left navigation
 =4c-3 infinite carousel
 =4d community join hovers
+=4c-4 browse schools by city
 =4e- about pages
 =4e-5 about sponsors
 =4f- schools
@@ -2142,6 +2143,17 @@ ul.srchSuggest li span {
 
 .infiniteCarousel .back:hover {
     text-decoration: none;
+}
+
+/* =4c-4 browse schools by city
+-------------------------------------------------------------------------------------------*/
+
+#browseSchools .mod_bd{
+    padding: 15px 20px;
+}
+
+#browseSchools .mod_bd li{
+    padding:2px 0;
 }
 
 /*

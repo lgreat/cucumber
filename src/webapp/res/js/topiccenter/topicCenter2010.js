@@ -18,6 +18,5 @@ $j(document).ready(function() {
     if ($j('google_ads_div_Library_Article_Page_AboveFold_Left_160x600').length > 0) {
         $j('.skyscraperAd').show();
     }
-
-    // EOF
 });
+// EOF

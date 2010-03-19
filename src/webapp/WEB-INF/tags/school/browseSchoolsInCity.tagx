@@ -24,7 +24,7 @@
         </c:when>
     </c:choose>
 
-    <div class="mod">
+    <div id="browseSchools" class="mod">
         <div class="mod_hd">
             <h3>Browse Schools by City</h3>
         </div>
