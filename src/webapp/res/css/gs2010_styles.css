@@ -2030,10 +2030,6 @@ ul.srchSuggest li span {
     padding:3px 0;
 }
 
-#topicbarGS span.sprite{
-    cursor:pointer;
-}
-
 #topicbarGS ul ul{
     display:none;
     margin-left:30px;
@@ -2043,6 +2039,19 @@ ul.srchSuggest li span {
     list-style:disc outside none;
     color:#f4891d;
 }
+
+#topicbarGS li.hasNested{
+    cursor:pointer;
+}
+
+#topicbarGS .hasNested a:hover{
+    text-decoration:none;
+}
+
+#topicbarGS .hasNested a:focus{
+    outline:none;
+}
+
 /* =4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
 
