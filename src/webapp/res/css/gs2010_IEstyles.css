@@ -18,6 +18,7 @@ General comments:
 =D- ie6
 =A- ie 4a-1 find-compare
 =B- ie8 4a- home page carousel
+=B- ie8 4c-3 infinite carousel
 =C- ie7 4a- home page carousel
 =C- ie7 4a-4 raise your hand
 =C- ie7 4c-3 infinite carousel
@@ -442,6 +443,13 @@ body.ie8 #carousel #next {
     filter: alpha(opacity = 100);
 }
 
+/* =B- ie8 4c-3 infinite carousel
+-------------------------------------------------------------------------------------------*/
+
+body.ie8 .infiniteCarousel:focus {
+    outline: none;
+}
+
 /* =C- ie7 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
@@ -584,7 +592,7 @@ body.ie6 #contentRight div.inner div {
     height: 1%;
 }
 
-/* =D- ie4 4c-3 infinite carousel
+/* =D- ie6 4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 .infiniteCarousel .arrow{
