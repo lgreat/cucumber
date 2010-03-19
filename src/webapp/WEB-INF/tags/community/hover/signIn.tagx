@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+
+    <script type="text/javascript">
+
+        GSType.hover.SignInHover = function(){
+            this.__proto__ = new GSType.hover.HoverDialog('#signInHover');
+
+            this.loadDialog = function() {
+                this.dialogByWidth(680);
+            }
+
+            this.addMessage = function(text) {
+                jQuery('#signInHover .messages').append('<p>' + text + '</p>');
+            }
+            this.clearMessages = function() {
+                jQuery('#signInHover .messages').replaceWith('<div class="messages"></div>');
+            }
+        };
+
+        GSType.hover.signInHover = new GSType.hover.SignInHover();
+
+        jQuery(function() {
+
+            GSType.hover.signInHover.loadDialog();
+
+            jQuery('.signInHoverLink').click(function() {
+                GSType.hover.signInHover.show();
+            });
+
+            jQuery('#signinBtn').click(function() {
+               GSType.hover.signInHover.clearMessages(); 
+            });
+
+            jQuery('#signInHover').bind('dialogclose', function() {
+                GSType.hover.signInHover.clearMessages();
+            });
+            
+            // <c:if test="${param.showValidateEmailHover ne null or requestScope.showValidateEmailHover ne null}">
+            GSType.hover.signInHover.show();
+            // </c:if>
+        });
+    </script>
+
+    <style type="text/css">
+        .error {
+            display: none;
+        }
+
+        #signInHover #signin fieldset ul li {
+            margin: 5px;
+        }
+
+        #signInHover #signin fieldset ul li label {
+            float:left;
+            width:150px;
+            font-weight:bold;
+        }
+
+        #signInHover .messages p {
+           
+            background-color:yellow;
+            padding:3px;
+        }
+
+    </style>
+
+
+    <div id="signInHover" >
+        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
+        <div class="messages">
+            <p id="forgot_password" class="error"><!-- message --></p>
+        </div>
+        <div class="errors">
+            <p id="forgot_password" class="error"><!-- message --></p>
+        </div>
+        <form id="signin">
+            <fieldset class="signin">
+                <h3>Sign in with an existing GreatSchools account:</h3>
+                <ul>
+                    <li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
+                  <li><label for="spword">Password</label><input type="password" id="spword" name="spword" /></li>
+                </ul>
+            </fieldset>
+            <fieldset class="btns">
+                <button class="button" type="submit" name="signinBtn" id="signinBtn">
+                    <span><span>Sign in</span></span>
+                </button>
+                <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+            </fieldset>
+        </form>
+
+    </div>
+
+</jsp:root>

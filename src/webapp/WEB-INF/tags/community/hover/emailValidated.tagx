@@ -6,35 +6,23 @@
         >
 
     <script type="text/javascript">
-        if (GSType == undefined) {
-            var GSType = {};
-        }
-
-        if (GSType.hover == undefined) {
-            GSType.hover = {};
-        }
         GSType.hover.EmailValidated = function() {
-            this.init = function() {};
-            this.show = function() {
-                jQuery('#regDone').dialog('open');
-            };
-            this.hide = function() {
-                jQuery('#regDone').dialog('close');
-            };
-        };
+            this.__proto__ = new GSType.hover.HoverDialog('#regDone');
 
+            this.loadDialog = function () {
+                this.dialogByWidth(600);
+            }
+        }
+        
         GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 
         jQuery(function() {
-            jQuery('#regDone').dialog({
-                bgiframe: true,
-                modal: true,
-                draggable: false,
-                autoOpen: false,
-                resizable: false,
-                width: 600
+            GSType.hover.emailValidated.loadDialog();
+            
+            jQuery('.emailValidatedLink').click(function() {
+                GSType.hover.emailValidated.show();
             });
-
+         
             jQuery('#clsRegDone').click(function() {
                 GSType.hover.emailValidated.hide();
             });

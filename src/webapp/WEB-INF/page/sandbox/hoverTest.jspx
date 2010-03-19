@@ -1,55 +1,40 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-    >
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+         xmlns:c="http://java.sun.com/jsp/jstl/core"
+         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+         xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+   >
+   <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+           doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+           doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Test Hover - GreatSchools</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Test Hover - GreatSchools</title>
 </head>
-<pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>
 <body>
 
-    <community:schoolInterruptRegistrationHover schoolId="1" schoolState="CA"/>
-    <a href="/email/management.page?schoolId=1&amp;schoolState=CA"
-       onclick="return autoMssHover.prepAndShow(this.href, 1, 'CA', true);">
-        Click here for school interrupt hover
-    </a>
+<p class="link validateEmailLink">Launch the validateEmail hover <span>&#187;</span></p>
+<p class="link editEmailValidatedLink">Launch the editEmailValidated hover <span>&#187;</span></p>
+<p class="link emailNotValidatedLink">Launch the emailNotValidated hover <span>&#187;</span></p>
+<p class="link emailValidatedLink">Launch the emailValidated hover <span>&#187;</span></p>
+<p class="link validateEditEmailLink">Launch the validateEditEmail hover <span>&#187;</span></p>
+<p class="link validateLinkExpiredLink">Launch the validateLinkExpiredLink hover <span>&#187;</span></p>
+<p class="link joinHoverLink">Launch the Join hover! <span>&#187;</span></p>
+<p class="link signInHoverLink">Launch the Sign In hover! <span>&#187;</span></p>
+<p class="link forgotPasswordLink">Launch the Forgot Password hover! <span>&#187;</span></p>
+   <br/><hr/>
 
-    <br/>
-
-    <community:ldRegistrationHover/>
-    <a href="/sandbox/hoverTest.page"
-       onclick="return ldRegistrationDialog.prepAndShow(this.href);">
-        Click here for LD hover
-    </a>
-    
-    <br/>
-
-    <community:chooserRegistrationHover/>
-    <a href="/sandbox/hoverTest.page"
-       onclick="return chooserRegistrationDialog.prepAndShow(this.href, 'testing@gmail.com');">
-        Click here for chooser registration hover
-    </a>
-
-    <br/>
-
-    <pageHelper:showNthGraderHover/>
-    <a href="/sandbox/hoverTest.page"
-       onclick="return nthGraderRegistrationDialog.prepAndShow(this.href);">
-        Click here for nthGrader hover
-    </a>
-
-    <br/><hr/>
-
-<a href="/sandbox/hoverTest.page">Click here to return to this page</a>
+<c:choose>
+   <c:when test="${param.showValidateEmailHover ne null}">
+       <a href="/sandbox/hoverTest.page">Click here to return to this page without the hover showing</a>
+   </c:when>
+   <c:otherwise>
+       <a href="/sandbox/hoverTest.page?showValidateEmailHover=true">Click here to return to this page with the hover showing</a>
+   </c:otherwise>
+</c:choose>
 
 </body>
 </html>

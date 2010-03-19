@@ -107,12 +107,16 @@
     <community:nthGraderRegistrationHover/>
 </c:if>
 
+<communityHover:baseHover/>
 <communityHover:validateEmail/>
 <communityHover:validateEditEmail/>
 <communityHover:emailNotValidated/>
 <communityHover:emailValidated/>
 <communityHover:editEmailValidated/>
 <communityHover:validationLinkExpired/>
+<communityHover:join/>
+<communityHover:signIn/>
+<communityHover:forgotPassword/>
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">

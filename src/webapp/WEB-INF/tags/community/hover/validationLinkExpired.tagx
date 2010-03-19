@@ -6,41 +6,33 @@
         >
 
     <script type="text/javascript">
-        if (GSType == undefined) {
-            var GSType = {};
-        }
-
-        if (GSType.hover == undefined) {
-            GSType.hover = {};
-        }
+        
         GSType.hover.ValidateLinkExpired = function() {
-            this.init = function() {};
-            this.show = function() {
-                jQuery('#expVer').dialog('open');
-            };
-            this.hide = function() {
-                jQuery('#expVer').dialog('close');
-            };
-        };
+            this.__proto__ = new GSType.hover.HoverDialog('#expVer');
 
+            this.loadDialog = function() {
+                this.dialogByWidth(400);
+            }
+        }
+        
         GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
         jQuery(function() {
-            jQuery('#expVer').dialog({
-                bgiframe: true,
-                modal: true,
-                draggable: false,
-                autoOpen: false,
-                resizable: false,
-                width: 600
+            GSType.hover.validateLinkExpired.loadDialog();
+
+            jQuery('.validateLinkExpiredLink').click(function() {
+                GSType.hover.validateLinkExpired.show();
             });
 
             jQuery('#clsExpVer').click(function() {
                 var email = '${requestScope.email}';
-                if (email.length == 0) {
-                    email = '${param.email}';
-                }
-                window.location = '/community/requestEmailValidation.page?redirect=' + location.pathname + '&amp;email=' + encodeURIComponent(email);
+                var params = {
+                    email: encodeURIComponent(email)
+                };
+                jQuery.post('ajaxController', params, new function() {
+                    alert('add message to hover');
+                });
+
                 GSType.hover.validateLinkExpired.hide();
             });
 

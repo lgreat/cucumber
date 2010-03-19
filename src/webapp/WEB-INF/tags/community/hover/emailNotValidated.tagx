@@ -6,34 +6,18 @@
         >
 
     <script type="text/javascript">
-        if (GSType == undefined) {
-            var GSType = {};
-        }
-
-        if (GSType.hover == undefined) {
-            GSType.hover = {};
-        }
         GSType.hover.EmailNotValidated = function() {
-            this.init = function() {};
-            this.show = function() {
-                jQuery('#valNewEmail').dialog('open');
-            };
-            this.hide = function() {
-                jQuery('#valNewEmail').dialog('close');
-            };
-        };
+           this.__proto__ = new GSType.hover.HoverDialog('#valNewEmail');
+
+           this.loadDialog = function() {
+               this.dialogByWidth(600);
+           }
+        }
 
         GSType.hover.emailNotValidated = new GSType.hover.EmailNotValidated();
 
         jQuery(function() {
-            jQuery('#valNewEmail').dialog({
-                bgiframe: true,
-                modal: true,
-                draggable: false,
-                autoOpen: false,
-                resizable: false,
-                width: 600
-            });
+            GSType.hover.emailNotValidated.loadDialog();
 
             jQuery('.emailNotValidatedLink').click(function() {
                 GSType.hover.emailNotValidated.show();
@@ -41,7 +25,13 @@
 
             jQuery('#clsValNewEmail').click(function() {
                 var email = '${requestScope.email}';
-                window.location = '/community/requestEmailValidation.page?redirect=' + location.pathname + '&amp;email=' + encodeURIComponent(email);
+                var params = {
+                    email: encodeURIComponent(email)
+                };
+                jQuery.post('ajaxController', params, new function() {
+                    alert('add message to hover');
+                });
+
                 GSType.hover.emailNotValidated.hide();
             });
 
