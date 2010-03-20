@@ -31,27 +31,6 @@
         });
     </script>
 
-    <style type="text/css">
-        .error {
-            display: none;
-        }
-
-        .contactPw ul li {
-            margin: 5px;
-        }
-
-        .contactPw ul li label {
-            float:left;
-            width:150px;
-            font-weight:bold;
-        }
-        .contactPw ul li input {
-            
-        }
-
-    </style>
-
-
     <div id="joinHover">
 		<h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
 		<div class="dialog_intro">
