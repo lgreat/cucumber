@@ -73,10 +73,10 @@
     <div id="signInHover" >
         <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
         <div class="messages">
-            <p id="forgot_password" class="error"><!-- message --></p>
+            <p class="error"><!-- message --></p>
         </div>
         <div class="errors">
-            <p id="forgot_password" class="error"><!-- message --></p>
+            <p class="error"><!-- message --></p>
         </div>
         <form id="signin">
             <fieldset class="signin">

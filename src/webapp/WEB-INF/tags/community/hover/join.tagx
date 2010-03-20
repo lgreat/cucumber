@@ -61,7 +61,7 @@
             </div>
             <img class="stockPhoto col" src="/res/img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"  />
         </div>
-        <br clear="both" />
+        
          <form id="joinGS">
          <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
             <fieldset class="contactPw">
