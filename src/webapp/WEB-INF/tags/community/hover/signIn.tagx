@@ -78,7 +78,7 @@
         <div class="errors">
             <p class="error"><!-- message --></p>
         </div>
-        <form id="signin">
+        <form id="signin" action="#">
             <fieldset class="signin">
                 <h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
