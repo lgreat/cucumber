@@ -2386,6 +2386,16 @@ ul.srchSuggest li span {
     padding:2px 0;
 }
 
+/*=4c-5 talk about it
+-------------------------------------------------------------------------------------------*/
+#recentDiscussions .mod_hd_alt{
+
+}
+
+#recentDiscussions .mod_bd{
+    padding:0;
+}
+
 /*
 =4e about pages
 -----------------------------------------------------------------------------
@@ -2536,7 +2546,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_v1.png);
+    background-image: url(/res/img/sprites/iconSprite_v2.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
@@ -2565,7 +2575,7 @@ additional icons on the sprite.
 
 .discussion {
     width: 15px;
-    height: 15px;
+    height: 16px;
     background-position: 0 -80px;
 }
 
