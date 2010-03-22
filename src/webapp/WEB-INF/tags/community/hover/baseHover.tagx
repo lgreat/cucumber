@@ -6,7 +6,6 @@
         >
 
     <script type="text/javascript">
-
         if (GSType == undefined) {
             var GSType = {};
         }
@@ -17,7 +16,6 @@
 
         //HoverDialog requires the ID of the element to display as a hover dialog
         GSType.hover.HoverDialog = function(id) {
-
             this.init = function(id) {
                 this.hoverId = id;
             };
@@ -32,7 +30,7 @@
                 resizable: false,
                 width: width
                 });
-            }
+            };
             this.show = function() {
                 jQuery(this.hoverId).dialog('open');
             };
@@ -42,8 +40,6 @@
 
             this.init(id);
         };
-
     </script>
-
 
 </jsp:root>

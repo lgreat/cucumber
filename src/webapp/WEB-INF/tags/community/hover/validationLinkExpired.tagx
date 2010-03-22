@@ -6,14 +6,13 @@
         >
 
     <script type="text/javascript">
-        
         GSType.hover.ValidateLinkExpired = function() {
             this.__proto__ = new GSType.hover.HoverDialog('#expVer');
 
             this.loadDialog = function() {
                 this.dialogByWidth(400);
             }
-        }
+        };
         
         GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 

@@ -12,7 +12,7 @@
             this.loadDialog = function () {
                 this.dialogByWidth(600);
             }
-        }
+        };
         
         GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 
