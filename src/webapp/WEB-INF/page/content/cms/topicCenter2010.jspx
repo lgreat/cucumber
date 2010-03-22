@@ -71,7 +71,7 @@
             <div class="spacer_10"><!--do not collapse--></div>
             <h1 class="fltlft">${topicCenter.title}</h1>
 
-            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="logoAd fltrt mrgtop_5">
                 <ad:adTag position="HeaderLogo_88x33"/>
             </div>
@@ -153,10 +153,14 @@
 
             <div id="topicMainGS" class="col">
 
-            <!-- TODO-9457, TODO-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="inlineAd">
                 <ad:adTag position="Inline_423x60"/>
             </div>
+
+            <c:if test="${topicCenter.healthAndDevelopmentTopicCenter}">
+            <div class="spacer_15"><!-- do not collapse --></div>
+            </c:if>
 
             <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}" items="${requestScope.carouselItems}"/>
 
@@ -174,7 +178,8 @@
                     <!--&amp;uri=${myUrl}&amp;style=fall2009-->
                 </c:set>
                 <c:if test="${!empty recentDiscussions}">
-                    <div class="rd_holder fltrt">
+                    <div class="spacer_10"><!-- don't collapse --></div>
+                    <div id="recentDiscussions" class="mod">
                         ${recentDiscussions}
                     </div>
                 </c:if>
@@ -216,7 +221,7 @@
 
         <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 
-        <!-- TODO-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
+        <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
         <c:if test="${topicCenter.gradeLevelTopicCenter}">
             <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
         </c:if>
