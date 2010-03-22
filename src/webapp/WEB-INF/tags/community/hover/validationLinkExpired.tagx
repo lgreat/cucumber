@@ -25,11 +25,9 @@
             jQuery('#clsExpVer').click(function() {
                 var email = '${requestScope.email}';
                 var params = {
-                    email: encodeURIComponent(email)
+                    email: email
                 };
-                jQuery.post('ajaxController', params, new function() {
-                    alert('add message to hover');
-                });
+                jQuery.get('/community/requestEmailValidation.page', params);
 
                 GSType.hover.validateLinkExpired.hide();
             });
