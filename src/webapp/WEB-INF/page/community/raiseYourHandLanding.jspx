@@ -23,7 +23,6 @@
     <meta name="description"
           content="Join parents as they answer questions about schools, education, and parenting on GreatSchools."/>
     <meta name="keywords" content=""/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
 
     <script type="text/javascript">
         var $j = jQuery;
@@ -45,7 +44,7 @@
 
         <div>
             <ul class="col topics text2_180">
-                <li class="topicItem"><link:raiseYourHandFeaturedQuestions>Featured questions</link:raiseYourHandFeaturedQuestions></li>
+                <li class="topicItem"><link:raiseYourHandFeaturedQuestions>Featured Questions</link:raiseYourHandFeaturedQuestions></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
                                                        fullUri="/preschool" raiseYourHand="true">Preschool</link:cmsContent></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"

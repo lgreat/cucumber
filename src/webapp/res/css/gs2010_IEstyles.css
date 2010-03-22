@@ -554,6 +554,16 @@ body.ie6 .ryh-answer {
     padding-left: 0;
     margin-left: 328px;
 }
+body.ie6 #ryhAnswerCount {
+    position: relative;
+    top: -14px;
+    maring-bottom: -14px;
+}
+body.ie6 .ryh-reply-text p.fltrt {
+    position: relative;
+    top: -14px;
+    maring-bottom: -14px;
+}
 
 /* =D- ie6 4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/

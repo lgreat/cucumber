@@ -260,9 +260,9 @@
 <div class="module">
 <c:choose>
     <c:when test="${discussion.raiseYourHand}">
-        <h1 class="fltlft">Raise Your Hand</h1>
+        <h1>Raise Your Hand
         <c:set var="seeMoreLink">
-            <div class="fltrt">
+            <div class="see-more-top fltrt">
                 <div class="see-more smallAlertText">
                     <span class="sprite ryh mrgrt_5"><!-- icon --></span>
                     <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
@@ -270,9 +270,7 @@
                 </div>
             </div>
         </c:set>
-        <div class="see-more-top">
-        ${seeMoreLink}
-        </div>
+        ${seeMoreLink}</h1>
         <br class="clearfloat"/>
     </c:when>
     <c:otherwise>
@@ -368,10 +366,21 @@
 
 <!-- share this -->
 <c:set var="shareThis">
-    <div class="shareThis smallText1 clearfix">
-        <span class="fltrt"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
-    </div>
+    <c:choose>
+        <c:when test="${discussion.raiseYourHand}">
+            <div class="shareThis smallText1 clearfix">
+                <cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="shareThis smallText1 clearfix">
+                <span class="fltrt"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </c:set>
+
+
 <!-- end share this -->
 
     <c:set var="replyForm">
