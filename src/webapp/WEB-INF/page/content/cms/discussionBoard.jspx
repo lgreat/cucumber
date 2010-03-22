@@ -67,27 +67,30 @@
 <c:when test="${raiseYourHand}">
 <div id="mainGS" class="col discussionBrd">
     <p class="breadCrumbs smallAlertText">
-    <link:home>Home</link:home>
+        <c:if test="${!raiseYourHandFeaturedQuestions}">
+            <link:home>Home</link:home>
 
-    <c:choose>
-        <c:when test="${requestScope.discussionBoard.city ne null}">
-            &amp;gt;
-            <link:research state="${requestScope.discussionBoard.city.state}"
-                           title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
-            &amp;gt;
+            <c:choose>
+                <c:when test="${requestScope.discussionBoard.city ne null}">
+                    &amp;gt;
+                    <link:research state="${requestScope.discussionBoard.city.state}"
+                                   title="${requestScope.discussionBoard.city.state.longName} schools">${requestScope.discussionBoard.city.state.longName}</link:research>
+                    &amp;gt;
 
-            <link:city city="${requestScope.discussionBoard.city.name}"
-                       state="${requestScope.discussionBoard.city.state}"
-                       title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
-        </c:when>
+                    <link:city city="${requestScope.discussionBoard.city.name}"
+                               state="${requestScope.discussionBoard.city.state}"
+                               title="${requestScope.discussionBoard.city.name}">${requestScope.discussionBoard.city.name}</link:city>
+                </c:when>
 
-        <c:when test="${requestScope.topicCenter ne null}">
-            &amp;gt;
-            <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
-                             fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
-        </c:when>
-    </c:choose>
-</p>
+                <c:when test="${requestScope.topicCenter ne null}">
+                    &amp;gt;
+                    <link:cmsContent contentKey="${requestScope.topicCenter.contentKey}"
+                                     fullUri="${requestScope.topicCenter.fullUri}">${requestScope.topicCenter.title}</link:cmsContent>
+                </c:when>
+            </c:choose>
+        </c:if>
+        <!-- don't collapse -->
+    </p>
 
     <div class="ryh-list">
         <h2>Raise Your Hand: <span class="title">${title}</span>
