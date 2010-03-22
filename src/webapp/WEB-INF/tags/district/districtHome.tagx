@@ -223,7 +223,8 @@
 
         <jsp:include page="/district/nearbyDistricts.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;limit=5"/>
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
+        <c:set var="rdcCity" value="${district.physicalAddress.city}, ${district.physicalAddress.state}"/>
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
 
         <div id="ad">
             <ad:House_Ad_300x137  referredBy="${pageName}"/>

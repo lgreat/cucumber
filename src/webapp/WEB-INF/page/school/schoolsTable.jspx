@@ -640,7 +640,8 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
     <!--<ad:Top_300x137/>-->
     <ad:AboveFold_300x600/>
 
-    <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_BROWSE" showAdPct="0"/>
+    <c:set var="rdcCity" value="${cityName}, ${state}"/>
+    <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_BROWSE" showAdPct="0"/>
 
     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
         <c:if test="${results.total gt 0}">
