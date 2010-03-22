@@ -262,12 +262,10 @@
     <c:when test="${discussion.raiseYourHand}">
         <h1>Raise Your Hand
         <c:set var="seeMoreLink">
-            <div class="see-more-top fltrt">
-                <div class="see-more smallAlertText">
-                    <span class="sprite ryh mrgrt_5"><!-- icon --></span>
-                    <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
-                        class="alertDoubleArrow">&amp;raquo;</span>
-                </div>
+            <div class="see-more smallAlertText fltrt">
+                <span class="sprite ryh mrgrt_5"><!-- icon --></span>
+                <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
+                    class="alertDoubleArrow">&amp;raquo;</span>
             </div>
         </c:set>
         ${seeMoreLink}</h1>

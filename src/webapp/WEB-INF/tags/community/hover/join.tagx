@@ -47,7 +47,7 @@
                         <label for="fName">First name *</label>
                         <input type="text" id="fName" name="fName" />
                         <div class="errors">
-                            <span id="fn_valid" class="error valid "> </span>
+                            <span id="fn_valid" class="error valid "><!-- not empty --></span>
                             <span id="fn_invalid" class="error ">Please enter first name</span>
                             <span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span class="specChars">, . - _ &#38;</span></span>
                         </div>
@@ -65,7 +65,7 @@
                         <label for="jemail">Email address *</label>
                         <input type="text" id="jemail" name="jemail" />
                         <div class="errors">
-                            <span class="error" id="em_valid"> </span>
+                            <span class="error" id="em_valid"><!-- not empty --></span>
                             <span class="error" id="em_invalid">Please enter a valid email</span>
                          </div>
                     </li>
@@ -87,7 +87,7 @@
                         <span class="hlpTxt">6-14 characters</span></label>
                         <input type="password"  id="jpword" name="jpword" />
                         <div class="errors">
-                            <span class="error valid" id="pw"> </span>
+                            <span class="error valid" id="pw"><!-- not empty --></span>
                             <span class="error" id="pw_invalid">Your password must be 6-14 characters</span>
                             <span class="error" id="nopw">Please enter password</span>
                         </div>
@@ -96,7 +96,7 @@
                         <label for="cpword">Retype password *</label>
                         <input type="password" id="cpword" name="cpword" />
                         <div class="errors">
-                            <span class="error valid" id="pwmatch"> </span>
+                            <span class="error valid" id="pwmatch"><!-- not empty --></span>
                             <span class="error" id="pwnomatch">Your passwords do not match</span>
                         </div>
                     </li>
