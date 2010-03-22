@@ -498,6 +498,20 @@ body.ie7 .ryh-answer {
     padding-left: 0;
     margin-left: 331px;
 }
+body.ie7 #ryhAnswerCount {
+    position: relative;
+    top: -14px;
+    maring-bottom: -14px;
+}
+body.ie7 .ryhTitle .see-more {
+    top: -32px;
+    margin-bottom: -32px;
+}
+body.ie7 .ryh-reply-text p.fltrt {
+    position: relative;
+    top: -14px;
+    maring-bottom: -14px;
+}
 
 /* =C- ie7 4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
@@ -558,6 +572,10 @@ body.ie6 #ryhAnswerCount {
     position: relative;
     top: -14px;
     maring-bottom: -14px;
+}
+body.ie6 .ryhTitle .see-more {
+    top: -32px;
+    margin-bottom: -32px;
 }
 body.ie6 .ryh-reply-text p.fltrt {
     position: relative;

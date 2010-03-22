@@ -96,7 +96,7 @@
             <c:when test="${fn:length(requestScope.discussionList) > 0}">
                 <c:set var="seeMoreLink">
                     <div class="see-more smallAlertText fltrt">
-                        <span class="icon"><!-- icon --></span>
+                        <span class="sprite ryh mrgrt_5"><!-- icon --></span>
                         <link:raiseYourHandLanding>See more questions</link:raiseYourHandLanding>&amp;nbsp;<span
                             class="alertDoubleArrow">&amp;raquo;</span>
                     </div>

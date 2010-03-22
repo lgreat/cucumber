@@ -260,7 +260,7 @@
 <div class="module">
 <c:choose>
     <c:when test="${discussion.raiseYourHand}">
-        <h1>Raise Your Hand
+        <h1 class="ryhTitle">Raise Your Hand
         <c:set var="seeMoreLink">
             <div class="see-more smallAlertText fltrt">
                 <span class="sprite ryh mrgrt_5"><!-- icon --></span>
