@@ -15,6 +15,7 @@
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
     <jsp:directive.attribute name="school" required="false" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="model" required="true" description="Model data from the parent page" type="java.util.Map"/>
+    <jsp:directive.attribute name="omniturePageName" required="true" description="Omniture Page Name" type="java.lang.String"/>
 
     <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -222,7 +223,7 @@
 
         <jsp:include page="/district/nearbyDistricts.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;limit=5"/>
 
-        <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
 
         <div id="ad">
             <ad:House_Ad_300x137  referredBy="${pageName}"/>

@@ -34,6 +34,7 @@
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
+<c:set var="pageName" value="city home" scope="request"/>
 <jsp:scriptlet>
     City city = (City)request.getAttribute("cityObject");
     if (city != null) {
@@ -292,7 +293,7 @@
         </tr>
         <tr>
             <td>
-                <promo:searchRealtorDotCom defaultCity="${cityObject.name}, ${cityObject.state.abbreviation}" pageAdRatioKey="RDC_PCT_CITY" showAdPct="0"/>
+                <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${cityObject.name}, ${cityObject.state.abbreviation}" pageAdRatioKey="RDC_PCT_CITY" showAdPct="0"/>
             </td>
         </tr>
         <tr>
@@ -349,7 +350,7 @@
 </jsp:include>
 
 
-<mod:tracking pageName="city home"
+<mod:tracking pageName="${pageName}"
               locale="${cityObject.name}"
               hier1="Home,city home,${cityObject.name}-${cityObject.state.abbreviation}"/>
 

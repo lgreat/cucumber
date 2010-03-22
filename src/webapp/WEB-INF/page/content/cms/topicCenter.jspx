@@ -20,6 +20,7 @@
 <c:if test="${topicCenter.contentKey.identifier eq 1633}">
     <pageHelper:setPathway pathway="TOP_NAV_PROMO"/>
 </c:if>
+<c:set var="pageName" value="${omnitureTopicCenterName} Landing Page" scope="request"/>
 
 <head>
     <c:choose>
@@ -59,7 +60,7 @@
         </c:when>
     </c:choose>
 </head>
-<gsml:body adPageName="${omnitureTopicCenterName} Landing Page" pageLayout="nocol">
+<gsml:body adPageName="${pageName}" pageLayout="nocol">
 
 <div id="main">
 <div id="content">
@@ -258,7 +259,7 @@
     <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 
     <c:if test="${topicCenter.contentKey.identifier eq 2220}">
-        <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
+        <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
     </c:if>
 
     <div id="seasonalPromo">
@@ -292,7 +293,7 @@
 
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
-<mod:tracking pageName="${omnitureTopicCenterName} Landing Page"
+<mod:tracking pageName="${pageName}"
               hier1="Topic Centers,${omnitureTopicCenterName}"
               omitAlmondNet="${true}"
         />

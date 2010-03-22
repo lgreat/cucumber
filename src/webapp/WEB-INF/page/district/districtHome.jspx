@@ -17,6 +17,7 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
 <c:set var="acronymWithHyphen"/>
+<c:set var="pageName" value="District Home" scope="request"/>
 <c:if test="${not empty model.acronym}">
   <c:set var="acronymWithHyphen">${model.acronym} - </c:set>
 </c:if>
@@ -85,7 +86,7 @@
     <c:choose>
         <c:when test="${empty school}">
             <div id="bodyContents">
-            <district:districtHome district="${district}" model="${model}"/>
+            <district:districtHome omniturePageName="${pageName}" district="${district}" model="${model}"/>
             </div>
             <div id="districtHomeFooter">
             <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${district.physicalAddress.city}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
@@ -94,12 +95,12 @@
         <c:otherwise>
             <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
             <school:profile school="${school}" tab="district_overview">
-                <district:districtHome district="${district}" school="${school}" model="${model}"/>
+                <district:districtHome omniturePageName="${pageName}" district="${district}" school="${school}" model="${model}"/>
             </school:profile>
         </c:otherwise>
     </c:choose>
     
-     <mod:tracking pageName="District Home"
+     <mod:tracking pageName="${pageName}"
                   hier1="District,District Home,${district.name}"/>
 
 </gsml:body>

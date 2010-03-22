@@ -36,6 +36,7 @@
 <c:set var="overallRating" value="0"/>
 <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
 <c:set var="imageDesc" value="This school has not been rated because sufficient test score data is not available."/>
+<c:set var="pageName" value="Ratings" scope="request"/>
 
 <c:choose>
     <c:when test="${not empty school}">
@@ -120,7 +121,7 @@
                     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Ratings"/>
 
                     <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
-                    <promo:searchRealtorDotCom defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_RATINGS" showAdPct="70">
+                    <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_RATINGS" showAdPct="70">
                         <ad:Top_300x137/>
                     </promo:searchRealtorDotCom>
 
@@ -131,7 +132,7 @@
             </school:profile>
         </c:if>
 
-    <mod:tracking pageName="Ratings"
+    <mod:tracking pageName="${pageName}"
                   hier1="School,Ratings"
             school="${school}"
             />

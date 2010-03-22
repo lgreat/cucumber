@@ -36,6 +36,18 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <c:set var="pageName" value="Overview" scope="request"/>
+<!-- determine the page name that is reported to omniture -->
+<c:choose>
+    <c:when test="${school.levelCode == 'p'}">
+        <c:set var="pageName" value="Preschool Overview"/>
+    </c:when>
+
+    <c:otherwise>
+        <c:if test="${school.type.schoolTypeName == 'private'}">
+            <c:set var="pageName" value="Private School Overview"/>
+        </c:if>
+    </c:otherwise>
+</c:choose>
 <c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
@@ -381,7 +393,7 @@
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
 
             <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
-            <promo:searchRealtorDotCom defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">
+            <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">
                 <ad:AboveFold_300x250/>
             </promo:searchRealtorDotCom>
 
@@ -438,18 +450,6 @@
 
 </school:profile>
 
-<!-- determine the page name that is reported to omniture -->
-<c:choose>
-    <c:when test="${school.levelCode == 'p'}">
-        <c:set var="pageName" value="Preschool Overview"/>
-    </c:when>
-
-    <c:otherwise>
-        <c:if test="${school.type.schoolTypeName == 'private'}">
-            <c:set var="pageName" value="Private School Overview"/>
-        </c:if>
-    </c:otherwise>
-</c:choose>
 <mod:tracking pageName="${pageName}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
               school="${school}" />

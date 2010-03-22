@@ -586,6 +586,24 @@
 </div>
 </div> <!-- end #content -->
 </div> <!-- end #main -->
+
+<c:set var="pageName" value=""/>
+<c:set var="hier1" value=""/>
+<c:choose>
+    <c:when test="${type eq 'article'}">
+        <c:set var="pageName" value="article"/>
+        <c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"/>
+    </c:when>
+    <c:when test="${type eq 'askTheExperts'}">
+        <c:set var="pageName" value="Ask the Experts"/>
+        <c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"/>
+    </c:when>
+    <c:when test="${type eq 'articleSlideshow'}">
+        <c:set var="pageName" value="Article Slideshow"/>
+        <c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"/>
+    </c:when>
+</c:choose>
+
 <div id="rightColumn">
     <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
             feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
@@ -644,7 +662,7 @@
 
             <c:set var="ckid" value="${feature.contentKey.identifier}"/>
             <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
-                <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0"/>
+                <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0"/>
             </c:if>
 
             <div id="seasonalPromo">
@@ -674,30 +692,11 @@
 
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
-<c:choose>
-    <c:when test="${type eq 'article'}">
-        <mod:tracking pageName="article"
-                      hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
-                      events="event7"
-                      omitAlmondNet="${true}"
-                />
-    </c:when>
-    <c:when test="${type eq 'askTheExperts'}">
-        <mod:tracking pageName="Ask the Experts"
-                      hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"
-                      events="event7"
-                      omitAlmondNet="${true}"
-                />
-    </c:when>
-    <c:when test="${type eq 'articleSlideshow'}">
-        <mod:tracking pageName="Article Slideshow"
-                      hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
-                      events="event7"
-                      omitAlmondNet="${true}"
-                />
-    </c:when>
-</c:choose>
-
+<mod:tracking pageName="${pageName}"
+              hier1="${hier1}"
+              events="event7"
+              omitAlmondNet="${true}"
+        />
 </body>
 </html>
 </jsp:root>

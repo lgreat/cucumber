@@ -190,6 +190,7 @@
 
             s.prop25 = clickCapture.getProp(25,"${local}");
 
+            s.prop26 = clickCapture.getProp(26,"${requestScope.realtorDotComModule}");
             s.prop27 = clickCapture.getProp(27,"${requestScope.leadGenModule}");
 
             s.events = clickCapture.getEvents("${events}");

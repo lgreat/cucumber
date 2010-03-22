@@ -14,10 +14,11 @@
             <h3>Find a Home</h3>
         </div>
         <div class="mod_bd">
-            <p><strong>Find nearby homes for sale. </strong>
-            More than 3 million real estate listings, homes for sale, and rental properties.</p>
+            <p><strong>Find a home nearby</strong>
+                from more than 3 million real estate listings, homes for sale, and rental properties</p>
+
             <p><label for="rdcCity">Location:</label>
-            <input type="text" name="rdcCity" id="rdcCity" value="${defaultCity}"/></p>
+            <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
 
             <p><label for="rdcPriceMin">Price:</label>
             <input type="text" name="rdcPriceMin" class="rdPrice" id="rdcPriceMin" />
@@ -46,7 +47,9 @@
             <p><button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
                 <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
             </button></p>
-            <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
+            <a href="http://www.realtor.com" onclick="alert('foo'); if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_300x250_browseLogo');} return true;">
+                <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
+            </a>
             <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank"><!-- no collapse --></form>
         </div>
 
@@ -98,6 +101,10 @@
 
             var submitForm = document.getElementById('rdcSubmitForm');
             submitForm.action = searchURL;
+
+            if (s.tl) {
+                s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_300x250_searchGo');
+            }
             submitForm.submit();
             return false;
         }

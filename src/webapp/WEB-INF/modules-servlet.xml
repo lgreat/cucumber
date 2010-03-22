@@ -144,12 +144,6 @@
         <property name="viewName" value="/community/browseLocalBoards"/>
     </bean>
 
-    <!--<bean name="/promo/searchRealtorDotCom.module"-->
-          <!--class="gs.web.promo.SearchRealtorDotComController"-->
-          <!--autowire="byName">-->
-        <!--<property name="viewName" value="/promo/searchRealtorDotCom"/>-->
-    <!--</bean>-->
-
     <bean id="testScoreLandingLinksTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>

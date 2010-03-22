@@ -26,44 +26,52 @@ public class SearchRealtorDotComController extends AbstractController {
     public static final String PAGE_AD_RATIO_KEY_PARAM = "pageAdRatioKey";
     public static final String DEFAULT_CITY_PARAM = "defaultCity";
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
+    public static final String OMNITURE_PAGE_NAME_PARAM = "omniturePageName";
 
     public static final String MODEL_DEFAULT_CITY = "defaultCity";
+    public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String pageAdRatioKey = request.getParameter(PAGE_AD_RATIO_KEY_PARAM);
-        Integer overrideAdPercentage = null;
-        if (!StringUtils.isBlank(pageAdRatioKey)) {
-            overrideAdPercentage = _propertyDao.getPropertyAsInteger(pageAdRatioKey);
-        }
-
-        if (overrideAdPercentage == null) {
-            String showAdParam = request.getParameter(SHOW_AD_PCT_PARAM);
-            if (showAdParam != null && showAdParam.length() > 0) {
-                overrideAdPercentage = Integer.parseInt(showAdParam);
+        try {
+            String pageAdRatioKey = request.getParameter(PAGE_AD_RATIO_KEY_PARAM);
+            Integer overrideAdPercentage = null;
+            if (!StringUtils.isBlank(pageAdRatioKey)) {
+                overrideAdPercentage = _propertyDao.getPropertyAsInteger(pageAdRatioKey);
             }
-        }
 
-        double showAdPct = DEFAULT_SHOW_AD_PCT;
-        if (overrideAdPercentage != null && overrideAdPercentage >= 0 && overrideAdPercentage <= 100) {
-            showAdPct = overrideAdPercentage / 100.0d;
-        }
+            if (overrideAdPercentage == null) {
+                String showAdParam = request.getParameter(SHOW_AD_PCT_PARAM);
+                if (showAdParam != null && showAdParam.length() > 0) {
+                    overrideAdPercentage = Integer.parseInt(showAdParam);
+                }
+            }
 
-        boolean showAd = false;
-        if (Math.random() < showAdPct) {
-            showAd = true;
-        }
+            double showAdPct = DEFAULT_SHOW_AD_PCT;
+            if (overrideAdPercentage != null && overrideAdPercentage >= 0 && overrideAdPercentage <= 100) {
+                showAdPct = overrideAdPercentage / 100.0d;
+            }
 
-        if (!showAd) {
-            Map<String, Object> model = new HashMap<String, Object>();
-            model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
-            return new ModelAndView(_viewName, model);
+            boolean showAd = false;
+            if (Math.random() < showAdPct) {
+                showAd = true;
+            }
+
+            if (!showAd) {
+                Map<String, Object> model = new HashMap<String, Object>();
+                model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
+                model.put(MODEL_OMNITURE_PAGE_NAME, request.getParameter(OMNITURE_PAGE_NAME_PARAM));
+                return new ModelAndView(_viewName, model);
+            }
+        } catch (Exception e) {
+            // Do nothing, fall through and have the alternate content be served instead
+            _log.error("Error processing realtor.com search widget.", e);
         }
 
         response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
         // print nothing
-        out.flush();
+        //out.flush();
 
         return null;
     }

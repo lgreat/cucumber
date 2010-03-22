@@ -283,17 +283,6 @@
 </div>
 </div>
 
-<div id="col_right">
-    <promo:searchRealtorDotCom pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
-
-    <ad:setSlotPrefix slotPrefix="Search_Site"/>
-    <ad:AboveFold_300x600/>
-    <ad:multiTextAd blurb="Advertiser Links"/>
-    <ad:Top_300x137/>
-</div>
-
-<br clear="left"/>
-
 <c:set var="pagename" value="School Search"/>
 
 <!--Build the Omniture results variable-->
@@ -331,8 +320,19 @@
         </c:choose>
     </c:otherwise>
 </c:choose>
+<c:set var="omniturePagename" value="${pagename}:${rVal}"/>
 
-<mod:tracking pageName="${pagename}:${rVal}"
+<div id="col_right">
+    <ad:setSlotPrefix slotPrefix="Search_Site"/>
+    <ad:AboveFold_300x600/>
+    <promo:searchRealtorDotCom omniturePageName="${omniturePagename}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
+    <ad:multiTextAd blurb="Advertiser Links"/>
+    <ad:Top_300x137/>
+</div>
+
+<br clear="left"/>
+
+<mod:tracking pageName="${omniturePagename}"
               constraint="${param.type}"
               query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
               hier1="Search,${pagename},${hVal}"
