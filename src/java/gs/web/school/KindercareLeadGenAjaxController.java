@@ -4,9 +4,9 @@ import gs.data.school.IKindercareLeadGenDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.KindercareLeadGen;
 import gs.data.school.School;
-import gs.data.soap.KindercareLeadGenRequest;
-import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlUtil;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -25,13 +26,55 @@ import java.util.Date;
 @org.springframework.stereotype.Controller
 @RequestMapping("/school/kindercareLeadGenAjax.page")
 public class KindercareLeadGenAjaxController {
+    public static final String KINDERCARE_SUBMIT_URL =
+            "http://klc-services-qa.whitehorse.com/klcleadservice/LeadService.asmx/SubmitLead";
+    public static final String SECURITY_KEY = "92p4ojsddf";
+    public static final String PARTNER = "GS";
+    public static final String PARAM_SECURITY_KEY = "securityKey";
+    public static final String PARAM_FIRST_NAME = "firstName";
+    public static final String PARAM_LAST_NAME = "lastName";
+    public static final String PARAM_EMAIL = "emailAddress";
+    public static final String PARAM_PHONE = "phoneNumber";
+    public static final String PARAM_ZIP = "zipcode";
+    public static final String PARAM_PREFERRED_CONTACT_METHOD = "preferredContactMethod";
+    public static final String PARAM_OPT_IN = "kinderCareOptIn";
+    public static final String PARAM_PARTNERS_OPT_IN = "kinderCarePartnersOptIn";
+    public static final String PARAM_CENTER_ID = "centerID";
+    public static final String PARAM_PARTNER = "partner";
+    public static final String[] OPTIONAL_PARAMS = {
+            "comment",
+            "neededMonday",
+            "neededTuesday",
+            "neededWednesday",
+            "neededThursday",
+            "neededFriday",
+            "timeNeeded",
+            "child1BirthDate",
+            "child1LeadDate",
+            "child1PottyTrained",
+            "child2BirthDate",
+            "child2LeadDate",
+            "child2PottyTrained",
+            "child3BirthDate",
+            "child3LeadDate",
+            "child3PottyTrained",
+            "child4BirthDate",
+            "child4LeadDate",
+            "child4PottyTrained",
+            "child5BirthDate",
+            "child5LeadDate",
+            "child5PottyTrained",
+            "child6BirthDate",
+            "child6LeadDate",
+            "child6PottyTrained"
+    };
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String SUCCESS = "1";
     public static final String FAILURE = "0";
 
     private ISchoolDao _schoolDao;
     private IKindercareLeadGenDao _kindercareLeadGenDao;
-    private KindercareLeadGenRequest _soapRequest;
+    private HttpClient _httpClient;
 
     @RequestMapping(method = RequestMethod.POST)
     public String generateLead(@ModelAttribute("command") KindercareLeadGenCommand command,
@@ -44,10 +87,10 @@ public class KindercareLeadGenAjaxController {
             // log data
             logData(command, school.getVendorId());
 
-            if (validateSOAPRequest(command,school)) {
+            if (validateSubmitRequest(command,school)) {
                 // submit soap request
-                submitSOAPRequest(request, command.getFirstName(), command.getLastName(), command.getEmail(),
-                              school.getVendorId(), command.isInformed(), command.isOffers());
+                submitKindercareLeadGen(request, command.getFirstName(), command.getLastName(), command.getEmail(),
+                                        school.getVendorId(), command.isInformed(), command.isOffers());
                 _log.info("Lead generated successfully for " + command.getEmail());
             }
 
@@ -61,7 +104,10 @@ public class KindercareLeadGenAjaxController {
         return null;
     }
 
-    protected boolean validateSOAPRequest(KindercareLeadGenCommand command, School school) {
+    /**
+     * Returns true if the command seems valid to submit to Kindercare
+     */
+    protected boolean validateSubmitRequest(KindercareLeadGenCommand command, School school) {
         // validate not null school
         if (school == null) {
             _log.warn("Lead gen submitted with nonexistent school " + command.getState() + ":" + command.getSchoolId());
@@ -88,8 +134,10 @@ public class KindercareLeadGenAjaxController {
         return true;
     }
 
+    /**
+     * Returns true if the command seems valid
+     */
     protected boolean validate(KindercareLeadGenCommand command, School school) {
-
         // validate not null school
         if (school == null) {
             _log.warn("Lead gen submitted with nonexistent school " + command.getState() + ":" + command.getSchoolId());
@@ -111,17 +159,39 @@ public class KindercareLeadGenAjaxController {
         _kindercareLeadGenDao.save(leadGen);
     }
 
-    public void submitSOAPRequest(HttpServletRequest request, String firstName, String lastName, String email,
-                                  String centerId, boolean kinderCareOptIn, boolean kinderCarePartnersOptIn) {
-        KindercareLeadGenRequest soapRequest = getSoapRequest();
-        if (UrlUtil.isDevEnvironment(request.getServerName())) {
-            soapRequest.setTarget(null); // ensure no leads are generated on dev servers
-        }
-        try {
-            soapRequest.submit(firstName, lastName, email,
-                               centerId, kinderCareOptIn, kinderCarePartnersOptIn);
-        } catch (SoapRequestException e) {
-            _log.error("Error submitting soap request to Kindercare: " + e, e);
+    public void submitKindercareLeadGen(HttpServletRequest request, String firstName, String lastName, String email,
+                                        String centerId, boolean kinderCareOptIn, boolean kinderCarePartnersOptIn) {
+        if (!UrlUtil.isDevEnvironment(request.getServerName())) {
+            HttpClient client = getHttpClient();
+            PostMethod method = new PostMethod(KINDERCARE_SUBMIT_URL);
+            method.addParameter(PARAM_SECURITY_KEY, SECURITY_KEY);
+            method.addParameter(PARAM_FIRST_NAME, firstName);
+            method.addParameter(PARAM_LAST_NAME, lastName);
+            method.addParameter(PARAM_EMAIL, email);
+            method.addParameter(PARAM_PHONE, "");
+            method.addParameter(PARAM_ZIP, "");
+            method.addParameter(PARAM_PREFERRED_CONTACT_METHOD, "");
+            method.addParameter(PARAM_OPT_IN, String.valueOf(kinderCareOptIn));
+            method.addParameter(PARAM_PARTNERS_OPT_IN, String.valueOf(kinderCarePartnersOptIn));
+            method.addParameter(PARAM_CENTER_ID, centerId);
+            method.addParameter(PARAM_PARTNER, PARTNER);
+
+            for (String param: OPTIONAL_PARAMS) {
+                method.addParameter(param, "");
+            }
+
+            try {
+                int statusCode = client.executeMethod(method);
+                if (statusCode != -1) {
+                    String contents = method.getResponseBodyAsString();
+                    method.releaseConnection();
+                    if (statusCode != 200) {
+                        _log.error("Error posting lead generation to Kindercare: " + contents);
+                    }
+                }
+            } catch (IOException ioe) {
+                _log.error("Error posting lead generation to Kindercare: " + ioe, ioe);
+            }
         }
     }
 
@@ -141,15 +211,15 @@ public class KindercareLeadGenAjaxController {
         _kindercareLeadGenDao = kindercareLeadGenDao;
     }
 
-    // provided for unit tests. Standard execution always instantiates a new one
-    public KindercareLeadGenRequest getSoapRequest() {
-        if (_soapRequest == null) {
-            return new KindercareLeadGenRequest();
+    // for unit tests
+    public HttpClient getHttpClient() {
+        if (_httpClient == null) {
+            return new HttpClient();
         }
-        return _soapRequest;
+        return _httpClient;
     }
 
-    public void setSoapRequest(KindercareLeadGenRequest soapRequest) {
-        _soapRequest = soapRequest;
+    public void setHttpClient(HttpClient httpClient) {
+        _httpClient = httpClient;
     }
 }
