@@ -2429,6 +2429,7 @@ ul.srchSuggest li span {
     width: 864px;
     position: relative;
     padding-top: 5px;
+    color: #333;
 }
 #kindercareLeadGen .kindercareInner {
     background: url("/res/img/promo/kindercare_bottom_rule.png") repeat-x scroll 0 109px #F9ECCD;
@@ -2473,9 +2474,11 @@ ul.srchSuggest li span {
     top: 4px;
     text-align: right;
     margin-right: 3px;
+    color: #333;
 }
 #kindercareLeadGen .right form ul li input {
     width: 135px;
+    color: #333;
 }
 #kindercareLeadGen .right form ul li button {
     position: relative;
@@ -2490,12 +2493,14 @@ ul.srchSuggest li span {
     top: 10px;
     right: 0;
     width: 195px;
+    color: #333;
 }
 #kindercareLeadGen .right form .kinder_offers {
     position: absolute;
     top: 45px;
     right: 0;
     width: 195px;
+    color: #333;
 }
 #kindercareLeadGen .right form .kinder_informed label,
 #kindercareLeadGen .right form .kinder_offers label {

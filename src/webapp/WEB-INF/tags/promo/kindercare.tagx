@@ -35,7 +35,7 @@
                     Please enter an email address.
                 </div>
             </div>
-            <img src="/res/img/promo/dotted_rule.png" class="dotted_rule" alt=""/>
+            <img src="/res/img/promo/kindercare_dotted_rule.png" class="dotted_rule" alt=""/>
             <div class="right">
                 <form id="kindercareLeadGenForm" action="#" method="POST">
                     <ul>
