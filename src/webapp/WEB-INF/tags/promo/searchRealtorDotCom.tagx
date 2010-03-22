@@ -12,12 +12,15 @@
                              description="Default city to populate in form"/>
     <jsp:directive.attribute name="showAdPct" required="false" type="java.lang.Integer"
                              description="Per tag override of default ad ratio"/>
+    <jsp:directive.attribute name="size" required="false" type="java.lang.String"
+                             description="Size of module to render"/>
 
     <c:import url="/promo/searchRealtorDotCom.page" var="showAd">
         <c:param name="omniturePageName" value="${omniturePageName}"/>
         <c:param name="pageAdRatioKey" value="${pageAdRatioKey}"/>
         <c:param name="showAdPct" value="${showAdPct}"/>
         <c:param name="defaultCity" value="${defaultCity}"/>
+        <c:param name="size" value="${size}"/>
     </c:import>
 
     <c:choose>

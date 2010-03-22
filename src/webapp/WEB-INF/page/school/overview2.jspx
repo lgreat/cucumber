@@ -112,10 +112,13 @@
         <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
         <ad:adTag position="Survey_179x151"/>
         <school:bigPicture school="${school}" divider="true"/>
-        <div id="leftcolAd">
-            <c:set var="positionAF160x600" value="AboveFold_Left_160x600"/>
-            <ad:AboveFold_Left_160x600 position="${positionAF160x600}"/>
-        </div>
+        <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
+        <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="95" size="160x600">
+            <div id="leftcolAd">
+                <c:set var="positionAF160x600" value="AboveFold_Left_160x600"/>
+                <ad:AboveFold_Left_160x600 position="${positionAF160x600}"/>
+            </div>
+        </promo:searchRealtorDotCom>
     </div><!-- end: col_left" -->
 
     <school:overviewSummary school="${school}" gsRating="${empty gs_rating ? 0 : gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
@@ -392,10 +395,10 @@
         <div id="col_right" class="noprint">
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
 
-            <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
-            <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">
-                <ad:AboveFold_300x250/>
-            </promo:searchRealtorDotCom>
+            <!--<c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>-->
+            <!--<promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">-->
+                <!--<ad:AboveFold_300x250/>-->
+            <!--</promo:searchRealtorDotCom>-->
 
             <div class="ad_middle">
                 <c:choose>

@@ -9,7 +9,11 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib">
-    <div class="mod" id="realtorDotCom">
+    <c:set var="alternateStyle" value=""/>
+    <c:if test="${requestScope.size eq '160x600'}">
+        <c:set var="alternateStyle" value="rdc_thin"/>
+    </c:if>
+    <div class="mod ${alternateStyle}" id="realtorDotCom">
         <div class="mod_hd">
             <h3>Find a Home</h3>
         </div>

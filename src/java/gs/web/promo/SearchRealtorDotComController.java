@@ -27,9 +27,11 @@ public class SearchRealtorDotComController extends AbstractController {
     public static final String DEFAULT_CITY_PARAM = "defaultCity";
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
     public static final String OMNITURE_PAGE_NAME_PARAM = "omniturePageName";
+    public static final String SIZE_PARAM = "size";
 
     public static final String MODEL_DEFAULT_CITY = "defaultCity";
     public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
+    public static final String MODEL_SIZE = "size";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -61,6 +63,7 @@ public class SearchRealtorDotComController extends AbstractController {
                 Map<String, Object> model = new HashMap<String, Object>();
                 model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
                 model.put(MODEL_OMNITURE_PAGE_NAME, request.getParameter(OMNITURE_PAGE_NAME_PARAM));
+                model.put(MODEL_SIZE, request.getParameter(SIZE_PARAM));
                 return new ModelAndView(_viewName, model);
             }
         } catch (Exception e) {
