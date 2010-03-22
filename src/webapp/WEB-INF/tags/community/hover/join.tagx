@@ -6,14 +6,12 @@
         >
 
     <script type="text/javascript">
-
         GSType.hover.JoinHover = function(){
-            this.__proto__ = new GSType.hover.HoverDialog('#joinHover');
-
             this.loadDialog = function() {
                 this.dialogByWidth(680);
             }
         };
+        GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('#joinHover');
 
         GSType.hover.joinHover = new GSType.hover.JoinHover();
 
@@ -31,7 +29,7 @@
         });
     </script>
 
-    <div id="joinHover">
+    <div id="joinHover" style="display:none">
 		<h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
 		<div class="dialog_intro">
     	<div class="introTxt col">

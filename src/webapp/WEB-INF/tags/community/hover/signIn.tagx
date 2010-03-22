@@ -6,21 +6,19 @@
         >
 
     <script type="text/javascript">
-
         GSType.hover.SignInHover = function(){
-            this.__proto__ = new GSType.hover.HoverDialog('#signInHover');
-
             this.loadDialog = function() {
                 this.dialogByWidth(680);
-            }
+            };
 
             this.addMessage = function(text) {
                 jQuery('#signInHover .messages').append('<p>' + text + '</p>');
-            }
+            };
             this.clearMessages = function() {
                 jQuery('#signInHover .messages').replaceWith('<div class="messages"></div>');
             }
         };
+        GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('#signInHover');
 
         GSType.hover.signInHover = new GSType.hover.SignInHover();
 
@@ -47,7 +45,7 @@
     </script>
 
 
-    <div id="signInHover" >
+    <div id="signInHover" style="display:none;">
         <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
         <div class="messages">
             <p class="error"><!-- message --></p>

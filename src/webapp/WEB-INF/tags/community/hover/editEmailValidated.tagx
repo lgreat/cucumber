@@ -7,12 +7,11 @@
 
     <script type="text/javascript">
         GSType.hover.EditEmailValidated = function() {
-            this.__proto__ = new GSType.hover.HoverDialog('#valNewEmailDone');
-
             this.loadDialog = function () {
                 this.dialogByWidth(600);
             }
         };
+        GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('#valNewEmailDone');
 
         GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
 

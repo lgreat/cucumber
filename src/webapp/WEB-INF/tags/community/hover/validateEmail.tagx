@@ -6,14 +6,12 @@
         >
 
     <script type="text/javascript">
-
         GSType.hover.ValidateEmailHover = function(){
-            this.__proto__ = new GSType.hover.HoverDialog('#valEmail');
-            
             this.loadDialog = function() {
                 this.dialogByWidth(400);
             }
         };
+        GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('#valEmail');
         
         GSType.hover.validateEmail = new GSType.hover.ValidateEmailHover();
 
