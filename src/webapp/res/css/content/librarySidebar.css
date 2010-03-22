@@ -87,7 +87,6 @@
 #browse-tips li a {
 	background: url(/res/img/library/arrow-down.png) no-repeat left 5px;
 	padding: 0 0 0 15px;
-	color: #666;
 }
 
 #browse-tips li a.closed {
