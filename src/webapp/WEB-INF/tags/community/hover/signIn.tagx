@@ -15,7 +15,7 @@
                 jQuery('#signInHover .messages').append('<p>' + text + '</p>');
             };
             this.clearMessages = function() {
-                jQuery('#signInHover .messages').replaceWith('<div class="messages"></div>');
+                jQuery('#signInHover .messages').replaceWith('<div class="messages"><!-- not empty --></div>');
             }
         };
         GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('#signInHover');
