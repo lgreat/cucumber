@@ -346,12 +346,6 @@
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
-        <c:if test="${gs_top_school != null}">
-            <link:topSchools state="${state}">
-                <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools"
-                          src="/res/img/school/topSchools/badge_${fn:toLowerCase(gs_top_school)}.png"/>
-            </link:topSchools>
-        </c:if>
     </div>
     <!-- end: ratings -->
 

@@ -417,18 +417,9 @@
 
     <tr>
         <td valign="top" colspan="6">
-            <div id="topHighSchools">
-                <div class="topSchoolImgDiv">
-                    <img src="/res/img/content/research/citypage_top5_badgeonly.jpg"
-                        alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                </div>
-                <div class="topSchoolTextDiv">
-                    <h2 class="topSchoolsHeader">Top High Schools in ${(empty requestScope.context.state.longName) ? "America" : requestScope.context.state.longName} </h2>GreatSchools selects high schools in ${(empty requestScope.context.state.longName) ? "America" : requestScope.context.state.longName} that represent the qualities of a great school
-                    <br/><link:topSchools state="${stateOrNull}" styleClass="underline">View top ${requestScope.context.state.longName} high schools &#62;</link:topSchools>
-                     <div class="businessWeekImgDiv"> <img src="/res/img/content/research/statepage_top5_bizweek.gif"
-                        alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                    </div>
-                </div>
+
+            <div id="houseAd370x158">
+                <ad:adTag position="House_Ad_370x158"/>
             </div>
 
             <div id="schoolFinderPromo">

@@ -104,15 +104,12 @@
                 </link:movingWithKids>
                 <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
                 <ul class="contentList">
-                    <gsweb:articlelink articleId="826" wrappingElement="li">
-                        Choosing a Mover
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="455" wrappingElement="li">
-                        Making a Smooth Transition
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="60" wrappingElement="li">
-                        Adjusting to a New School
-                    </gsweb:articlelink>
+                    <li><link:cmsContent contentKey="Article#403"
+                                     fullUri="find-a-school/moving/moving-company-or-DIY">Choosing a Mover</link:cmsContent></li>
+                    <li><link:cmsContent contentKey="Article#173"
+                                     fullUri="find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
+                    <li><link:cmsContent contentKey="Article#25"
+                                     fullUri="back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
                 </ul> 
             </c:otherwise>
         </c:choose>
@@ -126,15 +123,12 @@
                 </link:movingWithKids>
                 <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
                 <ul class="contentList">
-                    <gsweb:articlelink articleId="826" wrappingElement="li">
-                        Choosing a Mover
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="455" wrappingElement="li">
-                        Making a Smooth Transition
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="60" wrappingElement="li">
-                        Adjusting to a New School
-                    </gsweb:articlelink>
+                    <li><link:cmsContent contentKey="Article#403"
+                                     fullUri="find-a-school/moving/moving-company-or-DIY">Choosing a Mover</link:cmsContent></li>
+                    <li><link:cmsContent contentKey="Article#173"
+                                     fullUri="find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
+                    <li><link:cmsContent contentKey="Article#25"
+                                     fullUri="back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
                 </ul>
                  </div>
             </c:if>

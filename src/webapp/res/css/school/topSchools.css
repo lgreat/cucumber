@@ -126,7 +126,7 @@
     margin: 10px 0;
 }
 
-#pageWrapper #top-five-schools li {
+#pageWrapper #top-schools li {
     display: block;
     min-height: 85px;
     height: auto !important;
@@ -139,22 +139,22 @@
     width: 420px;
 }
 
-#pageWrapper #top-five-schools.about-the-awards li {
+#pageWrapper #top-schools.about-the-awards li {
     min-height: 70px;
     height: auto !important;
     height: 70px;
 }
 
-#pageWrapper #top-five-schools li .description {
+#pageWrapper #top-schools li .description {
     display: block;
     margin-left: 105px;
 }
 
-#pageWrapper #top-five-schools li.lastSchool {
+#pageWrapper #top-schools li.lastSchool {
     border-bottom: none;
 }
 
-#pageWrapper #top-five-schools .badge {
+#pageWrapper #top-schools .badge {
     display: block;
     float: left;
     padding: 73px 10px 0 0;
@@ -162,56 +162,56 @@
     font-size: 9px;
 }
 
-#pageWrapper #top-five-schools .badge_overall {
+#pageWrapper #top-schools .badge_overall {
     background: url( /res/img/school/topSchools/topperforming.jpg ) no-repeat;
 }
 
-#pageWrapper #top-five-schools li.lowincome{
+#pageWrapper #top-schools li.lowincome{
     padding-bottom:20px;
 }
 
-* html #pageWrapper #top-five-schools li.lowincome, * + html #pageWrapper #top-five-schools li.lowincome {
+* html #pageWrapper #top-schools li.lowincome, * + html #pageWrapper #top-schools li.lowincome {
     padding-bottom:13px;
 }
 /* low_income is now called closing the gap */
-#pageWrapper #top-five-schools .badge_lowincome {
+#pageWrapper #top-schools .badge_lowincome {
     background: url( /res/img/school/topSchools/badge_gap.jpg ) no-repeat;
     padding-top:83px;
 }
 
-#pageWrapper #top-five-schools .badge_improved {
+#pageWrapper #top-schools .badge_improved {
     background: url( /res/img/school/topSchools/mostimproved.jpg ) no-repeat;
 }
 
-#pageWrapper #top-five-schools .badge_publicparents {
+#pageWrapper #top-schools .badge_publicparents {
     background: url( /res/img/school/topSchools/pchoice_public.jpg ) no-repeat;
 }
 
-#pageWrapper #top-five-schools .badge_privateparents {
+#pageWrapper #top-schools .badge_privateparents {
     background: url( /res/img/school/topSchools/pchoice_private.jpg ) no-repeat;
 }
 
-#pageWrapper #top-five-schools .whatMakesATopSchool {
+#pageWrapper #top-schools .whatMakesATopSchool {
     font-size: 13px;
 }
 
-#pageWrapper #top-five-schools .school {
+#pageWrapper #top-schools .school {
     color: #5BC;
     font-size: 14px;
     font-weight: bold;
 }
 
-#pageWrapper #top-five-schools .more {
+#pageWrapper #top-schools .more {
     margin-left: 10px;
 }
 
-#pageWrapper #top-five-schools .location {
+#pageWrapper #top-schools .location {
     font-size: 13px;
     font-style: italic;
     white-space: nowrap;
 }
 
-#pageWrapper #top-five-schools .submitted-by {
+#pageWrapper #top-schools .submitted-by {
     font-size: 11px;
     font-style: italic;
 }
@@ -325,6 +325,6 @@
     font-style:italic;
 }
 
-#pageWrapper div#main div#content div#top-five-schools div h2{
+#pageWrapper div#main div#content div#top-schools div h2{
    margin-bottom:0;
 }

@@ -82,6 +82,8 @@
 <gsml:body adPageName="city" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 
+<ad:setSlotPrefix slotPrefix="City_Page"/>
+
 <div class="headerBox">
     <table width="98%" style="margin: 0 auto;">
         <tr>
@@ -128,6 +130,9 @@
                     Compare to nearby cities &gt;
                 </link:nearbyCities>
             </div>
+        </div>
+        <div id="city_Badge_100x69">
+            <ad:adTag position="Badge_100x69"/>
         </div>
     </div>
 </c:if>
@@ -287,8 +292,14 @@
     </c:if>
         <tr>
             <td>
-                <ad:setSlotPrefix slotPrefix="City_Page"/>
                 <ad:AboveFold_300x250/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="city_House_Ad_300x137">
+                    <ad:House_Ad_300x137 referredBy="${pageName}"/>
+                </div>
             </td>
         </tr>
         <tr>
@@ -333,7 +344,7 @@
 </tr>
 </table>
 
-<jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}" />
+<jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'false'}&amp;linkToSchoolChoice=${'true'}" />
 
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
     <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />

@@ -21,14 +21,14 @@
     <c:choose>
         <c:when test="${national}">
             <title>Top High Schools in America - 2009 | GreatSchools</title>
-            <meta content="A state-by-state list of top high schools in America, based on the GreatSchools Top 5, which showcases exemplary schools across five categories."
+            <meta content="A state-by-state list of top high schools in America, based on the GreatSchools data, which showcases exemplary schools across three categories."
                   name="description"/>
             <meta content="top schools, top high schools, top high schools in America, best high schools, great high schools"
                   name="keywords"/>
         </c:when>
         <c:otherwise>
             <title>Top High Schools in ${stateName} - 2009 | GreatSchools</title>
-            <meta content="Top high schools in ${stateName} list, showcases exemplary schools in categories such as Top Performing, Most Improved, and Parents' Choice."
+            <meta content="Top high schools in ${stateName} list, showcases exemplary schools in categories such as Top Performing and Most Improved."
                   name="description"/>
             <meta content="top high schools in ${stateName}, top ${stateName} schools, top ${stateAbbreviation} schools, best high schools in ${stateName}, best ${stateName} high schools, best ${stateAbbreviation} schools"
                   name="keywords"/>
@@ -78,7 +78,7 @@
 
             <div id="introPromo">
                 <div class="contentTop">
-                    Five high schools in each state that represent the qualities of a great school
+                    High schools in each state that represent the qualities of a great school
                 </div>
                 <div class="businessWeek">
                     As featured in <a target="_blank" href="http://www.businessweek.com"><img
@@ -123,20 +123,13 @@
 <c:set var="improved">
     A Most Improved School shows the greatest improvement in test scores when comparing scores from the most recent year available to the year before.
 </c:set>
-<c:set var="publicparents">
-    A Parents' Choice Public School has the highest average parent rating and at least 10 parent reviews when compared to all public schools.
-</c:set>
-<c:set var="privateparents">
-    A Parents' Choice Private School has the highest average parent rating and at least 10 parent reviews when compared to all private schools.
-</c:set>
 
 <div id="content">
     <c:choose>
         <c:when test="${national}">
-            <div id="top-five-schools" class="box main-box about-the-awards">
+            <div id="top-schools" class="box main-box about-the-awards">
                 <div class="inner cleared">
                     <h2>About the awards</h2>
-                    <span class="badgeText">Did your school win?</span><span class="badgeLink"><gsml:a rel="nofollow" href="/school/topHighSchoolsBadges.page">Get a badge for your school's Web site!</gsml:a></span>
                     <ul>
                         <li>
                             <link:article styleClass="badge badge_overall" anchor="overall" target="_blank"
@@ -152,70 +145,58 @@
                                           articleId="3703">Closing the Achievement Gap</link:article><br/>
                             <span class="description">${lowincome}</span>
                         </li>
-                        <li>
+                        <li class="lastSchool">
                             <link:article styleClass="badge badge_improved" anchor="improved" target="_blank"
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="improved" styleClass="school"
                                           articleId="3703">Most Improved</link:article><br/>
                             <span class="description">${improved}</span>
                         </li>
-                        <li>
-                            <link:article styleClass="badge badge_publicparents" anchor="publicparents" target="_blank"
-                                          articleId="3703"></link:article>
-                            <link:article target="_blank" anchor="publicparents" styleClass="school"
-                                          articleId="3703">Parents' Choice, Public School</link:article><br/>
-                            <span class="description">${publicparents}</span>
-                        </li>
-                        <li class="lastSchool">
-                            <link:article styleClass="badge badge_privateparents" anchor="privateparents"
-                                          target="_blank" articleId="3703"></link:article>
-                            <link:article target="_blank" anchor="privateparents" styleClass="school"
-                                          articleId="3703">Parents' Choice, Private School</link:article><br/>
-                            <span class="description">${privateparents}</span>
-                        </li>
                     </ul>
                 </div>
             </div>
         </c:when>
         <c:otherwise>
-            <div id="top-five-schools" class="box main-box">
+            <div id="top-schools" class="box main-box">
                 <div class="inner cleared">
                     <h2>Top high schools in ${stateName}</h2>
-                    <span class="badgeText">Did your school win? </span><span class="badgeLink"><gsml:a rel="nofollow" href="/school/topHighSchoolsBadges.page">Get a badge for your school's Web site!</gsml:a></span>
                     <ul>
                         <c:forEach var="school" items="${topSchools}">
-                            <li class="${(school.last)?'lastSchool':fn:toLowerCase(school.topSchoolCategory)}">
-                                <link:article styleClass="badge badge_${fn:toLowerCase(school.topSchoolCategory)}"
-                                              anchor="${fn:toLowerCase(school.topSchoolCategory)}" target="_blank"
-                                              articleId="3703">What does this mean?</link:article>
-                                <link:schoolProfileOverview school="${school}"
-                                                            styleClass="school">${school.name}</link:schoolProfileOverview><c:out
-                                    value=" "/>
-                                <span class="location">${school.city}, ${school.databaseState}</span><br/>
-                                <span class="description">
-                                ${school.reviewText}
-                                    <c:choose>
-                                        <c:when test="${fn:length(school.reviewText) > 0}">
-                                            <c:choose>
-                                                <c:when test="${school.reviewSubmitterParent}">
-                                                    <link:schoolProfileParentReview school="${school}"
-                                                                                    styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileParentReview>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <link:schoolProfilePrincipalView school="${school}"
-                                                                                     styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfilePrincipalView>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        <span class="submitted-by">
-                                            <br/>Submitted by ${(school.reviewSubmitterParent)?'a parent':'the school'}
-                                        </span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${pageScope[fn:toLowerCase(school.topSchoolCategory)]}
-                                        </c:otherwise>
-                                    </c:choose>
-                                </span>
-                            </li>
+                            <c:if test="${fn:toLowerCase(school.topSchoolCategory) ne 'publicparents' and
+                                          fn:toLowerCase(school.topSchoolCategory) ne 'privateparents'}">                                   
+                                <li class="${(school.last)?'lastSchool':fn:toLowerCase(school.topSchoolCategory)}">
+                                    <link:article styleClass="badge badge_${fn:toLowerCase(school.topSchoolCategory)}"
+                                                  anchor="${fn:toLowerCase(school.topSchoolCategory)}" target="_blank"
+                                                  articleId="3703">What does this mean?</link:article>
+                                    <link:schoolProfileOverview school="${school}"
+                                                                styleClass="school">${school.name}</link:schoolProfileOverview><c:out
+                                        value=" "/>
+                                    <span class="location">${school.city}, ${school.databaseState}</span><br/>
+                                    <span class="description">
+                                    ${school.reviewText}
+                                        <c:choose>
+                                            <c:when test="${fn:length(school.reviewText) > 0}">
+                                                <c:choose>
+                                                    <c:when test="${school.reviewSubmitterParent}">
+                                                        <link:schoolProfileParentReview school="${school}"
+                                                                                        styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileParentReview>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <link:schoolProfilePrincipalView school="${school}"
+                                                                                         styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfilePrincipalView>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            <span class="submitted-by">
+                                                <br/>Submitted by ${(school.reviewSubmitterParent)?'a parent':'the school'}
+                                            </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${pageScope[fn:toLowerCase(school.topSchoolCategory)]}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                </li>
+                            </c:if>
                         </c:forEach>
                     </ul>
                     <link:article styleClass="whatMakesATopSchool"
