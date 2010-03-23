@@ -16,15 +16,15 @@
 </head>
 <body>
 
-<p class="link validateEmailLink">Launch the validateEmail hover <span>&#187;</span></p>
-<p class="link editEmailValidatedLink">Launch the editEmailValidated hover <span>&#187;</span></p>
-<p class="link emailNotValidatedLink">Launch the emailNotValidated hover <span>&#187;</span></p>
-<p class="link emailValidatedLink">Launch the emailValidated hover <span>&#187;</span></p>
-<p class="link validateEditEmailLink">Launch the validateEditEmail hover <span>&#187;</span></p>
-<p class="link validateLinkExpiredLink">Launch the validateLinkExpiredLink hover <span>&#187;</span></p>
-<p class="link joinHoverLink">Launch the Join hover! <span>&#187;</span></p>
-<p class="link signInHoverLink">Launch the Sign In hover! <span>&#187;</span></p>
-<p class="link forgotPasswordLink">Launch the Forgot Password hover! <span>&#187;</span></p>
+<p class="link valEmail_showHover">Launch the validateEmail hover <span>&#187;</span></p>
+<p class="link valEditEmail_showHover">Launch the editEmailValidated hover <span>&#187;</span></p>
+<p class="link valNewEmail_showHover">Launch the emailNotValidated hover <span>&#187;</span></p>
+<p class="link regDone_showHover">Launch the emailValidated hover <span>&#187;</span></p>
+<p class="link valNewEmailDone_showHover">Launch the validateEditEmail hover <span>&#187;</span></p>
+<p class="link expVer_showHover">Launch the validateLinkExpiredLink hover <span>&#187;</span></p>
+<p class="link joinHover_showHover">Launch the Join hover! <span>&#187;</span></p>
+<p class="link signInHover_showHover">Launch the Sign In hover! <span>&#187;</span></p>
+<p class="link hover_forgotPassword_showHover">Launch the Forgot Password hover! <span>&#187;</span></p>
    <br/><hr/>
 
 <c:choose>

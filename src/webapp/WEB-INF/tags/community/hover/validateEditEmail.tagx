@@ -2,7 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 
     <script type="text/javascript">
@@ -11,21 +10,13 @@
                 this.dialogByWidth(600);
             }
         };
-        GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('#valEditEmail');
+        GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail');
         
         GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
 
         jQuery(function() {
             GSType.hover.validateEditEmail.loadDialog();
             
-            jQuery('.validateEditEmailLink').click(function() {
-                GSType.hover.validateEditEmail.show();
-            });
-
-            jQuery('#clsValEditEmail').click(function() {
-                GSType.hover.validateEditEmail.hide();
-            });
-
             // <c:if test="${param.showValidateEditEmailHover ne null or requestScope.showValidateEditEmailHover ne null}">
             GSType.hover.validateEditEmail.show();
             // </c:if>
@@ -37,7 +28,7 @@
 
         <p>Please click on the link in the verification email we just sent you to complete your change of email
             address.<br/>
-            <button class="button" type="button" id="clsValEditEmail"><span><span>Ok</span></span></button>
+            <button class="button valEditEmail_hideHover" type="button"><span><span>Ok</span></span></button>
         </p>
     </div>
 </jsp:root>

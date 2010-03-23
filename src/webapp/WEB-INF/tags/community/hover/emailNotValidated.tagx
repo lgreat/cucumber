@@ -2,7 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 
     <script type="text/javascript">
@@ -11,16 +10,12 @@
                 this.dialogByWidth(600);
             }
         };
-        GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('#valNewEmail');
+        GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');
 
         GSType.hover.emailNotValidated = new GSType.hover.EmailNotValidated();
 
         jQuery(function() {
             GSType.hover.emailNotValidated.loadDialog();
-
-            jQuery('.emailNotValidatedLink').click(function() {
-                GSType.hover.emailNotValidated.show();
-            });
 
             jQuery('#clsValNewEmail').click(function() {
                 var email = '${requestScope.email}';
