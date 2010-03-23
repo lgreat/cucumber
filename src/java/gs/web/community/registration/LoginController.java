@@ -1,12 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.53 2010/03/11 23:52:19 aroy Exp $
+ * $Id: LoginController.java,v 1.54 2010/03/23 15:44:05 aroy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.util.CommunityUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -35,11 +34,7 @@ public class LoginController extends SimpleFormController {
 
     public static final String BEAN_ID = "/community/loginOrRegister.page";
 
-    public static final String USER_DOES_NOT_EXIST_ERROR_CODE = "not_a_member";
     public static final String INVALID_PASSWORD_CODE = "invalid_password";
-    public static final String NOT_MATCHING_PASSWORDS_CODE = "not_matching_passwords";
-    public static final String USER_PROVISIONAL_CODE = "provisional";
-    public static final String USER_NO_PASSWORD_CODE = "user_no_password";
     public static String DEFAULT_REDIRECT_URL = null;
 
     private IUserDao _userDao;
@@ -119,16 +114,16 @@ public class LoginController extends SimpleFormController {
             isMslSubscriber = (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
         }
 
-        if (user == null || (user.isEmailProvisional() && !_requireEmailValidation)) {
+        if (LoginValidatorHelper.noSuchUser(user, _requireEmailValidation)) {
             errors.reject(null,
                     "There is no account associated with that email address.");
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
-        } else if (user.isEmailProvisional() && _requireEmailValidation) {
+        } else if (LoginValidatorHelper.userNotValidated(user, _requireEmailValidation)) {
             errors.reject("email");
             request.setAttribute("showEmailNotValidatedHover", "true");
             request.setAttribute("email", user.getEmail());
             _log.info("Community login: user " + loginCommand.getEmail() + " has not validated their email.");
-        } else if (user.isPasswordEmpty()) {
+        } else if (LoginValidatorHelper.userNoPassword(user)) {
 //            errors.reject("email", "There is no community account associated with that email address.");
             errors.reject("email");
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, user.getEmail());
@@ -140,22 +135,16 @@ public class LoginController extends SimpleFormController {
                     "! You've already subscribed to My School List, " +
                     "but still need to create an account with GreatSchools. " + joinLink);
             _log.info("Community login: non-community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
-        } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
-
+        } else if (LoginValidatorHelper.userDeactivated(user)) {
             String errmsg = "The account associated with that email address has been disabled. " +
                     "Please <a href=\"http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/report/email-moderator\">contact us</a> for more information.";
             errors.reject(null, errmsg);
             _log.info("Community login: disabled community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
+        } else if (LoginValidatorHelper.passwordMismatch(user, loginCommand.getPassword())) {
+            errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect.");
         } else {
-            String password = loginCommand.getPassword();
-            // validate password
-            if ( (StringUtils.isNotEmpty(password) && StringUtils.isEmpty(user.getPasswordMd5())) ||
-                    (StringUtils.isEmpty(password) && StringUtils.isNotEmpty(user.getPasswordMd5())) ||
-                    (!user.matchesPassword(password)) ) {
-                errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect.");
-            }
             _log.info("Community login: community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         }
     }
