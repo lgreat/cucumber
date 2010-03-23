@@ -2608,7 +2608,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_v1.png);
+    background-image: url(/res/img/sprites/iconSprite_v2.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
