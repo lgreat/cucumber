@@ -515,9 +515,9 @@
     </bean>
 
     <bean name="/content/cms/topicCenter.page"
-          class="gs.web.content.cms.CmsTopicCenterController"
+          class="gs.web.content.cms.CmsTopicCenterController2010"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/cms/topicCenter"/>
+        <property name="viewName" value="/content/cms/topicCenter2010"/>
         <property name="useAdKeywords" value="true"/>
     </bean>
 
