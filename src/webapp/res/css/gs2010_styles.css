@@ -890,6 +890,10 @@ body.cobranded #pageGS {
     line-height:25px;
 }
 
+.dotted{
+    border-bottom:1px dotted #999;
+}
+
 .mrgtop_2{
     margin-top:2px;
 }
@@ -1282,6 +1286,20 @@ body.ie6 .clearfix {
     filter: alpha(opacity = 100);
 }
 
+#rhy-replyArrow-fff-onTC {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    top: 16px;
+    left: -10px;
+    background: none;
+    border-top: 6px solid #ebebeb;
+    border-right: 10px solid white;
+    border-bottom: 6px solid #ebebeb;
+    filter: alpha(opacity = 100);
+}
+
 #raise-your-hand{
     margin:20px 0;
 }
@@ -1292,10 +1310,19 @@ body.ie6 .clearfix {
 }
 .ryh-topsection {
     overflow: hidden;
-    padding: 0 0 24px;
+    /*padding: 0 0 24px;*/
 }
 .ryh-title{
     width:292px;
+    padding:15px;
+    background:white;
+    position:relative;
+    float:left;
+    margin-bottom:20px;
+}
+
+.ryh-title-onTC{
+    width:363px;
     padding:15px;
     background:white;
     position:relative;
@@ -1305,12 +1332,29 @@ body.ie6 .clearfix {
     text-decoration:none;
 }
 
+#ryhAnswerCount{
+    margin-top:7px;
+    margin-bottom:-7px;
+}
+
 .ryh-answer{
     padding-left:335px;
 }
 
+.ryh-answer-onTC{
+    padding-top:5px;
+}
+
 .ryhAnswer{
     margin:8px 0;
+}
+
+.ryhAnswerLabel{
+    margin-top:10px;
+}
+
+#ryhSubmit{
+    padding-left:68px;
 }
 
 .ryh-bottomsection{
@@ -1323,7 +1367,15 @@ body.ie6 .clearfix {
 
 .ryh-reply-text {
     width:474px;
-    margin-left:20px;
+    margin-left:12px;
+    padding:12px;
+    background:white;
+    position:relative
+}
+
+.ryh-reply-text-onTC {
+    width:307px;
+    margin-left:12px;
     padding:12px;
     background:white;
     position:relative
@@ -2431,6 +2483,11 @@ ul.srchSuggest li span {
     padding-bottom:10px;
     border-bottom:1px dotted #999;
     margin-bottom:10px;
+}
+
+.avatar_40{
+    width:40px;
+    padding:0 10px 10px 0;
 }
 
 .avatar_48{

@@ -198,8 +198,17 @@
             <div id="featured-question-hd" class="smallAlertText">FEATURED QUESTION</div>
         </c:if>
 
+        <c:choose>
+            <c:when test="${style eq 'topicCenter'}">
+                <c:set var="ryhTitle" value="ryh-title-onTC"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="ryhTitle" value="ryh-title"/>
+            </c:otherwise>
+        </c:choose>
+
         <div class="ryh-topsection">
-            <div class="ryh-title rnd8 fltlft">
+            <div class="${ryhTitle} rnd8">
                 <div id="rhy-downArrow-fff"><!--do not collapse--></div>
                 <link:discussion discussionId="${discussion.id}"
                                  fullUri="${discussion.discussionBoard.fullUri}"
@@ -228,17 +237,37 @@
             </div>
             <!-- end ryh-title -->
 
-            <div class="ryh-answer">
-                <!--<form action="#">-->
-                <label for="ryhAnswer" class="text1">Your reply:
-                    <span class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></span></label>
+            <c:choose>
+                <c:when test="${style eq 'topicCenter'}">
+                    <c:set var="ryh_answer" value="ryh-answer-onTC"/>
+                    <c:set var="ryhAnswerLabel" value="ryhAnswerLabel"/>
+                    <c:set var="textareaWidth" value="320px"/>
+                    <c:set var="textareaHeight" value="58px"/>
+                    <c:set var="ryhSubmit" value="ryhSubmit"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="ryh_answer" value="ryh-answer"/>
+                    <c:set var="ryhAnswerLabel" value=""/>
+                    <c:set var="textareaWidth" value="231px"/>
+                    <c:set var="textareaHeight" value="55px"/>
+                    <c:set var="ryhSubmit" value=""/>
+                </c:otherwise>
+            </c:choose>
 
-                <textarea name="ryhAnswer" class="ryhAnswer" id="ryhAnswer" rows="3" cols="50"
-                          style="width: 231px; height: 55px;"><!-- --></textarea>
+            <div class="${ryh_answer}">
+                <!--<form action="#">-->
+                <span class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></span>
+
+                <c:if test="${style eq 'topicCenter'}">
+                    <br class="clearfloat"/>
+                </c:if>
+
+                <label for="ryhAnswer" class="${ryhAnswerLabel} text1 fltlft">Your reply: </label>
+                <textarea name="ryhAnswer" class="ryhAnswer fltrt" id="ryhAnswer" rows="3" cols="50"
+                          style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- --></textarea>
                 <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
 
-
-                <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft">
+                <button type="button" id="${ryhSubmit}" name="Submit" value="Submit" class="btn25 fltlft">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
                 </button>
                 <!--</form>-->
@@ -247,6 +276,15 @@
             <br class="clearfloat"/>
         </div>
         <!-- end ryh-topsection -->
+
+            <c:if test="${style eq 'topicCenter'}">
+                <div class="spacer_15 dotted">
+                    <!-- do not collapse -->
+                </div>
+                <div class="spacer_15">
+                    <!-- do not collapse -->
+                </div>
+            </c:if>
 
         <c:choose>
             <c:when test="${fn:length(replies) == 0}">
@@ -257,9 +295,27 @@
             </c:otherwise>
         </c:choose>
 
+        <c:choose>
+            <c:when test="${style eq 'topicCenter'}">
+                <c:set var="avatarSize" value="40"/>
+                <c:set var="avatar" value="avatar_40"/>
+                <c:set var="replyText" value="ryh-reply-text-onTC"/>
+                <c:set var="replyArrow" value="rhy-replyArrow-fff-onTC"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="avatarSize" value="48"/>
+                <c:set var="avatar" value="avatar_48"/>
+                <c:set var="replyText" value="ryh-reply-text"/>
+                <c:set var="replyArrow" value="rhy-replyArrow-fff"/>
+            </c:otherwise>
+        </c:choose>
+
         <div class="ryh-bottomsection clearfix" style="display: ${recentRepliesDisplay};">
 
-            <span class="text1bold">Recent replies</span>
+            <c:choose>
+                <c:when test="${style eq 'topicCenter'}"><span class="text1bold">Recent Answers</span></c:when>
+                <c:otherwise><span class="text1bold">Recent replies</span></c:otherwise>
+            </c:choose>
 
             <div class="spacer_15">
                 <!-- do not collapse -->
@@ -268,16 +324,16 @@
 
                 <div id="recentAnswerTemplate" style="display: none;">
                     <div class="ryh-reply">
-                        <div class="ryh-avatar fltlft">
+                        <div class="${avatar} fltlft">
                             <link:userProfile user="${user}">
-                                <community:avatar user="${user}" width="48" height="48"
+                                <community:avatar user="${user}" width="${avatarSize}" height="${avatarSize}"
                                                   cssStyle="border: 1px solid #c6c6c6;"/>
                             </link:userProfile>
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="ryh-reply-text fltlft rnd8">
-                            <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
+                        <div class="${replyText} fltlft rnd8">
+                            <div id="${replyArrow}"><!--do not collapse--></div>
 
                             <link:userProfile user="${user}">
                                 <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
@@ -321,17 +377,17 @@
                 <c:forEach var="reply" items="${replies}">
 
                     <div class="ryh-reply">
-                        <div class="ryh-avatar fltlft">
+                        <div class="${avatar} fltlft">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
                                     <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
-                                        <community:avatar user="${reply.user}" width="48" height="48"
+                                        <community:avatar user="${reply.user}" width="${avatarSize}" height="${avatarSize}"
                                                           cssStyle="border: 1px solid #c6c6c6;"
                                                           anonymous="${reply.anonymous}"/>
                                     </link:userProfile>
                                 </c:when>
                                 <c:otherwise>
-                                    <community:avatar user="${reply.user}" width="48" height="48"
+                                    <community:avatar user="${reply.user}" width="${avatarSize}" height="${avatarSize}"
                                                       anonymous="${reply.anonymous}"
                                                       cssStyle="border: 1px solid #c6c6c6;"/>
                                 </c:otherwise>
@@ -339,8 +395,8 @@
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="ryh-reply-text fltlft rnd8">
-                            <div id="rhy-replyArrow-fff"><!--do not collapse--></div>
+                        <div class="${replyText} fltlft rnd8">
+                            <div id="${replyArrow}"><!--do not collapse--></div>
 
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
