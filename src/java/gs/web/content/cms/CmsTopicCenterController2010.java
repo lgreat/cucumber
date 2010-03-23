@@ -1,5 +1,15 @@
 package gs.web.content.cms;
 
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.School;
+import gs.data.school.SchoolWithRatings;
+import gs.data.school.review.IReviewDao;
+import gs.data.state.State;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
@@ -25,6 +35,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private String _viewName;
     private IPublicationDao _publicationDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private ISchoolDao _schoolDao;
+    private IReviewDao _reviewDao;
+    private IGeoDao _geoDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
 
@@ -52,7 +65,15 @@ public class CmsTopicCenterController2010 extends AbstractController {
             if (showSample) {
                 topicCenter = getSampleTopicCenter();
             } else {
-                if (getTopicCenterContentID() == null) {
+                if (uri.startsWith("/preschool/")) {
+                    contentId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
+                } else if (uri.startsWith("/elementary-school/")) {
+                    contentId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
+                } else if (uri.startsWith("/middle-school/")) {
+                    contentId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
+                } else if (uri.startsWith("/high-school/")) {
+                    contentId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+                } else if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
                     } catch (Exception e) {
@@ -98,9 +119,86 @@ public class CmsTopicCenterController2010 extends AbstractController {
             populateCarouselModel(topicCenter, model);
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
+
+            // find a school module
+            if (topicCenter.isGradeLevelTopicCenter()) {
+                // check for a change of city
+                SessionContext context = SessionContextUtil.getSessionContext(request);
+                String cityName = request.getParameter("city");
+                if (cityName != null) {
+                    // if so update the user's cookie
+                    String stateAbbr = request.getParameter("state");
+                    City city = getGeoDao().findCity(State.fromString(stateAbbr), cityName);
+                    if (city != null) {
+                        context.getSessionContextUtil().changeCity(context, request, response, city);
+                        context.setCity(city); // saves a DB query later
+                    }
+                }
+
+                LevelCode levelCode = null;
+                if (topicCenter.isPreschoolTopicCenter()) {
+                    levelCode = LevelCode.PRESCHOOL;
+                } else if (topicCenter.isElementarySchoolTopicCenter()) {
+                    levelCode = LevelCode.ELEMENTARY;
+                } else if (topicCenter.isMiddleSchoolTopicCenter()) {
+                    levelCode = LevelCode.MIDDLE;
+                } else {
+                    levelCode = LevelCode.HIGH;
+                }
+                loadTopRatedSchools(model, context, levelCode);
+            }
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    //===================================== ====================================
+    // find a school
+    //=========================================================================
+
+    protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context, LevelCode levelCode) {
+        City userCity;
+        if (context.getCity() != null) {
+            userCity = context.getCity();
+        } else {
+            userCity = getGeoDao().findCity(State.CA, "Los Angeles");
+        }
+        model.put("cityObject", userCity);
+        loadCityDropdown(model, userCity.getState());
+
+        if("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())){
+            model.put("specialCity","Washington, DC");
+        }
+
+        List<SchoolWithRatings> topRatedSchools =
+                getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), 3);
+        _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
+
+        for (SchoolWithRatings school : topRatedSchools) {
+            System.out.println("school: " + school.getSchool());
+        }
+
+        if (topRatedSchools.size() > 0) {
+            model.put("topRatedSchools", topRatedSchools);
+            List<School> schools = new ArrayList<School>(topRatedSchools.size());
+            for (SchoolWithRatings s: topRatedSchools) {
+                schools.add(s.getSchool());
+            }
+            model.put("topSchools", schools);
+        } else {
+            List schools = getSchoolDao().findSchoolsInCity(userCity.getState(), userCity.getName(), false);
+            if (schools.size() > 0) {
+                if (schools.size() > 10) {
+                    schools = schools.subList(0, 10);
+                }
+                model.put("topSchools", schools);
+            }
+        }
+    }
+
+    protected void loadCityDropdown(Map<String, Object> model, State state) {
+        List<City> cities = getGeoDao().findAllCitiesByState(state);
+        model.put("cityList", cities);
     }
 
     //=========================================================================
@@ -462,5 +560,29 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
         _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }

@@ -14,12 +14,41 @@
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="levelCodeName" required="true" description="Level code name"/>
 
+    <div id="findASchool" class="mod">
+        <div class="mod_hd">
+            <h3>Find a School</h3>
+        </div>
+        <div class="mod_bd srchFrm">
+            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial"
+                        onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
+                <input type="hidden" name="c" value="school"/>
+                <input type="text" name="q" id="schoolSearchText" class="fltlft db_search_input formText2 tint_777"
+                       value="Search for school, district or city"
+                       onfocus="textSwitch(this, '', 'Search for school, district or city');"
+                       onblur="textSwitch(this, 'Search for school, district or city', '');"/>
 
-<h2>Top ${levelCodeName} schools: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h2>
+                <div class="fltlt">
+                    <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
+                                         styleId="findStateSelector"
+                                         noStateLabel="--"
+                                         usingLongNames="false"
+                                         state="${requestScope.context.state}" styleClass="formState fltlt"/>
+                </div>
+                <button class="btn25 fltlt" type="submit">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">Go</span>
+                        </span>
+                </button>
+            </gsweb:form>
+        </div>
+    </div>
+
+
+<h5 class="text1">Top ${levelCodeName} schools: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h5>
 
 <div class="changeCity">Change city:
     <span id="topCitiesCityListSpan">
-        <select id="topCitiesCityList" onchange="changeCity(this.value, $('topSchoolsStateSelector').value);">
+        <select id="topCitiesCityList" onchange="changeCity(this.value, document.getElementById('topSchoolsStateSelector').value);">
             <c:forEach var="curCity" items="${requestScope.cityList}">
                 <c:choose>
                     <c:when test="${city.name eq curCity.name}">
@@ -40,9 +69,9 @@
 </div>
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 <table width="100%" cellpadding="0" cellspacing="0">
-    <tr>
-        <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty city.lon and not empty city.lat and not empty topSchools}">
-            <td style="width:160px; vertical-align: top">
+    <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty city.lon and not empty city.lat and not empty topSchools}">
+        <tr>
+            <td style="width:300px; vertical-align: top">
                 <div id="mapContainer">
                     <div id="map">&#160;
                         <noscript>JavaScript is required in order to view a map of the city and its
@@ -64,12 +93,15 @@
                         </tr>
                     </table>
                 </c:if>
-                <map:schools id="map"
+                <map:schoolsWithRatings id="map"
                              lon="${city.lon}" lat="${city.lat}"
-                             tooltips="true"
-                             schools="${topSchools}"/>
+
+                             schools="${topRatedSchools}"/>
+                <!-- map:schools tooltips="true" -->
             </td>
-        </c:if>
+        </tr>
+    </c:if>
+    <tr>
         <td style="vertical-align: top; padding-left: .3em">
             <c:if test="${empty topRatedSchools}">
                 <div id="noTopSchools">
@@ -77,17 +109,17 @@
                 </div>
             </c:if>
             <c:if test="${not empty topRatedSchools}">
-                <div class="topRatedSchools">                                                                                                                              9635
-                    
+                <div class="topRatedSchools">
+
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
                         <tr style="">
-                            <th style="text-align: left">Top-Rated Public Schools</th>
-                            <th style="text-align: right;">GreatSchools<br/>Rating</th>
+                            <th style="text-align: left">Top-rated public Schools</th>
+                            <th style="text-align: right;">GreatSchools Rating</th>
                         </tr>
                         <c:forEach items="${topRatedSchools}" var="s">
                             <tr>
                                 <td class="dottedLineBottomBox" colspan="2">
-                                    <link:schoolProfileOverview school="${s.school}" title="${s.name}">${s.name}</link:schoolProfileOverview>
+                                    <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3">${s.school.name}</link:schoolProfileOverview>
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                     <c:if test="${s.rating > 0}">
@@ -103,7 +135,7 @@
                         <tr>
                             <td colspan="2">
                                 <link:schools city="${city}"
-                                              levelCode="${levelCode}">See all ${empty specialCity? city.name:specialCity} schools &amp;gt;</link:schools>
+                                              levelCode="${levelCode}" styleClass="smallText1bold">See all ${empty specialCity? city.name:specialCity} schools <span class="alertDoubleArrow">&amp;raquo;</span></link:schools>
                             </td>
                         </tr>
                     </table>

@@ -196,6 +196,32 @@
 
     <div id="sidebarGS" class="col">
 
+        <c:if test="${topicCenter.gradeLevelTopicCenter}">
+
+            <c:choose>
+                <c:when test="${topicCenter.preschoolTopicCenter}">
+                    <c:set var="levelCode" value="p"/>
+                    <c:set var="levelCodeName" value="preschool"/>
+                </c:when>
+                <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+                    <c:set var="levelCode" value="e"/>
+                    <c:set var="levelCodeName" value="elementary"/>
+                </c:when>
+                <c:when test="${topicCenter.middleSchoolTopicCenter}">
+                    <c:set var="levelCode" value="m"/>
+                    <c:set var="levelCodeName" value="middle"/>
+                </c:when>
+                <c:when test="${topicCenter.highSchoolTopicCenter}">
+                    <c:set var="levelCode" value="h"/>
+                    <c:set var="levelCodeName" value="high"/>
+                </c:when>
+            </c:choose>
+            <school:findASchool city="${requestScope.cityObject}"
+                                topRatedSchools="${requestScope.topRatedSchools}"
+                                topSchools="${requestScope.topSchools}"
+                                levelCode="${levelCode}" levelCodeName="${levelCodeName}"/>
+        </c:if>
+
         <c:if test="${topicCenter.contentKey.identifier eq 2220}">
             <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
         </c:if>

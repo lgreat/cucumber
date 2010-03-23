@@ -70,10 +70,10 @@
                 <entry key="/city/**" value="/city.page"/>
                 <entry key="/top-high-schools/**" value="/schools/topSchools.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
-                <entry key="/preschool/**" value="/preschool/index.page"/>
-                <entry key="/elementary-school/**" value="/content/elementarySchool.page"/>
-                <entry key="/middle-school/**" value="/content/middleSchool.page"/>
-                <entry key="/high-school/**" value="/content/highSchool.page"/>
+                <entry key="/preschool/**" value="/content/cms/topicCenter.page"/>
+                <entry key="/elementary-school/**" value="/content/cms/topicCenter.page"/>
+                <entry key="/middle-school/**" value="/content/cms/topicCenter.page"/>
+                <entry key="/high-school/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
                 <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
