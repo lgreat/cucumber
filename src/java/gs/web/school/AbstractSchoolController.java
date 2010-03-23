@@ -96,6 +96,10 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                             request.setAttribute(SCHOOL_ATTRIBUTE, s);
                             request.setAttribute(SCHOOL_ID_ATTRIBUTE, fields.getSchoolID());
                             return handleRequestInternal(request, response);
+                        } else {
+                            // GS-9589 Redirect requests for inactive schools to the state home
+                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, s.getDatabaseState(), null);
+                            return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                         }
                     } catch (Exception e) {
                         _log.warn("Could not get a valid or active school: " +
