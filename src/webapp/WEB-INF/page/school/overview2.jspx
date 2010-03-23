@@ -395,10 +395,7 @@
         <div id="col_right" class="noprint">
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
 
-            <!--<c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>-->
-            <!--<promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_SCHOOL_OVERVIEW" showAdPct="99">-->
-                <!--<ad:AboveFold_300x250/>-->
-            <!--</promo:searchRealtorDotCom>-->
+            <ad:AboveFold_300x250/>
 
             <div class="ad_middle">
                 <c:choose>
