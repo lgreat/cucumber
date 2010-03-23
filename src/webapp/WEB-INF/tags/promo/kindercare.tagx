@@ -15,7 +15,6 @@
     <![CDATA[<script type="text/javascript" src="/res/js/kindercareLeadGen.js"></script>]]>
     <div id="kindercareLeadGen">
         <div class="kindercareInner">
-            <img src="/res/img/promo/kindercare_logo.png" class="kindercare_logo" alt="KinderCare Learning Centers"/>
             <div class="left">
                 <div class="kinderTitle">
                     Interested in more information from this KinderCare center?
@@ -79,6 +78,10 @@
             <img id="kindercareLeadGenClose" class="closeButton" 
                  src="/res/img/promo/kindercare_close_box.png" alt="Close"/>
             <img src="/res/img/promo/kindercare_right_rule.png" class="right_rule" alt=""/>
+            <a href="http://www.kindercare.com/?cid=GS"
+               class="kindercare_logo"
+               target="_blank"><img src="/res/img/promo/kindercare_logo.png"
+                                    alt="KinderCare Learning Centers" width="131" height="120"/></a>            
         </div>
     </div>
 </jsp:root>
