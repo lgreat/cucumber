@@ -77,7 +77,7 @@ public class KindercareLeadGenAjaxController {
     private HttpClient _httpClient;
 
     @RequestMapping(method = RequestMethod.POST)
-    public String generateLead(@ModelAttribute("command") KindercareLeadGenCommand command,
+    public void generateLead(@ModelAttribute("command") KindercareLeadGenCommand command,
                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         _log.info(command.toString());
         // collect data for soap request
@@ -95,13 +95,10 @@ public class KindercareLeadGenAjaxController {
             }
 
             response.getWriter().print(SUCCESS);
-
-            return null;
         }
 
         _log.warn("Failure generating lead for " + command.getEmail());
         response.getWriter().print(FAILURE);
-        return null;
     }
 
     /**
