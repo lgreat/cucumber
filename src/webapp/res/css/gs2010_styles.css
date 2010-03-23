@@ -318,6 +318,7 @@ h4.subhead2 a {
     margin: 0 auto;
     width: 968px;
     height: 96px;
+    text-align: left;
     background: #2f85eb;
 }
 #adLeaderboard table {
@@ -3025,12 +3026,6 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     font-weight: normal;
     margin: 10px 20px 0;
     font-family: Arial, sans-serif;
-}
-#footerGSIframe {
-    background: none;
-    margin: 0 0 0 2px;
-    width: 970px;
-    height: 293px;
 }
 #footerAd, #homepageFooterAd {
     background: url(/res/img/gs_content_bg.png) repeat-y;

@@ -50,21 +50,15 @@ body {
     background: none;
     font-size: 11px;
     color: #666;
-    padding: 0 4px;
-}
-*+html #footer {
-    magin-left: -4px
+    padding: 0;
 }
 
-*html #footer {
-    magin-left: -4px
-}
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;
     width: 928px;
     padding: 10px 0 0;
-    margin: 0 auto;
+    margin-left: -4px;
     text-align: center;
 }
 #footnav li {
