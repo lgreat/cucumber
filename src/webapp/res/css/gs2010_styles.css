@@ -2428,6 +2428,7 @@ ul.srchSuggest li span {
 }
 
 #recentDiscussions .discussionHolder{
+    padding-bottom:10px;
     border-bottom:1px dotted #999;
     margin-bottom:10px;
 }
