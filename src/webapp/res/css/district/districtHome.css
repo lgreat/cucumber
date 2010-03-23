@@ -502,7 +502,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     background-position:left bottom;
     background-repeat:no-repeat;
     padding-bottom:6px;
-    margin-top:10px;
+    margin: 10px auto;
 }
 
 #nearbyDistricts div.nameAndRating{

@@ -3153,6 +3153,9 @@ button {
 .nocol #realtorDotCom .mod_hd h3 {
     background: #6cc;
     font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    font-size: 20px;
 }
 #realtorDotCom.rdc_thin .mod_bd {
     border-width: 1px;
