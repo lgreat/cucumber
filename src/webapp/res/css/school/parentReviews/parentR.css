@@ -17,11 +17,13 @@
 #contentGS h2 {
     border-bottom: 1px solid #ccc;
     font-size: 21px;
+    padding-bottom: 3px;
 }
 
 #contentGS h3 {
     font-size: 20px;
-    font-wieght: 400;
+    font-weight: 400;
+    color: #d61;
     margin: 10px 0;
 }
 
