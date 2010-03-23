@@ -27,7 +27,7 @@ General comments:
 =D- ie6 4a-5 grade by grade
 =D- ie6 4c-3 infinite carousel
 =D- ie6 5- icons
-
+=temporary modules
 */
 
 /* =A- ie
@@ -633,4 +633,15 @@ body.ie6 .infiniteCarousel .arrow{
 body.ie6 .sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_v2.gif);
+}
+
+/*
+=temporary modules
+--------------------------------------------------------------------------------------
+*/
+body.ie7 #realtorDotCom.rdc_thin .mod_bd {
+    background-position: 1px 0;
+}
+body.ie6 #realtorDotCom.rdc_thin .mod_bd {
+    padding-top: 162px;
 }
