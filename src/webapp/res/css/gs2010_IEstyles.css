@@ -65,11 +65,11 @@ General comments:
 -------------------------------------------------------------------------------------------*/
 
 body.ie7 #mainWrap {
-    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+    height: expression( this.scrollHeight < 401 ? "400px" : "auto" );
 }
 
 *+html #mainWrap {
-    height: expression( this.scrollHeight < 641 ? "640px" : "auto" );
+    height: expression( this.scrollHeight < 401 ? "400px" : "auto" );
 }
 
 body.ie7 #header, *+html #header {
