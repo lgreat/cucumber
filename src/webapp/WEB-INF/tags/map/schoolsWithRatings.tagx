@@ -25,6 +25,10 @@
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
 <jsp:directive.attribute name="zoom" required="false" type="java.lang.Integer" description="Google zoom, overrides minZoom or maxZoom"/>
 <jsp:directive.attribute name="s_cid" required="false" type="java.lang.String" description="Optional s_cid campaign tracking code to append to links"/>
+<jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles" />
+<jsp:directive.attribute name="alwaysUsePreIconsForPreschools" required="false" description="Use Preschool handprint icon for preschools" />
+<jsp:directive.attribute name="showGenericIcon" required="false" description="Use default Google Maps icon instead of icon with ratings" />
+
 <!--
 Schools without lat/lon are skipped.
 -->
@@ -92,7 +96,9 @@ var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
 var specifiedZoom = ${not empty zoom?zoom:0};
 var displayTooltips = true;
-var useBubbles = true;
+var useBubbles = ${empty bubbles or bubbles eq true};
+var alwaysUsePreIconsForPreschools = ${empty alwaysUsePreIconsForPreschools or alwaysUsePreIconsForPreschools eq true};
+var showGenericIcon = ${empty showGenericIcon or showGenericIcon eq true};
 var showLocationMarker = ${showLocationMarker};
 
 <c:if test="${not empty locationPoint}">
@@ -233,28 +239,38 @@ function renderSchools(bounds, filterLevelCode) {
 
             if (filterLevelCode == undefined || filterLevelCode == 'emh' || containsLevelCode(curSchool.levelCode, filterLevelCode)) {
                 if (curSchool.marker == undefined) {
-                    var icon = new GIcon();
-                    var imageValue = curSchool.rating;
-                    if (imageValue == 0) {
-                        if (curSchool.levelCode == 'p') {
-                            imageValue = 'preschool';
-                        } else if (curSchool.type == 'private') {
-                            imageValue = 'private';
-                        } else {
-                            imageValue = 'na';
-                        }
-                    }
-                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-                    icon.shadow =  "/res/img/map/GS_gsr_1_backgroundshadow.png";
-                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
-                    icon.iconSize = new GSize(42,41);
-                    icon.iconAnchor = new GPoint(14,39);
-                    icon.infoWindowAnchor = new GPoint(21,2);
-                    icon.infoShadowAnchor = new GPoint(21,2);
-                    icon.shadowSize = new GSize(42,41);
                     tooltip = curSchool.name;
-                    marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
-                    addBubbleListener(marker, curSchool);
+                    if (showGenericIcon) {
+                        marker = new GMarker(curSchool.location, {title: tooltip});
+                    } else {
+                        var icon = new GIcon();
+                        var imageValue = curSchool.rating;
+                        if (imageValue == 0 || (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1)) {
+                            if (curSchool.levelCode == 'p') {
+                                imageValue = 'preschool';
+                            } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
+                                imageValue = 'preschool';
+                            } else if (curSchool.type == 'private') {
+                                imageValue = 'private';
+                            } else {
+                                imageValue = 'na';
+                            }
+                        }
+                        icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
+                        icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
+                        icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
+                        icon.iconSize = new GSize(42, 41);
+                        icon.iconAnchor = new GPoint(14, 39);
+                        icon.infoWindowAnchor = new GPoint(21, 2);
+                        icon.infoShadowAnchor = new GPoint(21, 2);
+                        icon.shadowSize = new GSize(42, 41);
+                        marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
+                    }
+                    if (useBubbles) {
+                        addBubbleListener(marker, curSchool);
+                    } else {
+                        addClickListener(marker, curSchool.link); // because of closures, farm this off to another method
+                    }
                     if (bounds != undefined) {
                         bounds.extend(curSchool.location);
                     }
@@ -294,6 +310,10 @@ function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
+}
+
+function addClickListener(marker, link) {
+  GEvent.addListener(marker, "click", function() { location = link; });
 }
 
 function addLocationMarker(GS_map, locationPoint) {

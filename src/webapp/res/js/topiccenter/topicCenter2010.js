@@ -70,7 +70,7 @@ function changeCity(cityName, stateAbbr) {
     if (newHref.indexOf('?') > 0) {
         newHref = newHref.substring(0, newHref.indexOf('?'));
     }
-    newHref = newHref + '?city=' + encodeURIComponent(cityName) + '&state=' + stateAbbr;
+    newHref = newHref + '?city=' + encodeURIComponent(cityName) + '&state=' + stateAbbr + '#findASchool';
     window.location.href = newHref;
 }
 

@@ -9,11 +9,15 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.attribute name="city" required="true" description="City object" type="gs.data.geo.City"/>
+    <jsp:directive.attribute name="specialCity" required="false" description="Special city name, e.g. Washington, DC" type="java.lang.String"/>
     <jsp:directive.attribute name="topRatedSchools" required="true" description="List of TopRatedSchool objects" type="java.util.List"/>
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
-    <jsp:directive.attribute name="levelCodeName" required="true" description="Level code name"/>
+    <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
+    <jsp:directive.attribute name="schoolHeading" required="true" description="Heading text for school name column"/>
+    <jsp:directive.attribute name="ratingHeading" required="true" description="Heading text for rating column"/>
 
+    <!-- TODO-9457 Randall, please note that I need the id="findASchool" because I use it as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
         <div class="mod_hd">
             <h3>Find a School</h3>
@@ -44,7 +48,10 @@
     </div>
 
 
-<h5 class="text1">Top ${levelCodeName} schools: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h5>
+<c:choose>
+    <c:when test=""></c:when>
+</c:choose>
+<h5 class="text1">Top ${levelCodePhrase}: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h5>
 
 <div class="changeCity">Change city:
     <span id="topCitiesCityListSpan">
@@ -95,8 +102,11 @@
                 </c:if>
                 <map:schoolsWithRatings id="map"
                              lon="${city.lon}" lat="${city.lat}"
-
-                             schools="${topRatedSchools}"/>
+                             bubbles="false"
+                             alwaysUsePreIconsForPreschools="${levelCode eq 'p'}"
+                             schools="${not empty topRatedSchools ? topRatedSchools : schoolsInCity}"
+                             showGenericIcon="${empty topRatedSchools}"
+                        />
                 <!-- map:schools tooltips="true" -->
             </td>
         </tr>
@@ -105,7 +115,7 @@
         <td style="vertical-align: top; padding-left: .3em">
             <c:if test="${empty topRatedSchools}">
                 <div id="noTopSchools">
-                 <p>There are no ${levelCodeName} schools in ${empty specialCity? city.name:specialCity}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
+                 <p>There are no ${levelCodePhrase} in ${empty specialCity? city.name:specialCity}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
                 </div>
             </c:if>
             <c:if test="${not empty topRatedSchools}">
@@ -113,8 +123,8 @@
 
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
                         <tr style="">
-                            <th style="text-align: left">Top-rated public Schools</th>
-                            <th style="text-align: right;">GreatSchools Rating</th>
+                            <th style="text-align: left">${schoolHeading}</th>
+                            <th style="text-align: right;">${ratingHeading}</th>
                         </tr>
                         <c:forEach items="${topRatedSchools}" var="s">
                             <tr>
