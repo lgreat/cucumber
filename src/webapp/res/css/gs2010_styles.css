@@ -214,13 +214,21 @@ h3.title1white, h3.srchCat {
 
 .text1 {
     font: 14px Arial, Helvetica, sans-serif;
+    color:#333;
+}
+
+.text1-d61 {
+    font: 14px Arial, Helvetica, sans-serif;
+    color:#d61;
 }
 
 .text1bold {
     font:bold 14px Arial, Helvetica, sans-serif;
+    color:#333;
 }
 .text2 {
     font: 13px Arial, Helvetica, sans-serif;
+    color:#333;
 }
 .text2bold {
     font:bold 13px Arial, Helvetica, sans-serif;
@@ -1179,11 +1187,11 @@ body.ie6 .clearfix {
 }
 
 #find input{
-    width: 158.5px;
+    width: 160px;
 }
 
 #find button{
-    margin-top: -4px;
+    /*margin-top: -4px;*/
 }
 #find, #compare {
     padding: 15px 20px;
@@ -1196,7 +1204,7 @@ body.ie6 .clearfix {
 }
 
 #splashStateSelector{
-    margin:0 4px;
+    margin:2px 4px;
 }
 
 #compare {
@@ -2279,21 +2287,19 @@ ul.srchSuggest li span {
     display: none;
 }
 
-#findASchool .srchFrm {
-    padding: 15px 5px 15px 15px;
+#findASchool .mod_bd {
+    padding: 0;
     background: #fc6;
     overflow: hidden;
 }
 
-#findASchool .srchFrm .db_search_input {
-    margin: 1px 0 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    color: #777;
+#findStateSelector{
+    margin:2px 4px;
+}
 
-    width:200px;
-    margin:7px 0 4px 0;
+#findASchool #topCitiesCityList {
+    width:138px;
+    margin:auto 6px;
 }
 
 #findASchool .srchFrm button.fltlt {
@@ -2306,9 +2312,10 @@ ul.srchSuggest li span {
 }
 
 #map {
-    width: 300px;
-    height: 150px;
+    width: 288px;
+    height: 133px;
     position: relative;
+    border:1px solid #c6c6c6;
 }
 
 .topRatedSchools th {
