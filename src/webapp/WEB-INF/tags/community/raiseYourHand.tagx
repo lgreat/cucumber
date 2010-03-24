@@ -236,10 +236,12 @@
                 </c:if>
             </div>
             <!-- end ryh-title -->
-
+            <c:if test="${style eq 'topicCenter'}">
+                <div class="spacer_15"><!-- do not collapse --></div>
+            </c:if>
             <c:choose>
                 <c:when test="${style eq 'topicCenter'}">
-                    <c:set var="ryh_answer" value="ryh-answer-onTC"/>
+                    <c:set var="ryh_answer" value=""/>
                     <c:set var="ryhAnswerLabel" value="ryhAnswerLabel"/>
                     <c:set var="textareaWidth" value="330px"/>
                     <c:set var="textareaHeight" value="58px"/>

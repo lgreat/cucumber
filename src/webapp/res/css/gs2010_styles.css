@@ -1345,25 +1345,12 @@ body.ie6 .clearfix {
     text-decoration:none;
 }
 
-#ryhAnswerCount{
-    margin-top:7px;
-    margin-bottom:0;
-}
-
 .ryh-answer{
     padding-left:335px;
 }
 
-.ryh-answer-onTC{
-    padding-top:5px;
-}
-
 .ryhAnswer{
-    margin:8px 0;
-}
-
-.ryhAnswerLabel{
-    margin-top:10px;
+    margin-bottom:8px;
 }
 
 #ryhSubmit{

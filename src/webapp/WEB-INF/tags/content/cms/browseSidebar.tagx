@@ -42,7 +42,7 @@
                             </c:when>
                             <c:otherwise>
                                 <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
-                                <!-- TODO-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
+                                <!-- DONE-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
                                 <span class='sprite twirlyClosed'><!-- do not collapse --></span>
                                 <a href="#">${subtopic.title}</a>
                             </c:otherwise>
