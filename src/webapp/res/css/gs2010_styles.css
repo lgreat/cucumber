@@ -1187,13 +1187,17 @@ body.ie6 .clearfix {
 }
 
 #find input{
-    width: 160px;
+    width: 158.5px;
 }
 
 #find button{
     /*margin-top: -4px;*/
 }
-#find, #compare {
+#find {
+    padding: 15px 0 15px 20px;
+}
+
+#compare {
     padding: 15px 20px;
 }
 
@@ -1343,7 +1347,7 @@ body.ie6 .clearfix {
 
 #ryhAnswerCount{
     margin-top:7px;
-    margin-bottom:-7px;
+    margin-bottom:0;
 }
 
 .ryh-answer{
@@ -2307,7 +2311,7 @@ ul.srchSuggest li span {
 }
 
 #mapContainer {
-    padding-top: 10px;
+    padding: 10px 0;
     position: relative;
 }
 

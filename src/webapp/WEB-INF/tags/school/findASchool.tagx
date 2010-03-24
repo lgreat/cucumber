@@ -75,6 +75,7 @@
                          usingLongNames="false"
                          state="${city.state}" styleClass="formState fltlft"
                          />
+<br class="clearfloat"/>
 </div>
 
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
