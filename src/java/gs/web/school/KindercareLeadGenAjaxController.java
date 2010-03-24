@@ -26,8 +26,12 @@ import java.util.Date;
 @org.springframework.stereotype.Controller
 @RequestMapping("/school/kindercareLeadGenAjax.page")
 public class KindercareLeadGenAjaxController {
+    // QA URL
+//    public static final String KINDERCARE_SUBMIT_URL =
+//            "http://klc-services-qa.whitehorse.com/klcleadservice/LeadService.asmx/SubmitLead";
+    // LIVE URL
     public static final String KINDERCARE_SUBMIT_URL =
-            "http://klc-services-qa.whitehorse.com/klcleadservice/LeadService.asmx/SubmitLead";
+            "http://services.knowledgelearning.com/klcleadservice/LeadService.asmx/SubmitLead";
     public static final String SECURITY_KEY = "92p4ojsddf";
     public static final String PARTNER = "GS";
     public static final String PARAM_SECURITY_KEY = "securityKey";
