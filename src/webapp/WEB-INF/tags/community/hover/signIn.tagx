@@ -23,8 +23,62 @@
         jQuery(function() {
             GSType.hover.signInHover.loadDialog();
 
+            jQuery('.signInHoverLink').click(function() {
+                GSType.hover.signInHover.show();
+            });
+
+            function loginValidatorHandler(data) {
+                var objCount=0;
+                for(_obj in data) objCount++;;
+
+                if (objCount > 0) {
+                    if (data.noSuchUser) {
+                        GSType.hover.signInHover.addMessage('<p class="error">' + data.noSuchUser + '</p>');
+                    }
+                    if (data.userNoPassword) {
+                        GSType.hover.signInHover.clearMessages();
+                        GSType.hover.signInHover.hide();
+                        //GSType.hover.joinHover.addMessage(data.userNoPassword);
+                        GSType.hover.joinHover.show();
+                    }
+                    if (data.userNotValidated) {
+                        GSType.hover.signInHover.clearMessages();
+                        GSType.hover.signInHover.hide();
+                        GSType.hover.emailNotValidated.show();
+                    }
+                    if (data.email) {
+                        GSType.hover.signInHover.addMessage('<p class="error">' + data.email + '</p>');
+                    }
+                    if (data.userDeactivated) {
+                        GSType.hover.signInHover.addMessage('<p class="error">' + data.userDeactivated + '</p>');
+                    }
+                    if (data.passwordMismatch) {
+                        GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
+                    }
+                } else {
+
+                    var params = {
+                        email: jQuery('#semail').val(),
+                        password: jQuery('#spword').val()
+                    };
+
+                    jQuery('#signin').submit();
+
+                    GSType.hover.signInHover.hide();
+                }
+            }
+
             jQuery('#signinBtn').click(function() {
-               GSType.hover.signInHover.clearMessages(); 
+               GSType.hover.signInHover.clearMessages();
+
+                var params = {
+                    email: jQuery('#semail').val(),
+                    password: jQuery('#spword').val()
+                };
+
+                jQuery.post('/community/registration/popup/loginValidationAjax.page', params, loginValidatorHandler, "json");
+
+                return false;
             });
 
             jQuery('#signInHover').bind('dialogclose', function() {
@@ -45,12 +99,12 @@
         <div class="errors">
             <p class="error"><!-- message --></p>
         </div>
-        <form id="signin" action="#">
+        <form id="signin" action="/community/loginOrRegister.page" method="post">
             <fieldset class="signin">
                 <h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
-                    <li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
-                  <li><label for="spword">Password</label><input type="password" id="spword" name="spword" /></li>
+                    <li><label for="semail">Email address</label><input type="text" id="semail" name="email" /></li>
+                  <li><label for="spword">Password</label><input type="password" id="spword" name="password" /></li>
                 </ul>
             </fieldset>
             <fieldset class="btns">
@@ -58,6 +112,7 @@
                     <span><span>Sign in</span></span>
                 </button>
                 <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+                <input type="hidden" name="rememberMe" value="true" />
             </fieldset>
         </form>
 

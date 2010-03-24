@@ -1652,6 +1652,14 @@
         </property>
     </bean>
 
+    <bean name="/community/registration/popup/loginValidationAjax.page"
+          class="gs.web.community.registration.popup.LoginValidationAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="loginCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.popup.LoginHoverCommand"/>
+        <property name="requireEmailValidation" value="true"/>
+    </bean>
+
     <bean name="/community/loginOrRegister.page"
           class="gs.web.community.registration.LoginController"
           autowire="byName" lazy-init="true">
