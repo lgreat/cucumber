@@ -172,7 +172,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
         }
 
         List<SchoolWithRatings> topRatedSchools =
-                getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS);
+                getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, levelCode.equals(LevelCode.PRESCHOOL));
         _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
 
         // TODO-9457, TODO-9458
@@ -187,7 +187,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             model.put("topSchools", schools);
         } else {
             if (levelCode.equals(LevelCode.PRESCHOOL)) {
-                List<School> schools = getSchoolDao().findSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS);
+                List<School> schools = getSchoolDao().findSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, true);
                 List<SchoolWithRatings> schoolsInCity = new ArrayList<SchoolWithRatings>(schools.size());
                 for (School school : schools) {
                     SchoolWithRatings schoolWithRatings = new SchoolWithRatings();

@@ -160,8 +160,8 @@
                                         <c:when test="${levelCode eq 'p'}">
                                             <c:set var="ratingValue" value="rateit"/>
                                             <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                            <c:if test="${s.rating > 0}">
-                                                <c:set var="ratingValue" value="${s.rating}"/>
+                                            <c:if test="${s.parentRatings.displayOverallRating}">
+                                                <c:set var="ratingValue" value="${s.parentRatings.overall}"/>
                                             </c:if>
                                             <gsml:img
                                                     src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
