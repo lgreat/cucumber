@@ -174,9 +174,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), 3);
         _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
 
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println("school: " + school.getSchool());
-        }
+//        for (SchoolWithRatings school : topRatedSchools) {
+//            System.out.println("school: " + school.getSchool());
+//        }
 
         if (topRatedSchools.size() > 0) {
             model.put("topRatedSchools", topRatedSchools);
