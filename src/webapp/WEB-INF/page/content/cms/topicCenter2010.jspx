@@ -196,8 +196,30 @@
 
     <div id="sidebarGS" class="col">
 
-        <c:if test="${topicCenter.gradeLevelTopicCenter}">
+        <c:if test="${topicCenter.contentKey.identifier eq 2220}">
+            <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
+        </c:if>
 
+        <div id="seasonalPromo">
+            <c:choose>
+                <c:when test="${requestScope.context.cobranded}">
+                    <link:schoolChoiceCenter styleClass="more"><gsml:img
+                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                            alt="School Choice Tips"/></link:schoolChoiceCenter>
+                </c:when>
+                <c:otherwise>
+                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <!-- end #seasonalPromo -->
+
+        <div id="squareadvert">
+            <ad:AboveFold_300x250/>
+        </div>
+        <!-- end #squareadvert -->
+
+        <c:if test="${topicCenter.gradeLevelTopicCenter}">
             <c:choose>
                 <c:when test="${topicCenter.preschoolTopicCenter}">
                     <c:set var="levelCode" value="p"/>
@@ -236,29 +258,6 @@
                                 cityHeadingPrefix="${cityHeadingPrefix}"
                     />
         </c:if>
-
-        <c:if test="${topicCenter.contentKey.identifier eq 2220}">
-            <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
-        </c:if>
-
-        <div id="seasonalPromo">
-            <c:choose>
-                <c:when test="${requestScope.context.cobranded}">
-                    <link:schoolChoiceCenter styleClass="more"><gsml:img
-                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
-                            alt="School Choice Tips"/></link:schoolChoiceCenter>
-                </c:when>
-                <c:otherwise>
-                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <!-- end #seasonalPromo -->
-
-        <div id="squareadvert">
-            <ad:AboveFold_300x250/>
-        </div>
-        <!-- end #squareadvert -->
 
         <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 
