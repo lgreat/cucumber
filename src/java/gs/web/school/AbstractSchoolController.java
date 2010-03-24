@@ -104,6 +104,9 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     } catch (Exception e) {
                         _log.warn("Could not get a valid or active school: " +
                                 fields.getSchoolID() + " in state: " + state, e);
+                        // GS-9589 Redirect requests for inactive schools to the state home
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state, null);
+                        return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                     }
                 //}
             }
