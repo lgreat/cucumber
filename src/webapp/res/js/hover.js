@@ -37,7 +37,6 @@ GSType.hover.HoverDialog = function(id) {
     };
 };
 
-
 //EditEmailValidated Hover
 GSType.hover.EditEmailValidated = function() {
     this.loadDialog = function () {
@@ -45,7 +44,6 @@ GSType.hover.EditEmailValidated = function() {
     }
 };
 GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNewEmailDone');
-
 
 //EmailValidated hover
 GSType.hover.EmailValidated = function() {
@@ -96,7 +94,6 @@ GSType.hover.SignInHover = function() {
 };
 GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover');
 
-
 //ValidateEditEmail Hover
 GSType.hover.ValidateEditEmail = function() {
     this.loadDialog = function() {
@@ -104,7 +101,6 @@ GSType.hover.ValidateEditEmail = function() {
     }
 };
 GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail');
-
 
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
@@ -130,7 +126,6 @@ GSType.hover.EmailNotValidated = function() {
 };
 GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');
 
-
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -144,7 +139,6 @@ GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 function loginValidatorHandler(data) {
     var objCount = 0;
     for (_obj in data) objCount++;
-    ;
 
     if (objCount > 0) {
         if (data.noSuchUser) {
@@ -171,7 +165,6 @@ function loginValidatorHandler(data) {
             GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
         }
     } else {
-
         var params = {
             email: jQuery('#semail').val(),
             password: jQuery('#spword').val()
@@ -182,31 +175,6 @@ function loginValidatorHandler(data) {
         GSType.hover.signInHover.hide();
     }
 }
-
-
-jQuery(function() {
-    GSType.hover.editEmailValidated.loadDialog();
-});
-
-jQuery(function() {
-    GSType.hover.emailNotValidated.loadDialog();
-
-    jQuery('#clsValNewEmail').click(function() {
-        var email = '${requestScope.email}';
-        var params = {
-            email: email
-        };
-        jQuery.get('/community/requestEmailValidation.page', params);
-
-        GSType.hover.emailNotValidated.hide();
-    });
-
-});
-
-jQuery(function() {
-    GSType.hover.emailValidated.loadDialog();
-
-});
 
 function checkValidationResponse(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -226,7 +194,26 @@ function checkValidationResponse(data) {
 }
 
 jQuery(function() {
+    GSType.hover.editEmailValidated.loadDialog();
+    GSType.hover.emailNotValidated.loadDialog();
+    GSType.hover.emailValidated.loadDialog();
     GSType.hover.forgotPassword.loadDialog();
+    GSType.hover.joinHover.loadDialog();
+    GSType.hover.signInHover.loadDialog();
+    GSType.hover.validateEditEmail.loadDialog();
+    GSType.hover.validateEmail.loadDialog();
+    GSType.hover.validateLinkExpired.loadDialog();
+
+    jQuery('#clsValNewEmail').click(function() {
+        var email = '${requestScope.email}';
+        var params = {
+            email: email
+        };
+        jQuery.get('/community/requestEmailValidation.page', params);
+
+        GSType.hover.emailNotValidated.hide();
+    });
+
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.post('/community/forgotPasswordValidator.page',
@@ -241,20 +228,10 @@ jQuery(function() {
         GSType.hover.forgotPassword.clearMessages();
     });
 
-});
-
-
-jQuery(function() {
-    GSType.hover.joinHover.loadDialog();
-});
-
-jQuery(function() {
-    GSType.hover.signInHover.loadDialog();
 
     jQuery('.signInHoverLink').click(function() {
         GSType.hover.signInHover.show();
     });
-
 
     jQuery('#signinBtn').click(function() {
         GSType.hover.signInHover.clearMessages();
@@ -275,23 +252,6 @@ jQuery(function() {
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page?redirect=" + window.location.href);
 
-
-});
-
-
-jQuery(function() {
-    GSType.hover.validateEditEmail.loadDialog();
-});
-
-
-jQuery(function() {
-    GSType.hover.validateEmail.loadDialog();
-});
-
-
-jQuery(function() {
-    GSType.hover.validateLinkExpired.loadDialog();
-
     jQuery('#clsExpVer').click(function() {
         var email = '${requestScope.email}';
         var params = {
@@ -301,5 +261,4 @@ jQuery(function() {
 
         GSType.hover.validateLinkExpired.hide();
     });
-
 });
