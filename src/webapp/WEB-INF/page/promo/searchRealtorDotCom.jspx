@@ -9,57 +9,6 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib">
-    <c:set var="alternateStyle" value=""/>
-    <c:if test="${requestScope.size eq '160x600'}">
-        <c:set var="alternateStyle" value="rdc_thin"/>
-    </c:if>
-    <div class="mod ${alternateStyle}" id="realtorDotCom">
-        <c:if test="${requestScope.size ne '160x600'}">
-        <div class="mod_hd">
-            <h3>Find a Home</h3>
-        </div>
-        </c:if>
-        <div class="mod_bd">
-            <p><strong>Find a home nearby</strong>
-                from more than 3 million real estate listings, homes for sale, and rental properties</p>
-
-            <p><label for="rdcCity">Location:</label>
-            <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
-
-            <p><label for="rdcPriceMin">Price:</label>
-            <input type="text" name="rdcPriceMin" class="rdPrice" id="rdcPriceMin" />
-            <label for="rdcPriceMax" class="noflt">to</label>
-            <input type="text" name="rdcPriceMax" class="rdPrice" id="rdcPriceMax" /></p>
-
-            <p><label for="rdcBeds">Beds:</label>
-            <select name="rdcBeds" id="rdcBeds">
-                <option value="any">Any</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
-            </select></p>
-
-            <p><label for="rdcBaths">Baths:</label>
-            <select name="rdcBaths" id="rdcBaths">
-                <option value="any">Any</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
-            </select></p>
-            <p><button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
-                <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-            </button></p>
-            <a href="http://www.realtor.com" onclick="alert('foo'); if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_300x250_browseLogo');} return true;">
-                <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
-            </a>
-            <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank"><!-- no collapse --></form>
-        </div>
-
-    </div>
     <script type="text/javascript">
         <![CDATA[
         //<!--
@@ -109,7 +58,7 @@
             submitForm.action = searchURL;
 
             if (s.tl) {
-                s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_300x250_searchGo');
+                s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_searchGo');
             }
             submitForm.submit();
             return false;
@@ -117,4 +66,58 @@
         //-->
         ]]>
     </script>
+    <c:set var="alternateStyle" value=""/>
+    <c:if test="${requestScope.size eq '160x600'}">
+        <c:set var="alternateStyle" value="rdc_thin"/>
+    </c:if>
+    <div class="mod ${alternateStyle}" id="realtorDotCom">
+        <c:if test="${requestScope.size ne '160x600'}">
+        <div class="mod_hd">
+            <h3>Find a Home</h3>
+        </div>
+        </c:if>
+        <div class="mod_bd">
+            <p><strong>Find a home nearby</strong>
+                from more than 3 million real estate listings, homes for sale, and rental properties</p>
+
+            <p><label for="rdcCity">Location:</label>
+            <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
+
+            <p><label for="rdcPriceMin">Price:</label>
+            <input type="text" name="rdcPriceMin" class="rdPrice" id="rdcPriceMin" />
+            <label for="rdcPriceMax" class="noflt">to</label>
+            <input type="text" name="rdcPriceMax" class="rdPrice" id="rdcPriceMax" /></p>
+
+            <p><label for="rdcBeds">Beds:</label>
+            <select name="rdcBeds" id="rdcBeds">
+                <option value="any">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+            </select></p>
+
+            <p><label for="rdcBaths">Baths:</label>
+            <select name="rdcBaths" id="rdcBaths">
+                <option value="any">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+            </select></p>
+            <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank">
+                <input type="hidden" name="gate" value="gs"/>
+                <!--<input type="hidden" name="source" value=""/>-->
+            </form>
+            <p><button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
+                <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
+            </button></p>
+            <a href="http://www.realtor.com" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_browseLogo');} return true;">
+                <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
+            </a>
+        </div>
+
+    </div>
 </jsp:root>

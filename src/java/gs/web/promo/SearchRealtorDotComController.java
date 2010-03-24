@@ -63,7 +63,11 @@ public class SearchRealtorDotComController extends AbstractController {
                 Map<String, Object> model = new HashMap<String, Object>();
                 model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
                 model.put(MODEL_OMNITURE_PAGE_NAME, request.getParameter(OMNITURE_PAGE_NAME_PARAM));
-                model.put(MODEL_SIZE, request.getParameter(SIZE_PARAM));
+                String size = request.getParameter(SIZE_PARAM);
+                if (StringUtils.isBlank(size)) {
+                    size = "320x250";
+                }
+                model.put(MODEL_SIZE, size);
                 return new ModelAndView(_viewName, model);
             }
         } catch (Exception e) {
