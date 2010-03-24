@@ -10,12 +10,14 @@
         >
     <jsp:directive.attribute name="city" required="true" description="City object" type="gs.data.geo.City"/>
     <jsp:directive.attribute name="specialCity" required="false" description="Special city name, e.g. Washington, DC" type="java.lang.String"/>
-    <jsp:directive.attribute name="topRatedSchools" required="true" description="List of TopRatedSchool objects" type="java.util.List"/>
+    <jsp:directive.attribute name="topRatedSchools" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
+    <jsp:directive.attribute name="schoolsInCity" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
     <jsp:directive.attribute name="schoolHeading" required="true" description="Heading text for school name column"/>
     <jsp:directive.attribute name="ratingHeading" required="true" description="Heading text for rating column"/>
+    <jsp:directive.attribute name="cityHeadingPrefix" required="true" description="Heading text before city name"/>
 
     <!-- TODO-9457 Randall, please note that I need the id="findASchool" because I use it as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
@@ -51,10 +53,11 @@
 <c:choose>
     <c:when test=""></c:when>
 </c:choose>
-<h5 class="text1">Top ${levelCodePhrase}: <span class="cityName">${empty specialCity? city.name:specialCity}</span></h5>
+<h5 class="text1">${cityHeadingPrefix} <span class="cityName">${empty specialCity? city.name:specialCity}</span></h5>
 
 <div class="changeCity">Change city:
     <span id="topCitiesCityListSpan">
+        <span id="topCitiesCityLoadingSpan"><!-- don't collapse --></span>
         <select id="topCitiesCityList" onchange="changeCity(this.value, document.getElementById('topSchoolsStateSelector').value);">
             <c:forEach var="curCity" items="${requestScope.cityList}">
                 <c:choose>
@@ -72,7 +75,7 @@
                          styleId="topSchoolsStateSelector"
                          usingLongNames="false"
                          state="${city.state}" styleClass="formState"
-                         onChange="changeState(this);"/>
+                         /> <!-- TODO-9458 onChange="changeState(this);" -->
 </div>
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -87,7 +90,7 @@
                     </div>
                 </div>
 
-                <c:if test="${empty topRatedSchools}">
+                <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty schoolsInCity)}">
                     <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
                         <tr>
                             <td style="font-weight: normal">Showing ${fn:length(topSchools)}
@@ -113,12 +116,22 @@
     </c:if>
     <tr>
         <td style="vertical-align: top; padding-left: .3em">
-            <c:if test="${empty topRatedSchools}">
+            <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty schoolsInCity)}">
                 <div id="noTopSchools">
                  <p>There are no ${levelCodePhrase} in ${empty specialCity? city.name:specialCity}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
                 </div>
             </c:if>
-            <c:if test="${not empty topRatedSchools}">
+            <c:choose>
+                <c:when test="${not empty topRatedSchools}">
+                    <c:set var="schoolListings" value="${topRatedSchools}"/>
+                    <c:set var="showEnrollment" value="${false}"/>
+                </c:when>
+                <c:when test="${levelCode eq 'p' and not empty schoolsInCity}">
+                    <c:set var="schoolListings" value="${schoolsInCity}"/>
+                    <c:set var="showEnrollment" value="${true}"/>
+                </c:when>
+            </c:choose>
+            <c:if test="${not empty schoolListings}">
                 <div class="topRatedSchools">
 
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
@@ -126,19 +139,46 @@
                             <th style="text-align: left">${schoolHeading}</th>
                             <th style="text-align: right;">${ratingHeading}</th>
                         </tr>
-                        <c:forEach items="${topRatedSchools}" var="s">
+                        <c:forEach items="${schoolListings}" var="s">
                             <tr>
                                 <td class="dottedLineBottomBox" colspan="2">
                                     <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3">${s.school.name}</link:schoolProfileOverview>
-                                    <c:set var="ratingValue" value="na"/>
-                                    <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                    <c:if test="${s.rating > 0}">
-                                        <c:set var="ratingValue" value="${s.rating}"/>
-                                    </c:if>
-                                    <gsml:img
-                                            src="/res/img/school/ratings/${ratingValue}.gif"
-                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
-                                            styleClass="ratingImage"/>
+
+                                    <c:choose>
+                                        <c:when test="${showEnrollment}">
+                                            <c:set var="enrollmentOrCapacity" value="${s.school.enrollmentOrCapacity}"/>
+                                            <c:choose>
+                                                <c:when test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                                                    <span class="fltrt">${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="fltrt">N/A</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:when test="${levelCode eq 'p'}">
+                                            <c:set var="ratingValue" value="rateit"/>
+                                            <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                            <c:if test="${s.rating > 0}">
+                                                <c:set var="ratingValue" value="${s.rating}"/>
+                                            </c:if>
+                                            <gsml:img
+                                                    src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
+                                                    alt="Parent Rating: ${ratingValue} out of 5."
+                                                    styleClass="ratingImage"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="ratingValue" value="na"/>
+                                            <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                            <c:if test="${s.rating > 0}">
+                                                <c:set var="ratingValue" value="${s.rating}"/>
+                                            </c:if>
+                                            <gsml:img
+                                                    src="/res/img/school/ratings/${ratingValue}.gif"
+                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
+                                                    styleClass="ratingImage"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>

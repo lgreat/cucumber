@@ -175,6 +175,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS);
         _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
 
+        // TODO-9457, TODO-9458
+//System.out.println("# schools with ratings: " + topRatedSchools.size());
+
         if (topRatedSchools.size() > 0) {
             model.put("topRatedSchools", topRatedSchools);
             List<School> schools = new ArrayList<School>(topRatedSchools.size());
@@ -183,6 +186,17 @@ public class CmsTopicCenterController2010 extends AbstractController {
             }
             model.put("topSchools", schools);
         } else {
+            if (levelCode.equals(LevelCode.PRESCHOOL)) {
+                List<School> schools = getSchoolDao().findSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS);
+                List<SchoolWithRatings> schoolsInCity = new ArrayList<SchoolWithRatings>(schools.size());
+                for (School school : schools) {
+                    SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
+                    schoolWithRatings.setSchool(school);
+                    schoolsInCity.add(schoolWithRatings);
+                }
+                model.put("schoolsInCity", schoolsInCity);
+                
+            }
             List<School> schools = (List<School>)getSchoolDao().findSchoolsInCity(userCity.getState(), userCity.getName(), false);
 
             if (schools.size() > 0) {
@@ -201,55 +215,6 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 model.put("topSchools", schools);
             }
         }
-
-        /*
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println(levelCode.getLowestLevel() + " school: " + school.getSchool());
-        }
-
-        if (topRatedSchools.size() > 0) {
-            model.put("topRatedSchools", topRatedSchools);
-        } else {
-            topRatedSchools =
-                getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, LevelCode.Level.PRESCHOOL_LEVEL, MAX_TOP_SCHOOLS);
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println("P school: " + school.getSchool());
-        }
-            if (topRatedSchools.size() == 0) {
-                topRatedSchools =
-                        getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, LevelCode.Level.ELEMENTARY_LEVEL, MAX_TOP_SCHOOLS);
-            }
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println("E school: " + school.getSchool());
-        }
-            if (topRatedSchools.size() == 0) {
-                topRatedSchools.addAll(
-                        getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, LevelCode.Level.MIDDLE_LEVEL, MAX_TOP_SCHOOLS));
-            }
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println("M school: " + school.getSchool());
-        }
-            if (topRatedSchools.size() == 0) {
-                topRatedSchools.addAll(
-                        getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, LevelCode.Level.HIGH_LEVEL, MAX_TOP_SCHOOLS));
-            }
-        for (SchoolWithRatings school : topRatedSchools) {
-            System.out.println("H school: " + school.getSchool());
-        }
-            if (topRatedSchools.size() > 0) {
-                if (topRatedSchools.size() > MAX_TOP_SCHOOLS) {
-                    topRatedSchools = topRatedSchools.subList(0, MAX_TOP_SCHOOLS);
-                }
-            }
-            _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
-            model.put("topRatedSchoolsAnyLevelCode", topRatedSchools);
-        }
-        List<School> schools = new ArrayList<School>(topRatedSchools.size());
-        for (SchoolWithRatings s : topRatedSchools) {
-            schools.add(s.getSchool());
-        }
-        model.put("topSchools", schools);
-        */
     }
 
     protected void loadCityDropdown(Map<String, Object> model, State state) {

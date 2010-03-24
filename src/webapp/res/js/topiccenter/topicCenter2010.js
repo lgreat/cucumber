@@ -19,6 +19,30 @@ $j(document).ready(function() {
     if ($j('google_ads_div_Library_Article_Page_AboveFold_Left_160x600').length > 0) {
         $j('.skyscraperAd').show();
     }
+
+    // change state
+    $j('#topSchoolsStateSelector').change(function() {
+        var url = '/accountInformationAjax.page';
+        var pars = 'state=' + $j(this).val() + '&showNotListed=false';
+        var cityDiv = $j('#topCitiesCityListSpan');
+        var citySelect = $j('#topCitiesCityList');
+        var cityLoading = $j('#topCitiesCityLoadingSpan');
+        var stateSelect = $j('#topSchoolsStateSelector');
+
+        citySelect.hide();
+        stateSelect.hide();
+
+        cityLoading.html('<span>Loading ...</span>');
+        cityLoading.show();
+
+        $j.get(url, {state: $j(this).val(), showNotListed: 'false'}, function(data) {
+            citySelect.html(data);
+            citySelect.show();
+            cityLoading.html('');
+            cityLoading.hide();
+            stateSelect.show();
+           });
+    });
 });
 
 
@@ -38,31 +62,6 @@ function textSwitch(el, target, replace) {
     if (el.value == replace) {
         el.value = target;
     }
-}
-
-function changeState(stateSelect) {
-    var url = '/accountInformationAjax.page';
-    var pars = 'state=' + stateSelect.value + '&showNotListed=false';
-    var cityDiv = $j('topCitiesCityListSpan');
-    var citySelect = $j('topCitiesCityList');
-
-    Element.remove(citySelect);
-    Element.hide(stateSelect);
-    cityDiv.update("<span>Loading ...</span>");
-    new Ajax.Updater(
-            'topCitiesCityList',
-            url,
-            {
-                method: 'get',
-                parameters: pars,
-                onComplete: updateCityAndShowState('topCitiesCityListSpan', citySelect, stateSelect)
-            });
-}
-
-function updateCityAndShowState(elemIdToUpdate, elemToAdd, stateSelect) {
-    $j(elemIdToUpdate).update(elemToAdd);
-    elemToAdd.show();
-    Element.show(stateSelect);
 }
 
 function changeCity(cityName, stateAbbr) {
