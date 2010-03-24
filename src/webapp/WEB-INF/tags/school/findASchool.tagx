@@ -13,9 +13,7 @@
     <jsp:directive.attribute name="schools" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
-    <jsp:directive.attribute name="schoolHeading" required="true" description="Heading text for school name column"/>
     <jsp:directive.attribute name="ratingHeading" required="true" description="Heading text for rating column"/>
-    <jsp:directive.attribute name="cityHeadingPrefix" required="true" description="Heading text before city name"/>
 
     <!-- id="findASchool" is required because it's used as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
@@ -51,7 +49,7 @@
 
 
 <div id="compare">
-<p class="text1">${cityHeadingPrefix} <span class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
+<p class="text1">${gsweb:capitalize(levelCodePhrase)} in <span class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
 
 <div class="changeCity text2">
     <label for="topCitiesCityList" class="fltlft">Change city: </label>
@@ -116,7 +114,7 @@
 
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
                         <tr style="">
-                            <th style="text-align: left">${schoolHeading}</th>
+                            <th style="text-align: left">School name</th>
                             <th style="text-align: right;">${ratingHeading}</th>
                         </tr>
                         <c:forEach items="${schools}" var="s">
@@ -127,24 +125,28 @@
                                     <c:choose>
                                         <c:when test="${levelCode eq 'p'}">
                                             <c:set var="ratingValue" value="rateit"/>
+                                            <c:set var="ratingValueAltText" value="Rate this school!"/>
                                             <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                             <c:if test="${s.parentRatings.displayOverallRating}">
                                                 <c:set var="ratingValue" value="${s.parentRatings.overall}"/>
+                                                <c:set var="ratingValueAltText" value="Parent Rating: ${ratingValue} out of 5 stars"/>
                                             </c:if>
                                             <link:schoolProfileOverview school="${s.school}" title="${s.school.name}"><gsml:img
                                                     src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
-                                                    alt="Parent Rating: ${ratingValue} out of 5."
+                                                    alt="${ratingValueAltText}"
                                                     styleClass="ratingImage"/></link:schoolProfileOverview>
                                         </c:when>
                                         <c:otherwise>
                                             <c:set var="ratingValue" value="na"/>
+                                            <c:set var="ratingValueAltText" value=""/>
                                             <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                             <c:if test="${s.rating > 0}">
                                                 <c:set var="ratingValue" value="${s.rating}"/>
+                                                <c:set var="ratingValueAltText" value="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
                                             </c:if>
                                             <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3"><gsml:img
                                                     src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
+                                                    alt="${ratingValueAltText}"
                                                     styleClass="ratingImage"/></link:schoolProfileOverview>
                                         </c:otherwise>
                                     </c:choose>

@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.geo.City;
+import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
@@ -173,20 +174,29 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         List<SchoolWithRatings> schools;
         if (levelCode.equals(LevelCode.PRESCHOOL)) {
-            List<School> randomSchools = getSchoolDao().findRandomSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
-            schools = new ArrayList<SchoolWithRatings>(randomSchools.size());
-            for (School school : randomSchools) {
-                SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
-                schoolWithRatings.setSchool(school);
-                schools.add(schoolWithRatings);
-            }
+            schools = getRandomSchoolsInCity(userCity, levelCode);
         } else {
             schools =
                     getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
+            if (schools.size() == 0) {
+                schools = getRandomSchoolsInCity(userCity, levelCode);
+            }
         }
         _reviewDao.loadRatingsIntoSchoolList(schools, userCity.getState());
 
         model.put("schools", schools);
+    }
+
+    protected List<SchoolWithRatings> getRandomSchoolsInCity(ICity city, LevelCode levelCode) {
+        List<SchoolWithRatings> schools;
+        List<School> randomSchools = getSchoolDao().findRandomSchoolsInCity(city, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
+        schools = new ArrayList<SchoolWithRatings>(randomSchools.size());
+        for (School school : randomSchools) {
+            SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
+            schoolWithRatings.setSchool(school);
+            schools.add(schoolWithRatings);
+        }
+        return schools;
     }
 
     protected void loadCityDropdown(Map<String, Object> model, State state) {

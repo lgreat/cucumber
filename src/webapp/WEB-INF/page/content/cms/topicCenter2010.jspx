@@ -224,8 +224,6 @@
                 <c:when test="${topicCenter.preschoolTopicCenter}">
                     <c:set var="levelCode" value="p"/>
                     <c:set var="levelCodePhrase" value="preschools"/>
-                    <c:set var="cityHeadingPrefix" value="Preschools in "/>
-                    <c:set var="schoolHeading" value="Preschool name"/>
                     <c:set var="ratingHeading" value="Parent rating"/>
                 </c:when>
                 <c:otherwise>
@@ -243,19 +241,15 @@
                             <c:set var="levelCodePhrase" value="high schools"/>
                         </c:when>
                     </c:choose>
-                    <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}:"/>
-                    <c:set var="schoolHeading" value="Top-rated public schools"/>
                     <c:set var="ratingHeading" value="GreatSchools rating"/>
                 </c:otherwise>
             </c:choose>
             <school:findASchool city="${requestScope.cityObject}"
                                 specialCity="${requestScope.specialCity}"
                                 schools="${requestScope.schools}"
-                                schoolHeading="${schoolHeading}"
                                 ratingHeading="${ratingHeading}"
                                 levelCode="${levelCode}"
                                 levelCodePhrase="${levelCodePhrase}"
-                                cityHeadingPrefix="${cityHeadingPrefix}"
                     />
         </c:if>
 
