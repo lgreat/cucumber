@@ -169,7 +169,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
         loadCityDropdown(model, userCity.getState());
 
         if("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())){
-            model.put("specialCity","Washington, DC");
+            model.put("specialCity","Washington, D.C.");
         }
 
         List<SchoolWithRatings> schools;

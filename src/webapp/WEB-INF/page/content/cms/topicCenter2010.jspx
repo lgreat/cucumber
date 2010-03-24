@@ -241,7 +241,7 @@
                             <c:set var="levelCodePhrase" value="high schools"/>
                         </c:when>
                     </c:choose>
-                    <c:set var="ratingHeading" value="GreatSchools rating"/>
+                    <c:set var="ratingHeading" value="GreatSchools Rating"/>
                 </c:otherwise>
             </c:choose>
             <school:findASchool city="${requestScope.cityObject}"
