@@ -58,7 +58,7 @@ body {
     list-style: none;
     width: 928px;
     padding: 10px 0 0;
-    margin-left: -4px;
+    margin: 0 auto;
     text-align: center;
 }
 #footnav li {

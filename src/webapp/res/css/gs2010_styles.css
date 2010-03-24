@@ -3075,11 +3075,11 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 }
 #footerFrm {
     background: url(/res/img/gs_content_bg.png) repeat-y;
+    padding: 0 5px;
 }
 
-#footerFrm {
-    background: url(/res/img/gs_content_bg.png) repeat-y;
-    padding: 0 5px;
+#footerFrm #footerAd{
+    background: #fff;
 }
 
 #footerAd table, #homepageFooterAd table {
