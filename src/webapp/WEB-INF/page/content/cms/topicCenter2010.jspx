@@ -240,6 +240,7 @@
             <school:findASchool city="${requestScope.cityObject}"
                                 specialCity="${requestScope.specialCity}"
                                 topRatedSchools="${requestScope.topRatedSchools}"
+                                unratedPreschoolsInCity="${requestScope.unratedPreschoolsInCity}"
                                 schoolsInCity="${requestScope.schoolsInCity}"
                                 topSchools="${requestScope.topSchools}"
                                 schoolHeading="${schoolHeading}"

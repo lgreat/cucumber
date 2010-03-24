@@ -12,6 +12,7 @@
     <jsp:directive.attribute name="specialCity" required="false" description="Special city name, e.g. Washington, DC" type="java.lang.String"/>
     <jsp:directive.attribute name="topRatedSchools" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
     <jsp:directive.attribute name="schoolsInCity" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
+    <jsp:directive.attribute name="unratedPreschoolsInCity" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>    
     <jsp:directive.attribute name="topSchools" required="true" description="List of School objects" type="java.util.List"/>
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
@@ -90,7 +91,7 @@
                     </div>
                 </div>
 
-                <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty schoolsInCity)}">
+                <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty unratedPreschoolsInCity)}">
                     <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
                         <tr>
                             <td style="font-weight: normal">Showing ${fn:length(topSchools)}
@@ -107,7 +108,7 @@
                              lon="${city.lon}" lat="${city.lat}"
                              bubbles="false"
                              alwaysUsePreIconsForPreschools="${levelCode eq 'p'}"
-                             schools="${not empty topRatedSchools ? topRatedSchools : schoolsInCity}"
+                             schools="${not empty topRatedSchools ? topRatedSchools : (not empty unratedPreschoolsInCity ? unratedPreschoolsInCity : schoolsInCity)}"
                              showGenericIcon="${empty topRatedSchools}"
                         />
                 <!-- map:schools tooltips="true" -->
@@ -116,7 +117,7 @@
     </c:if>
     <tr>
         <td style="vertical-align: top; padding-left: .3em">
-            <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty schoolsInCity)}">
+            <c:if test="${(empty topRatedSchools and levelCode ne 'p') or (empty topRatedSchools and levelCode eq 'p' and empty unratedPreschoolsInCity)}">
                 <div id="noTopSchools">
                  <p>There are no ${levelCodePhrase} in ${empty specialCity? city.name:specialCity}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
                 </div>
@@ -126,8 +127,8 @@
                     <c:set var="schoolListings" value="${topRatedSchools}"/>
                     <c:set var="showEnrollment" value="${false}"/>
                 </c:when>
-                <c:when test="${levelCode eq 'p' and not empty schoolsInCity}">
-                    <c:set var="schoolListings" value="${schoolsInCity}"/>
+                <c:when test="${levelCode eq 'p' and not empty unratedPreschoolsInCity}">
+                    <c:set var="schoolListings" value="${unratedPreschoolsInCity}"/>
                     <c:set var="showEnrollment" value="${true}"/>
                 </c:when>
             </c:choose>

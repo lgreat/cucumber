@@ -194,7 +194,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
                     schoolWithRatings.setSchool(school);
                     schoolsInCity.add(schoolWithRatings);
                 }
-                model.put("schoolsInCity", schoolsInCity);
+                model.put("unratedPreschoolsInCity", schoolsInCity);
                 
             }
             List<School> schools = (List<School>)getSchoolDao().findSchoolsInCity(userCity.getState(), userCity.getName(), false);
