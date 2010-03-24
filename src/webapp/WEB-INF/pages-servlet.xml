@@ -1629,6 +1629,10 @@
         </property>
     </bean>
 
+    <bean name="/community/forgotPasswordValidator.page"
+          class="gs.web.community.registration.ForgotPasswordValidatorAjaxController"
+          autowire="byName" lazy-init="true"/>    
+
     <bean name="/community/resetPassword.page"
           class="gs.web.community.registration.ResetPasswordController"
           autowire="byName" lazy-init="true">

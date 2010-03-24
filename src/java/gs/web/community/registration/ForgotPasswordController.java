@@ -68,7 +68,7 @@ public class ForgotPasswordController extends SimpleFormController {
         if (user != null) {
             isMslSubscriber =  (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
         }
-        if (user == null || user.isEmailProvisional()) {
+        if (ForgotPasswordValidatorHelper.noSuchUser(user)) {
             // generate error
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
             String href = builder.asAnchor(request, "join GreatSchools").asATag();
@@ -81,14 +81,14 @@ public class ForgotPasswordController extends SimpleFormController {
 //                    "validated your email address yet. To validate your email address, follow the " +
 //                    "instructions in the email sent to you " + href2 + ".");
             _log.info("Forgot password: user " + forgotPasswordCommand.getEmail() + " is not in database");
-        } else if (user.isPasswordEmpty()) {
+        } else if (ForgotPasswordValidatorHelper.userNoPassword(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
             String joinLink = builder.asAHref(request, "Join now &gt;");
             errors.rejectValue("email", null, "Hi, " + user.getEmail().split("@")[0] +
                     "! You have an email address on file, " +
                     "but still need to create a free account with GreatSchools. " + joinLink);
             _log.info("Forgot password: non-community user " + forgotPasswordCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
-        } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
+        } else if (ForgotPasswordValidatorHelper.userDeactivated(user)) {
             String errmsg = "The account associated with that email address has been disabled. " +
                     "Please <a href=\"http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
