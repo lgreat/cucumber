@@ -30,36 +30,36 @@
         </div>
         <div class="mod_bd">
             <ul class="text3">
-                <li><link:schools cityName="Austin" state="TX">Austin ${suffix}</link:schools></li>
-                <li><link:schools cityName="Baltimore" state="MD">Baltimore ${suffix}</link:schools></li>
-                <li><link:schools cityName="Boston" state="MA">Boston ${suffix}</link:schools></li>
-                <li><link:schools cityName="Charlotte" state="NC">Charlotte ${suffix}</link:schools></li>
-                <li><link:schools cityName="Chicago" state="IL">Chicago ${suffix}</link:schools></li>
-                <li><link:schools cityName="Columbus" state="OH">Columbus ${suffix}</link:schools></li>
-                <li><link:schools cityName="Dallas" state="TX">Dallas ${suffix}</link:schools></li>
-                <li><link:schools cityName="Denver" state="CO">Denver ${suffix}</link:schools></li>
-                <li><link:schools cityName="Detroit" state="MI">Detroit ${suffix}</link:schools></li>
-                <li><link:schools cityName="El Paso" state="TX">El Paso ${suffix}</link:schools></li>
-                <li><link:schools cityName="Fort Worth" state="TX">Fort Worth ${suffix}</link:schools></li>
-                <li><link:schools cityName="Houston" state="TX">Houston ${suffix}</link:schools></li>
-                <li><link:schools cityName="Indianapolis" state="IN">Indianapolis ${suffix}</link:schools></li>
-                <li><link:schools cityName="Jacksonville" state="FL">Jacksonville ${suffix}</link:schools></li>
-                <li><link:schools cityName="Las Vegas" state="NV">Las Vegas ${suffix}</link:schools></li>
-                <li><link:schools cityName="Los Angeles" state="CA">Los Angeles ${suffix}</link:schools></li>
-                <li><link:schools cityName="Memphis" state="TN">Memphis ${suffix}</link:schools></li>
-                <li><link:schools cityName="Milwaukee" state="WI">Milwaukee ${suffix}</link:schools></li>
-                <li><link:schools cityName="Nashville" state="TN">Nashville ${suffix}</link:schools></li>
-                <li><link:schools cityName="New York City" state="NY">New York City ${suffix}</link:schools></li>
-                <li><link:schools cityName="Oklahoma City" state="OK">Oklahoma City ${suffix}</link:schools></li>
-                <li><link:schools cityName="Philadelphia" state="PA">Philadelphia ${suffix}</link:schools></li>
-                <li><link:schools cityName="Phoenix" state="AZ">Phoenix ${suffix}</link:schools></li>
-                <li><link:schools cityName="Portland" state="OR">Portland ${suffix}</link:schools></li>
-                <li><link:schools cityName="San Antonio" state="TX">San Antonio ${suffix}</link:schools></li>
-                <li><link:schools cityName="San Diego" state="CA">San Diego ${suffix}</link:schools></li>
-                <li><link:schools cityName="San Francisco" state="CA">San Francisco ${suffix}</link:schools></li>
-                <li><link:schools cityName="San Jose" state="CA">San Jose ${suffix}</link:schools></li>
-                <li><link:schools cityName="Seattle" state="WA">Seattle ${suffix}</link:schools></li>
-                <li><link:schools cityName="Washington" state="DC">Washington, DC ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Austin" state="TX">Austin ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Baltimore" state="MD">Baltimore ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Boston" state="MA">Boston ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Charlotte" state="NC">Charlotte ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Chicago" state="IL">Chicago ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Columbus" state="OH">Columbus ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Dallas" state="TX">Dallas ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Denver" state="CO">Denver ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Detroit" state="MI">Detroit ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="El Paso" state="TX">El Paso ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Fort Worth" state="TX">Fort Worth ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Houston" state="TX">Houston ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Indianapolis" state="IN">Indianapolis ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Jacksonville" state="FL">Jacksonville ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Las Vegas" state="NV">Las Vegas ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Los Angeles" state="CA">Los Angeles ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Memphis" state="TN">Memphis ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Milwaukee" state="WI">Milwaukee ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Nashville" state="TN">Nashville ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="New York City" state="NY">New York City ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Oklahoma City" state="OK">Oklahoma City ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Philadelphia" state="PA">Philadelphia ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Phoenix" state="AZ">Phoenix ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Portland" state="OR">Portland ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="San Antonio" state="TX">San Antonio ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="San Diego" state="CA">San Diego ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="San Francisco" state="CA">San Francisco ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="San Jose" state="CA">San Jose ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Seattle" state="WA">Seattle ${suffix}</link:schools></li>
+                <li><link:schools levelCode="${pageScope.gradeLevel}" cityName="Washington" state="DC">Washington, D.C. ${suffix}</link:schools></li>
             </ul>
         </div>
         <!-- end mod_bd -->
