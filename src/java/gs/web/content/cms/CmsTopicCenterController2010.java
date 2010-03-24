@@ -171,50 +171,22 @@ public class CmsTopicCenterController2010 extends AbstractController {
             model.put("specialCity","Washington, DC");
         }
 
-        List<SchoolWithRatings> topRatedSchools =
-                getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
-        _reviewDao.loadRatingsIntoSchoolList(topRatedSchools, userCity.getState());
-
-        // TODO-9457, TODO-9458
-//System.out.println("# schools with ratings: " + topRatedSchools.size());
-
-        if (topRatedSchools.size() > 0) {
-            model.put("topRatedSchools", topRatedSchools);
-            List<School> schools = new ArrayList<School>(topRatedSchools.size());
-            for (SchoolWithRatings s : topRatedSchools) {
-                schools.add(s.getSchool());
+        List<SchoolWithRatings> schools;
+        if (levelCode.equals(LevelCode.PRESCHOOL)) {
+            List<School> randomSchools = getSchoolDao().findRandomSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
+            schools = new ArrayList<SchoolWithRatings>(randomSchools.size());
+            for (School school : randomSchools) {
+                SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
+                schoolWithRatings.setSchool(school);
+                schools.add(schoolWithRatings);
             }
-            model.put("topSchools", schools);
         } else {
-            if (levelCode.equals(LevelCode.PRESCHOOL)) {
-                List<School> schools = getSchoolDao().findSchoolsInCity(userCity, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
-                List<SchoolWithRatings> schoolsInCity = new ArrayList<SchoolWithRatings>(schools.size());
-                for (School school : schools) {
-                    SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
-                    schoolWithRatings.setSchool(school);
-                    schoolsInCity.add(schoolWithRatings);
-                }
-                model.put("unratedPreschoolsInCity", schoolsInCity);
-                
-            }
-            List<School> schools = (List<School>)getSchoolDao().findSchoolsInCity(userCity.getState(), userCity.getName(), false);
-
-            if (schools.size() > 0) {
-                if (schools.size() > MAX_TOP_SCHOOLS) {
-                    schools = schools.subList(0, MAX_TOP_SCHOOLS);
-                }
-
-                List<SchoolWithRatings> schoolsInCity = new ArrayList<SchoolWithRatings>(schools.size());
-                for (School school : schools) {
-                    SchoolWithRatings schoolWithRatings = new SchoolWithRatings();
-                    schoolWithRatings.setSchool(school);
-                    schoolsInCity.add(schoolWithRatings);
-                }
-                model.put("schoolsInCity", schoolsInCity);
-
-                model.put("topSchools", schools);
-            }
+            schools =
+                    getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
         }
+        _reviewDao.loadRatingsIntoSchoolList(schools, userCity.getState());
+
+        model.put("schools", schools);
     }
 
     protected void loadCityDropdown(Map<String, Object> model, State state) {

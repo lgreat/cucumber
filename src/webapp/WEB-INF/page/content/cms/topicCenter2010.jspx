@@ -202,47 +202,33 @@
                 <c:when test="${topicCenter.preschoolTopicCenter}">
                     <c:set var="levelCode" value="p"/>
                     <c:set var="levelCodePhrase" value="preschools"/>
+                    <c:set var="cityHeadingPrefix" value="Preschools in "/>
+                    <c:set var="schoolHeading" value="Preschool name"/>
+                    <c:set var="ratingHeading" value="Parent rating"/>
+                </c:when>
+                <c:otherwise>
                     <c:choose>
-                        <c:when test="${empty topRatedSchools}">
-                            <c:set var="cityHeadingPrefix" value="Preschools in "/>
-                            <c:set var="schoolHeading" value="Preschool name"/>
-                            <c:set var="ratingHeading" value="Enrollment"/>
+                        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+                            <c:set var="levelCode" value="e"/>
+                            <c:set var="levelCodePhrase" value="elementary schools"/>
                         </c:when>
-                        <c:otherwise>
-                            <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}:"/>
-                            <c:set var="schoolHeading" value="Top-rated preschools"/>
-                            <c:set var="ratingHeading" value="Parent rating"/>
-                        </c:otherwise>
+                        <c:when test="${topicCenter.middleSchoolTopicCenter}">
+                            <c:set var="levelCode" value="m"/>
+                            <c:set var="levelCodePhrase" value="middle schools"/>
+                        </c:when>
+                        <c:when test="${topicCenter.highSchoolTopicCenter}">
+                            <c:set var="levelCode" value="h"/>
+                            <c:set var="levelCodePhrase" value="high schools"/>
+                        </c:when>
                     </c:choose>
-                </c:when>
-                <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-                    <c:set var="levelCode" value="e"/>
-                    <c:set var="levelCodePhrase" value="elementary schools"/>
                     <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}:"/>
                     <c:set var="schoolHeading" value="Top-rated public schools"/>
                     <c:set var="ratingHeading" value="GreatSchools rating"/>
-                </c:when>
-                <c:when test="${topicCenter.middleSchoolTopicCenter}">
-                    <c:set var="levelCode" value="m"/>
-                    <c:set var="levelCodePhrase" value="middle schools"/>
-                    <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}:"/>
-                    <c:set var="schoolHeading" value="Top-rated public schools"/>
-                    <c:set var="ratingHeading" value="GreatSchools rating"/>
-                </c:when>
-                <c:when test="${topicCenter.highSchoolTopicCenter}">
-                    <c:set var="levelCode" value="h"/>
-                    <c:set var="levelCodePhrase" value="high schools"/>
-                    <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}:"/>
-                    <c:set var="schoolHeading" value="Top-rated public schools"/>
-                    <c:set var="ratingHeading" value="GreatSchools rating"/>
-                </c:when>
+                </c:otherwise>
             </c:choose>
             <school:findASchool city="${requestScope.cityObject}"
                                 specialCity="${requestScope.specialCity}"
-                                topRatedSchools="${requestScope.topRatedSchools}"
-                                unratedPreschoolsInCity="${requestScope.unratedPreschoolsInCity}"
-                                schoolsInCity="${requestScope.schoolsInCity}"
-                                topSchools="${requestScope.topSchools}"
+                                schools="${requestScope.schools}"
                                 schoolHeading="${schoolHeading}"
                                 ratingHeading="${ratingHeading}"
                                 levelCode="${levelCode}"
