@@ -4,24 +4,13 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <script type="text/javascript">
-        GSType.hover.ValidateEditEmail = function() {
-            this.loadDialog = function() {
-                this.dialogByWidth(600);
-            }
-        };
-        GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail');
-        
-        GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
 
-        jQuery(function() {
-            GSType.hover.validateEditEmail.loadDialog();
-            
-            // <c:if test="${param.showValidateEditEmailHover ne null or requestScope.showValidateEditEmailHover ne null}">
+    <c:if test="${param.showValidateEditEmailHover ne null or requestScope.showValidateEditEmailHover ne null}">
+        <script type="text/javascript">
             GSType.hover.validateEditEmail.show();
-            // </c:if>
-        });
-    </script>
+        </script>
+    </c:if>
+
 
     <div id="valEditEmail" class="dialog_white" style="display:none;">
         <h2>Your new email needs to be verified</h2>

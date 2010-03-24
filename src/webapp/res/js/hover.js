@@ -204,17 +204,6 @@ jQuery(function() {
     GSType.hover.validateEmail.loadDialog();
     GSType.hover.validateLinkExpired.loadDialog();
 
-    jQuery('#clsValNewEmail').click(function() {
-        var email = '${requestScope.email}';
-        var params = {
-            email: email
-        };
-        jQuery.get('/community/requestEmailValidation.page', params);
-
-        GSType.hover.emailNotValidated.hide();
-    });
-
-
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.post('/community/forgotPasswordValidator.page',
                 jQuery('#hover_forgotPasswordForm').serialize(),
@@ -252,13 +241,5 @@ jQuery(function() {
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page?redirect=" + window.location.href);
 
-    jQuery('#clsExpVer').click(function() {
-        var email = '${requestScope.email}';
-        var params = {
-            email: email
-        };
-        jQuery.get('/community/requestEmailValidation.page', params);
-
-        GSType.hover.validateLinkExpired.hide();
-    });
+    
 });

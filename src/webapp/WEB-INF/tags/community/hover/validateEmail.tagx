@@ -4,24 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <script type="text/javascript">
-        GSType.hover.ValidateEmailHover = function(){
-            this.loadDialog = function() {
-                this.dialogByWidth(400);
-            }
-        };
-        GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEmail');
-        
-        GSType.hover.validateEmail = new GSType.hover.ValidateEmailHover();
 
-        jQuery(function() {
-            GSType.hover.validateEmail.loadDialog();
-
-            // <c:if test="${param.showValidateEmailHover ne null or requestScope.showValidateEmailHover ne null}">
+       <c:if test="${param.showValidateEmailHover ne null or requestScope.showValidateEmailHover ne null}">
+           <script type="text/javascript">
             GSType.hover.validateEmail.show();
-            // </c:if>
-        });
-    </script>
+            </script>
+       </c:if>
+
+
 
     <div id="valEmail" class="dialog_white" style="display:none;">
         <h2>Great work! Only one more step</h2>

@@ -3,96 +3,18 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <script type="text/javascript">
-        GSType.hover.SignInHover = function(){
-            this.loadDialog = function() {
-                this.dialogByWidth(680);
-            };
 
-            this.addMessage = function(text) {
-                jQuery('#signInHover .messages').append('<p>' + text + '</p>');
-            };
-            this.clearMessages = function() {
-                jQuery('#signInHover .messages').replaceWith('<div class="messages"><!-- not empty --></div>');
-            }
-        };
-        GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover');
 
-        GSType.hover.signInHover = new GSType.hover.SignInHover();
-
-        jQuery(function() {
-            GSType.hover.signInHover.loadDialog();
-
-            jQuery('.signInHoverLink').click(function() {
-                GSType.hover.signInHover.show();
-            });
-
-            function loginValidatorHandler(data) {
-                var objCount=0;
-                for(_obj in data) objCount++;;
-
-                if (objCount > 0) {
-                    if (data.noSuchUser) {
-                        GSType.hover.signInHover.addMessage('<p class="error">' + data.noSuchUser + '</p>');
-                    }
-                    if (data.userNoPassword) {
-                        GSType.hover.signInHover.clearMessages();
-                        GSType.hover.signInHover.hide();
-                        //GSType.hover.joinHover.addMessage(data.userNoPassword);
-                        GSType.hover.joinHover.show();
-                    }
-                    if (data.userNotValidated) {
-                        GSType.hover.signInHover.clearMessages();
-                        GSType.hover.signInHover.hide();
-                        GSType.hover.emailNotValidated.show();
-                    }
-                    if (data.email) {
-                        GSType.hover.signInHover.addMessage('<p class="error">' + data.email + '</p>');
-                    }
-                    if (data.userDeactivated) {
-                        GSType.hover.signInHover.addMessage('<p class="error">' + data.userDeactivated + '</p>');
-                    }
-                    if (data.passwordMismatch) {
-                        GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
-                    }
-                } else {
-
-                    var params = {
-                        email: jQuery('#semail').val(),
-                        password: jQuery('#spword').val()
-                    };
-
-                    jQuery('#signin').submit();
-
-                    GSType.hover.signInHover.hide();
-                }
-            }
-
-            jQuery('#signinBtn').click(function() {
-               GSType.hover.signInHover.clearMessages();
-
-                var params = {
-                    email: jQuery('#semail').val(),
-                    password: jQuery('#spword').val()
-                };
-
-                jQuery.post('/community/registration/popup/loginValidationAjax.page', params, loginValidatorHandler, "json");
-
-                return false;
-            });
-
-            jQuery('#signInHover').bind('dialogclose', function() {
-                GSType.hover.signInHover.clearMessages();
-            });
-            
-            // <c:if test="${param.showLoginHover ne null or requestScope.showLoginHover ne null}">
+    <c:if test="${param.showLoginHover ne null or requestScope.showLoginHover ne null}">
+        <script type="text/javascript">
             GSType.hover.signInHover.show();
-            // </c:if>
-        });
-    </script>
+        </script>
+    </c:if>
+
 
     <div id="signInHover" style="display:none;">
         <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
+
         <div class="messages">
             <p class="error"><!-- message --></p>
         </div>
@@ -103,8 +25,8 @@
             <fieldset class="signin">
                 <h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
-                    <li><label for="semail">Email address</label><input type="text" id="semail" name="email" /></li>
-                  <li><label for="spword">Password</label><input type="password" id="spword" name="password" /></li>
+                    <li><label for="semail">Email address</label><input type="text" id="semail" name="email"/></li>
+                    <li><label for="spword">Password</label><input type="password" id="spword" name="password"/></li>
                 </ul>
             </fieldset>
             <fieldset class="btns">
@@ -112,7 +34,7 @@
                     <span><span>Sign in</span></span>
                 </button>
                 <p><a href="#" id="lnchPword">Forgot your password?</a></p>
-                <input type="hidden" name="rememberMe" value="true" />
+                <input type="hidden" name="rememberMe" value="true"/>
             </fieldset>
         </form>
 

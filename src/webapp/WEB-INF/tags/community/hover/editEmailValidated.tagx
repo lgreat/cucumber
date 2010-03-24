@@ -3,24 +3,12 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <script type="text/javascript">
-        GSType.hover.EditEmailValidated = function() {
-            this.loadDialog = function () {
-                this.dialogByWidth(600);
-            }
-        };
-        GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNewEmailDone');
 
-        GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
-
-        jQuery(function() {
-            GSType.hover.editEmailValidated.loadDialog();
-
-            // <c:if test="${param.showEditEmailValidatedHover ne null or requestScope.showEditEmailValidatedHover ne null}">
+    <c:if test="${param.showEditEmailValidatedHover ne null or requestScope.showEditEmailValidatedHover ne null}">
+        <script type="text/javascript">
             GSType.hover.editEmailValidated.show();
-            // </c:if>
-        });
-    </script>
+        </script>
+    </c:if>
 
     <div id="valNewEmailDone" class="dialog_white" style="display:none;">
         <h2>Your email change is complete</h2>

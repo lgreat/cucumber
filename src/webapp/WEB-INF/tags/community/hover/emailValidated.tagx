@@ -4,24 +4,13 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <script type="text/javascript">
-        GSType.hover.EmailValidated = function() {
-            this.loadDialog = function () {
-                this.dialogByWidth(600);
-            }
-        };
-        GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
-        
-        GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 
-        jQuery(function() {
-            GSType.hover.emailValidated.loadDialog();
-            
-            // <c:if test="${param.showEmailValidatedHover ne null or requestScope.showEmailValidatedHover ne null}">
+    <c:if test="${param.showEmailValidatedHover ne null or requestScope.showEmailValidatedHover ne null}">
+        <script type="text/javascript">
             GSType.hover.emailValidated.show();
-            // </c:if>
-        });
-    </script>
+        </script>
+    </c:if>
+
 
     <div id="regDone" class="dialog_white" style="display:none;">
         <h2>Your registration is complete</h2>

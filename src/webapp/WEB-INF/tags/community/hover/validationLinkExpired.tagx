@@ -4,19 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
+    <c:if test="${param.showValidationLinkExpiredHover ne null or requestScope.showValidationLinkExpiredHover ne null}">
+        <script type="text/javascript">
+            GSType.hover.validateLinkExpired.show();
+        </script>
+    </c:if>
+
     <script type="text/javascript">
-        GSType.hover.ValidateLinkExpired = function() {
-            this.loadDialog = function() {
-                this.dialogByWidth(400);
-            }
-        };
-        GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVer');
-        
-        GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
-
         jQuery(function() {
-            GSType.hover.validateLinkExpired.loadDialog();
-
             jQuery('#clsExpVer').click(function() {
                 var email = '${requestScope.email}';
                 var params = {
@@ -26,10 +21,6 @@
 
                 GSType.hover.validateLinkExpired.hide();
             });
-
-            // <c:if test="${param.showValidationLinkExpiredHover ne null or requestScope.showValidationLinkExpiredHover ne null}">
-            GSType.hover.validateLinkExpired.show();
-            // </c:if>
         });
     </script>
 
