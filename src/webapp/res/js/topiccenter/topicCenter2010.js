@@ -32,7 +32,7 @@ $j(document).ready(function() {
         citySelect.hide();
         stateSelect.hide();
 
-        cityLoading.html('<span>Loading ...</span>');
+        cityLoading.html('<span>&nbsp;&nbsp;Loading ...</span>');
         cityLoading.show();
 
         $j.get(url, {state: $j(this).val(), showNotListed: 'false'}, function(data) {
