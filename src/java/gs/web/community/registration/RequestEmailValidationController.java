@@ -1,6 +1,5 @@
 package gs.web.community.registration;
 
-import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -43,11 +42,8 @@ public class RequestEmailValidationController extends AbstractController {
         } else if (user.isEmailProvisional()) {
             // determine where to send the user when they click on the link in their email
             String emailRedirect;
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME, null);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.USER_ACCOUNT, null);
             emailRedirect = builder.asSiteRelative(request);
-            if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-                emailRedirect += "index.page";
-            }
             // send email
             getEmailVerificationEmail().sendVerificationEmail(request, user, emailRedirect);
             // determine where to send the user now
