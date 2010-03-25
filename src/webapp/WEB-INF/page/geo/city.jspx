@@ -29,7 +29,6 @@
 <jsp:directive.page import="gs.data.school.SchoolType"/>
 <jsp:directive.page import="java.util.HashSet"/>
 <jsp:directive.page import="gs.web.util.UrlBuilder"/>
-<jsp:directive.page import="gs.data.util.CommunityUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -52,7 +51,6 @@
             pageHelper.addAdSenseHint(adSenseHint.toString());
         }
     }
-    request.setAttribute("showOldLocal", !CommunityUtil.isNewCommunityEnabled());
 </jsp:scriptlet>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -279,17 +277,6 @@
 </td>
 <td width="300" style="vertical-align:top"><!--
     --><table border="0" cellpadding="0" cellspacing="0" width="300">
-    <c:if test="${showOldLocal}">
-        <tr>
-            <td>
-                <jsp:include page="/community/localQuestions.module">
-                    <jsp:param name="cityId" value="${cityObject.id}"/>
-                    <jsp:param name="cityDisplayName" value="${cityObject.displayName}"/>
-                    <jsp:param name="callerPagename" value="cityprofile"/>
-                </jsp:include>
-            </td>
-        </tr>
-    </c:if>
         <tr>
             <td>
                 <ad:AboveFold_300x250/>
@@ -315,7 +302,7 @@
         <tr>
             <td>
                 <c:set var="recentDiscussion" value=""/>
-                <c:if test="${requestScope.discussionBoardId gt 0 and !showOldLocal}">
+                <c:if test="${requestScope.discussionBoardId gt 0}">
                     <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
                     <c:set var="recentDiscussions">
                         <c:import

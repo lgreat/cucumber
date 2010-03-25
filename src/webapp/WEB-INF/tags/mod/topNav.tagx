@@ -16,8 +16,6 @@
 <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
                          description="True if topnav is loaded via community iframe"/>
 
-<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-
 <jsp:scriptlet>
     request.setAttribute("tabs", PageHelper.pageIds);
 </jsp:scriptlet>
@@ -202,9 +200,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="146" language="EN" styleId="GlobalNav_HD_StressManagement" styleClass="GS_CI9_">Stress management</link:cmsCategoryBrowse></li>
                     <li><link:healthyKids styleId="GlobalNav_HD_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; nutrition</link:healthyKids></li>
                     <li><link:cmsCategoryBrowse topicIDs="136" language="EN" styleId="GlobalNav_HD_BuildingCharacter" styleClass="GS_CI9_">Building character</link:cmsCategoryBrowse></li>
-                    <c:if test="${communityUtil.newCommunityEnabled}">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleId="GlobalNav_HD_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
-                    </c:if>
+                    <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleId="GlobalNav_HD_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     <li class="last"><a href="/parenting.topic?content=1539"
                         id="GlobalNav_HealthAndDevelopmentButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -222,9 +218,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning activities</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book reviews</link:cmsCategoryBrowse></li>
                     <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
-                    <c:if test="${communityUtil.newCommunityEnabled}">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
-                    </c:if>
+                    <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     <li class="last"><a href="/students.topic?content=1540"
                         id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -244,9 +238,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="194" language="EN" styleId="GlobalNav_LD_WritingDifficulties" styleClass="GS_CI9_">Writing difficulties</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="163" language="EN" styleId="GlobalNav_LD_OtherDisorders" styleClass="GS_CI9_">Other disorders</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="188" language="EN" styleId="GlobalNav_LD_AssistiveTechnology" styleClass="GS_CI9_">Assistive technology</link:cmsCategoryBrowse></li>
-                    <c:if test="${communityUtil.newCommunityEnabled}">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD" styleId="GlobalNav_LD_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
-                    </c:if>
+                    <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD" styleId="GlobalNav_LD_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     <li class="last"><a href="/LD.topic?content=1541"
                         id="GlobalNav_LearningDisabilitiesButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -261,9 +253,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="135" language="EN" styleId="GlobalNav_IYS_Fundraising" styleClass="GS_CI9_">Fundraising</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="137" language="EN" styleId="GlobalNav_IYS_BuildingCommunity" styleClass="GS_CI9_">Building community</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="126" language="EN" styleId="GlobalNav_IYS_QualityTeaching" styleClass="GS_CI9_">Quality teaching</link:cmsCategoryBrowse></li>
-                    <c:if test="${communityUtil.newCommunityEnabled}">
-                        <li><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement" styleId="GlobalNav_IYS_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
-                    </c:if>
+                    <li><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement" styleId="GlobalNav_IYS_Community" styleClass="GS_CI9_">Community</link:cmsContent></li>
                     <li class="last"><a href="/improvement.topic?content=1543"
                         id="GlobalNav_ImproveYourSchoolButton__seeAll"
                         class="GS_CI9_">See all &amp;raquo;</a></li>
@@ -281,21 +271,17 @@
                     <li class="last"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all &amp;raquo;</link:schoolChoiceCenter></li>
                 </ul>
             </li>
-            <!--<c:if test="${communityUtil.newCommunityEnabled}">-->
-                <!--<li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"-->
-                                         <!--styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "-->
-                                         <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
-                <!--</li>-->
-            <!--</c:if>-->
-            <c:if test="${communityUtil.newCommunityEnabled}">
-                <li id="topnav_sm" class="nav_menu">
-                    <p class="socialMedia">
-                        Find us on:
-                        <a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><img src="/res/img/nav/facebook_19px.png" width="19" height="19" alt="Facebook" class="fb"/></a>
-                        <a href="http://twitter.com/greatschoolsorg" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><img src="/res/img/nav/twitter_19px.png" width="19" height="19" alt="Twitter" class="tweet"/></a>
-                    </p>
-                </li>
-            </c:if>
+            <!--<li id="topnav_c" class="nav_menu"><gsml:a href="http://${communityHost}"-->
+                                     <!--styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "-->
+                                     <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
+            <!--</li>-->
+            <li id="topnav_sm" class="nav_menu">
+                <p class="socialMedia">
+                    Find us on:
+                    <a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><img src="/res/img/nav/facebook_19px.png" width="19" height="19" alt="Facebook" class="fb"/></a>
+                    <a href="http://twitter.com/greatschoolsorg" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><img src="/res/img/nav/twitter_19px.png" width="19" height="19" alt="Twitter" class="tweet"/></a>
+                </p>
+            </li>
         </ul>
         <c:choose>
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')

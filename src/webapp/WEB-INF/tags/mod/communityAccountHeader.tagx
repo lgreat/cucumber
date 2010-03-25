@@ -13,66 +13,26 @@
 <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
                          description="True if topnav is loaded via community iframe"/>
 
-    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-
-        <c:choose>
-            <c:when test="${communityUtil.newCommunityEnabled}">
-                <ul id="utilLinks">
-                    <li>
-                        Welcome,
-                        <link:userProfile
-                                username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
-                    </li>
-                    <li>
-                        <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
-                    </li>
-                    <li class="nav_menu last"><link:userAccount
-                            styleClass="nav_group_heading">My account</link:userAccount>
-                        <ul class="nav_group_items">
-                            <li class="first">
-                                <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
-                            </li>
-                            <li><link:recentActivity>My recent activity</link:recentActivity></li>
-                            <li><link:userProfile
-                                    username="${requestScope.context.screenName}">My profile</link:userProfile></li>
-                            <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
-                        </ul>
-                    </li>
-                </ul>
-            </c:when>
-            <c:otherwise>
-                <ul id="utilLinks">
-                <li class="headerUsername">
-                    Welcome,
-                    <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
+    <ul id="utilLinks">
+        <li>
+            Welcome,
+            <link:userProfile
+                    username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
+        </li>
+        <li>
+            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
+        </li>
+        <li class="nav_menu last"><link:userAccount
+                styleClass="nav_group_heading">My account</link:userAccount>
+            <ul class="nav_group_items">
+                <li class="first">
+                    <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
                 </li>
-                <li class="headerDashboard">
-                    <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
-                </li>
-                <li class="headerAccount withAvatar">
-                    <c:set var="referrer" value=""/>
-                    <c:if test="${inCommunity eq true}">
-                        <jsp:scriptlet>
-                            if (request.getHeader("referer") != null) {
-                                request.setAttribute("referrer", "&amp;referrer=" + URLEncoder.encode(request.getHeader("referer"), "UTF-8"));
-                            }
-                        </jsp:scriptlet>
-                    </c:if>
-                    <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-                </li>
-                <li class="headerMsl withAvatar">
-                    <c:choose>
-                        <c:when test="${not empty requestScope.context.mslCount}">
-                            <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
-                        </c:when>
-                        <c:otherwise>
-                            <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
-                        </c:otherwise>
-                    </c:choose>
-                </li>
-                </ul>
-            </c:otherwise>
-        </c:choose>
-
-
+                <li><link:recentActivity>My recent activity</link:recentActivity></li>
+                <li><link:userProfile
+                        username="${requestScope.context.screenName}">My profile</link:userProfile></li>
+                <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
+            </ul>
+        </li>
+    </ul>
 </jsp:root>

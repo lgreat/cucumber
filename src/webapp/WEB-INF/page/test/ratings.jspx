@@ -17,8 +17,6 @@
           xmlns:spring="http://www.springframework.org/tags"
 
         >
-    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -97,13 +95,6 @@
                             </c:if>
                         </div>
                     </div>
-
-                    <c:if test="${!communityUtil.newCommunityEnabled}">
-                        <jsp:include page="/community/communityQuestionPromo.module">
-                            <jsp:param name="code" value="school/rating.page"/>
-                            <jsp:param name="styleClass" value="bottomBorder"/>
-                        </jsp:include>
-                    </c:if>
 
                     <c:if test="${hasRating == 'true'}">
                         <ratings:table ratingsDisplay="${ratingsDisplay}"/>

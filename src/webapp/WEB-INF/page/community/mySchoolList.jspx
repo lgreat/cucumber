@@ -18,8 +18,6 @@
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page import="gs.web.util.UrlBuilder"/>
 
-<jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -54,13 +52,6 @@
     <div id="msl_header">
         <div id="msl_header_top">
             <div id="msl_title">My School List</div>
-            <c:if test="${!communityUtil.newCommunityEnabled}">
-                <c:if test="${communityAuth eq true}">
-                    <div id="dashboard_link">
-                        <gsml:a href="http://${communityHost}/dashboard">Go to my dashboard &gt;</gsml:a>
-                    </div>
-                </c:if>
-            </c:if>
         </div>
         <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
         <div id="msl_header_bottom">
@@ -94,15 +85,6 @@
     </c:choose>
 
     <ad:AboveFold_300x250 />
-
-    <c:if test="${requestScope.cityId ne null and requestScope.cityId gt 0 and !communityUtil.newCommunityEnabled}">
-        <jsp:include page="/community/localQuestions.module">
-            <jsp:param name="cityId" value="${requestScope.cityId}"/>
-            <jsp:param name="cityDisplayName" value="${requestScope.cityName}"/>
-            <jsp:param name="callerPagename" value="mySchoolList"/>
-        </jsp:include>
-    </c:if>
-
     <ad:Top_300x137/>
 
 </div>

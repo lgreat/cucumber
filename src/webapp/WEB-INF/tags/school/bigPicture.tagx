@@ -18,18 +18,12 @@
     <jsp:directive.attribute name="divider" required="false" description="Should a divider appear below the big picture?" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="anchor" required="false" description="Anchor - typically used for #from... tracking anchors" type="java.lang.String"/>
     <jsp:directive.attribute name="hideTalkLink" required="false" description="Whether or not to hide 'talk to other parents' link" type="java.lang.Boolean"/>
-    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateName" value="${school.databaseState.longName}"/>
 <c:set var="bigPictureAnchor" value="${(not empty anchor) ? anchor : 'from..BigPicture'}"/>
 <c:set var="hideTalkLink" value="${(not empty hideTalkLink) ? hideTalkLink : false}"/>
-
-<jsp:scriptlet>
-    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-</jsp:scriptlet>
 
     <div id="bigPicture">
         <h2>Big Picture</h2>
@@ -77,31 +71,22 @@
 
             <h3>
                 <c:choose>
-                    <c:when test="${communityUtil.newCommunityEnabled}">
-                        <c:choose>
-                            <c:when test="${level eq 'preschool'}">
-                                <link:cmsContent contentKey="DiscussionBoard#1636"
-                                                 fullUri="/preschool">Talk to other ${level} parents &amp;gt;</link:cmsContent>
-                            </c:when>
-                            <c:when test="${level eq 'elementary school'}">
-                                <link:cmsContent contentKey="DiscussionBoard#1637"
-                                                 fullUri="/elementar-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>                                
-                            </c:when>
-                            <c:when test="${level eq 'middle school'}">
-                                <link:cmsContent contentKey="DiscussionBoard#1638"
-                                                 fullUri="/middle-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>
-                            </c:when>
-                            <c:when test="${level eq 'high school'}">
-                                <link:cmsContent contentKey="DiscussionBoard#1639"
-                                                 fullUri="/high-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>
-                            </c:when>
-                        </c:choose>
+                    <c:when test="${level eq 'preschool'}">
+                        <link:cmsContent contentKey="DiscussionBoard#1636"
+                                         fullUri="/preschool">Talk to other ${level} parents &amp;gt;</link:cmsContent>
                     </c:when>
-                    <c:otherwise>
-                        <gsml:a href="http://${communityHost}/groups/${groupID}">
-                            Talk to other ${level} parents &amp;gt;
-                        </gsml:a>
-                    </c:otherwise>
+                    <c:when test="${level eq 'elementary school'}">
+                        <link:cmsContent contentKey="DiscussionBoard#1637"
+                                         fullUri="/elementar-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>
+                    </c:when>
+                    <c:when test="${level eq 'middle school'}">
+                        <link:cmsContent contentKey="DiscussionBoard#1638"
+                                         fullUri="/middle-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>
+                    </c:when>
+                    <c:when test="${level eq 'high school'}">
+                        <link:cmsContent contentKey="DiscussionBoard#1639"
+                                         fullUri="/high-school">Talk to other ${level} parents &amp;gt;</link:cmsContent>
+                    </c:when>
                 </c:choose>
             </h3>
         </c:if>
