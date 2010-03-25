@@ -421,8 +421,6 @@
 
             <div class="belowAdWrapper">
 
-                <ad:adTag position="BTS_Quiz_Promo_300x316"/>
-
                 <c:if test="${empty param.hideMap}">
                     <school:nearbySchools school="${school}"/>
                 </c:if>
