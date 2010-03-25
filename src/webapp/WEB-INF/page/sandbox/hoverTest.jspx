@@ -40,7 +40,6 @@
     <li><a href="/sandbox/hoverTest.page?showEmailValidatedHover=true">Click here to return to this page with the emailValidated hover showing</a></li>
     <li><a href="/sandbox/hoverTest.page?showValidateEditEmailHover=true">Click here to return to this page with the validateEditEmail hover showing</a></li>
     <li><a href="/sandbox/hoverTest.page?showValidationLinkExpiredHover=true">Click here to return to this page with the validateLinkExpired hover showing</a></li>
-    <li><a href="/sandbox/hoverTest.page?showJoinHover=true">Click here to return to this page with the join hover showing</a></li>
     <li><a href="/sandbox/hoverTest.page?showLoginHover=true">Click here to return to this page with the signIn hover showing</a></li>
     <li><a href="/sandbox/hoverTest.page?showForgotPasswordHover=true">Click here to return to this page with the forgotPassword hover showing</a></li>
     <li><a href="/sandbox/hoverTest.page">Click here to return to this page without any hovers showing</a></li>
