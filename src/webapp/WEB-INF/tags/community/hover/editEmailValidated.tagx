@@ -6,7 +6,9 @@
 
     <c:if test="${param.showEditEmailValidatedHover ne null or requestScope.showEditEmailValidatedHover ne null}">
         <script type="text/javascript">
-            GSType.hover.editEmailValidated.show();
+            jQuery(function() {
+                GSType.hover.editEmailValidated.show();
+            });
         </script>
     </c:if>
 

@@ -75,7 +75,7 @@
     <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
 
     <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
-    <!--<![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>-->
+    <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>
@@ -110,7 +110,6 @@
     <community:nthGraderRegistrationHover/>
 </c:if>
 
-<!--
 <communityHover:validateEmail/>
 <communityHover:validateEditEmail/>
 <communityHover:emailNotValidated/>
@@ -120,7 +119,6 @@
 <communityHover:join/>
 <communityHover:signIn/>
 <communityHover:forgotPassword/>
--->
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">

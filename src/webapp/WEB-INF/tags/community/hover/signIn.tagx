@@ -6,7 +6,9 @@
 
     <c:if test="${param.showLoginHover ne null or requestScope.showLoginHover ne null}">
         <script type="text/javascript">
-            GSType.hover.signInHover.show();
+            jQuery(function() {
+                GSType.hover.signInHover.show();
+            });
         </script>
     </c:if>
 

@@ -4,13 +4,13 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-
     <c:if test="${param.showValidateEditEmailHover ne null or requestScope.showValidateEditEmailHover ne null}">
         <script type="text/javascript">
-            GSType.hover.validateEditEmail.show();
+            jQuery(function() {
+                GSType.hover.validateEditEmail.show();
+            });
         </script>
     </c:if>
-
 
     <div id="valEditEmail" class="dialog_white" style="display:none;">
         <h2>Your new email needs to be verified</h2>

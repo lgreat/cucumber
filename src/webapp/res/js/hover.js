@@ -1,7 +1,9 @@
+if (GS == undefined) {
+    var GS = {};
+}
 if (GSType == undefined) {
     var GSType = {};
 }
-
 if (GSType.hover == undefined) {
     GSType.hover = {};
 }
@@ -75,9 +77,71 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 
 //Join hover
 GSType.hover.JoinHover = function() {
+    this.baseFields = function() {
+        // hide city and state inputs
+        jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        // hide nth / MSS
+        jQuery('#joinHover fieldset.prefs #opt1').parent().hide();
+        // hide LD newsletter
+        jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
+    };
+    this.setTitle = function(title) {
+        jQuery('#joinHover h2 span.hoverTitle').html(title);
+    };
+    this.setSubTitle = function(subTitle, subTitleText) {
+        jQuery('#joinHover .introTxt h3').html(subTitle);
+        jQuery('#joinHover .introTxt p').html(subTitleText);
+    };
     this.loadDialog = function() {
-        this.dialogByWidth(680);
-    }
+        GSType.hover.joinHover.dialogByWidth(680);
+    };
+    this.showJoinAuto = function() {
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("Send me updates");
+        GSType.hover.joinHover.setSubTitle("Keep tabs on Lowell High School",
+                "Be the first to know when school performance data is released that affects your child.");
+        // show nth / MSS
+        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.show();
+    };
+    this.showJoinChooserTipSheet = function() {
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("School Chooser tip sheet");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "for the best advice on choosing the right school for your family");
+        // show city and state inputs
+        jQuery('#joinHover fieldset.contactPw #joinState').parent().show();
+        GSType.hover.joinHover.show();
+    };
+    this.showLearningDifficultiesNewsletter = function() {
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("Learning Difficulties newsletter");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "to get the resources you need to support your child with a learning difficulty or attention problem");
+        // show nth / MSS
+        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        // show LD newsletter
+        jQuery('#joinHover fieldset.prefs #opt2').parent().show();
+        GSType.hover.joinHover.show();
+    };
+    this.showJoinPostComment = function() {
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("Speak your mind");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "to participate in the parent community and other discussions on our site");
+        // show nth / MSS
+        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.show();
+    };
+    this.showJoinTrackGrade = function() {
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("Is your child on track?");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "to get the grade-by-grade tips you need to make smart choices about your child's education.");
+        // show nth / MSS
+        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.show();
+    };
 };
 GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 
@@ -138,7 +202,7 @@ GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
-function loginValidatorHandler(data) {
+GS.signInHover_loginValidatorHandler = function(data) {
     var objCount = 0;
     for (_obj in data) objCount++;
 
@@ -167,18 +231,13 @@ function loginValidatorHandler(data) {
             GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
         }
     } else {
-        var params = {
-            email: jQuery('#semail').val(),
-            password: jQuery('#spword').val()
-        };
-
         jQuery('#signin').submit();
 
         GSType.hover.signInHover.hide();
     }
-}
+};
 
-function checkValidationResponse(data) {
+GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
 
     if (data.errorMsg) {
@@ -193,7 +252,7 @@ function checkValidationResponse(data) {
                                         ' with instructions for selecting a new password.');
     GSType.hover.signInHover.show();
     GSType.hover.forgotPassword.hide();
-}
+};
 
 jQuery(function() {
     GSType.hover.editEmailValidated.loadDialog();
@@ -209,7 +268,7 @@ jQuery(function() {
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.post('/community/forgotPasswordValidator.page',
                 jQuery('#hover_forgotPasswordForm').serialize(),
-                checkValidationResponse,
+                GS.forgotPasswordHover_checkValidationResponse,
                 'json');
 
         return false;
@@ -232,7 +291,8 @@ jQuery(function() {
             password: jQuery('#spword').val()
         };
 
-        jQuery.post('/community/registration/popup/loginValidationAjax.page', params, loginValidatorHandler, "json");
+        jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
+                GS.signInHover_loginValidatorHandler, "json");
 
         return false;
     });
@@ -249,5 +309,24 @@ jQuery(function() {
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page?redirect=" + window.location.href);
 
-    
+    jQuery('.joinAutoHover_showHover').click(function() {
+        GSType.hover.joinHover.showJoinAuto();
+        return false;
+    });
+    jQuery('.joinChooserHover_showHover').click(function() {
+        GSType.hover.joinHover.showJoinChooserTipSheet();
+        return false;
+    });
+    jQuery('.joinLDHover_showHover').click(function() {
+        GSType.hover.joinHover.showLearningDifficultiesNewsletter();
+        return false;
+    });
+    jQuery('.joinPostCommentHover_showHover').click(function() {
+        GSType.hover.joinHover.showJoinPostComment();
+        return false;
+    });
+    jQuery('.joinTrackGradeHover_showHover').click(function() {
+        GSType.hover.joinHover.showJoinTrackGrade();
+        return false;
+    });    
 });

@@ -22,19 +22,29 @@
 <p class="link regDone_showHover">Launch the emailValidated hover <span>&#187;</span></p>
 <p class="link valNewEmailDone_showHover">Launch the validateEditEmail hover <span>&#187;</span></p>
 <p class="link expVer_showHover">Launch the validateLinkExpiredLink hover <span>&#187;</span></p>
-<p class="link joinHover_showHover">Launch the Join hover! <span>&#187;</span></p>
 <p class="link signInHover_showHover">Launch the Sign In hover! <span>&#187;</span></p>
 <p class="link hover_forgotPassword_showHover">Launch the Forgot Password hover! <span>&#187;</span></p>
+<br/>
+<p class="link joinAutoHover_showHover">Launch the Join auto mss hover! <span>&#187;</span></p>
+<p class="link joinChooserHover_showHover">Launch the Join chooser hover! <span>&#187;</span></p>
+<p class="link joinLDHover_showHover">Launch the Join LD newsletter hover! <span>&#187;</span></p>
+<p class="link joinPostCommentHover_showHover">Launch the Join post comment hover! <span>&#187;</span></p>
+<p class="link joinTrackGradeHover_showHover">Launch the Join track grade hover! <span>&#187;</span></p>
+
    <br/><hr/>
 
-<c:choose>
-   <c:when test="${param.showValidateEmailHover ne null}">
-       <a href="/sandbox/hoverTest.page">Click here to return to this page without the hover showing</a>
-   </c:when>
-   <c:otherwise>
-       <a href="/sandbox/hoverTest.page?showValidateEmailHover=true">Click here to return to this page with the hover showing</a>
-   </c:otherwise>
-</c:choose>
+<ul>
+    <li><a href="/sandbox/hoverTest.page?showValidateEmailHover=true">Click here to return to this page with the validateEmail hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showEditEmailValidatedHover=true">Click here to return to this page with the editEmailValidated hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showEmailNotValidatedHover=true">Click here to return to this page with the emailNotValidated hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showEmailValidatedHover=true">Click here to return to this page with the emailValidated hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showValidateEditEmailHover=true">Click here to return to this page with the validateEditEmail hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showValidationLinkExpiredHover=true">Click here to return to this page with the validateLinkExpired hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showJoinHover=true">Click here to return to this page with the join hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showLoginHover=true">Click here to return to this page with the signIn hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page?showForgotPasswordHover=true">Click here to return to this page with the forgotPassword hover showing</a></li>
+    <li><a href="/sandbox/hoverTest.page">Click here to return to this page without any hovers showing</a></li>
+</ul>
 
 </body>
 </html>

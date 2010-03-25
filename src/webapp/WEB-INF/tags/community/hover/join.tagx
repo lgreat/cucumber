@@ -4,67 +4,13 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-
     <c:if test="${param.showJoinHover ne null or requestScope.showJoinHover ne null}">
         <script type="text/javascript">
-            GSType.hover.joinHover.show();
+            jQuery(function() {
+                GSType.hover.joinHover.show();
+            });
         </script>
     </c:if>
-
-    <script type="text/javascript">
-
-        function title(title) {
-            jQuery('#joinHover h2 span.hoverTitle').html(title);
-        }
-        function subTitle(subTitle, subTitleText) {
-            jQuery('#joinHover .introTxt h3').html(subTitle);
-            jQuery('#joinHover .introTxt p').html(subTitleText);
-        }
-
-        var joinAuto = function () {
-            title("Send me updates");
-            subTitle("Keep tabs on Lowell High School","Be the first to know when school performance data is released that affects your child.");
-            //TODO: multi check grade dropdown
-            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
-            //hide city and state inputs
-            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
-        }
-
-        var joinChooserTipSheet = function() {
-            title("School Chooser tip sheet");
-            subTitle("Join GreatSchools", "for the best advice on choosing the right school for your family");
-        }
-
-        var learningDifficultiesNewsletter = function() {
-            title("Learning Difficulties newsletter");
-            subTitle("Join GreatSchools","to get the resources you need to support your child with a learning difficulty or attention problem");
-            //hide city and state inputs
-            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
-        }
-
-        var joinPostComment = function() {
-            title("Speak your mind");
-            subTitle("Join GreatSchools", "to participate in the parent community and other discussions on our site");
-
-            jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
-            //hide city and state inputs
-            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
-        }
-
-        var joinTrackGrade = function() {
-            title("Is your child on track?");
-            subTitle("Join GreatSchools", "to get the grade-by-grade tips you need to make smart choices about your child's education.");
-
-            jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
-            //hide city and state inputs
-            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
-        }
-
-        jQuery(function () {
-            jQuery('#joinHover').bind('dialogopen', learningDifficultiesNewsletter);
-        });
-
-    </script>
 
     <div id="joinHover" style="display:none">
         <h2>
@@ -163,7 +109,7 @@
                 <ul class="col">
                     <li class="grades">
                         <input type="checkbox" name="options" value="opt1" id="opt1"/><label
-                            for="opt1">Sign me up for weekly emails from GreatSchools with gread-by-grade tips, including perieodic updates about
+                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including perieodic updates about
                         <strong>Lowell High School</strong>.</label>
 
                         <p>In 2008-2009 my children are in:</p>

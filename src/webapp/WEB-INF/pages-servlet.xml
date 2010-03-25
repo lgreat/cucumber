@@ -1556,7 +1556,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="false"/>
         <property name="how" value="Inline Join"/>
         <property name="tableDao">
@@ -1648,7 +1648,7 @@
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
         <property name="successView" value="redirect:/community/loginOrRegister.page"/>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -1671,7 +1671,7 @@
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.registration.LoginCommand"/>
         <property name="formView" value="/community/registration/loginOrRegister"/>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -1696,7 +1696,7 @@
         <property name="commandClass" value="gs.web.community.registration.popup.RegistrationHoverCommand"/>
         <property name="formView" value="/community/registration/popup/registrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -2316,7 +2316,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="true"/>
                 <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
@@ -2370,7 +2370,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="false"/>
         <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
@@ -2396,7 +2396,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="false"/>
         <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
@@ -2420,7 +2420,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="false"/>
         <property name="how" value="Nth hover"/>
         <property name="tableDao">
@@ -2468,7 +2468,7 @@
             <ref bean="mailSender"/>
         </property>
 
-        <property name="requireEmailValidation" value="false"/>
+        <property name="requireEmailValidation" value="true"/>
         <property name="chooserRegistration" value="false"/>
         <property name="how" value="Auto Joined"/>
         <property name="tableDao">

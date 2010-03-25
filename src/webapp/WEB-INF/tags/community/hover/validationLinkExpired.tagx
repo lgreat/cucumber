@@ -6,7 +6,9 @@
 
     <c:if test="${param.showValidationLinkExpiredHover ne null or requestScope.showValidationLinkExpiredHover ne null}">
         <script type="text/javascript">
-            GSType.hover.validateLinkExpired.show();
+            jQuery(function() {
+                GSType.hover.validateLinkExpired.show();
+            });
         </script>
     </c:if>
 
