@@ -91,7 +91,7 @@
                         </div>
                     </li>
                     <li>
-                        <label for="state">Where do you live?</label>
+                        <label for="joinState">Where do you live?</label>
                         <select name="state" id="joinState">
                             <option value="CA">CA</option>
                             <option value="CO">CO</option>
