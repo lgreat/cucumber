@@ -4,16 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-
     <c:if test="${param.showLoginHover ne null or requestScope.showLoginHover ne null}">
         <script type="text/javascript">
             GSType.hover.signInHover.show();
         </script>
     </c:if>
 
-
     <div id="signInHover" style="display:none;">
-        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
+        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="signInHover_launchJoin">Join GreatSchools</a>.</span></h2>
 
         <div class="messages">
             <p class="error"><!-- message --></p>
@@ -33,11 +31,9 @@
                 <button class="button" type="submit" name="signinBtn" id="signinBtn">
                     <span><span>Sign in</span></span>
                 </button>
-                <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+                <p><a href="#" id="signInHover_launchForgotPassword">Forgot your password?</a></p>
                 <input type="hidden" name="rememberMe" value="true"/>
             </fieldset>
         </form>
-
     </div>
-
 </jsp:root>

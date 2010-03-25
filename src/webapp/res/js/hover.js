@@ -18,9 +18,11 @@ GSType.hover.HoverDialog = function(id) {
     this.hoverId = id;
     this.show = function() {
         jQuery('#' + this.hoverId).dialog('open');
+        return false;
     };
     this.hide = function() {
         jQuery('#' + this.hoverId).dialog('close');
+        return false;
     };
     //template dialog to display based on variable width
     this.dialogByWidth = function (width) {
@@ -237,6 +239,12 @@ jQuery(function() {
 
     jQuery('#signInHover').bind('dialogclose', function() {
         GSType.hover.signInHover.clearMessages();
+    });
+
+    jQuery('#signInHover_launchForgotPassword').click(function() {
+        GSType.hover.signInHover.hide();
+        GSType.hover.forgotPassword.show();
+        return false;
     });
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page?redirect=" + window.location.href);
