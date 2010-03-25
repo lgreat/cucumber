@@ -8,6 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
@@ -46,6 +47,7 @@
                                   title="GreatSchools Privacy Policy"
                                   href="/privacy/?state=$STATE"
             >GreatSchools Privacy Policy</gsml:popupWindow>.</p>
+    <p>You can also <link:newsletterUnsubscribe email="${emailCmd.email}">unsubscribe from all newsletters</link:newsletterUnsubscribe></p>
 
     <form:form name="manage" commandName="emailCmd" method="post" onsubmit="return checkForm();">
         <input name="userId" type="hidden" value="${emailCmd.userId}"/>

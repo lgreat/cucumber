@@ -30,7 +30,7 @@
         </jsp:scriptlet>
     </head>
 
-    <gsml:body adPageName="email/management">
+    <gsml:body adPageName="email/management" pageLayout="nocol">
         <ad:setSlotPrefix slotPrefix="Email_Management"/>
 
         <h2>Your newsletter subscriptions have been updated.</h2>

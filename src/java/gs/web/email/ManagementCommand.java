@@ -18,6 +18,7 @@ public class ManagementCommand {
 
     private StateManager stateManager;
     private int userId;
+    private String email;
 
     //checkbox value representing if it is checked
     private boolean greatnews;
@@ -130,6 +131,14 @@ public class ManagementCommand {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean getGreatnews() {

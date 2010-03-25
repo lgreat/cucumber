@@ -96,6 +96,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         ManagementCommand command = (ManagementCommand) o;
         command.setUserId(user.getId());
+        command.setEmail(user.getEmail());
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
         if(subscriptions != null){
             for (Object subscription : subscriptions) {

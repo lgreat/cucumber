@@ -62,6 +62,7 @@ Disallow: /community/resetPassword.page
 Disallow: /members/*
 Disallow: /data/
 Disallow: /email/management.page
+Disallow: /email/unsubscribe.page
 Disallow: /icons/
 Disallow: /images/
 Disallow: /index.page

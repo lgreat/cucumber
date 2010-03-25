@@ -1,0 +1,58 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>Email Unsubscribe - GreatSchools</title>
+</head>
+
+<gsml:body adPageName="email/unsubscribe" pageLayout="nocol">
+<ad:setSlotPrefix slotPrefix="Email_Unsubscribe"/>
+
+    <img src="/res/img/pixel.gif" width="1" height="100"/><br/>
+    <table width="100%">
+        <tr><td align="center">
+            <h2>Click Submit if you are sure you would like to <br/>delete all of your subscriptions.</h2>
+            <br/><img src="/res/img/pixel.gif" width="1" height="20"/><br/>
+        </td></tr>
+        <tr><td align="center">
+            <form:form name="unsubscribe" commandName="emailCmd"  method="post">
+                <input name="userId" type="hidden" value="${emailCmd.userId}"/>
+                <input type="hidden" name="verified" value="yes"/>
+                <input type="hidden" name="email" value="${emailCmd.email}"/>
+                <button type="submit" id="Submit" name="Yes" value="Yes" class="btn25">
+                    <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
+                </button>
+            </form:form>
+        </td></tr>
+        <tr><td align="center">
+            <br/><img src="/res/img/pixel.gif" width="1" height="20"/><br/>
+            <h2>If you are not sure, <br/><link:newsletterManagement email="${emailCmd.email}">go back to the newsletters page</link:newsletterManagement>.</h2>
+            <br/><img src="/res/img/pixel.gif" width="1" height="20"/><br/>
+        </td></tr>
+    </table>
+
+
+    <mod:tracking pageName="Email Unsubscribe"
+                      hier1="Email,Unsubscribe"/>
+</gsml:body>
+</html>
+</jsp:root>

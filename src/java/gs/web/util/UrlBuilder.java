@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.211 2010/03/19 01:06:48 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.212 2010/03/25 18:26:53 eddie Exp $
  */
 
 package gs.web.util;
@@ -137,6 +137,7 @@ public class UrlBuilder {
      * Manage new or existing subscriptions.
      */
     public static final VPage NEWSLETTER_MANAGEMENT = new VPage("vpage:newsletterManagement");
+    public static final VPage NEWSLETTER_UNSUBSCRIBE = new VPage("vpage:newsletterUnsubscribe");
 
     /**
      * New state page: research and compare, with optional state.
@@ -977,6 +978,12 @@ public class UrlBuilder {
         } else if (NEWSLETTER_MANAGEMENT.equals(page)) {
             _perlPage = false;
             _path = "/email/management.page";
+            if (StringUtils.isNotBlank(param0)) {
+                setParameter("email", param0);
+            }
+        } else if (NEWSLETTER_UNSUBSCRIBE.equals(page)) {
+            _perlPage = false;
+            _path = "/email/unsubscribe.page";
             if (StringUtils.isNotBlank(param0)) {
                 setParameter("email", param0);
             }
