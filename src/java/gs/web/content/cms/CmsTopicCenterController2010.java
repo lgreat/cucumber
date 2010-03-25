@@ -172,6 +172,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             model.put("specialCity","Washington, D.C.");
         }
 
+        boolean showingTopRatedSchools = false;
         List<SchoolWithRatings> schools;
         if (levelCode.equals(LevelCode.PRESCHOOL)) {
             schools = getRandomSchoolsInCity(userCity, levelCode);
@@ -180,11 +181,14 @@ public class CmsTopicCenterController2010 extends AbstractController {
                     getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
             if (schools.size() == 0) {
                 schools = getRandomSchoolsInCity(userCity, levelCode);
+            } else {
+                showingTopRatedSchools = true;
             }
         }
         _reviewDao.loadRatingsIntoSchoolList(schools, userCity.getState());
 
         model.put("schools", schools);
+        model.put("showingTopRatedSchools", showingTopRatedSchools);
     }
 
     protected List<SchoolWithRatings> getRandomSchoolsInCity(ICity city, LevelCode levelCode) {

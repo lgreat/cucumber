@@ -2301,19 +2301,19 @@ ul.srchSuggest li span {
     /*left: 1px;*/
 }
 
-#mapContainer {
+#findASchool #mapContainer {
     padding: 10px 0;
     position: relative;
 }
 
-#map {
+#findASchool #map {
     width: 288px;
     height: 133px;
     position: relative;
     border:1px solid #c6c6c6;
 }
 
-.topRatedSchools th {
+#findASchool .topRatedSchools th {
     border: 0 solid #DDD;
     border-bottom-width: 1px;
     color: #333;
@@ -2323,13 +2323,13 @@ ul.srchSuggest li span {
     vertical-align: bottom;
 }
 
-.topRatedSchools td {
+#findASchool .topRatedSchools td {
     font-size: small;
     margin: 0;
     padding: 2px 10px 3px 0;
 }
 
-.topRatedSchools .dottedLineBottomBox {
+#findASchool .topRatedSchools .dottedLineBottomBox {
     padding-bottom: 4px;
     padding-top: 4px;
     border: 0 solid #DDD;
@@ -2337,13 +2337,13 @@ ul.srchSuggest li span {
     margin-bottom: 3px;
 }
 
-#topSchools .topRatedSchools a {
+#findASchool #topSchools .topRatedSchools a {
     display: block;
     float: left;
     width: 215px;
 }
 
-.topRatedSchools img.ratingImage {
+#findASchool .topRatedSchools img.ratingImage {
     float: right;
 }
 

@@ -14,6 +14,7 @@
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
     <jsp:directive.attribute name="ratingHeading" required="true" description="Heading text for rating column"/>
+    <jsp:directive.attribute name="cityHeadingPrefix" required="true" description="City heading text prefix, e.g. 'Preschools in' or 'Top elementary schools: '"/>
 
     <!-- id="findASchool" is required because it's used as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
@@ -49,7 +50,7 @@
 
 
 <div id="compare">
-<p class="text1">${gsweb:capitalize(levelCodePhrase)} in <span class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
+<p class="text1">${cityHeadingPrefix} <span class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
 
 <div class="changeCity text2">
     <label for="topCitiesCityList" class="fltlft">Change city: </label>

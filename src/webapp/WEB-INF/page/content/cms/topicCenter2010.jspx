@@ -225,6 +225,7 @@
                     <c:set var="levelCode" value="p"/>
                     <c:set var="levelCodePhrase" value="preschools"/>
                     <c:set var="ratingHeading" value="Parent rating"/>
+                    <c:set var="cityHeadingPrefix" value="Preschools in"/>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
@@ -242,6 +243,14 @@
                         </c:when>
                     </c:choose>
                     <c:set var="ratingHeading" value="GreatSchools Rating"/>
+                    <c:choose>
+                        <c:when test="${requestScope.showingTopRatedSchools}">
+                            <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}: "/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="cityHeadingPrefix" value="${gsweb:capitalize(levelCodePhrase)} in"/>
+                        </c:otherwise>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
             <school:findASchool city="${requestScope.cityObject}"
@@ -250,6 +259,7 @@
                                 ratingHeading="${ratingHeading}"
                                 levelCode="${levelCode}"
                                 levelCodePhrase="${levelCodePhrase}"
+                                cityHeadingPrefix="${cityHeadingPrefix}"
                     />
         </c:if>
 
