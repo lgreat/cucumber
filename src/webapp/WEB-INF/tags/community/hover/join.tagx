@@ -11,15 +11,75 @@
         </script>
     </c:if>
 
+    <script type="text/javascript">
+
+        function title(title) {
+            jQuery('#joinHover h2 span.hoverTitle').html(title);
+        }
+        function subTitle(subTitle, subTitleText) {
+            jQuery('#joinHover .introTxt h3').html(subTitle);
+            jQuery('#joinHover .introTxt p').html(subTitleText);
+        }
+
+        var joinAuto = function () {
+            title("Send me updates");
+            subTitle("Keep tabs on Lowell High School","Be the first to know when school performance data is released that affects your child.");
+            //TODO: multi check grade dropdown
+            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+            //hide city and state inputs
+            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        }
+
+        var joinChooserTipSheet = function() {
+            title("School Chooser tip sheet");
+            subTitle("Join GreatSchools", "for the best advice on choosing the right school for your family");
+        }
+
+        var learningDifficultiesNewsletter = function() {
+            title("Learning Difficulties newsletter");
+            subTitle("Join GreatSchools","to get the resources you need to support your child with a learning difficulty or attention problem");
+            //hide city and state inputs
+            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        }
+
+        var joinPostComment = function() {
+            title("Speak your mind");
+            subTitle("Join GreatSchools", "to participate in the parent community and other discussions on our site");
+
+            jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
+            //hide city and state inputs
+            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        }
+
+        var joinTrackGrade = function() {
+            title("Is your child on track?");
+            subTitle("Join GreatSchools", "to get the grade-by-grade tips you need to make smart choices about your child's education.");
+
+            jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
+            //hide city and state inputs
+            jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        }
+
+        jQuery(function () {
+            jQuery('#joinHover').bind('dialogopen', learningDifficultiesNewsletter);
+        });
+
+    </script>
 
     <div id="joinHover" style="display:none">
-        <h2>Send me updates <span>Already a member? <a href="#" id="lnchSignin">Sign in</a>.</span></h2>
+        <h2>
+            <span class="hoverTitle">Speak your mind</span>
+            <span>Already a member?
+                <a href="#" id="lnchSignin"
+                   onclick="GSType.hover.signInHover.show(); GSType.hover.joinHover.hide(); return false;">Sign in</a>
+            </span>
+        </h2>
 
         <div class="dialog_intro">
             <div class="introTxt col">
-                <h3>Keep tabs on Lowell High School</h3>
+                <h3>Join GreatSchools</h3>
 
-                <p>Be the first to know when school performance data is release that affects your child.</p>
+                <p>to participate in the parent community and other discussions on our site.</p>
             </div>
             <img class="stockPhoto col" src="/res/img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"/>
         </div>
@@ -39,15 +99,6 @@
                                     class="specChars">, . - _ &#38;</span></span>
                         </div>
                     </li>
-                    <!--                <li>
-                       <label for="lName">Last name *</label>
-                       <input type="text" id="lName" name="lName" />
-                       <div class="errors">
-                           <span class="error valid" id="ln_valid"> </span>
-                           <span class="error" id="ln_invalid">Please enter last name</span>
-                           <span class="error" id="ln_no_special_char">Last name may contain only letters, numbers, spaces, and the following punctuation: <span class="specChars">, . - _ &#38;</span></span>
-                       </div>
-                   </li> -->
                     <li>
                         <label for="jemail">Email address *</label>
                         <input type="text" id="jemail" name="jemail"/>
@@ -92,6 +143,19 @@
                             <span class="error valid" id="pwmatch"><!-- not empty --></span>
                             <span class="error" id="pwnomatch">Your passwords do not match</span>
                         </div>
+                    </li>
+                    <li>
+                        <label for="state">Where do you live?</label>
+                        <select name="state" id="joinState">
+                            <option value="CA">CA</option>
+                            <option value="CO">CO</option>
+                            <!-- TODO: get options -->
+                        </select>
+                        <select name="city" id="joinCity">
+                            <option value="Alameda">Alameda</option>
+                            <!-- TODO: get cities from state -->
+                        </select>
+                        <a href="#">Change city</a>
                     </li>
                 </ul>
             </fieldset>
