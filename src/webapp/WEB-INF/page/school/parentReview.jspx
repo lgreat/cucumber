@@ -86,10 +86,10 @@
     </div>
 </div>
 
-<form:form id="addParentReviewForm" commandName="parentReviewCommand" method="post" onsubmit="return validateReview();">
-<h3 style="display: none;" id="completeReview">Complete your review &amp;amp; rating</h3>
+<form:form id="addParentReviewForm" cssClass="hide" commandName="parentReviewCommand" method="post" onsubmit="return validateReview();">
+<h3 id="completeReview">Complete your review &amp;amp; rating</h3>
 
-<div style="display: none;" id="parentReviewForm">
+<div  id="parentReviewForm">
     <!--<div id="parentReviewForm">-->
     <input type="hidden" name="schoolId" id="schoolId" value=""/>
     <input type="hidden" name="schoolState" id="schoolState" value=""/>

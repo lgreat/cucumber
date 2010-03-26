@@ -146,9 +146,9 @@ function showResponse(x) {
         $('preSchoolStars').style.display = 'none';
         $('nonPreSchoolStars').style.display = '';
     }
-    if ($('parentReviewForm').style.display != 'none') {
-        $('parentReviewForm').style.display = '';
-        $('completeReview').style.display = '';
+    if ($('addParentReviewForm').hasClassName('hide')) {
+        $('addParentReviewForm').removeClassName('hide');
+        $('addParentReviewForm').addClassName('show');
         $('reviewThisSchoolButton').style.display = 'none';
     }
 
@@ -268,9 +268,9 @@ function reviewThisSchool() {
     if (!noError) {
         alert(errMsg);
     } else {
-        if ($('parentReviewForm').style.display == 'none') {
-            $('parentReviewForm').style.display = '';
-            $('completeReview').style.display = '';
+        if ($('addParentReviewForm').hasClassName('hide')) {
+            $('addParentReviewForm').removeClassName('hide');
+            $('addParentReviewForm').addClassName('show');
             $('reviewThisSchoolButton').style.display = 'none';
         }
     }

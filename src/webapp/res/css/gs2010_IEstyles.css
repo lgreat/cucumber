@@ -57,6 +57,9 @@ General comments:
 #topnav_search button {
     bottom: 8px;
 }
+body.ie #mainWrap {
+    height: expression( this.scrollHeight < 401 ? "400px" : "auto" );
+}
 
 /* =B- ie8
 -------------------------------------------------------------------------------------------*/
@@ -64,9 +67,6 @@ General comments:
 /* =C- ie7
 -------------------------------------------------------------------------------------------*/
 
-body.ie7 #mainWrap {
-    height: expression( this.scrollHeight < 401 ? "400px" : "auto" );
-}
 
 *+html #mainWrap {
     height: expression( this.scrollHeight < 401 ? "400px" : "auto" );
