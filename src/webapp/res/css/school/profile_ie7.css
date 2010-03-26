@@ -37,7 +37,7 @@ Internet Explorer 7 specific styles
     padding-top: 3px;
 }
 
-#navigation {
+body.ie7 #navigation {
 	margin: 15px auto 0;
 }
 

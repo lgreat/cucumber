@@ -28,7 +28,7 @@
 .hidden {
     display: none;
 }
-table#navigation {
+#navigation {
     margin: 0 auto 8px;
 }
 /* ab test */

@@ -91,7 +91,7 @@ Parent Review Page
 	height: 14px;
 }
 
-body.ie6 #showParentRatings .sm_stars {
+body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     margin-top: -17px;
 }
 
