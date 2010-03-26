@@ -1859,17 +1859,24 @@ a.ui-dialog-titlebar-close .ui-icon {
     color: #d61;
     position: relative;
 }
-#join_dialog h2 {
-    width: 390px;
+#joinHover h2 {
+    overflow: hidden;
+    height: 26px;
 }
 #signin_dialog h2 {
     width: 480px;
 }
 .ui-dialog-content h2 span {
-    float: right;
-    margin: 12px 0 0;
+    float: left;
+    margin: 8px 0;
     font: 11px Arial, sans-serif;
     color: #333;
+}
+.ui-dialog-content h2 span.hoverTitle {
+    font: 24px/1 Georgia, serif;
+    margin: 0 64px 0 0;
+    color: #d61;
+    position: relative;
 }
 .ui-dialog-content h2 span a {
     font-weight: 700;
@@ -1892,6 +1899,7 @@ a.ui-dialog-titlebar-close .ui-icon {
 }
 .introTxt h3 {
     font-size: 16px;
+    font-weight: 700;
     margin: 20px 0 0;
 }
 .introTxt p {
@@ -1909,8 +1917,8 @@ a.ui-dialog-titlebar-close .ui-icon {
 .ui-dialog-content form h3 {
     font: 700 13px/1.3 Arial, sans-serif;
 }
-fieldset  ul , fieldset li {
-    margin: 0;
+.ui-dialog fieldset  ul, .ui-dialog fieldset li, .btns p {
+    margin: 1em 0;
     padding: 0;
     list-style: none;
     position: relative;
@@ -1925,7 +1933,7 @@ fieldset label {
     margin-bottom: 10px;
     overflow: hidden;
 }
-.contactPw label {
+.contactPw label, #hover_forgotPasswordForm label {
     float: left;
     margin: 0 15px 0 0;
     width: 117px;
@@ -1959,12 +1967,13 @@ p.hlpTxt {
 .error {
     font: 11px/1 Arial, sans-serif;
     color: #c03;
-    padding: 0 0 0 15px;
-    background: url(/res/img/cbi_errorIcon_gfx.gif) no-repeat;
+    padding: 0 0 3px 15px;
+    background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) no-repeat;
+    display: none;
 }
 .valid {
     color: #118600;
-    background-image: url(/res/img/cbi_checkOk_gfx.gif);
+    background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
  }
 #joinGS .prefs, #joinGS .btns {
     position: relative;
@@ -2020,7 +2029,7 @@ p.hlpTxt {
     font-size: 12px;
 }
 #grdShow {
-    background: #fff url(/res/img/db_jnSelArrow_bg.png) 50% 9px no-repeat;
+    background: #fff url(/res/img/discussion_boards/db_jnSelArrow_bg.png) 50% 9px no-repeat;
     border: solid #2092c4;
     border-width: 0 0 0 1px;
     width: 27px;
@@ -2078,8 +2087,18 @@ div.hlpTxt {
 div.hlpTxt  p {
     margin: 1em 3em 1em 0;
 }
+#joinBtn, #hover_forgotPassword button {
+    float:left;
+}
+#hover_forgotPassword button {
+    margin: 0 1em 0 0;
+}
+button#hover_forgotPasswordSubmit {
+    margin-left: 132px; 
+}
 #cancelPref {
     margin-left: 54px;
+    float: left;
 }
 #signin .btns {
     padding: 0 0 0 104px;
@@ -2088,9 +2107,7 @@ div.hlpTxt  p {
     margin-bottom: 12px;
 }
 .dialog_white p {
-    padding: 20px;
-    background: #fff;
-    margin: 0;
+    margin: 0 0 1em;
 }
 /*
 =search styles 
@@ -3208,7 +3225,7 @@ button {
 }
 
 /* font size and family */
-#marginGS .btn25 {
+#marginGS .btn25, .ui-dialog .btn25 {
     font: bold 14px Arial, Helvetica, sans-serif;
     text-decoration: none;
     text-shadow: 1px 1px 1px #444;

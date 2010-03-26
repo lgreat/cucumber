@@ -15,8 +15,7 @@
     <div id="valNewEmailDone" class="dialog_white" style="display:none;">
         <h2>Your email change is complete</h2>
 
-        <p>Thanks for verifying your updated email address.<br/>
-            <button class="button valNewEmailDone_hideHover" type="button"><span><span>Finish</span></span></button>
-        </p>
+        <p>Thanks for verifying your updated email address.</p>
+        <button class="btn25 valNewEmailDone_hideHover" type="button"><span class="lftDoor25"><span class="rtDoor25">Finish</span></span></button>
     </div>
 </jsp:root>

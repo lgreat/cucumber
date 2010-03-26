@@ -30,8 +30,7 @@
         <h2>Verification link expired</h2>
 
         <p><strong>Oops! That email verification link has expired</strong>.
-            Please click the button below to receive a new one.<br/>
-            <button class="button" type="button" id="clsExpVer"><span><span>Send a new email</span></span></button>
-        </p>
+            Please click the button below to receive a new one.</p>
+        <button class="btn25" type="button" id="clsExpVer"><span class="lftDoor25"><span class="rtDoor25">Send a new email</span></span></button>
     </div>
 </jsp:root>

@@ -31,8 +31,8 @@
             </fieldset>
             <input type="hidden" name="redirect" class="redirect_field" value=""/>
             <fieldset class="btns">
-                <button class="button" type="submit" name="signinBtn" id="signinBtn">
-                    <span><span>Sign in</span></span>
+                <button class="btn25" type="submit" name="signinBtn" id="signinBtn">
+                    <span class="lftDoor25"><span class="rtDoor25">Sign in</span></span>
                 </button>
                 <p><a href="#" id="signInHover_launchForgotPassword">Forgot your password?</a></p>
                 <input type="hidden" name="rememberMe" value="true"/>

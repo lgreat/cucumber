@@ -44,7 +44,7 @@ GSType.hover.HoverDialog = function(id) {
 //EditEmailValidated Hover
 GSType.hover.EditEmailValidated = function() {
     this.loadDialog = function () {
-        this.dialogByWidth(600);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNewEmailDone');
@@ -52,7 +52,7 @@ GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNew
 //EmailValidated hover
 GSType.hover.EmailValidated = function() {
     this.loadDialog = function () {
-        this.dialogByWidth(600);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
@@ -60,7 +60,7 @@ GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(600);
+        this.dialogByWidth(590);
     };
     this.addMessage = function(text) {
         jQuery('#hover_forgotPassword .messages').append('<p>' + text + '</p>');
@@ -154,7 +154,7 @@ GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 GSType.hover.SignInHover = function() {
     this.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
     this.loadDialog = function() {
-        this.dialogByWidth(680);
+        this.dialogByWidth(590);
         jQuery('#signInHover .redirect_field').val(window.location.href)
     };
     this.addMessage = function(text) {
@@ -241,7 +241,7 @@ GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover')
 //ValidateEditEmail Hover
 GSType.hover.ValidateEditEmail = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(600);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail');
@@ -249,7 +249,7 @@ GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEdit
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(400);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEmail');
@@ -257,7 +257,7 @@ GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEma
 //ValidateLinkExpired hover
 GSType.hover.ValidateLinkExpired = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(400);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVer');
@@ -265,7 +265,7 @@ GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVe
 //EmailNotValidated hover
 GSType.hover.EmailNotValidated = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(600);
+        this.dialogByWidth(640);
     }
 };
 GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');

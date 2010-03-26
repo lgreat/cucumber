@@ -27,7 +27,7 @@
 
                 <p>to participate in the parent community and other discussions on our site.</p>
             </div>
-            <img class="stockPhoto col" src="/res/img/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"/>
+            <img class="stockPhoto col" src="/res/img/discussion_boards/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"/>
         </div>
 
         <form id="joinGS" action="#">
@@ -68,7 +68,7 @@
                             <span class="error" id="sn_invalid_chars">Username may contain only letters, numbers, and the following punctuation: <span
                                     class="specChars">. - _</span></span>
                         </div>
-                        <p class="hlpTxt">Choose carefully &#151; this will be your public identity on GreatSchools</p>
+                        <p class="hlpTxt">Choose carefully &#38;#151; this will be your public identity on GreatSchools</p>
                     </li>
                     <li>
                         <label for="jpword">Password * <br/>
@@ -139,7 +139,7 @@
                                         <li><input type="checkbox" value="gH" id="gH" name="grades"/><label
                                                 for="gH">High School</label></li>
                                     </ul>
-                                    <button class="button" id="gradeDone"><span><span>Done</span></span></button>
+                                    <button class="btn25" id="gradeDone"><span class="lftDoor25"><span class="rtDoor25">Done</span></span></button>
                                 </div>
                             </li>
                         </ul>
@@ -159,10 +159,10 @@
                 </div>
             </fieldset>
             <fieldset class="btns">
-                <button class="button" type="submit" name="joinBtn" id="joinBtn">
-                    <span><span>Join now</span></span>
+                <button class="btn25" type="submit" name="joinBtn" id="joinBtn">
+                    <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
                 </button>
-                <a href="#" id="cancelPref">No thanks <span>&#187;</span></a>
+                <a href="#" id="cancelPref">No thanks <span class="alertDoubleArrow">&#187;</span></a>
             </fieldset>
         </form>
 

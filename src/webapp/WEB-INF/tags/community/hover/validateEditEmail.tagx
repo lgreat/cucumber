@@ -16,8 +16,9 @@
         <h2>Your new email needs to be verified</h2>
 
         <p>Please click on the link in the verification email we just sent you to complete your change of email
-            address.<br/>
-            <button class="button valEditEmail_hideHover" type="button"><span><span>Ok</span></span></button>
+            address.
+
         </p>
+        <button class="btn25 valEditEmail_hideHover" type="button"><span class="lftDoor25"><span class="rtDoor25">Ok</span></span></button>
     </div>
 </jsp:root>

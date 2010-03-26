@@ -31,8 +31,8 @@
 
         <p><strong>Oops! You haven't verified your email address yet.</strong>
             To do so, please click on the link in the email we sent you.
-            Can't find the email? Click the button below to receive a new one.<br/>
-            <button class="button" type="button" id="clsValNewEmail"><span><span>Send a new email</span></span></button>
+            Can't find the email? Click the button below to receive a new one.
         </p>
+            <button class="btn25" type="button" id="clsValNewEmal"><span class="lftDoor25"><span class="rtDoor25">Send a new email</span></span></button>
     </div>
 </jsp:root>

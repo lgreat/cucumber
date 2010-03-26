@@ -16,8 +16,7 @@
         <h2>Your registration is complete</h2>
 
         <p><strong>Thanks for registering</strong>. Welcome to GreatSchools, the largest online community committed to
-            improving educational outcomes through parental involvement.<br/>
-            <button class="button regDone_hideHover" type="button"><span><span>Finish</span></span></button>
-        </p>
+            improving educational outcomes through parental involvement.</p>
+        <button class="btn25 regDone_hideHover" type="button"><span class="lftDoor25"><span class="rtDoor25">Finish</span></span></button>
     </div>
 </jsp:root>
