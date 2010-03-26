@@ -137,6 +137,7 @@
     <c:if test="${type eq 'askTheExperts'}">
         <h3 class="text-uppercase">Ask the Experts</h3>
     </c:if>
+    <a name="slide"><!-- don't collapse --></a>
     <h1>${feature.title}</h1>
 
     <c:choose>
@@ -259,7 +260,6 @@
             </div>
         </c:set>
 
-        <a name="slide"><!-- don't collapse --></a>
         <div id="slideshow" class="rounded">
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_header" class="rounded_top">
