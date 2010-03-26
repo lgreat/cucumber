@@ -102,6 +102,7 @@ GSType.hover.JoinHover = function() {
                 "Be the first to know when school performance data is released that affects your child.");
         // show nth / MSS
         jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
         GSType.hover.joinHover.show();
     };
     this.showJoinChooserTipSheet = function() {
@@ -111,6 +112,7 @@ GSType.hover.JoinHover = function() {
                 "for the best advice on choosing the right school for your family");
         // show city and state inputs
         jQuery('#joinHover fieldset.contactPw #joinState').parent().show();
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
         GSType.hover.joinHover.show();
     };
     this.showLearningDifficultiesNewsletter = function() {
@@ -122,6 +124,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover fieldset.prefs #opt1').parent().show();
         // show LD newsletter
         jQuery('#joinHover fieldset.prefs #opt2').parent().show();
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showLearningDifficultiesNewsletter;
         GSType.hover.joinHover.show();
     };
     this.showJoinPostComment = function() {
@@ -131,6 +134,7 @@ GSType.hover.JoinHover = function() {
                 "to participate in the parent community and other discussions on our site");
         // show nth / MSS
         jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinPostComment;
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
@@ -140,6 +144,7 @@ GSType.hover.JoinHover = function() {
                 "to get the grade-by-grade tips you need to make smart choices about your child's education.");
         // show nth / MSS
         jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
         GSType.hover.joinHover.show();
     };
 };
@@ -147,15 +152,88 @@ GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 
 //SignInHover hover
 GSType.hover.SignInHover = function() {
+    this.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
     this.loadDialog = function() {
         this.dialogByWidth(680);
+        jQuery('#signInHover .redirect_field').val(window.location.href)
     };
-
     this.addMessage = function(text) {
         jQuery('#signInHover .messages').append('<p>' + text + '</p>');
     };
     this.clearMessages = function() {
         jQuery('#signInHover .messages').replaceWith('<div class="messages"><!-- not empty --></div>');
+    };
+    this.setEmail = function(email) {
+        jQuery('#signInHover #semail').val(email);
+    };
+    this.setRedirect = function(redirect) {
+        jQuery('#signInHover .redirect_field').val(redirect);
+    };
+    this.validateFields = function() {
+        GSType.hover.signInHover.clearMessages();
+
+        var params = {
+            email: jQuery('#semail').val(),
+            password: jQuery('#spword').val()
+        };
+
+        jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
+                GSType.hover.signInHover.loginValidatorHandler, "json");
+
+        return false;
+    };
+    this.loginValidatorHandler = function(data) {
+        var objCount = 0;
+        for (_obj in data) objCount++;
+
+        if (objCount > 0) {
+            if (data.noSuchUser) {
+                GSType.hover.signInHover.addMessage('<p class="error">' + data.noSuchUser + '</p>');
+            }
+            if (data.userNoPassword) {
+                GSType.hover.signInHover.clearMessages();
+                GSType.hover.signInHover.hide();
+                //GSType.hover.joinHover.addMessage(data.userNoPassword);
+                GSType.hover.joinHover.show();
+            }
+            if (data.userNotValidated) {
+                GSType.hover.signInHover.clearMessages();
+                GSType.hover.signInHover.hide();
+                GSType.hover.emailNotValidated.show();
+            }
+            if (data.email) {
+                GSType.hover.signInHover.addMessage('<p class="error">' + data.email + '</p>');
+            }
+            if (data.userDeactivated) {
+                GSType.hover.signInHover.addMessage('<p class="error">' + data.userDeactivated + '</p>');
+            }
+            if (data.passwordMismatch) {
+                GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
+            }
+        } else {
+            jQuery('#signin').submit();
+
+            GSType.hover.signInHover.hide();
+        }
+    };
+    this.showHover = function(email, redirect, showJoinFunction) {
+        GSType.hover.signInHover.setEmail(email);
+        GSType.hover.signInHover.setRedirect(redirect);
+        if (showJoinFunction) {
+            GSType.hover.signInHover.showJoinFunction = showJoinFunction;
+        }
+        GSType.hover.signInHover.show();
+        return false;
+    };
+    this.showJoin = function() {
+        GSType.hover.signInHover.hide();
+        GSType.hover.signInHover.showJoinFunction();
+        return false;
+    };
+    this.showForgotPassword = function() {
+        GSType.hover.signInHover.hide();
+        GSType.hover.forgotPassword.show();
+        return false;
     }
 };
 GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover');
@@ -202,41 +280,6 @@ GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
-GS.signInHover_loginValidatorHandler = function(data) {
-    var objCount = 0;
-    for (_obj in data) objCount++;
-
-    if (objCount > 0) {
-        if (data.noSuchUser) {
-            GSType.hover.signInHover.addMessage('<p class="error">' + data.noSuchUser + '</p>');
-        }
-        if (data.userNoPassword) {
-            GSType.hover.signInHover.clearMessages();
-            GSType.hover.signInHover.hide();
-            //GSType.hover.joinHover.addMessage(data.userNoPassword);
-            GSType.hover.joinHover.show();
-        }
-        if (data.userNotValidated) {
-            GSType.hover.signInHover.clearMessages();
-            GSType.hover.signInHover.hide();
-            GSType.hover.emailNotValidated.show();
-        }
-        if (data.email) {
-            GSType.hover.signInHover.addMessage('<p class="error">' + data.email + '</p>');
-        }
-        if (data.userDeactivated) {
-            GSType.hover.signInHover.addMessage('<p class="error">' + data.userDeactivated + '</p>');
-        }
-        if (data.passwordMismatch) {
-            GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
-        }
-    } else {
-        jQuery('#signin').submit();
-
-        GSType.hover.signInHover.hide();
-    }
-};
-
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
 
@@ -278,36 +321,18 @@ jQuery(function() {
         GSType.hover.forgotPassword.clearMessages();
     });
 
-
     jQuery('.signInHoverLink').click(function() {
         GSType.hover.signInHover.show();
     });
 
-    jQuery('#signinBtn').click(function() {
-        GSType.hover.signInHover.clearMessages();
+    jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
 
-        var params = {
-            email: jQuery('#semail').val(),
-            password: jQuery('#spword').val()
-        };
+    jQuery('#signInHover').bind('dialogclose', GSType.hover.signInHover.clearMessages);
 
-        jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
-                GS.signInHover_loginValidatorHandler, "json");
+    jQuery('#signInHover_launchJoin').click(GSType.hover.signInHover.showJoin);
+    jQuery('#signInHover_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
 
-        return false;
-    });
-
-    jQuery('#signInHover').bind('dialogclose', function() {
-        GSType.hover.signInHover.clearMessages();
-    });
-
-    jQuery('#signInHover_launchForgotPassword').click(function() {
-        GSType.hover.signInHover.hide();
-        GSType.hover.forgotPassword.show();
-        return false;
-    });
-
-    jQuery('#signin').attr("action", "/community/loginOrRegister.page?redirect=" + window.location.href);
+    jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 
     jQuery('.joinAutoHover_showHover').click(function() {
         GSType.hover.joinHover.showJoinAuto();

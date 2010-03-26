@@ -18,8 +18,12 @@
         <li><link:aboutUs>About GreatSchools</link:aboutUs></li>
         <li><link:registration
                 email="${requestScope.context.email}">Join Us</link:registration></li>
+
         <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
-                                                  redirect="${myUrl}">Sign In</link:loginOrRegister></li>
+                                               onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinTrackGrade); return false;"
+                                               redirect="${myUrl}">Sign In</link:loginOrRegister></li>
+        <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
+                                                  <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
 
     </ul>
 

@@ -29,6 +29,7 @@
                     <li><label for="spword">Password</label><input type="password" id="spword" name="password"/></li>
                 </ul>
             </fieldset>
+            <input type="hidden" name="redirect" class="redirect_field" value=""/>
             <fieldset class="btns">
                 <button class="button" type="submit" name="signinBtn" id="signinBtn">
                     <span><span>Sign in</span></span>
