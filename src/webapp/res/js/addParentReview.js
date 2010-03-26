@@ -247,7 +247,7 @@ function removeChildrenFromNode(node)
 }
 
 function reviewThisSchool() {
-    var errMsg = 'Please enter the following feilds : ';
+    var errMsg = 'Please enter the following fields: ';
     var noError = true;
 
     if (($('userState').value == 0) || ($('userState').value == 'Choose a state')) {
