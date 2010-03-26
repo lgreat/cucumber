@@ -49,7 +49,7 @@ public class RequestEmailValidationControllerTest extends BaseControllerTestCase
 
         expect(_userDao.findUserFromEmailIfExists("aroy@greatschools.org")).andReturn(user);
 
-        _emailVerificationEmail.sendVerificationEmail(getRequest(), user, "/");
+        _emailVerificationEmail.sendVerificationEmail(getRequest(), user, "/account/");
         replayAllMocks();
         _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAllMocks();
