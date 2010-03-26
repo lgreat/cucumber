@@ -40,6 +40,7 @@ General comments:
 =4e-5 about sponsors
 =4f- schools
 =4f-1 school profile
+=4g- video page
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -2709,6 +2710,26 @@ ul.srchSuggest li span {
     top: 0;
     right: 0;
 }
+
+/*
+=4g- vidoe page
+-----------------------------------------------------------------------------
+*/
+
+#mainGS.vids {
+    padding: 0 10px;
+    width: 618px;
+}
+#sidebarGS.vids #Top_300x137{
+    text-align: center;
+}
+#watchVid .mod_hd {
+    padding: 8px 0;
+}
+#watchVid .mod_bd {
+    padding: 8px 0;
+}
+
 
 /* =5- icons
 -------------------------------------------------------------------------------------------*/

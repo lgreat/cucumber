@@ -38,23 +38,25 @@
            value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
     <ad:setSlotPrefix slotPrefix="Video_Page"/>
-    <body >
-        <div id="content">
-            <div id="leftColumn">
-                <div id="titleLeft">
-                    <h3>Watch and Learn</h3>
+    <body>
+            <div id="mainGS" class="col vids">
+                <div id="watchVid" class="mod">
+                    <div class="mod_hd">
+                        <h2>Watch and Learn</h2>
+                    </div>
+                    <div class="mod_bd">
+                
+                        <object width="610" height="1000" id="delve_player100893o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="transparent"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player100893e" wmode="transparent" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
+
+                        <div id="titleRight">
+                            <div id="titleRightRight"><a href="http://thek5.com" target="_blank"><img src="/res/img/content/video/k5.gif" alt="k5"/></a></div>
+                            <div id="titleRightLeft"><a href="http://thek5.com" target="_blank">Content provided by </a></div>
+                        </div>
+                    </div>
                 </div>
-
-                <object width="610" height="1000" id="delve_player100893o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="transparent"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player100893e" wmode="transparent" width="610" height="1000" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=292d204584cf468ca024f0fd210ab986&amp;channelId=4d2ffc1969c74ae0bc356bce29422461"></embed></object>
-
-                <div id="titleRight">
-                    <div id="titleRightRight"><a href="http://thek5.com" target="_blank"><img src="/res/img/content/video/k5.gif" alt="k5"/></a></div>
-                    <div id="titleRightLeft"><a href="http://thek5.com" target="_blank">Content provided by </a></div>
-                </div>
-
 
             </div>
-            <div id="rightColumn">
+            <div id="sidebarGS" class="col vids">
                 <ad:Top_300x137/>
                 <div id="adCompanionBanner" style="visibility:hidden">&amp;nbsp;</div>
                 <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js">
@@ -70,7 +72,6 @@
                 </script>
                  <jsp:include page="/content/cms/mostPopularContent.module"/> 
             </div>
-        </div>
 
 
         <mod:tracking pageName="${pageName}"
