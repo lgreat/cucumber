@@ -1,17 +1,24 @@
 // JavaScript Document
 // required to avoid "$j" collisions with Prototype.js
-jQuery.noConflict();
 var $j = jQuery;
 
 $j(document).ready(function() {
     //
     // Initialize (all twirly content closed)
-    var theTwirly = $j('#topicbarGS .hasNested');
+    var theTwirly = $j('#topicbarGS .hasNested > span');
+    var theLink = $j('#topicbarGS .hasNested > a');
     //
     // On twirly click
     theTwirly.click(function () {
-        ($j('> span', this).hasClass('twirlyClosed')) ? $j('> span', this).removeClass('twirlyClosed').addClass('twirlyOpen') : $j('> span', this).removeClass('twirlyOpen').addClass('twirlyClosed');
-        ($j('> span', this).hasClass('twirlyClosed')) ? $j('> ul', this).slideUp(250) : $j('> ul', this).slideDown(250);
+        ($j(this).hasClass('twirlyClosed')) ? $j(this).removeClass('twirlyClosed').addClass('twirlyOpen') : $j(this).removeClass('twirlyOpen').addClass('twirlyClosed');
+        ($j(this).hasClass('twirlyClosed')) ? $j(this).parent().find('ul').slideUp(250) : $j(this).parent().find('ul').slideDown(250);
+        return false;
+    });
+   //
+   // On link click
+    theLink.click(function () {
+        ($j(this).parent().find('span').hasClass('twirlyClosed')) ? $j(this).parent().find('span').removeClass('twirlyClosed').addClass('twirlyOpen') : $j(this).parent().find('span').removeClass('twirlyOpen').addClass('twirlyClosed');
+        ($j(this).parent().find('span').hasClass('twirlyClosed')) ? $j(this).parent().find('ul').slideUp(250) : $j(this).parent().find('ul').slideDown(250);
         return false;
     });
 

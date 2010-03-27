@@ -807,7 +807,6 @@ body.cobranded #pageGS {
 }
 
 #topicContentGS{
-    padding-top:15px;
 }
 
 #topicbarGS.col{
@@ -845,7 +844,7 @@ body.cobranded #pageGS {
 }
 
 .navmod_bd{
-    padding:9px 0 9px 13px;
+    padding:9px 5px 9px 13px;
     border-right:1px solid #c6c6c6;
     border-bottom:1px solid #c6c6c6;
     border-left:1px solid #c6c6c6;
@@ -2306,8 +2305,16 @@ ul.srchSuggest li span {
     overflow: hidden;
 }
 
+#findASchool p{
+    margin-bottom:0.4em;
+}
+
 #findStateSelector{
-    margin:2px 4px;
+    margin:0 4px;
+}
+
+#findASchool #compare{
+    padding-top:10px;
 }
 
 #findASchool #topCitiesCityList {
@@ -2409,17 +2416,32 @@ ul.srchSuggest li span {
 #topicbarGS ul ul li{
     list-style:disc outside none;
     color:#f4891d;
+    margin-left:0;
+}
+
+#topicbarGS ul ul a{
+    width:115px;
 }
 
 #topicbarGS li.hasNested{
     cursor:pointer;
 }
 
-#topicbarGS .hasNested a:hover{
-    text-decoration:none;
+#topicbarGS span{
+    vertical-align:top;
 }
 
-#topicbarGS .hasNested a:focus{
+#topicbarGS .outerNavLink{
+    display:inline-block;
+    width:127px;
+}
+
+#topicbarGS .hasNested .outerNavLink:hover{
+    text-decoration:none;
+    cursor:pointer;
+}
+
+#topicbarGS .hasNested .outerNavLink:focus{
     outline:none;
 }
 
@@ -2439,7 +2461,7 @@ ul.srchSuggest li span {
     width: 100%;
     height: 29px;
     margin: 0;
-    margin-top: 5px;
+    margin-top: 3px;
     padding: 0;
     text-align: center;
     display: block;
@@ -2489,7 +2511,7 @@ ul.srchSuggest li span {
     float: left;
     padding: 0 15px;
     width: 96px;
-    height: 142px;
+    height: 145px;
     border-right: 1px solid #c6c6c6;
 }
 
@@ -3212,6 +3234,7 @@ button {
     padding: 0 0 0 15px;
     line-height: 25px;
     float: left;
+    margin-top:-2px;
 }
 
 .rtDoor25 {

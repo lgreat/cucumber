@@ -107,9 +107,9 @@
 
         </div>
         <!-- end #featured -->
-        <div class="clearfloat"><!-- don't collapse --></div>
+        <div class="spacer_15"><!-- don't collapse --></div>
         <!-- Subtopics -->
-        <div id="topicContentGS">
+        <div id="topicContentGS" class="clearfix">
 
             <div id="topicbarGS" class="col">
 
