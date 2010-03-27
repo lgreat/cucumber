@@ -1540,6 +1540,14 @@
     </bean>
 
     <!--Begin Registration pages -->
+    <bean name="/community/registrationValidationAjax.page"
+          class="gs.web.community.registration.popup.RegistrationValidationAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="userCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="requireEmailValidation" value="true"/>
+    </bean>
+
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">

@@ -79,12 +79,17 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 GSType.hover.JoinHover = function() {
     this.baseFields = function() {
         // hide city and state inputs
-        jQuery('#joinHover fieldset.contactPw #joinState').parent().hide();
+        jQuery('#joinHover fieldset.contactPw #joinState').parent().children().hide();
         // hide nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().hide();
+        jQuery('#joinHover fieldset.prefs #opt1').parent().children().hide();
+        jQuery('#joinHover fieldset.prefs ul.col li.grades p').hide();
+        jQuery('#joinHover fieldset.prefs ul.col li.grades ul').hide();
         // hide LD newsletter
-        jQuery('#joinHover fieldset.prefs #opt2').parent().hide();
+        jQuery('#joinHover fieldset.prefs #opt2').parent().children().hide();
     };
+    this.setJoinHoverType = function(type) {
+        jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
+    }
     this.setTitle = function(title) {
         jQuery('#joinHover h2 span.hoverTitle').html(title);
     };
@@ -92,6 +97,41 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .introTxt h3').html(subTitle);
         jQuery('#joinHover .introTxt p').html(subTitleText);
     };
+    this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss, schoolName)
+    {
+        var labelTextPrefix = "Sign me up for";
+        var labelPhrases = "";
+        if (!schoolName) {
+            schoolName = jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"] strong').html();
+        }
+
+        if (includeWeeklyEmails) {
+            labelPhrases += " weekly emails from GreatSchools";
+        }
+        if (includeTips) {
+            if (labelPhrases.length > 0) {
+                labelPhrases += " with";
+            }
+            labelPhrases += " grade-by-grade tips"
+        }
+        if (includeMss) {
+            if (labelPhrases.length > 0) {
+                labelPhrases += ", including";
+            }
+            labelPhrases += " periodic updates about <strong>" + schoolName + "</strong>";
+        }
+        labelPhrases += ".";
+
+        //choose whether to display nth grader checkboxes flyout
+        if (includeTips) {
+            jQuery('#joinHover fieldset.prefs ul.col li.grades p').show();
+            jQuery('#joinHover fieldset.prefs ul.col li.grades ul').show();
+        }
+
+        jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+        jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').show();
+        jQuery('#joinHover fieldset.prefs ul.col li.grades #opt1').show();
+    }
     this.loadDialog = function() {
         GSType.hover.joinHover.dialogByWidth(680);
     };
@@ -101,7 +141,10 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Keep tabs on Lowell High School",
                 "Be the first to know when school performance data is released that affects your child.");
         // show nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+
+        GSType.hover.joinHover.setJoinHoverType("Auto");
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
         GSType.hover.joinHover.show();
     };
@@ -111,7 +154,13 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "for the best advice on choosing the right school for your family");
         // show city and state inputs
-        jQuery('#joinHover fieldset.contactPw #joinState').parent().show();
+        jQuery('#joinHover fieldset.contactPw #joinState').parent().children().show();
+
+        // set label for weekly updates opt-in
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
+
+        GSType.hover.joinHover.setJoinHoverType("ChooserTipSheet");
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
         GSType.hover.joinHover.show();
     };
@@ -121,9 +170,12 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "to get the resources you need to support your child with a learning difficulty or attention problem");
         // show nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show LD newsletter
-        jQuery('#joinHover fieldset.prefs #opt2').parent().show();
+        jQuery('#joinHover fieldset.prefs #opt2').parent().children().show();
+
+        GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showLearningDifficultiesNewsletter;
         GSType.hover.joinHover.show();
     };
@@ -133,7 +185,10 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "to participate in the parent community and other discussions on our site");
         // show nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+
+        GSType.hover.joinHover.setJoinHoverType("PostComment");
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinPostComment;
         GSType.hover.joinHover.show();
     };
@@ -143,7 +198,10 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "to get the grade-by-grade tips you need to make smart choices about your child's education.");
         // show nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().show();
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+
+        GSType.hover.joinHover.setJoinHoverType("TrackGrade");
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
         GSType.hover.joinHover.show();
     };
@@ -175,7 +233,7 @@ GSType.hover.SignInHover = function() {
         var params = {
             email: jQuery('#semail').val(),
             password: jQuery('#spword').val()
-        };
+        }
 
         jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
                 GSType.hover.signInHover.loginValidatorHandler, "json");
@@ -297,6 +355,50 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.hide();
 };
 
+GS.joinHover_checkValidationResponse = function(data) {
+    var firstNameError = jQuery('#joinGS #fName').parent().children('.errors').children('.invalid');
+    var firstNameValid = jQuery('#joinGS #fName').parent().children('.errors').children('.valid');
+    var emailError = jQuery('#joinGS #jemail').parent().children('.errors').children('.invalid');
+    var emailValid = jQuery('#joinGS #jemail').parent().children('.errors').children('.valid');
+    var usernameError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
+    var usernameValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
+    var passwordError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
+    var passwordValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
+
+    firstNameError.hide();
+    emailError.hide();
+    usernameError.hide();
+    passwordError.hide();
+
+    if (data.terms) {
+        jQuery('#joinGS #process_error').show();
+    }
+
+    if (data.firstName) {
+        firstNameError.html(data.firstName);
+        firstNameError.show();
+    }
+
+    if (data.email) {
+        emailError.html(data.email);
+        emailError.show();
+    }
+
+    if (data.password) {
+        passwordError.html(data.password);
+        passwordError.show();
+    }
+
+    if (data.userName) {
+        usernameError.html(data.userName);
+        usernameError.show();
+    } else {
+        usernameError.hide();
+        usernameValid.show();
+    }
+
+}
+
 jQuery(function() {
     GSType.hover.editEmailValidated.loadDialog();
     GSType.hover.emailNotValidated.loadDialog();
@@ -314,6 +416,13 @@ jQuery(function() {
                 GS.forgotPasswordHover_checkValidationResponse,
                 'json');
 
+        return false;
+    });
+
+    jQuery('#joinBtn').click(function() {
+        var params = jQuery('#joinGS').serialize();
+        alert(params);
+        jQuery.post("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse, "json");
         return false;
     });
 
@@ -353,5 +462,5 @@ jQuery(function() {
     jQuery('.joinTrackGradeHover_showHover').click(function() {
         GSType.hover.joinHover.showJoinTrackGrade();
         return false;
-    });    
+    });
 });

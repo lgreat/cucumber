@@ -30,50 +30,50 @@
             <img class="stockPhoto col" src="/res/img/discussion_boards/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"/>
         </div>
 
-        <form id="joinGS" action="#">
+        <form id="joinGS" action="#" method="post">
             <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
             <fieldset class="contactPw">
                 <ul>
                     <li>
                         <label for="fName">First name *</label>
-                        <input type="text" id="fName" name="fName"/>
+                        <input type="text" id="fName" name="firstName"/>
 
                         <div class="errors">
-                            <span id="fn_valid" class="error valid "><!-- not empty --></span>
-                            <span id="fn_invalid" class="error ">Please enter first name</span>
-                            <span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span
-                                    class="specChars">, . - _ &#38;</span></span>
+                            <span class="error valid"><!-- not empty --></span>
+                            <span class="error invalid">Please enter first name</span>
+                            <!--<span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span
+                                    class="specChars">, . - _ &#38;</span></span>-->
                         </div>
                     </li>
                     <li>
                         <label for="jemail">Email address *</label>
-                        <input type="text" id="jemail" name="jemail"/>
+                        <input type="text" id="jemail" name="email"/>
 
                         <div class="errors">
-                            <span class="error" id="em_valid"><!-- not empty --></span>
-                            <span class="error" id="em_invalid">Please enter a valid email</span>
+                            <span class="error valid"><!-- not empty --></span>
+                            <span class="error invalid">Please enter a valid email</span>
                         </div>
                     </li>
                     <li>
                         <label for="uName">Username * <br/>
                             <span class="hlpTxt">6-14 characters</span></label>
-                        <input type="text" id="uName" name="uName"/>
+                        <input type="text" id="uName" name="screenName"/>
 
                         <div class="errors">
-                            <span class="error valid" id="sn_valid">Your username is available</span>
-                            <span class="error" id="sn_inuse">Someone is already registered with this user name</span>
-                            <span class="error"
+                            <span class="error valid">Your username is available</span>
+                            <span class="error invalid"></span>
+                            <!--<span class="error"
                                   id="sn_invalid">Your user name must be 6-14 characters, with no spaces</span>
                             <span class="error" id="sn_enter">Please enter a user name</span>
                             <span class="error" id="sn_invalid_chars">Username may contain only letters, numbers, and the following punctuation: <span
-                                    class="specChars">. - _</span></span>
+                                    class="specChars">. - _</span></span>-->
                         </div>
                         <p class="hlpTxt">Choose carefully &#38;#151; this will be your public identity on GreatSchools</p>
                     </li>
                     <li>
                         <label for="jpword">Password * <br/>
                             <span class="hlpTxt">6-14 characters</span></label>
-                        <input type="password" id="jpword" name="jpword"/>
+                        <input type="password" id="jpword" name="password"/>
 
                         <div class="errors">
                             <span class="error valid" id="pw"><!-- not empty --></span>
@@ -83,7 +83,7 @@
                     </li>
                     <li>
                         <label for="cpword">Retype password *</label>
-                        <input type="password" id="cpword" name="cpword"/>
+                        <input type="password" id="cpword" name="confirmPassword"/>
 
                         <div class="errors">
                             <span class="error valid" id="pwmatch"><!-- not empty --></span>
@@ -108,7 +108,7 @@
             <fieldset class="prefs">
                 <ul class="col">
                     <li class="grades">
-                        <input type="checkbox" name="options" value="opt1" id="opt1"/><label
+                        <input type="checkbox" name="newsletter" value="true" id="opt1"/><label
                             for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including perieodic updates about
                         <strong>Lowell High School</strong>.</label>
 
@@ -144,11 +144,11 @@
                             </li>
                         </ul>
                     </li>
-                    <li><input type="checkbox" name="options" value="opt2" id="opt2"/><label
+                    <li><input type="checkbox" name="ldNewsletter" value="true" id="opt2"/><label
                             for="opt2">Send me monthly emails about Learning Difficulties.</label></li>
-                    <li><input type="checkbox" name="options" value="opt3" id="opt3"/><label
+                    <li><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/><label
                             for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
-                    <li><input type="checkbox" name="acceptTerms" value="yes" id="touy"/><label
+                    <li><input type="checkbox" name="terms" value="true" id="touy"/><label
                             for="touy">I agree to the <a href="#">GreatSchools Terms of Use</a> and <a
                             href="#">Community Guidelines</a>. *</label></li>
                 </ul>
@@ -159,11 +159,12 @@
                 </div>
             </fieldset>
             <fieldset class="btns">
-                <button class="btn25" type="submit" name="joinBtn" id="joinBtn">
+                <button class="btn25" type="button" name="joinBtn" id="joinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
                 </button>
                 <a href="#" id="cancelPref">No thanks <span class="alertDoubleArrow">&#187;</span></a>
             </fieldset>
+            <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />
         </form>
 
     </div>
