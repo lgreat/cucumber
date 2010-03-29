@@ -2,6 +2,8 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
     <c:if test="${param.showJoinHover ne null or requestScope.showJoinHover ne null}">
@@ -61,7 +63,7 @@
 
                         <div class="errors">
                             <span class="error valid">Your username is available</span>
-                            <span class="error invalid"></span>
+                            <span class="error invalid"><!--not empty--></span>
                             <!--<span class="error"
                                   id="sn_invalid">Your user name must be 6-14 characters, with no spaces</span>
                             <span class="error" id="sn_enter">Please enter a user name</span>
@@ -92,16 +94,11 @@
                     </li>
                     <li>
                         <label for="joinState">Where do you live?</label>
-                        <select name="state" id="joinState">
-                            <option value="CA">CA</option>
-                            <option value="CO">CO</option>
-                            <!-- TODO: get options -->
-                        </select>
+                        <gsweb:stateSelector state="${requestScope.context.state}" styleId="joinState"
+                                             allowNoState="true" noStateLabel="--"/>
                         <select name="city" id="joinCity">
-                            <option value="Alameda">Alameda</option>
-                            <!-- TODO: get cities from state -->
+                            <!-- not empty -->
                         </select>
-                        <a href="#">Change city</a>
                     </li>
                 </ul>
             </fieldset>
@@ -149,20 +146,29 @@
                     <li><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/><label
                             for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
                     <li><input type="checkbox" name="terms" value="true" id="touy"/><label
-                            for="touy">I agree to the <a href="#">GreatSchools Terms of Use</a> and <a
-                            href="#">Community Guidelines</a>. *</label></li>
+                            for="touy">I agree to the
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                            title="GreatSchools Terms of Use"
+                            href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
+                        and
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                            title="GreatSchools Community Standards"
+                            href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label></li>
                 </ul>
                 <div class="hlpTxt col">
                     <p>* Indicates a required field.</p>
 
-                    <p>your privacy is important to us. <a href="#">GreatSchools Privacy Policy</a></p>
+                    <p>your privacy is important to us.
+                    <gsml:popupWindow width="800" height="600" left="50" top="50"
+                    title="GreatSchools Privacy Policy"
+                    href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
                 </div>
             </fieldset>
             <fieldset class="btns">
                 <button class="btn25" type="button" name="joinBtn" id="joinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
                 </button>
-                <a href="#" id="cancelPref">No thanks <span class="alertDoubleArrow">&#187;</span></a>
+                <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&#187;</span></a>
             </fieldset>
             <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />
         </form>

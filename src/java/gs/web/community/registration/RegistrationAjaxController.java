@@ -1,5 +1,7 @@
 package gs.web.community.registration;
 
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -29,6 +31,7 @@ public class RegistrationAjaxController implements Controller {
     private IUserDao _userDao;
     private StateManager _stateManager;
 
+    final public static String FORMAT_PARAM = "format";
     final public static String TYPE_PARAM = "type";
     final public static String EMAIL_PARAM = "email";
     final public static String USER_NAME_PARAM = "un";
@@ -40,6 +43,12 @@ public class RegistrationAjaxController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
         String type = request.getParameter(TYPE_PARAM);
+        if (StringUtils.equals("json", request.getParameter(FORMAT_PARAM))) {
+            if (StringUtils.equals(CITY_TYPE, type)) {
+                outputCityJson(request, out);
+            }
+            return null;
+        }
         if (type != null) {
             if (CITY_TYPE.equals(type)) {
                 outputCitySelect(request, out);
@@ -109,6 +118,24 @@ public class RegistrationAjaxController implements Controller {
         } else {
             out.print("valid");
         }
+    }
+
+    protected void outputCityJson(HttpServletRequest request, PrintWriter out) {
+        JSONObject rval = new JSONObject();
+        State state = _stateManager.getState(request.getParameter("state"));
+        List<City> cities = _geoDao.findCitiesByState(state);
+        try {
+            List<JSONObject> cityList = new ArrayList<JSONObject>(cities.size());
+            for (City city: cities) {
+                JSONObject cityJson = new JSONObject();
+                cityJson.put("name", city.getName());
+                cityList.add(cityJson);
+            }
+            rval.put("cities", cityList);
+        } catch (JSONException jsone) {
+            _log.error("Error converting city list to JSON: " + jsone, jsone);
+        }
+        out.print(rval.toString());
     }
 
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {

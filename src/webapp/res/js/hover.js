@@ -89,7 +89,7 @@ GSType.hover.JoinHover = function() {
     };
     this.setJoinHoverType = function(type) {
         jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
-    }
+    };
     this.setTitle = function(title) {
         jQuery('#joinHover h2 span.hoverTitle').html(title);
     };
@@ -131,7 +131,27 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
         jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').show();
         jQuery('#joinHover fieldset.prefs ul.col li.grades #opt1').show();
-    }
+    };
+    this.parseCities = function(data) {
+        var citySelect = jQuery('#joinHover #joinCity');
+        if (data.cities) {
+            citySelect.empty();
+            for (var x=0; x < data.cities.length; x++) {
+                var city = data.cities[x];
+                if (city.name) {
+                    citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+                }
+            }
+        }
+    };
+    this.loadCities = function() {
+        var state = jQuery('#joinHover #joinState').val();
+        var url = "/community/registrationAjax.page";
+
+        jQuery('#joinHover #joinCity').html("<option>Loading...</option>");
+
+        jQuery.getJSON(url, {state:state, format:'json', type:'city'}, GSType.hover.joinHover.parseCities);
+    };
     this.loadDialog = function() {
         GSType.hover.joinHover.dialogByWidth(680);
     };
@@ -162,7 +182,10 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setJoinHoverType("ChooserTipSheet");
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
+
         GSType.hover.joinHover.show();
+
+        GSType.hover.joinHover.loadCities();
     };
     this.showLearningDifficultiesNewsletter = function() {
         GSType.hover.joinHover.baseFields();
@@ -233,7 +256,7 @@ GSType.hover.SignInHover = function() {
         var params = {
             email: jQuery('#semail').val(),
             password: jQuery('#spword').val()
-        }
+        };
 
         jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
                 GSType.hover.signInHover.loginValidatorHandler, "json");
@@ -397,7 +420,7 @@ GS.joinHover_checkValidationResponse = function(data) {
         usernameValid.show();
     }
 
-}
+};
 
 jQuery(function() {
     GSType.hover.editEmailValidated.loadDialog();
@@ -423,6 +446,13 @@ jQuery(function() {
         var params = jQuery('#joinGS').serialize();
         alert(params);
         jQuery.post("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse, "json");
+        return false;
+    });
+
+    jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
+
+    jQuery('#joinHover_cancel').click(function() {
+        GSType.hover.joinHover.hide();
         return false;
     });
 
