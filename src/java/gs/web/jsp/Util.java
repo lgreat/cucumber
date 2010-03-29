@@ -217,6 +217,7 @@ public class Util {
         //props.setOmitHtmlEnvelope(true);
         props.setOmitDoctypeDeclaration(true);
         props.setOmitXmlDeclaration(true);
+        //props.setPruneTags("br,p");
 
         TagNode node = cleaner.clean(new StringReader(teaserBody));
         BrowserCompactXmlSerializer ser = new BrowserCompactXmlSerializer(props);
@@ -229,6 +230,8 @@ public class Util {
         }
         output = output.replace("&amp;apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
         output = output.replace("&apos;", "&#39;"); // Fix for IE which doesn't handle all xml entities
+
+        output = output.replaceAll("(<br>|<br\\s?/>|<p>|</p>)", " "); // strip out line breaks and paragraph tags
         teaserBody = output;
 
         return teaserBody;
