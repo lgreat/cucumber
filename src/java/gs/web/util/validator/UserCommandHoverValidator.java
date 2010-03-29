@@ -36,7 +36,7 @@ public class UserCommandHoverValidator extends UserCommandValidator implements I
         validateStateCity(command, errors);
     }
 
-    protected User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
+    public User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
         User user = null;
         String email = command.getEmail();
         if (StringUtils.isEmpty(email)) {

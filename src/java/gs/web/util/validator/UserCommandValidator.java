@@ -100,7 +100,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateStateCity(command, errors);
     }
 
-    protected User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
+    public User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
         User user = null;
         String email = command.getEmail();
         if (StringUtils.isEmpty(email)) {
@@ -138,7 +138,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         return user;
     }
 
-    protected void validateStateCity(UserCommand command, Errors errors) {
+    public void validateStateCity(UserCommand command, Errors errors) {
         UserProfile userProfile = command.getUserProfile();
         if (command.isChooserRegistration()) {
             if (userProfile.getState() == null) {
@@ -213,7 +213,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
     }
 
-    protected void validateFirstName(UserCommand command, Errors errors) {
+    public void validateFirstName(UserCommand command, Errors errors) {
         if (StringUtils.isEmpty(command.getFirstName()) ||
                 command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
                 command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {

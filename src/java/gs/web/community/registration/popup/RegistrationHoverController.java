@@ -1,5 +1,8 @@
 package gs.web.community.registration.popup;
 
+import gs.data.state.State;
+import gs.web.util.NewSubscriberDetector;
+import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -16,34 +19,37 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * // TODO: This class is deprecated and may (should?) no longer be in use
+ *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
- * @deprecated
  */
 public class RegistrationHoverController extends RegistrationController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
 
+    private boolean _requireEmailValidation = true;
+
+    private ISubscriptionDao _subscriptionDao;
+
     public static final String BEAN_ID = "/community/registration/popup/registrationHover.page";
 
-    //set up defaults if none supplied
-    protected void onBindOnNewForm(HttpServletRequest request,
-                                   Object command,
-                                   BindException errors) {
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
-        loadCityList(request, userCommand);
+    public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 
-        if (request.getParameter("msl") != null) {
-            userCommand.setMslOnly(true);
+        UserCommand userCommand = (UserCommand) command;
+        String gradeNewsletters = (String) request.getAttribute("gradeNewsletters");
+
+        List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
+
+        for (String grade : StringUtils.split(gradeNewsletters)) {
+            nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
         }
-    }
 
-    public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
-        UserCommandHoverValidator validator = new UserCommandHoverValidator();
-        validator.setUserDao(getUserDao());
-        validator.validate(request, command, errors);
+        userCommand.setGradeNewsletters(nthGraderSubscriptions);
+
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -71,15 +77,15 @@ public class RegistrationHoverController extends RegistrationController implemen
         updateUserProfile(user, userCommand, ot);
         // set up defaults for data not collected in hover registration
         if (StringUtils.isEmpty(user.getGender())) {
-            user.setGender("u");    
+            user.setGender("u");
         }
 
-        // GS-7861 Fail-safe mechanism to ensure user is validated
-        if (user.isEmailProvisional()) {
-            user.setEmailValidated();
-        }
+        user.setHow(joinTypeToHow(userCommand.getHow()));
+
         // save
         getUserDao().updateUser(user);
+
+        saveRegistrations(userCommand, user, ot);
 
         try {
             // GS-7649 Because of hibernate caching, it's possible for a list_active record
@@ -92,37 +98,63 @@ public class RegistrationHoverController extends RegistrationController implemen
                 processNewsletterSubscriptions(userCommand);
             }
             saveSubscriptionsForUser(userCommand, ot);
-            ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
+
+            //TODO: figure out if we need evar
+            //ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
         } catch (Exception e) {
-            // if there is any sort of error prior to notifying community,
-            // the user MUST BE ROLLED BACK to provisional status
-            // otherwise our database is out of sync with community! Bad!
-            _log.error("Unexpected error during hover registration", e);
-            // undo registration
-            user.setEmailProvisional(userCommand.getPassword());
-            getUserDao().updateUser(user);
-            // send to error page
+            _log.error("Error in RegistrationHoverController", e);
             mAndV.setViewName(getErrorView());
             return mAndV;
         }
 
-        mAndV.setViewName("redirect:/community/registration/popup/sendToDestination.page");
+        if (_requireEmailValidation) {
+            // Determine redirect URL for validation email
+            String emailRedirectUrl = "";
+
+            if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                emailRedirectUrl = "/index.page";
+            } else {
+                emailRedirectUrl = "/";
+            }
+
+            sendValidationEmail(request, user, emailRedirectUrl);
+        }
+
+        mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
 
         return mAndV;
     }
 
-    protected void setUsersPassword(User user, UserCommand userCommand, boolean userExists) throws Exception {
-        try {
-            user.setPlaintextPassword(userCommand.getPassword());
-            getUserDao().updateUser(user);
-        } catch (Exception e) {
-            _log.warn("Error setting password: " + e.getMessage(), e);
-            if (!userExists) {
-                // for new users, cancel the account on error
-                getUserDao().removeUser(user.getId());
-            }
-            throw e;
+    private void saveRegistrations(RegistrationHoverCommand userCommand, User user, OmnitureTracking ot) {
+        State state = userCommand.getState() == null ? userCommand.getState() : State.CA;
+
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
+
+        List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = userCommand.getGradeNewsletters();
+
+        for (UserCommand.NthGraderSubscription sub : nthGraderSubscriptions) {
+            subscriptions.add(new Subscription(user, sub.getSubProduct(), state));
         }
+
+        if (userCommand.getNewsletter()) {
+            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("greatnews"), state));
+        }
+        if (userCommand.getPartnerNewsletter()) {
+            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("sponsor"), state));
+        }
+        if (userCommand.getLdNewsletter()) {
+            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("learning_dis"), state));
+        }
+
+        if (subscriptions.size() > 0) {
+            _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
+        }
+    }
+
+    public String joinTypeToHow(String joinType) {
+        //TODO: complete
+        return null;
     }
 
     protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureTracking ot) {
@@ -133,10 +165,12 @@ public class RegistrationHoverController extends RegistrationController implemen
             userProfile.setCity(userCommand.getCity());
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setState(userCommand.getState());
+            userProfile.setHow(joinTypeToHow(""));
         } else {
             // gotten this far, now let's update their user profile
-            userProfile = userCommand.getUserProfile();
 
+            userProfile = userCommand.getUserProfile();
+            userProfile.setHow(joinTypeToHow(""));
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 
@@ -146,7 +180,23 @@ public class RegistrationHoverController extends RegistrationController implemen
             user.getUserProfile().setHow(userCommand.getHow());
         }
         user.getUserProfile().setUpdated(new Date());
-        user.getUserProfile().setNumSchoolChildren(0);        
+        user.getUserProfile().setNumSchoolChildren(0);
         return userProfile;
+    }
+
+    public boolean isRequireEmailValidation() {
+        return _requireEmailValidation;
+    }
+
+    public void setRequireEmailValidation(boolean requireEmailValidation) {
+        _requireEmailValidation = requireEmailValidation;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

@@ -76,24 +76,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         reset(_tableDao);
     }
 
-    public void testOnBindOnNewForm() {
-        expect(_geoDao.findCitiesByState(State.CA)).andReturn(new ArrayList<City>());
-        replayMocks();
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        verifyMocks();
-
-        assertFalse(_command.isMslOnly());
-
-        resetMocks();
-        getRequest().setParameter("msl", "true");
-        expect(_geoDao.findCitiesByState(State.CA)).andReturn(new ArrayList<City>());
-        replayMocks();
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        verifyMocks();
-
-        assertTrue(_command.isMslOnly());
-    }
-
     public void testOnBindAndValidate() throws Exception {
         assertFalse(_errors.hasErrors());
         User user = new User();
@@ -116,7 +98,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
     }
 
     public void testOnSubmitExistingUser() throws Exception {
@@ -132,7 +113,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
     }
 
     public void testOnSubmitProvisionalUser() throws Exception {
@@ -153,7 +133,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
     }
 
     public void testOnSubmitNewUserWithSubscriptions() throws Exception {
@@ -168,7 +147,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
     }
 
     public void testOnSubmitBlockedIP() throws Exception {
@@ -179,24 +157,5 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         verifyMocks();
         assertNotNull(mAndV);
         assertTrue("Expect error view", StringUtils.equals(mAndV.getViewName(), "error"));
-    }
-
-    public void testOnSubmitErrorRollsBackUserToProvisional() throws Exception {
-        _command.setNewsletter(true);
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
-        _userDao.saveUser(isA(User.class)); // create new user
-        _userDao.updateUser(isA(User.class)); // set password
-        _userDao.updateUser(isA(User.class)); // update user profile
-        _userDao.updateUser(isA(User.class)); // rollback to provisional
-        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
-        expectLastCall().andThrow(new RuntimeException("Some hibernate exception that happened during subscription processing"));
-        replayMocks();
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verifyMocks();
-        assertNotNull(mAndV);
-        assertTrue("Expect user to be rolled back to provisional status",
-                _command.getUser().isEmailProvisional());        
-        assertEquals("Expect error view", _controller.getErrorView(), mAndV.getViewName());
     }
 }

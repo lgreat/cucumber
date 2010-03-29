@@ -62,6 +62,43 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         _userCommandValidator.setUserDao(_userDao);
         _userCommandValidator.validate(request, command, errors);
+
+        UserCommand userCommand = (UserCommand) command;
+
+        String joinHoverType = (String) request.getAttribute("joinHoverType");
+
+        /*
+        String gradeNewsletters = (String) request.getAttribute("gradeNewsletters");
+
+        List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
+        for (String grade : StringUtils.split(gradeNewsletters)) {
+            nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true,grade));
+        }
+        */
+
+        //start validation
+        User user = _userCommandValidator.validateEmail(userCommand,request,errors);
+        if (user != null && errors.hasFieldErrors("email")) {
+            return null; // other errors are irrelevant
+        }
+
+        _userCommandValidator.validateFirstName(userCommand, errors);
+        _userCommandValidator.validateUsername(userCommand, user, errors);
+        _userCommandValidator.validateTerms(userCommand, errors);
+        _userCommandValidator.validatePassword(userCommand, errors);
+
+        if ("ChooserTipSheet".equals(joinHoverType)) {
+            _userCommandValidator.validateStateCity(userCommand, errors);
+        }
+
+        /*
+        List<UserCommand.NthGraderSubscription> list = userCommand.getGradeNewsletters();
+
+        for (UserCommand.NthGraderSubscription s : list) {
+            System.out.println("subscription:" + s);
+        }
+        */
+
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 
         response.setContentType("application/json");
@@ -70,7 +107,6 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         for (FieldError error : a) {
             mapErrors.put(error.getField(), error.getDefaultMessage());
-            System.out.println("error:::" + error.getField() + error.getDefaultMessage());
         }
 
         String jsonString = new JSONObject(mapErrors).toString();
