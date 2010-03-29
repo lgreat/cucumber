@@ -12,7 +12,7 @@
     <div>
         <div class="one_of_two fltlft">
             <a href="${pageScope.mainFeatureLink.url}">
-                <img src="${pageScope.imageUrl}" alt="${pageScope.imageAltText}"/>
+                <img src="${pageScope.imageUrl}" width="340" height="235" alt="${pageScope.imageAltText}"/>
             </a>
         </div>
         <div class="two_of_two fltrt">
