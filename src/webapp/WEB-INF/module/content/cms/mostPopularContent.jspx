@@ -118,9 +118,11 @@
             </c:when>
 
             <c:otherwise>
-                <div id="cmsMostPopular">
+                <div id="cmsMostPopular" class="mod">
+                    <div class="mod_hd">
                     <h3>Most popular</h3>
-
+                    </div>
+                    <div class="mod_bd">
                     <img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="Smiling girl with book"/>
 
                     <c:set var="numResults" value="${fn:length(links)}"/>
@@ -156,6 +158,7 @@
                         </c:if>
 
                     </c:forEach>
+                    </div>
                 </div>
             </c:otherwise>
         </c:choose>
