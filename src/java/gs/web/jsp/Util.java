@@ -217,7 +217,6 @@ public class Util {
         //props.setOmitHtmlEnvelope(true);
         props.setOmitDoctypeDeclaration(true);
         props.setOmitXmlDeclaration(true);
-        //props.setPruneTags("br,p");
 
         TagNode node = cleaner.clean(new StringReader(teaserBody));
         BrowserCompactXmlSerializer ser = new BrowserCompactXmlSerializer(props);
