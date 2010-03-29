@@ -25,7 +25,7 @@
                 width: "475px",
                 visible: false,
                 draggable: false,
-                modal: true,
+                modal: false,
                 close: false,
                 zIndex: 9999999
             });
@@ -53,7 +53,7 @@
                 x = (x < 0)?0:x;
                 var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
                 y = (y < scrollTop)?scrollTop:y;
-                mslFlowDialog.moveTo(x,y);
+                mslFlowDialog.moveTo(x,y+160);
             } catch (e) {}
 
             return false;
@@ -66,7 +66,7 @@
         ]]>
     </script>
 
-     <div id="mslFlowDialog" style="display: none;">
+     <div id="mslFlowDialog" style="display: none; z-index: 100;">
         <div id="mslFlowDialogTopBar">
             <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/><div id="thankyouHeader">Thank you for your review</div>
         </div>
