@@ -97,7 +97,7 @@
                         <gsweb:stateSelector state="${requestScope.context.state}" styleId="joinState"
                                              allowNoState="true" noStateLabel="--"/>
                         <select name="city" id="joinCity">
-                            <!-- not empty -->
+                            <option>Loading...</option>
                         </select>
                     </li>
                 </ul>
