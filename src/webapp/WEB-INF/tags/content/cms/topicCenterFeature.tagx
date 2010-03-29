@@ -11,7 +11,9 @@
 
     <div>
         <div class="one_of_two fltlft">
-            <img src="${pageScope.imageUrl}" alt="${pageScope.imageAltText}"/>
+            <a href="${pageScope.mainFeatureLink.url}">
+                <img src="${pageScope.imageUrl}" alt="${pageScope.imageAltText}"/>
+            </a>
         </div>
         <div class="two_of_two fltrt">
             <c:if test="${not empty pageScope.mainFeatureLink}">
