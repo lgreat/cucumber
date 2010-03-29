@@ -2297,6 +2297,7 @@ ul.srchSuggest li span {
 
 #topicContentGS .skyscraperAd {
     display: none;
+    padding-top: 15px;
 }
 
 #findASchool .mod_bd {
