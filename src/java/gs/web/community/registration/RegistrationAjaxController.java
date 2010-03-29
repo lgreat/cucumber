@@ -126,11 +126,17 @@ public class RegistrationAjaxController implements Controller {
         List<City> cities = _geoDao.findCitiesByState(state);
         try {
             List<JSONObject> cityList = new ArrayList<JSONObject>(cities.size());
+            JSONObject chooseCity = new JSONObject();
+            chooseCity.put("name", "- Choose city -");
+            cityList.add(chooseCity);
             for (City city: cities) {
                 JSONObject cityJson = new JSONObject();
                 cityJson.put("name", city.getName());
                 cityList.add(cityJson);
             }
+            JSONObject notListed = new JSONObject();
+            notListed.put("name", "My city is not listed");
+            cityList.add(notListed);
             rval.put("cities", cityList);
         } catch (JSONException jsone) {
             _log.error("Error converting city list to JSON: " + jsone, jsone);
