@@ -245,14 +245,14 @@
                     <c:set var="ryhAnswerLabel" value="ryhAnswerLabel"/>
                     <c:set var="textareaWidth" value="330px"/>
                     <c:set var="textareaHeight" value="58px"/>
-                    <c:set var="ryhSubmit" value="ryhSubmit"/>
+                    <c:set var="ryhSubmitClass" value="ryh-submit-onTC"/>
                 </c:when>
                 <c:otherwise>
                     <c:set var="ryh_answer" value="ryh-answer"/>
                     <c:set var="ryhAnswerLabel" value=""/>
                     <c:set var="textareaWidth" value="231px"/>
                     <c:set var="textareaHeight" value="55px"/>
-                    <c:set var="ryhSubmit" value=""/>
+                    <c:set var="ryhSubmitClass" value=""/>
                 </c:otherwise>
             </c:choose>
 
@@ -276,7 +276,7 @@
                           style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- --></textarea>
                 <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
 
-                <button type="button" id="${ryhSubmit}" name="Submit" value="Submit" class="btn25 fltlft">
+                <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
                 </button>
                 <!--</form>-->
