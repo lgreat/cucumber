@@ -64,7 +64,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
     protected static final String ERROR_PASSWORD_LENGTH =
             "Password should be 6-14 characters.";
-    protected static final String ERROR_PASSWORD_MISMATCH =
+    public static final String ERROR_PASSWORD_MISMATCH =
             "Passwords do not match.";
     protected static final String ERROR_STATE_MISSING =
             "Please select your state.";

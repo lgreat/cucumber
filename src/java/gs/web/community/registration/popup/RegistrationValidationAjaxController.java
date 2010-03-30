@@ -82,6 +82,12 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
             _userCommandValidator.validateStateCity(userCommand, errors);
         }
 
+        //somewhat of a hack... overwrite the field name of the bind exception with "confirmPassword". Should probably extend and override UserCommandValidator instead
+        FieldError passwordError = errors.getFieldError("password");
+        if (passwordError != null && passwordError.getDefaultMessage() != null && passwordError.getDefaultMessage().equals(UserCommandValidator.ERROR_PASSWORD_MISMATCH)) {
+            passwordError = new FieldError(passwordError.getObjectName(),"confirmPassword",passwordError.getDefaultMessage());
+        }
+
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 
         response.setContentType("application/json");
