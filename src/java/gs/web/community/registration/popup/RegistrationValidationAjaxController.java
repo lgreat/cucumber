@@ -3,33 +3,17 @@ package gs.web.community.registration.popup;
 
 import gs.data.community.*;
 import gs.data.json.JSONObject;
-import gs.data.util.table.ITableDao;
 import gs.data.geo.IGeoDao;
-import gs.data.geo.City;
-import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.data.school.Grade;
-import gs.data.school.School;
-import gs.data.school.ISchoolDao;
-import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.community.registration.UserCommand;
-import gs.web.util.*;
+import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.UserCommandValidator;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.tracking.OmnitureTracking;
-import gs.web.tracking.CookieBasedOmnitureTracking;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
-import org.springframework.web.servlet.mvc.BaseCommandController;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,13 +48,14 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         UserCommand userCommand = (UserCommand) command;
 
-        String joinHoverType = (String) request.getAttribute("joinHoverType");
+        String joinHoverType = request.getParameter("joinHoverType");
 
         //start validation
+        // validate email format
+        EmailValidator emailValidator = new EmailValidator();
+        emailValidator.validate(userCommand, errors);
+        // validate email address
         User user = _userCommandValidator.validateEmail(userCommand,request,errors);
-        if (user != null && errors.hasFieldErrors("email")) {
-            return null; // other errors are irrelevant
-        }
 
         _userCommandValidator.validateFirstName(userCommand, errors);
         _userCommandValidator.validateUsername(userCommand, user, errors);
@@ -78,14 +63,16 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         _userCommandValidator.validateTerms(userCommand, errors);
 
         if ("ChooserTipSheet".equals(joinHoverType)) {
+            userCommand.setChooserRegistration(true);
             _userCommandValidator.validateStateCity(userCommand, errors);
         }
 
+        // aroy: this wasn't working, and it may be ok to display all pw errors in the same field, so I'm commenting it out
         //somewhat of a hack... overwrite the field name of the bind exception with "confirmPassword". Should probably extend and override UserCommandValidator instead
-        FieldError passwordError = errors.getFieldError("password");
-        if (passwordError != null && passwordError.getDefaultMessage() != null && passwordError.getDefaultMessage().equals(UserCommandValidator.ERROR_PASSWORD_MISMATCH)) {
-            passwordError = new FieldError(passwordError.getObjectName(),"confirmPassword",passwordError.getDefaultMessage());
-        }
+//        FieldError passwordError = errors.getFieldError("password");
+//        if (passwordError != null && passwordError.getDefaultMessage() != null && passwordError.getDefaultMessage().equals(UserCommandValidator.ERROR_PASSWORD_MISMATCH)) {
+//            passwordError = new FieldError(passwordError.getObjectName(),"confirmPassword",passwordError.getDefaultMessage());
+//        }
 
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 

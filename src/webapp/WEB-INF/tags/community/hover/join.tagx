@@ -42,7 +42,7 @@
 
                         <div class="errors">
                             <span class="error valid"><!-- not empty --></span>
-                            <span class="error invalid">Please enter first name</span>
+                            <span class="error invalid"><!-- not empty --></span>
                             <!--<span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span
                                     class="specChars">, . - _ &#38;</span></span>-->
                         </div>
@@ -53,7 +53,7 @@
 
                         <div class="errors">
                             <span class="error valid"><!-- not empty --></span>
-                            <span class="error invalid">Please enter a valid email</span>
+                            <span class="error invalid"><!-- not empty --></span>
                         </div>
                     </li>
                     <li>
@@ -79,8 +79,7 @@
 
                         <div class="errors">
                             <span class="error valid" id="pw"><!-- not empty --></span>
-                            <span class="error invalid" id="pw_invalid">Your password must be 6-14 characters</span>
-                            <span class="error" id="nopw">Please enter password</span>
+                            <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
                         </div>
                     </li>
                     <li>
@@ -89,7 +88,7 @@
 
                         <div class="errors">
                             <span class="error valid" id="pwmatch"><!-- not empty --></span>
-                            <span class="error invalid" id="pwnomatch">Your passwords do not match</span>
+                            <span class="error invalid" id="pwnomatch"><!-- not empty --></span>
                         </div>
                     </li>
                     <li>
@@ -99,6 +98,9 @@
                         <select name="city" id="joinCity">
                             <option>Loading...</option>
                         </select>
+                        <div class="errors">
+                            <span class="error invalid" id="joinHover_chooseLocation"><!-- not empty --></span>
+                        </div>
                     </li>
                 </ul>
             </fieldset>
@@ -153,7 +155,11 @@
                         and
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Community Standards"
-                            href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label></li>
+                            href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label>
+                        <div class="errors">
+                            <span class="error invalid" id="joinHover_termsNotChecked"><!-- not empty --></span>
+                        </div>
+                    </li>
                 </ul>
                 <div class="hlpTxt col">
                     <p>* Indicates a required field.</p>

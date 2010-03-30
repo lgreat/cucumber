@@ -85,7 +85,7 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         _command.setPassword("abcdefg");
         _command.setTerms(true);
 
-        getRequest().setAttribute("joinHoverType", "ChooserTipSheet");
+        getRequest().setParameter("joinHoverType", "ChooserTipSheet");
         _controller.setUserCommandValidator(_mockUserCommandValidator);
 
         replay(_userDao);

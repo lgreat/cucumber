@@ -34,17 +34,26 @@ public class RegistrationHoverController extends RegistrationController implemen
 
     public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 
-        UserCommand userCommand = (UserCommand) command;
-        String gradeNewsletters = (String) request.getAttribute("grades");
-
+        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
+        String[] gradeNewsletters = request.getParameterValues("grades");
+        _log.info("gradeNewsletters=" + gradeNewsletters);
         if (gradeNewsletters != null) {
             List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
 
-            for (String grade : StringUtils.split(gradeNewsletters)) {
+            for (String grade : gradeNewsletters) {
+                _log.info("Adding " + grade + " to nthGraderSubscriptions");
                 nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
             }
 
             userCommand.setGradeNewsletters(nthGraderSubscriptions);
+        }
+
+        if (StringUtils.equals("Loading...", userCommand.getCity())) {
+            userCommand.setCity(null);
+        }
+
+        if (RegistrationHoverCommand.JoinHoverType.ChooserTipSheet == userCommand.getJoinHoverType()) {
+            userCommand.setChooserRegistration(true);
         }
 
     }
@@ -77,7 +86,7 @@ public class RegistrationHoverController extends RegistrationController implemen
             user.setGender("u");
         }
 
-        user.setHow(joinTypeToHow(userCommand.getHow()));
+        user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
 
         // save
         getUserDao().updateUser(user);
@@ -90,9 +99,6 @@ public class RegistrationHoverController extends RegistrationController implemen
             ThreadLocalTransactionManager.commitOrRollback();
 
             saveRegistrations(userCommand, user, ot);
-
-            //TODO: figure out if we need evar
-            //ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
         } catch (Exception e) {
             _log.error("Error in RegistrationHoverController", e);
             mAndV.setViewName(getErrorView());
@@ -101,7 +107,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         if (_requireEmailValidation) {
             // Determine redirect URL for validation email
-            String emailRedirectUrl = "";
+            String emailRedirectUrl;
 
             if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 emailRedirectUrl = "/index.page";
@@ -134,6 +140,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = userCommand.getGradeNewsletters();
 
+        _log.info("nthGraderSubscriptions.size()=" + nthGraderSubscriptions.size());
         for (UserCommand.NthGraderSubscription sub : nthGraderSubscriptions) {
             Student student = new Student();
             student.setSchoolId(-1);
@@ -169,8 +176,20 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
     }
 
-    public String joinTypeToHow(String joinType) {
-        //TODO: complete
+    public String joinTypeToHow(RegistrationHoverCommand.JoinHoverType joinType) {
+        switch (joinType) {
+            case Auto:
+                return "hover_mss";
+            case ChooserTipSheet:
+                return "acq_chooserpack";
+            case LearningDifficultiesNewsletter:
+                return "hover_ld";
+            case PostComment:
+                return "hover_community";
+            case TrackGrade:
+                // TODO: two different types of nth grader hovers
+                return "hover_greatnews";
+        }
         return null;
     }
 
@@ -182,12 +201,12 @@ public class RegistrationHoverController extends RegistrationController implemen
             userProfile.setCity(userCommand.getCity());
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setState(userCommand.getState());
-            userProfile.setHow(joinTypeToHow(""));
+            userProfile.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
         } else {
             // gotten this far, now let's update their user profile
 
             userProfile = userCommand.getUserProfile();
-            userProfile.setHow(joinTypeToHow(""));
+            userProfile.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 

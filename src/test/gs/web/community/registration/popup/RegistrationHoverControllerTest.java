@@ -1,9 +1,7 @@
 package gs.web.community.registration.popup;
 
 import gs.data.community.*;
-import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
-import gs.data.state.State;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.web.BaseControllerTestCase;
@@ -12,7 +10,6 @@ import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +45,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _command.setPassword("foobar");
         _command.setConfirmPassword("foobar");
         _command.setNewsletter(false);
+        _command.setJoinHoverType(RegistrationHoverCommand.JoinHoverType.LearningDifficultiesNewsletter);
         _controller.setRequireEmailValidation(false);
         _errors = new BindException(_command, "");
 

@@ -434,32 +434,44 @@ GS.showJoinHover = function(email, redirect, showJoinFunction) {
     } else {
         showJoinFunction();
     }
-}
+};
 
 GS.joinHover_checkValidationResponse = function(data) {
     var firstNameError = jQuery('#joinGS #fName').parent().children('.errors').children('.invalid');
-//    var firstNameValid = jQuery('#joinGS #fName').parent().children('.errors').children('.valid');
     var emailError = jQuery('#joinGS #jemail').parent().children('.errors').children('.invalid');
-//    var emailValid = jQuery('#joinGS #jemail').parent().children('.errors').children('.valid');
     var usernameError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
     var usernameValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
     var passwordError = jQuery('#joinGS #jpword').parent().children('.errors').children('.invalid');
-//    var passwordValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
     var confirmPasswordError = jQuery('#joinGS #cpword').parent().children('.errors').children('.invalid');
+    var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
+    var locationError = jQuery('#joinGS #joinHover_chooseLocation');
 
     firstNameError.hide();
     emailError.hide();
     usernameError.hide();
     passwordError.hide();
     confirmPasswordError.hide();
+    termsError.hide();
+    locationError.hide();
 
     var objCount = 0;
     for (_obj in data) objCount++;
 
     if (objCount > 0) {
+        jQuery('#joinGS #process_error').show();
 
         if (data.terms) {
-            jQuery('#joinGS #process_error').show();
+            termsError.html(data.terms);
+            termsError.show();
+        }
+
+        if (data.state) {
+            locationError.html(data.state);
+            locationError.show();
+        }
+        if (data.city) {
+            locationError.html(data.city);
+            locationError.show();
         }
 
         if (data.firstName) {
