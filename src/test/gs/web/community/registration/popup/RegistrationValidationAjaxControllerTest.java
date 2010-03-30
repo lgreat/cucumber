@@ -69,7 +69,12 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         };
     }
 
+
+    public void testNothing() {
+        
+    }
     /*
+
 
     public void testFailTerms() throws Exception {
         _command.setFirstName("Samson");
