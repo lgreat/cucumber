@@ -95,6 +95,7 @@
                              bubbles="false"
                              alwaysUsePreIconsForPreschools="${levelCode eq 'p'}"
                              schools="${schools}"
+                             zoom="10"
                         />
                 <!-- map:schools tooltips="true" -->
             </td>
