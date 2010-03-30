@@ -94,6 +94,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(isA(User.class)); // create new user
         _userDao.updateUser(isA(User.class)); // set password
         _userDao.updateUser(isA(User.class)); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -109,6 +110,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
         _userDao.updateUser(user); // set password
         _userDao.updateUser(user); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -129,6 +131,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
         _userDao.updateUser(user); // set password
         _userDao.updateUser(user); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -142,6 +145,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(isA(User.class)); // create new user
         _userDao.updateUser(isA(User.class)); // set password
         _userDao.updateUser(isA(User.class)); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
