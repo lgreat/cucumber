@@ -61,7 +61,6 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
 
         _userCommandValidator.setUserDao(_userDao);
-        _userCommandValidator.validate(request, command, errors);
 
         UserCommand userCommand = (UserCommand) command;
 
@@ -75,8 +74,8 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         _userCommandValidator.validateFirstName(userCommand, errors);
         _userCommandValidator.validateUsername(userCommand, user, errors);
-        _userCommandValidator.validateTerms(userCommand, errors);
         _userCommandValidator.validatePassword(userCommand, errors);
+        _userCommandValidator.validateTerms(userCommand, errors);
 
         if ("ChooserTipSheet".equals(joinHoverType)) {
             _userCommandValidator.validateStateCity(userCommand, errors);

@@ -11,6 +11,7 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.community.User;
+
 import static org.easymock.classextension.EasyMock.*;
 
 import gs.web.community.registration.UserCommand;
@@ -35,6 +36,7 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
     private UserCommand _command;
     private BindException _errors;
     private UserCommandValidator _userCommandValidator;
+    private UserCommandValidator _mockUserCommandValidator;
 
     @Override
     public void setUp() throws Exception {
@@ -46,7 +48,11 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         _userDao = createStrictMock(IUserDao.class);
         _controller.setUserDao(_userDao);
 
-        _userCommandValidator = createStrictMock(UserCommandValidator.class);
+        _userCommandValidator = new UserCommandValidator();
+
+        _mockUserCommandValidator = createStrictMock(UserCommandValidator.class);
+
+        _controller.setUserCommandValidator(_userCommandValidator);
 
         _user = new User();
         _user.setEmail("megajoin@greatschools.org");
@@ -69,33 +75,60 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         };
     }
 
-
-    public void testNothing() {
-        
-    }
-    /*
-
-
-    public void testFailTerms() throws Exception {
+    public void testBehaviorWithChooserTipSheet() throws Exception {
         _command.setFirstName("Samson");
-        _command.setScreenName("ssprouse");
+        _command.setScreenName("testRegistrationValidationController");
         _command.setBrainDrainNewsletter(false);
         _command.setChooserRegistration(true);
         _command.setConfirmPassword("abcdefg");
-        _command.setEmail("ssprouse+10@greatschools.org");
+        _command.setEmail("testRegistrationValidationController@greatschools.org");
+        _command.setPassword("abcdefg");
+        _command.setTerms(true);
+
+        getRequest().setAttribute("joinHoverType", "ChooserTipSheet");
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        replay(_userDao);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validateEmail(_command, getRequest(), _errors)).andReturn(_user);
+        _mockUserCommandValidator.validateFirstName(_command, _errors);
+        _mockUserCommandValidator.validateUsername(_command, _user, _errors);
+        _mockUserCommandValidator.validatePassword(_command, _errors);
+        _mockUserCommandValidator.validateTerms(_command, _errors);
+
+        _mockUserCommandValidator.validateStateCity(_command, _errors);
+
+        replay(_mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+
+        verify(_mockUserCommandValidator);
+        verify(_userDao);
+    }
+
+    public void testFailureWithNoTerms() throws Exception {
+        _command.setFirstName("Samson");
+        _command.setScreenName("testRegistrationValidationController");
+        _command.setBrainDrainNewsletter(false);
+        _command.setChooserRegistration(true);
+        _command.setConfirmPassword("abcdefg");
+        _command.setEmail("testRegistrationValidationController@greatschools.org");
         _command.setPassword("abcdefg");
         _command.setTerms(false);
 
+        expect(_userDao.findUserFromEmailIfExists("testRegistrationValidationController@greatschools.org")).andReturn(_user);
+
+        replay(_userDao);
+
         getRequest().setAttribute("joinHoverType", "ChooserTipSheet");
-        //expect(_userCommandValidator.validate(getRequest(), _command, _errors));
 
-        //replay(_userDao);
         _controller.handle(getRequest(), getResponse(), _command, _errors);
-        //verify(_userDao);
-        System.err.println(getResponse().getContentAsString());
-        assertTrue("Controller does not have expected errors on validate", StringUtils.containsIgnoreCase(getResponse().getContentAsString(),"Please read and accept our Terms of Use to join GreatSchools."));
-    }
 
+        verify(_userDao);
+        System.err.println(getResponse().getContentAsString());
+        assertTrue("Controller does not have expected errors on validate", StringUtils.containsIgnoreCase(getResponse().getContentAsString(), "Please read and accept our Terms of Use to join GreatSchools."));
+    }
+    /*
     public void testBasics() throws Exception {
         _command.setFirstName("Samson");
         _command.setScreenName("ssprouse");
