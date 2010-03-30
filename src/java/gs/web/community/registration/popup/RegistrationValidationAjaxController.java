@@ -67,15 +67,6 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         String joinHoverType = (String) request.getAttribute("joinHoverType");
 
-        /*
-        String gradeNewsletters = (String) request.getAttribute("gradeNewsletters");
-
-        List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
-        for (String grade : StringUtils.split(gradeNewsletters)) {
-            nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true,grade));
-        }
-        */
-
         //start validation
         User user = _userCommandValidator.validateEmail(userCommand,request,errors);
         if (user != null && errors.hasFieldErrors("email")) {
@@ -90,14 +81,6 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         if ("ChooserTipSheet".equals(joinHoverType)) {
             _userCommandValidator.validateStateCity(userCommand, errors);
         }
-
-        /*
-        List<UserCommand.NthGraderSubscription> list = userCommand.getGradeNewsletters();
-
-        for (UserCommand.NthGraderSubscription s : list) {
-            System.out.println("subscription:" + s);
-        }
-        */
 
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 

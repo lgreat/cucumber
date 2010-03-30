@@ -136,7 +136,7 @@ GSType.hover.JoinHover = function() {
         var citySelect = jQuery('#joinHover #joinCity');
         if (data.cities) {
             citySelect.empty();
-            for (var x=0; x < data.cities.length; x++) {
+            for (var x = 0; x < data.cities.length; x++) {
                 var city = data.cities[x];
                 if (city.name) {
                     citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
@@ -394,31 +394,42 @@ GS.joinHover_checkValidationResponse = function(data) {
     usernameError.hide();
     passwordError.hide();
 
-    if (data.terms) {
-        jQuery('#joinGS #process_error').show();
-    }
+    var objCount = 0;
+    for (_obj in data) objCount++;
 
-    if (data.firstName) {
-        firstNameError.html(data.firstName);
-        firstNameError.show();
-    }
+    if (objCount > 0) {
 
-    if (data.email) {
-        emailError.html(data.email);
-        emailError.show();
-    }
+        if (data.terms) {
+            jQuery('#joinGS #process_error').show();
+        }
 
-    if (data.password) {
-        passwordError.html(data.password);
-        passwordError.show();
-    }
+        if (data.firstName) {
+            firstNameError.html(data.firstName);
+            firstNameError.show();
+        }
 
-    if (data.userName) {
-        usernameError.html(data.userName);
-        usernameError.show();
+        if (data.email) {
+            emailError.html(data.email);
+            emailError.show();
+        }
+
+        if (data.password) {
+            passwordError.html(data.password);
+            passwordError.show();
+        }
+
+        if (data.userName) {
+            usernameError.html(data.userName);
+            usernameError.show();
+        } else {
+            usernameError.hide();
+            usernameValid.show();
+        }
+
     } else {
-        usernameError.hide();
-        usernameValid.show();
+
+        jQuery('#joinGS').submit();
+        GSType.hover.joinHover.hide();
     }
 
     return false;
@@ -450,22 +461,22 @@ jQuery(function() {
 
         var first = true;
         var newsletters = [];
-        jQuery('[name="gradeNewsletters"]').each(function() {
-           if (jQuery(this).attr('checked')) {
+        jQuery('[name="grades"]').each(function() {
+            if (jQuery(this).attr('checked')) {
                 newsletters.push(encodeURIComponent(jQuery(this).val()));
-               //newsletters.push(encodeURIComponent("gradeNewsletters['" + "1" + "']=checked"));
+                //newsletters.push(encodeURIComponent("gradeNewsletters['" + "1" + "']=checked"));
 
-           }
+            }
         });
 
-        params += "gradeNewsletters=" + newsletters.join(',');
-        
+
+        params += "&grades=" + newsletters.join(',');
+
         alert(params);
 
         jQuery.post("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse, "json");
         return false;
     });
-
 
 
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);

@@ -41,7 +41,7 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
 
         super.setUp();
         ApplicationContext appContext = getApplicationContext();
-        _controller = (RegistrationValidationAjaxController) appContext.getBean(LoginValidationAjaxController.BEAN_ID);
+        _controller = (RegistrationValidationAjaxController) appContext.getBean(RegistrationValidationAjaxController.BEAN_ID);
 
         _userDao = createStrictMock(IUserDao.class);
         _controller.setUserDao(_userDao);

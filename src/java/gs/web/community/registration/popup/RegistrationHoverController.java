@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * // TODO: This class is deprecated and may (should?) no longer be in use
- *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationHoverController extends RegistrationController implements ReadWriteController {
@@ -33,22 +31,22 @@ public class RegistrationHoverController extends RegistrationController implemen
 
     private boolean _requireEmailValidation = true;
 
-    private ISubscriptionDao _subscriptionDao;
-
     public static final String BEAN_ID = "/community/registration/popup/registrationHover.page";
 
     public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 
         UserCommand userCommand = (UserCommand) command;
-        String gradeNewsletters = (String) request.getAttribute("gradeNewsletters");
+        String gradeNewsletters = (String) request.getAttribute("grades");
 
-        List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
+        if (gradeNewsletters != null) {
+            List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<UserCommand.NthGraderSubscription>();
 
-        for (String grade : StringUtils.split(gradeNewsletters)) {
-            nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
+            for (String grade : StringUtils.split(gradeNewsletters)) {
+                nthGraderSubscriptions.add(new UserCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
+            }
+
+            userCommand.setGradeNewsletters(nthGraderSubscriptions);
         }
-
-        userCommand.setGradeNewsletters(nthGraderSubscriptions);
 
     }
 
@@ -85,7 +83,6 @@ public class RegistrationHoverController extends RegistrationController implemen
         // save
         getUserDao().updateUser(user);
 
-        saveRegistrations(userCommand, user, ot);
 
         try {
             // GS-7649 Because of hibernate caching, it's possible for a list_active record
@@ -93,11 +90,7 @@ public class RegistrationHoverController extends RegistrationController implemen
             // committed. Adding this commitOrRollback prevents this.
             ThreadLocalTransactionManager.commitOrRollback();
 
-            // subscribe to newsletters
-            if (userCommand.getNewsletter()) {
-                processNewsletterSubscriptions(userCommand);
-            }
-            saveSubscriptionsForUser(userCommand, ot);
+            saveRegistrations(userCommand, user, ot);
 
             //TODO: figure out if we need evar
             //ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
@@ -128,13 +121,21 @@ public class RegistrationHoverController extends RegistrationController implemen
     private void saveRegistrations(RegistrationHoverCommand userCommand, User user, OmnitureTracking ot) {
         State state = userCommand.getState() == null ? userCommand.getState() : State.CA;
 
+
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         List<UserCommand.NthGraderSubscription> nthGraderSubscriptions = userCommand.getGradeNewsletters();
 
         for (UserCommand.NthGraderSubscription sub : nthGraderSubscriptions) {
-            subscriptions.add(new Subscription(user, sub.getSubProduct(), state));
+            Student student = new Student();
+            student.setSchoolId(-1);
+            student.setGrade(sub.getSubProduct().getGrade());
+            student.setState(state);
+            user.addStudent(student);
+
         }
+
+        getUserDao().saveUser(user);
 
         if (userCommand.getNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("greatnews"), state));
@@ -147,7 +148,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
 
         if (subscriptions.size() > 0) {
-            _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+            getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
             NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
         }
     }
@@ -192,11 +193,4 @@ public class RegistrationHoverController extends RegistrationController implemen
         _requireEmailValidation = requireEmailValidation;
     }
 
-    public ISubscriptionDao getSubscriptionDao() {
-        return _subscriptionDao;
-    }
-
-    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
-        _subscriptionDao = subscriptionDao;
-    }
 }
