@@ -78,6 +78,7 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 //Join hover
 GSType.hover.JoinHover = function() {
     this.schoolName = '';
+    this.loadOnExitUrl = null;
     this.baseFields = function() {
         // hide city and state inputs
         jQuery('#joinHover fieldset.contactPw #joinState').parent().children().hide();
@@ -153,6 +154,43 @@ GSType.hover.JoinHover = function() {
     this.loadDialog = function() {
         GSType.hover.joinHover.dialogByWidth(680);
         jQuery('#joinHover .redirect_field').val(window.location.href)
+    };
+    this.loadOnExit = function(url) {
+        GSType.hover.joinHover.loadOnExitUrl = url;
+        jQuery('#joinHover .redirect_field').val(url);
+        jQuery('#joinHover').bind('dialogclose', function() {
+            window.location = GSType.hover.joinHover.loadOnExitUrl;
+        });
+    };
+    this.showMssAutoHoverOnExit = function(schoolName) {
+        GSType.hover.joinHover.schoolName = schoolName;
+        var arr = getElementsByCondition(
+            function(el) {
+                if (el.tagName == "A") {
+                    if (el.target || el.onclick)
+                        return false;
+                    if (el.href && el.href != '')
+                        return el;
+                }
+                return false;
+            }, document
+        );
+
+        for (var i=0;i < arr.length;i++) {
+            arr[i].onclick = function () {
+                gRedirectAnchor = this;
+                try {
+                    if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')){
+                        window.destUrl = gRedirectAnchor.href;
+                        // show hover
+                        GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                        GSType.hover.joinHover.showJoinAuto();
+                        return false;
+                    }
+                } catch (e) {}
+                return true;
+            };
+        }
     };
     this.showJoinAuto = function(schoolName) {
         if (schoolName) {
@@ -473,7 +511,7 @@ jQuery(function() {
 
         params += "&grades=" + newsletters.join(',');
 
-        alert(params);
+//        alert(params);
 
         jQuery.post("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse, "json");
         return false;
