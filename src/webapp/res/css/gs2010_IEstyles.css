@@ -636,6 +636,13 @@ body.ie6 #contentRight div.inner div {
 /* =D- ie6 4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
 
+body.ie6 .ic_title {
+    width: 395px;
+    margin: 0 12px;
+    padding: 5px 0 6px 2px;
+    border-bottom: 1px dotted #999;
+}
+
 body.ie6 .infiniteCarousel .arrow{
     line-height:0.8;
 }
