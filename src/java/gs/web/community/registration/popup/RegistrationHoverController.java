@@ -135,7 +135,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         }
 
-        getUserDao().saveUser(user);
+        getUserDao().updateUser(user);
 
         if (userCommand.getNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("greatnews"), state));
