@@ -131,9 +131,9 @@
                                                 for="g4">4th Grade</label></li>
                                         <li><input type="checkbox" value="my5" id="g5" name="grades"/><label
                                                 for="g5">5th Grade</label></li>
-                                        <li><input type="checkbox" value="myms" id="gms" name="grades"/><label
+                                        <li><input type="checkbox" value="myms" id="gM" name="grades"/><label
                                                 for="gM">Middle School</label></li>
-                                        <li><input type="checkbox" value="myhs" id="ghs" name="grades"/><label
+                                        <li><input type="checkbox" value="myhs" id="gH" name="grades"/><label
                                                 for="gH">High School</label></li>
                                     </ul>
                                     <button class="btn25" id="gradeDone" type="button"><span class="lftDoor25"><span class="rtDoor25">Done</span></span></button>
