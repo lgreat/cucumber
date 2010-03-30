@@ -121,7 +121,7 @@
                         <c:forEach items="${schools}" var="s">
                             <tr>
                                 <td class="dottedLineBottomBox" colspan="2">
-                                    <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3">${s.school.name}</link:schoolProfileOverview>
+                                    <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3 fltlft">${s.school.name}</link:schoolProfileOverview>
 
                                     <c:choose>
                                         <c:when test="${levelCode eq 'p'}">
@@ -148,7 +148,7 @@
                                             <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3"><gsml:img
                                                     src="/res/img/school/ratings/${ratingValue}.gif"
                                                     alt="${ratingValueAltText}"
-                                                    styleClass="ratingImage"/></link:schoolProfileOverview>
+                                                    styleClass="ratingImage fltrt"/></link:schoolProfileOverview>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
