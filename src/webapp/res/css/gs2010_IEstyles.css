@@ -58,7 +58,7 @@ General comments:
     bottom: 8px;
 }
 body.ie #mainWrap {
-    height: expression( this.scrollHeight < 301 ? "300px" : "auto" );
+    height: expression( this.scrollHeight < 201 ? "200px" : "auto" );
 }
 
 /* =B- ie8
@@ -69,7 +69,7 @@ body.ie #mainWrap {
 
 
 *+html #mainWrap {
-    height: expression( this.scrollHeight < 301 ? "300px" : "auto" );
+    height: expression( this.scrollHeight < 201 ? "200px" : "auto" );
 }
 
 body.ie7 #header, *+html #header {
