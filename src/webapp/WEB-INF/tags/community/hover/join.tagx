@@ -171,7 +171,9 @@
                 <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&#187;</span></a>
             </fieldset>
             <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />
-            <input type="hidden" name="redirect" class="redirect_field" value=""/>
+            <input type="hidden" name="redirectUrl" class="redirect_field" value=""/>
+            <input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
+            <input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
         </form>
 
     </div>

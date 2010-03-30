@@ -7,8 +7,16 @@ import gs.web.util.validator.EmailValidator;
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class RegistrationHoverCommand extends UserCommand implements EmailValidator.IEmail{
+    public static enum JoinHoverType {
+        Auto,
+        ChooserTipSheet,
+        LearningDifficultiesNewsletter,
+        PostComment,
+        TrackGrade,
+    }
     private boolean _mslOnly;
     private String _how;
+    private JoinHoverType _joinHoverType;
 
     public RegistrationHoverCommand() {
         super();
@@ -28,5 +36,13 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
 
     public void setHow(String how) {
         _how = how;
+    }
+
+    public JoinHoverType getJoinHoverType() {
+        return _joinHoverType;
+    }
+
+    public void setJoinHoverType(JoinHoverType joinHoverType) {
+        _joinHoverType = joinHoverType;
     }
 }

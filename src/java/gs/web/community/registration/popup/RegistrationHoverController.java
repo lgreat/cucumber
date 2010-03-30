@@ -147,6 +147,14 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         if (userCommand.getNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("greatnews"), state));
+            if (userCommand.getJoinHoverType() == RegistrationHoverCommand.JoinHoverType.Auto) {
+                Subscription sub = new Subscription();
+                sub.setUser(user);
+                sub.setProduct(SubscriptionProduct.MYSTAT);
+                sub.setState(userCommand.getMystatSchoolState());
+                sub.setSchoolId(userCommand.getMystatSchoolId());
+                subscriptions.add(sub);
+            }
         }
         if (userCommand.getPartnerNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("sponsor"), state));

@@ -162,8 +162,10 @@ GSType.hover.JoinHover = function() {
             window.location = GSType.hover.joinHover.loadOnExitUrl;
         });
     };
-    this.showMssAutoHoverOnExit = function(schoolName) {
+    this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
         GSType.hover.joinHover.schoolName = schoolName;
+        jQuery('#joinHover .school_id').val(schoolId);
+        jQuery('#joinHover .school_state').val(schoolState);
         var arr = getElementsByCondition(
             function(el) {
                 if (el.tagName == "A") {
@@ -192,9 +194,15 @@ GSType.hover.JoinHover = function() {
             };
         }
     };
-    this.showJoinAuto = function(schoolName) {
+    this.showJoinAuto = function(schoolName, schoolId, schoolState) {
         if (schoolName) {
             GSType.hover.joinHover.schoolName = schoolName;
+        }
+        if (schoolId) {
+            jQuery('#joinHover .school_id').val(schoolId);
+        }
+        if (schoolState) {
+            jQuery('#joinHover .school_state').val(schoolState);
         }
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
@@ -551,7 +559,7 @@ jQuery(function() {
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 
     jQuery('.joinAutoHover_showHover').click(function() {
-        GSType.hover.joinHover.showJoinAuto('Lowell High School');
+        GSType.hover.joinHover.showJoinAuto('Alameda High School', 1, 'CA');
         return false;
     });
     jQuery('.joinChooserHover_showHover').click(function() {
