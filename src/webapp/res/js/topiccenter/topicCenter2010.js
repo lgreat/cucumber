@@ -86,7 +86,7 @@ function changeCity(cityName, stateAbbr) {
     var queryVal = document.getElementById(queryId).value;
     var stateVal = document.getElementById(stateSelectorId).value;
 
-    var noSearchTerms = (queryVal == 'Search for school, district or city');
+    var noSearchTerms = (queryVal == 'Enter school, city, or district');
     var noState = (stateVal == ("-" + "-") || stateVal == "");
 
     if (noSearchTerms && noState) {
