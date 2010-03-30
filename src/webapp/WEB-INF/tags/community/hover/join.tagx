@@ -44,7 +44,7 @@
                             <span class="error valid"><!-- not empty --></span>
                             <span class="error invalid">Please enter first name</span>
                             <!--<span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span
-                                    class="specChars">, . - _ &#38;</span></span>-->
+                                    class="specChars">, . - _ &amp;#38;</span></span>-->
                         </div>
                     </li>
                     <li>
@@ -70,7 +70,7 @@
                             <span class="error" id="sn_invalid_chars">Username may contain only letters, numbers, and the following punctuation: <span
                                     class="specChars">. - _</span></span>-->
                         </div>
-                        <p class="hlpTxt">Choose carefully &#38;#151; this will be your public identity on GreatSchools</p>
+                        <p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>
                     </li>
                     <li>
                         <label for="jpword">Password * <br/>
@@ -106,7 +106,7 @@
                 <ul class="col">
                     <li class="grades">
                         <input type="checkbox" name="newsletter" value="true" id="opt1"/><label
-                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including perieodic updates about
+                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                         <strong>Lowell High School</strong>.</label>
 
                         <p>In 2008-2009 my children are in:</p>
@@ -168,13 +168,10 @@
                 <button class="btn25" type="submit" name="joinBtn" id="joinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
                 </button>
-                <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&#187;</span></a>
+                <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>
             <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />
-            <input type="hidden" name="redirect" class="redirect_field" value=""/>
+            <input type="hidden" name="redirectUrl" class="redirect_field" value=""/>
         </form>
-
     </div>
-
-
 </jsp:root>

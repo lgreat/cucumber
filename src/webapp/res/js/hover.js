@@ -77,6 +77,7 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 
 //Join hover
 GSType.hover.JoinHover = function() {
+    this.schoolName = '';
     this.baseFields = function() {
         // hide city and state inputs
         jQuery('#joinHover fieldset.contactPw #joinState').parent().children().hide();
@@ -97,13 +98,10 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .introTxt h3').html(subTitle);
         jQuery('#joinHover .introTxt p').html(subTitleText);
     };
-    this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss, schoolName)
+    this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss)
     {
         var labelTextPrefix = "Sign me up for";
         var labelPhrases = "";
-        if (!schoolName) {
-            schoolName = jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"] strong').html();
-        }
 
         if (includeWeeklyEmails) {
             labelPhrases += " weekly emails from GreatSchools";
@@ -118,7 +116,7 @@ GSType.hover.JoinHover = function() {
             if (labelPhrases.length > 0) {
                 labelPhrases += ", including";
             }
-            labelPhrases += " periodic updates about <strong>" + schoolName + "</strong>";
+            labelPhrases += " periodic updates about <strong>" + GSType.hover.joinHover.schoolName + "</strong>";
         }
         labelPhrases += ".";
 
@@ -156,10 +154,13 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.dialogByWidth(680);
         jQuery('#joinHover .redirect_field').val(window.location.href)
     };
-    this.showJoinAuto = function() {
+    this.showJoinAuto = function(schoolName) {
+        if (schoolName) {
+            GSType.hover.joinHover.schoolName = schoolName;
+        }
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
-        GSType.hover.joinHover.setSubTitle("Keep tabs on Lowell High School",
+        GSType.hover.joinHover.setSubTitle("Keep tabs on " + GSType.hover.joinHover.schoolName,
                 "Be the first to know when school performance data is released that affects your child.");
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
@@ -381,13 +382,13 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
 
 GS.joinHover_checkValidationResponse = function(data) {
     var firstNameError = jQuery('#joinGS #fName').parent().children('.errors').children('.invalid');
-    var firstNameValid = jQuery('#joinGS #fName').parent().children('.errors').children('.valid');
+//    var firstNameValid = jQuery('#joinGS #fName').parent().children('.errors').children('.valid');
     var emailError = jQuery('#joinGS #jemail').parent().children('.errors').children('.invalid');
-    var emailValid = jQuery('#joinGS #jemail').parent().children('.errors').children('.valid');
+//    var emailValid = jQuery('#joinGS #jemail').parent().children('.errors').children('.valid');
     var usernameError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
     var usernameValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
     var passwordError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
-    var passwordValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
+//    var passwordValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
 
     firstNameError.hide();
     emailError.hide();
@@ -504,7 +505,7 @@ jQuery(function() {
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 
     jQuery('.joinAutoHover_showHover').click(function() {
-        GSType.hover.joinHover.showJoinAuto();
+        GSType.hover.joinHover.showJoinAuto('Lowell High School');
         return false;
     });
     jQuery('.joinChooserHover_showHover').click(function() {

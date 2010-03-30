@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import gs.web.util.ReadWriteController;
-import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
@@ -112,8 +111,17 @@ public class RegistrationHoverController extends RegistrationController implemen
 
             sendValidationEmail(request, user, emailRedirectUrl);
         }
+        String redirect = userCommand.getRedirectUrl();
+        if (StringUtils.isNotEmpty(redirect)) {
+            if (redirect.indexOf("?") > -1) {
+                redirect += "&";
+            } else {
+                redirect += "?";
+            }
+            redirect += "showValidateEmailHover=true";
+        }
 
-        mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+        mAndV.setViewName("redirect:" + redirect);
 
         return mAndV;
     }
