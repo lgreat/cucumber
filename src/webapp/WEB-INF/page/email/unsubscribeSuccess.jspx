@@ -36,7 +36,7 @@
 
             <tr><td align="center">
                 <h3>
-                    Find can still follow us on
+                    You can still follow us on
                     <a href="http://www.facebook.com/greatschools"
                        title="Facebook" target="_blank"
                        onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;">
