@@ -1327,6 +1327,7 @@ body.ie6 .clearfix {
 }
 .ryh-topsection {
     overflow: hidden;
+    /*position:relative;*/
     /*padding: 0 0 24px;*/
 }
 .ryh-title{
@@ -1353,11 +1354,25 @@ body.ie6 .clearfix {
     padding-left:335px;
 }
 
+.ryh-answer-onTC{
+    /*position:relative;*/
+}
+
 .ryhAnswer{
     margin-bottom:8px;
 }
 
-.ryh-submit-onTC{
+#ryhAnswerCount{
+    /*position:absolute;*/
+    /*top:0; right:0;*/
+}
+
+#ryhAnswerLabel{
+    margin:0;
+    padding:0;
+}
+
+#raise-your-hand .ryh-submit-onTC{
     padding-left:58px;
 }
 

@@ -241,7 +241,7 @@
             </c:if>
             <c:choose>
                 <c:when test="${style eq 'topicCenter'}">
-                    <c:set var="ryh_answer" value=""/>
+                    <c:set var="ryh_answer" value="ryh-answer-onTC"/>
                     <c:set var="ryhAnswerLabel" value="ryhAnswerLabel"/>
                     <c:set var="textareaWidth" value="330px"/>
                     <c:set var="textareaHeight" value="58px"/>
@@ -258,10 +258,15 @@
 
             <div class="${ryh_answer}">
                 <!--<form action="#">-->
-                <span class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></span>
 
                 <c:if test="${style eq 'topicCenter'}">
-                    <br class="clearfloat"/>
+                    <div class="spacer_10"><!-- don't collapse --></div>
+                </c:if>
+
+                <div class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></div>
+
+                <c:if test="${style eq 'topicCenter'}">
+                <br class="clearfloat"/>
                 </c:if>
 
                 <c:choose>
@@ -271,10 +276,11 @@
                     <c:otherwise><label for="ryhAnswer"
                                         class="${ryhAnswerLabel} text1 fltlft">Your reply: </label></c:otherwise>
                 </c:choose>
-
+                
                 <textarea name="ryhAnswer" class="ryhAnswer fltrt" id="ryhAnswer" rows="3" cols="50"
                           style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- --></textarea>
                 <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
+                <br class="clearfloat"/>
 
                 <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
@@ -286,14 +292,21 @@
         </div>
         <!-- end ryh-topsection -->
 
-            <c:if test="${style eq 'topicCenter'}">
+        <c:choose>
+            <c:when test="${style eq 'topicCenter'}">
                 <div class="spacer_15 dotted">
                     <!-- do not collapse -->
                 </div>
                 <div class="spacer_15">
                     <!-- do not collapse -->
                 </div>
-            </c:if>
+            </c:when>
+            <c:otherwise>
+                <div class="spacer_15">
+                    <!-- do not collapse -->
+                </div>
+            </c:otherwise>
+        </c:choose>
 
         <c:choose>
             <c:when test="${fn:length(replies) == 0}">

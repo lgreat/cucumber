@@ -580,6 +580,22 @@ body.ie6 .ryh-reply-text p.fltrt {
     maring-bottom: -14px;
 }
 
+body.ie6 .ryh-reply-text {
+    width:472px;
+    margin-left:12px;
+    padding:12px;
+    background:white;
+    position:relative
+}
+
+body.ie6 .ryh-reply-text-onTC {
+    width:305px;
+    margin-left:12px;
+    padding:12px;
+    background:white;
+    position:relative
+}
+
 /* =D- ie6 4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 
