@@ -426,6 +426,16 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.hide();
 };
 
+GS.showJoinHover = function(email, redirect, showJoinFunction) {
+    var cookie = readCookie("isMember");
+
+    if (cookie != undefined && cookie.length > 0) {
+        GSType.hover.signInHover.showHover(email,redirect,showJoinFunction);
+    } else {
+        showJoinFunction();
+    }
+}
+
 GS.joinHover_checkValidationResponse = function(data) {
     var firstNameError = jQuery('#joinGS #fName').parent().children('.errors').children('.invalid');
 //    var firstNameValid = jQuery('#joinGS #fName').parent().children('.errors').children('.valid');
