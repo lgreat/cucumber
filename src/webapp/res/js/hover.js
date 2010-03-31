@@ -214,7 +214,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
         GSType.hover.joinHover.show();
     };
-    this.showJoinChooserTipSheet = function() {
+    this.showJoinChooserTipSheet = function(email) {
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("School Chooser tip sheet");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -229,6 +229,8 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
 
+        jQuery('#jemail').val(email);
+        
         GSType.hover.joinHover.show();
 
         GSType.hover.joinHover.loadCities();

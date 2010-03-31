@@ -41,7 +41,8 @@ $j(function() {
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
                                                 if(datax.showRegistration == 'y'){
-                                                      storeHrefOpenHover(datax.redirectEncoded,'/community/registration/popup/sendToDestination.page',datax.emailEncoded);
+                                                      //storeHrefOpenHover(datax.redirectEncoded,'/community/registration/popup/sendToDestination.page',datax.emailEncoded);
+                                                      GSType.hover.joinHover.showJoinChooserTipSheet(emailVal);
                                                 } else {
                                                     $j("#form_panel").hide();
                                                     $j("#confirm_panel").show();
