@@ -37,13 +37,17 @@
     <script type="text/javascript">
         var $j = jQuery;
         var postReplyForm;
+
         $j(function() {
-            //<c:if test = "${requestScope.validUser != null}" >
+
             $j('#upperReplyTrigger, a.openPostBox').click(function() {
-                $j('.replyForm:first').slideToggle("normal");
+                if (GS.showJoinHover('',window.location.href,GSType.hover.joinHover.showJoinPostComment)) {
+                    $j('.replyForm:first').slideToggle("normal");
+                }
                 return false;
             });
 
+            //<c:if test = "${requestScope.validUser != null}" >
             var replyForms = $j('.replyForm');
             if (replyForms.size() > 1) {
                 replyForms.eq(1).show();
@@ -354,7 +358,7 @@
 
 <!-- post a reply button -->
 <c:set var="postReplyButton">
-    <a id="upperReplyTrigger" class="btn25" href="${requestScope.loginRedirectUrl}" onclick="this.blur();">
+    <a id="upperReplyTrigger" class="btn25" href="#" onclick="this.blur();">
                 <span class="lftDoor25">
                     <span class="rtDoor25">Post&amp;nbsp;a&amp;nbsp;Reply</span>
                 </span>
@@ -592,7 +596,7 @@
                 <c:set var="postAReplyHref" value="${loginRedirectUrl}"/>
             </c:otherwise>
         </c:choose>
-        <a href="${postAReplyHref}" class="openPostBox">post a reply</a>!</div>
+        <a href="#" class="openPostBox">post a reply</a>!</div>
 </c:if>
 
 <c:if test="${!discussion.raiseYourHand}">

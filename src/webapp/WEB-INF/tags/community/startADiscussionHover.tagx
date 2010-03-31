@@ -91,16 +91,22 @@
             };
 
             this.showCreate = function() {
-                //<c:choose><c:when test="${requestScope.context.user ne null}">
+
+                //<!--<c:choose><c:when test="${requestScope.context.user ne null}">-->
                     var createUrl = this.startADiscussionIframeUrl;
                     //<c:if test="${getTitleFunc ne null}">
                         createUrl += "&amp;title=" + ${getTitleFunc};
                     //</c:if>
+
+                //<!--</c:when><c:otherwise>-->
+
+                    //document.location=this.loginRedirectUrl;
+                //<!--</c:otherwise></c:choose>-->
+                if (GS.showJoinHover('${requestScope.user.email}',window.location.href,GSType.hover.joinHover.showJoinPostComment)) {
                     jQuery('#startADiscussionDialog').dialog("open");
                     jQuery('#startADiscussionIFrame').attr('src', createUrl);
-                //</c:when><c:otherwise>
-                    document.location=this.loginRedirectUrl;
-                //</c:otherwise></c:choose>
+                }
+
                 return false;
             };
             this.close = function() {
