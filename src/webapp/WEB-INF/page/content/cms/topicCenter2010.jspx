@@ -142,7 +142,12 @@
                     </c:otherwise>
                 </c:choose>
 
-                <!-- TODO-9457, TODO-9536 Randall, this ad slot should appear below the browse sidebar -->
+                <c:if test="${topicCenter.gradeLevelTopicCenter}">
+                    <div class="skyscraperHouseAd">
+                        <ad:adTag position="House_Ad_160x425"/>
+                    </div>
+                </c:if>
+
                 <div class="skyscraperAd">
                     <ad:AboveFold_Left_160x600/>
                 </div>
