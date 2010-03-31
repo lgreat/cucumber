@@ -212,32 +212,34 @@
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
                                                    styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>
                     </c:when>
-                     <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
-                       <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                      styleClass="emailImg toolsImg"><gsml:img
+                    <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
+                        <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                   styleClass="emailImg toolsImg"><gsml:img
                                        src="/res/img/school/overview/7970_b/update_email.gif"
-                                       alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
-                       <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                      styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
+                                       alt="Send me grade-by-grade updates"/></link:newsletterManagement>
+                        <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                   styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
                             <c:when test="${school.levelCode == 'p'}">
-                                <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
-                                                      styleClass="emailImg toolsImg"><gsml:img
+                                <!-- TODO: auto-check PK in join hover -->
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                           autocheck="mypk"
+                                                           styleClass="emailImg toolsImg"><gsml:img
                                         src="/res/img/school/overview/7970_b/update_email.gif"
-                                        alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
-                                <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
-                                                      styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
+                                        alt="Send me grade-by-grade updates"/></link:newsletterManagement>
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                           autocheck="mypk"
+                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
                             </c:when>
-                            
                             <c:otherwise>
-                                <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                      styleClass="emailImg toolsImg"><gsml:img
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                           styleClass="emailImg toolsImg"><gsml:img
                                         src="/res/img/school/overview/7970_b/update_email.gif"
-                                        alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
-                                <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                      styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
+                                        alt="Send me grade-by-grade updates"/></link:newsletterManagement>
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
                             </c:otherwise>
                         </c:choose>
                     </c:otherwise>

@@ -273,6 +273,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.setJoinHoverType("TrackGrade");
+        // auto check grade-by-grade
+        jQuery('#opt1').attr('checked', true);
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
         GSType.hover.joinHover.show();
