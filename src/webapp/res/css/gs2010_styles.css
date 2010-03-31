@@ -2072,6 +2072,7 @@ p.hlpTxt {
     left: -1px;
 }
 #moreGrades ul {
+    margin-top: 0;
     float: left;
 }
 #moreGrades .col1 {

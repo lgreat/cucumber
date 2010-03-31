@@ -81,13 +81,12 @@ GSType.hover.JoinHover = function() {
     this.loadOnExitUrl = null;
     this.baseFields = function() {
         // hide city and state inputs
-        jQuery('#joinHover fieldset.contactPw #joinState').parent().children().hide();
+        jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
-        jQuery('#joinHover fieldset.prefs #opt1').parent().children().hide();
-        jQuery('#joinHover fieldset.prefs ul.col li.grades p').hide();
-        jQuery('#joinHover fieldset.prefs ul.col li.grades ul').hide();
+        jQuery('#joinHover li.grades p').hide();
+        jQuery('#joinHover li.grades ul').hide();
         // hide LD newsletter
-        jQuery('#joinHover fieldset.prefs #opt2').parent().children().hide();
+        jQuery('#joinHover li.joinHover_ld').hide();
     };
     this.setJoinHoverType = function(type) {
         jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
@@ -123,13 +122,11 @@ GSType.hover.JoinHover = function() {
 
         //choose whether to display nth grader checkboxes flyout
         if (includeTips) {
-            jQuery('#joinHover fieldset.prefs ul.col li.grades p').show();
-            jQuery('#joinHover fieldset.prefs ul.col li.grades ul').show();
+            jQuery('#joinHover li.grades p').show();
+            jQuery('#joinHover li.grades ul').show();
         }
 
-        jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
-        jQuery('#joinHover fieldset.prefs ul.col li.grades label[for="opt1"]').show();
-        jQuery('#joinHover fieldset.prefs ul.col li.grades #opt1').show();
+        jQuery('#joinHover li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
     };
     this.parseCities = function(data) {
         var citySelect = jQuery('#joinHover #joinCity');
@@ -223,7 +220,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "for the best advice on choosing the right school for your family");
         // show city and state inputs
-        jQuery('#joinHover fieldset.contactPw #joinState').parent().children().show();
+        jQuery('#joinHover joinHover_location').show();
 
         // set label for weekly updates opt-in
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
@@ -244,7 +241,7 @@ GSType.hover.JoinHover = function() {
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show LD newsletter
-        jQuery('#joinHover fieldset.prefs #opt2').parent().children().show();
+        jQuery('#joinHover .joinHover_ld').show();
 
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
 
@@ -284,7 +281,7 @@ GSType.hover.JoinHover = function() {
                 '/community/registrationValidationAjax.page',
                 {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
                 function(data) {
-                    GSType.hover.joinHover.validateFieldResponse('#joinGS #fName', 'firstName', data);
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
                 });
     };
     this.validateEmail = function() {
@@ -292,7 +289,7 @@ GSType.hover.JoinHover = function() {
                 '/community/registrationValidationAjax.page',
                 {email:jQuery('#joinGS #jemail').val(), field:'email'},
                 function(data) {
-                    GSType.hover.joinHover.validateFieldResponse('#joinGS #jemail', 'email', data);
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
                 });
     };
     this.validateUsername = function() {
@@ -300,7 +297,7 @@ GSType.hover.JoinHover = function() {
                 '/community/registrationValidationAjax.page',
                 {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
                 function(data) {
-                    GSType.hover.joinHover.validateFieldResponse('#joinGS #uName', 'screenName', data);
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
                 });
     };
     this.validatePassword = function() {
@@ -308,7 +305,7 @@ GSType.hover.JoinHover = function() {
                 '/community/registrationValidationAjax.page',
                 {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'password'},
                 function(data) {
-                    GSType.hover.joinHover.validateFieldResponse('#joinGS #jpword', 'password', data);
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_password .errors', 'password', data);
                 });
         GSType.hover.joinHover.validateConfirmPassword();
     };
@@ -317,12 +314,12 @@ GSType.hover.JoinHover = function() {
                 '/community/registrationValidationAjax.page',
                 {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'confirmPassword'},
                 function(data) {
-                    GSType.hover.joinHover.validateFieldResponse('#joinGS #cpword', 'confirmPassword', data);
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmPassword .errors', 'confirmPassword', data);
                 });
     };
     this.validateFieldResponse = function(fieldSelector, fieldName, data) {
-        var fieldError = jQuery(fieldSelector).parent().children('.errors').children('.invalid');
-        var fieldValid = jQuery(fieldSelector).parent().children('.errors').children('.valid');
+        var fieldError = jQuery(fieldSelector + ' .invalid');
+        var fieldValid = jQuery(fieldSelector + ' .valid');
         fieldError.hide();
         fieldValid.hide();
         if (data && data[fieldName]) {
@@ -525,12 +522,12 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
 };
 
 GS.joinHover_checkValidationResponse = function(data) {
-    var firstNameError = jQuery('#joinGS #fName').parent().children('.errors').children('.invalid');
-    var emailError = jQuery('#joinGS #jemail').parent().children('.errors').children('.invalid');
-    var usernameError = jQuery('#joinGS #uName').parent().children('.errors').children('.invalid');
-    var usernameValid = jQuery('#joinGS #uName').parent().children('.errors').children('.valid');
-    var passwordError = jQuery('#joinGS #jpword').parent().children('.errors').children('.invalid');
-    var confirmPasswordError = jQuery('#joinGS #cpword').parent().children('.errors').children('.invalid');
+    var firstNameError = jQuery('#joinGS .joinHover_firstName .invalid');
+    var emailError = jQuery('#joinGS .joinHover_email .invalid');
+    var usernameError = jQuery('#joinGS .joinHover_username .invalid');
+    var usernameValid = jQuery('#joinGS .joinHover_username .valid');
+    var passwordError = jQuery('#joinGS .joinHover_password .invalid');
+    var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
     var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
     var locationError = jQuery('#joinGS #joinHover_chooseLocation');
 
@@ -687,4 +684,19 @@ jQuery(function() {
         GSType.hover.joinHover.showJoinTrackGrade();
         return false;
     });
+
+    jQuery('#grdShow').click(function() {
+        if (jQuery('#grdShow').hasClass('active')) {
+            jQuery('#grdShow').removeClass('active');
+            jQuery('#moreGrades').removeClass('show');
+        } else {
+            jQuery('#grdShow').addClass('active');
+            jQuery('#moreGrades').addClass('show');
+        }
+    });
+
+    jQuery('#gradeDone').click(function() {
+        jQuery('#grdShow').removeClass('active');
+        jQuery('#moreGrades').removeClass('show');
+    })
 });
