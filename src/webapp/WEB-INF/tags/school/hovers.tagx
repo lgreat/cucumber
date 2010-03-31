@@ -77,7 +77,7 @@
 <c:if test="${!requestScope.context.crawler}">
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-    <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>-->
     <c:if test="${showNLHover and school.type.schoolTypeName != 'private'}">
         <!-- to trigger MSS modal on exit -->
         <c:choose>
