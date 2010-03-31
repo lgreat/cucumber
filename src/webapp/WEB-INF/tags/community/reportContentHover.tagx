@@ -41,21 +41,22 @@
 
         jQuery(function() {
             jQuery('${pageScope.openingElementSelector}').click(function() {
-                var idStr = jQuery(this).attr('id');
-                if (idStr.indexOf('reply') > -1) {
-                    initForContentType(idStr, 'reply');
-                } else if (idStr.indexOf('discussion') > -1) {
-                    initForContentType(idStr, 'discussion');
-                } else if (idStr.indexOf('member') > -1) {
-                    initForContentType(idStr, 'member');
-                }
-                jQuery('#reportReason').val('');
-                jQuery('#reportItDialog').dialog('open');
-                jQuery('#reportReason').focus();
+                 if (GS.showJoinHover('${requestScope.user.email}',window.location.href,GSType.hover.joinHover.showJoinPostComment)) {
+                    var idStr = jQuery(this).attr('id');
+                    if (idStr.indexOf('reply') > -1) {
+                        initForContentType(idStr, 'reply');
+                    } else if (idStr.indexOf('discussion') > -1) {
+                        initForContentType(idStr, 'discussion');
+                    } else if (idStr.indexOf('member') > -1) {
+                        initForContentType(idStr, 'member');
+                    }
+                    jQuery('#reportReason').val('');
+                    jQuery('#reportItDialog').dialog('open');
+                    jQuery('#reportReason').focus();
 
-                omnitureEventNotifier.send(); // trigger pageview
-
-                return false;
+                    omnitureEventNotifier.send(); // trigger pageview
+                 }
+                 return false;
             });
 
             jQuery('#reportItDialog').dialog({

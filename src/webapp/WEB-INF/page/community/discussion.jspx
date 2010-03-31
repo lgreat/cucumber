@@ -295,10 +295,10 @@
 </c:choose>
 
 <!-- Report it dialog -->
-<c:if test="${validUser ne null}">
+<!--<c:if test="${validUser ne null}">-->
     <community:reportContentHover openingElementSelector=".reportIt"
                                   reporterId="${validUser.id}"/>
-</c:if>
+<!--</c:if>-->
 <!-- End report it dialog -->
 
 <!-- Preview reply dialog -->
