@@ -2642,8 +2642,8 @@ ul.srchSuggest li span {
 =4f-1 school profile
 -----------------------------------------------------------------------------
 */
-#kindercareLeadGen {
-    background: url("/res/img/promo/kindercare_top_rule.png") repeat-x #F9ECCD;
+.promoModule {
+    background: url("/res/img/promo/promoModule/top_rule.png") repeat-x #F9ECCD;
     margin: 0 auto 4px auto;
     height: 115px;
     width: 864px;
@@ -2651,11 +2651,53 @@ ul.srchSuggest li span {
     padding-top: 5px;
     color: #333;
 }
-#kindercareLeadGen .kindercareInner {
-    background: url("/res/img/promo/kindercare_bottom_rule.png") repeat-x scroll 0 109px #F9ECCD;
+.promoModule .inner {
+    background: url("/res/img/promo/promoModule/bottom_rule.png") repeat-x scroll 0 109px #F9ECCD;
     padding: 5px 15px;
     height: 105px;
 }
+.promoModule .closeButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.promoModule .left_rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.promoModule .right_rule {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#care2Promo .left {
+    float: left;
+    height: 105px;
+    width: 540px;
+    margin-right: 25px;
+    padding-left: 170px;
+    padding-top: 5px;
+}
+#care2Promo .logo {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+}
+#care2Promo .title {
+    font:bold 25px Arial, Helvetica, sans-serif;
+    color: #06b;
+    margin-bottom: 5px;
+}
+
+#care2Promo .submitButton {
+    position: absolute;
+    top: 48px;
+    right: 22px; 
+}
+
 #kindercareLeadGen .kindercare_logo {
     position: absolute;
     top: 0;
@@ -2741,17 +2783,6 @@ ul.srchSuggest li span {
 }
 #kindercareLeadGen .submitButton {
     cursor: pointer;
-}
-#kindercareLeadGen .closeButton {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-}
-#kindercareLeadGen .right_rule {
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 
 /*

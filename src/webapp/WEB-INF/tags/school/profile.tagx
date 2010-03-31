@@ -480,6 +480,9 @@
 <c:if test="${requestScope.isKindercare eq true}">
     <promo:kindercare school="${school}"/>
 </c:if>
+<c:if test="${requestScope.isCare2 eq true and not empty care2PromoUrl}">
+    <promo:care2 school="${school}" url="${care2PromoUrl}"/>
+</c:if>
 <!-- end: subnav -->
 <div id="bodyContents">
     <jsp:doBody/>
