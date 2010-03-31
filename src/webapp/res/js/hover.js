@@ -163,9 +163,7 @@ GSType.hover.JoinHover = function() {
         });
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
-        GSType.hover.joinHover.schoolName = schoolName;
-        jQuery('#joinHover .school_id').val(schoolId);
-        jQuery('#joinHover .school_state').val(schoolState);
+        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         var arr = getElementsByCondition(
             function(el) {
                 if (el.tagName == "A") {
@@ -194,7 +192,7 @@ GSType.hover.JoinHover = function() {
             };
         }
     };
-    this.showJoinAuto = function(schoolName, schoolId, schoolState) {
+    this.configureForMss = function(schoolName, schoolId, schoolState) {
         if (schoolName) {
             GSType.hover.joinHover.schoolName = schoolName;
         }
@@ -204,6 +202,9 @@ GSType.hover.JoinHover = function() {
         if (schoolState) {
             jQuery('#joinHover .school_state').val(schoolState);
         }
+    };
+    this.showJoinAuto = function(schoolName, schoolId, schoolState) {
+        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
         GSType.hover.joinHover.setSubTitle("Keep tabs on " + GSType.hover.joinHover.schoolName,
@@ -426,14 +427,55 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.hide();
 };
 
-GS.showJoinHover = function(email, redirect, showJoinFunction) {
-    var cookie = readCookie("isMember");
+GS.isCookieSet = function(cookieName){
+    // if cookie cookieName exists, the cookie is set
+    var value = readCookie(cookieName);
+    return value != undefined && value.length > 0;
+};
+GS.getServerName = function() {
+    // default to live
+    var serverName = 'www';
 
-    if (cookie != undefined && cookie.length > 0) {
-        GSType.hover.signInHover.showHover(email,redirect,showJoinFunction);
-    } else {
-        showJoinFunction();
+    // check for staging
+    if (location.hostname.match(/staging\.|staging$|clone/)) {
+        serverName = 'staging';
+    } else if (location.hostname.match(/dev\.|dev$|\.office\.|cpickslay\.|localhost|127\.0\.0\.1|macbook/)) {
+        serverName = 'dev';
     }
+
+    return serverName;
+};
+GS.isSignedIn = function() {
+    return GS.isCookieSet('community_' + GS.getServerName());
+};
+GS.isMember = function() {
+    return GS.isCookieSet('isMember');
+};
+
+GS.showJoinHover = function(email, redirect, showJoinFunction) {
+    if (GS.isSignedIn()) {
+        return true; // signed in users go straight to destination
+    } else if (GS.isMember()) {
+        GSType.hover.signInHover.showHover(email,redirect,showJoinFunction); // members get sign in hover
+    } else {
+        showJoinFunction(); // anons get join hover
+    }
+    return false;
+};
+
+GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
+    if (GS.isSignedIn()) {
+        return true; // signed in users go straight to destination
+    } else {
+        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.signInHover.setRedirect(redirect);
+        if (GS.isMember()) {
+            GSType.hover.signInHover.showHover('',redirect,GSType.hover.joinHover.showJoinAuto);
+        } else {
+            GSType.hover.joinHover.showJoinAuto();
+        }
+    }
+    return false;
 };
 
 GS.joinHover_checkValidationResponse = function(data) {

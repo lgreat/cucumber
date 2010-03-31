@@ -204,12 +204,12 @@
                 <c:choose>
                     <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
                         <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
-                                                   onclick="return autoMssHover.prepAndShow(this.href, ${school.id}, '${school.databaseState}', true);"
+                                                   onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
                                                    styleClass="emailImg toolsImg"><gsml:img
                                 src="/res/img/school/overview/7970_b/update_email.gif"
                                 alt="Send me updates about this school"/></link:newsletterManagement>
                         <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
-                                                   onclick="return autoMssHover.prepAndShow(this.href, ${school.id}, '${school.databaseState}', true);"
+                                                   onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
                                                    styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>
                     </c:when>
                      <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
