@@ -279,6 +279,59 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
         GSType.hover.joinHover.show();
     };
+    this.validateFirstName = function() {
+        jQuery.getJSON(
+                '/community/registrationValidationAjax.page',
+                {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
+                function(data) {
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS #fName', 'firstName', data);
+                });
+    };
+    this.validateEmail = function() {
+        jQuery.getJSON(
+                '/community/registrationValidationAjax.page',
+                {email:jQuery('#joinGS #jemail').val(), field:'email'},
+                function(data) {
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS #jemail', 'email', data);
+                });
+    };
+    this.validateUsername = function() {
+        jQuery.getJSON(
+                '/community/registrationValidationAjax.page',
+                {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
+                function(data) {
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS #uName', 'screenName', data);
+                });
+    };
+    this.validatePassword = function() {
+        jQuery.getJSON(
+                '/community/registrationValidationAjax.page',
+                {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'password'},
+                function(data) {
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS #jpword', 'password', data);
+                });
+        GSType.hover.joinHover.validateConfirmPassword();
+    };
+    this.validateConfirmPassword = function() {
+        jQuery.getJSON(
+                '/community/registrationValidationAjax.page',
+                {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'confirmPassword'},
+                function(data) {
+                    GSType.hover.joinHover.validateFieldResponse('#joinGS #cpword', 'confirmPassword', data);
+                });
+    };
+    this.validateFieldResponse = function(fieldSelector, fieldName, data) {
+        var fieldError = jQuery(fieldSelector).parent().children('.errors').children('.invalid');
+        var fieldValid = jQuery(fieldSelector).parent().children('.errors').children('.valid');
+        fieldError.hide();
+        fieldValid.hide();
+        if (data && data[fieldName]) {
+            fieldError.html(data[fieldName]);
+            fieldError.show();
+        } else {
+            fieldValid.show();
+        }
+    };
 };
 GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 
@@ -293,7 +346,8 @@ GSType.hover.SignInHover = function() {
         jQuery('#signInHover .messages').append('<p>' + text + '</p>');
     };
     this.clearMessages = function() {
-        jQuery('#signInHover .messages').replaceWith('<div class="messages"><!-- not empty --></div>');
+        jQuery('#signInHover .messages').empty();
+        jQuery('#signInHover .errors .error').hide();
     };
     this.setEmail = function(email) {
         jQuery('#signInHover #semail').val(email);
@@ -302,46 +356,36 @@ GSType.hover.SignInHover = function() {
         jQuery('#signInHover .redirect_field').val(redirect);
     };
     this.validateFields = function() {
-        GSType.hover.signInHover.clearMessages();
+        jQuery('#signInHover .errors .error').hide();
 
         var params = {
             email: jQuery('#semail').val(),
             password: jQuery('#spword').val()
         };
 
-        jQuery.post('/community/registration/popup/loginValidationAjax.page', params,
-                GSType.hover.signInHover.loginValidatorHandler, "json");
+        jQuery.getJSON('/community/registration/popup/loginValidationAjax.page', params,
+                GSType.hover.signInHover.loginValidatorHandler);
 
         return false;
     };
     this.loginValidatorHandler = function(data) {
-        var objCount = 0;
-        for (_obj in data) objCount++;
-
-        if (objCount > 0) {
-            if (data.noSuchUser) {
-                GSType.hover.signInHover.addMessage('<p class="error">' + data.noSuchUser + '</p>');
-            }
-            if (data.userNoPassword) {
-                GSType.hover.signInHover.clearMessages();
-                GSType.hover.signInHover.hide();
-                //GSType.hover.joinHover.addMessage(data.userNoPassword);
-                GSType.hover.joinHover.show();
-            }
-            if (data.userNotValidated) {
-                GSType.hover.signInHover.clearMessages();
-                GSType.hover.signInHover.hide();
-                GSType.hover.emailNotValidated.show();
-            }
-            if (data.email) {
-                GSType.hover.signInHover.addMessage('<p class="error">' + data.email + '</p>');
-            }
-            if (data.userDeactivated) {
-                GSType.hover.signInHover.addMessage('<p class="error">' + data.userDeactivated + '</p>');
-            }
-            if (data.passwordMismatch) {
-                GSType.hover.signInHover.addMessage('<p class="error">' + data.passwordMismatch + '</p>');
-            }
+        jQuery('#signInHover .errors .error').hide();
+        if (data.noSuchUser) {
+            jQuery('#signInHover .errors .error').html(data.noSuchUser).show();
+        } else if (data.userNoPassword) {
+            GSType.hover.signInHover.clearMessages();
+            GSType.hover.signInHover.hide();
+            GSType.hover.joinHover.show();
+        } else if (data.userNotValidated) {
+            GSType.hover.signInHover.clearMessages();
+            GSType.hover.signInHover.hide();
+            GSType.hover.emailNotValidated.show();
+        } else if (data.email) {
+            jQuery('#signInHover .errors .error').html(data.email).show();
+        } else if (data.userDeactivated) {
+            jQuery('#signInHover .errors .error').html(data.userDeactivated).show();
+        } else if (data.passwordMismatch) {
+            jQuery('#signInHover .errors .error').html(data.passwordMismatch).show();
         } else {
             jQuery('#signin').submit();
 
@@ -493,6 +537,7 @@ GS.joinHover_checkValidationResponse = function(data) {
     firstNameError.hide();
     emailError.hide();
     usernameError.hide();
+    usernameValid.hide();
     passwordError.hide();
     confirmPasswordError.hide();
     termsError.hide();
@@ -505,50 +550,38 @@ GS.joinHover_checkValidationResponse = function(data) {
         jQuery('#joinGS #process_error').show();
 
         if (data.terms) {
-            termsError.html(data.terms);
-            termsError.show();
+            termsError.html(data.terms).show();
         }
 
         if (data.state) {
-            locationError.html(data.state);
-            locationError.show();
+            locationError.html(data.state).show();
         }
         if (data.city) {
-            locationError.html(data.city);
-            locationError.show();
+            locationError.html(data.city).show();
         }
 
         if (data.firstName) {
-            firstNameError.html(data.firstName);
-            firstNameError.show();
+            firstNameError.html(data.firstName).show();
         }
 
         if (data.email) {
-            emailError.html(data.email);
-            emailError.show();
+            emailError.html(data.email).show();
         }
 
         if (data.password) {
-            passwordError.html(data.password);
-            passwordError.show();
+            passwordError.html(data.password).show();
         }
 
         if (data.confirmPassword) {
-            confirmPasswordError.html(data.confirmPassword);
-            confirmPasswordError.show();
+            confirmPasswordError.html(data.confirmPassword).show();
         }
 
         if (data.screenName) {
-            usernameError.html(data.screenName);
-            usernameError.show();
-            usernameValid.hide();
+            usernameError.html(data.screenName).show();
         } else {
-            usernameError.hide();
             usernameValid.show();
         }
-
     } else {
-
         jQuery('#joinGS').submit();
         GSType.hover.joinHover.hide();
     }
@@ -569,10 +602,9 @@ jQuery(function() {
     GSType.hover.validateLinkExpired.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
-        jQuery.post('/community/forgotPasswordValidator.page',
+        jQuery.getJSON('/community/forgotPasswordValidator.page',
                 jQuery('#hover_forgotPasswordForm').serialize(),
-                GS.forgotPasswordHover_checkValidationResponse,
-                'json');
+                GS.forgotPasswordHover_checkValidationResponse);
 
         return false;
     });
@@ -587,6 +619,7 @@ jQuery(function() {
 
         var first = true;
         var newsletters = [];
+        // TODO: make selector more specific?
         jQuery('[name="grades"]').each(function() {
             if (jQuery(this).attr('checked')) {
                 newsletters.push(encodeURIComponent(jQuery(this).val()));
@@ -595,7 +628,7 @@ jQuery(function() {
 
         params += "&grades=" + newsletters.join(',');
 
-        jQuery.post("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse, "json");
+        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
         return false;
     });
 
@@ -605,6 +638,16 @@ jQuery(function() {
     jQuery('#joinHover_cancel').click(function() {
         GSType.hover.joinHover.hide();
         return false;
+    });
+
+    jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
+    jQuery('#joinHover #jemail').blur(GSType.hover.joinHover.validateEmail);
+    jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
+    jQuery('#joinHover #jpword').blur(GSType.hover.joinHover.validatePassword);
+    jQuery('#joinHover #cpword').blur(GSType.hover.joinHover.validateConfirmPassword);
+
+    jQuery('#joinHover').bind('dialogclose', function() {
+        jQuery('#joinGS .error').hide();
     });
 
     jQuery('#hover_forgotPassword').bind('dialogclose', function() {

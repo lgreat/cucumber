@@ -41,10 +41,8 @@
                         <input type="text" id="fName" name="firstName"/>
 
                         <div class="errors">
-                            <span class="error valid"><!-- not empty --></span>
+                            <span class="error valid">&amp;nbsp;</span>
                             <span class="error invalid"><!-- not empty --></span>
-                            <!--<span id="fn_no_special_char" class="error">First name may contain only letters, numbers, spaces, and the following punctuation: <span
-                                    class="specChars">, . - _ &#38;</span></span>-->
                         </div>
                     </li>
                     <li>
@@ -52,7 +50,7 @@
                         <input type="text" id="jemail" name="email"/>
 
                         <div class="errors">
-                            <span class="error valid"><!-- not empty --></span>
+                            <span class="error valid">&amp;nbsp;</span>
                             <span class="error invalid"><!-- not empty --></span>
                         </div>
                     </li>
@@ -64,13 +62,8 @@
                         <div class="errors">
                             <span class="error valid">Your username is available</span>
                             <span class="error invalid"><!--not empty--></span>
-                            <!--<span class="error"
-                                  id="sn_invalid">Your user name must be 6-14 characters, with no spaces</span>
-                            <span class="error" id="sn_enter">Please enter a user name</span>
-                            <span class="error" id="sn_invalid_chars">Username may contain only letters, numbers, and the following punctuation: <span
-                                    class="specChars">. - _</span></span>-->
                         </div>
-                        <p class="hlpTxt">Choose carefully &#38;#151; this will be your public identity on GreatSchools</p>
+                        <p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>
                     </li>
                     <li>
                         <label for="jpword">Password * <br/>
@@ -78,7 +71,7 @@
                         <input type="password" id="jpword" name="password"/>
 
                         <div class="errors">
-                            <span class="error valid" id="pw"><!-- not empty --></span>
+                            <span class="error valid" id="pw">&amp;nbsp;</span>
                             <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
                         </div>
                     </li>
@@ -87,7 +80,7 @@
                         <input type="password" id="cpword" name="confirmPassword"/>
 
                         <div class="errors">
-                            <span class="error valid" id="pwmatch"><!-- not empty --></span>
+                            <span class="error valid" id="pwmatch">&amp;nbsp;</span>
                             <span class="error invalid" id="pwnomatch"><!-- not empty --></span>
                         </div>
                     </li>
@@ -174,7 +167,7 @@
                 <button class="btn25" type="submit" name="joinBtn" id="joinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
                 </button>
-                <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&#187;</span></a>
+                <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>
             <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />
             <input type="hidden" name="redirectUrl" class="redirect_field" value=""/>

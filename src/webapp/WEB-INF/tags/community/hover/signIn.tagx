@@ -18,14 +18,16 @@
         <div class="messages">
             <p class="error"><!-- message --></p>
         </div>
-        <div class="errors">
-            <p class="error"><!-- message --></p>
-        </div>
         <form id="signin" action="/community/loginOrRegister.page" method="post">
             <fieldset class="signin">
                 <h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
-                    <li><label for="semail">Email address</label><input type="text" id="semail" name="email"/></li>
+                    <li>
+                        <label for="semail">Email address</label><input type="text" id="semail" name="email"/>
+                        <div class="errors">
+                            <p class="error"><!-- message --></p>
+                        </div>                        
+                    </li>
                     <li><label for="spword">Password</label><input type="password" id="spword" name="password"/></li>
                 </ul>
             </fieldset>

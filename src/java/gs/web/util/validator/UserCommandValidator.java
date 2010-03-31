@@ -256,15 +256,29 @@ public class UserCommandValidator implements IRequestAwareValidator {
     }
 
     public void validatePasswordFields(String passwordValue, String passwordConfirmValue, String fieldName, Errors errors) {
+        if (validatePasswordFormat(passwordValue, fieldName, errors)) {
+            validatePasswordEquivalence(passwordValue, passwordConfirmValue, fieldName, errors);
+        }
+    }
+
+    public boolean validatePasswordFormat(String passwordValue, String fieldName, Errors errors) {
         if (StringUtils.isEmpty(passwordValue) ||
                 passwordValue.length() < PASSWORD_MINIMUM_LENGTH ||
                 passwordValue.length() > PASSWORD_MAXIMUM_LENGTH) {
             errors.rejectValue(fieldName, null, ERROR_PASSWORD_LENGTH);
             _log.info("Registration error: " + ERROR_PASSWORD_LENGTH);
-        } else if (StringUtils.isEmpty(passwordConfirmValue) || !passwordConfirmValue.equals(passwordValue)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePasswordEquivalence(String passwordValue, String passwordConfirmValue, String fieldName, Errors errors) {
+        if (!StringUtils.equals(passwordValue, passwordConfirmValue)) {
             errors.rejectValue(fieldName, null, ERROR_PASSWORD_MISMATCH);
             _log.info("Registration error: " + ERROR_PASSWORD_MISMATCH);
+            return false;
         }
+        return true;
     }
 
     public IUserDao getUserDao() {

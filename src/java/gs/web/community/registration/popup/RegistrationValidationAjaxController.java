@@ -1,13 +1,11 @@
 package gs.web.community.registration.popup;
 
-
 import gs.data.community.*;
 import gs.data.json.JSONObject;
-import gs.data.geo.IGeoDao;
-import gs.data.state.StateManager;
 import gs.web.community.registration.UserCommand;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.UserCommandValidator;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -17,14 +15,13 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: samson
- * Date: Mar 26, 2010
- * Time: 2:45:40 PM
- * To change this template use File | Settings | File Templates.
+ * Controller that handles field-by-field (onblur) and well as full form validation for the megaJoin hover.
+ * @author ssprouse@greatschools.org
+ * @author aroy@greatschools.org
  */
 public class RegistrationValidationAjaxController extends AbstractCommandController {
 
@@ -32,47 +29,27 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
-    private IGeoDao _geoDao;
-
-    private StateManager _stateManager;
 
     private UserCommandValidator _userCommandValidator = new UserCommandValidator();
 
     private boolean _requireEmailValidation = true;
 
-    public static final String CITY_PARAMETER = "city";
+    public static final String FIELD_PARAMETER = "field";
+    public static final String FIRST_NAME = "firstName";
+    public static final String EMAIL = "email";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String CONFIRM_PASSWORD = "confirmPassword";
 
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-
         _userCommandValidator.setUserDao(_userDao);
 
-        UserCommand userCommand = (UserCommand) command;
-
-        String joinHoverType = request.getParameter("joinHoverType");
-
-        //start validation
-        // validate email format
-        EmailValidator emailValidator = new EmailValidator();
-        emailValidator.validate(userCommand, errors);
-        // validate email address
-        User user = _userCommandValidator.validateEmail(userCommand,request,errors);
-
-        _userCommandValidator.validateFirstName(userCommand, errors);
-        _userCommandValidator.validateUsername(userCommand, user, errors);
-        _userCommandValidator.validatePassword(userCommand, errors);
-        _userCommandValidator.validateTerms(userCommand, errors);
-
-        if ("ChooserTipSheet".equals(joinHoverType)) {
-            userCommand.setChooserRegistration(true);
-            _userCommandValidator.validateStateCity(userCommand, errors);
+        // if a particular field is specified, validate only that field
+        if (StringUtils.isNotBlank(request.getParameter(FIELD_PARAMETER))) {
+            handleOnblur(request, (UserCommand) command, errors);
+        } else {
+            handleFullValidation(request, (UserCommand) command, errors);
         }
-
-        // aroy: this wasn't working, and it may be ok to display all pw errors in the same field, so I'm commenting it out
-        //somewhat of a hack... overwrite the field name of the bind exception with "confirmPassword". Should probably extend and override UserCommandValidator instead
-//        FieldError passwordError = errors.getFieldError("password");
-//        if (passwordError != null && passwordError.getDefaultMessage() != null && passwordError.getDefaultMessage().equals(UserCommandValidator.ERROR_PASSWORD_MISMATCH)) {
-//            passwordError = new FieldError(passwordError.getObjectName(),"confirmPassword",passwordError.getDefaultMessage());
-//        }
 
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 
@@ -85,42 +62,63 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         }
 
         String jsonString = new JSONObject(mapErrors).toString();
-
         _log.info("Writing JSON response -" + jsonString);
-
         response.getWriter().write(jsonString);
-
         response.getWriter().flush();
-
         return null;
     }
 
-    protected boolean hasChildRows() {
-        return true;
+    protected void handleFullValidation(HttpServletRequest request,UserCommand userCommand,
+                                        BindException errors) throws IOException {
+        String joinHoverType = request.getParameter("joinHoverType");
+
+        //start validation
+        // validate email format
+        EmailValidator emailValidator = new EmailValidator();
+        emailValidator.validate(userCommand, errors);
+        // validate email address
+        User user = _userCommandValidator.validateEmail(userCommand,request,errors);
+
+        _userCommandValidator.validateFirstName(userCommand, errors);
+        _userCommandValidator.validateUsername(userCommand, user, errors);
+        if (_userCommandValidator.validatePasswordFormat(userCommand.getPassword(), "password", errors)) {
+            _userCommandValidator.validatePasswordEquivalence
+                    (userCommand.getPassword(), userCommand.getConfirmPassword(), "confirmPassword", errors);
+        }
+        _userCommandValidator.validateTerms(userCommand, errors);
+
+        if ("ChooserTipSheet".equals(joinHoverType)) {
+            userCommand.setChooserRegistration(true);
+            _userCommandValidator.validateStateCity(userCommand, errors);
+        }
     }
 
-    public StateManager getStateManager() {
-        return _stateManager;
-    }
-
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
+    protected void handleOnblur(HttpServletRequest request, UserCommand userCommand, BindException errors) {
+        if (StringUtils.equals(FIRST_NAME, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validateFirstName(userCommand, errors);
+        } else if (StringUtils.equals(EMAIL, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validateEmail(userCommand, request, errors);
+        } else if (StringUtils.equals(USERNAME, request.getParameter(FIELD_PARAMETER))) {
+            User user = null;
+            // to properly validate username we need to find if the user already exists
+            if (StringUtils.isNotBlank(userCommand.getEmail())) {
+                _log.info("Fetching User from " + userCommand.getEmail());
+                user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
+            }
+            _userCommandValidator.validateUsername(userCommand, user, errors);
+        } else if (StringUtils.equals(PASSWORD, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validatePasswordFormat(userCommand.getPassword(), "password", errors);
+        } else if (StringUtils.equals(CONFIRM_PASSWORD, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validatePasswordEquivalence
+                    (userCommand.getPassword(), userCommand.getConfirmPassword(), "confirmPassword", errors);        }
     }
 
     public IUserDao getUserDao() {
         return _userDao;
     }
 
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
     }
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {

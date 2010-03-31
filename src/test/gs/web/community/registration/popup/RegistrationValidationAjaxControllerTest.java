@@ -1,18 +1,11 @@
 package gs.web.community.registration.popup;
 
-import java.util.List;
-import java.util.Map;
-
 import gs.data.community.IUserDao;
 import gs.web.BaseControllerTestCase;
-import gs.data.api.IApiAccountDao;
-import gs.data.api.ApiAccount;
-import gs.data.util.email.MockJavaMailSender;
-import gs.data.util.email.EmailHelperFactory;
-import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.community.User;
 
 import static org.easymock.classextension.EasyMock.*;
+import static gs.web.community.registration.popup.RegistrationValidationAjaxController.*;
 
 import gs.web.community.registration.UserCommand;
 import gs.web.util.validator.UserCommandValidator;
@@ -20,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 
@@ -35,7 +27,6 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
     private User _user;
     private UserCommand _command;
     private BindException _errors;
-    private UserCommandValidator _userCommandValidator;
     private UserCommandValidator _mockUserCommandValidator;
 
     @Override
@@ -48,11 +39,11 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         _userDao = createStrictMock(IUserDao.class);
         _controller.setUserDao(_userDao);
 
-        _userCommandValidator = new UserCommandValidator();
+        UserCommandValidator userCommandValidator = new UserCommandValidator();
 
         _mockUserCommandValidator = createStrictMock(UserCommandValidator.class);
 
-        _controller.setUserCommandValidator(_userCommandValidator);
+        _controller.setUserCommandValidator(userCommandValidator);
 
         _user = new User();
         _user.setEmail("megajoin@greatschools.org");
@@ -94,7 +85,8 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         expect(_mockUserCommandValidator.validateEmail(_command, getRequest(), _errors)).andReturn(_user);
         _mockUserCommandValidator.validateFirstName(_command, _errors);
         _mockUserCommandValidator.validateUsername(_command, _user, _errors);
-        _mockUserCommandValidator.validatePassword(_command, _errors);
+        expect(_mockUserCommandValidator.validatePasswordFormat("abcdefg", "password", _errors)).andReturn(true);
+        expect(_mockUserCommandValidator.validatePasswordEquivalence("abcdefg", "abcdefg", "confirmPassword", _errors)).andReturn(true);
         _mockUserCommandValidator.validateTerms(_command, _errors);
 
         _mockUserCommandValidator.validateStateCity(_command, _errors);
@@ -128,6 +120,91 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         System.err.println(getResponse().getContentAsString());
         assertTrue("Controller does not have expected errors on validate", StringUtils.containsIgnoreCase(getResponse().getContentAsString(), "Please read and accept our Terms of Use to join GreatSchools."));
     }
+
+    // Set up a command
+    private void setupCommand() {
+        _command.setFirstName("Anthony");
+        _command.setEmail("testRegistrationValidationController@greatschools.org");
+        _command.setScreenName("testRegistrationValidationController");
+        _command.setPassword("abcdefg");
+        _command.setConfirmPassword("abcdefg");
+        _command.setTerms(true);
+    }
+
+    public void testFieldValidationFirstName() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, FIRST_NAME);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        _mockUserCommandValidator.validateFirstName(_command, _errors);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+    }
+
+    public void testFieldValidationEmail() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, EMAIL);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validateEmail(_command, getRequest(), _errors)).andReturn(null);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+    }
+
+    public void testFieldValidationUsername() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, USERNAME);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _mockUserCommandValidator.validateUsername(_command, null, _errors);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+    }
+
+    public void testFieldValidationPassword() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, PASSWORD);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validatePasswordFormat(_command.getPassword(), "password", _errors))
+                .andReturn(true);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+    }
+
+    public void testFieldValidationConfirmPassword() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, CONFIRM_PASSWORD);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validatePasswordEquivalence
+                (_command.getPassword(), _command.getConfirmPassword(), "confirmPassword", _errors))
+                .andReturn(true);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+    }
+
     /*
     public void testBasics() throws Exception {
         _command.setFirstName("Samson");
@@ -152,14 +229,6 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
     }
     */
 
-    public RegistrationValidationAjaxController getController() {
-        return _controller;
-    }
-
-    public void setController(RegistrationValidationAjaxController controller) {
-        _controller = controller;
-    }
-
     public IUserDao getUserDao() {
         return _userDao;
     }
@@ -174,29 +243,5 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
 
     public void setUser(User user) {
         _user = user;
-    }
-
-    public UserCommand getCommand() {
-        return _command;
-    }
-
-    public void setCommand(UserCommand command) {
-        _command = command;
-    }
-
-    public BindException getErrors() {
-        return _errors;
-    }
-
-    public void setErrors(BindException errors) {
-        _errors = errors;
-    }
-
-    public UserCommandValidator getUserCommandValidator() {
-        return _userCommandValidator;
-    }
-
-    public void setUserCommandValidator(UserCommandValidator userCommandValidator) {
-        _userCommandValidator = userCommandValidator;
     }
 }
