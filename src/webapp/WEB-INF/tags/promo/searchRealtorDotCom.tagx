@@ -15,6 +15,10 @@
     <jsp:directive.attribute name="size" required="false" type="java.lang.String"
                              description="Size of module to render"/>
 
+    <c:if test="${empty size}">
+        <c:set var="size" value="300x250"/>
+    </c:if>
+    
     <c:import url="/promo/searchRealtorDotCom.page" var="showAd">
         <c:param name="omniturePageName" value="${omniturePageName}"/>
         <c:param name="pageAdRatioKey" value="${pageAdRatioKey}"/>
@@ -33,5 +37,5 @@
     </c:choose>
 
     <!-- Set sprop 26 here so it can be picked up by the tracking tagx later -->
-    <c:set var="realtorDotComModule" value="300x250_search" scope="request"/>
+    <c:set var="realtorDotComModule" value="${size}_search" scope="request"/>
 </jsp:root>
