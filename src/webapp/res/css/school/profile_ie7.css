@@ -29,6 +29,7 @@ Internet Explorer 7 specific styles
 
 #tools .compareImg {
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #tools .enterEmail {
