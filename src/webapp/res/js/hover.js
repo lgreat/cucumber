@@ -603,7 +603,7 @@ GS.joinHover_checkValidationResponse = function(data) {
         });
         GSType.hover.joinHover.hide();
     }
-
+    jQuery('#joinBtn').attr('disabled','');
     return false;
 
 };
@@ -629,6 +629,8 @@ jQuery(function() {
 
     jQuery('#joinBtn').click(function() {
         var params = jQuery('#joinGS').serialize();
+        jQuery('#joinBtn').attr('disabled','disabled');
+
 
         //if - Choose city - is selected, just remove this from the form, as if no city was given
         if (jQuery('#joinCity').val() == '- Choose city -') {
