@@ -486,7 +486,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     width: 202px;
     background: #fff;
 }
-body.ie #contentRight #tpsTable {
+body.ie #contentRight #tpsTable, body.ie #contentRight #nbTable {
     width: 274px;
 }
 #contentRight #nbTable th.col1 {
