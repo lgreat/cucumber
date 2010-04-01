@@ -102,8 +102,9 @@ public class RaiseYourHandController extends AbstractController {
                     builder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, discussion.getDiscussionBoard().getFullUri(), new Long(discussion.getId()));
                     redirectUrl = builder.asSiteRelative(request);
                 }
-                builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, redirectUrl);
-                model.put(MODEL_REDIRECT_URL, builder.asSiteRelative(request));
+//                builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, redirectUrl);
+//                model.put(MODEL_REDIRECT_URL, builder.asSiteRelative(request));
+                model.put(MODEL_REDIRECT_URL, redirectUrl);
             } else {
                 model.put(MODEL_REDIRECT_URL, "#");
             }

@@ -511,10 +511,14 @@ GS.isMember = function() {
 GS.showJoinHover = function(email, redirect, showJoinFunction) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
-    } else if (GS.isMember()) {
-        GSType.hover.signInHover.showHover(email,redirect,showJoinFunction); // members get sign in hover
     } else {
-        showJoinFunction(); // anons get join hover
+        GSType.hover.signInHover.setRedirect(redirect);
+        jQuery('#joinHover .redirect_field').val(redirect);
+        if (GS.isMember()) {
+            GSType.hover.signInHover.showHover(email,redirect,showJoinFunction); // members get sign in hover
+        } else {
+            showJoinFunction(); // anons get join hover
+        }
     }
     return false;
 };
@@ -525,6 +529,7 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     } else {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.signInHover.setRedirect(redirect);
+        jQuery('#joinHover .redirect_field').val(redirect);
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('',redirect,GSType.hover.joinHover.showJoinAuto);
         } else {

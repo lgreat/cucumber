@@ -178,7 +178,7 @@
 
         //<c:if test="${!signedIn}">
         $j('#ryhAnswer, #ryhSubmit').focus(function() {
-            window.location.href = '${redirectUrl}';
+            GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment);
         });
         //</c:if>
 
