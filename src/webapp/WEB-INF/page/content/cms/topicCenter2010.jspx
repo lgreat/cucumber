@@ -73,8 +73,28 @@
 
             <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="logoAd fltrt mrgtop_5">
-                <ad:adTag position="HeaderLogo_88x33"/>
+                <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
+                    <c:set var="licensorLogo">
+                        <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
+                    </c:set>
+                </c:if>
+                <c:choose>
+                    <c:when test="${not empty licensorLogo}">
+                        <!--<c:choose>-->
+                            <!--<c:when test="${not empty topicCenter.licensorUrl}">-->
+                                <!--<a href="${topicCenter.licensorUrl}" target="_blank">${licensorLogo}</a>-->
+                            <!--</c:when>-->
+                            <!--<c:otherwise>-->
+                                ${licensorLogo}
+                            <!--</c:otherwise>-->
+                        <!--</c:choose>-->
+                    </c:when>
+                    <c:otherwise>
+                        <ad:adTag position="HeaderLogo_88x33"/>
+                    </c:otherwise>
+                </c:choose>
             </div>
+
             <div class="spacer_5"><!--do not collapse--></div>
 
             <c:set var="showFeatureGroups" value="false"/>
