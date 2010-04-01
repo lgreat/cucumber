@@ -70,7 +70,7 @@
                         tmHideBanner("adCompanionBanner");
                     }
                 </script>
-                 <jsp:include page="/content/cms/mostPopularContent.module"/> 
+                 <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/> 
             </div>
 
 
