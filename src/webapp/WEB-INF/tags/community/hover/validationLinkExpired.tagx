@@ -12,19 +12,17 @@
         </script>
     </c:if>
 
-    <script type="text/javascript">
-        jQuery(function() {
-            jQuery('#clsExpVer').click(function() {
-                var email = '${requestScope.email}';
-                var params = {
-                    email: email
-                };
-                jQuery.get('/community/requestEmailValidation.page', params);
+    <c:if test="${requestScope.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.validateLinkExpired.setEmail('${email}');
+        </script>
+    </c:if>
 
-                GSType.hover.validateLinkExpired.hide();
-            });
-        });
-    </script>
+    <c:if test="${param.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.validateLinkExpired.setEmail('${param.email}');
+        </script>
+    </c:if>
 
     <div id="expVer" class="dialog_white" style="display:none;">
         <h2>Verification link expired</h2>

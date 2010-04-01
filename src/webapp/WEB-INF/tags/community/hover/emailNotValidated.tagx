@@ -12,19 +12,17 @@
         </script>
     </c:if>
 
-    <script type="text/javascript">
-        jQuery(function() {
-            jQuery('#clsValNewEmail').click(function() {
-                var email = '${requestScope.email}';
-                var params = {
-                    email: email
-                };
-                jQuery.get('/community/requestEmailValidation.page', params);
+    <c:if test="${requestScope.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.emailNotValidated.setEmail('${email}');
+        </script>
+    </c:if>
 
-                GSType.hover.emailNotValidated.hide();
-            });
-        });
-    </script>
+    <c:if test="${param.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.emailNotValidated.setEmail('${param.email}');
+        </script>
+    </c:if>
 
     <div id="valNewEmail" class="dialog_white" style="display:none;">
         <h2>Your email needs to be verified</h2>
@@ -33,6 +31,6 @@
             To do so, please click on the link in the email we sent you.
             Can't find the email? Click the button below to receive a new one.
         </p>
-            <button class="btn25" type="button" id="clsValNewEmal"><span class="lftDoor25"><span class="rtDoor25">Send a new email</span></span></button>
+        <button class="btn25" type="button" id="clsValNewEmail"><span class="lftDoor25"><span class="rtDoor25">Send a new email</span></span></button>
     </div>
 </jsp:root>

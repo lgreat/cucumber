@@ -389,6 +389,7 @@ GSType.hover.SignInHover = function() {
         } else if (data.userNotValidated) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
+            GSType.hover.emailNotValidated.setEmail(jQuery('#semail').val());
             GSType.hover.emailNotValidated.show();
         } else if (data.email) {
             jQuery('#signInHover .errors .error').html(data.email).show();
@@ -442,17 +443,25 @@ GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEma
 
 //ValidateLinkExpired hover
 GSType.hover.ValidateLinkExpired = function() {
+    this.email = '';
     this.loadDialog = function() {
         this.dialogByWidth(640);
+    };
+    this.setEmail = function(email) {
+        GSType.hover.validateLinkExpired.email = email;
     }
 };
 GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVer');
 
 //EmailNotValidated hover
 GSType.hover.EmailNotValidated = function() {
+    this.email = '';
     this.loadDialog = function() {
         this.dialogByWidth(640);
-    }
+    };
+    this.setEmail = function(email) {
+        GSType.hover.emailNotValidated.email = email;
+    };
 };
 GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');
 
@@ -626,6 +635,25 @@ jQuery(function() {
 
         return false;
     });
+
+    jQuery('#clsValNewEmail').click(function() {
+        var params = {
+            email: GSType.hover.emailNotValidated.email
+        };
+        jQuery.get('/community/requestEmailValidation.page', params);
+
+        GSType.hover.emailNotValidated.hide();
+    });
+
+    jQuery('#clsExpVer').click(function() {
+        var params = {
+            email: GSType.hover.validateLinkExpired.email
+        };
+        jQuery.get('/community/requestEmailValidation.page', params);
+
+        GSType.hover.validateLinkExpired.hide();
+    });
+
 
     jQuery('#joinBtn').click(function() {
         var params = jQuery('#joinGS').serialize();
