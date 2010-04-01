@@ -79,6 +79,7 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 GSType.hover.JoinHover = function() {
     this.schoolName = '';
     this.loadOnExitUrl = null;
+    
     this.baseFields = function() {
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
@@ -87,6 +88,15 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover li.grades ul').hide();
         // hide LD newsletter
         jQuery('#joinHover li.joinHover_ld').hide();
+    };
+    //sets a notification message on the join form - can be used to explain why this hover was launched
+    this.addMessage = function(text) {
+        jQuery('#joinHover .message').html( text ).show();
+    };
+    //method is plural to remain consistent with other hovers. Should always get called when hover closes
+    this.clearMessages = function() {
+        jQuery('#joinHover .message').empty();
+        jQuery('#joinHover .message').hide();
     };
     this.setJoinHoverType = function(type) {
         jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
@@ -375,6 +385,7 @@ GSType.hover.SignInHover = function() {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
             GSType.hover.joinHover.show();
+            GSType.hover.joinHover.addMessage(data.userNoPassword);
         } else if (data.userNotValidated) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
@@ -652,6 +663,12 @@ jQuery(function() {
     jQuery('#hover_forgotPassword').bind('dialogclose', function() {
         GSType.hover.forgotPassword.clearMessages();
     });
+
+    jQuery('#joinHover').bind('dialogclose', function() {
+        GSType.hover.joinHover.clearMessages();
+    });
+
+    GSType.hover.forgotPassword.clearMessages();
 
     jQuery('.signInHoverLink').click(function() {
         GSType.hover.signInHover.show();

@@ -34,6 +34,7 @@
 
         <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
             <p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
+            <p class="error messBox message"><!-- not empty --></p>
             <fieldset class="contactPw">
                 <ul>
                     <li class="joinHover_firstName">
