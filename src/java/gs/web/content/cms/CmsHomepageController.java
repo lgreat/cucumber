@@ -104,7 +104,7 @@ public class CmsHomepageController extends AbstractController {
                 }
                 if (!recentContentList.isEmpty()) {
                     Collections.shuffle(recentContentList);
-                    catToResultMap.put(category.getName(), recentContentList);
+                    catToResultMap.put(String.valueOf(category.getId()), recentContentList);
                 }
             }
             // don't add to model unless everything worked
