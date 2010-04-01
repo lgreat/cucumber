@@ -250,10 +250,8 @@ div.recentParentReviewsContent table{
 }
 
 .dottedLineBottomBox {
-    border: 0 solid #DDDDDD;
-    padding-bottom:3px;
-    border-bottom-width: 1px;
-    margin-bottom: 3px;
+    border-bottom: 1px dotted #DDDDDD;
+    padding-bottom:7px;
 }
 
 /* END Recent Parent Reviews */
@@ -425,9 +423,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 
-.leftHeader{
-    float:left;
-    width:200px;
+#nbTable .leftHeader{
     color:#999999;
     font-size:x-small;
     font-weight:bold;
@@ -437,7 +433,6 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 .rightHeader{
-    float:left;
     text-align:right;
     padding-left:7px;
     color:#999999;
@@ -447,7 +442,10 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     margin-top:10px;
 
 }
-
+#contentRight #nbTable .nameAndRating td {
+    padding: 7px 0 4px;
+    vertical-align: top;
+}
 #contentRight .name{
     font-size:13px;
     font-weight:bold;
@@ -455,7 +453,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 #contentRight .rating{
-    float:right;
+    text-align: right;
     height: 18px;
 }
 
@@ -467,11 +465,13 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 }
 
 #citySnapShot {
-    background-image:url(/res/img/district/district_page_rightbox_bottom.gif);
-    background-position:left bottom;
-    background-repeat:no-repeat;
+    background:#fff url(/res/img/district/district_page_rightbox_bottom.gif) 0 100% no-repeat;
     padding-bottom:6px;
     margin-top:10px;
+}
+#citySnapshotHeader {
+    background: #fff;
+    width: 274px;
 }
 #contentRight #tpsTable th  {
     font: 700 10px/1 Arial, sans-serif;
@@ -484,20 +484,31 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 #contentRight #tpsTable th.col1 {
     text-align: left;
     width: 202px;
+    background: #fff;
 }
-#contentRight #tpsTable th.col2 {
+body.ie #contentRight #tpsTable {
+    width: 274px;
+}
+#contentRight #nbTable th.col1 {
+    text-align: left;
+    width: 192px;
+    vertical-align: top;
+}
+#contentRight #tpsTable th.col2, #contentRight #nbTable th.col2 {
     width: 63px;
     padding-right: 5px;
+    vertical-align: top;
 }
 #contentRight #tpsTable td {
     border-bottom: 1px dotted #ddd;
     padding: 7px 0 4px;
     vertical-align: top;
     font: 700 13px Arial, sans-serif;
+    background: #fff;
 }
 #contentRight #tpsTable .rating {
     text-align: right;
-    width: 63px;
+    width: 58px;
     padding-right: 5px;
     float: none;
 }
