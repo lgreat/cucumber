@@ -48,5 +48,6 @@
 
     </div>
     </div>
+    </div>
     </c:if>
 </jsp:root>
