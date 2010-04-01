@@ -18,6 +18,7 @@ import gs.web.jsp.Util;
 import gs.web.survey.SurveyController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -96,10 +97,9 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setMethod("GET");
-        MockSessionContext sessionContext = new MockSessionContext();
-        sessionContext.setCobrand("number1expert");
-        sessionContext.setState(State.CA);
-        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+
+        SessionContextUtil.getSessionContext(getRequest()).setCobrand("number1expert");
+        SessionContextUtil.getSessionContext(getRequest()).setState(State.CA);
 
         Cookie[] cookies = new Cookie[] {
                 new Cookie("AGENTID", "1234"),
