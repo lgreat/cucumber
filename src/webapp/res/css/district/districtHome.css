@@ -473,7 +473,34 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     padding-bottom:6px;
     margin-top:10px;
 }
+#contentRight #tpsTable th  {
+    font: 700 10px/1 Arial, sans-serif;
+    color: #999;
+    padding: 7px 0 4px;
+    text-align: right;
+    vertical-align: top;
 
+}
+#contentRight #tpsTable th.col1 {
+    text-align: left;
+    width: 202px;
+}
+#contentRight #tpsTable th.col2 {
+    width: 63px;
+    padding-right: 5px;
+}
+#contentRight #tpsTable td {
+    border-bottom: 1px dotted #ddd;
+    padding: 7px 0 4px;
+    vertical-align: top;
+    font: 700 13px Arial, sans-serif;
+}
+#contentRight #tpsTable .rating {
+    text-align: right;
+    width: 63px;
+    padding-right: 5px;
+    float: none;
+}
 #citySnapshotHeader img{
     text-align:right;
 }
