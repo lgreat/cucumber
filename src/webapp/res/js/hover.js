@@ -598,6 +598,9 @@ GS.joinHover_checkValidationResponse = function(data) {
         }
     } else {
         jQuery('#joinGS').submit();
+        jQuery('#joinGS').submit(function() {
+            return false; // prevent multiple submits
+        });
         GSType.hover.joinHover.hide();
     }
 
