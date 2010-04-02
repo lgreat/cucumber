@@ -1,5 +1,8 @@
 package gs.web.content.cms;
 
+import gs.data.community.IRaiseYourHandDao;
+import gs.data.community.RaiseYourHandFeature;
+import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -8,6 +11,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
+import gs.data.security.Permission;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -27,7 +31,9 @@ import gs.web.util.PageHelper;
 public class CmsTopicCenterController2010 extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsTopicCenterController.class);
 
-    /** Spring Bean ID */
+    /**
+     * Spring Bean ID
+     */
     public static final String BEAN_ID = "/content/cms/topicCenter.page";
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
@@ -36,6 +42,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private String _viewName;
     private IPublicationDao _publicationDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
+    private IRaiseYourHandDao _raiseYourHandDao;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
     private IGeoDao _geoDao;
@@ -44,12 +51,14 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     public static final int MIN_CAROUSEL_ITEMS = 3;
     public static final int MAX_TOP_SCHOOLS = 3;
+    public static final int MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN = 1000;
 
     public static final String MODEL_TOPIC_CENTER = "topicCenter";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_OMNITURE_TOPIC_CENTER_NAME = "omnitureTopicCenterName";
     public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
+    public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
 
     //=========================================================================
     // spring mvc methods
@@ -102,7 +111,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
             try {
                 _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
@@ -149,9 +158,27 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 }
                 loadTopRatedSchools(model, context, levelCode);
             }
+            // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model
+            if (PageHelper.isMemberAuthorized(request)) {
+                insertRaiseYourHandDiscussionsIntoModel(request, model, topicCenter);
+            }
+
         }
 
+
         return new ModelAndView(_viewName, model);
+    }
+
+    private void insertRaiseYourHandDiscussionsIntoModel(HttpServletRequest request, Map<String, Object> model, CmsTopicCenter topicCenter) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        user = sessionContext.getUser();
+        if (user != null) {
+            if (user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND)) {
+                List<RaiseYourHandFeature> featureList = getRaiseYourHandDao().getFeatures(topicCenter.getContentKey(), MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN);
+                model.put(MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC, featureList);
+            }
+        }
     }
 
     //===================================== ====================================
@@ -168,8 +195,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
         model.put("cityObject", userCity);
         loadCityDropdown(model, userCity.getState());
 
-        if("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())){
-            model.put("specialCity","Washington, D.C.");
+        if ("Washington".equalsIgnoreCase(userCity.getName()) && "DC".equalsIgnoreCase(userCity.getState().getAbbreviation())) {
+            model.put("specialCity", "Washington, D.C.");
         }
 
         boolean showingTopRatedSchools = false;
@@ -224,7 +251,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     // browse by grade sidebar
     //=========================================================================
 
-    private static Map<Long,List<CmsSubtopic>> TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP = new HashMap<Long,List<CmsSubtopic>>();
+    private static Map<Long, List<CmsSubtopic>> TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP = new HashMap<Long, List<CmsSubtopic>>();
 
     private static List<CmsSubtopic> getBrowseByGradeForTopicCenter(long topicCenterID) {
         List<CmsSubtopic> subtopics;
@@ -240,13 +267,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
             subtopics = getBrowseByGradeForElementary();
         } else if (topicCenterID == CmsConstants.ACADEMICS_AND_ACTIVITIES_TOPIC_CENTER_ID) {
             cat.setId(CmsConstants.ACADEMICS_AND_ACTIVITIES_CATEGORY_ID);
-            subtopics =  getBrowseByGradeHelper(cat);
+            subtopics = getBrowseByGradeHelper(cat);
         } else if (topicCenterID == CmsConstants.HEALTH_AND_DEVELOPMENT_TOPIC_CENTER_ID) {
             cat.setId(CmsConstants.HEALTH_AND_DEVELOPMENT_CATEGORY_ID);
-            subtopics =  getBrowseByGradeHelper(cat);
+            subtopics = getBrowseByGradeHelper(cat);
         } else if (topicCenterID == CmsConstants.LEARNING_DISABILITIES_TOPIC_CENTER_ID) {
             cat.setId(CmsConstants.LEARNING_DISABILITIES_CATEGORY_ID);
-            subtopics =  getBrowseByGradeHelper(cat);
+            subtopics = getBrowseByGradeHelper(cat);
         } else {
             subtopics = null;
         }
@@ -303,6 +330,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private static List<CmsSubtopic> BROWSE_BY_GRADE_SUBTOPICS_TEMPLATE = new ArrayList<CmsSubtopic>();
     private static List<CmsSubSubtopic> BROWSE_BY_GRADE_ELEMENTARY_SUBSUBTOPICS_TEMPLATE = new ArrayList<CmsSubSubtopic>();
     private static List<CmsSubtopic> BROWSE_BY_GRADE_ELEMENTARY_SUBTOPICS_TEMPLATE = new ArrayList<CmsSubtopic>();
+
     static {
         List<CmsCategory> pCats = getCategoryList(CmsConstants.PRESCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
         List<CmsCategory> kCats = getCategoryList(CmsConstants.KINDERGARTEN_CATEGORY_ID, CmsCategory.TYPE_GRADE);
@@ -375,6 +403,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     //=========================================================================
 
     // START sample topic center methods
+
     private CmsTopicCenter getSampleTopicCenter() {
         CmsTopicCenter topicCenter = new CmsTopicCenter();
         ContentKey contentKey = new ContentKey();
@@ -488,7 +517,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         List<CmsSubSubtopic> subs = new ArrayList<CmsSubSubtopic>();
         for (int j = 0; j < 1; j++) {
-            subs.add(getSampleSubSubtopic(i,j));
+            subs.add(getSampleSubSubtopic(i, j));
         }
         subtopic.setSubSubtopics(subs);
 
@@ -591,5 +620,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public IRaiseYourHandDao getRaiseYourHandDao() {
+        return _raiseYourHandDao;
+    }
+
+    public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
+        _raiseYourHandDao = raiseYourHandDao;
     }
 }

@@ -2,10 +2,17 @@ package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
 import gs.data.community.IDiscussionDao;
+import gs.data.community.IRaiseYourHandDao;
+import gs.data.community.RaiseYourHandFeature;
+import gs.data.community.User;
 import gs.data.content.cms.*;
 import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
+import gs.data.security.IRoleDao;
+import gs.data.security.Permission;
+import gs.data.security.Role;
+import gs.data.security.RoleDaoHibernate;
 import gs.web.BaseControllerTestCase;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
@@ -23,7 +30,9 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
     private ICmsCategoryDao _cmsCategoryDao;
     private IDiscussionDao _discussionDao;
     private IPublicationDao _publicationDao;
+    private IRaiseYourHandDao _raiseYourHandDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoarDao;
+    private IRoleDao _roleDao;
     private Searcher _searcher;
 
     @Override
@@ -37,12 +46,16 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         _discussionDao = createStrictMock(IDiscussionDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
         _cmsDiscussionBoarDao = createStrictMock(ICmsDiscussionBoardDao.class);
+        _raiseYourHandDao = createStrictMock(IRaiseYourHandDao.class);
 
         _controller.setCmsCategoryDao(_cmsCategoryDao);
         _controller.setSearcher(_searcher);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoarDao);
+        _controller.setRaiseYourHandDao(_raiseYourHandDao);
+
+        _roleDao = new RoleDaoHibernate();
     }
 
     public void testBasics() {
@@ -54,11 +67,11 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
     }
 
     public void replayAllMocks() {
-        super.replayMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao);
+        super.replayMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao);
+        super.verifyMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
     }
 
     protected CmsCategory getCategory(int id, String name) {
@@ -129,6 +142,31 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
 
+    public void testInsertRaiseYourHandDiscussionsIntoModel() {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        User user = new User();
+        Role cmsAdminRole = new Role();
+        cmsAdminRole.setKey(Role.CMS_ADMIN);
+        Set<Permission> permissions = new HashSet<Permission>();
+        Permission raiseYourHand = new Permission();
+        raiseYourHand.setKey(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND);
+        permissions.add(raiseYourHand);
+        cmsAdminRole.setPermissions(permissions);
+        user.addRole(cmsAdminRole);
+
+        getSessionContext().setUser(user);
+
+        List<RaiseYourHandFeature> result = new ArrayList<RaiseYourHandFeature>();
+        
+        expect(_raiseYourHandDao.getFeatures(new ContentKey("TopicCenter",2077l),CmsHomepageController.MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN)).andReturn(result);
+
+        replayAllMocks();
+        _controller.insertRaiseYourHandDiscussionsIntoModel(getRequest(),model);
+        verifyAllMocks();
+        assertNotNull("MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC should not be null!", model.get(CmsHomepageController.MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC));
+    }
+
     public void testPopulateModelWithRecentCMSContentSomeCategories() {
         Map<String, Object> model = new HashMap<String, Object>();
         List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
@@ -187,4 +225,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
         assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
+
+
 }

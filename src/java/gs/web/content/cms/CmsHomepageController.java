@@ -4,11 +4,15 @@ import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.*;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
+import gs.data.security.Permission;
 import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.web.search.ResultsPager;
 import gs.web.search.SearchResult;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
@@ -28,6 +32,8 @@ public class CmsHomepageController extends AbstractController {
     public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
     public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
     public static final int GRADE_BY_GRADE_NUM_DISCUSSIONS = 2;
+    public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
+    public static final int MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN = 1000;
 
     public static final Map<Long, Long> categoryIdToTopicCenterIdMap = new HashMap<Long, Long>(GRADE_BY_GRADE_NUM_CATEGORIES);
 
@@ -43,6 +49,8 @@ public class CmsHomepageController extends AbstractController {
     private IUserDao _userDao;
     private ICmsCategoryDao _cmsCategoryDao;
     private Searcher _searcher;
+    private IRaiseYourHandDao _raiseYourHandDao;
+
 
     static {
         // Preschool
@@ -75,9 +83,27 @@ public class CmsHomepageController extends AbstractController {
             }
             model.put("homepage", homepage);
             populateModelWithRecentCMSContent(model); // GS-9160
+
+            // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model 
+            if (PageHelper.isMemberAuthorized(request)) {
+                insertRaiseYourHandDiscussionsIntoModel(request, model);
+            }
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected void insertRaiseYourHandDiscussionsIntoModel(HttpServletRequest request, Map<String, Object> model) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        user = sessionContext.getUser();
+        if (user != null) {
+            if (user.hasPermission(Permission.COMMUNITY_MANAGE_RAISE_YOUR_HAND)) {
+                List<RaiseYourHandFeature> featureList = getRaiseYourHandDao().getFeatures(new ContentKey("TopicCenter", 2077l), MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN);
+                model.put(MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC, featureList);
+            }
+        }
+
     }
 
     public void populateModelWithRecentCMSContent(Map<String, Object> model) {
@@ -85,7 +111,7 @@ public class CmsHomepageController extends AbstractController {
         List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
             Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);
-            for (CmsCategory category: cats) {
+            for (CmsCategory category : cats) {
                 // first get the cms content for the category
                 // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
                 List<Object> cmsContentForCat = getCmsContentForCategory(category);
@@ -94,7 +120,7 @@ public class CmsHomepageController extends AbstractController {
                 // for each discussion returned, put it in the list, replacing content if necessary
                 // to keep the total number of items at GRADE_BY_GRADE_NUM_ITEMS
                 List<RecentContent> recentContentList = new ArrayList<RecentContent>(GRADE_BY_GRADE_NUM_ITEMS);
-                for (Discussion d: discussions) {
+                for (Discussion d : discussions) {
                     RecentContent recentContent = new RecentContent(d, d.getDiscussionBoard().getFullUri());
                     recentContentList.add(recentContent);
                 }
@@ -127,7 +153,7 @@ public class CmsHomepageController extends AbstractController {
                     CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussionBoardId);
                     List<Discussion> myDiscussions =
                             _discussionDao.getDiscussionsForPage(board, 1, 10,
-                                                                 IDiscussionDao.DiscussionSort.NEWEST_FIRST, false);
+                                    IDiscussionDao.DiscussionSort.NEWEST_FIRST, false);
                     if (myDiscussions != null) {
                         // randomize discussions
                         Collections.shuffle(myDiscussions);
@@ -136,7 +162,7 @@ public class CmsHomepageController extends AbstractController {
                             myDiscussions = myDiscussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
                         }
                         // set the board on each discussion for URL building later
-                        for (Discussion d: myDiscussions) {
+                        for (Discussion d : myDiscussions) {
                             d.setDiscussionBoard(board);
                         }
                         return myDiscussions;
@@ -173,7 +199,9 @@ public class CmsHomepageController extends AbstractController {
     // Used by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
     public static class RecentContent {
         // Used for CSS classes by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
-        private enum ContentType {cms, discussion}
+        private enum ContentType {
+            cms, discussion
+        }
 
         private int _id;
         private String _contentKey;
@@ -295,5 +323,13 @@ public class CmsHomepageController extends AbstractController {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public IRaiseYourHandDao getRaiseYourHandDao() {
+        return _raiseYourHandDao;
+    }
+
+    public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
+        _raiseYourHandDao = raiseYourHandDao;
     }
 }
