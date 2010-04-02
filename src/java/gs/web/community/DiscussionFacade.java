@@ -17,6 +17,7 @@ public class DiscussionFacade {
     private Discussion _discussion;
     private List<DiscussionReply> _replies;
     private int _totalReplies = 0;
+    private Date _mostRecentReplyDateCreated; 
 
     public DiscussionFacade(Discussion parent, List<DiscussionReply> replies) {
         _discussion = parent;
@@ -68,5 +69,13 @@ public class DiscussionFacade {
 
     public boolean isActive() {
         return _discussion.isActive();
+    }
+
+    public Date getMostRecentReplyDateCreated() {
+        return _mostRecentReplyDateCreated;
+    }
+
+    public void setMostRecentReplyDateCreated(Date mostRecentReplyDateCreated) {
+        _mostRecentReplyDateCreated = mostRecentReplyDateCreated;
     }
 }

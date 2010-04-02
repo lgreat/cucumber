@@ -62,6 +62,10 @@ public class RecentDiscussionsController extends AbstractController {
                 for (Discussion discussion : discussions) {
                     DiscussionFacade facade = new DiscussionFacade(discussion, null);
                     facade.setTotalReplies(_discussionReplyDao.getTotalReplies(discussion));
+                    if (facade.getTotalReplies() > 0) {
+                        DiscussionReply mostRecentReply = _discussionReplyDao.getMostRecentReply(discussion);
+                        facade.setMostRecentReplyDateCreated(mostRecentReply.getDateCreated());
+                    }
                     facades.add(facade);
                 }
                 model.put(MODEL_DISCUSSION_LIST, facades);

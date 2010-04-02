@@ -43,7 +43,15 @@
                                         </link:userProfile>
                                         </span>
 
-                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                        <c:choose>
+                                            <c:when test="${discussion.totalReplies == 0}">
+                                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="latestReply">Latest reply:</span> <span
+                                                    class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
+                                            </c:otherwise>
+                                        </c:choose>
 
                                         <p>
                                             <community:userContentTeaserText
@@ -145,7 +153,16 @@
                                         <community:screenName userContent="${discussion}"/>
                                     </link:userProfile>
                                     </span>
-                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+
+                                <c:choose>
+                                    <c:when test="${discussion.totalReplies == 0}">
+                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="latestReply">Latest reply:</span> <span
+                                            class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
+                                    </c:otherwise>
+                                </c:choose>
 
                                 <p>
                                     <community:userContentTeaserText

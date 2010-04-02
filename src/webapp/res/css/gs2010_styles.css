@@ -2616,6 +2616,11 @@ ul.srchSuggest li span {
     width:363px;
 }
 
+#recentDiscussions .latestReply {
+    text-transform: uppercase;
+    font: 11px Arial, Helvetica, sans-serif;    
+}
+
 /*
 =4e about pages
 -----------------------------------------------------------------------------
