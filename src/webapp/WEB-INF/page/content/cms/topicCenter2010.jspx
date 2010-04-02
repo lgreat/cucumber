@@ -66,117 +66,117 @@
 <gsml:body adPageName="${pageName}">
 
 
-    <div id="mainGS" class="col">
-        <div id="featured" class="fltlft">
-            <div class="spacer_10"><!--do not collapse--></div>
-            <h1 class="fltlft">${topicCenter.title}</h1>
+<div id="mainGS" class="col">
+    <div id="featured" class="fltlft">
+        <div class="spacer_10"><!--do not collapse--></div>
+        <h1 class="fltlft">${topicCenter.title}</h1>
 
-            <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-            <div class="logoAd fltrt mrgtop_5">
-                <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
-                    <c:set var="licensorLogo">
-                        <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
-                    </c:set>
-                </c:if>
-                <c:choose>
-                    <c:when test="${not empty licensorLogo}">
-                        <!--<c:choose>-->
-                            <!--<c:when test="${not empty topicCenter.licensorUrl}">-->
-                                <!--<a href="${topicCenter.licensorUrl}" target="_blank">${licensorLogo}</a>-->
-                            <!--</c:when>-->
-                            <!--<c:otherwise>-->
-                                ${licensorLogo}
-                            <!--</c:otherwise>-->
-                        <!--</c:choose>-->
-                    </c:when>
-                    <c:otherwise>
-                        <ad:adTag position="HeaderLogo_88x33"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-            <div class="spacer_5"><!--do not collapse--></div>
-
-            <c:set var="showFeatureGroups" value="false"/>
-            <c:if test="${not empty topicCenter.featureGroups}">
-                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
-                    <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
-                        <c:set var="showFeatureGroups" value="true"/>
-                    </c:if>
-                </c:forEach>
+        <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+        <div class="logoAd fltrt mrgtop_5">
+            <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
+                <c:set var="licensorLogo">
+                    <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
+                </c:set>
             </c:if>
-
-            <!-- Features -->
             <c:choose>
-                <c:when test="${showFeatureGroups}">
-                    <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
-                        <div>${featureGroup.title}</div>
-                        <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
-                                                imageAltText="${featureGroup.imageAltText}"
-                                                mainFeatureLink="${featureGroup.mainFeatureLink}"
-                                                otherFeatureLinks="${featureGroup.otherFeatureLinks}"/>
-                    </c:forEach>
+                <c:when test="${not empty licensorLogo}">
+                    <!--<c:choose>-->
+                    <!--<c:when test="${not empty topicCenter.licensorUrl}">-->
+                    <!--<a href="${topicCenter.licensorUrl}" target="_blank">${licensorLogo}</a>-->
+                    <!--</c:when>-->
+                    <!--<c:otherwise>-->
+                    ${licensorLogo}
+                    <!--</c:otherwise>-->
+                    <!--</c:choose>-->
                 </c:when>
                 <c:otherwise>
-                    <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
-                                            imageAltText="${topicCenter.imageAltText}"
-                                            mainFeatureLink="${topicCenter.mainFeatureLink}"
-                                            otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
+                    <ad:adTag position="HeaderLogo_88x33"/>
                 </c:otherwise>
             </c:choose>
-
         </div>
-        <!-- end #featured -->
-        <div class="spacer_15"><!-- don't collapse --></div>
-        <!-- Subtopics -->
-        <div id="topicContentGS" class="clearfix">
 
-            <div id="topicbarGS" class="col">
+        <div class="spacer_5"><!--do not collapse--></div>
 
-                <c:set var="moreOnThisTopic">
-                    <cms:browseSidebar title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
-                </c:set>
+        <c:set var="showFeatureGroups" value="false"/>
+        <c:if test="${not empty topicCenter.featureGroups}">
+            <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
+                <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
+                    <c:set var="showFeatureGroups" value="true"/>
+                </c:if>
+            </c:forEach>
+        </c:if>
 
-                <c:set var="browseByGrade">
-                    <c:if test="${topicCenter.elementarySchoolTopicCenter or
+        <!-- Features -->
+        <c:choose>
+            <c:when test="${showFeatureGroups}">
+                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
+                    <div>${featureGroup.title}</div>
+                    <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
+                                            imageAltText="${featureGroup.imageAltText}"
+                                            mainFeatureLink="${featureGroup.mainFeatureLink}"
+                                            otherFeatureLinks="${featureGroup.otherFeatureLinks}"/>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
+                                        imageAltText="${topicCenter.imageAltText}"
+                                        mainFeatureLink="${topicCenter.mainFeatureLink}"
+                                        otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+    <!-- end #featured -->
+    <div class="spacer_15"><!-- don't collapse --></div>
+    <!-- Subtopics -->
+    <div id="topicContentGS" class="clearfix">
+
+        <div id="topicbarGS" class="col">
+
+            <c:set var="moreOnThisTopic">
+                <cms:browseSidebar title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
+            </c:set>
+
+            <c:set var="browseByGrade">
+                <c:if test="${topicCenter.elementarySchoolTopicCenter or
                                   topicCenter.academicsAndActivitiesTopicCenter or
                                   topicCenter.healthAndDevelopmentTopicCenter or
                                   topicCenter.learningDisabilitiesTopicCenter}">
-                        <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
-                    </c:if>
-                </c:set>
+                    <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
+                </c:if>
+            </c:set>
 
-                <c:choose>
-                    <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-                        ${browseByGrade}
-                        ${moreOnThisTopic}
-                    </c:when>
-                    <c:when test="${topicCenter.academicsAndActivitiesTopicCenter or
+            <c:choose>
+                <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+                    ${browseByGrade}
+                    ${moreOnThisTopic}
+                </c:when>
+                <c:when test="${topicCenter.academicsAndActivitiesTopicCenter or
                                     topicCenter.healthAndDevelopmentTopicCenter or
                                     topicCenter.learningDisabilitiesTopicCenter}">
-                        ${moreOnThisTopic}
-                        ${browseByGrade}
-                    </c:when>
-                    <c:otherwise>
-                        ${moreOnThisTopic}
-                    </c:otherwise>
-                </c:choose>
+                    ${moreOnThisTopic}
+                    ${browseByGrade}
+                </c:when>
+                <c:otherwise>
+                    ${moreOnThisTopic}
+                </c:otherwise>
+            </c:choose>
 
-                <c:if test="${topicCenter.gradeLevelTopicCenter}">
-                    <div class="skyscraperHouseAd">
-                        <ad:adTag position="House_Ad_160x425"/>
-                    </div>
-                </c:if>
-
-                <div class="skyscraperAd">
-                    <ad:AboveFold_Left_160x600/>
+            <c:if test="${topicCenter.gradeLevelTopicCenter}">
+                <div class="skyscraperHouseAd">
+                    <ad:adTag position="House_Ad_160x425"/>
                 </div>
-                <br />
+            </c:if>
 
+            <div class="skyscraperAd">
+                <ad:AboveFold_Left_160x600/>
             </div>
-            <!-- end #topicbarGS -->
+            <br/>
 
-            <div id="topicMainGS" class="col">
+        </div>
+        <!-- end #topicbarGS -->
+
+        <div id="topicMainGS" class="col">
 
             <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="inlineAd">
@@ -184,10 +184,11 @@
             </div>
 
             <c:if test="${topicCenter.healthAndDevelopmentTopicCenter}">
-            <div class="spacer_15"><!-- do not collapse --></div>
+                <div class="spacer_15"><!-- do not collapse --></div>
             </c:if>
 
-            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}" items="${requestScope.carouselItems}"/>
+            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.carouselItems}"/>
 
             <c:set var="raiseYourHand">
                 <c:import
@@ -195,116 +196,135 @@
             </c:set>
             ${raiseYourHand}
 
-                <!-- Community links -->
-                <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                <c:set var="recentDiscussions">
-                    <c:import
-                            url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
-                    <!--&amp;uri=${myUrl}&amp;style=fall2009-->
-                </c:set>
-                <c:if test="${!empty recentDiscussions}">
-                    <div class="spacer_10"><!-- don't collapse --></div>
-                    <div id="recentDiscussions" class="mod">
-                        ${recentDiscussions}
-                    </div>
-                </c:if>
+            <!-- Community links -->
+            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+            <c:set var="recentDiscussions">
+                <c:import
+                        url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
+                <!--&amp;uri=${myUrl}&amp;style=fall2009-->
+            </c:set>
+            <c:if test="${!empty recentDiscussions}">
+                <div class="spacer_10"><!-- don't collapse --></div>
+                <div id="recentDiscussions" class="mod">
+                    ${recentDiscussions}
+                </div>
+            </c:if>
+        </div>
+        <!-- end #topicMainGS -->
+
+    </div>
+    <!-- end #topicContentGS -->
+
+    <!-- begin Raise Your Hand by Topic block -->
+    <gsml:ifUserCanManageRaiseYourHand pageUser="${requestScope.context.user}">
+        <c:if test="${not empty allRaiseYourHandDiscussions}">
+            <div class="topic">
+                <h3 class="introTextGA">Raise Your Hand Discussions for this topic</h3>
+                <ul class="list text2">
+                    <c:forEach var="raiseYourHandDiscussion" items="${allRaiseYourHandDiscussions}"
+                               varStatus="ryhDStat">
+                        <li><link:discussion discussionId="${raiseYourHandDiscussion.discussion.id}"
+                                             fullUri="${raiseYourHandDiscussion.discussion.discussionBoard.fullUri}"><span
+                                class="">${raiseYourHandDiscussion.discussion.title}</span></link:discussion></li>
+
+                    </c:forEach>
+                </ul>
             </div>
-            <!-- end #topicMainGS -->
+        </c:if>
+    </gsml:ifUserCanManageRaiseYourHand>
+    <!-- end Raise Your Hand by Topic block -->
 
-        </div>
-        <!-- end #topicContentGS -->
+    <div class="clear"><!-- don't collapse --></div>
 
-        <div class="clear"><!-- don't collapse --></div>
+</div>
+<!-- end #mainGS -->
 
+<div id="sidebarGS" class="col">
+
+    <c:if test="${topicCenter.contentKey.identifier eq 2220}">
+        <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
+    </c:if>
+
+    <div id="seasonalPromo">
+        <c:choose>
+            <c:when test="${requestScope.context.cobranded}">
+                <link:schoolChoiceCenter styleClass="more"><gsml:img
+                        src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                        alt="School Choice Tips"/></link:schoolChoiceCenter>
+            </c:when>
+            <c:otherwise>
+                <gsweb:adTagGenerator position="House_Ad_300x137"/>
+            </c:otherwise>
+        </c:choose>
     </div>
-    <!-- end #mainGS -->
+    <!-- end #seasonalPromo -->
 
-    <div id="sidebarGS" class="col">
-
-        <c:if test="${topicCenter.contentKey.identifier eq 2220}">
-            <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_TOPIC_CENTER" showAdPct="0"/>
-        </c:if>
-
-        <div id="seasonalPromo">
-            <c:choose>
-                <c:when test="${requestScope.context.cobranded}">
-                    <link:schoolChoiceCenter styleClass="more"><gsml:img
-                            src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
-                            alt="School Choice Tips"/></link:schoolChoiceCenter>
-                </c:when>
-                <c:otherwise>
-                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <!-- end #seasonalPromo -->
-
-        <div id="squareadvert">
-            <ad:AboveFold_300x250/>
-        </div>
-        <!-- end #squareadvert -->
-
-        <c:if test="${topicCenter.gradeLevelTopicCenter}">
-            <c:choose>
-                <c:when test="${topicCenter.preschoolTopicCenter}">
-                    <c:set var="levelCode" value="p"/>
-                    <c:set var="levelCodePhrase" value="preschools"/>
-                    <c:set var="ratingHeading" value="Parent rating"/>
-                    <c:set var="cityHeadingPrefix" value="Preschools in"/>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-                            <c:set var="levelCode" value="e"/>
-                            <c:set var="levelCodePhrase" value="elementary schools"/>
-                        </c:when>
-                        <c:when test="${topicCenter.middleSchoolTopicCenter}">
-                            <c:set var="levelCode" value="m"/>
-                            <c:set var="levelCodePhrase" value="middle schools"/>
-                        </c:when>
-                        <c:when test="${topicCenter.highSchoolTopicCenter}">
-                            <c:set var="levelCode" value="h"/>
-                            <c:set var="levelCodePhrase" value="high schools"/>
-                        </c:when>
-                    </c:choose>
-                    <c:set var="ratingHeading" value="GreatSchools Rating"/>
-                    <c:choose>
-                        <c:when test="${requestScope.showingTopRatedSchools}">
-                            <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}: "/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="cityHeadingPrefix" value="${gsweb:capitalize(levelCodePhrase)} in"/>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
-            <school:findASchool city="${requestScope.cityObject}"
-                                specialCity="${requestScope.specialCity}"
-                                schools="${requestScope.schools}"
-                                ratingHeading="${ratingHeading}"
-                                levelCode="${levelCode}"
-                                levelCodePhrase="${levelCodePhrase}"
-                                cityHeadingPrefix="${cityHeadingPrefix}"
-                    />
-        </c:if>
-
-        <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
-
-        <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
-        <c:if test="${topicCenter.gradeLevelTopicCenter}">
-            <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
-        </c:if>
-
+    <div id="squareadvert">
+        <ad:AboveFold_300x250/>
     </div>
-    <!-- end #sidebarGS -->
+    <!-- end #squareadvert -->
+
+    <c:if test="${topicCenter.gradeLevelTopicCenter}">
+        <c:choose>
+            <c:when test="${topicCenter.preschoolTopicCenter}">
+                <c:set var="levelCode" value="p"/>
+                <c:set var="levelCodePhrase" value="preschools"/>
+                <c:set var="ratingHeading" value="Parent rating"/>
+                <c:set var="cityHeadingPrefix" value="Preschools in"/>
+            </c:when>
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+                        <c:set var="levelCode" value="e"/>
+                        <c:set var="levelCodePhrase" value="elementary schools"/>
+                    </c:when>
+                    <c:when test="${topicCenter.middleSchoolTopicCenter}">
+                        <c:set var="levelCode" value="m"/>
+                        <c:set var="levelCodePhrase" value="middle schools"/>
+                    </c:when>
+                    <c:when test="${topicCenter.highSchoolTopicCenter}">
+                        <c:set var="levelCode" value="h"/>
+                        <c:set var="levelCodePhrase" value="high schools"/>
+                    </c:when>
+                </c:choose>
+                <c:set var="ratingHeading" value="GreatSchools Rating"/>
+                <c:choose>
+                    <c:when test="${requestScope.showingTopRatedSchools}">
+                        <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}: "/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="cityHeadingPrefix" value="${gsweb:capitalize(levelCodePhrase)} in"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+        <school:findASchool city="${requestScope.cityObject}"
+                            specialCity="${requestScope.specialCity}"
+                            schools="${requestScope.schools}"
+                            ratingHeading="${ratingHeading}"
+                            levelCode="${levelCode}"
+                            levelCodePhrase="${levelCodePhrase}"
+                            cityHeadingPrefix="${cityHeadingPrefix}"
+                />
+    </c:if>
+
+    <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+
+    <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
+    <c:if test="${topicCenter.gradeLevelTopicCenter}">
+        <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
+    </c:if>
+
+</div>
+<!-- end #sidebarGS -->
 
 
-    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
-    <mod:tracking pageName="${pageName}"
-                  hier1="Topic Centers,${omnitureTopicCenterName}"
-                  omitAlmondNet="${true}"
-            />
+<mod:tracking pageName="${pageName}"
+              hier1="Topic Centers,${omnitureTopicCenterName}"
+              omitAlmondNet="${true}"
+        />
 
 </gsml:body>
 </html>
