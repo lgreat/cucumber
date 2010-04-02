@@ -255,6 +255,11 @@ GSType.hover.JoinHover = function() {
         // show LD newsletter
         jQuery('#joinHover .joinHover_ld').show();
 
+        //set up checkboxes
+        jQuery('#joinHover #opt1').attr('checked', '');
+        jQuery('#joinHover #opt2').attr('checked', 'checked');
+        jQuery('#joinHover #opt3').attr('checked', '');
+
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showLearningDifficultiesNewsletter;
