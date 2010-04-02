@@ -96,7 +96,7 @@ var maxZoom = ${not empty maxZoom?maxZoom:13};
 var specifiedZoom = ${not empty zoom?zoom:0};
 var displayTooltips = true;
 var useBubbles = ${empty bubbles or bubbles eq true};
-var alwaysUsePreIconsForPreschools = ${empty alwaysUsePreIconsForPreschools or alwaysUsePreIconsForPreschools eq true};
+var alwaysUsePreIconsForPreschools = ${not empty alwaysUsePreIconsForPreschools and alwaysUsePreIconsForPreschools eq true};
 var showLocationMarker = ${showLocationMarker};
 
 <c:if test="${not empty locationPoint}">
