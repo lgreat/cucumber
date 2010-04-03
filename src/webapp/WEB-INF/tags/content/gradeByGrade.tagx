@@ -52,6 +52,20 @@
         var tab5 = jQuery('.gbg-tab-5');
         var tabm = jQuery('.gbg-tab-m');
         var tabh = jQuery('.gbg-tab-h');
+        
+        //jQuery('#gbgTabs li') {
+            // TODO-RANDALL extract last character from the current li's class, e.g. for gbg-tab-p -- get the p
+            var tabPosition = Math.round(tabp.position().left);
+            var tabWidth = Math.round(tabp.outerWidth(true));
+            // TODO-RANDALL put posp into an array
+            var posp = tabsPosition + tabPosition;
+            // TODO-RANDALL put tabpMarkerPosition into another array
+            var tabpMarkerPosition = tabsPosition + tabPosition + (tabWidth / 2);
+            //console.log('posp: '+posp);
+            //console.log('tabpMarkerPosition: '+tabpMarkerPosition);
+            // TODO-RANDALL use #gbg-marker- then, add last character extracted from class in line 1
+            jQuery('#gbg-marker-p').attr('style', 'left:' + tabpMarkerPosition + 'px;');
+        //}
 
         var tabpPosition = Math.round(tabp.position().left);
         var tabpWidth = Math.round(tabp.outerWidth(true));
