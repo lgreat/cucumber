@@ -79,7 +79,8 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 GSType.hover.JoinHover = function() {
     this.schoolName = '';
     this.loadOnExitUrl = null;
-    
+    jQuery('#joinBtn').click(this.clickSubmitHandler);
+
     this.baseFields = function() {
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
@@ -88,10 +89,12 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover li.grades ul').hide();
         // hide LD newsletter
         jQuery('#joinHover li.joinHover_ld').hide();
+        //check checkbox for greatnews
+        jQuery('#joinHover #opt1').attr('checked', true);
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
-        jQuery('#joinHover .message').html( text ).show();
+        jQuery('#joinHover .message').html(text).show();
     };
     //method is plural to remain consistent with other hovers. Should always get called when hover closes
     this.clearMessages = function() {
@@ -161,6 +164,7 @@ GSType.hover.JoinHover = function() {
     this.loadDialog = function() {
         GSType.hover.joinHover.dialogByWidth(680);
         jQuery('#joinHover .redirect_field').val(window.location.href);
+        jQuery('#joinBtn').click(this.clickSubmitHandler);
     };
     this.loadOnExit = function(url) {
         GSType.hover.joinHover.loadOnExitUrl = url;
@@ -172,29 +176,30 @@ GSType.hover.JoinHover = function() {
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         var arr = getElementsByCondition(
-            function(el) {
-                if (el.tagName == "A") {
-                    if (el.target || el.onclick)
-                        return false;
-                    if (el.href && el.href != '')
-                        return el;
-                }
-                return false;
-            }, document
-        );
+                function(el) {
+                    if (el.tagName == "A") {
+                        if (el.target || el.onclick)
+                            return false;
+                        if (el.href && el.href != '')
+                            return el;
+                    }
+                    return false;
+                }, document
+                );
 
-        for (var i=0;i < arr.length;i++) {
+        for (var i = 0; i < arr.length; i++) {
             arr[i].onclick = function () {
                 gRedirectAnchor = this;
                 try {
-                    if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')){
+                    if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
                         GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
                         GSType.hover.joinHover.showJoinAuto();
                         return false;
                     }
-                } catch (e) {}
+                } catch (e) {
+                }
                 return true;
             };
         }
@@ -211,6 +216,7 @@ GSType.hover.JoinHover = function() {
         }
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
+        jQuery('#joinBtn').click(this.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
@@ -240,12 +246,15 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
 
         jQuery('#jemail').val(email);
-        
+
         GSType.hover.joinHover.show();
 
         GSType.hover.joinHover.loadCities();
+
+        jQuery('#joinBtn').click(this.chooserTipSheetClickHandler);
     };
     this.showLearningDifficultiesNewsletter = function() {
+        jQuery('#joinBtn').click(this.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Learning Difficulties newsletter");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -256,9 +265,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .joinHover_ld').show();
 
         //set up checkboxes
-        jQuery('#joinHover #opt1').attr('checked', '');
-        jQuery('#joinHover #opt2').attr('checked', 'checked');
-        jQuery('#joinHover #opt3').attr('checked', '');
+        jQuery('#joinHover #opt2').attr('checked', true);
 
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
 
@@ -266,6 +273,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinPostComment = function() {
+        jQuery('#joinBtn').click(this.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Speak your mind");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -279,6 +287,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
+        jQuery('#joinBtn').click(this.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -296,7 +305,7 @@ GSType.hover.JoinHover = function() {
     this.validateFirstName = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
-                {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
+        {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
                 });
@@ -304,7 +313,7 @@ GSType.hover.JoinHover = function() {
     this.validateEmail = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
-                {email:jQuery('#joinGS #jemail').val(), field:'email'},
+        {email:jQuery('#joinGS #jemail').val(), field:'email'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
                 });
@@ -312,7 +321,7 @@ GSType.hover.JoinHover = function() {
     this.validateUsername = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
-                {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
+        {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
                 });
@@ -320,7 +329,7 @@ GSType.hover.JoinHover = function() {
     this.validatePassword = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
-                {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'password'},
+        {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'password'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_password .errors', 'password', data);
                 });
@@ -329,7 +338,7 @@ GSType.hover.JoinHover = function() {
     this.validateConfirmPassword = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
-                {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'confirmPassword'},
+        {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'confirmPassword'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmPassword .errors', 'confirmPassword', data);
                 });
@@ -346,6 +355,55 @@ GSType.hover.JoinHover = function() {
             fieldValid.show();
         }
     };
+    this.clickSubmitHandler = function() {
+        var params = jQuery('#joinGS').serialize();
+        jQuery('#joinBtn').attr('disabled', 'disabled');
+
+
+        //if - Choose city - is selected, just remove this from the form, as if no city was given
+        if (jQuery('#joinCity').val() == '- Choose city -') {
+            params = params.replace(/&city=([^&]+)/, "");
+        }
+
+        var first = true;
+        var newsletters = [];
+        // TODO: make selector more specific?
+        jQuery('[name="grades"]').each(function() {
+            if (jQuery(this).attr('checked')) {
+                newsletters.push(encodeURIComponent(jQuery(this).val()));
+            }
+        });
+
+        params += "&grades=" + newsletters.join(',');
+
+        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
+        return false;
+    }
+    this.chooserTipSheetClickHandler = function() {
+        var params = jQuery('#joinGS').serialize();
+        jQuery('#joinBtn').attr('disabled', 'disabled');
+
+
+        //if - Choose city - is selected, just remove this from the form, as if no city was given
+        if (jQuery('#joinCity').val() == '- Choose city -') {
+            params = params.replace(/&city=([^&]+)/, "");
+        }
+
+        var first = true;
+        var newsletters = [];
+        // TODO: make selector more specific?
+        jQuery('[name="grades"]').each(function() {
+            if (jQuery(this).attr('checked')) {
+                newsletters.push(encodeURIComponent(jQuery(this).val()));
+            }
+        });
+
+        params += "&grades=" + newsletters.join(',');
+
+        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.chooserHover_checkValidationResponse);
+        return false;
+    }
+
 };
 GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 
@@ -497,7 +555,7 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.hide();
 };
 
-GS.isCookieSet = function(cookieName){
+GS.isCookieSet = function(cookieName) {
     // if cookie cookieName exists, the cookie is set
     var value = readCookie(cookieName);
     return value != undefined && value.length > 0;
@@ -529,7 +587,7 @@ GS.showJoinHover = function(email, redirect, showJoinFunction) {
         GSType.hover.signInHover.setRedirect(redirect);
         jQuery('#joinHover .redirect_field').val(redirect);
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover(email,redirect,showJoinFunction); // members get sign in hover
+            GSType.hover.signInHover.showHover(email, redirect, showJoinFunction); // members get sign in hover
         } else {
             showJoinFunction(); // anons get join hover
         }
@@ -545,7 +603,7 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
         GSType.hover.signInHover.setRedirect(redirect);
         jQuery('#joinHover .redirect_field').val(redirect);
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover('',redirect,GSType.hover.joinHover.showJoinAuto);
+            GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinAuto);
         } else {
             GSType.hover.joinHover.showJoinAuto();
         }
@@ -553,7 +611,37 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     return false;
 };
 
+GS.submitChooserPackPromoForm = function() {
+    jQuery("#scpp_form").submit();
+}
+
+GS.chooserHover_checkValidationResponse = function(data) {
+    if (GS.joinHover_passesValidationResponse(data)) {
+        GS.submitChooserPackPromoForm();
+        jQuery('#joinGS').submit();
+        jQuery('#joinGS').submit(function() {
+            return false; // prevent multiple submits
+        });
+        GSType.hover.joinHover.hide();
+    }
+    jQuery('#joinBtn').attr('disabled', '');
+    return false;
+};
+
 GS.joinHover_checkValidationResponse = function(data) {
+
+    if (GS.joinHover_passesValidationResponse(data)) {
+        jQuery('#joinGS').submit();
+        jQuery('#joinGS').submit(function() {
+            return false; // prevent multiple submits
+        });
+        GSType.hover.joinHover.hide();
+    }
+    jQuery('#joinBtn').attr('disabled', '');
+    return false;
+};
+
+GS.joinHover_passesValidationResponse = function(data) {
     var firstNameError = jQuery('#joinGS .joinHover_firstName .invalid');
     var emailError = jQuery('#joinGS .joinHover_email .invalid');
     var usernameError = jQuery('#joinGS .joinHover_username .invalid');
@@ -610,16 +698,11 @@ GS.joinHover_checkValidationResponse = function(data) {
         } else {
             usernameValid.show();
         }
-    } else {
-        jQuery('#joinGS').submit();
-        jQuery('#joinGS').submit(function() {
-            return false; // prevent multiple submits
-        });
-        GSType.hover.joinHover.hide();
-    }
-    jQuery('#joinBtn').attr('disabled','');
-    return false;
 
+        return true;
+    } else {
+        return false;
+    }
 };
 
 jQuery(function() {
@@ -660,30 +743,7 @@ jQuery(function() {
     });
 
 
-    jQuery('#joinBtn').click(function() {
-        var params = jQuery('#joinGS').serialize();
-        jQuery('#joinBtn').attr('disabled','disabled');
 
-
-        //if - Choose city - is selected, just remove this from the form, as if no city was given
-        if (jQuery('#joinCity').val() == '- Choose city -') {
-            params = params.replace(/&city=([^&]+)/,"");
-        }
-
-        var first = true;
-        var newsletters = [];
-        // TODO: make selector more specific?
-        jQuery('[name="grades"]').each(function() {
-            if (jQuery(this).attr('checked')) {
-                newsletters.push(encodeURIComponent(jQuery(this).val()));
-            }
-        });
-
-        params += "&grades=" + newsletters.join(',');
-
-        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
-        return false;
-    });
 
 
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
