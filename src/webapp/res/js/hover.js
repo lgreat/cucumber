@@ -609,21 +609,32 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     return false;
 };
 
-GS.submitChooserPackPromoForm = function() {
-    jQuery("#scpp_form").submit();
-};
-
+//validates response for chooser tip sheet join hover. If validation passes, makes an ajax request to have tips email sent out, then submits join form so controller creates user
 GS.chooserHover_checkValidationResponse = function(data) {
+
     if (GS.joinHover_passesValidationResponse(data)) {
-        GS.submitChooserPackPromoForm();
-        jQuery('#joinGS').submit();
-        jQuery('#joinGS').submit(function() {
-            return false; // prevent multiple submits
-        });
-        GSType.hover.joinHover.hide();
+
+        var emailVal = $j('input#cemail').val();
+
+        if (emailVal != undefined) {
+            var cks = new Array();
+            $j('.ck').each(function () {
+                if (this.checked) {
+                    cks.push(this.name);
+                }
+            });
+            jQuery.post("/promo/schoolChoicePackPromo.page",
+            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
+                    function() {
+                        jQuery('#joinGS').submit();
+                        jQuery('#joinGS').submit(function() {
+                            return false; // prevent multiple submits
+                        });
+                        GSType.hover.joinHover.hide();
+                    }, "json");
+        }
     }
     jQuery('#joinBtn').attr('disabled', '');
-    return false;
 };
 
 GS.joinHover_checkValidationResponse = function(data) {
@@ -636,7 +647,6 @@ GS.joinHover_checkValidationResponse = function(data) {
         GSType.hover.joinHover.hide();
     }
     jQuery('#joinBtn').attr('disabled', '');
-    return false;
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
@@ -697,9 +707,9 @@ GS.joinHover_passesValidationResponse = function(data) {
             usernameValid.show();
         }
 
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
 };
 
@@ -739,9 +749,6 @@ jQuery(function() {
 
         GSType.hover.validateLinkExpired.hide();
     });
-
-
-
 
 
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
@@ -820,3 +827,5 @@ jQuery(function() {
         jQuery('#moreGrades').removeClass('show');
     })
 });
+
+
