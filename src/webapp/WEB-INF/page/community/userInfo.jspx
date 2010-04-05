@@ -132,10 +132,8 @@
 <community:uploadAvatarHover openingElementSelector="#updateMyPhotoLink" redirect="${uri}"/>
 
 <!-- Report it dialog -->
-<c:if test="${viewer ne null}">
-    <community:reportContentHover openingElementSelector=".reportIt"
-                                  reporterId="${viewer.id}"/>
-</c:if>
+<community:reportContentHover openingElementSelector=".reportIt"
+                              reporterId="${viewer.id}"/>
 <!-- End report it dialog -->
 
 

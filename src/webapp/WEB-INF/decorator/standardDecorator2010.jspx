@@ -106,9 +106,6 @@
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
-<c:if test="${requestScope.pageHelper.showingNthGraderHover}">
-    <community:nthGraderRegistrationHover/>
-</c:if>
 
 <communityHover:validateEmail/>
 <communityHover:validateEditEmail/>

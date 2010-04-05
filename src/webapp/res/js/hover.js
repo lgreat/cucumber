@@ -79,7 +79,6 @@ GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover
 GSType.hover.JoinHover = function() {
     this.schoolName = '';
     this.loadOnExitUrl = null;
-    jQuery('#joinBtn').click(this.clickSubmitHandler);
 
     this.baseFields = function() {
         // hide city and state inputs
@@ -164,7 +163,6 @@ GSType.hover.JoinHover = function() {
     this.loadDialog = function() {
         GSType.hover.joinHover.dialogByWidth(680);
         jQuery('#joinHover .redirect_field').val(window.location.href);
-        jQuery('#joinBtn').click(this.clickSubmitHandler);
     };
     this.loadOnExit = function(url) {
         GSType.hover.joinHover.loadOnExitUrl = url;
@@ -216,7 +214,7 @@ GSType.hover.JoinHover = function() {
         }
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
-        jQuery('#joinBtn').click(this.clickSubmitHandler);
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
@@ -251,10 +249,10 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.joinHover.loadCities();
 
-        jQuery('#joinBtn').click(this.chooserTipSheetClickHandler);
+        jQuery('#joinBtn').click(GSType.hover.joinHover.chooserTipSheetClickHandler);
     };
     this.showLearningDifficultiesNewsletter = function() {
-        jQuery('#joinBtn').click(this.clickSubmitHandler);
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Learning Difficulties newsletter");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -273,7 +271,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinPostComment = function() {
-        jQuery('#joinBtn').click(this.clickSubmitHandler);
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Speak your mind");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -287,7 +285,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
-        jQuery('#joinBtn').click(this.clickSubmitHandler);
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
@@ -378,7 +376,7 @@ GSType.hover.JoinHover = function() {
 
         jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
         return false;
-    }
+    };
     this.chooserTipSheetClickHandler = function() {
         var params = jQuery('#joinGS').serialize();
         jQuery('#joinBtn').attr('disabled', 'disabled');
@@ -613,7 +611,7 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
 
 GS.submitChooserPackPromoForm = function() {
     jQuery("#scpp_form").submit();
-}
+};
 
 GS.chooserHover_checkValidationResponse = function(data) {
     if (GS.joinHover_passesValidationResponse(data)) {
