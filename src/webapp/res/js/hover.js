@@ -234,7 +234,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "for the best advice on choosing the right school for your family");
         // show city and state inputs
-        jQuery('#joinHover joinHover_location').show();
+        jQuery('#joinHover .joinHover_location').show();
 
         // set label for weekly updates opt-in
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
