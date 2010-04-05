@@ -32,8 +32,8 @@
             if (contentTypeNormalized == 'discussion') {
                 contentTypeNormalized = 'conversation';
             }
-            jQuery('#reportHoverIntroContentType').replaceWith(contentTypeNormalized);
-            jQuery('#reportHoverHeader').replaceWith(contentTypeNormalized);
+            jQuery('#reportHoverIntroContentType').html(contentTypeNormalized);
+            jQuery('#reportHoverHeader').html(contentTypeNormalized);
         }
         omnitureEventNotifier.pageName="Report Item Hover";
         omnitureEventNotifier.heirarchy="Community,Actions,Report Item Hover";
