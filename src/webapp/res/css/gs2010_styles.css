@@ -1193,7 +1193,7 @@ body.ie6 .clearfix {
 }
 
 #find input{
-    width: 158.5px;
+    width: 170px;
 }
 
 #find button{
@@ -1214,7 +1214,7 @@ body.ie6 .clearfix {
 }
 
 #splashStateSelector{
-    margin:2px 4px;
+    margin:0 4px;
 }
 
 #compare {

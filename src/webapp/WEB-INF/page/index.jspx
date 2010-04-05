@@ -99,7 +99,7 @@
             var queryVal = document.getElementById(queryId).value;
             var stateVal = document.getElementById(stateSelectorId).value;
 
-            var noSearchTerms = (queryVal == 'Enter school, city or district');
+            var noSearchTerms = (queryVal == 'Enter school, city, or district');
             var noState = (stateVal == ("-" + "-") || stateVal == "");
 
             if (noSearchTerms && noState) {
@@ -274,10 +274,10 @@
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
-                <input type="text" value="Enter school, city or district" name="q" id="q" size="21"
+                <input type="text" value="Enter school, city, or district" name="q" id="q" size="21"
                        class="text2 fltlft"
-                       onfocus="textSwitch(this, '', 'Enter school, city or district');"
-                       onblur="textSwitch(this, 'Enter school, city or district', '');"/>
+                       onfocus="textSwitch(this, '', 'Enter school, city, or district');"
+                       onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
                 <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
                                      useNoState="${not requestScope.context.hasSearched}"
                                      styleId="splashStateSelector"
