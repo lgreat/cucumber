@@ -160,4 +160,73 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV);
         assertTrue("Expect error view", StringUtils.equals(mAndV.getViewName(), "error"));
     }
+
+    private void setUpSubmitExpectations() {
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser(isA(User.class)); // create new user
+        _userDao.updateUser(isA(User.class)); // set password
+        _userDao.updateUser(isA(User.class)); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+    }
+
+    public void testRedirect() throws Exception {
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path");
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path?showValidateEmailHover=true", mAndV.getViewName());
+
+        resetMocks();
+
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path/");
+        replayMocks();
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path/?showValidateEmailHover=true", mAndV.getViewName());
+
+        resetMocks();
+
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path?foo=bar");
+        replayMocks();
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path?foo=bar&showValidateEmailHover=true", mAndV.getViewName());
+
+        resetMocks();
+
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path?foo=bar&taz=mil");
+        replayMocks();
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path?foo=bar&taz=mil&showValidateEmailHover=true", mAndV.getViewName());
+
+        resetMocks();
+
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path#anchor");
+        replayMocks();
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path?showValidateEmailHover=true#anchor", mAndV.getViewName());
+
+        resetMocks();
+
+        setUpSubmitExpectations();
+        _command.setRedirectUrl("/path?foo=bar#anchor");
+        replayMocks();
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertEquals("redirect:/path?foo=bar&showValidateEmailHover=true#anchor", mAndV.getViewName());
+    }
 }

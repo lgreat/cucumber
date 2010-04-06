@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.66 2010/03/19 18:48:40 yfan Exp $
+ * $Id: UrlUtilSaTest.java,v 1.67 2010/04/06 17:57:04 aroy Exp $
  */
 
 package gs.web.util;
@@ -396,6 +396,16 @@ public class UrlUtilSaTest extends TestCase {
         String testResult = UrlUtil.addParameter(testUrl, testParam);
         String expectedResult = testUrl + "&" + testParam;
         assertEquals("Expect the parameter to be appended with a & delimiter", expectedResult, testResult);
+    }
+
+    public void testAddParameterWithAnchor(){
+        String testParam = "foo=bar";
+        
+        assertEquals("Expect the parameter to be appended before the anchor name",
+                     "/path?foo=bar#anchor", UrlUtil.addParameter("/path#anchor", testParam));
+
+        assertEquals("Expect the parameter to be appended before the anchor name but after other parameters",
+                     "/path?a=b&foo=bar#anchor", UrlUtil.addParameter("/path?a=b#anchor", testParam));
     }
 
     public void testBuildArticleUrl() {

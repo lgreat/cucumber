@@ -18,8 +18,7 @@
         <h2>
             <span class="hoverTitle">Speak your mind</span>
             <span>Already a member?
-                <a href="#" id="lnchSignin"
-                   onclick="GSType.hover.signInHover.show(); GSType.hover.joinHover.hide(); return false;">Sign in</a>
+                <a href="#" id="lnchSignin">Sign in</a>
             </span>
         </h2>
 

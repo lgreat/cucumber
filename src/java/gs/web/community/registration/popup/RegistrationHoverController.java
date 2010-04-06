@@ -119,12 +119,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
         String redirect = userCommand.getRedirectUrl();
         if (StringUtils.isNotEmpty(redirect)) {
-            if (redirect.indexOf("?") > -1) {
-                redirect += "&";
-            } else {
-                redirect += "?";
-            }
-            redirect += "showValidateEmailHover=true";
+            redirect = UrlUtil.addParameter(redirect, "showValidateEmailHover=true");
         }
 
         mAndV.setViewName("redirect:" + redirect);

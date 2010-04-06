@@ -59,6 +59,7 @@ GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
 
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
+    this.loadOnExitUrl = null;
     this.loadDialog = function() {
         this.dialogByWidth(590);
     };
@@ -68,16 +69,38 @@ GSType.hover.ForgotPasswordHover = function() {
     this.clearMessages = function() {
         jQuery('#hover_forgotPassword .messages').replaceWith('<div class="messages"><!-- not empty --></div>')
     };
+    this.loadOnExit = function(url) {
+        GSType.hover.forgotPassword.loadOnExitUrl = url;
+        jQuery('#hover_forgotPassword').bind('dialogclose', function() {
+            window.location = GSType.hover.forgotPassword.loadOnExitUrl;
+        });
+    };
+    this.cancelLoadOnExit = function() {
+        GSType.hover.forgotPassword.loadOnExitUrl = null;
+        jQuery('#hover_forgotPassword').unbind('dialogclose');
+    };
     this.showJoin = function() {
+        if (GSType.hover.forgotPassword.loadOnExitUrl) {
+            GSType.hover.signInHover.loadOnExit(GSType.hover.forgotPassword.loadOnExitUrl);
+            GSType.hover.forgotPassword.cancelLoadOnExit();
+        }
         GSType.hover.forgotPassword.hide();
         GSType.hover.joinHover.show();
+    };
+    this.showSignin = function() {
+        if (GSType.hover.forgotPassword.loadOnExitUrl) {
+            GSType.hover.signInHover.loadOnExit(GSType.hover.forgotPassword.loadOnExitUrl);
+            GSType.hover.forgotPassword.cancelLoadOnExit();
+        }
+        GSType.hover.forgotPassword.hide();
+        GSType.hover.signInHover.show();
     };
 };
 GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword');
 
 //Join hover
 GSType.hover.JoinHover = function() {
-    this.schoolName = '';
+    this.schoolName = null;
     this.loadOnExitUrl = null;
 
     this.baseFields = function() {
@@ -170,6 +193,19 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover').bind('dialogclose', function() {
             window.location = GSType.hover.joinHover.loadOnExitUrl;
         });
+    };
+    this.cancelLoadOnExit = function() {
+        GSType.hover.joinHover.loadOnExitUrl = null;
+        jQuery('#joinHover').unbind('dialogclose');
+    };
+    this.showSignin = function() {
+        if (GSType.hover.joinHover.loadOnExitUrl) {
+            GSType.hover.signInHover.loadOnExit(GSType.hover.joinHover.loadOnExitUrl);
+            GSType.hover.joinHover.cancelLoadOnExit();
+        }
+        GSType.hover.signInHover.show();
+        GSType.hover.joinHover.hide();
+        return false;
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
@@ -370,8 +406,7 @@ GSType.hover.JoinHover = function() {
 
         var first = true;
         var newsletters = [];
-        // TODO: make selector more specific?
-        jQuery('[name="grades"]').each(function() {
+        jQuery('#joinGS [name="grades"]').each(function() {
             if (jQuery(this).attr('checked')) {
                 newsletters.push(encodeURIComponent(jQuery(this).val()));
             }
@@ -394,8 +429,7 @@ GSType.hover.JoinHover = function() {
 
         var first = true;
         var newsletters = [];
-        // TODO: make selector more specific?
-        jQuery('[name="grades"]').each(function() {
+        jQuery('#joinGS [name="grades"]').each(function() {
             if (jQuery(this).attr('checked')) {
                 newsletters.push(encodeURIComponent(jQuery(this).val()));
             }
@@ -413,6 +447,7 @@ GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
 //SignInHover hover
 GSType.hover.SignInHover = function() {
     this.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
+    this.loadOnExitUrl = null;
     this.loadDialog = function() {
         this.dialogByWidth(590);
         jQuery('#signInHover .redirect_field').val(window.location.href);
@@ -429,6 +464,17 @@ GSType.hover.SignInHover = function() {
     };
     this.setRedirect = function(redirect) {
         jQuery('#signInHover .redirect_field').val(redirect);
+    };
+    this.loadOnExit = function(url) {
+        GSType.hover.signInHover.loadOnExitUrl = url;
+        GSType.hover.signInHover.setRedirect(url);
+        jQuery('#signInHover').bind('dialogclose', function() {
+            window.location = GSType.hover.signInHover.loadOnExitUrl;
+        });
+    };
+    this.cancelLoadOnExit = function() {
+        GSType.hover.signInHover.loadOnExitUrl = null;
+        jQuery('#signInHover').unbind('dialogclose');
     };
     this.validateFields = function() {
         jQuery('#signInHover .errors .error').hide();
@@ -464,6 +510,7 @@ GSType.hover.SignInHover = function() {
         } else if (data.passwordMismatch) {
             jQuery('#signInHover .errors .error').html(data.passwordMismatch).show();
         } else {
+            GSType.hover.signInHover.cancelLoadOnExit();
             jQuery('#signin').submit();
 
             GSType.hover.signInHover.hide();
@@ -479,11 +526,19 @@ GSType.hover.SignInHover = function() {
         return false;
     };
     this.showJoin = function() {
+        if (GSType.hover.signInHover.loadOnExitUrl) {
+            GSType.hover.joinHover.loadOnExit(GSType.hover.signInHover.loadOnExitUrl);
+            GSType.hover.signInHover.cancelLoadOnExit();
+        }
         GSType.hover.signInHover.hide();
         GSType.hover.signInHover.showJoinFunction();
         return false;
     };
     this.showForgotPassword = function() {
+        if (GSType.hover.signInHover.loadOnExitUrl) {
+            GSType.hover.forgotPassword.loadOnExit(GSType.hover.signInHover.loadOnExitUrl);
+            GSType.hover.signInHover.cancelLoadOnExit();
+        }
         GSType.hover.signInHover.hide();
         GSType.hover.forgotPassword.show();
         return false;
@@ -554,8 +609,7 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
 
     GSType.hover.signInHover.addMessage('An email has been sent to ' + email +
                                         ' with instructions for selecting a new password.');
-    GSType.hover.signInHover.show();
-    GSType.hover.forgotPassword.hide();
+    GSType.hover.forgotPassword.showSignin();
 };
 
 GS.isCookieSet = function(cookieName) {
@@ -619,11 +673,11 @@ GS.chooserHover_checkValidationResponse = function(data) {
 
     if (GS.joinHover_passesValidationResponse(data)) {
 
-        var emailVal = $j('input#cemail').val();
+        var emailVal = jQuery('input#cemail').val();
 
         if (emailVal != undefined) {
             var cks = new Array();
-            $j('.ck').each(function () {
+            jQuery('.ck').each(function () {
                 if (this.checked) {
                     cks.push(this.name);
                 }
@@ -645,6 +699,9 @@ GS.chooserHover_checkValidationResponse = function(data) {
 GS.joinHover_checkValidationResponse = function(data) {
 
     if (GS.joinHover_passesValidationResponse(data)) {
+        if (GSType.hover.joinHover.loadOnExitUrl) {
+            GSType.hover.joinHover.cancelLoadOnExit();
+        }
         jQuery('#joinGS').submit();
         jQuery('#joinGS').submit(function() {
             return false; // prevent multiple submits
@@ -771,14 +828,13 @@ jQuery(function() {
 
     jQuery('#joinHover').bind('dialogclose', function() {
         jQuery('#joinGS .error').hide();
+        GSType.hover.joinHover.clearMessages();
     });
+
+    jQuery('#joinHover #lnchSignin').click(GSType.hover.joinHover.showSignin);
 
     jQuery('#hover_forgotPassword').bind('dialogclose', function() {
         GSType.hover.forgotPassword.clearMessages();
-    });
-
-    jQuery('#joinHover').bind('dialogclose', function() {
-        GSType.hover.joinHover.clearMessages();
     });
 
     GSType.hover.forgotPassword.clearMessages();

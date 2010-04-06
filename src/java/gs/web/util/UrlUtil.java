@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.88 2010/03/19 18:48:39 yfan Exp $
+ * $Id: UrlUtil.java,v 1.89 2010/04/06 17:57:04 aroy Exp $
  */
 
 package gs.web.util;
@@ -425,9 +425,19 @@ public final class UrlUtil {
             delimiter = "?";
         }
 
-        StringBuilder buf = new StringBuilder(url) ;
-        buf.append(delimiter);
-        buf.append(parameter);
+        StringBuilder buf;
+        if (url.contains("#")) {
+            String urlBeforeAnchor = url.substring(0, url.indexOf("#"));
+            String anchor = url.substring(url.indexOf("#"));
+            buf = new StringBuilder(urlBeforeAnchor);
+            buf.append(delimiter);
+            buf.append(parameter);
+            buf.append(anchor);
+        } else {
+            buf = new StringBuilder(url);
+            buf.append(delimiter);
+            buf.append(parameter);
+        }
 
         return buf.toString();
     }
