@@ -13,7 +13,7 @@
     <div class="inner">
                             <table id="nbTable" cellpadding="0" cellspacing="0">
         <tr id="nearbyDistrictsHeader">
-                            <th class="col1"><h3 class="leftHeader">Nearby Districts</h3></th>
+                            <th class="col1"><h3>Nearby Districts</h3></th>
                             <th class="col2 rightHeader">GreatSchools<br/>Rating</th>
                         </tr>
          <c:forEach items="${nearbyDistricts}" var="nd" varStatus="loopStatus">
