@@ -125,8 +125,6 @@
                 <!-- end es-gbg -->
             </c:if>
 
-        <div class="spacer_5"><!--do not collapse--></div>
-
         <c:set var="showFeatureGroups" value="false"/>
         <c:if test="${not empty topicCenter.featureGroups}">
             <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
@@ -137,23 +135,26 @@
         </c:if>
 
         <!-- Features -->
-        <c:choose>
-            <c:when test="${showFeatureGroups}">
-                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
-                    <div>${featureGroup.title}</div>
-                    <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
-                                            imageAltText="${featureGroup.imageAltText}"
-                                            mainFeatureLink="${featureGroup.mainFeatureLink}"
-                                            otherFeatureLinks="${featureGroup.otherFeatureLinks}"/>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
-                                        imageAltText="${topicCenter.imageAltText}"
-                                        mainFeatureLink="${topicCenter.mainFeatureLink}"
-                                        otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
-            </c:otherwise>
-        </c:choose>
+            <div id="featureContent">
+                <c:choose>
+                    <c:when test="${showFeatureGroups}">
+                        <c:forEach var="featureGroup" items="${topicCenter.featureGroups}" varStatus="status">
+                            <!--<div>${featureGroup.title}</div>-->
+                            <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
+                                                    imageAltText="${featureGroup.imageAltText}"
+                                                    mainFeatureLink="${featureGroup.mainFeatureLink}"
+                                                    otherFeatureLinks="${featureGroup.otherFeatureLinks}"
+                                                    wrapperClass="featureGroup_${status.count}"/>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
+                                                imageAltText="${topicCenter.imageAltText}"
+                                                mainFeatureLink="${topicCenter.mainFeatureLink}"
+                                                otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
     </div>
     <!-- end #featured -->

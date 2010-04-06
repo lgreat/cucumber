@@ -1945,6 +1945,10 @@ db_discussContainer .db_discuss_full p {
     padding:5px 0;
 }
 
+#featureContent .featureGroup_1, #featureContent .featureGroup_2, #featureContent .featureGroup_3, #featureContent .featureGroup_4, #featureContent .featureGroup_5, #featureContent .featureGroup_6 {
+    display:none;
+}
+
 /* =4c-2 left navigation
 -------------------------------------------------------------------------------------------*/
 #topicbarGS li{

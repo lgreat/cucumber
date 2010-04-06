@@ -8,8 +8,10 @@
     <jsp:directive.attribute name="imageAltText" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="mainFeatureLink" required="false" type="gs.data.content.cms.CmsLink"/>
     <jsp:directive.attribute name="otherFeatureLinks" required="false" type="java.util.List"/>
+    <jsp:directive.attribute name="wrapperClass" required="false" type="java.lang.String"/>
 
-    <div>
+
+    <div class="${wrapperClass}">
         <div class="one_of_two fltlft">
             <a href="${pageScope.mainFeatureLink.url}">
                 <img src="${pageScope.imageUrl}" width="340" height="235" alt="${pageScope.imageAltText}"/>

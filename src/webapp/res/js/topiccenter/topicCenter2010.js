@@ -57,8 +57,15 @@ $j(document).ready(function() {
     });
     //
     // Present initial tab selected
-    //$j('#gbgContent div').hide();
-    //$j('#gbg-content-' + selectedLevel).show();
+    var content = [];
+    content['k'] = $j('.featureGroup_1');
+    content['1'] = $j('.featureGroup_2');
+    content['2'] = $j('.featureGroup_3');
+    content['3'] = $j('.featureGroup_4');
+    content['4'] = $j('.featureGroup_5');
+    content['5'] = $j('.featureGroup_6');
+    $j('#featureContent > div').hide();
+    content[selectedLevel].show();
     $j('.es-gbg-tab-' + selectedLevel).addClass('selected');
     // End - initial tab selected
     //
@@ -76,8 +83,8 @@ $j(document).ready(function() {
     $j('#es-gbgTabs ul li').click(function() {
         // Present the tab selected
         selectedLevel = $j(this).attr('class').substring(11, 12);
-        $j('#es-gbgContent div').hide();
-        $j('#es-gbg-content-' + selectedLevel).show();
+        $j('#featureContent > div').hide();
+        content[selectedLevel].show();
         $j('#es-gbgTabs ul li').removeClass('selected');
         $j('.es-gbg-tab-' + selectedLevel).addClass('selected');
         // Reposition the handle to the tab selected
@@ -147,8 +154,8 @@ $j(document).ready(function() {
         theHandle.stop().animate({ 'left': newpos }, 200);
         $j('#es-gbgTabs ul li').removeClass('selected');
         $j('.es-gbg-tab-' + selectedLevel).addClass('selected');
-        //$j('#es-gbgContent div').hide();
-        //$j('#es-gbg-content-' + selectedLevel).show();
+        $j('#featureContent > div').hide();
+        content[selectedLevel].show();
         return false;
     };
     //
