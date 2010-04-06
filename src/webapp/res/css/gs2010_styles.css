@@ -2461,7 +2461,7 @@ p.hlpTxt {
     position: absolute;
     top: 25px;
     left: -1000px;
-    width: 220px;
+    width: 228px;
     height: 144px;
     background: #fff;
     border: solid #2092c4;
@@ -2471,7 +2471,7 @@ p.hlpTxt {
     left: -1px;
 }
 #moreGrades ul {
-    margin-top: 0;
+    margin: 0;
     float: left;
 }
 #moreGrades .col1 {
@@ -2480,7 +2480,7 @@ p.hlpTxt {
     border-top: 1px dotted #2092c4;
 }
 #moreGrades .col2 {
-    width: 107px;
+    width: 115px;
     padding-top: 3px;
     border-top: 1px solid #2092c4;
 }
@@ -2489,6 +2489,10 @@ p.hlpTxt {
     margin: 0 0 6px;
     overflow:auto;
 }
+#moreGrades li label {
+    margin: 0;
+}
+
 #moreGrades button {
     position: relative;
     text-indent: 0;
