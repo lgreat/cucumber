@@ -16,7 +16,7 @@
             return stringToTrim.replace(/^\s+|\s+$/g,"");
         }
 
-        function rdcSearchSubmit() {
+        function rdcGetExistingHomeUrl(formElem) {
             var searchURL = 'http://www.realtor.com/realestateandhomes-search';
             var loc = trim (document.getElementById('rdcCity').value);
             var cityRegex = /^.*, (AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
@@ -33,12 +33,12 @@
 
             var rdcBeds = trim (document.getElementById('rdcBeds').value).replace(/[^0-9]/g, "");
             if (rdcBeds != "" && rdcBeds >=1 && rdcBeds <= 5) {
-                searchURL += "/" + "beds-" + rdcBeds;
+                searchURL += "/beds-" + rdcBeds;
             }
 
             var rdcBaths = trim (document.getElementById('rdcBaths').value).replace(/[^0-9]/g, "");
             if (rdcBaths != "" && rdcBaths >= 1 && rdcBaths <= 5) {
-                searchURL += "/" + "baths-" + rdcBaths;
+                searchURL += "/baths-" + rdcBaths;
             }
 
             var rdcPriceMin = trim (document.getElementById('rdcPriceMin').value).replace(/[^0-9]/g, "");
@@ -51,10 +51,71 @@
                     rdcPriceMax = "na";
                 }
 
-                searchURL += "/" + "price-" + rdcPriceMin + "-" + rdcPriceMax;
+                searchURL += "/price-" + rdcPriceMin + "-" + rdcPriceMax;
             }
 
+            return searchURL;
+        }
+
+        function rdcGetNewHomeUrl(formElem) {
+            var searchURL = 'http://newhomes.move.com/GS/locationhandler/searchtype-qscr';
+            var loc = trim (document.getElementById('rdcCity').value);
+            var cityRegex = /^.*, ?(AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
+            var searchText = "";
+            if (cityRegex.test(loc)) {
+                var parts = loc.split(",");
+                var cityPart = trim(parts[0]);
+                var statePart = trim(parts[1]);
+                //cityPart = cityPart.replace(/ /g, "+");
+                searchURL += "/state-" + statePart;
+                searchText = cityPart;
+            } else {
+                //searchText = loc.replace(/ /g, "+");
+            }
+
+            var rdcBeds = trim (document.getElementById('rdcBeds').value).replace(/[^0-9]/g, "");
+            if (rdcBeds != "" && rdcBeds >=1 && rdcBeds <= 5) {
+                searchURL += "/" + "bedrooms-" + rdcBeds;
+            }
+
+            var rdcBaths = trim (document.getElementById('rdcBaths').value).replace(/[^0-9]/g, "");
+            if (rdcBaths != "" && rdcBaths >= 1 && rdcBaths <= 5) {
+                searchURL += "/" + "bathrooms-" + rdcBaths;
+            }
+
+            var rdcPriceMin = trim (document.getElementById('rdcPriceMin').value).replace(/[^0-9]/g, "");
+            if (rdcPriceMin != "") {
+                searchURL += "/pricelow-" + rdcPriceMin;
+            }
+            var rdcPriceMax = trim (document.getElementById('rdcPriceMax').value).replace(/[^0-9]/g, "");
+            if (rdcPriceMax != "") {
+                searchURL += "/pricehigh-" + rdcPriceMax;
+            }
+
+            if (searchText != "") {
+                formElem.searchtext.value = searchText;
+                console.log(formElem.searchtext.value);
+                console.log(formElem.searchtext.disabled);
+            }
+
+            return searchURL;
+        }
+
+        function rdcSearchSubmit() {
+            var searchURL;
             var submitForm = document.getElementById('rdcSubmitForm');
+            if (document.getElementById('rdcTypeNew').checked) {
+                submitForm.gate.disabled=true;
+                submitForm.source.disabled=true;
+                submitForm.searchtext.disabled=false;
+                searchURL = rdcGetNewHomeUrl(submitForm);
+            } else {
+                submitForm.gate.disabled=false;
+                submitForm.source.disabled=false;
+                submitForm.searchtext.disabled=true;
+                searchURL = rdcGetExistingHomeUrl(submitForm);
+            }
+
             submitForm.action = searchURL;
 
             if (s.tl) {
@@ -83,6 +144,11 @@
             <p><label for="rdcCity">Location:</label>
             <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
 
+            <p>
+                <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing" checked="checked"/><label for="rdcType1" class="noflt">Homes for sale</label>
+                <input type="radio" name="rdcType" class="rdType" id="rdcTypeNew" value="new"/><label for="rdcType2" class="noflt">New construction</label>
+            </p>
+
             <p><label for="rdcPriceMin">Price:</label>
             <input type="text" name="rdcPriceMin" class="rdPrice" id="rdcPriceMin" />
             <label for="rdcPriceMax" class="noflt">to</label>
@@ -110,6 +176,7 @@
             <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank">
                 <input type="hidden" name="gate" value="gs"/>
                 <input type="hidden" name="source" value="a28956"/>
+                <input type="hidden" name="searchtext" value="" disabled="disabled"/>
             </form>
             <p><button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
                 <span class="lftDoor25"><span class="rtDoor25">Search</span></span>

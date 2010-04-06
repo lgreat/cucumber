@@ -3525,6 +3525,12 @@ width:50px;
 #realtorDotCom.rdc_thin p input.rdPrice {
     width: 72px;
 }
+#realtorDotCom p input.rdType {
+    width: 13px;
+}
+#realtorDotCom #rdcType2 {
+    margin-left: 20px;
+}
 #realtorDotCom .logo {
     position: absolute;
     bottom: 8px;
