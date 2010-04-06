@@ -34,11 +34,17 @@
                         <c:choose>
                             <c:when test="${empty subtopic.subSubtopics}">
                                 <!-- no nested items, so don't show triangle, and clicking subtopic title link should send user to browse page -->
-                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                        gradeIDs="${subtopic.gradeIDs}"
-                                                        subjectIDs="${subtopic.subjectIDs}"
-                                                        language="EN">${subtopic.title}
-                                </link:cmsCategoryBrowse>
+                                <c:choose>
+                                    <c:when test="${not empty subtopic.moreLink}">
+                                        <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                                gradeIDs="${subtopic.gradeIDs}"
+                                                                subjectIDs="${subtopic.subjectIDs}"
+                                                                language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
@@ -53,17 +59,31 @@
                                 <c:forEach var="section" items="${subtopic.subSubtopics}"
                                            varStatus="sectionStatus">
                                     <li>
-                                        <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                gradeIDs="${section.gradeIDs}"
-                                                                subjectIDs="${section.subjectIDs}"
-                                                                language="EN">${section.title}</link:cmsCategoryBrowse>
+                                        <c:choose>
+                                            <c:when test="${not empty section.moreLink}">
+                                                <a href="${section.moreLink.url}">${section.title}</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                        gradeIDs="${section.gradeIDs}"
+                                                                        subjectIDs="${section.subjectIDs}"
+                                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </li>
                                 </c:forEach>
                                 <li>
-                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                            gradeIDs="${subtopic.gradeIDs}"
-                                                            subjectIDs="${subtopic.subjectIDs}"
-                                                            language="EN">See all &amp;raquo;</link:cmsCategoryBrowse>
+                                    <c:choose>
+                                        <c:when test="${not empty subtopic.moreLink}">
+                                            <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                                    gradeIDs="${subtopic.gradeIDs}"
+                                                                    subjectIDs="${subtopic.subjectIDs}"
+                                                                    language="EN">See all &amp;raquo;</link:cmsCategoryBrowse>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </li>
                             </ul>
                         </c:if>
