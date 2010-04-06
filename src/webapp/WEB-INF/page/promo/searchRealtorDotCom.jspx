@@ -145,8 +145,8 @@
             <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
 
             <p>
-                <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing" checked="checked"/><label for="rdcType1" class="noflt">Homes for sale</label>
-                <input type="radio" name="rdcType" class="rdType" id="rdcTypeNew" value="new"/><label for="rdcType2" class="noflt">New construction</label>
+                <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing" checked="checked"/><label for="rdcTypeExisting" class="noflt">Homes for sale</label>
+                <input type="radio" name="rdcType" class="rdType" id="rdcTypeNew" value="new"/><label for="rdcTypeNew" class="noflt">New construction</label>
             </p>
 
             <p><label for="rdcPriceMin">Price:</label>
