@@ -658,7 +658,6 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     } else {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.signInHover.setRedirect(redirect);
-        jQuery('#joinHover .redirect_field').val(redirect);
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinAuto);
         } else {
