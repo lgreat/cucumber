@@ -12,6 +12,9 @@ $j(document).ready(function() {
     /* ELEMENTARY SCHOOL FEATURE AREA GRADE LEVEL TABS */
     /* ----------------------------------------------- */
     //
+
+    if ($j('#es-gbgTabs').length > 0) {
+
     // extend the core jQuery with disableSelection
     $j.fn.extend({
         disableSelection : function() {
@@ -207,6 +210,9 @@ $j(document).ready(function() {
         }
         setHandlePosition();
     });
+
+    }
+
     //
     //
     /* ------------------------------------------------------- */
