@@ -87,10 +87,11 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         }
         _userCommandValidator.validateTerms(userCommand, errors);
 
-        if ("ChooserTipSheet".equals(joinHoverType)) {
-            userCommand.setChooserRegistration(true);
-            _userCommandValidator.validateStateCity(userCommand, errors);
-        }
+        // do not require city/state
+//        if ("ChooserTipSheet".equals(joinHoverType)) {
+//            userCommand.setChooserRegistration(true);
+//            _userCommandValidator.validateStateCity(userCommand, errors);
+//        }
     }
 
     protected void handleOnblur(HttpServletRequest request, UserCommand userCommand, BindException errors) {

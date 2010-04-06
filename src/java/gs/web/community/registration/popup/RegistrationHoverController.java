@@ -207,7 +207,11 @@ public class RegistrationHoverController extends RegistrationController implemen
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             // hack to get provisional accounts working in least amount of development time
             userProfile = user.getUserProfile();
-            userProfile.setCity(userCommand.getCity());
+            if (StringUtils.isBlank(userCommand.getCity())) {
+                userProfile.setCity(null);
+            } else {
+                userProfile.setCity(userCommand.getCity());
+            }
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setState(userCommand.getState());
             userProfile.setHow(joinTypeToHow(userCommand.getJoinHoverType()));

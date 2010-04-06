@@ -86,8 +86,7 @@
                     </li>
                     <li class="joinHover_location">
                         <label for="joinState">Where do you live?</label>
-                        <gsweb:stateSelector state="${requestScope.context.state}" styleId="joinState"
-                                             allowNoState="true" noStateLabel="--"/>
+                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="joinState"/>
                         <select name="city" id="joinCity">
                             <option>Loading...</option>
                         </select>

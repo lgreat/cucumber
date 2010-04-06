@@ -89,8 +89,6 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         expect(_mockUserCommandValidator.validatePasswordEquivalence("abcdefg", "abcdefg", "confirmPassword", _errors)).andReturn(true);
         _mockUserCommandValidator.validateTerms(_command, _errors);
 
-        _mockUserCommandValidator.validateStateCity(_command, _errors);
-
         replay(_mockUserCommandValidator);
         _controller.handle(getRequest(), getResponse(), _command, _errors);
 
