@@ -496,7 +496,7 @@ GSType.hover.SignInHover = function() {
         } else if (data.userNoPassword) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
-            GSType.hover.joinHover.show();
+            GSType.hover.joinHover.showJoinChooserTipSheet();
             GSType.hover.joinHover.addMessage(data.userNoPassword);
         } else if (data.userNotValidated) {
             GSType.hover.signInHover.clearMessages();
