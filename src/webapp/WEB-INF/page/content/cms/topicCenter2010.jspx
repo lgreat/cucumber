@@ -14,6 +14,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -98,7 +99,16 @@
 
             <div class="spacer_5"><!--do not collapse--></div>
 
-            <c:if test="${topicCenter.elementarySchoolTopicCenter}">
+            <c:set var="showFeatureGroups" value="false"/>
+            <c:if test="${not empty topicCenter.featureGroups}">
+                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
+                    <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
+                        <c:set var="showFeatureGroups" value="true"/>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+
+            <c:if test="${showFeatureGroups and topicCenter.elementarySchoolTopicCenter}">
                 <div id="es-gbg">
                     <div id="es-gbgTabs">
                         <ul>
@@ -124,15 +134,6 @@
                 </div>
                 <!-- end es-gbg -->
             </c:if>
-
-        <c:set var="showFeatureGroups" value="false"/>
-        <c:if test="${not empty topicCenter.featureGroups}">
-            <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
-                <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
-                    <c:set var="showFeatureGroups" value="true"/>
-                </c:if>
-            </c:forEach>
-        </c:if>
 
         <!-- Features -->
             <div id="featureContent">
@@ -239,6 +240,13 @@
                 <div id="recentDiscussions" class="mod">
                     ${recentDiscussions}
                 </div>
+
+                <!--div>
+                    <community:startADiscussionModule loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                      openElementJQuerySelector=".startADiscussion"
+                                                      topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                                      discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"/>
+                </div-->
             </c:if>
         </div>
         <!-- end #topicMainGS -->
