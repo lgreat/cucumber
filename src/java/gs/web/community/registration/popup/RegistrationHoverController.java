@@ -55,7 +55,6 @@ public class RegistrationHoverController extends RegistrationController implemen
         if (RegistrationHoverCommand.JoinHoverType.ChooserTipSheet == userCommand.getJoinHoverType()) {
             userCommand.setChooserRegistration(true);
         }
-
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -72,6 +71,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         if (user != null) {
             userExists = true;
+            setFieldsOnUserUsingCommand(userCommand, user);
             userCommand.setUser(user);
         } else {
             // only create the user if the user is new
@@ -125,6 +125,19 @@ public class RegistrationHoverController extends RegistrationController implemen
         mAndV.setViewName("redirect:" + redirect);
 
         return mAndV;
+    }
+
+    protected void setFieldsOnUserUsingCommand(RegistrationHoverCommand userCommand, User user) {
+        if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
+            user.setFirstName(userCommand.getFirstName());
+        }
+        if (StringUtils.isNotEmpty(userCommand.getLastName())) {
+            user.setLastName(userCommand.getLastName());
+        }
+        String gender = userCommand.getGender();
+        if (StringUtils.isNotEmpty(gender)) {
+            user.setGender(userCommand.getGender());
+        }
     }
 
     private void saveRegistrations(RegistrationHoverCommand userCommand, User user, OmnitureTracking ot) {

@@ -115,6 +115,27 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV);
     }
 
+    public void testExistingUserUpdated() throws Exception {
+        
+        User user = new User();
+        user.setId(123);
+        user.setEmail("RegistrationHoverControllerTest@greatschools.org");
+
+        user.setFirstName("");
+        _command.setFirstName("John");
+
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
+        _controller.setFieldsOnUserUsingCommand(_command,user);
+        _userDao.updateUser(isA(User.class)); // set password
+        _userDao.updateUser(isA(User.class)); // update user profile
+        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+
+        verifyMocks();
+    }
+
     public void testOnSubmitProvisionalUser() throws Exception {
         User user = new User();
         user.setId(123);
