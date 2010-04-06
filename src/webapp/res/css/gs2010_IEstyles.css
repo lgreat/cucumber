@@ -26,6 +26,7 @@ General comments:
 =D- ie6 4a-4 raise your hand
 =D- ie6 4a-5 grade by grade
 =D- ie6 4c-3 infinite carousel
+=D- ie6 4c-6 elementary schools grade by grade
 =D- ie6 5- icons
 =temporary modules
 */
@@ -645,6 +646,31 @@ body.ie6 .ic_title {
 
 body.ie6 .infiniteCarousel .arrow{
     line-height:0.8;
+}
+
+/* =D- ie6 4c-6 elementary schools grade by grade
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 #es-gbgTabs {
+    left: 5px;
+}
+
+body.ie6 #es-gbgTabs li {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -34px;
+    margin: 0;
+}
+
+body.ie6 #es-gbgTabs a {
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -34px;
+    margin: 0;
+}
+
+body.ie6 #es-gbgTabs .selected {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
+}
+
+body.ie6 #es-gbgTabs .selected a {
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
 }
 
 /* =D- ie6 5- icons
