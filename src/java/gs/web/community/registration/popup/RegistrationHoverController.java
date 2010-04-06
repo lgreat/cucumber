@@ -187,8 +187,9 @@ public class RegistrationHoverController extends RegistrationController implemen
             case PostComment:
                 return "hover_community";
             case TrackGrade:
-                // TODO: two different types of nth grader hovers
                 return "hover_greatnews";
+            case GlobalHeader:
+                return "hover_headerjoin";
         }
         return null;
     }

@@ -285,6 +285,16 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
+        GSType.hover.joinHover.setJoinHoverType("TrackGrade");
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
+        GSType.hover.joinHover.showJoinNth();
+    };
+    this.showJoinGlobalHeader = function() {
+        GSType.hover.joinHover.setJoinHoverType("GlobalHeader");
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinGlobalHeader;
+        GSType.hover.joinHover.showJoinNth();
+    };
+    this.showJoinNth = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
@@ -293,11 +303,6 @@ GSType.hover.JoinHover = function() {
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
-        GSType.hover.joinHover.setJoinHoverType("TrackGrade");
-        // auto check grade-by-grade
-        jQuery('#opt1').attr('checked', true);
-
-        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
         GSType.hover.joinHover.show();
     };
     this.validateFirstName = function() {

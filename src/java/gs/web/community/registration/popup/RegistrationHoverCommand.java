@@ -13,6 +13,7 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         LearningDifficultiesNewsletter,
         PostComment,
         TrackGrade,
+        GlobalHeader,
     }
     private boolean _mslOnly;
     private String _how;
