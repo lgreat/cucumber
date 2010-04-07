@@ -87,12 +87,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     }
 
     public void testOnSubmitNewUser() throws Exception {
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
-        _userDao.saveUser(isA(User.class)); // create new user
-        _userDao.updateUser(isA(User.class)); // set password
-        _userDao.updateUser(isA(User.class)); // update user profile
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        setUpSubmitExpectations();
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -104,11 +99,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         user.setId(123);
         user.setEmail("RegistrationHoverControllerTest@greatschools.org");
 
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
-        _userDao.updateUser(user); // set password
-        _userDao.updateUser(user); // update user profile
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        setUpSubmitExpectations();
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -124,14 +115,9 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         user.setFirstName("");
         _command.setFirstName("John");
 
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
-        _controller.setFieldsOnUserUsingCommand(_command,user);
-        _userDao.updateUser(isA(User.class)); // set password
-        _userDao.updateUser(isA(User.class)); // update user profile
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        setUpSubmitExpectations();
         replayMocks();
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
 
         verifyMocks();
     }
@@ -146,11 +132,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         profile.setId(123);
         user.setUserProfile(profile);
 
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
-        _userDao.updateUser(user); // set password
-        _userDao.updateUser(user); // update user profile
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        setUpSubmitExpectations();
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -159,12 +141,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void testOnSubmitNewUserWithSubscriptions() throws Exception {
         _command.setNewsletter(true);
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
-        _userDao.saveUser(isA(User.class)); // create new user
-        _userDao.updateUser(isA(User.class)); // set password
-        _userDao.updateUser(isA(User.class)); // update user profile
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        setUpSubmitExpectations();
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -188,6 +165,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(isA(User.class)); // create new user
         _userDao.updateUser(isA(User.class)); // set password
         _userDao.updateUser(isA(User.class)); // update user profile
+        expect(_userDao.findUserFromId(123)).andReturn(_command.getUser()); // refresh session
         _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
     }
 

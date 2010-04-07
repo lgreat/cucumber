@@ -98,6 +98,7 @@ public class RegistrationHoverController extends RegistrationController implemen
             // committed. Adding this commitOrRollback prevents this.
             ThreadLocalTransactionManager.commitOrRollback();
 
+            user = getUserDao().findUserFromId(user.getId()); // refresh session
             saveRegistrations(userCommand, user, ot);
         } catch (Exception e) {
             _log.error("Error in RegistrationHoverController", e);
