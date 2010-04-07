@@ -36,6 +36,7 @@ General comments:
 =4c-3 infinite carousel
 =4c-4 browse schools by city
 =4c-5 talk about it
+=4c-5.1 start a conversation
 =4c-6 elementary schools grade by grade
 =4d community join hovers
 =4e- about pages
@@ -818,6 +819,7 @@ body.cobranded #pageGS {
 #topicMainGS.col{
     width: 423px;
     padding-left: 15px;
+    padding-bottom:25px;
 }
 
 .mod_hd h3 {
@@ -2140,6 +2142,52 @@ db_discussContainer .db_discuss_full p {
 .discussionTopic_363{
     float:left;
     width:363px;
+}
+
+/* 4c-5.1 start a conversation
+-------------------------------------------------------------------------------------------*/
+
+.startAConversationModule{
+    background:#fc6;
+    padding:10px 20px 15px 15px;
+    position:relative;
+}
+
+#sac-downArrow-fc6{
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    position: absolute;
+    bottom: -20px;
+    left: 37px;
+    background: none;
+    border-top: 20px solid #fc6;
+    border-right: 27px solid white;
+    filter: alpha(opacity = 100);
+}
+
+.startAConversationModule form{
+    padding:0;
+    margin:0;
+    width:388px;
+}
+
+.startAConversationModule label{
+    display:block;
+    width:54px;
+    float:left;
+}
+
+.startAConversationModule select{
+    width:145px;
+}
+
+.startAConversationModule input{
+    width:324px;
+}
+
+.startAConversationModule textarea{
+    width:328px;
 }
 
 /* =4c-6 elementary schools grade by grade
