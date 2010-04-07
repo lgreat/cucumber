@@ -3578,6 +3578,10 @@ padding:3px 5px 0;
 text-align:right;
 width:50px;
 }
+#realtorDotCom.rdc_thin p label.radioLabel {
+    width: auto;
+    text-align: left;
+}
 #realtorDotCom p input {
     width: 210px;
 }
@@ -3594,6 +3598,10 @@ width:50px;
 }
 #realtorDotCom p input.rdType {
     width: 13px;
+    float: left;
+    clear: left;
+    position: relative;
+    top: 3px;
 }
 #realtorDotCom #rdcType2 {
     margin-left: 20px;
