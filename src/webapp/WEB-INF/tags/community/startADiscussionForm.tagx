@@ -17,6 +17,7 @@
     <jsp:directive.attribute name="cancelClears" required="false" type="java.lang.Boolean" description="Default is false"/>
     <jsp:directive.attribute name="useParentForPreviewButton" required="false" type="java.lang.Boolean" description="Default is true"/>
     <jsp:directive.attribute name="useFrameForFormSubmission" required="false" type="java.lang.Boolean" description="Default is true"/>
+    <jsp:directive.attribute name="useImageForSubmitButton" required="false" type="java.lang.Boolean" description="Default is true"/>    
 
     <script type="text/javascript">
         jQuery(function() {
@@ -234,12 +235,24 @@
                     </c:when>
                     <c:otherwise>
                         <button class="${submitButtonStyle}" type="submit" name="post">
-                        <span class="lftDoor25">
+                            <span class="lftDoor25">
                             <span class="rtDoor25">
-                                <img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25"
-                                     align="absmiddle"
-                                     alt="bubbles"/>${submitButtonText}</span>
-                        </span>
+                                <c:choose>
+                                    <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
+                                        <!-- DONE-RANDALL - do use image -->
+                                        <img src="/res/img/discussion_boards/db_speech_bubbles.png"
+                                             width="37"
+                                             height="25"
+                                             align="absmiddle"
+                                             alt="bubbles"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- DONE-RANDALL - don't use image -->
+                                    </c:otherwise>
+                                </c:choose>
+                                ${submitButtonText}
+                            </span>
+                            </span>
                         </button>
                     </c:otherwise>
                 </c:choose>
