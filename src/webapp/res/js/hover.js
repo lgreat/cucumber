@@ -683,7 +683,14 @@ GS.chooserHover_checkValidationResponse = function(data) {
             });
             jQuery.post("/promo/schoolChoicePackPromo.page",
             {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
-                    function() {
+                    function(datax) {
+                        omnitureEventNotifier.clear();
+                        omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
+                        omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
+                        omnitureEventNotifier.send();
+                        jQuery("#form_panel").hide();
+                        jQuery("#confirm_panel").show();
+                        jQuery('#joinHover .redirect_field').val(decodeURIComponent(datax.redirectEncoded));
                         jQuery('#joinGS').submit();
                         jQuery('#joinGS').submit(function() {
                             return false; // prevent multiple submits
