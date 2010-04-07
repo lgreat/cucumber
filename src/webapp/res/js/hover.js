@@ -637,14 +637,16 @@ GS.isMember = function() {
     return GS.isCookieSet('isMember');
 };
 
-GS.showJoinHover = function(email, redirect, showJoinFunction) {
+GS.showJoinHover = function(email, signInRedirect, showJoinFunction, joinRedirect) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
     } else {
-        GSType.hover.signInHover.setRedirect(redirect);
-        jQuery('#joinHover .redirect_field').val(redirect);
+        GSType.hover.signInHover.setRedirect(signInRedirect);
+        if (joinRedirect) {
+            jQuery('#joinHover .redirect_field').val(joinRedirect);
+        }
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover(email, redirect, showJoinFunction); // members get sign in hover
+            GSType.hover.signInHover.showHover(email, signInRedirect, showJoinFunction); // members get sign in hover
         } else {
             showJoinFunction(); // anons get join hover
         }
