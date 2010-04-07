@@ -27,7 +27,7 @@ $j(function() {
                         function (data) {
                             if (data == 'true') {
                                 if (termsChecked) {
-                                    if (GS.showJoinHover(emailVal, window.location.href, GSType.hover.joinHover.showJoinChooserTipSheet)) {
+                                    if (GS.showChooserTipSheetHover(emailVal, window.location.href)) {
                                         $j.post("/promo/schoolChoicePackPromo.page",
                                         {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
                                                 function(datax) {

@@ -654,6 +654,21 @@ GS.showJoinHover = function(email, signInRedirect, showJoinFunction, joinRedirec
     return false;
 };
 
+GS.showChooserTipSheetHover = function(email, redirect) {
+    if (GS.isSignedIn()) {
+        return true; // signed in users go straight to destination
+    } else {
+        GSType.hover.signInHover.setRedirect(redirect);
+        jQuery('#joinHover .redirect_field').val(redirect);
+        if (GS.isMember()) {
+            GSType.hover.signInHover.showHover(email, redirect, GSType.hover.joinHover.showJoinChooserTipSheet); // members get sign in hover
+        } else {
+            GSType.hover.joinHover.showJoinChooserTipSheet(email); // anons get join hover
+        }
+    }
+    return false;
+};
+
 GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
