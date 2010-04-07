@@ -130,8 +130,22 @@
     </script>
     <div id="startADiscussion">
         <div id="sd_header">
-            <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
-                 height="58" alt="big speech bubbles" align="absmiddle"/>
+            <c:choose>
+                <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
+                    <!-- DONE-RANDALL - do use old image -->
+                    <img class="sd_icon fltlft"
+                         src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif"
+                         width="60"
+                         height="58"
+                         alt="big speech bubbles"
+                         align="absmiddle"/>
+                </c:when>
+                <c:otherwise>
+                    <!-- DONE-RANDALL - do use sprite image -->
+                    <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
+                </c:otherwise>
+            </c:choose>
+
 
             <h2 class="sd_title fltlft">
                 <c:choose>
