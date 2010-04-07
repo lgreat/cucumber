@@ -65,4 +65,49 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         assertEquals("redirect:/account/?showEmailValidatedHover=true", mAndV.getViewName());
         assertTrue("Expect user to be validated", user.isEmailValidated());
     }
+
+    private void setupForRedirect(User user) {
+        user.setEmailProvisional("foobar");
+        expect(_userDao.findUserFromId(234)).andReturn(user);
+        _userDao.saveUser(user);
+    }
+
+    public void testRedirectParam() throws Exception {
+        User user = new User();
+        user.setEmail("aroy@greatschools.org");
+        user.setId(234);
+        user.setPlaintextPassword("foobar");
+        Date now = new Date();
+        long dateSent = now.getTime() - 5000; // sent 5 seconds ago
+        getRequest().setParameter("date", String.valueOf(dateSent));
+        String actualHash = DigestUtil.hashStringInt(user.getEmail(), 234);
+        actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
+        getRequest().setParameter("id", actualHash + "234");
+        ModelAndView mAndV;
+
+        getRequest().setParameter("redirect", "/path");
+        setupForRedirect(user);
+        replayMocks(_userDao);
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyMocks(_userDao);
+        assertEquals("redirect:/path?showEmailValidatedHover=true", mAndV.getViewName());
+
+        resetMocks(_userDao);
+
+        getRequest().setParameter("redirect", "/path?foo=bar");
+        setupForRedirect(user);
+        replayMocks(_userDao);
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyMocks(_userDao);
+        assertEquals("redirect:/path?foo=bar&showEmailValidatedHover=true", mAndV.getViewName());
+
+        resetMocks(_userDao);
+
+        getRequest().setParameter("redirect", "/path?foo=bar#anchor");
+        setupForRedirect(user);
+        replayMocks(_userDao);
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyMocks(_userDao);
+        assertEquals("redirect:/path?foo=bar&showEmailValidatedHover=true#anchor", mAndV.getViewName());
+    }
 }

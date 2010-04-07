@@ -127,11 +127,7 @@ public class RegistrationConfirmController extends AbstractController implements
             } else {
                 // when registering, send them to where they were before, or to the /account/ page
                 if (StringUtils.isNotBlank(request.getParameter("redirect"))) {
-                    if (request.getParameter("redirect").indexOf("?") > -1) {
-                        target = "redirect:" + request.getParameter("redirect") + "&showEmailValidatedHover=true";
-                    } else {
-                        target = "redirect:" + request.getParameter("redirect") + "?showEmailValidatedHover=true";
-                    }
+                    target = "redirect:" + UrlUtil.addParameter(request.getParameter("redirect"), "showEmailValidatedHover=true");
                 } else {
                     target = "redirect:/account/?showEmailValidatedHover=true";
                 }
