@@ -34,7 +34,8 @@ GSType.hover.HoverDialog = function(id) {
             draggable: false,
             autoOpen: false,
             resizable: false,
-            width: width
+            width: width,
+            zIndex: 15000
         });
         jQuery('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
         jQuery('.' + this.hoverId + '_hideHover').click(this.hide.gs_bind(this));
