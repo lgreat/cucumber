@@ -50,7 +50,7 @@
         <pageHelper:externalCss file="/res/css/about/feedback/submitSchool.css"/>
     </head>
 
-    <gsml:body adPageName="submitSchool" pageLayout="submitSchool">
+    <gsml:body adPageName="submitSchool" pageLayout="nocol">
 
       <div class="content">
 

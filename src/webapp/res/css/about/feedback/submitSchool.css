@@ -9,12 +9,6 @@
 
 
 
-.pageTitle h2 {
-    font-size: 16px;
-    color: #55BBCC;
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
 
 #contentGS p {
     margin-top: 15px;
@@ -41,6 +35,8 @@
 .field {
     clear: both;
     padding-top: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
 .fieldLabel {
@@ -56,14 +52,10 @@
 .fieldNote {
     font-size: 11px;
     position: relative;
+    width: 290px;
+    float: left;
+    margin-left: 18px;
 }
-
-.fieldNoteText {
-    position: absolute;
-    top: 5px;
-    left: 545px;
-}
-
 
 img.errorIcon {
     position: absolute;
