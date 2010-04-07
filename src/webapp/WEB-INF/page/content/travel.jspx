@@ -39,7 +39,7 @@
 
 <c:set var="pageName" value="Travel Microsite"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Travel"/>
-<gsml:body adPageName="content/travel" pageLayout="travel" startAdHierarchyAtPage="true">
+<gsml:body adPageName="content/travel" pageLayout="nocol" startAdHierarchyAtPage="true">
 <div>
     <div class="wrapBorder">
         <jsp:include page="/content/leftNav.module" />
