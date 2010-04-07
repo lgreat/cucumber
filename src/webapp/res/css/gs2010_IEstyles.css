@@ -58,6 +58,10 @@ General comments:
 #topnav_search button {
     bottom: 8px;
 }
+.ui-widget-overlay {
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+    background-color: #333;
+}
 
 /* =B- ie8
 -------------------------------------------------------------------------------------------*/
@@ -131,7 +135,56 @@ body.ie7 #footer {
 body.ie7 #footerAd {
     height: 91px;
 }
-
+body.ie7 .ui-dialog-titlebar, body.ie7 .ui-dialog-titlebar-close {
+    height: 15px;
+}
+body.ie7 .prefs ul.col li, * + html .prefs ul.col li {
+    z-index: 10;
+    clear: both;
+    float: left;
+    width: 445px;
+}
+body.ie7 #joinBtn {
+    width: 96px;
+}
+body.ie7 #joinGS  fieldset.btns {
+   z-index: 10;
+}
+body.ie7 #joinGS fieldset.prefs {
+    z-index: 30;
+}
+body.ie .prefs ul.col li.grades, * + html .prefs ul.col li.grades {
+    z-index: 20;
+    min-height: 100%;
+}
+body.ie7 #moreGrades.show, * + html #moreGrades.show {
+    z-index: 110;
+}
+body.ie7 .prefs ul.col input, body.ie7 .prefs ul.col label, * + html .prefs ul.col input, * + html .prefs ul.col label {
+    margin-right: 0;
+}
+body.ie7 .prefs ul.col input {
+    clear: left;
+}
+body.ie7 .prefs ul.col label, * + html .prefs ul.col label {
+    width: 416px;
+}
+body.ie7 #pickGrade, * + html #pickGrade {
+    margin: 0 0 0 20px;
+    padding: 5px 0 0 5px;
+    background: #fff;
+    border: 1px solid #2092c4;
+    width: 135px;
+    height: 20px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    overflow: visible;
+    z-index: 100;
+}
+body.ie7 #pickGrade label, * + html #pickGrade label {
+    width: auto;
+    font-size: 12px;
+}
 
 * + html #footerAd {
     height: 91px;
