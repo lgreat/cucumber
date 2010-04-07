@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:link="urn:www.greatschools.org/taglib/link"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:gsweb="gstaglib"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <jsp:directive.attribute name="discussionTopics" required="true" type="java.util.SortedSet" description="SortedSet of CmsTopicCenter"/>
+    <jsp:directive.attribute name="localBoards" required="true" type="java.util.List" description="List of LocalBoard"/>
+    <jsp:directive.attribute name="topicCenterId" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="localBoardId" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="discussionBody" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="discussionTitle" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="discussionId" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="hideClose" required="false" type="java.lang.Boolean" description="Default is false"/>
+    <jsp:directive.attribute name="cancelClears" required="false" type="java.lang.Boolean" description="Default is false"/>
+    <jsp:directive.attribute name="useParentForPreviewButton" required="false" type="java.lang.Boolean" description="Default is true"/>
+    <jsp:directive.attribute name="useFrameForFormSubmission" required="false" type="java.lang.Boolean" description="Default is true"/>
+
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('#topicSelect').focus();
+
+            jQuery('#topicSelect').change(function() {
+                if (this.value == '-1') {
+                    jQuery('#citySelect').removeAttr('disabled');
+                    jQuery('.citySelect').show();
+                } else {
+                    jQuery('#citySelect').attr('disabled', true);
+                    jQuery('.citySelect').hide();
+                }
+            });
+
+            if (jQuery('#topicSelect').val() == '-1') {
+                jQuery('#citySelect').removeAttr('disabled');
+                jQuery('.citySelect').show();
+            } else {
+                jQuery('#citySelect').attr('disabled', true);
+                jQuery('.citySelect').hide();
+            }
+
+            jQuery('.dialogCancelButton').click(function() {
+                <c:choose>
+                   <c:when test="${not empty cancelClears and cancelClears}">
+                      jQuery(".titleInput input").val('');
+                      jQuery(".bodyInput textarea").val('');
+                   </c:when>
+                   <c:otherwise>
+                      parent.GS.closeDialogs();
+                   </c:otherwise>
+                </c:choose>
+            });
+
+            jQuery('.previewButton').click(function() {
+                if (validPost()) {
+                    var previewBody = escapeHTML(jQuery(".bodyInput textarea").val());
+                    <![CDATA[
+                    previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
+                    ]]>
+                    var previewTitle = escapeHTML(jQuery(".titleInput input").val());
+                    <c:choose>
+                       <c:when test="${empty useParentForPreviewButton or useParentForPreviewButton}">
+                         parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
+                       </c:when>
+                       <c:otherwise>
+                          GS.previewDiscussionHover.open(previewBody, previewTitle);
+                       </c:otherwise>
+                    </c:choose>                    
+                }
+                return false;
+            });
+
+            jQuery('.submitButton').click(function() {
+                return validPost();
+            });
+
+            function validPost() {
+                var title = escapeHTML(jQuery(".titleInput input").val());
+                var body = escapeHTML(jQuery(".bodyInput textarea").val());
+
+                if (title == '' &amp;&amp; body == '') {
+                    alert("Please enter a title and details for your discussion.");
+                    return false;
+                }
+
+                if (title == '') {
+                    alert("Please enter a title.");
+                    return false;
+                }
+
+                if (title.length &lt; 5) {
+                    alert("Please enter at least 5 characters for your discussion title.");
+                    return false;
+                }
+
+                if (body == '') {
+                    alert("Please enter details for your discussion.");
+                    return false;
+                }
+
+                if (body.length &lt; 5) {
+                    alert("Please enter at least 5 characters for your discussion details.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            function escapeHTML(html) {
+                return html.replace(/\&amp;/g, '&amp;amp;').replace(/\&lt;/g, '&amp;lt;');
+            }
+
+            parent.GS.previewDiscussionHover.init({
+                editFunc: function() {},
+                postFunc: function() {
+                    <c:choose>
+                       <c:when test="${empty useFrameForFormSubmission or useFrameForFormSubmission}">
+                         top.frames['startADiscussionIFrame'].jQuery('#discussionSubmissionForm').submit();
+                       </c:when>
+                       <c:otherwise>
+                          jQuery('#discussionSubmissionForm').submit();
+                       </c:otherwise>
+                    </c:choose>
+
+                }
+            });
+        });
+    </script>
+    <div id="startADiscussion">
+        <div id="sd_header">
+        <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif" width="60"
+                 height="58" alt="big speech bubbles" align="absmiddle"/>
+
+        <h2 class="sd_title fltlft">
+            <c:choose>
+                <c:when test="${discussionId gt 0}">
+                    Edit conversation
+                </c:when>
+                <c:otherwise>
+                    Start a conversation
+                </c:otherwise>
+            </c:choose>
+        </h2>
+        <c:if test="${empty hideClose or !hideClose}">
+            <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img
+                        src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                        height="11" alt="close modal"/></p></div>
+        </c:if>
+        <br class="clearfloat"/>
+        </div>
+    <form action="/community/discussionSubmission.page" method="post" target="_parent"
+                id="discussionSubmissionForm" accept-charset="Windows-1252">
+        <div class="communityGuidelines text3 fltrt">
+            Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                       title="GreatSchools Community Standards"
+                                       href="/terms/?state=$STATE#communityStandards">
+            <span class="link">Community Guidelines</span></gsml:popupWindow>
+        </div>
+        <div class="topicSelect fltlft">
+            <label for="topicSelect" class="text2bold tint_333">Topic</label>
+            <select id="topicSelect" name="topicCenterId">
+                <gsml:selectOption value="-1">Cities</gsml:selectOption>
+                <c:forEach var="myTc" items="${discussionTopics}">
+                    <gsml:selectOption value="${myTc.contentKey.identifier}"
+                                       selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
+                </c:forEach>
+            </select>
+        </div>
+        <br class="clearfloat"/>
+        <div class="citySelect">
+            <label for="citySelect" class="text2bold tint_333">City</label>
+            <select id="citySelect" name="discussionBoardId" disabled="disabled">
+                <c:forEach var="localBoard" items="${localBoards}">
+                    <gsml:selectOption value="${localBoard.boardId}"
+                                       selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="titleInput">
+            <label for="titleInput" class="text2bold tint_333">Title</label>
+            <input id="titleInput" type="text" name="title" size="65" value="${discussionTitle}"/>
+        </div>
+        <div class="bodyInput">
+            <label for="bodyInput" class="text2bold tint_333">Details</label>
+            <textarea id="bodyInput" class="bodyInput"
+                      rows="5" cols="30"
+                      name="body"><!-- no collapse -->${discussionBody}</textarea>
+        </div>
+        <c:if test="${discussionId gt 0}">
+            <input type="hidden" name="discussionId" value="${discussionId}"/>
+            <input type="hidden" name="type" value="editDiscussion"/>
+        </c:if>
+        <div class="sd_OuterLayout clearfix">
+            <c:choose>
+                <c:when test="${discussionId gt 0}">
+                </c:when>
+                <c:otherwise>
+                    <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">Preview</span>
+                        </span>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+
+        <c:choose>
+            <c:when test="${discussionId gt 0}">
+                <c:set var="submitButtonText" value="Save"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="submitButtonText" value="Post&amp;nbsp;conversation"/>
+            </c:otherwise>
+        </c:choose>
+
+        <c:choose>
+            <c:when test="${discussionId gt 0}">
+                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_SaveLayout"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_InnerLayout"/>
+            </c:otherwise>
+        </c:choose>
+
+            <c:choose>
+                <c:when test="${discussionId gt 0}">
+                    <button class="${submitButtonStyle}" type="submit" name="post">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">${submitButtonText}</span>
+                        </span>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button class="${submitButtonStyle}" type="submit" name="post">
+                        <span class="lftDoor25">
+                            <span class="rtDoor25">
+                                <img src="/res/img/discussion_boards/db_speech_bubbles.png" width="37" height="25"
+                                     align="absmiddle"
+                                     alt="bubbles"/>${submitButtonText}</span>
+                        </span>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+
+        <button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
+            <span class="lftDoor25">
+                <span class="rtDoor25">Cancel</span>
+            </span>
+        </button>
+        </div>
+        <!-- end sd_OuterLayout -->
+        <!--<br class="clearfloat"/>-->
+    </form>
+
+    </div>
+    <!-- end startADiscussion -->
+
+</jsp:root>

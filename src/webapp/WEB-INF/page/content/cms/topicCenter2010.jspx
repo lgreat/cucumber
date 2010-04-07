@@ -245,14 +245,15 @@
                 <div id="recentDiscussions" class="mod">
                     ${recentDiscussions}
                 </div>
-
-                <!--div>
-                    <community:startADiscussionModule loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                      openElementJQuerySelector=".startADiscussion"
-                                                      topicCenterId="${requestScope.discussionBoard.topicCenterId}"
-                                                      discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"/>
-                </div-->
             </c:if>
+
+            <div class="startAConversationModule">
+                <c:set var="startAConversationModule">
+                    <c:import
+                            url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+                </c:set>
+                ${pageScope.startAConversationModule}
+            </div>
         </div>
         <!-- end #topicMainGS -->
 

@@ -420,6 +420,12 @@
         <property name="showRecentReviews" value="true"/>
     </bean>
 
+    <bean name="/community/startDiscussion.module"
+          class="gs.web.community.StartDiscussionHoverController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/startADiscussionModule"/>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>
