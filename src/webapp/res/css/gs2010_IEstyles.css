@@ -185,6 +185,9 @@ body.ie7 #pickGrade label, * + html #pickGrade label {
     width: auto;
     font-size: 12px;
 }
+body.ie .prefs div.hlpTxt {
+    left: 0;
+}
 
 * + html #footerAd {
     height: 91px;

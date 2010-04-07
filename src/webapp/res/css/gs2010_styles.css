@@ -2393,7 +2393,6 @@ p.hlpTxt {
     background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
  }
 #joinGS .prefs, #joinGS .btns {
-    position: relative;
     width: 548px;
     padding: 0 0 20px 132px;
     overflow: visible;
@@ -2456,6 +2455,7 @@ p.hlpTxt {
     top: 0;
     right: 0;
     text-indent: -100000px;
+    outline: none;
 }
 #grdShow.active {
     background-position: 50% -26px;
@@ -2470,6 +2470,7 @@ p.hlpTxt {
     background: #fff;
     border: solid #2092c4;
     border-width: 0 1px 1px;
+    outline: none;
 }
 #moreGrades.show {
     left: -1px;
@@ -2503,10 +2504,12 @@ p.hlpTxt {
     width: auto;
     left: 5px;
 }
-div.hlpTxt {
+.prefs div.hlpTxt {
     width: 132px;
-    margin: 0 0 0 -81%;
-    right: 132px;
+    float: none;
+    position: absolute;
+    left: -132px;
+    top: 0;
 }
 div.hlpTxt  p {
     margin: 1em 3em 1em 0;
