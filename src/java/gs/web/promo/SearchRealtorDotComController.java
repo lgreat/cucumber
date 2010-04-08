@@ -65,7 +65,7 @@ public class SearchRealtorDotComController extends AbstractController {
                 model.put(MODEL_OMNITURE_PAGE_NAME, request.getParameter(OMNITURE_PAGE_NAME_PARAM));
                 String size = request.getParameter(SIZE_PARAM);
                 if (StringUtils.isBlank(size)) {
-                    size = "320x250";
+                    size = "300x250";
                 }
                 model.put(MODEL_SIZE, size);
                 return new ModelAndView(_viewName, model);
