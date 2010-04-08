@@ -2797,6 +2797,16 @@ ul.srchSuggest li span {
 -----------------------------------------------------------------------------
 */
 
+#reviewGuidelines div.col_left {
+    width:600px;
+    float:left;
+}
+#reviewGuidelines div.col_right {
+    width:300px;
+    float:left;
+    padding:20px;
+}
+
 /*
 =4e-5 about sponsors
 -----------------------------------------------------------------------------
