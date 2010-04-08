@@ -3629,14 +3629,19 @@ width:50px;
     width: 13px;
     float: left;
     position: relative;
-    top: 6px;
+    top: 4px;
     vertical-align: middle;
 }
 #realtorDotCom.rdc_thin p input.rdType {
     clear: left;
+    top: 6px;
 }
 #realtorDotCom #rdcType2 {
     margin-left: 20px;
+}
+
+#realtorDotCom .mod_bd button.btn25 {
+    margin: 2px -3px 0;
 }
 #realtorDotCom .logo {
     position: absolute;
