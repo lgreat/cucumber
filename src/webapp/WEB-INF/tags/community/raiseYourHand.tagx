@@ -398,6 +398,7 @@
 
                 <c:forEach var="reply" items="${replies}">
 
+                    <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
                     <div class="ryh-reply">
                         <div class="${avatar} fltlft">
                             <c:choose>
