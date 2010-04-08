@@ -14,6 +14,7 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         PostComment,
         TrackGrade,
         GlobalHeader,
+        FooterNewsletter,
     }
     private boolean _mslOnly;
     private String _how;

@@ -199,6 +199,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 return "hover_greatnews";
             case GlobalHeader:
                 return "hover_headerjoin";
+            case FooterNewsletter:
+                return "hover_footernewsletter";
         }
         return null;
     }

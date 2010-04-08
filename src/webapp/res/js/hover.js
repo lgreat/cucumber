@@ -331,6 +331,11 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinGlobalHeader;
         GSType.hover.joinHover.showJoinNth();
     };
+    this.showJoinFooterNewsletter = function() {
+        GSType.hover.joinHover.setJoinHoverType("FooterNewsletter");
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinFooterNewsletter;
+        GSType.hover.joinHover.showJoinNth();
+    };
     this.showJoinNth = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
