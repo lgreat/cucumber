@@ -741,8 +741,17 @@ body.ie6 .sprite {
 =temporary modules
 --------------------------------------------------------------------------------------
 */
+body.ie #realtorDotCom p input.rdType {
+    top: 0;
+}
+body.ie #realtorDotCom.rdc_thin p input.rdType {
+    top: 2px;
+}
 body.ie7 #realtorDotCom.rdc_thin .mod_bd, *+html #realtorDotCom.rdc_thin .mod_bd {
     background-position: 1px 0;
+}
+body.ie6 #realtorDotCom p {
+    height: 1%;
 }
 body.ie6 #realtorDotCom.rdc_thin .mod_bd, *html #realtorDotCom.rdc_thin .mod_bd {
     padding-top: 162px;
