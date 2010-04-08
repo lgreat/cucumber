@@ -94,8 +94,6 @@
 
             if (searchText != "") {
                 formElem.searchtext.value = searchText;
-                console.log(formElem.searchtext.value);
-                console.log(formElem.searchtext.disabled);
             }
 
             return searchURL;
