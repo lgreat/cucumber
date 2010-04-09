@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.212 2010/03/25 18:26:53 eddie Exp $
+ * $Id: UrlBuilder.java,v 1.213 2010/04/09 20:50:06 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -1102,8 +1102,8 @@ public class UrlBuilder {
             _perlPage = true;
             _path = "/definitions/preschool_rating_categories.html";
         } else if (PARENT_REVIEW_GUIDELINES.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/static/guidelines.html/" + state.getAbbreviationLowerCase() + "/";
+            _perlPage = false;
+            _path = "/about/reviewGuidelines.page";
         } else if (GLOSSARY_TERM.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/glossary_single/" + state.getAbbreviation() + "/";
