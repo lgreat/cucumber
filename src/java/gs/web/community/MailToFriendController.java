@@ -8,6 +8,8 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.util.CmsUtil;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
@@ -143,8 +146,12 @@ public class MailToFriendController extends SimpleFormController {
         }
     }
 
-    protected void doSubmitAction(Object command) {
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object command,
+                                 BindException errors) throws Exception {
         MailToFriendCommand mtc = (MailToFriendCommand) command;
+        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setText(mtc.getMessage());
@@ -154,14 +161,10 @@ public class MailToFriendController extends SimpleFormController {
 
         try {
             _mailSender.send(smm);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.TellAFriend);
         } catch (MailException ex) {
             _log.info(ex.getMessage());
         }
-    }
-
-    protected ModelAndView onSubmit(Object command) {
-        MailToFriendCommand mtc = (MailToFriendCommand) command;
-        doSubmitAction(command);
 
         ModelAndView mv = new ModelAndView(getSuccessView());
         mv.getModel().put("refer", mtc.getRefer());

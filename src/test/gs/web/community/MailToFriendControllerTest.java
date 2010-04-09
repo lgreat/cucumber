@@ -31,6 +31,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
     private MockJavaMailSender _sender;
     private School _school;
     private static final String SCHOOL_TEST_NAME = "TestNameSchool";
+    private BindException _errors;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -197,28 +198,30 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertFalse(errors.hasErrors());
     }
 
-    public void testDoSubmitAction() {
+    public void testDoSubmitAction() throws Exception {
         MailToFriendCommand command = new MailToFriendCommand();
+        _errors = new BindException(command, "");
         command.setUserEmail("dlee@greatschools.org");
         command.setFriendEmail("dlee@greatschools.org");
 
         command.setRefer("School Profile");
 
         _controller.setMailSender(_sender);
-        ModelAndView mv = _controller.onSubmit(command);
+        ModelAndView mv = _controller.onSubmit(getRequest(), getResponse(), command, _errors);
 
         assertEquals(1, _sender.getSentMessages().size());
         assertEquals("School Profile", (String) mv.getModel().get("refer"));
     }
 
-    public void testDoSubmitActionAuthorizer() {
+    public void testDoSubmitActionAuthorizer() throws Exception {
         MailToFriendCommand command = new MailToFriendCommand();
+        _errors = new BindException(command, "");
         command.setUserEmail("dlee@greatschools.org");
         command.setFriendEmail("dlee@greatschools.org");
 
         command.setRefer("authorizer");
 
-        ModelAndView mv = _controller.onSubmit(command);
+        ModelAndView mv = _controller.onSubmit(getRequest(), getResponse(), command, _errors);
 
         assertEquals(1, _sender.getSentMessages().size());
         assertEquals("authorizer", (String) mv.getModel().get("refer"));        

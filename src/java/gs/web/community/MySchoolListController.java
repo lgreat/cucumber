@@ -12,6 +12,8 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
@@ -107,7 +109,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
             }
         } else {
             if (user != null) {
-                processCommand(command, request, user);
+                processCommand(command, request, response, user);
                 SessionContextUtil util = sessionContext.getSessionContextUtil();
                 util.saveCookies(response, sessionContext);
                 if (getViewName() != null) {
@@ -300,14 +302,17 @@ public class MySchoolListController extends AbstractController implements ReadWr
      * @param request - Used to extract query parameters
      * @param user - User on whose data commands are performed  
      */
-    protected void processCommand(String command, HttpServletRequest request, User user) {
+    protected void processCommand(String command, HttpServletRequest request, HttpServletResponse response, User user) {
+        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         String stateString = request.getParameter(PARAM_STATE);
         State state = getStateManager().getState(stateString);
         Set<Integer> ids = getSchoolIds(request);
         if (COMMAND_ADD.equals(command)) {
             addToMSL(state, ids, user);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.MSLAddSchool);
         } else if (COMMAND_REMOVE.equals(command)) {
             removeFromMSL(state, ids, user);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.MSLDeleteSchool);
         }
     }
 
