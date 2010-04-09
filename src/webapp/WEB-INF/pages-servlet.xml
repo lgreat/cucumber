@@ -676,6 +676,14 @@
         </property>
     </bean>
 
+    <bean name="/about/reviewGuidelines.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/reviewGuidelines</value>
+        </property>
+    </bean>
+
     <bean name="/about/aboutUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
