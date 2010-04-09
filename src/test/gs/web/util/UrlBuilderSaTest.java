@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.118 2010/03/25 18:26:53 eddie Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.119 2010/04/09 23:10:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -432,7 +432,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.PARENT_RATING_PRESCHOOL_EXPLAINED, State.CA, null);
         assertEquals("/definitions/preschool_rating_categories.html", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.PARENT_REVIEW_GUIDELINES, State.CA, null);
-        assertEquals("/cgi-bin/static/guidelines.html/ca/", builder.asSiteRelative(request));
+        assertEquals("/about/reviewGuidelines.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.PARENT_REVIEW_LEARN_MORE, State.CA, null);
         assertEquals("/cgi-bin/static/parentcomments.html/ca/", builder.asSiteRelative(request));
 
