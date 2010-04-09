@@ -34,6 +34,7 @@
             cancelClears="${true}"
             useParentForPreviewButton="${false}"
             useFrameForFormSubmission="${false}"
+            focusOnTopicSelect="${false}"
             useImageForSubmitButton="${false}"
             />
 
