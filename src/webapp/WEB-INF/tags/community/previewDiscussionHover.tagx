@@ -90,7 +90,7 @@
                     <!-- end discussion avatar -->
 
                     <div class="db_discussContainer fltlft">
-                        <b class="db_pointLeft db_discussArrow">&amp;nbsp;</b>
+                        <div class="db_pointLeft db_discussArrow"><!--do not collapse--></div>
 
                         <div class="db_discuss fltrt rnd8">
                             <p class="fltlft">

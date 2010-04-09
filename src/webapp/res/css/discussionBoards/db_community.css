@@ -1401,18 +1401,27 @@ fieldset label {
     margin:0;
 }
 
+#previewDiscussionDialog .dialogCancelButton{
+    display:block;
+}
+
 #previewDiscussionDialog .db_discussTopic{
     margin:0;
     padding:20px 0 15px 3px;
 }
 
-#previewDiscussionDialog .db_discussContainer b.db_pointLeft{
+#previewDiscussionDialog .db_discussContainer{
+    margin-left:0;
+    padding-left:5px;
+}
+
+#previewDiscussionDialog .db_discussContainer div.db_pointLeft{
     border-top: 7px solid #ebebeb;
     border-right: 7px solid white;
     border-bottom: 7px solid #ebebeb;
 }
 
-#previewDiscussionDialog b.db_discussArrow{
+#previewDiscussionDialog div.db_discussArrow{
     left:8px;
 }
 

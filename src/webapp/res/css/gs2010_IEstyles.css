@@ -63,6 +63,13 @@ General comments:
     background-color: #333;
 }
 
+/* =A- 4c-5.1 start a conversation
+-------------------------------------------------------------------------------------------*/
+
+.startAConversationModule .sd_InnerLayout{
+    margin:0 5px;
+}
+
 /* =B- ie8
 -------------------------------------------------------------------------------------------*/
 
@@ -502,6 +509,25 @@ body.ie8 #carousel #next {
 
 body.ie8 .infiniteCarousel:focus {
     outline: none;
+}
+
+/* =B- 4c-5.1 start a conversation
+-------------------------------------------------------------------------------------------*/
+
+body.ie8 .startAConversationModule input, body.ie7 .startAConversationModule input{
+    width:328px;
+}
+
+.startAConversationModule .sd_OuterLayout{
+    margin-left:54px;
+}
+
+body.ie6 .startAConversationModule textarea{
+    width:324px;
+}
+
+body.ie6 .startAConversationModule #sd_header{
+    display:inline-block;
 }
 
 /* =C- ie7 4a- home page carousel

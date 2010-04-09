@@ -142,15 +142,19 @@
                          height="58"
                          alt="big speech bubbles"
                          align="absmiddle"/>
+                    <c:set var="titleStyle" value="sd_title"/>
+                    <c:set var="guidelineStyle" value="text3"/>
                 </c:when>
                 <c:otherwise>
                     <!-- DONE-RANDALL - do use sprite image -->
                     <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
+                    <c:set var="titleStyle" value="title2-d61"/>
+                    <c:set var="guidelineStyle" value="smallAlertText"/>
                 </c:otherwise>
             </c:choose>
 
 
-            <h2 class="sd_title fltlft">
+            <h2 class="${titleStyle} fltlft">
                 <c:choose>
                     <c:when test="${discussionId gt 0}">
                         Edit conversation
@@ -169,7 +173,7 @@
         </div>
         <form action="/community/discussionSubmission.page" method="post" target="_parent"
               id="discussionSubmissionForm" accept-charset="Windows-1252">
-            <div class="communityGuidelines text3 fltrt">
+            <div class="communityGuidelines ${guidelineStyle} fltrt">
                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                            title="GreatSchools Community Standards"
                                            href="/terms/?state=$STATE#communityStandards">
@@ -261,13 +265,13 @@
                                              width="37"
                                              height="25"
                                              align="absmiddle"
-                                             alt="bubbles"/>
+                                             alt="bubbles"/>${submitButtonText}
                                     </c:when>
                                     <c:otherwise>
                                         <!-- DONE-RANDALL - don't use image -->
+                                        ${submitButtonText}
                                     </c:otherwise>
                                 </c:choose>
-                                ${submitButtonText}
                             </span>
                             </span>
                         </button>
