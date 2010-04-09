@@ -2423,6 +2423,12 @@ a.ui-dialog-titlebar-close .ui-icon {
     color: #d61;
     position: relative;
 }
+#signInHover .ui-dialog-content h2 {
+    width: 508px;
+}
+#joinHover {
+    position: relative;
+}
 #joinHover h2 {
     overflow: hidden;
     height: 26px;
@@ -2431,12 +2437,15 @@ a.ui-dialog-titlebar-close .ui-icon {
     width: 480px;
 }
 .ui-dialog-content h2 span {
-    float: left;
+    float: right;
     margin: 8px 0;
     font: 11px Arial, sans-serif;
     color: #333;
 }
-.ui-dialog-content h2 span.hoverTitle {
+#joinHover.ui-dialog-content h2 span {
+   float: left;
+}
+#joinHover.ui-dialog-content h2 span.hoverTitle {
     font: 24px/1 Georgia, serif;
     margin: 0 64px 0 0;
     color: #d61;
@@ -2509,7 +2518,7 @@ fieldset label {
 .signin label {
     float: left;
     margin: 0 15px 0 0;
-    width: 89px;
+    width: 100px;
 }
 .signin input {
     width: 210px;
@@ -2554,7 +2563,7 @@ p.hlpTxt {
 }
 .prefs ul.col {
     padding: 9px 0;
-    width: 445px;
+    width: 548px;
     border-top: 1px dotted #999;
     overflow: visible;
 }
@@ -2657,10 +2666,8 @@ p.hlpTxt {
 }
 .prefs div.hlpTxt {
     width: 132px;
-    float: none;
-    position: absolute;
-    left: -132px;
-    top: 0;
+    margin:0 0 0 -100%;
+    right: 132px;
 }
 div.hlpTxt  p {
     margin: 1em 3em 1em 0;

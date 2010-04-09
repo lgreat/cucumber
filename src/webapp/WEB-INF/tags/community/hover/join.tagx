@@ -156,7 +156,7 @@
                 <div class="hlpTxt col">
                     <p>* Indicates a required field.</p>
 
-                    <p>your privacy is important to us.
+                    <p>Your privacy is important to us.
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                     title="GreatSchools Privacy Policy"
                     href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>

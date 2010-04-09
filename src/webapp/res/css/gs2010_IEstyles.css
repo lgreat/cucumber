@@ -193,7 +193,7 @@ body.ie7 #pickGrade label, * + html #pickGrade label {
     font-size: 12px;
 }
 body.ie .prefs div.hlpTxt {
-    left: 0;
+    left: 132px;;
 }
 
 * + html #footerAd {
@@ -398,6 +398,13 @@ body.ie6 #searchAgain {
 body.ie6 .srchCatComm li span.icon {
     left: -25px;
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
+}
+body.ie6 .dialog_intro {
+    height: 1%;
+    background-color: #ebebeb;
+}
+body.ie6 .prefs div.hlpTxt {
+    left: -100%;
 }
 
 *html iframe.ieShim {
