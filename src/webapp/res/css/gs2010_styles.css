@@ -3705,6 +3705,12 @@ padding:3px 5px 0;
 text-align:right;
 width:50px;
 }
+#realtorDotCom.rdc_short p label.noflt {
+float:left;
+padding:3px 5px 0;
+text-align:left;
+width:120px;
+}
 #realtorDotCom p label.radioLabel {
     width: auto;
     text-align: left;
@@ -3714,6 +3720,9 @@ width:50px;
 #realtorDotCom.rdc_thin p label.radioLabel {
     margin-right: 0;
 }
+#realtorDotCom.rdc_short p label.radioLabel {
+    margin-right: 0;
+}
 #realtorDotCom p input {
     width: 210px;
 }
@@ -3721,7 +3730,11 @@ width:50px;
     width: 136px;
     margin: 0 0 6px;
 }
-
+#realtorDotCom.rdc_short p input {
+    width: 120px;
+    margin: 0 0 6px;
+    clear:left;
+}
 #realtorDotCom p input.rdPrice {
     width: 63px;
 }
@@ -3737,6 +3750,10 @@ width:50px;
     vertical-align: middle;
 }
 #realtorDotCom.rdc_thin p input.rdType {
+    clear: left;
+    top: 6px;
+}
+#realtorDotCom.rdc_short p input.rdType {
     clear: left;
     top: 6px;
 }
@@ -3760,4 +3777,17 @@ width:50px;
     border-top: 1px dotted #c6c6c6;
     width: 113px;
     margin: .5em auto;
+}
+#realtorDotCom.rdc_short .btn25 {
+    float:left;
+    padding-left:8px;
+}
+#realtorDotCom.rdc_short label {
+    width:120px;
+}
+#realtorDotCom.rdc_short input#rdcCity {
+    float:left;
+}
+#realtorDotCom.rdc_short img {
+    width:60px;
 }

@@ -126,21 +126,31 @@
         ]]>
     </script>
     <c:set var="alternateStyle" value=""/>
-    <c:if test="${requestScope.size eq '160x600'}">
-        <c:set var="alternateStyle" value="rdc_thin"/>
-    </c:if>
-    <div class="mod ${alternateStyle}" id="realtorDotCom">
-        <c:if test="${requestScope.size ne '160x600'}">
-        <div class="mod_hd">
-            <h3>Find a Home</h3>
-        </div>
-        </c:if>
-        <div class="mod_bd">
-            <p><strong>Find a home nearby</strong>
+
+    <c:choose>
+        <c:when test="${requestScope.size eq '160x600'}">
+            <c:set var="alternateStyle" value="rdc_thin"/>
+        </c:when>
+        <c:when test="${requestScope.size eq '300x137'}">
+            <c:set var="alternateStyle" value="rdc_short"/>
+        </c:when>
+        <c:otherwise></c:otherwise>
+    </c:choose>
+
+    <!-- display either default or 160x600 skyscraper realtorDotCom here -->
+    <c:if test="${requestScope.size ne '300x137'}">
+        <div class="mod ${alternateStyle}" id="realtorDotCom">
+            <c:if test="${requestScope.size ne '160x600'}">
+            <div class="mod_hd">
+                <h3>Find a Home</h3>
+            </div>
+            </c:if>
+            <div class="mod_bd">
+                <p><strong>Find a home nearby</strong>
                 from more than 3 million real estate listings, homes for sale, and rental properties</p>
 
-            <p><label for="rdcCity">Location:</label>
-            <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
+                <p><label for="rdcCity">Location:</label>
+                <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
 
             <p>
                 <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing" checked="checked"/><label for="rdcTypeExisting" class="radioLabel">Homes for sale</label>
@@ -183,6 +193,43 @@
                 <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
             </a>
         </div>
+        </div>
+    </c:if>
 
-    </div>
+    <!-- display either default or 300x137 short realtorDotCom here -->
+    <c:if test="${requestScope.size eq '300x137'}">
+        <div class="mod ${alternateStyle}" id="realtorDotCom">
+            <div class="mod_hd">
+                <h3>Find Nearby Homes for Sale</h3>
+            </div>
+            <div class="mod_bd">
+                <p><label for="rdcCity">Search location:</label></p>
+                <p>
+                    <c:set var="defaultState" value="${requestScope.defaultState}" scope="page"/>
+                    <c:if test="${not empty requestScope.defaultCity and not empty requestScope.defaultState}">
+                        <c:set var="defaultState" value=",${requestScope.defaultState}" scope="page" />
+                    </c:if>
+                <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}${defaultState}"/>
+
+                <button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
+                    <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
+                </button></p>
+
+                <p>
+                    <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing" checked="checked"/><label for="rdcTypeExisting" class="noflt">Homes for sale</label>
+                    <input type="radio" name="rdcType" class="rdType" id="rdcTypeNew" value="new"/><label for="rdcTypeNew" class="noflt">New construction</label>
+                </p>
+
+                <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank">
+                    <input type="hidden" name="gate" value="gs"/>
+                    <input type="hidden" name="source" value="a28956"/>
+                    <input type="hidden" name="searchtext" value="" disabled="disabled"/>
+                </form>
+
+                <a href="http://www.realtor.com/?gate=gs&amp;amp;source=a28957" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_browseLogo');} return true;" target="_blank">
+                    <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com" class="logo" />
+                </a>
+            </div>
+        </div>
+    </c:if>
 </jsp:root>

@@ -10,6 +10,8 @@
                              description="Quay in the gs_schooldb.property table where the ad ratio is stored"/>
     <jsp:directive.attribute name="defaultCity" required="false" type="java.lang.String"
                              description="Default city to populate in form"/>
+    <jsp:directive.attribute name="defaultState" required="false" type="java.lang.String"
+                             description="Default state to populate in form"/>
     <jsp:directive.attribute name="showAdPct" required="false" type="java.lang.Integer"
                              description="Per tag override of default ad ratio"/>
     <jsp:directive.attribute name="size" required="false" type="java.lang.String"
@@ -24,6 +26,7 @@
         <c:param name="pageAdRatioKey" value="${pageAdRatioKey}"/>
         <c:param name="showAdPct" value="${showAdPct}"/>
         <c:param name="defaultCity" value="${defaultCity}"/>
+        <c:param name="defaultState" value="${defaultState}"/>
         <c:param name="size" value="${size}"/>
     </c:import>
 

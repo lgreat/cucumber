@@ -25,11 +25,13 @@ public class SearchRealtorDotComController extends AbstractController {
     
     public static final String PAGE_AD_RATIO_KEY_PARAM = "pageAdRatioKey";
     public static final String DEFAULT_CITY_PARAM = "defaultCity";
+    public static final String DEFAULT_STATE_PARAM = "defaultState";
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
     public static final String OMNITURE_PAGE_NAME_PARAM = "omniturePageName";
     public static final String SIZE_PARAM = "size";
 
     public static final String MODEL_DEFAULT_CITY = "defaultCity";
+    public static final String MODEL_DEFAULT_STATE = "defaultState";
     public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
     public static final String MODEL_SIZE = "size";
 
@@ -62,6 +64,7 @@ public class SearchRealtorDotComController extends AbstractController {
             if (!showAd) {
                 Map<String, Object> model = new HashMap<String, Object>();
                 model.put(MODEL_DEFAULT_CITY, request.getParameter(DEFAULT_CITY_PARAM));
+                model.put(MODEL_DEFAULT_STATE, request.getParameter(DEFAULT_STATE_PARAM));
                 model.put(MODEL_OMNITURE_PAGE_NAME, request.getParameter(OMNITURE_PAGE_NAME_PARAM));
                 String size = request.getParameter(SIZE_PARAM);
                 if (StringUtils.isBlank(size)) {
