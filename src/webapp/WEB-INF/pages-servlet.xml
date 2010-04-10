@@ -680,7 +680,7 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>about/reviewGuidelines</value>
+            <value>about/guidelines</value>
         </property>
     </bean>
 
