@@ -459,7 +459,7 @@ GSType.hover.SignInHover = function() {
         jQuery('#signInHover .redirect_field').val(window.location.href);
     };
     this.addMessage = function(text) {
-        jQuery('#signInHover .messages').append('<p>' + text + '</p>');
+        jQuery('#signInHover .messages').append('<p><span>\u00BB</span> ' + text + '</p>');
     };
     this.clearMessages = function() {
         jQuery('#signInHover .messages').empty();

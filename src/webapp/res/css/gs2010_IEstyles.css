@@ -154,6 +154,15 @@ body.ie7 .prefs ul.col li, * + html .prefs ul.col li {
 body.ie7 #joinBtn {
     width: 96px;
 }
+body.ie7 #signinBtn {
+    width: 96px;
+}
+body.ie7 #hover_forgotPasswordSubmit {
+    width: 144px;
+}
+body.ie7 #clsValNewEmail, body.ie7 #clsExpVer {
+    width: 208px;
+}
 body.ie7 #joinGS  fieldset.btns {
    z-index: 10;
 }
@@ -396,14 +405,32 @@ body.ie6 .srchCatComm li span.icon {
     left: -25px;
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
+body.ie6 .ui-dialog-content h2 span {
+    position: relative;
+    top: -27px;
+}
 body.ie6 .dialog_intro {
     height: 1%;
     background-color: #ebebeb;
 }
 body.ie6 .prefs div.hlpTxt {
-    left: 132px;
+    left: 100%;
 }
-
+body.ie6 #joinBtn {
+    width: 96px;
+}
+body.ie6 #signinBtn {
+    width: 96px;
+}
+body.ie6 #hover_forgotPasswordSubmit {
+    width: 144px;
+}
+body.ie6 #clsValNewEmail, body.ie6 #clsExpVer {
+    width: 208px;
+}
+body.ie6 #joinGS  fieldset.btns {
+   z-index: 10;
+}
 *html iframe.ieShim {
     position: absolute; /* account for the border */
     left: -0.25em;
@@ -431,7 +458,9 @@ body.ie6 .rtDoor25 {
     height: 25px;
     overflow: hidden;
 }
-
+body.ie6 .lftDoor25 {
+    margin: 0;
+}
 /* =A- ie 4a-1 find-compare
 -------------------------------------------------------------------------------------------*/
 
