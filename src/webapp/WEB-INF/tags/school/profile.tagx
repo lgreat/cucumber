@@ -442,13 +442,13 @@
         -->
         <c:if test="${school.levelCode != 'p'}">
             <td class="last">
-                <link:schoolCompareSchool school="${school}"
+                <link:mapSchool school="${school}"
                                           styleClass="last GS_CI9_"
-                                          styleId="Compare_Schools_Tab${styleIdSuffix}" from="tab"
+                                          styleId="Map_This_School_Tab${styleIdSuffix}"
                                           anchor="${headerAnchor}">
-                    Compare<br/>
-                    Schools
-                </link:schoolCompareSchool>
+                    Map This<br/>
+                    School
+                </link:mapSchool>
             </td>
         </c:if>
     </tr>

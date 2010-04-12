@@ -3011,6 +3011,20 @@
              Currently <code>/school/mapSchool.page</code>.]]>
         </description>
         <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
             <name>school</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
