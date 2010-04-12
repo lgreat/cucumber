@@ -259,30 +259,6 @@
     </div>
 </c:if>
 
-<div id="searchResults">
-    <c:if test="${not empty mainResults}">
-        <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"/>
-    </c:if>
-    <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
-        <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
-    </c:if>
-
-    <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
-
-    <div id="searchFooter" class="cleared">
-        <c:if test="${showQueryAgain}">
-            <c:if test="${showWhatStateTheySearchedIn}">
-                <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
-            </c:if>
-            <search:searchControl rememberQuery="true"
-                                  showStates="${showQueryAgain}"
-                                  showLinks="true"
-                                  fieldLength="30"/>
-        </c:if>
-    </div>
-</div>
-</div>
-
 <c:set var="pagename" value="School Search"/>
 
 <!--Build the Omniture results variable-->
@@ -320,19 +296,43 @@
         </c:choose>
     </c:otherwise>
 </c:choose>
-<c:set var="omniturePagename" value="${pagename}:${rVal}"/>
+<c:set var="omniturePageName" value="${pagename}:${rVal}" scope="request"/>
+
+<div id="searchResults">
+    <c:if test="${not empty mainResults}">
+        <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"/>
+    </c:if>
+    <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
+        <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
+    </c:if>
+
+    <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
+
+    <div id="searchFooter" class="cleared">
+        <c:if test="${showQueryAgain}">
+            <c:if test="${showWhatStateTheySearchedIn}">
+                <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+            </c:if>
+            <search:searchControl rememberQuery="true"
+                                  showStates="${showQueryAgain}"
+                                  showLinks="true"
+                                  fieldLength="30"/>
+        </c:if>
+    </div>
+</div>
+</div>
 
 <div id="col_right">
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
     <ad:AboveFold_300x600/>
-    <promo:searchRealtorDotCom omniturePageName="${omniturePagename}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
+    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
     <ad:multiTextAd blurb="Advertiser Links"/>
     <ad:Top_300x137/>
 </div>
 
 <br clear="left"/>
 
-<mod:tracking pageName="${omniturePagename}"
+<mod:tracking pageName="${omniturePageName}"
               constraint="${param.type}"
               query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
               hier1="Search,${pagename},${hVal}"

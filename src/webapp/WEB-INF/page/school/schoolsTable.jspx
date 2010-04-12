@@ -66,7 +66,8 @@
         <c:set var="hier1" value="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
     </c:otherwise>
 </c:choose>
-
+<c:set var="omniturePageName" value="${pageName}" scope="request"/>
+    
 <jsp:scriptlet>
     gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
     if (null != pageHelper) {
