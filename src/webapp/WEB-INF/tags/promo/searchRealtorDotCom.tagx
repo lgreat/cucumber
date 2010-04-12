@@ -36,9 +36,9 @@
         </c:when>
         <c:otherwise>
             ${showAd}
+            <!-- Set sprop 26 here so it can be picked up by the tracking tagx later -->
+            <c:set var="realtorDotComModule" value="${size}_search" scope="request"/>
         </c:otherwise>
     </c:choose>
 
-    <!-- Set sprop 26 here so it can be picked up by the tracking tagx later -->
-    <c:set var="realtorDotComModule" value="${size}_search" scope="request"/>
 </jsp:root>
