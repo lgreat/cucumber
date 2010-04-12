@@ -31,7 +31,8 @@ import java.util.Date;
  */
 public class RegistrationConfirmController extends AbstractController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registrationConfirm.page";
-    public static final Long EXPIRE_DURATION_IN_MILLIS = 5L * 24L * 60L * 60L * 1000L; // 5 days in milliseconds
+//    public static final Long EXPIRE_DURATION_IN_MILLIS = 5L * 24L * 60L * 60L * 1000L; // 5 days in milliseconds
+    public static final Long EXPIRE_DURATION_IN_MILLIS = 30L * 60L * 1000L; // 30 minutes in milliseconds
     protected final Log _log = LogFactory.getLog(getClass());
 
     private String _viewName;
