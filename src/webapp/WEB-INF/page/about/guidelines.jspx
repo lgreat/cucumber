@@ -16,7 +16,6 @@
 
     <jsp:directive.page contentType="text/html"/>
     <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-    <pageHelper:hideFooterAd/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -39,7 +38,7 @@
 
                     <p>One reason GreatSchools is the most trusted resource for school information is that we publish both negative and positive reviews. It’s important, therefore, that whatever you post on GreatSchools is in line with our community and school review guidelines. We ask that you be responsible and thoughtful when sharing your opinion, in keeping with our goal of making the GreatSchools community safe and civilized.</p>
 
-                    <p>We strive to maintain a respectful atmosphere, so, in addition to our community guidelines, please make sure your review does not contain any of the following: </p>
+                    <p>We strive to maintain a respectful atmosphere, so, in addition to our <a href="/terms/?#communityStandards">community guidelines</a>, please make sure your review does not contain any of the following: </p>
                     <ol>
                         <li>Obscenities and hateful, insulting, or otherwise inappropriate language.</li>
                         <li>Names! Do not target specific individuals or identify teachers, students, or staff. This is for safety and privacy reasons.</li>
