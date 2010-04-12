@@ -1332,17 +1332,17 @@ fieldset label {
 
 #previewDiscussionDialog .db_discussContainer{
     margin-left:0;
-    padding-left:5px;
+    padding-left:20px;
 }
 
 #previewDiscussionDialog .db_discussContainer div.db_pointLeft{
     border-top: 7px solid #ebebeb;
-    border-right: 7px solid white;
+    border-right: 10px solid white;
     border-bottom: 7px solid #ebebeb;
 }
 
 #previewDiscussionDialog div.db_discussArrow{
-    left:8px;
+    left:10px;
 }
 
 #previewDiscussionDialog .db_discuss{
@@ -1352,7 +1352,7 @@ fieldset label {
 }
 
 #previewDiscussionDialog .sd-btn-layout{
-    margin:0 20px 24px 65px;
+    margin:0 20px 24px 70px;
 }
 
 #previewDiscussionDialog .btn25 {

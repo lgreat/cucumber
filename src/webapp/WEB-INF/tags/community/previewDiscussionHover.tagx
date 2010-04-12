@@ -70,8 +70,8 @@
                  height="58" alt="big speech bubbles" align="absmiddle"/>
 
         <h2 class="sd_title fltlft">Preview</h2>
-        <div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
-                      height="11" alt="close modal"/></p></div>
+        <!--<div class="titlebar-close dialogCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+                      height="11" alt="close modal"/></p></div>-->
         <br class="clearfloat"/>
         </div>
 
@@ -92,7 +92,7 @@
                     <div class="db_discussContainer fltlft">
                         <div class="db_pointLeft db_discussArrow"><!--do not collapse--></div>
 
-                        <div class="db_discuss fltrt rnd8">
+                        <div class="db_discuss rnd8">
                             <p class="fltlft">
                                 <span class="smallAlertTextBoldNeutral">${requestScope.context.user.userProfile.screenName}</span>
                                 <span class="smallText1">, a moment ago</span>

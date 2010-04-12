@@ -35,6 +35,11 @@ General comments:
 -------------------------------------------------------------------------------------------*/
 
 
+.gainlayout {
+    position: relative;
+    zoom: 1;
+}
+
 #utilLinks .nav_menu {
     border: 0;
 }
@@ -654,6 +659,27 @@ body.ie7 .ryh-reply-text p.fltrt {
 
 body.ie7 .infiniteCarousel .arrow{
     line-height:0.8;
+}
+
+/* =4c-5.2 preview a conversation
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 #previewDiscussionDialog .db_discuss, body.ie6 #previewDiscussionDialog .db_discuss{
+    float:left;
+}
+
+
+body.ie7 #previewDiscussionDialog .db_discussContainer div.db_pointLeft, body.ie6 #previewDiscussionDialog .db_discussContainer div.db_pointLeft{
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top:7px solid #ebebeb;
+    border-right:10px solid white;
+    border-bottom:7px solid #ebebeb;
+}
+
+body.ie6 #previewDiscussionDialog .sd-btn-layout{
+    margin:0 20px 24px 35px;
 }
 
 /* =D- ie6 4a- home page carousel
