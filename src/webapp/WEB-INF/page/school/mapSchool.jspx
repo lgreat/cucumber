@@ -125,8 +125,10 @@
     <!-- Two extra links for the nearby box. Placed here and then positioned inside the box -->
     <ul id="extraLinks">
         <c:if test="${hasNearby and (school.levelCode != 'p')}">
-            <li id="nearMore"><link:schoolCompareSchool school="${school}">Top-rate ${city} schools &gt;</link:schoolCompareSchool></li>
+            <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
         </c:if>
+
+        <li id="topRatedSchools"><link:city city="${city}" state="${state}">Top-rated ${city} schools &gt;</link:city></li>
     </ul>
     </school:profile>
     <mod:tracking pageName="${pageName}"

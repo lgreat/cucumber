@@ -207,7 +207,7 @@
                 <p>
                     <c:set var="defaultState" value="${requestScope.defaultState}" scope="page"/>
                     <c:if test="${not empty requestScope.defaultCity and not empty requestScope.defaultState}">
-                        <c:set var="defaultState" value=",${requestScope.defaultState}" scope="page" />
+                        <c:set var="defaultState" value=" ,${requestScope.defaultState}" scope="page" />
                     </c:if>
                 <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}${defaultState}"/>
 
