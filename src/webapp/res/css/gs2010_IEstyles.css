@@ -163,10 +163,10 @@ body.ie7 #hover_forgotPasswordSubmit {
 body.ie7 #clsValNewEmail, body.ie7 #clsExpVer {
     width: 208px;
 }
-body.ie7 #joinGS  fieldset.btns {
+body.ie7 #joinGS  fieldset.btns, body.ie6 #joinGS  fieldset.btns {
    z-index: 10;
 }
-body.ie7 #joinGS fieldset.prefs {
+body.ie7 #joinGS fieldset.prefs, body.ie6 #joinGS fieldset.prefs {
     z-index: 30;
 }
 body.ie .prefs ul.col li.grades, * + html .prefs ul.col li.grades {
@@ -413,9 +413,32 @@ body.ie6 .dialog_intro {
     height: 1%;
     background-color: #ebebeb;
 }
-body.ie6 .prefs div.hlpTxt {
-    left: 100%;
+body.ie6 .prefs ul.col {
+    height: 1%;
+    float: none;
 }
+body.ie6 .prefs div.hlpTxt {
+    height: 118px;
+    z-index: 400;
+    margin: 0;
+    left: 0;
+    top: 0;
+    position: absolute;
+    float: none;
+}
+body.ie6 #moreGrades li {
+    clear: both;
+    padding: 0;
+    margin: 0;
+}
+body.ie6 #moreGrades li label {
+    display: inline;
+}
+body.ie6 #moreGrades li input {
+    clear: left;
+    display: inline;
+}
+
 body.ie6 #joinBtn {
     width: 96px;
 }
