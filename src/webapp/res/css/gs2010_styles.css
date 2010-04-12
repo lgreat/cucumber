@@ -2401,21 +2401,33 @@ db_discussContainer .db_discuss_full p {
 }
 
 .ui-dialog-titlebar {
-    position: relative;
-    font-size: 1px;
+    font-size: 11px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
 }
 a.ui-dialog-titlebar-close {
     position: absolute;
-    top: 15px;
-    right: 0;
+    top: 10px;
+    right: 20px;
+    width: auto;
+    height: auto;
     font-size: 11px;
     text-decoration: none;
     color: #777;
     text-transform: uppercase;
 }
+a.ui-state-hover {
+    text-decoration: underline;
+}
 a.ui-dialog-titlebar-close .ui-icon {
-    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100% 1px no-repeat;
+    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100% 2px no-repeat;
     padding: 0 15px 0 0;
+    display: block;
+    position: relative;
 }
 .ui-dialog-content h2 {
     margin: 25px 0 12px;

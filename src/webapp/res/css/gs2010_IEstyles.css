@@ -192,9 +192,6 @@ body.ie7 #pickGrade label, * + html #pickGrade label {
     width: auto;
     font-size: 12px;
 }
-body.ie .prefs div.hlpTxt {
-    left: 132px;;
-}
 
 * + html #footerAd {
     height: 91px;
@@ -404,7 +401,7 @@ body.ie6 .dialog_intro {
     background-color: #ebebeb;
 }
 body.ie6 .prefs div.hlpTxt {
-    left: -100%;
+    left: 132px;
 }
 
 *html iframe.ieShim {
