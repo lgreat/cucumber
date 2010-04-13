@@ -466,6 +466,9 @@ body.ie6 #clsValNewEmail, body.ie6 #clsExpVer {
 body.ie6 #joinGS  fieldset.btns {
    z-index: 10;
 }
+body.ie6 #awardPanel, body.ie6 #content  {
+    height: 1%;
+}
 *html iframe.ieShim {
     position: absolute; /* account for the border */
     left: -0.25em;
