@@ -24,7 +24,7 @@
                     modal: true,
                     draggable: false,
                     width: 595,
-                    title: "Preview",
+                    //title: "Preview",
                     bgiframe: true
                 });
             };
