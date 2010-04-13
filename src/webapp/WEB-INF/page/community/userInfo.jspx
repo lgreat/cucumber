@@ -140,29 +140,36 @@
 <div class="module">
     <c:if test="${!requestScope.viewAllActivity}">
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
-    <h2>${requestScope.pageHeading}
+    <h2 class="fltlft">${requestScope.pageHeading}</h2>
     <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
         <c:choose>
             <c:when test="${requestScope.memberReport eq true}">
-                <span class="fltrt reported">You've reported this member.</span>
+                <span class="fltrt reported"><span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span>You've reported this member.</span>
             </c:when>
             <c:otherwise>
-                <span class="fltrt"><a class="flag reportIt" id="report_member_${pageUser.id}"
-                                       href="${loginRedirectUrl}">Report this member <span class="go">&amp;#187;</span></a></span>
+                <span class="fltrt">
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}"
+                       href="${loginRedirectUrl}">Report this member <span class="go">&amp;#187;</span></a>
+                </span>
             </c:otherwise>
         </c:choose>
     </c:if>
     <c:if test="${requestScope.canBanMember}">
         <c:choose>
             <c:when test="${pageUser.userProfile.active}">
-                <span class="fltrt"><a href="#" id="deactivateMember">Deactivate this member</a></span>
+                <span class="fltrt">
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#" id="deactivateMember">Deactivate this member</a></span>
             </c:when>
             <c:otherwise>
-                <span class="fltrt sprite reportIt-nbg"><a href="#" id="reactivateMember">Reactivate this member</a></span>
+                <span class="fltrt">
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#" id="reactivateMember">Reactivate this member</a>
+                </span>
             </c:otherwise>
         </c:choose>
     </c:if>
-    </h2>
+
+    <br class="clearfloat"/>
+
     <c:choose>
         <c:when test="${avatarAlertType eq 'sync'}">
             <p class="smallAlertText">Your new avatar has been uploaded.</p>
@@ -249,29 +256,32 @@
         <c:out value="${requestScope.pageType eq 'userAccount' and !requestScope.viewAllActivity ? ' col' : ''}" />
     </c:set>
     <div class="md activity ${myAccClass}">
-    <h3 class="subhead1">${recentActivityTitle}<c:if test="${not empty requestScope.recentPosts}"><span class="fltrt">
-
-    <c:choose>
-        <c:when test="${requestScope.viewAllActivity}">
-            <a href="${requestScope.uri}">Return to
-                <c:choose>
-                    <c:when test="${requestScope.pageType eq 'userAccount'}">
-                        account <span class="go">&amp;#187;</span>
-                    </c:when>
-                    <c:otherwise>
-                        profile <span class="go">&amp;#187;</span>
-                    </c:otherwise>
-                </c:choose>
-            </a>
-        </c:when>
-        <c:otherwise>
-            <c:if test="${requestScope.showViewAllActivityLink}">
-                <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
+        <h3 class="subhead1 fltlft">${recentActivityTitle}</h3>
+            <c:if test="${not empty requestScope.recentPosts}">
+                <span class="fltrt">
+                    <c:choose>
+                        <c:when test="${requestScope.viewAllActivity}">
+                            <a href="${requestScope.uri}">Return to
+                                <c:choose>
+                                    <c:when test="${requestScope.pageType eq 'userAccount'}">
+                                        account <span class="go">&amp;#187;</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        profile <span class="go">&amp;#187;</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${requestScope.showViewAllActivityLink}">
+                                <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
+                </span>
             </c:if>
-        </c:otherwise>
-    </c:choose>
 
-    </span></c:if></h3>
+    <br class="clearfloat"/>
 
     <c:choose>
         <c:when test="${empty requestScope.recentPosts}">
@@ -320,7 +330,10 @@
                     </c:choose>
 
                     <c:if test="${supportedContentType}">
-                        <li><span class="icon"><!-- icon --></span>
+
+                        <li>
+                            <span class="icon"><!-- icon --></span>
+
                             <h4 class="text3">${introLabel}: <link:discussion discussionId="${discussion.id}"
                                                                               fullUri="${discussionFullUri}"
                                                                               discussionReplyId="${replyId}"
@@ -339,6 +352,7 @@
                                         linkClass="smallText1"/>
                             </p>
                         </li>
+
                     </c:if>
                 </c:forEach>
             </ul>
