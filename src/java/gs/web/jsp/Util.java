@@ -205,7 +205,7 @@ public class Util {
     public static String generateTeaserText(String textToDisplay, int minLength, int maxLength) throws IOException {
         String teaserBody = null;
         String teaserEnder = "... ";
-        if (StringUtils.length(textToDisplay) > minLength) {
+        if (StringUtils.length(textToDisplay) > maxLength) {
             teaserBody = WordUtils.abbreviate(textToDisplay, minLength, maxLength, teaserEnder);
         } else {
             teaserBody = textToDisplay;

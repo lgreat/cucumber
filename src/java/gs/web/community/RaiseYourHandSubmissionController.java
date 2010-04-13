@@ -22,8 +22,6 @@ public class RaiseYourHandSubmissionController extends DiscussionSubmissionContr
             reply = handleRaiseYourHandSubmission(request, response, command);
         }
 
-        String teaserText = Util.generateTeaserText(reply.getBody(), 117, 138);
-
         response.setContentType("application/json");
 
         PrintWriter out = response.getWriter();
@@ -31,8 +29,7 @@ public class RaiseYourHandSubmissionController extends DiscussionSubmissionContr
         if (reply != null) {
             out.println("\"status\":\"ok\",");
             out.println("\"replyId\":\"" + reply.getId() + "\",");
-            out.println("\"body\":\"" + StringEscapeUtils.escapeJavaScript(reply.getBody()) + "\",");
-            out.println("\"teaserText\":\"" + StringEscapeUtils.escapeJavaScript(teaserText) + "\"");
+            out.println("\"body\":\"" + StringEscapeUtils.escapeJavaScript(reply.getBody()) + "\"");
         } else {
             out.println("\"status\":\"error\"");
         }

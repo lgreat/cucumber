@@ -73,9 +73,8 @@
                             var newRyhPost = $j('#recentAnswerTemplate').clone();
                             var replyId = data.replyId;
                             var body = data.body;
-                            var teaserText = data.teaserText;
                             newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
-                            newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', teaserText));
+                            newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
                             $j('.recentAnswers').prepend(newRyhPost.children());
                             var numRecent = $j('.recentAnswers .ryh-reply').size();
                             if (numRecent &gt; ${ryhMaxNumReplies}) {
