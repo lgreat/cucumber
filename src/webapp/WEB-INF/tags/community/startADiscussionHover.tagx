@@ -94,7 +94,7 @@
                 draggable: false,
                 width: 606,
 //                height: 481,
-                title: "Start a discussion",
+                //title: "Start a discussion",
                 close: GS.startDiscussionHover.onClose,
                 bgiframe: true
             });
