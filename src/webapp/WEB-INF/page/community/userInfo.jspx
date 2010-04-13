@@ -136,7 +136,7 @@
                               reporterId="${viewer.id}"/>
 <!-- End report it dialog -->
 
-
+<div class="spacer_15"><!--do not collapse--></div>
 <div class="module">
     <c:if test="${!requestScope.viewAllActivity}">
     <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
@@ -158,7 +158,7 @@
                 <span class="fltrt"><a href="#" id="deactivateMember">Deactivate this member</a></span>
             </c:when>
             <c:otherwise>
-                <span class="fltrt"><a href="#" id="reactivateMember">Reactivate this member</a></span>
+                <span class="fltrt sprite reportIt-nbg"><a href="#" id="reactivateMember">Reactivate this member</a></span>
             </c:otherwise>
         </c:choose>
     </c:if>
@@ -191,7 +191,7 @@
         <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
         <form action="/" id="accountEditBio" method="post">
             <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
-            <textarea name="bio" class="bioInput"><!-- --></textarea>
+            <textarea name="bio" class="bioInput"><!-- do not collapse --></textarea>
             <br/>
             <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
                 <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
@@ -232,6 +232,8 @@
 
     </c:if>
 
+</div>
+<div class="module">
     <!-- Recent Activity -->
     <c:set var="recentActivityTitle">
     <c:choose>
