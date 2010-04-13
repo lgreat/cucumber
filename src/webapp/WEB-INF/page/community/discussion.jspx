@@ -277,9 +277,10 @@
     </c:when>
     <c:otherwise>
         <div class="header">
-    <h2 class="title1white fltlft"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+    <!--<h2 class="title1white fltlft"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                                                       fullUri="${requestScope.discussionBoard.fullUri}"
-                                                      styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></h2>
+                                                      styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></h2>-->
+            <h2 class="title1white fltlft">${requestScope.discussionBoard.title}</h2>
 
             <div class="fltrt">
                 <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
