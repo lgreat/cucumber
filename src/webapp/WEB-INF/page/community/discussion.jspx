@@ -531,7 +531,7 @@
 
                 <c:choose>
                     <c:when test="${requestScope.discussionReport eq true}">
-                        <p class="fltrt reported">You've reported this conversation.</p>
+                        <p class="fltrt reported smallAlertTextBold">You've reported this conversation.</p>
                     </c:when>
                     <c:otherwise>
                         <p class="fltrt"><a class="smallText1 reportIt link" href="${loginRedirectUrl}"
@@ -670,7 +670,7 @@
 
                             <c:choose>
                                 <c:when test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
-                                    <p class="fltrt reported">You've reported this reply.</p>
+                                    <p class="fltrt reported smallAlertTextBold">You've reported this reply.</p>
                                 </c:when>
                                 <c:otherwise>
                                     <p class="fltrt">
