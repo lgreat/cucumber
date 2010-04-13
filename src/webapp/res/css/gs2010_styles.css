@@ -2444,7 +2444,7 @@ a.ui-dialog-titlebar-close .ui-icon {
     overflow: hidden;
     height: 26px;
 }
-#signin_dialog h2 {
+#signInHover h2 {
     width: 480px;
 }
 .ui-dialog-content h2 span {
@@ -2455,6 +2455,7 @@ a.ui-dialog-titlebar-close .ui-icon {
 }
 #joinHover.ui-dialog-content h2 span {
    float: left;
+   display: inline;
 }
 #joinHover.ui-dialog-content h2 span.hoverTitle {
     font: 24px/1 Georgia, serif;

@@ -410,9 +410,16 @@ body.ie6 .srchCatComm li span.icon {
     left: -25px;
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
+body.ie6 a.ui-dialog-titlebar-close {
+    right: 0;
+}
+
 body.ie6 .ui-dialog-content h2 span {
     position: relative;
     top: -27px;
+}
+body.ie6 #joinHover.ui-dialog-content h2 span {
+    top: 0;    
 }
 body.ie6 .dialog_intro {
     height: 1%;
