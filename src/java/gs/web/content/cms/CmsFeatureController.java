@@ -32,41 +32,6 @@ public class CmsFeatureController extends AbstractController {
 
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
 
-    private static final List<Long> GS_9512_NEW_CATEGORY_CONTENT_IDS;
-    private static final List<String> GS_9512_NEW_CATEGORY_CONTENT_URIS;
-
-    static {
-        GS_9512_NEW_CATEGORY_CONTENT_IDS = new ArrayList<Long>(13);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(631L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(533L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(624L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(636L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(635L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(633L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(637L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(638L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(652L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(632L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(1170L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(634L);
-        GS_9512_NEW_CATEGORY_CONTENT_IDS.add(441L);
-
-        GS_9512_NEW_CATEGORY_CONTENT_URIS = new ArrayList<String>(13);
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/bargain-travel-for-families.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/summer-travel-agent.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/road-travel-games.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/bus-train-travel-with-kids.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/flying-with-kids.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/international-travel-the-documents.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/surviving-long-car-trips-with-kids.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/taking-the-kids-on-a-volunteer-vacation.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/top-5-family-travel-tips.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/travel-health-and-safety-tips.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/travel-light-tips-on-packing-and-gear.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/holidays/family-travel-packing-tips.gs");
-        GS_9512_NEW_CATEGORY_CONTENT_URIS.add("/campaigns/news-events/greatschools-ratings-issues-to-consider.gs");
-    }
-
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
     private IPublicationDao _publicationDao;
@@ -95,14 +60,12 @@ public class CmsFeatureController extends AbstractController {
                 UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
             }
-            // GS-9512
-            if (GS_9512_NEW_CATEGORY_CONTENT_IDS.contains(contentId) &&
-                    GS_9512_NEW_CATEGORY_CONTENT_URIS.contains(uri)) {
-                UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
-                // make sure no endless loops ever happen
-                if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
-                    return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
-                }
+
+            // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
+            UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
+            // make sure no endless loops ever happen
+            if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
+                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
             }
 
             feature = _featureDao.get(contentId);
@@ -116,13 +79,6 @@ public class CmsFeatureController extends AbstractController {
         if (feature == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView("/status/error404.page");
-        }
-
-        // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
-        UrlBuilder builder = new UrlBuilder(feature.getContentKey());
-        String requestedPath = uri + "?content=" + feature.getContentKey().getIdentifier();
-        if (!requestedPath.equals(builder.asSiteRelative(request))) {
-            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
         }
 
         try {
