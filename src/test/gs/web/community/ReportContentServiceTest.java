@@ -3,6 +3,8 @@ package gs.web.community;
 import gs.data.community.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 
@@ -19,6 +21,7 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
     private IReportedEntityDao _reportedEntityDao;
+    private IReviewDao _reviewDao;
     private MockJavaMailSender _mailSender;
 
     @Override
@@ -32,6 +35,7 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _userDao = createStrictMock(IUserDao.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
+        _reviewDao = createStrictMock(IReviewDao.class);
 
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.org");
@@ -41,16 +45,17 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         _service.setDiscussionReplyDao(_discussionReplyDao);
         _service.setUserDao(_userDao);
         _service.setReportedEntityDao(_reportedEntityDao);
+        _service.setReviewDao(_reviewDao);
         _service.setMailSender(_mailSender);
         _service.setModerationEmail("ReportContentServiceTest@greatschools.org");
     }
 
     public void replayAllMocks() {
-        super.replayMocks(_cmsDiscussionBoardDao, _discussionDao, _discussionReplyDao, _userDao, _reportedEntityDao);
+        super.replayMocks(_cmsDiscussionBoardDao, _discussionDao, _discussionReplyDao, _userDao, _reportedEntityDao, _reviewDao);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_cmsDiscussionBoardDao, _discussionDao, _discussionReplyDao, _userDao, _reportedEntityDao);
+        super.verifyMocks(_cmsDiscussionBoardDao, _discussionDao, _discussionReplyDao, _userDao, _reportedEntityDao, _reviewDao);
     }
 
     public void testBasics() {
@@ -60,6 +65,7 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         assertSame(_discussionReplyDao, _service.getDiscussionReplyDao());
         assertSame(_userDao, _service.getUserDao());
         assertSame(_reportedEntityDao, _service.getReportedEntityDao());
+        assertSame(_reviewDao, _service.getReviewDao());
         assertSame(_mailSender, _service.getMailSender());
         assertEquals("ReportContentServiceTest@greatschools.org", _service.getModerationEmail());
         verifyAllMocks();
@@ -87,11 +93,13 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_cmsDiscussionBoardDao.get(2l)).andReturn(board);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.discussion, 1)).andReturn(0);
-        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.discussion, 1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.discussion, 1, "because");
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 1,
                                discussion, "because");
         verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting discussion",
+                     1, _mailSender.getSentMessages().size());
     }
 
     public void testReportDiscussionAutoDisable() {
@@ -107,12 +115,14 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_cmsDiscussionBoardDao.get(2l)).andReturn(board);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.discussion, 1)).andReturn(1);
-        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.discussion, 1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.discussion, 1, "because");
         _discussionDao.save(d);
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 1,
                                discussion, "because");
         verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting discussion",
+                     1, _mailSender.getSentMessages().size());
     }
 
     public void testReportDiscussionReply() {
@@ -131,11 +141,13 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_cmsDiscussionBoardDao.get(3l)).andReturn(board);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.reply, 1)).andReturn(0);
-        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1, "because");
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 1,
                                ReportedEntity.ReportedEntityType.reply, "because");
         verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting reply",
+                     1, _mailSender.getSentMessages().size());
     }
 
     public void testReportDiscussionReplyAutoDisable() {
@@ -154,12 +166,14 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_cmsDiscussionBoardDao.get(3l)).andReturn(board);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.reply, 1)).andReturn(1);
-        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1, "because");
         _discussionReplyDao.save(reply);
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 1,
                                ReportedEntity.ReportedEntityType.reply, "because");
         verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting reply",
+                     1, _mailSender.getSentMessages().size());
     }
 
     public void testReportMember() {
@@ -168,12 +182,50 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
 
         expect(_userDao.findUserFromId(2)).andReturn(reportee);
 
-        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.member, 2);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.member, 2, "because");
 
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 2,
                                member, "because");
         verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting member",
+                     1, _mailSender.getSentMessages().size());
     }
 
+    public void testReportSchoolReview() {
+        User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
+        User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
+
+        Review r = new Review();
+        r.setId(1);
+        expect(_reviewDao.getReview(1)).andReturn(r);
+
+        expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.schoolReview, 1)).andReturn(0);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.schoolReview, 1, "because");
+        replayAllMocks();
+        _service.reportContent(reporter, reportee, getRequest(), 1,
+                               schoolReview, "because");
+        verifyAllMocks();
+        assertNull("Expect no emails to be sent on reporting school reviews",
+                     _mailSender.getSentMessages());
+    }
+
+    public void testReportSchoolReviewAutoDisable() {
+        User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
+        User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
+
+        Review r = new Review();
+        r.setId(1);
+        expect(_reviewDao.getReview(1)).andReturn(r);
+
+        expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.schoolReview, 1)).andReturn(1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.schoolReview, 1, "because");
+        _reviewDao.saveReview(r); // save the disabled review
+        replayAllMocks();
+        _service.reportContent(reporter, reportee, getRequest(), 1,
+                               schoolReview, "because");
+        verifyAllMocks();
+        assertNull("Expect no emails to be sent on reporting school reviews",
+                     _mailSender.getSentMessages());
+    }
 }

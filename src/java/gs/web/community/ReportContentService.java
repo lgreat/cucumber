@@ -1,5 +1,7 @@
 package gs.web.community;
 
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.data.community.*;
@@ -28,8 +30,10 @@ public class ReportContentService extends SimpleFormController
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
     private IReportedEntityDao _reportedEntityDao;
+    private IReviewDao _reviewDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
+    private static final String SCHOOL_REVIEW_DISABLED_STATUS = "u";
 
     public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, 
                               ReportedEntity.ReportedEntityType type, String reason) {
@@ -41,7 +45,7 @@ public class ReportContentService extends SimpleFormController
                     urlToContent = getLinkForEntity(request, d);
                     if (d != null && urlToContent != null) {
                         int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
-                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
                         if (numTimesReported == 1) {
                             // if this is the second time this discussion is reported, disable it
                             d.setActive(false);
@@ -54,7 +58,7 @@ public class ReportContentService extends SimpleFormController
                     urlToContent = getLinkForEntity(request, reply);
                     if (reply != null && urlToContent != null) {
                         int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
-                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
                         if (numTimesReported == 1) {
                             // if this is the second time this reply is reported, disable it
                             reply.setActive(false);
@@ -71,15 +75,28 @@ public class ReportContentService extends SimpleFormController
                     }
                     urlToContent = getLinkForEntity(request, user);
                     if (user != null && user.getUserProfile() != null && urlToContent != null) {
-                        _reportedEntityDao.reportEntity(reporter, type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
+                    }
+                    break;
+                case schoolReview:
+                    Review review = _reviewDao.getReview(contentId);
+                    int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
+                    _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
+                    if (numTimesReported == 1) {
+                        // if this is the second time this review is reported, disable it
+                        review.setStatus(SCHOOL_REVIEW_DISABLED_STATUS);
+                        _reviewDao.saveReview(review);
                     }
                     break;
             }
-            if (urlToContent != null) {
-                sendEmail(urlToContent, type, reporter, reportee, reason);
-            } else {
-                _log.warn("Unable to determine URL for reported content " + type + ":" + contentId +
-                        ", reason \"" + reason + "\"");
+            if (type != ReportedEntity.ReportedEntityType.schoolReview) {
+                // don't send emails for reporting school reviews
+                if (urlToContent != null) {
+                    sendEmail(urlToContent, type, reporter, reportee, reason);
+                } else {
+                    _log.warn("Unable to determine URL for reported content " + type + ":" + contentId +
+                            ", reason \"" + reason + "\"");
+                }
             }
         } catch (Exception e) {
             _log.error("Error reporting content " + type + ": " + contentId, e);
@@ -216,5 +233,13 @@ public class ReportContentService extends SimpleFormController
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }
