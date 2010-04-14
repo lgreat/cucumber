@@ -37,6 +37,7 @@ public class CmsFeatureController extends AbstractController {
     private IPublicationDao _publicationDao;
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
     private String _viewName;
+    private boolean _unitTest = false;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -61,11 +62,13 @@ public class CmsFeatureController extends AbstractController {
                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
             }
 
-            // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
-            UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
-            // make sure no endless loops ever happen
-            if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
-                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+            if (!_unitTest) {
+                // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
+                UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
+                // make sure no endless loops ever happen
+                if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
+                    return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+                }
             }
 
             feature = _featureDao.get(contentId);
@@ -433,5 +436,13 @@ public class CmsFeatureController extends AbstractController {
 
     public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
         _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public boolean isUnitTest() {
+        return _unitTest;
+    }
+
+    public void setUnitTest(boolean unitTest) {
+        _unitTest = unitTest;
     }
 }

@@ -76,6 +76,9 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         _controller.setCmsFeatureDao(_cmsFeatureDao);
         _controller.setArticleDao(_legacyArticleDao);
         _controller.setCmsFeatureEmbeddedLinkResolver(new CmsContentLinkResolver());
+        // used to have unit test ignore 301-redirect code that is too hard to unit test due to embedded urlbuilder
+        // that uses publicationDao
+        _controller.setUnitTest(true);
 
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
