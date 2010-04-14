@@ -2569,4 +2569,20 @@
         <property name="contestId" value="1"/>
     </bean>
 
+    <bean name="/admin/schoolReview/list.page"
+          class="gs.web.admin.SchoolReviewListController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/admin/schoolReview/schoolReviewList"/>
+    </bean>
+
+    <bean name="/admin/schoolReview/edit.page"
+          class="gs.web.admin.SchoolReviewEditController"
+          autowire="byName" lazy-init="true">
+        <property name="formView" value="/admin/schoolReview/schoolReviewEdit"/>
+        <property name="successView" value="redirect:/admin/schoolReview/list.page"/>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="command"/>
+        <property name="commandClass" value="gs.web.admin.SchoolReviewEditCommand"/>
+    </bean>
+
 </beans>

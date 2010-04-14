@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideLeaderboard/>
+<pageHelper:hideFooterAd/>
+<head>
+    <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>]]>
+    <title>School Review List | GreatSchools</title>
+    <style type="text/css">
+        .schoolReviewList td, .schoolReviewList th {
+            padding: 2px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<gsml:body pageLayout="nocol" adPageName="schoolReviewList">
+    <c:if test="${not empty requestScope.reviews}">
+        <table class="schoolReviewList">
+            <tr>
+                <th>Date</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>State</th>
+                <th>Name</th>
+                <th>How</th>
+                <th>Author Type</th>
+                <th>Reporter</th>
+                <th>Date reported</th>
+            </tr>
+            <c:forEach items="${requestScope.reviews}" var="review">
+                <tr>
+                    <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="yyyy-MM-dd h:mm:ssa"/>
+                    <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
+                    <td>${review.user.email}</td>
+                    <td>${review.user.userProfile.screenName}</td>
+                    <td>${review.school.databaseState}</td>
+                    <td>${review.school.name}</td>
+                    <td>${review.how}</td>
+                    <td>${review.who}</td>
+                    <td>&amp;nbsp;</td>
+                    <td>&amp;nbsp;</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+    <c:if test="${empty requestScope.reviews}">
+        <p>No reviews!</p>
+    </c:if>
+</gsml:body>
+</html>
+</jsp:root>
