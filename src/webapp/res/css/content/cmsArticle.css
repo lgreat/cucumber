@@ -558,10 +558,13 @@ ul.horizontal li {
 /* ------------------ */
 
 .authorBio {
-    font: 13px/1.6 Arial, Arial, Helvetica, sans-serif;
+    border-top: 2px solid #999;
     color: #444;
-    margin: 20px 0 10px 0;
+    font: 13px/1.6 Arial,Helvetica,sans-serif;
+    margin: 20px 0 10px;
+    padding-top: 20px;
 }
+
 
 /* ------------------------- */
 /* ASK THE EXPERT DISCLAIMER */

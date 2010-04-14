@@ -1,5 +1,5 @@
 /* General elements to omit from print-friendly version - copied from article.css */
-.search, #adLeaderboard, #footer, .noprint, #promoContent, #rightColumn {
+.search, .gsAd, #adLeaderboard, #footer, .noprint, #breadcrumbs, #promoContent, #rightColumn, #utilLinks, #topnav_search, #footerAd {
     display: none;
 }
 
@@ -7,9 +7,13 @@
 .breadcrumbs, .headerTools, #leftNav, #boxAd, #houseAd, #popularArticles, #recentPosts, .searchByTopic, .cmsArticlePagination, #cmsArticleLanguages, #cmsArticleFunctions, .shareThis, #relatedLinks, .divider {
     display: none;
 }
-
+#contentGS {
+    overflow: visible;
+    background: none;
+    padding-top: 20px;
+}
 #main {
-    width: 100%;
+    width: auto;
 }
 
 #content {
