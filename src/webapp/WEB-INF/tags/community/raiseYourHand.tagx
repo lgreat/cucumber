@@ -362,8 +362,8 @@
 
                             <span class="smallText1"> a moment ago </span>
 
-                            <p class="fltrt">&amp;nbsp;</p>
-                            <br class="clearfloat"/>
+                            <!--<p class="fltrt">&amp;nbsp;</p>-->
+                            <div class="spacer_5"><!--do not collapse--></div>
 
                             <community:userContentTeaserText
                                     textToDisplay="DISCUSSION_REPLY_BODY"
