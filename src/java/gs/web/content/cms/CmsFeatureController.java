@@ -118,6 +118,13 @@ public class CmsFeatureController extends AbstractController {
             return new ModelAndView("/status/error404.page");
         }
 
+        // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
+        UrlBuilder builder = new UrlBuilder(feature.getContentKey());
+        String requestedPath = uri + "?content=" + feature.getContentKey().getIdentifier();
+        if (!requestedPath.equals(builder.asSiteRelative(request))) {
+            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+        }
+
         try {
             _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
         } catch(Exception e) {
