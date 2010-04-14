@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class SchoolReviewListController extends AbstractController {
-    public static final String MODEL_REVIEW_LIST="reviews";
+    public static final String MODEL_UNPROCESSED_REVIEW_LIST="unprocessedReviews";
     private String _viewName;
     private IReviewDao _reviewDao;
 
@@ -22,7 +22,7 @@ public class SchoolReviewListController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        model.put(MODEL_REVIEW_LIST, _reviewDao.findUnprocessedReviews(50));
+        model.put(MODEL_UNPROCESSED_REVIEW_LIST, _reviewDao.findUnprocessedReviews(50));
 
         return new ModelAndView(getViewName(), model);
     }

@@ -6,6 +6,7 @@ import gs.web.util.ReadWriteController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,11 @@ public class SchoolReviewEditController extends SimpleFormController implements 
 
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
 
-        command.setReview(_reviewDao.getReview(Integer.parseInt(request.getParameter("id"))));
+        try {
+            command.setReview(_reviewDao.getReview(Integer.parseInt(request.getParameter("id"))));
+        } catch (ObjectRetrievalFailureException orfe) {
+            // do nothing
+        }
     }
 
     @Override
