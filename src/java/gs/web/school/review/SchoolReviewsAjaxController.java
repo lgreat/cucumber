@@ -155,6 +155,7 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
             }
         }
 
+
         //only send them an email if they submitted a message that is not blank
         /*
         if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
@@ -202,6 +203,8 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
 
         Review review = null;
 
+        Poster poster = command.getPoster();
+
         //existing user, check if they have previously left a review for this school
         if (!isNewUser) {
             review = getReviewDao().findReview(user, school);
@@ -218,15 +221,7 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
                     review.setPoster(command.getPoster());
                     return review;
                 } else {
-                    //only set the category rating if one was given
-                    if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverall()) && command.getOverall() != null) {
-                        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                            review.setPOverall(command.getOverall());
-                        } else {
-                            review.setQuality(command.getOverall());
-                        }
-                    }
-
+                   
                     review.setPosted(new Date());
                     review.setProcessDate(null);
                     //new review submitted, so set the processor to null
@@ -238,41 +233,7 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
                             + "\nOld Note: " + review.getNote());
                 }
 
-                if (StringUtils.isNotBlank(check)) {
-                    if (!LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacher()) && command.getTeacher() != null) {
-                            review.setTeachers(command.getTeacher());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getActivities()) && command.getActivities() != null) {
-                            review.setActivities(command.getActivities());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getParent()) && command.getParent() != null) {
-                            review.setParents(command.getParent());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getSafety()) && command.getSafety() != null) {
-                            review.setSafety(command.getSafety());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPrincipal()) && command.getPrincipal() != null) {
-                            review.setPrincipal(command.getPrincipal());
-                        }
-                    } else {
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPFacilities()) && command.getPFacilities() != null) {
-                            review.setPFacilities(command.getPFacilities());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPProgram()) && command.getPProgram() != null) {
-                            review.setPProgram(command.getPProgram());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPSafetyPreschool()) && command.getPSafetyPreschool() != null) {
-                            review.setPSafety(command.getPSafetyPreschool());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPTeachersPreschool()) && command.getPTeachersPreschool() != null) {
-                            review.setPTeachers(command.getPTeachersPreschool());
-                        }
-                        if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPParentsPreschool()) && command.getPParentsPreschool() != null) {
-                            review.setPParents(command.getPParentsPreschool());
-                        }
-                    }
-                }
+                setRatingsOnReview(school.getLevelCode(), command, review, poster);
             }
         }
 
@@ -282,21 +243,9 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
             review.setUser(user);
             review.setSchool(school);
 
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                review.setPFacilities(command.getPFacilities());
-                review.setPParents(command.getPParentsPreschool());
-                review.setPProgram(command.getPProgram());
-                review.setPSafety(command.getPSafetyPreschool());
-                review.setPTeachers(command.getPTeachersPreschool());
-                review.setPOverall(command.getOverall());
-            } else {
-                review.setPrincipal(command.getPrincipal());
-                review.setTeachers(command.getTeacher());
-                review.setActivities(command.getActivities());
-                review.setParents(command.getParent());
-                review.setSafety(command.getSafety());
-                review.setQuality(command.getOverall());
-            }
+            setRatingsOnReview(school.getLevelCode(), command, review, poster);
+
+
         }
         review.setHow(command.getClient());
         review.setPoster(command.getPoster());
@@ -309,8 +258,6 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
         }
 
         boolean newUser = user.isEmailProvisional();
-
-        Poster poster = command.getPoster();
 
         if (newUser) {
             if (Poster.STUDENT.equals(poster)) {
@@ -328,6 +275,46 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
 
 
         return review;
+    }
+
+    public void setRatingsOnReview(LevelCode schoolLevelCode, ReviewCommand command, Review review, Poster poster) {
+        if (LevelCode.PRESCHOOL.equals(schoolLevelCode)) {
+            if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverallAsString()) && command.getOverallAsString() != null) {
+                review.setPOverall(CategoryRating.getCategoryRating(command.getOverallAsString()));
+            }
+
+            if (Poster.PARENT.equals(poster) || Poster.OTHER.equals(poster)) {
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+                    review.setPTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
+                }
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getParentAsString()) && command.getParentAsString() != null) {
+                    review.setPParents(CategoryRating.getCategoryRating(command.getParentAsString()));
+                }
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPFacilitiesAsString()) && command.getPFacilitiesAsString() != null) {
+                    review.setPFacilities(CategoryRating.getCategoryRating(command.getPFacilitiesAsString()));
+                }
+            }
+        } else {
+            if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverallAsString()) && command.getOverallAsString() != null) {
+                review.setQuality(CategoryRating.getCategoryRating(command.getOverallAsString()));
+            }
+
+            if (Poster.PARENT.equals(poster) || Poster.OTHER.equals(poster)) {
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+                    review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
+                }
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getParentAsString()) && command.getParentAsString() != null) {
+                    review.setParents(CategoryRating.getCategoryRating(command.getParentAsString()));
+                }
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPrincipalAsString()) && command.getPrincipalAsString() != null) {
+                    review.setPrincipal(CategoryRating.getCategoryRating(command.getPrincipalAsString()));
+                }
+            } else if (Poster.TEACHER.equals(poster)) {
+                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+                    review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
+                }
+            }
+        }
     }
 
     protected void sendMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
@@ -427,12 +414,6 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
         response.getWriter().print("<success/>");
         response.getWriter().flush();
         return null;
-    }
-
-    protected ModelAndView successHTML() {
-        ModelAndView mAndV = new ModelAndView();
-        mAndV.setViewName(getSuccessView());
-        return mAndV;
     }
 
     protected User getAlertWordFilterUser() {

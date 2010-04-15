@@ -1,9 +1,11 @@
 package gs.web.school.review;
 
 import gs.data.community.*;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.util.email.EmailContentHelper;
@@ -145,9 +147,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         _command.setPrincipalAsString("1");
         _command.setTeacherAsString("2");
-        _command.setActivitiesAsString("3");
         _command.setParentAsString("4");
-        _command.setSafetyAsString("5");
         _command.setOverallAsString("3");
 
         _command.setComments("this school rocks");
@@ -159,9 +159,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         assertEquals(CategoryRating.RATING_1, r.getPrincipal());
         assertEquals(CategoryRating.RATING_2, r.getTeachers());
-        assertEquals(CategoryRating.RATING_3, r.getActivities());
         assertEquals(CategoryRating.RATING_4, r.getParents());
-        assertEquals(CategoryRating.RATING_5, r.getSafety());
         assertEquals(CategoryRating.RATING_3, r.getQuality());
 
         assertEquals(_command.getComments(), r.getComments());
@@ -248,8 +246,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         r.setTeachers(CategoryRating.RATING_1);
         r.setParents(CategoryRating.RATING_2);
         r.setPrincipal(CategoryRating.RATING_3);
-        r.setSafety(CategoryRating.RATING_5);
-        r.setActivities(CategoryRating.RATING_3);
         r.setSubmitter("dlee");
         r.setNote("note");
 
@@ -265,8 +261,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         assertEquals(CategoryRating.RATING_1, review2.getTeachers());
         assertEquals(CategoryRating.RATING_2, review2.getParents());
         assertEquals(CategoryRating.RATING_3, review2.getPrincipal());
-        assertEquals(CategoryRating.RATING_5, review2.getSafety());
-        assertEquals(CategoryRating.RATING_3, review2.getActivities());
         assertNull(review2.getProcessDate());
         assertNull(review2.getSubmitter());
         assertNull(review2.getNote());
@@ -313,4 +307,51 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_reviewDao);
         verify(_subscriptionDao);
     }
+
+    public void testSetRatingsOnReviewPreschoolParent() throws Exception {
+        LevelCode levelCode = LevelCode.PRESCHOOL;
+        Review review = new Review();
+        ReviewCommand reviewCommand = new ReviewCommand();
+
+        reviewCommand.setTeacherAsString("1");
+        reviewCommand.setParentAsString("1");
+        reviewCommand.setPrincipalAsString("1");
+        reviewCommand.setPFacilitiesAsString("1");
+        reviewCommand.setOverallAsString("1");
+        
+        _controller.setRatingsOnReview(levelCode, reviewCommand, review, Poster.PARENT);
+
+        assertEquals(CategoryRating.RATING_1, review.getPTeachers());
+        assertEquals(CategoryRating.RATING_1, review.getPParents());
+        assertEquals(CategoryRating.RATING_1, review.getPFacilities());
+        assertEquals(CategoryRating.RATING_1, review.getPOverall());
+
+        assertNull(review.getPrincipal());
+        assertNull(review.getQuality());
+
+    }
+
+    public void testSetRatingsOnReviewParent() throws Exception {
+        LevelCode levelCode = LevelCode.ELEMENTARY_HIGH;
+        Review review = new Review();
+        ReviewCommand reviewCommand = new ReviewCommand();
+
+        reviewCommand.setTeacherAsString("1");
+        reviewCommand.setParentAsString("1");
+        reviewCommand.setPrincipalAsString("1");
+        reviewCommand.setPFacilitiesAsString("1");
+        reviewCommand.setOverallAsString("1");
+
+        _controller.setRatingsOnReview(levelCode, reviewCommand, review, Poster.PARENT);
+
+        assertEquals(CategoryRating.RATING_1, review.getTeachers());
+        assertEquals(CategoryRating.RATING_1, review.getParents());
+        assertEquals(CategoryRating.RATING_1, review.getPrincipal());
+        assertEquals(CategoryRating.RATING_1, review.getQuality());
+
+        assertNull(review.getPFacilities());
+        assertNull(review.getPOverall());
+
+    }
+
 }
