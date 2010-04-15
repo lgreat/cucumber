@@ -271,8 +271,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
         } else if (topicCenterID == CmsConstants.HEALTH_AND_DEVELOPMENT_TOPIC_CENTER_ID) {
             cat.setId(CmsConstants.HEALTH_AND_DEVELOPMENT_CATEGORY_ID);
             subtopics = getBrowseByGradeHelper(cat);
-        } else if (topicCenterID == CmsConstants.LEARNING_DISABILITIES_TOPIC_CENTER_ID) {
-            cat.setId(CmsConstants.LEARNING_DISABILITIES_CATEGORY_ID);
+        } else if (topicCenterID == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID) {
+            cat.setId(CmsConstants.SPECIAL_EDUCATION_CATEGORY_ID);
             subtopics = getBrowseByGradeHelper(cat);
         } else {
             subtopics = null;

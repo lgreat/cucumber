@@ -50,7 +50,7 @@
         <c:when test="${topicCenter.academicsAndActivitiesTopicCenter}">
             <pageHelper:setPathway pathway="ACADEMICS_AND_ACTIVITIES"/>
         </c:when>
-        <c:when test="${topicCenter.learningDisabilitiesTopicCenter}">
+        <c:when test="${topicCenter.specialEducationTopicCenter}">
             <pageHelper:setPathway pathway="LEARNING_DISABILITIES"/>
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1542}">
@@ -178,7 +178,7 @@
                 <c:if test="${topicCenter.elementarySchoolTopicCenter or
                                   topicCenter.academicsAndActivitiesTopicCenter or
                                   topicCenter.healthAndDevelopmentTopicCenter or
-                                  topicCenter.learningDisabilitiesTopicCenter}">
+                                  topicCenter.specialEducationTopicCenter}">
                     <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
                 </c:if>
             </c:set>
@@ -190,7 +190,7 @@
                 </c:when>
                 <c:when test="${topicCenter.academicsAndActivitiesTopicCenter or
                                     topicCenter.healthAndDevelopmentTopicCenter or
-                                    topicCenter.learningDisabilitiesTopicCenter}">
+                                    topicCenter.specialEducationTopicCenter}">
                     ${moreOnThisTopic}
                     ${browseByGrade}
                 </c:when>
