@@ -1,5 +1,6 @@
 package gs.web.content.cms;
 
+import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -84,6 +85,11 @@ public class CmsDiscussionBoardController extends AbstractController {
         } else {
             try {
                 contentId = new Long(request.getParameter("content"));
+
+                if (contentId == CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID && uri.startsWith("/LD/")) {
+                    UrlBuilder builder = new UrlBuilder(new ContentKey("DiscussionBoard", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID), "/special-education", isRaiseYourHand());
+                    return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+                }
             } catch (Exception e) {
                 _log.warn("Invalid content identifier: " + request.getParameter("content"));
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

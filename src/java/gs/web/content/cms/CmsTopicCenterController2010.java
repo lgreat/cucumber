@@ -13,6 +13,8 @@ import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
 import gs.data.security.Permission;
 import gs.data.state.State;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -87,6 +89,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 } else if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
+
+                        if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
+                            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID));
+                            if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {
+                                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+                            }
+                        }
                     } catch (Exception e) {
                         _log.warn("contentId \"" + request.getParameter("content") + "\" is not a Long");
                         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
