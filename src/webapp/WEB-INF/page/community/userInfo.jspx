@@ -300,7 +300,7 @@
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1641"
                                            fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></span></li>
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1642"
-                                           fullUri="/LD">Learning Disabilities</link:cmsContent></span></li>
+                                           fullUri="/special-education">Special Education</link:cmsContent></span></li>
                 <li><span><link:cmsContent contentKey="DiscussionBoard#1643"
                                            fullUri="/improvement">Improving Schools</link:cmsContent></span></li>
                 <!-- li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li -->

@@ -65,7 +65,7 @@
                                                        fullUri="/students" raiseYourHand="true">Academics &amp;amp; Activities</link:cmsContent>
                 </li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642"
-                                                       fullUri="/LD" raiseYourHand="true">Learning Disabilities</link:cmsContent></li>
+                                                       fullUri="/special-education" raiseYourHand="true">Special Education</link:cmsContent></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
                                                        fullUri="/improvement" raiseYourHand="true">Improve Your School</link:cmsContent></li>
             </ul>

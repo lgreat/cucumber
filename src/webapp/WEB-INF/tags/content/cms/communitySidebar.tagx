@@ -66,7 +66,7 @@
                     <ul class="col topics text2_180">
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">Learning Disabilities</link:cmsContent></li>
+                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/special-education">Special Education</link:cmsContent></li>
                         <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement">Improve Your School</link:cmsContent></li>
                     </ul>
             </div>
