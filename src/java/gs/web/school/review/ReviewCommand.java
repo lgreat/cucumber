@@ -266,6 +266,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
 
     public String getPrincipalAsString() {
+        if (_principal == null) return null;
         return _principal.getName();
     }
 
@@ -274,6 +275,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getTeacherAsString() {
+        if (_teacher == null) return null;
         return _teacher.getName();
     }
 
@@ -282,6 +284,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getActivitiesAsString() {
+        if (_activities == null) return null;
         return _activities.getName();
     }
 
@@ -290,6 +293,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getParentAsString() {
+        if (_parent == null) return null;
         return _parent.getName();
     }
 
@@ -298,6 +302,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getSafetyAsString() {
+        if (_safety == null) return null;
         return _safety.getName();
     }
 
@@ -306,6 +311,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getOverallAsString() {
+        if (_overall == null) return null;
         return _overall.getName();
     }
 
@@ -314,6 +320,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPProgramAsString() {
+        if (_pProgram == null) return null;
         return _pProgram.getName();
     }
 
@@ -322,6 +329,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
      public String getPSafetyPreschoolAsString() {
+         if (_pSafetyPreschool == null) return null;
         return _pSafetyPreschool.getName();
     }
 
@@ -329,6 +337,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
         _pSafetyPreschool = CategoryRating.getCategoryRating(rating);
     }
     public String getPTeachersPreschoolAsString() {
+        if (_pTeachersPreschool == null) return null;
         return _pTeachersPreschool.getName();
     }
 
@@ -336,6 +345,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
         _pTeachersPreschool = CategoryRating.getCategoryRating(rating);
     }
     public String getPParentsPreschoolAsString() {
+        if (_pParentsPreschool == null) return null;
         return _pParentsPreschool.getName();
     }
 
@@ -344,6 +354,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPParentsAsString() {
+        if (_parent == null) return null;
         return _parent.getName();
     }
 
@@ -352,6 +363,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPFacilitiesAsString() {
+        if (_pFacilities == null) return null;
         return _pFacilities.getName();
     }
 
@@ -360,6 +372,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPSafetyAsString() {
+        if (_safety == null) return null;
         return _safety.getName();
     }
 
@@ -368,6 +381,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPTeachersAsString() {
+        if (_teacher == null) return null;
         return _teacher.getName();
     }
 
@@ -376,6 +390,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPOverallAsString() {
+        if (_overall == null) return null;
         return _overall.getName();
     }
 
