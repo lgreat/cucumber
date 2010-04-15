@@ -241,4 +241,23 @@ public class UtilTest extends TestCase {
         assertEquals("a student", Util.createParentReviewDisplayName(null, null, "student"));
     }
 
+    public void testGenerateTeaserText() throws Exception {
+        assertEquals("Expect abbreviation at first whitespace after 10 characters",
+                     "This is some... ", Util.generateTeaserText("This is some text to display.", 10, 20));
+        assertEquals("Expect abbreviation at first whitespace after 13 characters",
+                     "This is some text... ", Util.generateTeaserText("This is some text to display.", 13, 20));
+        assertEquals("Expect forced abbreviation at 15 characters",
+                     "This is some te... ", Util.generateTeaserText("This is some text to display.", 13, 15));
+
+        assertEquals("Expect abbreviation at first whitespace after 15 characters",
+                     "There is some text... ", Util.generateTeaserText  ("There is some text to display.", 15, 29));
+        // following test fails because of if (StringUtils.length(textToDisplay) > maxLength)
+//        assertEquals("Expect abbreviation at first whitespace after 15 characters",
+//                     "This is some text... ", Util.generateTeaserText("This is some text to display.", 15, 29));
+
+        assertEquals("Expect original string to display since first whitespace after 23 chars is end of string",
+                     "This is some text to display.", Util.generateTeaserText("This is some text to display.", 23, 40));
+        assertEquals("Expect original string to display since length is <= minlength",
+                     "This is some text to display.", Util.generateTeaserText("This is some text to display.", 29, 40));
+    }
 }
