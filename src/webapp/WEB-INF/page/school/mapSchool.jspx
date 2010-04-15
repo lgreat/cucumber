@@ -14,126 +14,140 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-<pageHelper:setPathway pathway=""/>
-<html lang="en">
+    <pageHelper:setPathway pathway=""/>
+    <html lang="en">
 
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
+    <jsp:directive.page contentType="text/html"/>
 
-<c:set var="school" value="${school}"/>
-<c:set var="mapSchools" value="${mapSchools}"/>
-<c:set var="city" value="${school.physicalAddress.city}"/>
-<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
-<c:set var="stateName" value="${school.databaseState.longName}"/>
-<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
-<c:set var="pageName" value="School Tab - Map" scope="request"/>
-<c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
-<c:set var="gs_rating" value="${gs_rating}"/>
-<c:set var="parent_ratings" value="${parent_ratings}"/>
+    <c:set var="school" value="${school}"/>
+    <c:set var="mapSchools" value="${mapSchools}"/>
+    <c:set var="city" value="${school.physicalAddress.city}"/>
+    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+    <c:set var="stateName" value="${school.databaseState.longName}"/>
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}"/>
+    <c:set var="pageName" value="School Tab - Map" scope="request"/>
+    <c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
+    <c:set var="gs_rating" value="${gs_rating}"/>
+    <c:set var="parent_ratings" value="${parent_ratings}"/>
 
-<head>
-    <title>${school.name} - ${addr} - school map</title>
-    <meta name="description"
-          content="A map of ${school.name} located in ${city}, ${stateName} - ${stateAbbrev}, including a map of the nearby schools"/>
-    <pageHelper:externalCss file="/res/css/ads.css"/>
-    <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
-</head>
+    <head>
+        <title>${school.name} - ${addr} - school map</title>
+        <meta name="description"
+              content="A map of ${school.name} located in ${city}, ${stateName} - ${stateAbbrev}, including a map of the nearby schools"/>
+        <pageHelper:externalCss file="/res/css/ads.css"/>
+        <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
+    </head>
 
-<gsml:body adPageName="schoolMap" pageLayout="nocol">
+    <gsml:body adPageName="schoolMap" pageLayout="nocol">
 
-    <school:profile school="${school}">
+        <school:profile school="${school}">
 
-    <!-- being large Google map -->
-    <div id="largeMap">
-        <!-- being left column -->
-        <div id="col_left">
-            <div id="nearbySchools">
-                <div class="header">
-                    <h2>${school.name}</h2>
-                    <link:mySchoolList styleClass="save"
-                                       school="${school}"
-                                       title="Save">
-                        Save
-                    </link:mySchoolList>
-                </div><!-- end: header -->
+            <!-- being large Google map -->
+            <div id="largeMap">
+                <!-- being left column -->
+                <div id="col_left">
+                    <div id="nearbySchools">
+                        <div class="header">
+                            <h2>${school.name}</h2>
+                            <link:mySchoolList styleClass="save"
+                                               school="${school}"
+                                               title="Save">
+                                Save
+                            </link:mySchoolList>
+                        </div>
+                        <!-- end: header -->
 
-                <p class="head_nearby">
-                    <c:choose>
-                        <c:when test="${school.levelCode == 'p'}">
-                            Nearby Preschools
-                        </c:when>
-                        <c:otherwise>
-                            Nearby ${levelLongName} Schools
-                        </c:otherwise>
-                    </c:choose>
+                        <p class="head_nearby">
+                            <c:choose>
+                                <c:when test="${school.levelCode == 'p'}">
+                                    Nearby Preschools
+                                </c:when>
+                                <c:otherwise>
+                                    Nearby ${levelLongName} Schools
+                                </c:otherwise>
+                            </c:choose>
 
-                </p>
-                <ul>
-                    <c:if test="${hasNearby}">
-                        <c:forEach items="${nearbySchools}" var="nearbySchool">
-                            <li>
-                                <link:schoolProfileOverview
-                                        school="${nearbySchool.neighbor}"
-                                        title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
-                                <c:if test="${not empty nearbySchool.distance}">
-                                    <br/>
-                                    <fmt:formatNumber value="${nearbySchool.distance}"
-                                                      maxFractionDigits="1"
-                                                      minFractionDigits="1"/>
-                                    Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;
-                                </c:if>
-                                <link:mySchoolList styleClass="saveLink"
-                                                   school="${nearbySchool.neighbor}"
-                                                   title="Save">
-                                    Save
-                                </link:mySchoolList>
-                            </li>
-                        </c:forEach>
-                    </c:if>
-                </ul>
-            </div><!-- end: nearbySchools -->
-        </div><!-- end: col_left" -->
+                        </p>
+                        <ul>
+                            <c:if test="${hasNearby}">
+                                <c:forEach items="${nearbySchools}" var="nearbySchool">
+                                    <li>
+                                        <link:schoolProfileOverview
+                                                school="${nearbySchool.neighbor}"
+                                                title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
+                                        <c:if test="${not empty nearbySchool.distance}">
+                                            <br/>
+                                            <fmt:formatNumber value="${nearbySchool.distance}"
+                                                              maxFractionDigits="1"
+                                                              minFractionDigits="1"/>
+                                            Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;
+                                        </c:if>
+                                        <link:mySchoolList styleClass="saveLink"
+                                                           school="${nearbySchool.neighbor}"
+                                                           title="Save">
+                                            Save
+                                        </link:mySchoolList>
+                                    </li>
+                                </c:forEach>
+                            </c:if>
+                        </ul>
+                    </div>
+                    <!-- end: nearbySchools -->
 
-        <!-- begin center column -->
-        <div id="col_center">
-            <div id="map">
-                &#160;<noscript>JavaScript is required in order to view a map of the city and its
-                        schools.</noscript>
+                    <ul id="extraLinks">
+                        <c:if test="${hasNearby and (school.levelCode != 'p')}">
+                            <li id="nearMore"><link:schoolCompareSchool
+                                    school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
+                        </c:if>
+
+                        <li id="topRatedSchools"><link:city city="${city}"
+                                                            state="${state}">Top-rated ${city} schools &gt;</link:city>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- end: col_left" -->
+
+                <!-- begin center column -->
+                <div id="col_center">
+                    <div id="map">
+                        &#160;
+                        <noscript>JavaScript is required in order to view a map of the city and its
+                            schools.
+                        </noscript>
+                    </div>
+                    <map:school id="map"
+                                tooltips="true"
+                                schools="${mapSchools}"
+                                school="${school}"/>
+                </div>
+                <!-- end: col_center -->
+
+                <!-- begin right column -->
+                <div id="col_right">
+
+                    <promo:searchRealtorDotCom omniturePageName="${pageName}" showAdPct="0" size="300x137"
+                                               defaultCity="${city}" defaultState="${stateAbbrev}"/>
+                    <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
+                    <div class="ad_middle">
+                        <ad:setSlotPrefix slotPrefix="MapSchool"/>
+                        <ad:AboveFold_300x250/>
+                    </div>
+                </div>
+                <!-- end: col_right" -->
             </div>
-            <map:school id="map"
-                        tooltips="true"
-                        schools="${mapSchools}"
-                        school="${school}"/>
-        </div><!-- end: col_center -->
+            <!-- end: largeMap -->
+            <br style="clear: left;"/>
 
-        <!-- begin right column -->
-        <div id="col_right">
-            
-            <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0" size="300x137" defaultCity="${city}" defaultState="${stateAbbrev}"/>
-            <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
-            <div class="ad_middle">
-                <ad:setSlotPrefix slotPrefix="MapSchool"/>
-                <ad:AboveFold_300x250/>
-            </div>
-        </div><!-- end: col_right" -->
-    </div><!-- end: largeMap -->
-    <br style="clear: left;"/>
-    <!-- Two extra links for the nearby box. Placed here and then positioned inside the box -->
-    <ul id="extraLinks">
-        <c:if test="${hasNearby and (school.levelCode != 'p')}">
-            <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
-        </c:if>
-
-        <li id="topRatedSchools"><link:city city="${city}" state="${state}">Top-rated ${city} schools &gt;</link:city></li>
-    </ul>
-    </school:profile>
-    <mod:tracking pageName="${pageName}"
-                  hier1="School,Map"
-                  school="${school}" />    
-</gsml:body>
-</html>
+        </school:profile>
+        <mod:tracking pageName="${pageName}"
+                      hier1="School,Map"
+                      school="${school}"/>
+    </gsml:body>
+    </html>
 </jsp:root>
