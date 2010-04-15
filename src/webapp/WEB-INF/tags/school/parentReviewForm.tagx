@@ -94,6 +94,8 @@
         To save your rating please submit your email address.
     </c:if>
         <div id="ratingTitle">${schoolName}</div>
+        <span id="parentReviewGuidelinesSpan"><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></span><br clear="both" />
+
         <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">
                 var title = document.getElementById('ratingTitle');
@@ -101,6 +103,7 @@
                 title.style.lineHeight = '20px';
             </script>
         </c:if>
+        
         <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
                 <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
                 <!--Begin star ratings.

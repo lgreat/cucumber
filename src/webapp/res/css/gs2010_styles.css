@@ -3127,6 +3127,19 @@ ul.srchSuggest li span {
 }
 
 /*
+=4f-2 parent reviews
+-----------------------------------------------------------------------------
+*/
+
+#ratingTitle {
+    float:left;
+}
+#parentReviewGuidelinesSpan {
+    float:right;padding:15px;
+}
+
+
+/*
 =4g- vidoe page
 -----------------------------------------------------------------------------
 */
