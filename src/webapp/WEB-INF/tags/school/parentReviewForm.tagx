@@ -94,7 +94,7 @@
         To save your rating please submit your email address.
     </c:if>
         <div id="ratingTitle">${schoolName}</div>
-        <span id="parentReviewGuidelinesSpan"><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></span><br clear="both" />
+        <span id="parentReviewGuidelinesSpan"><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></span><br clear="all" />
 
         <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">
