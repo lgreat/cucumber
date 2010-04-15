@@ -18,6 +18,7 @@ Large Google Map
 	margin: 0 13px 0 0;
 	_margin: 0 10px 0 0; /* IE 6 hack */
 	float: left;
+    position: relative;
 }
 
 #col_center {
@@ -47,6 +48,7 @@ Large Google Map
 	padding: 6px;
 	_padding-bottom: 7px; /* IE 6 hack */
 	min-height: 427px;
+    _height: 427px;
 	border: 2px solid #dee;
     color: #888;
 }
@@ -117,16 +119,15 @@ Large Google Map
 
 ul#extraLinks {
     position: absolute;
-    margin-top: -36px;
-    _margin-top: -34px;
+    bottom: 10px;
+    right: 10px;
 }
 
 ul#extraLinks li {
     text-align: right;
-    font: 11px/13px Arial, sans-serif;;
+    font: 11px/13px Arial, sans-serif;
     list-style: none;
     margin: 0;
-    width: 170px;
     padding: 0;
 }
 
