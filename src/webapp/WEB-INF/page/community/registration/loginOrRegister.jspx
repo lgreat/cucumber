@@ -25,7 +25,7 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
         <title>Join &amp;amp; Sign In - GreatSchools</title>
-        <pageHelper:externalCss file="/res/css/community/registration/loginOrRegister.css"/>
+        <!--<pageHelper:externalCss file="/res/css/community/registration/loginOrRegister.css"/>-->
         <script type="text/javascript">
             function rollover() {
                 document.getElementById('joinImage').src = '/res/img/community/registration/join_yellow.gif';
@@ -36,11 +36,11 @@
         </script>
     </head>
 
-    <gsml:body adPageName="login" pageLayout="balanced">
+    <gsml:body adPageName="signin" pageLayout="balanced">
 
-    <ad:setSlotPrefix slotPrefix="CommunityLoginOrRegister"/>
-    
-    <![CDATA[
+        <ad:setSlotPrefix slotPrefix="CommunityLoginOrRegister"/>
+
+        <![CDATA[
     <!--[if IE]>
         <style type="text/css">
             #rememberMe input {
@@ -50,12 +50,13 @@
         </style>
     <![endif]-->
     ]]>
-
-    <c:set var="alertMessageType" value="${requestScope.alertMessageType}"/>
-    <div id="outline"><!-- creates darker blue outer outline -->
-        <c:if test="${alertMessageType ne null and alertMessageType ne ''}">
-            <p class="infoMessage">
-                <gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Exclamation point"/>
+<div id="inlineSignin">
+        <c:set var="alertMessageType" value="${requestScope.alertMessageType}"/>
+        <!--<div id="outline">&lt;!&ndash; creates darker blue outer outline &ndash;&gt;-->
+        <div id="newuser" class="size1of2GS col">
+            <c:if test="${alertMessageType ne null and alertMessageType ne ''}">
+                <p class="infoMessage">
+                    <gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Exclamation point"/>
                 <span>Please login or register to
                     <c:choose>
                         <c:when test="${alertMessageType eq 'Question'}">
@@ -72,114 +73,144 @@
                         </c:when>
                     </c:choose>
                 </span>
-            </p>
-        </c:if>
-        <div class="innerWrapper">
-        <div id="newuser">
-            <h2>Not a Member?</h2>
-            <h3><link:registration email="${loginCmd.email}" 
-                                   redirect="${loginCmd.redirect}"
-                                   onMouseOver="rollover();"
-                                   onMouseOut="rollout();">Join GreatSchools</link:registration></h3>
-
-            <div id="joinText">
-            <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
-                               onMouseOver="rollover();" onMouseOut="rollout();">
-                It's free and easy to join GreatSchools. As a member, you can:
-                </link:registration>
-                <ul>
-                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
-                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Find the right school.</strong>
-                        More than 500,000 ratings and reviews nationwide</span></link:registration></li>
-                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
-                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Track your child's education.</strong>
-                        Free newsletters tell you what your child should be learning, grade-by-grade</span></link:registration></li>
-                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
-                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Connect with other parents.</strong>
-                        Talk about local schools and education in our parent community</span></link:registration></li>
-                </ul>
-
-            </div>
-
-            <link:registration email="${loginCmd.email}"
-                               redirect="${loginCmd.redirect}" onMouseOver="rollover();" onMouseOut="rollout();">
-                <gsml:img src="/res/img/community/registration/momgirl.jpg"
-                          id="newuserImage" alt="Photo of mom and daughter"/>
-                <gsml:img src="/res/img/community/registration/join_pink.gif"
-                          id="joinImage" alt="Join"/>
-            </link:registration>
-        </div>
-        <!-- end: newuser -->
-        <div id="returninguser">
-            <h2>Returning Member?</h2>
-
-            <c:if test="${param.message ne null and param.message gt ''}">
-                <c:set var="message" value="${gsweb:escapeHtml(param.message)}"/>
-            </c:if>
-            <c:set var="messageClass" value=""/>
-            <c:if test="${message ne null and message gt ''}">
-                <c:set var="messageClass" value="hasMessage"/>
-                <p class="infoMessage">
-                    <gsml:img src="/res/img/community/registration/check.gif" alt="Check mark"/>
-                    <span>${message}</span>
                 </p>
             </c:if>
+            <!--<div class="innerWrapper">-->
+            <div class="mod">
+                <div class="mod_hd">
+                    <h2>Not a Member?</h2>
+                </div>
+                <div class="mod_bd">
+                    <h4 class="introTextbold">Join GreatSchools</h4>
 
-            <h3 class="${messageClass}">Yes! I'm already a member</h3>
 
-            <gsweb:form action="/community/loginOrRegister.page" method="post">
-                <spring:bind path="loginCmd.redirect">
-                    <input type="hidden" name="${status.expression}" value="${status.value}"/>
-                </spring:bind>
+                    <div id="joinImage">
+                    <link:registration email="${loginCmd.email}" styleClass="fltlft"
+                                       redirect="${loginCmd.redirect}" onMouseOver="rollover();"
+                                       onMouseOut="rollout();">
+                        <gsml:img src="/res/img/community/registration/signinInlinePhoto.jpg"
+                                  id="newuserImage" width="280" height="190" alt="Photo of mother and son"/>
+                        <!--<gsml:img src="/res/img/community/registration/join_pink.gif"
+                                  id="joinImage" alt="Join"/>-->
+                    </link:registration>
+                        <p class="text1 firstPara">Are you new to GreatSchools?</p>
+                        <h3 class="title1-06b">Join Now <span class="sprite video"><!--icon--></span></h3>
+                        <p class="text1-d61">IT'S FREE!</p>
+                        <br class="clearfloat"/>
+                    </div>
 
-                <gsml:errorMessage command="loginCmd" styleClass="warning ${messageClass}" useImage="true"/>
+                    <div id="joinText">
+                        <p class="text1bold">It's free and easy to join GreatSchools. As a member, you can:</p>
+                        <ul>
+                            <li><span class="text2"><span class="text2bold">Find the right school.</span>
+                        More than 500,000 ratings and reviews nationwide</span></li>
+                            <li><span class="text2"><span class="text2bold">Track your child's education.</span>
+                        Free newsletters tell you what your child should be learning, grade-by-grade</span></li>
+                            <li><span class="text2"><span class="text2bold">Connect with other parents.</span>
+                        Talk about local schools and education in our parent community</span></li>
+                        </ul>
 
-                <ul id="returninguserForm" class="${messageClass}">
-                    <li id="emailAddress">
-                        <label>Email address</label>
-                        <spring:bind path="loginCmd.email">
-                            <input type="text" name="${status.expression}" value="${status.value}"/>
-                        </spring:bind>
-                    </li>
-                    <li id="password">
-                        <label>Password</label>
-                        <spring:bind path="loginCmd.password">
-                            <input type="password" name="${status.expression}" value=""/>
-                        </spring:bind>
-                    </li>
-                    <li id="rememberMe">
-                        <label class="checkboxLabel" for="rememberMeBox">Keep me logged in</label>
-                        <gsml:checkbox name="loginCmd.rememberMe"
-                                       checked="${loginCmd.rememberMe}"
-                                       styleClass="checkbox" styleId="rememberMeBox"/>
-                    </li>
-                    <li id="goButton">
-                        <gsml:inputImage src="/res/img/community/registration/signin.gif"
-                                         alt="Sign in"/>
-                    </li>
-                    <li id="forgotPassword">
-                        <c:choose>
-                            <c:when test="${loginCmd.email != null and loginCmd.email != ''}">
-                                <link:forgotPassword email="${loginCmd.email}" title="Forgot password">Forgot password?</link:forgotPassword>
-                            </c:when>
-                            <c:otherwise>
-                                <link:forgotPassword title="Forgot password">Forgot password?</link:forgotPassword>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
-                </ul>
-            </gsweb:form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end: newuser -->
         </div>
-        <gsml:img src="/res/img/community/registration/vertical_dots.gif"
+
+        <div id="returninguser" class="size1of2GS col">
+
+            <div class="mod">
+                <div class="mod_hd">
+                    <h2>Returning Member?</h2>
+                </div>
+
+                <div class="mod_bd">
+                    <c:if test="${param.message ne null and param.message gt ''}">
+                        <c:set var="message" value="${gsweb:escapeHtml(param.message)}"/>
+                    </c:if>
+                    <c:set var="messageClass" value=""/>
+                    <c:if test="${message ne null and message gt ''}">
+                        <c:set var="messageClass" value="hasMessage"/>
+
+                        <p class="infoMessage">
+                            <gsml:img src="/res/img/community/registration/check.gif" alt="Check mark"/>
+                            <span>${message}</span>
+                        </p>
+                    </c:if>
+
+                    <h4 class="introTextbold">Yes! I'm already a member</h4>
+
+                    <gsweb:form action="/community/loginOrRegister.page" method="post">
+                        <fieldset class="account text2bold">
+                            <legend><!-- do not collapse --></legend>
+                            <spring:bind path="loginCmd.redirect">
+                                <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                            </spring:bind>
+
+                            <gsml:errorMessage command="loginCmd" styleClass="warning ${messageClass}" useImage="true"/>
+
+                            <ul id="returninguserForm" class="${messageClass}">
+                                <li>
+                                    <label for="emailAddress">Email address</label>
+                                    <spring:bind path="loginCmd.email">
+                                        <input id="emailAddress" type="text" name="${status.expression}"
+                                               value="${status.value}"/>
+                                    </spring:bind>
+                                </li>
+                                <li>
+                                    <label for="password">Password</label>
+                                    <spring:bind path="loginCmd.password">
+                                        <input id="password" type="password" name="${status.expression}" value=""/>
+                                    </spring:bind>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset class="submit text2">
+                            <ul>
+                                <li id="rememberMe">
+                                    <gsml:checkbox name="loginCmd.rememberMe"
+                                                   checked="${loginCmd.rememberMe}"
+                                                   styleClass="checkbox" styleId="rememberMeBox"/>
+                                    <label class="checkboxLabel text2" for="rememberMeBox">Keep me logged in</label>
+                                </li>
+                                <li>
+                                    <!--<gsml:inputImage src="/res/img/community/registration/signin.gif"
+                                   alt="Sign in"/>-->
+                                    <button type="button" id="goButton" name="Submit" value="Submit"
+                                            class="btn25 fltlft">
+                                        <span class="lftDoor25"><span class="rtDoor25">Sign in</span></span>
+                                    </button>
+                                    <br class="clearfloat"/>
+                                </li>
+                                <li id="forgotPassword">
+                                    <c:choose>
+                                        <c:when test="${loginCmd.email != null and loginCmd.email != ''}">
+                                            <link:forgotPassword email="${loginCmd.email}"
+                                                                 title="Forgot password">Forgot password?</link:forgotPassword>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <link:forgotPassword
+                                                    title="Forgot password">Forgot password?</link:forgotPassword>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </gsweb:form>
+                </div>
+            </div>
+        </div>
+        <!--<gsml:img src="/res/img/community/registration/vertical_dots.gif"
                   alt="Vertical dot divider"
-                  id="verticalDots"/>
+                  id="verticalDots"/>-->
         <!-- end: returninguser -->
+        <!--</div>-->
+        <!--</div>-->
+        <!-- end: outline -->
         </div>
-    </div>
-    <!-- end: outline -->
 
-    <mod:tracking pageName="Login or Register"
-                  hier1="Account,Registration,Login"/>
+        <mod:tracking pageName="Login or Register"
+                      hier1="Account,Registration,Login"/>
     </gsml:body>
     </html>
 </jsp:root>
