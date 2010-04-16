@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.w3c.dom.Document;
@@ -46,7 +47,7 @@ import static gs.data.util.XMLUtil.*;
  *         <p/>
  *         http://wiki.greatschools.org/bin/view/Greatschools/ParentReviewWebService
  */
-public class SchoolReviewsAjaxController extends SimpleFormController implements ReadWriteController {
+public class SchoolReviewsAjaxController extends AbstractCommandController implements ReadWriteController {
 
     protected final static Log _log = LogFactory.getLog(SchoolReviewsAjaxController.class);
 
@@ -69,23 +70,7 @@ public class SchoolReviewsAjaxController extends SimpleFormController implements
 
     private Boolean _xmlPage = Boolean.FALSE;
 
-    protected ModelAndView processFormSubmission(HttpServletRequest request,
-                                                 HttpServletResponse response,
-                                                 Object command,
-                                                 BindException errors) throws Exception {
-        if (errors.hasErrors()) {
-            ReviewCommand rc = (ReviewCommand) command;
-            if ("xml".equals(rc.getOutput())) return errorXML(response, errors);
-            else if ("json".equals(rc.getOutput())) return errorXML(response, errors);
-            else if ("html".equals(rc.getOutput()))
-                return super.processFormSubmission(request, response, command, errors);
-            else if (isXmlPage()) return errorXML(response, errors);
-            else if (isJsonPage()) return errorJSON(response, errors);
-        }
-        return super.processFormSubmission(request, response, command, errors);
-    }
-
-    public ModelAndView onSubmit(HttpServletRequest request,
+    public ModelAndView handle(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
                                  BindException errors) throws Exception {

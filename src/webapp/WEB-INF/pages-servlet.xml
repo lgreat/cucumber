@@ -159,6 +159,7 @@
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
                 <entry key="/survey/startResults.page" value="resultsSchoolLevelController"/>
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
+                <entry key="/school/review/postReview.page" value="postReview" />
             </map>
         </property>
     </bean>
@@ -232,7 +233,7 @@
           autowire="byName" lazy-init="true"/>
     <bean id="submitPrivateSchoolCommandValidator" class="gs.web.util.validator.SubmitPrivateSchoolCommandValidator"
           autowire="byName" lazy-init="true"/>
-
+    
     <bean name="/index.page"
           class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
         <property name="viewName">
@@ -1381,7 +1382,7 @@
         <!--</list>-->
         <!--</property>-->
     </bean>
-
+    
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
@@ -1937,10 +1938,9 @@
         <property name="xmlPage" value="true"/>
     </bean>
 
-    <bean name="/school/review/postReview.page"
+    <bean id="postReview" 
           class="gs.web.school.review.SchoolReviewsAjaxController"
           autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
     </bean>
