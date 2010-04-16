@@ -92,7 +92,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.onSubmit(_request, _response, _command, _errors);
+        _controller.handle(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
@@ -135,7 +135,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.onSubmit(_request, _response, _command, _errors);
+        _controller.handle(_request, _response, _command, _errors);
         verify(_alertWordDao);
         verify(_userDao);
         verify(_reviewDao);
@@ -269,14 +269,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_reviewDao);
     }
 
-    public void testErrorOnJsonPageShortCircuits() throws Exception {
-        _errors.reject("some error");
-        _controller.setJsonPage(true);
-
-        assertNull(_controller.processFormSubmission(_request, _response, _command, _errors));
-        assertEquals("text/x-json", _response.getContentType());
-    }
-
     protected class MockEmailContentHelper extends EmailContentHelper {
         public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
             replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
@@ -302,7 +294,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
 
-        _controller.onSubmit(_request, _response, _command, _errors);
+        _controller.handle(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
