@@ -1940,18 +1940,16 @@ db_discussContainer .db_discuss_full p {
 /* =4c-1 featured
 -------------------------------------------------------------------------------------------*/
 #featured {
-    width:598px;
+    width:598px; height:326px;
 }
 
 #featured .one_of_two {
-    /*outline:1px solid red;*/
     width:340px; height:235px;
     background:white;
     border:1px solid #c6c6c6;
 }
 
 #featured .two_of_two {
-    /*outline:1px solid red;*/
     width:225px; height:218px;
     background:url(/res/img/topicCenter/tc_feature_bg.jpg) repeat-x;
     padding:12px 15px 5px 15px;
@@ -3267,7 +3265,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-15.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-04-16.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
@@ -3322,6 +3320,12 @@ additional icons on the sprite.
     width: 14px;
     height: 13px;
     background-position: 0 -160px;
+}
+
+.house{
+    width: 16px;
+    height: 16px;
+    background-position: 0 -180px;
 }
 
 .twitter {
