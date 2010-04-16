@@ -32,6 +32,7 @@
                     <th>Date Submitted</th>
                     <th>Author</th>
                     <th>School</th>
+                    <th>Status</th>
                     <th>How</th>
                 </tr>
                 <c:forEach items="${requestScope.unprocessedReviews}" var="review">
@@ -40,6 +41,7 @@
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
                         <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
+                        <td>${review.status}</td>
                         <td>${review.how}</td>
                     </tr>
                 </c:forEach>

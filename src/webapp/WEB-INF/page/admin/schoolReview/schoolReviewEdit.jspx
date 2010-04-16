@@ -54,6 +54,8 @@
                             pattern="MMMM d, yyyy h:mma"/>
             <label>Posted:</label><span class="value">${reviewPosted}</span>
             <br/>
+            <label>Status:</label><span class="value">${requestScope.command.review.status}</span>
+            <br/>
             <br/>
             <label>Ratings:</label>
             <br/>
