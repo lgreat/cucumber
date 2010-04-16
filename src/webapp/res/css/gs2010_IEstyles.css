@@ -705,7 +705,7 @@ body.ie7 #inlineSignin a div, body.ie6 #inlineSignin a div{
     cursor:pointer;
 }
 
-body.ie7 #joinImage h3 span{
+body.ie7 #joinImage h3 span.sprite{
     vertical-align:middle;
 }
 
@@ -713,7 +713,7 @@ body.ie6 #joinImage h3{
     position:relative;
 }
 
-body.ie6 #joinImage h3 span{
+body.ie6 #joinImage h3 span.sprite{
     position:absolute;
     top:5px;
     font-size:15px;
