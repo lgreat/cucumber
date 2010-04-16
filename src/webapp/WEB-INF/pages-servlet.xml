@@ -1937,6 +1937,14 @@
         <property name="xmlPage" value="true"/>
     </bean>
 
+    <bean name="/school/review/postReview.page"
+          class="gs.web.school.review.SchoolReviewsAjaxController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+    </bean>
+
     <bean name="addParentReviewsValidator"
           class="gs.web.school.review.AddParentReviewsValidator"
           autowire="byName"
