@@ -63,20 +63,31 @@
                     <h4 class="introTextbold">Join GreatSchools</h4>
 
                     <div id="joinImage">
-                        <link:registration email="${loginCmd.email}"
-                                           redirect="${loginCmd.redirect}">
-
+                        <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
                             <img src="/res/img/community/registration/signinInlinePhoto.jpg" class="fltlft"
                                  id="newuserImage" width="280" height="190" alt="Photo of mother and son"/>
+                        </link:registration>
 
-                            <p class="text1 firstPara">Are you new to GreatSchools?</p>
+                            <p class="firstPara">
+                                <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                                    <span class="text1">Are you new to GreatSchools?</span>
+                                </link:registration>
+                            </p>
 
-                            <h3 class="title1-06b">Join Now <span class="sprite join"><!--icon--></span></h3>
+                            <h3>
+                                <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                                    <span class="title1-06b">Join Now </span><span class="sprite join"><!--icon--></span>
+                                </link:registration>
+                            </h3>
 
-                            <p class="text1-d61">IT'S FREE!</p>
+                            <p>
+                                <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                                    <span class="text1-d61">IT'S FREE!</span>
+                                </link:registration>
+                            </p>
                             <br class="clearfloat"/>
 
-                        </link:registration>
+
                     </div>
 
                     <div id="joinText">
