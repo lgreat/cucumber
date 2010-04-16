@@ -692,6 +692,37 @@ body.ie6 #previewDiscussionDialog .sd-btn-layout{
     margin:0 20px 24px 35px;
 }
 
+/* =4h- inline sign-in
+-------------------------------------------------------------------------------------------*/
+
+body.ie8 #inlineSignin a{
+    border:none;
+    text-decoration:none;
+}
+
+body.ie7 #inlineSignin a div, body.ie6 #inlineSignin a div{
+    text-decoration:none;
+    cursor:pointer;
+}
+
+body.ie7 #joinImage h3 span{
+    vertical-align:middle;
+}
+
+body.ie6 #joinImage h3{
+    position:relative;
+}
+
+body.ie6 #joinImage h3 span{
+    position:absolute;
+    top:5px;
+    font-size:15px;
+}
+
+body.ie6 #joinText ul li{
+    margin-left:16px;
+}
+
 /* =D- ie6 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
@@ -852,7 +883,7 @@ body.ie6 #es-gbgTabs .selected a {
 
 body.ie6 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-07.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-04-15.gif);
 }
 
 /*

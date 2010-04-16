@@ -803,7 +803,7 @@ body.cobranded #pageGS {
     overflow: hidden;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
 }
-.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS, .signin #contentGS, .framed #mainWrap, .framed #contentGS, .framed #pageGS, .framed #footerFrm  {
+.nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS, .balanced #contentGS, .framed #mainWrap, .framed #contentGS, .framed #pageGS, .framed #footerFrm  {
     background: #fff;
     padding: 0;
 }
@@ -3188,6 +3188,11 @@ ul.srchSuggest li span {
     padding:5px 0;
 }
 
+#inlineSignin a{
+    border:none;
+    text-decoration:none;
+}
+
 #joinImage{
     width:100%;
     background:#ebebeb;
@@ -3221,6 +3226,12 @@ ul.srchSuggest li span {
     padding:5px 0;
 }
 
+
+#returninguser fieldset{
+    outline:none;
+    border:none;
+}
+
 #returninguser fieldset.account label{
     float:left;
     width:100px;
@@ -3232,6 +3243,7 @@ ul.srchSuggest li span {
     width:250px;
     padding:3px 0;
     border:1px solid #a8cedf;
+    outline:none;
 }
 
 #returninguser fieldset.submit{
@@ -3255,7 +3267,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-07.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-04-15.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
@@ -3352,6 +3364,18 @@ additional icons on the sprite.
     width: 18px;
     height: 17px;
     background-position: -20px -120px;
+}
+
+.join {
+    width: 15px;
+    height: 15px;
+    background-position: -20px -140px;
+}
+
+.alert {
+    width: 13px;
+    height: 13px;
+    background-position: -20px -160px;
 }
 
 .community {

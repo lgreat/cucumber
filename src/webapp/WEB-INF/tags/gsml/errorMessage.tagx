@@ -29,8 +29,9 @@
                 <spring:bind path="${command}.${field}">
                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                         <c:if test="${useImage eq 'true'}">
-                            <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
-                                      alt="Error" styleClass="${imageClass}"/>
+                            <!--<gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
+                                      alt="Error" styleClass="${imageClass}"/>-->
+                            <span class="sprite alert"><!--icon--></span>&amp;nbsp;
                         </c:if>
                         <p class="${styleClass}">
                             <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
@@ -44,7 +45,8 @@
                         <c:if test="${error.defaultMessage ne null}">
                             <li>
                                 <c:if test="${useImage eq 'true'}">
-                                    <gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Error"/>
+                                    <!--<gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Error"/>-->
+                                    <span class="sprite alert"><!--icon--></span>&amp;nbsp;
                                 </c:if>
                                 <spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/>
                             </li>
