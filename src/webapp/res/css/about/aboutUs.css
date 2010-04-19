@@ -2,8 +2,8 @@
     background: none;
 }
 
-.breadcrumbs {
-    margin-top: 10px;
+p.breadcrumbs {
+    margin: 10px 0 14px 20px;
 }
 
 div.contentLeft {

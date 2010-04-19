@@ -7,8 +7,8 @@ body.ie6 .main {
     margin-left: 20px;
     display: inline;
 }
-.breadcrumbs {
-    margin-top: 14px;
+p.breadcrumbs {
+    margin: 14px 0 12px;
 }
 .callout {
     width: 598px;
