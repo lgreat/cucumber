@@ -137,109 +137,135 @@
 <!-- End report it dialog -->
 
 <div class="spacer_15"><!--do not collapse--></div>
+
+<div id="acctCallToAction" class="mod">
+    <div class="mod_bd">
+        <p class="text2"><span class="alertDoubleArrow">&amp;raquo; </span>Take a minute to
+            <span class="text2bold">update your profile </span>so we can customized your experience.</p>
+    </div>
+</div>
+<!-- end acctCallToAction -->
+
+<div class="spacer_10"><!--do not collapse--></div>
+
 <div class="module">
     <c:if test="${!requestScope.viewAllActivity}">
-    <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
-    <h2 class="fltlft">${requestScope.pageHeading}</h2>
-    <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-        <c:choose>
-            <c:when test="${requestScope.memberReport eq true}">
-                <span class="fltrt reported"><span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span>You've reported this member.</span>
-            </c:when>
-            <c:otherwise>
+        <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
+            <h2 class="fltlft">${requestScope.pageHeading}</h2>
+            <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
+                <c:choose>
+                    <c:when test="${requestScope.memberReport eq true}">
+                        <span class="fltrt reported"><span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span>You've reported this member.</span>
+                    </c:when>
+                    <c:otherwise>
                 <span class="fltrt">
                     <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}"
-                       href="${loginRedirectUrl}">Report this member <span class="go">&amp;#187;</span></a>
+                                                                                   href="${loginRedirectUrl}">Report this member
+                    <span class="go">&amp;#187;</span></a>
                 </span>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
-    <c:if test="${requestScope.canBanMember}">
-        <c:choose>
-            <c:when test="${pageUser.userProfile.active}">
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:if test="${requestScope.canBanMember}">
+                <c:choose>
+                    <c:when test="${pageUser.userProfile.active}">
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#" id="deactivateMember">Deactivate this member</a></span>
-            </c:when>
-            <c:otherwise>
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
+                                                                                   id="deactivateMember">Deactivate this member</a></span>
+                    </c:when>
+                    <c:otherwise>
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#" id="reactivateMember">Reactivate this member</a>
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
+                                                                                   id="reactivateMember">Reactivate this member</a>
                 </span>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
 
-    <br class="clearfloat"/>
+            <br class="clearfloat"/>
 
-    <c:choose>
-        <c:when test="${avatarAlertType eq 'sync'}">
-            <p class="smallAlertText">Your new avatar has been uploaded.</p>
-        </c:when>
-        <c:when test="${avatarAlertType eq 'async'}">
-            <p class="smallAlertText">Your new avatar has been uploaded and should appear in a few minutes.</p>
-        </c:when>
-        <c:when test="${avatarAlertType eq 'error'}">
-            <p class="smallAlertTextBold">We're sorry, there was an unexpected error uploading your new avatar.</p>
-        </c:when>
-    </c:choose>
-    <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col': 'Full'}">
-        <div class="aboutMe">
-        <p>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date" pattern="MMMM yyyy"/></strong></p>
-        <c:if test="${requestScope.viewingOwnProfile or not empty pageUser.userProfile.aboutMe}">
-        <h3 class="text1">
-            About me
-            <c:if test="${requestScope.canEditMember}"><span class="fltlt"><a href="#" class="editAboutMe">Edit</a></span></c:if>
-        </h3>
-        </c:if>
-
-        <p class="defaultBioText">
-            Welcome to the GreatSchools community! <a href="#" class="editAboutMeSecondaryLink">Tell us about yourself</a>
-            to start building your profile.
-        </p>
-        <p class="bioText text3"><c:if test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if></p>
-        <form action="/" id="accountEditBio" method="post">
-            <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
-            <textarea name="bio" class="bioInput"><!-- do not collapse --></textarea>
-            <br/>
-            <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
-                <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
-            </button>
-            <button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
-                <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-            </button>
-        </form>
-            </div>
-        <p class="avatar">
-            <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar" cssStyle="border: 1px solid #c6c6c6;"/>
             <c:choose>
-                <c:when test="${requestScope.viewingOwnProfile}">
-                    <br/>
-                    <a href="#" id="updateMyPhotoLink">Update my photo</a>
+                <c:when test="${avatarAlertType eq 'sync'}">
+                    <p class="smallAlertText">Your new avatar has been uploaded.</p>
                 </c:when>
-                <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
-                    <br/>
-                    <a href="#" id="resetPhotoLink">Reset photo</a>
+                <c:when test="${avatarAlertType eq 'async'}">
+                    <p class="smallAlertText">Your new avatar has been uploaded and should appear in a few minutes.</p>
+                </c:when>
+                <c:when test="${avatarAlertType eq 'error'}">
+                    <p class="smallAlertTextBold">We're sorry, there was an unexpected error uploading your new avatar.</p>
                 </c:when>
             </c:choose>
-        </p>
-    </div><c:if test="${requestScope.pageType eq 'userAccount'}">
-        <div class="mgAccount col">
-            <h4>Manage my account</h4>
-            <ul>
-                <li><link:changeEmail>Update my email address</link:changeEmail></li>
-                <li><link:resetPassword>Change my password</link:resetPassword></li>
-                <li><link:accountInfo>Update my account</link:accountInfo></li>
-                <li><link:newsletterManagement>Manage newsletters</link:newsletterManagement></li>
-                <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
-            </ul>
+
+            <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col brdrt_dotted': 'Full'}">
+                <div class="aboutMe">
+                    <p>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date"
+                                                             pattern="MMMM yyyy"/></strong></p>
+                    <c:if test="${requestScope.viewingOwnProfile or not empty pageUser.userProfile.aboutMe}">
+                        <h3 class="text1">
+                            About me
+                            <c:if test="${requestScope.canEditMember}"><span class="fltlt"><a href="#"
+                                                                                              class="editAboutMe">Edit</a></span></c:if>
+                        </h3>
+                    </c:if>
+
+                    <p class="defaultBioText">
+                        Welcome to the GreatSchools community! <a href="#"
+                                                                  class="editAboutMeSecondaryLink">Tell us about yourself</a>
+                        to start building your profile.
+                    </p>
+
+                    <p class="bioText text3"><c:if
+                            test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if>
+                    </p>
+
+                    <form action="/" id="accountEditBio" method="post">
+                        <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
+                        <textarea name="bio" class="bioInput"><!-- do not collapse --></textarea>
+                        <br/>
+                        <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
+                            <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
+                        </button>
+                        <button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
+                            <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+                        </button>
+                    </form>
+                </div>
+                <p class="avatar">
+                    <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar"
+                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                    <c:choose>
+                        <c:when test="${requestScope.viewingOwnProfile}">
+                            <br/>
+                            <a href="#" id="updateMyPhotoLink">Update my photo</a>
+                        </c:when>
+                        <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
+                            <br/>
+                            <a href="#" id="resetPhotoLink">Reset photo</a>
+                        </c:when>
+                    </c:choose>
+                </p>
+            </div>
+            <c:if test="${requestScope.pageType eq 'userAccount'}">
+                <div class="mgAccount col">
+                    <h4>Manage my account</h4>
+                    <ul>
+                        <li><link:changeEmail>Update my email address</link:changeEmail></li>
+                        <li><link:resetPassword>Change my password</link:resetPassword></li>
+                        <!--<li><link:accountInfo>Update my account</link:accountInfo></li>-->
+                        <li><link:newsletterManagement>Manage newsletters</link:newsletterManagement></li>
+                        <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
+                    </ul>
+                </div>
+            </c:if>
         </div>
-    </c:if>
-    </div>
-
-
+        <!-- end userInfo -->
 
     </c:if>
 
 </div>
+<!-- end module -->
+<div class="spacer_15"><!--do not collapse--></div>
+
 <div class="module">
     <!-- Recent Activity -->
     <c:set var="recentActivityTitle">

@@ -32,7 +32,7 @@
 <div id="inlineSignin">
         <c:set var="alertMessageType" value="${requestScope.alertMessageType}"/>
 
-        <div id="newuser" class="size1of2GS col">
+        <div id="newuser" class="size1of2 col">
             <c:if test="${alertMessageType ne null and alertMessageType ne ''}">
                 <p class="infoMessage">
                     <span class="sprite alert"><!--icon--></span>
@@ -108,7 +108,7 @@
             <!-- end: newuser -->
         </div>
 
-        <div id="returninguser" class="size1of2GS col">
+        <div id="returninguser" class="size1of2 col">
 
             <div class="mod">
                 <div class="mod_hd">

@@ -575,7 +575,7 @@ body.ie6 .aboutMe {
 .mgAccount {
     position: relative;
     padding: 0 15px;
-    border: 0;
+    /*border: 0;*/
     width: 28%;
 }
 body.ie6 .mgAccount {

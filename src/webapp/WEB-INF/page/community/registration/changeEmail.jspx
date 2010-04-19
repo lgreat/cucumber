@@ -10,7 +10,7 @@
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
-      <pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>
+      <!--<pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>-->
       <title>Change Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
@@ -24,62 +24,114 @@
       <![endif]-->
       ]]>
 
-      <div id="outline"><!-- creates darker blue outer outline -->
-          <h2>Update My Email Address</h2>
+      <div id="mainGS" class="col">
+          <div class="spacer_10"><!-- do not collapse --></div>
 
-          <a href="/account/"
-             id="dashboardLink" tabindex="1">Go to my dashboard &gt;</a>
+          <div id="topicContentGS" class="clearfix">
 
-          <gsweb:form action="/community/changeEmail.page" method="post">
-              <ul>
-                  <li>
-                      <label>Current email address:</label>
-                      <address>${requestScope.context.email}</address>
-                  </li>
-                  <li>
-                      <label for="newEmailField">New email address</label>
-                      <spring:bind path="emailCmd.newEmail">
-                          <input id="newEmailField" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="2"/>
-                      </spring:bind>
-                      <!-- hack because the built in email validator rejects the field named "email" -->
-                      <spring:hasBindErrors name="emailCmd">
-                          <spring:bind path="emailCmd.email">
-                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
-                                            alt="Error" styleClass="errorImage"/>
-                                  <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
-                              </c:if>
-                          </spring:bind>
-                          <spring:bind path="emailCmd.newEmail">
-                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
-                                            alt="Error" styleClass="errorImage"/>
-                                  <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
-                              </c:if>
-                          </spring:bind>
-                      </spring:hasBindErrors>
-                  </li>
-                  <li>
-                      <label for="confirmNewEmailField">Re-type email address</label>
-                      <spring:bind path="emailCmd.confirmNewEmail">
-                          <!-- disable browser auto-complete for this field -->
-                          <input id="confirmNewEmailField" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="3" autocomplete="off"/>
-                      </spring:bind>
-                  </li>
-                  <li>
-                      <gsml:inputImage src="/res/img/community/registration/savebutton.gif"
-                                       alt="Save" name="submit"
-                                       id="submitButton" tabIndex="5"/>
-                      <gsml:inputImage src="/res/img/community/registration/cancel.gif"
-                                       alt="Cancel" name="cancel"
-                                       id="cancelButton" tabIndex="4"/>
-                  </li>
-              </ul>
-          </gsweb:form>
+              <div id="topicbarGS" class="col">
+                  <div class="mod">
+                      <div class="navmod_hd">
+                          <h5>Manage my account</h5>
+                      </div>
+                      <div class="navmod_bd">
+                          <ul class="text2">
+                              <li>Update Email Address</li>
+                              <li><a href="#">Change My Password</a></li>
+                              <li><a href="#">Manage Newsletters</a></li>
+                              <li><a href="#">Edit My School List</a></li>
+                          </ul>
+                      </div>
+                  </div>
+
+              </div>
+              <!-- end #topicbarGS -->
+
+              <div id="topicMainGS" class="col">
+                  <div id="changeEmail">
+                      <h3 class="title2-d61">Update email address</h3>
+
+                      <div class="spacer_5"><!-- do not collapse --></div>
+                      <p class="text3">Please enter a new email address for your account in the form below. Keep in mind that you'll need to verify your new email before you're able to sign in again.</p>
+
+                      <gsweb:form action="/community/changeEmail.page" method="post">
+                          <fieldset>
+                              <ul>
+                                  <li>
+                                      <label>Current email address:</label>
+                                      <address>${requestScope.context.email}</address>
+                                  </li>
+                                  <li>
+                                      <label for="newEmailField">New email address</label>
+                                      <spring:bind path="emailCmd.newEmail">
+                                          <input id="newEmailField" type="text" name="${status.expression}"
+                                                 value="${status.value}" tabindex="2"/>
+                                      </spring:bind>
+                                      <!-- hack because the built in email validator rejects the field named "email" -->
+                                      <spring:hasBindErrors name="emailCmd">
+                                          <spring:bind path="emailCmd.email">
+                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
+                                                            alt="Error" styleClass="errorImage"/>
+
+                                                  <p class="errorText"><spring:message code="${status.errorCode}"
+                                                                                       text="${status.errorMessage}"/>
+                                                  </p>
+                                              </c:if>
+                                          </spring:bind>
+                                          <spring:bind path="emailCmd.newEmail">
+                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
+                                                            alt="Error" styleClass="errorImage"/>
+
+                                                  <p class="errorText"><spring:message code="${status.errorCode}"
+                                                                                       text="${status.errorMessage}"/>
+                                                  </p>
+                                              </c:if>
+                                          </spring:bind>
+                                      </spring:hasBindErrors>
+                                  </li>
+                                  <li>
+                                      <label for="confirmNewEmailField">Re-type email address</label>
+                                      <spring:bind path="emailCmd.confirmNewEmail">
+                                          <!-- disable browser auto-complete for this field -->
+                                          <input id="confirmNewEmailField" type="text" name="${status.expression}"
+                                                 value="${status.value}" tabindex="3" autocomplete="off"/>
+                                      </spring:bind>
+                                  </li>
+                              </ul>
+                          </fieldset>
+                          <fieldset class="submit">
+
+                              <button type="submit" id="submitButton" name="Submit" value="Submit"
+                                      class="btn25 fltlft" tabindex="5">
+                                  <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
+                              </button>
+                              <button type="cancel" id="cancelButton" name="Cancel" value="Cancel"
+                                      class="btn25 fltlft" tabindex="4">
+                                  <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+                              </button>
+
+                          </fieldset>
+
+                      </gsweb:form>
+                  </div>
+                  <!-- end changeEmail -->
+
+              </div>
+              <!-- end #topicMainGS -->
+
+          </div>
+          <!-- end #topicContentGS -->
+
       </div>
-      <!-- end: outline -->
+      <!-- end mainGS -->
+
+      <div id="sidebarGS" class="col">
+          <!-- do not collapse -->
+      </div>
+      <!-- end sidebarGS-->
+
       <mod:tracking pageName="Change Email"
                     hier1="Account,Change Email"/>
   </gsml:body>
