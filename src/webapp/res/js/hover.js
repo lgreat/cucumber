@@ -65,10 +65,11 @@ GSType.hover.ForgotPasswordHover = function() {
         this.dialogByWidth(590);
     };
     this.addMessage = function(text) {
-        jQuery('#hover_forgotPassword .messages').append('<p>' + text + '</p>');
+        jQuery('#hover_forgotPassword .messages').html('<p>' + text + '</p>').show();
     };
     this.clearMessages = function() {
-        jQuery('#hover_forgotPassword .messages').replaceWith('<div class="messages"><!-- not empty --></div>')
+        jQuery('#hover_forgotPassword .messages').empty();
+        jQuery('#hover_forgotPassword .messages').hide();
     };
     this.loadOnExit = function(url) {
         GSType.hover.forgotPassword.loadOnExitUrl = url;
@@ -86,7 +87,7 @@ GSType.hover.ForgotPasswordHover = function() {
             GSType.hover.forgotPassword.cancelLoadOnExit();
         }
         GSType.hover.forgotPassword.hide();
-        GSType.hover.joinHover.show();
+        GSType.hover.signInHover.showJoinFunction();
     };
     this.showSignin = function() {
         if (GSType.hover.forgotPassword.loadOnExitUrl) {
