@@ -2,6 +2,7 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.json.JSONObject;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -79,6 +80,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         ReviewCommand rc = (ReviewCommand) command;
 
+        boolean reviewPosted = false;
+
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         String check = request.getParameter("isAddNewParentReview");
         if (!StringUtils.isBlank(check)) {
@@ -112,6 +115,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         //save the review
         getReviewDao().saveReview(r);
+        reviewPosted = true;
 
         Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(r.getComments());
         if (alertWordMap != null) {
@@ -134,12 +138,16 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                         reason.append(" and ");
                     }
                     reason.append("really bad words (").append(StringUtils.join(reallyBadWords, ",")).append(")");
+                    reviewPosted = false;
                 }
 
                 getReportContentService().reportContent(getAlertWordFilterUser(), user, request, r.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
             }
         }
 
+        if (Poster.STUDENT.equals(rc.getPoster())) {
+            reviewPosted = false;
+        }
 
         //only send them an email if they submitted a message that is not blank
         /*
@@ -148,7 +156,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         } else if ("u".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
             sendMessage(user, r.getComments(), school, "communityEmail.txt");
         }
-
 
         //trigger the success events
         if (userRatedOneOrMoreCategories(rc)) {
@@ -159,9 +166,15 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentReview);
         }
         */
+        Map<Object,Object> values = new HashMap<Object,Object>();
+        values.put("status", "true");
+        values.put("userId", user.getId().toString());
+        values.put("reviewPosted", new Boolean(reviewPosted).toString());
+        String jsonString = new JSONObject(values).toString();
 
         response.setContentType("text/x-json");
-        response.getWriter().print("{\"status\":true,\"userId\":" + user.getId() + "}");
+        _log.info("Writing JSON response -" + jsonString);
+        response.getWriter().write(jsonString);
         response.getWriter().flush();
         return null;
     }

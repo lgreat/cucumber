@@ -692,15 +692,6 @@ GSType.hover.SignInHoverSchoolReview = function() {
 };
 GSType.hover.SignInHoverSchoolReview.prototype = new GSType.hover.HoverDialog('signInHover');
 
-
-GSType.hover.ReviewSubmitted = function() {
-    this.loadDialog = function() {
-        this.dialogByWidth(640);
-    }
-}
-GSType.hover.reviewSubmitted = new GSType.hover.ReviewSubmitted('reviewSubmittedHover');
-
-
 //ValidateEditEmail Hover
 GSType.hover.ValidateEditEmail = function() {
     this.loadDialog = function() {
