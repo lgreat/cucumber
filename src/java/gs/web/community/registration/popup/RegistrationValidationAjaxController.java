@@ -98,6 +98,9 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         if (StringUtils.equals(FIRST_NAME, request.getParameter(FIELD_PARAMETER))) {
             _userCommandValidator.validateFirstName(userCommand, errors);
         } else if (StringUtils.equals(EMAIL, request.getParameter(FIELD_PARAMETER))) {
+            // validate email format
+            EmailValidator emailValidator = new EmailValidator();
+            emailValidator.validate(userCommand, errors);
             _userCommandValidator.validateEmail(userCommand, request, errors);
         } else if (StringUtils.equals(USERNAME, request.getParameter(FIELD_PARAMETER))) {
             User user = null;

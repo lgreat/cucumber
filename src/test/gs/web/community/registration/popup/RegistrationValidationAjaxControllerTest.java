@@ -157,6 +157,39 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         verifyMocks(_userDao, _mockUserCommandValidator);
     }
 
+    public void testFieldValidationFormatEmail() throws Exception {
+        setupCommand();
+
+        getRequest().setParameter(FIELD_PARAMETER, EMAIL);
+        _controller.setUserCommandValidator(_mockUserCommandValidator);
+
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validateEmail(_command, getRequest(), _errors)).andReturn(null);
+
+
+        _command.setEmail("notAnEmail&notADomain,foo");
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+        assertNotNull(_errors.getFieldErrors());
+        assertEquals("Expect invalid email format to be rejected", 1, _errors.getFieldErrors().size());
+        assertNotNull(_errors.getFieldError("email"));
+
+        resetMocks(_userDao, _mockUserCommandValidator);
+        _errors = new BindException(_command, "");
+        _command.setEmail("email@example.com");
+        
+        _mockUserCommandValidator.setUserDao(_userDao);
+        expect(_mockUserCommandValidator.validateEmail(_command, getRequest(), _errors)).andReturn(null);
+
+        replayMocks(_userDao, _mockUserCommandValidator);
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+        verifyMocks(_userDao, _mockUserCommandValidator);
+        assertNotNull(_errors.getFieldErrors());
+        assertEquals(0, _errors.getFieldErrors().size());
+        assertNull(_errors.getFieldError("email"));
+    }
+
     public void testFieldValidationUsername() throws Exception {
         setupCommand();
 
@@ -226,20 +259,4 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         //assertTrue("Controller does not have expected errors on validate", StringUtils.containsIgnoreCase(getResponse().getContentAsString(),"Please read and accept our Terms of Use to join GreatSchools."));
     }
     */
-
-    public IUserDao getUserDao() {
-        return _userDao;
-    }
-
-    public void setUserDao(IUserDao userDao) {
-        _userDao = userDao;
-    }
-
-    public User getUser() {
-        return _user;
-    }
-
-    public void setUser(User user) {
-        _user = user;
-    }
 }
