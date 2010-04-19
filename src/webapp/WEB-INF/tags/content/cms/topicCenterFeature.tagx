@@ -23,7 +23,7 @@
                         href="${pageScope.mainFeatureLink.url}">${pageScope.mainFeatureLink.title}</a></h3>
 
                 <div class="spacer_15"><!--do not collapse--></div>
-                <p class="text3">${pageScope.mainFeatureLink.description}</p>
+                <p class="text3 padbtm_120">${pageScope.mainFeatureLink.description}</p>
             </c:if>
             <c:if test="${not empty pageScope.otherFeatureLinks}">
                 <ul>
