@@ -419,7 +419,7 @@
 
                         <div class="${replyText} fltlft rnd8">
                             <div id="${replyArrow}"><!--do not collapse--></div>
-
+                            <p class="fltlft">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
                                     <link:userProfile user="${reply.user}"
@@ -435,6 +435,7 @@
                             </c:choose>
 
                             <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                            </p>
                             <c:if test="${allowEditsDeletesReports}">
                                 <!-- TODO-9419 Edit Replies -->
                                 <!--

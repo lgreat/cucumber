@@ -73,7 +73,7 @@
             <c:set var="moreLink">(${numReplies} replies)</c:set>
         </c:when>
         <c:otherwise>
-            <c:set var="moreLink">More <span class="go">&amp;raquo;</span></c:set>
+            <c:set var="moreLink">More&amp;nbsp;<span class="go">&amp;raquo;</span></c:set>
             <c:if test="${!abbreviated}">
                 <c:set var="showMoreLink" value="${false}"/>
             </c:if>
