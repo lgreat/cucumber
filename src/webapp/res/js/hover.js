@@ -296,7 +296,7 @@ GSType.hover.JoinHover = function() {
                         " to submit your review. Once you verify your email adress, your review will be posted, provided it meets our guidelines.");
 
         // set label for weekly updates opt-in
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
 
