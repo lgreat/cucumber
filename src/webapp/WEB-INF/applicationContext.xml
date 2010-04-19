@@ -149,6 +149,12 @@
                 <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
+        <property name="hoverCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="registrationStatus"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

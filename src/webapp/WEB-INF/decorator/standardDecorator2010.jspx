@@ -108,6 +108,7 @@
 <cobrand:framebuster/>
 
 <communityHover:validateEmail/>
+<communityHover:validateEmailSchoolReview/>
 <communityHover:validateEditEmail/>
 <communityHover:emailNotValidated/>
 <communityHover:emailValidated/>

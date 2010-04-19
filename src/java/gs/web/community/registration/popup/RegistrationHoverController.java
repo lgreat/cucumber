@@ -1,6 +1,7 @@
 package gs.web.community.registration.popup;
 
 import gs.data.state.State;
+import gs.web.school.review.HoverCookie;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
@@ -122,6 +123,9 @@ public class RegistrationHoverController extends RegistrationController implemen
         if (StringUtils.isNotEmpty(redirect)) {
             redirect = UrlUtil.addParameter(redirect, "showValidateEmailHover=true");
         }
+
+        HoverCookie cookie = new HoverCookie(request, response);
+        cookie.setProperty("RegistrationComplete", "true");
 
         mAndV.setViewName("redirect:" + redirect);
 
