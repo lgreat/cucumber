@@ -151,7 +151,7 @@
         </property>
         <property name="hoverCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
-                <property name="cookieName" value="registrationStatus"/>
+                <property name="cookieName" value="hoverStatus"/>
                 <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>

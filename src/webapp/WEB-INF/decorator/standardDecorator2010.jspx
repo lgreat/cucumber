@@ -118,6 +118,8 @@
 <communityHover:signIn/>
 <communityHover:forgotPassword/>
 
+<communityHover:schoolReviewThankYou/>
+
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
         <ad:x22 position="Header_728x90"/>

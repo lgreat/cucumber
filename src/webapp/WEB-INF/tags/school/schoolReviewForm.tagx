@@ -79,17 +79,38 @@
                     hasError = true;
                 }
                 if (!hasError) {
-                    jQuery.post('${formActionUrl}', jQuery('#frmPRModule').serialize());
+                    jQuery.post('${formActionUrl}', jQuery('#frmPRModule').serialize(), function(data) {
+                        if (data.reviewPosted != undefined) {
+                            if (data.reviewPosted) {
+                                subCookie.setObjectProperty("hoverStatus", "ReviewPosted", "true", 9001);
+                            } else {
+                                subCookie.setObjectProperty("hoverStatus", "ReviewNotPosted", "true", 9001);
+                            }
+                        }
+
+                        window.location.reload();
+                    });
                 }
             }
             return false;
         });
 
-        var value = subCookie.getObject("registrationStatus");
+        var value = subCookie.getObject("hoverStatus");
+
         if (value != undefined &amp;&amp; value.RegistrationComplete != undefined) {
             GSType.hover.validateEmailSchoolReview.show();
-            subCookie.deleteObjectProperty("registrationStatus", "RegistrationComplete");
+            subCookie.deleteObjectProperty("hoverStatus", "RegistrationComplete");
         }
+
+        if (value != undefined &amp;&amp; value.ReviewPosted != undefined) {
+            GSType.hover.schoolReviewPostedThankYou.show();
+            subCookie.deleteObjectProperty("hoverStatus", "ReviewPosted");
+        } else if (value != undefined &amp;&amp; value.ReviewNotPosted != undefined) {
+            GSType.hover.schoolReviewNotPostedThankYou.show();
+            subCookie.deleteObjectProperty("hoverStatus", "ReviewNotPosted");
+        }
+
+
     });
 </script>
 

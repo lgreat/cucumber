@@ -750,6 +750,46 @@ GSType.hover.EmailNotValidated = function() {
 };
 GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');
 
+//Base School Review Thank You Hover
+GSType.hover.SchoolReviewThankYou = function() {
+    this.loadDialog = function() {
+        this.dialogByWidth(640);
+    }
+    this.showHover = function() {
+        this.setTitle("Thank you for submitting a review");
+        this.setBody(this.body());
+        this.show();
+    }
+    //override in specific hovers!
+    this.body = function() {
+        return "Your review has been posted to GreatSchools";
+    }
+    this.setTitle = function(title) {
+        jQuery('#schoolReviewThankYou h2').html(title);
+    };
+    this.setBody = function(body) {
+        jQuery('#schoolReviewThankYou p strong').html(body);
+    };
+}
+GSType.hover.SchoolReviewThankYou.prototype = new GSType.hover.HoverDialog("schoolReviewThankYou");
+
+//School Review Posted Thank You
+GSType.hover.SchoolReviewPostedThankYou = function() {
+    this.body = function() {
+        return "Your review has been posted to GreatSchools";
+    }
+}
+GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
+
+//School Review Not Posted Thank You
+GSType.hover.SchoolReviewNotPostedThankYou = function() {
+    this.body = function() {
+       return "Please note that it can take up to 48 hours for your review to be posted to our site.";
+    }
+}
+GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
+
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -761,6 +801,9 @@ GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 GSType.hover.signInHoverSchoolReview = new GSType.hover.SignInHoverSchoolReview();
+
+GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
+GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1002,6 +1045,9 @@ jQuery(function() {
     GSType.hover.validateEmail.loadDialog();
     GSType.hover.validateEmailSchoolReview.loadDialog();
     GSType.hover.validateLinkExpired.loadDialog();
+
+    GSType.hover.schoolReviewPostedThankYou.loadDialog();
+    GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',
