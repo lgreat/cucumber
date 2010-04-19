@@ -33,11 +33,11 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside">
 
-        <div class="breadcrumbs smallAlertText">
+        <p class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
-        </div>
+        </p>
 
         <div class="contentLeft">
             <about:aboutGreatSchools selected="overview"/>

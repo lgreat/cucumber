@@ -324,9 +324,9 @@ h3.title1white, h3.srchCat {
 #contentGS .header .title1white .link {
     color: #fff;
 }
-/*p {
+#policy p, #gsJobs p, #reviewGuidelines p, p.breadCrumbs {
     margin: 0 0 1.2em;
-}*/
+}
 #contentGS a span.go {
     color: #d61;
     font-size: 1.2em;

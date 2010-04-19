@@ -27,11 +27,11 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside meetOurAdvisors">
 
-        <div class="breadcrumbs smallAlertText">
+        <p class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
-        </div>
+        </p>
 
         <h1>Meet Our Advisors</h1>
 

@@ -45,11 +45,11 @@
 <gsml:body adPageName="pressRoom" pageLayout="pressRoom">
 
     <div id="mainGS" class="col">
-        <div class="breadcrumbs smallAlertText">
+        <p class="breadcrumbs smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
-        </div>
+        </p>
 
         <h1>Media Room</h1>
 
