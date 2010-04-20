@@ -148,6 +148,16 @@ public class ArticlesByCategoryController extends AbstractController {
                 return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
             }
 
+            // GS-9397 handle old Campaigns and LD browse urls
+            UrlBuilder redirectUrlBuilder = ArticlesByCategoryController.getGs9397RedirectUrlBuilder(
+                    request.getParameter(PARAM_TOPICS),
+                    request.getParameter(PARAM_GRADES),
+                    request.getParameter(PARAM_SUBJECTS),
+                    request.getParameter(PARAM_LANGUAGE));
+            if (redirectUrlBuilder != null) {
+                return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
+            }
+
             model = handleCmsCategoryRequest(request, page);
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
             if (isShowAdTargeting()) {
@@ -166,7 +176,7 @@ public class ArticlesByCategoryController extends AbstractController {
     /**
      * Map from legacy category IDs to CMS grade IDs for grade-level categories
      */
-    final static Map<String,UrlBuilder> GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP = new HashMap<String,UrlBuilder>();
+    final private static Map<String,UrlBuilder> GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP = new HashMap<String,UrlBuilder>();
     static {
         GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("103", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "198", null, "EN"));
         GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("33", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "199", null, "EN"));
@@ -178,6 +188,35 @@ public class ArticlesByCategoryController extends AbstractController {
         GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("54", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "205", null, "EN"));
         GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("104", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "206", null, "EN"));
     }
+
+    final private static Map<String,String> GS_9397_RECATEGORIZATION = new HashMap<String,String>();
+    static {
+        GS_9397_RECATEGORIZATION.put("146","136");
+        GS_9397_RECATEGORIZATION.put("196","162");
+        GS_9397_RECATEGORIZATION.put("135","134");
+        GS_9397_RECATEGORIZATION.put("137","134");
+        GS_9397_RECATEGORIZATION.put("138","219");
+        GS_9397_RECATEGORIZATION.put("139","219");
+        GS_9397_RECATEGORIZATION.put("147","220");
+        GS_9397_RECATEGORIZATION.put("130","225");
+        GS_9397_RECATEGORIZATION.put("169","168");
+        GS_9397_RECATEGORIZATION.put("164","185");
+        GS_9397_RECATEGORIZATION.put("186","185");
+        GS_9397_RECATEGORIZATION.put("178","185");
+        GS_9397_RECATEGORIZATION.put("187","225");
+        GS_9397_RECATEGORIZATION.put("183","225");
+        GS_9397_RECATEGORIZATION.put("171","225");
+        GS_9397_RECATEGORIZATION.put("131","225");
+        GS_9397_RECATEGORIZATION.put("182","225");
+        GS_9397_RECATEGORIZATION.put("172","225");
+        GS_9397_RECATEGORIZATION.put("176","226");
+        GS_9397_RECATEGORIZATION.put("180","226");
+        GS_9397_RECATEGORIZATION.put("193","226");
+        GS_9397_RECATEGORIZATION.put("174","226");
+        GS_9397_RECATEGORIZATION.put("163","228");
+        GS_9397_RECATEGORIZATION.put("191","231");
+        GS_9397_RECATEGORIZATION.put("132","234");
+    };
 
     protected void setAdTargetingForCmsCategories(HttpServletRequest request, List<CmsCategory> categories) {
         if (categories == null) {
@@ -198,6 +237,39 @@ public class ArticlesByCategoryController extends AbstractController {
         for (String categoryName : categoryNames) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, categoryName);
         }
+    }
+
+    /**
+     * Take the topic, grade, subject, and language request parameters, and return a UrlBuilder to redirect to
+     * if any of the topic IDs specified in paramTopics is among those that require redirects to other topic IDs,
+     * as specified by GS-9397 category_redirects.xlsx. If the specified topics do not include any of those in the
+     * "Old category ID" column in that spreadsheet, return null; no redirect is necessary. The parameters besides
+     * paramTopics are used solely for constructing the redirect UrlBuilder; they are neither inspected nor transformed
+     * in any way. Ignores page numbers and other parameters; only inspects topic IDs.
+     * @param paramTopics comma-separated list of topic IDs
+     * @param paramGrades comma-separated list of grade IDs
+     * @param paramSubjects comma-separated list of subject IDs
+     * @param paramLanguage two-character language code, e.g "EN"
+     * @return
+     */
+    private static UrlBuilder getGs9397RedirectUrlBuilder(String paramTopics, String paramGrades, String paramSubjects, String paramLanguage) {
+        boolean needsRedirect = false;
+        Set<String> newTopicIds = new HashSet<String>();
+        if (paramTopics != null) {
+            for (String topicId : paramTopics.split(",")) {
+                if (GS_9397_RECATEGORIZATION.containsKey(topicId)) {
+                    needsRedirect = true;
+                    newTopicIds.add(GS_9397_RECATEGORIZATION.get(topicId));
+                } else {
+                    newTopicIds.add(topicId);
+                }
+            }
+
+            if (needsRedirect) {
+                return new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, StringUtils.join(newTopicIds, ","), paramGrades, paramSubjects, paramLanguage);
+            }
+        }
+        return null;
     }
 
     /**
