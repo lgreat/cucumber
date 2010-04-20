@@ -5,7 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
     <pageHelper:externalCss file="/res/css/school/parentReviews/parentReviewThankYouHover.css"/>
@@ -66,17 +66,24 @@
         ]]>
     </script>
 
-     <div id="mslFlowDialog" style="display: none; z-index: 100;">
+    <div id="mslFlowDialog" style="display: none; z-index: 100;">
         <div id="mslFlowDialogTopBar">
-            <img src="/res/img/school/parentReviews/reviewconfirm_top.gif" alt="Personalize your school search - GreatSchools"/><div id="thankyouHeader">Thank you for your review</div>
+            <img src="/res/img/school/parentReviews/reviewconfirm_top.gif"
+                 alt="Personalize your school search - GreatSchools"/>
+
+            <div id="thankyouHeader">Thank you for your review</div>
         </div>
-        <div id="mslFlowDialogBody"><p>Thank you for sharing your review and helping other families choose the right school for their children.
-            Our team of parent reviewers will read the review and post it if it meets our <a href="http://www.greatschools.org/cgi-bin/static/guidelines.html/ca/Guidlines" target="_blank">guidelines</a>.</p>
-            <div id="okBtn"><img src="/res/img/school/parentReviews/ok_button.gif" alt="ok" onclick="closeMslFlowDialog();"/></div>
+        <div id="mslFlowDialogBody">
+            <p>Thank you for sharing your review and helping other families choose the right school for their children.
+                Our team of parent reviewers will read the review and post it if it meets our
+                <link:parentReviewGuidelines>guidelines</link:parentReviewGuidelines>.</p>
+
+            <div id="okBtn"><img src="/res/img/school/parentReviews/ok_button.gif" alt="ok"
+                                 onclick="closeMslFlowDialog();"/></div>
             <div id="closeWindowDiv">
-             <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
+                <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
             </div>
-         </div>
+        </div>
         <div id="mslFlowDialogBottomBar">
             <![CDATA[<div></div>]]>
             <img src="/res/img/school/parentReviews/reviewconfirm_bottom.gif" alt=""/>
