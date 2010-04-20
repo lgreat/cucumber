@@ -1163,10 +1163,6 @@ jQuery(function() {
         GSType.hover.validateEmail.show();
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
-    } else if (showHover == "schoolReviewPostedThankYou") {
-        GSType.hover.schoolReviewPostedThankYou.showHover();
-    } else if (showHover == "schoolReviewNotPostedThankYou") {
-        GSType.hover.schoolReviewNotPostedThankYou.showHover();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
