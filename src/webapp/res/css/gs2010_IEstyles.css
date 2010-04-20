@@ -893,8 +893,8 @@ body.ie #realtorDotCom .mod_bd button.btn25, *+html #realtorDotCom.rdc_thin p in
 body.ie7 #realtorDotCom.rdc_thin .mod_bd, *+html #realtorDotCom.rdc_thin .mod_bd {
     background-position: 1px 0;
 }
-*+html #realtorDotCom.rdc_thin p input.rdType {
-    top: 2px;
+*+html #realtorDotCom p input.rdType {
+    top: 0;
 }
 body.ie6 #realtorDotCom p {
     height: 1%;
