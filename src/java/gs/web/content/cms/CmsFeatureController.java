@@ -62,16 +62,16 @@ public class CmsFeatureController extends AbstractController {
                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
             }
 
-            if (!_unitTest) {
+            feature = _featureDao.get(contentId);
+
+            if (!_unitTest && feature != null) {
                 // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
-                UrlBuilder builder = new UrlBuilder(new ContentKey("Article", contentId));
+                UrlBuilder builder = new UrlBuilder(feature.getContentKey());
                 // make sure no endless loops ever happen
                 if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
                     return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                 }
             }
-
-            feature = _featureDao.get(contentId);
 
         } else {
             feature = getSampleArticleSlideshow(null);
