@@ -1,5 +1,7 @@
 package gs.web.email;
 
+import gs.web.community.registration.AccountInformationCommand;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -200,6 +202,31 @@ public class ManagementController extends SimpleFormController implements ReadWr
         cities.add(0, city);
         command.setCityList(cities);
     }
+
+    // TODO-8869
+    /*
+    @Override
+    protected Map referenceData(HttpServletRequest request, Object commandObj, Errors errors) throws Exception {
+        populateDropdowns((AccountInformationCommand) commandObj);
+        return super.referenceData(request, commandObj, errors);
+    }
+
+    protected void populateDropdowns(AccountInformationCommand command) {
+        // load the city list for the user
+        command.setProfileCityList(_geoDao.findCitiesByState(command.getState()));
+
+        // load the city and school list for each child (state and grade dropdowns are static)
+        for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
+            command.addCityList(_geoDao.findCitiesByState(student.getState()));
+            if (student.getGrade() != null && student.getState() != null) {
+                List<School> schools = _schoolDao.findSchoolsInCityByGrade(student.getState(), student.getCity(), student.getGrade());
+                command.addSchools(schools);
+            } else {
+                command.addSchools(new ArrayList<School>());
+            }
+        }
+    }
+    */
 
     @Override
     protected ModelAndView showForm(

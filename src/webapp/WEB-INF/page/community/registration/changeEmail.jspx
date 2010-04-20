@@ -132,8 +132,8 @@
       </div>
       <!-- end sidebarGS-->
 
-      <mod:tracking pageName="Change Email"
-                    hier1="Account,Change Email"/>
+      <mod:tracking pageName="Update Email Address"
+                    hier1="Account,Update Email Address"/>
   </gsml:body>
 </html>
 </jsp:root>

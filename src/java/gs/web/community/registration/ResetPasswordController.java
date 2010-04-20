@@ -198,8 +198,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             getUserDao().updateUser(user);
             // log in user automatically
             PageHelper.setMemberAuthorized(request, response, user);
-            // triggers msg #25 on community (include/message_list.php)
-            targetUrl += "?msg=B1C4-0FF2-3D70-BD27";
+            targetUrl += "?msg=updatedPassword";
         }
         mAndV.setViewName("redirect:" + targetUrl);
 

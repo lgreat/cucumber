@@ -138,10 +138,23 @@
 
 <div class="spacer_15"><!--do not collapse--></div>
 
+<c:choose>
+    <c:when test="${param.msg eq 'updatedPassword'}">
+        <c:set var="message">Your password has been changed.</c:set>
+    </c:when>
+    <c:when test="${param.msg eq 'updatedSubscriptions'}">
+        <c:set var="message">Your subscriptions have been updated.</c:set>
+    </c:when>
+    <c:otherwise>
+        <c:set var="message">Take a minute to
+            <span class="text2bold">update your profile </span>so we can customized your experience.
+        </c:set>
+    </c:otherwise>
+</c:choose>
+
 <div id="acctCallToAction" class="mod">
     <div class="mod_bd">
-        <p class="text2"><span class="alertDoubleArrow">&amp;raquo; </span>Take a minute to
-            <span class="text2bold">update your profile </span>so we can customized your experience.</p>
+        <p class="text2"><span class="alertDoubleArrow">&amp;raquo; </span>${message}</p>
     </div>
 </div>
 <!-- end acctCallToAction -->
