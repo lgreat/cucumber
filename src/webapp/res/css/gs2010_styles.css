@@ -4020,6 +4020,9 @@ width:120px;
 #realtorDotCom.rdc_thin p input.rdType {
     clear: left;
 }
+*+html #realtorDotCom.rdc_thin p input.rdType {
+    top: 2px;
+}
 #realtorDotCom.rdc_short p input.rdType {
     clear: left;
     top: 6px;
