@@ -2,6 +2,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
@@ -10,7 +11,6 @@
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
-      <!--<pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>-->
       <title>Change Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
@@ -37,9 +37,9 @@
                       <div class="navmod_bd">
                           <ul class="text2">
                               <li>Update Email Address</li>
-                              <li><a href="#">Change My Password</a></li>
-                              <li><a href="#">Manage Newsletters</a></li>
-                              <li><a href="#">Edit My School List</a></li>
+                              <li><link:resetPassword>Change My Password</link:resetPassword></li>
+                              <li><link:newsletterManagement>Manage Newsletters</link:newsletterManagement></li>
+                              <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
                           </ul>
                       </div>
                   </div>
@@ -58,13 +58,13 @@
                           <fieldset>
                               <ul>
                                   <li>
-                                      <label>Current email address:</label>
-                                      <address>${requestScope.context.email}</address>
+                                      <label class="text2bold">Current email address:</label>
+                                      <span class="text2-777">${requestScope.context.email}</span>
                                   </li>
                                   <li>
-                                      <label for="newEmailField">New email address</label>
+                                      <label for="newEmailField" class="text2bold">New email address:</label>
                                       <spring:bind path="emailCmd.newEmail">
-                                          <input id="newEmailField" type="text" name="${status.expression}"
+                                          <input id="newEmailField" class="text2" type="text" name="${status.expression}"
                                                  value="${status.value}" tabindex="2"/>
                                       </spring:bind>
                                       <!-- hack because the built in email validator rejects the field named "email" -->
@@ -92,10 +92,10 @@
                                       </spring:hasBindErrors>
                                   </li>
                                   <li>
-                                      <label for="confirmNewEmailField">Re-type email address</label>
+                                      <label for="confirmNewEmailField" class="text2bold">Re-type email address:</label>
                                       <spring:bind path="emailCmd.confirmNewEmail">
                                           <!-- disable browser auto-complete for this field -->
-                                          <input id="confirmNewEmailField" type="text" name="${status.expression}"
+                                          <input id="confirmNewEmailField" class="text2" type="text" name="${status.expression}"
                                                  value="${status.value}" tabindex="3" autocomplete="off"/>
                                       </spring:bind>
                                   </li>

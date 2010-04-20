@@ -47,7 +47,7 @@ General comments:
 =4g- video page
 =4h- inline sign-in
 =4i- my account
-=4i-1 change email
+=4i-1 change email & password
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -243,6 +243,10 @@ h3.title1white, h3.srchCat {
     font: 13px Arial, Helvetica, sans-serif;
     color:#333;
 }
+.text2-777 {
+    font: 13px Arial, Helvetica, sans-serif;
+    color:#777;
+}
 .text2bold {
     font:bold 13px Arial, Helvetica, sans-serif;
     color:#333;
@@ -264,7 +268,10 @@ h3.title1white, h3.srchCat {
     font: 11px Arial, Helvetica, sans-serif;
     color:#777;
 }
-
+.formText1 {
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #777;
+}
 .smallText2 {
     font: 10px Arial, Helvetica, sans-serif;
     color: black;
@@ -3285,11 +3292,51 @@ ul.srchSuggest li span {
     line-height:2.1;
 }
 
-/* =4i-1 change email
+/* =4i-1 change email & password
 -------------------------------------------------------------------------------------------*/
 
-#changeEmail{
+#changeEmail,#changePassword{
 
+}
+
+#changeEmail fieldset, #changePassword fieldset{
+    outline:none;
+    padding-top:15px;
+    border-top:1px dotted #999;
+    margin-top:15px;
+}
+
+#changeEmail form li, #changePassword form li{
+    padding:5px 0;
+}
+
+#changeEmail fieldset label{
+    float:left;
+    width:150px;
+    padding:3px 0;
+    margin-right:10px
+}
+
+#changePassword fieldset label{
+    float:left;
+    width:160px;
+    padding:3px 0;
+    margin-right:10px
+}
+
+#changeEmail fieldset input, #changePassword fieldset input{
+    width:178px;
+    padding:3px 0;
+    border:1px solid #a8cedf;
+    outline:none;
+}
+
+#changeEmail #submitButton, #changePassword #submitButton{
+    margin-left:-3px;
+}
+
+#changeEmail #cancelButton, #changePassword #cancelButton{
+    padding-left:10px;
 }
 
 /* =5- icons
