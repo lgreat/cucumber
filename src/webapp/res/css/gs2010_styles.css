@@ -48,6 +48,7 @@ General comments:
 =4h- inline sign-in
 =4i- my account
 =4i-1 change email & password
+=4i-2 manage newsletters
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -2661,7 +2662,7 @@ p.hlpTxt {
     overflow: visible;
     min-height: 24px;
 }
-#pickGrade {
+#pickGrade, #manageNewsletters #pickGrade {
     position:relative;
     margin: 0 0 0 20px;
     padding: 5px 0 0 5px;
@@ -2674,11 +2675,11 @@ p.hlpTxt {
     overflow: visible;
     z-index: 100;
 }
-#pickGrade label {
+#pickGrade label, #manageNewsletters #pickGrade label {
     width: auto;
     font-size: 12px;
 }
-#grdShow {
+#grdShow, #manageNewsletters #grdShow {
     background: #fff url(/res/img/discussion_boards/db_jnSelArrow_bg.png) 50% 9px no-repeat;
     border: solid #2092c4;
     border-width: 0 0 0 1px;
@@ -2690,11 +2691,11 @@ p.hlpTxt {
     text-indent: -100000px;
     outline: none;
 }
-#grdShow.active {
+#grdShow.active, #manageNewsletters #grdShow.active {
     background-position: 50% -26px;
     background-color: #2092c4;
 }
-#moreGrades {
+#moreGrades, #manageNewsletters #moreGrades {
     position: absolute;
     top: 25px;
     left: -1000px;
@@ -2705,33 +2706,33 @@ p.hlpTxt {
     border-width: 0 1px 1px;
     outline: none;
 }
-#moreGrades.show {
+#moreGrades.show, #manageNewsletters #moreGrades.show {
     left: -1px;
 }
-#moreGrades ul {
+#moreGrades ul, #manageNewsletters #moreGrades ul {
     margin: 0;
     float: left;
 }
-#moreGrades .col1 {
+#moreGrades .col1, #manageNewsletters #moreGrades .col1 {
     width: 113px;
     padding-top: 3px;
     border-top: 1px dotted #2092c4;
 }
-#moreGrades .col2 {
+#moreGrades .col2, #manageNewsletters #moreGrades .col2 {
     width: 115px;
     padding-top: 3px;
     border-top: 1px solid #2092c4;
 }
-#moreGrades li {
+#moreGrades li, #manageNewsletters #moreGrades li {
     padding: 3px 0 0 5px;
     margin: 0 0 6px;
     overflow:auto;
 }
-#moreGrades li label {
+#moreGrades li label, #manageNewsletters #moreGrades li label {
     margin: 0;
 }
 
-#moreGrades button {
+#moreGrades button, #manageNewsletters #moreGrades button {
     position: relative;
     text-indent: 0;
     width: auto;
@@ -3338,6 +3339,111 @@ ul.srchSuggest li span {
 #changeEmail #cancelButton, #changePassword #cancelButton{
     padding-left:10px;
 }
+
+/* =4i-2 manage newsletters
+-------------------------------------------------------------------------------------------*/
+
+#manageNewsletters{
+
+}
+
+#manageNewsletters .formContentGS{
+    width:423px;
+}
+
+#manageNewsletters .formBarGS{
+    width:83px;
+}
+
+#manageNewsletters .formMainGS{
+    width:330px;
+    padding-left:10px;
+}
+
+#manageNewsletters fieldset{
+    outline:none;
+    padding-top:15px;
+    border-top:1px dotted #999;
+    margin-top:15px;
+}
+
+#manageNewsletters fieldset ol li{
+    margin:4px 0;
+}
+
+#manageNewsletters fieldset ol label{
+    float:left;
+    width:83px;
+    padding:3px 0;
+}
+
+#manageNewsletters fieldset ol input{
+    float:left;
+    width:132px;
+    padding:3px 0;
+    margin:0 3px 0 10px;
+    border:1px solid #999;
+    outline-style:none;
+}
+
+#manageNewsletters fieldset ol select{
+    width:188px;
+    height:18px;
+    border:1px solid #999;
+}
+
+#manageNewsletters fieldset fieldset{
+    margin-top:0;
+    padding-top:0;
+    outline:none;
+    border-style:none;
+    background-color:transparent;
+    background-image:none;
+}
+
+#manageNewsletters fieldset fieldset ol li{
+    padding:5px 0;
+}
+
+#manageNewsletters fieldset fieldset ol label{
+    float:none;
+    width:auto;
+    font-weight:normal;
+    margin-right:3px;    
+}
+
+#manageNewsletters fieldset fieldset ol input{
+    float:left;
+    width:auto;
+    padding:0;
+    margin:0;
+    margin-right:3px;
+    border-style:none;
+    outline-style:none;
+}
+
+#manageNewsletters fieldset fieldset ol select{
+    width:98px;
+    height:18px;
+    border:1px solid #999;
+}
+
+#manageNewsletters #add, #manageNewsletters #submitButton{
+    margin-left:-3px;
+}
+
+#manageNewsletters #cancelButton{
+    padding-left:10px;
+}
+
+#manageNewsletters #pickGrade{
+    margin:0;
+}
+
+#manageNewsletters #moreGrades ul li {
+    overflow:hidden;
+}
+
 
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
