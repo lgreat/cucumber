@@ -150,7 +150,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         if ((!isNewUser) && reviewPosted) {
-            sendMessage(user, r.getComments(), school, "communityEmail.txt");
+            //sendMessage(user, r.getComments(), school, "communityEmail.txt");
         }
 
         //only send them an email if they submitted a message that is not blank
