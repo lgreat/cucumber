@@ -149,6 +149,10 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             reviewPosted = false;
         }
 
+        if ((!isNewUser) && reviewPosted) {
+            //TODO: send Review Posted Email
+        }
+
         //only send them an email if they submitted a message that is not blank
         /*
         if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
