@@ -36,7 +36,7 @@
         <img src="/res/img/promo/promoModule/right_rule.png" class="right_rule" alt=""/>
         <a href="${url}"
            class="logo"
-           target="_blank"><img src="/res/img/promo/promoModule/care2/care2_logo.gif"
-                                alt="Care2" width="120" height="86"/></a>
+           target="_blank"><img src="/res/img/promo/promoModule/care2/gs_logo.gif"
+                                alt="GreatSchools" width="120" height="86"/></a>
     </div>
 </jsp:root>
