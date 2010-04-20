@@ -91,7 +91,14 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
-        assertNotNull(mAndV);
+    }
+
+    public void testSitePrefCookieSet() throws Exception {
+        setUpSubmitExpectations();
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(getResponse().getCookie("site_pref"));
     }
 
     public void testOnSubmitExistingUser() throws Exception {
@@ -176,7 +183,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path?showValidateEmailHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path", mAndV.getViewName());
 
         resetMocks();
 
@@ -186,7 +193,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path/?showValidateEmailHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path/", mAndV.getViewName());
 
         resetMocks();
 
@@ -196,7 +203,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path?foo=bar&showValidateEmailHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path?foo=bar", mAndV.getViewName());
 
         resetMocks();
 
@@ -206,7 +213,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path?foo=bar&taz=mil&showValidateEmailHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path?foo=bar&taz=mil", mAndV.getViewName());
 
         resetMocks();
 
@@ -216,7 +223,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path?showValidateEmailHover=true#anchor", mAndV.getViewName());
+        assertEquals("redirect:/path#anchor", mAndV.getViewName());
 
         resetMocks();
 
@@ -226,6 +233,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
         assertNotNull(mAndV);
-        assertEquals("redirect:/path?foo=bar&showValidateEmailHover=true#anchor", mAndV.getViewName());
+        assertEquals("redirect:/path?foo=bar#anchor", mAndV.getViewName());
     }
 }

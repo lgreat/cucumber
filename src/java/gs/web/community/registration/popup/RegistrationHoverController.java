@@ -1,8 +1,8 @@
 package gs.web.community.registration.popup;
 
 import gs.data.state.State;
-import gs.web.school.review.HoverCookie;
 import gs.web.util.NewSubscriberDetector;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -88,7 +88,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
 
         user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
-
+        
         // save
         getUserDao().updateUser(user);
 
@@ -120,12 +120,14 @@ public class RegistrationHoverController extends RegistrationController implemen
             sendValidationEmail(request, user, emailRedirectUrl);
         }
         String redirect = userCommand.getRedirectUrl();
-        if (StringUtils.isNotEmpty(redirect)) {
-            redirect = UrlUtil.addParameter(redirect, "showValidateEmailHover=true");
+       
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+       
+        if (RegistrationHoverCommand.JoinHoverType.SchoolReview.equals(userCommand.getJoinHoverType())) {
+            cookie.setProperty("showHover", "validateEmailSchoolReview");
+        } else {
+            cookie.setProperty("showHover", "validateEmail");
         }
-
-        HoverCookie cookie = new HoverCookie(request, response);
-        cookie.setProperty("RegistrationComplete", "true");
 
         mAndV.setViewName("redirect:" + redirect);
 
@@ -205,6 +207,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 return "hover_headerjoin";
             case FooterNewsletter:
                 return "hover_footernewsletter";
+            case SchoolReview:
+                return "hover_review";
         }
         return null;
     }
@@ -247,5 +251,4 @@ public class RegistrationHoverController extends RegistrationController implemen
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         _requireEmailValidation = requireEmailValidation;
     }
-
 }
