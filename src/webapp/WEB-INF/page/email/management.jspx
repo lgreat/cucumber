@@ -53,6 +53,7 @@
                         <div class="newsletterInfo">
                             <!--form:input path="firstName" id="firstName" maxlength="24"/-->
                             <input type="text" maxlength="24"/>
+                            <span id="firstNameError" class="alertText">First name must be 2-24 characters</span>
                             <div class="smallText1">
                                 This is how we'll address you in our newsletters.
                             </div>
