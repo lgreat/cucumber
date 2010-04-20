@@ -893,9 +893,6 @@ body.ie6 .sprite {
 *+html #realtorDotCom.rdc_thin .mod_bd {
     background-position: 1px 0;
 }
-*+html #realtorDotCom.rdc_thin p input.rdType {
-    top: -2px;
-}
 *html #realtorDotCom p {
     height: 1%;
 }

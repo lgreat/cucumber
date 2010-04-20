@@ -3926,6 +3926,10 @@ button {
     margin: 0;
     font-size: 20px;
 }
+.nocol #realtorDotCom.rdc_short .mod_hd h3 {
+    font-size: 15px;
+    font-weight: 700;
+}
 #realtorDotCom .mod_bd {
     position: relative;
     border: solid #c6c6c6;
@@ -3935,6 +3939,9 @@ button {
     border-width: 1px;
     padding: 153px 0 0 6px;
     background: #fff url(/res/img/ad/realtorDotComTowerStock_ph.jpg) 0 0 no-repeat;
+}
+.nocol #realtorDotCom.rdc_short .mod_bd {
+    padding: 0 5px 5px;
 }
 #realtorDotCom p {
     margin: 0 0 .7em;
@@ -3968,16 +3975,18 @@ button {
     padding: 3px 5px 0;
 }
 #realtorDotCom.rdc_thin p label.noflt {
-float:left;
-padding:3px 5px 0;
-text-align:right;
-width:50px;
+    float: left;
+    padding: 3px 5px 0;
+    text-align: right;
+    width: 50px;
 }
+
 #realtorDotCom.rdc_short p label.noflt {
-float:left;
-padding:3px 5px 0;
-text-align:left;
-width:120px;
+    display: block;
+    padding: 3px 5px 0 0;
+    text-align: left;
+    width: 180px;
+    clear: right;
 }
 #realtorDotCom p label.radioLabel {
     width: auto;
@@ -4022,7 +4031,6 @@ width:120px;
 }
 #realtorDotCom.rdc_short p input.rdType {
     clear: left;
-    top: 6px;
 }
 #realtorDotCom #rdcType2 {
     margin-left: 20px;
