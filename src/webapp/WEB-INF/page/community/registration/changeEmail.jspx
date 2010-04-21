@@ -12,7 +12,7 @@
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
-      <title>Change Email - GreatSchools</title>
+      <title>Change My Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
       <![CDATA[
