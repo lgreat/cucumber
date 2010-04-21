@@ -4176,7 +4176,8 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     width:120px;
 }
 #realtorDotCom.rdc_short input#rdcCity {
-    float:left;position: relative;
+    float:left;
+    position: relative;
     top: 2px;
 }
 #realtorDotCom.rdc_short img {
