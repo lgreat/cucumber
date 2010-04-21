@@ -718,6 +718,17 @@ body.ie6 #joinText ul li{
     margin-left:16px;
 }
 
+/* =4i-2 manage newsletters
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 #manageNewsletters .formMainGS{
+    width:329px;
+}
+
+body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton{
+    margin-left:auto;
+}
+
 /* =D- ie6 4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 

@@ -388,7 +388,7 @@
                             </select>
                         </li>
                     </ol>
-
+                    <div class="spacer_10"><!-- do not collapse --></div>
                     <button type="add" id="add" name="Add" value="Add"
                             onclick="try {addMssSchool();} catch (e) {} return false;" class="btn25 fltlft">
                         <span class="lftDoor25"><span class="rtDoor25">Add</span></span>
@@ -541,14 +541,13 @@
 </fieldset>
 
 </form:form>
-
-
+<div class="spacer_25"><!-- do not collapse --></div>
 <p><gsml:popupWindow width="800" height="600" left="50" top="50"
                      title="GreatSchools Privacy Policy"
-                     href="/privacy/?state=$STATE"
-        >GreatSchools Privacy Policy</gsml:popupWindow></p>
-
-<p><link:newsletterUnsubscribe email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
+                     href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
+<div class="spacer_15"><!-- do not collapse --></div>
+<p>
+    <link:newsletterUnsubscribe email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
 </p>
 
 </div>
