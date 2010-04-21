@@ -112,7 +112,7 @@
                         <fieldset>
                             <ol>
                                 <li>
-                                    <input type="checkbox" path="greatnews" id="greatnews"
+                                    <form:checkbox path="greatnews" id="greatnews"
                                            onclick="toggleNthGraderNewsletters();"
                                            cssClass="newsletterCheckbox"/>
                                     <label for="greatnews">Subscribe to this newsletter</label></li>
@@ -133,28 +133,28 @@
               subscriptions page -->
                 <ul>
                     <li id="pickGrade">
-                        <input type="checkbox" value="mypk" id="gp" name="grades"/>
+                        <form:checkbox value="mypk" id="gp" path="mypk"/>
                         <label for="gp">Preschool</label>
                         <button id="grdShow" type="button" title="show more">show more</button>
                         <div id="moreGrades">
                             <ul class="col1">
-                                <li><input type="checkbox" value="myk" id="gk" name="grades"/><label
+                                <li><form:checkbox value="myk" id="gk" path="myk"/><label
                                         for="gk">Kindergarten</label></li>
-                                <li><input type="checkbox" value="my1" id="g1" name="grades"/><label
+                                <li><form:checkbox value="my1" id="g1" path="my1"/><label
                                         for="g1">1st Grade</label></li>
-                                <li><input type="checkbox" value="my2" id="g2" name="grades"/><label
+                                <li><form:checkbox value="my2" id="g2" path="my2"/><label
                                         for="g2">2nd Grade</label></li>
-                                <li><input type="checkbox" value="my3" id="g3" name="grades"/><label
+                                <li><form:checkbox value="my3" id="g3" path="my3"/><label
                                         for="g3">3rd Grade</label></li>
                             </ul>
                             <ul class="col2">
-                                <li><input type="checkbox" value="my4" id="g4" name="grades"/><label
+                                <li><form:checkbox value="my4" id="g4" path="my4"/><label
                                         for="g4">4th Grade</label></li>
-                                <li><input type="checkbox" value="my5" id="g5" name="grades"/><label
+                                <li><form:checkbox value="my5" id="g5" path="my5"/><label
                                         for="g5">5th Grade</label></li>
-                                <li><input type="checkbox" value="myms" id="gM" name="grades"/><label
+                                <li><form:checkbox value="myms" id="gM" path="myms"/><label
                                         for="gM">Middle School</label></li>
-                                <li><input type="checkbox" value="myhs" id="gH" name="grades"/><label
+                                <li><form:checkbox value="myhs" id="gH" path="myhs"/><label
                                         for="gH">High School</label></li>
                             </ul>
                             <button class="btn25" id="gradeDone" type="button"><span class="lftDoor25"><span
@@ -187,7 +187,7 @@
                         <fieldset>
                             <ol>
                                 <li>
-                                    <input type="checkbox" path="learning_dis" cssClass="newsletterCheckbox"
+                                    <form:checkbox path="learning_dis" cssClass="newsletterCheckbox"
                                            id="learning_dis_checkbox"/>
                                     <label for="learning_dis_checkbox">Subscribe to this newsletter</label></li>
                             </ol>
@@ -228,14 +228,14 @@
                             <fieldset>
                                 <ol class="size1of2 col">
                                     <li>
-                                        <input type="checkbox" path="chooserpack_p"
+                                        <form:checkbox path="chooserpack_p"
                                                id="chooserpack_p"
                                                cssClass="newsletterCheckbox"/>
                                         <label for="chooserpack_p">Preschool</label>
                                         <form:hidden path="chooserpack_pId"/>
                                     </li>
                                     <li>
-                                        <input type="checkbox" path="chooserpack_e"
+                                        <form:checkbox path="chooserpack_e"
                                                id="chooserpack_e"
                                                cssClass="newsletterCheckbox"/>
                                         <label for="chooserpack_e">Elementary</label>
@@ -244,14 +244,14 @@
                                 </ol>
                                 <ol class="size1of2 col">
                                     <li>
-                                        <input type="checkbox" path="chooserpack_m"
+                                        <form:checkbox path="chooserpack_m"
                                                id="chooserpack_m"
                                                cssClass="newsletterCheckbox"/>
                                         <label for="chooserpack_m">Middle School</label>
                                         <form:hidden path="chooserpack_mId"/>
                                     </li>
                                     <li>
-                                        <input type="checkbox" path="chooserpack_h"
+                                        <form:checkbox path="chooserpack_h"
                                                id="chooserpack_h"
                                                cssClass="newsletterCheckbox"/>
                                         <label for="chooserpack_h">High School</label>
@@ -425,7 +425,7 @@
                             <fieldset>
                                 <ol>
                                     <li>
-                                        <input type="checkbox" path="seasonal"
+                                        <form:checkbox path="seasonal"
                                                onclick="toggleSummerBrainDrain();"
                                                id="seasonalCheckbox" cssClass="newsletterCheckbox"/>
                                         <label for="seasonalCheckbox">Subscribe to this newsletter</label></li>
@@ -480,7 +480,7 @@
                         <fieldset>
                             <ol>
                                 <li>
-                                    <input type="checkbox" path="sponsor" cssClass="newsletterCheckbox"
+                                    <form:checkbox path="sponsor" cssClass="newsletterCheckbox"
                                            id="sponsor_checkbox"/>
                                     <label for="sponsor_checkbox">Subscribe to this newsletter</label></li>
                             </ol>
@@ -510,7 +510,7 @@
                             <fieldset>
                                 <ol>
                                     <li>
-                                        <input type="checkbox" path="pledge" cssClass="newsletterCheckbox"
+                                        <form:checkbox path="pledge" cssClass="newsletterCheckbox"
                                                id="pledge_checkbox"/>
                                         <label for="pledge_checkbox">Subscribe to this newsletter</label></li>
                                 </ol>
