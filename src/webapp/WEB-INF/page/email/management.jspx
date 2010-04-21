@@ -519,7 +519,7 @@
 
 <fieldset>
     <button type="submit" id="submitButton" name="Submit" value="Submit" class="btn25 fltlft">
-        <span class="lftDoor25"><span class="rtDoor25">Save settings</span></span>
+        <span class="lftDoor25"><span class="rtDoor25">Save&amp;nbsp;settings</span></span>
     </button>
     <button type="cancel" id="cancelButton" name="Cancel" value="Cancel" class="btn25 fltlft">
         <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
