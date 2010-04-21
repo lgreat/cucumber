@@ -142,7 +142,7 @@
         <div class="mod ${alternateStyle}" id="realtorDotCom">
             <c:if test="${requestScope.size ne '160x600'}">
             <div class="mod_hd">
-                <h3>Find a Home</h3>
+                <h3>Find a home</h3>
             </div>
             </c:if>
             <div class="mod_bd">
@@ -200,7 +200,7 @@
     <c:if test="${requestScope.size eq '300x137'}">
         <div class="mod ${alternateStyle}" id="realtorDotCom">
             <div class="mod_hd">
-                <h3>Find Nearby Homes for Sale</h3>
+                <h3>Find nearby homes for sale</h3>
             </div>
             <div class="mod_bd">
                 <p><label for="rdcCity">Search location:</label></p>

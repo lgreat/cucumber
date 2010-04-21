@@ -4040,14 +4040,12 @@ button {
     position: relative;
     border: solid #c6c6c6;
     border-width: 0 1px 1px;
+    padding: 15px;
 }
 #realtorDotCom.rdc_thin .mod_bd {
     border-width: 1px;
     padding: 153px 0 0 6px;
     background: #fff url(/res/img/ad/realtorDotComTowerStock_ph.jpg) 0 0 no-repeat;
-}
-.nocol #realtorDotCom.rdc_short .mod_bd {
-    padding: 0 5px 5px;
 }
 #realtorDotCom p {
     margin: 0 0 .7em;
