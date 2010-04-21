@@ -9,20 +9,20 @@ jQuery(function() {
 });
 
 function toggleNthGraderNewsletters(){
-    var elem = document.getElementById("mynth");
-    if(document.manage.greatnews.checked){
-        elem.style.display = "block";
+    var elem = jQuery('#mynth');
+    if (jQuery('#greatnews').is(':checked')) {
+        elem.show();
     } else{
-        elem.style.display = "none";
+        elem.hide();
     }
 }
 
 function toggleSummerBrainDrain(){
-    var elem = document.getElementById("weeks");
-    if(document.manage.seasonal.checked){
-        elem.style.display = "block";
+    var elem = jQuery('#weeks');
+    if (jQuery('#seasonalCheckbox').is(':checked')) {
+        elem.show();
     } else{
-        elem.style.display = "none";
+        elem.hide();
     }
 }
 
@@ -35,7 +35,7 @@ function checkForm(){
         alert('First name must be 2-24 characters.');
         return false;
     }
-    if(document.manage.seasonal.checked && document.manage.startweek.value == ""){
+    if(jQuery('#seasonalCheckbox').is(':checked') && jQuery('#startweek').val() == ""){
         alert("Please select a start week for your school so we can personalize your emails.");
         return false;
     }

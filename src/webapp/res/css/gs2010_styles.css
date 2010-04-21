@@ -3448,6 +3448,14 @@ ul.srchSuggest li span {
     display:none;
 }
 
+#manageNewsletters .showIt{
+    display:block;
+}
+
+#manageNewsletters .hideIt{
+    display:none;
+}
+
 
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
