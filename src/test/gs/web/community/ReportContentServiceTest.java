@@ -159,6 +159,7 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         Discussion d = new Discussion();
         d.setId(2);
         d.setBoardId(3l);
+        d.setNumReplies(5);
         reply.setDiscussion(d);
         expect(_discussionReplyDao.findById(1)).andReturn(reply);
 
@@ -168,6 +169,10 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.reply, 1)).andReturn(1);
         _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1, "because");
         _discussionReplyDao.save(reply);
+
+        expect(_discussionReplyDao.getTotalReplies(d)).andReturn(5);
+        _discussionDao.saveKeepDates(d);
+
         replayAllMocks();
         _service.reportContent(reporter, reportee, getRequest(), 1,
                                ReportedEntity.ReportedEntityType.reply, "because");

@@ -400,6 +400,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                     reply.setDateUpdated(new Date());
                     _discussionReplyDao.saveKeepDates(reply);
                 }
+
+                // update number of replies for discussion
+                int numReplies = _discussionReplyDao.getTotalReplies(discussion);
+                discussion.setNumReplies(numReplies);
+                _discussionDao.saveKeepDates(discussion);
             }
 
             String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());

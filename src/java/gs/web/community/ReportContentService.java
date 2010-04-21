@@ -63,6 +63,12 @@ public class ReportContentService extends SimpleFormController
                             // if this is the second time this reply is reported, disable it
                             reply.setActive(false);
                             _discussionReplyDao.save(reply);
+
+                            // update number of replies for discussion
+                            Discussion discussion = reply.getDiscussion();
+                            int numReplies = _discussionReplyDao.getTotalReplies(discussion);
+                            discussion.setNumReplies(numReplies);
+                            _discussionDao.saveKeepDates(discussion);
                         }
                     }
                     break;

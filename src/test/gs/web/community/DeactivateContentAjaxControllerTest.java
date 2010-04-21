@@ -79,14 +79,15 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setNumReplies(5);
         DiscussionReply reply = new DiscussionReply();
         reply.setId(2);
         reply.setDiscussion(discussion);
 
         expect(_discussionReplyDao.findById(2)).andReturn(reply);
-        _discussionDao.recalculateDateThreadUpdated(discussion);
-
         _discussionReplyDao.saveKeepDates(reply);
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.recalculateDateThreadUpdated(discussion);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();
@@ -104,15 +105,17 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         Discussion discussion = new Discussion();
         discussion.setId(1);
+        discussion.setNumReplies(5);
         DiscussionReply reply = new DiscussionReply();
         reply.setId(1);
         reply.setActive(false);
         reply.setDiscussion(discussion);
 
         expect(_discussionReplyDao.findById(2)).andReturn(reply);
+        _discussionReplyDao.saveKeepDates(reply);
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.recalculateDateThreadUpdated(discussion);
 
-        _discussionReplyDao.saveKeepDates(reply);
         replayAllMocks();
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyAllMocks();
@@ -150,8 +153,10 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
 
         Discussion discussion= new Discussion();
         discussion.setId(1);
+        discussion.setNumReplies(5);
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
 
         _discussionDao.saveKeepDates(discussion);
         replayAllMocks();
@@ -174,6 +179,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
         discussion.setActive(false);
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
 
         _discussionDao.saveKeepDates(discussion);
         replayAllMocks();
@@ -194,6 +200,7 @@ public class DeactivateContentAjaxControllerTest extends BaseControllerTestCase 
         Discussion discussion = new Discussion();
         discussion.setId(1);
         discussion.setActive(false);
+        discussion.setNumReplies(5);
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
         replayAllMocks();

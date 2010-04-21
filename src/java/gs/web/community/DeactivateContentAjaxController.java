@@ -44,21 +44,38 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                     reply.setActive(command.isReactivate());
                     reply.setDateUpdated(new Date());
                     _discussionReplyDao.saveKeepDates(reply);
+
+                    // update number of replies for discussion
+                    Discussion discussion = reply.getDiscussion();
+                    int numReplies = _discussionReplyDao.getTotalReplies(discussion);
+                    discussion.setNumReplies(numReplies);
+
+                    // this saves the discussion
                     _discussionDao.recalculateDateThreadUpdated(reply.getDiscussion());
+
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
             } else if (command.getContentType() == DeactivateContentCommand.ContentType.discussion) {
                 Discussion discussion = _discussionDao.findById((int)command.getContentId());
                 if (discussion != null && discussion.isActive() != command.isReactivate()) {
-                    _log.info("Setting discussion with id=" + discussion.getId() +
-                            " to active=" + command.isReactivate());
-                    discussion.setActive(command.isReactivate());
-                    _discussionDao.saveKeepDates(discussion);
+                    // activate/deactivate the replies
                     Set<DiscussionReply> replies = discussion.getReplies();
                     for (DiscussionReply reply : replies) {
                         reply.setActive(command.isReactivate());
                         _discussionReplyDao.saveKeepDates(reply);
                     }
+
+                    _log.info("Setting discussion with id=" + discussion.getId() +
+                            " to active=" + command.isReactivate());
+                    discussion.setActive(command.isReactivate());
+
+                    // update number of replies for discussion
+                    int numReplies = _discussionReplyDao.getTotalReplies(discussion);
+                    discussion.setNumReplies(numReplies);
+
+                    // save the discussion
+                    _discussionDao.saveKeepDates(discussion);
+
                     ThreadLocalTransactionManager.commitOrRollback();
                     try {
                         if (command.isReactivate()) {

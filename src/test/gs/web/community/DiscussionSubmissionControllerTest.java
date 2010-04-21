@@ -588,6 +588,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         Discussion discussion = new Discussion();
         discussion.setId(1);
         discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -606,6 +607,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         reply.setBody(VALID_LENGTH_REPLY_POST);
         reply.setDiscussion(discussion);
         _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
 
         replayAllMocks();
         try {
@@ -626,6 +629,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         Discussion discussion = new Discussion();
         discussion.setId(1);
         discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
         _command.setBody("Hi there.\n\nSup?");
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -644,6 +648,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         reply.setBody("Hi there.<br/><br/>Sup?");
         reply.setDiscussion(discussion);
         _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
 
         replayAllMocks();
         try {
@@ -664,6 +670,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         Discussion discussion = new Discussion();
         discussion.setId(1);
         discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect(null);
@@ -682,6 +689,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         reply.setBody(VALID_LENGTH_REPLY_POST);
         reply.setDiscussion(discussion);
         _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
 
         replayAllMocks();
         try {
@@ -774,6 +783,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         Discussion discussion = new Discussion();
         discussion.setId(1);
         discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
         _command.setBody(longBody.toString());
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -795,6 +805,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expect(_alertWordDao.hasAlertWord(reply.getBody())).andReturn(null);
 
         _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
 
         replayAllMocks();
         try {
