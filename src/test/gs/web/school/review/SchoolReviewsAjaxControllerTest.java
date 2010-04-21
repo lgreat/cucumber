@@ -206,25 +206,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         assertEquals("<success/>", getResponse().getContentAsString());
     }
 
-    public void xtestSendRejectEmailReal() throws Exception {
-        _user.setEmail("eford@greatschools.org");
-        String comments = "this school rocks!";
-
-        _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
-        _school.setName("Alameda High");
-        _controller.sendRejectMessage(_user, comments, _school, "rejectEmail.txt");
-    }
-
-    public void xtestSendCommunityEmailReal() throws Exception {
-        _user.setEmail("thuss@greatschools.org");
-        String comments = "this school rocks and I like it a lot!";
-
-        EmailContentHelper emailContentHelper = new EmailContentHelper();
-        _controller.setEmailContentHelper(emailContentHelper);
-        _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
-        _controller.sendMessage(_user, comments, _school, "communityEmail.txt");
-    }
-
     public void testExistingUserEmptyReviewNonEmptyCategoryRating() throws Exception {
         Review r = new Review();
         r.setComments("this review has comments");
