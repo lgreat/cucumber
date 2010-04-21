@@ -4047,6 +4047,9 @@ button {
     padding: 153px 0 0 6px;
     background: #fff url(/res/img/ad/realtorDotComTowerStock_ph.jpg) 0 0 no-repeat;
 }
+#realtorDotCom.rdc_short .mod_bd {
+    padding-top: 10px;
+}
 #realtorDotCom p {
     margin: 0 0 .7em;
     font-size: 11px;
@@ -4143,6 +4146,9 @@ button {
 #realtorDotCom .mod_bd button.btn25 {
     margin: 2px -3px 0;
 }
+realtorDotCom.rdc_short .mod_bd button.btn25 {
+
+}
 #realtorDotCom .logo {
     position: absolute;
     bottom: 8px;
@@ -4160,12 +4166,14 @@ button {
 #realtorDotCom.rdc_short .btn25 {
     float:left;
     padding-left:8px;
+
 }
 #realtorDotCom.rdc_short label {
     width:120px;
 }
 #realtorDotCom.rdc_short input#rdcCity {
-    float:left;
+    float:left;position: relative;
+    top: 2px;
 }
 #realtorDotCom.rdc_short img {
     width:60px;
