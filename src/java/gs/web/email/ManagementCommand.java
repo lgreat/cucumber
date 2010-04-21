@@ -1,5 +1,6 @@
 package gs.web.email;
 
+import gs.data.geo.City;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gs.data.state.State;
@@ -21,6 +22,11 @@ public class ManagementCommand {
     private String email;
 
     private String firstName;
+
+    // your location
+    private State _userState;
+    private String _userCity;
+    private List<City> _userCityList;
 
     //checkbox value representing if it is checked
     private boolean greatnews;
@@ -621,6 +627,30 @@ public class ManagementCommand {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public State getUserState() {
+        return _userState;
+    }
+
+    public void setUserState(State userState) {
+        _userState = userState;
+    }
+
+    public String getUserCity() {
+        return _userCity;
+    }
+
+    public void setUserCity(String userCity) {
+        _userCity = userCity;
+    }
+
+    public List<City> getUserCityList() {
+        return _userCityList;
+    }
+
+    public void setUserCityList(List<City> userCityList) {
+        _userCityList = userCityList;
     }
 
     public List<State> getStateList() {

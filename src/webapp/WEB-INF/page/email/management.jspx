@@ -269,21 +269,21 @@
                     <p class="newsletterHeader text2bold">Your location</p>
                     <ol id="yourLocation">
                         <li>
-                            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                                 onChange="yourLocationStateChange(this);" name="stateAdd"
+                            <gsweb:stateSelector state="${emailCmd.userState}" styleId="userState"
+                                                 onChange="yourLocationStateChange(this);" name="userState"
                                                  noStateLabel="1. Choose state"
                                                  allowNoState="true"
                                     />
                         </li>
 
                         <li id="yourLocationCity">
-                            <select id="yourLocationCitySelect" name="city" onchange="emailCityChange(this);">
-                                <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
+                            <select id="yourLocationCitySelect" name="userCity">
+                                <c:if test="${emailCmd.userCityList ne null and (emailCmd.userCity eq null or emailCmd.userCity eq '')}">
                                     <option selected="selected" value="">2. Choose city</option>
                                 </c:if>
-                                <c:forEach var="cityOption" items="${emailCmd.cityList}">
+                                <c:forEach var="cityOption" items="${emailCmd.userCityList}">
                                     <![CDATA[<option ]]>
-                                    <c:if test="${emailCmd.city eq cityOption.name}">
+                                    <c:if test="${emailCmd.userCity eq cityOption.name}">
                                         selected="selected"
                                     </c:if>
                                     <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -355,7 +355,7 @@
                     <p class="text2bold">Add a school<span class="text2"> (four schools maximum)</span></p>
                     <ol>
                         <li>
-                            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                            <gsweb:stateSelector state="${emailCmd.userState}" styleId="stateAdd"
                                                  onChange="emailStateChange(this);" name="stateAdd"
                                                  noStateLabel="1. Choose state"
                                                  allowNoState="true"

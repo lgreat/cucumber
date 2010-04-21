@@ -100,6 +100,17 @@ public class ManagementController extends SimpleFormController implements ReadWr
         command.setUserId(user.getId());
         command.setEmail(user.getEmail());
         command.setFirstName(user.getFirstName());
+
+        // your location
+        State userState = user.getUserProfile().getState();
+        command.setUserState(userState);
+        command.setUserCity(user.getUserProfile().getCity());
+        List<City> userCities = _geoDao.findAllCitiesByState(userState);
+        City userCity = new City();
+        userCity.setName("My city is not listed");
+        userCities.add(0, userCity);
+        command.setUserCityList(userCities);
+
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
         if(subscriptions != null){
             for (Object subscription : subscriptions) {
@@ -204,8 +215,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         command.setCityList(cities);
     }
 
-    // TODO-8869
-    /*
     @Override
     protected Map referenceData(HttpServletRequest request, Object commandObj, Errors errors) throws Exception {
         populateDropdowns((AccountInformationCommand) commandObj);
@@ -215,19 +224,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
     protected void populateDropdowns(AccountInformationCommand command) {
         // load the city list for the user
         command.setProfileCityList(_geoDao.findCitiesByState(command.getState()));
-
-        // load the city and school list for each child (state and grade dropdowns are static)
-        for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
-            command.addCityList(_geoDao.findCitiesByState(student.getState()));
-            if (student.getGrade() != null && student.getState() != null) {
-                List<School> schools = _schoolDao.findSchoolsInCityByGrade(student.getState(), student.getCity(), student.getGrade());
-                command.addSchools(schools);
-            } else {
-                command.addSchools(new ArrayList<School>());
-            }
-        }
     }
-    */
 
     @Override
     protected ModelAndView showForm(
@@ -255,6 +252,10 @@ public class ManagementController extends SimpleFormController implements ReadWr
         User user = getUserDao().findUserFromId(command.getUserId());
 
         user.setFirstName(command.getFirstName());
+
+        // TODO-8869
+        user.getUserProfile().setState(command.getUserState());
+        user.getUserProfile().setCity(command.getUserCity());
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         State state = user.getState();

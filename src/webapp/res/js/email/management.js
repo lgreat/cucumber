@@ -93,7 +93,7 @@ function emailUpdateElementContents(elemIdToUpdate, elemToAdd) {
  */
 
 function emailCityChange(citySelect) {
-    var parentState = $('userState').value;
+    var parentState = $('stateAdd').value;
     var parentCity = citySelect.value;
     var url = '/util/ajax/ajaxCity.page';
     var pars = 'state=' + parentState;
@@ -134,7 +134,7 @@ function addMssSchool() {
     var selectedSchoolName = schoolSelect.options[schoolSelect.selectedIndex].text;
     var citySelect = $('citySelect');
     var selectedCityName = citySelect.options[citySelect.selectedIndex].text;
-    var stateSelect = $('userState');
+    var stateSelect = $('stateAdd');
     var selectedStateName = stateSelect.options[stateSelect.selectedIndex].text;
     var myStateId = selectedStateName + schoolSelect.value;
 
