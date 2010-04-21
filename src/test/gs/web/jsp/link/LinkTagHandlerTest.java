@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.76 2010/03/25 18:26:53 eddie Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.77 2010/04/21 22:55:58 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -532,11 +532,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
         builder = tagHandler.createUrlBuilder();
         assertEquals("/community/loginOrRegister.page?email=email%40example.org", builder.asSiteRelative(null));
 
-        tagHandler.setRedirect("/accountInformation.page");
+        tagHandler.setRedirect("/account/");
         builder = tagHandler.createUrlBuilder();
         assertEquals("/community/loginOrRegister.page" +
                 "?email=email%40example.org" +
-                "&redirect=%2FaccountInformation.page", builder.asSiteRelative(null));
+                "&redirect=%2Faccount%2F", builder.asSiteRelative(null));
     }
 
     public void testForgotPassword() {
@@ -565,7 +565,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         AccountInfoTagHandler tagHandler = new AccountInfoTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/accountInformation.page", builder.asSiteRelative(null));
+        assertEquals("/account/", builder.asSiteRelative(null));
     }
 
     public void testRequestEmailValidation() {

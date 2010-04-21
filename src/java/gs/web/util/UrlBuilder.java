@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.214 2010/04/10 00:23:03 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.215 2010/04/21 22:54:20 yfan Exp $
  */
 
 package gs.web.util;
@@ -1083,7 +1083,7 @@ public class UrlBuilder {
             _path = "/community/";
         } else if (ACCOUNT_INFO.equals(page)) {
             _perlPage = false;
-            _path = "/accountInformation.page";
+            _path = "/account/";
         } else if (DISTRICTS_PAGE.equals(page)) {
             _perlPage = false;
             _path = "/schools/districts/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
