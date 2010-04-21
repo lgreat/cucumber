@@ -404,8 +404,8 @@
 </div>
 <!-- end mainContent -->
 </div>
-<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
 <!-- end container -->
 <mod:tracking pageName="${requestScope.omniturePagename}"

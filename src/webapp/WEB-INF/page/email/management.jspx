@@ -9,7 +9,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-        >
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms">
+
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
 <html lang="en">
@@ -558,11 +559,7 @@
 </div>
 <!-- end mainGS -->
 
-<div id="sidebarGS" class="col">
-    <!-- do not collapse -->
-</div>
-<!-- end sidebarGS-->
-
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
 
 <mod:tracking pageName="Edit subscription"
               hier1="Newsletter,NLEditSubscriptions"/>
