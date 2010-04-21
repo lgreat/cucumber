@@ -27,6 +27,12 @@
       <div id="mainGS" class="col">
           <div class="spacer_10"><!-- do not collapse --></div>
 
+              <div class="smallAlertText">
+                  <link:home>Home</link:home> &amp;gt; <a href="/account/">My Account</a>
+              </div>
+
+          <div class="spacer_10"><!-- do not collapse --></div>
+
           <div id="topicContentGS" class="clearfix">
 
               <div id="topicbarGS" class="col">
