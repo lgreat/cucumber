@@ -558,6 +558,7 @@ GSType.hover.SignInHover = function() {
         if (showJoinFunction) {
             GSType.hover.signInHover.showJoinFunction = showJoinFunction;
         }
+        jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
         GSType.hover.signInHover.show();
         return false;
     };
@@ -604,14 +605,14 @@ GSType.hover.SignInHoverSchoolReview = function() {
         jQuery('#signInHover .redirect_field').val(redirect);
     };
     this.loadOnExit = function(url) {
-        GSType.hover.signInHover.loadOnExitUrl = url;
-        GSType.hover.signInHover.setRedirect(url);
+        GSType.hover.signInHoverSchoolReview.loadOnExitUrl = url;
+        GSType.hover.signInHoverSchoolReview.setRedirect(url);
         jQuery('#signInHover').bind('dialogclose', function() {
-            window.location = GSType.hover.signInHover.loadOnExitUrl;
+            window.location = GSType.hover.signInHoverSchoolReview.loadOnExitUrl;
         });
     };
     this.cancelLoadOnExit = function() {
-        GSType.hover.signInHover.loadOnExitUrl = null;
+        GSType.hover.signInHoverSchoolReview.loadOnExitUrl = null;
         jQuery('#signInHover').unbind('dialogclose');
     };
     this.validateFields = function() {
@@ -623,7 +624,7 @@ GSType.hover.SignInHoverSchoolReview = function() {
         };
 
         jQuery.getJSON('/community/registration/popup/loginValidationAjax.page', params,
-                this.loginValidatorHandler.gs_bind(this));
+                GSType.hover.signInHoverSchoolReview.loginValidatorHandler);
 
         return false;
     };
@@ -632,13 +633,13 @@ GSType.hover.SignInHoverSchoolReview = function() {
         if (data.noSuchUser) {
             jQuery('#signInHover .errors .error').html(data.noSuchUser).show();
         } else if (data.userNoPassword) {
-            GSType.hover.signInHover.clearMessages();
-            GSType.hover.signInHover.hide();
+            GSType.hover.signInHoverSchoolReview.clearMessages();
+            GSType.hover.signInHoverSchoolReview.hide();
             GSType.hover.joinHover.showJoinChooserTipSheet();
             GSType.hover.joinHover.addMessage(data.userNoPassword);
         } else if (data.userNotValidated) {
-            GSType.hover.signInHover.clearMessages();
-            GSType.hover.signInHover.hide();
+            GSType.hover.signInHoverSchoolReview.clearMessages();
+            GSType.hover.signInHoverSchoolReview.hide();
             GSType.hover.emailNotValidated.setEmail(jQuery('#semail').val());
             GSType.hover.emailNotValidated.show();
         } else if (data.email) {
@@ -650,26 +651,51 @@ GSType.hover.SignInHoverSchoolReview = function() {
         } else {
             //validation passed
 
-            GSType.hover.signInHover.cancelLoadOnExit();
+            GSType.hover.signInHoverSchoolReview.cancelLoadOnExit();
 
-            jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function() {
+            jQuery('#frmPRModule .errors').hide();
+            var hasError = false;
+            if (jQuery('#frmPRModule #overallStarRating').val() == 0) {
+                jQuery('#frmPRModule .overallError').show();
+                jQuery('#frmPRModule .overallError .error').show();
+                hasError = true;
+            }
+            if (jQuery('#frmPRModule [name="posterAsString"]').val() == '') {
+                jQuery('#frmPRModule .whoError').show();
+                jQuery('#frmPRModule .whoError .error').show();
+                hasError = true;
+            }
+            if (!hasError) {
+                jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
 
-                jQuery('#signin').submit();
+                    GSType.hover.signInHoverSchoolReview.hide();
+                    jQuery('#joinBtn').attr('disabled', '');
 
-                this.hide().gs_bind(this);
+                    if (data.reviewPosted != undefined) {
+                        jQuery('#schoolReviewThankYou').bind('dialogclose', function() {
+                            jQuery('#signin').submit();
+                        });
+                        if (data.reviewPosted == "true") {
+                            GSType.hover.schoolReviewPostedThankYou.showHover();
+                        } else {
+                            GSType.hover.schoolReviewNotPostedThankYou.showHover();
+                        }
+                    }
 
-                jQuery('#joinBtn').attr('disabled', '');
-            }, "json");
+                }, "json");
+            }
+
             return false;
         }
     };
     this.showHover = function(email, redirect, showJoinFunction) {
-        GSType.hover.signInHover.setEmail(email);
-        GSType.hover.signInHover.setRedirect(redirect);
+        GSType.hover.signInHoverSchoolReview.setEmail(email);
+        GSType.hover.signInHoverSchoolReview.setRedirect(redirect);
         if (showJoinFunction) {
-            GSType.hover.signInHover.showJoinFunction = showJoinFunction;
+            GSType.hover.signInHoverSchoolReview.showJoinFunction = showJoinFunction;
         }
-        GSType.hover.signInHover.show();
+        GSType.hover.signInHoverSchoolReview.show();
+        jQuery('#signinBtn').click(GSType.hover.signInHoverSchoolReview.validateFields);
         return false;
     };
     this.showJoin = function() {
@@ -753,7 +779,8 @@ GSType.hover.SchoolReviewThankYou = function() {
         jQuery('#schoolReviewThankYou').bind('dialogclose', this.onClose.gs_bind(this));
         this.show();
     }
-    this.onClose = function() {}
+    this.onClose = function() {
+    }
     //override in specific hovers!
     this.body = function() {
         return "Your review has been posted to GreatSchools";
@@ -773,7 +800,7 @@ GSType.hover.SchoolReviewPostedThankYou = function() {
         return "Your review has been posted to GreatSchools.";
     }
     this.onClose = function() {
-        window.location.reload();
+        //window.location.reload();
     }
 }
 GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
@@ -1103,7 +1130,6 @@ jQuery(function() {
         GSType.hover.signInHover.show();
     });
 
-    jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
 
     jQuery('#signInHover').bind('dialogclose', GSType.hover.signInHover.clearMessages);
 
@@ -1163,6 +1189,10 @@ jQuery(function() {
         GSType.hover.validateEmail.show();
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
+    } else if (showHover == "schoolReviewPostedThankYou") {
+        GSType.hover.schoolReviewPostedThankYou.showHover();
+    } else if (showHover == "schoolReviewNotPostedThankYou") {
+        GSType.hover.schoolReviewNotPostedThankYou.showHover();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
