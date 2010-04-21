@@ -44,7 +44,7 @@
                              alt="Facebook" class="facebook"/> Facebook
                     </a>
                     and
-                    <a href="http://twitter.com/greatschoolsorg"
+                    <a href="http://twitter.com/greatschools"
                        title="Twitter" target="_blank"
                        onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;">
                         <img width="19" height="19" src="/res/img/nav/twitter_19px.png"
