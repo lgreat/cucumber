@@ -10,6 +10,6 @@
     </c:if>
 
     <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank">
-        <jsp:doBody/>
+        <span class="sprite house"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
     </a>
 </jsp:root>
