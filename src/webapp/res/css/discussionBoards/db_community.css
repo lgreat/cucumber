@@ -521,7 +521,8 @@ body.ie6 .userVitals, body.ie7 .userVitals {
     padding: 0 0 0 105px;
     width: 222px;
     margin: 0;
-    border: 0;
+    border:none;
+    border-right:1px dashed #999;
 }
 body.ie6 .userVitalsFull, body.ie7 .userVitalsFull {
     width: 408px;
