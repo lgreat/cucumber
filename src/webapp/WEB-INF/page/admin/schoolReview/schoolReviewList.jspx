@@ -25,28 +25,70 @@
     </style>
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewList">
-    <div id="unprocessedReviews">
-        <c:if test="${not empty requestScope.unprocessedReviews}">
-            <table class="unprocessedReviewList reviewTable">
+
+    <div id="flaggedReviews">
+        <!--<c:if test="${not empty requestScope.flaggedReviews}">-->
+            <h2>Flagged reviews</h2>
+            <table class="flaggedReviewList reviewTable">
                 <tr>
-                    <th>Date Submitted</th>
                     <th>Author</th>
+                    <th>Date Submitted</th>
                     <th>School</th>
                     <th>Status</th>
                     <th>How</th>
+                    <th>Date of Oldest Report</th>
+                    <th># of Reports</th>
                 </tr>
-                <c:forEach items="${requestScope.unprocessedReviews}" var="review">
+                <c:forEach items="${requestScope.flaggedReviews}" var="reviewBean">
+                    <c:set var="review" value="${reviewBean.review}"/>
                     <tr>
+                        <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
                         <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy h:mma"/>
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
-                        <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
                         <td>${review.status}</td>
                         <td>${review.how}</td>
+                        <fmt:formatDate value="${reviewBean.report.dateCreated}" var="reportedCreated" pattern="MMMM d, yyyy h:mma"/>
+                        <td>${reportedCreated}</td>
+                        <td>${reviewBean.numReports}</td>
                     </tr>
                 </c:forEach>
             </table>
+        <!--</c:if>-->
+        <c:if test="${empty requestScope.flaggedReviews}">
+            <p>No flagged reviews!</p>
         </c:if>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div id="unprocessedReviews">
+        <!--<c:if test="${not empty requestScope.unprocessedReviews}">-->
+            <h2>Unprocessed reviews</h2>
+            <table class="unprocessedReviewList reviewTable">
+                <tr>
+                    <th>Author</th>
+                    <th>Date Submitted</th>
+                    <th>School</th>
+                    <th>Status</th>
+                    <th>How</th>
+                    <th># of Reports</th>
+                </tr>
+                <c:forEach items="${requestScope.unprocessedReviews}" var="reviewBean">
+                    <c:set var="review" value="${reviewBean.review}"/>
+                    <tr>
+                        <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
+                        <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy h:mma"/>
+                        <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
+                        <td>${review.school.name} (${review.school.databaseState})</td>
+                        <td>${review.status}</td>
+                        <td>${review.how}</td>
+                        <td>${reviewBean.numReports}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        <!--</c:if>-->
         <c:if test="${empty requestScope.unprocessedReviews}">
             <p>No unprocessed reviews!</p>
         </c:if>

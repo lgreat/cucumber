@@ -1,6 +1,9 @@
 package gs.web.admin;
 
+import gs.data.community.ReportedEntity;
 import gs.data.school.review.Review;
+
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -11,6 +14,7 @@ public class SchoolReviewEditCommand {
     private String _note;
     private String _status;
     private boolean _cancel = false;
+    private List<ReportedEntity> _reports;
 
     public Review getReview() {
         return _review;
@@ -50,5 +54,13 @@ public class SchoolReviewEditCommand {
 
     public void setCancel(boolean cancel) {
         _cancel = cancel;
+    }
+
+    public List<ReportedEntity> getReports() {
+        return _reports;
+    }
+
+    public void setReports(List<ReportedEntity> reports) {
+        _reports = reports;
     }
 }

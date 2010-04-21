@@ -1,5 +1,7 @@
 package gs.web.admin;
 
+import gs.data.community.IReportedEntityDao;
+import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SchoolReviewEditController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
     private IReviewDao _reviewDao;
+    private IReportedEntityDao _reportedEntityDao;
 
     @Override
     protected void onBindOnNewForm(HttpServletRequest request, Object commandObj) throws Exception {
@@ -25,7 +28,9 @@ public class SchoolReviewEditController extends SimpleFormController implements 
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
 
         try {
-            command.setReview(_reviewDao.getReview(Integer.parseInt(request.getParameter("id"))));
+            Review review = _reviewDao.getReview(Integer.parseInt(request.getParameter("id")));
+            command.setReview(review);
+            command.setReports(_reportedEntityDao.getReports(ReportedEntity.ReportedEntityType.schoolReview, review.getId()));
         } catch (ObjectRetrievalFailureException orfe) {
             // do nothing
         }
@@ -65,5 +70,13 @@ public class SchoolReviewEditController extends SimpleFormController implements 
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

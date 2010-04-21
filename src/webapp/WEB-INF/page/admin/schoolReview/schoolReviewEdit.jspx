@@ -27,6 +27,11 @@
         .editForm textarea {
             color: black;
         }
+
+        .reportedEntity td, .reportedEntity th {
+            padding: 2px;
+            border: 1px solid #666;
+        }
     </style>
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
@@ -54,7 +59,44 @@
                             pattern="MMMM d, yyyy h:mma"/>
             <label>Posted:</label><span class="value">${reviewPosted}</span>
             <br/>
-            <label>Status:</label><span class="value">${requestScope.command.review.status}</span>
+            <label>Status:</label>
+            <span class="value">${requestScope.command.review.status}
+                <c:choose>
+                    <c:when test="${requestScope.command.review.status eq 'u'}">(unprocessed)</c:when>
+                    <c:when test="${requestScope.command.review.status eq 'p'}">(public/live)</c:when>
+                    <c:when test="${requestScope.command.review.status eq 'd'}">(disabled)</c:when>
+                </c:choose>
+            </span>
+            <br/>
+            <br/>
+            <label>Reports:</label>
+            <c:choose>
+                <c:when test="${empty requestScope.command.reports}">
+                    <span class="value">None</span>
+                </c:when>
+                <c:otherwise>
+                    <ol>
+                        <li>
+                            <table class="reportedEntity">
+                                <tr>
+                                    <th>Date Reported</th>
+                                    <th>Reason</th>
+                                    <th>Reporter</th>
+                                </tr>
+                                <c:forEach items="${requestScope.command.reports}" var="report">
+                                    <tr>
+                                        <fmt:formatDate value="${report.dateCreated}" var="reportCreated"
+                                                        pattern="MMMM d, yyyy h:mma"/>
+                                        <td>${reportCreated}</td>
+                                        <td>${report.reason}</td>
+                                        <td>${report.reporterId}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </li>
+                    </ol>
+                </c:otherwise>
+            </c:choose>
             <br/>
             <br/>
             <label>Ratings:</label>
