@@ -1,3 +1,13 @@
+jQuery(function() {
+    jQuery('#firstName').blur(function() {
+        if (isValidFirstName(jQuery(this).val())) {
+            jQuery('#firstNameError').hide();            
+        } else {
+            jQuery('#firstNameError').show();
+        }
+    });
+});
+
 function toggleNthGraderNewsletters(){
     var elem = document.getElementById("mynth");
     if(document.manage.greatnews.checked){
@@ -16,7 +26,15 @@ function toggleSummerBrainDrain(){
     }
 }
 
+function isValidFirstName(firstName) {
+    return (firstName.length >= 2 && firstName.length <= 24);
+}
+
 function checkForm(){
+    if (!isValidFirstName(jQuery('#firstName').val())) {
+        alert('First name must be 2-24 characters.');
+        return false;
+    }
     if(document.manage.seasonal.checked && document.manage.startweek.value == ""){
         alert("Please select a start week for your school so we can personalize your emails.");
         return false;

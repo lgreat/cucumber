@@ -81,7 +81,7 @@
         <li>
             <label for="firstName">First name</label>
             <!--form:input path="firstName" id="firstName" maxlength="24"/-->
-            <input id="firstName" type="text" maxlength="24"/>
+            <form:input id="firstName" path="firstName" maxlength="24"/>
 
             <p id="firstNameError" class="formErrorText"><span
                     class="sprite alert"><!-- icon --></span> First name must be 2-24 characters</p>

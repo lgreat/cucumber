@@ -99,6 +99,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         ManagementCommand command = (ManagementCommand) o;
         command.setUserId(user.getId());
         command.setEmail(user.getEmail());
+        command.setFirstName(user.getFirstName());
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
         if(subscriptions != null){
             for (Object subscription : subscriptions) {
@@ -252,6 +253,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
                                     Object o, BindException be) throws Exception {
         ManagementCommand command = (ManagementCommand)o;
         User user = getUserDao().findUserFromId(command.getUserId());
+
+        user.setFirstName(command.getFirstName());
+
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         State state = user.getState();
         if(user.getUserProfile() != null){

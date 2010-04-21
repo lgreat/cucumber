@@ -3444,6 +3444,10 @@ ul.srchSuggest li span {
     overflow:hidden;
 }
 
+#manageNewsletters #firstNameError {
+    display:none;
+}
+
 
 /* =5- icons
 -------------------------------------------------------------------------------------------*/

@@ -20,6 +20,8 @@ public class ManagementCommand {
     private int userId;
     private String email;
 
+    private String firstName;
+
     //checkbox value representing if it is checked
     private boolean greatnews;
     private int greatnewsId;
@@ -611,6 +613,14 @@ public class ManagementCommand {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public List<State> getStateList() {
