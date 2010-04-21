@@ -267,14 +267,17 @@
 
                 <div class="newsletterInfo">
                     <p class="newsletterHeader text2bold">Your location</p>
-                    <ol>
+                    <ol id="yourLocation">
                         <li>
                             <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                                 onChange="emailStateChange(this);" name="stateAdd"/>
+                                                 onChange="yourLocationStateChange(this);" name="stateAdd"
+                                                 noStateLabel="1. Choose state"
+                                                 allowNoState="true"
+                                    />
                         </li>
 
-                        <li id="city">
-                            <select id="citySelect" name="city" onchange="emailCityChange(this);">
+                        <li id="yourLocationCity">
+                            <select id="yourLocationCitySelect" name="city" onchange="emailCityChange(this);">
                                 <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
                                     <option selected="selected" value="">2. Choose city</option>
                                 </c:if>
@@ -353,7 +356,10 @@
                     <ol>
                         <li>
                             <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                                 onChange="emailStateChange(this);" name="stateAdd"/>
+                                                 onChange="emailStateChange(this);" name="stateAdd"
+                                                 noStateLabel="1. Choose state"
+                                                 allowNoState="true"
+                                    />
                         </li>
 
                         <li id="city">

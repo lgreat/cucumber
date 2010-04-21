@@ -42,6 +42,24 @@ function checkForm(){
     return true;
 }
 
+function yourLocationStateChange(stateSelect) {
+    var url = '/util/ajax/ajaxCity.page';
+    var pars = 'state=' + stateSelect.value + "&type=city&notListedOption=2. Choose city";
+    var citySelect = $('yourLocationCitySelect');
+    $('school').update('<option value="0">3. Choose school</option>');
+    citySelect.update('<option value="0">Loading ...</option>');
+    new Ajax.Updater(
+            'yourLocationCitySelect',
+            url,
+    {
+        method: 'get',
+        parameters: pars,
+        onComplete: function() {
+            emailUpdateElementContents('yourLocationCity', citySelect);
+        }
+    });
+}
+
 function emailStateChange(stateSelect) {
     var url = '/util/ajax/ajaxCity.page';
     var pars = 'state=' + stateSelect.value + "&type=city&notListedOption=2. Choose city";
