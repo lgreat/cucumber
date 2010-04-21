@@ -3308,21 +3308,21 @@ ul.srchSuggest li span {
 }
 
 #changeEmail form li, #changePassword form li{
+    height:24px;
     padding:5px 0;
 }
 
-#changeEmail fieldset label{
-    float:left;
-    width:150px;
-    padding:3px 0;
-    margin-right:10px
-}
-
-#changePassword fieldset label{
+#changeEmail fieldset label, #changePassword fieldset label{
+    clear:left;
     float:left;
     width:160px;
     padding:3px 0;
     margin-right:10px
+}
+
+#changeEmail .changeEmail span{
+    display:inline-block;
+    line-height:1.6;
 }
 
 #changeEmail fieldset input, #changePassword fieldset input{
@@ -4001,18 +4001,18 @@ button {
 /* ---------------- */
 
 .outline1 {
-    /*outline: 1px solid red;*/
-    background:red;
+    outline: 1px solid red;
+    /*background:red;*/
 }
 
 .outline2 {
-    /*outline: 1px solid green;*/
-    background:green;
+    outline: 1px solid green;
+    /*background:green;*/
 }
 
 .outline3 {
-    /*outline: 1px solid blue;*/
-    background:blue;
+    outline: 1px solid blue;
+    /*background:blue;*/
 }
 
 /*

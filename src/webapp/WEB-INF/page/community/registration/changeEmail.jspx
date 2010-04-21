@@ -55,7 +55,7 @@
                       <p class="text3">Please enter a new email address for your account in the form below. Keep in mind that you'll need to verify your new email before you're able to sign in again.</p>
 
                       <gsweb:form action="/community/changeEmail.page" method="post">
-                          <fieldset>
+                          <fieldset class="changeEmail">
                               <ul>
                                   <li>
                                       <label class="text2bold">Current email address:</label>
