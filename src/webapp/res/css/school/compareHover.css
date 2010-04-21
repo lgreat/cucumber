@@ -1,6 +1,7 @@
 #myDialog {
     font-family: Arial, Arial, sans-serif;
-    position: relative;
+    position: absolute;
+    top: 14px;
 }
 
 #dialogTopBar {

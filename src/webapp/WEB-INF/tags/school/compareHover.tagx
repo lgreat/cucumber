@@ -137,7 +137,7 @@
         {
             postmethod: "form",
             width: "600px",
-            fixedcenter: true,
+            fixedcenter: false,
             visible: false,
             constraintoviewport: true,
             draggable: false,
