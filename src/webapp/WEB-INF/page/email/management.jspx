@@ -432,18 +432,16 @@
                                         <label for="seasonalCheckbox">Subscribe to this newsletter</label></li>
                                 </ol>
                             </fieldset>
-                        </li>
 
-                        <c:set var="showWeeks" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
+                            <c:set var="showWeeks" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
 
-                        <div id="weeks" class="${showWeeks}">
-                            <p class="text2">Tell us when your child's school starts so we can personalize your newsletter!</p>
-                            <li>
+                            <div id="weeks" class="${showWeeks}">
+                                <p class="text2">Tell us when your child's school starts so we can personalize your newsletter!</p>
                                 <fieldset>
                                     <ol>
                                         <li>
                                             <label for="startweek">School starts the week of:</label>
-                                            <select path="startweek" id="startweek">
+                                            <form:select path="startweek" id="startweek">
                                                 <option value="">Choose one</option>
                                                 <option value="summer1">July 19</option>
                                                 <option value="summer2">July 26</option>
@@ -453,12 +451,12 @@
                                                 <option value="summer6">August 23</option>
                                                 <option value="summer7">August 30</option>
                                                 <option value="summer8">September 6</option>
-                                            </select></li>
+                                            </form:select></li>
                                     </ol>
+                                    <form:hidden path="seasonalId"/>
                                 </fieldset>
-                            </li>
-                        </div>
-                        <form:hidden path="seasonalId"/>
+                            </div>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -495,7 +493,7 @@
 
 <c:set var="showPledge" value="${ emailCmd.pledge ? 'showIt' : 'hideIt' }"/>
 
-<div id="chooser" class="${showPledge}">
+<div id="pledge" class="${showPledge}">
 
     <fieldset>
         <div class="formContentGS clearfix">
