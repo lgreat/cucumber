@@ -2,6 +2,7 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
@@ -61,6 +62,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private IReportContentService _reportContentService;
 
+    private ExactTargetAPI _exactTargetAPI;
+
     private ISchoolDao _schoolDao;
 
     private IAlertWordDao _alertWordDao;
@@ -72,15 +75,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     private Boolean _xmlPage = Boolean.FALSE;
 
     public ModelAndView handle(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 Object command,
-                                 BindException errors) throws Exception {
+                               HttpServletResponse response,
+                               Object command,
+                               BindException errors) throws Exception {
 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
-        ReviewCommand rc = (ReviewCommand) command;
-
-        boolean reviewPosted = false;
+        ReviewCommand reviewCommand = (ReviewCommand) command;
 
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         String check = request.getParameter("isAddNewParentReview");
@@ -90,50 +91,58 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
-        User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
+        User user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
         boolean isNewUser = false;
 
         //new user - create user, add entry to list_active table,
         if (user == null) {
             user = new User();
-            user.setEmail(rc.getEmail());
+            user.setEmail(reviewCommand.getEmail());
             getUserDao().saveUser(user);
             // Because of hibernate caching, it's possible for a list_active record
             // (with list_member id) to be commited before the list_member record is
             // committed. Adding this commitOrRollback prevents this.
             ThreadLocalTransactionManager.commitOrRollback();
             //this is for unit test purposes.  so I can return any user.
-            user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
+            user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
 
             Subscription sub = new Subscription(user, SubscriptionProduct.RATING, school.getDatabaseState());
             sub.setSchoolId(school.getId());
             getSubscriptionDao().saveSubscription(sub);
+
+            //Must perform omniture tracking since we're creating this user here.
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
+
             isNewUser = true;
         }
 
-        Review r = createOrUpdateReview(user, school, rc, isNewUser, check);
+        Review review = createOrUpdateReview(user, school, reviewCommand, isNewUser, check);
 
-        //save the review
-        getReviewDao().saveReview(r);
-        reviewPosted = true;
+        boolean newUser = user.isEmailProvisional();
+        Poster poster = reviewCommand.getPoster();
 
-        Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(r.getComments());
+        boolean reviewPosted = true;
+        boolean reviewHasReallyBadWords = false;
+        boolean reviewShouldBeReported = false;
+        StringBuffer reason = null;
+
+        Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(review.getComments());
         if (alertWordMap != null) {
             Set<String> alertWords = alertWordMap.get(IAlertWordDao.alertWordTypes.WARNING);
             Set<String> reallyBadWords = alertWordMap.get(IAlertWordDao.alertWordTypes.REALLY_BAD);
 
-            boolean hasAlertWords = alertWords != null && alertWords.size() > 0;
-            boolean hasReallyBadWords = reallyBadWords != null && reallyBadWords.size() > 0;
-            boolean hasAnyBadWords = hasAlertWords || hasReallyBadWords;
+            boolean reviewHasAlertWords = alertWords != null && alertWords.size() > 0;
+            reviewHasReallyBadWords = reallyBadWords != null && reallyBadWords.size() > 0;
+            boolean reviewHasAnyBadWords = reviewHasAlertWords || reviewHasReallyBadWords;
 
-            if (hasAnyBadWords) {
+            if (reviewHasAnyBadWords) {
+                reason = new StringBuffer("Review contained ");
 
-                StringBuffer reason = new StringBuffer("Review contained ");
-
-                if (hasAlertWords) {
+                if (reviewHasAlertWords) {
                     reason.append("warning words (").append(StringUtils.join(alertWords, ",")).append(")");
                 }
-                if (hasReallyBadWords) {
+                if (reviewHasReallyBadWords) {
                     if (!(alertWords.isEmpty())) {
                         reason.append(" and ");
                     }
@@ -141,36 +150,58 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                     reviewPosted = false;
                 }
 
-                getReportContentService().reportContent(getAlertWordFilterUser(), user, request, r.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
+                reviewShouldBeReported = true;
             }
         }
 
-        if (Poster.STUDENT.equals(rc.getPoster())) {
+        if (newUser) {
+            if (Poster.STUDENT.equals(poster)) {
+                review.setStatus("pu");
+            } else {
+                if (reviewHasReallyBadWords) {
+                    review.setStatus("pd");
+                } else {
+                    review.setStatus("pp");
+                }
+            }
+
+        } else {
+            if (Poster.STUDENT.equals(poster)) {
+                review.setStatus("u");
+            } else {
+                if (reviewHasReallyBadWords) {
+                    review.setStatus("d");
+                } else {
+                    review.setStatus("p");
+                }
+            }
+        }
+
+        //save the review
+        getReviewDao().saveReview(review);
+
+        if (reviewShouldBeReported) {
+            getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
+        }
+
+        if (Poster.STUDENT.equals(reviewCommand.getPoster())) {
             reviewPosted = false;
         }
 
-        if ((!isNewUser) && reviewPosted) {
-            //sendMessage(user, r.getComments(), school, "communityEmail.txt");
-        }
-
-        //only send them an email if they submitted a message that is not blank
-        /*
-        if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
-            sendRejectMessage(user, r.getComments(), school, "rejectEmail.txt");
-        } else if ("u".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
-            sendMessage(user, r.getComments(), school, "communityEmail.txt");
+        if ((!isNewUser) && reviewPosted && StringUtils.isNotBlank(review.getComments())) {
+            //TODO: _exactTargetAPI.sendTriggeredEmail(SOME_KEY,user);
         }
 
         //trigger the success events
-        if (userRatedOneOrMoreCategories(rc)) {
+        if (userRatedOneOrMoreCategories(reviewCommand)) {
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentRating);
         }
 
-        if (StringUtils.isNotBlank(rc.getComments())) {
+        if (StringUtils.isNotBlank(reviewCommand.getComments())) {
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentReview);
         }
-        */
-        Map<Object,Object> values = new HashMap<Object,Object>();
+
+        Map<Object, Object> values = new HashMap<Object, Object>();
         values.put("status", "true");
         values.put("userId", user.getId().toString());
         values.put("reviewPosted", new Boolean(reviewPosted).toString());
@@ -223,7 +254,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                     review.setPoster(command.getPoster());
                     return review;
                 } else {
-                   
+
                     review.setPosted(new Date());
                     review.setProcessDate(null);
                     //new review submitted, so set the processor to null
@@ -258,23 +289,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
             review.setAllowName(true);
         }
-
-        boolean newUser = user.isEmailProvisional();
-
-        if (newUser) {
-            if (Poster.STUDENT.equals(poster)) {
-                review.setStatus("pu");
-            } else {
-                review.setStatus("pp");
-            }
-        } else {
-            if (Poster.STUDENT.equals(poster)) {
-                review.setStatus("u");
-            } else {
-                review.setStatus("p");
-            }
-        }
-
 
         return review;
     }
@@ -318,58 +332,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
     }
-
-    protected void sendMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
-
-        if (user.getUndeliverable()) {
-            _log.warn("Not sending to user marked undeliverable: " + user);
-            return;
-        }
-
-        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-        emailHelper.setSubject("Thanks for your feedback");
-        emailHelper.setFromEmail("editorial@greatschools.org");
-        emailHelper.setFromName("GreatSchools");
-
-        emailHelper.setToEmail(user.getEmail());
-        emailHelper.readHtmlFromResource("gs/web/school/review/" + emailTemplate);
-
-        emailHelper.setSentToCustomMessage(emailHelper.getHTML_THIS_EMAIL_SENT_TO_EMAIL_MSG());
-        emailHelper.addInlineReplacement("EMAIL", user.getEmail());
-        emailHelper.addInlineReplacement("STATE", school.getDatabaseState().getAbbreviation());
-        emailHelper.addInlineReplacement("USER_COMMENTS", comments);
-        emailHelper.addInlineReplacement("SCHOOL_NAME", school.getName());
-        emailHelper.addInlineReplacement("SCHOOL_ID", school.getId().toString());
-        _emailContentHelper.setCityAndLocalQuestions(school, emailHelper.getInlineReplacements(), "ParentReviewEmail");
-
-        emailHelper.send();
-    }
-
-    protected void sendRejectMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
-
-        if (user.getUndeliverable()) {
-            _log.warn("Not sending to user marked undeliverable: " + user);
-            return;
-        }
-
-        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-        emailHelper.setSubject("Thanks for your feedback");
-        emailHelper.setFromEmail("editorial@greatschools.org");
-        emailHelper.setFromName("GreatSchools");
-
-        emailHelper.setToEmail(user.getEmail());
-        emailHelper.readPlainTextFromResource("gs/web/school/review/" + emailTemplate);
-
-        emailHelper.setSentToCustomMessage(emailHelper.getHTML_THIS_EMAIL_SENT_TO_EMAIL_MSG());
-        emailHelper.addInlineReplacement("EMAIL", user.getEmail());
-        emailHelper.addInlineReplacement("STATE", school.getDatabaseState().getAbbreviation());
-        emailHelper.addInlineReplacement("USER_COMMENTS", comments);
-        emailHelper.addInlineReplacement("SCHOOLNAME", school.getName());
-        emailHelper.addInlineReplacement("SCHOOLID", school.getId().toString());
-
-        emailHelper.send();
-    }
-
 
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
@@ -510,5 +472,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setReportContentService(IReportContentService reportContentService) {
         this._reportContentService = reportContentService;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 }
