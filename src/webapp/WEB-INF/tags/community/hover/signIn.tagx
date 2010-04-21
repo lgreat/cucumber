@@ -4,14 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <c:if test="${param.showLoginHover ne null or requestScope.showLoginHover ne null}">
-        <script type="text/javascript">
-            jQuery(function() {
-                GSType.hover.signInHover.show();
-            });
-        </script>
-    </c:if>
-
     <div id="signInHover" style="display:none;">
         <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="signInHover_launchJoin">Join GreatSchools</a>.</span></h2>
 

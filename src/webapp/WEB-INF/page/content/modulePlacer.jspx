@@ -37,7 +37,6 @@
         request.setAttribute("moduleParams", params);
         ]]>
     </jsp:scriptlet>
-    <![CDATA[<script type="text/javascript" src="/res/js/cookie.js"></script>]]>
     <![CDATA[<script type="text/javascript" src="/res/js/trackIt.js"></script>]]>
 </head>
 <body>

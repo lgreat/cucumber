@@ -6,14 +6,6 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
-    <c:if test="${param.showJoinHover ne null or requestScope.showJoinHover ne null}">
-        <script type="text/javascript">
-            jQuery(function() {
-                GSType.hover.joinHover.show();
-            });
-        </script>
-    </c:if>
-
     <div id="joinHover" style="display:none">
         <h2>
             <span class="hoverTitle">Speak your mind</span>

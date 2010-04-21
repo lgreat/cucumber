@@ -6,10 +6,7 @@ import gs.data.community.WelcomeMessageStatus;
 import gs.data.util.DigestUtil;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
-import gs.web.util.PageHelper;
-import gs.web.util.ReadWriteController;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
+import gs.web.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -97,8 +94,9 @@ public class RegistrationConfirmController extends AbstractController implements
 
             String email = URLEncoder.encode(user.getEmail(), "UTF-8");
             email = email.replace("+", "%2B");
-            return new ModelAndView("redirect:" + redirect +
-                    "?showValidationLinkExpiredHover=true&email=" + email);
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            cookie.setProperty("showHover", "validationLinkExpired");
+            return new ModelAndView("redirect:" + UrlUtil.addParameter(redirect, "email=" + email));
         }
 
         if (user.isPasswordEmpty()) {
@@ -119,17 +117,19 @@ public class RegistrationConfirmController extends AbstractController implements
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
             String target;
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
             if (request.getParameter("edit") != null) {
+                cookie.setProperty("showHover", "editEmailValidated");
                 // when editing their email address, always send them back to the change email page
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, "");
-                urlBuilder.addParameter("showEditEmailValidatedHover", "true");
                 target = "redirect:" + urlBuilder.asSiteRelative(request);
             } else {
+                cookie.setProperty("showHover", "emailValidated");
                 // when registering, send them to where they were before, or to the /account/ page
                 if (StringUtils.isNotBlank(request.getParameter("redirect"))) {
-                    target = "redirect:" + UrlUtil.addParameter(request.getParameter("redirect"), "showEmailValidatedHover=true");
+                    target = "redirect:" + request.getParameter("redirect");
                 } else {
-                    target = "redirect:/account/?showEmailValidatedHover=true";
+                    target = "redirect:/account/";
                 }
 
             }

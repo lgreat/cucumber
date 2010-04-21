@@ -461,7 +461,7 @@ GSType.hover.JoinHover = function() {
 
         jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.chooserHover_checkValidationResponse);
         return false;
-    }
+    };
     this.schoolReviewClickHandler = function() {
 
         jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function() {
@@ -772,37 +772,37 @@ GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewE
 GSType.hover.SchoolReviewThankYou = function() {
     this.loadDialog = function() {
         this.dialogByWidth(640);
-    }
+    };
     this.showHover = function() {
         this.setTitle("Thank you for submitting a review");
         this.setBody(this.body());
         jQuery('#schoolReviewThankYou').bind('dialogclose', this.onClose.gs_bind(this));
         this.show();
-    }
+    };
     this.onClose = function() {
-    }
+    };
     //override in specific hovers!
     this.body = function() {
         return "Your review has been posted to GreatSchools";
-    }
+    };
     this.setTitle = function(title) {
         jQuery('#schoolReviewThankYou h2').html(title);
     };
     this.setBody = function(body) {
         jQuery('#schoolReviewThankYou p strong').html(body);
     };
-}
+};
 GSType.hover.SchoolReviewThankYou.prototype = new GSType.hover.HoverDialog("schoolReviewThankYou");
 
 //School Review Posted Thank You
 GSType.hover.SchoolReviewPostedThankYou = function() {
     this.body = function() {
         return "Your review has been posted to GreatSchools.";
-    }
+    };
     this.onClose = function() {
         //window.location.reload();
     }
-}
+};
 GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
 
 //School Review Not Posted Thank You
@@ -810,7 +810,7 @@ GSType.hover.SchoolReviewNotPostedThankYou = function() {
     this.body = function() {
         return "Please note that it can take up to 48 hours for your review to be posted to our site.";
     }
-}
+};
 GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
 
 
@@ -1176,7 +1176,7 @@ jQuery(function() {
     jQuery('#gradeDone').click(function() {
         jQuery('#grdShow').removeClass('active');
         jQuery('#moreGrades').removeClass('show');
-    })
+    });
 
     var sitePreferences = subCookie.getObject("site_pref");
     var showHover = "";
@@ -1193,6 +1193,16 @@ jQuery(function() {
         GSType.hover.schoolReviewPostedThankYou.showHover();
     } else if (showHover == "schoolReviewNotPostedThankYou") {
         GSType.hover.schoolReviewNotPostedThankYou.showHover();
+    } else if (showHover == "emailValidated") {
+        GSType.hover.emailValidated.show();
+    } else if (showHover == "emailNotValidated") {
+        GSType.hover.emailNotValidated.show();
+    } else if (showHover == "editEmailValidated") {
+        GSType.hover.editEmailValidated.show();
+    } else if (showHover == "validateEditEmail") {
+        GSType.hover.validateEditEmail.show();
+    } else if (showHover == "validationLinkExpired") {
+        GSType.hover.validateLinkExpired.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");

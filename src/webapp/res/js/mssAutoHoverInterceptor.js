@@ -1,5 +1,5 @@
 // GS-8291
-// depends on submodal.js and cookie.js
+// depends on submodal.js
 var mssAutoHoverInterceptor = {
     interceptPercent: 0,
     hoverName: '',

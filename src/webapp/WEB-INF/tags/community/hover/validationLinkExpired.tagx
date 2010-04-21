@@ -4,14 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <c:if test="${param.showValidationLinkExpiredHover ne null or requestScope.showValidationLinkExpiredHover ne null}">
-        <script type="text/javascript">
-            jQuery(function() {
-                GSType.hover.validateLinkExpired.show();
-            });
-        </script>
-    </c:if>
-
     <c:if test="${requestScope.email ne null}">
         <script type="text/javascript">
             GSType.hover.validateLinkExpired.setEmail('${email}');

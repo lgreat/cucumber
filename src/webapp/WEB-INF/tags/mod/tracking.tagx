@@ -136,11 +136,6 @@
             /* this comment keeps the tag from collapsing */
         </script>
 
-        <gsml:url var="cookie_js" value="/res/js/cookie.js"/>
-        <script type="text/javascript" src="${cookie_js}">
-            /* this comment keeps the tag from collapsing */
-        </script>
-
         <gsml:url var="trackit_js" value="/res/js/trackIt.js"/>
         <script type="text/javascript" src="${trackit_js}">
             /* this comment keeps the tag from collapsing */

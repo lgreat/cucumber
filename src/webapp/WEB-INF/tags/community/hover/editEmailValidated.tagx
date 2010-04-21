@@ -4,14 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <c:if test="${param.showEditEmailValidatedHover ne null or requestScope.showEditEmailValidatedHover ne null}">
-        <script type="text/javascript">
-            jQuery(function() {
-                GSType.hover.editEmailValidated.show();
-            });
-        </script>
-    </c:if>
-
     <div id="valNewEmailDone" class="dialog_white" style="display:none;">
         <h2>Your email change is complete</h2>
 

@@ -62,7 +62,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         verifyMocks(_userDao);
 
         assertNotNull(mAndV);
-        assertEquals("redirect:/account/?showEmailValidatedHover=true", mAndV.getViewName());
+        assertEquals("redirect:/account/", mAndV.getViewName());
         assertTrue("Expect user to be validated", user.isEmailValidated());
     }
 
@@ -90,7 +90,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         replayMocks(_userDao);
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertEquals("redirect:/path?showEmailValidatedHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path", mAndV.getViewName());
 
         resetMocks(_userDao);
 
@@ -99,7 +99,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         replayMocks(_userDao);
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertEquals("redirect:/path?foo=bar&showEmailValidatedHover=true", mAndV.getViewName());
+        assertEquals("redirect:/path?foo=bar", mAndV.getViewName());
 
         resetMocks(_userDao);
 
@@ -108,6 +108,6 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         replayMocks(_userDao);
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertEquals("redirect:/path?foo=bar&showEmailValidatedHover=true#anchor", mAndV.getViewName());
+        assertEquals("redirect:/path?foo=bar#anchor", mAndV.getViewName());
     }
 }

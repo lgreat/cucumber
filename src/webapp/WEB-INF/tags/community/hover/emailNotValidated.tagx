@@ -4,14 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <c:if test="${param.showEmailNotValidatedHover ne null or requestScope.showEmailNotValidatedHover ne null}">
-        <script type="text/javascript">
-            jQuery(function() {
-                GSType.hover.emailNotValidated.show();
-            });
-        </script>
-    </c:if>
-
     <c:if test="${requestScope.email ne null}">
         <script type="text/javascript">
             GSType.hover.emailNotValidated.setEmail('${email}');

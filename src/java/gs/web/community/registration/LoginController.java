@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: LoginController.java,v 1.54 2010/03/23 15:44:05 aroy Exp $
+ * $Id: LoginController.java,v 1.55 2010/04/21 16:12:08 aroy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.PageHelper;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -75,6 +76,16 @@ public class LoginController extends SimpleFormController {
         addMSLMessage(url, request);
     }
 
+    @Override
+    protected ModelAndView processFormSubmission(HttpServletRequest request, HttpServletResponse response,
+                                                 Object command, BindException errors) throws Exception {
+        if (request.getAttribute("showEmailNotValidatedHover") != null) {
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            cookie.setProperty("showHover", "emailNotValidated");            
+        }
+        return super.processFormSubmission(request, response, command, errors);
+    }
+
     protected void addMSLMessage(String redirectUrl, HttpServletRequest request) {
         if (StringUtils.contains(redirectUrl, "mySchoolList.page")) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -120,7 +131,7 @@ public class LoginController extends SimpleFormController {
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
         } else if (LoginValidatorHelper.userNotValidated(user, _requireEmailValidation)) {
             errors.reject("email");
-            request.setAttribute("showEmailNotValidatedHover", "true");
+            request.setAttribute("showEmailNotValidatedHover", "true"); // gets swapped for cookie later
             request.setAttribute("email", user.getEmail());
             _log.info("Community login: user " + loginCommand.getEmail() + " has not validated their email.");
         } else if (LoginValidatorHelper.userNoPassword(user)) {

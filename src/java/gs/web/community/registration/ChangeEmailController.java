@@ -1,5 +1,6 @@
 package gs.web.community.registration;
 
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
@@ -106,8 +107,9 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
                 } catch (Exception e) {
                     _log.error("Error sending email verification email to " + user.getEmail() + ": " + e, e);
                 }
+                SitePrefCookie cookie = new SitePrefCookie(request, response);
+                cookie.setProperty("showHover", "validateEditEmail");
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
-                urlBuilder.addParameter("showValidateEditEmailHover", "true");
                 mAndV.setViewName("redirect:" + urlBuilder.asSiteRelative(request));
             } else {
                 PageHelper.setMemberAuthorized(request, response, user);

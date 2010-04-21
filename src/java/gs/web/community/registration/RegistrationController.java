@@ -350,10 +350,12 @@ public class RegistrationController extends SimpleFormController implements Read
         } else if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                 !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
             if (_requireEmailValidation) {
+                SitePrefCookie cookie = new SitePrefCookie(request, response);
+                cookie.setProperty("showHover", "validateEmail");
                 if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-                    userCommand.setRedirectUrl("/index.page?showValidateEmailHover=true");
+                    userCommand.setRedirectUrl("/index.page");
                 } else {
-                    userCommand.setRedirectUrl("/?showValidateEmailHover=true");
+                    userCommand.setRedirectUrl("/");
                 }
             } else {
                 userCommand.setRedirectUrl("/account/");
