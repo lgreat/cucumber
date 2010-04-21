@@ -32,6 +32,7 @@ public class CmsHomepageController extends AbstractController {
     public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
     public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
     public static final int GRADE_BY_GRADE_NUM_DISCUSSIONS = 2;
+    public static final int GRADE_BY_GRADE_MIN_NUM_REPLIES = 3;
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
     public static final int MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN = 1000;
 
@@ -153,7 +154,8 @@ public class CmsHomepageController extends AbstractController {
                     CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussionBoardId);
                     List<Discussion> myDiscussions =
                             _discussionDao.getDiscussionsForPage(board, 1, 10,
-                                    IDiscussionDao.DiscussionSort.NEWEST_FIRST, false);
+                                    IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false,
+                                    GRADE_BY_GRADE_MIN_NUM_REPLIES);
                     if (myDiscussions != null) {
                         // randomize discussions
                         Collections.shuffle(myDiscussions);
