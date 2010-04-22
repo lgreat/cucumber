@@ -5,7 +5,6 @@ import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -15,8 +14,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>

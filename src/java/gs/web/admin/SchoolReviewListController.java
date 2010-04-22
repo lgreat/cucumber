@@ -4,6 +4,8 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -18,6 +20,7 @@ import java.util.Map;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class SchoolReviewListController extends AbstractController {
+    protected final Log _log = LogFactory.getLog(getClass());
     public static final String MODEL_UNPROCESSED_REVIEW_LIST="unprocessedReviews";
     public static final String MODEL_FLAGGED_REVIEW_LIST="flaggedReviews";
     private String _viewName;
@@ -58,11 +61,15 @@ public class SchoolReviewListController extends AbstractController {
         List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(reportedReviewIds.size());
 
         for (Long reviewId: reportedReviewIds) {
-            SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));
-            bean.setNumReports((_reportedEntityDao.getNumberTimesReported
-                    (ReportedEntity.ReportedEntityType.schoolReview, reviewId)));
-            bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolReview, reviewId));
-            rval.add(bean);
+            try {
+                SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));
+                bean.setNumReports((_reportedEntityDao.getNumberTimesReported
+                        (ReportedEntity.ReportedEntityType.schoolReview, reviewId)));
+                bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolReview, reviewId));
+                rval.add(bean);
+            } catch (Exception e) {
+                _log.error("Error finding review and related data for report: " + e, e);
+            }
         }
         return rval;
     }
