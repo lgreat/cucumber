@@ -17,30 +17,6 @@
 <c:set var="schoolId" value="${school.id}"/>
 <gsml:url var="formActionUrl" value="/school/review/postReview.page"/>
 
-<style type="text/css">
-    #rateReview, #userInput {
-        position: relative;
-    }
-
-    #userInput .commentsPopup {
-        position: absolute;
-        width: 150px;
-        right: 0;
-        background-color: #fff;
-        border: 1px solid #67cccc;
-        padding: 5px;
-    }
-
-    #rateReview .linkGuidelines {
-        position: absolute;
-        right: 0;
-        top: 10px;
-    }
-    #ratingTitle {
-        float: none;
-    }
-</style>
-
 <script type="text/javascript">
     jQuery(function() {
         jQuery('#frmPRModule [name="posterAsString"]').change(function() {
