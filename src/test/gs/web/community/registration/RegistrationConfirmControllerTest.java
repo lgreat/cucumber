@@ -6,7 +6,6 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -91,8 +90,12 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         Review review2 = new Review();
         review2.setStatus("pu");
 
+        Review review3 = new Review();
+        review3.setStatus("p");
+
         reviews.add(review1);
         reviews.add(review2);
+        reviews.add(review3);
 
         Date now = new Date();
         long dateSent = now.getTime() - 5000; // sent 5 seconds ago
@@ -135,8 +138,6 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
         getRequest().setParameter("id", actualHash + "234");
         ModelAndView mAndV;
-
-        List<Review> reviews = null;
 
         getRequest().setParameter("redirect", "/path");
         setupForRedirect(user);

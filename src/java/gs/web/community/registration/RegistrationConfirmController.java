@@ -124,10 +124,10 @@ public class RegistrationConfirmController extends AbstractController implements
                 for (Review review : userReviews) {
                     String status = review.getStatus();
                     //Should always be true
-                    if (StringUtils.startsWith(status, "p")) {
+                    if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
                         review.setStatus(StringUtils.substring(status, 1));
+                        _reviewDao.saveReview(review);
                     }
-                    _reviewDao.saveReview(review);
                 }
             }
 
