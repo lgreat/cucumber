@@ -3,6 +3,8 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.WelcomeMessageStatus;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import gs.data.util.DigestUtil;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -20,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Final stage in the confirmation process when using email validation.
@@ -33,6 +36,7 @@ public class RegistrationConfirmController extends AbstractController implements
 
     private String _viewName;
     private IUserDao _userDao;
+    private IReviewDao _reviewDao;
 
     protected ModelAndView redirectToRegistration(HttpServletRequest request) {
         return redirectToRegistration(request, null);
@@ -114,6 +118,19 @@ public class RegistrationConfirmController extends AbstractController implements
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
             }
             _userDao.saveUser(user);
+
+            List<Review> userReviews = _reviewDao.findUserReviews(user);
+            if (userReviews != null && userReviews.size() > 0) {
+                for (Review review : userReviews) {
+                    String status = review.getStatus();
+                    //Should always be true
+                    if (StringUtils.startsWith(status, "p")) {
+                        review.setStatus(StringUtils.substring(status, 1));
+                    }
+                    _reviewDao.saveReview(review);
+                }
+            }
+
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
             String target;
@@ -156,5 +173,13 @@ public class RegistrationConfirmController extends AbstractController implements
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }
