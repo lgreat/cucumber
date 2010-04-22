@@ -443,7 +443,7 @@
         <c:if test="${school.levelCode != 'p'}">
             <td class="last">
                 <link:mapSchool school="${school}"
-                                          styleClass="last GS_CI9_"
+                                          styleClass="last ${(tab eq 'schoolMap') ? 'on GS_CI9_' : ''}"
                                           styleId="Map_This_School_Tab${styleIdSuffix}"
                                           anchor="${headerAnchor}">
                     Map This<br/>

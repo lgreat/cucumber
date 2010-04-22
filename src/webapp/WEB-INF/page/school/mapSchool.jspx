@@ -45,7 +45,7 @@
 
     <gsml:body adPageName="schoolMap" pageLayout="nocol">
 
-        <school:profile school="${school}">
+        <school:profile school="${school}" tab="schoolMap">
 
             <!-- being large Google map -->
             <div id="largeMap">
