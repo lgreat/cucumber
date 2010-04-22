@@ -53,6 +53,9 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         Map<Object, Object> mapErrors = new HashMap<Object, Object>();
 
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType("application/json");
 
         List<FieldError> a = (List<FieldError>) errors.getFieldErrors();

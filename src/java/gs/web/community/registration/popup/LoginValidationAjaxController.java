@@ -98,6 +98,9 @@ public class LoginValidationAjaxController extends AbstractCommandController {
 
         LoginHoverCommand loginCommand = (LoginHoverCommand) command;
 
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType("application/json");
 
         Map<Object,Object> mapErrors = validateLoginForm(request,loginCommand);
