@@ -2584,7 +2584,6 @@
           autowire="byName" lazy-init="true">
         <property name="formView" value="/admin/schoolReview/schoolReviewEdit"/>
         <property name="successView" value="redirect:/admin/schoolReview/list.page"/>
-        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="command"/>
         <property name="commandClass" value="gs.web.admin.SchoolReviewEditCommand"/>
     </bean>

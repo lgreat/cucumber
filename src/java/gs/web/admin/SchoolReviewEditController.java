@@ -9,9 +9,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -22,11 +27,9 @@ public class SchoolReviewEditController extends SimpleFormController implements 
     private IReportedEntityDao _reportedEntityDao;
 
     @Override
-    protected void onBindOnNewForm(HttpServletRequest request, Object commandObj) throws Exception {
-        super.onBindOnNewForm(request, commandObj);
-
+    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+        Object commandObj = super.formBackingObject(request);
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
-
         try {
             Review review = _reviewDao.getReview(Integer.parseInt(request.getParameter("id")));
             command.setReview(review);
@@ -34,6 +37,7 @@ public class SchoolReviewEditController extends SimpleFormController implements 
         } catch (ObjectRetrievalFailureException orfe) {
             // do nothing
         }
+        return command;
     }
 
     @Override
@@ -47,21 +51,43 @@ public class SchoolReviewEditController extends SimpleFormController implements 
     }
 
     @Override
-    protected void doSubmitAction(Object commandObj) throws Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj,
+                                    BindException errors) throws Exception {
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
+        Review review = command.getReview();
 
-        if (command.isCancel()) {
-            return;
-        }
-
-        Review review = _reviewDao.getReview(command.getId());
-
-        if (review != null && StringUtils.isNotBlank(command.getStatus())) {
-            review.setStatus(command.getStatus());
+        if (request.getParameter("formCancel") != null || review == null) {
+            return new ModelAndView(getSuccessView());
+        } else if (request.getParameter("resolveReport") != null) {
+            int reportId = Integer.valueOf(request.getParameter("reportId"));
+            _log.info("Resolving report " + reportId);
+            _reportedEntityDao.resolveReport(reportId);
+            return new ModelAndView("redirect:/admin/schoolReview/edit.page?id=" + review.getId());
+        } else if (request.getParameter("submitNote") != null) {
             review.setNote(command.getNote());
-
+            _reviewDao.saveReview(review);
+            return new ModelAndView("redirect:/admin/schoolReview/edit.page?id=" + review.getId());
+        } else if (request.getParameter("disableReview") != null) {
+            review.setStatus("d");
+            review.setNote(command.getNote());
+            _reviewDao.saveReview(review);
+        } else if (request.getParameter("resolveReports") != null) {
+            review.setNote(command.getNote());
+            _reviewDao.saveReview(review);
+            _log.info("Resolving reports");
+            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
+        } else if (request.getParameter("enableAndResolve") != null) {
+            _log.info("Resolving reports");
+            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
+            review.setStatus("p");
+            review.setNote(command.getNote());
             _reviewDao.saveReview(review);
         }
+        return new ModelAndView(getSuccessView());
+    }
+
+    @Override
+    protected void doSubmitAction(Object commandObj) throws Exception {
     }
 
     public IReviewDao getReviewDao() {

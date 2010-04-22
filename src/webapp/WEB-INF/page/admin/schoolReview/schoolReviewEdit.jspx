@@ -36,35 +36,37 @@
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
     <c:if test="${not empty requestScope.command.review}">
+        <c:set var="review" value="${requestScope.command.review}"/>
         <form action="/admin/schoolReview/edit.page" method="post" class="editForm">
-            <input type="hidden" name="id" value="${requestScope.command.review.id}"/>
+            <input type="hidden" name="id" value="${review.id}"/>
             <label>Sender:</label>
             <span class="value">
                 <c:choose>
-                    <c:when test="${requestScope.command.review.user.userProfile ne null}">
-                        <link:userProfile user="${requestScope.command.review.user}">${requestScope.command.review.user.userProfile.screenName}</link:userProfile>                    </c:when>
+                    <c:when test="${review.user.userProfile ne null}">
+                        <link:userProfile user="${review.user}">${review.user.userProfile.screenName}</link:userProfile>                    </c:when>
                     <c:otherwise>
                         <em>Not registered</em>
                     </c:otherwise>
                 </c:choose>
-                (${requestScope.command.review.who})</span>
+                (${review.who})</span>
             <br/>
-            <label>Sender email:</label><span class="value">${requestScope.command.review.user.email}</span>
+            <label>Sender email:</label><span class="value">${review.user.email}</span>
             <br/>
             <label>School:</label>
-            <span class="value"><link:schoolProfileParentReview school="${requestScope.command.review.school}">${requestScope.command.review.school.name}</link:schoolProfileParentReview>
-                (${requestScope.command.review.school.databaseState} ${requestScope.command.review.school.type.name})</span>
+            <span class="value"><link:schoolProfileParentReview school="${review.school}">${review.school.name}</link:schoolProfileParentReview>
+                (${review.school.databaseState} ${review.school.type.name})</span>
             <br/>
-            <fmt:formatDate value="${requestScope.command.review.posted}" var="reviewPosted"
+            <fmt:formatDate value="${review.posted}" var="reviewPosted"
                             pattern="MMMM d, yyyy h:mma"/>
             <label>Posted:</label><span class="value">${reviewPosted}</span>
             <br/>
             <label>Status:</label>
-            <span class="value">${requestScope.command.review.status}
+            <span class="value">${review.status}
                 <c:choose>
-                    <c:when test="${requestScope.command.review.status eq 'u'}">(unprocessed)</c:when>
-                    <c:when test="${requestScope.command.review.status eq 'p'}">(public/live)</c:when>
-                    <c:when test="${requestScope.command.review.status eq 'd'}">(disabled)</c:when>
+                    <c:when test="${review.status eq 'u'}">(unprocessed)</c:when>
+                    <c:when test="${review.status eq 'p'}">(public/live)</c:when>
+                    <c:when test="${review.status eq 'a'}">(ratings only public/live)</c:when>
+                    <c:when test="${review.status eq 'd'}">(disabled)</c:when>
                 </c:choose>
             </span>
             <br/>
@@ -75,26 +77,31 @@
                     <span class="value">None</span>
                 </c:when>
                 <c:otherwise>
-                    <ol>
-                        <li>
-                            <table class="reportedEntity">
-                                <tr>
-                                    <th>Date Reported</th>
-                                    <th>Reason</th>
-                                    <th>Reporter</th>
-                                </tr>
-                                <c:forEach items="${requestScope.command.reports}" var="report">
-                                    <tr>
-                                        <fmt:formatDate value="${report.dateCreated}" var="reportCreated"
-                                                        pattern="MMMM d, yyyy h:mma"/>
-                                        <td>${reportCreated}</td>
-                                        <td>${report.reason}</td>
-                                        <td>${report.reporterId}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </li>
-                    </ol>
+                    <input type="hidden" id="reportId" name="reportId" value=""/>
+                    <table class="reportedEntity">
+                        <tr>
+                            <th>Date Reported</th>
+                            <th>Reason</th>
+                            <th>Reporter</th>
+                            <th>State</th>
+                            <th>Action</th>
+                        </tr>
+                        <c:forEach items="${requestScope.command.reports}" var="report">
+                            <tr>
+                                <fmt:formatDate value="${report.dateCreated}" var="reportCreated"
+                                                pattern="MMMM d, yyyy h:mma"/>
+                                <td>${reportCreated}</td>
+                                <td>${report.reason}</td>
+                                <td>${report.reporterId}</td>
+                                <td><c:choose>
+                                    <c:when test="${report.active}">Open</c:when>
+                                    <c:otherwise>Resolved</c:otherwise></c:choose></td>
+                                <td><c:choose>
+                                    <c:when test="${report.active}"><input type="submit" name="resolveReport" value="Resolve Report" onclick="jQuery('#reportId').val(${report.id});"/></c:when>
+                                    <c:otherwise>&amp;nbsp;</c:otherwise></c:choose></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </c:otherwise>
             </c:choose>
             <br/>
@@ -102,48 +109,69 @@
             <label>Ratings:</label>
             <br/>
             <c:choose>
-                <c:when test="${requestScope.command.review.school.levelCode ne 'p'}">
-                    <label>Overall:</label><span class="value">${requestScope.command.review.quality.name}</span>
+                <c:when test="${review.school.levelCode ne 'p'}">
+                    <label>Overall:</label><span class="value">${review.quality.name}</span>
                     <br/>
-                    <label>Teacher Quality:</label><span class="value">${requestScope.command.review.teachers.name}</span>
+                    <label>Teacher Quality:</label><span class="value">${review.teachers.name}</span>
                     <br/>
-                    <label>Principal Leadership:</label><span class="value">${requestScope.command.review.principal.name}</span>
+                    <label>Principal Leadership:</label><span class="value">${review.principal.name}</span>
                     <br/>
-                    <label>Parent Involvement:</label><span class="value">${requestScope.command.review.parents.name}</span>
+                    <label>Parent Involvement:</label><span class="value">${review.parents.name}</span>
                 </c:when>
                 <c:otherwise>
-                    <label>Overall:</label><span class="value">${requestScope.command.review.POverall.name}</span>
+                    <label>Overall:</label><span class="value">${review.POverall.name}</span>
                     <br/>
-                    <label>Teacher Quality:</label><span class="value">${requestScope.command.review.PTeachers.name}</span>
+                    <label>Teacher Quality:</label><span class="value">${review.PTeachers.name}</span>
                     <br/>
-                    <label>Parent Involvement:</label><span class="value">${requestScope.command.review.PParents.name}</span>
+                    <label>Parent Involvement:</label><span class="value">${review.PParents.name}</span>
                     <br/>
-                    <label>Facilities &amp;amp; Equipment:</label><span class="value">${requestScope.command.review.PFacilities.name}</span>
+                    <label>Facilities &amp;amp; Equipment:</label><span class="value">${review.PFacilities.name}</span>
                 </c:otherwise>
             </c:choose>
             <br/>
             <br/>
             <label for="commentsInput">Comments:</label><br/>
             <textarea id="commentsInput" rows="10" cols="75"
-                      name="comments" disabled="disabled">${requestScope.command.review.comments}</textarea>
+                      name="comments" disabled="disabled"><!-- do not collapse -->${review.comments}</textarea>
             <br/>
             <br/>
             <label for="notesInput">GS Staff Note on Comments:</label><br/>
             <textarea id="notesInput" rows="5" cols="75"
-                      name="note">${requestScope.command.review.note}</textarea>
+                      name="note">${review.note}</textarea>
+            <input type="submit" name="submitNote" value="Save Note"/>            
             <br/>
             <br/>
-            <gsml:radio name="status" value="p" checked="${requestScope.command.review.status eq 'p'}"
-                        styleId="statusPInput"/><label for="statusPInput">Publish</label>
+            <c:choose>
+                <c:when test="${review.status eq 'u'}">
+                    <!--
+                    For pre-moderated reviews, the options to Publish/Reject
+                    -->
+                    <input type="submit" name="enableAndResolve" value="Publish Review"/>
+                    <br/>
+                    <br/>
+                    <input type="submit" name="disableReview" value="Disable Review"/>
+                    <br/>
+                    <br/>
+                </c:when>
+                <c:otherwise>
+                    <!--
+                    For reports, the options to
+                        Disable Review
+                        Do Not Disable Review & Resolve Report
+                        Re-enable Review & Resolve Report (in the cases where the review has automatically been disabled)
+                    -->
+                    <input type="submit" name="disableReview" value="Disable Review"/>
+                    <br/>
+                    <br/>
+                    <input type="submit" name="resolveReports" value="Do Not Disable Review &amp;amp; Resolve Report(s)"/>
+                    <br/>
+                    <br/>
+                    <input type="submit" name="enableAndResolve" value="Enable Review &amp;amp; Resolve Report(s)"/>
+                    <br/>
+                    <br/>
+                </c:otherwise>
+            </c:choose>
             <br/>
-            <gsml:radio name="status" value="r" checked="${requestScope.command.review.status eq 'r'}"
-                        styleId="statusRInput"/><label for="statusRInput">Reject</label>
-            <br/>
-            <gsml:radio name="status" value="u" checked="${requestScope.command.review.status eq 'u'}"
-                        styleId="statusUInput"/><label for="statusUInput">Disable</label>
-            <br/>
-            <br/>
-            <input type="submit" name="submit" value="Submit"/>&amp;nbsp;
             <input type="submit" name="formCancel" value="Cancel"/>
 
         </form>

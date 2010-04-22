@@ -203,7 +203,7 @@
              </c:if>
 
             <c:if test="${!requestScope.context.crawler}">
-                <school:parentReviewForm school="${school}" pageName="overview"/>
+                <school:schoolReviewForm school="${school}" pageName="overview"/>
             </c:if>
 
 
