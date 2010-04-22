@@ -216,17 +216,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
     }
 
     @Override
-    protected Map referenceData(HttpServletRequest request, Object commandObj, Errors errors) throws Exception {
-        populateDropdowns((AccountInformationCommand) commandObj);
-        return super.referenceData(request, commandObj, errors);
-    }
-
-    protected void populateDropdowns(AccountInformationCommand command) {
-        // load the city list for the user
-        command.setProfileCityList(_geoDao.findCitiesByState(command.getState()));
-    }
-
-    @Override
     protected ModelAndView showForm(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -253,7 +242,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         user.setFirstName(command.getFirstName());
 
-        // TODO-8869
+        // your location
         user.getUserProfile().setState(command.getUserState());
         user.getUserProfile().setCity(command.getUserCity());
 
