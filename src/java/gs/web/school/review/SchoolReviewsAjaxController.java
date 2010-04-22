@@ -12,15 +12,12 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.data.util.email.EmailContentHelper;
-import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.community.IReportContentService;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
-import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,12 +25,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
@@ -56,7 +50,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
-    private EmailContentHelper _emailContentHelper;
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
 
@@ -177,8 +170,19 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
+
+        Integer existingId = review.getId();
+
         //save the review
         getReviewDao().saveReview(review);
+
+        // Before any reports are created, we should check something:
+        // if this review existed before (if the user is overwriting an existing review)
+        // then we need to delete any reports on it
+        // otherwise the auto filter will fail, and anyway they could be totally irrelevant
+        if (existingId != null) {
+            _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
+        }
 
         if (reviewShouldBeReported) {
             getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
@@ -414,10 +418,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         _subscriptionDao = subscriptionDao;
     }
 
-    public void setEmailContentHelper(EmailContentHelper emailContentHelper) {
-        _emailContentHelper = emailContentHelper;
-    }
-
     public Boolean isJsonPage() {
         return _jsonPage;
     }
@@ -480,5 +480,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
         _exactTargetAPI = exactTargetAPI;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

@@ -14,7 +14,6 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.IReportContentService;
 import org.apache.commons.lang.time.DateUtils;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 
 import java.io.Serializable;
@@ -38,12 +37,11 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     ReviewCommand _command;
     BindException _errors;
     MockJavaMailSender _sender;
+    private IReportedEntityDao _reportedEntityDao;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new SchoolReviewsAjaxController();
-
-        _controller.setEmailContentHelper(new MockEmailContentHelper());
 
         _reviewDao = createMock(IReviewDao.class);
         _userDao = createMock(IUserDao.class);
@@ -51,6 +49,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _subscriptionDao = createMock(ISubscriptionDao.class);
 
         _reportContentService = createMock(IReportContentService.class);
+        _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
 
         _school = new School();
         _school.setDatabaseState(State.CA);
@@ -78,6 +77,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.getEmailHelperFactory().setMailSender(_sender);
         _controller.setAlertWordDao(_alertWordDao);
         _controller.setReportContentService(_reportContentService);
+        _controller.setReportedEntityDao(_reportedEntityDao);
     }
 
     public void testSubmitExistingUserNoExistingReview() throws Exception {
@@ -124,6 +124,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
+        _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
+
         expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
 
         _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
@@ -132,6 +134,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_reviewDao);
         replay(_reportContentService);
         replay(_subscriptionDao);
+        replay(_reportedEntityDao);
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
@@ -141,6 +144,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_reviewDao);
         verify(_subscriptionDao);
         verify(_reportContentService);
+        verify(_reportedEntityDao);
     }
 
     public void testCreateReview() throws Exception {
