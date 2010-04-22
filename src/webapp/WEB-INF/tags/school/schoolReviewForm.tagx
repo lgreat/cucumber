@@ -36,6 +36,9 @@
         right: 0;
         top: 10px;
     }
+    #ratingTitle {
+        float: none;
+    }
 </style>
 
 <script type="text/javascript">
@@ -191,31 +194,33 @@
                     </select>
                 </li>
 
-                <ul class="subStarRatings" style="display:none;">
-                    <li class="student_only">
-                        <div class="catRatingLabel">Teacher Quality</div>
-                        <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
-                    </li>
-                    <c:if test="${school.levelCode ne 'p'}">
-                        <li>
-                            <div class="catRatingLabel">Principal Leadership</div>
-                            <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
-                            </div>
+                <li>
+                    <ul class="subStarRatings" style="display:none;">
+                        <li class="student_only">
+                            <div class="catRatingLabel">Teacher Quality</div>
+                            <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
                         </li>
-                    </c:if>
-                    <li>
-                        <div class="catRatingLabel">Parent Involvement</div>
-                        <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
-                    </li>
-                    <c:if test="${school.levelCode eq 'p'}">
+                        <c:if test="${school.levelCode ne 'p'}">
+                            <li>
+                                <div class="catRatingLabel">Principal Leadership</div>
+                                <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
+                                </div>
+                            </li>
+                        </c:if>
                         <li>
-                            <div class="catRatingLabel">Facilities &amp;amp; Equipment</div>
-                            <div class="catRating"><gsml:starRating id="pFacilitiesAsString"
-                                                                    additionalClass="med-star"/>
-                            </div>
+                            <div class="catRatingLabel">Parent Involvement</div>
+                            <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
                         </li>
-                    </c:if>
-                </ul>
+                        <c:if test="${school.levelCode eq 'p'}">
+                            <li>
+                                <div class="catRatingLabel">Facilities &amp;amp; Equipment</div>
+                                <div class="catRating"><gsml:starRating id="pFacilitiesAsString"
+                                                                        additionalClass="med-star"/>
+                                </div>
+                            </li>
+                        </c:if>
+                    </ul>
+                </li>
 
                 <li>
                     <button class="btn25 continueButton" type="submit">
