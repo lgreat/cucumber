@@ -3340,6 +3340,11 @@ ul.srchSuggest li span {
     padding-left:10px;
 }
 
+#changeEmail p.formErrorText, #changePassword p.formErrorText {
+    display:block;
+    margin-left:170px;
+}
+
 /* =4i-2 manage newsletters
 -------------------------------------------------------------------------------------------*/
 
@@ -3474,7 +3479,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-16.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-04-22.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
@@ -3589,6 +3594,12 @@ additional icons on the sprite.
     width: 13px;
     height: 13px;
     background-position: -20px -160px;
+}
+
+.checkmark {
+    width: 16px;
+    height: 13px;
+    background-position: -20px -180px;
 }
 
 .community {

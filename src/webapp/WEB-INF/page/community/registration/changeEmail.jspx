@@ -56,7 +56,7 @@
 
               <div id="topicMainGS" class="col">
                   <div id="changeEmail">
-                      <h3 class="title2-d61">Update email address</h3>
+                      <h1>Update email address</h1>
 
                       <div class="spacer_5"><!-- do not collapse --></div>
                       <p class="text3">Please enter a new email address for your account in the form below. Keep in mind that you'll need to verify your new email before you're able to sign in again.</p>
@@ -66,7 +66,9 @@
                               <ul>
                                   <li>
                                       <label class="text2bold">Current email address:</label>
-                                      <span class="text2-777">${requestScope.context.email}</span>
+                                      <span class="text2-777">${requestScope.context.email}</span>&amp;nbsp;&amp;nbsp;
+                                      <span class="sprite checkmark"><!-- alert icon --></span>&amp;nbsp;
+                                      <span class="formAgreeText">Verified</span>
                                   </li>
                                   <li>
                                       <label for="newEmailField" class="text2bold">New email address:</label>
@@ -74,29 +76,7 @@
                                           <input id="newEmailField" class="text2" type="text" name="${status.expression}"
                                                  value="${status.value}" tabindex="2"/>
                                       </spring:bind>
-                                      <!-- hack because the built in email validator rejects the field named "email" -->
-                                      <spring:hasBindErrors name="emailCmd">
-                                          <spring:bind path="emailCmd.email">
-                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
-                                                            alt="Error" styleClass="errorImage"/>
 
-                                                  <p class="errorText"><spring:message code="${status.errorCode}"
-                                                                                       text="${status.errorMessage}"/>
-                                                  </p>
-                                              </c:if>
-                                          </spring:bind>
-                                          <spring:bind path="emailCmd.newEmail">
-                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
-                                                            alt="Error" styleClass="errorImage"/>
-
-                                                  <p class="errorText"><spring:message code="${status.errorCode}"
-                                                                                       text="${status.errorMessage}"/>
-                                                  </p>
-                                              </c:if>
-                                          </spring:bind>
-                                      </spring:hasBindErrors>
                                   </li>
                                   <li>
                                       <label for="confirmNewEmailField" class="text2bold">Re-type email address:</label>
@@ -106,6 +86,26 @@
                                                  value="${status.value}" tabindex="3" autocomplete="off"/>
                                       </spring:bind>
                                   </li>
+                                                                        <!-- hack because the built in email validator rejects the field named "email" -->
+                                      <spring:hasBindErrors name="emailCmd">
+                                          <spring:bind path="emailCmd.email">
+                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                                  <p class="formErrorText">
+                                                      <span class="sprite alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
+                                                                                       text="${status.errorMessage}"/>
+                                                  </p>
+                                              </c:if>
+                                          </spring:bind>
+                                          <spring:bind path="emailCmd.newEmail">
+                                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                                  <p class="formErrorText">
+                                                      <span class="sprite alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
+                                                                                       text="${status.errorMessage}"/>
+                                                  </p>
+                                              </c:if>
+                                          </spring:bind>
+                                      </spring:hasBindErrors>
+
                               </ul>
                           </fieldset>
                           <fieldset class="submit">
@@ -114,10 +114,9 @@
                                       class="btn25 fltlft" tabindex="5">
                                   <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
                               </button>
-                              <button type="cancel" id="cancelButton" name="cancel" value="Cancel"
-                                      class="btn25 fltlft" tabindex="4">
+                              <link:userAccount styleClass="btn25 fltlft" styleId="cancelButton">
                                   <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-                              </button>
+                              </link:userAccount>
 
                           </fieldset>
 
