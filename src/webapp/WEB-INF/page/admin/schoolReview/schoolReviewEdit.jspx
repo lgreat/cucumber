@@ -92,7 +92,9 @@
                                                 pattern="MMMM d, yyyy h:mma"/>
                                 <td>${reportCreated}</td>
                                 <td>${report.reason}</td>
-                                <td>${report.reporterId}</td>
+                                <td><c:choose>
+                                    <c:when test="${report.reporterId eq -1}">Auto-filter</c:when>
+                                    <c:otherwise>${report.reporterId}</c:otherwise></c:choose></td>
                                 <td><c:choose>
                                     <c:when test="${report.active}">Open</c:when>
                                     <c:otherwise>Resolved</c:otherwise></c:choose></td>
