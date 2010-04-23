@@ -38,7 +38,7 @@
 
     <c:set var="recentDiscussions">
         <c:import
-                url="/community/recentDiscussions.module?board_id=${1637}&amp;limit=4"/>
+                url="/community/recentDiscussions.module?board_id=${1637}&amp;limit=4&amp;title=Recent%20conversations&amp;moreText=See%20more&amp;showLargeFirstAvatar=false"/>
         <!--&amp;uri=${myUrl}&amp;style=fall2009-->
     </c:set>
     <c:if test="${!empty recentDiscussions}">

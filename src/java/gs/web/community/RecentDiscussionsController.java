@@ -36,6 +36,9 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_CALLER_URI = "uri";
     public static final String PARAM_STYLE = "style";
     public static final String PARAM_CITY_NAME = "cityName";
+    public static final String PARAM_TITLE = "title";
+    public static final String PARAM_MORE_TEXT = "moreText";
+    public static final String PARAM_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
 
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
@@ -44,6 +47,9 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_STYLE = "style";
     public static final String MODEL_CITY_NAME = "cityName";
+    public static final String MODEL_TITLE = "title";
+    public static final String MODEL_MORE_TEXT = "moreText";
+    public static final String MODEL_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -80,6 +86,12 @@ public class RecentDiscussionsController extends AbstractController {
 
                 model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
                 model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
+                model.put(MODEL_TITLE, request.getParameter(PARAM_TITLE));
+                model.put(MODEL_MORE_TEXT, request.getParameter(PARAM_MORE_TEXT));
+
+                boolean showLargeFirstAvatar = (request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR) == null ||
+                        "true".equals(request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR)));
+                model.put(MODEL_SHOW_LARGE_FIRST_AVATAR, showLargeFirstAvatar);
             }
         } catch (Exception e) {
             // do nothing, module will render blank
