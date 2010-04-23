@@ -37,6 +37,7 @@
             }
             if (callerFormId) {
                 GSType.hover.signInHover.hide();
+                GSType.hover.joinHover.hide();
                 jQuery('#' + callerFormId).submit();
             } else {
                 window.location.href=window.location.href;
