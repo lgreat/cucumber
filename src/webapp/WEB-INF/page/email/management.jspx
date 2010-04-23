@@ -35,7 +35,7 @@
 </head>
 
 <gsml:body adPageName="email/management">
-<ad:setSlotPrefix slotPrefix="Email_Management"/>
+<ad:setSlotPrefix slotPrefix="MyAccount"/>
 
 <div id="mainGS" class="col">
 <div class="spacer_10"><!-- do not collapse --></div>
