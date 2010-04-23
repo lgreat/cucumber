@@ -20,11 +20,12 @@
                 onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
                 email="${requestScope.context.email}">Join Us</link:registration></li>
 
-        <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
+        <li><link:loginOrRegister email="${requestScope.context.email}"
                                                onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
                                                redirect="${myUrl}">Sign In</link:loginOrRegister></li>
         <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
                                                   <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
+        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding></li>
 
     </ul>
 

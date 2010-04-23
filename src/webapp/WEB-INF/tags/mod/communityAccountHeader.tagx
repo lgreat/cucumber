@@ -22,7 +22,7 @@
         <li>
             <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
         </li>
-        <li class="nav_menu last"><link:userAccount
+        <li class="nav_menu"><link:userAccount
                 styleClass="nav_group_heading">My account</link:userAccount>
             <ul class="nav_group_items">
                 <li class="first">
@@ -34,5 +34,6 @@
                 <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
             </ul>
         </li>
+        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding></li>
     </ul>
 </jsp:root>

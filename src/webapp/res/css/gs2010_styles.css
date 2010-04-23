@@ -411,6 +411,10 @@ body.cobranded #pageGS {
     color: #fff;
 }
 
+#utilLinks span{
+    vertical-align:middle;
+}
+
 #utilLinks li:last-child {
     border: 0;
 }
@@ -3394,7 +3398,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-22.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-04-23.png);
 }
 
 .reportIt-nbg { /* nbg = no background (i.e., transparent) */
@@ -3521,6 +3525,12 @@ additional icons on the sprite.
     width: 33px;
     height: 20px;
     background-position: -40px 0;
+}
+
+.community-2f85eb-sm {
+    width: 21px;
+    height: 18px;
+    background-position: -40px -20px;
 }
 
 .community-fc6-lg {
