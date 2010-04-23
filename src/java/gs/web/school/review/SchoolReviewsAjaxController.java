@@ -112,7 +112,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         Review review = createOrUpdateReview(user, school, reviewCommand, isNewUser, check);
 
-        boolean newUser = user.isEmailProvisional();
+        boolean newUser = user.isPasswordEmpty() || user.isEmailProvisional();
         Poster poster = reviewCommand.getPoster();
 
         boolean reviewPosted = true;

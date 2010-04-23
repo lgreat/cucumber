@@ -18,6 +18,29 @@
 <gsml:url var="formActionUrl" value="/school/review/postReview.page"/>
 
 <script type="text/javascript">
+
+    function GS_postSchoolReview(email, callerFormId) {
+        // first, grab the email from the join/signIn form and use that with the review
+        if (email) {
+            jQuery('#frmPRModule [name="email"]').val(email);
+        }
+        // then post the review
+        jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
+            if (data.reviewPosted != undefined) {
+                if (data.reviewPosted == "true") {
+                    // cookie to show schoolReviewPostedThankYou hover
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
+                } else {
+                    // cookie to show schoolReviewNotPostedThankYou hover
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+                }
+            }
+            if (callerFormId) {
+                GSType.hover.signInHover.hide();
+                jQuery('#' + callerFormId).submit();
+            }
+        }, "json");
+    }
     jQuery(function() {
         jQuery('#frmPRModule [name="posterAsString"]').change(function() {
             if (this.value == 'parent' || this.value == 'other') {
@@ -44,29 +67,21 @@
         });
 
         jQuery('#frmPRModule .continueButton').click(function() {
-            if (GS.showSchoolReviewHover(window.location.href)) {
-                jQuery('#frmPRModule .errors').hide();
-                var hasError = false;
-                if (jQuery('#frmPRModule #overallStarRating').val() == 0) {
-                    jQuery('#frmPRModule .overallError').show();
-                    jQuery('#frmPRModule .overallError .error').show();
-                    hasError = true;
-                }
-                if (jQuery('#frmPRModule [name="posterAsString"]').val() == '') {
-                    jQuery('#frmPRModule .whoError').show();
-                    jQuery('#frmPRModule .whoError .error').show();
-                    hasError = true;
-                }
-                if (!hasError) {
-                    jQuery.post('${formActionUrl}', jQuery('#frmPRModule').serialize(), function(data) {
-                        if (data.reviewPosted != undefined) {
-                            if (data.reviewPosted == "true") {
-                                GSType.hover.schoolReviewPostedThankYou.showHover();
-                            } else {
-                                GSType.hover.schoolReviewNotPostedThankYou.showHover();
-                            }
-                        }
-                    }, "json");
+            jQuery('#frmPRModule .errors').hide();
+            var hasError = false;
+            if (jQuery('#frmPRModule #overallStarRating').val() == 0) {
+                jQuery('#frmPRModule .overallError').show();
+                jQuery('#frmPRModule .overallError .error').show();
+                hasError = true;
+            }
+            if (jQuery('#frmPRModule [name="posterAsString"]').val() == '') {
+                jQuery('#frmPRModule .whoError').show();
+                jQuery('#frmPRModule .whoError .error').show();
+                hasError = true;
+            }
+            if (!hasError) {
+                if (GS.showSchoolReviewHover(window.location.href)) {
+                    GS_postSchoolReview();
                 }
             }
             return false;

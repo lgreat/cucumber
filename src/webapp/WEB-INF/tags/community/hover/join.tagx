@@ -10,7 +10,7 @@
         <h2>
             <span class="hoverTitle">Speak your mind</span>
             <span>Already a member?
-                <a href="#" id="lnchSignin">Sign in</a>
+                <a href="#" id="lnchSignin" onclick="">Sign in</a>
             </span>
         </h2>
 

@@ -5,7 +5,7 @@
         >
 
     <div id="signInHover" style="display:none;">
-        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="signInHover_launchJoin">Join GreatSchools</a>.</span></h2>
+        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
 
         <div class="messages">
             <p class="error"><!-- message --></p>
@@ -28,7 +28,7 @@
                 <button class="btn25" type="submit" name="signinBtn" id="signinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Sign in</span></span>
                 </button>
-                <p><a href="#" id="signInHover_launchForgotPassword">Forgot your password?</a></p>
+                <p><a href="#" id="signInHover_launchForgotPassword" onclick="">Forgot your password?</a></p>
                 <input type="hidden" name="rememberMe" value="true"/>
             </fieldset>
         </form>
