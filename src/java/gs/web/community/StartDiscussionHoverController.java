@@ -33,6 +33,7 @@ public class StartDiscussionHoverController extends AbstractController {
     public static final String MODEL_BODY = "discussionBody";
     public static final String MODEL_TITLE = "discussionTitle";
     public static final String MODEL_DISCUSSION_ID = "discussionId";
+    public static final String MODEL_SELECT_GENERAL_PARENTING_BOARD = "selectGeneralParentingBoard";
 
     private IPublicationDao _publicationDao;
     private ILocalBoardDao _localBoardDao;
@@ -60,6 +61,7 @@ public class StartDiscussionHoverController extends AbstractController {
 
         model.put(MODEL_TOPIC_CENTER_ID, request.getParameter("topicCenterId"));
         model.put(MODEL_LOCAL_BOARD_ID, request.getParameter("discussionBoardId"));
+        model.put(MODEL_SELECT_GENERAL_PARENTING_BOARD, request.getParameter("selectGeneralParentingBoard"));
         if (request.getParameter("title") != null) {
             model.put(MODEL_TITLE, request.getParameter("title"));
         }

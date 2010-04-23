@@ -33,6 +33,8 @@
                              description="ID for topic center to pre-select."/>
     <jsp:directive.attribute name="discussionBoardId" required="false" type="java.lang.Long"
                              description="ID for local discussion board to pre-select."/>
+    <jsp:directive.attribute name="selectGeneralParentingBoard" required="false" type="java.lang.Boolean"
+                             description="Whether to pre-select General Parenting discussion board. Defaults to false"/>
 
     <!--<pageHelper:externalCss file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css"/>-->
     <!-- pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/ -->
@@ -45,7 +47,7 @@
         }
 
         GS.types.startDiscussionHover = function() {
-            this.startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}&amp;discussionBoardId=${pageScope.discussionBoardId}';
+            this.startADiscussionIframeUrl = '/community/hover/startDiscussionHover.page?topicCenterId=${pageScope.topicCenterId}&amp;discussionBoardId=${pageScope.discussionBoardId}&amp;selectGeneralParentingBoard=${pageScope.selectGeneralParentingBoard eq true}';
             this.loginRedirectUrl = '${pageScope.loginRedirectUrl}';
 
             this.showEdit = function(title, body, discussionId) {

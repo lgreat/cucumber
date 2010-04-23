@@ -40,6 +40,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     public final static int DISCUSSION_BODY_MAXIMUM_LENGTH = 128000;
     public final static int DISCUSSION_TITLE_MINIMUM_LENGTH = 5;
     public final static int DISCUSSION_TITLE_MAXIMUM_LENGTH = 128;
+    public final static Long GENERAL_PARENTING_DISCUSSION_BOARD_ID = 2420L;
     public final static String COOKIE_REPLY_BODY_PROPERTY = "replyBody";
 
     private IDiscussionReplyDao _discussionReplyDao;
@@ -86,17 +87,24 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected void handleDiscussionSubmissionByTopicCenter
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        CmsTopicCenter topicCenter = _publicationDao.populateByContentId
-                (command.getTopicCenterId(), new CmsTopicCenter());
 
-        if (topicCenter == null) {
-            _log.warn("Attempt to submit with unknown topic center id (" +
-                    command.getTopicCenterId() + ") rejected");
-            throw new IllegalStateException("Discussion submission with unknown topic center id! id=" +
-                    command.getTopicCenterId());
+        Long discussionBoardId;
+        if (GENERAL_PARENTING_DISCUSSION_BOARD_ID.equals(command.getTopicCenterId())) {
+            discussionBoardId = command.getTopicCenterId();
+        } else {
+            CmsTopicCenter topicCenter = _publicationDao.populateByContentId
+                    (command.getTopicCenterId(), new CmsTopicCenter());
+
+            if (topicCenter == null) {
+                _log.warn("Attempt to submit with unknown topic center id (" +
+                        command.getTopicCenterId() + ") rejected");
+                throw new IllegalStateException("Discussion submission with unknown topic center id! id=" +
+                        command.getTopicCenterId());
+            }
+            discussionBoardId = topicCenter.getDiscussionBoardId();
         }
 
-        command.setDiscussionBoardId(topicCenter.getDiscussionBoardId());
+        command.setDiscussionBoardId(discussionBoardId);
 
         handleDiscussionSubmission(request, response, command);
     }

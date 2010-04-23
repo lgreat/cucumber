@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="localBoards" required="true" type="java.util.List" description="List of LocalBoard"/>
     <jsp:directive.attribute name="topicCenterId" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="localBoardId" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="selectGeneralParentingBoard" required="false" type="java.lang.Boolean" description="Defaults to false"/>
     <jsp:directive.attribute name="discussionBody" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="discussionTitle" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="discussionId" required="true" type="java.lang.String"/>
@@ -187,6 +188,7 @@
                         <gsml:selectOption value="${myTc.contentKey.identifier}"
                                            selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
                     </c:forEach>
+                    <gsml:selectOption value="2420" selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
                 </select>
             </div>
             <br class="clearfloat"/>

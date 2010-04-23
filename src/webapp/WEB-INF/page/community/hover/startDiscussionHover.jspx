@@ -42,6 +42,7 @@
             discussionBody="${discussionBody}"
             discussionTitle="${discussionTitle}"
             discussionId="${discussionId}"
+            selectGeneralParentingBoard="${selectGeneralParentingBoard}"
             />
 
     <mod:tracking pageName="Post New Discussion Hover"

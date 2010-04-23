@@ -259,7 +259,9 @@
 <community:startADiscussionHover loginRedirectUrl="${loginRedirectUrl}"
                                  openElementJQuerySelector=".startADiscussion"
                                  topicCenterId="${topicCenter.contentKey.identifier}"
-                                 discussionBoardId="${discussionBoard.contentKey.identifier}"/>
+                                 discussionBoardId="${discussionBoard.contentKey.identifier}"
+                                 selectGeneralParentingBoard="${discussionBoard.contentKey.identifier == 2420}"
+        />
 
 <div class="module">
 <c:choose>
