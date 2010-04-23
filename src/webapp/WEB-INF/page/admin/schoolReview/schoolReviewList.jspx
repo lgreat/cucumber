@@ -43,7 +43,7 @@
                     <c:set var="review" value="${reviewBean.review}"/>
                     <tr>
                         <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
-                        <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy h:mma"/>
+                        <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
                         <td>${review.status}</td>
@@ -79,7 +79,7 @@
                     <c:set var="review" value="${reviewBean.review}"/>
                     <tr>
                         <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
-                        <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy h:mma"/>
+                        <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
                         <td>${review.status}</td>

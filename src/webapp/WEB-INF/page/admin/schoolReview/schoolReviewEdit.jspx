@@ -57,7 +57,7 @@
                 (${review.school.databaseState} ${review.school.type.name})</span>
             <br/>
             <fmt:formatDate value="${review.posted}" var="reviewPosted"
-                            pattern="MMMM d, yyyy h:mma"/>
+                            pattern="MMMM d, yyyy"/>
             <label>Posted:</label><span class="value">${reviewPosted}</span>
             <br/>
             <label>Status:</label>
