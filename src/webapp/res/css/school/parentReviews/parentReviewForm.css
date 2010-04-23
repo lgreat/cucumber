@@ -151,3 +151,7 @@ ul#frmErrors li {
 #ratingTitle {
     float: none;
 }
+
+#parentReviewGuidelinesSpan a {
+    text-decoration: none;
+}

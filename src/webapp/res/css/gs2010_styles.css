@@ -3158,13 +3158,12 @@ ul.srchSuggest li span {
 -----------------------------------------------------------------------------
 */
 
-#ratingTitle {
-    float:left;
-}
 #parentReviewGuidelinesSpan {
-    float:right;padding:15px;
+   position:absolute;
+   right:12px;
+   top:15px;
+   font: 11px Arial, sans-serif;
 }
-
 
 /*
 =4g- vidoe page

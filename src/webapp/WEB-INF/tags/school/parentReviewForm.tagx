@@ -93,26 +93,10 @@
     <c:if test="${showMessage eq 'yes'}">
         To save your rating please submit your email address.
     </c:if>
-        <div id="ratingTitle">${schoolName}</div>
-        <span id="parentReviewGuidelinesSpan"><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></span><br clear="all" />
+        <div id="ratingTitle">${schoolName}
 
-        <c:if test="${fn:length(schoolName) > 31}">
-            <script type="text/javascript">
-                var title = document.getElementById('ratingTitle');
-                title.style.height = '35px';
-                title.style.lineHeight = '20px';
-            </script>
-        </c:if>
-        
-        <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
-                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
-                <!--Begin star ratings.
-                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
-                    But because this page may load slowly, that's not an option.
-                -->
-                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
-                <ul class="star-rating large-star">
+        </div>
+        <ul class="star-rating large-star">
                     <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
                     <li><a href="#"
                            title="1 star out of 5"
@@ -142,6 +126,25 @@
                            onmouseout="resetStars();"
                             >5</a></li>
                 </ul>
+        <span id="parentReviewGuidelinesSpan"><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></span>
+
+        <c:if test="${fn:length(schoolName) > 31}">
+            <script type="text/javascript">
+                var title = document.getElementById('ratingTitle');
+                title.style.height = '35px';
+                title.style.lineHeight = '20px';
+            </script>
+        </c:if>
+        
+        <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
+                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
+                <!--Begin star ratings.
+                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                    But because this page may load slowly, that's not an option.
+                -->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
+
                <!-- end star ratings -->
 
 
