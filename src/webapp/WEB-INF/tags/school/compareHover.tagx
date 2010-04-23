@@ -141,7 +141,7 @@
             visible: false,
             constraintoviewport: true,
             draggable: false,
-            modal: true,
+            modal: false,
             close: false
         });
         compareDialog.render();
