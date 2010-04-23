@@ -20,87 +20,49 @@
 
 <head>
     <title>GreatSchools Community</title>
-    <meta name="description" content="TODO"/>
-    <meta name="keywords" content="TODO"/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <meta name="description" content="Join parents as they discuss schools, education, and parenting on GreatSchools."/>
+    <meta name="keywords" content=""/>
 </head>
-<gsml:body adPageName="communtiyLanding" pageLayout="nocol">
+<body>
 
-<div id="community-landing">
-<div class="module">
-    <div class="header">
-        <h2 class="title1white">GreatSchools Community</h2>
+<div id="mainGS" class="col">
+
+    <div>
+        <img src="" alt="Community"/>
+        <h1>Community</h1>
+        <p>
+            <strong>Welcome to the GreatSchools Community.</strong>
+            Join other parents to discuss schools, education, and parenting.
+        </p>
     </div>
-    <!-- end header -->
-    <div class="spacer_15"><!--do not collapse--></div>
-    <img src="/res/img/community/community_photo.jpg"
-         alt="community photo" name="community-photo" width="300" height="332"
-         id="community-photo" class="fltlft" />
-    <p class="introText">We've launched <span class="bold">a brand new community</span> and the page you're looking for is no longer available. We apologize for the inconvenience.</p>
-    
-    <p class="text1 tint_333">Search or browse our new community to find answers to your questions.</p>
-    <div id="landing-module" class="fltlft">
-        <div class="col2 fltlft">
-        <div class="col1 fltlft">
-        <div class="body2bg">
-            <h3 class="title1">Browse community by topic</h3>
-            <div class="fltlft">
-                <ul class="topics2 text2_180">
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
-                                                           fullUri="/preschool">Preschool</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
-                                                           fullUri="/elementary-school">Elementary School</link:cmsContent>
-                    </li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638"
-                                                           fullUri="/middle-school">Middle School</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639"
-                                                           fullUri="/high-school">High School</link:cmsContent></li>
-                </ul>
-            </div>
-            <div class="fltlft">
-                <ul class="topics1 text2_180">
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640"
-                                                           fullUri="/parenting">Health &amp;amp; Development</link:cmsContent>
-                    </li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641"
-                                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent>
-                    </li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642"
-                                                           fullUri="/LD">Learning Disabilities</link:cmsContent></li>
-                    <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643"
-                                                           fullUri="/improvement">Improve Your School</link:cmsContent>
-                    </li>
-                </ul>
-            </div>
-            <br class="clearfloat"/>
-        </div>
 
-        <c:import url="/community/browseLocalBoards.module"/>
+    <c:set var="recentDiscussions">
+        <c:import
+                url="/community/recentDiscussions.module?board_id=${1637}&amp;limit=4"/>
+        <!--&amp;uri=${myUrl}&amp;style=fall2009-->
+    </c:set>
+    <c:if test="${!empty recentDiscussions}">
+        <div class="spacer_10"><!-- don't collapse --></div>
+        <div id="recentDiscussions" class="mod">
+            ${recentDiscussions}
+        </div>
+    </c:if>
 
-        </div>
-            <div id="cl-or" class="certCourse tint_666 fltlft">Or</div>
-        </div>
-        <div class="col3 fltlft">
-            <div class="body2bg">
-                <h3 class="title1">Search community</h3>
-                <form action="/search/contentSearch.page">
-                    <input class="db_search_input formText2 tint_777"
-                           type="text" name="q" value=""/>
-                    <input type="hidden" name="type" value="community"/>
-                    <button class="btn25" type="submit">
-                        <span class="lftDoor25">
-                            <span class="rtDoor25">Search</span>
-                        </span>
-                    </button>
-                </form>
-                <!--<br class="clearfloat"/>-->
-            </div>
-        </div>
+    <div class="startAConversationModule rnd8">
+        <div id="sac-downArrow-fc6"><!--do not collapse--></div>
+        <c:set var="startAConversationModule">
+            <c:import
+                    url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+        </c:set>
+        ${pageScope.startAConversationModule}
     </div>
-    <!-- end landing-module -->
 </div>
-<!-- end module -->
-</div>
+<!-- end mainGS -->
+
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
+
+
+
 
 <mod:tracking pageName="Community Home "
               hier1="Community,Community Home"
@@ -108,6 +70,6 @@
               local=""
               omitAlmondNet="${true}"
         />
-</gsml:body>
+</body>
 </html>
 </jsp:root>
