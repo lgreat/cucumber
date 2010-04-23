@@ -152,6 +152,17 @@ ul#frmErrors li {
     float: none;
 }
 
-#parentReviewGuidelinesSpan a {
+#rateReview #parentReviewGuidelinesSpan {
+   position:absolute;
+   right:12px;
+   top:15px;
+   font: 11px Arial, sans-serif;
+}
+
+#rateReview #parentReviewGuidelinesSpan a {
     text-decoration: none;
+}
+
+.hover #rateReview #parentReviewGuidelinesSpan {
+    top:8px;
 }
