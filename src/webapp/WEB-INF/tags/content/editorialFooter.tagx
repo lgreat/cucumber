@@ -50,8 +50,9 @@
             <div class="k12SuccessSearch">Search more than<br/>
                 <span class="k12SuccessSearchBold">600 articles</span>
                 <div class="k12SuccessSearchKeyword">Enter a keyword<br/>
-                    <gsweb:form action="/search/search.page" method="get">
+                    <gsweb:form action="/search/contentSearch.page" method="get">
                         <input type="hidden" name="c" value="topic" />
+                        <input type="hidden" name="type" value="articles" />
                         <input type="text" name="q" class="keyword formText" style="margin-right:10px;"/>
                         <gsml:inputImage src="/res/img/content/research/go_pink.gif" alt="GO"
                                      styleClass="goImageButton"/>
