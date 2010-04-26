@@ -25,16 +25,10 @@ public class Care2PromoHelper {
                                           School school, Map<String, Object> model) {
         // verify school
         if (school != null
-                && school.getGradeLevels().containsAny(K_TO_8_GRADES)) {
-            // check for cookie
-            String cookieKey = school.getDatabaseState().toString() + school.getId();
-
-            Care2PromoCookie cookie = new Care2PromoCookie(request, response);
-            if (StringUtils.isEmpty(cookie.getProperty(cookieKey)) &&
-                Care2PromoHelper.isDuringCare2PromoPeriod(new Date())) {
+                && school.getGradeLevels().containsAny(K_TO_8_GRADES)
+                && Care2PromoHelper.isDuringCare2PromoPeriod(new Date())) {
                 model.put("isCare2", Boolean.TRUE);
                 model.put("care2PromoUrl", Care2PromoHelper.getCare2PromoUrl(school));
-            }
         }
     }
 
