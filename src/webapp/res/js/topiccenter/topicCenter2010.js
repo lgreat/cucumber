@@ -13,6 +13,7 @@ $j(document).ready(function() {
     /* ----------------------------------------------- */
     //
 
+    $j('#es-gbg').show();  
     if ($j('#es-gbgTabs').length > 0) {
 
     // extend the core jQuery with disableSelection

@@ -1889,7 +1889,7 @@ body.ie6 .clearfix {
 /* =4c-1 featured
 -------------------------------------------------------------------------------------------*/
 #featured {
-    width:598px; height:326px;
+    width:598px;
 }
 
 #featured .one_of_two {
@@ -1912,6 +1912,16 @@ body.ie6 .clearfix {
     color: #f4891d;
     border-top:1px dotted #999;
     padding:5px 0;
+}
+
+#es-gbg{
+    display:none;
+    height:35px
+}
+
+#featureContent{
+    /*display:none;*/
+    height:237px;
 }
 
 #featureContent .featureGroup_1, #featureContent .featureGroup_2, #featureContent .featureGroup_3, #featureContent .featureGroup_4, #featureContent .featureGroup_5, #featureContent .featureGroup_6 {
