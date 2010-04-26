@@ -303,7 +303,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 review.setPOverall(CategoryRating.getCategoryRating(command.getOverallAsString()));
             }
 
-            if (Poster.PARENT.equals(poster) || Poster.OTHER.equals(poster)) {
+            if (Poster.PARENT.equals(poster)) {
                 if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
                     review.setPTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
                 }
@@ -319,7 +319,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 review.setQuality(CategoryRating.getCategoryRating(command.getOverallAsString()));
             }
 
-            if (Poster.PARENT.equals(poster) || Poster.OTHER.equals(poster)) {
+            if (Poster.PARENT.equals(poster)) {
                 if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
                     review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
                 }

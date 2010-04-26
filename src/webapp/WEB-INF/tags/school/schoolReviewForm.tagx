@@ -47,7 +47,7 @@
     }
     jQuery(function() {
         jQuery('#frmPRModule [name="posterAsString"]').change(function() {
-            if (this.value == 'parent' || this.value == 'other') {
+            if (this.value == 'parent') {
                 jQuery('#frmPRModule .subStarRatings').show();
                 jQuery('#frmPRModule .subStarRatings li').show();
                 jQuery('#frmPRModule .moreAboutRatings').show();
