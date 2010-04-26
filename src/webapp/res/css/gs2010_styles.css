@@ -1462,6 +1462,14 @@ body.ie6 .clearfix {
     position:relative
 }
 
+.ryh-reply-text-onCOM {
+    width:482px;
+    margin-left:12px;
+    padding:12px;
+    background:white;
+    position:relative
+}
+
 .ryh-manage {
     padding-top: 10px;
 }

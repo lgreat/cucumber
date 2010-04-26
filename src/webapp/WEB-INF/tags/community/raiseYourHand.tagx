@@ -185,9 +185,20 @@
 </script>
 
 <div id="raise-your-hand" class="mod">
+
+    <!--<p>limit = <c:out value="${param.limit}" default="don't know"/></p>-->
+    <!--<p>style = <c:out value="${style}" default="don't know"/></p>-->
+    <!--<p>showViewAll = <c:out value="${showViewAll}" default="don't know"/></p>-->
+
     <c:if test="${style eq 'homePage' or style eq 'topicCenter'}">
         <div class="mod_hd">
             <h3>Raise Your Hand</h3>
+        </div>
+    </c:if>
+
+    <c:if test="${style eq 'comLandingPage'}">
+        <div class="mod_hd">
+            <h1>Raise Your Hand</h1>
         </div>
     </c:if>
 
@@ -321,6 +332,12 @@
                 <c:set var="avatarSize" value="40"/>
                 <c:set var="avatar" value="avatar_40"/>
                 <c:set var="replyText" value="ryh-reply-text-onTC"/>
+                <c:set var="replyArrow" value="rhy-replyArrow-fff-onTC"/>
+            </c:when>
+            <c:when test="${style eq 'comLandingPage'}">
+                <c:set var="avatarSize" value="40"/>
+                <c:set var="avatar" value="avatar_40"/>
+                <c:set var="replyText" value="ryh-reply-text-onCOM"/>
                 <c:set var="replyArrow" value="rhy-replyArrow-fff-onTC"/>
             </c:when>
             <c:otherwise>
