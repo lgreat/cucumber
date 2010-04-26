@@ -174,13 +174,7 @@
         </div>
         <form action="/community/discussionSubmission.page" method="post" target="_parent"
               id="discussionSubmissionForm" accept-charset="Windows-1252">
-            <div class="communityGuidelines ${guidelineStyle} fltrt">
-                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                           title="GreatSchools Community Standards"
-                                           href="/terms/?state=$STATE#communityStandards">
-                <span class="link">Community Guidelines</span></gsml:popupWindow>
-            </div>
-            <div class="topicSelect fltlft">
+            <div class="topicSelect fltlft mrgrt_10">
                 <label for="topicSelect" class="text2bold tint_333">Topic</label>
                 <select id="topicSelect" name="topicCenterId">
                     <gsml:selectOption value="-1">Cities</gsml:selectOption>
@@ -191,6 +185,14 @@
                     <gsml:selectOption value="2420" selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
                 </select>
             </div>
+
+            <div class="communityGuidelines ${guidelineStyle} fltlft">
+                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                           title="GreatSchools Community Standards"
+                                           href="/terms/?state=$STATE#communityStandards">
+                <span class="link">Community Guidelines</span></gsml:popupWindow>
+            </div>
+
             <br class="clearfloat"/>
 
             <div class="citySelect">
@@ -202,16 +204,18 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="titleInput">
-                <label for="titleInput" class="text2bold tint_333">Title</label>
-                <input id="titleInput" type="text" name="title" size="65" value="${discussionTitle}"/>
-            </div>
-            <div class="bodyInput">
-                <label for="bodyInput" class="text2bold tint_333">Details</label>
-                <textarea id="bodyInput" class="bodyInput"
-                          rows="5" cols="30"
-                          name="body"><!-- no collapse -->${discussionBody}</textarea>
-            </div>
+            <ul>
+                <li class="titleInput">
+                    <label for="titleInput" class="text2bold tint_333">Title</label>
+                    <input id="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
+                </li>
+                <li class="bodyInput">
+                    <label for="bodyInput" class="text2bold tint_333">Details</label>
+                    <textarea id="bodyInput" class="bodyInput"
+                              rows="5" cols="20"
+                              name="body"><!-- no collapse -->${discussionBody}</textarea>
+                </li>
+            </ul>
             <c:if test="${discussionId gt 0}">
                 <input type="hidden" name="discussionId" value="${discussionId}"/>
                 <input type="hidden" name="type" value="editDiscussion"/>

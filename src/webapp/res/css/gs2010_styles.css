@@ -2118,6 +2118,7 @@ body.ie6 .clearfix {
     background:#fc6;
     padding:10px 20px 15px 15px;
     position:relative;
+    margin-bottom:40px;
 }
 
 .startAConversationModule #sac-downArrow-fc6{
@@ -2140,7 +2141,7 @@ body.ie6 .clearfix {
 .startAConversationModule form{
     padding:0;
     margin:0;
-    width:388px;
+    width:100%;
 }
 
 .startAConversationModule .communityGuidelines{
@@ -2160,12 +2161,12 @@ body.ie6 .clearfix {
 }
 
 .startAConversationModule input{
-    width:324px;
+    width:80%;
     margin-top:10px;
 }
 
 .startAConversationModule textarea{
-    width:328px;
+    width:81%;
     margin:10px 0 5px 0;
 }
 
