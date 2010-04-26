@@ -232,7 +232,6 @@ GSType.hover.JoinHover = function() {
                 gRedirectAnchor = this;
                 try {
                     if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
-                        alert(this.href);
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
                         GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
