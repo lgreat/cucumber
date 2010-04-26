@@ -231,7 +231,7 @@
                     <li class="first"><link:cmsCategoryBrowse topicIDs="226" language="EN" styleId="GlobalNav_SE_LDADHD" styleClass="GS_CI9_">Learning Disabilities &amp;amp; ADHD</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="228" language="EN" styleId="GlobalNav_SE_AutismAndOtherDisorders" styleClass="GS_CI9_">Autism &amp;amp; Other Disorders</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="185" language="EN" styleId="GlobalNav_SE_FamilySupport" styleClass="GS_CI9_">Family Support</link:cmsCategoryBrowse></li>
-                    <li><link:cmsCategoryBrowse topicIDs="231" language="EN" styleId="GlobalNav_SE_HealthAndDevelopment" styleClass="GS_CI9_">Health &amp; Development</link:cmsCategoryBrowse></li>
+                    <li><link:cmsCategoryBrowse topicIDs="231" language="EN" styleId="GlobalNav_SE_HealthAndDevelopment" styleClass="GS_CI9_">Health &amp;amp; Development</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="190" language="EN" styleId="GlobalNav_SE_LegalRightsAndAdvocacy" styleClass="GS_CI9_">Legal Rights &amp;amp; Advocacy</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="188" language="EN" styleId="GlobalNav_SE_AssistiveTechnology" styleClass="GS_CI9_">Assistive Technology</link:cmsCategoryBrowse></li>
                     <li><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/special-education" styleId="GlobalNav_SE_Community" styleClass="GS_CI9_">Talk About It</link:cmsContent></li>
