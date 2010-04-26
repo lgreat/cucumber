@@ -135,6 +135,8 @@ public class Util {
         s = s.replaceAll("\\biep\\b", "IEP");
         s = s.replaceAll("\\bieps\\b", "IEPs");
         s = s.replaceAll("\\bspanish\\b", "Spanish");
+        s = s.replaceAll("\\bada\\b", "ADA");
+        s = s.replaceAll("\\(idea\\)", "(IDEA)");
 
         return s; 
     }

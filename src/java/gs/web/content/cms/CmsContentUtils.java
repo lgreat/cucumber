@@ -48,7 +48,7 @@ public class CmsContentUtils {
     private static final long HOMEWORK_HELP_CATEGORY_ID = 140;
     private static final long PREP_FOR_COLLEGE_CATEGORY_ID = 151;
     private static final long MEDIA_AND_KIDS_CATEGORY_ID = 162;
-    private static final long LEARNING_DISABILITIES_CATEGORY_ID = 130;
+    private static final long SPECIAL_EDUCATION_CATEGORY_ID = 225;
     private static final long IMPROVE_YOUR_SCHOOL_CATEGORY_ID = 125;
     private static final long FIND_A_SCHOOL_CATEGORY_ID = 143;
     private static final long MOVING_CATEGORY_ID = 144;
@@ -77,7 +77,7 @@ public class CmsContentUtils {
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(ACADEMICS_AND_ACTIVITIES_CATEGORY_ID, new ContentKey("TopicCenter",1540L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(HOMEWORK_HELP_CATEGORY_ID, new ContentKey("TopicCenter",1544L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(PREP_FOR_COLLEGE_CATEGORY_ID, new ContentKey("TopicCenter",1542L));
-        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(LEARNING_DISABILITIES_CATEGORY_ID, new ContentKey("TopicCenter",1541L));
+        CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(SPECIAL_EDUCATION_CATEGORY_ID, new ContentKey("TopicCenter",1541L));
         CATEGORY_TOPIC_CENTER_CONTENT_KEY_MAP.put(IMPROVE_YOUR_SCHOOL_CATEGORY_ID, new ContentKey("TopicCenter",1543L));
     }
 
