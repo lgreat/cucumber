@@ -181,10 +181,10 @@
                     <select name="posterAsString">
                         <option value="" selected="selected">- Select one -</option>
                         <option value="parent">parent</option>
-                        <c:if test="${school.levelCode ne 'p'}">
+                        <c:if test="${fn:contains(school.levelCode, 'h')}">
                             <option value="student">student</option>
                         </c:if>
-                        <option value="teacher">teacher</option>
+                        <option value="teacher">Teacher/staff member</option>
                         <option value="other">other</option>
                     </select>
                 </li>
