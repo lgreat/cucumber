@@ -4,6 +4,7 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,16 +58,22 @@ public class SchoolReviewListController extends AbstractController {
     }
 
     protected List<SchoolReviewListBean> getFlaggedReviews() {
-        List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(25);
+        List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(100);
         List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(reportedReviewIds.size());
 
         for (Long reviewId: reportedReviewIds) {
             try {
                 SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));
+                if (StringUtils.length(bean.getReview().getStatus()) == 2) {
+                    continue;
+                }
                 bean.setNumReports((_reportedEntityDao.getNumberTimesReported
                         (ReportedEntity.ReportedEntityType.schoolReview, reviewId)));
                 bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolReview, reviewId));
                 rval.add(bean);
+                if (rval.size() == 25) {
+                    break;
+                }
             } catch (Exception e) {
                 _log.error("Error finding review and related data for report: " + e, e);
             }
