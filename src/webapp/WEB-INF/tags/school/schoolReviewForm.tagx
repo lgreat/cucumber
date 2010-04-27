@@ -5,94 +5,16 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
-<pageHelper:externalCss file="/res/css/school/parentReviews/parentReviewForm.css"/>
-<pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+<pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>
+<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 <gsml:url var="formActionUrl" value="/school/review/postReview.page"/>
-
-<script type="text/javascript">
-
-    function GS_postSchoolReview(email, callerFormId) {
-        // first, grab the email from the join/signIn form and use that with the review
-        if (email) {
-            jQuery('#frmPRModule [name="email"]').val(email);
-        }
-        // then post the review
-        jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
-            if (data.reviewPosted != undefined) {
-                if (data.reviewPosted == "true") {
-                    // cookie to show schoolReviewPostedThankYou hover
-                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
-                } else {
-                    // cookie to show schoolReviewNotPostedThankYou hover
-                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
-                }
-            }
-            if (callerFormId) {
-                GSType.hover.signInHover.hide();
-                GSType.hover.joinHover.hide();
-                jQuery('#' + callerFormId).submit();
-            } else {
-                window.location.href=window.location.href;
-                window.location.reload();
-            }
-        }, "json");
-    }
-    jQuery(function() {
-        jQuery('#frmPRModule [name="posterAsString"]').change(function() {
-            if (this.value == 'parent') {
-                jQuery('#frmPRModule .subStarRatings').show();
-                jQuery('#frmPRModule .subStarRatings li').show();
-                jQuery('#frmPRModule .moreAboutRatings').show();
-            } else if (this.value == 'student') {
-                jQuery('#frmPRModule .subStarRatings').show();
-                jQuery('#frmPRModule .subStarRatings > li').hide();
-                jQuery('#frmPRModule .subStarRatings .student_only').show();
-                jQuery('#frmPRModule .moreAboutRatings').show();
-            } else {
-                jQuery('#frmPRModule .subStarRatings').hide();
-                jQuery('#frmPRModule .moreAboutRatings').hide();
-            }
-        });
-
-        jQuery('#frmPRModule [name="comments"]').focus(function() {
-            jQuery('#frmPRModule .commentsPopup').show();
-        });
-
-        jQuery('#frmPRModule [name="comments"]').blur(function() {
-            jQuery('#frmPRModule .commentsPopup').hide();
-        });
-
-        jQuery('#frmPRModule .continueButton').click(function() {
-            jQuery('#frmPRModule .errors').hide();
-            var hasError = false;
-            if (jQuery('#frmPRModule #overallStarRating').val() == 0) {
-                jQuery('#frmPRModule .overallError').show();
-                jQuery('#frmPRModule .overallError .error').show();
-                hasError = true;
-            }
-            if (jQuery('#frmPRModule [name="posterAsString"]').val() == '') {
-                jQuery('#frmPRModule .whoError').show();
-                jQuery('#frmPRModule .whoError .error').show();
-                hasError = true;
-            }
-            if (!hasError) {
-                if (GS.showSchoolReviewHover(window.location.href)) {
-                    GS_postSchoolReview();
-                }
-            }
-            return false;
-        });
-
-    });
-</script>
 
 <c:set var="divClass" value=""/>
 <c:choose>
@@ -106,7 +28,8 @@
 </c:choose>
 
 <div id="rateReview" class="noprint ${divClass}">
-    <link:parentReviewGuidelines styleClass="linkGuidelines">Parent review guidelines</link:parentReviewGuidelines>
+    <link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                                 styleClass="linkGuidelines">Parent review guidelines <span class="go">&amp;#187;</span></link:parentReviewGuidelines>
 
     <div id="ratingTitle">Rate this school</div>
     <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post">
@@ -164,7 +87,7 @@
                       onfocus="if(this.value=='Enter your review here'){this.value='';}"
                       rows="" cols="">Enter your review here</textarea>
 
-            <div class="commentsPopup" style="display:none;">
+            <div class="commentsPopup">
                 <div class="">Don't forget</div>
                 <div class="">GreatSchools won't post reviews that contain inappropriate language,
                     allegations of criminal conduct, or identify students, teachers,
@@ -172,25 +95,41 @@
                 </div>
             </div>
 
+            <c:if test="${pageName eq 'parentReviews'}">
+                <div class="greatSchoolNotes">
+                    <div>A great school has...</div>
+                    <ul>
+                        <li><span>Excellent teachers</span></li>
+                        <li><span>Strong principal/school leadership</span></li>
+                        <li><span>Challenging academic programs</span></li>
+                    </ul>
+                </div>
+            </c:if>
+
             <div class="errors whoError" style="display:none;">
                 <span class="error">Please identify how you are affiliated with this school.</span>
             </div>
             <ul id="nonCommentInput">
                 <li>
-                    <label>I'm a:</label>
+                    <label>I am a:</label>
                     <select name="posterAsString">
                         <option value="" selected="selected">- Select one -</option>
                         <option value="parent">parent</option>
                         <c:if test="${fn:contains(school.levelCode, 'h')}">
                             <option value="student">student</option>
                         </c:if>
-                        <option value="teacher">Teacher/staff member</option>
+                        <option value="teacher">teacher/staff member</option>
                         <option value="other">other</option>
                     </select>
                 </li>
 
                 <li>
                     <ul class="subStarRatings" style="display:none;">
+                        <c:if test="${pageName eq 'parentReviews'}">
+                            <li class="student_only">
+                                <div class="ratingCategoryPrompt">How do you rate this school in these additional areas?</div>
+                            </li>
+                        </c:if>
                         <li class="student_only">
                             <div class="catRatingLabel">Teacher Quality</div>
                             <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
@@ -235,7 +174,7 @@
     <c:if test="${school.levelCode != 'p'}">
         <div id="espLink">
             <link:schoolProfileEspLogin styleClass="esp"
-                                        school="${school}">Principals, submit your review here</link:schoolProfileEspLogin>
+                                        school="${school}">Principals, submit your review here <span class="go">&amp;#187;</span></link:schoolProfileEspLogin>
         </div>
     </c:if>
 </div>

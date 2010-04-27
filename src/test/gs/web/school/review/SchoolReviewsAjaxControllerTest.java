@@ -81,6 +81,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     }
 
     public void testSubmitExistingUserNoExistingReview() throws Exception {
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
@@ -253,14 +254,9 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         verify(_reviewDao);
     }
-
-    protected class MockEmailContentHelper extends EmailContentHelper {
-        public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
-            replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
-        }
-    }
     
     public void testSubmitNewUser() throws Exception {
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);

@@ -301,7 +301,7 @@ function makeCountWords(max, alertText) {
     return function (textField) {
         var text = textField.value;
         var count = 0;
-        var a = text.replace('\n',' ').replace('\t',' ');
+        var a = text.replace(/\n/g,' ').replace(/\t/g,' ');
         var z = 0;
         for (; z < a.length; z++) {
             if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { count++; }

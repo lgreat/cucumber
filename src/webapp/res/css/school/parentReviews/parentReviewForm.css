@@ -129,29 +129,6 @@ ul#frmErrors li {
     _padding-right:20px;
 }
 
-/* School review redesign work in progress*/
-#rateReview, #userInput {
-    position: relative;
-}
-
-#userInput .commentsPopup {
-    position: absolute;
-    width: 150px;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #67cccc;
-    padding: 5px;
-}
-
-#rateReview .linkGuidelines {
-    position: absolute;
-    right: 0;
-    top: 10px;
-}
-#ratingTitle {
-    float: none;
-}
-
 #rateReview #parentReviewGuidelinesSpan {
    position:absolute;
    right:12px;

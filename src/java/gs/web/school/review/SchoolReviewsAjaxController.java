@@ -111,6 +111,18 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         Review review = createOrUpdateReview(user, school, reviewCommand, isNewUser, check);
+        if (StringUtils.length(review.getComments()) < 15) {
+            // error out early
+            Map<Object, Object> values = new HashMap<Object, Object>();
+            values.put("reviewPosted", "false");
+            String jsonString = new JSONObject(values).toString();
+
+            response.setContentType("text/x-json");
+            _log.info("Writing JSON response -" + jsonString);
+            response.getWriter().write(jsonString);
+            response.getWriter().flush();
+            return null;
+        }
 
         boolean newUser = user.isPasswordEmpty() || user.isEmailProvisional();
         Poster poster = reviewCommand.getPoster();
@@ -286,7 +298,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
         review.setHow(command.getClient());
         review.setPoster(command.getPoster());
-        review.setComments(command.getComments());
+        review.setComments(StringUtils.abbreviate(command.getComments(), 1200));
         review.setOriginal(command.getComments());
         review.setAllowContact(command.isAllowContact());
 
