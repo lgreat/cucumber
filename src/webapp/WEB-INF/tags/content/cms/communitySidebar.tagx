@@ -93,7 +93,7 @@
                      to the end of the url above. -->
             </c:when>
             <c:otherwise>
-                <jsp:include page="/content/cms/mostPopularContent.module?style=fall2009"/>
+                <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
             </c:otherwise>
         </c:choose>
 
