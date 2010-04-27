@@ -3,6 +3,7 @@ package gs.web.community;
 import gs.data.community.Discussion;
 import gs.data.community.DiscussionReply;
 import gs.data.community.User;
+import gs.data.content.cms.CmsDiscussionBoard;
 
 import java.util.List;
 import java.util.Date;
@@ -17,7 +18,8 @@ public class DiscussionFacade {
     private Discussion _discussion;
     private List<DiscussionReply> _replies;
     private int _totalReplies = 0;
-    private Date _mostRecentReplyDateCreated; 
+    private Date _mostRecentReplyDateCreated;
+    private CmsDiscussionBoard _discussionBoard;
 
     public DiscussionFacade(Discussion parent, List<DiscussionReply> replies) {
         _discussion = parent;
@@ -77,5 +79,13 @@ public class DiscussionFacade {
 
     public void setMostRecentReplyDateCreated(Date mostRecentReplyDateCreated) {
         _mostRecentReplyDateCreated = mostRecentReplyDateCreated;
+    }
+
+    public CmsDiscussionBoard getDiscussionBoard() {
+        return _discussionBoard;
+    }
+
+    public void setDiscussionBoard(CmsDiscussionBoard discussionBoard) {
+        _discussionBoard = discussionBoard;
     }
 }

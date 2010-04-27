@@ -1,5 +1,7 @@
 package gs.web.community;
 
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.content.cms.CmsConstants;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -27,6 +29,7 @@ public class RecentDiscussionsController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
+    private ILocalBoardDao _localBoardDao;
     private IUserDao _userDao;
     private String _viewName;
 
@@ -54,45 +57,57 @@ public class RecentDiscussionsController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         try {
-            Long contentId = new Long(request.getParameter(PARAM_BOARD_ID));
-            CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
             Integer limit = new Integer(request.getParameter(PARAM_LIMIT));
+            List<Discussion> discussions;
+            boolean showBoardForEachDiscussion = false;
 
-            if (board != null) {
+            if (request.getParameter(PARAM_BOARD_ID) != null) {
+                Long contentId = new Long(request.getParameter(PARAM_BOARD_ID));
+                CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(contentId);
                 model.put(MODEL_DISCUSSION_BOARD, board);
-                List<Discussion> discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false);
-                List<UserContent> userContents = new ArrayList<UserContent>(discussions);
-                _userDao.populateWithUsers(userContents);
-
-                List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
-                for (Discussion discussion : discussions) {
-                    DiscussionFacade facade = new DiscussionFacade(discussion, null);
-                    facade.setTotalReplies(_discussionReplyDao.getTotalReplies(discussion));
-                    if (facade.getTotalReplies() > 0) {
-                        DiscussionReply mostRecentReply = _discussionReplyDao.getMostRecentReply(discussion);
-                        facade.setMostRecentReplyDateCreated(mostRecentReply.getDateCreated());
-                    }
-                    facades.add(facade);
-                }
-                model.put(MODEL_DISCUSSION_LIST, facades);
-                model.put(MODEL_CURRENT_DATE, new Date());
-
-                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
-
-                String url = request.getParameter(PARAM_CALLER_URI);
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, url);
-                model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
-
-                model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
-                model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
-                model.put(MODEL_TITLE, request.getParameter(PARAM_TITLE));
-                model.put(MODEL_MORE_TEXT, request.getParameter(PARAM_MORE_TEXT));
-
-                boolean showLargeFirstAvatar = (request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR) == null ||
-                        "true".equals(request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR)));
-                model.put(MODEL_SHOW_LARGE_FIRST_AVATAR, showLargeFirstAvatar);
+                discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false);
+            } else {
+                List<Integer> excludeBoardIds = _localBoardDao.getLocalBoardIds();
+                discussions = _discussionDao.getDiscussionsForPage(1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false, excludeBoardIds);
+                CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID);
+                model.put(MODEL_DISCUSSION_BOARD, board);
+                showBoardForEachDiscussion = true;
             }
+
+            List<UserContent> userContents = new ArrayList<UserContent>(discussions);
+            _userDao.populateWithUsers(userContents);
+
+            List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
+            for (Discussion discussion : discussions) {
+                DiscussionFacade facade = new DiscussionFacade(discussion, null);
+                if (showBoardForEachDiscussion) {
+                    facade.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
+                }
+                facade.setTotalReplies(_discussionReplyDao.getTotalReplies(discussion));
+                if (facade.getTotalReplies() > 0) {
+                    DiscussionReply mostRecentReply = _discussionReplyDao.getMostRecentReply(discussion);
+                    facade.setMostRecentReplyDateCreated(mostRecentReply.getDateCreated());
+                }
+                facades.add(facade);
+            }
+            model.put(MODEL_DISCUSSION_LIST, facades);
+            model.put(MODEL_CURRENT_DATE, new Date());
+
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            model.put(MODEL_COMMUNITY_HOST, sessionContext.getSessionContextUtil().getCommunityHost(request));
+
+            String url = request.getParameter(PARAM_CALLER_URI);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, url);
+            model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
+
+            model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
+            model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
+            model.put(MODEL_TITLE, request.getParameter(PARAM_TITLE));
+            model.put(MODEL_MORE_TEXT, request.getParameter(PARAM_MORE_TEXT));
+
+            boolean showLargeFirstAvatar = (request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR) == null ||
+                    "true".equals(request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR)));
+            model.put(MODEL_SHOW_LARGE_FIRST_AVATAR, showLargeFirstAvatar);
         } catch (Exception e) {
             // do nothing, module will render blank
             _log.warn("Invalid invocation of RecentDiscussionController", e);
@@ -123,6 +138,14 @@ public class RecentDiscussionsController extends AbstractController {
 
     public void setDiscussionReplyDao(IDiscussionReplyDao discussionReplyDao) {
         _discussionReplyDao = discussionReplyDao;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
     }
 
     public IUserDao getUserDao() {

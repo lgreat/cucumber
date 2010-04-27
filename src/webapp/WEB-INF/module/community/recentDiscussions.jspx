@@ -31,7 +31,7 @@
                                     <!-- end avatar -->
                                     <div class="discussionTopic fltlft">
                                         <h4 class="text3"><link:discussion discussionId="${discussion.id}"
-                                                                           fullUri="${fullUri}"
+                                                                           fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
                                                                            styleClass="text3">${discussion.title}</link:discussion>
                                         </h4>
 
@@ -43,12 +43,20 @@
                                         </link:userProfile>
                                         </span>
 
+                                        <c:if test="${not empty discussion.discussionBoard}">
+                                            in
+                                            <span class="smallAlertTextNeutral">
+                                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                                 fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
+                                            </span>
+                                        </c:if>
+
                                         <c:choose>
                                             <c:when test="${discussion.totalReplies == 0}">
                                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="latestReply">Latest reply:</span> <span
+                                                <span class="latestReply"> Latest reply:</span> <span
                                                     class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
                                             </c:otherwise>
                                         </c:choose>
@@ -58,7 +66,7 @@
                                                     textToDisplay="${discussion.body}"
                                                     minLength="143" maxLength="163"
                                                     discussionId="${discussion.id}"
-                                                    discussionFullUri="${fullUri}"
+                                                    discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
                                                     numReplies="${discussion.totalReplies}"
                                                     textSpanClass="text3"
                                                     linkClass="text3"/>
@@ -164,7 +172,7 @@
                             <!-- end avatar -->
                             <div class="${discussionTopic} text3">
                                 <h4><link:discussion discussionId="${discussion.id}"
-                                                     fullUri="${fullUri}"
+                                                     fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
                                                      styleClass="${textSize}">${discussion.title}</link:discussion>
                                 </h4>
 
@@ -176,12 +184,20 @@
                                     </link:userProfile>
                                     </span>
 
+                                <c:if test="${not empty discussion.discussionBoard}">
+                                    in
+                                    <span class="smallAlertTextNeutral">
+                                        <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                              fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
+                                    </span>
+                                </c:if>
+
                                 <c:choose>
                                     <c:when test="${discussion.totalReplies == 0}">
                                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="latestReply">Latest reply:</span> <span
+                                        <span class="latestReply"> Latest reply:</span> <span
                                             class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
                                     </c:otherwise>
                                 </c:choose>
@@ -191,7 +207,7 @@
                                             textToDisplay="${discussion.body}"
                                             minLength="143" maxLength="163"
                                             discussionId="${discussion.id}"
-                                            discussionFullUri="${fullUri}"
+                                            discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
                                             numReplies="${discussion.totalReplies}"
                                             textSpanClass="text3"
                                             linkClass="text3"/>
