@@ -16,24 +16,18 @@ General comments:
 =B- ie8
 =C- ie7
 =D- ie6
-=A- ie 4a-1 find-compare
-=B- ie8 4a- home page carousel
-=B- ie8 4c-3 infinite carousel
-=C- ie7 4a- home page carousel
-=C- ie7 4a-4 raise your hand
-=C- ie7 4c-3 infinite carousel
-=D- ie6 4a- home page carousel
-=D- ie6 4a-4 raise your hand
-=D- ie6 4a-5 grade by grade
-=D- ie6 4c-3 infinite carousel
-=D- ie6 4c-6 elementary schools grade by grade
-=D- ie6 5- icons
+=4a- home page carousel
+=4a-1 find-compare
+=4a-4 raise your hand
+=4a-5 grade by grade
+=4c-3 infinite carousel
+=4c-6 elementary schools grade by grade
+=5- icons
 =temporary modules
 */
 
 /* =A- ie
 -------------------------------------------------------------------------------------------*/
-
 
 .gainlayout {
     position: relative;
@@ -60,19 +54,14 @@ General comments:
     top: 2px;
 
 }
+
 #topnav_search button {
     bottom: 8px;
 }
+
 .ui-widget-overlay {
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity = 50);
     background-color: #333;
-}
-
-/* =A- 4c-5.1 start a conversation
--------------------------------------------------------------------------------------------*/
-
-.startAConversationModule .sd_InnerLayout{
-    margin:0 5px;
 }
 
 /* =B- ie8
@@ -88,16 +77,20 @@ body.ie #mainWrap {
 *+html #mainWrap {
     min-height: 100%;
 }
+
 body.ie7 #header, *+html #header {
     z-index: 3;
 }
+
 body.ie7 #topnav_search fieldset select, *+html #topnav_search fieldset select {
     top: 0;
 
 }
+
 body.ie7 #topnav_search button, *+html #topnav_search button {
     bottom: 4px;
 }
+
 body.ie7 #navbar, *+html #navbar {
     z-index: 2;
 }
@@ -131,7 +124,6 @@ body.ie7 #utilLinks li .nav_group_items {
     top: 22px;
 }
 
-
 body.ie7 #navbar {
     position: relative;
 }
@@ -147,49 +139,63 @@ body.ie7 #footer {
 body.ie7 #footerAd {
     height: 91px;
 }
+
 body.ie7 .ui-dialog-titlebar, body.ie7 .ui-dialog-titlebar-close {
     height: 15px;
 }
+
 body.ie7 .prefs ul.col li, * + html .prefs ul.col li {
     z-index: 10;
     clear: both;
     float: left;
     width: 445px;
 }
+
 body.ie7 #joinBtn {
     width: 96px;
 }
+
 body.ie7 #signinBtn {
     width: 96px;
 }
+
 body.ie7 #hover_forgotPasswordSubmit {
     width: 144px;
 }
+
 body.ie7 #clsValNewEmail, body.ie7 #clsExpVer {
     width: 208px;
 }
+
 body.ie7 #joinGS  fieldset.btns, body.ie6 #joinGS  fieldset.btns {
-   z-index: 10;
+    z-index: 10;
 }
+
 body.ie7 #joinGS fieldset.prefs, body.ie6 #joinGS fieldset.prefs {
     z-index: 30;
 }
+
 body.ie .prefs ul.col li.grades, * + html .prefs ul.col li.grades {
     z-index: 20;
     min-height: 100%;
 }
+
 body.ie7 #moreGrades.show, * + html #moreGrades.show {
     z-index: 110;
 }
+
 body.ie7 .prefs ul.col input, body.ie7 .prefs ul.col label, * + html .prefs ul.col input, * + html .prefs ul.col label {
     margin-right: 0;
 }
+
 body.ie7 .prefs ul.col input {
     clear: left;
 }
+
 body.ie7 .prefs ul.col label, * + html .prefs ul.col label {
     width: 416px;
 }
+
 body.ie7 #pickGrade, * + html #pickGrade {
     margin: 0 0 0 20px;
     padding: 5px 0 0 5px;
@@ -202,6 +208,7 @@ body.ie7 #pickGrade, * + html #pickGrade {
     overflow: visible;
     z-index: 100;
 }
+
 body.ie7 #pickGrade label, * + html #pickGrade label {
     width: auto;
     font-size: 12px;
@@ -281,10 +288,11 @@ body.ie6 #topnav_menusubnav li a {
     background-image: url(/res/img/nav/topnavSprite_bg.gif);
 }
 
-body.ie6 #topnav_search fieldset select, *html #topnav_search fieldset select  {
+body.ie6 #topnav_search fieldset select, *html #topnav_search fieldset select {
     top: -2px;
 
 }
+
 body.ie6 #topnav_menusubnav li ul li a {
     background-image: none;
 }
@@ -325,9 +333,11 @@ body.ie6 #logoBox #logo {
 body.ie6 #header, *html #header {
     z-index: 3;
 }
+
 body.ie6 #topnav_search button, *html #topnav_search button {
     bottom: 3px;
 }
+
 body.ie6 #navbar, *html #navbar {
     z-index: 2;
 }
@@ -365,13 +375,9 @@ body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
     display: inline-block;
 }
 
-
-
 *html #topnav_search ul li label, *html #topnav_menusubnav li a {
     display: inline-block;
 }
-
-
 
 body.ie6 #mainGS.col {
     border: 0;
@@ -410,6 +416,7 @@ body.ie6 .srchCatComm li span.icon {
     left: -25px;
     background-image: url('/res/img/discussion_boards/db_profile_sprites_bg.gif');
 }
+
 body.ie6 a.ui-dialog-titlebar-close {
     right: 0;
 }
@@ -418,17 +425,21 @@ body.ie6 .ui-dialog-content h2 span {
     position: relative;
     top: -27px;
 }
+
 body.ie6 #joinHover.ui-dialog-content h2 span {
-    top: 0;    
+    top: 0;
 }
+
 body.ie6 .dialog_intro {
     height: 1%;
     background-color: #ebebeb;
 }
+
 body.ie6 .prefs ul.col {
     height: 1%;
     float: none;
 }
+
 body.ie6 .prefs div.hlpTxt {
     height: 118px;
     z-index: 400;
@@ -438,14 +449,17 @@ body.ie6 .prefs div.hlpTxt {
     position: absolute;
     float: none;
 }
+
 body.ie6 #moreGrades li {
     clear: both;
     padding: 0;
     margin: 0;
 }
+
 body.ie6 #moreGrades li label {
     display: inline;
 }
+
 body.ie6 #moreGrades li input {
     clear: left;
     display: inline;
@@ -454,21 +468,27 @@ body.ie6 #moreGrades li input {
 body.ie6 #joinBtn {
     width: 96px;
 }
+
 body.ie6 #signinBtn {
     width: 96px;
 }
+
 body.ie6 #hover_forgotPasswordSubmit {
     width: 144px;
 }
+
 body.ie6 #clsValNewEmail, body.ie6 #clsExpVer {
     width: 208px;
 }
+
 body.ie6 #joinGS  fieldset.btns {
-   z-index: 10;
+    z-index: 10;
 }
-body.ie6 #awardPanel, body.ie6 #content  {
+
+body.ie6 #awardPanel, body.ie6 #content {
     height: 1%;
 }
+
 *html iframe.ieShim {
     position: absolute; /* account for the border */
     left: -0.25em;
@@ -496,10 +516,105 @@ body.ie6 .rtDoor25 {
     height: 25px;
     overflow: hidden;
 }
+
 body.ie6 .lftDoor25 {
     margin: 0;
 }
-/* =A- ie 4a-1 find-compare
+
+/* =4a- home page carousel
+-------------------------------------------------------------------------------------------*/
+
+body.ie8 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 9px dashed black;
+    border-right: 9px solid #06b;
+    border-bottom: 9px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie8 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 9px dashed black;
+    border-left: 9px solid #06b;
+    border-bottom: 9px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie7 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-right: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie7 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-left: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie7 #carousel .prev-position {
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+body.ie7 #carousel .next-position {
+    position: absolute;
+    right: -10px;
+    top: 0;
+}
+
+body.ie6 #carousel #prev {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-right: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie6 #carousel #next {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    width: 0;
+    border-top: 8px dashed black;
+    border-left: 8px solid #06b;
+    border-bottom: 8px dashed black;
+    filter: alpha(opacity = 100);
+}
+
+body.ie6 #carousel .prev-position {
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+body.ie6 #carousel .next-position {
+    position: absolute;
+    right: -10px;
+    top: 0;
+}
+
+/* =4a-1 find-compare
 -------------------------------------------------------------------------------------------*/
 
 #fc-bigArrow-f4891d {
@@ -540,105 +655,7 @@ body.ie6 .lftDoor25 {
     margin-top: -4px;
 }
 
-/* A=- ie 4f-1 school profile
------------------------------------------------------------------------------
-*/
-#kindercareLeadGen .right form ul li {
-    padding-bottom: 1px;
-}
-#kindercareLeadGen .right form ul li button {
-    left: 68px;
-}
-
-/* =B- ie8 4a- home page carousel
--------------------------------------------------------------------------------------------*/
-
-body.ie8 #carousel #prev {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 9px dashed black;
-    border-right: 9px solid #06b;
-    border-bottom: 9px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-body.ie8 #carousel #next {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 9px dashed black;
-    border-left: 9px solid #06b;
-    border-bottom: 9px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-/* =B- ie8 4c-3 infinite carousel
--------------------------------------------------------------------------------------------*/
-
-body.ie8 .infiniteCarousel:focus {
-    outline: none;
-}
-
-/* =B- 4c-5.1 start a conversation
--------------------------------------------------------------------------------------------*/
-
-body.ie8 .startAConversationModule input, body.ie7 .startAConversationModule input{
-    width:328px;
-}
-
-.startAConversationModule .sd_OuterLayout{
-    margin-left:54px;
-}
-
-body.ie6 .startAConversationModule textarea{
-    width:324px;
-}
-
-body.ie6 .startAConversationModule #sd_header{
-    display:inline-block;
-}
-
-/* =C- ie7 4a- home page carousel
--------------------------------------------------------------------------------------------*/
-
-body.ie7 #carousel #prev {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 8px dashed black;
-    border-right: 8px solid #06b;
-    border-bottom: 8px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-body.ie7 #carousel #next {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 8px dashed black;
-    border-left: 8px solid #06b;
-    border-bottom: 8px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-body.ie7 #carousel .prev-position {
-    position: absolute;
-    left: -10px;
-    top: 0;
-}
-
-body.ie7 #carousel .next-position {
-    position: absolute;
-    right: -10px;
-    top: 0;
-}
-
-/* =C- ie7 4a-4 raise your hand
+/* =4a-4 raise your hand
 -------------------------------------------------------------------------------------------*/
 
 body.ie7 .ryh-title {
@@ -649,125 +666,17 @@ body.ie7 .ryh-answer {
     padding-left: 0;
     margin-left: 331px;
 }
+
 body.ie7 #ryhAnswerCount {
     position: relative;
     top: -14px;
     maring-bottom: -14px;
 }
+
 body.ie7 .ryhTitle .see-more {
     top: -32px;
     margin-bottom: -32px;
 }
-
-/* =C- ie7 4c-3 infinite carousel
--------------------------------------------------------------------------------------------*/
-
-body.ie7 .infiniteCarousel .arrow{
-    line-height:0.8;
-}
-
-/* =4c-5.2 preview a conversation
--------------------------------------------------------------------------------------------*/
-
-body.ie7 #previewDiscussionDialog .db_discuss, body.ie6 #previewDiscussionDialog .db_discuss{
-    float:left;
-}
-
-
-body.ie7 #previewDiscussionDialog .db_discussContainer div.db_pointLeft, body.ie6 #previewDiscussionDialog .db_discussContainer div.db_pointLeft{
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
-    border-top:7px solid #ebebeb;
-    border-right:10px solid white;
-    border-bottom:7px solid #ebebeb;
-}
-
-body.ie6 #previewDiscussionDialog .sd-btn-layout{
-    margin:0 20px 24px 35px;
-}
-
-/* =4h- inline sign-in
--------------------------------------------------------------------------------------------*/
-
-body.ie8 #inlineSignin a{
-    border:none;
-    text-decoration:none;
-}
-
-body.ie7 #inlineSignin a div, body.ie6 #inlineSignin a div{
-    text-decoration:none;
-    cursor:pointer;
-}
-
-body.ie7 #joinImage h3 span.sprite{
-    vertical-align:middle;
-}
-
-body.ie6 #joinImage h3{
-    position:relative;
-}
-
-body.ie6 #joinImage h3 span.sprite{
-    position:absolute;
-    top:5px;
-    font-size:15px;
-}
-
-body.ie6 #joinText ul li{
-    margin-left:16px;
-}
-
-/* =4i-2 manage newsletters
--------------------------------------------------------------------------------------------*/
-
-body.ie6 #manageNewsletters .formMainGS{
-    width:329px;
-}
-
-body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton{
-    margin-left:auto;
-}
-
-/* =D- ie6 4a- home page carousel
--------------------------------------------------------------------------------------------*/
-
-body.ie6 #carousel #prev {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 8px dashed black;
-    border-right: 8px solid #06b;
-    border-bottom: 8px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-body.ie6 #carousel #next {
-    font-size: 0;
-    line-height: 0;
-    letter-spacing: 0;
-    width: 0;
-    border-top: 8px dashed black;
-    border-left: 8px solid #06b;
-    border-bottom: 8px dashed black;
-    filter: alpha(opacity = 100);
-}
-
-body.ie6 #carousel .prev-position {
-    position: absolute;
-    left: -10px;
-    top: 0;
-}
-
-body.ie6 #carousel .next-position {
-    position: absolute;
-    right: -10px;
-    top: 0;
-}
-
-/* =D- ie6 4a-4 raise your hand
--------------------------------------------------------------------------------------------*/
 
 body.ie6 .ryh-title {
     margin-bottom: 10px;
@@ -777,34 +686,43 @@ body.ie6 .ryh-answer {
     padding-left: 0;
     margin-left: 328px;
 }
+
 body.ie6 #ryhAnswerCount {
     position: relative;
     top: -14px;
     maring-bottom: -14px;
 }
+
 body.ie6 .ryhTitle .see-more {
     top: -32px;
     margin-bottom: -32px;
 }
 
-
 body.ie6 .ryh-reply-text {
-    width:472px;
-    margin-left:12px;
-    padding:12px;
-    background:white;
-    position:relative
+    width: 472px;
+    margin-left: 12px;
+    padding: 12px;
+    background: white;
+    position: relative
 }
 
 body.ie6 .ryh-reply-text-onTC {
-    width:305px;
-    margin-left:12px;
-    padding:12px;
-    background:white;
-    position:relative
+    width: 305px;
+    margin-left: 12px;
+    padding: 12px;
+    background: white;
+    position: relative
 }
 
-/* =D- ie6 4a-5 grade by grade
+body.ie6 .ryh-reply-text-onCOM {
+    width: 480px;
+    margin-left: 12px;
+    padding: 12px;
+    background: white;
+    position: relative
+}
+
+/* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 #gbgTabs {
@@ -841,8 +759,16 @@ body.ie6 #contentRight div.inner div {
     height: 1%;
 }
 
-/* =D- ie6 4c-3 infinite carousel
+/* =4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
+
+body.ie8 .infiniteCarousel:focus {
+    outline: none;
+}
+
+body.ie7 .infiniteCarousel .arrow {
+    line-height: 0.8;
+}
 
 body.ie6 .ic_title {
     width: 395px;
@@ -851,11 +777,54 @@ body.ie6 .ic_title {
     border-bottom: 1px dotted #999;
 }
 
-body.ie6 .infiniteCarousel .arrow{
-    line-height:0.8;
+body.ie6 .infiniteCarousel .arrow {
+    line-height: 0.8;
 }
 
-/* =D- ie6 4c-6 elementary schools grade by grade
+/* =4c-5.1 start a conversation
+-------------------------------------------------------------------------------------------*/
+
+.startAConversationModule .sd_InnerLayout {
+    margin: 0 5px;
+}
+
+body.ie8 .startAConversationModule input, body.ie7 .startAConversationModule input {
+    width: 328px;
+}
+
+.startAConversationModule .sd_OuterLayout {
+    margin-left: 54px;
+}
+
+body.ie6 .startAConversationModule textarea {
+    width: 324px;
+}
+
+body.ie6 .startAConversationModule #sd_header {
+    display: inline-block;
+}
+
+/* =4c-5.2 preview a conversation
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 #previewDiscussionDialog .db_discuss, body.ie6 #previewDiscussionDialog .db_discuss {
+    float: left;
+}
+
+body.ie7 #previewDiscussionDialog .db_discussContainer div.db_pointLeft, body.ie6 #previewDiscussionDialog .db_discussContainer div.db_pointLeft {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 7px solid #ebebeb;
+    border-right: 10px solid white;
+    border-bottom: 7px solid #ebebeb;
+}
+
+body.ie6 #previewDiscussionDialog .sd-btn-layout {
+    margin: 0 20px 24px 35px;
+}
+
+/* =4c-6 elementary schools grade by grade
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 #es-gbgTabs {
@@ -880,7 +849,60 @@ body.ie6 #es-gbgTabs .selected a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
 }
 
-/* =D- ie6 5- icons
+/* =4f-1 school profile
+-------------------------------------------------------------------------------------------*/
+
+#kindercareLeadGen .right form ul li {
+    padding-bottom: 1px;
+}
+
+#kindercareLeadGen .right form ul li button {
+    left: 68px;
+}
+
+/* =4h- inline sign-in
+-------------------------------------------------------------------------------------------*/
+
+body.ie8 #inlineSignin a {
+    border: none;
+    text-decoration: none;
+}
+
+body.ie7 #inlineSignin a div, body.ie6 #inlineSignin a div {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.ie7 #joinImage h3 span.sprite {
+    vertical-align: middle;
+}
+
+body.ie6 #joinImage h3 {
+    position: relative;
+}
+
+body.ie6 #joinImage h3 span.sprite {
+    position: absolute;
+    top: 5px;
+    font-size: 15px;
+}
+
+body.ie6 #joinText ul li {
+    margin-left: 16px;
+}
+
+/* =4i-2 manage newsletters
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 #manageNewsletters .formMainGS {
+    width: 329px;
+}
+
+body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
+    margin-left: auto;
+}
+
+/* =5- icons
 -------------------------------------------------------------------------------------------*/
 
 body.ie6 .sprite {
@@ -895,18 +917,23 @@ body.ie6 .sprite {
 #realtorDotCom p input.rdType {
     top: 0;
 }
+
 #realtorDotCom.rdc_thin p input.rdType {
     top: -2px;
 }
+
 #realtorDotCom .mod_bd button.btn25 {
     margin: 2px 0 0;
 }
+
 *+html #realtorDotCom.rdc_thin .mod_bd {
     background-position: 1px 0;
 }
+
 *html #realtorDotCom p {
     height: 1%;
 }
+
 *html #realtorDotCom.rdc_thin .mod_bd {
     padding-top: 162px;
 }
