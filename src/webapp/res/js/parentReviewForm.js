@@ -24,7 +24,7 @@ function setDisplay(numStars) {
         case 5: title = 'Excellent'; break;
         default: title = document.getElementById('hdnSchoolName').value; break;  
     }
-    document.getElementById('ratingTitle').innerHTML = title;
+    jQuery('#ratingTitle').html(title);
 }
 
 function setSubmitFields() {
