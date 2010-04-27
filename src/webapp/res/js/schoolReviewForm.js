@@ -89,6 +89,7 @@ jQuery(function() {
             jQuery('#frmPRModule .subStarRatings').hide();
             jQuery('#frmPRModule .moreAboutRatings').hide();
         }
+        GS_resizeColumns();
     });
 
     jQuery('#frmPRModule [name="comments"]').focus(function() {
@@ -124,6 +125,8 @@ jQuery(function() {
             if (GS.showSchoolReviewHover(window.location.href)) {
                 GS_postSchoolReview();
             }
+        } else {
+            GS_resizeColumns();
         }
         return false;
     });

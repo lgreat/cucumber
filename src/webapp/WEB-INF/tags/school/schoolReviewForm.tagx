@@ -16,9 +16,11 @@
 <c:set var="schoolId" value="${school.id}"/>
 <gsml:url var="formActionUrl" value="/school/review/postReview.page"/>
 
+<c:set var="mainColumnId" value="col_center"/>
 <c:set var="divClass" value=""/>
 <c:choose>
     <c:when test="${pageName eq 'parentReviews'}">
+        <c:set var="mainColumnId" value="col_left"/>
         <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/>
         </h2>
     </c:when>
@@ -26,6 +28,15 @@
         <c:set var="divClass" value="overview"/>
     </c:when>
 </c:choose>
+
+<!-- Force recalculation of column heights -->
+<script type="text/javascript">
+    function GS_resizeColumns() {
+        document.getElementById('${mainColumnId}').style.height = null;
+        document.getElementById('col_right').style.height = null;
+        BoxHeights.equalize('${mainColumnId}','col_right');
+    }
+</script>
 
 <div id="rateReview" class="noprint ${divClass}">
     <link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
