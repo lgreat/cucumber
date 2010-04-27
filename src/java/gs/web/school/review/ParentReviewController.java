@@ -5,6 +5,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.web.school.AbstractSchoolController;
+import gs.web.school.Care2PromoHelper;
 import gs.web.school.KindercareLeadGenHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -65,6 +66,7 @@ public class ParentReviewController extends AbstractController {
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
 
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
+        Care2PromoHelper.checkForCare2(request, response, school, model);
 
         if (null != school) {
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);

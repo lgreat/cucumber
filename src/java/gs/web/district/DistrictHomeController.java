@@ -1,5 +1,6 @@
 package gs.web.district;
 
+import gs.web.school.Care2PromoHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -162,6 +163,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
                     return new ModelAndView("status/error", model);
                 }
                 model.put("school", school);
+                Care2PromoHelper.checkForCare2(request, response, school, model);
             } catch (ObjectRetrievalFailureException orfe) {
                 // Do nothing, school remains null and will be handled below
             } catch (NumberFormatException nfe) {

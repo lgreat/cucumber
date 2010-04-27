@@ -12,8 +12,10 @@ import gs.data.school.NearbySchool;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Provides the reference data for the page that contains a map of a given school, plus the five
@@ -33,6 +35,9 @@ public class MapSchoolController extends AbstractSchoolController {
         // the school is obtained from the request by our super class: AbstractSchoolController
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
+        Map model = new HashMap();
+        Care2PromoHelper.checkForCare2(request, response, school, model);
+
         // five nearest schools
         List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 5);
         // nearby schools go in request for the nearby box
@@ -47,7 +52,7 @@ public class MapSchoolController extends AbstractSchoolController {
             loadRatings(request, nearbySchools);
         }
 
-        return new ModelAndView(_viewName);
+        return new ModelAndView(_viewName, model);
     }
 
     /**
