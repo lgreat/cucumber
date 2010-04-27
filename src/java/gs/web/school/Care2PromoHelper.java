@@ -25,6 +25,8 @@ public class Care2PromoHelper {
                                           School school, Map<String, Object> model) {
         // verify school
         if (school != null
+                && school.getId() != null
+                && school.getStateAbbreviation() != null
                 && school.getGradeLevels() != null
                 && school.getGradeLevels().containsAny(K_TO_8_GRADES)
                 && Care2PromoHelper.isDuringCare2PromoPeriod(new Date())) {
