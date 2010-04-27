@@ -15,7 +15,6 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<!-- TODO-9419 FIXME -->
 <ad:setSlotPrefix slotPrefix="RaiseYourHandLanding"/>
 
 <head>
@@ -23,12 +22,6 @@
     <meta name="description"
           content="Join parents as they answer questions about schools, education, and parenting on GreatSchools."/>
     <meta name="keywords" content=""/>
-
-    <script type="text/javascript">
-        var $j = jQuery;
-        $j(function() {
-        });
-    </script>
 </head>
 <body>
 
@@ -75,37 +68,17 @@
 
         <c:set var="raiseYourHand">
             <c:import
-                    url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;redirectUrl=${gsweb:urlEncode(requestScope.loginRedirectUrl)}&amp;limit=3&amp;style=ryhLandingPage&amp;showViewAll=true"/>
+                    url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;limit=3&amp;style=ryhLandingPage&amp;showViewAll=true"/>
         </c:set>
         ${raiseYourHand}
 
         </div>
 
-        <div class="ryh-recent">
-            <div class="col first">
-                <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol1}" discussionLists="${discussionListsCol1}"/>
-            </div>
-            <div class="col">
-                <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol2}" discussionLists="${discussionListsCol2}"/>
-            </div>
-        </div>
-
-        <!--
-
-        <c:if test="${fn:length(requestScope.discussionList) > 0}">
-            <ul class="list text2">
-                <c:forEach var="discussion" items="${requestScope.discussionList}">
-                    <li><link:discussion discussionId="${discussion.id}"
-                                         fullUri="${discussion.fullUri}"><span
-                            class="">${discussion.title}</span></link:discussion>
-                        <c:if test="${discussion.active eq false}">
-                            <span class="tint_c03">(Deleted)</span>
-                        </c:if></li>
-                </c:forEach>
-            </ul>
-        </c:if>
-
-        -->
+        <c:set var="raiseYourHandRecentQuestions">
+            <c:import
+                    url="/community/raiseYourHandRecentQuestions.module"/>
+        </c:set>
+        ${raiseYourHandRecentQuestions}
 
     </div>
 

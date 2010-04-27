@@ -138,6 +138,12 @@
         <property name="viewName" value="/community/raiseYourHand"/>
     </bean>
 
+    <bean name="/community/raiseYourHandRecentQuestions.module"
+          class="gs.web.community.RaiseYourHandRecentQuestionsController"
+          autowire="byName">
+        <property name="viewName" value="/community/raiseYourHandRecentQuestions"/>
+    </bean>
+
     <bean name="/community/browseLocalBoards.module"
           class="gs.web.community.BrowseLocalBoardsController"
           autowire="byName">

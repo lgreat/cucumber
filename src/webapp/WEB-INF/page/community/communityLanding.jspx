@@ -62,6 +62,12 @@
                 url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;redirectUrl=${gsweb:urlEncode(requestScope.loginRedirectUrl)}&amp;limit=3&amp;style=comLandingPage&amp;showViewAll=true"/>
     </c:set>
     ${raiseYourHand}
+
+    <c:set var="raiseYourHandRecentQuestions">
+        <c:import
+                url="/community/raiseYourHandRecentQuestions.module"/>
+    </c:set>
+    ${raiseYourHandRecentQuestions}
 </div>
 <!-- end mainGS -->
 

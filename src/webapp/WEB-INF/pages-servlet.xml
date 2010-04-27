@@ -544,7 +544,7 @@
     </bean>
 
     <bean name="/community/questions/"
-          class="gs.web.community.RaiseYourHandLandingPageController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>community/raiseYourHandLanding</value>
