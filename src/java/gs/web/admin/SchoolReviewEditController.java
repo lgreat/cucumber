@@ -5,6 +5,8 @@ import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -52,18 +54,23 @@ public class SchoolReviewEditController extends SimpleFormController implements 
                                     BindException errors) throws Exception {
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
         Review review = command.getReview();
+        String listPage = getSuccessView();
+        if (StringUtils.equals("u", review.getStatus())) {
+            listPage = UrlUtil.addParameter(listPage, "showUnprocessed=true");
+        }
+        String editPage = "/admin/schoolReview/edit.page?id=" + review.getId();
 
         if (request.getParameter("formCancel") != null || review == null) {
-            return new ModelAndView(getSuccessView());
+            // fall through
         } else if (request.getParameter("resolveReport") != null) {
             int reportId = Integer.valueOf(request.getParameter("reportId"));
             _log.info("Resolving report " + reportId);
             _reportedEntityDao.resolveReport(reportId);
-            return new ModelAndView("redirect:/admin/schoolReview/edit.page?id=" + review.getId());
+            return new ModelAndView("redirect:" + editPage);
         } else if (request.getParameter("submitNote") != null) {
             review.setNote(command.getNote());
             _reviewDao.saveReview(review);
-            return new ModelAndView("redirect:/admin/schoolReview/edit.page?id=" + review.getId());
+            return new ModelAndView("redirect:" + editPage);
         } else if (request.getParameter("disableReview") != null) {
             review.setStatus("d");
             review.setNote(command.getNote());
@@ -80,11 +87,7 @@ public class SchoolReviewEditController extends SimpleFormController implements 
             review.setNote(command.getNote());
             _reviewDao.saveReview(review);
         }
-        return new ModelAndView(getSuccessView());
-    }
-
-    @Override
-    protected void doSubmitAction(Object commandObj) throws Exception {
+        return new ModelAndView(listPage);
     }
 
     public IReviewDao getReviewDao() {

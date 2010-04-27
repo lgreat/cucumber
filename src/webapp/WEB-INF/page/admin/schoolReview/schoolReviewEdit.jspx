@@ -67,9 +67,15 @@
                     <c:when test="${review.status eq 'p'}">(public/live)</c:when>
                     <c:when test="${review.status eq 'a'}">(ratings only public/live)</c:when>
                     <c:when test="${review.status eq 'd'}">(disabled)</c:when>
+                    <c:otherwise>${review.status}</c:otherwise>
                 </c:choose>
             </span>
             <br/>
+            <c:if test="${not empty review.how}">
+                <label>How:</label>
+                <span class="value">${review.how}</span>
+                <br/>
+            </c:if>
             <br/>
             <label>Reports:</label>
             <c:choose>
@@ -132,15 +138,37 @@
             </c:choose>
             <br/>
             <br/>
-            <label for="commentsInput">Comments:</label><br/>
+            <label for="commentsInput">Review:</label><br/>
             <textarea id="commentsInput" rows="10" cols="75"
                       name="comments" disabled="disabled"><!-- do not collapse -->${review.comments}</textarea>
             <br/>
             <br/>
-            <label for="notesInput">GS Staff Note on Comments:</label><br/>
+            <label for="notesInput">Moderator comments:</label><br/>
             <textarea id="notesInput" rows="5" cols="75"
                       name="note">${review.note}</textarea>
-            <input type="submit" name="submitNote" value="Save Note"/>            
+            <input id="notesEdit" type="submit" name="formCancel" value="Edit"
+                   onclick="return false;" style="display:none;"/>
+            <input id="notesSave" type="submit" name="submitNote" value="Save Comments"/>
+            <c:choose>
+                <c:when test="${not empty review.note}">
+                    <script type="text/javascript">
+                        jQuery('#notesEdit').show();
+                        jQuery('#notesSave').hide();
+                        jQuery('#notesInput').attr('disabled', 'disabled');
+                        jQuery('#notesEdit').click(function() {
+                            jQuery('#notesEdit').hide();
+                            jQuery('#notesSave').show();
+                            jQuery('#notesInput').removeAttr('disabled');
+                            jQuery('#notesInput').focus();
+                        });
+                    </script>
+                </c:when>
+                <c:otherwise>
+                    <script type="text/javascript">
+                        jQuery('#notesEdit').hide();
+                    </script>
+                </c:otherwise>
+            </c:choose>
             <br/>
             <br/>
             <c:choose>

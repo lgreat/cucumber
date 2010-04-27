@@ -22,8 +22,11 @@ import java.util.Map;
  */
 public class SchoolReviewListController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
+    public static final String REQUEST_SHOW_UNPROCESSED = "showUnprocessed";
     public static final String MODEL_UNPROCESSED_REVIEW_LIST="unprocessedReviews";
+    public static final String MODEL_SHOW_UNPROCESSED="showUnprocessed";
     public static final String MODEL_FLAGGED_REVIEW_LIST="flaggedReviews";
+    public static final String MODEL_SHOW_FLAGGED="showFlagged";
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
@@ -33,12 +36,15 @@ public class SchoolReviewListController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews();
-
-        List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews();
-
-        model.put(MODEL_UNPROCESSED_REVIEW_LIST, unprocessedReviews);
-        model.put(MODEL_FLAGGED_REVIEW_LIST, flaggedReviews);
+        if (request.getParameter(REQUEST_SHOW_UNPROCESSED) != null) {
+            List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews();
+            model.put(MODEL_SHOW_UNPROCESSED, true);
+            model.put(MODEL_UNPROCESSED_REVIEW_LIST, unprocessedReviews);
+        } else {
+            List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews();
+            model.put(MODEL_SHOW_FLAGGED, true);
+            model.put(MODEL_FLAGGED_REVIEW_LIST, flaggedReviews);
+        }
 
         return new ModelAndView(getViewName(), model);
     }
@@ -64,7 +70,7 @@ public class SchoolReviewListController extends AbstractController {
         for (Long reviewId: reportedReviewIds) {
             try {
                 SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));
-                if (StringUtils.length(bean.getReview().getStatus()) == 2) {
+                if (StringUtils.length(bean.getReview().getStatus()) == 2 || StringUtils.equals("u", bean.getReview().getStatus())) {
                     continue;
                 }
                 bean.setNumReports((_reportedEntityDao.getNumberTimesReported

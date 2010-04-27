@@ -26,12 +26,15 @@
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewList">
 
-    <div id="flaggedReviews">
-        <!--<c:if test="${not empty requestScope.flaggedReviews}">-->
+    <c:if test="${not empty requestScope.showFlagged}">
+        <div id="flaggedReviews">
             <h2>Flagged reviews</h2>
+            <p>To see unprocessed reviews, <a href="?showUnprocessed=true">click here</a>.</p>
+            <br/>
             <table class="flaggedReviewList reviewTable">
                 <tr>
                     <th>Author</th>
+                    <th>Type</th>
                     <th>Date Submitted</th>
                     <th>School</th>
                     <th>Status</th>
@@ -42,11 +45,20 @@
                 <c:forEach items="${requestScope.flaggedReviews}" var="reviewBean">
                     <c:set var="review" value="${reviewBean.review}"/>
                     <tr>
-                        <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
+                        <td>${review.user.userProfile.screenName} (${review.user.email})</td>
+                        <td>${review.who}</td>
                         <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
-                        <td>${review.status}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
+                                <c:when test="${review.status eq 'p'}">Public/live</c:when>
+                                <c:when test="${review.status eq 'a'}">Ratings only public/live</c:when>
+                                <c:when test="${review.status eq 'd'}">Disabled</c:when>
+                                <c:otherwise>${review.status}</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${review.how}</td>
                         <fmt:formatDate value="${reviewBean.report.dateCreated}" var="reportedCreated" pattern="MMMM d, yyyy h:mma"/>
                         <td>${reportedCreated}</td>
@@ -54,21 +66,20 @@
                     </tr>
                 </c:forEach>
             </table>
-        <!--</c:if>-->
-        <c:if test="${empty requestScope.flaggedReviews}">
-            <p>No flagged reviews!</p>
-        </c:if>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div id="unprocessedReviews">
-        <!--<c:if test="${not empty requestScope.unprocessedReviews}">-->
+            <c:if test="${empty requestScope.flaggedReviews}">
+                <p>No flagged reviews!</p>
+            </c:if>
+        </div>
+    </c:if>
+    <c:if test="${not empty requestScope.showUnprocessed}">
+        <div id="unprocessedReviews">
             <h2>Unprocessed reviews</h2>
+            <p>To see flagged reviews, <a href="?showFlagged=true">click here</a>.</p>
+            <br/>
             <table class="unprocessedReviewList reviewTable">
                 <tr>
                     <th>Author</th>
+                    <th>Type</th>
                     <th>Date Submitted</th>
                     <th>School</th>
                     <th>Status</th>
@@ -78,21 +89,29 @@
                 <c:forEach items="${requestScope.unprocessedReviews}" var="reviewBean">
                     <c:set var="review" value="${reviewBean.review}"/>
                     <tr>
-                        <td>${review.user.userProfile.screenName} (${review.user.email}) -- ${review.who}</td>
+                        <td>${review.user.userProfile.screenName} (${review.user.email})</td>
+                        <td>${review.who}</td>
                         <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                         <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
-                        <td>${review.status}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
+                                <c:when test="${review.status eq 'p'}">Public/live</c:when>
+                                <c:when test="${review.status eq 'd'}">Disabled</c:when>
+                                <c:otherwise>${review.status}</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${review.how}</td>
                         <td>${reviewBean.numReports}</td>
                     </tr>
                 </c:forEach>
             </table>
-        <!--</c:if>-->
-        <c:if test="${empty requestScope.unprocessedReviews}">
-            <p>No unprocessed reviews!</p>
-        </c:if>
-    </div>
+            <c:if test="${empty requestScope.unprocessedReviews}">
+                <p>No unprocessed reviews!</p>
+            </c:if>
+        </div>
+    </c:if>
 </gsml:body>
 </html>
 </jsp:root>
