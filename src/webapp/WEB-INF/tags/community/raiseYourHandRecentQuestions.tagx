@@ -11,9 +11,9 @@
 
     <c:forEach var="discussionBoard" items="${discussionBoards}" varStatus="discussionBoardStatus">
         <c:if test="${not empty discussionLists[discussionBoardStatus.count-1]}">
-            <div class="topic">
-                <h3 class="introTextGA">${fn:replace(discussionBoard.title, ' Community','')}</h3>
-                <ul class="list text2">
+            <div class="padbtm_20">
+                <h3 class="introTextGA-d61">${fn:replace(discussionBoard.title, ' Community','')}</h3>
+                <ul class="text2">
                     <c:forEach var="discussion" items="${discussionLists[discussionBoardStatus.count-1]}">
                         <li><link:discussion discussionId="${discussion.id}"
                                              fullUri="${discussionBoard.fullUri}"><span

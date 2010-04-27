@@ -7,13 +7,17 @@
           xmlns:gsweb="gstaglib" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
 
     <div class="ryh-recent">
-        <div class="col first">
+        <div class="size1of2 col">
+            <div class="mod padrt_10">
             <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol1}"
                                                     discussionLists="${discussionListsCol1}"/>
+            </div>
         </div>
-        <div class="col">
+        <div class="size1of2 col">
+            <div class="mod padlft_10">
             <community:raiseYourHandRecentQuestions discussionBoards="${discussionBoardsCol2}"
                                                     discussionLists="${discussionListsCol2}"/>
+            </div>
         </div>
     </div>
 

@@ -231,6 +231,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.introTextGA-d61 {
+    font: 16px Georgia, "Times New Roman", Times, serif;
+    color: #d61;
+}
+
 .text1 {
     font: 14px Arial, Helvetica, sans-serif;
     color:#333;
@@ -796,7 +801,7 @@ body.cobranded #pageGS {
 
 /* END subnav spacing */
 
-/* =4 page layouts
+/* =4- page layouts
 -------------------------------------------------------------------------------------------*/
 
 #mainWrap {
@@ -993,8 +998,16 @@ body.cobranded #pageGS {
     padding-right:10px;
 }
 
+.padbtm_20{
+    padding-bottom:20px;
+}
+
 .padbtm_120{
     padding-bottom:1.2em;
+}
+
+.padlft_10{
+    padding-left:10px;
 }
 
 .hidden {
@@ -1566,7 +1579,6 @@ body.ie6 .clearfix {
 }
 
 .ryh-landing .topics {
-    width: 195px;
     color: #f4891d;
     line-height: 1.3;
 }
@@ -1577,36 +1589,10 @@ body.ie6 .clearfix {
     padding: 5px 0;
 }
 
-.ryh-landing .list {
-    width: 149px;
-    color: #f4891d;
-    clear: both;
-}
-
-.ryh-landing .list li {
+.ryh-recent li {
     list-style:disc outside;
     margin: 10px 0 10px 15px;
-    /*line-height: 2.0;*/
-}
-
-.ryh-landing h3.introTextGA {
-    color: #d61;
-}
-
-.ryh-landing .ryh-recent .col {
-    width: 289px;
-}
-
-.ryh-landing .ryh-recent .col.first {
-    margin-right: 20px;
-}
-
-.ryh-landing .ryh-recent .list {
-    width: 289px;
-}
-
-.ryh-landing .ryh-recent .topic {
-    padding-bottom: 20px;
+    color: #f4891d;
 }
 
 #raise-your-hand #featured-question-hd {
