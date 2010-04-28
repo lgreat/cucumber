@@ -40,7 +40,7 @@
 
 <div id="rateReview" class="noprint ${divClass}">
     <link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                                 styleClass="linkGuidelines">Parent review guidelines <span class="go">&amp;#187;</span></link:parentReviewGuidelines>
+                                 styleClass="linkGuidelines">School review guidelines <span class="go">&amp;#187;</span></link:parentReviewGuidelines>
 
     <div id="ratingTitle">Rate this school</div>
     <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post">
@@ -100,7 +100,7 @@
 
             <div class="commentsPopup">
                 <div class="">Don't forget</div>
-                <div class="">GreatSchools won't post reviews that contain inappropriate language,
+                <div class="">GreatSchools discourages reviews that contain inappropriate language,
                     allegations of criminal conduct, or identify students, teachers,
                     or staff by name.
                 </div>
@@ -142,23 +142,23 @@
                             </li>
                         </c:if>
                         <li class="student_only">
-                            <div class="catRatingLabel">Teacher Quality</div>
+                            <div class="catRatingLabel">Teacher quality</div>
                             <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
                         </li>
                         <c:if test="${school.levelCode ne 'p'}">
                             <li>
-                                <div class="catRatingLabel">Principal Leadership</div>
+                                <div class="catRatingLabel">Principal leadership</div>
                                 <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
                                 </div>
                             </li>
                         </c:if>
                         <li>
-                            <div class="catRatingLabel">Parent Involvement</div>
+                            <div class="catRatingLabel">Parent involvement</div>
                             <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
                         </li>
                         <c:if test="${school.levelCode eq 'p'}">
                             <li>
-                                <div class="catRatingLabel">Facilities &amp;amp; Equipment</div>
+                                <div class="catRatingLabel">Facilities &amp;amp; equipment</div>
                                 <div class="catRating"><gsml:starRating id="pFacilitiesAsString"
                                                                         additionalClass="med-star"/>
                                 </div>
@@ -185,7 +185,7 @@
     <c:if test="${school.levelCode != 'p'}">
         <div id="espLink">
             <link:schoolProfileEspLogin styleClass="esp"
-                                        school="${school}">Principals, submit your review here <span class="go">&amp;#187;</span></link:schoolProfileEspLogin>
+                                        school="${school}">School principals: Review your school here <span class="go">&amp;#187;</span></link:schoolProfileEspLogin>
         </div>
     </c:if>
 </div>
