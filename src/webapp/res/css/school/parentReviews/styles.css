@@ -319,19 +319,25 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     _float: left; /* IE 6 hack */
 }
 
-#showParentReviews .review .reportIt, #showParentReviews .review .reported {
+#showParentReviews .review .reportReview, #showParentReviews .review .reported {
     position: absolute;
     right: -15px;
     top: 0;
 }
 
-#showParentReviews .review a.reportIt {
+#showParentReviews .review .reportReview a {
     text-decoration: none;
     color: #0066B8;
     font-style: normal;
 }
-#showParentReviews .review a:hover {
+#showParentReviews .review .reportReview a:hover {
     text-decoration: underline;
+}
+
+#showParentReviews .review .reportReview img{
+    margin-right: 5px;
+    position: relative;
+    top: 5px;
 }
 
 #showParentReviews .review .reported {

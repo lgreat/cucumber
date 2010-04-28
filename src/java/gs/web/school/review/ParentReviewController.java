@@ -122,9 +122,9 @@ public class ParentReviewController extends AbstractController {
                 uri = UrlUtil.addParameter(uri, "id=" + school.getId());
                 uri = UrlUtil.addParameter(uri, "state=" + school.getDatabaseState());
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, uri);
-                model.put("loginRedirect", urlBuilder.asSiteRelative(request));
+                model.put("loginRedirectUrl", urlBuilder.asSiteRelative(request));
             } else {
-                model.put("loginRedirect", "#");                
+                model.put("loginRedirectUrl", "#");                
             }
 
 

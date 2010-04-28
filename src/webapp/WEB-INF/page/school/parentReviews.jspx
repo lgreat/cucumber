@@ -271,10 +271,11 @@
                                 <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
                             </c:when>
                             <c:otherwise>
-                                <p class="fltrt">
-                                    <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
-                                                    id="report_schoolReview_${review.id}">Report it</a>
-                                </p>
+                                <div class="reportReview">
+                                    <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                                    <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                                       id="report_schoolReview_${review.id}">Report it</a>
+                                </div>
                             </c:otherwise>
                         </c:choose>
                     </div>
