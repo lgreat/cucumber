@@ -23,6 +23,7 @@ General comments:
 =4c-3 infinite carousel
 =4c-6 elementary schools grade by grade
 =5- icons
+=debugging styles
 =temporary modules
 */
 
@@ -910,10 +911,24 @@ body.ie6 .sprite {
     background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
 }
 
-/*
-=temporary modules
---------------------------------------------------------------------------------------
-*/
+/* =debugging styles
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 .outline1, body.ie6 .outline1 {
+    background: red;
+}
+
+body.ie7 .outline2, body.ie6 .outline2 {
+    background: green;
+}
+
+body.ie7 .outline3, body.ie6 .outline3 {
+    background: blue;
+}
+
+/* =temporary modules
+-------------------------------------------------------------------------------------------*/
+
 #realtorDotCom p input.rdType {
     top: 0;
 }
