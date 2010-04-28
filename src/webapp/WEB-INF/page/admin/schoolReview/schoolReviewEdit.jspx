@@ -6,7 +6,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:link="urn:www.greatschools.org/taglib/link"
+        xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -37,13 +37,15 @@
 <gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
     <c:if test="${not empty requestScope.command.review}">
         <c:set var="review" value="${requestScope.command.review}"/>
+
         <form action="/admin/schoolReview/edit.page" method="post" class="editForm">
             <input type="hidden" name="id" value="${review.id}"/>
             <label>Sender:</label>
             <span class="value">
                 <c:choose>
                     <c:when test="${review.user.userProfile ne null}">
-                        <link:userProfile user="${review.user}">${review.user.userProfile.screenName}</link:userProfile>                    </c:when>
+                        <link:userProfile user="${review.user}">${review.user.userProfile.screenName}</link:userProfile>
+                    </c:when>
                     <c:otherwise>
                         <em>Not registered</em>
                     </c:otherwise>
@@ -53,7 +55,8 @@
             <label>Sender email:</label><span class="value">${review.user.email}</span>
             <br/>
             <label>School:</label>
-            <span class="value"><link:schoolProfileParentReview school="${review.school}">${review.school.name}</link:schoolProfileParentReview>
+            <span class="value"><link:schoolProfileParentReview
+                    school="${review.school}">${review.school.name}</link:schoolProfileParentReview>
                 (${review.school.databaseState} ${review.school.type.name})</span>
             <br/>
             <fmt:formatDate value="${review.posted}" var="reviewPosted"
@@ -90,7 +93,6 @@
                             <th>Reason</th>
                             <th>Reporter</th>
                             <th>State</th>
-                            <th>Action</th>
                         </tr>
                         <c:forEach items="${requestScope.command.reports}" var="report">
                             <tr>
@@ -104,9 +106,6 @@
                                 <td><c:choose>
                                     <c:when test="${report.active}">Open</c:when>
                                     <c:otherwise>Resolved</c:otherwise></c:choose></td>
-                                <td><c:choose>
-                                    <c:when test="${report.active}"><input type="submit" name="resolveReport" value="Resolve Report" onclick="jQuery('#reportId').val(${report.id});"/></c:when>
-                                    <c:otherwise>&amp;nbsp;</c:otherwise></c:choose></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -176,31 +175,35 @@
                     <!--
                     For pre-moderated reviews, the options to Publish/Reject
                     -->
-                    <input type="submit" name="enableAndResolve" value="Publish Review"/>
+                    <p>This review is currently <strong>unprocessed</strong>.</p>
+                    <input type="submit" name="enableReview" value="Publish Review"/>
+                    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                    <input type="submit" name="disableReview" value="Disable Review"/>
                     <br/>
                     <br/>
+                </c:when>
+                <c:when test="${review.status eq 'p'}">
+                    <p>This review is currently <strong>live</strong>.</p>
                     <input type="submit" name="disableReview" value="Disable Review"/>
                     <br/>
                     <br/>
                 </c:when>
                 <c:otherwise>
-                    <!--
-                    For reports, the options to
-                        Disable Review
-                        Do Not Disable Review & Resolve Report
-                        Re-enable Review & Resolve Report (in the cases where the review has automatically been disabled)
-                    -->
-                    <input type="submit" name="disableReview" value="Disable Review"/>
-                    <br/>
-                    <br/>
-                    <input type="submit" name="resolveReports" value="Do Not Disable Review &amp;amp; Resolve Report(s)"/>
-                    <br/>
-                    <br/>
-                    <input type="submit" name="enableAndResolve" value="Enable Review &amp;amp; Resolve Report(s)"/>
+                    <p>This review is currently <strong>disabled</strong>.</p>
+                    <input type="submit" name="enableReview" value="Enable Review"/>
                     <br/>
                     <br/>
                 </c:otherwise>
             </c:choose>
+            <c:if test="${not empty requestScope.command.reports}">
+                <c:set var="reportWord" value="Report"/>
+                <c:if test="${fn:length(requestScope.command.reports) gt 1}">
+                    <c:set var="reportWord" value="Reports"/>
+                </c:if>
+                <input type="submit" name="resolveReports" value="Resolve ${reportWord}"/>
+                <br/>
+                <br/>
+            </c:if>
             <br/>
             <input type="submit" name="formCancel" value="Cancel"/>
 

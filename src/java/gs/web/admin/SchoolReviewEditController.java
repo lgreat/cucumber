@@ -58,34 +58,32 @@ public class SchoolReviewEditController extends SimpleFormController implements 
         if (StringUtils.equals("u", review.getStatus())) {
             listPage = UrlUtil.addParameter(listPage, "showUnprocessed=true");
         }
-        String editPage = "/admin/schoolReview/edit.page?id=" + review.getId();
+        String editPage = "redirect:/admin/schoolReview/edit.page?id=" + review.getId();
 
         if (request.getParameter("formCancel") != null || review == null) {
             // fall through
         } else if (request.getParameter("resolveReport") != null) {
+            // not currently used
             int reportId = Integer.valueOf(request.getParameter("reportId"));
             _log.info("Resolving report " + reportId);
             _reportedEntityDao.resolveReport(reportId);
-            return new ModelAndView("redirect:" + editPage);
+            return new ModelAndView(editPage);
         } else if (request.getParameter("submitNote") != null) {
             review.setNote(command.getNote());
             _reviewDao.saveReview(review);
-            return new ModelAndView("redirect:" + editPage);
+            return new ModelAndView(editPage);
         } else if (request.getParameter("disableReview") != null) {
             review.setStatus("d");
-            review.setNote(command.getNote());
             _reviewDao.saveReview(review);
-        } else if (request.getParameter("resolveReports") != null) {
-            review.setNote(command.getNote());
-            _reviewDao.saveReview(review);
-            _log.info("Resolving reports");
-            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
-        } else if (request.getParameter("enableAndResolve") != null) {
-            _log.info("Resolving reports");
-            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
+            return new ModelAndView(editPage);
+        } else if (request.getParameter("enableReview") != null) {
             review.setStatus("p");
-            review.setNote(command.getNote());
             _reviewDao.saveReview(review);
+            return new ModelAndView(editPage);
+        } else if (request.getParameter("resolveReports") != null) {
+            _reviewDao.saveReview(review);
+            _log.info("Resolving reports");
+            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
         }
         return new ModelAndView(listPage);
     }
