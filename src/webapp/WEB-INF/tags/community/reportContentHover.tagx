@@ -112,7 +112,7 @@
     <div id="reportItDialog" style="display:none;">
         <div id="sd_header">
         <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_flag_54x66.png" width="54"
-                 height="66" alt="report it flag" align="absmiddle"/>
+                 height="66" alt="report it flag" align="middle"/>
 
         <h2 class="sd_title fltlft">Report this <span id="reportHoverHeader">content</span> as inappropriate</h2>
         <div class="titlebar-close dialogCancelButton reportCancelButton fltrt"><p class="smallText1 tint_777">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
@@ -126,7 +126,7 @@
                               href="/terms/?state=$STATE">Terms of Use or Community Guidelines</gsml:popupWindow>:</div>
 
         <form action="/community/reportContent.page" method="post">
-            <textarea name="reason" id="reportReason"><!-- don't collapse --></textarea>
+            <textarea name="reason" id="reportReason" rows="10" cols="60"><!-- don't collapse --></textarea>
                     <!--rows="10" cols="60" -->
 
             <div class="buttons">
