@@ -241,7 +241,8 @@
                         </c:choose>
 
                         <p>
-                            <c:out value="${review.comments}" escapeXml="true"/>
+                            <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
+                            ${gsweb:boldifyFirstXWords(escapedComments, 10)}
                             <c:choose>
                                 <c:when test="${who eq 'principal'}">
                                     <c:if test="${not empty postedByDisplay}"><br/><span

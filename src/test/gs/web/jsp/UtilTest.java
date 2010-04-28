@@ -260,4 +260,21 @@ public class UtilTest extends TestCase {
         assertEquals("Expect original string to display since length is <= minlength",
                      "This is some text to display.", Util.generateTeaserText("This is some text to display.", 29, 40));
     }
+
+    public void testBoldifyFirstXWords() {
+        String input = "This is a  sentence.\nThis is another sentence.";
+        String expected1 = "<strong>This</strong> is a  sentence.\nThis is another sentence.";
+        String expected4 = "<strong>This is a  sentence.</strong>\nThis is another sentence.";
+        String expected5 = "<strong>This is a  sentence.\nThis</strong> is another sentence.";
+        String expected7 = "<strong>This is a  sentence.\nThis is another</strong> sentence.";
+        String expectedLong = "<strong>This is a  sentence.\nThis is another sentence.</strong>";
+        assertEquals(input, Util.boldifyFirstXWords(input, 0));
+        assertEquals("", Util.boldifyFirstXWords("", 5));
+        assertEquals(expected1, Util.boldifyFirstXWords(input, 1));
+        assertEquals(expected4, Util.boldifyFirstXWords(input, 4));
+        assertEquals(expected5, Util.boldifyFirstXWords(input, 5));
+        assertEquals(expected7, Util.boldifyFirstXWords(input, 7));
+        assertEquals(expectedLong, Util.boldifyFirstXWords(input, 8));
+        assertEquals(expectedLong, Util.boldifyFirstXWords(input, 10));
+    }
 }

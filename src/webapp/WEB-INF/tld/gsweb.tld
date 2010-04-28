@@ -214,6 +214,12 @@
         <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>boldifyFirstXWords</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String boldifyFirstXWords(java.lang.String, int)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

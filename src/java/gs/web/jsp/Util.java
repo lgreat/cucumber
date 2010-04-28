@@ -444,4 +444,37 @@ public class Util {
         }
         return null;
     }
+
+    public static String boldifyFirstXWords(String input, int numWords) {
+        String operatingString = StringUtils.trim(input);
+
+        if (StringUtils.isBlank(operatingString) || StringUtils.length(operatingString) == 0 || numWords < 1) {
+            return input;
+        }
+
+        String headPortion = null;
+        String tailPortion = null;
+        int wordCount = 0;
+        boolean lastCharWhitespace = false;
+        for (int x=1; x < operatingString.length(); x++) {
+            if (Character.isWhitespace(operatingString.charAt(x))) {
+                if (!lastCharWhitespace) {
+                    wordCount++;
+                    if (wordCount == numWords) {
+                        headPortion = StringUtils.substring(operatingString, 0, x);
+                        tailPortion = StringUtils.substring(operatingString, x);
+                    }
+                }
+                lastCharWhitespace = true;
+            } else {
+                lastCharWhitespace = false;
+            }
+        }
+        if (headPortion == null) {
+            headPortion = operatingString;
+            tailPortion = "";
+        }
+
+        return "<strong>" + headPortion + "</strong>" + tailPortion;
+    }
 }
