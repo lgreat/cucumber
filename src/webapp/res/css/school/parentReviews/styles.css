@@ -325,8 +325,10 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     top: 0;
 }
 
-#showParentReviews .review a {
+#showParentReviews .review a.reportIt {
     text-decoration: none;
+    color: #0066B8;
+    font-style: normal;
 }
 #showParentReviews .review a:hover {
     text-decoration: underline;

@@ -104,21 +104,21 @@
                 <c:if test="${hasPreschoolCategoryRatings}">
                     <ul>
                         <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
-                        <c:set var="curCatName" value="Facilities &amp; Equipment"/>
+                        <c:set var="curCatName" value="Facilities &amp; equipment"/>
                         <c:if test="${not empty curCatValue}">
                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
                                                        styleClass="sm_stars"/></li>
                         </c:if>
                         <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
-                        <c:set var="curCatName" value="Teacher Quality"/>
+                        <c:set var="curCatName" value="Teacher quality"/>
                         <c:if test="${not empty curCatValue}">
                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
                                                        styleClass="sm_stars"/></li>
                         </c:if>
                         <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
-                        <c:set var="curCatName" value="Parent Involvement"/>
+                        <c:set var="curCatName" value="Parent involvement"/>
                         <c:if test="${not empty curCatValue}">
                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
@@ -135,21 +135,21 @@
                 <c:if test="${hasGradeschoolCategoryRatings}">
                     <ul>
                         <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                            <li>Principal Leadership<gsml:img
+                            <li>Principal leadership<gsml:img
                                     src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif"
-                                    alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars"
+                                    alt="Principal leadership: ${cmd.ratings.avgPrincipal} out of 5 stars"
                                     styleClass="sm_stars"/></li>
                         </c:if>
                         <c:if test="${not empty cmd.ratings.avgTeachers}">
-                            <li>Teacher Quality<gsml:img
+                            <li>Teacher quality<gsml:img
                                     src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif"
-                                    alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars"
+                                    alt="Teacher quality: ${cmd.ratings.avgTeachers} out of 5 stars"
                                     styleClass="sm_stars"/></li>
                         </c:if>
                         <c:if test="${not empty cmd.ratings.avgParents}">
-                            <li>Parent Involvement<gsml:img
+                            <li>Parent involvement<gsml:img
                                     src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif"
-                                    alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars"
+                                    alt="Parent involvement: ${cmd.ratings.avgParents} out of 5 stars"
                                     styleClass="sm_stars"/></li>
                         </c:if>
                     </ul>
