@@ -15,6 +15,7 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
@@ -55,6 +56,11 @@
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
+
+<!-- Report it dialog -->
+<community:reportContentHover openingElementSelector=".reportIt"
+                              reporterId="${validUser.id}"/>
+<!-- End report it dialog -->
 
 <school:profile school="${school}" tab="parentReviews">
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
@@ -260,6 +266,17 @@
                                 onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                                 styleClass="submodal-344-362"
                                 >Write your own review</link:schoolProfileAddParentReview></p>
+                        <c:choose>
+                            <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="fltrt">
+                                    <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
+                                                    id="report_schoolReview_${review.id}">Report it</a>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <!-- end: review -->
                 </pg:item>

@@ -1,7 +1,9 @@
 package gs.web.admin;
 
 import gs.data.community.IReportedEntityDao;
+import gs.data.community.IUserDao;
 import gs.data.community.ReportedEntity;
+import gs.data.community.User;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -24,6 +28,7 @@ public class SchoolReviewEditController extends SimpleFormController implements 
     protected final Log _log = LogFactory.getLog(getClass());
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
+    private IUserDao _userDao;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
@@ -33,6 +38,17 @@ public class SchoolReviewEditController extends SimpleFormController implements 
             Review review = _reviewDao.getReview(Integer.parseInt(request.getParameter("id")));
             command.setReview(review);
             command.setReports(_reportedEntityDao.getReports(ReportedEntity.ReportedEntityType.schoolReview, review.getId()));
+            if (command.getReports() != null && command.getReports().size() > 0) {
+                Map<Integer, User> reportToUserMap = new HashMap<Integer, User>(2);
+                for(ReportedEntity report: command.getReports()) {
+                    try {
+                        reportToUserMap.put(report.getId(), _userDao.findUserFromId(report.getReporterId()));
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+                command.setReportToUserMap(reportToUserMap);
+            }
         } catch (ObjectRetrievalFailureException orfe) {
             // do nothing
         }
@@ -102,5 +118,13 @@ public class SchoolReviewEditController extends SimpleFormController implements 
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }

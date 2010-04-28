@@ -303,6 +303,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     _width: 500px; /* IE 6 hack */
     margin: 0 0 23px 16px;
     _margin: 0 0 23px 10px;
+    position: relative;
 }
 
 #showParentReviews .stars {
@@ -316,6 +317,23 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     font-style: italic;
     width:375px;
     _float: left; /* IE 6 hack */
+}
+
+#showParentReviews .review .reportIt, #showParentReviews .review .reported {
+    position: absolute;
+    right: -15px;
+    top: 0;
+}
+
+#showParentReviews .review a {
+    text-decoration: none;
+}
+#showParentReviews .review a:hover {
+    text-decoration: underline;
+}
+
+#showParentReviews .review .reported {
+    width: auto;
 }
 
 .principal {

@@ -102,6 +102,9 @@
                                 <td>${report.reason}</td>
                                 <td><c:choose>
                                     <c:when test="${report.reporterId eq -1}">Auto-filter</c:when>
+                                    <c:when test="${command.reportToUserMap ne null and command.reportToUserMap[report.id] ne null}">
+                                        <link:userProfile user="${command.reportToUserMap[report.id]}">${command.reportToUserMap[report.id].userProfile.screenName}</link:userProfile>
+                                    </c:when>
                                     <c:otherwise>${report.reporterId}</c:otherwise></c:choose></td>
                                 <td><c:choose>
                                     <c:when test="${report.active}">Open</c:when>

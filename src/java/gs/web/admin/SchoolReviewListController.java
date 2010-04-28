@@ -65,8 +65,10 @@ public class SchoolReviewListController extends AbstractController {
 
     protected List<SchoolReviewListBean> getFlaggedReviews() {
         List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(100);
-        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(reportedReviewIds.size());
+        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(25);
 
+        // asynchronous?
+        // group queries?
         for (Long reviewId: reportedReviewIds) {
             try {
                 SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));

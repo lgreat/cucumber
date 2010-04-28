@@ -1,9 +1,11 @@
 package gs.web.admin;
 
 import gs.data.community.ReportedEntity;
+import gs.data.community.User;
 import gs.data.school.review.Review;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -15,6 +17,7 @@ public class SchoolReviewEditCommand {
     private String _status;
     private boolean _cancel = false;
     private List<ReportedEntity> _reports;
+    private Map<Integer, User> _reportToUserMap;
 
     public Review getReview() {
         return _review;
@@ -62,5 +65,13 @@ public class SchoolReviewEditCommand {
 
     public void setReports(List<ReportedEntity> reports) {
         _reports = reports;
+    }
+
+    public Map<Integer, User> getReportToUserMap() {
+        return _reportToUserMap;
+    }
+
+    public void setReportToUserMap(Map<Integer, User> reportToUserMap) {
+        _reportToUserMap = reportToUserMap;
     }
 }

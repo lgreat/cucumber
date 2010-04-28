@@ -1,5 +1,8 @@
 package gs.web.school.review;
 
+import gs.data.community.IReportedEntityDao;
+import gs.data.community.ReportedEntity;
+import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
@@ -7,6 +10,9 @@ import gs.data.school.review.Review;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.Care2PromoHelper;
 import gs.web.school.KindercareLeadGenHelper;
+import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +34,7 @@ public class ParentReviewController extends AbstractController {
 
     private IReviewDao _reviewDao;
     private String _viewName;
+    private IReportedEntityDao _reportedEntityDao;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_SORT_BY = "sortBy";
@@ -69,7 +76,7 @@ public class ParentReviewController extends AbstractController {
         Care2PromoHelper.checkForCare2(request, response, school, model);
 
         if (null != school) {
-            List reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
             ParentReviewCommand cmd = new ParentReviewCommand();
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
@@ -100,6 +107,27 @@ public class ParentReviewController extends AbstractController {
             cmd.setCurrentDate(new Date());
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+
+            User user = null;
+            if(PageHelper.isMemberAuthorized(request)){
+                user = sessionContext.getUser();
+                if (user != null) {
+                    model.put("validUser", user);
+                    model.put("reviewReports", getReportsForReviews(user, reviews));
+                }
+            }
+
+            if (user == null) {
+                String uri = request.getRequestURI();
+                uri = UrlUtil.addParameter(uri, "id=" + school.getId());
+                uri = UrlUtil.addParameter(uri, "state=" + school.getDatabaseState());
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, uri);
+                model.put("loginRedirect", urlBuilder.asSiteRelative(request));
+            } else {
+                model.put("loginRedirect", "#");                
+            }
+
+
             if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                 cmd.setMaxReviewsPerPage(reviews.size());
             } else {
@@ -117,6 +145,19 @@ public class ParentReviewController extends AbstractController {
             model.put("param_sortby", PARAM_SORT_BY);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    private Map<Integer, Boolean> getReportsForReviews(User user, List<Review> reviews) {
+        if (reviews == null || user == null) {
+            return null;
+        }
+        Map<Integer, Boolean> reports = new HashMap<Integer, Boolean>(reviews.size());
+        for (Review review: reviews) {
+            reports.put(review.getId(),
+                        _reportedEntityDao.hasUserReportedEntity
+                                (user, ReportedEntity.ReportedEntityType.schoolReview, review.getId()));
+        }
+        return reports;
     }
 
     public static class ParentReviewCommand {
@@ -209,5 +250,13 @@ public class ParentReviewController extends AbstractController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

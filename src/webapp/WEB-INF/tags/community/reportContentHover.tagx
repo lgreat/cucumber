@@ -31,6 +31,8 @@
             var contentTypeNormalized = contentType;
             if (contentTypeNormalized == 'discussion') {
                 contentTypeNormalized = 'conversation';
+            } else if (contentTypeNormalized == 'schoolReview') {
+                contentTypeNormalized = 'review';
             }
             jQuery('#reportHoverIntroContentType').html(contentTypeNormalized);
             jQuery('#reportHoverHeader').html(contentTypeNormalized);
@@ -49,6 +51,8 @@
                         initForContentType(idStr, 'discussion');
                     } else if (idStr.indexOf('member') > -1) {
                         initForContentType(idStr, 'member');
+                    } else if (idStr.indexOf('schoolReview') > -1) {
+                        initForContentType(idStr, 'schoolReview');
                     }
                     jQuery('#reportReason').val('');
                     jQuery('#reportItDialog').dialog('open');
@@ -65,7 +69,6 @@
                 modal: true,
                 draggable: false,
                 width: 624,
-                title: "Report this comment as inappropriate",
                 bgiframe: true
             });
 
@@ -96,6 +99,8 @@
                 var contentTypeNormalized = params.type;
                 if (contentTypeNormalized == 'discussion') {
                     contentTypeNormalized = 'conversation';
+                } else if (contentTypeNormalized == 'schoolReview') {
+                    contentTypeNormalized = 'review';
                 }
                 jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + contentTypeNormalized + ".");
                 return false;                

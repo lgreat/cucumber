@@ -1,5 +1,7 @@
 package gs.web.community;
 
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -24,6 +26,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
     private IReportContentService _reportContentService;
     private IUserDao _userDao;
     private IUserContentDao _userContentDao;
+    private IReviewDao _reviewDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -60,6 +63,12 @@ public class ReportContentAjaxController extends SimpleFormController implements
             authorId = uc.getAuthorId();
         } else if (command.getType() == ReportedEntity.ReportedEntityType.member) {
             authorId = command.getContentId();
+        } else if (command.getType() == ReportedEntity.ReportedEntityType.schoolReview) {
+            Review review = _reviewDao.getReview(command.getContentId());
+            if (review == null || review.getUser() == null) {
+                return null;
+            }
+            authorId = review.getUser().getId();
         } else {
             _log.warn("Unknown report content type: " + command.getType());
             return null;
@@ -108,5 +117,13 @@ public class ReportContentAjaxController extends SimpleFormController implements
 
     public void setUserContentDao(IUserContentDao userContentDao) {
         _userContentDao = userContentDao;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }
