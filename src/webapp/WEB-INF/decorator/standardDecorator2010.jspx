@@ -119,6 +119,7 @@
 <communityHover:forgotPassword/>
 
 <communityHover:schoolReviewThankYou/>
+<communityHover:emailValidatedSchoolReview/>
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">

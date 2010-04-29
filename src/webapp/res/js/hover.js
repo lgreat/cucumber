@@ -684,6 +684,26 @@ GSType.hover.SchoolReviewNotPostedThankYou = function() {
 };
 GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
 
+// Email Validated Review Hover
+GSType.hover.EmailValidatedSchoolReview = function() {
+    this.loadDialog = function() {
+        this.dialogByWidth(640);
+    };
+    this.showHover = function(body) {
+        GSType.hover.emailValidatedSchoolReview.setBody(body);
+        GSType.hover.emailValidatedSchoolReview.show();
+    };
+    this.showPublished = function() {
+        GSType.hover.emailValidatedSchoolReview.showHover("Your registration is complete and your review has been published.");
+    };
+    this.showQueued = function() {
+        GSType.hover.emailValidatedSchoolReview.showHover("Your registration is complete. Please note that it can take up to 48 hours for your review to be posted to our site.");
+    };
+    this.setBody = function(body) {
+        jQuery('#emailValidatedSchoolReviewHover span.fillMeIn').html(body);
+    };
+};
+GSType.hover.EmailValidatedSchoolReview.prototype = new GSType.hover.HoverDialog("emailValidatedSchoolReviewHover");
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
@@ -698,6 +718,7 @@ GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
+GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -944,6 +965,7 @@ jQuery(function() {
 
     GSType.hover.schoolReviewPostedThankYou.loadDialog();
     GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
+    GSType.hover.emailValidatedSchoolReview.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',
@@ -1075,6 +1097,10 @@ jQuery(function() {
         GSType.hover.validateEditEmail.show();
     } else if (showHover == "validationLinkExpired") {
         GSType.hover.validateLinkExpired.show();
+    } else if (showHover == "emailValidatedSchoolReviewPosted") {
+        GSType.hover.emailValidatedSchoolReview.showPublished();
+    } else if (showHover == "emailValidatedSchoolReviewQueued") {
+        GSType.hover.emailValidatedSchoolReview.showQueued();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");

@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.WelcomeMessageStatus;
+import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.util.DigestUtil;
@@ -111,25 +112,32 @@ public class RegistrationConfirmController extends AbstractController implements
         }
         // authenticate user
         if (!user.isEmailValidated()) {
+            List<Review> userReviews = _reviewDao.findUserReviews(user);
+            School reviewedSchool = null;
+            boolean reviewPosted = false;
+            // any school reviews in the provisional state need to be upgraded
+            if (userReviews != null && userReviews.size() > 0) {
+                for (Review review : userReviews) {
+                    String status = review.getStatus();
+                    if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
+                        review.setStatus(StringUtils.substring(status, 1));
+                        _reviewDao.saveReview(review);
+                        reviewedSchool = review.getSchool();
+                        if (StringUtils.equals("p", review.getStatus())) {
+                            reviewPosted = true;
+                        }
+                    }
+                }
+            }
+
             user.setEmailValidated();
+            // TODO: GS-9787 Users who have a review posted may get a custom welcome message
             // per GS-8290 All users who complete registration should get a welcome message
             // but only users who haven't already been sent one
             if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
             }
-            _userDao.saveUser(user);
-
-            List<Review> userReviews = _reviewDao.findUserReviews(user);
-            if (userReviews != null && userReviews.size() > 0) {
-                for (Review review : userReviews) {
-                    String status = review.getStatus();
-                    //Should always be true
-                    if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
-                        review.setStatus(StringUtils.substring(status, 1));
-                        _reviewDao.saveReview(review);
-                    }
-                }
-            }
+            _userDao.saveUser(user);            
 
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
@@ -140,6 +148,14 @@ public class RegistrationConfirmController extends AbstractController implements
                 // when editing their email address, always send them back to the change email page
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, "");
                 target = "redirect:" + urlBuilder.asSiteRelative(request);
+            } else if (reviewedSchool != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                target = "redirect:" + urlBuilder.asSiteRelative(request);
+                if (reviewPosted) {
+                    cookie.setProperty("showHover", "emailValidatedSchoolReviewPosted");
+                } else {
+                    cookie.setProperty("showHover", "emailValidatedSchoolReviewQueued");
+                }
             } else {
                 cookie.setProperty("showHover", "emailValidated");
                 // when registering, send them to where they were before, or to the /account/ page
