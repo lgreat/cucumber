@@ -1,6 +1,9 @@
 /*
 star ratings - css from
 http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
+NOTE: Any nearby elements using absolute positioning should avoid the "right" attribute.
+      Use "left" instead. Otherwise you may see issues with :hover behavior in IE7.
+      I'm totally serious.
 */
 .star-rating a:active {outline:0; }
 

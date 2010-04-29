@@ -93,11 +93,11 @@ jQuery(function() {
     });
 
     jQuery('#frmPRModule [name="comments"]').focus(function() {
-        jQuery('#frmPRModule .commentsPopup').show();
+        jQuery('#rateReview .commentsPopup').show();
     });
 
     jQuery('#frmPRModule [name="comments"]').blur(function() {
-        jQuery('#frmPRModule .commentsPopup').hide();
+        jQuery('#rateReview .commentsPopup').hide();
     });
 
     jQuery('#frmPRModule .continueButton').click(function() {

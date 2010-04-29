@@ -177,10 +177,10 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 
 #rateReview .greatSchoolNotes {
     position: absolute;
-    right: 15px;
+    left: 283px;
     top: 0;
     width: 205px;
-    height: 105px;
+    height: 104px;
     border: 1px solid #67CCCC;
     padding: 10px 3px 0 7px;
 }
@@ -221,17 +221,15 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     top: 194px;
 }
 
-#parentReview #userInput .commentsPopup {
-    right: 130px;
-    top: 120px;
-    width: 150px;
+#parentReview #rateReview .commentsPopup {
+    left: 236px;
+    top: 163px;
 }
 
 #parentReview #rateReview .linkGuidelines {
     position: absolute;
     left: 304px;
     top: 170px;
-    z-index: 2;
 }
 
 /* Parent Reviews

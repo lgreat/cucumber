@@ -71,18 +71,24 @@ ul#nonCommentInput ul.subStarRatings {
     margin:0 3px 0 5px;
 }
 
-#schoolOverview #userInput .commentsPopup {
-    right: 0;
-    width: 150px;
+#schoolOverview #rateReview .commentsPopup {
+    top: 144px;
+    left: 200px;
 }
 
-#userInput .commentsPopup {
+#rateReview .commentsPopup {
     position: absolute;
     background-color: #fff;
     border: 1px solid #67cccc;
     padding: 5px;
     display: none;
     z-index: 2;
+    width: 150px;
+}
+
+#rateReview .commentsPopupHeader {
+    color: #5BC;
+    font-weight: bold;
 }
 
 ul#nonCommentInput .catRatingLabel {
@@ -97,7 +103,7 @@ ul#nonCommentInput .catRating {
 
 #schoolOverview #rateReview .linkGuidelines {
     position: absolute;
-    right: 10px;
+    left: 215px;
     top: 10px;
 }
 
