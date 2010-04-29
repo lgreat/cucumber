@@ -258,7 +258,7 @@
                     styleClass="arrow nav_group_heading GS_CI9_ "
                     >Choose the Right School</link:schoolChoiceCenter>
                 <ul class="nav_group_items">
-                    <li class="first"><link:cmsCategoryBrowse topicIDs="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining your Ideal School</link:cmsCategoryBrowse></li>
+                    <li class="first"><link:cmsCategoryBrowse topicIDs="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining Your Ideal School</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="197" language="EN" styleId="GlobalNav_CTRS_PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a School Visit</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="195" language="EN" styleId="GlobalNav_CTRS_ApplyingAndEnrolling" styleClass="GS_CI9_">Applying &amp;amp; Enrolling</link:cmsCategoryBrowse></li>
                     <li><link:movingWithKids id="GlobalNav_CTRS_Moving" styleClass="GS_CI9_">Moving</link:movingWithKids></li>
