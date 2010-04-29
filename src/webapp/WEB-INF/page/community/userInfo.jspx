@@ -126,8 +126,7 @@
 <body>
 <div id="mainGS" class="col">
 
-<p class="breadCrumbs smallAlertText">
-</p>
+<div class="spacer_15"><!--do not collapse--></div>
     
 <community:uploadAvatarHover openingElementSelector="#updateMyPhotoLink" redirect="${uri}"/>
 
@@ -146,7 +145,7 @@
 </c:choose>
 
 <c:if test="${not empty message}">
-    <div class="spacer_15"><!--do not collapse--></div>
+
     <div id="acctCallToAction" class="mod">
         <div class="mod_bd">
             <p class="text2"><span class="alertDoubleArrow">&amp;raquo; </span>${message}</p>

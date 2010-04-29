@@ -2596,7 +2596,7 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin: 0;
 }
 
-fieldset label {
+.ui-dialog fieldset label {
     font: 700 13px Arial, sans-serif;
 }
 
@@ -3440,6 +3440,15 @@ ul.srchSuggest li span {
     line-height: 2.1;
 }
 
+.userInfo {
+    position: relative;
+    height:172px;
+    background: #f9eccd;
+    padding: 15px;
+    overflow: hidden;
+}
+
+
 /* =4i-1 change email & password
 -------------------------------------------------------------------------------------------*/
 
@@ -3540,7 +3549,6 @@ ul.srchSuggest li span {
 
 #manageNewsletters fieldset ol select {
     width: 188px;
-    height: 18px;
     border: 1px solid #999;
 }
 
