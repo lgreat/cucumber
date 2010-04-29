@@ -231,6 +231,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     position: absolute;
     left: 304px;
     top: 170px;
+    z-index: 2;
 }
 
 /* Parent Reviews
