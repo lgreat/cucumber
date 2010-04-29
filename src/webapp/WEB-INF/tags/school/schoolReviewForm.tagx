@@ -14,7 +14,8 @@
 <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
-<gsml:url var="formActionUrl" value="/school/review/postReview.page"/>
+
+<![CDATA[<a name="schoolReviewSubmitForm"></a>]]>
 
 <c:set var="mainColumnId" value="col_center"/>
 <c:set var="divClass" value=""/>
@@ -40,7 +41,7 @@
 
 <div id="rateReview" class="noprint ${divClass}">
     <div id="ratingTitle">Rate this school</div>
-    <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post">
+    <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
         <!--Begin star ratings.
             Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
             But because this page may load slowly, that's not an option.

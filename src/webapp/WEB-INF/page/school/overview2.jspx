@@ -166,16 +166,12 @@
                                 </c:forEach>
                                 <div class="bottomParentReview">
                                     <div class="${latestReviewsModel.totalReviews eq 1 ? 'rateItInReviewSingle' : 'rateItInReview'}">
-                                        <link:schoolProfileAddParentReview
-                                                school="${school}"
-                                                styleId="Latest_PR_RateIt"
-                                                styleClass="submodal-344-362 GS_CI9_"
-                                                onclick="onClick=Popup=window.open(this.href,'Popup',
-                                                                     'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50');
-                                                                     return false;">
+                                        <link:schoolProfileParentReview
+                                                school="${school}" anchor="schoolReviewSubmitForm"
+                                                styleId="Latest_PR_RateIt">
                                             <gsml:img src="/res/img/school/overview/submit_RateIt.gif"
                                                       alt="Rate It" />
-                                        </link:schoolProfileAddParentReview>
+                                        </link:schoolProfileParentReview>
                                     </div>
                                     <div class="psWithMore"> |
                                         <link:schoolProfileParentReview school="${school}" title="Read all reviews" >  <!-- styleClass="psWithMore" -->

@@ -88,12 +88,11 @@
                       styleClass="parentTitle"/>
             <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif"
                       alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars"/>
-            <link:schoolProfileAddParentReview
-                    school="${school}"
-                    onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                    styleClass="submodal-344-362"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
-                                                            alt="Rate it"
-                                                            styleClass="rateIt"/></link:schoolProfileAddParentReview>
+            <link:schoolProfileParentReview
+                    anchor="schoolReviewSubmitForm"
+                    school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
+                                                 alt="Rate it"
+                                                 styleClass="rateIt"/></link:schoolProfileParentReview>
 
             <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
         </div>
@@ -261,11 +260,9 @@
                             </c:choose>
                         </p>
 
-                        <p class="respond"><link:schoolProfileAddParentReview
-                                school="${school}"
-                                onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                styleClass="submodal-344-362"
-                                >Write your own review</link:schoolProfileAddParentReview></p>
+                        <p class="respond"><link:schoolProfileParentReview
+                                school="${school}" anchor="schoolReviewSubmitForm"
+                                >Write your own review</link:schoolProfileParentReview></p>
                         <c:choose>
                             <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
                                 <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>

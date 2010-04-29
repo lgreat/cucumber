@@ -40,10 +40,9 @@
         <c:choose>
             <c:when test="${not hasParentRating}">
                 <div class="notRated">
-                    <link:schoolProfileAddParentReview
-                            school="${school}"
-                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                            styleClass="submodal-344-362 ${clickClass} schoolProfileParentReview" styleId="Ratings_Module"
+                    <link:schoolProfileParentReview
+                            school="${school}" anchor="schoolReviewSubmitForm"
+                            styleClass="submodal-344-362 schoolProfileParentReview" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/7970_b/rate_this_school.gif"
                                   alt="Rate this school!"
@@ -51,7 +50,7 @@
                         <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="starRating"/>
                         <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It"
                                   styleClass="rateItButton"/>
-                    </link:schoolProfileAddParentReview>
+                    </link:schoolProfileParentReview>
                 </div>
             </c:when>
             <c:otherwise>
@@ -70,14 +69,13 @@
                                   alt="${overallParentRating} out of 5 stars" styleClass="starRating"/>
                     </link:schoolProfileParentReview>
 
-                    <link:schoolProfileAddParentReview
-                            school="${school}"
-                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                            styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
+                    <link:schoolProfileParentReview
+                            school="${school}" anchor="schoolReviewSubmitForm"
+                            styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It"
                                   styleClass="rateItButton"/>
-                    </link:schoolProfileAddParentReview>
+                    </link:schoolProfileParentReview>
 
                     <p class="viewAll">
 

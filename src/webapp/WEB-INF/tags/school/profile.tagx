@@ -193,11 +193,11 @@
 
                 <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
-                <link:schoolProfileParentReview school="${school}"
-                                                   styleClass="rateImg toolsImg"><gsml:img
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
+                                                styleClass="rateImg toolsImg"><gsml:img
                         src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileParentReview>
-                <link:schoolProfileParentReview school="${school}"
-                                                   styleClass="rate toolsTxt">Rate it!</link:schoolProfileParentReview>
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
+                                                styleClass="rate toolsTxt">Rate it!</link:schoolProfileParentReview>
                 
 
                 <c:choose>
@@ -331,13 +331,11 @@
         <c:choose>
             <c:when test="${parent_rating eq 0}">
                 <c:set var="parent_rating_title" value="Rate this school!"/>
-                <link:schoolProfileAddParentReview
-                        school="${school}"
-                        onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                        styleClass="submodal-344-362 parent_rating parent_${parent_rating}"
-                        title="${parent_rating_title}">
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
+                                                styleClass="parent_rating parent_${parent_rating}"
+                                                title="${parent_rating_title}">
                     &amp;#160;
-                </link:schoolProfileAddParentReview>
+                </link:schoolProfileParentReview>
             </c:when>
             <c:otherwise>
                 <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>

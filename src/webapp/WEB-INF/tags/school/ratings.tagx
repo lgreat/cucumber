@@ -92,10 +92,9 @@
         <div id="rating_parent">
             <c:choose>
                 <c:when test="${not hasParentRating}">
-                    <link:schoolProfileAddParentReview
-                            school="${school}"
-                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                            styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
+                    <link:schoolProfileParentReview
+                            school="${school}" anchor="schoolReviewSubmitForm"
+                            styleId="Ratings_Module"
                             >
 
                         <c:choose>
@@ -116,7 +115,7 @@
                                 <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                             </c:otherwise>
                         </c:choose>
-                    </link:schoolProfileAddParentReview>
+                    </link:schoolProfileParentReview>
                 </c:when>
                 <c:otherwise>
                     <div class="rating hide">
@@ -145,10 +144,9 @@
                         </c:choose>
 
                     </link:schoolProfileParentReview>
-                    <link:schoolProfileAddParentReview
-                            school="${school}"
-                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                            styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
+                    <link:schoolProfileParentReview
+                            school="${school}" anchor="schoolReviewSubmitForm"
+                            styleId="Ratings_Module"
                             >
                         <c:choose>
                             <!-- ratings summary not shown for other schools -->
@@ -162,7 +160,7 @@
 
                         </c:choose>
                         
-                    </link:schoolProfileAddParentReview>
+                    </link:schoolProfileParentReview>
 
                     <p>
                         <link:schoolProfileParentReview school="${school}">
