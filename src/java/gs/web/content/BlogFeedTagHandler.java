@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.36 2010/03/15 18:43:52 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.37 2010/04/30 00:47:48 yfan Exp $
  */
 
 package gs.web.content;
@@ -250,24 +250,12 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         out.print("</div>");// end blogpromo
     }
 
-    private String getAuthorImage(String author){
-        Map imageAuthor = new HashMap();
-        imageAuthor.put("GreatSchools","/res/img/blog_bill_40x40.png");
-        imageAuthor.put("Bill Jackson","/res/img/blog_billjackson_40x40.png");
-        imageAuthor.put("Kelsey Parker","/res/img/blog_kelseyparker_40x40.png");
-        imageAuthor.put("Dave Steer","/res/img/blog_davesteer_40x40.png");
-        imageAuthor.put("Jim Daly", "/res/img/blog_jimdaly_40x40.png");
-        imageAuthor.put("Chase Nelson", "/res/img/blog_chasenelson_40x40.png");
-        imageAuthor.put("Clare Ellis", "/res/img/blog_clareellis_40x40.png");
+    public String getAuthorImage(String author){
+        if (StringUtils.isBlank(author)) {
+            return "/res/img/pixel.gif";
+        }
 
-        /* Uncomment this to use community gifs
-        imageAuthor.put("Bill Jackson","http://community.greatschools.org/avatar?id=1000&height=94&width=94");
-        imageAuthor.put("Kelsey Parker","http://community.greatschools.org/avatar?id=2694028&height=94&width=94");
-        imageAuthor.put("Dave Steer","http://community.greatschools.org/avatar?id=3090256&height=94&width=94");
-        */
-        
-        return imageAuthor.get(author) != null ? imageAuthor.get(author).toString() : "/res/img/pixel.gif";
-
+        return "/catalog/images/blog/" + StringUtils.deleteWhitespace(author.toLowerCase()) + "_40x40.png";
     }
 
     private void display(String title, String link, String text, String author, Date date) throws IOException {

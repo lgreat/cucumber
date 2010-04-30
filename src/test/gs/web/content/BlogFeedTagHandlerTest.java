@@ -29,6 +29,23 @@ public class BlogFeedTagHandlerTest extends TestCase {
         return ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
     }
 
+    public void testGetAuthorImage() {
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("GreatSchools"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Bill Jackson"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Kelsey Parker"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Dave Steer"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Jim Daly"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Chase Nelson"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Clare Ellis"));        
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Carol Lloyd"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Karina Kinik"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Leslie Crawford"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Patti Constantakis"));
+        assertEquals("/catalog/images/blog/greatschools_40x40.png", _tag.getAuthorImage("Ryan Clark"));
+        assertEquals("/res/img/pixel.gif", _tag.getAuthorImage(null));
+        assertEquals("/res/img/pixel.gif", _tag.getAuthorImage(""));
+    }
+
     public void testVoid() {
         assertTrue(true);
     }
