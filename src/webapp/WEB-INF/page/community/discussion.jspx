@@ -217,6 +217,12 @@
 <p class="breadCrumbs smallAlertText">
     <link:home styleClass="link">Home</link:home>
     &amp;gt;
+
+    <c:if test="${requestScope.discussionBoard.contentKey.identifier == 2420}">
+        <link:communityLanding>Community</link:communityLanding>
+        &amp;gt;
+    </c:if>
+
     <c:choose>
 
         <c:when test="${requestScope.discussionBoard.city ne null}">
