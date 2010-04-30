@@ -16,6 +16,7 @@ General comments:
 =B- ie8
 =C- ie7
 =D- ie6
+=4- page layouts
 =4a- home page carousel
 =4a-1 find-compare
 =4a-4 raise your hand
@@ -520,6 +521,19 @@ body.ie6 .rtDoor25 {
 
 body.ie6 .lftDoor25 {
     margin: 0;
+}
+
+/* =4- page layouts
+-------------------------------------------------------------------------------------------*/
+
+body.ie7 .mod_hd h3, body.ie6 .mod_hd h3{
+    height:24px;
+    padding:5px 15px;
+}
+
+body.ie7 .navmod_hd h5, body.ie6 .navmod_hd h5{
+    height:20px;
+    padding:3px 10px;
 }
 
 /* =4a- home page carousel

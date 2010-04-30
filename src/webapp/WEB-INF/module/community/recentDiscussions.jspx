@@ -154,7 +154,7 @@
                                 <c:set var="avatarSize" value="48"/>
                                 <c:set var="textSize" value="text3"/>
                                 <c:set var="avatar" value="avatar_48"/>
-                                <c:set var="discussionTopic" value="discussionTopic_363"/>
+                                <c:set var="discussionTopic" value="discussionTopic_540"/>
                             </c:otherwise>
                         </c:choose>
 
@@ -238,7 +238,7 @@
 
                     <c:choose>
                         <c:when test="${showLargeFirstAvatar}">
-                            <br class="clearfloat"/>
+                            <div class="spacer_10"><!-- do not collapse --></div>
                         </c:when>
                         <c:otherwise>
                             <div class="spacer_10"><!-- do not collapse --></div>
