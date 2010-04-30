@@ -203,11 +203,6 @@ a.parent_rating, span.parent_rating {
 	float: left;
 }
 
-/* The parent_0 background image needs an expanded width */
-a.parent_0 {
-    width: 99px;
-}
-
 a:hover.parent_rating {
     text-decoration: none;
 }
