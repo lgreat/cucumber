@@ -165,6 +165,11 @@
 
     <servlet-mapping>
        <servlet-name>pages</servlet-name>
+       <url-pattern>/community/activity/</url-pattern>
+   </servlet-mapping>
+
+    <servlet-mapping>
+       <servlet-name>pages</servlet-name>
        <url-pattern>/community/questions/</url-pattern>
    </servlet-mapping>
 
@@ -747,6 +752,11 @@
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
         <url-pattern>/community/</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/community/activity/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -1353,6 +1363,14 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/community/</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/community/activity/</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2209,6 +2227,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/community/</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/community/activity/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

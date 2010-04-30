@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.content.cms.CmsConstants;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -33,6 +34,8 @@ public class RecentDiscussionsController extends AbstractController {
     private IUserDao _userDao;
     private String _viewName;
 
+    public static final String DEFAULT_MORE_TEXT = "More conversations";
+
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String PARAM_BOARD_ID = "board_id";
     public static final String PARAM_LIMIT = "limit";
@@ -52,6 +55,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_TITLE = "title";
     public static final String MODEL_MORE_TEXT = "moreText";
+    public static final String MODEL_MORE_URL = "moreUrl";
     public static final String MODEL_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -72,6 +76,9 @@ public class RecentDiscussionsController extends AbstractController {
                 CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID);
                 model.put(MODEL_DISCUSSION_BOARD, board);
                 showBoardForEachDiscussion = true;
+
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.RECENT_CONVERSATIONS);
+                model.put(MODEL_MORE_URL, builder.asSiteRelative(request));
             }
 
             List<UserContent> userContents = new ArrayList<UserContent>(discussions);
@@ -102,8 +109,17 @@ public class RecentDiscussionsController extends AbstractController {
 
             model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
             model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
-            model.put(MODEL_TITLE, request.getParameter(PARAM_TITLE));
-            model.put(MODEL_MORE_TEXT, request.getParameter(PARAM_MORE_TEXT));
+
+            if (StringUtils.isNotBlank(request.getParameter(PARAM_TITLE))) {
+                model.put(MODEL_TITLE, request.getParameter(PARAM_TITLE));
+            }
+
+            String moreText = DEFAULT_MORE_TEXT;
+            if (StringUtils.isNotBlank(request.getParameter(PARAM_MORE_TEXT))) {
+                moreText = request.getParameter(PARAM_MORE_TEXT);
+
+            }
+            model.put(MODEL_MORE_TEXT, moreText);
 
             boolean showLargeFirstAvatar = (request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR) == null ||
                     "true".equals(request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR)));

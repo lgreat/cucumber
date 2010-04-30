@@ -46,6 +46,7 @@
            <property name="urlMap">
                <map>
                    <entry key="/**/community.gs" value="/content/cms/discussionBoard.page"/>
+                   <entry key="/community/activity/" value="/content/cms/discussionBoard.page"/>
                    <entry key="/**/community/discussion.gs" value="/community/discussion.page"/>
                    <entry key="/account/**" value="/community/userAccount.page"/>
                    <entry key="/members/**" value="/community/userProfile.page"/>

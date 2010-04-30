@@ -1,5 +1,6 @@
 package gs.web.content.cms;
 
+import gs.data.community.local.ILocalBoardDao;
 import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,6 +57,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_RAISE_YOUR_HAND_FEATURED_QUESTIONS = "raiseYourHandFeaturedQuestions";
     public static final String MODEL_PAGE_TITLE = "pageTitle";
     public static final String MODEL_TITLE = "title";
+    public static final String MODEL_RECENT_CONVERSATIONS = "recentConversations";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -70,6 +72,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
     private IRaiseYourHandDao _raiseYourHandDao;
+    private ILocalBoardDao _localBoardDao;
     private Boolean _raiseYourHand;
     private Boolean _raiseYourHandFeaturedQuestions;
 
@@ -78,29 +81,40 @@ public class CmsDiscussionBoardController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         CmsDiscussionBoard board = null;
+        boolean recentConversations = false;
 
         Long contentId;
         if (isRaiseYourHand() && isRaiseYourHandFeaturedQuestions()) {
             model.put(MODEL_URI, uri);
         } else {
-            try {
-                contentId = new Long(request.getParameter("content"));
+            if (request.getParameter("content") != null) {
+                try {
+                    contentId = new Long(request.getParameter("content"));
 
-                if (contentId == CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID && uri.startsWith("/LD/")) {
-                    UrlBuilder builder = new UrlBuilder(new ContentKey("DiscussionBoard", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID), "/special-education", isRaiseYourHand());
-                    return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+                    if (contentId == CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID && uri.startsWith("/LD/")) {
+                        UrlBuilder builder = new UrlBuilder(new ContentKey("DiscussionBoard", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID), "/special-education", isRaiseYourHand());
+                        return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+                    }
+                } catch (Exception e) {
+                    _log.warn("Invalid content identifier: " + request.getParameter("content"));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return new ModelAndView(VIEW_NOT_FOUND);
                 }
-            } catch (Exception e) {
-                _log.warn("Invalid content identifier: " + request.getParameter("content"));
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return new ModelAndView(VIEW_NOT_FOUND);
+            } else {
+                contentId = CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID;
+                recentConversations = true;
             }
+            model.put(MODEL_RECENT_CONVERSATIONS, recentConversations);
 
             board = _cmsDiscussionBoardDao.get(contentId);
 
             if (board != null) {
                 model.put(MODEL_DISCUSSION_BOARD, board);
-                model.put(MODEL_URI, uri + "?content=" + board.getContentKey().getIdentifier());
+                if (recentConversations) {
+                    model.put(MODEL_URI, uri);
+                } else {
+                    model.put(MODEL_URI, uri + "?content=" + board.getContentKey().getIdentifier());
+                }
 
                 if (board.getTopicCenterId() != null) {
                     CmsTopicCenter topicCenter = _publicationDao.populateByContentId
@@ -130,6 +144,8 @@ public class CmsDiscussionBoardController extends AbstractController {
             page = 1;
             pageSize = -1;
             sort = DiscussionSort.NEWEST_RAISE_YOUR_HAND_DATE;
+        } else if (recentConversations) {
+            sort = DiscussionSort.NEWEST_FIRST;
         }
         model.put(MODEL_PAGE, page);
         model.put(MODEL_PAGE_SIZE, pageSize);
@@ -140,8 +156,16 @@ public class CmsDiscussionBoardController extends AbstractController {
             includeInactive = true;
         }
 
-        List<Discussion> discussions = getDiscussionsForPage(board, page, pageSize, sort, includeInactive, isRaiseYourHand());
-        List<DiscussionFacade> facades = populateFacades(board, discussions);
+        List<Discussion> discussions;
+        List<Integer> excludeBoardIds = null;
+        if (recentConversations) {
+            excludeBoardIds = _localBoardDao.getLocalBoardIds();
+            discussions = _discussionDao.getDiscussionsForPage(page, pageSize, sort, includeInactive, isRaiseYourHand(), excludeBoardIds);
+        } else {
+            discussions = getDiscussionsForPage(board, page, pageSize, sort, includeInactive, isRaiseYourHand());
+        }
+
+        List<DiscussionFacade> facades = populateFacades(board, discussions, recentConversations);
         populateWithUsers(discussions, facades);
         model.put(MODEL_DISCUSSION_LIST, facades);
 
@@ -156,13 +180,15 @@ public class CmsDiscussionBoardController extends AbstractController {
         String title = null;
 
         if (board != null) {
-            totalDiscussions = getTotalDiscussions(board, includeInactive, isRaiseYourHand());
-            if (board.getCity() != null) {
-                pageHelper.addAdKeyword(CommunityUtil.CITY_GAM_AD_ATTRIBUTE_KEY, board.getCity().getName());
-                pageHelper.addAdKeyword(CommunityUtil.STATE_GAM_AD_ATTRIBUTE_KEY, board.getCity().getState().getAbbreviation());
-            } else {
-                for (CmsCategory category : board.getUniqueKategoryBreadcrumbs()) {
-                    pageHelper.addAdKeywordMulti(CommunityUtil.EDITORIAL_GAM_AD_ATTRIBUTE_KEY, category.getName());
+            totalDiscussions = getTotalDiscussions((recentConversations ? null : board), includeInactive, isRaiseYourHand(), excludeBoardIds);
+            if (!recentConversations) {
+                if (board.getCity() != null) {
+                    pageHelper.addAdKeyword(CommunityUtil.CITY_GAM_AD_ATTRIBUTE_KEY, board.getCity().getName());
+                    pageHelper.addAdKeyword(CommunityUtil.STATE_GAM_AD_ATTRIBUTE_KEY, board.getCity().getState().getAbbreviation());
+                } else {
+                    for (CmsCategory category : board.getUniqueKategoryBreadcrumbs()) {
+                        pageHelper.addAdKeywordMulti(CommunityUtil.EDITORIAL_GAM_AD_ATTRIBUTE_KEY, category.getName());
+                    }
                 }
             }
 
@@ -174,6 +200,8 @@ public class CmsDiscussionBoardController extends AbstractController {
             if (isRaiseYourHand()) {
                 title = pageTitle;
                 pageTitle = pageTitle.replaceAll(" Community$", "") + " Featured Discussions, Parent Community";
+            } else if (recentConversations) {
+                title = pageTitle = "Recent Conversations";
             }
             model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
         } else if (isRaiseYourHand() && isRaiseYourHandFeaturedQuestions()){
@@ -197,7 +225,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    protected List<DiscussionFacade> populateFacades(CmsDiscussionBoard board, List<Discussion> discussions) {
+    protected List<DiscussionFacade> populateFacades(CmsDiscussionBoard board, List<Discussion> discussions, boolean showBoardForEachDiscussion) {
         List<DiscussionFacade> facades = new ArrayList<DiscussionFacade>(discussions.size());
 
         for (Discussion discussion: discussions) {
@@ -209,6 +237,9 @@ public class CmsDiscussionBoardController extends AbstractController {
                     (discussion, 1, DEFAULT_REPLIES_PER_DISCSSION, IDiscussionReplyDao.DiscussionReplySort.NEWEST_FIRST);
             int totalReplies = _discussionReplyDao.getTotalReplies(discussion);
             DiscussionFacade facade = new DiscussionFacade(discussion, replies);
+            if (showBoardForEachDiscussion) {
+                    facade.setDiscussionBoard(_cmsDiscussionBoardDao.get(discussion.getBoardId()));
+                }
             facade.setTotalReplies(totalReplies);
             facades.add(facade);
         }
@@ -313,10 +344,10 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive, boolean raiseYourHand) {
+    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive, boolean raiseYourHand, Collection<Integer> excludeBoardIds) {
         long totalDiscussions;
 
-        totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive, raiseYourHand);
+        totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive, raiseYourHand, excludeBoardIds);
 
         return totalDiscussions;
     }
@@ -417,5 +448,13 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
         _raiseYourHandDao = raiseYourHandDao;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
     }
 }

@@ -40,13 +40,21 @@
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
-    <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
+
+    <c:choose>
+        <c:when test="${requestScope.recentConversations}">
+            <c:set var="pageSizeUrlPrefix" value="${requestScope.uri}?pageSize="/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageSizeUrlPrefix" value="${requestScope.uri}&amp;amp;pageSize="/>
+        </c:otherwise>
+    </c:choose>
 
     <script type="text/javascript">
         var $j = jQuery;
         $j(function() {
             $j("#postCountSelect").change(function() {
-                document.location='${requestScope.uri}&amp;pageSize=' + this.value;
+                document.location='${pageSizeUrlPrefix}' + this.value;
             });
 
             $j('.emailItLink').click(function() {
@@ -136,6 +144,11 @@
     <link:home>Home</link:home>
 
     <c:choose>
+       <c:when test="${requestScope.recentConversations}">
+           &amp;gt;
+           <link:communityLanding>Community</link:communityLanding>
+       </c:when>
+
         <c:when test="${requestScope.discussionBoard.city ne null}">
             &amp;gt;
             <link:research state="${requestScope.discussionBoard.city.state}"
@@ -157,7 +170,7 @@
 
 <div class="module">
 <div class="header">
-    <h2 class="title1white fltlft">${requestScope.discussionBoard.title}</h2>
+    <h2 class="title1white fltlft">${requestScope.recentConversations ? requestScope.title : requestScope.discussionBoard.title}</h2>
 
     <div class="fltrt">
         <c:set var="startDiscussButton">
@@ -195,6 +208,7 @@
         </select>
     </div>
 
+    <c:if test="${!requestScope.recentConversations}">
     <p class="fltrt smallAlertText">
         Sort by:
         <c:choose>
@@ -223,9 +237,8 @@
                 <a href="${requestScope.uri}&amp;amp;sort=oldest_first&amp;amp;pageSize=${requestScope.pageSize}">Oldest first</a>
             </c:otherwise>
         </c:choose>
-
-        <!--| <a href="#">Most Popular (what is this???)</a>-->
     </p>
+    </c:if>
     <br class="clearfloat"/>
 </div>
 <!-- end db_deck -->
@@ -281,6 +294,14 @@
                                         userContent="${discussion}"/></span>
                             </c:otherwise>
                         </c:choose>
+
+                        <c:if test="${not empty discussion.discussionBoard}">
+                            in
+                            <span class="smallText1">
+                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                 fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
+                            </span>
+                        </c:if>
 
                         <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                     </p>
@@ -395,14 +416,13 @@
 </div>
 <!-- end db_body -->
 
-
 <div class="db_footer">
     <div class="fltlft">
         ${startDiscussButton}
     </div>
     <br class="clearfloat"/>
     <community:pagination page="${page}" totalPages="${totalPages}"
-                          url="${uri}&amp;amp;pageSize=${pageSize}" styleClass="pagination"/>
+                          url="${pageSizeUrlPrefix}${pageSize}" styleClass="pagination"/>
 </div>
 <!-- end db_footer -->
 </div>

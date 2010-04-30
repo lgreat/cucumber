@@ -219,22 +219,28 @@
                         <!-- end discussionHolder -->
                     </c:forEach>
 
+                    <c:set var="moreHtml">
+                        <span class="text3_230">${moreText} </span>
+                        <span class="alertDoubleArrow">&amp;raquo;</span>
+                    </c:set>
+
+                    <p class="fltrt">
+                        <c:choose>
+                            <c:when test="${not empty moreUrl}">
+                                <a href="${moreUrl}">${moreHtml}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                 fullUri="${fullUri}">${moreHtml}</link:cmsContent>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+
                     <c:choose>
                         <c:when test="${showLargeFirstAvatar}">
-                            <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                              fullUri="${fullUri}">
-                                <span class="text3_230">More conversations </span>
-                                <span class="alertDoubleArrow">&amp;raquo;</span>
-                            </link:cmsContent></p>
                             <br class="clearfloat"/>
                         </c:when>
                         <c:otherwise>
-                            <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                              fullUri="${fullUri}">
-                                <span class="text3_230">${moreText} </span>
-                                <span class="alertDoubleArrow">&amp;raquo;</span>
-                            </link:cmsContent></p>
-
                             <div class="spacer_10"><!-- do not collapse --></div>
                         </c:otherwise>
                     </c:choose>
