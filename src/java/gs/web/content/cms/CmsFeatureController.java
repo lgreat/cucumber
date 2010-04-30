@@ -56,10 +56,9 @@ public class CmsFeatureController extends AbstractController {
                 return new ModelAndView("/status/error404.page");
             }
 
-            // GS-8490
-            if (contentId == 522L) {
-                UrlBuilder builder = new UrlBuilder(new ContentKey("Article", 868L));
-                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+            UrlBuilder redirect = get301Redirect(contentId);
+            if (redirect != null) {
+                return new ModelAndView(new RedirectView301(redirect.asSiteRelative(request)));
             }
 
             feature = _featureDao.get(contentId);
@@ -198,6 +197,28 @@ public class CmsFeatureController extends AbstractController {
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    protected UrlBuilder get301Redirect(Long contentId) {
+        UrlBuilder builder = null;
+        // GS-8490
+        if (contentId == 522L) {
+            builder = new UrlBuilder(new ContentKey("Article", 868L));
+        }
+        // GS-9914
+        else if (contentId == 87L || contentId == 1151L) {
+            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "220", (String)null, (String)null, "EN");
+        } else if (contentId == 403L) {
+            builder = new UrlBuilder(new ContentKey("TopicCenter",2220L));
+        } else if (contentId == 133L || contentId == 1107L) {
+            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "219", (String)null, (String)null, "EN");
+        } else if (contentId == 2078L) {
+            builder = new UrlBuilder(new ContentKey("TopicCenter",1539L));
+        } else if (contentId == 1192L) {
+            builder = new UrlBuilder(new ContentKey("ArticleSlideshow",2402L));
+        }
+
+        return builder;
     }
 
     protected void processSlideshow(CmsFeature slideshow, String page) {
