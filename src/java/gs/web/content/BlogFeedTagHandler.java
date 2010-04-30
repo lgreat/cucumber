@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.37 2010/04/30 00:47:48 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.38 2010/04/30 00:54:10 yfan Exp $
  */
 
 package gs.web.content;
@@ -255,7 +255,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             return "/res/img/pixel.gif";
         }
 
-        return "/catalog/images/blog/" + StringUtils.deleteWhitespace(author.toLowerCase()) + "_40x40.png";
+        return "/catalog/images/blog/" + author.replaceAll("[^a-zA-Z0-9]", "").toLowerCase() + "_40x40.png";
     }
 
     private void display(String title, String link, String text, String author, Date date) throws IOException {
