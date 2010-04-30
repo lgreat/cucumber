@@ -144,7 +144,7 @@
     <link:home>Home</link:home>
 
     <c:choose>
-       <c:when test="${requestScope.recentConversations}">
+       <c:when test="${requestScope.showOnlyCommunityLandingPageBreadcrumb}">
            &amp;gt;
            <link:communityLanding>Community</link:communityLanding>
        </c:when>

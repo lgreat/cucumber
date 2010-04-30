@@ -58,6 +58,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_PAGE_TITLE = "pageTitle";
     public static final String MODEL_TITLE = "title";
     public static final String MODEL_RECENT_CONVERSATIONS = "recentConversations";
+    public static final String MODEL_SHOW_ONLY_COMMUNITY_LANDING_PAGE_BREADCRUMB = "showOnlyCommunityLandingPageBreadcrumb";
 
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_PAGE_SIZE = "pageSize";
@@ -109,6 +110,9 @@ public class CmsDiscussionBoardController extends AbstractController {
             board = _cmsDiscussionBoardDao.get(contentId);
 
             if (board != null) {
+                if (board.getContentKey().getIdentifier() == CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID) {
+                    model.put(MODEL_SHOW_ONLY_COMMUNITY_LANDING_PAGE_BREADCRUMB, true);
+                }
                 model.put(MODEL_DISCUSSION_BOARD, board);
                 if (recentConversations) {
                     model.put(MODEL_URI, uri);
