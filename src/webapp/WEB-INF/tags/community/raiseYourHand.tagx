@@ -24,7 +24,7 @@
 <script type="text/javascript">
     var $j = jQuery;
     $j(function() {
-        var ryhAnswerCharacterLimit = 150;
+        var ryhAnswerCharacterLimit = 250;
         var ryhCharacterCountText = ' characters left.';
         $j('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
 
@@ -384,7 +384,7 @@
 
                             <community:userContentTeaserText
                                     textToDisplay="DISCUSSION_REPLY_BODY"
-                                    minLength="117" maxLength="150"
+                                    minLength="250" maxLength="260"
                                     discussionId="${discussion.id}"
                                     discussionFullUri="${discussion.discussionBoard.fullUri}"
                                     discussionReplyId="1"
@@ -499,7 +499,7 @@
                                 <c:otherwise>
                                     <community:userContentTeaserText
                                             textToDisplay="${reply.body}"
-                                            minLength="117" maxLength="150"
+                                            minLength="250" maxLength="260"
                                             discussionId="${discussion.id}"
                                             discussionFullUri="${discussion.discussionBoard.fullUri}"
                                             discussionReplyId="${reply.id}"
