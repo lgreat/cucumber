@@ -34,51 +34,70 @@ function stateChange(stateSelect) {
 
 }
 
+jQuery(function() {
+   jQuery('[name="posterAsString"]').change(function() {
+        if (this.value == 'parent') {
+            jQuery('#principalOrFacilityStars').show();
+            jQuery('#teacherStars').show();
+            jQuery('#parentStars').show();
+            jQuery('#learnMoreLinks').show();
+            jQuery('#categoryRatings p').show();
+        } else if (this.value == 'student') {
+            jQuery('#principalOrFacilityStars').hide();
+            jQuery('#teacherStars').show();
+            jQuery('#parentStars').hide();
+            jQuery('#learnMoreLinks').show();
+            jQuery('#categoryRatings p').show();
+        } else {
+            jQuery('#principalOrFacilityStars').hide();
+            jQuery('#teacherStars').hide();
+            jQuery('#parentStars').hide();
+            jQuery('#learnMoreLinks').hide();
+            jQuery('#categoryRatings p').hide();
+        }
+    }); 
+});
+
 function schoolChange(school) {
     var schoolObj = school;
     if (school.value != '') {
         var url = '/school/schoolForParentReview.page';
-        new Ajax.Request(
-                url,
-        {
-            method: 'get',
-            parameters: {schoolId : school.value, state : $('userState').value},
-            onComplete: showResponse
-        });
-
+        var params = {schoolId : school.value, state : $('userState').value};
+        jQuery.get(url, params, showResponse);
     }
-
 }
 
 function showResponse(x) {
+
     setDisplay('');
+
     $('principalAsString').value = '';
     $('teacherAsString').value = '';
-    $('activitiesAsString').value = '';
+    //$('activitiesAsString').value = '';
     $('parentAsString').value = '';
-    $('safetyAsString').value = '';
-    $('PProgramAsString').value = '';
-    $('PFacilitiesAsString').value = '';
-    $('PSafetyPreschoolAsString').value = '';
-    $('PTeachersPreschoolAsString').value = '';
-    $('PParentsPreschoolAsString').value = '';
+    //$('safetyAsString').value = '';
+    //$('PProgramAsString').value = '';
+    $('pFacilitiesAsString').value = '';
+    //$('PSafetyPreschoolAsString').value = '';
+    //$('PTeachersPreschoolAsString').value = '';
+    //$('PParentsPreschoolAsString').value = '';
 
     clearRatings('principalAsString');
     clearRatings('teacherAsString');
-    clearRatings('activitiesAsString');
+    //clearRatings('activitiesAsString');
     clearRatings('parentAsString');
-    clearRatings('safetyAsString');
-    clearRatings('PProgramAsString');
-    clearRatings('PFacilitiesAsString');
-    clearRatings('PSafetyPreschoolAsString');
-    clearRatings('PTeachersPreschoolAsString');
-    clearRatings('PParentsPreschoolAsString');
+    //clearRatings('safetyAsString');
+    //clearRatings('PProgramAsString');
+    clearRatings('pFacilitiesAsString');
+    //clearRatings('PSafetyPreschoolAsString');
+    //clearRatings('PTeachersPreschoolAsString');
+    //clearRatings('PParentsPreschoolAsString');
 
-    var isRatingInfoPresent = (x.responseText.indexOf('noRatingInfo') == -1);
-    var isPreschool = (x.responseText.indexOf('isPreschool') != -1);
-    var isPublic = (x.responseText.indexOf('isPublic') != -1);
+    var isRatingInfoPresent = (x.indexOf('noRatingInfo') == -1);
+    var isPreschool = (x.indexOf('isPreschool') != -1);
+    var isPublic = (x.indexOf('isPublic') != -1);
     $('schoolAddress').style.paddingLeft = '0px';
-    var schoolInfoArray = x.responseText.split(";");
+    var schoolInfoArray = x.split(";");
     $('schoolNameHeader').innerHTML = schoolInfoArray[0];
 
     if ($('gsSchoolRating').childNodes.length > 0) {
@@ -113,7 +132,6 @@ function showResponse(x) {
         }
     }
 
-
     if (schoolInfoArray[4] != "" && schoolInfoArray[5] == "") {
         $('schoolAddressLine1').innerHTML = schoolInfoArray[4];
         $('schoolAddressLine3').innerHTML = schoolInfoArray[6] + ',' + schoolInfoArray[7] + ' ' + schoolInfoArray[8];
@@ -126,9 +144,9 @@ function showResponse(x) {
         $('schoolAddressLine4').innerHTML = schoolInfoArray[9] + ' ' + 'county';
     }
     if (isPublic) {
-        $('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools, including periodic updates about ' + schoolInfoArray[0] + '.</div>';
+        //$('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools, including periodic updates about ' + schoolInfoArray[0] + '.</div>';
     } else {
-        $('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools.</div>';
+        //$('weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools.</div>';
     }
     $('schoolId').value = schoolInfoArray[10];
     $('schoolState').value = schoolInfoArray[7];
@@ -140,17 +158,17 @@ function showResponse(x) {
     $('principalsLink').appendChild(principalsHref);
 
     if (isPreschool) {
-        $('nonPreSchoolStars').style.display = 'none';
-        $('preSchoolStars').style.display = '';
+
+        jQuery('#principalStars').hide();
+        jQuery('#facilityStars').show();
+        jQuery('#posterDropdown [value=Student]').hide();
     } else {
-        $('preSchoolStars').style.display = 'none';
-        $('nonPreSchoolStars').style.display = '';
+
+        jQuery('#facilityStars').hide();
+        jQuery('#principalStars').show();
+        jQuery('#posterDropdown [value=Student]').show();
     }
-    if ($('addParentReviewForm').hasClassName('hide')) {
-        $('addParentReviewForm').removeClassName('hide');
-        $('addParentReviewForm').addClassName('show');
-        $('reviewThisSchoolButton').style.display = 'none';
-    }
+
 
 }
 
@@ -186,6 +204,17 @@ function onLoadCities() {
 
 }
 
+function GS_countWords(textField) {
+    var text = textField.value;
+    var count = 0;
+    var a = text.replace(/\n/g,' ').replace(/\t/g,' ');
+    var z = 0;
+    for (; z < a.length; z++) {
+        if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { count++; }
+    }
+    return count+1; // # of words is # of spaces + 1
+}
+
 function validateReview() {
     var noError = true;
     var height = 360;
@@ -200,6 +229,7 @@ function validateReview() {
         $('reviewRatingError').style.display = 'none';
     }
 
+    /*
     if ($('reviewEmail').value == '' || ($('reviewEmail').value == 'Enter your email address') || (validateEmail($('reviewEmail').value) == false)) {
         $('emailError').style.display = '';
         $('parentRating').style.height = height + 28 + 'px';
@@ -209,7 +239,9 @@ function validateReview() {
     } else {
         $('emailError').style.display = 'none';
     }
+    */
 
+    /*
     if (!$('permission').checked) {
         $('termsError').style.display = '';
         $('parentRating').style.height = height + 28 + 'px';
@@ -219,6 +251,7 @@ function validateReview() {
     } else {
         $('termsError').style.display = 'none';
     }
+    */
     if (!noError) {
         $('reviewAndGuidlines').style.marginTop = '8px';
     } else {
@@ -227,7 +260,22 @@ function validateReview() {
         }
     }
 
-    return noError;
+    if (jQuery('#addParentReviewForm #reviewText').val().length > 1200) {
+        noError = false;
+        alert("Please keep your comments to 1200 characters or less.")
+    }
+    if (GS_countWords(document.getElementById('reviewText')) < 15) {
+        noError = false;
+        alert("Please use at least 15 words in your comment.")
+    }
+
+    if (noError) {
+        if (GS.showSchoolReviewHover(window.location.href)) {
+                GS_postSchoolReview();
+        }
+    }
+
+    return false;
 }
 
 function validateEmail(elementValue) {
@@ -265,6 +313,11 @@ function reviewThisSchool() {
         noError = false;
     }
 
+     if (jQuery('#selections [name="posterAsString"]').val() == '') {
+            errMsg = errMsg + '\nPlease select your affiliation with the school.';
+            noError = false;
+        }
+
     if (!noError) {
         alert(errMsg);
     } else {
@@ -277,3 +330,76 @@ function reviewThisSchool() {
 
     return false;
 }
+
+
+
+function GS_postSchoolReview(email, callerFormId) {
+    // first, grab the email from the join/signIn form and use that with the review
+    if (email) {
+        jQuery('#addParentReviewForm [name="email"]').val(email);
+    }
+
+    //clear submit fields
+
+    // then post the review
+    jQuery.post('/school/review/postReview.page', jQuery('#addParentReviewForm').serialize(), function(data) {
+        if (data.reviewPosted != undefined) {
+            if (data.reviewPosted == "true") {
+                // cookie to show schoolReviewPostedThankYou hover
+                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
+            } else {
+                // cookie to show schoolReviewNotPostedThankYou hover
+                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+            }
+        }
+        if (callerFormId) {
+            GSType.hover.signInHover.hide();
+            GSType.hover.joinHover.hide();
+            jQuery('#' + callerFormId).submit();
+        } else {
+            window.location.href=window.location.href;
+            window.location.reload();
+        }
+    }, "json");
+}
+
+
+
+/*
+function reviewThisSchool() {
+    var errMsg = 'Please enter the following fields: ';
+    var noError = true;
+
+    if (($('userState').value == 0) || ($('userState').value == 'Choose a state')) {
+        jQuery('#selections .stateError').show();
+        hasError = true;
+    }
+
+    if (($('citySelect').value == '') || ($('citySelect').value == 'Choose a city')) {
+        jQuery('#selections .cityError').show();
+        hasError = true;
+    }
+
+    if (($('schoolSelect').value == '') || ($('schoolSelect').value == 'Choose a school')) {
+        jQuery('#selections .schoolError').show();
+        hasError = true;
+    }
+
+    if (jQuery('#selections [name="posterAsString"]').val() == '') {
+            jQuery('#selections .whoError').show();
+            hasError = true;
+        }
+
+    if (hasError) {
+        jQuery('#selections errors').hide();
+    } else {
+        if ($('addParentReviewForm').hasClassName('hide')) {
+            $('addParentReviewForm').removeClassName('hide');
+            $('addParentReviewForm').addClassName('show');
+            $('reviewThisSchoolButton').style.display = 'none';
+        }
+    }
+
+    return false;
+}
+*/
