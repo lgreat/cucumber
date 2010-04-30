@@ -101,7 +101,7 @@
 
                 </ul>
                  </c:if>
-                <div id="keyTermDefinitions"><gsweb:articlelink articleId="3754" target="_blank">Know the system: Key terms</gsweb:articlelink></div>
+                <div id="keyTermDefinitions"><link:cmsContent contentKey="Article#2424" fullUri="/find-a-school/school-terminology" target="_blank">Know the system: Key terms</link:cmsContent></div>
                 <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=district">Let us know!</gsml:a></div>
                 ${model.definitionsDiv}
             </div>
@@ -126,7 +126,7 @@
                             </td>
                         </tr>
                         <tr><td>This district's rating is based on its schools' test results; 10 is best.</td></tr>
-                        <tr><td><gsweb:articlelink articleId="1023">Learn more &gt;</gsweb:articlelink></td></tr>
+                        <tr><td><link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings" anchor="13">Learn more &gt;</link:cmsContent></td></tr>
                         <tr><td><link:districtProfile districtId="${district.id}"
                                  state="${district.physicalAddress.state}">This district's stats &gt;</link:districtProfile></td></tr>
                         </table>

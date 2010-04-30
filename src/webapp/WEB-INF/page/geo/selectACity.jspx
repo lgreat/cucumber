@@ -159,9 +159,7 @@
                         <pageHelper:addOnLoadHandler handler="createMap()"/>
                         <br/>
                         <div class="learnMore">
-                            <gsweb:articlelink
-                                    articleId="1023"
-                                    anchorName="13">Learn more about GreatSchools City Ratings &gt;</gsweb:articlelink>
+                            <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings" anchor="13">Learn more about GreatSchools City Ratings &gt;</link:cmsContent>
                         </div>
                     </td>
                 </c:if>

@@ -116,7 +116,7 @@
         <div id="textwrapper">
             <div id="ratingtext">
                 ${displayName}'s rating is based on its public schools' test results; 10 is best.
-                <gsweb:articlelink articleId="1023" anchorName="13" target="_blank"><img src="/res/img/yellow_circle_i.gif" alt="Learn more" id="ratingYellowCircle"/></gsweb:articlelink>
+                <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings" anchor="13" target="_blank"><img src="/res/img/yellow_circle_i.gif" alt="Learn more" id="ratingYellowCircle"/></link:cmsContent>
             </div>
             <div id="compareToNearbyCities">
                 <link:nearbyCities city="${cityObject.name}"
