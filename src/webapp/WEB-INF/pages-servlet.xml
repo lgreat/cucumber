@@ -234,7 +234,7 @@
           autowire="byName" lazy-init="true"/>
     <bean id="submitPrivateSchoolCommandValidator" class="gs.web.util.validator.SubmitPrivateSchoolCommandValidator"
           autowire="byName" lazy-init="true"/>
-    
+
     <bean name="/index.page"
           class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
         <property name="viewName">
@@ -499,7 +499,7 @@
             <value>news/backToSchoolPollResults</value>
         </property>
     </bean>
-    
+
     <bean name="/content/article.page"
           class="gs.web.content.ArticleController"
           autowire="byName" lazy-init="true">
@@ -1383,7 +1383,7 @@
         <!--</list>-->
         <!--</property>-->
     </bean>
-    
+
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
@@ -1649,7 +1649,7 @@
 
     <bean name="/community/forgotPasswordValidator.page"
           class="gs.web.community.registration.ForgotPasswordValidatorAjaxController"
-          autowire="byName" lazy-init="true"/>    
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/community/resetPassword.page"
           class="gs.web.community.registration.ResetPasswordController"
@@ -1935,7 +1935,7 @@
         <property name="xmlPage" value="true"/>
     </bean>
 
-    <bean id="postReview" 
+    <bean id="postReview"
           class="gs.web.school.review.SchoolReviewsAjaxController"
           autowire="byName" lazy-init="true">
         <property name="commandName" value="parentReviewCommand"/>
@@ -2271,9 +2271,24 @@
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
         <property name="successView" value="parentReviews"/>
-        <property name="viewName">
-            <value>school/parentReview</value>
-        </property>
+        <property name="formView" value="school/parentReviewMorganStanley" />
+    </bean>
+
+    <bean name="/morgan-stanley/"
+          class="gs.web.school.review.AddParentReviewsController"
+          autowire="byName" lazy-init="true">
+         <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="successView" value="parentReviews"/>
+        <property name="formView" value="school/parentReviewMorganStanley" />
+        <property name="how" value="morganstanley"/>
+    </bean>
+
+    <bean name="/morgan-stanley"
+          class="gs.web.util.Redirect301Controller"
+          autowire="byName" lazy-init="true">
+        <property name="redirectPath" value="/morgan-stanley/"/>
     </bean>
 
     <bean id="apiAccountValidator" class="gs.web.api.ApiAccountCommandValidator"
@@ -2467,7 +2482,7 @@
     <bean name="/content/backToSchool.page"
           class="gs.web.backToSchool.BackToSchoolHomeController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/backToSchool/backToSchoolHome"/>        
+        <property name="viewName" value="/backToSchool/backToSchoolHome"/>
         <property name="communityTableDao">
             <bean factory-bean="backToSchoolCommunityFactory" factory-method="getTableDao"/>
         </property>

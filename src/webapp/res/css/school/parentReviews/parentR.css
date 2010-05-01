@@ -72,6 +72,10 @@
     padding-left: 9px;
 }
 
+#selections div #posterDropdown {
+    margin-left: 24px;
+}
+
 #parentReviewImage {
     float: left;
     width: 250px;

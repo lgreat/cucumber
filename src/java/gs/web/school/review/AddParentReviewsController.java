@@ -69,6 +69,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     private Boolean _xmlPage = Boolean.FALSE;
 
+    private String _how;
+
     public static Pattern BAD_WORDS = Pattern.compile(".*(fuck|poop[\\s\\.,]|poopie|[\\s\\.,]ass[\\s\\.,]|faggot|[\\s\\.,]gay[\\s\\.,]|nigger|shit|prick[\\s\\.,]|ass-kicker|suck|asshole|dick[\\s\\.,]|Satan|dickhead|piss[\\s\\.,]).*");
 
     protected ModelAndView processFormSubmission(HttpServletRequest request,
@@ -111,6 +113,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
         //new user - create user, add entry to list_active table,
         if (user == null) {
             user = new User();
+
+            //GS-9756: How field added to this controller so that users created when submitting a review on the Morgan Stanley review landing page get tracked
+            if (!StringUtils.isEmpty(_how)) {
+                user.setHow(_how);
+            }
+
             user.setEmail(rc.getEmail());
             getUserDao().saveUser(user);
             // Because of hibernate caching, it's possible for a list_active record
@@ -512,5 +520,13 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        _how = how;
     }
 }
