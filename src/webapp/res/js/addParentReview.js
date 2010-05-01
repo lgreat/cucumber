@@ -267,7 +267,7 @@ function validateReview() {
     }
 
     if (noError) {
-        if (GS.showSchoolReviewHover(window.location.href)) {
+        if (GS.showSchoolReviewHover('/school/parentReviews.page?id=' + jQuery('#schoolId').val() + '&state=' + jQuery('#schoolState').val())) {
             GS_postSchoolReview();
         }
     }
@@ -346,8 +346,7 @@ function GS_postSchoolReview(email, callerFormId) {
             GSType.hover.joinHover.hide();
             jQuery('#' + callerFormId).submit();
         } else {
-            window.location.href = window.location.href;
-            window.location.reload();
+            window.location.href = '/school/parentReviews.page?id=' + jQuery('#schoolId').val() + '&state=' + jQuery('#schoolState').val();
         }
     }, "json");
 }

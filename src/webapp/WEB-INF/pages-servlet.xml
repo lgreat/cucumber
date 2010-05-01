@@ -2271,7 +2271,7 @@
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
         <property name="successView" value="parentReviews"/>
-        <property name="formView" value="school/parentReviewMorganStanley" />
+        <property name="formView" value="school/parentReview" />
     </bean>
 
     <bean name="/morgan-stanley/"
