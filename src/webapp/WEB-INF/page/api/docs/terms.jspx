@@ -24,11 +24,6 @@
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
-        <![CDATA[
-        <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
-        <![endif]-->
-        ]]>
     </head>
 
     <body>

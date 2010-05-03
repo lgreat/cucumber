@@ -10,12 +10,13 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+    <jsp:directive.page import="gs.web.util.UrlUtil"/>
 
     <c:set var="pageName" value="API Documentation"/>
     <html>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
 
@@ -24,14 +25,13 @@
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
-        <![CDATA[
-        <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
-        <![endif]-->
-        ]]>
+
+        <jsp:scriptlet>
+            request.setAttribute("apiHost", UrlUtil.getApiHostname(request.getServerName()));
+        </jsp:scriptlet>
     </head>
 
-    <body>
+    <gsml:body pageLayout="nocol" adPageName="apiDocs">
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
 
@@ -42,7 +42,7 @@
                 <h2>School Reviews</h2>
                 Returns a list of the most recent reviews for a school
                 or for any schools in a city. All calls for School Reviews are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/reviews/[components]?[parameters]</div>
+                <div class="sample_url">http://${apiHost}/reviews/[components]?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -125,19 +125,19 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="example_url">http://api.${pageContext.request.serverName}/reviews/school/CA/1?key=[yourAPIkey]</div>
+                <div class="example_url">http://${apiHost}/reviews/school/CA/1?key=[yourAPIkey]</div>
                 Returns 5 most recent reviews for the school in California with GreatSchools ID of 1.
-                <div class="example_url">http://api.${pageContext.request.serverName}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=10&amp;cutoffAge=7</div>
+                <div class="example_url">http://${apiHost}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=10&amp;cutoffAge=7</div>
                 Returns the 10 most recent reviews for schools in the city of Alameda, CA. Only returns reviews from the past 7 days.
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=2</div>
+                <div class="sample_url">http://${apiHost}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=2</div>
                 Returns 2 most recent reviews for school in California with GreatSchools ID of 1.
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
-                <textarea class="sampleTextArea"  wrap="off" readonly="readonly">
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" cols="" rows="">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;reviews&gt;
     &lt;review&gt;
@@ -184,6 +184,6 @@
 
         <!-- <apidoc:sidebar current="schools"/> -->
     </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>

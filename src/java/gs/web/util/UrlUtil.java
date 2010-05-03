@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.89 2010/04/06 17:57:04 aroy Exp $
+ * $Id: UrlUtil.java,v 1.90 2010/05/03 16:01:58 aroy Exp $
  */
 
 package gs.web.util;
@@ -343,6 +343,21 @@ public final class UrlUtil {
 
     public static boolean isPreReleaseServer(String hostName) {
         return hostName.indexOf("rithmatic") != -1;
+    }
+
+    public static String getApiHostname(String hostName) {
+        if (isCloneServer(hostName)) {
+            return "api.clone.greatschools.org";
+        } else if (isStagingServer(hostName)) {
+            return "api.staging.greatschools.org";
+        } else if (hostName.indexOf("cmsqa1") != -1) {
+            return "api.cmsqa1.greatschools.org";
+        } else if (hostName.indexOf("cmsqa2") != -1) {
+            return "api.cmsqa2.greatschools.org";
+        } else if (isDevEnvironment(hostName)) {
+            return "api.dev.greatschools.org";
+        }
+        return "api.greatschools.org";
     }
 
     /**

@@ -10,12 +10,13 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+<jsp:directive.page import="gs.web.util.UrlUtil"/>
 
-    <c:set var="pageName" value="API Documentation"/>
+<c:set var="pageName" value="API Documentation"/>
     <html>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
 
@@ -24,14 +25,13 @@
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
-        <![CDATA[
-        <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
-        <![endif]-->
-        ]]>
+
+        <jsp:scriptlet>
+            request.setAttribute("apiHost", UrlUtil.getApiHostname(request.getServerName()));
+        </jsp:scriptlet>
     </head>
 
-    <body>
+    <gsml:body pageLayout="nocol" adPageName="apiDocs">
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
 
@@ -42,7 +42,7 @@
                 <h2>Nearby Schools</h2>
                 Returns a list of schools closest to the center of a city,
                 ZIP Code or address. All calls for Nearby Schools are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/nearby?[parameters]</div>
+                <div class="sample_url">http://${apiHost}/schools/nearby?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Parameters</h2>
@@ -150,24 +150,24 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;address=160+Spear+St&amp;city=San+Francisco&amp;state=CA&amp;zip=94105&amp;schoolType=public-charter&amp;levelCode=elementary-schools&amp;minimumSchools=50&amp;radius=10&amp;limit=100</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;address=160+Spear+St&amp;city=San+Francisco&amp;state=CA&amp;zip=94105&amp;schoolType=public-charter&amp;levelCode=elementary-schools&amp;minimumSchools=50&amp;radius=10&amp;limit=100</div>
                 Returns 50 to 100 public and charter elementary schools within 10 miles of
                 160 Spear St, San Francisco, CA 94105
-                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;city=San+Francisco&amp;state=CA</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;city=San+Francisco&amp;state=CA</div>
                 Returns up to 200 schools within 5 miles of San Francisco, CA
-                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;state=CA&amp;zip=94105</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;state=CA&amp;zip=94105</div>
                 Returns up to 200 schools within 5 miles of ZIP Code 94105
-                <div class="example_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;lat=37.758862&amp;lon=-122.411406</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;lat=37.758862&amp;lon=-122.411406</div>
                 Returns up to 200 schools within 5 miles of latitude 37.758862, longitude -122.411406
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/schools/nearby?key=[yourAPIkey]&amp;zip=94105&amp;limit=2</div>
+                <div class="sample_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;zip=94105&amp;limit=2</div>
                 Returns 2 California schools within 5 miles of ZIP Code 94105
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
-                <textarea class="sampleTextArea" wrap="off" readonly="readonly">
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" cols="" rows="">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &amp;lt;schools&amp;gt;
 	&amp;lt;school&amp;gt;
@@ -234,6 +234,6 @@
 
         <!-- <apidoc:sidebar current="schools"/> -->
     </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>

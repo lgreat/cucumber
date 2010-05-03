@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.67 2010/04/06 17:57:04 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.68 2010/05/03 16:01:58 aroy Exp $
  */
 
 package gs.web.util;
@@ -447,5 +447,17 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(2, params.size());
         assertEquals("CA", params.get("state"));
         assertEquals("Expect URL decoding to occur", "San Francisco", params.get("city"));
+    }
+
+    public void testGetApiHostname() {
+        assertEquals("api.dev.greatschools.org", UrlUtil.getApiHostname("localhost"));
+        assertEquals("api.dev.greatschools.org", UrlUtil.getApiHostname("dev.greatschools.org"));
+        assertEquals("api.dev.greatschools.org", UrlUtil.getApiHostname("sfgate.dev.greatschools.org"));
+        assertEquals("api.staging.greatschools.org", UrlUtil.getApiHostname("staging.greatschools.org"));
+        assertEquals("api.staging.greatschools.org", UrlUtil.getApiHostname("sfgate.staging.greatschools.org"));
+        assertEquals("api.clone.greatschools.org", UrlUtil.getApiHostname("clone.greatschools.org"));
+        assertEquals("api.clone.greatschools.org", UrlUtil.getApiHostname("sfgate.clone.greatschools.org"));
+        assertEquals("api.greatschools.org", UrlUtil.getApiHostname("www.greatschools.org"));
+        assertEquals("api.greatschools.org", UrlUtil.getApiHostname("sfgate.greatschools.org"));
     }
 }

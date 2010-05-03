@@ -12,13 +12,6 @@
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
     <pageHelper:externalCss file="/res/css/api/docs/sidebar.css" />
     <jsp:directive.attribute name="cssClass" required="false" description="Style class to be added the top-level div" />
-    <jsp:directive.attribute name="collapseTopicTips" type="java.lang.Boolean"
-        description="Whether or not to collapse topic tips" required="false"/>
-    <jsp:directive.attribute name="collapseGradeTips" type="java.lang.Boolean"
-        description="Whether or not to collapse grade tips" required="false"/>
-
-    <c:set var="collapseTopicTips" value="${not empty collapseTopicTips ? collapseTopicTips : false}"/>
-    <c:set var="collapseGradeTips" value="${not empty collapseGradeTips ? collapseGradeTips : false}"/>
 
     <div id="librarySidebar" class="${cssClass}">
         <div class="box">
@@ -29,7 +22,7 @@
                     <li>
                         <a href="#grade-tips" id="gradeTips">Getting Started</a>
                         <div class="toggle">
-                            <ul>
+                            <ul id="grade-tips">
                                 <li><a href="/api/registration.page">Register</a></li>
                                 <li class="last"><a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
                                            onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a></li>
@@ -55,15 +48,4 @@
             </div>
         </div>
     </div>
-
-    <c:if test="${collapseTopicTips}">
-        <script type="text/javascript">
-            document.getElementById('topicTips').className = 'closed';
-        </script>
-    </c:if>
-    <c:if test="${collapseGradeTips}">
-        <script type="text/javascript">
-            document.getElementById('gradeTips').className = 'closed';
-        </script>
-    </c:if>
 </jsp:root>

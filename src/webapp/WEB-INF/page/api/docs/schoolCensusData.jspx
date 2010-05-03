@@ -10,12 +10,13 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+    <jsp:directive.page import="gs.web.util.UrlUtil"/>
 
     <c:set var="pageName" value="API Documentation"/>
     <html>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
 
@@ -24,14 +25,13 @@
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
-        <![CDATA[
-        <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="/res/css/api/docs/sidebar_ie.css" />
-        <![endif]-->
-        ]]>
+
+        <jsp:scriptlet>
+            request.setAttribute("apiHost", UrlUtil.getApiHostname(request.getServerName()));
+        </jsp:scriptlet>
     </head>
 
-    <body>
+    <gsml:body pageLayout="nocol" adPageName="apiDocs">
     <div id="api_docs">
         <jsp:include page="/api/leftNav.module" />
 
@@ -41,7 +41,7 @@
             <div class="callfirst">
                 <h2>School Census Data</h2>
                 Returns census and profile data for a school. All calls for School Census Data are in this format:
-                <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/[components]?[parameters]</div>
+                <div class="sample_url">http://${apiHost}/school/census/[components]?[parameters]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -98,12 +98,12 @@
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://api.${pageContext.request.serverName}/school/census/ND/20?key=[yourkey]</div>
+                <div class="sample_url">http://${apiHost}/school/census/ND/20?key=[yourkey]</div>
                 Returns census and profile data for school in North Dakota with GreatSchools ID of 20
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
-                <textarea class="sampleTextArea"  wrap="off" readonly="readonly">
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" cols="" rows="">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;census-data&gt;
 	&lt;schoolName&gt;Simle Middle School&lt;/schoolName&gt;
@@ -159,6 +159,6 @@
 
         <!-- <apidoc:sidebar current="schools"/> -->
     </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
