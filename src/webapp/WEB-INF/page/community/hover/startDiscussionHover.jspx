@@ -18,7 +18,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <pageHelper:externalCss file="/res/css/content/db_tc_hoverPage.css"/>
+    <pageHelper:externalCss file="/res/css/gs2010_styles.css"/>
     <style type="text/css">
         html {
             background-color: #ebebeb;

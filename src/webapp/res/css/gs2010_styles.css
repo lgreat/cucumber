@@ -39,7 +39,9 @@ General comments:
 =4c-5.1 start a conversation
 =4c-5.2 preview a conversation
 =4c-6 elementary schools grade by grade
-=4d community join hovers
+=4d- community join hovers
+=4d-1 search styles
+=4d-2 community start a conversation hovers
 =4e- about pages
 =4e-5 about sponsors
 =4f- schools
@@ -2248,7 +2250,7 @@ body.ie6 .clearfix {
 }
 
 .startAConversationModule .communityGuidelines {
-    margin-top: 15px;
+    margin: 15px 0 0 10px;
 }
 
 .startAConversationModule label {
@@ -2273,7 +2275,7 @@ body.ie6 .clearfix {
     margin: 10px 0 5px 0;
 }
 
-.startAConversationModule .sd_OuterLayout {
+.startAConversationModule .submit {
     margin-left: 51px;
 }
 
@@ -2450,7 +2452,7 @@ body.ie6 .clearfix {
     top: -3px;
 }
 
-/* =4d community join hovers
+/* =4d- community join hovers
 -------------------------------------------------------------------------------------------*/
 
 .ui-widget-overlay {
@@ -2462,7 +2464,12 @@ body.ie6 .clearfix {
 
 .ui-dialog {
     background: #ebebeb;
-    padding: 0 20px 20px;
+    padding:20px 20px;
+}
+
+.ui-dialog iframe html, .ui-dialog iframe body, .ui-dialog iframe #contentGS {
+    border:none;
+    background:#ebebeb none no-repeat;
 }
 
 .ui-corner-all {
@@ -2873,7 +2880,7 @@ button#hover_forgotPasswordSubmit {
     line-height: .9;
 }
 
-/* =search styles
+/* =4d-1 search styles
 -------------------------------------------------------------------------------------------*/
 
 h2.srchTitle {
@@ -3090,7 +3097,56 @@ ul.srchSuggest li span {
     font: 11px Arial, Helvetica, sans-serif;
 }
 
-/* =4e about pages
+/* =4d-2 community start a conversation hovers
+-------------------------------------------------------------------------------------------*/
+
+body.hover, body.hover #marginGS {
+    background:#ebebeb;
+    height:100%;
+}
+
+body.hover #contentGS{
+    background:none;
+    border:0;
+    min-height:100%;
+}
+
+body.hover #startADiscussion #sd_header h2{
+    margin-top:10px;
+}
+
+body.hover #startADiscussion .startDiscussion li{
+    margin:10px 0;
+}
+
+body.hover #startADiscussion label{
+    display:block;
+    float:left;
+    width:50px;
+}
+
+body.hover #startADiscussion input{
+    width:350px;
+}
+
+body.hover #startADiscussion textarea{
+    width:540px; height:250px
+}
+
+body.hover #startADiscussion .communityGuidelines{
+    margin-left:20px;
+    /*float:right;*/
+}
+
+body.hover #startADiscussion .submit li{
+    padding-left:50px;
+}
+
+body.hover #startADiscussion .sd_InnerLayout {
+    margin:0 0 10px 50px;
+}
+
+/* =4e- about pages
 -------------------------------------------------------------------------------------------*/
 
 #reviewGuidelines div.col_left {
@@ -3116,7 +3172,7 @@ ul.srchSuggest li span {
     list-style: disc;
 }
 
-/* =4f schools
+/* =4f- schools
 -------------------------------------------------------------------------------------------*/
 
 /* =4f-1 school profile
@@ -4197,10 +4253,6 @@ button {
     text-decoration: none;
     text-shadow: 1px 1px 1px #444;
     color: #fff;
-}
-
-#marginGS {
-/* text-align:center;  */
 }
 
 /* =debugging styles

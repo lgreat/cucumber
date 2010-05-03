@@ -134,34 +134,19 @@
     </script>
     <div id="startADiscussion">
         <div id="sd_header">
-            <c:choose>
-                <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-                    <!-- DONE-RANDALL - do use old image -->
-                    <img class="sd_icon fltlft"
-                         src="/res/img/discussion_boards/db_speech_bubbles_60x58.gif"
-                         width="60"
-                         height="58"
-                         alt="big speech bubbles"
-                         align="absmiddle"/>
-                    <c:set var="titleStyle" value="sd_title"/>
-                    <c:set var="guidelineStyle" value="text3"/>
-                </c:when>
-                <c:otherwise>
-                    <!-- DONE-RANDALL - do use sprite image -->
-                    <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
-                    <c:set var="titleStyle" value="title2-d61"/>
-                    <c:set var="guidelineStyle" value="smallAlertText"/>
-                </c:otherwise>
-            </c:choose>
 
+            <!-- DONE-RANDALL - do use sprite image -->
+            <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
+            <c:set var="titleStyle" value="title2-d61"/>
+            <c:set var="guidelineStyle" value="smallAlertText"/>
 
             <h2 class="${titleStyle} fltlft">
                 <c:choose>
                     <c:when test="${discussionId gt 0}">
-                        Edit conversation
+                        Edit Conversation
                     </c:when>
                     <c:otherwise>
-                        Start a conversation
+                        Start a Conversation
                     </c:otherwise>
                 </c:choose>
             </h2>
@@ -174,126 +159,135 @@
         </div>
         <form action="/community/discussionSubmission.page" method="post" target="_parent"
               id="discussionSubmissionForm" accept-charset="Windows-1252">
-            <div class="topicSelect fltlft mrgrt_10">
-                <label for="topicSelect" class="text2bold tint_333">Topic</label>
-                <select id="topicSelect" name="topicCenterId">
-                    <gsml:selectOption value="-1">Cities</gsml:selectOption>
-                    <c:forEach var="myTc" items="${discussionTopics}">
-                        <gsml:selectOption value="${myTc.contentKey.identifier}"
-                                           selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
-                    </c:forEach>
-                    <gsml:selectOption value="2420" selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
-                </select>
-            </div>
-
-            <div class="communityGuidelines ${guidelineStyle} fltlft">
-                Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                           title="GreatSchools Community Standards"
-                                           href="/terms/?state=$STATE#communityStandards">
-                <span class="link">Community Guidelines</span></gsml:popupWindow>
-            </div>
-
-            <br class="clearfloat"/>
-
-            <div class="citySelect">
-                <label for="citySelect" class="text2bold tint_333">City</label>
-                <select id="citySelect" name="discussionBoardId" disabled="disabled">
-                    <c:forEach var="localBoard" items="${localBoards}">
-                        <gsml:selectOption value="${localBoard.boardId}"
-                                           selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
-                    </c:forEach>
-                </select>
-            </div>
-            <ul>
-                <li class="titleInput">
-                    <label for="titleInput" class="text2bold tint_333">Title</label>
-                    <input id="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
-                </li>
-                <li class="bodyInput">
-                    <label for="bodyInput" class="text2bold tint_333">Details</label>
-                    <textarea id="bodyInput" class="bodyInput"
-                              rows="5" cols="20"
-                              name="body"><!-- no collapse -->${discussionBody}</textarea>
-                </li>
-            </ul>
-            <c:if test="${discussionId gt 0}">
-                <input type="hidden" name="discussionId" value="${discussionId}"/>
-                <input type="hidden" name="type" value="editDiscussion"/>
-            </c:if>
-
-            <div class="sd_OuterLayout clearfix">
-                <c:choose>
-                    <c:when test="${discussionId gt 0}">
-                    </c:when>
-                    <c:otherwise>
-                        <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
-                        <span class="lftDoor25">
-                            <span class="rtDoor25">Preview</span>
+            <fieldset class="startDiscussion">
+                <ul>
+                    <li>
+                        <label for="topicSelect" class="text2bold tint_333">Topic</label>
+                        <select id="topicSelect" name="topicCenterId">
+                            <gsml:selectOption value="-1">Cities</gsml:selectOption>
+                            <c:forEach var="myTc" items="${discussionTopics}">
+                                <gsml:selectOption value="${myTc.contentKey.identifier}"
+                                                   selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
+                            </c:forEach>
+                            <gsml:selectOption value="2420"
+                                               selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
+                        </select>
+                        <span class="communityGuidelines ${guidelineStyle}">Read our
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                   title="GreatSchools Community Standards"
+                                                   href="/terms/?state=$STATE#communityStandards">
+                                <span class="link">Community Guidelines</span>
+                            </gsml:popupWindow>
                         </span>
-                        </button>
-                    </c:otherwise>
-                </c:choose>
+                    </li>
 
-                <c:choose>
-                    <c:when test="${discussionId gt 0}">
-                        <c:set var="submitButtonText" value="Save"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="submitButtonText" value="Post&amp;nbsp;conversation"/>
-                    </c:otherwise>
-                </c:choose>
+                    <li>
+                        <div class="citySelect">
+                            <label for="citySelect" class="text2bold tint_333">City</label>
+                            <select id="citySelect" name="discussionBoardId" disabled="disabled">
+                                <c:forEach var="localBoard" items="${localBoards}">
+                                    <gsml:selectOption value="${localBoard.boardId}"
+                                                       selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </li>
 
-                <c:choose>
-                    <c:when test="${discussionId gt 0}">
-                        <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_SaveLayout"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_InnerLayout"/>
-                    </c:otherwise>
-                </c:choose>
+                    <li>
+                        <label for="titleInput" class="text2bold tint_333">Title</label>
+                        <input id="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
+                    </li>
+                    <li>
+                        <label for="bodyInput" class="text2bold tint_333">Details</label>
+                        <textarea id="bodyInput" class="bodyInput"
+                                  rows="5" cols="20"
+                                  name="body"><!-- no collapse -->${discussionBody}</textarea>
+                    </li>
+                </ul>
+                <c:if test="${discussionId gt 0}">
+                    <input type="hidden" name="discussionId" value="${discussionId}"/>
+                    <input type="hidden" name="type" value="editDiscussion"/>
+                </c:if>
+            </fieldset>
 
-                <c:choose>
-                    <c:when test="${discussionId gt 0}">
-                        <button class="${submitButtonStyle}" type="submit" name="post">
-                        <span class="lftDoor25">
-                            <span class="rtDoor25">${submitButtonText}</span>
-                        </span>
-                        </button>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="${submitButtonStyle}" type="submit" name="post">
+            <fieldset class="submit clearfix">
+                <ul>
+                    <li>
+                        <c:choose>
+                            <c:when test="${discussionId gt 0}">
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
+                                    <span class="lftDoor25">
+                                        <span class="rtDoor25">Preview</span>
+                                    </span>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:choose>
+                            <c:when test="${discussionId gt 0}">
+                                <c:set var="submitButtonText" value="Save"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="submitButtonText" value="Post&amp;nbsp;conversation"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:choose>
+                            <c:when test="${discussionId gt 0}">
+                                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_SaveLayout"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_InnerLayout"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:choose>
+                            <c:when test="${discussionId gt 0}">
+                                <button class="${submitButtonStyle}" type="submit" name="post">
+                                    <span class="lftDoor25">
+                                        <span class="rtDoor25">${submitButtonText}</span>
+                                    </span>
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="${submitButtonStyle}" type="submit" name="post">
+                                    <span class="lftDoor25">
+                                        <span class="rtDoor25">
+                                            <c:choose>
+                                                <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
+                                                    <!-- DONE-RANDALL - do use image -->
+                                                    <img src="/res/img/discussion_boards/db_speech_bubbles.png"
+                                                         width="37"
+                                                         height="25"
+                                                         align="absmiddle"
+                                                         alt="bubbles"/>${submitButtonText}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <!-- DONE-RANDALL - don't use image -->
+                                                    ${submitButtonText}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </span>
+                                    </span>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
                             <span class="lftDoor25">
-                            <span class="rtDoor25">
-                                <c:choose>
-                                    <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-                                        <!-- DONE-RANDALL - do use image -->
-                                        <img src="/res/img/discussion_boards/db_speech_bubbles.png"
-                                             width="37"
-                                             height="25"
-                                             align="absmiddle"
-                                             alt="bubbles"/>${submitButtonText}
-                                    </c:when>
-                                    <c:otherwise>
-                                        <!-- DONE-RANDALL - don't use image -->
-                                        ${submitButtonText}
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
+                                <span class="rtDoor25">Cancel</span>
                             </span>
                         </button>
-                    </c:otherwise>
-                </c:choose>
-
-                <button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
-            <span class="lftDoor25">
-                <span class="rtDoor25">Cancel</span>
-            </span>
-                </button>
-            </div>
-            <!-- end sd_OuterLayout -->
-            <!--<br class="clearfloat"/>-->
+                    </li>
+                </ul>
+            </fieldset>
+            <!-- end submit -->
         </form>
-
+        <c:if test="${empty useImageForSubmitButton or useImageForSubmitButton}">
+        <div class="spacer_20"><!-- do not collapse --></div>
+        </c:if>
     </div>
     <!-- end startADiscussion -->
 

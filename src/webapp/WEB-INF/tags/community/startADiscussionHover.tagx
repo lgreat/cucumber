@@ -94,8 +94,8 @@
                 resizable: false,
                 modal: true,
                 draggable: false,
-                width: 606,
-//                height: 481,
+                width: 610,
+                height: 431,
                 //title: "Start a discussion",
                 close: GS.startDiscussionHover.onClose,
                 bgiframe: true
@@ -117,7 +117,7 @@
         <iframe src="" id="startADiscussionIFrame"
                 name="startADiscussionIFrame"
                 frameborder="0"
-                height="520" 
+                height="460"
                 width="610"
                 scrolling="no"><!-- don't collapse --></iframe>
     </div>
