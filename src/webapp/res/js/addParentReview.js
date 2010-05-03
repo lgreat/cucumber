@@ -217,7 +217,7 @@ function validateReview() {
     var noError = true;
     var height = 360;
 
-    if (!starSelected && ((jQuery('#reviewText').val() == '') || (jQuery('#reviewText').val() == 'Enter your review here'))) {
+    if (!starSelected || ((jQuery('#reviewText').val() == '') || (jQuery('#reviewText').val() == 'Enter your review here'))) {
         jQuery('#reviewRatingError').show();
         jQuery('#parentRating').css('height', height + 28 + 'px');
         jQuery('#categoryRatings').css('height' + 28 + 'px');

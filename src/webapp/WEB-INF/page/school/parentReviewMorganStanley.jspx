@@ -167,7 +167,7 @@
                 </div>
 
                 <div id="reviewRatingError" style="display:none" class="reviewError"><img
-                        src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a review or rating.
+                        src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a review and overall rating.
                 </div>
                 <div id="emailError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif"
                                                                                    alt="error"></img>Please enter a valid email address.
