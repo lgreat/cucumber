@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.24 2010/05/03 17:40:07 mwong Exp $
+ * $Id: AdTagHandler.java,v 1.25 2010/05/03 17:48:03 mwong Exp $
  */
 package gs.web.ads;
 
@@ -63,9 +63,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("ad").append(" ")
                 .append("noprint")
                 .append("\"")
-                .append(">")
-                .append("\n")
-                .append("<span>Support for GreatSchools is provided by:</span>");
+                .append(">");
 
         if (!_alwaysShow && pageHelper.isAdServedByCobrand()) {
             AdTagManager adManager = AdTagManager.getInstance();
