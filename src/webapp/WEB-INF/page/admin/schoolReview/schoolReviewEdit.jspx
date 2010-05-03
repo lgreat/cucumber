@@ -35,11 +35,18 @@
     </style>
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
+    <p>
+        Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+    </p>
+    <br/>
     <c:if test="${not empty requestScope.command.review}">
+        <h2>Review details</h2>
         <c:set var="review" value="${requestScope.command.review}"/>
 
         <form action="/admin/schoolReview/edit.page" method="post" class="editForm">
             <input type="hidden" name="id" value="${review.id}"/>
+            <input type="hidden" name="from" value="${requestScope.command.from}"/>
             <label>Sender:</label>
             <span class="value">
                 <c:choose>
@@ -181,7 +188,7 @@
                     <p>This review is currently <strong>unprocessed</strong>.</p>
                     <input type="submit" name="enableReview" value="Publish Review"/>
                     &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
-                    <input type="submit" name="disableReview" value="Disable Review"/>
+                    <input type="submit" name="disableReview" value="Reject Review"/>
                     <br/>
                     <br/>
                 </c:when>
@@ -208,13 +215,16 @@
                 <br/>
             </c:if>
             <br/>
-            <input type="submit" name="formCancel" value="Cancel"/>
-
         </form>
     </c:if>
     <c:if test="${empty requestScope.command.review}">
         <p>Can't find review to edit!</p>
     </c:if>
+    <p>
+        Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+    </p>
+    <br/><br/>
 </gsml:body>
 </html>
 </jsp:root>

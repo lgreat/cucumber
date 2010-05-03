@@ -18,6 +18,7 @@ public class SchoolReviewEditCommand {
     private boolean _cancel = false;
     private List<ReportedEntity> _reports;
     private Map<Integer, User> _reportToUserMap;
+    private String _from = "ur";
 
     public Review getReview() {
         return _review;
@@ -73,5 +74,13 @@ public class SchoolReviewEditCommand {
 
     public void setReportToUserMap(Map<Integer, User> reportToUserMap) {
         _reportToUserMap = reportToUserMap;
+    }
+
+    public void setFrom(String from) {
+        _from = from;
+    }
+
+    public String getFrom() {
+        return _from;
     }
 }

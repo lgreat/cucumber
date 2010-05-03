@@ -48,7 +48,7 @@
                         <td>${review.user.userProfile.screenName} (${review.user.email})</td>
                         <td>${review.who}</td>
                         <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
-                        <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
+                        <td><a href="/admin/schoolReview/edit.page?id=${review.id}&amp;amp;from=fr">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
                         <td>
                             <c:choose>
@@ -92,7 +92,7 @@
                         <td>${review.user.userProfile.screenName} (${review.user.email})</td>
                         <td>${review.who}</td>
                         <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
-                        <td><a href="/admin/schoolReview/edit.page?id=${review.id}">${reviewPosted}</a></td>
+                        <td><a href="/admin/schoolReview/edit.page?id=${review.id}&amp;amp;from=ur">${reviewPosted}</a></td>
                         <td>${review.school.name} (${review.school.databaseState})</td>
                         <td>
                             <c:choose>

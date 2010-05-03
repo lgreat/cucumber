@@ -52,17 +52,10 @@ public class SchoolReviewEditController extends SimpleFormController implements 
         } catch (ObjectRetrievalFailureException orfe) {
             // do nothing
         }
-        return command;
-    }
-
-    @Override
-    protected void onBind(HttpServletRequest request, Object commandObj) throws Exception {
-        super.onBind(request, commandObj);
-        SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
-
-        if (request.getParameter("formCancel") != null) {
-            command.setCancel(true);
+        if (StringUtils.isNotBlank(request.getParameter("from"))) {
+            command.setFrom(request.getParameter("from"));
         }
+        return command;
     }
 
     @Override
@@ -71,10 +64,10 @@ public class SchoolReviewEditController extends SimpleFormController implements 
         SchoolReviewEditCommand command = (SchoolReviewEditCommand) commandObj;
         Review review = command.getReview();
         String listPage = getSuccessView();
-        if (StringUtils.equals("u", review.getStatus())) {
+        if (StringUtils.equals("ur", command.getFrom())) {
             listPage = UrlUtil.addParameter(listPage, "showUnprocessed=true");
         }
-        String editPage = "redirect:/admin/schoolReview/edit.page?id=" + review.getId();
+        String editPage = "redirect:/admin/schoolReview/edit.page?id=" + review.getId() + "&from=" + command.getFrom();
 
         if (request.getParameter("formCancel") != null || review == null) {
             // fall through
