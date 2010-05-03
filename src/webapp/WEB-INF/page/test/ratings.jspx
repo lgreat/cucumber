@@ -38,10 +38,10 @@
 
 <c:choose>
     <c:when test="${not empty school}">
-        <c:set var="title" value="Test Score Ratings for ${school.name} - ${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${school.physicalAddress.state}"/>
+        <c:set var="title" value="GreatSchools Ratings for ${school.name} - ${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${school.physicalAddress.state}"/>
     </c:when>
     <c:otherwise>
-        <c:set var="title" value="Test Score Ratings"/>
+        <c:set var="title" value="GreatSchools Ratings"/>
     </c:otherwise>
 </c:choose>
 
