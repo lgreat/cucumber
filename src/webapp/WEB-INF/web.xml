@@ -592,6 +592,16 @@
         <url-pattern>/robots.txt</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+       <servlet-name>pages</servlet-name>
+       <url-pattern>/morgan-stanley</url-pattern>
+    </servlet-mapping>
+
+     <servlet-mapping>
+       <servlet-name>pages</servlet-name>
+       <url-pattern>/morgan-stanley/</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>modules</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -2651,6 +2661,16 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/Wyoming/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/morgan-stanley</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/morgan-stanley/</url-pattern>
     </filter-mapping>
 
     <!-- End Sitemesh -->
