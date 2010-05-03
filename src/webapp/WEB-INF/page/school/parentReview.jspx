@@ -104,6 +104,8 @@
 
     <form id="addParentReviewForm" class="hide" method="post" action="#"
                onsubmit="return validateReview();">
+
+        <input type="hidden" name="posterAsString" />
         
         <h3 id="completeReview">Complete your review &amp;amp; rating</h3>
 

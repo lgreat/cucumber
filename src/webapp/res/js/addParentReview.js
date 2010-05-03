@@ -38,7 +38,9 @@ jQuery(function() {
     jQuery('#citySelect').change(loadSchools);
     jQuery('#schoolSelect').change(schoolChange);
     
-    jQuery('[name="posterAsString"]').change(function() {
+    jQuery('#posterDropdown').change(function() {
+        jQuery('#addParentReviewForm [name="posterAsString"]').val(jQuery('#posterDropdown').val());
+
         if (this.value == 'parent') {
             jQuery('#principalOrFacilityStars').show();
             jQuery('#teacherStars').show();
