@@ -90,7 +90,7 @@
                     <option value="" selected="selected">- Select one -</option>
                     <option value="parent">parent</option>
                     <option value="student">student</option>
-                    <option value="teacher">teacher</option>
+                    <option value="teacher">teacher/staff member</option>
                     <option value="other">other${school.levelCode}</option>
                 </select>
             </div>
@@ -178,8 +178,8 @@
                 <div id="termsError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif"
                                                                                    alt="error"></img>Please accept our terms of use.
                 </div>
-                <div class="marginTextArea" id="reviewAndGuidlines"><span>My Review</span><span
-                        id="guidelines"><link:parentReviewGuidelines>Parent review guidelines</link:parentReviewGuidelines></span>
+                <div class="marginTextArea" id="reviewAndGuidlines"><span
+                        id="guidelines"><link:parentReviewGuidelines>School review guidelines</link:parentReviewGuidelines></span>
 
                 </div>
                 <div id="reviewCommnents"><textarea id="reviewText"
@@ -205,6 +205,11 @@
                 <p>How do you rate this school in these additional areas?</p>
                 <ul id="subStarRatings">
 
+                    <li id="teacherStars">
+                        <div class="catRatingLabel">Teacher Quality</div>
+                        <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
+                    </li>
+
                     <li id="principalOrFacilityStars">
                         <div id="principalStars">
                             <div class="catRatingLabel">Principal leadership</div>
@@ -216,14 +221,11 @@
                         </div>
                     </li>
 
-                    <li id="teacherStars">
-                        <div class="catRatingLabel">Teacher Quality</div>
-                        <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
-                    </li>
                     <li id="parentStars">
                         <div class="catRatingLabel">Parent Involvement</div>
                         <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
                     </li>
+                    
                 </ul>
 
 
