@@ -39,6 +39,12 @@ jQuery(function() {
     jQuery('#schoolSelect').change(schoolChange);
     
     jQuery('#posterDropdown').change(function() {
+
+        clearRatings('principalAsString');
+        clearRatings('teacherAsString');
+        clearRatings('parentAsString');
+        clearRatings('pFacilitiesAsString');
+
         jQuery('#addParentReviewForm [name="posterAsString"]').val(jQuery('#posterDropdown').val());
 
         if (this.value == 'parent') {

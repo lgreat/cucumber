@@ -39,6 +39,12 @@ jQuery(function() {
     jQuery('#schoolSelect').change(schoolChange);
 
     jQuery('[name="posterAsString"]').change(function() {
+
+        clearRatings('principalAsString');
+        clearRatings('teacherAsString');
+        clearRatings('parentAsString');
+        clearRatings('pFacilitiesAsString');
+        
         if (this.value == 'parent') {
             jQuery('#principalOrFacilityStars').show();
             jQuery('#teacherStars').show();
