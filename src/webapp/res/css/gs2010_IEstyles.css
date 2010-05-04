@@ -24,6 +24,7 @@ General comments:
 =4c-3 infinite carousel
 =4c-6 elementary schools grade by grade
 =5- icons
+=9- buttons
 =debugging styles
 =temporary modules
 */
@@ -216,19 +217,19 @@ body.ie7 #pickGrade label, * + html #pickGrade label {
     font-size: 12px;
 }
 
-* + html #footerAd {
+*+html #footerAd {
     height: 91px;
 }
 
-* + html #utilLinks li .nav_group_items {
+*+html #utilLinks li .nav_group_items {
     top: 22px;
 }
 
-* + html #navbar {
+*+html #navbar {
     position: relative;
 }
 
-* + html #footer {
+*+html #footer {
     height: 293px;
 }
 
@@ -920,7 +921,7 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
 
-*html .sprite {
+*html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
 }
@@ -928,6 +929,17 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 body.ie6 .sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
+}
+
+/* =9- buttons
+-------------------------------------------------------------------------------------------*/
+
+*+html .lftDoor25 .rtDoor25.nowrap-hpc{
+    width:170px;
+}
+
+*html .lftDoor25 .rtDoor25.nowrap-hpc{
+    width:170px;
 }
 
 /* =debugging styles

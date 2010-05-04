@@ -454,6 +454,7 @@ body.cobranded #pageGS {
 
 #utilLinks li a {
     color: #fff;
+    display:inline-block;
 }
 
 #utilLinks .nav_menu {
@@ -1034,6 +1035,13 @@ body.cobranded #pageGS {
     height: 25px;
     font-size: 1px;
     line-height: 25px;
+}
+
+.spacer_40 {
+    clear: both;
+    height: 40px;
+    font-size: 1px;
+    line-height: 40px;
 }
 
 .brdbtm_dotted {
@@ -4195,7 +4203,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     width: 13.93%;
 }
 
-/* =9 buttons
+/* =9- buttons
 -------------------------------------------------------------------------------------------*/
 
 /* ------------------- */
@@ -4257,6 +4265,10 @@ button {
 .lftDoor25 .rtDoor25 img {
     margin: 0;
     border: 0 none transparent;
+}
+
+.lftDoor25 .rtDoor25 {
+    white-space:nowrap;
 }
 
 /* font size and family */

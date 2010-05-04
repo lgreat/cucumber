@@ -181,8 +181,8 @@
                         </span>
                     </li>
 
-                    <li>
-                        <div class="citySelect">
+                    <li class="citySelect">
+                        <div>
                             <label for="citySelect" class="text2bold tint_333">City</label>
                             <select id="citySelect" name="discussionBoardId" disabled="disabled">
                                 <c:forEach var="localBoard" items="${localBoards}">
@@ -258,8 +258,10 @@
                                         <!-- DONE-RANDALL - do use image -->
                                         <button class="${submitButtonStyle}" type="submit" name="post">
                                             <span class="lftDoor25">
-                                                <span class="rtDoor25">
-                                                    <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>${submitButtonText}</span>
+                                                <span class="rtDoor25 nowrap-hpc">
+                                                    <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
+                                                    <span class="fltlft">${submitButtonText}</span>
+                                                </span>
                                             </span>
                                         </button>
                                     </c:when>
@@ -287,7 +289,7 @@
             <!-- end submit -->
         </form>
         <c:if test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-        <div class="spacer_20"><!-- do not collapse --></div>
+        <div class="spacer_40"><!-- do not collapse --></div>
         </c:if>
     </div>
     <!-- end startADiscussion -->
