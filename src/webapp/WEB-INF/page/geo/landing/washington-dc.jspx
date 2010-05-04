@@ -208,8 +208,8 @@
                             <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
                                     href="/catalog/pdf/dc/nclb/"
                                     styleClass="treb12 tint39a link"
-                                    target="_blank">2008-2009 NCLB Report Card for Washington, DC</gsml:a>
-                                <span class="">Provided by the Office of the State Superintendent of Education (OSSE)</span>
+                                    target="_blank">2008-2009 NCLB Report Card for Washington, DC</gsml:a><br />
+                                <em class="smallText1">Provided by the Office of the State Superintendent of Education (OSSE)</em>
                             </li>
                         </c:if>
 

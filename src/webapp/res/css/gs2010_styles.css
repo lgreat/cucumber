@@ -4296,7 +4296,56 @@ button {
 
 /* =temporary modules
 -------------------------------------------------------------------------------------------*/
+/* DC NCLB */
 
+.dcNCLB {
+    margin-bottom: 10px;
+}
+#dcNCLB_district .mod_hd h3, #dcNCLB_school .mod_hd h3 {
+    margin: 0;
+    padding: 10px 9px;
+    font: 700 18px Arial, sans-serif;
+    color: #fff;
+    background: #3556a3;
+}
+#dcNCLB_school .mod_hd h3 {
+    width: 159px;
+}
+#dcNCLB_school .mod_bd {
+    border: solid #eee;
+    border-width: 0 2px 2px;
+    padding: 14px 10px 10px 15px;
+    position: relative;
+    width: 148px;
+    height: 148px;
+}
+#dcNCLB_district .mod_bd {
+    border: solid #c6c6c6;
+    border-width: 0 1px 1px;
+    padding: 14px 130px 10px 15px;
+    height: 74px;
+}
+
+.dcNCLB .mod_bd p {
+    position: relative;
+    padding-left: 19px;
+    margin: 0 0 6px;
+    min-height: 17px;
+}
+
+.dcNCLB .mod_bd p img {
+    position: absolute;
+    top: -5px;
+    left: 0;
+}
+.dcNCLB .logo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.u_list em.smallText1 {
+    font-style: italic;
+}
 /* Realtor.com */
 #realtorDotCom.rdc_thin {
     width: 160px;

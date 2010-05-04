@@ -9,18 +9,23 @@
     <jsp:directive.attribute name="districtReportUrl" required="true" description="Url of pdf" type="java.lang.String"/>
 
     <!-- TODO-9899 -->
-    <div>
-        <span class="">2008-2009 NCLB Report Cards</span>
 
-        <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/>&amp;nbsp;<gsml:a href="${pageScope.districtReportUrl}"
+    <div class="mod dcNCLB" id="dcNCLB_district">
+        <div class="mod_hd">
+            <h3>2008-2009 NCLB Report Cards</h3>
+        </div>
+
+        <div class="mod_bd">
+            <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
+                alt="pdf icon"/><gsml:a href="${pageScope.districtReportUrl}"
                                                   target="_blank">District Report Card</gsml:a></p>
 
-        <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/>&amp;nbsp;<gsml:a href="TODO-9899"
+            <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
+                alt="pdf icon"/><gsml:a href="TODO-9899"
                                                   target="_blank">Washington, DC Report Card</gsml:a></p>
 
-        <img src="" alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+            <img src="/res/img/promo/dcnclb/osse_icon.gif" class="logo" alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+        </div>
     </div>
 
 </jsp:root>

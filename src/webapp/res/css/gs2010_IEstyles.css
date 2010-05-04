@@ -959,6 +959,9 @@ body.ie7 .outline3, body.ie6 .outline3 {
 
 /* =temporary modules
 -------------------------------------------------------------------------------------------*/
+body.ie7 #dcNCLB_school .mod_hd h3 {
+    height: auto;
+}
 
 #realtorDotCom p input.rdType {
     top: 0;
