@@ -1,17 +1,15 @@
-
-
-#contentGS select{
+#contentGS select {
     color: #666666;
     font-family: Arial, Arial, sans-serif;
     font-size: 13px;
 }
 
-#contentGS textarea{
+#contentGS textarea {
     color: #666666;
     font-family: Arial;
     font-size: 13px;
-    width:423px;
-    height:165px;
+    width: 423px;
+    height: 165px;
 }
 
 #contentGS h2 {
@@ -117,8 +115,7 @@
 }
 
 #schoolAddress {
-    float: left;
-    /*width: 200px;*/
+    float: left; /*width: 200px;*/
     height: 50px;
 }
 
@@ -127,7 +124,7 @@
     float: left;
     padding-top: 34px;
     width: 150px;
-    font-style:italic;
+    font-style: italic;
 
 }
 
@@ -143,7 +140,7 @@
 #ratingTitle {
     float: left;
     width: 124px;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 #parentRating .parentRatingStars {
@@ -209,6 +206,7 @@
     left: 0;
     overflow: hidden;
 }
+
 #addParentReviewForm.hide {
     left: -10000px;
     position: absolute;
@@ -250,6 +248,14 @@
     float: left;
 }
 
+#categoryRatings .ratingCategoryPrompt {
+    color: #3399A9;
+    font-weight: bold;
+}
+
+#addParentReviewForm a {
+    text-decoration:none;
+}
 #nonPreSchoolStars {
     height: 170px;
 }

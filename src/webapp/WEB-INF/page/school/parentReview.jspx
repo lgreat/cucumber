@@ -202,7 +202,7 @@
 
             </div>
             <div id="categoryRatings">
-                <p>How do you rate this school in these additional areas?</p>
+                <p class="ratingCategoryPrompt">How do you rate this school in these additional areas?</p>
                 <ul id="subStarRatings">
 
                     <li id="teacherStars">
