@@ -1,5 +1,9 @@
 package gs.web.community;
 
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
+import gs.data.geo.City;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -26,12 +30,24 @@ public class CommunityLandingController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String PARAM_ID = "id";
+    public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
+    public static final String MODEL_CITY_NAME = "cityName";
     protected String _viewName;
     protected ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     protected IUserContentDao _userContentDao;
+    private ILocalBoardDao _localBoardDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
+
+        City city = SessionContextUtil.getSessionContext(request).getCity();
+        if (city != null) {
+            LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
+            if (localBoard != null) {
+                model.put(MODEL_LOCAL_BOARD_ID, localBoard.getBoardId());
+                model.put(MODEL_CITY_NAME, city.getDisplayName());
+            }
+        }
 
         String idParam = request.getParameter(PARAM_ID);
         if (StringUtils.isNotBlank(idParam)) {
@@ -104,5 +120,13 @@ public class CommunityLandingController extends AbstractController {
 
     public void setUserContentDao(IUserContentDao userContentDao) {
         _userContentDao = userContentDao;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
     }
 }

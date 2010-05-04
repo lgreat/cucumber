@@ -12,11 +12,8 @@ import java.util.*;
 
 import gs.data.content.cms.ICmsDiscussionBoardDao;
 import gs.data.content.cms.CmsDiscussionBoard;
-import gs.data.community.*;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 
 /**
@@ -29,8 +26,10 @@ public class BrowseLocalBoardsController extends AbstractController {
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private ILocalBoardDao _localBoardDao;
     private String _viewName;
+    private String _style;
 
     public static final String MODEL_LOCAL_BOARDS = "localBoards";
+    public static final String MODEL_STYLE = "style";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -57,6 +56,7 @@ public class BrowseLocalBoardsController extends AbstractController {
         }
 
         model.put(MODEL_LOCAL_BOARDS, localBoardViews);
+        model.put(MODEL_STYLE, _style);
         
         return new ModelAndView(_viewName, model);
     }
@@ -83,5 +83,13 @@ public class BrowseLocalBoardsController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public String getStyle() {
+        return _style;
+    }
+
+    public void setStyle(String style) {
+        _style = style;
     }
 }

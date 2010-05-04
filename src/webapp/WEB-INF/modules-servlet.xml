@@ -148,6 +148,14 @@
           class="gs.web.community.BrowseLocalBoardsController"
           autowire="byName">
         <property name="viewName" value="/community/browseLocalBoards"/>
+        <property name="style" value="browseByCity"/>
+    </bean>
+
+    <bean name="/community/changeLocalBoards.module"
+          class="gs.web.community.BrowseLocalBoardsController"
+          autowire="byName">
+        <property name="viewName" value="/community/browseLocalBoards"/>
+        <property name="style" value="changeCity"/>
     </bean>
 
     <bean id="testScoreLandingLinksTableFactory"

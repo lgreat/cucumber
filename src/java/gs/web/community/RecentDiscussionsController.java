@@ -35,6 +35,7 @@ public class RecentDiscussionsController extends AbstractController {
     private String _viewName;
 
     public static final String DEFAULT_MORE_TEXT = "More conversations";
+    public static final String STYLE_COMMUNITY_LANDING = "communityLanding";
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String PARAM_BOARD_ID = "board_id";
@@ -57,6 +58,8 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_MORE_TEXT = "moreText";
     public static final String MODEL_MORE_URL = "moreUrl";
     public static final String MODEL_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
+    public static final String MODEL_SHOW_FORM = "showForm";
+    public static final String MODEL_SHOW_CITY_MENU = "showCityMenu";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -107,7 +110,18 @@ public class RecentDiscussionsController extends AbstractController {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, url);
             model.put(MODEL_LOGIN_REDIRECT, urlBuilder.asSiteRelative(request));
 
-            model.put(MODEL_STYLE, request.getParameter(PARAM_STYLE));
+            String style = request.getParameter(PARAM_STYLE);
+            boolean showForm = true;
+            boolean showCityMenu = false;
+            model.put(MODEL_STYLE, style);
+            if (STYLE_COMMUNITY_LANDING.equals(style)) {
+                showForm = false;
+                showCityMenu = true;
+            }
+
+            model.put(MODEL_SHOW_FORM, showForm);
+            model.put(MODEL_SHOW_CITY_MENU, showCityMenu);
+
             model.put(MODEL_CITY_NAME, request.getParameter(PARAM_CITY_NAME));
 
             if (StringUtils.isNotBlank(request.getParameter(PARAM_TITLE))) {
@@ -121,8 +135,8 @@ public class RecentDiscussionsController extends AbstractController {
             }
             model.put(MODEL_MORE_TEXT, moreText);
 
-            boolean showLargeFirstAvatar = (request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR) == null ||
-                    "true".equals(request.getParameter(MODEL_SHOW_LARGE_FIRST_AVATAR)));
+            boolean showLargeFirstAvatar = (request.getParameter(PARAM_SHOW_LARGE_FIRST_AVATAR) == null ||
+                    "true".equals(request.getParameter(PARAM_SHOW_LARGE_FIRST_AVATAR)));
             model.put(MODEL_SHOW_LARGE_FIRST_AVATAR, showLargeFirstAvatar);
         } catch (Exception e) {
             // do nothing, module will render blank

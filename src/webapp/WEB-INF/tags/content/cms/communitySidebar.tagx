@@ -9,6 +9,8 @@
     <jsp:directive.attribute name="content" required="false" type="gs.data.content.cms.CmsContent"/>
     <jsp:directive.attribute name="searchType" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="searchQuery" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="localBoardId" required="false" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="cityName" required="false" type="java.lang.String"/>
 
     <c:if test="${empty pageScope.searchType or (pageScope.searchType ne 'articles' and pageScope.searchType ne 'community' and pageScope.searchType ne 'all')}">
         <c:set var="searchType" value="all"/>
@@ -77,6 +79,24 @@
         <!-- end module -->
 
         <ad:AboveFold_300x250/>
+
+        <c:if test="${not empty pageScope.localBoardId and not empty pageScope.cityName}">
+            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+
+            <div id="recentLocalDiscussions" class="mod">
+                <div class="mod_hd">
+                    <h3>Local Community</h3>
+                </div>
+
+                <div>
+                <c:import url="/community/changeLocalBoards.module"/>
+
+                <c:import
+                        url="/community/recentLocalDiscussions.module?board_id=${pageScope.localBoardId}&amp;limit=5&amp;uri=${myUrl}&amp;cityName=${pageScope.cityName}&amp;style=communityLanding"/>
+                    </div>
+            </div>
+        </c:if>
+
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
         <!--<c:set var="content" value=""/>-->
         <c:choose>

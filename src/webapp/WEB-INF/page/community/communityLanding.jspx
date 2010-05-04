@@ -27,6 +27,9 @@
 
 <div id="mainGS" class="col">
 
+    <c:set var="localCommunityBoardId" value="${requestScope.localBoardId}"/>
+    <c:set var="localCommunityCityName" value="${requestScope.cityName}"/>
+
     <div id="community-landing">
         <img src="/res/img/community/landing/communityLanding-1.png" width="69" height="78" alt="Community"/>
         <h1>Community</h1>
@@ -70,7 +73,7 @@
 </div>
 <!-- end mainGS -->
 
-<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community"/>
+<cms:communitySidebar content="${requestScope.discussionBoard}" searchType="community" localBoardId="${pageScope.localCommunityBoardId}" cityName="${pageScope.localCommunityCityName}"/>
 
 
 
