@@ -40,6 +40,10 @@
 
                 <div class="mainRequest">The GreatSchools API is a <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer" target="_blank">REST</a>-based
                 web service. </div>
+
+                <div class="mainRequest">
+                    Note that all path components and parameters must be properly <a href="http://en.wikipedia.org/wiki/Url_encoding" target="_blank">URL-encoded</a>.
+                </div>
             </div>
             <div class="call">
                 <h2>Requests</h2>
@@ -50,6 +54,8 @@
                 ZIP Code or address.
                 <div class="mainRequest"><a href="/api/docs/schoolProfile.page">School Profile</a></div>
                 Returns a profile data for a specific school.
+                <div class="mainRequest"><a href="/api/docs/schoolSearch.page">School Search</a></div>
+                Returns a list of schools based on a search string.
                 <div class="mainRequest"><a href="/api/docs/schoolReviews.page">School Reviews</a></div>
                 Returns a list of the most recent reviews for a school
                 or for any schools in a city.

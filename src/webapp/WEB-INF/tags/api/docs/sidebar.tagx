@@ -37,6 +37,7 @@
                                 <li><a href="/api/docs/browseSchools.page">Browse Schools</a></li>
                                 <li><a href="/api/docs/nearbySchools.page">Nearby Schools</a></li>
                                 <li><a href="/api/docs/schoolProfile.page">School Profile</a></li>
+                                <li><a href="/api/docs/schoolSearch.page">School Search</a></li>
                                 <li><a href="/api/docs/schoolReviews.page">School Reviews</a></li>
                                 <li><a href="/api/docs/schoolTestScores.page">School Test Scores</a></li>
                                 <li class="last"><a href="/api/docs/schoolCensusData.page">School Census Data</a></li>
