@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.37 2010/02/26 23:38:28 yfan Exp $
+ * $Id: SessionContext.java,v 1.38 2010/05/04 20:49:25 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -256,6 +256,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isPopunderEnabled() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.POPUNDER_ENABLED_KEY, "false"));
+    }
+
+    public boolean isShowDcNclbModules() {
+        return "false".equals(_propertyDao.getProperty(IPropertyDao.HIDE_DC_NCLB_MODULES_KEY, "false"));
     }
 
     public boolean isInterstitialEnabled() {

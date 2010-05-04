@@ -110,7 +110,7 @@
         <school:quickFacts school="${school}"/>
 
         <!-- TODO-9899 -->
-        <c:if test="${stateAbbrev eq 'DC'}">
+        <c:if test="${requestScope.context.showDcNclbModules and stateAbbrev eq 'DC'}">
             <school:dcNclbReportCard school="${school}" districtReportUrl="TODO-9899" schoolReportUrl="TODO-9899"/>
         </c:if>
 

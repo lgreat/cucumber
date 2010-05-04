@@ -223,7 +223,7 @@
         </div>
 
         <c:choose>
-            <c:when test="${stateAbbrev eq 'DC'}">
+            <c:when test="${requestScope.context.showDcNclbModules and stateAbbrev eq 'DC'}">
                 <!-- TODO-9899 -->
                 <district:dcNclbReportCard districtReportUrl=""/>
             </c:when>
