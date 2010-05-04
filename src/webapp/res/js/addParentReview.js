@@ -48,19 +48,19 @@ jQuery(function() {
         jQuery('#addParentReviewForm [name="posterAsString"]').val(jQuery('#posterDropdown').val());
 
         if (this.value == 'parent') {
-            jQuery('#principalOrFacilityStars').show();
+            jQuery('.principalOrFacilityStars').show();
             jQuery('#teacherStars').show();
             jQuery('#parentStars').show();
             jQuery('#learnMoreLinks').show();
             jQuery('#categoryRatings p').show();
         } else if (this.value == 'student') {
-            jQuery('#principalOrFacilityStars').hide();
+            jQuery('.principalOrFacilityStars').hide();
             jQuery('#teacherStars').show();
             jQuery('#parentStars').hide();
             jQuery('#learnMoreLinks').show();
             jQuery('#categoryRatings p').show();
         } else {
-            jQuery('#principalOrFacilityStars').hide();
+            jQuery('.principalOrFacilityStars').hide();
             jQuery('#teacherStars').hide();
             jQuery('#parentStars').hide();
             jQuery('#learnMoreLinks').hide();
@@ -116,6 +116,7 @@ function showResponse(x) {
     var gsSchoolRating = schoolInfoArray[1];
     var parentRating = schoolInfoArray[2];
     var reviewCount = schoolInfoArray[3];
+    var schoolLevelCode = schoolInfoArray[13];
 
     jQuery('#schoolNameHeader').html(schoolName);
 
@@ -178,14 +179,17 @@ function showResponse(x) {
 
         jQuery('#principalStars').hide();
         jQuery('#facilityStars').show();
-        jQuery('#posterDropdown [value=Student]').hide();
     } else {
 
         jQuery('#facilityStars').hide();
         jQuery('#principalStars').show();
-        jQuery('#posterDropdown [value=Student]').show();
     }
 
+    if (schoolLevelCode != undefined && schoolLevelCode.indexOf('h') != -1) {
+        jQuery('#posterDropdown [value="student"]').show();
+    } else {
+        jQuery('#posterDropdown [value="student"]').hide();
+    }
 
 }
 

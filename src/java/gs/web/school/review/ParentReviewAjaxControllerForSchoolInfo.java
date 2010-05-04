@@ -62,6 +62,7 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 if (SchoolType.PUBLIC.equals(school.getType())) {
                     str.append("isPublic" + ";");
                 }
+                str.append(school.getLevelCode()).append(";");
             }
         }
         PrintWriter out = response.getWriter();

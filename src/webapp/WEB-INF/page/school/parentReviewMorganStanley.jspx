@@ -210,26 +210,31 @@
 
             </div>
             <div id="categoryRatings">
-                <p>How do you rate this school in these additional areas?</p>
+                <p class="ratingCategoryPrompt">How do you rate this school in these additional areas?</p>
                 <ul id="subStarRatings">
 
                     <li id="teacherStars">
                         <div class="catRatingLabel">Teacher Quality</div>
                         <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
                     </li>
-                    <li id="principalOrFacilityStars">
+
+                    <li class="principalOrFacilityStars">
                         <div id="principalStars">
                             <div class="catRatingLabel">Principal leadership</div>
                             <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/></div>
                         </div>
+                    </li>
+
+                    <li id="parentStars">
+                        <div class="catRatingLabel">Parent Involvement</div>
+                        <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
+                    </li>
+
+                    <li class="principalOrFacilityStars">
                         <div id="facilityStars">
                             <div class="catRatingLabel">Facilities &amp;amp; equipment</div>
                             <div class="catRating"><gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/></div>
                         </div>
-                    </li>
-                    <li id="parentStars">
-                        <div class="catRatingLabel">Parent Involvement</div>
-                        <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
                     </li>
                 </ul>
 

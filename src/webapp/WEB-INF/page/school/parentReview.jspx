@@ -210,20 +210,23 @@
                         <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
                     </li>
 
-                    <li id="principalOrFacilityStars">
+                    <li class="principalOrFacilityStars">
                         <div id="principalStars">
                             <div class="catRatingLabel">Principal leadership</div>
                             <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/></div>
-                        </div>
-                        <div id="facilityStars">
-                            <div class="catRatingLabel">Facilities &amp;amp; equipment</div>
-                            <div class="catRating"><gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/></div>
                         </div>
                     </li>
 
                     <li id="parentStars">
                         <div class="catRatingLabel">Parent Involvement</div>
                         <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
+                    </li>
+
+                    <li class="principalOrFacilityStars">
+                        <div id="facilityStars">
+                            <div class="catRatingLabel">Facilities &amp;amp; equipment</div>
+                            <div class="catRating"><gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/></div>
+                        </div>
                     </li>
                     
                 </ul>
