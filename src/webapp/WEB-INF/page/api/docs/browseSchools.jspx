@@ -59,8 +59,8 @@
                     <tbody>
                     <tr class="required">
                         <td>state*</td>
-                        <td>Two letter state abbreviation or full state name</td>
-                        <td>ak<br/>CA<br/>California</td>
+                        <td>Two letter state abbreviation</td>
+                        <td>ak<br/>CA</td>
                     </tr>
                     <tr>
                         <td>city*</td>

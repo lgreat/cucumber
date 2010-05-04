@@ -65,9 +65,9 @@
 
                     <tr>
                         <td>state*</td>
-                        <td>2 letter state abbreviation or full state name
+                        <td>2 letter state abbreviation
                         </td>
-                        <td>CT or Connecticut</td>
+                        <td>CT</td>
                     </tr>
 
                     <tr>
