@@ -1096,6 +1096,18 @@ body.cobranded #pageGS {
     display: none;
 }
 
+.block {
+    display:block;
+}
+
+.inline {
+    display:inline;
+}
+
+.iblock {
+    display:inline-block;
+}
+
 /* clear fix
 -------------------------------------------------------------------------------------------*/
 
@@ -3143,7 +3155,7 @@ body.hover #startADiscussion .submit li{
 }
 
 body.hover #startADiscussion .sd_InnerLayout {
-    margin:0 0 10px 50px;
+    margin:0 10px 10px 50px;
 }
 
 /* =4e- about pages

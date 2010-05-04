@@ -920,6 +920,11 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 /* =5- icons
 -------------------------------------------------------------------------------------------*/
 
+*html .sprite {
+    display: inline-block;
+    background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
+}
+
 body.ie6 .sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);

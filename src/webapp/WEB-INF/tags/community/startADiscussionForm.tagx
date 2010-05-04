@@ -143,10 +143,10 @@
             <h2 class="${titleStyle} fltlft">
                 <c:choose>
                     <c:when test="${discussionId gt 0}">
-                        Edit Conversation
+                        Edit conversation
                     </c:when>
                     <c:otherwise>
-                        Start a Conversation
+                        Start a conversation
                     </c:otherwise>
                 </c:choose>
             </h2>
@@ -252,26 +252,27 @@
                                 </button>
                             </c:when>
                             <c:otherwise>
-                                <button class="${submitButtonStyle}" type="submit" name="post">
-                                    <span class="lftDoor25">
-                                        <span class="rtDoor25">
-                                            <c:choose>
-                                                <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-                                                    <!-- DONE-RANDALL - do use image -->
-                                                    <img src="/res/img/discussion_boards/db_speech_bubbles.png"
-                                                         width="37"
-                                                         height="25"
-                                                         align="absmiddle"
-                                                         alt="bubbles"/>${submitButtonText}
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <!-- DONE-RANDALL - don't use image -->
-                                                    ${submitButtonText}
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </span>
-                                    </span>
-                                </button>
+
+                                <c:choose>
+                                    <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
+                                        <!-- DONE-RANDALL - do use image -->
+                                        <button class="${submitButtonStyle}" type="submit" name="post">
+                                            <span class="lftDoor25">
+                                                <span class="rtDoor25">
+                                                    <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>${submitButtonText}</span>
+                                            </span>
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- DONE-RANDALL - don't use image -->
+                                        <button class="${submitButtonStyle}" type="submit" name="post">
+                                            <span class="lftDoor25">
+                                                <span class="rtDoor25">${submitButtonText}</span>
+                                            </span>
+                                        </button>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </c:otherwise>
                         </c:choose>
 

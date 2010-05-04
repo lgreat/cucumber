@@ -19,6 +19,7 @@
 
 <head>
     <pageHelper:externalCss file="/res/css/gs2010_styles.css"/>
+    <pageHelper:externalCss file="/res/css/gs2010_IEstyles.css"/>
     <style type="text/css">
         html {
             background-color: #ebebeb;
