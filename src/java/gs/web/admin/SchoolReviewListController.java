@@ -30,6 +30,9 @@ public class SchoolReviewListController extends AbstractController {
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
+    private static final int NUM_REPORTED_REVIEWS_TO_PULL = 300;
+    private static final int NUM_REPORTED_REVIEWS_TO_DISPLAY = 75;
+    private static final int NUM_UNPROCESSED_REVIEWS_TO_DISPLAY = 75;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -50,7 +53,7 @@ public class SchoolReviewListController extends AbstractController {
     }
 
     protected List<SchoolReviewListBean> getUnprocessedReviews() {
-        List<Review> unprocessedReviews = _reviewDao.findUnprocessedReviews(25);
+        List<Review> unprocessedReviews = _reviewDao.findUnprocessedReviews(NUM_UNPROCESSED_REVIEWS_TO_DISPLAY);
 
         List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(unprocessedReviews.size());
         for (Review r: unprocessedReviews) {
@@ -64,8 +67,9 @@ public class SchoolReviewListController extends AbstractController {
     }
 
     protected List<SchoolReviewListBean> getFlaggedReviews() {
-        List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(100);
-        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(25);
+        List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(
+                NUM_REPORTED_REVIEWS_TO_PULL);
+        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(NUM_REPORTED_REVIEWS_TO_DISPLAY);
 
         // asynchronous?
         // group queries?
@@ -79,7 +83,7 @@ public class SchoolReviewListController extends AbstractController {
                         (ReportedEntity.ReportedEntityType.schoolReview, reviewId)));
                 bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolReview, reviewId));
                 rval.add(bean);
-                if (rval.size() == 25) {
+                if (rval.size() == NUM_REPORTED_REVIEWS_TO_DISPLAY) {
                     break;
                 }
             } catch (Exception e) {
