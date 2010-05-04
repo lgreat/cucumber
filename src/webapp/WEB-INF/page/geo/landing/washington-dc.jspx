@@ -198,10 +198,18 @@
             <!--end unit 2-->
             <br class="clearfloat"/>
 
-            <div class="unit fltlft"><span class="u_title cent17B tintfff">School Resources</span>
+            <div class="unit fltlft"><span class="u_title cent17B tintfff">D.C. Resources</span>
 
                 <div id="u3" class="u_content">
                     <ul class="u_list treb12 tint777">
+
+                        <!-- TODO-9899 -->
+                        <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a href="/catalog/pdf/dc/nclb/"
+                                    styleClass="treb12 tint39a link"
+                                    target="_blank">2008-2009 NCLB Report Card for Washington, DC</gsml:a>
+                            <span class="">Provided by the Office of the State Superintendent of Education (OSSE)</span>
+                        </li>
+
                         <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1"
                                     styleClass="treb12 tint39a link"
                                     target="_blank">Archdiocese of Washington, D.C.</gsml:a></li>

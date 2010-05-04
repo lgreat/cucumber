@@ -108,6 +108,12 @@
     <!-- being left column -->
     <div id="col_left">
         <school:quickFacts school="${school}"/>
+
+        <!-- TODO-9899 -->
+        <c:if test="${stateAbbrev eq 'DC'}">
+            <school:dcNclbReportCard school="${school}" districtReportUrl="TODO-9899" schoolReportUrl="TODO-9899"/>
+        </c:if>
+
         <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
         <ad:adTag position="Survey_179x151"/>
         <school:bigPicture school="${school}" divider="true"/>
