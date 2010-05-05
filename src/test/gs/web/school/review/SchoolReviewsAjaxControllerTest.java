@@ -275,9 +275,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         _reviewDao.saveReview((Review) anyObject());
-        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_plus_welcome_trigger"), isA(User.class), isA(Map.class));
         replay(_reviewDao);
-        replay(_exactTargetAPI);
 
         //new user so we add an entry into list member that indicates where we got their email from
         Subscription sub = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
@@ -293,7 +291,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
-        verify(_exactTargetAPI);
     }
 
     public void testSetRatingsOnReviewPreschoolParent() throws Exception {

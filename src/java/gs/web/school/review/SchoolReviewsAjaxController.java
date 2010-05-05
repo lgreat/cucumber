@@ -207,7 +207,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
 
 
-        if (reviewPosted) {
+        if (reviewPosted && (!isNewUser)) {
             Map<String,String> emailAttributes = new HashMap<String,String>();
             emailAttributes.put("schoolName", school.getName());
             emailAttributes.put("firstname", user.getFirstName());
@@ -218,11 +218,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             reviewLink.append("\">your review</a>");
             emailAttributes.put("HTML__reviewLink", reviewLink.toString());
 
-            if (isNewUser) {
-                _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
-            } else {
-                _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",user, emailAttributes);
-            }
+            _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",user, emailAttributes);
         }
 
         //trigger the success events

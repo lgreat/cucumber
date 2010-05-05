@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.WelcomeMessageStatus;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -23,7 +24,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Final stage in the confirmation process when using email validation.
@@ -38,6 +41,7 @@ public class RegistrationConfirmController extends AbstractController implements
     private String _viewName;
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     protected ModelAndView redirectToRegistration(HttpServletRequest request) {
         return redirectToRegistration(request, null);
@@ -114,6 +118,7 @@ public class RegistrationConfirmController extends AbstractController implements
         if (!user.isEmailValidated()) {
             List<Review> userReviews = _reviewDao.findUserReviews(user);
             School reviewedSchool = null;
+            Review anUpgradedReview = null;
             boolean reviewPosted = false;
             // any school reviews in the provisional state need to be upgraded
             if (userReviews != null && userReviews.size() > 0) {
@@ -123,6 +128,7 @@ public class RegistrationConfirmController extends AbstractController implements
                         review.setStatus(StringUtils.substring(status, 1));
                         _reviewDao.saveReview(review);
                         reviewedSchool = review.getSchool();
+                        anUpgradedReview = review;
                         if (StringUtils.equals("p", review.getStatus())) {
                             reviewPosted = true;
                         }
@@ -134,7 +140,19 @@ public class RegistrationConfirmController extends AbstractController implements
             // TODO: GS-9787 Users who have a review posted may get a custom welcome message
             // per GS-8290 All users who complete registration should get a welcome message
             // but only users who haven't already been sent one
-            if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
+            if (reviewPosted && reviewedSchool != null && anUpgradedReview != null) {
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                Map<String,String> emailAttributes = new HashMap<String,String>();
+                emailAttributes.put("schoolName", reviewedSchool.getName());
+                emailAttributes.put("firstname", user.getFirstName());
+                emailAttributes.put("HTML__review", "<p>" + anUpgradedReview.getComments() + "</p>");
+
+                StringBuffer reviewLink = new StringBuffer("<a href=\"");
+                reviewLink.append(new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
+                reviewLink.append("\">your review</a>");
+                emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+                _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
+            } else if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
             }
             _userDao.saveUser(user);            
@@ -197,5 +215,13 @@ public class RegistrationConfirmController extends AbstractController implements
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 }
