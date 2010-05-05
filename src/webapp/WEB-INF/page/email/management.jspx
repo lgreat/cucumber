@@ -402,7 +402,7 @@
                     <p class="text2bold">Add a school<span class="text2"> (four schools maximum)</span></p>
                     <ol>
                         <li>
-                            <gsweb:stateSelector state="${emailCmd.userState}" styleId="stateAdd"
+                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="stateAdd"
                                                  onChange="emailStateChange(this);" name="stateAdd"
                                                  noStateLabel="1. Choose state"
                                                  allowNoState="true"

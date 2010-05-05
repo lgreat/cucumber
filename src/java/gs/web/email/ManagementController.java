@@ -208,11 +208,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
             command.setSchool(0);
         }
 
-        List<City> cities = _geoDao.findAllCitiesByState(sc.getStateOrDefault());
+        List<City> cities = new ArrayList<City>();
+        if (command.getUserState() != null) {
+            cities = _geoDao.findAllCitiesByState(command.getUserState());
+        }
         City city = new City();
         city.setName("My city is not listed");
         cities.add(0, city);
         command.setCityList(cities);
+        command.setStateAdd(command.getUserState());
     }
 
     @Override
