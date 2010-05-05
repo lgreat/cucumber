@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,6 +84,7 @@ public class SchoolReviewEditController extends SimpleFormController implements 
             return new ModelAndView(editPage);
         } else if (request.getParameter("disableReview") != null) {
             review.setStatus("d");
+            review.setProcessDate((Calendar.getInstance()).getTime());
             _reviewDao.saveReview(review);
             return new ModelAndView(editPage);
         } else if (request.getParameter("enableReview") != null) {
