@@ -39,8 +39,9 @@
                 <div class="spacer_8"><!-- do not collapse --></div>
                 <div class="treb12 tintfff">Enter a keyword</div>
                 <div class="spacer_4"><!-- do not collapse --></div>
-                <gsweb:form action="/search/search.page" method="get">
+                <gsweb:form action="/search/contentSearch.page" method="get">
                     <input type="hidden" name="c" value="topic"/>
+                    <input type="hidden" name="type" value="articles"/>
                     <input type="text" name="q" size="12" style="vertical-align:25%"/>&amp;nbsp;
                     <input type="image" src="/res/img/content/research/go_pink.gif" alt="GO"/>
                 </gsweb:form>
