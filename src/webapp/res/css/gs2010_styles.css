@@ -3520,7 +3520,7 @@ body.hover #startADiscussion .sd_InnerLayout {
 
 .userInfo {
     position: relative;
-    height:172px;
+    /*height:172px;*/
     background: #f9eccd;
     padding: 15px;
     overflow: hidden;
@@ -4121,7 +4121,7 @@ ul.srchSuggest li span {
     padding:15px;
 }
 
-#recentLocalDiscussions li{
+#recentLocalDiscussions li, #recentDiscussions li{
     padding:8px 0;
 }
 
@@ -4129,6 +4129,14 @@ ul.srchSuggest li span {
     width:273px;
 }
 
+#recentDiscussions .cityresults{
+    width:236px;
+}
+
+#recentDiscussions .cityresults p{
+    margin:auto;
+    padding:0;
+}
 
 /* =8- footer
 -------------------------------------------------------------------------------------------*/

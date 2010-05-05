@@ -590,10 +590,10 @@ span.nobreak {
     padding:0 0 0 25px;
     font: 700 13px Arial, Helvetica, sans-serif;
 }
-#recentDiscussions p{
+/*#recentDiscussions p{
     padding: 0 1em .6em 25px;
     margin: .3em 0 .3em 0;
-}
+}*/
 #recentDiscussions .hr{
     margin:0 0 10px 0;
     border: 0;

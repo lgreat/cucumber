@@ -38,6 +38,10 @@
             }
         </script>
         <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
+
+        <!--<p>requestScope.style = <c:out value="${requestScope.style}" default="don't know"/></p>-->
+        <!--<p>requestScope.showForm = <c:out value="${requestScope.showForm}" default="don't know"/></p>-->
+        
         <c:choose>
             <c:when test="${requestScope.style eq 'communityLanding'}">
             </c:when>
@@ -55,9 +59,11 @@
                 <c:choose>
                     <c:when test="${requestScope.style eq 'communityLanding'}">
                         Conversations about <span class="text1-d61">${requestScope.cityName}</span>
+                        <c:set var="resultsWidth" value="results"/>
                     </c:when>
                     <c:otherwise>
                         ${requestScope.discussionBoard.title}
+                        <c:set var="resultsWidth" value="cityresults"/>
                     </c:otherwise>
                 </c:choose>
             </p>
@@ -70,7 +76,7 @@
                 <li class="clearfix">
                 <div class="sprite discussion fltlft mrgrt_10"><!-- do not collapse --></div>
 
-                <div class="results fltlft">
+                <div class="${resultsWidth} fltlft">
                     <p class="text3bold">
                     <link:discussion discussionId="${discussion.id}"
                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
