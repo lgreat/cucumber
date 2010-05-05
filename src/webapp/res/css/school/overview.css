@@ -762,15 +762,16 @@ body.ie6 #compareSchool form {
 	display: block;
     position: relative;
     margin: 0 0 6px 0;
+    vertical-align: middle;
 }
 #compareSchool form input {
-	float: left;
-    position: relative;
+	position: relative;
     top: 2px;
-	margin: 0 8px 0 0;
+	margin: 0;
 }
-body.ie #compareSchool form input {
-    top: -2px;
+body.ie7 #compareSchool form input {
+    top: -8px;
+    margin-bottom: -8px;
 }
 #compareSchool form .submit {
 	float: right;
