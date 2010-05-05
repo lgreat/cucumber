@@ -84,11 +84,12 @@ public class SchoolReviewEditController extends SimpleFormController implements 
             return new ModelAndView(editPage);
         } else if (request.getParameter("disableReview") != null) {
             review.setStatus("d");
-            review.setProcessDate((Calendar.getInstance()).getTime());
+            review.setProcessDate(Calendar.getInstance().getTime());
             _reviewDao.saveReview(review);
             return new ModelAndView(editPage);
         } else if (request.getParameter("enableReview") != null) {
             review.setStatus("p");
+            review.setProcessDate(Calendar.getInstance().getTime());
             _reviewDao.saveReview(review);
             return new ModelAndView(editPage);
         } else if (request.getParameter("resolveReports") != null) {
