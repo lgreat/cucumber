@@ -95,7 +95,7 @@
                 modal: true,
                 draggable: false,
                 width: 610,
-                height: 431,
+                height: 436,
                 //title: "Start a discussion",
                 close: GS.startDiscussionHover.onClose,
                 bgiframe: true
