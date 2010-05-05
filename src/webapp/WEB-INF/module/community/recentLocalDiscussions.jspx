@@ -64,15 +64,17 @@
             <div class="spacer_10"><!-- do not collapse --></div>
             <c:import url="/community/changeLocalBoards.module"/>
             <div class="spacer_10"><!-- do not collapse --></div>
+            <ul>
             <c:forEach var="discussion" items="${requestScope.discussions}">
 
-                <span class="sprite discussion fltlft mrgrt_10"><!-- do not collapse --></span>
-                <!--<img class="fltlft" src="/res/img/discussion_boards/db_icon_discussion_15x16.gif"
-                     width="15" height="16" alt="icon"/>-->
-                <h4>
+                <li class="clearfix">
+                <div class="sprite discussion fltlft mrgrt_10"><!-- do not collapse --></div>
+
+                <div class="results fltlft">
+                    <p class="text3bold">
                     <link:discussion discussionId="${discussion.id}"
                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
-                </h4>
+                </p>
 
                 <p>
                     <community:userContentTeaserText
@@ -80,11 +82,14 @@
                             minLength="45" maxLength="55"
                             discussionId="${discussion.id}"
                             discussionFullUri="${fullUri}"
-                            numReplies="${discussion.totalReplies}"/>
+                            numReplies="${discussion.totalReplies}"
+                            textSpanClass="smallAlertText"/>
                 </p>
-                <br class="clearfloat"/>
+                    </div>
+                </li>
 
             </c:forEach>
+            </ul>
 
             <p class="fltrt smallAlertText"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                                               fullUri="${fullUri}">More conversations <span class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>

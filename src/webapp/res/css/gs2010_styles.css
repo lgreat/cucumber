@@ -4121,6 +4121,14 @@ ul.srchSuggest li span {
     padding:15px;
 }
 
+#recentLocalDiscussions li{
+    padding:8px 0;
+}
+
+#recentLocalDiscussions .results{
+    width:273px;
+}
+
 
 /* =8- footer
 -------------------------------------------------------------------------------------------*/

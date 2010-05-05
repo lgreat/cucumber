@@ -73,12 +73,17 @@
             <c:set var="moreLink">(${numReplies} replies)</c:set>
         </c:when>
         <c:otherwise>
-            <c:set var="moreLink">More&amp;nbsp;<span class="go">&amp;raquo;</span></c:set>
+            <c:set var="moreLink">More&amp;nbsp;<span class="alertDoubleArrow">&amp;raquo;</span></c:set>
             <c:if test="${!abbreviated}">
                 <c:set var="showMoreLink" value="${false}"/>
             </c:if>
         </c:otherwise>
     </c:choose>
+
+    <!--<p>linkClass = <c:out value="${linkClass}" default="don't know"/></p>-->
+    <!--<p>discussionReplyId = <c:out value="${discussionReplyId}" default="don't know"/></p>-->
+    <!--<p>discussionId = <c:out value="${discussionId}" default="don't know"/></p>-->
+    <!--<p>textSpanClass = <c:out value="${textSpanClass}" default="don't know"/></p>-->
 
     <c:if test="${showMoreLink}">
         <c:choose>
@@ -88,10 +93,17 @@
                                  discussionReplyId="${discussionReplyId}"
                                  styleClass="${linkClass}">${moreLink}</link:discussion>
             </c:when>
-            <c:when test="${discussionId ne null}">
+            <c:when test="${discussionId ne null and textSpanClass eq null}">
                 <link:discussion discussionId="${discussionId}"
                                  fullUri="${discussionFullUri}"
                                  styleClass="${linkClass}">${moreLink}</link:discussion>
+            </c:when>
+            <c:when test="${discussionId ne null and textSpanClass ne null}">
+                <span class="${textSpanClass}">
+                <link:discussion discussionId="${discussionId}"
+                                 fullUri="${discussionFullUri}"
+                                 styleClass="${linkClass}">${moreLink}</link:discussion>
+                </span>&amp;nbsp;<span class="alertDoubleArrow">&amp;raquo;</span>
             </c:when>
         </c:choose>
     </c:if>
