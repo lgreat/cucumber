@@ -121,3 +121,8 @@ ul#nonCommentInput .catRating {
 #rateReview .errors {
     margin: 5px 0;
 }
+
+#rateReview .ratingCategoryPrompt {
+    color: #3399A9;
+    font-weight: bold;
+}

@@ -126,11 +126,9 @@
 
                 <li>
                     <ul class="subStarRatings" style="display:none;">
-                        <c:if test="${pageName eq 'parentReviews'}">
-                            <li class="student_only">
-                                <div class="ratingCategoryPrompt">How do you rate this school in these additional areas?</div>
-                            </li>
-                        </c:if>
+                        <li>
+                            <div class="ratingCategoryPrompt">How do you rate this school in these additional areas?</div>
+                        </li>
                         <li class="student_only">
                             <div class="catRatingLabel">Teacher quality</div>
                             <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
