@@ -21,7 +21,7 @@
 
     <c:choose>
         <c:when test="${requestScope.style eq 'changeCity'}">
-            <div class="">
+            <div class="smallAlertText">
                 <form class="brwseCty" action="#">
                     <span class="">Change city:</span>
                     ${cityMenu}

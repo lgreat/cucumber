@@ -88,12 +88,12 @@
                     <h3>Local Community</h3>
                 </div>
 
-                <div>
-                <c:import url="/community/changeLocalBoards.module"/>
+                <div class="mod_bd">
 
-                <c:import
-                        url="/community/recentLocalDiscussions.module?board_id=${pageScope.localBoardId}&amp;limit=5&amp;uri=${myUrl}&amp;cityName=${pageScope.cityName}&amp;style=communityLanding"/>
-                    </div>
+
+                    <c:import
+                            url="/community/recentLocalDiscussions.module?board_id=${pageScope.localBoardId}&amp;limit=5&amp;uri=${myUrl}&amp;cityName=${pageScope.cityName}&amp;style=communityLanding"/>
+                </div>
             </div>
         </c:if>
 

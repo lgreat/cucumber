@@ -38,28 +38,37 @@
             }
         </script>
         <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
-        <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-        <pageHelper:externalCss file="/res/css/content/db_tc_hover.css"/>
+        <c:choose>
+            <c:when test="${requestScope.style eq 'communityLanding'}">
+            </c:when>
+            <c:otherwise>
+                <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+                <pageHelper:externalCss file="/res/css/content/db_tc_hover.css"/>
+            </c:otherwise>
+        </c:choose>
 
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
         <div id="recentDiscussions" class="clearfix">
 
-            <h2>
+            <p class="text1">
                 <c:choose>
                     <c:when test="${requestScope.style eq 'communityLanding'}">
-                        Conversations about <span class="">${requestScope.cityName}</span>
+                        Conversations about <span class="text1-d61">${requestScope.cityName}</span>
                     </c:when>
                     <c:otherwise>
                         ${requestScope.discussionBoard.title}
                     </c:otherwise>
                 </c:choose>
-            </h2>
-            <hr class="hr"/>
+            </p>
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <c:import url="/community/changeLocalBoards.module"/>
+            <div class="spacer_10"><!-- do not collapse --></div>
             <c:forEach var="discussion" items="${requestScope.discussions}">
 
-                <img class="fltlft" src="/res/img/discussion_boards/db_icon_discussion_15x16.gif"
-                     width="15" height="16" alt="icon"/>
+                <span class="sprite discussion fltlft mrgrt_10"><!-- do not collapse --></span>
+                <!--<img class="fltlft" src="/res/img/discussion_boards/db_icon_discussion_15x16.gif"
+                     width="15" height="16" alt="icon"/>-->
                 <h4>
                     <link:discussion discussionId="${discussion.id}"
                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
@@ -77,8 +86,8 @@
 
             </c:forEach>
 
-            <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                              fullUri="${fullUri}">More conversations &amp;raquo;</link:cmsContent></p>
+            <p class="fltrt smallAlertText"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                              fullUri="${fullUri}">More conversations <span class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
 
             <c:if test="${requestScope.showForm}">
                 <br class="clearfloat"/>

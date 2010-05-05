@@ -54,6 +54,7 @@ General comments:
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
+=7a- recentLocalDiscussions
 =8- footer
 =9- buttons
 =debugging styles
@@ -233,6 +234,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.introTextbold {
+    font: bold 16px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
 .introTextGA {
     font: 16px Georgia, "Times New Roman", Times, serif;
     color: #333;
@@ -278,16 +284,7 @@ h3.title1white, h3.srchCat {
 }
 
 .text3bold {
-    font: bold 12px / 1.3 Arial, Helvetica, sans-serif;
-}
-
-.introText {
-    font: 16px / 1.3 Arial, Helvetica, sans-serif;
-}
-
-.introTextbold {
-    font: bold 16px / 1.3 Arial, Helvetica, sans-serif;
-    color: #333;
+    font: bold 12px/1.3 Arial, Helvetica, sans-serif;
 }
 
 .smallText1 {
@@ -311,7 +308,7 @@ h3.title1white, h3.srchCat {
 }
 
 .smallText1bold {
-    font: bold 11px / 1.3 Arial, Helvetica, sans-serif;
+    font: bold 11px/1.3 Arial, Helvetica, sans-serif;
 }
 
 .smallAlertTextBold {
@@ -320,7 +317,7 @@ h3.title1white, h3.srchCat {
 }
 
 .smallAlertTextBoldNeutral {
-    font: bold 11px / 1.2 Arial, Helvetica, sans-serif;
+    font: bold 11px/1.2 Arial, Helvetica, sans-serif;
 }
 
 .smallAlertTextBold-333 {
@@ -349,7 +346,7 @@ h3.title1white, h3.srchCat {
 }
 
 .certCourse {
-    font: italic 16px / 1.3 Georgia, "Times New Roman", Times, serif; /*color: #149;*/
+    font: italic 16px/1.3 Georgia, "Times New Roman", Times, serif; /*color: #149;*/
 }
 
 .alertDoubleArrow {
@@ -4113,7 +4110,19 @@ ul.srchSuggest li span {
     margin: 0 0 1em;
 }
 
-/* =8 footer
+/* =7a- recentLocalDiscussions
+-------------------------------------------------------------------------------------------*/
+
+#recentLocalDiscussions{
+
+}
+
+#recentLocalDiscussions .mod_bd{
+    padding:15px;
+}
+
+
+/* =8- footer
 -------------------------------------------------------------------------------------------*/
 
 h1.sfooter, h1#sfooter, .sfooter, div#testScoreLandingLinks {
