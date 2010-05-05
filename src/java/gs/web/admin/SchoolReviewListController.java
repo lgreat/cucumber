@@ -4,7 +4,6 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +31,6 @@ public class SchoolReviewListController extends AbstractController {
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
-    private static final int NUM_REPORTED_REVIEWS_TO_PULL = 300;
     private static final int NUM_REPORTED_REVIEWS_TO_DISPLAY = 75;
     private static final int NUM_UNPROCESSED_REVIEWS_TO_DISPLAY = 75;
 
@@ -71,25 +69,19 @@ public class SchoolReviewListController extends AbstractController {
     }
 
     protected List<SchoolReviewListBean> getFlaggedReviews() {
-        List<Long> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(
-                NUM_REPORTED_REVIEWS_TO_PULL);
+        List<Integer> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(
+                NUM_REPORTED_REVIEWS_TO_DISPLAY);
         List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(NUM_REPORTED_REVIEWS_TO_DISPLAY);
 
         // asynchronous?
         // group queries?
-        for (Long reviewId: reportedReviewIds) {
+        for (Integer reviewId: reportedReviewIds) {
             try {
-                SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId.intValue()));
-                if (StringUtils.length(bean.getReview().getStatus()) == 2 || StringUtils.equals("u", bean.getReview().getStatus())) {
-                    continue;
-                }
+                SchoolReviewListBean bean = new SchoolReviewListBean(_reviewDao.getReview(reviewId));
                 bean.setNumReports((_reportedEntityDao.getNumberTimesReported
                         (ReportedEntity.ReportedEntityType.schoolReview, reviewId)));
                 bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolReview, reviewId));
                 rval.add(bean);
-                if (rval.size() == NUM_REPORTED_REVIEWS_TO_DISPLAY) {
-                    break;
-                }
             } catch (Exception e) {
                 _log.error("Error finding review and related data for report: " + e, e);
             }
