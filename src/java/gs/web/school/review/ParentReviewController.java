@@ -7,6 +7,7 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.security.Permission;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.Care2PromoHelper;
 import gs.web.school.KindercareLeadGenHelper;
@@ -75,8 +76,25 @@ public class ParentReviewController extends AbstractController {
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
         Care2PromoHelper.checkForCare2(request, response, school, model);
 
+        boolean includeInactive = false;
         if (null != school) {
-            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            User user = null;
+            if(PageHelper.isMemberAuthorized(request)){
+                user = sessionContext.getUser();
+                if (user != null) {
+                    model.put("validUser", user);
+                    if (user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
+                        includeInactive = true;
+                    }
+                }
+            }
+            List<Review> reviews;
+            if (!includeInactive) {
+                reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            } else {
+                reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school);
+            }
             ParentReviewCommand cmd = new ParentReviewCommand();
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
@@ -106,15 +124,8 @@ public class ParentReviewController extends AbstractController {
             cmd.setTotalReviews(reviews.size());
             cmd.setCurrentDate(new Date());
 
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-
-            User user = null;
-            if(PageHelper.isMemberAuthorized(request)){
-                user = sessionContext.getUser();
-                if (user != null) {
-                    model.put("validUser", user);
-                    model.put("reviewReports", getReportsForReviews(user, reviews));
-                }
+            if(user != null && PageHelper.isMemberAuthorized(request)){
+                model.put("reviewReports", getReportsForReviews(user, reviews));
             }
 
             if (user == null) {

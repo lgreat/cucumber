@@ -53,6 +53,27 @@
     <c:if test="${param.showThankyouHover eq 'true'}">
         <pageHelper:addOnLoadHandler handler="showLoginHover();"/>
     </c:if>
+
+    <script type="text/javascript">
+        function disableReview(reviewId) {
+            jQuery.post('/community/deactivateContent.page', {
+                contentId:reviewId,
+                contentType:'schoolReview'});
+            window.setTimeout(function() {
+                window.location.reload();
+            }, 250);
+        }
+
+        function enableReview(reviewId) {
+            jQuery.post('/community/deactivateContent.page', {
+                contentId:reviewId,
+                contentType:'schoolReview',
+                reactivate:true});
+            window.setTimeout(function() {
+                window.location.reload();
+            }, 250);
+        }
+    </script>
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
@@ -231,7 +252,20 @@
                                       styleClass="stars" alt="${curStarRating} out of 5 stars"/>
                         </c:if>
 
-                        <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+                        <p class="author">
+                            Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                <c:choose>
+                                    <c:when test="${review.status eq 'd'}">
+                                        (deleted)
+                                        | <a href="#" class="enableLink link" onclick="enableReview(${review.id}); return false;">Enable</a>
+                                    </c:when>
+                                    <c:when test="${review.status eq 'p'}">
+                                            | <a href="#" class="disableLink link" onclick="disableReview(${review.id}); return false;">Disable</a>
+                                    </c:when>
+                                </c:choose>
+                            </gsml:ifUserCanDeleteContent>
+                        </p>
 
                         <c:set var="postedByDisplay" value=""/>
                         <c:choose>

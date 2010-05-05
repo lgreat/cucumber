@@ -1,5 +1,7 @@
 package gs.web.community;
 
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -28,6 +30,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     private IUserDao _userDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private SolrService _solrService;
+    private IReviewDao _reviewDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -90,6 +93,15 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                         _log.error("Could not " + action + " discussion " + discussion.getId() + " using solr", e);
                     }
                 }
+            } else if (command.getContentType() == DeactivateContentCommand.ContentType.schoolReview) {
+                Review review = _reviewDao.getReview((int)command.getContentId());
+                if (command.isReactivate()) {
+                    review.setStatus("p");
+                } else {
+                    review.setStatus("d");
+                }
+                review.setProcessDate(new Date());
+                _reviewDao.saveReview(review);
             }
         }
         return null;
@@ -133,5 +145,13 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setSolrService(SolrService solrService) {
         _solrService = solrService;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
     }
 }
