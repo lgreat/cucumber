@@ -186,6 +186,11 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         Integer existingId = review.getId();
 
+        //if review posted automatically, set the process date now
+        if (reviewPosted) {
+            review.setProcessDate((Calendar.getInstance()).getTime());
+        }
+
         //save the review
         getReviewDao().saveReview(review);
 
