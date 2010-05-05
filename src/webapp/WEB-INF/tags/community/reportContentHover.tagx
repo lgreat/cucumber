@@ -122,8 +122,11 @@
         <div class="text3">
             Please explain how this <span id="reportHoverIntroContentType">content</span> may have violated our
             <gsml:popupWindow width="800" height="600" left="50" top="50"
-                              title="GreatSchools Community Standards"
-                              href="/terms/?state=$STATE">Terms of Use or Community Guidelines</gsml:popupWindow>:</div>
+                              title="GreatSchools Terms of Use"
+                              href="/terms/?state=$STATE">terms of use</gsml:popupWindow> or
+            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                              title="GreatSchools Community Guidelines"
+                              href="/about/guidelines.page">school review guidelines</gsml:popupWindow>:</div>
 
         <form action="/community/reportContent.page" method="post">
             <textarea name="reason" id="reportReason" rows="10" cols="60"><!-- don't collapse --></textarea>
