@@ -93,9 +93,9 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="example_url">http://${apiHost}/search/schools?state=CA&amp;amp;q=Alameda</div>
+                <div class="example_url">http://${apiHost}/search/schools?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;q=Alameda</div>
                 Searches for schools using the query string "Alameda" in California
-                <div class="example_url">http://${apiHost}/search/schools?state=CA&amp;amp;q=Alameda&amp;amp;sort=alpha&amp;amp;levelCode=elementary-schools&amp;amp;limit=10</div>
+                <div class="example_url">http://${apiHost}/search/schools?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;q=Alameda&amp;amp;sort=alpha&amp;amp;levelCode=elementary-schools&amp;amp;limit=10</div>
                 Searches for no more than 10 elementary schools using the query string "Alameda" in California,
                 returned in alphabetical order
             </div>
