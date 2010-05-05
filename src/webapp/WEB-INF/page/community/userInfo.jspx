@@ -166,7 +166,7 @@
                     </c:when>
                     <c:otherwise>
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}"
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}" class="reportIt"
                                                                                    href="${loginRedirectUrl}">Report this member
                     <span class="go">&amp;#187;</span></a>
                 </span>
