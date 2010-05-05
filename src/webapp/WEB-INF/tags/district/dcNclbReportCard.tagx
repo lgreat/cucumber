@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
-    xmlns:link="urn:www.greatschools.org/taglib/link"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-    xmlns:gsweb="gstaglib"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <jsp:directive.attribute name="districtReportUrl" required="true" description="Url of pdf" type="java.lang.String"/>
+    <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
 
-    <!-- TODO-9899 -->
+    <c:set var="districtCode" value="${fn:substring(pageScope.district.stateId, 0, 3)}"/>
+    <c:set var="districtLinkTextTerm" value="${pageScope.districtCode eq '001' ? 'DCPS' : 'LEA'}"/>
+    <c:set var="districtFileNameTerm" value="${fn:toLowerCase(pageScope.districtLinkTextTerm)}"/>
 
     <div class="mod dcNCLB" id="dcNCLB_district">
         <div class="mod_hd">
@@ -17,11 +18,11 @@
 
         <div class="mod_bd">
             <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/><gsml:a href="${pageScope.districtReportUrl}"
-                                                  target="_blank">District Report Card</gsml:a></p>
+                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-${pageScope.districtFileNameTerm}-${pageScope.districtCode}.pdf"
+                                                  target="_blank">${pageScope.districtLinkTextTerm} Report Card</gsml:a></p>
 
             <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/><gsml:a href="TODO-9899"
+                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
                                                   target="_blank">Washington, DC Report Card</gsml:a></p>
 
             <img src="/res/img/promo/dcnclb/osse_icon.gif" class="logo" alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>

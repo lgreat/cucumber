@@ -204,9 +204,8 @@
                     <ul class="u_list treb12 tint777">
 
                         <c:if test="${requestScope.context.showDcNclbModules}">
-                            <!-- TODO-9899 -->
                             <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                    href="/catalog/pdf/dc/nclb/"
+                                    href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
                                     styleClass="treb12 tint39a link"
                                     target="_blank">2008-2009 NCLB Report Card for Washington, DC</gsml:a><br />
                                 <em class="smallText1">Provided by the Office of the State Superintendent of Education (OSSE)</em>

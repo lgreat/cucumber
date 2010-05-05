@@ -224,8 +224,7 @@
 
         <c:choose>
             <c:when test="${requestScope.context.showDcNclbModules and stateAbbrev eq 'DC'}">
-                <!-- TODO-9899 -->
-                <district:dcNclbReportCard districtReportUrl=""/>
+                <district:dcNclbReportCard district="${district}"/>
             </c:when>
             <c:otherwise>
                 <jsp:include
