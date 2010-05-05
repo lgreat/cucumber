@@ -307,6 +307,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
+        jQuery('#joinHover_cancel').hide();
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showSchoolReviewJoin;
         GSType.hover.joinHover.show();
