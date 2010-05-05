@@ -102,14 +102,15 @@
                     <gsml:img src="/res/img/moving_image.jpg"
                               alt="Moving? View our tips to help your child with the transition"/>
                 </link:movingWithKids>
-                <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
+                <link:movingWithKids>
+                    <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
+                </link:movingWithKids>
                 <ul class="contentList">
-                    <li><link:cmsContent contentKey="Article#403"
-                                     fullUri="find-a-school/moving/moving-company-or-DIY">Choosing a Mover</link:cmsContent></li>
+                    <li><link:movingWithKids>Choosing a Mover</link:movingWithKids></li>
                     <li><link:cmsContent contentKey="Article#173"
-                                     fullUri="find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
+                                     fullUri="/find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
                     <li><link:cmsContent contentKey="Article#25"
-                                     fullUri="back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
+                                     fullUri="/back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
                 </ul> 
             </c:otherwise>
         </c:choose>
@@ -121,14 +122,15 @@
                     <gsml:img src="/res/img/moving_image.jpg"
                               alt="Moving? View our tips to help your child with the transition"/>
                 </link:movingWithKids>
-                <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
+                 <link:movingWithKids>
+                     <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
+                 </link:movingWithKids>
                 <ul class="contentList">
-                    <li><link:cmsContent contentKey="Article#403"
-                                     fullUri="find-a-school/moving/moving-company-or-DIY">Choosing a Mover</link:cmsContent></li>
+                    <li><link:movingWithKids>Choosing a Mover</link:movingWithKids></li>
                     <li><link:cmsContent contentKey="Article#173"
-                                     fullUri="find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
+                                     fullUri="/find-a-school/moving/help-your-child-with-the-transition">Making a Smooth Transition</link:cmsContent></li>
                     <li><link:cmsContent contentKey="Article#25"
-                                     fullUri="back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
+                                     fullUri="/back-to-school/preparation/adjusting-to-new-school">Adjusting to a New School</link:cmsContent></li>
                 </ul>
                  </div>
             </c:if>
@@ -157,7 +159,9 @@
                     <gsml:img src="/res/img/choosing_image.jpg"
                               alt="Choosing a school? Check out our school choice tips"/>
                 </link:schoolChoiceCenter>
-                <gsml:img src="/res/img/choosingschool.gif" alt="Choosing a school?" styleClass="word"/>
+                <link:schoolChoiceCenter>
+                    <gsml:img src="/res/img/choosingschool.gif" alt="Choosing a school?" styleClass="word"/>
+                </link:schoolChoiceCenter>
                 <ul class="contentList">
                     <c:choose>
                         <c:when test="${param.linkToSchoolChoice eq true}">
