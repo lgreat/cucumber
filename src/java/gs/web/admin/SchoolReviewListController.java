@@ -27,6 +27,8 @@ public class SchoolReviewListController extends AbstractController {
     public static final String MODEL_SHOW_UNPROCESSED="showUnprocessed";
     public static final String MODEL_FLAGGED_REVIEW_LIST="flaggedReviews";
     public static final String MODEL_SHOW_FLAGGED="showFlagged";
+    public static final String MODEL_TOTAL_UNPROCESSED="totalUnprocessedReviews";
+    public static final String MODEL_TOTAL_FLAGGED="totalFlaggedReviews";
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
@@ -43,10 +45,12 @@ public class SchoolReviewListController extends AbstractController {
             List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews();
             model.put(MODEL_SHOW_UNPROCESSED, true);
             model.put(MODEL_UNPROCESSED_REVIEW_LIST, unprocessedReviews);
+            model.put(MODEL_TOTAL_UNPROCESSED, _reviewDao.countUnprocessedReviews());
         } else {
             List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews();
             model.put(MODEL_SHOW_FLAGGED, true);
             model.put(MODEL_FLAGGED_REVIEW_LIST, flaggedReviews);
+            model.put(MODEL_TOTAL_FLAGGED, _reportedEntityDao.countFlaggedSchoolReviews());
         }
 
         return new ModelAndView(getViewName(), model);
