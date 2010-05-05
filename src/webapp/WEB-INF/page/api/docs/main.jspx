@@ -65,6 +65,8 @@
                 Returns census and profile data for a school.
                 <div class="mainRequest"><a href="/api/docs/cityBrowse.page">City Browse</a></div>
                 Returns information about a city.
+                <div class="mainRequest"><a href="/api/docs/citiesNearby.page">Nearby Cities</a></div>
+                Returns a list of cities near another city.
             </div>
 
             <div class="call">
