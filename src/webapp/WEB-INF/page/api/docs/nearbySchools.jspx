@@ -150,20 +150,20 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;address=160+Spear+St&amp;city=San+Francisco&amp;state=CA&amp;zip=94105&amp;schoolType=public-charter&amp;levelCode=elementary-schools&amp;minimumSchools=50&amp;radius=10&amp;limit=100</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;address=160+Spear+St&amp;amp;city=San+Francisco&amp;amp;state=CA&amp;amp;zip=94105&amp;amp;schoolType=public-charter&amp;amp;levelCode=elementary-schools&amp;amp;minimumSchools=50&amp;amp;radius=10&amp;amp;limit=100</div>
                 Returns 50 to 100 public and charter elementary schools within 10 miles of
                 160 Spear St, San Francisco, CA 94105
-                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;city=San+Francisco&amp;state=CA</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;city=San+Francisco&amp;amp;state=CA</div>
                 Returns up to 200 schools within 5 miles of San Francisco, CA
-                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;state=CA&amp;zip=94105</div>
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;zip=94105</div>
                 Returns up to 200 schools within 5 miles of ZIP Code 94105
-                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;lat=37.758862&amp;lon=-122.411406</div>
-                Returns up to 200 schools within 5 miles of latitude 37.758862, longitude -122.411406
+                <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;lat=37.758862&amp;amp;lon=-122.411406</div>
+                Returns up to 200 schools within 5 miles of latitude 35.274494, longitude -119.005623 in California
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/schools/nearby?key=[yourAPIkey]&amp;zip=94105&amp;limit=2</div>
-                Returns 2 California schools within 5 miles of ZIP Code 94105
+                <div class="sample_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;zip=94105&amp;amp;limit=2</div>
+                Returns 2 California schools within 5 miles of ZIP Code 94105 in California
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
