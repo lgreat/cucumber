@@ -22,6 +22,7 @@ General comments:
 =4a-4 raise your hand
 =4a-5 grade by grade
 =4c-3 infinite carousel
+=4c-5 talk about it
 =4c-6 elementary schools grade by grade
 =5- icons
 =9- buttons
@@ -42,7 +43,7 @@ General comments:
 }
 
 #utilLinks li .nav_group_items {
-    top: 8px;
+    top: 19px;
 }
 
 #utilLinks li.last {
@@ -106,8 +107,9 @@ body.ie7 #utilLinks, *+html #utilLinks {
     z-index: 100;
 }
 
-body.ie7 #utilLinks .nav_menu, *+html #utilLinks . nav_menu {
+body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
     z-index: 200;
+    top:6px;
 }
 
 body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
@@ -353,8 +355,9 @@ body.ie6 #utilLinks, *html #utilLinks {
     z-index: 100;
 }
 
-body.ie6 #utilLinks .nav_menu, *html #utilLinks . nav_menu {
+body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu {
     z-index: 200;
+    top:6px;
 }
 
 body.ie6 #utilLinks .nav_menu .nav_group_items, *html #utilLinks .nav_menu .nav_group_items {
@@ -795,6 +798,13 @@ body.ie6 .ic_title {
 
 body.ie6 .infiniteCarousel .arrow {
     line-height: 0.8;
+}
+
+/* =4c-5 talk about it
+-------------------------------------------------------------------------------------------*/
+
+body.ie6 .discussionTopic_rc{
+    width:538px
 }
 
 /* =4c-5.1 start a conversation

@@ -433,7 +433,7 @@ body.cobranded #pageGS {
     z-index: 2;
 }
 
-#utilLinks li {
+#utilLinks li, #utilLinks li.nav_menu {
     display: inline;
     padding: 0 6px;
     border-right: 1px solid #fff;
@@ -2228,7 +2228,7 @@ body.ie6 .clearfix {
     width: 363px;
 }
 
-.discussionTopic_540 {
+.discussionTopic_rc {
     float: left;
     width: 540px;
 }
