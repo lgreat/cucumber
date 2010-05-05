@@ -156,7 +156,7 @@
                 <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;city=San+Francisco&amp;amp;state=CA</div>
                 Returns up to 200 schools within 5 miles of San Francisco, CA
                 <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;zip=94105</div>
-                Returns up to 200 schools within 5 miles of ZIP Code 94105
+                Returns up to 200 schools within 5 miles of ZIP Code 94105 in California
                 <div class="example_url">http://${apiHost}/schools/nearby?key=[yourAPIKey]&amp;amp;state=CA&amp;amp;lat=37.758862&amp;amp;lon=-122.411406</div>
                 Returns up to 200 schools within 5 miles of latitude 35.274494, longitude -119.005623 in California
             </div>
