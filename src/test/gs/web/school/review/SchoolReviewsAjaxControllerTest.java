@@ -1,6 +1,7 @@
 package gs.web.school.review;
 
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.CategoryRating;
@@ -19,7 +20,8 @@ import org.springframework.validation.BindException;
 import java.io.Serializable;
 import java.util.*;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
+import static org.easymock.classextension.EasyMock.createStrictMock;
 
 /**
  * @author dlee
@@ -38,10 +40,14 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     BindException _errors;
     MockJavaMailSender _sender;
     private IReportedEntityDao _reportedEntityDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     public void setUp() throws Exception {
         super.setUp();
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
+        
         _controller = new SchoolReviewsAjaxController();
+
 
         _reviewDao = createMock(IReviewDao.class);
         _userDao = createMock(IUserDao.class);
@@ -61,7 +67,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _request.setAttribute("school", _school);
 
         _user = new User();
-        _user.setEmail("dlee@greatschools.org");
+        _user.setEmail("ssprouse@greatschools.org");
         _user.setId(1);
 
         _alertWordDao = createMock(IAlertWordDao.class);
@@ -78,6 +84,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setAlertWordDao(_alertWordDao);
         _controller.setReportContentService(_reportContentService);
         _controller.setReportedEntityDao(_reportedEntityDao);
+        _controller.setExactTargetAPI(_exactTargetAPI);
+
     }
 
     public void testSubmitExistingUserNoExistingReview() throws Exception {
@@ -87,7 +95,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
+        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), isA(User.class), isA(Map.class));
+
         replay(_reviewDao);
+        replay(_exactTargetAPI);
 
         replay(_subscriptionDao);
         _controller.setUserDao(_userDao);
@@ -97,6 +108,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
+        verify(_exactTargetAPI);
     }
 
     public void testSubmitExistingUserReviewRejected() throws Exception {
@@ -263,7 +275,9 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         _reviewDao.saveReview((Review) anyObject());
+        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_plus_welcome_trigger"), isA(User.class), isA(Map.class));
         replay(_reviewDao);
+        replay(_exactTargetAPI);
 
         //new user so we add an entry into list member that indicates where we got their email from
         Subscription sub = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
@@ -279,6 +293,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
+        verify(_exactTargetAPI);
     }
 
     public void testSetRatingsOnReviewPreschoolParent() throws Exception {

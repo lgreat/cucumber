@@ -18,6 +18,7 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -204,8 +205,24 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             reviewPosted = false;
         }
 
-        if ((!isNewUser) && reviewPosted && StringUtils.isNotBlank(review.getComments())) {
-            //TODO: _exactTargetAPI.sendTriggeredEmail(SOME_KEY,user);
+
+
+        if (reviewPosted) {
+            Map<String,String> emailAttributes = new HashMap<String,String>();
+            emailAttributes.put("schoolName", school.getName());
+            emailAttributes.put("firstname", user.getFirstName());
+            emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+            StringBuffer reviewLink = new StringBuffer("<a href=\"");
+            reviewLink.append(new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
+            reviewLink.append("\">your review</a>");
+            emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+            if (isNewUser) {
+                _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
+            } else {
+                _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",user, emailAttributes);
+            }
         }
 
         //trigger the success events
