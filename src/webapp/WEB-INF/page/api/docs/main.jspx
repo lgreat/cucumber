@@ -63,6 +63,8 @@
                 Returns test and rank data for a specific school.
                 <div class="mainRequest"><a href="/api/docs/schoolCensusData.page">School Census Data</a></div>
                 Returns census and profile data for a school.
+                <div class="mainRequest"><a href="/api/docs/cityBrowse.page">City Browse</a></div>
+                Returns information about a city.
             </div>
 
             <div class="call">
