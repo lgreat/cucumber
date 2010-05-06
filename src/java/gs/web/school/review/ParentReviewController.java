@@ -9,7 +9,6 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.security.Permission;
 import gs.web.school.AbstractSchoolController;
-import gs.web.school.Care2PromoHelper;
 import gs.web.school.KindercareLeadGenHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -74,7 +73,6 @@ public class ParentReviewController extends AbstractController {
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
 
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
-        Care2PromoHelper.checkForCare2(request, response, school, model);
 
         boolean includeInactive = false;
         if (null != school) {

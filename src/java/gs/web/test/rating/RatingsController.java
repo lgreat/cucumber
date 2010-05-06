@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.20 2010/04/27 00:08:00 yfan Exp $
+ * $Id: RatingsController.java,v 1.21 2010/05/06 23:24:40 yfan Exp $
  */
 package gs.web.test.rating;
 
@@ -12,7 +12,6 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.web.school.Care2PromoHelper;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,7 +76,6 @@ public class RatingsController extends AbstractCommandController {
         //another check for errors since retrieving school could have set errors
         if (!errors.hasErrors()) {
             Map model = referenceData(request, command, errors);
-            Care2PromoHelper.checkForCare2(request, response, ratingsCommand.getSchool(), model);
             return new ModelAndView(getViewName(), model);
         } else {
             return new ModelAndView(getViewName(), errors.getModel());

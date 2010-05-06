@@ -3236,54 +3236,6 @@ body.hover #startADiscussion .sd_InnerLayout {
     right: 0;
 }
 
-#ratings .care2InlinePromo {
-    width: 210px;
-    height: 25px;
-    float: left;
-
-    margin-left: 10px;
-    padding-left: 6px;
-    border-left: 1px solid #ccc;
-}
-
-#ratings .care2InlinePromo img {
-    padding-right: 3px;
-    float: left;
-}
-
-#ratings .care2InlinePromo a {
-    font: bold 13px Arial, Helvetica, sans-serif;
-    text-decoration: underline;
-    line-height: 25px;
-}
-
-#care2Promo .left {
-    float: left;
-    height: 105px;
-    width: 540px;
-    margin-right: 25px;
-    padding-left: 170px;
-    padding-top: 5px;
-}
-
-#care2Promo .logo {
-    position: absolute;
-    top: 15px;
-    left: 25px;
-}
-
-#care2Promo .title {
-    font: bold 25px Arial, Helvetica, sans-serif;
-    color: #06b;
-    margin-bottom: 5px;
-}
-
-#care2Promo .submitButton {
-    position: absolute;
-    top: 48px;
-    right: 22px;
-}
-
 #kindercareLeadGen .kindercare_logo {
     position: absolute;
     top: 0;

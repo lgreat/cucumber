@@ -345,10 +345,6 @@
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
-
-        <c:if test="${requestScope.isCare2 eq true and not empty care2PromoUrl}">
-            <promo:care2Inline url="${care2PromoUrl}"/>
-        </c:if>
     </div>
     <!-- end: ratings -->
 

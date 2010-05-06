@@ -36,7 +36,6 @@ public class MapSchoolController extends AbstractSchoolController {
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
         Map model = new HashMap();
-        Care2PromoHelper.checkForCare2(request, response, school, model);
 
         // five nearest schools
         List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 5);

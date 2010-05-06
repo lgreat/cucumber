@@ -151,7 +151,6 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             model.put("hasFinanceData", Boolean.TRUE);
 
             KindercareLeadGenHelper.checkForKindercare(request, response, school, model);
-            Care2PromoHelper.checkForCare2(request, response, school, model);
 
             String tempMsg = sessionContext.getTempMsg();
             if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
