@@ -138,14 +138,6 @@
     <div id="mainGS" class="col">
         <h1>Contact Us</h1>
 
-        <c:if test="${showConfirmMessage}">
-            <div id="confirmText">
-                <p>Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
-            </div>
-        </c:if>
-
-        <c:if test="${!showConfirmMessage}">
-
         <p>
             Do you have any questions or feedback for us? Make sure you check out the
             <gsml:a href="/about/gsFaq.page?state=${state}">GreatSchools FAQ</gsml:a> -- the answer
@@ -175,9 +167,17 @@
         </select>
         <hr/>
 
-        <div id="defaultOptionFeedback" class="jqFeedback">
-            <p>Once you have selected an option above the appropriate form will load below.</p>
-        </div>
+        <c:if test="${showConfirmMessage}">
+            <div id="confirmText">
+                <p>Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
+            </div>
+        </c:if>
+        <c:if test="${!showConfirmMessage}">
+            <div id="defaultOptionFeedback" class="jqFeedback">
+                <p>Once you have selected an option above the appropriate form will load below.</p>
+            </div>
+        </c:if>
+
         <div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
             <p>
                 Please choose one of the specific options below. Keep in mind that we rely on state Departments of
@@ -360,103 +360,6 @@
             </div>
             <div id="addPreSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback" style="display: none;">
                 <p><gsml:a href="/about/feedback/submitPreschool.page">Add a preschool.</gsml:a></p>
-                <!--<p>We thoroughly validate information submitted through this form. If we cannot verify the accuracy-->
-                    <!--of the information, the school will not be added to our site. There is no charge to submit a-->
-                    <!--school. To learn more about where we get our data, please read our Frequently Asked Questions.-->
-                <!--</p>-->
-
-                <!--<form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"-->
-                           <!--id="incorrectSchoolDistrictInfo_addPreSchool"-->
-                           <!--onsubmit="addPreSchool_challenge.value = Recaptcha.get_challenge(); addPreSchool_response.value = Recaptcha.get_response();">-->
-                    <!--<input type="hidden" name="feedbackType" value="incorrectSchoolDistrictInfo_addPreSchool"/>-->
-                    <!--<form:hidden path="challenge" id="addPreSchool_challenge" />-->
-                    <!--<form:hidden path="response" id="addPreSchool_response"/>-->
-
-                    <!--<form:label path="submitterName">Your name: </form:label>-->
-                    <!--<form:input path="submitterName"/>-->
-                    <!--<form:errors path="submitterName" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="submitterEmail">Your email: </form:label>-->
-                    <!--<form:input path="submitterEmail"/>-->
-                    <!--<form:errors path="submitterEmail" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.relationship">Relationship to school: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.relationship"/>-->
-                    <!--<form:errors path="addPreschoolFields.relationship" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.schoolName">School name: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.schoolName"/>-->
-                    <!--<form:errors path="addPreschoolFields.schoolName" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.address">Physical street address: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.address"/>-->
-                    <!--<form:errors path="addPreschoolFields.address" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.cityName">City: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.cityName"/>-->
-                    <!--<form:errors path="addPreschoolFields.cityName" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.state">State: </form:label>-->
-                    <!--<form:select path="addPreschoolFields.state">-->
-                        <!--<form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>-->
-                    <!--</form:select>-->
-                    <!--<form:errors path="addPreschoolFields.state" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.zip">Zip: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.zip"/>-->
-                    <!--<form:errors path="addPreschoolFields.zip" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.county">County: </form:label>-->
-                    <!--<form:select path="addPreschoolFields.county">-->
-                        <!--<form:options items="${requestScope.countyOptions}" itemValue="value" itemLabel="name"/>-->
-                    <!--</form:select>-->
-                    <!--<form:errors path="addPreschoolFields.county" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.phone">Phone: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.phone"/>-->
-                    <!--<form:errors path="addPreschoolFields.phone" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.fax">Fax: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.fax"/>-->
-                    <!--<form:errors path="addPreschoolFields.fax" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.enrollment">Enrollment: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.enrollment"/>-->
-                    <!--<form:errors path="addPreschoolFields.enrollment" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.website">School website: </form:label>-->
-                    <!--<form:input path="addPreschoolFields.website"/>-->
-                    <!--<form:errors path="addPreschoolFields.website" />-->
-                    <!--<br/>-->
-
-                    <!--<form:label path="addPreschoolFields.county">County: </form:label>-->
-                    <!--<form:select path="addPreschoolFields.county">-->
-                        <!--<form:options items="${requestScope.countyOptions}" itemValue="value" itemLabel="name"/>-->
-                    <!--</form:select>-->
-                    <!--<form:errors path="addPreschoolFields.county" />-->
-                    <!--<br/>-->
-
-
-                    <!--<div id="addPreSchool_captcha" class="captcha">-->
-                        <!--&lt;!&ndash; no collapse &ndash;&gt;-->
-                    <!--</div>-->
-                    <!--<form:errors path="response" />-->
-                    <!--<br/>-->
-
-                    <!--<input type="submit" name="Submit" value="submit"/>-->
-                <!--</form:form>-->
             </div>
             <div id="addPrivateSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
                  style="display: none;">
@@ -552,206 +455,205 @@
                 <input type="submit" name="Submit" value="submit"/>
             </form:form>
         </div>
-            <div id="articlesCommunityFeedback" class="jqFeedback" style="display: none;">
-                <p>Have questions, ideas, problems, or praise about our articles or community? Post in our feedback community with the form below!</p>
-                <script type="text/javascript" charset="utf-8">
-                  var is_ssl = ("https:" == document.location.protocol);
-                  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-                  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-                </script>
+        <div id="articlesCommunityFeedback" class="jqFeedback" style="display: none;">
+            <p>Have questions, ideas, problems, or praise about our articles or community? Post in our feedback community with the form below!</p>
+            <script type="text/javascript" charset="utf-8">
+              var is_ssl = ("https:" == document.location.protocol);
+              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+              document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
 
-                <script type="text/javascript" charset="utf-8">
-                  var feedback_widget_options = {};
+            <script type="text/javascript" charset="utf-8">
+              var feedback_widget_options = {};
 
-                  feedback_widget_options.display = "inline";
-                  feedback_widget_options.company = "greatschools";
-                  
-
-                  feedback_widget_options.style = "question";
-                  feedback_widget_options.product = "greatschools_articles_community";
+              feedback_widget_options.display = "inline";
+              feedback_widget_options.company = "greatschools";
 
 
-
-                  feedback_widget_options.limit = "3";
-
-
-                  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-                </script>
-            </div>
-            <div id="newslettersFeedback" class="jqFeedback" style="display: none;">
-                <p>Have questions, ideas, problems, or praise about our newsletters? Post in our feedback community with the form below!</p>
-                <script type="text/javascript" charset="utf-8">
-                  var is_ssl = ("https:" == document.location.protocol);
-                  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-                  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-                </script>
-
-                <script type="text/javascript" charset="utf-8">
-                  var feedback_widget_options = {};
-
-                  feedback_widget_options.display = "inline";
-                  feedback_widget_options.company = "greatschools";
-
-                  feedback_widget_options.style = "question";
-                  feedback_widget_options.product = "greatschools_email_newsletters";
-
-                  feedback_widget_options.limit = "3";
-
-                  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-                </script>
-            </div>
-            <div id="espFeedback" class="jqFeedback" style="display: none;">
-                <p>
-                    If you are a principal or school official and need help with an existing Enhanced School
-                    Profile (ESP) or signing up for a new one, please use the form below. You can learn more about
-                    ESPs in our <gsml:a href="/cgi-bin/static/ed_extra.inc">FAQ</gsml:a> here.
-                </p>
-                <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                           id="esp"
-                           onsubmit="esp_challenge.value = Recaptcha.get_challenge(); esp_response.value = Recaptcha.get_response();">
-                    <input type="hidden" name="feedbackType" value="esp"/>
-                    <form:hidden path="challenge" id="esp_challenge"/>
-                    <form:hidden path="response" id="esp_response"/>
-
-                    <form:label path="espFields.title">Title: </form:label>
-                    <form:input path="espFields.title"/>
-                    <form:errors path="espFields.title" />
-                    <br/>
-
-                    <form:label path="submitterName" for="espFields.submitterName">Your name: </form:label>
-                    <form:input path="submitterName" id="espFields.submitterName"/>
-                    <form:errors path="submitterName" />
-                    <br/>
-
-                    <form:label path="submitterEmail" for="espFields.submitterEmail">Your email: </form:label>
-                    <form:input path="submitterEmail" id="espFields.submitterEmail"/>
-                    <form:errors path="submitterEmail" />
-                    <br/>
-
-                    <form:label path="state" for="espFields.state">State: </form:label>
-                    <form:select path="state" id="espFields.state">
-                        <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="state" />
-                    <br/>
-
-                    <form:label path="cityName" for="espFields.cityName">City: </form:label>
-                    <form:select path="cityName" id="espFields.cityName">
-                        <form:option value="" label="- Choose city -"/>
-                        <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="cityName" />
-                    <br/>
-
-                    <form:label path="schoolId" for="espFields.schoolId">School: </form:label>
-                    <form:select path="schoolId" id="espFields.schoolId">
-                        <form:option value="" label="- Choose School -"/>
-                        <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="schoolId" />
-                    <br/>
-
-                    <form:label path="espFields.phone">Phone: </form:label>
-                    <form:input path="espFields.phone"/>
-                    <form:errors path="espFields.phone" />
-                    <br/>
-
-                    <form:label path="espFields.comment">Comment: </form:label>
-                    <form:textarea path="espFields.comment" rows="3" cols="20"/>
-                    <form:errors path="espFields.comment" />
-                    <br/>
-
-                    <div class="captcha" id="esp_captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <form:errors path="response" />
-                    <br/>
-
-                    <input type="submit" name="Submit" value="submit"/>
-                </form:form>
-            </div>
-            <div id="advertisingFeedback" class="jqFeedback" style="display: none;">
-                <ul>
-                    <li>
-                        Please click here for more detailed information on advertising or partnering with
-                        GreatSchools.
-                    </li>
-                    <li>
-                        For advertising sales, please contact:<br/>
-                        Marisa Procter: Midwest and New York Sales Director, mprocter@greatschools.org, 415.983.3813<br/>
-                        Lauren Guetz: West and East Coast Sales Manager, lguetz@greatschools.org, 415.983.3815<br/>
-                    </li>
-                </ul>
-                <p>
-                    For business development and licensing, please contact:
-                    Jennifer Leibick, Business Development Manager
-                    jleibick@greatschools.org
-                </p>
-            </div>
-            <div id="joinFeedback" class="jqFeedback" style="display: none;">
-                <p>
-                    We're sorry you're having trouble! Please fill out the form below with as much detail as
-                    possible and we'll get back to you shortly.
-                </p>
-                <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                           id="join"
-                           onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
-                    <input type="hidden" name="feedbackType" value="join"/>
-                    <form:hidden path="challenge" id="join_challenge"/>
-                    <form:hidden path="response" id="join_response"/>
-
-                    <form:label path="submitterName" for="joinFields.submitterName">Your name: </form:label>
-                    <form:input path="submitterName" id="joinFields.submitterName"/>
-                    <form:errors path="submitterName" />
-                    <br/>
-
-                    <form:label path="submitterEmail" for="joinFields.submitterEmail">Your email: </form:label>
-                    <form:input path="submitterEmail" id="joinFields.submitterEmail"/>
-                    <form:errors path="submitterEmail" />
-                    <br/>
-
-                    <form:label path="joinFields.comment">Comment: </form:label>
-                    <form:textarea path="joinFields.comment" rows="3" cols="20"/>
-                    <form:errors path="joinFields.comment" />
-                    <br/>
-
-                    <div class="captcha" id="join_captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <form:errors path="response" />
-                    <br/>
-
-                    <input type="submit" name="Submit" value="submit"/>
-                </form:form>
-            </div>
-            <div id="otherFeedback" class="jqFeedback" style="display: none;">
-                <script type="text/javascript" charset="utf-8">
-                  var is_ssl = ("https:" == document.location.protocol);
-                  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/"
-                : "http://s3.amazonaws.com/getsatisfaction.com/";
-                  document.write(unescape("%3Cscript src='" + asset_host +
-                "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-                </script>
-
-                <script type="text/javascript" charset="utf-8">
-                  var feedback_widget_options = {};
-
-                  feedback_widget_options.display = "inline";
-                  feedback_widget_options.company = "greatschools";
-
-
-                  feedback_widget_options.style = "question";
+              feedback_widget_options.style = "question";
+              feedback_widget_options.product = "greatschools_articles_community";
 
 
 
+              feedback_widget_options.limit = "3";
 
-                  feedback_widget_options.limit = "5";
+
+              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+            </script>
+        </div>
+        <div id="newslettersFeedback" class="jqFeedback" style="display: none;">
+            <p>Have questions, ideas, problems, or praise about our newsletters? Post in our feedback community with the form below!</p>
+            <script type="text/javascript" charset="utf-8">
+              var is_ssl = ("https:" == document.location.protocol);
+              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+              document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+
+            <script type="text/javascript" charset="utf-8">
+              var feedback_widget_options = {};
+
+              feedback_widget_options.display = "inline";
+              feedback_widget_options.company = "greatschools";
+
+              feedback_widget_options.style = "question";
+              feedback_widget_options.product = "greatschools_email_newsletters";
+
+              feedback_widget_options.limit = "3";
+
+              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+            </script>
+        </div>
+        <div id="espFeedback" class="jqFeedback" style="display: none;">
+            <p>
+                If you are a principal or school official and need help with an existing Enhanced School
+                Profile (ESP) or signing up for a new one, please use the form below. You can learn more about
+                ESPs in our <gsml:a href="/cgi-bin/static/ed_extra.inc">FAQ</gsml:a> here.
+            </p>
+            <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+                       id="esp"
+                       onsubmit="esp_challenge.value = Recaptcha.get_challenge(); esp_response.value = Recaptcha.get_response();">
+                <input type="hidden" name="feedbackType" value="esp"/>
+                <form:hidden path="challenge" id="esp_challenge"/>
+                <form:hidden path="response" id="esp_response"/>
+
+                <form:label path="espFields.title">Title: </form:label>
+                <form:input path="espFields.title"/>
+                <form:errors path="espFields.title" />
+                <br/>
+
+                <form:label path="submitterName" for="espFields.submitterName">Your name: </form:label>
+                <form:input path="submitterName" id="espFields.submitterName"/>
+                <form:errors path="submitterName" />
+                <br/>
+
+                <form:label path="submitterEmail" for="espFields.submitterEmail">Your email: </form:label>
+                <form:input path="submitterEmail" id="espFields.submitterEmail"/>
+                <form:errors path="submitterEmail" />
+                <br/>
+
+                <form:label path="state" for="espFields.state">State: </form:label>
+                <form:select path="state" id="espFields.state">
+                    <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
+                </form:select>
+                <form:errors path="state" />
+                <br/>
+
+                <form:label path="cityName" for="espFields.cityName">City: </form:label>
+                <form:select path="cityName" id="espFields.cityName">
+                    <form:option value="" label="- Choose city -"/>
+                    <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+                </form:select>
+                <form:errors path="cityName" />
+                <br/>
+
+                <form:label path="schoolId" for="espFields.schoolId">School: </form:label>
+                <form:select path="schoolId" id="espFields.schoolId">
+                    <form:option value="" label="- Choose School -"/>
+                    <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+                </form:select>
+                <form:errors path="schoolId" />
+                <br/>
+
+                <form:label path="espFields.phone">Phone: </form:label>
+                <form:input path="espFields.phone"/>
+                <form:errors path="espFields.phone" />
+                <br/>
+
+                <form:label path="espFields.comment">Comment: </form:label>
+                <form:textarea path="espFields.comment" rows="3" cols="20"/>
+                <form:errors path="espFields.comment" />
+                <br/>
+
+                <div class="captcha" id="esp_captcha">
+                    <!-- no collapse -->
+                </div>
+                <form:errors path="response" />
+                <br/>
+
+                <input type="submit" name="Submit" value="submit"/>
+            </form:form>
+        </div>
+        <div id="advertisingFeedback" class="jqFeedback" style="display: none;">
+            <ul>
+                <li>
+                    Please click here for more detailed information on advertising or partnering with
+                    GreatSchools.
+                </li>
+                <li>
+                    For advertising sales, please contact:<br/>
+                    Marisa Procter: Midwest and New York Sales Director, mprocter@greatschools.org, 415.983.3813<br/>
+                    Lauren Guetz: West and East Coast Sales Manager, lguetz@greatschools.org, 415.983.3815<br/>
+                </li>
+            </ul>
+            <p>
+                For business development and licensing, please contact:
+                Jennifer Leibick, Business Development Manager
+                jleibick@greatschools.org
+            </p>
+        </div>
+        <div id="joinFeedback" class="jqFeedback" style="display: none;">
+            <p>
+                We're sorry you're having trouble! Please fill out the form below with as much detail as
+                possible and we'll get back to you shortly.
+            </p>
+            <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+                       id="join"
+                       onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
+                <input type="hidden" name="feedbackType" value="join"/>
+                <form:hidden path="challenge" id="join_challenge"/>
+                <form:hidden path="response" id="join_response"/>
+
+                <form:label path="submitterName" for="joinFields.submitterName">Your name: </form:label>
+                <form:input path="submitterName" id="joinFields.submitterName"/>
+                <form:errors path="submitterName" />
+                <br/>
+
+                <form:label path="submitterEmail" for="joinFields.submitterEmail">Your email: </form:label>
+                <form:input path="submitterEmail" id="joinFields.submitterEmail"/>
+                <form:errors path="submitterEmail" />
+                <br/>
+
+                <form:label path="joinFields.comment">Comment: </form:label>
+                <form:textarea path="joinFields.comment" rows="3" cols="20"/>
+                <form:errors path="joinFields.comment" />
+                <br/>
+
+                <div class="captcha" id="join_captcha">
+                    <!-- no collapse -->
+                </div>
+                <form:errors path="response" />
+                <br/>
+
+                <input type="submit" name="Submit" value="submit"/>
+            </form:form>
+        </div>
+        <div id="otherFeedback" class="jqFeedback" style="display: none;">
+            <script type="text/javascript" charset="utf-8">
+              var is_ssl = ("https:" == document.location.protocol);
+              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/"
+            : "http://s3.amazonaws.com/getsatisfaction.com/";
+              document.write(unescape("%3Cscript src='" + asset_host +
+            "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+
+            <script type="text/javascript" charset="utf-8">
+              var feedback_widget_options = {};
+
+              feedback_widget_options.display = "inline";
+              feedback_widget_options.company = "greatschools";
 
 
-                  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-                </script>
-            </div>
-        </c:if>
+              feedback_widget_options.style = "question";
+
+
+
+
+              feedback_widget_options.limit = "5";
+
+
+              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+            </script>
+        </div>
 
     </div>
     <div id="sidebarGS" class="col">

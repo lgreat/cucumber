@@ -66,7 +66,7 @@ public class ContactUsController extends SimpleFormController {
     @Override
     protected void onBindAndValidate(HttpServletRequest request, java.lang.Object objCommand, BindException errors) {
         ICaptchaCommand captchaCommand = (ICaptchaCommand) objCommand;
-        if (errors.getErrorCount() == 0 ) {
+        //if (errors.getErrorCount() == 0 ) {
             // Validate the captcha request/response pair
             String remoteAddr = request.getRemoteAddr();
             String challenge =  captchaCommand.getChallenge();
@@ -80,7 +80,7 @@ public class ContactUsController extends SimpleFormController {
             if (!reCaptchaResponse.isValid()) {
                 errors.rejectValue("response", null, "The Captcha response you entered is invalid. Please try again.");
             }
-        }
+        //}
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ContactUsController extends SimpleFormController {
     protected void sendSupportEmail(ContactUsCommand command) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(SUPPORT_EMAIL);
-        message.setFrom(SUPPORT_EMAIL);
+        message.setFrom(command.getSubmitterEmail());
         message.setSentDate(new Date());
 
         switch (command.getFeedbackType()) {
@@ -187,7 +187,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeIncorrectSchoolInfoEmail(ContactUsCommand command, SimpleMailMessage message) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Change school info form");
+        message.setSubject("Incorrect school information");
         SchoolInfoFields fields = command.getSchoolInfoFields();
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
@@ -205,7 +205,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeIncorrectDistrictInfoEmail(ContactUsCommand command, SimpleMailMessage message) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Change district info form");
+        message.setSubject("Incorrect district information");
         DistrictInfoFields fields = command.getDistrictInfoFields();
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
@@ -221,7 +221,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeSchoolRatingsReviewsEmail(ContactUsCommand command, SimpleMailMessage message) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Reviews form");
+        message.setSubject("School ratings and review feedback");
         JoinFields fields = command.getSchoolRatingsReviewsFields();
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
@@ -236,7 +236,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeEspEmail(ContactUsCommand command, SimpleMailMessage message) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Help with Enhanced School Profiles");
+        message.setSubject("Enhanced School Profile help");
         EspFields fields = command.getEspFields();
         body.append("Title: ").append(fields.getTitle()).append("\n");
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
@@ -253,7 +253,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeJoinEmail(ContactUsCommand command, SimpleMailMessage message) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Join/Sign in support form");
+        message.setSubject("Trouble joining or signing in");
         JoinFields fields = command.getJoinFields();
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
