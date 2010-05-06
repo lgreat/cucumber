@@ -1,7 +1,8 @@
 // JavaScript Document
 //
 var myLevels = new Array('k', '1', '2', '3', '4', '5');
-var selectedLevel = myLevels[Math.floor(Math.random() * 6)];
+//var selectedLevel = myLevels[Math.floor(Math.random() * 6)];
+var selectedLevel = 'k';
 //
 // required to avoid "$j" collisions with Prototype.js
 var $j = jQuery;

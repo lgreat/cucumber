@@ -2025,7 +2025,7 @@ body.ie6 .clearfix {
 }
 
 #es-gbg {
-    display: none;
+    /*display: none;*/
     height: 35px
 }
 
@@ -2034,7 +2034,8 @@ body.ie6 .clearfix {
     height: 237px;
 }
 
-#featureContent .featureGroup_1, #featureContent .featureGroup_2, #featureContent .featureGroup_3, #featureContent .featureGroup_4, #featureContent .featureGroup_5, #featureContent .featureGroup_6 {
+/*#featureContent .featureGroup_1, */
+#featureContent .featureGroup_2, #featureContent .featureGroup_3, #featureContent .featureGroup_4, #featureContent .featureGroup_5, #featureContent .featureGroup_6 {
     display: none;
 }
 
