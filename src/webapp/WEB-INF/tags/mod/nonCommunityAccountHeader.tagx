@@ -25,7 +25,7 @@
                                                redirect="${myUrl}">Sign In</link:loginOrRegister></li>
         <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
                                                   <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
-        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding></li>
+        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding></li>
 
     </ul>
 

@@ -264,6 +264,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.text1bold-d61 {
+    font: bold 14px Arial, Helvetica, sans-serif;
+    color: #d61;
+}
+
 .text2 {
     font: 13px Arial, Helvetica, sans-serif;
     color: #333;
@@ -461,7 +466,7 @@ body.cobranded #pageGS {
 
 #utilLinks .nav_menu a.nav_group_heading {
     padding: 3px 17px 6px 6px;
-    margin: 0 0 0 6px;
+    margin: 0;
     background: url(/res/img/nav/topnavSprite_bg.png) 101% -251px;
 
 }
@@ -4134,7 +4139,7 @@ ul.srchSuggest li span {
 }
 
 #recentDiscussions .cityresults p{
-    margin:auto;
+    margin:0;
     padding:0;
 }
 
