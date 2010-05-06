@@ -52,12 +52,17 @@ function GS_postSchoolReview(email, callerFormId) {
                 subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
             }
         }
+        var redirectUrl = window.location.href;
+        if (data.redirectUrl != undefined) {
+            redirectUrl = data.redirectUrl;
+            GSType.hover.signInHover.setRedirect(data.redirectUrl);
+        }
         if (callerFormId) {
             GSType.hover.signInHover.hide();
             GSType.hover.joinHover.hide();
             jQuery('#' + callerFormId).submit();
         } else {
-            window.location.href=window.location.href;
+            window.location.href=redirectUrl;
             window.location.reload();
         }
     }, "json");
@@ -93,7 +98,7 @@ jQuery(function() {
     });
 
     jQuery('#frmPRModule [name="comments"]').focus(function() {
-        jQuery('#rateReview .commentsPopup').show();
+        jQuery('#rateReview .commentsPopup').fadeIn("slow");
     });
 
     jQuery('#frmPRModule [name="comments"]').blur(function() {
