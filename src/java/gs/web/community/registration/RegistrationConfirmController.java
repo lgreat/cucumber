@@ -144,13 +144,14 @@ public class RegistrationConfirmController extends AbstractController implements
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 Map<String,String> emailAttributes = new HashMap<String,String>();
                 emailAttributes.put("schoolName", reviewedSchool.getName());
-                emailAttributes.put("firstname", user.getFirstName());
+                emailAttributes.put("firstName", user.getFirstName());
                 emailAttributes.put("HTML__review", "<p>" + anUpgradedReview.getComments() + "</p>");
 
                 StringBuffer reviewLink = new StringBuffer("<a href=\"");
-                reviewLink.append(new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
-                reviewLink.append("\">your review</a>");
-                reviewLink.append("&lr=true#ps").append(anUpgradedReview.getId());
+                UrlBuilder urlBuilder = new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                urlBuilder.addParameter("lr", "true");
+                reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps");
+
                 emailAttributes.put("HTML__reviewLink", reviewLink.toString());
                 _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
             } else if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
