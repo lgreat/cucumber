@@ -125,9 +125,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
                     String loginUrl = builder.asFullUrl(request);
                     String errmsg;
                     if (command.isChooserRegistration()) {
-                        errmsg = ERROR_EMAIL_TAKEN_SHORT + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                        errmsg = ERROR_EMAIL_TAKEN_SHORT + " <a class=\"launchSignInHover\" href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
                     } else {
-                        errmsg = ERROR_EMAIL_TAKEN + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                        errmsg = ERROR_EMAIL_TAKEN + " <a class=\"launchSignInHover\" href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
                     }
                     errors.rejectValue("email", null, errmsg);
                 } else if (user.isEmailProvisional()) {

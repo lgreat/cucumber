@@ -423,6 +423,12 @@ GSType.hover.JoinHover = function() {
         if (data && data[fieldName]) {
             fieldError.html(data[fieldName]);
             fieldError.show();
+            if (fieldName == 'email') {
+                jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
+                    GSType.hover.joinHover.showSignin();
+                    return false;
+                });
+            }
         } else {
             fieldValid.show();
         }
@@ -930,6 +936,10 @@ GS.joinHover_passesValidationResponse = function(data) {
 
         if (data.email) {
             emailError.html(data.email).show();
+            jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
+                GSType.hover.joinHover.showSignin();
+                return false;
+            });
         }
 
         if (data.password) {
