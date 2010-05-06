@@ -220,6 +220,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
             StringBuffer reviewLink = new StringBuffer("<a href=\"");
             reviewLink.append(new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
+            reviewLink.append("&lr=true#ps").append(review.getId());
             reviewLink.append("\">your review</a>");
             emailAttributes.put("HTML__reviewLink", reviewLink.toString());
 

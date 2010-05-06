@@ -150,6 +150,7 @@ public class RegistrationConfirmController extends AbstractController implements
                 StringBuffer reviewLink = new StringBuffer("<a href=\"");
                 reviewLink.append(new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
                 reviewLink.append("\">your review</a>");
+                reviewLink.append("&lr=true#ps").append(anUpgradedReview.getId());
                 emailAttributes.put("HTML__reviewLink", reviewLink.toString());
                 _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
             } else if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
