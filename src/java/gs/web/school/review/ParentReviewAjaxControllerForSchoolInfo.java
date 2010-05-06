@@ -63,6 +63,15 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                     str.append("isPublic" + ";");
                 }
                 str.append(school.getLevelCode()).append(";");
+
+                boolean showStudent = true;
+                Grades below9 = Grades.createGrades(Grade.PRESCHOOL, Grade.G_8);
+                if (school.getGradeLevels().containsAny(below9)) {
+                   showStudent = false;
+                }
+                if (showStudent) {
+                    str.append("showStudent").append(";");
+                }
             }
         }
         PrintWriter out = response.getWriter();

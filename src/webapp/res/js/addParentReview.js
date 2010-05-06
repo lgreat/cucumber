@@ -117,6 +117,7 @@ function showResponse(x) {
     var parentRating = schoolInfoArray[2];
     var reviewCount = schoolInfoArray[3];
     var schoolLevelCode = schoolInfoArray[13];
+    var isHighSchoolOnly = (x.indexOf('showStudent') != -1);
 
     jQuery('#schoolNameHeader').html(schoolName);
 
@@ -185,7 +186,7 @@ function showResponse(x) {
         jQuery('#principalStars').show();
     }
 
-    if (schoolLevelCode != undefined && schoolLevelCode.indexOf('h') != -1) {
+    if (isHighSchoolOnly != undefined && isHighSchoolOnly) {
         jQuery('#posterDropdown [value="student"]').show();
     } else {
         jQuery('#posterDropdown [value="student"]').hide();
