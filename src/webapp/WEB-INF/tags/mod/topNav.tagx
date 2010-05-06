@@ -217,6 +217,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book Reviews</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning Activities</link:cmsCategoryBrowse></li>
                     <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
+                    <li><link:cmsCategoryBrowse topicIDs="150" language="EN" styleId="GlobalNav_AA_SummerActivities" styleClass="GS_CI9_">Summer Activities</link:cmsCategoryBrowse></li>
                     <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_">Talk About It</link:cmsContent></li>
                     <li class="last"><a href="/students.topic?content=1540"
                         id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
