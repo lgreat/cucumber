@@ -7,6 +7,8 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
+    <jsp:directive.tag import="gs.data.school.Grades"/>
+    <jsp:directive.tag import="gs.data.school.Grade"/>
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
@@ -16,6 +18,15 @@
 <c:set var="schoolId" value="${school.id}"/>
 
 <![CDATA[<a name="schoolReviewSubmitForm"></a>]]>
+
+<jsp:scriptlet>
+    boolean showStudent = true;
+    Grades below9 = Grades.createGrades(Grade.PRESCHOOL, Grade.G_8);
+    if (school.getGradeLevels().containsAny(below9)) {
+        showStudent = false;
+    }
+    request.setAttribute("schoolReviewShowStudent", showStudent);
+</jsp:scriptlet>
 
 <c:set var="mainColumnId" value="col_center"/>
 <c:set var="divClass" value=""/>
@@ -116,7 +127,7 @@
                     <select name="posterAsString">
                         <option value="" selected="selected">- Select one -</option>
                         <option value="parent">parent</option>
-                        <c:if test="${fn:contains(school.levelCode, 'h')}">
+                        <c:if test="${schoolReviewShowStudent}">
                             <option value="student">student</option>
                         </c:if>
                         <option value="teacher">teacher/staff member</option>
