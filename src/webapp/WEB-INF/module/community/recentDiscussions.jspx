@@ -126,7 +126,9 @@
                         <span class="sprite community mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</a>
                     <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
                                                      openElementJQuerySelector=".startADiscussion"
-                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"/>
+                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                                     discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                                     selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"/>
 
                     <br class="clearfloat"/>
                 </div>

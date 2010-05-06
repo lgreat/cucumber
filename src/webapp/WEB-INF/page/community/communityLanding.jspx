@@ -54,7 +54,7 @@
         <div id="sac-downArrow-fc6"><!--do not collapse--></div>
         <c:set var="startAConversationModule">
             <c:import
-                    url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+                    url="/community/startDiscussion.module?callPreviewHoverTag=false&amp;selectGeneralParentingBoard=true"/>
         </c:set>
         ${pageScope.startAConversationModule}
     </div>
