@@ -4329,7 +4329,7 @@ button {
 #dcNCLB_district .mod_hd h3, #dcNCLB_school .mod_hd h3 {
     margin: 0;
     padding: 10px 9px;
-    font: 700 18px Arial, sans-serif;
+    font: 400 18px/1 Arial, sans-serif;
     color: #fff;
     background: #3556a3;
 }
