@@ -33,7 +33,7 @@ import java.util.*;
 public class ContactUsController extends SimpleFormController {
     public static final String CONFIRMATION_PARAM = "confirm";
     public static final String SHOW_CONFIRMATION_MODEL = "showConfirmMessage";
-    protected static final String SUPPORT_EMAIL = "droy@greatschools.org";
+    protected static final String SUPPORT_EMAIL = "gs_support@greatschools.org";
 
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
@@ -93,12 +93,14 @@ public class ContactUsController extends SimpleFormController {
         State stateOrDefault = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         command.setState(stateOrDefault);
 
+        // Populate state options
         List<FormOption> allStateOptions = new ArrayList<FormOption>();
         for (State state : StateManager.getList()) {
             allStateOptions.add(new FormOption(state.getAbbreviation(), state.getAbbreviation()));
         }
         map.put("allStateOptions", allStateOptions);
 
+        // Populate city options
         List<City>cities = _geoDao.findCitiesByState(stateOrDefault);
         List<FormOption> cityOptions = new ArrayList<FormOption>();
         for (City city : cities) {
@@ -106,6 +108,7 @@ public class ContactUsController extends SimpleFormController {
         }
         map.put("cityOptions", cityOptions);
 
+        // Populate school options if a city was chosen
         List<FormOption> schoolOptions = new ArrayList<FormOption>();
         if (!StringUtils.isBlank(command.getCityName())) {
             List<School> schools = _schoolDao.findSchoolsInCity(stateOrDefault, command.getCityName(), false);
@@ -115,6 +118,14 @@ public class ContactUsController extends SimpleFormController {
         }
         map.put("schoolOptions", schoolOptions);
 
+        map.put("incorrectSchoolInfoTypeOptions", getIncorrectSchoolInfoTypeOptions());
+
+        map.put(SHOW_CONFIRMATION_MODEL, StringUtils.equals(request.getParameter(CONFIRMATION_PARAM), "true"));
+
+        return map;
+    }
+
+    protected List<FormOption> getIncorrectSchoolInfoTypeOptions() {
         List<FormOption> incorrectSchoolInfoTypeOptions = new ArrayList<FormOption>();
         incorrectSchoolInfoTypeOptions.add(new FormOption("School name, contact info, website, or grade range", "school_name"));
         incorrectSchoolInfoTypeOptions.add(new FormOption("Test scores", "test_scores"));
@@ -122,11 +133,8 @@ public class ContactUsController extends SimpleFormController {
         incorrectSchoolInfoTypeOptions.add(new FormOption("GreatSchools Rating", "greatschools_rating"));
         incorrectSchoolInfoTypeOptions.add(new FormOption("Enhanced School Profile", "esp"));
         incorrectSchoolInfoTypeOptions.add(new FormOption("Closed school", "closed_school"));
-        map.put("incorrectSchoolInfoTypeOptions", incorrectSchoolInfoTypeOptions);
 
-        map.put(SHOW_CONFIRMATION_MODEL, StringUtils.equals(request.getParameter(CONFIRMATION_PARAM), "true"));
-
-        return map;
+        return incorrectSchoolInfoTypeOptions;
     }
 
     protected void captureRequestParameters(HttpServletRequest request, ContactUsCommand command, Map<String,Object> map) {
