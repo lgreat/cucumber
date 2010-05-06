@@ -54,6 +54,15 @@
                     } else if (idStr.indexOf('schoolReview') > -1) {
                         initForContentType(idStr, 'schoolReview');
                     }
+
+                    if (idStr.indexOf('schoolReview') > -1) {
+                        jQuery('.communityGuidelines').hide();
+                        jQuery('.schoolReviewGuidelines').show();
+                    } else {
+                        jQuery('.communityGuidelines').show();
+                        jQuery('.schoolReviewGuidelines').hide();
+                    }
+
                     jQuery('#reportReason').val('');
                     jQuery('#reportItDialog').dialog('open');
                     jQuery('#reportReason').focus();
@@ -125,7 +134,9 @@
                               title="GreatSchools Terms of Use"
                               href="/terms/?state=$STATE">terms of use</gsml:popupWindow> or
             <gsml:popupWindow width="800" height="600" left="50" top="50"
-                              title="GreatSchools Community Guidelines"
+                              title="GreatSchools Community Guidelines" styleClass="communityGuidelines"
+                              href="/terms/#communityStandards">community guidelines</gsml:popupWindow><gsml:popupWindow width="800" height="600" left="50" top="50"
+                              title="GreatSchools Community Guidelines" styleClass="schoolReviewGuidelines"
                               href="/about/guidelines.page">school review guidelines</gsml:popupWindow>:</div>
 
         <form action="/community/reportContent.page" method="post">
