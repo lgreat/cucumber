@@ -790,6 +790,22 @@
         </property>
     </bean>
 
+    <bean id="feedbackValidator" class="gs.web.about.feedback.FeedbackValidator"
+          autowire="byName" lazy-init="true"/>
+    <bean name="/about/feedback.page"
+          class="gs.web.about.feedback.ContactUsController"
+          autowire="byName" lazy-init="true">
+        <property name="formView" value="about/feedback/contactUs"/>
+        <property name="commandName" value="feedbackCommand"/>
+        <property name="commandClass" value="gs.web.about.feedback.ContactUsCommand"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="validators">
+            <list>
+                <ref local="feedbackValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <bean name="/about/linkToUs.page"
           class="gs.web.about.LinkToUsController"
           autowire="byName" lazy-init="true">

@@ -23,7 +23,7 @@ import gs.data.util.XMLUtil;
  * This class provides is a service provider for ajax requests from /test/landing.page
  * for school lists.  The required request parameters are:
  *     state: a 2-letter abbreviation
- *     city: the cannonical city name
+ *     city: the canonical city name
  * 
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
@@ -42,8 +42,10 @@ public class SchoolsInCityAjaxController implements Controller {
         }
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
+        String optionsParam = request.getParameter("printOptionsOnly");
+        boolean printOptionsOnly = (StringUtils.isNotBlank(optionsParam) ? Boolean.valueOf(optionsParam) : false);
         try {
-            outputSchoolSelect(request, out, filter);
+            outputSchoolSelect(request, out, filter, printOptionsOnly);
         } catch (Exception e) {
             _log.warn("Error getting school list.", e);
             out.println("Error getting school list");
@@ -51,7 +53,7 @@ public class SchoolsInCityAjaxController implements Controller {
         return null;
     }
 
-    protected void outputSchoolSelect(HttpServletRequest request, PrintWriter out, LevelCode filter) {
+    protected void outputSchoolSelect(HttpServletRequest request, PrintWriter out, LevelCode filter, boolean printOptionsOnly) {
         State state = _stateManager.getState(request.getParameter("state"));
         String onChange = request.getParameter("onchange");
         String city = request.getParameter("city");
@@ -62,7 +64,9 @@ public class SchoolsInCityAjaxController implements Controller {
             chooseSchoolLabel = "2. Choose school";
         }
         List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
-        out.println("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\""+(StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
+        if (!printOptionsOnly) {
+            out.println("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\""+(StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
+        }
         out.println("<option value=\"\">" + chooseSchoolLabel + "</option>");
         for (School school : schools) {
             if (includePrivateSchools || school.getType() != SchoolType.PRIVATE) {
@@ -76,8 +80,35 @@ public class SchoolsInCityAjaxController implements Controller {
                 out.println("</option>");
             }
         }
-        out.print("</select>");
+        if (!printOptionsOnly) {
+            out.print("</select>");
+        }
     }
+
+//    protected void outputSchoolOptions(HttpServletRequest request, PrintWriter out, LevelCode filter) {
+//        State state = _stateManager.getState(request.getParameter("state"));
+//        String city = request.getParameter("city");
+//        String includePrivateSchoolsStr = request.getParameter("includePrivateSchools");
+//        boolean includePrivateSchools = (StringUtils.isNotBlank(includePrivateSchoolsStr) ? Boolean.valueOf(includePrivateSchoolsStr) : false);
+//        String chooseSchoolLabel = request.getParameter("chooseSchoolLabel");
+//        if (StringUtils.isBlank(chooseSchoolLabel)) {
+//            chooseSchoolLabel = "2. Choose school";
+//        }
+//        List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
+//        out.println("<option value=\"\">" + chooseSchoolLabel + "</option>");
+//        for (School school : schools) {
+//            if (includePrivateSchools || school.getType() != SchoolType.PRIVATE) {
+//                if (filter != null) {
+//                    if (!filter.containsSimilarLevelCode(school.getLevelCode())) {
+//                        continue;
+//                    }
+//                }
+//                out.print("<option value=\"" + school.getId() + "\">");
+//                out.print(StringEscapeUtils.escapeHtml(school.getName()));
+//                out.println("</option>");
+//            }
+//        }
+//    }
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;

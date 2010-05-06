@@ -92,6 +92,38 @@ public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
                 sw.getBuffer().indexOf("Fremont") > -1);
     }
 
+    public void testOutputCityOptions() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+
+        // set up data
+        getRequest().addParameter("state", "CA");
+        _geoDao.findCitiesByState(State.CA);
+        List cities = new ArrayList();
+        City city1 = new City();
+        city1.setName("Oakland");
+        cities.add(city1);
+        City city2 = new City();
+        city2.setName("Fremont");
+        cities.add(city2);
+        _geoControl.setReturnValue(cities);
+        _geoControl.replay();
+
+        _controller.outputCityOptions(getRequest(), pw);
+        _geoControl.verify();
+
+        // I don't do a character-by-character comparison because I feel that would
+        // be too brittle. Instead, I just verify the data is making it through.
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected default option",
+                sw.getBuffer().indexOf("Choose") > -1);
+        assertTrue("Output does not contain expected city name Oakland",
+                sw.getBuffer().indexOf("Oakland") > -1);
+        assertTrue("Output does not contain expected city name Fremont",
+                sw.getBuffer().indexOf("Fremont") > -1);
+    }
+
     public void testOutputCountySelect() {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);

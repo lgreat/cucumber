@@ -37,6 +37,7 @@ public class RegistrationAjaxController implements Controller {
     final public static String USER_NAME_PARAM = "un";
     final public static String FIRST_NAME_PARAM = "fn";
     final public static String CITY_TYPE = "city";
+    final public static String CITY_OPTIONS_TYPE = "cityOptions";
     final public static String COUNTY_TYPE = "county";
     final public static String CBI_CALL = "cbicall";
 
@@ -54,6 +55,8 @@ public class RegistrationAjaxController implements Controller {
                 outputCitySelect(request, out);
             } else if (COUNTY_TYPE.equals(type)) {
                 outputCountySelect(request,out);
+            } else if (CITY_OPTIONS_TYPE.equals(type)) {
+                outputCityOptions(request, out);
             }
             return null;
         }
@@ -167,6 +170,24 @@ public class RegistrationAjaxController implements Controller {
                 outputOption(out, city.getName(), city.getName());
             }
             out.print("</select>");
+        }
+    }
+
+    protected void outputCityOptions(HttpServletRequest request, PrintWriter out) {
+        State state = _stateManager.getState(request.getParameter("state"));
+        List<City> cities = _geoDao.findCitiesByState(state);
+
+        if (request.getParameter("showNotListed") != null && Boolean.valueOf(request.getParameter("showNotListed"))) {
+            City notListed = new City();
+            notListed.setName("My city is not listed");
+            cities.add(notListed);
+        }
+
+        if (cities.size() > 0) {
+            outputOption(out, "", "- Choose city -", true);
+            for (City city : cities) {
+                outputOption(out, city.getName(), city.getName());
+            }
         }
     }
 

@@ -35,7 +35,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
     public void testOutputSchoolSelect() throws Exception {
         try {
-            _controller.outputSchoolSelect(getRequest(), getResponse().getWriter(), null);
+            _controller.outputSchoolSelect(getRequest(), getResponse().getWriter(), null, false);
             fail ("Method should not accept request without a 'state' attribute");
         } catch (Exception e) {
             assertTrue (true);
@@ -46,7 +46,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         getRequest().setParameter("state", "AK");
         getRequest().setParameter("city", "Anchorage");
-        _controller.outputSchoolSelect(getRequest(), pWriter, null);
+        _controller.outputSchoolSelect(getRequest(), pWriter, null, false);
         String output = sWriter.toString();
         assertTrue(output.contains("Willow Crest"));
         assertTrue(output.contains("Romig"));
@@ -54,7 +54,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         sWriter = new StringWriter();
         pWriter = new PrintWriter(sWriter);        
-        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.ELEMENTARY);
+        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.ELEMENTARY, false);
         output = sWriter.toString();
         assertTrue(output.contains("Willow Crest"));
         assertFalse(output.contains("Romig"));
@@ -62,7 +62,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         sWriter = new StringWriter();
         pWriter = new PrintWriter(sWriter);
-        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.MIDDLE);
+        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.MIDDLE, false);
         output = sWriter.toString();
         assertFalse(output.contains("Willow Crest"));
         assertTrue(output.contains("Romig"));
@@ -70,7 +70,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         sWriter = new StringWriter();
         pWriter = new PrintWriter(sWriter);
-        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.HIGH);
+        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.HIGH, false);
         output = sWriter.toString();
         assertFalse(output.contains("Willow Crest"));
         assertFalse(output.contains("Romig"));
@@ -78,7 +78,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         sWriter = new StringWriter();
         pWriter = new PrintWriter(sWriter);
-        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.ELEMENTARY_MIDDLE);
+        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.ELEMENTARY_MIDDLE, false);
         output = sWriter.toString();
         assertTrue(output.contains("Willow Crest"));
         assertTrue(output.contains("Romig"));
@@ -86,7 +86,7 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
 
         sWriter = new StringWriter();
         pWriter = new PrintWriter(sWriter);
-        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.MIDDLE_HIGH);
+        _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.MIDDLE_HIGH, false);
         output = sWriter.toString();
         assertFalse(output.contains("Willow Crest"));
         assertTrue(output.contains("Romig"));
