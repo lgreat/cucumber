@@ -53,9 +53,11 @@ function GS_postSchoolReview(email, callerFormId) {
             }
         }
         var redirectUrl = window.location.href;
+        var reloading = true;
         if (data.redirectUrl != undefined) {
             redirectUrl = data.redirectUrl;
             GSType.hover.signInHover.setRedirect(data.redirectUrl);
+            reloading = false;
         }
         if (callerFormId) {
             GSType.hover.signInHover.hide();
@@ -63,7 +65,9 @@ function GS_postSchoolReview(email, callerFormId) {
             jQuery('#' + callerFormId).submit();
         } else {
             window.location.href=redirectUrl;
-            window.location.reload();
+            if (reloading) {
+                window.location.reload();
+            }
         }
     }, "json");
 }

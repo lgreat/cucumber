@@ -239,6 +239,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         values.put("status", "true");
         values.put("userId", user.getId().toString());
         values.put("reviewPosted", new Boolean(reviewPosted).toString());
+        values.put("redirectUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
         String jsonString = new JSONObject(values).toString();
 
         response.setContentType("text/x-json");
