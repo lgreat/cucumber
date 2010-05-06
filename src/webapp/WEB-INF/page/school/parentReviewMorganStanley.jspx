@@ -53,7 +53,7 @@
         </div>
 
         <div id="selections">
-            <p>A few minutes of your time can make a difference.  Rate and review your child's school so other parent can make the right choice for their family.</p>
+            <p>A few minutes of your time can make a difference.  Rate and review your child's school so other parents can make the right choice for their family.</p>
 
             <h3>Find your school</h3>
             <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
