@@ -81,20 +81,12 @@
                     </gsweb:articlelink>
                 </ul>
             </c:when>
-            <c:when test="${param.showTopSchoolsFooter ne null and param.showTopSchoolsFooter eq true}">
-                <gsml:img styleClass="topSchoolsImg"
-                          src="/res/img/content/research/citypage_top5_badgeonly.jpg"
-                          alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                <div class="businessWeekImgDiv">
-                    <img src="/res/img/content/research/statepage_top5_bizweek.gif"
-                         alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                </div>
-                <div class="topSchoolTextDiv">Five high schools in each state that represent the qualities of a great school
-                </div>
-             <div class="topSchoolLinkDiv">
-                 <link:topSchools state="${stateOrNull}" styleClass="underline">View top ${param['stateFullName']} high schools &#62;
-                 </link:topSchools>
-             </div>
+            <c:when test="${param.showTopCitiesFooter ne null and param.showTopCitiesFooter eq true}">
+                <link:cmsContent contentKey="Article#2331" fullUri="/find-a-school/moving/top-cities-2010">
+                    <gsml:img styleClass="topCitiesImg"
+                              src="/res/img/promo/topCities/topCities_269x113.jpg"
+                              alt="Best Schools for Your Housing Dollars"/>
+                </link:cmsContent>
             </c:when>
 
             <c:otherwise>
