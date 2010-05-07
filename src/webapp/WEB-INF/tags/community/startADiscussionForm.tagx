@@ -210,7 +210,7 @@
                 </c:if>
             </fieldset>
 
-            <fieldset class="submit clearfix">
+            <fieldset class="submit">
                 <ul>
                     <li>
                         <c:choose>
