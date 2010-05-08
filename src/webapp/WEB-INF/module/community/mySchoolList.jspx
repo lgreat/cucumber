@@ -10,16 +10,20 @@
         >
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
-<div class="md mySchList col">
-    <h3 class="subhead1">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) <span class="fltrt"><link:mySchoolList>View full school list <span>&#187;</span></link:mySchoolList></span></c:if>
+<div class="size1of2 col">
+<div class="mod theSchools">
+    <h4 class="subhead2 fltlft">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) </c:if></h4>
+    <c:if test="${fn:length(schools) gt 0}">
+        <span class="smallText1 fltrt"><link:mySchoolList>View full school list <span class="alertDoubleArrow">&amp;#187;</span></link:mySchoolList></span>
+    </c:if>
 
-    </h3>
+<div class="spacer_15"><!-- do not collapse --></div>
 
     <c:choose>
         <c:when test="${fn:length(schools) gt 0}">
 
 
-            <ul class="schList">
+            <ul class="schList text2-d61">
                 <c:forEach var="school" items="${schools}" varStatus="status">
                     <!-- show at most three schools -->
                     <c:if test="${status.count lt 4}">
@@ -33,7 +37,7 @@
 
             <c:if test="${not empty recentReviews}">
 
-                <h4 class="text1">Recent parent reviews of your schools</h4>
+                <p class="text1-d61">Recent parent reviews of your schools</p>
                 <ul class="schRevs">
                 <c:forEach var="review" items="${recentReviews}">
                     <li>
@@ -71,7 +75,7 @@
             </c:if>
         </c:when>
         <c:otherwise>
-            <p style="margin-bottom: 1em;">You haven't saved any schools yet.</p>
+            <p>You haven't saved any schools yet.</p>
             <p>Find the right school for your child and track its stats from test scores to
               teacher quality.
                 <link:research state="${requestScope.context.state}"
@@ -80,6 +84,7 @@
         </c:otherwise>
     </c:choose>
 
+</div>
 </div>
 
 </jsp:root>

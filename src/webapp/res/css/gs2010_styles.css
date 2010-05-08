@@ -48,9 +48,11 @@ General comments:
 =4f-1 school profile
 =4g- video page
 =4h- inline sign-in
-=4i- my account
-=4i-1 change email & password
-=4i-2 manage newsletters
+=4i- user info
+=4i-1 user account
+=4i-1.1 change email & password
+=4i-1.2 manage newsletters
+=4i-2 user activity
 =5- icons
 =6- editorialFooter
 =7- communitySidebar
@@ -211,6 +213,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.subhead1{
+    font: bold 18px Georgia, serif;
+    color:#d61;
+}
+
 /* classes applied to h4 */
 .subhead2, .subhead3, .subhead4 {
     font-weight: 400;
@@ -277,6 +284,11 @@ h3.title1white, h3.srchCat {
 .text2-777 {
     font: 13px Arial, Helvetica, sans-serif;
     color: #777;
+}
+
+.text2-d61 {
+    font: 13px Arial, Helvetica, sans-serif;
+    color: #d61;
 }
 
 .text2bold {
@@ -1088,6 +1100,10 @@ body.cobranded #pageGS {
 
 .padrt_10 {
     padding-right: 10px;
+}
+
+.padrt_15 {
+    padding-right: 15px;
 }
 
 .padbtm_20 {
@@ -3460,8 +3476,74 @@ body.hover #startADiscussion .sd_InnerLayout {
     margin-left: 110px;
 }
 
-/* =4i- my account
+/* =4i- user info
 -------------------------------------------------------------------------------------------*/
+
+#userInfo {
+
+}
+
+#userInfo.mod{
+    position: relative;
+    /*height:172px;*/
+    background: #f9eccd;
+    padding: 15px;
+    overflow: hidden;    
+}
+
+/* =4i-1 user account
+-------------------------------------------------------------------------------------------*/
+
+#userInfo .avatar{
+    float:left;
+    display:block;
+}
+
+#userInfo .avatar img{
+    border: 1px solid #c6c6c6;
+    margin:0 10px 5px 0;
+}
+
+#userInfo .aboutMe{
+    display:block;
+}
+
+#userInfo .aboutMe p{
+    padding-bottom:10px;
+}
+
+#userInfo .bioform{
+    margin-left:105px;
+}
+
+.aboutMe #accountEditBio {
+    display: none;
+}
+
+#accountEditBio .bioInput {
+    width: 222px;
+    height: 96px;
+    margin-bottom: 5px;
+}
+
+#userInfo .bioform .submit button{
+    margin-right:10px;
+}
+
+#userInfo .myAccount{
+    padding-left:15px;
+}
+
+#userInfo .myAccount {
+    color: #d61;
+    line-height:1.3;
+}
+
+#userInfo .myAccount li {
+    list-style: disc outside none;
+    margin:0 0 0 15px;
+    padding:3px 0;
+}
 
 #acctCallToAction {
     background-color: #f9eccd;
@@ -3476,16 +3558,7 @@ body.hover #startADiscussion .sd_InnerLayout {
     line-height: 2.1;
 }
 
-.userInfo {
-    position: relative;
-    /*height:172px;*/
-    background: #f9eccd;
-    padding: 15px;
-    overflow: hidden;
-}
-
-
-/* =4i-1 change email & password
+/* =4i-1.1 change email & password
 -------------------------------------------------------------------------------------------*/
 
 #changeEmail, #changePassword {
@@ -3537,7 +3610,7 @@ body.hover #startADiscussion .sd_InnerLayout {
     margin-left: 170px;
 }
 
-/* =4i-2 manage newsletters
+/* =4i-1.2 manage newsletters
 -------------------------------------------------------------------------------------------*/
 
 #manageNewsletters {
@@ -3650,6 +3723,64 @@ body.hover #startADiscussion .sd_InnerLayout {
 
 #manageNewsletters .hideIt {
     display: none;
+}
+
+/* =4i-2 user activity
+-------------------------------------------------------------------------------------------*/
+
+#userActivity{
+
+}
+
+#userActivity .mod.whole.theActivities{
+    padding: 0 15px;
+}
+
+#userActivity .mod.theActivities li {
+    position: relative;
+    border-bottom: 1px dotted #999;
+    padding: 15px 0;
+}
+
+#userActivity .mod.theActivities li:last-child {
+    border: 0;
+}
+
+#userActivity .mod.theActivities li p {
+    margin-left:25px;
+}
+
+#userActivity .mod.split.theActivities{
+    padding:15px;
+    border: 1px solid #999;
+    margin-right:7px;
+}
+
+#userActivity .mod.theSchools{
+    padding:15px;
+    border: 1px solid #999;
+    margin-left:7px;
+}
+
+#userActivity .mod.theSchools p{
+    padding:15px 0 0 0;
+}
+
+#userActivity .mod.theSchools .schList {
+    padding-bottom:15px;
+    margin-bottom:9px;
+    border-bottom: 1px dotted #999;
+}
+
+#userActivity .mod.theSchools .schList li {
+    list-style:disc outside none;
+    margin-left:15px;
+}
+
+#userActivity .mod.theSchools .schRevs li {
+    padding-bottom:9px;
+    margin-bottom:9px;
+    border-bottom: 1px dotted #999;
 }
 
 /* =5- icons

@@ -29,7 +29,7 @@
 <head>
     <title>${requestScope.pageHeading} | GreatSchools</title>
     <meta name="keywords" content=""/>
-    <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
+    <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
     <![CDATA[<!--[if !IE]>]
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
     <![endif]-->]]>
@@ -127,7 +127,7 @@
 <div id="mainGS" class="col">
 
 <div class="spacer_15"><!--do not collapse--></div>
-    
+
 <community:uploadAvatarHover openingElementSelector="#updateMyPhotoLink" redirect="${uri}"/>
 
 <!-- Report it dialog -->
@@ -155,245 +155,271 @@
     <div class="spacer_10"><!--do not collapse--></div>
 </c:if>
 
-<div class="module">
+<div id="userInfo" class="mod">
     <c:if test="${!requestScope.viewAllActivity}">
-        <div class="userInfo${requestScope.pageType eq 'userAccount' ? '': ' pad'}">
-            <h2 class="fltlft">${requestScope.pageHeading}</h2>
-            <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
-                <c:choose>
-                    <c:when test="${requestScope.memberReport eq true}">
-                        <span class="fltrt reported"><span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span>You've reported this member.</span>
-                    </c:when>
-                    <c:otherwise>
+        <h2 class="fltlft">${requestScope.pageHeading}</h2>
+        <c:if test="${requestScope.pageType eq 'userProfile' and !requestScope.viewingOwnProfile}">
+            <c:choose>
+                <c:when test="${requestScope.memberReport eq true}">
+                    <span class="fltrt reported"><span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span>You've reported this member.</span>
+                </c:when>
+                <c:otherwise>
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}" class="reportIt"
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a id="report_member_${pageUser.id}"
+                                                                                   class="reportIt"
                                                                                    href="${loginRedirectUrl}">Report this member
-                    <span class="go">&amp;#187;</span></a>
+                    <span class="alertDoubleArrow">&amp;#187;</span></a>
                 </span>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-            <c:if test="${requestScope.canBanMember}">
-                <c:choose>
-                    <c:when test="${pageUser.userProfile.active}">
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+        <c:if test="${requestScope.canBanMember}">
+            <c:choose>
+                <c:when test="${pageUser.userProfile.active}">
                 <span class="fltrt">
                     <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
                                                                                    id="deactivateMember">Deactivate this member</a></span>
-                    </c:when>
-                    <c:otherwise>
+                </c:when>
+                <c:otherwise>
                 <span class="fltrt">
                     <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
                                                                                    id="reactivateMember">Reactivate this member</a>
                 </span>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-
-            <br class="clearfloat"/>
-
-            <c:choose>
-                <c:when test="${avatarAlertType eq 'sync'}">
-                    <p class="smallAlertText">Your new avatar has been uploaded.</p>
-                </c:when>
-                <c:when test="${avatarAlertType eq 'async'}">
-                    <p class="smallAlertText">Your new avatar has been uploaded and should appear in a few minutes.</p>
-                </c:when>
-                <c:when test="${avatarAlertType eq 'error'}">
-                    <p class="smallAlertTextBold">We're sorry, there was an unexpected error uploading your new avatar.</p>
-                </c:when>
+                </c:otherwise>
             </c:choose>
+        </c:if>
 
-            <div class="userVitals${requestScope.pageType eq 'userAccount' ? ' col brdrt_dotted': 'Full'}">
+        <br class="clearfloat"/>
+
+        <c:choose>
+            <c:when test="${avatarAlertType eq 'sync'}">
+                <p class="smallAlertText">Your new avatar has been uploaded.</p>
+            </c:when>
+            <c:when test="${avatarAlertType eq 'async'}">
+                <p class="smallAlertText">Your new avatar has been uploaded and should appear in a few minutes.</p>
+            </c:when>
+            <c:when test="${avatarAlertType eq 'error'}">
+                <p class="smallAlertTextBold">We're sorry, there was an unexpected error uploading your new avatar.</p>
+            </c:when>
+        </c:choose>
+
+        <div class="spacer_15"><!--do not collapse--></div>
+
+        <div class="${requestScope.pageType eq 'userAccount' ? 'size2of3 col': 'size1of1'}">
+            <div class="mod ${requestScope.pageType eq 'userAccount' ? 'padrt_15 brdrt_dotted': ''}">
+                <div class="avatar">
+                    <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar"/>
+
+                    <p>
+                        <c:choose>
+                            <c:when test="${requestScope.viewingOwnProfile}">
+                                <a href="#" id="updateMyPhotoLink">Update my photo</a>
+                            </c:when>
+                            <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
+                                <a href="#" id="resetPhotoLink">Reset photo</a>
+                            </c:when>
+                        </c:choose>
+                    </p>
+                </div>
                 <div class="aboutMe">
                     <p>Member since: <strong><fmt:formatDate value="${requestScope.pageUser.timeAdded}" type="date"
                                                              pattern="MMMM yyyy"/></strong></p>
                     <c:if test="${requestScope.viewingOwnProfile or not empty pageUser.userProfile.aboutMe}">
-                        <h3 class="text1">
-                            About me
-                            <c:if test="${requestScope.canEditMember}"><span class="fltlt"><a href="#"
-                                                                                              class="editAboutMe">Edit</a></span></c:if>
-                        </h3>
+                        <p class="text1bold-d61">About me
+                            <c:if test="${requestScope.canEditMember}">
+                                <!--<span class="fltlt">-->
+                                <a href="#" class="editAboutMe">Edit</a>
+                                <!--</span>-->
+                            </c:if>
+                        </p>
                     </c:if>
 
-                    <p class="defaultBioText">
-                        Welcome to the GreatSchools community! <a href="#"
-                                                                  class="editAboutMeSecondaryLink">Tell us about yourself</a>
-                        to start building your profile.
+                    <p class="defaultBioText">Welcome to the GreatSchools community!
+                        <a href="#"
+                           class="editAboutMeSecondaryLink">Tell us about yourself</a> to start building your profile.
                     </p>
 
                     <p class="bioText text3"><c:if
                             test="${not empty pageUser.userProfile.aboutMe}">${fn:escapeXml(pageUser.userProfile.aboutMe)}</c:if>
                     </p>
 
-                    <form action="/" id="accountEditBio" method="post">
-                        <input type="hidden" name="memberId" class="memberId" value="${requestScope.pageUser.id}"/>
-                        <textarea name="bio" class="bioInput"><!-- do not collapse --></textarea>
-                        <br/>
-                        <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
-                            <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
-                        </button>
-                        <button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
-                            <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-                        </button>
-                    </form>
+                    <div class="bioform">
+                        <form action="/" id="accountEditBio" method="post">
+                            <fieldset class="biodata">
+                                <input type="hidden" name="memberId" class="memberId"
+                                       value="${requestScope.pageUser.id}"/>
+                                <textarea name="bio" class="bioInput" cols="0"
+                                          rows="0"><!-- do not collapse --></textarea>
+                            </fieldset>
+                            <fieldset class="submit">
+                                <button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
+                                    <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
+                                </button>
+                                <button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
+                                    <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+                                </button>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
-                <p class="avatar">
-                    <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar"
-                                      cssStyle="border: 1px solid #c6c6c6;"/>
-                    <c:choose>
-                        <c:when test="${requestScope.viewingOwnProfile}">
-                            <br/>
-                            <a href="#" id="updateMyPhotoLink">Update my photo</a>
-                        </c:when>
-                        <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
-                            <br/>
-                            <a href="#" id="resetPhotoLink">Reset photo</a>
-                        </c:when>
-                    </c:choose>
-                </p>
             </div>
-            <c:if test="${requestScope.pageType eq 'userAccount'}">
-                <div class="mgAccount col">
-                    <h4>Manage my account</h4>
-                    <ul>
+
+        </div>
+        <c:if test="${requestScope.pageType eq 'userAccount'}">
+            <div class="size1of3 col">
+                <div class="mod myAccount">
+                    <h4 class="subhead2">Manage my account</h4>
+                    <ul class="text3-d61">
                         <li><link:changeEmail>Update my email address</link:changeEmail></li>
                         <li><link:resetPassword>Change my password</link:resetPassword></li>
                         <li><link:newsletterManagement>Manage newsletters</link:newsletterManagement></li>
                         <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
                     </ul>
                 </div>
-            </c:if>
-        </div>
-        <!-- end userInfo -->
+            </div>
+        </c:if>
 
     </c:if>
 
 </div>
-<!-- end module -->
+<!-- end userInfo -->
 <div class="spacer_15"><!--do not collapse--></div>
 
-<div class="module">
+<div id="userActivity" class="mod">
     <!-- Recent Activity -->
     <c:set var="recentActivityTitle">
-    <c:choose>
-        <c:when test="${requestScope.pageType eq 'userAccount'}">
-            My recent activity
-        </c:when>
-        <c:otherwise>
-            ${requestScope.pageUser.userProfile.screenName}'s recent activity
-        </c:otherwise>
-    </c:choose>
+        <c:choose>
+            <c:when test="${requestScope.pageType eq 'userAccount'}">
+                My recent activity
+            </c:when>
+            <c:otherwise>
+                ${requestScope.pageUser.userProfile.screenName}'s recent activity
+            </c:otherwise>
+        </c:choose>
     </c:set>
-    <c:set var="myAccClass">
-        <c:out value="${requestScope.pageType eq 'userAccount' and !requestScope.viewAllActivity ? ' col' : ''}" />
-    </c:set>
-    <div class="md activity ${myAccClass}">
-        <h3 class="subhead1 fltlft">${recentActivityTitle}</h3>
-            <c:if test="${not empty requestScope.recentPosts}">
+<!--    <c:set var="myAccClass">
+        <c:out value="${requestScope.pageType eq 'userAccount' and !requestScope.viewAllActivity ? ' col' : ''}"/>
+    </c:set>-->
+
+    <div class="${requestScope.pageType eq 'userAccount' ? 'size1of2 col': 'size1of1'}">
+            <div class="mod ${requestScope.pageType eq 'userAccount' ? 'split': 'whole'} theActivities">
+
+
+    <!--<div class="mod activity ${myAccClass}">-->
+        <h4 class="subhead2 fltlft">${recentActivityTitle}</h4>
+        <c:if test="${not empty requestScope.recentPosts}">
                 <span class="fltrt">
                     <c:choose>
                         <c:when test="${requestScope.viewAllActivity}">
                             <a href="${requestScope.uri}">Return to
                                 <c:choose>
                                     <c:when test="${requestScope.pageType eq 'userAccount'}">
-                                        account <span class="go">&amp;#187;</span>
+                                        account <span class="alertDoubleArrow">&amp;#187;</span>
                                     </c:when>
                                     <c:otherwise>
-                                        profile <span class="go">&amp;#187;</span>
+                                        profile <span class="alertDoubleArrow">&amp;#187;</span>
                                     </c:otherwise>
                                 </c:choose>
                             </a>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${requestScope.showViewAllActivityLink}">
-                                <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span class="go">&amp;#187;</span></a>
+                                <a href="${requestScope.uri}?viewAllActivity=true">View all activity <span
+                                        class="alertDoubleArrow">&amp;#187;</span></a>
                             </c:if>
                         </c:otherwise>
                     </c:choose>
                 </span>
-            </c:if>
+        </c:if>
 
-    <br class="clearfloat"/>
+        <br class="clearfloat"/>
 
-    <c:choose>
-        <c:when test="${empty requestScope.recentPosts}">
-            <p>
-                <c:choose>
-                    <c:when test="${requestScope.viewingOwnProfile}">You haven't</c:when>
-                    <c:otherwise>${pageUser.userProfile.screenName} hasn't</c:otherwise>
-                </c:choose> posted anything yet.
-            </p>
-            <c:if test="${requestScope.viewingOwnProfile}">
-                <p>Share stories about your child's success in and out of the classroom in our community.</p>
-            <p>Our community wants to hear from you about:</p>
-            <ul class="prompt">
-                <li><span><link:cmsContent contentKey="DiscussionBoard#1640"
-                                           fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></span></li>
-                <li><span><link:cmsContent contentKey="DiscussionBoard#1641"
-                                           fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></span></li>
-                <li><span><link:cmsContent contentKey="DiscussionBoard#1642"
-                                           fullUri="/special-education">Special Education</link:cmsContent></span></li>
-                <li><span><link:cmsContent contentKey="DiscussionBoard#1643"
-                                           fullUri="/improvement">Improving Schools</link:cmsContent></span></li>
-                <!-- li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li -->
-            </ul>
-            </c:if>
-        </c:when>
-        <c:otherwise>
-            <ul>
-                <c:forEach var="content" items="${requestScope.recentPosts}">
-                    <c:set var="supportedContentType" value="${true}"/>
+        <c:choose>
+            <c:when test="${empty requestScope.recentPosts}">
+                <p>
                     <c:choose>
-                        <c:when test="${content.type == 'Discussion'}">
-                            <c:set var="discussion" value="${content}"/>
-                            <c:set var="replyId" value="${null}"/>
-                            <c:set var="introLabel" value="Started conversation"/>
-                            <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
-                        </c:when>
-                        <c:when test="${content.type == 'DiscussionReply'}">
-                            <c:set var="discussion" value="${content.discussion}"/>
-                            <c:set var="replyId" value="${content.id}"/>
-                            <c:set var="introLabel" value="Post in"/>
-                            <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="supportedContentType" value="${false}"/>
-                        </c:otherwise>
-                    </c:choose>
+                        <c:when test="${requestScope.viewingOwnProfile}">You haven't</c:when>
+                        <c:otherwise>${pageUser.userProfile.screenName} hasn't</c:otherwise>
+                    </c:choose> posted anything yet.
+                </p>
+                <c:if test="${requestScope.viewingOwnProfile}">
+                    <p>Share stories about your child's success in and out of the classroom in our community.</p>
 
-                    <c:if test="${supportedContentType}">
-
-                        <li>
-                            <span class="icon"><!-- icon --></span>
-
-                            <h4 class="text3">${introLabel}: <link:discussion discussionId="${discussion.id}"
-                                                                              fullUri="${discussionFullUri}"
-                                                                              discussionReplyId="${replyId}"
-                                                                              styleClass="text3">${discussion.title}</link:discussion>
-                                &amp;nbsp;<fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
-                            </h4>
-
-                            <p>
-                                <community:userContentTeaserText
-                                        textToDisplay="${content.body}"
-                                        minLength="143" maxLength="163"
-                                        discussionId="${discussion.id}"
-                                        discussionReplyId="${replyId}"
-                                        discussionFullUri="${discussionFullUri}"
-                                        textSpanClass="text3"
-                                        linkClass="smallText1"/>
-                            </p>
+                    <p>Our community wants to hear from you about:</p>
+                    <ul class="prompt">
+                        <li><span><link:cmsContent contentKey="DiscussionBoard#1640"
+                                                   fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></span>
                         </li>
+                        <li><span><link:cmsContent contentKey="DiscussionBoard#1641"
+                                                   fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></span>
+                        </li>
+                        <li><span><link:cmsContent contentKey="DiscussionBoard#1642"
+                                                   fullUri="/special-education">Special Education</link:cmsContent></span>
+                        </li>
+                        <li><span><link:cmsContent contentKey="DiscussionBoard#1643"
+                                                   fullUri="/improvement">Improving Schools</link:cmsContent></span>
+                        </li>
+                        <!-- li><span><link:discussion discussionId="1" fullUri="uri">Preparing for college</link:discussion></span></li -->
+                    </ul>
+                </c:if>
+            </c:when>
+            <c:otherwise>
+                <ul>
+                    <c:forEach var="content" items="${requestScope.recentPosts}">
+                        <c:set var="supportedContentType" value="${true}"/>
+                        <c:choose>
+                            <c:when test="${content.type == 'Discussion'}">
+                                <c:set var="discussion" value="${content}"/>
+                                <c:set var="replyId" value="${null}"/>
+                                <c:set var="introLabel" value="Started conversation"/>
+                                <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
+                            </c:when>
+                            <c:when test="${content.type == 'DiscussionReply'}">
+                                <c:set var="discussion" value="${content.discussion}"/>
+                                <c:set var="replyId" value="${content.id}"/>
+                                <c:set var="introLabel" value="Post in"/>
+                                <c:set var="discussionFullUri" value="${discussion.discussionBoard.fullUri}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="supportedContentType" value="${false}"/>
+                            </c:otherwise>
+                        </c:choose>
 
-                    </c:if>
-                </c:forEach>
-            </ul>
-            <c:if test="${requestScope.viewAllActivity}">
-                <community:pagination page="${requestScope.page}" totalPages="${requestScope.totalPages}" url="${uri}?viewAllActivity=true" styleClass="pagination"/>
-            </c:if>
-        </c:otherwise>
-    </c:choose>
-    <!-- End Recent Activity -->
+                        <c:if test="${supportedContentType}">
+
+                            <li>
+                                <span class="sprite post fltlft"><!-- icon --></span>
+
+                                <p class="text3bold">${introLabel}: <link:discussion discussionId="${discussion.id}"
+                                                                                  fullUri="${discussionFullUri}"
+                                                                                  discussionReplyId="${replyId}"
+                                                                                  styleClass="text3">${discussion.title}</link:discussion>
+                                    &amp;nbsp;<fmt:formatDate pattern="MMMMM d, yyyy" value="${content.dateCreated}"/>
+                                </p>
+
+                                <p>
+                                    <community:userContentTeaserText
+                                            textToDisplay="${content.body}"
+                                            minLength="143" maxLength="163"
+                                            discussionId="${discussion.id}"
+                                            discussionReplyId="${replyId}"
+                                            discussionFullUri="${discussionFullUri}"
+                                            textSpanClass="text3"
+                                            linkClass="smallText1"/>
+                                </p>
+                            </li>
+
+                        </c:if>
+                    </c:forEach>
+                </ul>
+                <c:if test="${requestScope.viewAllActivity}">
+                    <community:pagination page="${requestScope.page}" totalPages="${requestScope.totalPages}"
+                                          url="${uri}?viewAllActivity=true" styleClass="pagination"/>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+        <!-- End Recent Activity -->
+    </div>
     </div>
     <c:if test="${!requestScope.viewAllActivity and requestScope.pageType eq 'userAccount'}">
         <jsp:include page="/mySchoolList.module"/>
