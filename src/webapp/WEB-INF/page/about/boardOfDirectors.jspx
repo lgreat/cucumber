@@ -24,8 +24,6 @@
         <meta name="description" content="An introduction to the GreatSchools Board of Directors."/>
         <meta name="keywords" content="GreatSchools board of directors, Leanna Landsmann"/>
 
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
-        <pageHelper:externalCss file="/res/css/_textStyles.css"/>
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
@@ -38,8 +36,9 @@
         </p>
         
         <h1>Board of Directors</h1>
+        <div id="mainGS">
 
-        <div class="contentLeft">
+        <div id="aboutNav" class="col">
             <about:aboutGreatSchools selected="boardOfDirectors"/>
         </div>
         <div class="main">
@@ -168,6 +167,7 @@
                 of Why School Reform is Failing: 10 Lessons from the Trenches (Rowman &amp;amp;
                 Littlefield, 2008).
             </div>
+        </div>
         </div>
 
         <div id="tracking">

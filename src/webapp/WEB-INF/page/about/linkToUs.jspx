@@ -8,6 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
@@ -17,44 +18,31 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
+    <pageHelper:setPathway pathway="HOME"/>
     <pageHelper:hideFooterAd/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>Link To Great Schools</title>
+        <title>Data Widgets &amp;amp; Tools | GreatSchools </title>
     </head>
 
     <gsml:body adPageName="linkToUs" pageLayout="leftside">
 
-        <mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
+        <p class="breadcrumbs smallAlertText">
+            <link:home>Home</link:home>
+            &amp;gt;
+            <link:aboutUs>About Us</link:aboutUs>
+        </p>
+        <h1>Data Widgets &amp;amp; Tools</h1>
+        <div id="mainGS">
+           <div id="aboutNav" class="col">
+            <about:aboutGreatSchools selected="linkToUs"/>
+           </div>
+            <div class="mod col" id="dwt">
+                <div class="mod_bd">
 
-        <div id="contentFAQ" class="contentFAQ">
-            <h1>Link to GreatSchools</h1>
+            <h2 id="schoolfinderwidget">School Finder widget</h2>
 
-            <p>GreatSchools values the utility of hyperlinks, which allow Web users to gain immediate access to informative content. Here are the different ways you can link to GreatSchools:</p>
-
-            <ul class="pageNav">
-                <li><a href="#schoolfinderwidget">School Finder Widget</a></li>
-                <li><a href="#searchbox">Search Box</a></li>
-                <li><a href="#textlinks">Text Links</a></li>
-                <li><a href="#framing">Framing Our Content</a></li>
-                <li><a href="#linkstoyou">Links To Your Web site</a></li>
-            </ul>
-
-            <![CDATA[ <a name="schoolfinderwidget"></a> ]]>
-<h2>School Finder Widget</h2>
-
-            <p>
-                You can easily add school information to your Web site with our free School Finder Widget. Assess the academic performance of a school,
-                see how other parents rate and review specific schools, and map schools by address, ZIP code or city. Click below to customize
-                the colors and size to match your site.
-            </p>
-
-            <table border="0" cellpadding="0px" cellspacing="0px">
-                <tr>
-                    <td>
                         <c:choose>
                             <c:when test="${requestScope.command.hideSchoolFinderWidgetPreschools}">
                                 <c:set var="schoolFinderImgUrl" value="/res/img/about/schoolfinder_70percent_no_preschools.jpg"/>
@@ -63,112 +51,97 @@
                                 <c:set var="schoolFinderImgUrl" value="/res/img/about/schoolfinder_70percent.jpg"/>
                             </c:otherwise>
                         </c:choose>
-                        <img src="${schoolFinderImgUrl}" alt="School Finder Widget"/>
-                    </td>
-                    <td valign="top" style="padding: 130px  0 0 10px;">
+                        <img src="${schoolFinderImgUrl}" class="fltlft" alt="School Finder Widget"/>
+            <p>You can easily add school information to your website with our free School Finder widget. Assess schools' academic performance; see how other parents rate and review specific schools; and map them by address, ZIP code, or city. Colors and size can be customized to match your site.</p>
+
                         <p>
-                            <link:schoolFinderCustomization>Customize this widget for your site &amp;gt;</link:schoolFinderCustomization>
+                            <link:schoolFinderCustomization styleClass="btn25"><span class="lftDoor25"><span class="rtDoor25">Customize this widget</span></span></link:schoolFinderCustomization>
                         </p>
-                    </td>
-                </tr>
-            </table>
 
-            <br/>
 
-            <![CDATA[ <a name="searchbox"></a> ]]>
-<h2>Search Box</h2>
 
-            <p>If you would like to include a GreatSchools search box within your site (a link in which users leave your site and go to ours),
-               you can integrate this search box into your site.
-               Feel free to cut and paste the HTML below, or you can customize colors and size to match your site.</p>
 
-            <table border="0" cellpadding="0px" cellspacing="0px">
-                <tr>
-                    <td>
-                        <script type="text/javascript"
-                                src="http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js"><!-- no colapse --></script>
-                    </td>
-                    <td valign="top" style="padding: 15px  0 0 10px;">
-                        <span style="font-weight: bold;">Embed:</span>
-                        <br/>
+                    <br class="clearBoth"/>
+<h2 id="searchbox">Search Box</h2>
+            <script type="text/javascript"
+                                src="http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=214&amp;amp;h=190&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;output=js"><!-- no colapse --></script>
+            <p>Give users the option of searching the GreatSchools website by featuring our search box on your site. Cut and paste the HTML below, or customize colors and size to match your site. </p>
+
+                <a href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;w=214"
+                   target="_blank" class="btn25"><span class="lftDoor25"><span class="rtDoor25">Customize this widget</span></span></a><br /><br />
+                        <p><strong>Embed the search box</strong></p>
 
                         <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
-                            <input type="text" onclick="this.select()" readonly="readonly"
-                                   style="width: 670px; background-color: #D3D3D3;"
-                                   value="&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;"/>
+                            <textarea type="text" onclick="this.select()" readonly="readonly"
+                                   style="width: 216px; background-color: #D3D3D3;"
+                                   value="">&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=214&amp;amp;h=190&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;</textarea>
                         </form>
 
-                        <br/>
 
-                        <p>
-                            <a
-                                href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF"
-                                target="_blank">Customize this widget for your site &amp;gt;</a>
-                        </p>
-                    </td>
-                </tr>
-            </table>
 
-            <br/>
+                        <br class="clearBoth"/>
+                    <h2 id="webServiceApi">School Finder web service API</h2>
+                    <p>Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data</p>
+                    <p>Please contact our team for more information: </p>
+                    <p>Jennifer Leibick, Business Development Manager<br />
+                       415.983.3812<br />
+                       <a href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></p>
+            
+                    
+                    <!--<h2 id="textlinks">Text Links</h2>-->
 
-            <![CDATA[ <a name="textlinks"></a> ]]>
-<h2>Text Links</h2>
+            <!--<p>If you would like to place a text link to our site, please follow the requirements below:-->
+                <!--<br/>-->
+                <!--<br/>-->
+                <!--<b>National Focus:</b>-->
+                <!--<br/>-->
+                <!--For links of a general nature, referring to our entire Web site, use this phrase:-->
+                <!--<br/>-->
+                <!--GreatSchools.org &amp;mdash; Elementary, middle and high school information for public, private and charter schools nationwide.-->
+                <!--<br/>-->
+                <!--URL: <a href="http://www.greatschools.org">http://www.greatschools.org</a>-->
+                <!--<br/>-->
+                <!--<br/>-->
+                <!--<b>State or Regional Focus:</b>-->
+                <!--<br/>-->
+                <!--If your content is most likely to reach users in a particular state, you may find it useful (and more relevant to your users) to link directly to a state home page. Use this information for California, or substitute the abbreviation for any state at the end of the URL:-->
+                <!--<br/>-->
+                <!--California Schools &amp;mdash; CA Elementary, middle and high school information.-->
+                <!--<br/>-->
+                <!--URL: <a href="http://www.greatschools.org/modperl/go/CA">http://www.greatschools.org/modperl/go/CA</a>-->
+                <!--<br/>-->
+                <!--<br/>-->
+                <!--<b>Specific Topic Focus:</b>-->
+                <!--<br/>-->
+                <!--If you would like to link to a specific article, such as "What You Can Do To Stamp Out Bullying," you have our permission to link to the article-specific URL if you place only the title of the article on your Web site. An example is below.-->
+                <!--<br/>-->
+                <!--"What You Can Do To Stamp Out Bullying," from greatschools.org-->
+                <!--<br/>-->
+                <!--URL:-->
+                <!--<a href="http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve</a>-->
+                <!--<br/>-->
+                <!--<br/>-->
+                <!--If you would like to republish or host the article on your site, the license fee is $200 per year per article. You can download a-->
+                <!--<a href="/content/Letter%20Of%20Agreement%20To%20Republish%20Content%205_12_2008.doc">contract here</a>. Just print it out and fax it back to us at 415.977.0704 or e-mail us at businessdevelopment@greatshools.net.-->
+            <!--</p>-->
 
-            <p>If you would like to place a text link to our site, please follow the requirements below:
-                <br/>
-                <br/>
-                <b>National Focus:</b>
-                <br/>
-                For links of a general nature, referring to our entire Web site, use this phrase:
-                <br/>
-                GreatSchools.org &amp;mdash; Elementary, middle and high school information for public, private and charter schools nationwide.
-                <br/>
-                URL: <a href="http://www.greatschools.org">http://www.greatschools.org</a>
-                <br/>
-                <br/>
-                <b>State or Regional Focus:</b>
-                <br/>
-                If your content is most likely to reach users in a particular state, you may find it useful (and more relevant to your users) to link directly to a state home page. Use this information for California, or substitute the abbreviation for any state at the end of the URL:
-                <br/>
-                California Schools &amp;mdash; CA Elementary, middle and high school information.
-                <br/>
-                URL: <a href="http://www.greatschools.org/modperl/go/CA">http://www.greatschools.org/modperl/go/CA</a>
-                <br/>
-                <br/>
-                <b>Specific Topic Focus:</b>
-                <br/>
-                If you would like to link to a specific article, such as "What You Can Do To Stamp Out Bullying," you have our permission to link to the article-specific URL if you place only the title of the article on your Web site. An example is below.
-                <br/>
-                "What You Can Do To Stamp Out Bullying," from greatschools.org
-                <br/>
-                URL:
-                <a href="http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.org/cgi-bin/showarticle/CA/215/improve</a>
-                <br/>
-                <br/>
-                If you would like to republish or host the article on your site, the license fee is $200 per year per article. You can download a
-                <a href="/content/Letter%20Of%20Agreement%20To%20Republish%20Content%205_12_2008.doc">contract here</a>. Just print it out and fax it back to us at 415.977.0704 or e-mail us at businessdevelopment@greatshools.net.
-            </p>
-
-            <![CDATA[ <a name="framing"></a> ]]>
-<h2>Framing Our Content</h2>
+<h2 id="framing">Framing our content</h2>
 
             <p>
-                Unless there is a written agreement with a site that specifies otherwise,
-                please note that GreatSchools considers the framing of our content, i.e.
-                the wrapping of our content in a third party's site navigation, an illegal
-                use of our intellectual property. If you would like to frame our site
-                within your site and/or explore cobranding opportunities, please find more
-                information on <a href="/about/partnerOpportunities.page#license">License Our Content</a>.
+               Unless there is a written agreement specifying otherwise, GreatSchools considers the framing of our content, i.e., the wrapping of our content in a third party's site navigation, an illegal use of our intellectual property. If you would like to frame our site within yours or explore co-branding opportunities, please read about <a href="/about/partnerOpportunities.page#license">licensing our content</a>.
             </p>
 
-            <![CDATA[ <a name="linkstoyou"></a> ]]>
-<h2>Links to Your Web Site</h2>
+<h2 id="linkstoyou">Links to your website</h2>
 
             <p>
-                If you would like us to consider linking to your site, please click here to find out how to <a
-                    href="http://www.greatschools.org/about/partnerOpportunities.page?state=tx#advertise">Advertise on GreatSchools.org</a>.
+                If you would like us to consider linking to your site, please find out how to <a
+                    href="http://www.greatschools.org/about/partnerOpportunities.page?state=tx#advertise">advertise on GreatSchools</a>.
             </p>
+                </div>
+           </div>
 
+
+        <mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
         </div>
     </gsml:body>
     </html>

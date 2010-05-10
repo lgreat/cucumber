@@ -29,9 +29,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools Media Room"/>
     <title>GreatSchools Media Room | GreatSchools</title>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
-    <pageHelper:externalCss file="/res/css/_textStyles.css"/>
     <!-- Make sure dynamic twitter links open in separate window -->
     <script type="text/javascript">
         $(function() {
@@ -82,16 +80,16 @@
             <!--</div>-->
         </c:if>
 
-        <div class="mainLeft fltlft">
+        <div id="aboutNav" class="col">
             <about:aboutGreatSchools selected="mediaRoom"/>
         </div>
 
         <div class="mainRight fltlft">
-            <div class="module recentPressReleases">
-                <div class="header">
-                    <span class="title1 tint_fff fltlft">Recent Press Releases</span>
+            <div class="mod recentPressReleases">
+                <div class="mod_hd">
+                    <h3>Recent Press Releases</h3>
                 </div>
-                <div class="body">
+                <div class="mod_bd">
                     <jsp:include page="/about/pressReleases.module?first=4&amp;display=about"/>
                     <div class="fltrt moveUp"><link:pressReleases
                             styleClass="smallAlertText">See more press releases <span class="go">&amp;#187;</span></link:pressReleases></div>
@@ -99,11 +97,11 @@
                 </div>
             </div>
             <br class="spacer_15"/>
-            <div class="module gsInTheNews">
-                <div class="header">
-                    <span class="title1 tint_fff fltlft">GreatSchools in the News</span>
+            <div class="mod gsInTheNews">
+                <div class="mod_hd">
+                    <h3>GreatSchools in the News</h3>
                 </div>
-                <div class="body">
+                <div class="mod_bd">
                     <jsp:include page="/about/pressClippings.module?first=5&amp;display=about"/>
                     <div class="fltrt moveUp"><link:pressClippings
                             styleClass="smallAlertText">See more news stories <span class="go">&amp;#187;</span></link:pressClippings></div>
@@ -111,11 +109,11 @@
                 </div>
             </div>
             <br class="spacer_15"/>
-            <div class="module downloadLogos">
-                <div class="header">
-                    <span class="title1 tint_fff fltlft">Download GreatSchools Logos</span>
+            <div class="mod downloadLogos">
+                <div class="mod_hd">
+                    <h3>Download GreatSchools Logos</h3>
                 </div>
-                <div class="body">
+                <div class="mod_bd">
                     <div class="text3">
                         Before downloading these logos, please read our
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
@@ -165,17 +163,17 @@
         </div>
         <!--<div class="module billJackson">-->
             <!--<div class="header">-->
-                <!--<span class="title1 tint_fff fltlft">Bill Jackson: Perspectives</span>-->
+                <!--<h3>Bill Jackson: Perspectives</h3>-->
             <!--</div>-->
             <!--<div class="body">-->
                 <!--&amp;nbsp;-->
             <!--</div>-->
         <!--</div>-->
-        <div class="module fromBlog">
-            <div class="header">
-                <span class="title1 tint_fff fltlft">From Our Blog</span>
+        <div class="mod fromBlog">
+            <div class="mod_hd">
+                <h3>From Our Blog</h3>
             </div>
-            <div class="body">
+            <div class="mod_bd">
                     <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                       defaultTitle="GreatSchools blog"
                                       defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
@@ -187,11 +185,11 @@
                 <br class="clearfloat"/>
             </div>
         </div>
-        <div class="module mediaTwitter">
-            <div class="header">
-                <span class="title1 tint_fff fltlft">Twitter</span>
+        <div class="mod mediaTwitter">
+            <div class="mod_hd">
+                <h3>Twitter</h3>
             </div>
-            <div class="body">
+            <div class="mod_bd">
                 <div id="twitter_div">
                     <ul id="twitter_update_list"><!-- do not collapse --></ul>
                     <a href="http://twitter.com/greatschools" target="_blank"
@@ -200,11 +198,11 @@
                 </div>
             </div>
         </div>
-        <div class="module mediaFacebook">
-            <div class="header">
-                <span class="title1 tint_fff fltlft">Facebook</span>
+        <div class="mod mediaFacebook">
+            <div class="mod_hd">
+                <h3>Facebook</h3>
             </div>
-            <div class="body">
+            <div class="mod_bd">
                 <ad:adTag position="Facebook_Promo_300x250"/>
             </div>
         </div>
