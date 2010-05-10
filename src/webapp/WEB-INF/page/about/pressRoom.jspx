@@ -148,7 +148,7 @@
 
     <div id="sidebarGS" class="col">
         <div class="mediaInquiries">
-            <span class="subhead2">Media inquiries</span>
+            <h4 class="subhead2">Media inquiries</h4>
             <span class="text3">Contact our team:</span>
             <span class="text3">Karissa Sparks</span>
             <span class="text3">415.983.3806</span>

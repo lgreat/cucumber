@@ -71,7 +71,7 @@
             <div class="guides">
                 <div class="module noMargin">
                     <div class="header">
-                        <span class="subhead2">Find a school</span>
+                        <h4 class="subhead2">Find a school</h4>
                     </div>
                     <div class="body text3">
                         GreatSchools is the country's
@@ -83,7 +83,7 @@
                 </div>
                 <div class="module">
                     <div class="header">
-                        <span class="subhead2">Guide your child</span>
+                        <h4 class="subhead2">Guide your child</h4>
                     </div>
                     <div class="body text3">
                         GreatSchools has launched a groundbreaking new program called
@@ -94,7 +94,7 @@
                 </div>
                 <div class="module">
                     <div class="header">
-                        <span class="subhead2">Improve your school</span>
+                        <h4 class="subhead2">Improve your school</h4>
                     </div>
                     <div class="body text3">
                         GreatSchools highlights the powerful
@@ -117,7 +117,7 @@
                           width="172" height="103"/>
                 <div class="module">
                     <div class="header">
-                        <span class="subhead2">Think local</span>
+                        <h4 class="subhead2">Think local</h4>
                     </div>
                     <div class="body text3">
                         Headquartered in San Francisco, GreatSchools also operates local programs in
