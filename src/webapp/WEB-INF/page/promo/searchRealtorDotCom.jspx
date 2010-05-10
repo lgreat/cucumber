@@ -40,15 +40,15 @@
         }
 
         var rdcBathsId = document.getElementById('rdcBaths');
-        if (rdcBaths != undefined) {
+        if (rdcBathsId != undefined) {
             var rdcBaths = trim(rdcBathsId.value).replace(/[^0-9]/g, "");
             if (rdcBaths != "" && rdcBaths >= 1 && rdcBaths <= 5) {
                 searchURL += "/baths-" + rdcBaths;
             }
         }
 
-        var rdcPriceMinId = document.getElementById('rdcPriceMinId');
-        var rdcPriceMaxId = document.getElementById('rdcPriceMaxId');
+        var rdcPriceMinId = document.getElementById('rdcPriceMin');
+        var rdcPriceMaxId = document.getElementById('rdcPriceMax');
         if (rdcPriceMinId != undefined && rdcPriceMaxId != undefined) {
             var rdcPriceMin = trim(rdcPriceMinId.value).replace(/[^0-9]/g, "");
             var rdcPriceMax = trim(rdcPriceMaxId.value).replace(/[^0-9]/g, "");
