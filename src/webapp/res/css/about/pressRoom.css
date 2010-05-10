@@ -31,15 +31,7 @@ p.breadcrumbs {
 .module {
     overflow: hidden;
 }
-.module .header {
-    background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
-    height: 36px;
-    padding: 0 10px;
-}
-.module .header span {
-    padding-top: 5px;
-}
-.module .body {
+.mainRight .mod_bd {
     border: 1px solid #ccc;
     padding: 15px;
 }
