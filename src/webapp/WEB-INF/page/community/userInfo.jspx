@@ -364,8 +364,25 @@
                 </c:if>
             </c:when>
             <c:otherwise>
-                <ul>
-                    <c:forEach var="content" items="${requestScope.recentPosts}">
+                <ul class="activities">
+                    <c:forEach var="content" items="${requestScope.recentPosts}" varStatus="status">
+
+                        <c:set var="numResults" value="${fn:length(requestScope.recentPosts)}"/>
+                        <c:if test="${status.count le numResults}">
+
+                                <!--<c:out value="${status.count}"/>-->
+                                <!--<c:out value="${numResults}"/>-->
+
+                                <c:choose>
+                                    <c:when test="${status.count eq numResults}">
+                                        <c:set var="className" value="lastone"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="className" value=""/>
+                                    </c:otherwise>
+                                </c:choose>
+                        </c:if>
+
                         <c:set var="supportedContentType" value="${true}"/>
                         <c:choose>
                             <c:when test="${content.type == 'Discussion'}">
@@ -387,7 +404,7 @@
 
                         <c:if test="${supportedContentType}">
 
-                            <li>
+                            <li class="${className}">
                                 <span class="sprite post fltlft"><!-- icon --></span>
 
                                 <p class="text3bold">${introLabel}: <link:discussion discussionId="${discussion.id}"

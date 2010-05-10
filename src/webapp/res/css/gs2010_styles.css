@@ -232,6 +232,16 @@ h3.title1white, h3.srchCat {
     color: #fc6;
 }
 
+.subhead5 {
+    font: bold 13px Arial, sans-serif;
+    color:#000;
+}
+
+.subhead5serif-d61 {
+    font: bold 13px Georgia, serif;
+    color:#d61;
+}
+
 .subhead6 {
     font-family: Arial, sans-serif;
     color: #333;
@@ -3797,13 +3807,14 @@ margin:10px 0 14px 20px;
     padding: 0 15px;
 }
 
-#userActivity .mod.theActivities li {
+#userActivity .mod.theActivities .activities li {
     position: relative;
+    zoom: 1;
     border-bottom: 1px dotted #999;
     padding: 15px 0;
 }
 
-#userActivity .mod.theActivities li:last-child {
+#userActivity .mod.theActivities .activities li.lastone {
     border: 0;
 }
 
@@ -3811,9 +3822,15 @@ margin:10px 0 14px 20px;
     margin-left:25px;
 }
 
-#userActivity .mod.split.theActivities{
+#userActivity .split{
     padding:15px;
     border: 1px solid #999;
+    margin-right:7px;
+}
+
+#userActivity .whole{
+    padding:15px;
+    border: 0;
     margin-right:7px;
 }
 
@@ -3823,8 +3840,12 @@ margin:10px 0 14px 20px;
     margin-left:7px;
 }
 
-#userActivity .mod.theSchools p{
-    padding:15px 0 0 0;
+#userActivity .mod.theSchools .noSchools {
+    padding:15px 0;
+}
+
+#userActivity .mod.theSchools .noSchools p{
+    padding-bottom:10px;
 }
 
 #userActivity .mod.theSchools .schList {
@@ -3842,6 +3863,10 @@ margin:10px 0 14px 20px;
     padding-bottom:9px;
     margin-bottom:9px;
     border-bottom: 1px dotted #999;
+}
+
+#userActivity .mod.theSchools .schRevs li.lastone {
+    border: 0;
 }
 
 /* =5- icons

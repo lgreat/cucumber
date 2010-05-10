@@ -10,81 +10,132 @@
         >
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
-<div class="size1of2 col">
-<div class="mod theSchools">
-    <h4 class="subhead2 fltlft">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) </c:if></h4>
-    <c:if test="${fn:length(schools) gt 0}">
-        <span class="smallText1 fltrt"><link:mySchoolList>View full school list <span class="alertDoubleArrow">&amp;#187;</span></link:mySchoolList></span>
-    </c:if>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-    <c:choose>
-        <c:when test="${fn:length(schools) gt 0}">
-
-
-            <ul class="schList text2-d61">
-                <c:forEach var="school" items="${schools}" varStatus="status">
-                    <!-- show at most three schools -->
-                    <c:if test="${status.count lt 4}">
-                        <li><link:schoolProfileOverview school="${school}" title="${school.name}">
-                            <c:out value="${school.name}"/>
-                        </link:schoolProfileOverview></li>
-                    </c:if>
-                </c:forEach>
-            </ul>
-
-
-            <c:if test="${not empty recentReviews}">
-
-                <p class="text1-d61">Recent parent reviews of your schools</p>
-                <ul class="schRevs">
-                <c:forEach var="review" items="${recentReviews}">
-                    <li>
-                    <h4><link:schoolProfileParentReview school="${review.school}" rel="nofollow"><c:out
-                            value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
-
-                    <p class="smallText2">Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
-                    <p class="text3">
-                    <c:if test="${review.stars eq 1}">
-                        <gsml:img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
-                    </c:if>
-                    <c:if test="${review.stars eq 2}">
-                        <gsml:img src="/res/img/map/ratings_parent_city_2.gif" alt="2 out of 5 stars"/>
-                    </c:if>
-                    <c:if test="${review.stars eq 3}">
-                        <gsml:img src="/res/img/map/ratings_parent_city_3.gif" alt="3 out of 5 stars"/>
-                    </c:if>
-                    <c:if test="${review.stars eq 4}">
-                        <gsml:img src="/res/img/map/ratings_parent_city_4.gif" alt="4 out of 5 stars"/>
-                    </c:if>
-                    <c:if test="${review.stars eq 5}">
-                        <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
-                    </c:if>
-
-                    ${review.quip}
-                        <span class="fltlt"><link:schoolProfileParentReview school="${review.school}" rel="nofollow">
-                        More&amp;nbsp;<span class="go">&amp;#187;</span></link:schoolProfileParentReview></span>
-                    </p>
-
-
-                    </li>
-
-                </c:forEach>
-                </ul>
+    <div class="size1of2 col">
+        <div class="mod theSchools">
+            <h4 class="subhead2 fltlft">My school list <c:if test="${fn:length(schools) gt 0}">(${fn:length(schools)}) </c:if></h4>
+            <c:if test="${fn:length(schools) gt 0}">
+                <span class="smallText1 fltrt"><link:mySchoolList>View full school list <span
+                        class="alertDoubleArrow">&amp;#187;</span></link:mySchoolList></span>
             </c:if>
-        </c:when>
-        <c:otherwise>
-            <p>You haven't saved any schools yet.</p>
-            <p>Find the right school for your child and track its stats from test scores to
-              teacher quality.
-                <link:research state="${requestScope.context.state}"
-                >Save schools to your school list now <span class="go">&amp;#187;</span></link:research>
-            </p> 
-        </c:otherwise>
-    </c:choose>
 
-</div>
-</div>
+            <br class="clearfloat"/>
+
+            <c:set var="numResults" value="${fn:length(schools)}"/>
+            <!-- maxResults can be changed to cap the number of schools to display -->
+            <c:set var="maxResults" value="${3}"/>
+
+            <c:choose>
+                <c:when test="${numResults lt maxResults}">
+                    <c:set var="actualMax" value="${numResults}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="actualMax" value="${maxResults}"/>
+                </c:otherwise>
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${fn:length(schools) gt 0}">
+
+                    <ul class="schList text2-d61">
+                        <c:forEach var="school" items="${schools}" varStatus="status1">
+                            <!-- show at most three schools -->
+                            <c:if test="${status1.count le actualMax}">
+
+                                <!--<c:out value="${status1.count}"/>-->
+                                <!--<c:out value="${actualMax}"/>-->
+
+                                <c:choose>
+                                    <c:when test="${status1.count eq actualMax}">
+                                        <c:set var="className1" value="lastone"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="className1" value=""/>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <li class="${className1}">
+                                    <link:schoolProfileOverview school="${school}" title="${school.name}">
+                                        <c:out value="${school.name}"/>
+                                    </link:schoolProfileOverview></li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+
+                    <c:if test="${not empty recentReviews}">
+
+                        <p class="text1-d61">Recent parent reviews of your schools</p>
+                        <ul class="schRevs">
+                            <c:forEach var="review" items="${recentReviews}" varStatus="status2">
+
+                                <!--<c:out value="${status2.count}"/>-->
+                                <!--<c:out value="${actualMax}"/>-->
+
+                                <c:choose>
+                                    <c:when test="${status2.count eq actualMax}">
+                                        <c:set var="className2" value="lastone"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="className2" value=""/>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <li class="${className2}">
+                                    <h4 class="subhead5serif-d61"><link:schoolProfileParentReview
+                                            school="${review.school}" rel="nofollow"><c:out
+                                            value="${review.schoolName}"
+                                            escapeXml="true"/></link:schoolProfileParentReview></h4>
+
+                                    <p class="smallText2">Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
+
+                                    <p class="text3">
+                                        <c:if test="${review.stars eq 1}">
+                                            <gsml:img src="/res/img/map/ratings_parent_city_1.gif"
+                                                      alt="1 out of 5 stars"/>
+                                        </c:if>
+                                        <c:if test="${review.stars eq 2}">
+                                            <gsml:img src="/res/img/map/ratings_parent_city_2.gif"
+                                                      alt="2 out of 5 stars"/>
+                                        </c:if>
+                                        <c:if test="${review.stars eq 3}">
+                                            <gsml:img src="/res/img/map/ratings_parent_city_3.gif"
+                                                      alt="3 out of 5 stars"/>
+                                        </c:if>
+                                        <c:if test="${review.stars eq 4}">
+                                            <gsml:img src="/res/img/map/ratings_parent_city_4.gif"
+                                                      alt="4 out of 5 stars"/>
+                                        </c:if>
+                                        <c:if test="${review.stars eq 5}">
+                                            <gsml:img src="/res/img/map/ratings_parent_city_5.gif"
+                                                      alt="5 out of 5 stars"/>
+                                        </c:if>
+
+                                        ${review.quip}
+                                            <span class="fltlt">
+                                                <link:schoolProfileParentReview school="${review.school}"
+                                                                                rel="nofollow">More&amp;nbsp;<span class="alertDoubleArrow">&amp;#187;</span>
+                                                </link:schoolProfileParentReview>
+                                            </span>
+                                    </p>
+
+                                </li>
+
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <div class="mod_bd noSchools">
+                        <p>You haven't saved any schools yet.</p>
+
+                        <p>Find the right school for your child and track its stats from test scores to teacher quality.
+                        <link:research state="${requestScope.context.state}" >Save schools to your school list now <span class="alertDoubleArrow">&amp;#187;</span>
+                        </link:research>
+                        </p>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+    </div>
 
 </jsp:root>
