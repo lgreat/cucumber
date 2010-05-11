@@ -177,13 +177,15 @@ function showResponse(x) {
     jQuery('#principalsLink').append(principalsHref);
 
     if (isPreschool) {
-
         jQuery('#principalStars').hide();
         jQuery('#facilityStars').show();
+        jQuery('#ratingsExplainedGradeschool').hide();
+        jQuery('#ratingsExplainedPreschool').show();
     } else {
-
         jQuery('#facilityStars').hide();
         jQuery('#principalStars').show();
+        jQuery('#ratingsExplainedPreschool').hide();
+        jQuery('#ratingsExplainedGradeschool').show();
     }
 
     if (isHighSchoolOnly != undefined && isHighSchoolOnly) {

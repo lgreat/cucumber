@@ -239,8 +239,14 @@
                 </ul>
 
                 <br clear="all"/>
-                <div id="learnMoreLinks"><link:parentRatingsExplained preschool="true" target="_blank"
-                                                                      onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &gt;</link:parentRatingsExplained>
+                <div id="learnMoreLinks">
+                    <span id="ratingsExplainedPreschool" style="display:none;">
+                        <link:parentRatingsExplained preschool="true" target="_blank" onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &gt;</link:parentRatingsExplained>
+                    </span>
+                    <span id="ratingsExplainedGradeschool" style="display:none;">
+                        <link:parentRatingsExplained preschool="false" target="_blank" onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &gt;</link:parentRatingsExplained>
+                    </span>
+
                     <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
                 </div>
 
