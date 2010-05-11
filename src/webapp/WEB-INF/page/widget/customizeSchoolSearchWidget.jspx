@@ -242,7 +242,7 @@
             <div class="colors text">
                 <form:label path="textColorSelect" cssClass="name">Text:</form:label>
                 <form:select path="textColorSelect" onchange="updateColor(this, 'textColor', this.value);">
-                    <form:options items="${requestScope.command.backgroundColorOptions}"/>
+                    <form:options items="${requestScope.command.textColorOptions}"/>
                 </form:select>
                 <form:label path="textColor" cssClass="hex">or Hex#</form:label>
                 <form:input path="textColor" onchange="updateColorSelect('textColorSelect',this)"/>
