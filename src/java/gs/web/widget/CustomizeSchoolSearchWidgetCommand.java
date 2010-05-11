@@ -62,7 +62,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         _defaultColorMap.put("0066B8", "");
         _defaultColorMap.put("66CCFF", "");
         _defaultColorMap.put("CCBBCC", "");
-        _defaultColorMap.put("FFEE99", "");
+        _defaultColorMap.put("FFCC99", "");
         _defaultColorMap.put("FF9977", "");
         _defaultColorMap.put("595959", "");
         _defaultColorMap.put("99BBCC", "");
