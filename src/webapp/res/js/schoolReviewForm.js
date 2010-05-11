@@ -94,6 +94,7 @@ jQuery(function() {
             jQuery('#frmPRModule .subStarRatings > li').hide();
             jQuery('#frmPRModule .subStarRatings .student_only').show();
             jQuery('#frmPRModule .moreAboutRatings').show();
+            jQuery('#frmPRModule .ratingCategoryPrompt').parent().show();
         } else {
             jQuery('#frmPRModule .subStarRatings').hide();
             jQuery('#frmPRModule .moreAboutRatings').hide();
