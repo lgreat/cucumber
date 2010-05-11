@@ -1,9 +1,4 @@
-#contentGS {
-    font-family: Arial, Arial, sans-serif;
-    color: #666;
-    font-size: 13px;
-    line-height: 17px;
-}
+
 
 /* Top part */
 div.top {
@@ -213,10 +208,11 @@ td.rightSide div.wrapper {
 }
 
 td.rightSide div.preview {
-    background-color: #DEE;
+    background-color: #f9eccd;
     padding: 10px 20px;
     margin-bottom: 2px;
     font-size: 15px;
+    font-weight: 700;
 }
 
 img.errorIcon {

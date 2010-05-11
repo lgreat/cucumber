@@ -100,7 +100,7 @@
                 height: ${requestScope.command.height-118}px;                
             }
             div#searchTabBody h2 {
-                color: #${requestScope.command.textColor};
+                color: #d61;
             }
             div#mapTabBody div.locationDescription {
                 width: ${requestScope.command.width-50}px;
@@ -244,16 +244,15 @@
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
-                <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>
+                <button type="submit" class="btn25 searchSubmit"><span class="lftDoor25"><span class="rtDoor25">GO</span></span></button>
             </form:form>
         </div>
         <!-- End Search Tab-->
 
         <div id="helpTabBody" class="tabBody ${helpTabClass}">
             <h3>
-                <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
                 More information
-                <img class="close" src="/res/img/submodal/close.gif" alt="Close" title="Close Help" onclick="closeHelpTab();"/>
+                <a href="#" onclick="closeHelpTab(); return false;" class="close" title="Close help">CLOSE</a>
             </h3>
             <p>
                 GreatSchools is an independent, nonprofit organization

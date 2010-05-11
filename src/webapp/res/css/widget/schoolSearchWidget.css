@@ -1,6 +1,6 @@
 div#schoolSearchWidget {
     position: relative;
-    font-family: Arial, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 12px;
     line-height: 16px;
     color: #444;
@@ -22,7 +22,7 @@ div.tabBar {
         position: absolute;
         top: 0;
         padding: 10px 0;
-        background-color: #F2F2F2;
+        background-color: #ebebeb;
         text-align: center;
         text-transform: uppercase;
         font-weight: bold;
@@ -38,7 +38,8 @@ div.tabBar {
     }
 
     div.tabBar div.selected {
-        background-color: #FFF;
+        background-color: #fff;
+        color: #333;
     }
 
 /* Tab bodies */
@@ -59,10 +60,11 @@ div.tabBody {
 
 /* Search Tab */
 
-div#searchTabBody h2 {
+div#searchTabBody h2, div#schoolSearchWidget h3 {
     margin: 40px 0 13px 0;
     padding: 0;
-    font-size: 18px;
+    font: 22px/1 Georgia, serif;
+    color: #d61;
 }
 
 div#searchTabBody p {
@@ -73,7 +75,7 @@ div#searchTabBody p {
 }
 
 div#searchTabBody p.warning {
-    color: #C56;
+    color: #c03;
 }
 
 div#searchTabBody form {
@@ -81,10 +83,60 @@ div#searchTabBody form {
     padding: 0;
 }
 
-div#searchTabBody input.searchSubmit {
-    position: absolute;
-    right: 20px;
-    margin-top: 35px;
+div#searchTabBody button.searchSubmit {
+    position: relative;
+    float: right;
+    top: 3px;
+    overflow: visible;
+    font: bold 14px Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #444;
+    color: #fff;
+}
+/* ------------------- */
+/* 25 px height button */
+/* ------------------- */
+
+/* do not change */
+.btn25 {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    background-color: transparent; /* hide form background color in IE */
+}
+
+.lftDoor25 {
+    display: inline-block;
+    padding: 0 0 0 15px;
+    line-height: 25px;
+    float: left;
+}
+
+.rtDoor25 {
+    display: inline-block;
+    padding: 0 15px 0 0;
+    height: 25px;
+    line-height: 25px;
+}
+
+/* skin */
+.lftDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
+}
+
+.rtDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
+}
+
+.btn25:active .lftDoor25, .btn25:hover .lftDoor25 {
+    background-position: left bottom;
+}
+
+.btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
+    background-position: right bottom;
+    outline: none; /* hide dotted outline in Firefox */
 }
 
 /* Map Tab */
@@ -207,9 +259,9 @@ div#mapTabBody {
 
 div#helpTabBody p {
     font-size: 11px;
-    line-height: 14px;
-    margin: 7px 0;
-    color: #666;
+    line-height: 1.3;
+    margin: 13px;
+    color: #333;
 }
 
     div#helpTabBody p a, div#helpTabBody p a:hover {
@@ -224,22 +276,32 @@ div#helpTabBody p span.super {
 }
 
 div#helpTabBody h3 {
-    color: #666;
-    font-size: 12px;
-    margin: 0 0 0 3px;
+    margin: 13px 0 13px 13px;
     padding: 0;
+    position: relative;
 }
 
-    div#helpTabBody h3 img {
-        position: relative;
-        top: 5px;
-    }
 
-    div#helpTabBody h3 img.close {
+
+    div#helpTabBody h3 .close {
         position: absolute;
-        right: 5px;
-        top: 7px;
-        border: 1px solid #9CD4DB;
+        right: 0;
+        top: -12px;
         cursor: pointer;
+        font: 11px Arial, sans-serif;
+        color: #666;
+        text-decoration: none;
+        padding-right: 15px;
+        background: url("/res/img/widget/CloseX_bg.png") 100% 50% no-repeat;
+    }
+*+html div#helpTabBody h3 .close {
+    top: -7px;
+}
+*html div#helpTabBody h3 .close {
+    top: -7px;
+    right: 5px;
+}
+    div#helpTabBody h3 .close:hover {
+        text-decoration: underline;
     }
 
