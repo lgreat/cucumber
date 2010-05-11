@@ -33,7 +33,7 @@
     <![CDATA[
     <script type="text/javascript">
         <!--
-        
+
          -->
     </script>
     ]]>
@@ -76,7 +76,7 @@
                         </select>
                     </span></div>
             <div id="schoolsDropdown">School:
-                    <span id="schools" style="zoom:1px;"><!-- ddfd-->
+                    <span id="schools">
                     <select id="schoolSelect" name="sid" class="selectSchool">
                         <option value="">Choose a school</option>
                     </select>
@@ -106,7 +106,7 @@
                onsubmit="return validateReview();">
 
         <input type="hidden" name="posterAsString" />
-        
+
         <h3 id="completeReview">Complete your review &amp;amp; rating</h3>
 
         <div id="parentReviewForm">
@@ -228,7 +228,7 @@
                             <div class="catRating"><gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/></div>
                         </div>
                     </li>
-                    
+
                 </ul>
 
 
@@ -241,8 +241,10 @@
                         <link:parentRatingsExplained preschool="false" target="_blank" onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &gt;</link:parentRatingsExplained>
                     </span>
 
-                    <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
+
                 </div>
+
+                <![CDATA[<div id="principalsLink" class="marginEmailField"></div>]]>
 
             </div>
 

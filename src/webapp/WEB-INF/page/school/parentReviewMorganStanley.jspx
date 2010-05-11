@@ -77,7 +77,7 @@
                         </select>
                     </span></div>
             <div id="schoolsDropdown">School:
-                    <span id="schools" style="zoom:1px;"><!-- ddfd-->
+                    <span id="schools">
                     <select id="schoolSelect" name="sid" class="selectSchool">
                         <option value="">Choose a school</option>
                     </select>

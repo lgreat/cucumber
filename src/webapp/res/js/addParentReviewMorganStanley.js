@@ -44,6 +44,8 @@ jQuery(function() {
         clearRatings('teacherAsString');
         clearRatings('parentAsString');
         clearRatings('pFacilitiesAsString');
+
+        jQuery('#principalsLink').hide();
         
         if (this.value == 'parent') {
             jQuery('.principalOrFacilityStars').show();
@@ -51,18 +53,21 @@ jQuery(function() {
             jQuery('#parentStars').show();
             jQuery('#learnMoreLinks').show();
             jQuery('#categoryRatings p').show();
+            jQuery('#principalsLink').show();
         } else if (this.value == 'student') {
             jQuery('.principalOrFacilityStars').hide();
             jQuery('#teacherStars').show();
             jQuery('#parentStars').hide();
             jQuery('#learnMoreLinks').show();
             jQuery('#categoryRatings p').show();
+            jQuery('#principalsLink').hide();
         } else {
             jQuery('.principalOrFacilityStars').hide();
             jQuery('#teacherStars').hide();
             jQuery('#parentStars').hide();
             jQuery('#learnMoreLinks').hide();
             jQuery('#categoryRatings p').hide();
+            jQuery('#principalsLink').show();
         }
     });
 });
