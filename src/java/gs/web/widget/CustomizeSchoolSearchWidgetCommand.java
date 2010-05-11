@@ -35,7 +35,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
     private int _zoom = 13;
     private String _dimensions = _width + "x" + _height;
-    private String _backgroundColor = "FFCC^^";
+    private String _backgroundColor = "FFCC66";
     private String _textColor = "0066B8";
     private String _bordersColor = "FFCC66";
     private boolean _terms;
