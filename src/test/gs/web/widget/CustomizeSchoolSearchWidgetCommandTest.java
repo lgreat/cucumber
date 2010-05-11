@@ -30,11 +30,11 @@ public class CustomizeSchoolSearchWidgetCommandTest extends TestCase{
     }
 
     public void testGetDefaultColorMapWithAddtionalColor(){
-        Map<String,String> map =_command.getDefaultColorMap("000000","0066B8");
+        Map<String,String> map =_command.getDefaultColorMap("000000","9999FF");
         assertEquals(19,map.size());
         Iterator<String> iter = map.keySet().iterator();
         assertEquals("FFFFFF",iter.next());
-        assertEquals("",map.get("0066B8"));
+        assertEquals("",map.get("9999FF"));
     }
 
 

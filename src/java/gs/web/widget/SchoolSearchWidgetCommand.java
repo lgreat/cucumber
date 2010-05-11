@@ -24,8 +24,8 @@ public class SchoolSearchWidgetCommand {
     private boolean _highFilterChecked = true;
     private int _width = 290;
     private int _height = 346;
-    private String _textColor = "0066b8";
-    private String _bordersColor = "ffcc66";
+    private String _textColor = "0066B8";
+    private String _bordersColor = "FFCC66";
     private float _lat;
     private float _lon;
     private float _locationMarkerLat;

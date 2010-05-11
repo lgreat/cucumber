@@ -35,9 +35,9 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
     private int _zoom = 13;
     private String _dimensions = _width + "x" + _height;
-    private String _backgroundColor = "ffcc66";
-    private String _textColor = "0066b8";
-    private String _bordersColor = "ffcc66";
+    private String _backgroundColor = "FFCC^^";
+    private String _textColor = "0066B8";
+    private String _bordersColor = "FFCC66";
     private boolean _terms;
     private String _widgetCode;
     private String _uniqueId;
@@ -52,25 +52,24 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
             }
         });
 
-        _defaultColorMap.put("ffffff", "");
-        _defaultColorMap.put("bdcfef", "");
-        _defaultColorMap.put("c6c6c6", "");
+        _defaultColorMap.put("FFFFFF", "");
+        _defaultColorMap.put("BDCFEF", "");
         _defaultColorMap.put("000000", "");
-        _defaultColorMap.put("8cafa", "");
+        _defaultColorMap.put("82CAFA", "");
         _defaultColorMap.put("999999", "");
-        _defaultColorMap.put("bbdd66", "");
-        _defaultColorMap.put("ee8888", "");
-        _defaultColorMap.put("0066b8", "");
-        _defaultColorMap.put("66ccff", "");
-        _defaultColorMap.put("ccbbcc", "");
-        _defaultColorMap.put("ffcc99", "");
-        _defaultColorMap.put("f4891d", "");
+        _defaultColorMap.put("BBDD66", "");
+        _defaultColorMap.put("EE8888", "");
+        _defaultColorMap.put("0066B8", "");
+        _defaultColorMap.put("66CCFF", "");
+        _defaultColorMap.put("CCBBCC", "");
+        _defaultColorMap.put("FFEE99", "");
+        _defaultColorMap.put("FF9977", "");
         _defaultColorMap.put("595959", "");
-        _defaultColorMap.put("99bbcc", "");
+        _defaultColorMap.put("99BBCC", "");
         _defaultColorMap.put("993333", "");
-        _defaultColorMap.put("114499", "");
+        _defaultColorMap.put("004488", "");
         _defaultColorMap.put("998899", "");
-        _defaultColorMap.put("ffdd00", "");
+        _defaultColorMap.put("FFDD00", "");
     }
 
     public String getSearchQuery() {
@@ -190,16 +189,16 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public Map<String, String> getBackgroundColorOptions() {
-        return getDefaultColorMap("ffcc66",_backgroundColor.trim());
+        return getDefaultColorMap("FFCC66",_backgroundColor.trim());
     }
 
     public Map<String, String> getTextColorOptions() {
-        return getDefaultColorMap("0066b8",_textColor.trim());
+        return getDefaultColorMap("0066B8",_textColor.trim());
 
     }
 
     public Map<String, String> getBordersColorOptions() {
-        return getDefaultColorMap("ffcc66",_bordersColor.trim());
+        return getDefaultColorMap("FFCC66",_bordersColor.trim());
     }
 
     //This method is used to compare the colors so that the colors are ordered from white to black
