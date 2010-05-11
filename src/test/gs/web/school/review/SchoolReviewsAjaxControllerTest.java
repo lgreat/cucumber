@@ -339,4 +339,57 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
     }
 
+    public void testExistingReviewRatingUpdated() throws Exception {
+        Review r = new Review();
+        r.setComments("old comment");
+        r.setQuality(CategoryRating.RATING_4);
+        r.setParents(CategoryRating.RATING_4);
+        r.setPrincipal(CategoryRating.RATING_4);
+        r.setSubmitter("dlee");
+
+        _command.setComments("new comments");
+        _command.setOverall(CategoryRating.RATING_1);
+        _command.setTeacher(CategoryRating.RATING_1);
+        _command.setParent(CategoryRating.RATING_1);
+        _command.setPrincipal(CategoryRating.RATING_1);
+        _command.setPoster(Poster.PARENT);
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
+        replay(_reviewDao);
+
+        _controller.setReviewDao(_reviewDao);
+
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
+
+        assertEquals(_command.getComments(), review2.getComments());
+        assertEquals(CategoryRating.RATING_1, review2.getQuality());
+        assertEquals(CategoryRating.RATING_1, review2.getParents());
+        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
+        assertEquals(CategoryRating.RATING_1, review2.getPrincipal());
+
+        verify(_reviewDao);
+    }
+
+    public void testExistingReviewRatingUpdatedForStudents() throws Exception {
+        Review r = new Review();
+        r.setComments("old comment");
+        r.setTeachers(CategoryRating.RATING_4);
+        r.setSubmitter("dlee");
+
+        _command.setComments("new comments");
+        _command.setTeacher(CategoryRating.RATING_1);
+        _command.setPoster(Poster.STUDENT);
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
+        replay(_reviewDao);
+
+        _controller.setReviewDao(_reviewDao);
+
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
+
+        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
+
+        verify(_reviewDao);
+    }
+
 }

@@ -337,33 +337,33 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
 
             if (Poster.PARENT.equals(poster)) {
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+                if (command.getTeacherAsString() != null) {
                     review.setPTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
                 }
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getParentAsString()) && command.getParentAsString() != null) {
+                if (command.getParentAsString() != null) {
                     review.setPParents(CategoryRating.getCategoryRating(command.getParentAsString()));
                 }
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPFacilitiesAsString()) && command.getPFacilitiesAsString() != null) {
+                if (command.getPFacilitiesAsString() != null) {
                     review.setPFacilities(CategoryRating.getCategoryRating(command.getPFacilitiesAsString()));
                 }
             }
         } else {
-            if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverallAsString()) && command.getOverallAsString() != null) {
+            if (command.getOverallAsString() != null) {
                 review.setQuality(CategoryRating.getCategoryRating(command.getOverallAsString()));
             }
 
             if (Poster.PARENT.equals(poster)) {
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+                if (command.getTeacherAsString() != null) {
                     review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
                 }
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getParentAsString()) && command.getParentAsString() != null) {
+                if (command.getParentAsString() != null) {
                     review.setParents(CategoryRating.getCategoryRating(command.getParentAsString()));
                 }
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getPrincipalAsString()) && command.getPrincipalAsString() != null) {
+                if (command.getPrincipalAsString() != null) {
                     review.setPrincipal(CategoryRating.getCategoryRating(command.getPrincipalAsString()));
                 }
-            } else if (Poster.TEACHER.equals(poster)) {
-                if (!CategoryRating.DECLINE_TO_STATE.equals(command.getTeacherAsString()) && command.getTeacherAsString() != null) {
+            } else if (Poster.STUDENT.equals(poster)) {
+                if (command.getTeacherAsString() != null) {
                     review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
                 }
             }
