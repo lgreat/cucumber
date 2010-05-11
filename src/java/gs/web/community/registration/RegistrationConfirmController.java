@@ -144,7 +144,6 @@ public class RegistrationConfirmController extends AbstractController implements
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 Map<String,String> emailAttributes = new HashMap<String,String>();
                 emailAttributes.put("schoolName", reviewedSchool.getName());
-                emailAttributes.put("firstName", user.getFirstName());
                 emailAttributes.put("HTML__review", "<p>" + anUpgradedReview.getComments() + "</p>");
 
                 StringBuffer reviewLink = new StringBuffer("<a href=\"");

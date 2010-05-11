@@ -215,7 +215,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         if (reviewPosted && (!isNewUser)) {
             Map<String,String> emailAttributes = new HashMap<String,String>();
             emailAttributes.put("schoolName", school.getName());
-            emailAttributes.put("firstName", user.getFirstName());
             emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
 
             StringBuffer reviewLink = new StringBuffer("<a href=\"");
