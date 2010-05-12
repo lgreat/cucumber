@@ -221,7 +221,7 @@
 
         <div class="ryh-topsection">
             <div class="${ryhTitle} rnd8">
-                <div id="rhy-downArrow-fff"><!--do not collapse--></div>
+                <div class="rhy-downArrow-fff"><!--do not collapse--></div>
                 <link:discussion discussionId="${discussion.id}"
                                  fullUri="${discussion.discussionBoard.fullUri}"
                                  styleClass="title2-d61 ryh-discussion-title">${discussion.title}
