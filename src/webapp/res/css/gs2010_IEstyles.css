@@ -437,7 +437,6 @@ body.ie6 a.ui-dialog-titlebar-close {
 
 body.ie6 .ui-dialog-content h2 span {
     position: relative;
-    top: -27px;
 }
 
 body.ie6 #joinHover.ui-dialog-content h2 span {
