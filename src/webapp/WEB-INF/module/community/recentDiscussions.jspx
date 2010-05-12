@@ -45,8 +45,8 @@
 
                                         <c:if test="${not empty discussion.discussionBoard}">
                                             in
-                                            <span class="smallAlertTextNeutral">
-                                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                            <span>
+                                                <link:cmsContent styleClass="smallAlertText" contentKey="${requestScope.discussionBoard.contentKey}"
                                                                  fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
                                             </span>
                                         </c:if>
@@ -188,8 +188,8 @@
 
                                 <c:if test="${not empty discussion.discussionBoard}">
                                     in
-                                    <span class="smallAlertTextNeutral">
-                                        <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                    <span>
+                                        <link:cmsContent styleClass="smallAlertText" contentKey="${requestScope.discussionBoard.contentKey}"
                                                               fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
                                     </span>
                                 </c:if>
