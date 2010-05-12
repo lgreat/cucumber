@@ -193,10 +193,14 @@ function showResponse(x) {
         jQuery('#ratingsExplainedGradeschool').show();
     }
 
+    var studentOption = '<option value="student">student</option>';
+
     if (isHighSchoolOnly != undefined && isHighSchoolOnly) {
-        jQuery('#posterDropdown [value="student"]').show();
+        if (jQuery('#posterDropdown [value="student"]').length == 0) {
+            jQuery('#posterDropdown [value="parent"]').after(studentOption);
+        }
     } else {
-        jQuery('#posterDropdown [value="student"]').hide();
+        jQuery('#posterDropdown [value="student"]').remove();
     }
 
 }
