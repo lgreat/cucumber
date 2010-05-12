@@ -89,7 +89,7 @@
                     <tr class="required">
                         <td>key*</td>
                         <td>Your API key</td>
-                        <td>1234abc</td>
+                        <td>myAPIkey</td>
                     </tr>
                      </tbody>
                 </table>
