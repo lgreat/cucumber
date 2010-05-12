@@ -331,7 +331,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setRatingsOnReview(LevelCode schoolLevelCode, ReviewCommand command, Review review, Poster poster) {
         if (LevelCode.PRESCHOOL.equals(schoolLevelCode)) {
-            if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverallAsString()) && command.getOverallAsString() != null) {
+            if (command.getOverallAsString() != null) {
                 review.setPOverall(CategoryRating.getCategoryRating(command.getOverallAsString()));
             }
 
