@@ -33,7 +33,7 @@ public class ReportContentService extends SimpleFormController
     private IReviewDao _reviewDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
-    private static final String SCHOOL_REVIEW_DISABLED_STATUS = "u";
+    private static final String SCHOOL_REVIEW_DISABLED_STATUS = "d";
 
     public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, 
                               ReportedEntity.ReportedEntityType type, String reason) {
