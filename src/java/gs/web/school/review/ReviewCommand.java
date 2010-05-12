@@ -298,6 +298,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public void setParentAsString(String parentAsString) {
+        System.out.println("setting parent as string as" +parentAsString);
         _parent = CategoryRating.getCategoryRating(parentAsString);
     }
 
@@ -368,7 +369,13 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public void setPFacilitiesAsString(String rating) {
+        System.out.println("setting facilities as string as" +rating);
         _pFacilities = CategoryRating.getCategoryRating(rating);
+    }
+
+    //Spring camelcases the form attribute pFacilitiesAsString to pFacilitiesAsString and looks for setpFacilitesAsString
+    public void setpFacilitiesAsString(String rating) {
+        setPFacilitiesAsString(rating);
     }
 
     public String getPSafetyAsString() {
