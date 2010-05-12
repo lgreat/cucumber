@@ -21,7 +21,9 @@
 
 <c:if test="${not empty discussion}">
 
+<![CDATA[
 <script type="text/javascript">
+<!--
     var $j = jQuery;
     $j(function() {
         var ryhAnswerCharacterLimit = 250;
@@ -35,7 +37,6 @@
 
             var text = $j('#' + textid).val();
             var textlength = text.length;
-            <![CDATA[
             if (textlength > limit) {
                 $j('#' + textid).val(text.substring(0, limit));
                 return false;
@@ -45,7 +46,6 @@
                                           (limit - textlength == 1 ? '' : 's') + ' left.');
                 return true;
             }
-            ]]>
         }
 
         // Set up the hook
@@ -62,7 +62,7 @@
                 return false;
             }
 
-            if (body.length &lt; 5) {
+            if (body.length < 5) {
                 alert("Please enter at least 5 characters for your reply.");
                 return false;
             }
@@ -77,7 +77,7 @@
                             newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
                             $j('.recentAnswers').prepend(newRyhPost.children());
                             var numRecent = $j('.recentAnswers .ryh-reply').size();
-                            if (numRecent &gt; ${ryhMaxNumReplies}) {
+                            if (numRecent > ${ryhMaxNumReplies}) {
                                 $j('.recentAnswers .ryh-reply:last').remove();
                                 $j('.recentAnswers br.clearfloat:last').remove();
                             }
@@ -111,7 +111,7 @@
             var container = $j(this).parents('.db_replyContainer');
             var reply = container.children('.db_reply_full');
             var body = reply.children('.replyBody').html();
-            body = body.replace(/\&lt;br[^&gt;]*\&gt;/gi, '\n');
+            body = body.replace(/\<br[^>]*\>/gi, '\n');
             body = unescapeHTML(body);
             var replyId = reply.children('.replyId').text();
             var replyForm = $j('.replyForm:first form').clone();
@@ -182,7 +182,9 @@
         //</c:if>
 
     });
+    //-->
 </script>
+]]>
 
 <div id="raise-your-hand" class="mod">
 
@@ -371,7 +373,7 @@
                         <!-- end ryh-avatar -->
 
                         <div class="${replyText} fltlft rnd8">
-                            <div id="${replyArrow}"><!--do not collapse--></div>
+                            <div class="${replyArrow}"><!--do not collapse--></div>
 
                             <link:userProfile user="${user}">
                                 <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
@@ -435,7 +437,7 @@
                         <!-- end ryh-avatar -->
 
                         <div class="${replyText} fltlft rnd8">
-                            <div id="${replyArrow}"><!--do not collapse--></div>
+                            <div class="${replyArrow}"><!--do not collapse--></div>
                             <p class="fltlft">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">

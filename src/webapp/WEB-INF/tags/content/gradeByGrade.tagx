@@ -7,7 +7,9 @@
         >
     <jsp:directive.tag body-content="scriptless"/>
 
+    <![CDATA[
     <script type="text/javascript">
+    <!--
     var myLevels = new Array('p', 'k', '1', '2', '3', '4', '5', 'm', 'h');
     var selectedLevel = myLevels[Math.floor(Math.random() * 9)];
     jQuery(function() {
@@ -54,16 +56,16 @@
         var tabh = jQuery('.gbg-tab-h');
         
         //jQuery('#gbgTabs li') {
-            // TODO-RANDALL extract last character from the current li's class, e.g. for gbg-tab-p -- get the p
+            // extract last character from the current li's class
             var tabPosition = Math.round(tabp.position().left);
             var tabWidth = Math.round(tabp.outerWidth(true));
-            // TODO-RANDALL put posp into an array
+            // put posp into an array
             var posp = tabsPosition + tabPosition;
-            // TODO-RANDALL put tabpMarkerPosition into another array
+            // put tabpMarkerPosition into another array
             var tabpMarkerPosition = tabsPosition + tabPosition + (tabWidth / 2);
             //console.log('posp: '+posp);
             //console.log('tabpMarkerPosition: '+tabpMarkerPosition);
-            // TODO-RANDALL use #gbg-marker- then, add last character extracted from class in line 1
+            // use #gbg-marker- then, add last character extracted from class in line 1
             jQuery('#gbg-marker-p').attr('style', 'left:' + tabpMarkerPosition + 'px;');
         //}
 
@@ -190,42 +192,42 @@
         // Set handle position, content, and tab after handle drag
         var setHandlePosition = function() {
             //console.log('newpos: '+newpos);
-            switch (newpos &gt;= minpos  &amp;&amp; newpos &lt;= maxpos)
+            switch (newpos >= minpos && newpos <= maxpos)
                 //switch (true)
                     {
-                case (newpos &gt;= posp &amp;&amp; newpos &lt; pospk):
+                case (newpos >= posp && newpos < pospk):
                     newpos = tabpMarkerPosition - (theHandleWidth / 2);
                     selectedLevel = 'p';
                     break;
-                case (newpos &gt;= pospk &amp;&amp; newpos &lt; posk1):
+                case (newpos >= pospk && newpos < posk1):
                     newpos = tabkMarkerPosition - (theHandleWidth / 2);
                     selectedLevel = 'k';
                     break;
-                case (newpos &gt;= posk1 &amp;&amp; newpos &lt; pos12):
+                case (newpos >= posk1 && newpos < pos12):
                     newpos = tab1MarkerPosition - (theHandleWidth / 2);
                     selectedLevel = '1';
                     break;
-                case (newpos &gt;= pos12 &amp;&amp; newpos &lt; pos23):
+                case (newpos >= pos12 && newpos < pos23):
                     newpos = tab2MarkerPosition - (theHandleWidth / 2);
                     selectedLevel = '2';
                     break;
-                case (newpos &gt;= pos23 &amp;&amp; newpos &lt; pos34):
+                case (newpos >= pos23 && newpos < pos34):
                     newpos = tab3MarkerPosition - (theHandleWidth / 2);
                     selectedLevel = '3';
                     break;
-                case (newpos &gt;= pos34 &amp;&amp; newpos &lt; pos45):
+                case (newpos >= pos34 && newpos < pos45):
                     newpos = tab4MarkerPosition - (theHandleWidth / 2);
                     selectedLevel = '4';
                     break;
-                case (newpos &gt;= pos45 &amp;&amp; newpos &lt; pos5m):
+                case (newpos >= pos45 && newpos < pos5m):
                     newpos = tab5MarkerPosition - (theHandleWidth / 2);
                     selectedLevel = '5';
                     break;
-                case (newpos &gt;= pos5m &amp;&amp; newpos &lt; posmh):
+                case (newpos >= pos5m && newpos < posmh):
                     newpos = tabmMarkerPosition - (theHandleWidth / 2);
                     selectedLevel = 'm';
                     break;
-                case (newpos &gt;= posmh &amp;&amp; newpos &lt;= posh):
+                case (newpos >= posmh && newpos <= posh):
                     newpos = tabhMarkerPosition - (theHandleWidth / 2);
                     selectedLevel = 'h';
                     break;
@@ -249,10 +251,10 @@
             //console.log(e.clientX);
             newpos = e.pageX - (theHandleWidth / 2) - sliderPositionLeft;
             //console.log('newpos: '+newpos);
-            if (newpos &lt; minpos) {
+            if (newpos < minpos) {
                 newpos = minpos;
             }
-            if (newpos &gt; maxpos) {
+            if (newpos > maxpos) {
                 newpos = maxpos;
             }
             //console.log('newpos: '+newpos);
@@ -290,16 +292,18 @@
             //console.log(e.clientX);
             newpos = e.pageX - (theHandleWidth / 2) - sliderPositionLeft;
             //console.log('newpos: '+newpos);
-            if (newpos &lt; minpos) {
+            if (newpos < minpos) {
                 newpos = minpos;
             }
-            if (newpos &gt; maxpos) {
+            if (newpos > maxpos) {
                 newpos = maxpos;
             }
             setHandlePosition();
         });
     });
+    //-->
     </script>
+    ]]>
 
     <div id="grade-by-grade" class="mod">
         <div class="mod_bd">
@@ -310,20 +314,20 @@
             <!-- end gbgTop -->
             <div id="gbgTabs">
                 <ul>
-                    <li class="gbg-tab-p"><a href="#" hideFocus="true">Preschool</a></li>
-                    <li class="gbg-tab-k"><a href="#" hideFocus="true">Kindergarten</a></li>
-                    <li class="gbg-tab-1"><a href="#" hideFocus="true">1st</a></li>
-                    <li class="gbg-tab-2"><a href="#" hideFocus="true">2nd</a></li>
-                    <li class="gbg-tab-3"><a href="#" hideFocus="true">3rd</a></li>
-                    <li class="gbg-tab-4"><a href="#" hideFocus="true">4th</a></li>
-                    <li class="gbg-tab-5"><a href="#" hideFocus="true">5th</a></li>
-                    <li class="gbg-tab-m"><a href="#" hideFocus="true">Middle School</a></li>
-                    <li class="gbg-tab-h"><a href="#" hideFocus="true">High School</a></li>
+                    <li class="gbg-tab-p"><a href="#">Preschool</a></li>
+                    <li class="gbg-tab-k"><a href="#">Kindergarten</a></li>
+                    <li class="gbg-tab-1"><a href="#">1st</a></li>
+                    <li class="gbg-tab-2"><a href="#">2nd</a></li>
+                    <li class="gbg-tab-3"><a href="#">3rd</a></li>
+                    <li class="gbg-tab-4"><a href="#">4th</a></li>
+                    <li class="gbg-tab-5"><a href="#">5th</a></li>
+                    <li class="gbg-tab-m"><a href="#">Middle School</a></li>
+                    <li class="gbg-tab-h"><a href="#">High School</a></li>
                 </ul>
             </div>
             <!-- end gbgTabs -->
             <div id="gbgSlider">
-                <div id="gbgHandle" hideFocus="true"><!-- do not collapse --></div>
+                <div id="gbgHandle"><!-- do not collapse --></div>
                 <span id="gbg-marker-p"><!-- do not collapse --></span>
                 <span id="gbg-marker-k"><!-- do not collapse --></span>
                 <span id="gbg-marker-1"><!-- do not collapse --></span>

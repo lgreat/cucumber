@@ -163,8 +163,8 @@
                         <c:set var="featureLinkTarget" value="_self"/>
                     </c:otherwise>
                 </c:choose>
-                <a href="${featureLink.url}" target="${featureLinkTarget}">
-                    <img src="${homepage.featureLinks[status.index].imageUrl}"
+                <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
+                    <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
                          width="584"
                          height="288"
                          alt="${homepage.featureLinks[status.index].imageAltText}"/>
@@ -186,16 +186,16 @@
                 </c:choose>
 
                 <h2 class="headline">
-                    <a href="${featureLink.url}"
+                    <a href="${fn:escapeXml(featureLink.url)}"
                        target="${featureLinkTarget}">${featureLink.title}</a>
                 </h2>
 
                 <p>
                     <a class="text3"
-                       href="${featureLink.url}"
+                       href="${fn:escapeXml(featureLink.url)}"
                        target="${featureLinkTarget}">${featureLink.description}</a>
                     <a class="link"
-                       href="${featureLink.url}"
+                       href="${fn:escapeXml(featureLink.url)}"
                        target="${featureLinkTarget}"> ${featureLink.linkText} <span
                             class="alertdblarrow">&amp;raquo;</span></a>
                 </p>
@@ -204,15 +204,15 @@
             <c:if test="${fn:length(homepage.featureLinks) gt 1}">
                 <div id="nav">
                     <ul>
-                        <li id="prev" class="prev-position" hideFocus="true"><!--do not collapse --></li>
+                        <li id="prev" class="prev-position"><!--do not collapse --></li>
                     </ul>
                     <ul id="buttons">
                         <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                            <li id="${status.index + 1}" class="off" hideFocus="true">${status.index + 1}</li>
+                            <li id="carouselSlide${status.index + 1}" class="off">${status.index + 1}</li>
                         </c:forEach>
                     </ul>
                     <ul>
-                        <li id="next" class="next-position" hideFocus="true"><!--do not collapse --></li>
+                        <li id="next" class="next-position"><!--do not collapse --></li>
                     </ul>
                 </div>
                 <!--nav -->

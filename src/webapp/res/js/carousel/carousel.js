@@ -117,7 +117,8 @@ $j(document).ready(function() {
 
     // change button state
     $j('#buttons li').click(function() {
-        i = $j(this).attr('id');
+        var id = $j(this).attr('id');
+        i = id.replace('carouselSlide','');
         $j('#buttons li').removeClass('on');
         $j('#buttons li').addClass('off');
         $j(this).removeClass('off');

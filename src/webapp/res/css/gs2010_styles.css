@@ -1473,7 +1473,7 @@ body.ie6 .clearfix {
 /* =4a-4 raise your hand
 -------------------------------------------------------------------------------------------*/
 
-#rhy-downArrow-fff {
+.rhy-downArrow-fff {
     font-size: 0;
     line-height: 0%;
     width: 0;
@@ -1486,7 +1486,7 @@ body.ie6 .clearfix {
     filter: alpha(opacity = 100);
 }
 
-#rhy-replyArrow-fff {
+.rhy-replyArrow-fff {
     font-size: 0;
     line-height: 0%;
     width: 0;
@@ -1500,7 +1500,7 @@ body.ie6 .clearfix {
     filter: alpha(opacity = 100);
 }
 
-#rhy-replyArrow-fff-onTC {
+.rhy-replyArrow-fff-onTC {
     font-size: 0;
     line-height: 0%;
     width: 0;
