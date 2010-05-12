@@ -48,8 +48,8 @@
             jQuery('.dialogCancelButton').click(function() {
                 <c:choose>
                    <c:when test="${not empty cancelClears and cancelClears}">
-                      jQuery(".titleInput input").val('');
-                      jQuery(".bodyInput textarea").val('');
+                      jQuery(".titleInput").val('');
+                      jQuery(".bodyInput").val('');
                    </c:when>
                    <c:otherwise>
                       parent.GS.closeDialogs();
@@ -59,11 +59,11 @@
 
             jQuery('.previewButton').click(function() {
                 if (validPost()) {
-                    var previewBody = escapeHTML(jQuery(".bodyInput textarea").val());
+                    var previewBody = escapeHTML(jQuery(".bodyInput").val());
                     <![CDATA[
                     previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
                     ]]>
-                    var previewTitle = escapeHTML(jQuery(".titleInput input").val());
+                    var previewTitle = escapeHTML(jQuery(".titleInput").val());
                     <c:choose>
                        <c:when test="${empty useParentForPreviewButton or useParentForPreviewButton}">
                          parent.GS.previewDiscussionHover.open(previewBody, previewTitle);
@@ -81,8 +81,8 @@
             });
 
             function validPost() {
-                var title = escapeHTML(jQuery(".titleInput input").val());
-                var body = escapeHTML(jQuery(".bodyInput textarea").val());
+                var title = escapeHTML(jQuery(".titleInput").val());
+                var body = escapeHTML(jQuery(".bodyInput").val());
 
                 if (title == '' &amp;&amp; body == '') {
                     alert("Please enter a title and details for your discussion.");
@@ -116,7 +116,16 @@
                 return html.replace(/\&amp;/g, '&amp;amp;').replace(/\&lt;/g, '&amp;lt;');
             }
 
-            parent.GS.previewDiscussionHover.init({
+            //<c:if test="${requestScope.context.user ne null}">
+
+            <c:choose>
+                <c:when test="${empty useParentForPreviewButton or useParentForPreviewButton}">
+                    parent.GS.previewDiscussionHover.init({
+                </c:when>
+                <c:otherwise>
+                    GS.previewDiscussionHover.init({
+                </c:otherwise>
+            </c:choose>
                 editFunc: function() {},
                 postFunc: function() {
                     <c:choose>
@@ -130,6 +139,8 @@
 
                 }
             });
+
+            //</c:if>
         });
     </script>
     <div id="startADiscussion">
@@ -195,7 +206,7 @@
 
                     <li>
                         <label for="titleInput" class="text2bold tint_333">Title</label>
-                        <input id="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
+                        <input id="titleInput" class="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
                     </li>
                     <li>
                         <label for="bodyInput" class="text2bold tint_333">Details</label>

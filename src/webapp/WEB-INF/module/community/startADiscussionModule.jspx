@@ -8,7 +8,7 @@
 
     <script type="text/javascript">
         jQuery(function() {
-            jQuery('.startADiscussionModuleForm .bodyInput textarea, .startADiscussionModuleForm .titleInput input').click(function() {
+            jQuery('.startADiscussionModuleForm .bodyInput, .startADiscussionModuleForm .titleInput').click(function() {
                 if (GS.showJoinHover('${requestScope.user.email}', window.location.href, GSType.hover.joinHover.showJoinPostComment)) {
                     // do nothing if they're already signed in
                 }
