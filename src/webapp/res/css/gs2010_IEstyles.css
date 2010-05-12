@@ -24,9 +24,16 @@ General comments:
 =4a-5 grade by grade
 =4c-3 infinite carousel
 =4c-5 talk about it
+=4c-5.1 start a conversation
+=4c-5.2 preview a conversation
 =4c-6 elementary schools grade by grade
+=4d-3 community avatar hover
+=4f-1 school profile
+=4h- inline sign-in
+=4i-2 manage newsletters
 =5- icons
 =9- buttons
+=10- grids
 =debugging styles
 =temporary modules
 */
@@ -909,6 +916,13 @@ body.ie6 #es-gbgTabs .selected a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
 }
 
+/* =4d-3 community avatar hover
+-------------------------------------------------------------------------------------------*/
+
+body.hover #standardAvatarForm input{
+    left:35px;
+}
+
 /* =4f-1 school profile
 -------------------------------------------------------------------------------------------*/
 
@@ -984,6 +998,24 @@ body.ie6 .sprite {
 
 *html .lftDoor25 .rtDoor25.nowrap-hpc{
     width:170px;
+}
+
+/* =10- grids
+-------------------------------------------------------------------------------------------*/
+
+.line, .lastUnit {
+    _overflow: visible;
+    _zoom: 1;
+}
+
+.unit {
+    _zoom: 1;
+}
+
+.lastUnit {
+    _position: relative;
+    _left: -3px;
+    _margin-right: -3px;
 }
 
 /* =debugging styles

@@ -71,7 +71,7 @@
     <div id="uploadAvatarHover" style="display:none;">
         <iframe src="" id="uploadAvatarIFrame"
                 name="uploadAvatarIFrame"
-                frameborder="0" height="445" width="609" scrolling="no"
+                frameborder="0" height="445" width="645" scrolling="no"
                 marginheight="0" marginwidth="0"><!-- don't collapse --></iframe>
     </div>
 </jsp:root>

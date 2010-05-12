@@ -29,10 +29,7 @@
 <head>
     <title>${requestScope.pageHeading} | GreatSchools</title>
     <meta name="keywords" content=""/>
-    <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
-    <![CDATA[<!--[if !IE]>]
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>
-    <![endif]-->]]>
+
     <script type="text/javascript">
         $(function() {
             //<c:if test = "${requestScope.canEditMember}" >
