@@ -150,6 +150,7 @@ public class RegistrationConfirmController extends AbstractController implements
                 UrlBuilder urlBuilder = new UrlBuilder(reviewedSchool, UrlBuilder.SCHOOL_PARENT_REVIEWS);
                 urlBuilder.addParameter("lr", "true");
                 reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(anUpgradedReview.getId());
+                reviewLink.append("\">your review</a>");
 
                 emailAttributes.put("HTML__reviewLink", reviewLink.toString());
                 _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",user, emailAttributes);
