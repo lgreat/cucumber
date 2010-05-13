@@ -54,6 +54,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
 
         User reportee = null;
         Integer authorId;
+        boolean checkForReporteeUserProfile = true;
         if (command.getType() == ReportedEntity.ReportedEntityType.discussion ||
                 command.getType() == ReportedEntity.ReportedEntityType.reply) {
             UserContent uc = _userContentDao.findById(command.getContentId());
@@ -69,6 +70,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
                 return null;
             }
             authorId = review.getUser().getId();
+            checkForReporteeUserProfile = false;
         } else {
             _log.warn("Unknown report content type: " + command.getType());
             return null;
@@ -85,13 +87,13 @@ public class ReportContentAjaxController extends SimpleFormController implements
             // reportee stays null
         }
 
-        if (reportee == null || reportee.getUserProfile() == null) {
+        if (reportee == null || (checkForReporteeUserProfile && reportee.getUserProfile() == null)) {
             _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");
             return null;
         }
         _reportContentService.reportContent(reporter, reportee, request, command.getContentId(),
                                             command.getType(), command.getReason());
-        
+
         return null;
     }
 

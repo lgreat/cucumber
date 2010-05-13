@@ -1,5 +1,7 @@
 package gs.web.community;
 
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
@@ -19,6 +21,7 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private IReportContentService _reportContentService;
     private IUserContentDao _userContentDao;
+    private IReviewDao _reviewDao;
 
     @Override
     public void setUp() throws Exception {
@@ -29,24 +32,27 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
         _userDao = createStrictMock(IUserDao.class);
         _userContentDao = createStrictMock(IUserContentDao.class);
         _reportContentService = createStrictMock(IReportContentService.class);
+        _reviewDao = createStrictMock(IReviewDao.class);
 
         _controller.setReportContentService(_reportContentService);
         _controller.setUserDao(_userDao);
         _controller.setUserContentDao(_userContentDao);
+        _controller.setReviewDao(_reviewDao);
         getRequest().setServerName("localhost");
     }
 
     public void replayAllMocks() {
-        replayMocks(_reportContentService, _userDao, _userContentDao);
+        replayMocks(_reportContentService, _userDao, _userContentDao, _reviewDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_reportContentService, _userDao, _userContentDao);
+        verifyMocks(_reportContentService, _userDao, _userContentDao, _reviewDao);
     }
 
     public void testBasics() {
         assertSame(_userDao, _controller.getUserDao());
         assertSame(_userContentDao, _controller.getUserContentDao());
+        assertSame(_reviewDao, _controller.getReviewDao());
         assertSame(_reportContentService, _controller.getReportContentService());
     }
 
@@ -84,6 +90,48 @@ public class ReportContentAjaxControllerTest extends BaseControllerTestCase {
 
             _controller.onSubmit(getRequest(), getResponse(), command, null);
         } catch (Exception e) {
+            fail("ReportContentAjaxController should not throw exception: " + e.getMessage());
+        }
+
+        verifyAllMocks();
+    }
+
+    public void testReportSchoolReviewForReporteeWithoutUserProfile() {
+        ReportContentCommand command = new ReportContentCommand();
+        command.setContentId(1);
+        command.setReason("no reason");
+        command.setReporterId(18283);
+        command.setType(ReportedEntity.ReportedEntityType.schoolReview);
+
+        User reporter = new User();
+        reporter.setId(18283);
+        reporter.setUserProfile(new UserProfile());
+
+        Review offensiveContent = new Review();
+        offensiveContent.setId(5);
+        offensiveContent.setMemberId(99);
+
+        User reportee = new User();
+        reportee.setId(offensiveContent.getMemberId());
+        reportee.setEmail("fido@greatschools.org");
+
+        offensiveContent.setUser(reportee);
+
+        expect(_reviewDao.getReview(command.getContentId())).andReturn(offensiveContent);
+        expect(_userDao.findUserFromId(reportee.getId())).andReturn(reportee);
+
+        _reportContentService.reportContent(reporter, reportee, getRequest(), command.getContentId(), command.getType(), command.getReason());
+        replayAllMocks();
+        try {
+            SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
+            sc.setUser(reporter);
+            String hash = AuthenticationManager.generateCookieValue(reporter);
+            sc.setHostName("dev.greatschools.org");
+            getRequest().setCookies(new Cookie[] {new Cookie("community_dev", hash)});
+
+            _controller.onSubmit(getRequest(), getResponse(), command, null);
+        } catch (Exception e) {
+            e.printStackTrace();
             fail("ReportContentAjaxController should not throw exception: " + e.getMessage());
         }
 
