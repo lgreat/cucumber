@@ -145,15 +145,21 @@
                 <td colspan="2">
                     <c:if test="${fn:length(links) > 0}">
                         <ul class="linkList">
-                            <c:forEach var="anchor" items="${links}">
+                            <c:forEach var="anchor" items="${links}" varStatus="status">
+                                <!--<li><c:out value="${fn:startsWith(fn:toLowerCase(fn:trim(anchor.contents)),'more')}" default="not set"/></li>-->
                                 <c:choose>
-                                    <c:when test="${not empty anchor.href}">
+                                    <c:when test="${not empty anchor.href and not fn:startsWith(fn:toLowerCase(fn:trim(anchor.contents)),'more')}">
                                         <li><a class="${anchor.styleClass}"
                                                href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a></li>
                                     </c:when>
+                                    <c:when test="${not empty anchor.href and fn:startsWith(fn:toLowerCase(fn:trim(anchor.contents)),'more')}">
+                                        <li class="lastone"><a class="${anchor.styleClass}"
+                                                               href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a>
+                                        </li>
+                                    </c:when>
                                     <c:otherwise>
-                                        <li class="break">
-                                            <hr/>
+                                        <li class="nocontent">
+                                        <hr class="break"/>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>

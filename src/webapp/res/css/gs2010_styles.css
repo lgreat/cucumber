@@ -4090,7 +4090,8 @@ additional icons on the sprite.
 -------------------------------------------------------------------------------------------*/
 
 #editorialFooter {
-    margin-left: 20px;
+    width:863px;
+    margin: 0 auto;
 }
 
 .blueDot #editorialFooter .content {

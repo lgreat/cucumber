@@ -21,6 +21,28 @@ div#main{
     background:url(/res/img/bg_bar_ddeeee_w204.gif) 20px 0 repeat-y;
     border-top: 15px solid #fff;
     padding: 0;
+    width:902px;
+    margin:0 auto;
+}
+
+#contentGS ul.linkList li{
+    list-style:disc outside none;
+    color:#d61;
+    margin-left:10px;
+}
+
+body.ie7 #contentGS ul.linkList li, body.ie6 #contentGS ul.linkList li{
+    margin-left:15px;
+}
+
+body.ie7 #contentGS ul.linkList li.nocontent, body.ie6 #contentGS ul.linkList li.nocontent{
+    margin:0;
+    font-size: 1px;
+    line-height: 0;
+}
+
+#contentGS ul.linkList li.lastone, #contentGS ul.linkList li.nocontent{
+    list-style:none outside none;
 }
 
 .contentGS ul.linkList li {
@@ -58,7 +80,7 @@ ul.linkList hr {
     border-right:0;
 }
 
-select {
+.findBox select {
     font-family:Arial,Arial,sans-serif;
     border:1px solid #999999;
     font-size:11px;
