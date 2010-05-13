@@ -42,7 +42,6 @@ General comments:
 =4d- community join hovers
 =4d-1 search styles
 =4d-2 community start a conversation hovers
-=4d-3 community avatar hover
 =4e- about pages
 =4e-5 about sponsors
 =4e-6 data and widgets
@@ -61,7 +60,6 @@ General comments:
 =7a- recentLocalDiscussions
 =8- footer
 =9- buttons
-=10- grids
 =debugging styles
 =temporary modules
 */
@@ -936,6 +934,46 @@ body.cobranded #pageGS {
     padding-left: 2px;
 }
 
+.size1of1 {
+    float: none;
+}
+
+.size1of2 {
+    width: 50%;
+}
+
+.size1of3 {
+    width: 33.33333%;
+}
+
+.size2of3 {
+    width: 66.66666%;
+}
+
+.size1of4 {
+    width: 25%;
+}
+
+.size3of4 {
+    width: 75%;
+}
+
+.size1of5 {
+    width: 20%;
+}
+
+.size2of5 {
+    width: 40%;
+}
+
+.size3of5 {
+    width: 60%;
+}
+
+.size4of5 {
+    width: 80%;
+}
+
 #topicContentGS {
 }
 
@@ -1043,17 +1081,6 @@ body.cobranded #pageGS {
     height: 40px;
     font-size: 1px;
     line-height: 40px;
-}
-
-.spacer_60 {
-    clear: both;
-    height: 60px;
-    font-size: 1px;
-    line-height: 60px;
-}
-
-.dotted {
-    border: 1px dotted #333;
 }
 
 .brdbtm_dotted {
@@ -1473,7 +1500,7 @@ body.ie6 .clearfix {
 /* =4a-4 raise your hand
 -------------------------------------------------------------------------------------------*/
 
-.rhy-downArrow-fff {
+#rhy-downArrow-fff {
     font-size: 0;
     line-height: 0%;
     width: 0;
@@ -1486,7 +1513,7 @@ body.ie6 .clearfix {
     filter: alpha(opacity = 100);
 }
 
-.rhy-replyArrow-fff {
+#rhy-replyArrow-fff {
     font-size: 0;
     line-height: 0%;
     width: 0;
@@ -1500,7 +1527,7 @@ body.ie6 .clearfix {
     filter: alpha(opacity = 100);
 }
 
-.rhy-replyArrow-fff-onTC {
+#rhy-replyArrow-fff-onTC {
     font-size: 0;
     line-height: 0%;
     width: 0;
@@ -2524,10 +2551,6 @@ body.ie6 .clearfix {
     z-index: 1;
 }
 
-.ui-dialog-title{
-    display:none;
-}
-
 a.ui-dialog-titlebar-close {
     position: absolute;
     top: 10px;
@@ -3187,84 +3210,6 @@ body.hover #startADiscussion .sd_InnerLayout {
     margin:0 10px 10px 50px;
 }
 
-/* =4d-3 community avatar hover
--------------------------------------------------------------------------------------------*/
-
-body.hover #uploadAvatarHover form{
-    margin:0;
-    padding:0;
-}
-
-.fileInput {
-    position: relative;
-    text-align: right;
-    width: 100%;
-}
-
-.fileInput label {
-    position: absolute;
-    left: 0;
-    top: 2px;
-    color: #333;
-}
-
-.fileInput .fakeFileInput {
-    width: 100%;
-}
-
-#fake_avatarFileInput {
-    position: absolute;
-    top: 0;
-    left: 34px;
-    z-index: 5;
-    width: 425px;
-}
-
-.fileInput .fakeFileInput div.filler {
-    padding: 7px;
-}
-
-#avatarFileInput {
-    position: absolute;
-    text-align: right;
-    -moz-opacity: 0;
-    filter: alpha(opacity:0);
-    opacity: 0;
-    z-index: 2;
-    left: 34px;
-    top: 0;
-    width: 520px;
-}
-
-#fake_avatarFileBrowse {
-    position: absolute;
-    top: -1px;
-    left: 475px;
-    z-index: 1;
-    padding-bottom: 3px;
-}
-
-.btnholder {
-    margin: 0;
-    padding: 0 0 0 34px;
-}
-
-#standardAvatarForm {
-    width:645px;
-}
-
-#standardAvatarForm li{
-    position:relative;
-}
-
-#standardAvatarForm input{
-    position:relative;
-    left:32px;
-    visibility:visible;
-    width:auto;
-    height:auto;
-}
-
 /* =4e- about pages
 -------------------------------------------------------------------------------------------*/
 .leftside #contentGS h1 {
@@ -3503,7 +3448,10 @@ margin:10px 0 14px 20px;
     text-align: center;
     padding-top: 20px;
 }
-
+#sidebarGS.vids #adCompanionBanner {
+    width: 300px;
+    margin: 0 auto .6em;
+}
 #watchVid .mod_hd {
     padding: 8px 0;
 }
@@ -4090,8 +4038,7 @@ additional icons on the sprite.
 -------------------------------------------------------------------------------------------*/
 
 #editorialFooter {
-    width:863px;
-    margin: 0 auto;
+    margin-left: 20px;
 }
 
 .blueDot #editorialFooter .content {
@@ -4533,62 +4480,6 @@ button {
     text-decoration: none;
     text-shadow: 1px 1px 1px #444;
     color: #fff;
-}
-
-/* =10- grids
--------------------------------------------------------------------------------------------*/
-
-.line, .lastUnit {
-    overflow: hidden;
-}
-
-.unit {
-    float: left;
-}
-
-.size1of1 {
-    float: none;
-}
-
-.size1of2 {
-    width: 50%;
-}
-
-.size1of3 {
-    width: 33.33333%;
-}
-
-.size2of3 {
-    width: 66.66666%;
-}
-
-.size1of4 {
-    width: 25%;
-}
-
-.size3of4 {
-    width: 75%;
-}
-
-.size1of5 {
-    width: 20%;
-}
-
-.size2of5 {
-    width: 40%;
-}
-
-.size3of5 {
-    width: 60%;
-}
-
-.size4of5 {
-    width: 80%;
-}
-
-.lastUnit {
-    float: none;
-    width: auto;
 }
 
 /* =debugging styles
