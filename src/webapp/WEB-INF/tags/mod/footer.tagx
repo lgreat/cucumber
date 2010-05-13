@@ -65,7 +65,7 @@
                 <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
                 <li><link:newsletterManagement
                         onclick="return GS.showJoinHover('${requestScope.context.email}', this.href, GSType.hover.joinHover.showJoinFooterNewsletter);">Newsletters</link:newsletterManagement></li>
-                <li><gsml:a href="/about/linkToUs.page">Data Widgets &#38; Tools</gsml:a></li>
+                <li><gsml:a href="/about/linkToUs.page">Data Widgets &amp;#38; Tools</gsml:a></li>
                 <li><gsml:a href="/about/partnerOpportunities.page#advertise">Advertise With Us</gsml:a></li>
                 <li><gsml:a href="/about/partnerOpportunities.page#license">Partners</gsml:a></li>
                 <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
