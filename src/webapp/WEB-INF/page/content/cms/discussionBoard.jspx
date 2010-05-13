@@ -435,7 +435,7 @@
 
 
 <c:set var="moreInContent" value="${requestScope.discussionBoard}"/>
-<c:if test="${requestScope.discussionBoard.city ne null}">
+<c:if test="${requestScope.discussionBoard.city ne null or requestScope.discussionBoard.contentKey.identifier == 2420}">
     <!-- No More In content for local boards -->
     <c:set var="moreInContent" value=""/>
 </c:if>
