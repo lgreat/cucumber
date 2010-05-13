@@ -125,6 +125,29 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
                      1, _mailSender.getSentMessages().size());
     }
 
+    public void testReportDiscussionAutoDisableMoreThan2Reports() {
+        User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
+        User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
+
+        Discussion d = new Discussion();
+        d.setId(1);
+        d.setBoardId(2l);
+        expect(_discussionDao.findById(1)).andReturn(d);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        expect(_cmsDiscussionBoardDao.get(2l)).andReturn(board);
+
+        expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.discussion, 1)).andReturn(5);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.discussion, 1, "because");
+        _discussionDao.save(d);
+        replayAllMocks();
+        _service.reportContent(reporter, reportee, getRequest(), 1,
+                               discussion, "because");
+        verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting discussion",
+                     1, _mailSender.getSentMessages().size());
+    }
+
     public void testReportDiscussionReply() {
         User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
         User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
@@ -167,6 +190,37 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_cmsDiscussionBoardDao.get(3l)).andReturn(board);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.reply, 1)).andReturn(1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1, "because");
+        _discussionReplyDao.save(reply);
+
+        expect(_discussionReplyDao.getTotalReplies(d)).andReturn(5);
+        _discussionDao.saveKeepDates(d);
+
+        replayAllMocks();
+        _service.reportContent(reporter, reportee, getRequest(), 1,
+                               ReportedEntity.ReportedEntityType.reply, "because");
+        verifyAllMocks();
+        assertEquals("Expect an email to be sent on reporting reply",
+                     1, _mailSender.getSentMessages().size());
+    }
+
+    public void testReportDiscussionReplyAutoDisableMoreThan2Reports() {
+        User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
+        User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
+
+        DiscussionReply reply = new DiscussionReply();
+        reply.setId(1);
+        Discussion d = new Discussion();
+        d.setId(2);
+        d.setBoardId(3l);
+        d.setNumReplies(5);
+        reply.setDiscussion(d);
+        expect(_discussionReplyDao.findById(1)).andReturn(reply);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        expect(_cmsDiscussionBoardDao.get(3l)).andReturn(board);
+
+        expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.reply, 1)).andReturn(5);
         _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.reply, 1, "because");
         _discussionReplyDao.save(reply);
 
@@ -224,6 +278,25 @@ public class ReportContentServiceTest extends BaseControllerTestCase {
         expect(_reviewDao.getReview(1)).andReturn(r);
 
         expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.schoolReview, 1)).andReturn(1);
+        _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.schoolReview, 1, "because");
+        _reviewDao.saveReview(r); // save the disabled review
+        replayAllMocks();
+        _service.reportContent(reporter, reportee, getRequest(), 1,
+                               schoolReview, "because");
+        verifyAllMocks();
+        assertNull("Expect no emails to be sent on reporting school reviews",
+                     _mailSender.getSentMessages());
+    }
+
+    public void testReportSchoolReviewAutoDisableMoreThan2Reports() {
+        User reporter = getUser(1, "Reporter", "reporter@greatschools.org");
+        User reportee = getUser(2, "Reportee", "reportee@greatschools.org");
+
+        Review r = new Review();
+        r.setId(1);
+        expect(_reviewDao.getReview(1)).andReturn(r);
+
+        expect(_reportedEntityDao.getNumberTimesReported(ReportedEntity.ReportedEntityType.schoolReview, 1)).andReturn(5);
         _reportedEntityDao.reportEntity(reporter, ReportedEntity.ReportedEntityType.schoolReview, 1, "because");
         _reviewDao.saveReview(r); // save the disabled review
         replayAllMocks();

@@ -46,8 +46,8 @@ public class ReportContentService extends SimpleFormController
                     if (d != null && urlToContent != null) {
                         int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
                         _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
-                        if (numTimesReported == 1) {
-                            // if this is the second time this discussion is reported, disable it
+                        if (numTimesReported >= 1) {
+                            // if this is the second (or later) time this discussion is reported, disable it
                             d.setActive(false);
                             _discussionDao.save(d);
                         }
@@ -59,8 +59,8 @@ public class ReportContentService extends SimpleFormController
                     if (reply != null && urlToContent != null) {
                         int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
                         _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
-                        if (numTimesReported == 1) {
-                            // if this is the second time this reply is reported, disable it
+                        if (numTimesReported >= 1) {
+                            // if this is the second (or later) time this reply is reported, disable it
                             reply.setActive(false);
                             _discussionReplyDao.save(reply);
 
@@ -88,8 +88,8 @@ public class ReportContentService extends SimpleFormController
                     Review review = _reviewDao.getReview(contentId);
                     int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
                     _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
-                    if (numTimesReported == 1) {
-                        // if this is the second time this review is reported, disable it
+                    if (numTimesReported >= 1) {
+                        // if this is the second (or later) time this review is reported, disable it
                         review.setStatus(SCHOOL_REVIEW_DISABLED_STATUS);
                         _reviewDao.saveReview(review);
                     }
