@@ -194,17 +194,13 @@
     height: 40px;
 }
 
-#addParentReviewForm.show {
+#addParentReviewForm {
+    display:none;
     width: 844px;
     margin: 1em auto;
     position: relative;
     left: 0;
     overflow: hidden;
-}
-
-#addParentReviewForm.hide {
-    left: -10000px;
-    position: absolute;
 }
 
 #addParentReviewForm a {

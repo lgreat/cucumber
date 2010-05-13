@@ -336,10 +336,8 @@ function reviewThisSchool() {
     if (!noError) {
         alert(errMsg);
     } else {
-        if (jQuery('#addParentReviewForm').addClass("show")) {
-            jQuery('#addParentReviewForm').removeClass("hide");
-            jQuery('#reviewThisSchoolButton').hide();
-        }
+        jQuery('#addParentReviewForm').show();
+        jQuery('#reviewThisSchoolButton').hide();
     }
 
     return false;
@@ -375,42 +373,3 @@ function GS_postSchoolReview(email, callerFormId) {
     }, "json");
 }
 
-
-/*
- function reviewThisSchool() {
- var errMsg = 'Please enter the following fields: ';
- var noError = true;
-
- if ((jQuery('userState').value == 0) || (jQuery('userState').value == 'Choose a state')) {
- jQuery('#selections .stateError').show();
- hasError = true;
- }
-
- if ((jQuery('citySelect').value == '') || (jQuery('citySelect').value == 'Choose a city')) {
- jQuery('#selections .cityError').show();
- hasError = true;
- }
-
- if ((jQuery('schoolSelect').value == '') || (jQuery('schoolSelect').value == 'Choose a school')) {
- jQuery('#selections .schoolError').show();
- hasError = true;
- }
-
- if (jQuery('#selections [name="posterAsString"]').val() == '') {
- jQuery('#selections .whoError').show();
- hasError = true;
- }
-
- if (hasError) {
- jQuery('#selections errors').hide();
- } else {
- if (jQuery('addParentReviewForm').hasClassName('hide')) {
- jQuery('addParentReviewForm').removeClassName('hide');
- jQuery('addParentReviewForm').addClassName('show');
- jQuery('reviewThisSchoolButton').style.display = 'none';
- }
- }
-
- return false;
- }
- */
