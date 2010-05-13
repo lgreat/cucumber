@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+
+    <script type="text/javascript">
+        jQuery(function() {
+
+            jQuery('#submitPrincipalConfirmation').click(function() {
+                jQuery('#principalConfirmationForm').submit();
+            });
+
+            jQuery('#principalConfirmationForm').submit(function () {
+                var agreed = jQuery('#principalConfirmationForm [name="agree"]').attr('checked');
+                jQuery('#agreeError').hide();
+
+                if (agreed) {
+                    return true;
+                } else {
+                    jQuery('#agreeError').show();
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <div id="principalConfirmationHover" style="display:none;">
+        <h3>Respond to reviews</h3>
+
+        <p>For principals and school officials, we offer a special Enhanced School Profile (ESP) which allows you to update and add information about your school, as well as respond to reviews. If you are a school official, click Continue to start. </p>
+
+        <form name="principalConfirmation" id="principalConfirmationForm" action="#" method="get">
+            <span id="agreeError" class="error" display="none;"><!-- dont collapse-->You must agree</span>
+
+            <input name="agree" type="checkbox" value="agree"/><label for="agree">I agree that I am an official at this school. </label>
+
+            <button class="btn25" type="button" id="submitPrincipalConfirmation"><span class="lftDoor25"><span
+                    class="rtDoor25">OK</span></span></button>
+            <button class="btn25" type="button"><span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+            </button>
+        </form>
+    </div>
+
+</jsp:root>
