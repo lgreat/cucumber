@@ -22,7 +22,7 @@
     <Content type="html"><![CDATA[
 
 <div>
-    <div style="background="#ffffff url('http://www.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
+    <div style="background="#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
         <div>
             <a id="logoLink" href="http://www.greatschools.org/"></a>
         </div>
@@ -98,15 +98,14 @@
                 </select>
                 <input type="hidden" name="c" value="school"/>
                 <input type="hidden" name="cpn" value="GoogleGadget_Search180"/>
-
-                <input type="image" src="http://www.greatschools.org/res/img/gadget/gobutton.png" alt="GO" value="" name="" style="border:none; margin-top:11px; vertical-align:bottom;">
+                <button type="submit" class="btn25"><span class="lftDoor25"><span class="rtDoor25">GO</span></span></button>
             </form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    var logoImage = _IG_GetImage("http://www.greatschools.org/res/img/gadget/gs_dwtSearchLogo_gfx.gif");
+    var logoImage = _IG_GetImage("http://staging.greatschools.org/res/img/gadget/gs_dwtSearchLogo_gfx.png");
     logoImage.border=0;
 
     _gel("logoLink").appendChild(logoImage);
