@@ -161,6 +161,7 @@
                 <entry key="/survey/startResults.page" value="resultsSchoolLevelController"/>
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
                 <entry key="/school/review/postReview.page" value="postReview" />
+                <entry key="/school/principalComments.page" value="principalReview" />
             </map>
         </property>
     </bean>
@@ -1859,6 +1860,13 @@
         <property name="formView" value="/test/landing"/>
         <property name="tableDao">
             <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
+    <bean name="principalReview" class="gs.web.school.PrincipalReviewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/principalReview</value>
         </property>
     </bean>
 
