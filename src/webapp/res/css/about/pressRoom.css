@@ -35,9 +35,9 @@ p.breadcrumbs {
     border: 1px solid #ccc;
     padding: 15px;
 }
-#sidebarGS .module .body {
-    border: solid #ccc;
-    border-width: 0;
+#sidebarGS .module .mod_bd {
+    border: 0;
+    padding: 15px;
 }
 
 /* Feature */
@@ -179,17 +179,9 @@ width:328px;
 }
 .blogpromo_entry{
     width:235px;
-    font-family:georgia,times new roman,times,serif;
     padding:0 5px 0 55px;
 }
-.blogpromo_entry a:link,
-    .blogpromo_entry a:active,
-    .blogpromo_entry a:visited,
-    .blogpromo_entry a{
-    color:#000000;
-    font-size:13px;
-    line-height:17px;
-}
+
 .blogpromo_description{
     color:#666666;
 }
