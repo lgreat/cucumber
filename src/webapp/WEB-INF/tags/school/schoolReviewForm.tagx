@@ -48,6 +48,15 @@
         document.getElementById('col_right').style.height = null;
         BoxHeights.equalize('${mainColumnId}','col_right');
     }
+
+    jQuery(function () {
+        jQuery('#espLink').click(function() {
+            var schoolId = '${school.id}';
+            var schoolState = '${school.databaseState}';
+
+            GSType.hover.principalConfirmation.show(schoolId, schoolState);
+         });
+    });
 </script>
 
 <div id="rateReview" class="noprint ${divClass}">
@@ -186,8 +195,7 @@
 
     <c:if test="${school.levelCode != 'p'}">
         <div id="espLink">
-            <link:schoolProfileEspLogin styleClass="esp"
-                                        school="${school}">School principals: Review your school here <span class="go">&amp;#187;</span></link:schoolProfileEspLogin>
+            PRINCIPALS AND SCHOOL OFFICIALS: <a href="#">Share your point of view<span class="go">&amp;#187;</span></a>
         </div>
     </c:if>
 

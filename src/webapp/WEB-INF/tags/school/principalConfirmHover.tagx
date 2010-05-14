@@ -32,6 +32,8 @@
         <p>For principals and school officials, we offer a special Enhanced School Profile (ESP) which allows you to update and add information about your school, as well as respond to reviews. If you are a school official, click Continue to start. </p>
 
         <form name="principalConfirmation" id="principalConfirmationForm" action="#" method="get">
+            <input type="hidden" id="hdnSchoolId" name="id" />
+            <input type="hidden" id="hdnSchoolState" name="state" />
             <span id="agreeError" class="error" display="none;"><!-- dont collapse-->You must agree</span>
 
             <input name="agree" type="checkbox" value="agree"/><label for="agree">I agree that I am an official at this school. </label>

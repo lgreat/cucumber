@@ -220,9 +220,13 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 }
 
 #parentReview #rateReview #espLink {
-    position: absolute;
-    left: 304px;
-    top: 194px;
+    background-color: #dee;
+    padding:5px;
+    margin: 15px 15px 5px 0;
+}
+
+#parentReview #rateReview #espLink a {
+    text-decoration: none;
 }
 
 #parentReview #rateReview .commentsPopup {
@@ -374,9 +378,8 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 /* Principal Review
 -----------------------------------*/
 .principalReview {
-    background-color:cyan;
+    background-color: #dee;
 }
-
 
 #reviewPromo { /* has IE 7 equivalent */
 	margin: 15px 0 25px 25px;
