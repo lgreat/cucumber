@@ -299,7 +299,9 @@
                         alt="School Choice Tips"/></link:schoolChoiceCenter>
             </c:when>
             <c:otherwise>
-                <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                <promo:schoolChoicePackPromo showBorder="${true}" showSchoolChoiceLink="${false}"
+                                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                                 />
             </c:otherwise>
         </c:choose>
     </div>

@@ -18,14 +18,22 @@ div#schoolChoicePackPromo img.headicon {
 
 div#schoolChoicePackPromo .headlineNoSchoolName {
     color:#D66671;
-    font-size:17px;
+    font-size:19px;
     padding-top:4px;
     margin-bottom:10px;
+    background:blue;
+    color:white;
+    padding:5px;
 }
 
 div#schoolChoicePackPromo .headline {
     color:#D66671;
     font-size:17px;
+}
+
+div#schoolChoicePackPromo .subhead {
+    font-size:19px;
+    color:orange;
 }
 
 div#schoolChoicePackPromo .blurb {

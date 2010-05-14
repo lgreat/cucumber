@@ -47,7 +47,6 @@
         </c:choose>
 
         <div id="form_panel" style="display:${formPanelDisplay}">
-            <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard"/>
 
                 <c:choose>
                     <c:when test="${not empty schoolName}">
@@ -57,10 +56,12 @@
                     </c:when>
                     <c:otherwise>
                         <div class="headlineNoSchoolName">
-                            Choosy parents start here
+                            Choose the right school
                         </div>
                     </c:otherwise>
                 </c:choose>
+
+            <div class="subhead">School Chooser Toolkit</div>
 
             <c:set var="schoolWord" value="a school and"/>
             <c:choose>
