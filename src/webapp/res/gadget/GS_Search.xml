@@ -22,7 +22,7 @@
     <Content type="html"><![CDATA[
 
 <div>
-    <div style="background="#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
+    <div style="min-height:200px;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
         <div>
             <a id="logoLink" href="http://www.greatschools.org/"></a>
         </div>
@@ -98,7 +98,7 @@
                 </select>
                 <input type="hidden" name="c" value="school"/>
                 <input type="hidden" name="cpn" value="GoogleGadget_Search180"/>
-                <button type="submit" class="btn25"><span class="lftDoor25"><span class="rtDoor25">GO</span></span></button>
+                <input type="image" value="GO" src="http://staging.greatschools.org/res/img/gadget/gobutton.png" />
             </form>
         </div>
     </div>
