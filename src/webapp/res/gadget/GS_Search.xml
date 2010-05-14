@@ -22,12 +22,12 @@
     <Content type="html"><![CDATA[
 
 <div style="height:200px;width:100%; margin:auto;">
-    <div style="margin:auto;padding-top: 12px;height:200px;width:100%;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
+    <div style="text-align: center;margin:auto;padding-top: 12px;height:200px;width:100%;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
         <div style="background: url(http://www.greatschools.org/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;width: 173px; margin: auto;">
             <a id="logoLink" href="http://www.greatschools.org/"></a>
         </div>
 
-        <div style="margin: 12px 0 0 12px;">
+        <div style="text-align: left;margin: 12px 0 0 12px;">
             <form action="http://www.greatschools.org/search/search.page" name="" id="searchForm"
                   style="margin:0; padding:0;" target="gsSearch"
                   onsubmit="window.open('', 'gsSearch', 'width=910,height=600,status=yes,resizable=yes,scrollbars=yes,toolbar=yes,location=yes,menubar=yes')">
