@@ -237,7 +237,12 @@
             <c:forEach var="review" items="${cmd.reviews}">
                 <pg:item>
                     <!-- does user permit name to display-->
-                    <div class="review">
+                    <c:set var="reviewClass" value="review" />
+                    <c:if test="${who eq 'principal'}">
+                        <c:set var="reviewClass" value="review principalReview" />
+                    </c:if>
+
+                    <div class="${reviewClass}" >
                         <![CDATA[ <a name="ps${review.id}"></a> ]]>
                         <c:set var="who" value=""/>
                         <c:if test="${!(empty(review.who) or review.who eq 'other')}">
@@ -294,21 +299,24 @@
                             </c:choose>
                         </p>
 
-                        <p class="respond"><link:schoolProfileParentReview
+                        <c:if test="${who ne 'principal'}">
+                            <p class="respond"><link:schoolProfileParentReview
                                 school="${school}" anchor="schoolReviewSubmitForm"
                                 >Write your own review</link:schoolProfileParentReview></p>
-                        <c:choose>
-                            <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                                <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="reportReview">
-                                    <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
-                                    <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
-                                       id="report_schoolReview_${review.id}">Report it</a>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+
+                            <c:choose>
+                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                    <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="reportReview">
+                                        <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                                        <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                                           id="report_schoolReview_${review.id}">Report it</a>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
                     </div>
                     <!-- end: review -->
                 </pg:item>

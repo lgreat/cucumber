@@ -25,6 +25,10 @@ input, form, textarea, select{
 }
 
 
+
+
+
+
 /* columns
 ----------------------------------*/
 
@@ -365,6 +369,12 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 #showParentReviews .review .respond {
     margin-top: -2px;
     clear:both;
+}
+
+/* Principal Review
+-----------------------------------*/
+.principalReview {
+    background-color:cyan;
 }
 
 
