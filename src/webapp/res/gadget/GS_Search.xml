@@ -22,7 +22,7 @@
     <Content type="html"><![CDATA[
 
 <div>
-    <div style="min-height:200px;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
+    <div style="padding-top: 12px; min-height:200px;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
         <div style="background: url(http://www.greatschools.org/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;width: 173px; margin: auto;">
             <a id="logoLink" href="http://www.greatschools.org/"></a>
         </div>
