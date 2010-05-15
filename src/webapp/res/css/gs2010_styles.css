@@ -47,6 +47,7 @@ General comments:
 =4e-6 data and widgets
 =4f- schools
 =4f-1 school profile
+=4f-3 principal reviews
 =4g- video page
 =4h- inline sign-in
 =4i- user info
@@ -3435,6 +3436,54 @@ margin:10px 0 14px 20px;
     top: 15px;
     font: 11px Arial, sans-serif;
 }
+
+/* =4f-3 principal reviews
+-------------------------------------------------------------------------------------------*/
+#principalReviewFormContainer {
+    /*width: 700px;*/
+	float: left;
+    border-right: 1px solid #dedede;
+    padding:15px;
+}
+
+#principalReviewFormContainer button {
+    margin:5px;
+}
+
+#principalReviewFormContainer textarea {
+    width:300px;
+    height:100px;
+}
+
+#principalReviewFormContainer .btns {
+    padding: 0 0 0 124px;
+}
+
+#principalReviewForm {
+    margin-top: 10px;
+}
+
+#principalConfirmationHover p {
+    font-size:12px;
+    font-family: Arial, sans-serif;
+    color:#666;
+    font-weight: bold;
+}
+
+#principalConfirmationHover input {
+    margin-top:10px;
+}
+#principalConfirmationHover .btn25 {
+    float:left;
+    margin-right:8px;
+    margin-top:10px;
+}
+#principalConfirmationHover #agreeError {
+    clear:both;
+    margin: 10px 0 0 5px;
+
+}
+
 
 /* =4g- video page
 -------------------------------------------------------------------------------------------*/
