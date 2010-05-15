@@ -299,7 +299,7 @@
                         alt="School Choice Tips"/></link:schoolChoiceCenter>
             </c:when>
             <c:otherwise>
-                <promo:schoolChoicePackPromo showBorder="${true}" showSchoolChoiceLink="${false}"
+                <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
                                                  />
             </c:otherwise>

@@ -46,20 +46,25 @@
             </c:otherwise>
         </c:choose>
 
-        <div id="form_panel" style="display:${formPanelDisplay}">
 
+
+            <div class="mod_hd">
                 <c:choose>
                     <c:when test="${not empty schoolName}">
-                        <div class="headline">
+                        <h3>
                             Is ${schoolName} Right for Your Child?
-                        </div>
+                        </h3>
                     </c:when>
                     <c:otherwise>
-                        <div class="headlineNoSchoolName">
+                        <h3>
                             Choose the right school
-                        </div>
+                        </h3>
                     </c:otherwise>
                 </c:choose>
+            </div>
+
+        
+            <div id="form_panel" style="display:${formPanelDisplay}">
 
             <div class="subhead">School Chooser Toolkit</div>
 
@@ -76,8 +81,8 @@
                 </c:when>
             </c:choose>
 
-            <div class="blurb">
-               Use our School Chooser tip sheet to nail down what you want in ${schoolWord} make the most of your visit.
+            <div class="blurb text3">
+               Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
             </div>
 
             <jsp:scriptlet>
@@ -117,7 +122,7 @@
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
                 <div style="${(not empty caller)?'display:none;':''}">
-                    I'm looking for a:
+                    <span class="text2">I'm looking for a:</span>
                     <div class="levs">
                         <div class="left_levs">
                             <div>
@@ -169,7 +174,7 @@
 
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
-                    <span id="privacy_terms_text">I agree to the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                    <span id="privacy_terms_text" class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
                 </div>
             </form>
         </div>

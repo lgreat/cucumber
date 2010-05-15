@@ -320,7 +320,7 @@
         </c:choose>
     </div>
 
-    <promo:schoolChoicePackPromo showBorder="${true}" showSchoolChoiceLink="${false}"
+    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
 
     <!--<div class="mod">

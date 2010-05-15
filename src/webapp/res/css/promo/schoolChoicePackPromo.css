@@ -21,9 +21,10 @@ div#schoolChoicePackPromo .headlineNoSchoolName {
     font-size:19px;
     padding-top:4px;
     margin-bottom:10px;
-    background:blue;
+    background:url("/res/img/discussion_boards/db_bg_header.png") repeat-x scroll left top #114499;
     color:white;
     padding:5px;
+
 }
 
 div#schoolChoicePackPromo .headline {
@@ -107,12 +108,10 @@ div#schoolChoicePackPromo .privacy_terms {
     position: relative;
     margin:4px 0 0 0;
     padding: 0;
-    font-size:10px;
     height: 18px;
 }
 
 div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
-    font-size:10px;
     position: absolute;
     top: 1px;
     left: 0;
@@ -129,19 +128,18 @@ div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
 }
 
 div#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
-    font-size: 10px;
     line-height: 15px;
     position: absolute;
     top: 0;
     left: 18px;
 }
 
-div#schoolChoicePackPromo .privacy_terms a {
-    color:#666666;
-}
-
 div#schoolChoicePackPromo div.levs div.left_levs {
     float:left;
+}
+
+div#schoolChoicePackPromo div#form_panel {
+    padding:15px;
 }
 
 div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
