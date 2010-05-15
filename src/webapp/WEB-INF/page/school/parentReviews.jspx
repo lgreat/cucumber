@@ -238,7 +238,7 @@
                 <pg:item>
                     <!-- does user permit name to display-->
                     <c:set var="reviewClass" value="review" />
-                    <c:if test="${who eq 'principal'}">
+                    <c:if test="${who ne 'principal'}">
                         <c:set var="reviewClass" value="review principalReview" />
                     </c:if>
 
@@ -274,7 +274,7 @@
 
                         <c:set var="postedByDisplay" value=""/>
                         <c:choose>
-                            <c:when test="${review.allowName and not empty(review.user)}">
+                            <c:when test="${who eq 'principal' or (review.allowName and not empty(review.user))}">
                                 <c:set var="postedByDisplay"
                                        value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
                             </c:when>
