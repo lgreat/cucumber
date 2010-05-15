@@ -121,6 +121,9 @@
             <form id="scpp_form" action="">
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
+                <div class="errors gradeError" style="display:none;">
+                    <span class="error">Please select a star rating for this school.</span>
+                </div>
                 <div style="${(not empty caller)?'display:none;':''}">
                     <span class="text2">I'm looking for a:</span>
                     <div class="levs">
@@ -153,6 +156,9 @@
                              request.setAttribute("communityAuth",
                         Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                          </jsp:scriptlet>
+                    <div class="errors emailError" style="display:none;">
+                        <span class="error">Please select a star rating for this school.</span>
+                    </div>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
                                class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }"/>
@@ -172,6 +178,9 @@
                          </c:if>
 
 
+                <div class="errors termsError" style="display:none;">
+                    <span class="error">Please select a star rating for this school.</span>
+                </div>
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
                     <span id="privacy_terms_text" class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
