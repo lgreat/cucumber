@@ -712,6 +712,31 @@ GSType.hover.EmailValidatedSchoolReview = function() {
 };
 GSType.hover.EmailValidatedSchoolReview.prototype = new GSType.hover.HoverDialog("emailValidatedSchoolReviewHover");
 
+//Email to a friend hover
+GSType.hover.EmailToFriend = function() {
+    this.loadDialog = function() {
+        this.dialogByWidth(640);
+    };
+};
+GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover");
+
+
+GSType.hover.PrincipalConfirmation = function() {
+    this.loadDialog = function() {
+      this.dialogByWidth(640);
+    };
+
+    this.show = function(id, state) {
+        jQuery('#principalConfirmationForm #hdnSchoolId').val(id);
+        jQuery('#principalConfirmationForm #hdnSchoolState').val(state);
+        jQuery('#principalConfirmationForm').attr("action", "/school/principalComments.page");
+        jQuery('#' + this.hoverId).dialog('open');
+        return false;
+    };
+}
+GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("principalConfirmationHover");
+
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -726,6 +751,9 @@ GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
+
+GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
+GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -978,6 +1006,9 @@ jQuery(function() {
     GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
     GSType.hover.emailValidatedSchoolReview.loadDialog();
 
+    GSType.hover.emailToFriend.loadDialog();
+    GSType.hover.principalConfirmation.loadDialog();
+
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',
                 jQuery('#hover_forgotPasswordForm').serialize(),
@@ -1065,6 +1096,11 @@ jQuery(function() {
     });
     jQuery('.joinSchoolReview_showHover').click(function() {
         GSType.hover.joinHover.showSchoolReviewJoin(window.location.href);
+        return false;
+    });
+
+    jQuery('.emailToFriend_showHover').click(function() {
+        GSType.hover.emailToFriend.show();
         return false;
     });
 
