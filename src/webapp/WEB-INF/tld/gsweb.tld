@@ -220,6 +220,12 @@
         <function-signature>java.lang.String boldifyFirstXWords(java.lang.String, int)</function-signature>
     </function>
 
+    <function>
+        <name>contains</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>boolean contains(java.util.Set, java.lang.Object)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

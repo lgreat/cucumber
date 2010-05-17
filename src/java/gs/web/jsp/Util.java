@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Random;
 import java.io.StringReader;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -476,5 +477,12 @@ public class Util {
         }
 
         return "<strong>" + headPortion + "</strong>" + tailPortion;
+    }
+
+    public static boolean contains(Set set, Object o) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null");
+        }
+        return set.contains(o);
     }
 }

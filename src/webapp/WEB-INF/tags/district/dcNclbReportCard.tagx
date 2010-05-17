@@ -7,7 +7,16 @@
 
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
 
-    <c:set var="districtCode" value="${fn:substring(pageScope.district.stateId, 0, 3)}"/>
+    <c:set var="districtCode" value="${pageScope.district.stateId}"/>
+    <!-- avoid writing custom left-zero-pad code in jstl just for this one-off project -->
+    <c:choose>
+        <c:when test="${fn:length(pageScope.districtCode) eq 1}">
+            <c:set var="districtCode" value="00${pageScope.districtCode}"/>
+        </c:when>
+        <c:when test="${fn:length(pageScope.districtCode) eq 2}">
+            <c:set var="districtCode" value="0${pageScope.districtCode}"/>
+        </c:when>
+    </c:choose>
     <c:set var="districtLinkTextTerm" value="${pageScope.districtCode eq '001' ? 'DCPS' : 'LEA'}"/>
     <c:set var="districtFileNameTerm" value="${fn:toLowerCase(pageScope.districtLinkTextTerm)}"/>
 
@@ -18,7 +27,7 @@
 
         <div class="mod_bd">
             <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-${pageScope.districtFileNameTerm}-${pageScope.districtCode}.pdf"
+                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
                                                   target="_blank">${pageScope.districtLinkTextTerm} Report Card</gsml:a></p>
 
             <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"

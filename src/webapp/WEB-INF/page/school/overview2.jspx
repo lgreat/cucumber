@@ -111,7 +111,7 @@
 
         <c:set var="isDcNclbSchool" value="${stateAbbrev eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and !preschoolOnly}"/>
         <c:if test="${requestScope.context.showDcNclbModules and isDcNclbSchool}">
-            <school:dcNclbReportCard school="${school}"/>
+            <school:dcNclbReportCard school="${school}" showAllSchoolLinks="${requestScope.context.showDcNclbAllSchoolLinks}" schoolCodesToShow="${requestScope.context.dcNclbSchoolCodesToShow}"/>
         </c:if>
 
         <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.38 2010/05/04 20:49:25 yfan Exp $
+ * $Id: SessionContext.java,v 1.39 2010/05/17 23:11:09 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -25,8 +25,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
-import java.util.Set;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -260,6 +259,18 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isShowDcNclbModules() {
         return "false".equals(_propertyDao.getProperty(IPropertyDao.HIDE_DC_NCLB_MODULES_KEY, "false"));
+    }
+
+    public Set<String> getDcNclbSchoolCodesToShow() {
+        String schoolCodesProperty = _propertyDao.getProperty(IPropertyDao.DC_NCLB_SCHOOL_CODES_TO_SHOW_KEY, "");
+        String[] schoolCodes = schoolCodesProperty.split(",");
+        List<String> schoolCodesList = Arrays.asList(schoolCodes);
+        Set<String> codes = new HashSet<String>(schoolCodesList);
+        return codes;
+    }
+
+    public boolean isShowDcNclbAllSchoolLinks() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.SHOW_DC_NCLB_ALL_SCHOOL_LINKS_KEY, "false"));
     }
 
     public boolean isInterstitialEnabled() {
