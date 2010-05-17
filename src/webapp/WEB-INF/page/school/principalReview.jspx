@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib">
+
+    <c:set var="pageName" value="API Terms of Use"/>
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>???</title>
+        <meta content="todo" name="description"/>
+        <meta content="todo" name="keywords"/>
+
+        <link rel="stylesheet" href="/res/css/gs2010_styles.css" type="text/css"/>
+
+
+    </head>
+
+    <gsml:body adPageName="reviewGuidelines" pageLayout="nocol">
+
+
+        <div id="principalReviewFormContainer">
+
+
+            <h2>Principal: Provide Feedback About ${school.name}</h2>
+
+            <h5>What do you think?</h5>
+
+            <p>Parents want to hear the "inside schoop" about this school! Add your comments in the space below.</p>
+
+            <p>
+                <a href="/cgi-bin/static/guidelines.html/fl#guidelines">Click here</a> to read guidelines on the kinds of comments that GreatSchools will post.
+            </p>
+
+            <p>
+                <a href="/cgi-bin/static/guidelines.html/fl#sample">Click here</a> to read a sample comment.
+            </p>
+
+            <br/>
+
+            <p>GreatSchools will display your full name and title with your comment.</p>
+
+            <form id="principalReviewForm" enctype="application/x-www-form-urlencoded" method="post"
+                  action="/cgi-bin/pq/send_rating" style="margin-top:10px;">
+                <input type="hidden" value="" name="member_id"/>
+                <input type="hidden" value="${school.name}" name="schoolname"/>
+                <input type="hidden" value="public" name="schooltype"/>
+                <input type="hidden" value="principal" name="who"/>
+                <input type="hidden" value="${school.databaseState}" name="state"/>
+                <input type="hidden" value="${school.id}" name="id"/>
+
+                <fieldset class="contactPw">
+                    <ul>
+
+                        <li class="principalReview_firstName">
+                            <label for="fName">First name *</label>
+                            <input type="text" id="fName" name="first_name"/>
+
+
+                                <span class="error invalid">Please provide your first name</span>
+                            
+                        </li>
+                        <li class="principalReview_lastName">
+                            <label for="lName">Last name *</label>
+                            <input type="text" id="lName" name="last_name"/>
+
+
+                                <span class="error invalid">Please provide your last name</span>
+
+                        </li>
+                        <li class="principalReview_email">
+                            <label for="jemail">Email address *</label>
+                            <input type="text" id="jemail" name="email"/>
+
+
+                                <span class="error invalid">Please provide your email address</span>
+
+                        </li>
+                        <li>
+                            <label for="principal-comments">Comments *</label>
+                            <textarea id="principal-comments" name="comments">Comments</textarea>
+                        </li>
+
+                    </ul>
+                </fieldset>
+
+
+                <fieldset class="btns">
+
+                    <span class="error invalid" id="principalReview_termsNotChecked">You must agree to our terms of use before proceeding</span>
+                    
+                    <br/>
+
+                    <input type="checkbox" name="permit"/> I give GreatSchools.org permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
+                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+
+                    <button class="btn25" type="submit" name="submitPrincipalReview"
+                            id="submitPrincipalReview">
+                        <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
+                    </button>
+
+                    <p>
+                        Thank you for your help!
+                    </p>
+
+                </fieldset>
+
+
+            </form>
+        </div>
+
+        <script type="text/javascript">
+
+            jQuery(function () {
+
+                jQuery('#principalReviewForm').submit(function () {
+                    var pass = true;
+
+                    var firstNameError = jQuery('#principalReviewForm .principalReview_firstName .invalid');
+                    var lastNameError = jQuery('#principalReviewForm .principalReview_lastName .invalid');
+                    var emailError = jQuery('#principalReviewForm .principalReview_email .invalid');
+                    var termsError = jQuery('#principalReviewForm #principalReview_termsNotChecked');
+
+
+                    firstNameError.hide();
+                    lastNameError.hide();
+                    emailError.hide();
+                    termsError.hide();
+
+                    var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
+                    var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
+                    var email = jQuery('#principalReviewForm [name="email"]').val();
+                    var terms = jQuery('#principalReviewForm [name="permit"]');
+
+                    if (firstName == undefined || firstName.length == 0) {
+                        firstNameError.show();
+                        pass = false;
+                    }
+
+                    if (lastName == undefined || lastName.length == 0) {
+                       lastNameError.show();
+                        pass = false;
+                    }
+
+                    if (email == undefined || email.length == 0) {
+                        emailError.show();
+                        pass = false
+                    }
+
+                    if (!terms.attr("checked")) {
+                        termsError.show();
+                        pass = false;
+                    }
+
+                    return pass;
+                });
+
+
+                jQuery('#principal-comments').click(function () {
+                    if (jQuery('#principal-comments').val() == "Comments") {
+                        jQuery('#principal-comments').val("");
+                    }
+                })
+
+
+            });
+
+        </script>
+    </gsml:body>
+
+
+    </html>
+</jsp:root>
