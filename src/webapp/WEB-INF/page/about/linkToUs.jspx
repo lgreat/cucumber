@@ -74,7 +74,7 @@
                         <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
                             <textarea type="text" onclick="this.select()" readonly="readonly"
                                    style="width: 216px; background-color: #D3D3D3;"
-                                   value="">&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=214&amp;amp;h=190&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;</textarea>
+                                   value="">&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=214&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;</textarea>
                         </form>
 
 
