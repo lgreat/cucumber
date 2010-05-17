@@ -16,6 +16,7 @@
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
 <c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}</c:set>
@@ -117,9 +118,10 @@
 <communityHover:join/>
 <communityHover:signIn/>
 <communityHover:forgotPassword/>
-
 <communityHover:schoolReviewThankYou/>
 <communityHover:emailValidatedSchoolReview/>
+<school:principalConfirmHover/>
+
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
@@ -127,13 +129,11 @@
     </c:if>
     <cobrand:header/>
 
-
     <div id="pageGS">
 
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
             <mod:topNav/>
         </c:if>
-
 
         <div id="mainWrap">
             <div id="contentGS">
