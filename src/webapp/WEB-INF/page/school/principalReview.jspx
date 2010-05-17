@@ -32,9 +32,9 @@
         <div id="principalReviewFormContainer">
 
 
-            <h2>Principal: Provide Feedback About ${school.name}</h2>
+            <h2>Principal: Respond to reviews about ${school.name}</h2>
 
-            <h5>What do you think?</h5>
+            <h5>What's your point of view?</h5>
 
             <p>Parents want to hear the "inside schoop" about this school! Add your comments in the space below.</p>
 
