@@ -19,7 +19,7 @@
     <UserPref name="city" display_name="Default city" default_value=""/>
     <UserPref name="state" display_name="Default state (use uppercase abbreviation)" default_value=""/>
     <UserPref name="cobrand" display_name="Cobrand URL prefix (e.g. XXX.greatschools.org, just the XXX)" default_value="www"/>
-    <Content type="html"><![CDATA[
+    <Content type="html"><![CDATA[<!DOCTYPE html>
 
 <div style="height:200px;width:100%; margin:auto;">
     <div style="text-align: center;margin:auto;padding-top: 12px;height:200px;width:100%;background:#ffffff url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
