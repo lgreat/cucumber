@@ -38,7 +38,7 @@
 
             <br class="clearfloat" />
             
-            <input name="agree" type="checkbox" value="agree"/><label for="agree">I agree that I am an official at this school. </label>
+            <input name="agree" id="agree" type="checkbox" value="agree"/><label for="agree">I agree that I am an official at this school. </label>
 
             <br class="clearfloat" />
             
