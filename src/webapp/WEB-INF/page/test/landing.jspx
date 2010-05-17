@@ -402,6 +402,8 @@
 
 <h1 id="sfooter" class="sfooter">${title}</h1>
 
+<div class="spacer_10"><!-- do not collapse --></div>
+
 <jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateOrNull}"/>
     <jsp:param name="skip_tid" value="${param.tid}"/>

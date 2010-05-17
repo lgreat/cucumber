@@ -4087,7 +4087,9 @@ additional icons on the sprite.
 -------------------------------------------------------------------------------------------*/
 
 #editorialFooter {
-    margin-left: 20px;
+    /*margin-left: 20px;*/
+    width:860px;
+    margin:0 auto;
 }
 
 .blueDot #editorialFooter .content {
@@ -4369,14 +4371,16 @@ ul.srchSuggest li span {
 -------------------------------------------------------------------------------------------*/
 
 h1.sfooter, h1#sfooter, .sfooter, div#testScoreLandingLinks {
-    margin-left: 43px;
+    /*margin-left: 43px;*/
+    width:860px;
+    margin:0 auto;    
 }
 
 h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
-    color: #888888;
+    color: #888;
     font-size: 12px;
     font-weight: normal;
-    margin: 10px 20px 0;
+    margin: 0 20px;
     font-family: Arial, sans-serif;
 }
 
