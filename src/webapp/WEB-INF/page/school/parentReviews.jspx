@@ -236,18 +236,20 @@
             ${pageControls}
             <c:forEach var="review" items="${cmd.reviews}">
                 <pg:item>
+                    <c:set var="who" value=""/>
+                    <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                        <c:set var="who" value="${review.who}"/>
+                    </c:if>
+
                     <!-- does user permit name to display-->
                     <c:set var="reviewClass" value="review" />
-                    <c:if test="${who ne 'principal'}">
+                    <c:if test="${who eq 'principal'}">
                         <c:set var="reviewClass" value="review principalReview" />
                     </c:if>
 
                     <div class="${reviewClass}" >
                         <![CDATA[ <a name="ps${review.id}"></a> ]]>
-                        <c:set var="who" value=""/>
-                        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                            <c:set var="who" value="${review.who}"/>
-                        </c:if>
+
                         <c:set var="curStarRating" value="${review.quality.name}"/>
                         <c:if test="${school.levelCode eq 'p'}">
                             <c:set var="curStarRating" value="${review.POverall.name}"/>
@@ -258,7 +260,18 @@
                         </c:if>
 
                         <p class="author">
-                            Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                            <c:choose>
+                                <c:when test="${who eq 'principal' and not empty(review.user)}">
+                                    <c:set var="principalName" value="${review.user.firstName}" />
+                                    <c:if test="${not empty (review.user.lastName)}">
+                                        <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
+                                    </c:if>
+                                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                </c:when>
+                                <c:otherwise>
+                                    Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                </c:otherwise>
+                            </c:choose>
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                 <c:choose>
                                     <c:when test="${review.status eq 'd'}">
@@ -274,7 +287,10 @@
 
                         <c:set var="postedByDisplay" value=""/>
                         <c:choose>
-                            <c:when test="${who eq 'principal' or (review.allowName and not empty(review.user))}">
+                            <c:when test="${who eq 'principal' and not empty(review.user)}">
+                                <c:set var="postedByDisplay" value="the principal of this school" />
+                            </c:when>
+                            <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
                                 <c:set var="postedByDisplay"
                                        value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
                             </c:when>
