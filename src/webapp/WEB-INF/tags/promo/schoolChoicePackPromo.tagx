@@ -122,7 +122,7 @@
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
                 <div class="errors gradeError" style="display:none;">
-                    <span class="error">Please select a star rating for this school.</span>
+                    <span class="error">Please choose a school grade level.</span>
                 </div>
                 <div style="${(not empty caller)?'display:none;':''}">
                     <span class="text2">I'm looking for a:</span>
@@ -157,16 +157,15 @@
                         Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                          </jsp:scriptlet>
                     <div class="errors emailError" style="display:none;">
-                        <span class="error">Please select a star rating for this school.</span>
+                        <span class="error">Please enter a valid email address.</span>
                     </div>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
                                class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }"/>
-                                                
-                        <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
-                               onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
-                               />
+
+                       <button class="btn25" type="submit" id="send">
+                            <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                        </button>
                     </div>
 
 
@@ -179,7 +178,7 @@
 
 
                 <div class="errors termsError" style="display:none;">
-                    <span class="error">Please select a star rating for this school.</span>
+                    <span class="error">Please accept the Terms of Use.</span>
                 </div>
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
