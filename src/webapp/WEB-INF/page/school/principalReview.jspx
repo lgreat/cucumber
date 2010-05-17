@@ -22,33 +22,23 @@
         <meta content="todo" name="keywords"/>
 
         <link rel="stylesheet" href="/res/css/gs2010_styles.css" type="text/css"/>
-
-
     </head>
 
     <gsml:body adPageName="reviewGuidelines" pageLayout="nocol">
 
-
         <div id="principalReviewFormContainer">
 
-
-            <h2>Principal: Respond to reviews about ${school.name}</h2>
+            <h2>School Official: Respond to reviews about ${school.name}</h2>
 
             <h5>What's your point of view?</h5>
 
-            <p>Parents want to hear the "inside schoop" about this school! Add your comments in the space below.</p>
-
-            <p>
-                <a href="/cgi-bin/static/guidelines.html/fl#guidelines">Click here</a> to read guidelines on the kinds of comments that GreatSchools will post.
-            </p>
-
-            <p>
-                <a href="/cgi-bin/static/guidelines.html/fl#sample">Click here</a> to read a sample comment.
+            <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
+<a href="/cgi-bin/static/guidelines.html/fl#guidelines">Click here</a> to read guidelines on the kinds of comments that GreatSchools will post.
             </p>
 
             <br/>
 
-            <p>GreatSchools will display your full name and title with your comment.</p>
+            <p>GreatSchools will display your full name and job title with your comment.</p>
 
             <form id="principalReviewForm" enctype="application/x-www-form-urlencoded" method="post"
                   action="/cgi-bin/pq/send_rating" style="margin-top:10px;">
@@ -66,7 +56,6 @@
                             <label for="fName">First name *</label>
                             <input type="text" id="fName" name="first_name"/>
 
-
                                 <span class="error invalid">Please provide your first name</span>
                             
                         </li>
@@ -74,14 +63,19 @@
                             <label for="lName">Last name *</label>
                             <input type="text" id="lName" name="last_name"/>
 
-
                                 <span class="error invalid">Please provide your last name</span>
+
+                        </li>
+                        <li class="principalReview_jobTitle">
+                            <label for="jobTitle">Job title *</label>
+                            <input type="text" id="jobTitle" name="job_title"/>
+
+                                <span class="error invalid">Please provide your job title</span>
 
                         </li>
                         <li class="principalReview_email">
                             <label for="jemail">Email address *</label>
                             <input type="text" id="jemail" name="email"/>
-
 
                                 <span class="error invalid">Please provide your email address</span>
 
@@ -89,6 +83,9 @@
                         <li>
                             <label for="principal-comments">Comments *</label>
                             <textarea id="principal-comments" name="comments">Comments</textarea>
+
+<p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
+                            
                         </li>
 
                     </ul>
@@ -130,17 +127,20 @@
                     var lastNameError = jQuery('#principalReviewForm .principalReview_lastName .invalid');
                     var emailError = jQuery('#principalReviewForm .principalReview_email .invalid');
                     var termsError = jQuery('#principalReviewForm #principalReview_termsNotChecked');
+                    var jobTitleError = jQuery('#principalReviewForm .principalReview_jobTitle .invalid');
 
 
                     firstNameError.hide();
                     lastNameError.hide();
                     emailError.hide();
                     termsError.hide();
+                    jobTitleError.hide();
 
                     var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
                     var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
                     var email = jQuery('#principalReviewForm [name="email"]').val();
                     var terms = jQuery('#principalReviewForm [name="permit"]');
+                    var jobTitle = jQuery('#principalReviewForm [name="job_title"]').val();
 
                     if (firstName == undefined || firstName.length == 0) {
                         firstNameError.show();
@@ -159,6 +159,11 @@
 
                     if (!terms.attr("checked")) {
                         termsError.show();
+                        pass = false;
+                    }
+
+                    if (jobTitle == undefined || jobTitle.length == 0) {
+                        jobTitleError.show();
                         pass = false;
                     }
 

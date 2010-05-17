@@ -3481,7 +3481,10 @@ margin:10px 0 14px 20px;
 #principalConfirmationHover #agreeError {
     clear:both;
     margin: 10px 0 0 5px;
-
+}
+#principalReviewForm .principalReview-indent {
+    width:300px;
+    margin-left:134px;
 }
 
 
