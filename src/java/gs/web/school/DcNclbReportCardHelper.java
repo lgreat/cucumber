@@ -51,6 +51,10 @@ public class DcNclbReportCardHelper {
     }
 
     public static int getDcNclbLeaCode(int schoolId) {
-        return schoolIdLeaCodeMap.get(schoolId); 
+        Integer code = schoolIdLeaCodeMap.get(schoolId);
+        if (code != null) {
+            return code;
+        }
+        return -1;
     }
 }

@@ -11,19 +11,12 @@
     <jsp:directive.attribute name="schoolCodesToShow" required="true" description="Set of school codes for which to show school report card links (Set of String)" type="java.util.Set"/>
 
     <c:set var="schoolCode" value="${pageScope.school.stateId}"/>
-
-    <c:set var="districtCode" value="${pageScope.school.district.stateId}"/>
-    <!-- avoid writing custom left-zero-pad code in jstl just for this one-off project -->
     <c:choose>
-        <c:when test="${fn:length(pageScope.districtCode) eq 1}">
-            <c:set var="districtCode" value="00${pageScope.districtCode}"/>
-        </c:when>
-        <c:when test="${fn:length(pageScope.districtCode) eq 2}">
-            <c:set var="districtCode" value="0${pageScope.districtCode}"/>
+        <c:when test="${pageScope.school.districtId eq 0}">
+            <c:set var="districtCode" value="${gsweb:getDcNclbLeaCode(pageScope.school.id)}"/>
         </c:when>
         <c:otherwise>
-            <!-- schools that have no district, i.e. charter schools that are the only school in the district -->
-            <c:set var="districtCode" value="${gsweb:getDcNclbLeaCode(pageScope.school.id)}"/>
+            <c:set var="districtCode" value="${pageScope.school.district.stateId}"/>
         </c:otherwise>
     </c:choose>
     <c:set var="districtLinkTextTerm" value="${pageScope.districtCode eq '001' ? 'DCPS' : 'LEA'}"/>

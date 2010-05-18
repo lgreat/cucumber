@@ -8,15 +8,6 @@
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
 
     <c:set var="districtCode" value="${pageScope.district.stateId}"/>
-    <!-- avoid writing custom left-zero-pad code in jstl just for this one-off project -->
-    <c:choose>
-        <c:when test="${fn:length(pageScope.districtCode) eq 1}">
-            <c:set var="districtCode" value="00${pageScope.districtCode}"/>
-        </c:when>
-        <c:when test="${fn:length(pageScope.districtCode) eq 2}">
-            <c:set var="districtCode" value="0${pageScope.districtCode}"/>
-        </c:when>
-    </c:choose>
     <c:set var="districtLinkTextTerm" value="${pageScope.districtCode eq '001' ? 'DCPS' : 'LEA'}"/>
     <c:set var="districtFileNameTerm" value="${fn:toLowerCase(pageScope.districtLinkTextTerm)}"/>
 
