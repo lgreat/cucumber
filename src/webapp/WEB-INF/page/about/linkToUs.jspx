@@ -62,7 +62,7 @@
 
 
                     <br class="clearBoth"/>
-<h2 id="searchbox">Search Box</h2>
+<h2 id="searchbox">Search box</h2>
             <script type="text/javascript"
                                 src="http://gmodules.com/ig/ifr?url=http://staging.greatschools.org/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=214&amp;amp;h=200&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;output=js"><!-- no colapse --></script>
                     <style type="text/css">table.gadget{width: 214px;}</style>
@@ -82,7 +82,7 @@
 
                         <br class="clearBoth"/>
                     <h2 id="webServiceApi">School Finder web service API</h2>
-                    <p>Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data</p>
+                    <p>Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data.</p>
                     <p>Please contact our team for more information: </p>
                     <p>Jennifer Leibick, Business Development Manager<br />
                        415.983.3812<br />
