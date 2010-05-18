@@ -192,8 +192,8 @@ public class RegistrationAjaxController implements Controller {
             for(String username:usernames){
                 String validation = usernameValidator(username,cbcall);
                 if(validation.equals("valid")){
-                    validNames.put(username,validation);
-                    names = names+",'"+username+"'";
+                    validNames.put(username.toLowerCase(),validation);
+                    names = names+",'"+username.toLowerCase()+"'";
                 }
             }
             if(StringUtils.isNotBlank(names) && validNames.size() >0){
