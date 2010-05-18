@@ -1964,10 +1964,21 @@
           autowire="byName" lazy-init="true">
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="schoolReviewValidator"/>
+            </list>
+        </property>
     </bean>
 
     <bean name="addParentReviewsValidator"
           class="gs.web.school.review.AddParentReviewsValidator"
+          autowire="byName"
+          lazy-init="true"/>
+
+    <bean name="schoolReviewValidator"
+          class="gs.web.school.review.SchoolReviewValidator"
           autowire="byName"
           lazy-init="true"/>
 

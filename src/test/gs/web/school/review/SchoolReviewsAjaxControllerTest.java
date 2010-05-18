@@ -14,10 +14,14 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.IReportContentService;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Validator;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
@@ -194,7 +198,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         assertEquals("text/x-json", getResponse().getContentType());
         //{"status":true,"errors":["this is a bad","this is really bad"]}
-        assertEquals("{\"status\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
+        assertEquals("{\"status\":false,\"reviewPosted\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
     }
 
     public void testSuccessJson() throws Exception {
@@ -432,6 +436,40 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         assertEquals(CategoryRating.DECLINE_TO_STATE, review2.getPrincipal());
 
         verify(_reviewDao);
+    }
+
+    public void testUserNotCreatedWithoutRequiredFields() throws Exception {
+        _errors.rejectValue("email", "Please provide your email address");
+        _command = new ReviewCommand();
+        _command.setComments("spam spam spam spam spam spam spam spam spam spam spam spam spam spam spam spam spam spam.");
+
+        replay(_userDao);
+        replay(_reviewDao);
+
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+
+        _controller.handle(_request, _response, _command, _errors);
+        verify(_userDao);
+        verify(_reviewDao);
+    }
+
+    public void testCommandCommentFailsValidation() throws Exception {
+        _command = new ReviewCommand();
+        _command.setComments("spam spam spam spam spam spam");
+
+        _controller = (SchoolReviewsAjaxController) getApplicationContext().getBean("postReview");
+
+        Validator[] validators = _controller.getValidators();
+
+        for (Validator validator : validators) {
+            validator.validate(_command, _errors);
+        }
+
+        List errors = _errors.getFieldErrors();
+
+        assertNotNull("Errors should contain email validation error", errors);
+        assertTrue("Errors should contain several validation errors", errors.size() > 2);
     }
 
 }

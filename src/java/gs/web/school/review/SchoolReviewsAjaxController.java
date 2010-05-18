@@ -73,6 +73,10 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                                Object command,
                                BindException errors) throws Exception {
 
+        if (errors.hasErrors()) {
+            return errorJSON(response, errors);
+        }
+
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
         ReviewCommand reviewCommand = (ReviewCommand) command;
@@ -371,7 +375,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
-        buff.append("{\"status\":false,\"errors\":");
+        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
         buff.append("[");
         List messages = errors.getAllErrors();
 
