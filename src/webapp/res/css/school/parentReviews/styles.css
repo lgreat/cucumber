@@ -220,8 +220,8 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 }
 
 #parentReview #rateReview #espLink {
-    background-color: #dee;
-    padding:5px;
+    background: #dee url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
+    padding:9px 5px 9px 29px;
     margin: 15px 15px 5px 0;
 }
 
@@ -321,11 +321,13 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 
 #showParentReviews .review .author {
     font-size: 11px;
-    font-style: italic;
     width:375px;
     _float: left; /* IE 6 hack */
 }
 
+#showParentReviews .review .author .principalName {
+    font-weight: 700;
+}
 #showParentReviews .review .reportReview, #showParentReviews .review .reported {
     position: absolute;
     right: -15px;
@@ -377,8 +379,16 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 
 /* Principal Review
 -----------------------------------*/
-.principalReview {
+#showParentReviews .principalReview {
     background-color: #dee;
+    width: auto;
+    margin: 0 0 23px 0;
+    padding: 15px;
+}
+
+#showParentReviews .principalReview h4 {
+    font: 700 14px/1 Arial, sans-serif;
+    color: #333;
 }
 
 #reviewPromo { /* has IE 7 equivalent */

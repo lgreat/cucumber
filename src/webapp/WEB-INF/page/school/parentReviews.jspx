@@ -258,7 +258,9 @@
                             <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
                                       styleClass="stars" alt="${curStarRating} out of 5 stars"/>
                         </c:if>
-
+                        <c:if test="${who eq 'principal'}">
+                            <h4>The schools's point of view</h4>
+                        </c:if>
                         <p class="author">
                             <c:choose>
                                 <c:when test="${who eq 'principal' and not empty(review.user)}">
