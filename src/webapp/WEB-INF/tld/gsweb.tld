@@ -226,6 +226,12 @@
         <function-signature>boolean contains(java.util.Set, java.lang.Object)</function-signature>
     </function>
 
+    <function>
+        <name>getDcNclbLeaCode</name>
+        <function-class>gs.web.school.DcNclbReportCardHelper</function-class>
+        <function-signature>int getDcNclbLeaCode(int)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

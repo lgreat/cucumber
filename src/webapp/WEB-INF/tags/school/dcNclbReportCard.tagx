@@ -21,6 +21,10 @@
         <c:when test="${fn:length(pageScope.districtCode) eq 2}">
             <c:set var="districtCode" value="0${pageScope.districtCode}"/>
         </c:when>
+        <c:otherwise>
+            <!-- schools that have no district, i.e. charter schools that are the only school in the district -->
+            <c:set var="districtCode" value="${gsweb:getDcNclbLeaCode(pageScope.school.id)}"/>
+        </c:otherwise>
     </c:choose>
     <c:set var="districtLinkTextTerm" value="${pageScope.districtCode eq '001' ? 'DCPS' : 'LEA'}"/>
 
