@@ -18,9 +18,6 @@
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
-<c:if test="${topicCenter.contentKey.identifier eq 1633}">
-    <pageHelper:setPathway pathway="TOP_NAV_PROMO"/>
-</c:if>
 <c:set var="pageName" value="${omnitureTopicCenterName} Landing Page" scope="request"/>
 
 <head>
@@ -58,6 +55,21 @@
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1543}">
             <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 1633}">
+            <pageHelper:setPathway pathway="TOP_NAV_PROMO"/>
+        </c:when>
+        <c:when test="${topicCenter.preschoolTopicCenter}">
+            <pageHelper:setPathway pathway="PRESCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+            <pageHelper:setPathway pathway="ELEMENTARY_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.middleSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="MIDDLE_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.highSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="HIGH_SCHOOL"/>
         </c:when>
     </c:choose>
 
