@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.121 2010/04/21 22:54:58 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.122 2010/05/19 01:17:29 yfan Exp $
  */
 
 package gs.web.util;
@@ -484,7 +484,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/LD.topic?content=1541", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MEDIA_CHOICES);
-        assertEquals("/content/mediaChoices.page", builder.asSiteRelative(request));
+        assertEquals("/media-choices.topic?content=2439", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MOVING_WITH_KIDS);
         assertEquals("/moving.topic?content=2220", builder.asSiteRelative(request));
