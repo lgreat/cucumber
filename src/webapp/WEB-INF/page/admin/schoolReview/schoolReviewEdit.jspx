@@ -59,7 +59,11 @@
                 </c:choose>
                 (${review.who})</span>
             <br/>
+            <label>Sender name:</label><span class="value">${review.user.firstName} ${review.user.lastName}</span>
+            <br/>
             <label>Sender email:</label><span class="value">${review.user.email}</span>
+            <br/>
+            <label>Sender job title:</label><span class="value">${review.jobTitle}</span>
             <br/>
             <label>School:</label>
             <span class="value"><link:schoolProfileParentReview
