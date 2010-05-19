@@ -9,7 +9,7 @@
         <c:set var="onclick">if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_inlinelink');} return true;</c:set>
     </c:if>
 
-    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank">
+    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">
         <span class="sprite house"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
     </a>
 </jsp:root>
