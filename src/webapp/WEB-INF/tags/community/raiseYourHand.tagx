@@ -365,19 +365,34 @@
                 <div id="recentAnswerTemplate" style="display: none;">
                     <div class="ryh-reply">
                         <div class="${avatar} fltlft">
-                            <link:userProfile user="${user}">
-                                <community:avatar user="${user}" width="${avatarSize}" height="${avatarSize}"
-                                                  cssStyle="border: 1px solid #c6c6c6;"/>
-                            </link:userProfile>
+                            <c:choose>
+                                <c:when test="${style eq 'homePage'}">
+                                    <community:avatar user="${user}" width="${avatarSize}" height="${avatarSize}"
+                                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <link:userProfile user="${user}">
+                                        <community:avatar user="${user}" width="${avatarSize}" height="${avatarSize}"
+                                                          cssStyle="border: 1px solid #c6c6c6;"/>
+                                    </link:userProfile>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- end ryh-avatar -->
 
                         <div class="${replyText} fltlft rnd8">
                             <div class="${replyArrow}"><!--do not collapse--></div>
 
-                            <link:userProfile user="${user}">
-                                <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
-                            </link:userProfile>
+                            <c:choose>
+                                <c:when test="${style eq 'homePage'}">
+                                    <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <link:userProfile user="${user}">
+                                        <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
+                                    </link:userProfile>
+                                </c:otherwise>
+                            </c:choose>
 
                             <span class="smallText1"> a moment ago </span>
 
@@ -420,7 +435,7 @@
                     <div class="ryh-reply">
                         <div class="${avatar} fltlft">
                             <c:choose>
-                                <c:when test="${reply.user.userProfile.active}">
+                                <c:when test="${reply.user.userProfile.active and style ne 'homePage'}">
                                     <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
                                         <community:avatar user="${reply.user}" width="${avatarSize}" height="${avatarSize}"
                                                           cssStyle="border: 1px solid #c6c6c6;"
@@ -440,7 +455,7 @@
                             <div class="${replyArrow}"><!--do not collapse--></div>
                             <p class="fltlft">
                             <c:choose>
-                                <c:when test="${reply.user.userProfile.active}">
+                                <c:when test="${reply.user.userProfile.active and style ne 'homePage'}">
                                     <link:userProfile user="${reply.user}"
                                                       anonymous="${reply.anonymous}">
                                                         <span class="smallAlertTextBold-06b"><community:screenName
