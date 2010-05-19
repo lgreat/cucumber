@@ -57,7 +57,6 @@ public class CmsContentUtils {
 
     private static final Map<Long,String> CATEGORY_MICROSITE_LINK_TEXT_MAP = new HashMap<Long,String>();
     static {
-        CATEGORY_MICROSITE_LINK_TEXT_MAP.put(MEDIA_AND_KIDS_CATEGORY_ID, "Media & kids");
         CATEGORY_MICROSITE_LINK_TEXT_MAP.put(ELEMENTARY_SCHOOL_ID, "Elementary School");
     }
 
