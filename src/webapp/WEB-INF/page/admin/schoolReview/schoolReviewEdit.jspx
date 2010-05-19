@@ -76,8 +76,7 @@
                     <c:when test="${review.status eq 'u'}">(unprocessed)</c:when>
                     <c:when test="${review.status eq 'p'}">(public/live)</c:when>
                     <c:when test="${review.status eq 'a'}">(ratings only public/live)</c:when>
-                    <c:when test="${review.status eq 'd'}">(disabled)</c:when>
-                    <c:otherwise>${review.status}</c:otherwise>
+                    <c:when test="${review.status eq 'd' or review.status eq 'r'}">(disabled)</c:when>
                 </c:choose>
             </span>
             <br/>

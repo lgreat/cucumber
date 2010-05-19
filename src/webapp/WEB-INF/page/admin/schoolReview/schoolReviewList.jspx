@@ -61,7 +61,7 @@
                                     <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
                                     <c:when test="${review.status eq 'p'}">Public/live</c:when>
                                     <c:when test="${review.status eq 'a'}">Ratings only public/live</c:when>
-                                    <c:when test="${review.status eq 'd'}">Disabled</c:when>
+                                    <c:when test="${review.status eq 'd' or review.status eq 'r'}">Disabled</c:when>
                                     <c:otherwise>${review.status}</c:otherwise>
                                 </c:choose>
                             </td>
