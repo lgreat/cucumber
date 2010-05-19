@@ -221,7 +221,7 @@
 
         <div class="ryh-topsection">
             <div class="${ryhTitle} rnd8">
-                <div class="rhy-downArrow-fff"><!--do not collapse--></div>
+                <div class="ryh-downArrow-fff"><!--do not collapse--></div>
                 <link:discussion discussionId="${discussion.id}"
                                  fullUri="${discussion.discussionBoard.fullUri}"
                                  styleClass="title2-d61 ryh-discussion-title">${discussion.title}
@@ -334,19 +334,19 @@
                 <c:set var="avatarSize" value="40"/>
                 <c:set var="avatar" value="avatar_40"/>
                 <c:set var="replyText" value="ryh-reply-text-onTC"/>
-                <c:set var="replyArrow" value="rhy-replyArrow-fff-onTC"/>
+                <c:set var="replyArrow" value="ryh-replyArrow-fff-onTC"/>
             </c:when>
             <c:when test="${style eq 'comLandingPage'}">
                 <c:set var="avatarSize" value="40"/>
                 <c:set var="avatar" value="avatar_40"/>
                 <c:set var="replyText" value="ryh-reply-text-onCOM"/>
-                <c:set var="replyArrow" value="rhy-replyArrow-fff-onTC"/>
+                <c:set var="replyArrow" value="ryh-replyArrow-fff-onTC"/>
             </c:when>
             <c:otherwise>
                 <c:set var="avatarSize" value="48"/>
                 <c:set var="avatar" value="avatar_48"/>
                 <c:set var="replyText" value="ryh-reply-text"/>
-                <c:set var="replyArrow" value="rhy-replyArrow-fff"/>
+                <c:set var="replyArrow" value="ryh-replyArrow-fff"/>
             </c:otherwise>
         </c:choose>
 
