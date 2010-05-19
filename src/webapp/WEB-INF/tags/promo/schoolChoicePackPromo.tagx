@@ -33,7 +33,7 @@
         }
     </script>
 
-    <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
+    <div id="schoolChoicePackPromo" class="mod ${showBorder ?'bordered':''}">
 
         <c:choose>
             <c:when test="${showConfirmation}">
@@ -64,9 +64,9 @@
             </div>
 
         
-            <div id="form_panel" style="display:${formPanelDisplay}">
+            <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
 
-            <div class="subhead">School Chooser Toolkit</div>
+            <h4 class="subhead2">School Chooser Toolkit</h4>
 
             <c:set var="schoolWord" value="a school and"/>
             <c:choose>
@@ -81,9 +81,9 @@
                 </c:when>
             </c:choose>
 
-            <div class="blurb text3">
+            <p class="blurb text3">
                Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
-            </div>
+            </p>
 
             <jsp:scriptlet>
                 String redirectUrl;
@@ -126,31 +126,32 @@
                 </div>
                 <div style="${(not empty caller)?'display:none;':''}">
                     <span class="text2">I'm looking for a:</span>
-                    <div class="levs">
-                        <div class="left_levs">
-                            <div>
+
+                        <ul>
+                            <li id="pickGrade_SCPP">
                                 <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
                                 <label for="p_check">Preschool</label>
-                            </div>
-                            <div>
-                                <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                <div id="moreGrades_SCPP">
+                                    <ul>
+                                        <li>
+                                            <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
                                                checked="${(caller eq 'elementary')}"/>
-                                <label for="e_check">Elementary school</label>
-                            </div>
-                        </div>
-                        <div class="right_levs">
-                            <div>
-                                <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                            <label for="e_check">Elementary school</label></li>
+                                        <li>
+                                            <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
                                                checked="${(caller eq 'middle')}"/>
-                                <label for="m_check">Middle school</label>
-                            </div>
-                            <div>
-                                <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                            <label for="m_check">Middle school</label>
+                                        </li>
+                                        <li>
+                                            <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
                                                checked="${(caller eq 'high')}"/>
-                                <label for="h_check">High school</label>
-                            </div>
-                        </div>
-                    </div>
+                                            <label for="h_check">High school</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                             </li>
+                        </ul>
                 </div>
                 <jsp:scriptlet>
                              request.setAttribute("communityAuth",
@@ -187,7 +188,7 @@
             </form>
         </div>
 
-        <div id="confirm_panel" style="display:${confirmPanelDisplay}">
+        <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
             <div class="headline">
                 Thank you!
             </div>

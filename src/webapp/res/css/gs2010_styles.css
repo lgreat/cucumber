@@ -2756,7 +2756,7 @@ p.hlpTxt {
     clear: both;
 }
 
-.prefs ul.col input, .prefs ul.col label {
+.prefs ul.col input, .prefs ul.col label, #pickGrade_SCPP label, #pickGrade_SCPP input {
     float: left;
     margin: 0 3px 6px 0;
 }
@@ -2776,7 +2776,7 @@ p.hlpTxt {
     min-height: 24px;
 }
 
-#pickGrade, #manageNewsletters #pickGrade {
+#pickGrade, #manageNewsletters #pickGrade, #pickGrade_SCPP {
     position: relative;
     margin: 0 0 0 20px;
     padding: 5px 0 0 5px;
@@ -2789,13 +2789,15 @@ p.hlpTxt {
     overflow: visible;
     z-index: 100;
 }
-
-#pickGrade label, #manageNewsletters #pickGrade label {
+#pickGrade_SCPP {
+    margin: 5px 0;
+}
+#pickGrade label, #manageNewsletters #pickGrade label, #pickGrade_SCPP label {
     width: auto;
     font-size: 12px;
 }
 
-#grdShow, #manageNewsletters #grdShow {
+#grdShow, #manageNewsletters #grdShow, #grdShow_SCPP {
     background: #fff url(/res/img/discussion_boards/db_jnSelArrow_bg.png) 50% 9px no-repeat;
     border: solid #2092c4;
     border-width: 0 0 0 1px;
@@ -2808,12 +2810,12 @@ p.hlpTxt {
     outline: none;
 }
 
-#grdShow.active, #manageNewsletters #grdShow.active {
+#grdShow.active, #manageNewsletters #grdShow.active, #grdShow_SCPP.active {
     background-position: 50% -26px;
     background-color: #2092c4;
 }
 
-#moreGrades, #manageNewsletters #moreGrades {
+#moreGrades, #manageNewsletters #moreGrades, #moreGrades_SCPP {
     position: absolute;
     top: 25px;
     left: -1000px;
@@ -2824,8 +2826,11 @@ p.hlpTxt {
     border-width: 0 1px 1px;
     outline: none;
 }
-
-#moreGrades.show, #manageNewsletters #moreGrades.show {
+#moreGrades_SCPP {
+    width: 140px;
+    height: 92px;
+}
+#moreGrades.show, #manageNewsletters #moreGrades.show, #moreGrades_SCPP.show {
     left: -1px;
 }
 
@@ -2834,25 +2839,27 @@ p.hlpTxt {
     float: left;
 }
 
-#moreGrades .col1, #manageNewsletters #moreGrades .col1 {
+#moreGrades .col1, #manageNewsletters #moreGrades .col1, #moreGrades_SCPP ul {
     width: 113px;
     padding-top: 3px;
     border-top: 1px dotted #2092c4;
 }
-
+#moreGrades_SCPP ul {
+    width: 142px;
+}
 #moreGrades .col2, #manageNewsletters #moreGrades .col2 {
     width: 115px;
     padding-top: 3px;
     border-top: 1px solid #2092c4;
 }
 
-#moreGrades li, #manageNewsletters #moreGrades li {
+#moreGrades li, #manageNewsletters #moreGrades li, #moreGrades_SCPP li {
     padding: 3px 0 0 5px;
     margin: 0 0 6px;
     overflow: auto;
 }
 
-#moreGrades li label, #manageNewsletters #moreGrades li label {
+#moreGrades li label, #manageNewsletters #moreGrades li label, #moreGrades_SCPP li label {
     margin: 0;
 }
 

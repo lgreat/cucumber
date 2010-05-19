@@ -10,6 +10,16 @@ $j(function() {
             this.value = '';
         }
     });
+    // show grade choices
+    $j('#grdShow_SCPP').click(function() {
+        if ($j('#grdShow_SCPP').hasClass('active')) {
+            $j('#grdShow_SCPP').removeClass('active');
+            $j('#moreGrades_SCPP').removeClass('show');
+        } else {
+            $j('#grdShow_SCPP').addClass('active');
+            $j('#moreGrades_SCPP').addClass('show');
+        }
+    });
 
     // handles form validation and ajax processing
     $j("#scpp_form").submit(function() {
@@ -93,4 +103,3 @@ $j(function() {
 
 
 });
-

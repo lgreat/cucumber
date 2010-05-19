@@ -32,13 +32,12 @@ div#schoolChoicePackPromo .headline {
     font-size:17px;
 }
 
-div#schoolChoicePackPromo .subhead {
+div#schoolChoicePackPromo .subhead1 {
     font-size:19px;
-    color:orange;
 }
 
 div#schoolChoicePackPromo .blurb {
-    margin:5px 0 5px 0;
+    margin:5px 0 12px 0;
 }
 
 div#schoolChoicePackPromo div.levs {
@@ -87,14 +86,18 @@ div#schoolChoicePackPromo .levs input {
     margin:0;
     padding-top:1px;
 }
-
+div#schoolChoicePackPromo div#email_go {
+    width: 296px;
+    height: 30px;
+}
 div#schoolChoicePackPromo div#email_go #cemail {
     vertical-align:top;
     margin:2px 10px 0 0;
-    width:200px;
+    width:160px;
     color:#888888;
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
+    float: left;
 }
 
 div#schoolChoicePackPromo div#email_go #send {
@@ -102,6 +105,7 @@ div#schoolChoicePackPromo div#email_go #send {
     padding:0;
     width: 41px;
     height: 26px;
+    float:left;
 }
 
 div#schoolChoicePackPromo .privacy_terms {
@@ -109,37 +113,28 @@ div#schoolChoicePackPromo .privacy_terms {
     margin:4px 0 0 0;
     padding: 0;
     height: 18px;
+    width: 296px;
 }
 
 div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
-    position: absolute;
-    top: 1px;
-    left: 0;
-}
-
-* html div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
-    top: -2px;
-    left: -3px;
-}
-
-* + html div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
-    top: -2px;
-    left: -3px;
+    position: relative;
+    float: left;
 }
 
 div#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
     line-height: 15px;
-    position: absolute;
-    top: 0;
-    left: 18px;
+    position: relative;
+    float: left;
+    top: 1px;
 }
 
 div#schoolChoicePackPromo div.levs div.left_levs {
     float:left;
 }
 
-div#schoolChoicePackPromo div#form_panel {
-    padding:15px;
+div#schoolChoicePackPromo div.mod_bd {
+    padding: 15px 96px 15px 15px;
+    background: url(/res/img/school/compare/21121_thumb_boy_apple.jpg) 97% 8px no-repeat;
 }
 
 div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
@@ -160,5 +155,12 @@ div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice{
 div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice:hover{
     text-decoration:underline;
 
+}
+#scpp_form .errors {
+float:none;
+    width:auto;
+}
+#scpp_form span.error {
+    display: inline;
 }
 
