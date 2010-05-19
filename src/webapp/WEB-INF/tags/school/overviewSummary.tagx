@@ -8,6 +8,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:content="urn:www.greatschools.org/taglib/content"
         >
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer"
                              type="java.lang.Integer"/>
@@ -47,6 +48,13 @@
     -->
     <c:choose>
         <c:when test="${hasGsRating}">
+            <jsp:scriptlet>
+                gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                if (null != pageHelper &amp;&amp; gsRating != 0) {
+                    pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
+                }
+            </jsp:scriptlet>
+
             <!-- Summary with GS Rating -->
             <div class="summaryWithGSRating">
                 <div class="leftBlock">
