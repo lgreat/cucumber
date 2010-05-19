@@ -188,12 +188,12 @@
         </div>
 
         <div id="confirm_panel" style="display:${confirmPanelDisplay}">
-            <div class="subhead">
+            <div class="headline">
                 Thank you!
             </div>
-            <div class="blurb text3">The School Chooser Toolkit(s) sheets you requested will arrive in your inbox shortly.</div>
+            <div class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</div>
              <c:if test="${showSchoolChoiceLink}">
-                <div class="blurb text3">In the meantime,
+                <div class="blurb">In the meantime,
                     <link:schoolChoiceCenter id="linkToSchoolChoice">check out our tips for getting started &gt;</link:schoolChoiceCenter>
                 </div>
             </c:if>
