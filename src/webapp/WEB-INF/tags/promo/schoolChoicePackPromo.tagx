@@ -57,7 +57,7 @@
                     </c:when>
                     <c:otherwise>
                         <h3>
-                            Choose the right school
+                            Choose the Tight School
                         </h3>
                     </c:otherwise>
                 </c:choose>
@@ -66,7 +66,7 @@
         
             <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
 
-            <h4 class="subhead2">School Chooser Toolkit</h4>
+            <h4>School Chooser Toolkit</h4>
 
             <c:set var="schoolWord" value="a school and"/>
             <c:choose>

@@ -26,7 +26,10 @@ div#schoolChoicePackPromo .headlineNoSchoolName {
     padding:5px;
 
 }
-
+#schoolChoicePackPromo .mod_bd h4 {
+    font: 700 14px Arial, sans-serif;
+    width: 216px;
+}
 div#schoolChoicePackPromo .headline {
     color:#D66671;
     font-size:17px;
@@ -38,6 +41,7 @@ div#schoolChoicePackPromo .subhead1 {
 
 div#schoolChoicePackPromo .blurb {
     margin:5px 0 12px 0;
+    width: 216px;
 }
 
 div#schoolChoicePackPromo div.levs {
@@ -87,7 +91,7 @@ div#schoolChoicePackPromo .levs input {
     padding-top:1px;
 }
 div#schoolChoicePackPromo div#email_go {
-    width: 296px;
+
     height: 30px;
 }
 div#schoolChoicePackPromo div#email_go #cemail {
@@ -103,7 +107,6 @@ div#schoolChoicePackPromo div#email_go #cemail {
 div#schoolChoicePackPromo div#email_go #send {
     margin:0;
     padding:0;
-    width: 41px;
     height: 26px;
     float:left;
 }
@@ -133,8 +136,9 @@ div#schoolChoicePackPromo div.levs div.left_levs {
 }
 
 div#schoolChoicePackPromo div.mod_bd {
-    padding: 15px 96px 15px 15px;
+    padding: 15px;
     background: url(/res/img/school/compare/21121_thumb_boy_apple.jpg) 97% 8px no-repeat;
+    height: 187px;
 }
 
 div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
