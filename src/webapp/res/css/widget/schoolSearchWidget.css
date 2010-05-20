@@ -265,7 +265,10 @@ div#helpTabBody p {
 }
 
     div#helpTabBody p a, div#helpTabBody p a:hover {
-        color: #666;
+        color: #0066b8;
+        text-decoration: none;
+    }
+    div#helpTabBody p a:hover {
         text-decoration: underline;
     }
 
