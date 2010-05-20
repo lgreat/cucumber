@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.55 2010/03/31 17:15:12 yfan Exp $
+ * $Id: AdPosition.java,v 1.56 2010/05/20 00:04:31 yfan Exp $
  */
 package gs.web.ads;
 
@@ -130,6 +130,10 @@ public class AdPosition extends Enum {
     public static final AdPosition Facebook_Promo_300x250 = new AdPosition("Facebook_Promo_300x250", true); // GS-9137
     public static final AdPosition HeaderLogo_88x33 = new AdPosition("HeaderLogo_88x33", true);
     public static final AdPosition Inline_423x60 = new AdPosition("Inline_423x60", true);
+    public static final AdPosition SponsoredSearch_Top_542x60 = new AdPosition("SponsoredSearch_Top_542x60", true); // GS-9967
+    public static final AdPosition SponsoredSearch_Bottom_542x60 = new AdPosition("SponsoredSearch_Bottom_542x60", true); // GS-9967
+    public static final AdPosition FindSchoolSponsor_Bottom_287x30 = new AdPosition("FindSchoolSponsor_Bottom_287x30", true); // GS-9968
+    public static final AdPosition TopRatedSponsor_310x40 = new AdPosition("TopRatedSponsor_310x40", true); // GS-9999
 
     private boolean _isGAMPosition;
     private String _baseName = null;
