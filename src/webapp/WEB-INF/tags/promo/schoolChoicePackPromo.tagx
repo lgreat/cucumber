@@ -18,6 +18,7 @@
     <jsp:directive.attribute name="showConfirmation" required="false" description="Whether or not to show just the confirmation message instead of the form" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="schoolObjectForRedirect" required="false" description="To redirect if the user logs out by clicking the email id on the promo" type="gs.data.school.School"/>
     <jsp:directive.attribute name="caller" required="false" description="Calling page identifier"/>
+    <jsp:directive.attribute name="showHeader" required="false" description="Whether or not to display the promo header" />
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
@@ -46,8 +47,7 @@
             </c:otherwise>
         </c:choose>
 
-
-
+        <c:if test="${showHeader ne false}">
             <div class="mod_hd">
                 <c:choose>
                     <c:when test="${not empty schoolName}">
@@ -62,6 +62,7 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+        </c:if>
 
         
             <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
