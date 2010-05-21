@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,6 +89,23 @@ public class SchoolReviewEditController extends SimpleFormController implements 
             _reviewDao.saveReview(review);
             return new ModelAndView(editPage);
         } else if (request.getParameter("enableReview") != null) {
+
+            // JIRA GS-9956 when a principal review for a school is enabled, disable any other principal reviews which might already exist for this school
+            if ("principal".equals(review.getWho())) {
+                List<Review> reviews = _reviewDao.findPrincipalReviewsBySchool(review.getSchool());
+
+                if (reviews != null && reviews.size() > 0) {
+                    for (Review r : reviews){
+                        review.setStatus("d");
+                        review.setProcessDate(Calendar.getInstance().getTime());
+                        _reviewDao.saveReview(review);
+                        String note = review.getNote();
+                        if (note == null) note = "";
+                        review.setNote(note + " [Disabled due to new official comments for this school]");
+                    }
+                }
+            }
+
             review.setStatus("p");
             review.setProcessDate(Calendar.getInstance().getTime());
             _reviewDao.saveReview(review);

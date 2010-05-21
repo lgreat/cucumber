@@ -48,6 +48,12 @@ public class PrincipalReviewController extends AbstractController {
         ModelAndView mAndV = new ModelAndView(new RedirectView(request.getContextPath() + "/cgi-bin/pq_start.cgi/" + school.getDatabaseState() + "/" + school.getId()));;
 
         if (validCookieExists(request,school)) {
+            List<Review> principalReview = _reviewDao.findPublishedPrincipalReviewsBySchool(school);
+            //There should never be more than one published principal review. But if there is, use only the most recent one
+            if (principalReview != null && principalReview.size() > 0) {
+                model.put("review", principalReview.get(0));
+            }
+
             mAndV = new ModelAndView(getViewName(), model);
         }
         
