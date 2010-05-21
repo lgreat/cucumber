@@ -28,6 +28,9 @@
 <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
 <jsp:directive.tag import="gs.data.school.TopSchoolCategory"/>
 <jsp:directive.tag import="java.util.Set"/>
+<jsp:directive.tag import="gs.web.geo.StateSpecificFooterHelper"/>
+<jsp:directive.tag import="java.util.Map"/>
+<jsp:directive.tag import="java.util.HashMap"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
@@ -130,6 +133,11 @@
             if (c != null) {
                 PageHelper.setCityIdCookie(request, response, c);
             }
+            // GS-10018
+            Map dummyModel = new HashMap(1);
+            StateSpecificFooterHelper.placePopularCitiesInModel(school.getDatabaseState(), dummyModel, _geoDao);
+            request.setAttribute(StateSpecificFooterHelper.MODEL_TOP_CITIES,
+                                 dummyModel.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
         }
     } catch (Exception e) {
     }
@@ -142,6 +150,7 @@
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
     request.setAttribute("privateHasTestData", privateTestData);
+
     ]]></jsp:scriptlet>
 
 <![CDATA[

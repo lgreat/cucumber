@@ -1,5 +1,6 @@
 package gs.web.test;
 
+import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
 import gs.web.util.google.GoogleSpreadsheetDao;
@@ -78,6 +79,7 @@ public class TestLandingController extends SimpleFormController {
                     errors.reject("Could not find test info for: " + key);
                 } else {
                     refData.putAll(testData);
+                    StateSpecificFooterHelper.placePopularCitiesInModel(state, refData, _geoDao);
                 }
             } else {
                 errors.reject("test id (tid) parameter is missing");

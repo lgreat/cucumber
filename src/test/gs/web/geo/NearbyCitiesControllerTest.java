@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.13 2009/12/04 22:27:17 chriskimm Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.14 2010/05/21 21:28:59 aroy Exp $
  */
 
 package gs.web.geo;
@@ -87,6 +87,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
     public void testCantFindCity() throws Exception {
         expect(_geoDao.findCitiesByState(State.CA)).andReturn(new ArrayList<City>());
         expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(null);
+        expect(_geoDao.findTopCitiesByPopulationInState(State.CA, 28)).andReturn(null);
         replay(_geoDao);
         replay(_cityRatingDao);
         replay(_anchorListModelFactory);
@@ -321,6 +322,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
 
         expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(city);
         expect(_geoDao.findNearbyCities(city, NearbyCitiesController.DEFAULT_MAX_CITIES)).andReturn(cities);
+        expect(_geoDao.findTopCitiesByPopulationInState(State.CA, 28)).andReturn(null);
         AnchorListModel alm = new AnchorListModel();
         expect(_anchorListModelFactory.createNearbyCitiesAnchorListModel(
                             "Cities Near Alameda", city,
