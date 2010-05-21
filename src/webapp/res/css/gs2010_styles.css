@@ -932,6 +932,7 @@ body.cobranded #pageGS {
 #sidebarGS.col {
     width: 328px;
     padding-left: 2px;
+    overflow: hidden;
 }
 
 #topicContentGS {
@@ -2762,7 +2763,16 @@ p.hlpTxt {
     float: left;
     margin: 0 3px 6px 0;
 }
-
+#pickGrade_SCPP label, #pickGrade_SCPP input {
+    margin: 0;
+    dislay: inline;
+}
+body.nocol #pickGrade_SCPP input {
+    margin-bottom: 6px;
+}
+#pickGrade_SCPP #m_check {
+    clear: left;
+}
 .prefs ul.col label {
     width: 420px;
 }
@@ -2791,6 +2801,19 @@ p.hlpTxt {
     overflow: visible;
     z-index: 100;
 }
+body.nocol #pickGrade_SCPP li, body.nocol #pickGrade_SCPP ul {
+    display: inline;
+
+}
+body.nocol #scpp_picker #pickGrade_SCPP{
+    border: 0;
+    width:276px;
+    list-style: none;
+    background: none;
+    padding: 5px 0 0;
+    position: relative;
+
+}
 #pickGrade_SCPP {
     margin: 5px 0;
 }
@@ -2798,7 +2821,12 @@ p.hlpTxt {
     width: auto;
     font-size: 12px;
 }
+body.nocol #pickGrade_SCPP label {
+    width: 108px;
+    margin: 0 0 3px 5px;
+    height: 18px;
 
+}
 #grdShow, #manageNewsletters #grdShow, #grdShow_SCPP {
     background: #fff url(/res/img/discussion_boards/db_jnSelArrow_bg.png) 50% 9px no-repeat;
     border: solid #2092c4;
@@ -2811,7 +2839,9 @@ p.hlpTxt {
     text-indent: -100000px;
     outline: none;
 }
-
+body.nocol #grdShow_SCPP {
+    display: none;
+}
 #grdShow.active, #manageNewsletters #grdShow.active, #grdShow_SCPP.active {
     background-position: 50% -26px;
     background-color: #2092c4;
@@ -2820,7 +2850,7 @@ p.hlpTxt {
 #moreGrades, #manageNewsletters #moreGrades, #moreGrades_SCPP {
     position: absolute;
     top: 25px;
-    left: -1000px;
+    left: -100000px;
     width: 228px;
     height: 148px;
     background: #fff;
@@ -2831,6 +2861,16 @@ p.hlpTxt {
 #moreGrades_SCPP {
     width: 140px;
     height: 98px;
+}
+body.nocol  #moreGrades_SCPP {
+    width: auto;
+    height: auto;
+    border: 0;
+    position: relative;
+    left: 0;
+    top: 0;
+    display: inline;
+    
 }
 #moreGrades.show, #manageNewsletters #moreGrades.show, #moreGrades_SCPP.show {
     left: -1px;
@@ -2845,6 +2885,15 @@ p.hlpTxt {
     width: 113px;
     padding-top: 3px;
     border-top: 1px dotted #2092c4;
+}
+body.nocol #moreGrades_SCPP ul {
+    border: 0;
+}
+body.nocol #moreGrades_SCPP  li {
+    list-style: none;
+    background: none;
+    padding: 0 0 3px;
+
 }
 #moreGrades_SCPP ul {
     width: 142px;

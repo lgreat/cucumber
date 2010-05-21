@@ -178,7 +178,7 @@
     <td style="vertical-align: top; padding-left: .3em">
         <c:if test="${not empty requestScope.topRatedSchools}">
             <div class="topRatedSchools">
-                <table style="width: 100% margin: 0 auto;" cellpadding="0" cellspacing="0">
+                <table style="width: 100%; margin: 0 auto;" cellpadding="0" cellspacing="0">
                     <tr style="">
                         <th style="text-align: left">Top-Rated Public Schools</th>
                         <th style="text-align: right;">GreatSchools<br/>Rating</th>

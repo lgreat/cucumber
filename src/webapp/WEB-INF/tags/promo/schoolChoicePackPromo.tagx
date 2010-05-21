@@ -128,7 +128,7 @@
                 <div style="${(not empty caller)?'display:none;':''}">
                     <span class="text2">I'm looking for a:</span>
 
-                        <ul>
+                        <ul id="scpp_picker">
                             <li id="pickGrade_SCPP">
                                 <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
                                 <label for="p_check">Preschool</label>

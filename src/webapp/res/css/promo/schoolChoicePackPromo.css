@@ -1,22 +1,22 @@
-div#schoolChoicePackPromo {
+#schoolChoicePackPromo {
     color: #666666;
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
     background-color: #ffffff;
 }
 
-div#schoolChoicePackPromo.bordered{
+#schoolChoicePackPromo.bordered{
     border: 2px solid #EEEEEE;
     padding:10px 10px 10px 13px;
 
 }
 
-div#schoolChoicePackPromo img.headicon {
+#schoolChoicePackPromo img.headicon {
     float:left;
     margin:0 10px 0 0;
 }
 
-div#schoolChoicePackPromo .headlineNoSchoolName {
+#schoolChoicePackPromo .headlineNoSchoolName {
     color:#D66671;
     font-size:19px;
     padding-top:4px;
@@ -30,71 +30,91 @@ div#schoolChoicePackPromo .headlineNoSchoolName {
     font: 700 14px Arial, sans-serif;
     width: 216px;
 }
-div#schoolChoicePackPromo .headline {
+
+body.nocol #schoolChoicePackPromo .mod_hd h3 {
+    font: 700 16px/1.1 Arial, sans-serif;
+    background: #6cc;
+    padding: 5px 15px 5px 15px;
+}
+body.nocol #schoolChoicePackPromo .mod_bd h4 {
+    background: url('/res/img/promo/clipboard_icon.jpg') 0 0 no-repeat;
+    padding: 3px 0 0 38px;
+    height: 32px;
+}
+body.nocol #col_right #schoolChoicePackPromo .mod_bd h4 {
+    background: none;
+    padding: 0;
+    margin: 1em 0;
+    height: auto;
+}
+#schoolChoicePackPromo .headline {
     color:#D66671;
     font-size:17px;
 }
 
-div#schoolChoicePackPromo .subhead1 {
+#schoolChoicePackPromo .subhead1 {
     font-size:19px;
 }
 
-div#schoolChoicePackPromo .blurb {
+#schoolChoicePackPromo .blurb {
     margin:5px 0 12px 0;
     width: 216px;
 }
 
-div#schoolChoicePackPromo div.levs {
+body.nocol #schoolChoicePackPromo .mod_bd h4, body.nocol #schoolChoicePackPromo .blurb {
+    width: auto;
+}
+#schoolChoicePackPromo div.levs {
     padding: 5px 0 5px 10px;
     height: 50px;
 }
-div#schoolChoicePackPromo div.left_levs {
+#schoolChoicePackPromo div.left_levs {
     margin: 0;
     width: 135px;
     float: left;
 }
-div#schoolChoicePackPromo div.right_levs {
+#schoolChoicePackPromo div.right_levs {
     margin: 0;
     /*padding-right: 10px;*/
     width: 115px;
     float: right;
 }
-div#schoolChoicePackPromo div.left_levs div {
+#schoolChoicePackPromo div.left_levs div {
     border:solid white;
     width: 135px;
     height: 18px;
 }
-div#schoolChoicePackPromo div.right_levs div {
+#schoolChoicePackPromo div.right_levs div {
     border:solid white;
     height: 18px;
 }
-div#schoolChoicePackPromo .levs input {
+#schoolChoicePackPromo .levs input {
    display:block;
    float:left;
    margin:2px 2px 0 0;
 }
-* + html div#schoolChoicePackPromo .levs input {
+* + html #schoolChoicePackPromo .levs input {
     margin:0 2px 0 0;    
 }
 
-* + html div#schoolChoicePackPromo .levs label {
+* + html #schoolChoicePackPromo .levs label {
     margin:0;
     padding-top:1px;
 }
 
-* html div#schoolChoicePackPromo .levs input {
+* html #schoolChoicePackPromo .levs input {
     margin:0 2px 0 0;
 }
 
-* html div#schoolChoicePackPromo .levs label {
+* html #schoolChoicePackPromo .levs label {
     margin:0;
     padding-top:1px;
 }
-div#schoolChoicePackPromo div#email_go {
+#schoolChoicePackPromo div#email_go {
 
     height: 30px;
 }
-div#schoolChoicePackPromo div#email_go #cemail {
+#schoolChoicePackPromo div#email_go #cemail {
     vertical-align:top;
     margin:2px 10px 0 0;
     width:160px;
@@ -104,14 +124,14 @@ div#schoolChoicePackPromo div#email_go #cemail {
     float: left;
 }
 
-div#schoolChoicePackPromo div#email_go #send {
+#schoolChoicePackPromo div#email_go #send {
     margin:0;
     padding:0;
     height: 26px;
     float:left;
 }
 
-div#schoolChoicePackPromo .privacy_terms {
+#schoolChoicePackPromo .privacy_terms {
     position: relative;
     margin:4px 0 0 0;
     padding: 0;
@@ -119,44 +139,62 @@ div#schoolChoicePackPromo .privacy_terms {
     width: 296px;
 }
 
-div#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
+body.nocol #schoolChoicePackPromo .privacy_terms {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    width: 228px;
+}
+#schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
     position: relative;
     float: left;
 }
-
-div#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
+body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
+    margin: 3px 3px 3px 0;
+}
+#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
     line-height: 15px;
     position: relative;
     float: left;
     top: 1px;
 }
 
-div#schoolChoicePackPromo div.levs div.left_levs {
+body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_text {
+    width: 202px;
+}
+#schoolChoicePackPromo div.levs div.left_levs {
     float:left;
 }
 
-div#schoolChoicePackPromo div.mod_bd {
+#schoolChoicePackPromo div.mod_bd {
     padding: 15px;
     background: url(/res/img/school/compare/21121_thumb_boy_apple.jpg) 97% 8px no-repeat;
     height: 187px;
 }
 
-div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
+body.nocol #schoolChoicePackPromo div.mod_bd {
+    padding: 0 4px 0 0;
+    width: auto;
+    height: auto;
+    background-image: none;
+
+}
+#schoolChoicePackPromo div#form_panel div.logoutDiv a{
     font-size:10px;
     text-decoration:none;
 }
 
 
-div#schoolChoicePackPromo div#form_panel div.logoutDiv a:hover{
+#schoolChoicePackPromo div#form_panel div.logoutDiv a:hover{
     text-decoration:underline;
 }
 
-div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice{
+#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice{
      text-decoration:none;
 
 }
 
-div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice:hover{
+#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice:hover{
     text-decoration:underline;
 
 }
