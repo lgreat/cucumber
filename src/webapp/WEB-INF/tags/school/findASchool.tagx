@@ -6,15 +6,19 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:gsweb="gstaglib"
+          xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <jsp:directive.attribute name="city" required="true" description="City object" type="gs.data.geo.City"/>
-    <jsp:directive.attribute name="specialCity" required="false" description="Special city name, e.g. Washington, DC" type="java.lang.String"/>
-    <jsp:directive.attribute name="schools" required="true" description="List of SchoolWithRatings objects" type="java.util.List"/>
+    <jsp:directive.attribute name="specialCity" required="false" description="Special city name, e.g. Washington, DC"
+                             type="java.lang.String"/>
+    <jsp:directive.attribute name="schools" required="true" description="List of SchoolWithRatings objects"
+                             type="java.util.List"/>
     <jsp:directive.attribute name="levelCode" required="true" description="Level code" type="gs.data.school.LevelCode"/>
-    <jsp:directive.attribute name="levelCodePhrase" required="true" description="Level code phrase, e.g. middle school"/>
+    <jsp:directive.attribute name="levelCodePhrase" required="true"
+                             description="Level code phrase, e.g. middle school"/>
     <jsp:directive.attribute name="ratingHeading" required="true" description="Heading text for rating column"/>
-    <jsp:directive.attribute name="cityHeadingPrefix" required="true" description="City heading text prefix, e.g. 'Preschools in' or 'Top elementary schools: '"/>
+    <jsp:directive.attribute name="cityHeadingPrefix" required="true"
+                             description="City heading text prefix, e.g. 'Preschools in' or 'Top elementary schools: '"/>
 
     <!-- id="findASchool" is required because it's used as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
@@ -23,40 +27,42 @@
         </div>
         <div class="mod_bd">
             <div id="find" class="clearfix">
-            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial"
-                        onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
-                <input type="hidden" name="c" value="school"/>
-                <input type="text" name="q" id="schoolSearchText" class="fltlft text2" size="21"
-                       value="Enter school, city, or district"
-                       onfocus="textSwitch(this, '', 'Enter school, city, or district');"
-                       onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
+                <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial"
+                            onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
+                    <input type="hidden" name="c" value="school"/>
+                    <input type="text" name="q" id="schoolSearchText" class="fltlft text2" size="21"
+                           value="Enter school, city, or district"
+                           onfocus="textSwitch(this, '', 'Enter school, city, or district');"
+                           onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
 
 
-                <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
-                                     styleId="findStateSelector"
-                                     styleClass="text2 fltlft"
-                                     noStateLabel="--"
-                                     usingLongNames="false"
-                                     state="${requestScope.context.state}"/>
+                    <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
+                                         styleId="findStateSelector"
+                                         styleClass="text2 fltlft"
+                                         noStateLabel="--"
+                                         usingLongNames="false"
+                                         state="${requestScope.context.state}"/>
 
-                <button class="btn25 fltlt" type="submit">
+                    <button class="btn25 fltlt" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">GO</span>
                         </span>
-                </button>
-            </gsweb:form>
+                    </button>
+                </gsweb:form>
             </div>
         </div>
 
 
-<div id="compare">
-<p class="text1">${cityHeadingPrefix} <span class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
+        <div id="compare">
+            <p class="text1">${cityHeadingPrefix} <span
+                    class="text1-d61">${empty specialCity? city.name:specialCity}</span></p>
 
-<div class="changeCity text2">
-    <label for="topCitiesCityList" class="fltlft">Change city: </label>
+            <div class="changeCity text2">
+                <label for="topCitiesCityList" class="fltlft">Change city: </label>
     <span id="topCitiesCityListSpan">
         <span id="topCitiesCityLoadingSpan"><!-- don't collapse --></span>
-        <select name="topCitiesCityList" id="topCitiesCityList" class="fltlft" onchange="changeCity(this.value, document.getElementById('topSchoolsStateSelector').value);">
+        <select name="topCitiesCityList" id="topCitiesCityList" class="fltlft"
+                onchange="changeCity(this.value, document.getElementById('topSchoolsStateSelector').value);">
             <c:forEach var="curCity" items="${requestScope.cityList}">
                 <c:choose>
                     <c:when test="${city.name eq curCity.name}">
@@ -69,105 +75,118 @@
             </c:forEach>
         </select>
     </span>
-    <gsweb:stateSelector useNoState="${false}"
-                         styleId="topSchoolsStateSelector"
-                         usingLongNames="false"
-                         state="${city.state}" styleClass="formState fltlft"
-                         />
-<br class="clearfloat"/>
-</div>
-
-<c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
-<table width="100%" cellpadding="0" cellspacing="0">
-    <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty city.lon and not empty city.lat}">
-        <tr>
-            <td style="width:300px; vertical-align: top">
-                <div id="mapContainer">
-                    <div id="map">&#160;
-                        <noscript>JavaScript is required in order to view a map of the city and its
-                            schools.
-                        </noscript>
-                    </div>
-                </div>
-
-                <map:schoolsWithRatings id="map"
-                             lon="${city.lon}" lat="${city.lat}"
-                             bubbles="false"
-                             alwaysUsePreIconsForPreschools="${levelCode eq 'p'}"
-                             schools="${schools}"
-                             zoom="10"
+                <gsweb:stateSelector useNoState="${false}"
+                                     styleId="topSchoolsStateSelector"
+                                     usingLongNames="false"
+                                     state="${city.state}" styleClass="formState fltlft"
                         />
-                <!-- map:schools tooltips="true" -->
-            </td>
-        </tr>
-    </c:if>
-    <tr>
-        <td style="vertical-align: top; padding-left: .3em">
-            <c:if test="${empty schools}">
-                <div id="noTopSchools">
-                 <p>There are no ${levelCodePhrase} in ${empty specialCity? city.name:specialCity}.
-                     <link:city city="${city.name}"
-                                state="${city.state}">See other ${empty specialCity? city.name:specialCity} schools &amp;gt;</link:city></p>
-                </div>
-            </c:if>
+                <br class="clearfloat"/>
+            </div>
 
-            <c:if test="${not empty schools}">
-                <div class="topRatedSchools">
+            <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty city.lon and not empty city.lat}">
+                    <tr>
+                        <td style="width:300px; vertical-align: top">
+                            <div id="mapContainer">
+                                <div id="map">&#160;
+                                    <noscript>JavaScript is required in order to view a map of the city and its
+                                        schools.
+                                    </noscript>
+                                </div>
+                            </div>
 
-                    <table style="width: 100%" cellpadding="0" cellspacing="0">
-                        <tr style="">
-                            <th style="text-align: left">School name</th>
-                            <th style="text-align: right;">${ratingHeading}</th>
-                        </tr>
-                        <c:forEach items="${schools}" var="s">
-                            <tr>
-                                <td class="dottedLineBottomBox" colspan="2">
-                                    <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3 fltlft">${s.school.name}</link:schoolProfileOverview>
+                            <map:schoolsWithRatings id="map"
+                                                    lon="${city.lon}" lat="${city.lat}"
+                                                    bubbles="false"
+                                                    alwaysUsePreIconsForPreschools="${levelCode eq 'p'}"
+                                                    schools="${schools}"
+                                                    zoom="10"
+                                    />
+                            <!-- map:schools tooltips="true" -->
+                        </td>
+                    </tr>
+                </c:if>
+                <tr>
+                    <td style="vertical-align: top; padding-left: .3em">
+                        <c:if test="${empty schools}">
+                            <div id="noTopSchools">
+                                <p>There are no ${levelCodePhrase} in ${empty specialCity? city.name:specialCity}.
+                                    <link:city city="${city.name}"
+                                               state="${city.state}">See other ${empty specialCity? city.name:specialCity} schools &amp;gt;</link:city>
+                                </p>
+                            </div>
+                        </c:if>
 
-                                    <c:choose>
-                                        <c:when test="${levelCode eq 'p'}">
-                                            <c:set var="ratingValue" value="rateit"/>
-                                            <c:set var="ratingValueAltText" value="Rate this school!"/>
-                                            <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                            <c:if test="${s.parentRatings.displayOverallRating}">
-                                                <c:set var="ratingValue" value="${s.parentRatings.overall}"/>
-                                                <c:set var="ratingValueAltText" value="Parent Rating: ${ratingValue} out of 5 stars"/>
-                                            </c:if>
-                                            <link:schoolProfileOverview school="${s.school}" title="${s.school.name}"><gsml:img
-                                                    src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
-                                                    alt="${ratingValueAltText}"
-                                                    styleClass="ratingImage"/></link:schoolProfileOverview>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="ratingValue" value="na"/>
-                                            <c:set var="ratingValueAltText" value=""/>
-                                            <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                            <c:if test="${s.rating > 0}">
-                                                <c:set var="ratingValue" value="${s.rating}"/>
-                                                <c:set var="ratingValueAltText" value="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                            </c:if>
-                                            <link:schoolProfileOverview school="${s.school}" title="${s.school.name}" styleClass="text3"><gsml:img
-                                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="${ratingValueAltText}"
-                                                    styleClass="ratingImage fltrt"/></link:schoolProfileOverview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        <tr>
-                            <td colspan="2">
-                                <link:schools city="${city}"
-                                              levelCode="${levelCode}" styleClass="smallText1bold">See all ${empty specialCity? city.name:specialCity} schools <span class="alertDoubleArrow">&amp;raquo;</span></link:schools>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </c:if>
-        </td>
-    </tr>
-</table>
-    </div>
+                        <c:if test="${not empty schools}">
+                            <div class="topRatedSchools">
+
+                                <table style="width: 100%" cellpadding="0" cellspacing="0">
+                                    <tr style="">
+                                        <th style="text-align: left">School name</th>
+                                        <th style="text-align: right;">${ratingHeading}</th>
+                                    </tr>
+                                    <c:forEach items="${schools}" var="s">
+                                        <tr>
+                                            <td class="dottedLineBottomBox" colspan="2">
+                                                <link:schoolProfileOverview school="${s.school}"
+                                                                            title="${s.school.name}"
+                                                                            styleClass="text3 fltlft">${s.school.name}</link:schoolProfileOverview>
+
+                                                <c:choose>
+                                                    <c:when test="${levelCode eq 'p'}">
+                                                        <c:set var="ratingValue" value="rateit"/>
+                                                        <c:set var="ratingValueAltText" value="Rate this school!"/>
+                                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                                        <c:if test="${s.parentRatings.displayOverallRating}">
+                                                            <c:set var="ratingValue"
+                                                                   value="${s.parentRatings.overall}"/>
+                                                            <c:set var="ratingValueAltText"
+                                                                   value="Parent Rating: ${ratingValue} out of 5 stars"/>
+                                                        </c:if>
+                                                        <link:schoolProfileOverview school="${s.school}"
+                                                                                    title="${s.school.name}"><gsml:img
+                                                                src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
+                                                                alt="${ratingValueAltText}"
+                                                                styleClass="ratingImage"/></link:schoolProfileOverview>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="ratingValue" value="na"/>
+                                                        <c:set var="ratingValueAltText" value=""/>
+                                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                                        <c:if test="${s.rating > 0}">
+                                                            <c:set var="ratingValue" value="${s.rating}"/>
+                                                            <c:set var="ratingValueAltText"
+                                                                   value="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                                        </c:if>
+                                                        <link:schoolProfileOverview school="${s.school}"
+                                                                                    title="${s.school.name}"
+                                                                                    styleClass="text3"><gsml:img
+                                                                src="/res/img/school/ratings/${ratingValue}.gif"
+                                                                alt="${ratingValueAltText}"
+                                                                styleClass="ratingImage fltrt"/></link:schoolProfileOverview>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    <tr>
+                                        <td colspan="2">
+                                            <link:schools city="${city}"
+                                                          levelCode="${levelCode}"
+                                                          styleClass="smallText1bold">See all ${empty specialCity? city.name:specialCity} schools
+                                                <span class="alertDoubleArrow">&amp;raquo;</span></link:schools>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+
+            <ad:adTag position="FindSchoolSponsor_Bottom_287x30"/>
+        </div>
     </div>
 
 </jsp:root>
