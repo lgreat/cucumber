@@ -317,7 +317,7 @@
                             </c:choose>
                         </p>
 
-                        <c:if test="${who ne 'principal'}">
+
                             <p class="respond"><link:schoolProfileParentReview
                                 school="${school}" anchor="schoolReviewSubmitForm"
                                 >Write your own review</link:schoolProfileParentReview></p>
@@ -334,7 +334,7 @@
                                     </div>
                                 </c:otherwise>
                             </c:choose>
-                        </c:if>
+                        
                     </div>
                     <!-- end: review -->
                 </pg:item>
