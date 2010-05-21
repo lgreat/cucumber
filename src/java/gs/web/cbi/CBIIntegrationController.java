@@ -24,6 +24,7 @@ public class CBIIntegrationController implements ReadWriteController {
     private static final String SECRET_KEY = "cbounder";
     /** Keys to the actions supported by this controller */
     public static final String SEND_TRIGGERED_EMAIL = "send_triggered_email";
+    public static final String SEND_COACH_TRIGGERED_EMAIL = "send_coach_triggered_email";
     public static final String SUBSCRIBE_CB_NL = "subscribe_cb_nl";
     public static final String UNSUBSCRIBE_CB_NL = "unsubscribe_cb_nl";
     public static final String SUBSCRIBE_CB_COURSE_COMPLETE = "subscribe_cb_coursecomplete";
@@ -43,6 +44,8 @@ public class CBIIntegrationController implements ReadWriteController {
             String action = request.getParameter(ACTION_PARAM);
             if (SEND_TRIGGERED_EMAIL.equals(action)) {
                 out.print(sendExactTargetTriggeredEmail(request));
+            }else if(SEND_COACH_TRIGGERED_EMAIL.equals(action)){
+                out.print(sendCoachMessageExactTargetTriggeredEmail(request));
             }else if(UNSUBSCRIBE_CB_NL.equals(action)){
                 out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
             }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
@@ -61,27 +64,45 @@ public class CBIIntegrationController implements ReadWriteController {
     protected String sendExactTargetTriggeredEmail(HttpServletRequest request) {
         String exactTargetKey = request.getParameter("etkey");
         String memberid = request.getParameter("memberid");
-//        boolean isCourseCompletionEmail = new Boolean(request.getParameter("iscoursecompletion"));
         StringBuilder response = new StringBuilder();
         if(exactTargetKey != null && memberid != null){
             User user = _userDao.findUserFromId(Integer.parseInt(memberid));
             if(user != null){
                 Map attributesMap = constructETAttributesMap(request,user);
                 if(!attributesMap.isEmpty()){
-                    //if course completion email
-//                    if(isCourseCompletionEmail){
-//                        //check if the user is subscribed to course completion emails
-//                        if(isUserSubscribedToCourseCompletion(user)){
-//                            _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-//                        }
-//                    }else{
-                        _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
-//                    }
+                    _exactTargetAPI.sendTriggeredEmail(exactTargetKey,user,attributesMap);
                 }
                 response.append("success");
             }            
         }
         return response.toString();
+    }
+
+    protected String sendCoachMessageExactTargetTriggeredEmail(HttpServletRequest request) {
+        String exactTargetKey = request.getParameter("etkey");
+        String recipients = request.getParameter("recipients");
+        String coachMessage = request.getParameter("body");
+        String responseStr = "";
+        List<Integer> grpMembersInt = new ArrayList<Integer>();
+        if(StringUtils.isNotBlank(recipients) && StringUtils.isNotBlank(exactTargetKey) && StringUtils.isNotBlank(coachMessage)){
+            List<String> grpMembersStr = Arrays.asList(recipients.split(","));
+            for(String member : grpMembersStr){
+                grpMembersInt.add(Integer.parseInt(member));
+            }
+        }
+        if(grpMembersInt.size()>0){
+            List<User> users = _userDao.findUsersFromIds(grpMembersInt);
+            if(users.size() >0){
+                List<String> emails = new ArrayList();
+                for(User user :users){
+                    emails.add(user.getEmail());
+                }
+                Map<String, String> commonAttributes = new HashMap();
+                commonAttributes.put("coachMessage",coachMessage);
+                responseStr = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+            }
+        }
+        return responseStr;
     }
     
      public String subscribeUser(String email,String state,SubscriptionProduct subProduct) {
@@ -156,17 +177,6 @@ public class CBIIntegrationController implements ReadWriteController {
         return attributes;
     }
     
-    public boolean isUserSubscribedToCourseCompletion(User user){
-        Set<Subscription> subs = user.getSubscriptions();
-        Iterator it = subs.iterator();
-        while(it.hasNext()){
-            Subscription s = (Subscription)it.next();
-            if(s.getProduct().getLongName().equals(SubscriptionProduct.CB_COURSE_COMPLETE.getLongName())){
-              return true;
-            }
-        }
-        return false;
-    }
 
      public IUserDao getUserDao() {
         return _userDao;
