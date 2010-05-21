@@ -57,7 +57,7 @@
                     </c:when>
                     <c:otherwise>
                         <h3>
-                            Choose the Tight School
+                            Choose the Right School
                         </h3>
                     </c:otherwise>
                 </c:choose>
