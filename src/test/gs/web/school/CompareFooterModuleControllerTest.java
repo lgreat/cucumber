@@ -29,7 +29,7 @@ public class CompareFooterModuleControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("city", "Alameda");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         List<ICity> cities = (List<ICity>)mAndV.getModel().get(CompareFooterModuleController.MODEL_CITIES);
-        assertTrue("There should be more than 1000 cities in CA", cities.size() > 1000);
+        assertTrue("There should be more than 1000 cities in CA, getting only " + cities.size(), cities.size() > 1000);
         ICity c = (ICity)mAndV.getModel().get(CompareFooterModuleController.MODEL_CITY);
         assertEquals("City name in model doesn't match city parameter", "Alameda", c.getName());
     }
