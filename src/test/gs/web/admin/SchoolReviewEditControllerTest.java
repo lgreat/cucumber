@@ -1,14 +1,20 @@
 package gs.web.admin;
 
 import gs.data.community.IReportedEntityDao;
+import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.easymock.EasyMock.*;
 
@@ -53,6 +59,50 @@ public class SchoolReviewEditControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("disableReview", "true");
         _controller.onSubmit(getRequest(), getResponse(), command, null);
         assertEquals("Controller should set processed date to current date if review becomes disabled", format.format(Calendar.getInstance().getTime()), format.format(review.getProcessDate()));
+    }
+
+    public void testPrincipalReviewsDisabledWhenPrincipalReviewEnabled() throws Exception {
+        //Only one principal review should be published and enabled for a school.
+
+        SchoolReviewEditCommand command = new SchoolReviewEditCommand();
+
+        Review review = new Review();
+        review.setId(1);
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setType(SchoolType.PUBLIC);
+        review.setSchool(school);
+        review.setPoster(Poster.PRINCIPAL);
+
+        command.setReview(review);
+
+        getRequest().setParameter("enableReview", "true");
+
+        List<Review> reviews = new ArrayList<Review>();
+        Review oldReview1 = new Review();
+        oldReview1.setId(2);
+        oldReview1.setPoster(Poster.PRINCIPAL);
+        oldReview1.setNote("Moderator note.");
+        Review oldReview2 = new Review();
+        oldReview2.setId(3);
+        oldReview2.setPoster(Poster.PRINCIPAL);
+        oldReview2.setStatus("p");
+        reviews.add(oldReview1);
+        reviews.add(oldReview2);
+
+        expect(_reviewDao.findPrincipalReviewsBySchool(isA(School.class))).andReturn(reviews);
+        _reviewDao.saveReview(eq(oldReview1));
+        _reviewDao.saveReview(eq(oldReview2));
+        _reviewDao.saveReview(eq(review));
+
+        replay(_reviewDao);
+        _controller.onSubmit(getRequest(), getResponse(), command, null);
+        verify(_reviewDao);
+
+        assertEquals("Review should have been disabled", "d", oldReview1.getStatus());
+        assertEquals("Review should have been disabled", "d", oldReview2.getStatus());
+        assertEquals("Review should have been enabled", "p", review.getStatus());
     }
 
 }

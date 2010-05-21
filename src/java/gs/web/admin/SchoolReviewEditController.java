@@ -95,13 +95,15 @@ public class SchoolReviewEditController extends SimpleFormController implements 
                 List<Review> reviews = _reviewDao.findPrincipalReviewsBySchool(review.getSchool());
 
                 if (reviews != null && reviews.size() > 0) {
-                    for (Review r : reviews){
-                        review.setStatus("d");
-                        review.setProcessDate(Calendar.getInstance().getTime());
-                        _reviewDao.saveReview(review);
-                        String note = review.getNote();
-                        if (note == null) note = "";
-                        review.setNote(note + " [Disabled due to new official comments for this school]");
+                    for (Review oldReview : reviews){
+                        if (!oldReview.getId().equals(review.getId())) {
+                            oldReview.setStatus("d");
+                            oldReview.setProcessDate(Calendar.getInstance().getTime());
+                            String note = oldReview.getNote();
+                            if (note == null) note = "";
+                            oldReview.setNote(note + " [Disabled due to new official comments for this school]");
+                            _reviewDao.saveReview(oldReview);
+                        }
                     }
                 }
             }
