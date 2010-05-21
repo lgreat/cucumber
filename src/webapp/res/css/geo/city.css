@@ -243,6 +243,11 @@ div.topRatedSchools {
 
 }
 
+.topRatedSchools #google_ads_div_City_Page_TopRatedSponsor_310x40 {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 div.recentParentReviews {
     padding: 6px 0 0 0;
     margin: 10px 0 0 0;

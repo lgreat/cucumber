@@ -201,6 +201,7 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <ad:adTag position="TopRatedSponsor_310x40"/>
             </div>
         </c:if>
         <c:if test="${empty requestScope.topRatedSchools}">
