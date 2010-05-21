@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.community.local.ILocalBoardDao;
+import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,6 +75,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     private IUserDao _userDao;
     private IRaiseYourHandDao _raiseYourHandDao;
     private ILocalBoardDao _localBoardDao;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private Boolean _raiseYourHand;
     private Boolean _raiseYourHandFeaturedQuestions;
 
@@ -225,6 +227,10 @@ public class CmsDiscussionBoardController extends AbstractController {
         model.put(MODEL_RAISE_YOUR_HAND_FEATURED_QUESTIONS, isRaiseYourHandFeaturedQuestions());
         model.put(MODEL_PAGE_TITLE, pageTitle);
         model.put(MODEL_TITLE, title);
+        
+        if (board != null && board.getCity() != null && board.getCity().getState() != null) {
+            _stateSpecificFooterHelper.placePopularCitiesInModel(board.getCity().getState(), model);
+        }
 
         return new ModelAndView(_viewName, model);
     }
@@ -460,5 +466,13 @@ public class CmsDiscussionBoardController extends AbstractController {
 
     public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
         _localBoardDao = localBoardDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

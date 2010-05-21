@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.61 2009/12/04 22:27:17 chriskimm Exp $
+ * $Id: CityController.java,v 1.62 2010/05/21 17:41:30 aroy Exp $
  */
 
 package gs.web.geo;
@@ -210,6 +210,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
         model.put("levelCode",_schoolDao.getLevelCodeInCity(city.getName(),state));
 
+        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);
+        
         return new ModelAndView("geo/city", model);
     }
 

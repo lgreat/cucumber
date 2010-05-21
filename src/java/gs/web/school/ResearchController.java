@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -145,6 +146,9 @@ public class ResearchController extends AbstractController implements IDirectory
                 mAndV.getModel().putAll(alertData);
             }
         }
+
+        StateSpecificFooterHelper.placePopularCitiesInModel(state, mAndV.getModel(), _geoDao);
+
         return mAndV;
     }
 

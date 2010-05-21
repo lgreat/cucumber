@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -66,6 +67,7 @@ public class AllInStateController extends AbstractController {
 
     /** Used to get data */
     private Searcher _searcher;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     /** The max number of items to display on a page */
     protected int SCHOOLS_PAGE_SIZE = 400; //default
@@ -129,6 +131,7 @@ public class AllInStateController extends AbstractController {
                 return mAndV;
             }
 
+            _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
             mAndV = new ModelAndView("school/allInState", model);
         } else {
             mAndV = new ModelAndView("status/error");
@@ -491,5 +494,13 @@ public class AllInStateController extends AbstractController {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

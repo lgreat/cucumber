@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.89 2010/05/19 18:12:05 yfan Exp $
+ * $Id: SchoolsController.java,v 1.90 2010/05/21 17:41:29 aroy Exp $
  */
 
 package gs.web.school;
@@ -20,6 +20,7 @@ import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.search.ResultsPager;
 import gs.web.search.SchoolSearchResult;
 import gs.web.util.*;
@@ -449,6 +450,8 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         } else {
             BadRequestLogger.logBadRequest(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
         }
+
+        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);
 
         return new ModelAndView(getViewName(), model);
     }

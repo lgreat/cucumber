@@ -1,5 +1,6 @@
 package gs.web.district;
 
+import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -195,6 +196,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 pageHelper.addAdKeyword("county", county.getName());
             }
         }
+
+        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);        
 
         return new ModelAndView(getViewName(), model);
     }

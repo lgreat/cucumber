@@ -18,6 +18,11 @@
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 
+    <bean id="stateSpecificFooterHelper"
+          class="gs.web.geo.StateSpecificFooterHelper">
+        <property name="geoDao" ref="geoDao"/>
+    </bean>
+
     <bean id="schoolFinderWidgetEmail"
           class="gs.web.widget.SchoolFinderWidgetEmail">
         <property name="subject" value="Your customized School Finder Widget code"/>
