@@ -34,7 +34,8 @@
             <h5>What's your point of view?</h5>
 
             <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
-<a href="/cgi-bin/static/guidelines.html/fl#guidelines">Click here</a> to read guidelines on the kinds of comments that GreatSchools will post.
+<link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                                 styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
             </p>
 
             <br/>
@@ -103,8 +104,8 @@
                     
                     <br/>
 
-                    <input type="checkbox" name="permit"/> I give GreatSchools.org permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
-                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+                    <input type="checkbox" name="permit"/> I give GreatSchools permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
+                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use.</link:termsOfUse>
 
                     <button class="btn25" type="submit" name="submitPrincipalReview"
                             id="submitPrincipalReview">
