@@ -57,6 +57,8 @@
             if (s.tl) {s.tl(this,'o', 'PrincipalUpdate_Parent_Reviews');}
 
             GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+            return false;
          });
     });
 </script>
