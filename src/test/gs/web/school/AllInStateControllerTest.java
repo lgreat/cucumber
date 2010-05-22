@@ -74,7 +74,7 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         Searcher _searcher = (Searcher)getApplicationContext().getBean(Searcher.BEAN_ID);
         Hits hits = _searcher.search(query,
                 new Sort(Indexer.SORTABLE_NAME), null, null);
-        List<List> alphaGroups = _controller.getAlphaGroups("school", hits, State.AK);
+        List<List<Map<String, Object>>> alphaGroups = _controller.getAlphaGroups("school", hits, State.AK);
         assertEquals("There should be 26 alpha groups in AK", 26, alphaGroups.size());
 
         List lastAlphaList = alphaGroups.get(alphaGroups.size()-2);
@@ -128,8 +128,8 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
     public void testBuildModel() throws Exception {
         Map model = _controller.buildModel(State.AK, "schools/cities/Alaska/AK/2");
         String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
-        assertTrue(pageLinks.contains("A-M"));
-        assertTrue(pageLinks.contains("N-Y"));
+        assertTrue("Expect \"" + pageLinks + "\" to contain \">A<\"", pageLinks.contains(">A<"));
+        assertTrue("Expect \"" + pageLinks + "\" to contain \">B<\"", pageLinks.contains(">B<"));
 
     }
 

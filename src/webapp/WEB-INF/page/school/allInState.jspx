@@ -25,13 +25,25 @@
                 <c:set var="path" value="/schools/cities/" />
                 <c:set var="heading" value="${state.longName} School Information by City" />
                 <c:set var="pageName" value="All Cities in State" />
+                <c:choose>
+                    <c:when test="${empty currentLetter}">
+                        <c:set var="columnHeader" value="Popular Cities"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="columnHeader" value="${state.longName} cities starting with ${currentLetter}"/>
+                    </c:otherwise>
+                </c:choose>
                 <ad:setSlotPrefix slotPrefix="All_Cities_in_State"/>
+                <c:if test="${not empty relCanonical}">
+                    <link rel="canonical" href="${relCanonical}"/>
+                </c:if>
             </c:when>
             <c:when test="${type eq 'district'}">
                 <c:set var="thing" value="school districts" />
                 <c:set var="path" value="/schools/districts/" />
                 <c:set var="heading" value="${state.longName} School Districts" />
                 <c:set var="pageName" value="All Districts in State" />
+                <c:set var="columnHeader" value="City"/>
                 <ad:setSlotPrefix slotPrefix="All_Districts_in_State"/>
             </c:when>
             <c:otherwise>
@@ -39,6 +51,7 @@
                 <c:set var="path" value="/schools/" />
                 <c:set var="heading" value="All schools in ${state.longName}" />
                 <c:set var="pageName" value="All Schools in State" />
+                <c:set var="columnHeader" value="City"/>
                 <ad:setSlotPrefix slotPrefix="All_Schools_in_State"/>
             </c:otherwise>
         </c:choose>
@@ -92,7 +105,7 @@
                         <c:if test="${type eq 'district'}">
                             <th>District name</th>
                         </c:if>
-                        <th>City</th>
+                        <th>${columnHeader}</th>
                         <c:if test="${type ne 'city'}">
                             <th>County name</th>
                         </c:if>

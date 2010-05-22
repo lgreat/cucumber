@@ -1,5 +1,7 @@
 package gs.web.school;
 
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,10 +15,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.io.IOException;
 
 import gs.data.state.State;
@@ -60,14 +59,23 @@ public class AllInStateController extends AbstractController {
     /** key for the page type (school|city|district) in the model Map */
     public static final String MODEL_TYPE= "type";
 
+    /** key for the current letter being displayed (for cities page) */
+    public static final String MODEL_CURRENT_LETTER= "currentLetter";
+
+    /** value for link rel canonical (for cities page) */
+    public static final String MODEL_REL_CANONICAL= "relCanonical";
+
     /** The type of item that this page displays */
     public static final String SCHOOLS_TYPE = "school";
     public static final String CITIES_TYPE = "city";
     public static final String DISTRICTS_TYPE = "district";
+    public static final int NUM_TOP_CITIES = 50;
+    public static final String POPULAR_CITIES_TITLE = "Popular Cities";
 
     /** Used to get data */
     private Searcher _searcher;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private IGeoDao _geoDao;
 
     /** The max number of items to display on a page */
     protected int SCHOOLS_PAGE_SIZE = 400; //default
@@ -123,13 +131,14 @@ public class AllInStateController extends AbstractController {
 
         ModelAndView mAndV;
         if (StringUtils.isNotBlank(path) && state != null) {
-            Map model = buildModel(state, path);
+            Map<String, Object> model = buildModel(state, path);
             if (model.get(MODEL_TYPE).equals(SCHOOLS_TYPE)) {
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
                 String redirectPath = urlBuilder.asSiteRelative(request);
                 mAndV = new ModelAndView(new RedirectView301(redirectPath));
                 return mAndV;
             }
+            model.put(MODEL_REL_CANONICAL, request.getRequestURI());
 
             _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
             mAndV = new ModelAndView("school/allInState", model);
@@ -147,9 +156,9 @@ public class AllInStateController extends AbstractController {
      * @throws Exception - if something goes haywire.
      * @return a Map populated with the model elements.
      */
-    protected Map buildModel(State state, String path) throws Exception {
+    protected Map<String, Object> buildModel(State state, String path) throws Exception {
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         // Determine the page type from path.
         String type = SCHOOLS_TYPE;
@@ -162,8 +171,74 @@ public class AllInStateController extends AbstractController {
             pageSize = DISTRICTS_PAGE_SIZE;
         }
         model.put(MODEL_TYPE, type);
+        model.put(MODEL_STATE, state);
+        if (DISTRICTS_TYPE.equals(type)) {
+            buildDistrictModel(state, path, model, type, pageSize);
+        } else {
+            buildCitiesModel(state, path, model, type);
+        }
 
-        // We need to remember this value to build the page title. 
+
+        return model;
+    }
+
+    protected void buildCitiesModel(State state, String path, Map<String, Object> model, String type) throws Exception {
+        // We need to remember this value to build the page title.
+
+        String alpha = getCityAlphaFromPath(path);
+        if (POPULAR_CITIES_TITLE.equals(alpha)) {
+            model.put(MODEL_LIST, convertToSortedListOfMaps(
+                    _geoDao.findTopCitiesByPopulationInState(state, NUM_TOP_CITIES)));
+            model.put(MODEL_TITLE, POPULAR_CITIES_TITLE);
+        } else {
+            model.put(MODEL_CURRENT_LETTER, alpha);
+        }
+        model.put(MODEL_TITLE, buildTitle(type, state, alpha));
+
+        // Get *all* the results for a state
+        Hits hits = getHits(type, state);
+
+        // Group these results by alpha order - a separate list for each letter.
+        List<List<Map<String, Object>>> alphaGroups = getAlphaGroups(type, hits, state);
+
+        StringBuffer linksBuffer = new StringBuffer();
+//        List<List> pageGroups = new ArrayList<List>();
+        Map<String, List> pageGroups = new HashMap<String, List>();
+//        List<Map<String, Object>> workingGroup = new ArrayList<Map<String, Object>>();
+//        boolean breakpoint = true;
+        for (List<Map<String, Object>> alphaGroup : alphaGroups) {
+            // here's the logic... each alpha group gets its own page
+            String currentPage = StringUtils.substring((String)alphaGroup.get(0).get("city"), 0, 1).toUpperCase();
+            pageGroups.put(currentPage, alphaGroup);
+            linksBuffer.append(buildPageLink(state, currentPage, alpha, getSpan(alphaGroup, 1)));
+        }
+
+        model.put(MODEL_LINKS, linksBuffer.toString());
+
+        if (StringUtils.length(alpha) == 1 && pageGroups.get(alpha) != null) {
+            List list = pageGroups.get(alpha);
+            model.put(MODEL_LIST, list);
+        }
+    }
+
+    protected List<Map<String, Object>> convertToSortedListOfMaps(List<City> topCitiesByPopulationInState) {
+        Collections.sort(topCitiesByPopulationInState, new Comparator<City>() {
+            public int compare(City o1, City o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        List<Map<String, Object>> rval = new ArrayList<Map<String, Object>>(topCitiesByPopulationInState.size());
+        for (City city: topCitiesByPopulationInState) {
+            Map<String, Object> fields = new HashMap<String, Object>();
+            fields.put("name", city.getName());
+            fields.put("city", city.getName());
+            rval.add(fields);
+        }
+        return rval;
+    }
+
+    protected void buildDistrictModel(State state, String path, Map<String, Object> model, String type, int pageSize) throws Exception {
+        // We need to remember this value to build the page title.
         int selectedSpanWidth = 1; //default
 
         int page = getPageFromPath(path);
@@ -172,7 +247,7 @@ public class AllInStateController extends AbstractController {
         Hits hits = getHits(type, state);
 
         // Group these results by alpha order - a separate list for each letter.
-        List<List> alphaGroups = getAlphaGroups(type, hits, state);
+        List<List<Map<String, Object>>> alphaGroups = getAlphaGroups(type, hits, state);
 
         StringBuffer linksBuffer = new StringBuffer();
         List<List> pageGroups = new ArrayList<List>();
@@ -209,22 +284,9 @@ public class AllInStateController extends AbstractController {
                 }
                 linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(subGroup, 2)));
             } else {
-                // here's the logic...as soon as we get past "m", we start a new page
-                // we do this by adding 1000000 to the total number of cities as soon as
-                // we see a letter greater than or equal to "n"
-                int count = 0;
-                if(path.contains("/cities/") && alphaGroup.size() > 0){
-                    Map fields = (HashMap) alphaGroup.get(0);
-                    String cityName = (String) fields.get("city");
-                    if(cityName.compareToIgnoreCase("n") > 0 && breakpoint){
-                        count = 1000000;
-                        breakpoint = false;
-                    }
-                }
-                if ((alphaGroup.size() + workingGroup.size() + count) < pageSize) {
+                if ((alphaGroup.size() + workingGroup.size()) < pageSize) {
                     workingGroup.addAll(alphaGroup);
                 } else {
-                    count = 0;
                     pageGroups.add(workingGroup);
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(workingGroup, 1)));
                     workingGroup = alphaGroup;
@@ -245,11 +307,7 @@ public class AllInStateController extends AbstractController {
             String span = getSpan(list, selectedSpanWidth);
             model.put(MODEL_TITLE, buildTitle(type, state, span));
         }
-        model.put(MODEL_STATE, state);
-
-        return model;
     }
-
 
     /**
      * Returns a Hits object containing all of the matches for a particular type -
@@ -276,11 +334,11 @@ public class AllInStateController extends AbstractController {
      * @return a List<List>
      * @throws IOException - if something gets nasty.
      */
-    protected List<List> getAlphaGroups(String type, Hits hits, State state) throws IOException {
-        List<List> alphaGroups = new ArrayList<List>();
+    protected List<List<Map<String, Object>>> getAlphaGroups(String type, Hits hits, State state) throws IOException {
+        List<List<Map<String,Object>>> alphaGroups = new ArrayList<List<Map<String,Object>>>();
         if (hits != null && hits.length() > 0) {
-            List workingList = new ArrayList();
-            List numericList = new ArrayList();
+            List<Map<String, Object>> workingList = new ArrayList<Map<String, Object>>();
+            List<Map<String, Object>> numericList = new ArrayList<Map<String, Object>>();
             char currentLetter = 'a';
             for (int i = 0; i < hits.length(); i++) {
                 Document doc = hits.doc(i);
@@ -295,13 +353,13 @@ public class AllInStateController extends AbstractController {
                 if ((lowerName.length() > 0) && (currentLetter != lowerName.charAt(0))) {
                     if (workingList.size() > 0) {
                         alphaGroups.add(workingList);
-                        workingList = new ArrayList();
+                        workingList = new ArrayList<Map<String, Object>>();
                     }
                     currentLetter = lowerName.charAt(0);
                 }
 
                 if (name.matches("^\\p{Alnum}.*")) {
-                    Map fields = new HashMap();
+                    Map<String, Object> fields = new HashMap<String, Object>();
                     fields.put("name", name);
                     String id = doc.get(Indexer.ID);
                     fields.put("id", id);
@@ -375,6 +433,18 @@ public class AllInStateController extends AbstractController {
         return state;
     }
 
+    protected String getCityAlphaFromPath(String path) {
+        String alpha=POPULAR_CITIES_TITLE;
+        if (StringUtils.isNotBlank(path)) {
+            String[] elements = path.trim().split("/");
+            String last = elements[elements.length-1];
+            if (StringUtils.length(last) == 1 && StringUtils.isAlpha(last)) {
+                alpha = StringUtils.upperCase(last);
+            }
+        }
+
+        return alpha;
+    }
 
     /**
      * Parses a path and returns a page index based on the last path component which
@@ -399,6 +469,39 @@ public class AllInStateController extends AbstractController {
         return page > 0 ? page : 1;
     }
 
+
+    /**
+     * Helper method that builds the markup for a single page link.
+     * @param state - a State
+     * @param index - The index of *this* link
+     * @param selectedIndex - the index of the currently selected page
+     * @param span - the Text that is wrapped by this link
+     * @return a String
+     */
+    protected String buildPageLink(State state, String index,
+                                   String selectedIndex, String span) {
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<span class=\"pageLink\">");
+        if (!StringUtils.equals(index, selectedIndex)) {
+            buffer.append("<a href=\"/schools/");
+            buffer.append("cities/");
+            buffer.append(state.getLongName());
+            buffer.append("/");
+            buffer.append(state.getAbbreviation());
+            if (StringUtils.length(index) == 1) {
+                buffer.append("/");
+                buffer.append(index);
+            }
+            buffer.append("\">");
+        }
+        buffer.append(span);
+        if (!StringUtils.equals(index, selectedIndex)) {
+            buffer.append("</a>");
+        }
+        buffer.append("</span>\n");
+        return buffer.toString();
+    }
 
     /**
      * Helper method that builds the markup for a single page link.
@@ -502,5 +605,13 @@ public class AllInStateController extends AbstractController {
 
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
