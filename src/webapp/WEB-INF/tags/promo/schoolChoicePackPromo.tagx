@@ -163,7 +163,7 @@
                     </div>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
-                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }"/>
+                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }" disabled="${(communityAuth) ? 'disabled' : ''}" />
 
                        <button class="btn25" type="submit" id="send">
                             <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
