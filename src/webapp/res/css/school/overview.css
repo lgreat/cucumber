@@ -11,9 +11,6 @@
 	color: #666;
 }
 
-#schoolOverview a, #schoolOverview a:hover {
-	text-decoration: underline;
-}
 
 hr { /* has IE 7 equivalent */
 	width: 177px; /* width of modules plus 2 2px border (4px) */
@@ -24,7 +21,11 @@ hr { /* has IE 7 equivalent */
 	_margin: 0; /* IE 6 hack */
 	_border: 1px solid #dee; /* IE 6 hack */
 }
-
+#schoolOverview #espLink {
+    background: #dee url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
+    padding:9px 5px 9px 29px;
+    margin: 15px 15px 5px 0;
+}
 #col_left {
 	width: 173px;
 	margin: 0 14px 0 0;
