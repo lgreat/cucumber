@@ -320,8 +320,15 @@
         </c:choose>
     </div>
 
+    <c:choose>
+        <c:when test="${showSchoolChooserPackPromo}">
     <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
+        </c:when>
+        <c:otherwise>
+            <ad:Top_300x137/>
+        </c:otherwise>
+    </c:choose>
 
     <!--<div class="mod">
         <div class="mod_hd">
