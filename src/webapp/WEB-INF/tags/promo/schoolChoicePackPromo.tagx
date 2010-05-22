@@ -162,8 +162,15 @@
                         <span class="error">Please enter a valid email address.</span>
                     </div>
                     <div id="email_go">
-                        <input id="cemail" name="cemail"
-                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }" disabled="${(communityAuth) ? 'disabled' : ''}" />
+
+                        <c:choose>
+                            <c:when test="${communityAuth}">
+                                <input id="cemail" name="cemail" class="required email" value="${requestScope.context.user.email}" disabled="true"  />
+                            </c:when>
+                            <c:otherwise>
+                                <input id="cemail" name="cemail" class="required email" value="Enter email address" />                                
+                            </c:otherwise>
+                        </c:choose>
 
                        <button class="btn25" type="submit" id="send">
                             <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
