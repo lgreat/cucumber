@@ -13,6 +13,7 @@ import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
 import gs.data.security.Permission;
 import gs.data.state.State;
+import gs.web.school.SchoolOverviewController;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -174,6 +175,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         }
 
+        model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request));
 
         return new ModelAndView(_viewName, model);
     }

@@ -311,9 +311,16 @@
                         alt="School Choice Tips"/></link:schoolChoiceCenter>
             </c:when>
             <c:otherwise>
-                <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
-                                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                                 />
+                <c:choose>
+                    <c:when test="${showSchoolChooserPackPromo}">
+                        <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                                             showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                             />
+                    </c:when>
+                    <c:otherwise>
+                        <ad:Top_300x137/>
+                    </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
     </div>

@@ -182,9 +182,16 @@
 
             <div id="schoolChoicePromo" class="box thin">
                 <div class="inner">
-                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                    <c:choose>
+                        <c:when test="${showSchoolChooserPackPromo}">
+                            <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
                                                  caller="middle"/>
+                        </c:when>
+                        <c:otherwise>
+                            <ad:Top_300x137/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 

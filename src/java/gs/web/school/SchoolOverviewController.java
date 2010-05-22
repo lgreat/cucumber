@@ -186,7 +186,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
 
     // Checks to see if the user has any "School Chooser Pack" subscription
     // products.  Resturns false if they do.
-    static boolean showSchoolChooserPackPromo(HttpServletRequest request) {
+    public static boolean showSchoolChooserPackPromo(HttpServletRequest request) {
         boolean show = true;
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         User u = sc.getUser();
