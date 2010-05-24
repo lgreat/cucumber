@@ -14,6 +14,7 @@
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
 <pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>
 <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
+<pageHelper:externalJavascript file="/res/js/externalTracking.js"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
@@ -55,6 +56,11 @@
             var schoolState = '${school.databaseState}';
 
             if (s.tl) {s.tl(this,'o', 'PrincipalUpdate_Parent_Reviews');}
+            
+            pageTracking.pageName =  "School Officials Pre Signup Hover";
+            pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+            pageTracking.server = "www.greatschools.org";
+            pageTracking.send();
 
             GSType.hover.principalConfirmation.show(schoolId, schoolState);
 
