@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.36 2010/05/21 21:28:59 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.37 2010/05/24 21:58:12 aroy Exp $
 */
 
 package gs.web.geo;
@@ -72,6 +72,7 @@ public class NearbyCitiesController extends AbstractController {
     private IGeoDao _geoDao;
     private ICityRatingDao _cityRatingDao;
     private AnchorListModelFactory _anchorListModelFactory;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -133,7 +134,7 @@ public class NearbyCitiesController extends AbstractController {
                 }
                 model.put(AnchorListModel.DEFAULT, anchorListModel);
             }
-            StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);
+            _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
         }
         return new ModelAndView(_viewName, model);
     }
@@ -273,4 +274,11 @@ public class NearbyCitiesController extends AbstractController {
         }
     }
 
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
 }

@@ -72,6 +72,8 @@ public class ResearchController extends AbstractController implements IDirectory
     /** Stores alerts about test data */
     static Map<String, Map> _cache;
 
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -147,7 +149,7 @@ public class ResearchController extends AbstractController implements IDirectory
             }
         }
 
-        StateSpecificFooterHelper.placePopularCitiesInModel(state, mAndV.getModel(), _geoDao);
+        _stateSpecificFooterHelper.placePopularCitiesInModel(state, mAndV.getModel());
 
         return mAndV;
     }
@@ -276,5 +278,13 @@ public class ResearchController extends AbstractController implements IDirectory
 
     public void setTableDao(ITableDao tableDao) {
         _tableDao = tableDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.28 2009/12/04 22:27:17 chriskimm Exp $
+ * $Id: CityControllerTest.java,v 1.29 2010/05/24 21:58:13 aroy Exp $
  */
 
 package gs.web.geo;
@@ -51,6 +51,8 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
         _controller.setAnchorListModelFactory( (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
         _controller.setLocalBoardDao( (ILocalBoardDao) getApplicationContext().getBean(ILocalBoardDao.BEAN_ID));
+        _controller.setStateSpecificFooterHelper(org.easymock.classextension.EasyMock.createMock(
+                StateSpecificFooterHelper.class));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }

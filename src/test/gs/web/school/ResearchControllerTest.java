@@ -2,10 +2,10 @@ package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.util.table.ITableDao;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
@@ -28,6 +28,8 @@ public class ResearchControllerTest extends BaseControllerTestCase {
         factory.setWorksheetName("od6");
         ITableDao tableDao = factory.getTableDao();
         _controller.setTableDao(tableDao);
+        _controller.setStateSpecificFooterHelper(org.easymock.classextension.EasyMock.createMock(
+                StateSpecificFooterHelper.class));
     }
 
     public void testLoadCache() throws Exception {

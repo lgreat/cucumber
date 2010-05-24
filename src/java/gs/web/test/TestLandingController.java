@@ -58,6 +58,8 @@ public class TestLandingController extends SimpleFormController {
 
     private ITableDao _tableDao;
 
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
+
     private static final Logger _log = Logger.getLogger(TestLandingController.class);
 
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
@@ -79,7 +81,7 @@ public class TestLandingController extends SimpleFormController {
                     errors.reject("Could not find test info for: " + key);
                 } else {
                     refData.putAll(testData);
-                    StateSpecificFooterHelper.placePopularCitiesInModel(state, refData, _geoDao);
+                    _stateSpecificFooterHelper.placePopularCitiesInModel(state, refData);
                 }
             } else {
                 errors.reject("test id (tid) parameter is missing");
@@ -265,5 +267,13 @@ public class TestLandingController extends SimpleFormController {
 
     public void setTableDao(ITableDao tableDao) {
         _tableDao = tableDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

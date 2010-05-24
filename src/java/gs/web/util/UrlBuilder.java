@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.218 2010/05/19 01:17:29 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.219 2010/05/24 21:58:12 aroy Exp $
  */
 
 package gs.web.util;
@@ -17,7 +17,6 @@ import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
-import gs.data.community.Discussion;
 import gs.data.community.User;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -105,7 +104,6 @@ public class UrlBuilder {
 
     public static final VPage CITY_PAGE = new VPage("vpage:city");
     public static final VPage CITIES = new VPage("vpage:cities"); // all the cities in a state
-    public static final VPage CITIES2 = new VPage("vpage:cities2"); // all the cities in a state
     public static final VPage CITIES_MORE_NEARBY = new VPage("vpage:moreNearbyCities");
 
     public static final VPage CONTACT_US = new VPage("vpage:contactUs");
@@ -917,9 +915,9 @@ public class UrlBuilder {
         } else if (CITIES.equals(page)) {
             _perlPage = false;
             _path = "/schools/cities/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
-        } else if (CITIES2.equals(page)) {
-            _perlPage = false;
-            _path = "/schools/cities/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation() + "/2";
+            if (StringUtils.isNotBlank(param0)) {
+                _path += "/" + param0;
+            }
         } else if (MY_SCHOOL_LIST.equals(page)) {
             _perlPage = false;
             _path = "/mySchoolList.page";

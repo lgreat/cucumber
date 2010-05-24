@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.55 2009/12/04 22:27:12 chriskimm Exp $
+ * $Id: SchoolsControllerTest.java,v 1.56 2010/05/24 21:58:12 aroy Exp $
  */
 
 package gs.web.school;
@@ -17,12 +17,13 @@ import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.RedirectView301;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -48,6 +49,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setSearcher((Searcher) getApplicationContext().getBean(Searcher.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
+        _controller.setStateSpecificFooterHelper(createMock(StateSpecificFooterHelper.class));
 
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
     }

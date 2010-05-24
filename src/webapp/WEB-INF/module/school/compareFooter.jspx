@@ -55,7 +55,7 @@
                                              name="submit" onclick="return verifyCity('verticalCompareCitySelect');"/>
                         </gsweb:form>
                     </div>
-                <div id="allCitiesLink">All cities in ${requestScope.context.stateOrDefault.longName}: <link:cities state="${requestScope.context.stateOrDefault}">A-M</link:cities> &amp;nbsp; <link:cities2 state="${requestScope.context.stateOrDefault}">N-Z</link:cities2></div>
+                <div id="allCitiesLink"><link:cities state="${requestScope.context.stateOrDefault}">All ${requestScope.context.stateOrDefault.longName} cities</link:cities></div>
             </div>
             </c:if>
 

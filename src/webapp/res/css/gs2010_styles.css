@@ -4537,7 +4537,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     font-weight: 700;
 }
 
-#footnav li a, .cities ul a, .copyright a {
+#footnav li a, .cities ul a, .copyright a, #navFooter .allCities a {
     color: #666;
 }
 
@@ -4561,6 +4561,10 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 .popularCities {
     padding: 12px 39px;
     width: 890px;
+}
+
+#navFooter .allCities a {
+    margin: 0 3px 0 3px;
 }
 
 .cities h4 {

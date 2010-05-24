@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.90 2010/05/21 17:41:29 aroy Exp $
+ * $Id: SchoolsController.java,v 1.91 2010/05/24 21:58:13 aroy Exp $
  */
 
 package gs.web.school;
@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.Hit;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +59,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private String _viewName;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     // INPUTS
     public static final String PARAM_PAGE = "p";
@@ -451,7 +451,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             BadRequestLogger.logBadRequest(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);
+        _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
 
         return new ModelAndView(getViewName(), model);
     }
@@ -817,5 +817,13 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

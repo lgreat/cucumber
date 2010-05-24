@@ -60,6 +60,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private IGeoDao _geoDao;
     private IDistrictRatingDao _districtRatingDao;
     private ICensusDataSetDao _censusDataSetDao;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
     public static final String DEV_DISTRICT_BOILERPLATE_TAB = "od6";
     public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "odb";
     public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od9";
@@ -197,7 +198,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
             }
         }
 
-        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);        
+        _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
 
         return new ModelAndView(getViewName(), model);
     }
@@ -431,5 +432,11 @@ public class DistrictHomeController extends AbstractController  implements IDire
         _censusDataSetDao = censusDataSetDao;
     }
 
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
 
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
 }

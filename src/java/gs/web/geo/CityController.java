@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.62 2010/05/21 17:41:30 aroy Exp $
+ * $Id: CityController.java,v 1.63 2010/05/24 21:58:12 aroy Exp $
  */
 
 package gs.web.geo;
@@ -74,6 +74,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
     private ILocalBoardDao _localBoardDao;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;    
 
     public static final int MAX_SCHOOLS = 10;
 
@@ -210,7 +211,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
         model.put("levelCode",_schoolDao.getLevelCodeInCity(city.getName(),state));
 
-        StateSpecificFooterHelper.placePopularCitiesInModel(state, model, _geoDao);
+        _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
         
         return new ModelAndView("geo/city", model);
     }
@@ -278,5 +279,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
         _localBoardDao = localBoardDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }
