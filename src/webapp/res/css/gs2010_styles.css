@@ -3614,8 +3614,12 @@ margin:10px 0 14px 20px;
     padding-top: 20px;
 }
 #sidebarGS.vids #adCompanionBanner {
+    margin: 12px auto .6em;
+}
+
+#sidebarGS.vids #adCompanionBanner img {
     width: 300px;
-    margin: 0 auto .6em;
+    margin: 0 auto;
 }
 #watchVid .mod_hd {
     padding: 8px 0;
