@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -138,7 +139,11 @@ public class AllInStateController extends AbstractController {
                 mAndV = new ModelAndView(new RedirectView301(redirectPath));
                 return mAndV;
             }
-            model.put(MODEL_REL_CANONICAL, request.getRequestURI());
+            String relCanonical = "http://" +
+                request.getServerName() +
+                ((request.getServerPort() != 80) ? ":" + request.getServerPort() : "") +
+                request.getRequestURI();
+            model.put(MODEL_REL_CANONICAL, relCanonical);
 
             _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
             mAndV = new ModelAndView("school/allInState", model);
