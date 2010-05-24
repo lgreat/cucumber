@@ -21,6 +21,7 @@ import java.util.*;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class StateSpecificFooterHelper {
+    public static final String BEAN_ID = "stateSpecificFooterHelper";
     private static final Log _log = LogFactory.getLog(StateSpecificFooterHelper.class);
     public static final int NUM_CITIES = 28;
     public static final String MODEL_TOP_CITIES = "popularCitiesByState";
