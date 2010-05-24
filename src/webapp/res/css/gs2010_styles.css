@@ -2764,8 +2764,8 @@ p.hlpTxt {
     margin: 0 3px 6px 0;
 }
 #pickGrade_SCPP label, #pickGrade_SCPP input {
-    margin: 0;
-    dislay: inline;
+    display: inline;
+    margin: 2px 5px 3px 0;
 }
 body.nocol #pickGrade_SCPP input {
     margin-bottom: 6px;
