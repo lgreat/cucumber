@@ -89,7 +89,9 @@ body.ie #mainWrap {
 *+html #mainWrap {
     min-height: 100%;
 }
-
+body.ie #pickGrade_SCPP input {
+    margin: 0 5px 3px 0;
+}
 body.ie7 #header, *+html #header {
     z-index: 3;
 }
