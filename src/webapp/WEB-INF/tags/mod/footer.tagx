@@ -121,6 +121,7 @@
                                 <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                             </c:forEach>
                         </ul>
+                        <br class="clearBoth"/>
                         <c:if test="${not empty citiesInStateAlpha}">
                             <div class="allCities">
                                 All cities in ${requestScope.context.state.longName}:
