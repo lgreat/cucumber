@@ -169,13 +169,14 @@ body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_text {
 #schoolChoicePackPromo div.mod_bd {
     padding: 15px;
     background: url(/res/img/school/compare/21121_thumb_boy_apple.jpg) 97% 8px no-repeat;
+    height: auto;
+}
+#schoolChoicePackPromo #confirm_panel.mod_bd {
     height: 187px;
 }
-
 body.nocol #schoolChoicePackPromo div.mod_bd {
     padding: 0 4px 0 0;
     width: auto;
-    height: auto;
     background-image: none;
 
 }
