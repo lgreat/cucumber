@@ -311,16 +311,6 @@
                         alt="School Choice Tips"/></link:schoolChoiceCenter>
             </c:when>
             <c:otherwise>
-                <c:choose>
-                    <c:when test="${showSchoolChooserPackPromo}">
-                        <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
-                                             showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                             />
-                    </c:when>
-                    <c:otherwise>
-                        <ad:Top_300x137/>
-                    </c:otherwise>
-                </c:choose>
             </c:otherwise>
         </c:choose>
     </div>
@@ -330,6 +320,17 @@
         <ad:AboveFold_300x250/>
     </div>
     <!-- end #squareadvert -->
+
+    <c:choose>
+        <c:when test="${showSchoolChooserPackPromo}">
+            <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                 />
+        </c:when>
+        <c:otherwise>
+            <ad:House_Ad_300x137 referredBy="${pageName}"/>
+        </c:otherwise>
+    </c:choose>
 
     <c:if test="${topicCenter.gradeLevelTopicCenter}">
         <c:choose>

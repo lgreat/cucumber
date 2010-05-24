@@ -2,7 +2,17 @@ var $j = jQuery;
 
 $j(function() {
 
+    var sitePreferences = subCookie.getObject("site_pref");
+    var schoolChoicePackAlreadySubmitted = "";
 
+    if (sitePreferences != undefined && sitePreferences.schoolChoicePackAlreadySubmitted != undefined) {
+        schoolChoicePackAlreadySubmitted = sitePreferences.schoolChoicePackAlreadySubmitted;
+    }
+
+    if (schoolChoicePackAlreadySubmitted == "true") {
+        jQuery("#form_panel").hide();
+        jQuery("#confirm_panel").show();
+    }
 
     // clears the email field
     $j('#cemail').click(function () {
@@ -65,7 +75,7 @@ $j(function() {
                     if (data == 'true') {
                         if (GS.showChooserTipSheetHover(emailVal, window.location.href)) {
                             $j.post("/promo/schoolChoicePackPromo.page",
-                            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
+                            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : window.location.href},
                                     function(datax) {
                                         // per GS-8301 don't set memid cookie here
                                         //                                                if (datax.createMemberCookie == 'y') {

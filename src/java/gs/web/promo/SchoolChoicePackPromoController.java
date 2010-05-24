@@ -1,5 +1,6 @@
 package gs.web.promo;
 
+import gs.web.util.SitePrefCookie;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
@@ -123,7 +124,10 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             }
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
-            out.println("}");                                     
+            out.println("}");
+
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            cookie.setProperty("schoolChoicePackAlreadySubmitted", "true");
         }
         return null;
     }

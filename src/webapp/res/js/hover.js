@@ -873,7 +873,7 @@ GS.chooserHover_checkValidationResponse = function(data) {
                 }
             });
             jQuery.post("/promo/schoolChoicePackPromo.page",
-            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
+            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : window.location.href},
                     function(datax) {
                         omnitureEventNotifier.clear();
                         omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
