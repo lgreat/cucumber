@@ -40,7 +40,8 @@
                     draggable: false,
                     width: 645,
                     title: "Upload a picture",
-                    bgiframe: true
+                    bgiframe: true,
+                    zIndex: 99999999
                 });
             };
             this.open = function() {
