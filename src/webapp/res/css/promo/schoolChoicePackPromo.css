@@ -35,6 +35,7 @@ body.nocol #schoolChoicePackPromo .mod_hd h3 {
     font: 700 16px/1.1 Arial, sans-serif;
     background: #6cc;
     padding: 5px 15px 5px 15px;
+    height: auto;
 }
 body.nocol #schoolChoicePackPromo .mod_bd h4 {
     background: url('/res/img/promo/clipboard_icon.jpg') 0 0 no-repeat;

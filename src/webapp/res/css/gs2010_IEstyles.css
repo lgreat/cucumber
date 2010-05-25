@@ -224,7 +224,7 @@ body.ie7 #pickGrade, * + html #pickGrade {
     z-index: 100;
 }
 *+html body.nocol #scpp_picker #pickGrade_SCPP{
-    height: 54px;
+    height: 45px;
 }
 *+html body.nocol #pickGrade_SCPP label {
     width: 108px;
