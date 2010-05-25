@@ -4,9 +4,13 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.IUserDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.school.ISchoolDao;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -31,6 +35,8 @@ public class SchoolReviewEditController extends SimpleFormController implements 
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
     private IUserDao _userDao;
+    private ISchoolDao _schoolDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
@@ -108,6 +114,25 @@ public class SchoolReviewEditController extends SimpleFormController implements 
                 }
             }
 
+            if (StringUtils.equals("u", review.getStatus())) {
+                if (Poster.STUDENT == review.getPoster() || Poster.PRINCIPAL == review.getPoster()) {
+                    Map<String,String> emailAttributes = new HashMap<String,String>();
+                    review.setSchoolDao(_schoolDao);
+                    review.setUserDao(_userDao);
+                    emailAttributes.put("schoolName", review.getSchool().getName());
+                    emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+                    StringBuffer reviewLink = new StringBuffer("<a href=\"");
+                    UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                    urlBuilder.addParameter("lr", "true");
+                    reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+                    reviewLink.append("\">your review</a>");
+                    emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+                    _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+                }
+            }
+
             review.setStatus("p");
             review.setProcessDate(Calendar.getInstance().getTime());
             _reviewDao.saveReview(review);
@@ -142,5 +167,21 @@ public class SchoolReviewEditController extends SimpleFormController implements 
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 }
