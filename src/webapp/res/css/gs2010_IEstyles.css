@@ -223,6 +223,9 @@ body.ie7 #pickGrade, * + html #pickGrade {
     overflow: visible;
     z-index: 100;
 }
+*+html body.nocol #scpp_picker #pickGrade_SCPP{
+    height: 54px;
+}
 *+html body.nocol #pickGrade_SCPP label {
     width: 108px;
     margin: 3px 0 5px 5px;
@@ -235,6 +238,9 @@ body.ie7 #pickGrade, * + html #pickGrade {
     margin: 3px 0 5px 5px;
     height: 18px;
 
+}
+*html body.nocol #scpp_picker #pickGrade_SCPP{
+    height: 54px;
 }
 body.ie7 #pickGrade label, * + html #pickGrade label {
     width: auto;
