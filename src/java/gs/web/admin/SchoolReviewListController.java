@@ -4,6 +4,7 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,34 +29,48 @@ public class SchoolReviewListController extends AbstractController {
     public static final String MODEL_SHOW_FLAGGED="showFlagged";
     public static final String MODEL_TOTAL_UNPROCESSED="totalUnprocessedReviews";
     public static final String MODEL_TOTAL_FLAGGED="totalFlaggedReviews";
+    public static final String MODEL_PAGE_SIZE="pageSize";
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
-    private static final int NUM_REPORTED_REVIEWS_TO_DISPLAY = 75;
-    private static final int NUM_UNPROCESSED_REVIEWS_TO_DISPLAY = 75;
+    private static final int REPORTED_REVIEWS_PAGE_SIZE = 75;
+    private static final int UNPROCESSED_REVIEWS_PAGE_SIZE = 75;
+    private static final String PARAM_PAGE = "p";
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
+        int page = 1;
+        if (StringUtils.isNotBlank(request.getParameter(PARAM_PAGE))
+                && StringUtils.isNumeric(request.getParameter(PARAM_PAGE))) {
+            page = Integer.parseInt(request.getParameter(PARAM_PAGE));
+        }
+
         if (request.getParameter(REQUEST_SHOW_UNPROCESSED) != null) {
-            List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews();
+            List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews(page);
             model.put(MODEL_SHOW_UNPROCESSED, true);
             model.put(MODEL_UNPROCESSED_REVIEW_LIST, unprocessedReviews);
             model.put(MODEL_TOTAL_UNPROCESSED, _reviewDao.countUnprocessedReviews());
+            model.put(MODEL_PAGE_SIZE, UNPROCESSED_REVIEWS_PAGE_SIZE);
         } else {
-            List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews();
+            List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews(page);
             model.put(MODEL_SHOW_FLAGGED, true);
             model.put(MODEL_FLAGGED_REVIEW_LIST, flaggedReviews);
             model.put(MODEL_TOTAL_FLAGGED, _reportedEntityDao.countFlaggedSchoolReviews());
+            model.put(MODEL_PAGE_SIZE, REPORTED_REVIEWS_PAGE_SIZE);
         }
 
         return new ModelAndView(getViewName(), model);
     }
 
-    protected List<SchoolReviewListBean> getUnprocessedReviews() {
-        List<Review> unprocessedReviews = _reviewDao.findUnprocessedReviews(NUM_UNPROCESSED_REVIEWS_TO_DISPLAY);
+    protected List<SchoolReviewListBean> getUnprocessedReviews(int page) {
+        int offset = 0;
+        if (page > 1) {
+            offset = (page-1) * UNPROCESSED_REVIEWS_PAGE_SIZE;
+        }
+        List<Review> unprocessedReviews = _reviewDao.findUnprocessedReviews(UNPROCESSED_REVIEWS_PAGE_SIZE, offset);
 
         List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(unprocessedReviews.size());
         for (Review r: unprocessedReviews) {
@@ -68,10 +83,14 @@ public class SchoolReviewListController extends AbstractController {
         return rval;
     }
 
-    protected List<SchoolReviewListBean> getFlaggedReviews() {
+    protected List<SchoolReviewListBean> getFlaggedReviews(int page) {
+        int offset = 0;
+        if (page > 1) {
+            offset = (page-1) * REPORTED_REVIEWS_PAGE_SIZE;
+        }
         List<Integer> reportedReviewIds = _reportedEntityDao.getSchoolReviewIdsThatHaveReports(
-                NUM_REPORTED_REVIEWS_TO_DISPLAY);
-        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(NUM_REPORTED_REVIEWS_TO_DISPLAY);
+                REPORTED_REVIEWS_PAGE_SIZE, offset);
+        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(REPORTED_REVIEWS_PAGE_SIZE);
 
         // asynchronous?
         // group queries?
