@@ -98,7 +98,7 @@ public class CBIIntegrationController implements ReadWriteController {
                     emails.add(user.getEmail());
                 }
                 Map<String, String> commonAttributes = new HashMap();
-                commonAttributes.put("coachMessage",coachMessage);
+                commonAttributes.put("cbCoachMsg",coachMessage);
                 responseStr = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
             }
         }
