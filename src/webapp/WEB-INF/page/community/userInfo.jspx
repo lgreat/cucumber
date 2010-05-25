@@ -38,8 +38,25 @@
             // about me
             // -------------------------------------------------------------------------
 
+            function showAboutMeOnLoad() {
+                var bioText = $('.aboutMe .bioText');
+                var defaultText = $('.aboutMe .defaultBioText');
+                //alert('bioText: '+bioText);
+                if (bioText.text() == '') {
+                    defaultText.show();
+                    bioText.hide();                    
+                } else {
+                    defaultText.hide();
+                    bioText.show();
+                }
+                return false;
+            }
 
             function toggleAboutMe() {
+                var bioText = $('.aboutMe .bioText');
+                var defaultText = $('.aboutMe .defaultBioText');
+                //alert('bioText: '+bioText+'  defaultText: '+defaultText);
+
                 if ($('.aboutMe .bioText').is(':visible')) {
                     $('.aboutMe .defaultBioText').hide();
                     $('.aboutMe .bioText').hide();
@@ -115,6 +132,7 @@
             });
 
             //</c:if>
+            showAboutMeOnLoad();
 
         });
     </script>
