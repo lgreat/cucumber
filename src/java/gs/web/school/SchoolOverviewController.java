@@ -16,15 +16,18 @@ import gs.data.survey.SurveyDao;
 import gs.data.community.User;
 import gs.data.community.Subscription;
 import gs.web.jsp.Util;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -138,7 +141,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             if ("true".equals(confirmStr)) {
                 model.put("showSchoolChooserPackPromo", true);
             } else {
-                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request));
+                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request, response));
             }
 
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
@@ -186,7 +189,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
 
     // Checks to see if the user has any "School Chooser Pack" subscription
     // products.  Resturns false if they do.
-    public static boolean showSchoolChooserPackPromo(HttpServletRequest request) {
+    public static boolean showSchoolChooserPackPromo(HttpServletRequest request, HttpServletResponse response) {
         boolean show = true;
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         User u = sc.getUser();
@@ -202,6 +205,16 @@ public class SchoolOverviewController extends AbstractSchoolController implement
                 }
             }
         }
+
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+
+        String schoolChoicePackAlreadySubmitted = cookie.getProperty("schoolChoicePackAlreadySubmitted");
+        String showSchoolChoicePackConfirm = cookie.getProperty("showSchoolChoicePackConfirm");
+
+        if ("true".equals(schoolChoicePackAlreadySubmitted) && !"true".equals(showSchoolChoicePackConfirm)) {
+            show = false;
+        }
+
         return show;
     }
 

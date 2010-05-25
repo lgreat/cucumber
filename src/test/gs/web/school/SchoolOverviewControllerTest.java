@@ -412,7 +412,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setMethod("GET");
-        assertTrue("Should show promo", _controller.showSchoolChooserPackPromo(request));
+        assertTrue("Should show promo", _controller.showSchoolChooserPackPromo(request, getResponse()));
 
         SessionContext sc = (SessionContext)_request.
                 getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
@@ -426,6 +426,6 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         subs.add(sub_1);
         user.setSubscriptions(subs);
         sc.setUser(user);
-        assertFalse("Should not show promo", _controller.showSchoolChooserPackPromo(request));
+        assertFalse("Should not show promo", _controller.showSchoolChooserPackPromo(request, getResponse()));
     }
 }

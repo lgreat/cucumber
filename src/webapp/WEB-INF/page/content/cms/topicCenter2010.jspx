@@ -315,12 +315,7 @@
         </c:choose>
     </div>
     <!-- end #seasonalPromo -->
-
-    <div id="squareadvert">
-        <ad:AboveFold_300x250/>
-    </div>
-    <!-- end #squareadvert -->
-
+    
     <c:choose>
         <c:when test="${showSchoolChooserPackPromo}">
             <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
@@ -331,6 +326,12 @@
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:otherwise>
     </c:choose>
+
+    <div id="squareadvert">
+        <ad:AboveFold_300x250/>
+    </div>
+    <!-- end #squareadvert -->
+
 
     <c:if test="${topicCenter.gradeLevelTopicCenter}">
         <c:choose>

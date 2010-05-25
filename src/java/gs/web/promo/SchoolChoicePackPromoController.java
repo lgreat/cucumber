@@ -126,8 +126,10 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
             out.println("}");
 
+            //we need a cookie to track if the chooser pack has ever been submitted, and one to track whether this request should display the confirmation panel
             SitePrefCookie cookie = new SitePrefCookie(request, response);
             cookie.setProperty("schoolChoicePackAlreadySubmitted", "true");
+            cookie.setProperty("showSchoolChoicePackConfirm", "true");
         }
         return null;
     }

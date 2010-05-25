@@ -3,16 +3,18 @@ var $j = jQuery;
 $j(function() {
 
     var sitePreferences = subCookie.getObject("site_pref");
-    var schoolChoicePackAlreadySubmitted = "";
+    var showSchoolChoicePackConfirm = "";
 
-    if (sitePreferences != undefined && sitePreferences.schoolChoicePackAlreadySubmitted != undefined) {
-        schoolChoicePackAlreadySubmitted = sitePreferences.schoolChoicePackAlreadySubmitted;
+    if (sitePreferences != undefined && sitePreferences.showSchoolChoicePackConfirm != undefined) {
+        showSchoolChoicePackConfirm = sitePreferences.showSchoolChoicePackConfirm;
     }
 
-    if (schoolChoicePackAlreadySubmitted == "true") {
+    if (showSchoolChoicePackConfirm == "true") {
         jQuery("#form_panel").hide();
         jQuery("#confirm_panel").show();
     }
+
+    subCookie.deleteObjectProperty("site_pref", "showSchoolChoicePackConfirm");
 
     // clears the email field
     $j('#cemail').click(function () {

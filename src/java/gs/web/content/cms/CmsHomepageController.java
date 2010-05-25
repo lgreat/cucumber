@@ -84,7 +84,7 @@ public class CmsHomepageController extends AbstractController {
                 }
             }
             model.put("homepage", homepage);
-            model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request));
+            model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
             populateModelWithRecentCMSContent(model); // GS-9160
 
             // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model 

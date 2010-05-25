@@ -175,7 +175,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         }
 
-        model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request));
+        model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
 
         return new ModelAndView(_viewName, model);
     }
