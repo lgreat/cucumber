@@ -22,14 +22,14 @@
     <Content type="html"><![CDATA[<!DOCTYPE html>
 <style type="text/css">
     body {
-    background: url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;
+    background: url('http://www.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;
     margin: 0;
     padding: 0;
     border: 0;
     }
 </style>
 <div style="height:200px;width:214px; margin:auto;">
-    <div style="border: 0; text-align: center;margin:auto;padding-top: 12px;height:188px;width:214px;background: url('http://staging.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
+    <div style="border: 0; text-align: center;margin:auto;padding-top: 12px;height:188px;width:214px;background: url('http://www.greatschools.org/res/img/gadget/searchWidget_bg.png') 0 100% repeat-x;">
         <div style="border: 0; background: url(http://www.greatschools.org/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;width: 173px; margin: auto;">
             <a id="logoLink" href="http://www.greatschools.org/"></a>
         </div>
@@ -105,14 +105,14 @@
                 </select>
                 <input type="hidden" name="c" value="school"/>
                 <input type="hidden" name="cpn" value="GoogleGadget_Search180"/>
-                <input type="image" value="GO" src="http://staging.greatschools.org/res/img/gadget/gobutton.png" style="position: relative; top: 4px; margin-bottom: -4px;" />
+                <input type="image" value="GO" src="http://www.greatschools.org/res/img/gadget/gobutton.png" style="position: relative; top: 4px; margin-bottom: -4px;" />
             </form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    var logoImage = _IG_GetImage("http://staging.greatschools.org/res/img/gadget/gs_dwtSearchLogo_gfx.png");
+    var logoImage = _IG_GetImage("http://www.greatschools.org/res/img/gadget/gs_dwtSearchLogo_gfx.png");
     logoImage.border=0;
 
     _gel("logoLink").appendChild(logoImage);
