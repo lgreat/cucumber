@@ -304,21 +304,9 @@
         </div>
         <!-- end ryh-topsection -->
 
-        <c:choose>
-            <c:when test="${style eq 'topicCenter'}">
-                <div class="spacer_15 dotted">
-                    <!-- do not collapse -->
-                </div>
-                <div class="spacer_15">
-                    <!-- do not collapse -->
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="spacer_15">
-                    <!-- do not collapse -->
-                </div>
-            </c:otherwise>
-        </c:choose>
+        <div class="spacer_15">
+            <!-- do not collapse -->
+        </div>
 
         <c:choose>
             <c:when test="${fn:length(replies) == 0}">
