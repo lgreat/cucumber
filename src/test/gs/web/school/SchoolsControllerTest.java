@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.56 2010/05/24 21:58:12 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.57 2010/05/25 01:17:14 aroy Exp $
  */
 
 package gs.web.school;
@@ -725,22 +725,35 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
     public void testTitleCalcCode() {
         // These all have standard headers
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, null));
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY_MIDDLE, null));
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE_HIGH, null));
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "private"}));
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "charter"}));
-        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"private", "charter"}));
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, null));
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY_MIDDLE, null));
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE_HIGH, null));
 
         // These useful views get nice SEO friendly titles
-        assertEquals("San Francisco Elementary Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
-        assertEquals("San Francisco Middle Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
-        assertEquals("San Francisco High Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
-        assertEquals("San Francisco Preschools and Daycare Centers - GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
+        assertEquals("San Francisco Elementary Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, null));
+        assertEquals("San Francisco Middle Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE, null));
+        assertEquals("San Francisco High Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.HIGH, null));
+        assertEquals("San Francisco Preschools and Daycare Centers - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, null));
 
-        assertEquals("San Francisco Public Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
-        assertEquals("San Francisco Private Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
-        assertEquals("San Francisco Charter Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
+        assertEquals("San Francisco Public Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public"}));
+        assertEquals("San Francisco Private Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"private"}));
+        assertEquals("San Francisco Public Charter Schools - San Francisco, CA | GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"charter"}));
+
+        assertEquals("San Francisco Public and Private Schools - San Francisco, CA | GreatSchools",
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public", "private"}));
+        assertEquals("San Francisco Public and Public Charter Schools - San Francisco, CA | GreatSchools",
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Private and Public Charter Schools - San Francisco, CA | GreatSchools", 
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"private", "charter"}));
+
+        assertEquals("San Francisco Public and Private Elementary Schools - San Francisco, CA | GreatSchools",
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, new String[]{"public", "private"}));
+        assertEquals("San Francisco Public and Public Charter Middle Schools - San Francisco, CA | GreatSchools",
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Private and Public Charter High Schools - San Francisco, CA | GreatSchools",
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.HIGH, new String[]{"private", "charter"}));
+        assertEquals("San Francisco Private Preschools and Daycare Centers - San Francisco, CA | GreatSchools", 
+                     SchoolsController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, new String[]{"private"}));
     }
 
     public void testMetaDescCalc() {

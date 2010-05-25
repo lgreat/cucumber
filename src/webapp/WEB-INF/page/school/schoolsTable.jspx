@@ -21,6 +21,10 @@
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.UrlBuilder"/>
+<jsp:directive.page import="gs.data.school.district.District"/>
+<jsp:directive.page import="java.util.HashSet"/>
+<jsp:directive.page import="gs.data.school.SchoolType"/>
 
 <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
@@ -97,13 +101,14 @@
             <jsp:scriptlet>
                 String title = SchoolsController.calcCitySchoolsTitle(
                         (String) request.getAttribute("cityDisplayName"),
+                        SessionContextUtil.getSessionContext(request).getStateOrDefault(),
                         (LevelCode) request.getAttribute("lc"),
                         (String[]) request.getAttribute("st"));
                 out.print(title);
             </jsp:scriptlet>
         </c:when>
         <c:when test="${isDistrictBrowse}">
-            ${gsweb:districtPageTitle(districtObject)}
+            ${gsweb:districtPageTitle(districtObject, lc, st)}
         </c:when>
         <c:otherwise>
             GreatSchools.org Search
@@ -371,7 +376,22 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
     request.setAttribute("pubCheckbox", pubCheckbox);
     request.setAttribute("chaCheckbox", chaCheckbox);
     request.setAttribute("priCheckbox", priCheckbox);
+
+    if (request.getAttribute("districtObject") != null) {
+        UrlBuilder myCanonical = new UrlBuilder((District) request.getAttribute("districtObject"),
+                                                UrlBuilder.SCHOOLS_IN_DISTRICT);
+        request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
+    } else if (request.getAttribute("cityName") != null) {
+        UrlBuilder myCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                                                SessionContextUtil.getSessionContext(request).getStateOrDefault(),
+                                                (String)request.getAttribute("cityName"),
+                                                new HashSet&lt;SchoolType>(0), null);
+        request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
+    }
 </jsp:scriptlet>
+<c:if test="${not empty myCanonicalUrl}">
+    <link rel="canonical" href="${myCanonicalUrl}"/>
+</c:if>
 </head>
 
 <gsml:body adPageName="search" pageLayout="nocol">

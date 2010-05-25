@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.91 2010/05/24 21:58:13 aroy Exp $
+ * $Id: SchoolsController.java,v 1.92 2010/05/25 01:17:14 aroy Exp $
  */
 
 package gs.web.school;
@@ -383,7 +383,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                         // text as the title
                         model.put(MODEL_HEADING1, displayName + " Preschools");
                     } else {
-                        model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
+                        model.put(MODEL_HEADING1, calcCitySchoolsHeading(displayName, levelCode, paramSchoolType));
                     }
                 }
             } else {
@@ -679,7 +679,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         _geoDao = geoDao;
     }
 
-    public static String calcCitySchoolsTitle(String cityDisplayName, LevelCode levelCode, String[] schoolType) {
+    public static String calcCitySchoolsHeading(String cityDisplayName, LevelCode levelCode, String[] schoolType) {
         StringBuffer sb = new StringBuffer();
         sb.append(cityDisplayName);
         if (schoolType != null && schoolType.length == 1) {
@@ -710,6 +710,47 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         } else {
             sb.append(" Schools");
         }
+        return sb.toString();
+    }
+
+    public static String calcCitySchoolsTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(cityDisplayName);
+        if (schoolType != null && (schoolType.length == 1 || schoolType.length == 2)) {
+            for (int x=0; x < schoolType.length; x++) {
+                if (x == 1) {
+                    sb.append(" and");
+                }
+                if ("private".equals(schoolType[x])) {
+                    sb.append(" Private");
+                } else if ("charter".equals(schoolType[x])) {
+                    sb.append(" Public Charter");
+                } else {
+                    sb.append(" Public");
+                }
+            }
+        }
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1) {
+            if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                sb.append(" Preschool");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                sb.append(" Elementary");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                sb.append(" Middle");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                sb.append(" High");
+            }
+        }
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1 &&
+                levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+            sb.append("s and Daycare Centers");
+        } else {
+            sb.append(" Schools");
+        }
+        sb.append(" - ").append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+        sb.append(" | GreatSchools");
         return sb.toString();
     }
 

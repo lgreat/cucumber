@@ -161,7 +161,7 @@
     <function>
         <name>districtPageTitle</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
-        <function-signature>java.lang.String generatePageTitle(gs.data.school.district.District)</function-signature>
+        <function-signature>java.lang.String generatePageTitle(gs.data.school.district.District, gs.data.school.LevelCode, java.lang.String[])</function-signature>
     </function>
 
     <function>
