@@ -173,9 +173,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 insertRaiseYourHandDiscussionsIntoModel(request, model, topicCenter);
             }
 
+            if (topicCenter.isGradeLevelTopicCenter()) {
+                model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
+            }
+
         }
 
-        model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
+
 
         return new ModelAndView(_viewName, model);
     }
