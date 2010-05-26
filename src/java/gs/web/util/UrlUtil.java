@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.92 2010/05/26 20:49:01 aroy Exp $
+ * $Id: UrlUtil.java,v 1.93 2010/05/26 22:41:18 aroy Exp $
  */
 
 package gs.web.util;
@@ -107,7 +107,7 @@ public final class UrlUtil {
                     cobrandName = hostName.substring(firstDot + 1, lastDot);
                 }
             // Need special case for cobrands like www.fresno.schools.net
-            } else if (!hostName.endsWith("greatschools.org") && hostName.startsWith("www")) {
+            } else if (hostName.startsWith("www")) {
                 int firstDot = hostName.indexOf(".");
                 if (firstDot > -1) {
                     int secondDot = hostName.indexOf(".", firstDot+1);
