@@ -427,9 +427,9 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
     <img style="padding-right: 5px;" alt="pinkarrow" src="/res/img/bullet/pinkarrow.gif"/>
     <c:choose>
         <c:when test="${isCityBrowse}">
-            <link:city
+            <span class="text2">View city information for <link:city
                     city="${cityName}"
-                    state="${state}" styleClass="minilink">View city information &gt;</link:city>
+                    state="${state}" styleClass="minilink">${cityDisplayName}, ${state}</link:city></span>
         </c:when>
         <c:otherwise>
             <link:districtHome
