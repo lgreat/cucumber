@@ -90,9 +90,6 @@
 
                 if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
                     request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
-                    if (schoolTestValue.getValueInteger() > 0 && schoolTestValue.getValueInteger() < 11) {
-                        pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
-                    }
                 }
             }
         } catch (Exception ex) {
@@ -320,6 +317,9 @@
     <div id="ratings">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
+            <jsp:scriptlet>
+            pageHelper.addAdKeyword("gs_rating", String.valueOf(gs_rating));
+            </jsp:scriptlet>
             <c:choose>
                 <c:when test="${tab ne 'ratings'}">
                     <link:schoolProfileRating school="${school}" anchor="${headerLinkAnchor}">
