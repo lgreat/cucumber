@@ -90,6 +90,9 @@
 
                 if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
                     request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
+                    if (schoolTestValue.getValueInteger() > 0 && schoolTestValue.getValueInteger() < 11) {
+                        pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
+                    }
                 }
             }
         } catch (Exception ex) {
