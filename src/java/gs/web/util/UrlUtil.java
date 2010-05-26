@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.90 2010/05/03 16:01:58 aroy Exp $
+ * $Id: UrlUtil.java,v 1.91 2010/05/26 20:36:30 aroy Exp $
  */
 
 package gs.web.util;
@@ -58,7 +58,7 @@ public final class UrlUtil {
      */
     public String cobrandFromUrl(String hostName) {
         String cobrandName = null;
-        final boolean isCobrand = !hostName.startsWith("www")
+        boolean isCobrand = !hostName.startsWith("www")
                 && !hostName.startsWith("secure")
                 && !hostName.startsWith("res1")
                 && !hostName.startsWith("res2")
@@ -77,6 +77,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("app2d")
                 && !hostName.startsWith("staging")
                 && !hostName.startsWith("maddy")
+                && !hostName.startsWith("admin")
                 && !hostName.startsWith("clone")
                 && !hostName.startsWith("cmsqa")
                 && !hostName.startsWith("dev")
@@ -96,6 +97,9 @@ public final class UrlUtil {
                 && !hostName.startsWith("172.21.1.142")
                 && !hostName.startsWith("172.18.")
                 && hostName.indexOf('.') != -1;
+        if (!hostName.endsWith("greatschools.org") && hostName.startsWith("www")) {
+            isCobrand = true;
+        }
         if (isCobrand) {
             cobrandName = hostName.substring(0, hostName.indexOf("."));
             // Need special cases for greatschools.cobrand.com like babycenter
@@ -104,6 +108,15 @@ public final class UrlUtil {
                 int lastDot = hostName.lastIndexOf(".");
                 if (lastDot > firstDot) {
                     cobrandName = hostName.substring(firstDot + 1, lastDot);
+                }
+            // Need special case for cobrands like www.fresno.schools.net
+            } else if (!hostName.endsWith("greatschools.org") && hostName.startsWith("www")) {
+                int firstDot = hostName.indexOf(".");
+                if (firstDot > -1) {
+                    int secondDot = hostName.indexOf(".", firstDot+1);
+                    if (secondDot > firstDot) {
+                        cobrandName = hostName.substring(firstDot + 1, secondDot);
+                    }
                 }
             }
         }

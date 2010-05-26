@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.68 2010/05/03 16:01:58 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.69 2010/05/26 20:36:30 aroy Exp $
  */
 
 package gs.web.util;
@@ -122,6 +122,8 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("clone.greatschools.org"));
         assertNull(_urlUtil.cobrandFromUrl("localhost"));
         assertNull(_urlUtil.cobrandFromUrl("maddy"));
+        assertNull(_urlUtil.cobrandFromUrl("admin.greatschools.org"));
+        assertNull(_urlUtil.cobrandFromUrl("www.maddy.greatschools.org"));
         assertEquals("bob", _urlUtil.cobrandFromUrl("bob.greatschools.org"));
         assertEquals("az-central", _urlUtil.cobrandFromUrl("az-central.greatschools.org"));
         assertEquals("azcentral", _urlUtil.cobrandFromUrl("azcentral.dev.greatschools.org"));
@@ -136,6 +138,9 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("yahoo", _urlUtil.cobrandFromUrl("yahoo.staging.greatschools.org"));
         assertEquals("yahooed", _urlUtil.cobrandFromUrl("yahooed.staging.greatschools.org"));
         assertEquals("azcentral", _urlUtil.cobrandFromUrl("azcentral.staging.greatschools.org/"));
+
+        assertEquals("fresno", _urlUtil.cobrandFromUrl("fresno.schools.net"));
+        assertEquals("fresno", _urlUtil.cobrandFromUrl("www.fresno.schools.net"));
 
         assertEquals("charterschoolratings", _urlUtil.cobrandFromUrl("charterschoolratings.dev.greatschools.org/"));
 
