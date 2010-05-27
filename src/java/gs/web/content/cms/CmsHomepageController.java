@@ -5,6 +5,7 @@ import gs.data.content.cms.*;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.security.Permission;
+import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
@@ -91,6 +92,8 @@ public class CmsHomepageController extends AbstractController {
             if (PageHelper.isMemberAuthorized(request)) {
                 insertRaiseYourHandDiscussionsIntoModel(request, model);
             }
+
+            model.put("states", StateManager.getList());
         }
 
         return new ModelAndView(_viewName, model);
