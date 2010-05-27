@@ -99,6 +99,9 @@
             pageHelper.addAdKeyword("zipcode", q);
         }
     </jsp:scriptlet>
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
 </head>
 
 <gsml:body adPageName="search" pageLayout="nocol">

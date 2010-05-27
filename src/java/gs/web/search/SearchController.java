@@ -17,6 +17,7 @@ import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.*;
@@ -86,6 +87,7 @@ public class SearchController extends AbstractFormController {
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
     private static final String MODEL_NO_RESULTS_EXPLAINED = "noResultsExplanation";
     public static final String MODEL_TYPEOVERRIDE = "typeOverride";
+    public static final String MODEL_REL_CANONICAL = "relCanonical";
 
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
     private static int EXTENDED_LIST_SIZE = 50;
@@ -252,6 +254,17 @@ public class SearchController extends AbstractFormController {
                         model.put(MODEL_CITIES, cities);
                         resultsToShow = true;
                     }
+                    for (int x=0; x < cityHits.length(); x++) {
+                        Document cityDoc = cityHits.doc(x);
+                        try {
+                            if (StringUtils.equalsIgnoreCase(queryString, cityDoc.get("city"))) {
+                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, queryString);
+                                model.put(MODEL_REL_CANONICAL, urlBuilder.asFullUrl(request));
+                            }
+                        } catch (Exception e) {
+                            _log.warn("Error determining city URL for canonical: " + e, e);
+                        }
+                    }
                 }
 
                 // special case for GS-7076
@@ -326,6 +339,14 @@ public class SearchController extends AbstractFormController {
         }
         model.put(MODEL_HEADING1, heading1);
 
+        if (searchCommand.isSchoolsOnly() && model.get(MODEL_REL_CANONICAL) == null) {
+            try {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
+                model.put(MODEL_REL_CANONICAL, urlBuilder.asFullUrl(request));
+            } catch (Exception e) {
+                _log.warn("Error determining state URL for canonical: " + e, e);                
+            }
+        }
 
         model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
         model.put(MODEL_SHOW_SUGGESTIONS, !resultsToShow);
