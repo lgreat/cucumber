@@ -259,14 +259,17 @@
                 </div>
             </c:if>
 
-            <div class="startAConversationModule rnd8">
-                <div id="sac-downArrow-fc6"><!--do not collapse--></div>
-                <c:set var="startAConversationModule">
-                    <c:import
-                            url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
-                </c:set>
-                ${pageScope.startAConversationModule}
-            </div>
+            <!-- GS-10042 only show Start a Conversation module if not a K12 topic center -->
+            <c:if test="${!fn:startsWith(requestScope.topicCenter.fullUri, '/online-education')}">
+                <div class="startAConversationModule rnd8">
+                    <div id="sac-downArrow-fc6"><!--do not collapse--></div>
+                    <c:set var="startAConversationModule">
+                        <c:import
+                                url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+                    </c:set>
+                    ${pageScope.startAConversationModule}
+                </div>
+            </c:if>
         </div>
         <!-- end #topicMainGS -->
 
