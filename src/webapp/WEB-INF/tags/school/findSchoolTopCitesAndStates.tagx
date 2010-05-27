@@ -49,35 +49,35 @@
 
             <div id="fstcasTopCities">
                 <div class="col1">
-                    <p class="text1bold">New York</p>
+                    <p class="text1bold">New York<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col2">
-                    <p class="text1bold">Los Angeles</p>
+                    <p class="text1bold">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col3">
-                    <p class="text1bold">Atlanta</p>
+                    <p class="text1bold">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col4">
-                    <p  class="text1bold">Chicago</p>
+                    <p  class="text1bold">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul>
                         <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col5">
-                    <p  class="text1bold">Houston</p>
+                    <p  class="text1bold">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
@@ -106,47 +106,47 @@
                 </c:forEach>-->
                 <div class="col1">
                     <ol>
-                        <li>Albany, NY</li>
-                        <li>Austin, TX</li>
-                        <li>Baltimore, MD</li>
-                        <li>Boston, MA</li>
-                        <li>Chandler, AZ</li>
+                        <li><link:city city="Albany" state="NY">Albany, NY</link:city></li>
+                        <li><link:city city="Austin" state="TX">Austin, TX</link:city></li>
+                        <li><link:city city="Baltimore" state="MD">Baltimore, MD</link:city></li>
+                        <li><link:city city="Boston" state="MA">Boston, MA</link:city></li>
+                        <li><link:city city="Chandler" state="AZ">Chandler, AZ</link:city></li>
                     </ol>
                 </div>
                 <div class="col2">
                     <ol>
-                        <li>Dallas, TX</li>
-                        <li>Denver, CO</li>
-                        <li>Elmhurst, IL</li>
-                        <li>Irvine, CA</li>
-                        <li>Miami, FL</li>
+                        <li><link:city city="Dallas" state="TX">Dallas, TX</link:city></li>
+                        <li><link:city city="Denver" state="CO">Denver, CO</link:city></li>
+                        <li><link:city city="Elmhurst" state="IL">Elmhurst, IL</link:city></li>
+                        <li><link:city city="Irvine" state="CA">Irvine, CA</link:city></li>
+                        <li><link:city city="Miami" state="FL">Miami, FL</link:city></li>
                     </ol>
                 </div>
                 <div class="col3">
                     <ol>
-                        <li>Nashville, TN</li>
-                        <li>Newark, NJ</li>
-                        <li>Oakland, CA</li>
-                        <li>Philadelphia, PA</li>
-                        <li>Phoenix, AZ</li>
+                        <li><link:city city="Nashville" state="TN">Nashville, TN</link:city></li>
+                        <li><link:city city="Newark" state="NJ">Newark, NJ</link:city></li>
+                        <li><link:city city="Oakland" state="CA">Oakland, CA</link:city></li>
+                        <li><link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city></li>
+                        <li><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city></li>
                     </ol>
                 </div>
                 <div class="col4">
                     <ol>
-                        <li>Pleasanton, CA</li>
-                        <li>Richardson, TX</li>
-                        <li>Sacramento, CA</li>
-                        <li>San Antonio, TX</li>
-                        <li>San Diego, CA</li>
+                        <li><link:city city="Pleasanton" state="CA">Pleasanton, CA</link:city></li>
+                        <li><link:city city="Richardson" state="TX">Richardson, TX</link:city></li>
+                        <li><link:city city="Sacramento" state="CA">Sacramento, CA</link:city></li>
+                        <li><link:city city="San Antonio" state="TX">San Antonio, TX</link:city></li>
+                        <li><link:city city="San Diego" state="CA">San Diego, CA</link:city></li>
                     </ol>
                 </div>
                 <div class="col5">
                     <ol>
-                        <li>San Francisco, CA</li>
-                        <li>Seattle, WA</li>
-                        <li>St. Louis, MO</li>
-                        <li>Tampa, FL</li>
-                        <li>Washington, D.C.</li>
+                        <li><link:city city="San Francisco" state="CA">San Francisco, CA</link:city></li>
+                        <li><link:city city="Seattle" state="WA">Seattle, WA</link:city></li>
+                        <li><link:city city="St. Louis" state="MO">St. Louis, MO</link:city></li>
+                        <li><link:city city="Tampa" state="FL">Tampa, FL</link:city></li>
+                        <li><link:city city="Washington" state="DC">Washington, D.C.</link:city></li>
                     </ol>
                 </div>
 
@@ -167,7 +167,13 @@
                 <div class="col${i+1} text1">
                     <ol>
                         <c:forEach var="i" begin="${columnNumber * stateRows}" end="${(columnNumber * stateRows) + stateRows-1}">
-                            <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}">${states[i].longName}</a></li>
+                            <!-- Washington DC in states list needs to display with actual name District of Columbia and appear after Deleware -->
+                            <c:if test="${states[i].name ne 'DC'}">
+                                <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}">${states[i].longName}</a></li>
+                            </c:if>
+                            <c:if test="${states[i].name eq 'DE'}">
+                                <li><a href="/washington-dc">District of Columbia</a></li>
+                            </c:if>
                         </c:forEach>
                     </ol>
                 </div>
@@ -179,7 +185,7 @@
 
 
     <script type="text/javascript">
-        jQuery('#fstcasByCities').hide();
+        //jQuery('#fstcasByCities').hide();
         jQuery('#fstcasByStates').hide();
 
         jQuery('#fstcasByCitiesTab').click(function () {

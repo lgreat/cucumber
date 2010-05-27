@@ -15,6 +15,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
@@ -222,35 +223,18 @@
     </div>
     <!-- carousel -->
 
+    <variant:a>
+        <school:findSchoolTopCitesAndStates />
+    </variant:a>
+
     <c:if test="${requestScope.recentCmsContent ne null}">
         <moreContent:gradeByGrade/>
     </c:if>
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
-    <c:set var="raiseYourHand">
-        <c:import
-                url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;limit=5&amp;style=homePage&amp;showViewAll=true"/>
-    </c:set>
-    <a name="ryh"><!-- don't collapse --></a>
-    ${raiseYourHand}
 
-    <!-- begin Raise Your Hand by Topic block GS-9770 -->
-    <gsml:ifUserCanManageRaiseYourHand pageUser="${requestScope.context.user}">
-        <c:if test="${not empty allRaiseYourHandDiscussions}">
-            <div class="topic">
-                <h3 class="introTextGA">Raise Your Hand Discussions for the home page:</h3>
-                <ul class="list text2">
-                    <c:forEach var="raiseYourHandDiscussion" items="${allRaiseYourHandDiscussions}"
-                               varStatus="ryhDStat">
-                        <li><link:discussion discussionId="${raiseYourHandDiscussion.discussion.id}"
-                                             fullUri="${raiseYourHandDiscussion.discussion.discussionBoard.fullUri}"><span
-                                class="">${raiseYourHandDiscussion.discussion.title}</span></link:discussion></li>
-
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
-    </gsml:ifUserCanManageRaiseYourHand>
-    <!-- end Raise Your Hand by Topic block -->
+    <variant:b>
+        <school:findSchoolTopCitesAndStates />
+    </variant:b>
 
 </div>
 <!-- end mainGS -->
