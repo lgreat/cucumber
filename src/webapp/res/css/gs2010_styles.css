@@ -12,26 +12,26 @@ General comments:
 
 [Table Of Contents]
 
-=0- reset
-=1- text
-=2- ads
-=3- header/topnav
-=3a- utility links
-=3b- logo
-=3c- search
-=3d- global nav
-=3e- subnav menu
-=4- page layouts
-=4a- home page carousel
+=0 reset
+=1 text
+=2 ads
+=3 header/topnav
+=3a utility links
+=3b logo
+=3c search
+=3d global nav
+=3e subnav menu
+=4 page layouts
+=4a home page carousel
 =4a-1 find-compare
 =4a-2 most popular
 =4a-3 gs blog
 =4a-4 raise your hand
 =4a-5 grade by grade
 =4a-6 find your school top cities and states module (fstcas)
-=4b- community
+=4b community
 =4b-1 community landing
-=4c- topic centers
+=4c topic centers
 =4c-1 featured
 =4c-2 left navigation
 =4c-3 infinite carousel
@@ -40,30 +40,30 @@ General comments:
 =4c-5.1 start a conversation
 =4c-5.2 preview a conversation
 =4c-6 elementary schools grade by grade
-=4d- community join hovers
+=4d community join hovers
 =4d-1 search styles
 =4d-2 community start a conversation hovers
 =4d-3 community avatar hover
-=4e- about pages
+=4e about pages
 =4e-5 about sponsors
 =4e-6 data and widgets
-=4f- schools
+=4f schools
 =4f-1 school profile
 =4f-3 principal reviews
-=4g- video page
-=4h- inline sign-in
-=4i- user info
+=4g video page
+=4h inline sign-in
+=4i user info
 =4i-1 user account
 =4i-1.1 change email & password
 =4i-1.2 manage newsletters
 =4i-2 user activity
-=5- icons
-=6- editorialFooter
-=7- communitySidebar
-=7a- recentLocalDiscussions
-=8- footer
-=9- buttons
-=10- grids
+=5 icons
+=6 editorialFooter
+=7 communitySidebar
+=7a recentLocalDiscussions
+=8 footer
+=9 buttons
+=10 grids
 =debugging styles
 =temporary modules
 */
@@ -847,6 +847,10 @@ body.cobranded #pageGS {
 
 #topnav_menusubnav ul.nav_group_items li a, #topnav_menusubnav ul.nav_group_items li.over a {
     background: none;
+}
+
+.nav_group_items .last{
+    border-top:1px dotted #999;
 }
 
 /* START list-based subnav */
@@ -4125,7 +4129,7 @@ additional icons on the sprite.
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-23.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-05-27.png);
 }
 
 .reportIt-nbg {
@@ -4262,6 +4266,24 @@ additional icons on the sprite.
     width: 21px;
     height: 18px;
     background-position: -40px -20px;
+}
+
+.community-06b-sm {
+    width: 21px;
+    height: 18px;
+    background-position: -40px -40px;
+}
+
+.community-fff-sm {
+    width: 21px;
+    height: 18px;
+    background-position: -40px -60px;
+}
+
+.community-sm {
+    width: 21px;
+    height: 18px;
+    background-position: -40px -80px;
 }
 
 .community-fc6-lg {

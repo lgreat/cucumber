@@ -12,13 +12,13 @@ General comments:
 
 [Table Of Contents]
 
-=A- ie
-=B- ie8
-=C- ie7
-=D- ie6
+=A ie
+=B ie8
+=C ie7
+=D ie6
 =3a utility links
-=4- page layouts
-=4a- home page carousel
+=4 page layouts
+=4a home page carousel
 =4a-1 find-compare
 =4a-4 raise your hand
 =4a-5 grade by grade
@@ -29,16 +29,16 @@ General comments:
 =4c-6 elementary schools grade by grade
 =4d-3 community avatar hover
 =4f-1 school profile
-=4h- inline sign-in
+=4h inline sign-in
 =4i-2 manage newsletters
-=5- icons
-=9- buttons
-=10- grids
+=5 icons
+=9 buttons
+=10 grids
 =debugging styles
 =temporary modules
 */
 
-/* =A- ie
+/* =A ie
 -------------------------------------------------------------------------------------------*/
 
 .gainlayout {
@@ -76,10 +76,10 @@ General comments:
     background-color: #333;
 }
 
-/* =B- ie8
+/* =B ie8
 -------------------------------------------------------------------------------------------*/
 
-/* =C- ie7
+/* =C ie7
 -------------------------------------------------------------------------------------------*/
 
 body.ie #mainWrap {
@@ -580,7 +580,7 @@ body.ie6 #utilLinks li.over .nav_group_items {
     left: -25px; top:17px;
 }
 
-/* =4- page layouts
+/* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 
 body.ie7 .mod_hd h3, body.ie6 .mod_hd h3{
@@ -593,7 +593,7 @@ body.ie7 .navmod_hd h5, body.ie6 .navmod_hd h5{
     padding:3px 10px;
 }
 
-/* =4a- home page carousel
+/* =4a home page carousel
 -------------------------------------------------------------------------------------------*/
 
 body.ie8 #carousel #prev {
@@ -946,7 +946,7 @@ body.hover #standardAvatarForm input{
     left: 68px;
 }
 
-/* =4h- inline sign-in
+/* =4h inline sign-in
 -------------------------------------------------------------------------------------------*/
 
 body.ie8 #inlineSignin a {
@@ -988,20 +988,20 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
     margin-left: auto;
 }
 
-/* =5- icons
+/* =5 icons
 -------------------------------------------------------------------------------------------*/
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-05-27.gif);
 }
 
 body.ie6 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-04-23.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-05-27.gif);
 }
 
-/* =9- buttons
+/* =9 buttons
 -------------------------------------------------------------------------------------------*/
 
 *+html .lftDoor25 .rtDoor25.nowrap-hpc{
@@ -1012,7 +1012,7 @@ body.ie6 .sprite {
     width:170px;
 }
 
-/* =10- grids
+/* =10 grids
 -------------------------------------------------------------------------------------------*/
 
 .line, .lastUnit {
