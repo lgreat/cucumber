@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+        >
+
+
+    <!-- findSchoolTopCitiesAndStates = fstcas -->
+    <div id="fstcasContainer">
+
+        <div id="fstcasHeader"><!-- Module header plus tabs-->
+                <h2>Find Your School</h2>
+
+                <div id="fstcasTabs">
+                    <div class="tab" id="fstcasByCitiesTab">BY CITY</div>
+                    <div class="tab" id="fstcasByStatesTab">BY STATE</div>
+                </div>
+        </div>
+
+        <div id="fstcasByCities"><!-- module body by city -->
+
+            <p class="text3">
+                Looking for schools in your community? You've come to the right place. Click on a link below to explore
+                top-rated schools, find local information, talk "school" with local parents, and much more.
+            </p>
+
+            <div id="fstcasImages">
+                <div class="col1">
+                    <img src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                </div>
+                <div class="col2">
+                    <img src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                </div>
+                <div class="col3">
+                    <img src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                </div>
+                <div class="col4">
+                    <img src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                </div>
+                <div class="col5">
+                    <img src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                </div>
+            </div>
+
+            <div id="fstcasTopCities">
+                <div class="col1">
+                    <p class="text1bold">New York</p>
+                    <ul class="text3">
+                        <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                    </ul>
+                </div>
+                <div class="col2">
+                    <p class="text1bold">Los Angeles</p>
+                    <ul class="text3">
+                        <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                    </ul>
+                </div>
+                <div class="col3">
+                    <p class="text1bold">Atlanta</p>
+                    <ul class="text3">
+                        <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                    </ul>
+                </div>
+                <div class="col4">
+                    <p  class="text1bold">Chicago</p>
+                    <ul>
+                        <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                    </ul>
+                </div>
+                <div class="col5">
+                    <p  class="text1bold">Houston</p>
+                    <ul class="text3">
+                        <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div id="fstcasOtherCities" class="smallAlertText">
+                <p class="text1">Other cities</p>
+                
+                <!-- will print out below div layout given an array of cities
+                <c:set var="cityColumns" value="5" />
+                <c:set var="totalCities" value="${citiesWithStates.length}" />
+                <c:set var="cityRows" value="${totalCities / cityColumns}" />
+
+                <c:forEach var="columnNumber" begin="0" end="${cityColumns-1}">
+                    <div class="col${i+1}">
+                        <ol>
+                            <c:forEach var="i" begin="${columnNumber * cityRows}" end="${(columnNumber * cityRows) + cityRows-1}">
+                                <li>${citiesWithStates[i]}</li>
+                            </c:forEach>
+                        </ol>
+                    </div>
+                </c:forEach>-->
+                <div class="col1">
+                    <ol>
+                        <li>Albany, NY</li>
+                        <li>Austin, TX</li>
+                        <li>Baltimore, MD</li>
+                        <li>Boston, MA</li>
+                        <li>Chandler, AZ</li>
+                    </ol>
+                </div>
+                <div class="col2">
+                    <ol>
+                        <li>Dallas, TX</li>
+                        <li>Denver, CO</li>
+                        <li>Elmhurst, IL</li>
+                        <li>Irvine, CA</li>
+                        <li>Miami, FL</li>
+                    </ol>
+                </div>
+                <div class="col3">
+                    <ol>
+                        <li>Nashville, TN</li>
+                        <li>Newark, NJ</li>
+                        <li>Oakland, CA</li>
+                        <li>Philadelphia, PA</li>
+                        <li>Phoenix, AZ</li>
+                    </ol>
+                </div>
+                <div class="col4">
+                    <ol>
+                        <li>Pleasanton, CA</li>
+                        <li>Richardson, TX</li>
+                        <li>Sacramento, CA</li>
+                        <li>San Antonio, TX</li>
+                        <li>San Diego, CA</li>
+                    </ol>
+                </div>
+                <div class="col5">
+                    <ol>
+                        <li>San Francisco, CA</li>
+                        <li>Seattle, WA</li>
+                        <li>St. Louis, MO</li>
+                        <li>Tampa, FL</li>
+                        <li>Washington, D.C.</li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="fstcasByStates"><!-- module body by state -->
+
+            <p class="text3">Whether you're looking for your current school or a new one, GreatSchools is here to help. Start by clicking one of the links below to find and compare schools across your state.</p>
+
+            <c:set var="stateColumns" value="5" />
+            <c:set var="totalStates" value="${fn:length(states)}" />
+            <c:set var="stateRows" value="${totalStates / stateColumns}" />
+
+            <c:forEach var="columnNumber" begin="0" end="${stateColumns-1}">
+                <div class="col${i+1} text1">
+                    <ol>
+                        <c:forEach var="i" begin="${columnNumber * stateRows}" end="${(columnNumber * stateRows) + stateRows-1}">
+                            <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}">${states[i].longName}</a></li>
+                        </c:forEach>
+                    </ol>
+                </div>
+            </c:forEach>
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        jQuery('#fstcasByCities').hide();
+        jQuery('#fstcasByStates').hide();
+
+        jQuery('#fstcasByCitiesTab').click(function () {
+            jQuery('#fstcasByStates').hide();
+            jQuery('#fstcasByCities').show();
+        });
+
+        jQuery('#fstcasByStatesTab').click(function () {
+            jQuery('#fstcasByCities').hide();
+            jQuery('#fstcasByStates').show();
+        });
+
+    </script>
+
+
+
+</jsp:root>
