@@ -83,6 +83,7 @@ public class CBIIntegrationController implements ReadWriteController {
         String recipients = request.getParameter("recipients");
         String coachMessage = request.getParameter("body");
         String responseStr = "";
+        System.getProperties().setProperty("sun.net.client.defaultConnectTimeout", "200000") ;
         List<Integer> grpMembersInt = new ArrayList<Integer>();
         if(StringUtils.isNotBlank(recipients) && StringUtils.isNotBlank(exactTargetKey) && StringUtils.isNotBlank(coachMessage)){
             List<String> grpMembersStr = Arrays.asList(recipients.split(","));
@@ -102,7 +103,8 @@ public class CBIIntegrationController implements ReadWriteController {
                 responseStr = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
             }
         }
-        return responseStr;
+//      System.getProperties().setProperty("sun.net.client.defaultConnectTimeout", "2000") ;
+      return responseStr;
     }
     
      public String subscribeUser(String email,String state,SubscriptionProduct subProduct) {
