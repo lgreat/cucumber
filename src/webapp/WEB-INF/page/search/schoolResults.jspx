@@ -30,7 +30,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-
+<ad:setSlotPrefix slotPrefix="Search_Site"/>
 <head>
     <title>
         <c:out value="${title}" escapeXml="false"/>
@@ -160,6 +160,9 @@
             </div>
         </c:if>
     </c:if>
+
+    <ad:adTag position="SponsoredSearch_Top_542x60"/>
+    <ad:adTag position="SponsoredSearch_Bottom_542x60"/>
 </div>
 <c:if test="${not empty mainResults or not empty param.lc or not empty param.st}">
     <div id="resultsfilters">
@@ -326,7 +329,6 @@
 </div>
 
 <div id="col_right">
-    <ad:setSlotPrefix slotPrefix="Search_Site"/>
     <ad:AboveFold_300x600/>
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
     <ad:multiTextAd blurb="Advertiser Links"/>

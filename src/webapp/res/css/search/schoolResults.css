@@ -483,3 +483,12 @@ div.noResults {
     margin-top: 5px;
     margin-bottom: 15px;
 }
+
+#resultsheaderwhite #google_ads_div_Search_Site_SponsoredSearch_Top_542x60 {
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+#resultsheaderwhite #google_ads_div_Search_Site_SponsoredSearch_Bottom_542x60 {
+    margin-bottom: 5px;
+}

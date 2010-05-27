@@ -55,6 +55,11 @@
 <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }"/>
 <c:set var="showAllThreshold" value="100"/>
 
+<c:set var="slotPrefix" value="Search_Site"/>
+<c:if test="${isCityBrowse}">
+    <c:set var="slotPrefix" value="Search_All_Cities"/>
+</c:if>
+<ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
 
 <c:choose>
     <c:when test="${isCityBrowse}">
@@ -437,7 +442,12 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                     styleClass="minilink">View district information &gt;</link:districtHome>
         </c:otherwise>
     </c:choose>
+
+        <ad:adTag position="SponsoredSearch_Top_542x60"/>
+        <ad:adTag position="SponsoredSearch_Bottom_542x60"/>
+    
 </div>
+
 <c:if test="${not empty results.schools or not empty lc or not empty st}">
 <div id="resultsfilters">
 <div id="resultstabs" class="cleared">
@@ -633,12 +643,6 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
 </div>
 
 <div id="col_right" class="${(isCityBrowse)?'city':'district'}">
-    <c:set var="slotPrefix" value="Search_Site"/>
-    <c:if test="${isCityBrowse}">
-        <c:set var="slotPrefix" value="Search_All_Cities"/>
-    </c:if>
-    <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
-
     <c:choose>
         <c:when test="${isCityBrowse}">
             <c:choose>
