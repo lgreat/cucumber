@@ -257,7 +257,8 @@ public class SearchController extends AbstractFormController {
                     for (int x=0; x < cityHits.length(); x++) {
                         Document cityDoc = cityHits.doc(x);
                         try {
-                            if (StringUtils.equalsIgnoreCase(queryString, cityDoc.get("city"))) {
+                            if (StringUtils.equalsIgnoreCase(queryString, cityDoc.get("city"))
+                                    && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityDoc.get("state"))) {
                                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, queryString);
                                 model.put(MODEL_REL_CANONICAL, urlBuilder.asFullUrl(request));
                             }
