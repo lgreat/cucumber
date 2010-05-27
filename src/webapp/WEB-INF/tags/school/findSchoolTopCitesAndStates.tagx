@@ -51,36 +51,36 @@
                 <div class="col1">
                     <p class="text1bold">New York<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
-                        <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img alt="" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
-                        <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img alt="" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                        <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col2">
                     <p class="text1bold">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
-                        <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img alt="" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
-                        <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img alt="" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                        <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col3">
                     <p class="text1bold">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
-                        <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img alt="" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
-                        <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img alt="" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                        <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col4">
                     <p  class="text1bold">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul>
-                        <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img alt="" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
-                        <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img alt="" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                        <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col5">
                     <p  class="text1bold">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></p>
                     <ul class="text3">
-                        <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img alt="" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
-                        <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img alt="" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
+                        <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
+                        <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
             </div>
