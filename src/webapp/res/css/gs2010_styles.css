@@ -28,6 +28,7 @@ General comments:
 =4a-3 gs blog
 =4a-4 raise your hand
 =4a-5 grade by grade
+=4a-6 find your school top cities and states module (fstcas)
 =4b- community
 =4b-1 community landing
 =4c- topic centers
@@ -1904,6 +1905,74 @@ body.ie6 .clearfix {
 
 .pagination span.prv_nxt {
     text-transform: uppercase;
+}
+
+/* =4a-6 find your school top cities and states module (fstcas)
+-------------------------------------------------------------------------------------*/
+
+#fstcasHeader h2 {
+    float:left;
+}
+#fstcasTabs {
+    float:left;
+}
+#fstcasTabs div {
+    float:left;
+    padding:0 17px 0 17px;
+}
+
+#fstcasImages img {
+    width:101px;
+}
+
+#fstcasContainer .text1bold {
+    color:#DD6611;
+}
+
+#fstcasContainer {
+    width:598px;
+    padding:15px;
+}
+#fstcasContainer .tab {
+    height:28px;
+}
+#fstcasContainer .col {
+    width:101px;
+}
+#fstcasContainer a {
+    text-decoration:none;
+}
+
+#fstcasContainer .col1, .col2, .col3, .col4, .col5 {
+    float:left;
+    padding-right:15px;
+    width:101px;
+}
+#fstcasContainer .col5 {
+    padding-right:0px;
+}
+
+#fstcasOtherCities {
+    clear:both;
+}
+
+#fstcasOtherCities p {
+    margin-bottom:15px;
+    color: #DD6611;
+}
+
+#fstcasByCities {
+    clear:both;
+}
+#fstcasByStates {
+    clear:both;
+}
+#fstcasByStates p {
+    margin:15px 0 15px 0;
+}
+
+#fstcasTopCities {
+    margin-bottom: 15px;
 }
 
 /* =4b-1 community landing
