@@ -283,7 +283,7 @@
             or fn:contains(pageContext.request.requestURI,'backToSchool')
             or fn:endsWith(pageContext.request.requestURI,'/pledge/')}">
             </c:when>
-            <c:otherwise>    
+            <c:otherwise>
                 <div id="global_nav_promo_865"><ad:Global_Nav_Promo_865x24/></div>
                 <div id="global_nav_promo_952"><ad:Global_Nav_Promo_952x24/></div>
             </c:otherwise>
@@ -291,4 +291,19 @@
 
 
 </div>
+<jsp:scriptlet>
+    // GS-9975
+    gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    if (pageHelper != null) {
+        String schoolId = pageHelper.getAdKeywordValue("school_id");
+        if (schoolId != null) {
+            request.setAttribute("showGlobalNavPromo968x30", true);
+        }
+    }
+</jsp:scriptlet>
+<c:if test="${showGlobalNavPromo968x30}">
+    <div id="global_nav_promo_968">
+        <ad:adTag position="Global_NavPromo_968x30"/>
+    </div>
+</c:if>
 </jsp:root>
