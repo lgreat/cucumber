@@ -11,87 +11,68 @@
 
 
     <!-- findSchoolTopCitiesAndStates = fstcas -->
-    <div id="fstcasContainer">
+    <div id="fstcasContainer" class="mod">
 
-        <div id="fstcasHeader"><!-- Module header plus tabs-->
+        <div id="fstcasHeader" class="mod_hd"><!-- Module header plus tabs-->
                 <h2>Find Your School</h2>
 
                 <div id="fstcasTabs">
-                    <div class="tab" id="fstcasByCitiesTab">BY CITY</div>
-                    <div class="tab" id="fstcasByStatesTab">BY STATE</div>
+                    <ul>
+                        <li class="tab selected" id="fstcasByCitiesTab"><a href="#">By City</a></li>
+                        <li class="tab" id="fstcasByStatesTab"><a href="#">By State</a></li>
+                    </ul>
                 </div>
         </div>
 
-        <br clear="all" />
-        <div id="fstcasBody">
-            <div id="fstcasByCities"><!-- module body by city -->
+        <div id="fstcasBody" class="mod_bd">
+            <div id="fstcasByCities" class="box"><!-- module body by city -->
 
                 <p class="text3">
                     Looking for schools in your community? You've come to the right place. Click on a link below to explore
                     top-rated schools, find local information, talk "school" with local parents, and much more.
                 </p>
 
-                <div id="fstcasImages">
-                    <div class="col1">
-                        <a href="/new-york/new-york"><img alt="New York" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
-                    </div>
-                    <div class="col2">
-                        <a href="/california/los-angeles"><img alt="Los Angeles" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
-                    </div>
-                    <div class="col3">
-                        <a href="/georgia/atlanta"><img alt="Atlanta" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
-                    </div>
-                    <div class="col4">
-                        <a href="/illinois/chicago"><img alt="Chicago" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
-                    </div>
-                    <div class="col5">
-                        <a href="/texas/houston"><img alt="Houston" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
-                    </div>
-                </div>
-
-                <div id="fstcasTopCities">
-                    <div class="col1">
+                <ul id="fstcasTopCities">
+                    <li class="col1 col">
                         <p class="text1bold"><a href="/new-york/new-york">New York<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
-                            <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif"/>Community</a></li>
-                            <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif" class="extraPadding"/>Homes for sale</a></li>
+                            <li><a href="/new-york/new-york-city/community.gs?content=2003"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
+                            <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col2">
+                    </li>
+                    <li class="col2 col">
                         <p class="text1bold"><a href="/california/los-angeles">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
-                            <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif"/>Community</a></li>
-                            <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif" class="extraPadding"/>Homes for sale</a></li>
+                            <li><a href="/california/los-angeles/community.gs?content=1967"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
+                            <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col3">
+                    </li>
+                    <li class="col3 col">
                         <p class="text1bold"><a href="/georgia/atlanta">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
-                            <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif"/>Community</a></li>
-                            <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif" class="extraPadding"/>Homes for sale</a></li>
+                            <li><a href="/georgia/atlanta/community.gs?content=1979"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
+                            <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col4">
+                    </li>
+                    <li class="col4 col">
                         <p  class="text1bold"><a href="/illinois/chicago">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
-                            <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif"/>Community</a></li>
-                            <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif" class="extraPadding"/>Homes for sale</a></li>
+                            <li><a href="/illinois/chicago/community.gs?content=1983"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
+                            <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col5">
+                    </li>
+                    <li class="col5 col">
                         <p  class="text1bold"><a href="/texas/houston">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
-                            <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif"/>Community</a></li>
-                            <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif" class="extraPadding"/>Homes for sale</a></li>
+                            <li><a href="/texas/houston/community.gs?content=2016"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
+                            <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
-                    </div>
+                    </li>
 
-                </div>
-
-                <br clear="all" />
+                </ul>
 
                 <div id="fstcasOtherCities" class="smallAlertText">
-                    <p class="text1">Other cities</p>
+                    <h4 class="text1">Other cities</h4>
 
                     <!-- will print out below div layout given an array of cities
                     <c:set var="cityColumns" value="5" />
@@ -107,70 +88,70 @@
                             </ol>
                         </div>
                     </c:forEach>-->
-                    <div class="col1">
-                        <ol>
+                    <ul>
+                    <li class="col1 col">
+                        <ul>
                             <li><link:city city="Albany" state="NY">Albany, NY</link:city></li>
                             <li><link:city city="Austin" state="TX">Austin, TX</link:city></li>
                             <li><link:city city="Baltimore" state="MD">Baltimore, MD</link:city></li>
                             <li><link:city city="Boston" state="MA">Boston, MA</link:city></li>
                             <li><link:city city="Chandler" state="AZ">Chandler, AZ</link:city></li>
-                        </ol>
-                    </div>
-                    <div class="col2">
-                        <ol>
+                        </ul>
+                    </li>
+                    <li class="col2 col">
+                        <ul>
                             <li><link:city city="Dallas" state="TX">Dallas, TX</link:city></li>
                             <li><link:city city="Denver" state="CO">Denver, CO</link:city></li>
                             <li><link:city city="Elmhurst" state="IL">Elmhurst, IL</link:city></li>
                             <li><link:city city="Irvine" state="CA">Irvine, CA</link:city></li>
                             <li><link:city city="Miami" state="FL">Miami, FL</link:city></li>
-                        </ol>
-                    </div>
-                    <div class="col3">
-                        <ol>
+                        </ul>
+                    </li>
+                    <li class="col3 col">
+                        <ul>
                             <li><link:city city="Nashville" state="TN">Nashville, TN</link:city></li>
                             <li><link:city city="Newark" state="NJ">Newark, NJ</link:city></li>
                             <li><link:city city="Oakland" state="CA">Oakland, CA</link:city></li>
                             <li><link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city></li>
                             <li><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city></li>
-                        </ol>
-                    </div>
-                    <div class="col4">
-                        <ol>
+                        </ul>
+                    </li>
+                    <li class="col4 col">
+                        <ul>
                             <li><link:city city="Pleasanton" state="CA">Pleasanton, CA</link:city></li>
                             <li><link:city city="Richardson" state="TX">Richardson, TX</link:city></li>
                             <li><link:city city="Sacramento" state="CA">Sacramento, CA</link:city></li>
                             <li><link:city city="San Antonio" state="TX">San Antonio, TX</link:city></li>
                             <li><link:city city="San Diego" state="CA">San Diego, CA</link:city></li>
-                        </ol>
-                    </div>
-                    <div class="col5">
-                        <ol>
+                        </ul>
+                    </li>
+                    <li class="col5 col">
+                        <ul>
                             <li><link:city city="San Francisco" state="CA">San Francisco, CA</link:city></li>
                             <li><link:city city="Seattle" state="WA">Seattle, WA</link:city></li>
                             <li><link:city city="St. Louis" state="MO">St. Louis, MO</link:city></li>
                             <li><link:city city="Tampa" state="FL">Tampa, FL</link:city></li>
                             <li><link:city city="Washington" state="DC">Washington, D.C.</link:city></li>
-                        </ol>
-                    </div>
-
+                        </ul>
+                    </li>
+                </ul>
                 </div>
 
-                <br clear="all" />
 
             </div>
 
 
-            <div id="fstcasByStates"><!-- module body by state -->
+            <div id="fstcasByStates" class="box"><!-- module body by state -->
 
                 <p class="text3">Whether you're looking for your current school or a new one, GreatSchools is here to help. Start by clicking one of the links below to find and compare schools across your state.</p>
 
                 <c:set var="stateColumns" value="5" />
                 <c:set var="totalStates" value="${fn:length(states)}" />
                 <c:set var="stateRows" value="${totalStates / stateColumns}" />
-
+                <ul>
                 <c:forEach var="columnNumber" begin="0" end="${stateColumns-1}">
-                    <div class="col${columnNumber+1} text1">
-                        <ol>
+                    <li class="col${columnNumber+1} col text1">
+                        <ul>
                             <c:forEach var="i" begin="${columnNumber * stateRows}" end="${(columnNumber * stateRows) + stateRows-1}">
                                 <!-- Washington DC in states list needs to display with actual name District of Columbia and appear after Deleware -->
                                 <c:if test="${states[i].name ne 'DC'}">
@@ -180,13 +161,12 @@
                                     <li><a href="/washington-dc">District of Columbia</a></li>
                                 </c:if>
                             </c:forEach>
-                        </ol>
-                    </div>
+                        </ul>
+                    </li>
                 </c:forEach>
+                </ul>
             </div>
-            <br class="clearfloat" />
          </div>
-        <br class="clearfloat" />
     </div>
 
 
@@ -195,14 +175,20 @@
         //jQuery('#fstcasByCities').hide();
         jQuery('#fstcasByStates').hide();
 
-        jQuery('#fstcasByCitiesTab').click(function () {
+        jQuery('#fstcasByCitiesTab a').click(function () {
             jQuery('#fstcasByStates').hide();
             jQuery('#fstcasByCities').show();
+            jQuery('#fstcasByCitiesTab').addClass('selected');
+            jQuery('#fstcasByStatesTab').removeClass('selected');
+            return false;
         });
 
-        jQuery('#fstcasByStatesTab').click(function () {
+        jQuery('#fstcasByStatesTab a').click(function () {
             jQuery('#fstcasByCities').hide();
             jQuery('#fstcasByStates').show();
+            jQuery('#fstcasByCitiesTab').removeClass('selected');
+            jQuery('#fstcasByStatesTab').addClass('selected');
+            return false;
         });
 
     </script>

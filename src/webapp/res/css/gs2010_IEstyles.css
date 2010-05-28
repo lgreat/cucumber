@@ -910,22 +910,28 @@ body.ie6 #es-gbgTabs {
     left: 5px;
 }
 
-body.ie6 #es-gbgTabs li {
+body.ie6 #es-gbgTabs li, #fstcasTabs ul li {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -34px;
     margin: 0;
 }
 
-body.ie6 #es-gbgTabs a {
+body.ie6 #es-gbgTabs a, #fstcasTabs ul li a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -34px;
     margin: 0;
 }
 
-body.ie6 #es-gbgTabs .selected {
+body.ie6 #es-gbgTabs .selected, #fstcasTabs ul li.selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
 }
 
-body.ie6 #es-gbgTabs .selected a {
+body.ie6 #es-gbgTabs .selected a, #fstcasTabs ul li.selected a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
+}
+
+/* =4a-6 find your school top cities and states module (fstcas)
+-------------------------------------------------------------------------------------*/
+body.ie6 .box ul {
+    height: 1%;
 }
 
 /* =4d-3 community avatar hover

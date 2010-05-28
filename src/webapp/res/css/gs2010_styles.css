@@ -1786,7 +1786,7 @@ body.ie6 .clearfix {
     list-style: none;
 }
 
-#gbgTabs li {
+#gbgTabs li, #fstcasTabs ul li {
     float: left;
     display: inline-block;
     background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right -34px;
@@ -1794,7 +1794,7 @@ body.ie6 .clearfix {
     padding: 0;
 }
 
-#gbgTabs a {
+#gbgTabs a, #fstcasTabs ul li a {
     display: inline-block;
     font: 10px Arial, Helvetica, sans-serif;
     color: #333;
@@ -1807,12 +1807,12 @@ body.ie6 .clearfix {
     overflow: hidden;
 }
 
-#gbgTabs .selected {
+#gbgTabs .selected, #fstcasTabs ul li.selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right top;
     margin-top: -5px;
 }
 
-#gbgTabs .selected a {
+#gbgTabs .selected a, #fstcasTabs ul li.selected a {
     text-decoration: none;
     color: black;
     background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
@@ -1921,73 +1921,123 @@ body.ie6 .clearfix {
 
 #fstcasContainer {
     width:598px;
-    height:345px;
+    margin-bottom: 20px;
 }
 
 #fstcasBody {
-    padding:15px;
-    border: 1px solid lightgray;
-    height:272px;
+    padding: 9px 0 0;
+    overflow: hidden;
+    background: url('/res/img/gradeByGrade/gbg-bg-slider-1.png') no-repeat;
 }
-
+#fstcasBody .box {
+    padding: 15px;
+    border: solid #c6c6c6;
+    border-width: 0 1px 1px;
+    background: #fff;
+    overflow: hidden;
+}
 #fstcasContainer .text1bold {
     color:#DD6611;
 }
 
-#fstcasContainer .tab {
-    height:28px;
-}
+
 
 #fstcasContainer .col {
     width:101px;
 }
 
-#fstcasContainer a {
-    text-decoration:none;
+.box ul {
+    overflow: hidden;
 }
-
-#fstcasContainer .col1, #fstcasContainer .col2, #fstcasContainer .col3, #fstcasContainer .col4, #fstcasContainer .col5 {
+.box .col {
     float:left;
-    padding-right:15px;
+    margin-right:15px;
     width:101px;
+    display: inline;
 }
 
-#fstcasContainer .col5 {
-    padding-right:0px;
+.box .col5 {
+    margin-right:0px;
 }
-
+#fstcasHeader {
+    overflow: hidden;
+    height: 36px;
+}
 #fstcasHeader h2 {
     float:left;
 }
 
 #fstcasTabs {
     float:left;
+    height: 36px;
 }
 
-#fstcasTabs div {
-    float:left;
-    padding:0 17px 0 17px;
+#fstcasTabs ul {
+    overflow: hidden;
+    padding:0 17px;
+    height: 36px;
 }
 
+#fstcasTabs ul li {
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    top: 10px;
+    margin-right: 2px;
+}
+#fstcasTabs ul li a {
+    font: 700 13px Arial, Helvetica, sans-serif;
+    color: #0066B8;
+}
+#fstcasTabs ul li.selected a {
+    color: #333;
+}
 #fstcasImages img {
     width:101px;
 }
 
 #fstcasOtherCities {
-    clear:both;
+    overflow: hidden;
 }
 
-#fstcasOtherCities p {
+#fstcasOtherCities h4 {
     margin: 15px 0 15px 0;
-    color: #DD6611;
 }
 
-#fstcasByCities {
-    clear:both;
+#fstcasTopCities .col {
+    padding: 95px 0 0;
+    background: url('/res/img/home/cityStock_NY.png') no-repeat;
+}
+#fstcasTopCities .col2 {
+    background-image: url('/res/img/home/cityStock_LA.png');
+}
+#fstcasTopCities .col3 {
+    background-image: url('/res/img/home/cityStock_ATL.png');
+}
+#fstcasTopCities .col4 {
+    background-image: url('/res/img/home/cityStock_CHI.png');
+}
+#fstcasTopCities .col5 {
+    background-image: url('/res/img/home/cityStock_HOU.png');
 }
 
+#fstcasTopCities .col li {
+    overflow: hidden;
+    margin-bottom: 1px;
+}
+#fstcasTopCities .col .sprite {
+    position: relative;
+    top: 3px;
+    width: 21px;
+    margin-right: 3px;
+}
+
+#fstcasTopCities .col .house {
+    width: 18px;
+    margin-right: 5px;
+}
 #fstcasByStates {
-    clear:both;
+    overflow: hidden;
 }
 
 #fstcasByStates p {
