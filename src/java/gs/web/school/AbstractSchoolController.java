@@ -3,7 +3,6 @@ package gs.web.school;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.LastModified;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.support.WebContentGenerator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -20,8 +19,6 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.RedirectView301;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
-
-import java.util.List;
 
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
@@ -97,15 +94,15 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                             request.setAttribute(SCHOOL_ID_ATTRIBUTE, fields.getSchoolID());
                             return handleRequestInternal(request, response);
                         } else {
-                            // GS-9589 Redirect requests for inactive schools to the state home
-                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, s.getDatabaseState(), null);
+                            // GS-9940 Redirect requests for inactive schools to the city home
+                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), fields.getCityName());
                             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                         }
                     } catch (Exception e) {
                         _log.warn("Could not get a valid or active school: " +
                                 fields.getSchoolID() + " in state: " + state, e);
-                        // GS-9589 Redirect requests for inactive schools to the state home
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state, null);
+                        // GS-9940 Redirect requests for inactive schools to the city home
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, fields.getCityName());
                         return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                     }
                 //}
