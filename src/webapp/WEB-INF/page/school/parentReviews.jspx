@@ -194,7 +194,77 @@
 
 <!-- begin Parent Reviews -->
 <c:if test="${cmd.totalReviews gt 0}">
+
+
     <div id="showParentReviews" class="showall">
+
+        <!-- start principal review -->
+    <c:set var="review" value="${cmd.reviews[0]}"/>
+
+    <c:set var="who" value=""/>
+    <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+        <c:set var="who" value="${review.who}"/>
+    </c:if>
+
+    <div class="review principalReview" >
+        <![CDATA[ <a name="ps${review.id}"></a> ]]>
+
+        <c:set var="curStarRating" value="${review.quality.name}"/>
+        <c:if test="${school.levelCode eq 'p'}">
+            <c:set var="curStarRating" value="${review.POverall.name}"/>
+        </c:if>
+        <!--<c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+            <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
+                      styleClass="stars" alt="${curStarRating} out of 5 stars"/>
+        </c:if>-->
+            <h4>The school's point of view</h4>
+        <p class="author">
+                    <c:set var="principalName" value="${review.user.firstName}" />
+                        <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
+                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                <c:choose>
+                    <c:when test="${review.status eq 'd'}">
+                        (deleted)
+                        | <a href="#" class="enableLink link" onclick="enableReview(${review.id}); return false;">Enable</a>
+                    </c:when>
+                    <c:when test="${review.status eq 'p'}">
+                            | <a href="#" class="disableLink link" onclick="disableReview(${review.id}); return false;">Disable</a>
+                    </c:when>
+                </c:choose>
+            </gsml:ifUserCanDeleteContent>
+        </p>
+
+        <c:set var="postedByDisplay" value=""/>
+                <c:set var="postedByDisplay" value="an administrator at this school" />
+        <p>
+            <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
+            ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+        </p><br/><span class="principal author">Submitted by ${postedByDisplay}</span>
+
+
+            <p class="respond"><link:schoolProfileParentReview
+                school="${school}" anchor="schoolReviewSubmitForm"
+                >Write your own review</link:schoolProfileParentReview></p>
+
+            <c:choose>
+                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                    <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
+                </c:when>
+                <c:otherwise>
+                    <div class="reportReview">
+                        <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                        <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                           id="report_schoolReview_${review.id}">Report it</a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+    </div>
+
+        <br clear="all"/>
+    <!-- end principal review -->
+
         <h2>Parent Reviews <span
                 class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
 
@@ -234,7 +304,7 @@
             </c:set>
 
             ${pageControls}
-            <c:forEach var="review" items="${cmd.reviews}">
+            <c:forEach var="review" items="${cmd.reviews}" begin="1">
                 <pg:item>
                     <c:set var="who" value=""/>
                     <c:if test="${!(empty(review.who) or review.who eq 'other')}">
