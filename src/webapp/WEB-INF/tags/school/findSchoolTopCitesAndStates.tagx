@@ -31,53 +31,53 @@
 
             <div id="fstcasImages">
                 <div class="col1">
-                    <img alt="New York" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                    <a href="/new-york/new-york"><img alt="New York" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
                 </div>
                 <div class="col2">
-                    <img alt="Los Angeles" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                    <a href="/california/los-angeles"><img alt="Los Angeles" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
                 </div>
                 <div class="col3">
-                    <img alt="Atlanta" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                    <a href="/georgia/atlanta"><img alt="Atlanta" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
                 </div>
                 <div class="col4">
-                    <img alt="Chicago" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                    <a href="/illinois/chicago"><img alt="Chicago" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
                 </div>
                 <div class="col5">
-                    <img alt="Houston" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" />
+                    <a href="/texas/houston"><img alt="Houston" src="http://0p901gjpay4qstb16882.cms-files.s3.amazonaws.com/00000127-2650-0f44-523f-0c49bb690a10" /></a>
                 </div>
             </div>
 
             <div id="fstcasTopCities">
                 <div class="col1">
-                    <p class="text1bold">New York<span class="alertDoubleArrow"> &amp;raquo;</span></p>
+                    <p class="text1bold"><a href="/new-york/new-york">New York<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/new-york/new-york-city/community.gs?content=2003"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col2">
-                    <p class="text1bold">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></p>
+                    <p class="text1bold"><a href="/california/los-angeles">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/california/los-angeles/community.gs?content=1967"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col3">
-                    <p class="text1bold">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></p>
+                    <p class="text1bold"><a href="/georgia/atlanta">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/georgia/atlanta/community.gs?content=1979"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col4">
-                    <p  class="text1bold">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></p>
+                    <p  class="text1bold"><a href="/illinois/chicago">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                     <ul>
                         <li><a href="http://www.greatschools.org/illinois/chicago/community.gs?content=1983"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
                     </ul>
                 </div>
                 <div class="col5">
-                    <p  class="text1bold">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></p>
+                    <p  class="text1bold"><a href="/texas/houston">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                     <ul class="text3">
                         <li><a href="http://www.greatschools.org/texas/houston/community.gs?content=2016"><img alt="Community" src="/res/img/community/community+icon+18x13px.gif">Community</img></a></li>
                         <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956"><img alt="Homes for sale" src="/res/img/icons/house+icon+13x13px.gif">Homes for sale</img></a></li>
