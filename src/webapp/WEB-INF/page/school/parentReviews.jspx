@@ -199,6 +199,7 @@
     <div id="showParentReviews" class="showall">
 
         <!-- start principal review -->
+    <c:if test="${cmd.reviews[0].who eq 'principal'}">
     <c:set var="review" value="${cmd.reviews[0]}"/>
 
     <c:set var="who" value=""/>
@@ -263,6 +264,8 @@
     </div>
 
         <br clear="all"/>
+
+        </c:if>
     <!-- end principal review -->
 
         <h2>Parent Reviews <span
