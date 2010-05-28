@@ -74,6 +74,9 @@
         request.setAttribute("cityBrowseUri", urlBuilder.asSiteRelativeXml(request));
     </jsp:scriptlet>
 
+    <c:if test="${not empty requestScope.canonicalCityPath}">
+        <link rel="canonical" href="${requestScope.canonicalCityPath}" />
+    </c:if>
 
 </head>
 

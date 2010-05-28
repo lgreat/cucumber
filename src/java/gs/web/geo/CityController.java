@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.63 2010/05/24 21:58:12 aroy Exp $
+ * $Id: CityController.java,v 1.64 2010/05/28 16:54:40 ssprouse Exp $
  */
 
 package gs.web.geo;
@@ -61,6 +61,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // AnchorListModel object
 
     public static final String MODEL_DISCUSSION_BOARD_ID = "discussionBoardId"; // AnchorListModel object
+
+    public static final String PARAM_CITY_CANONICAL_PATH = "canonicalCityPath";
 
     //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of AnchorListModel object
     private static final Log _log = LogFactory.getLog(CityController.class);
@@ -149,6 +151,10 @@ public class CityController extends AbstractController  implements IDirectoryStr
         }
 
         Map model = new HashMap();
+
+        if (!StringUtils.isEmpty(cityNameParam) && city != null && state != null) {
+            model.put(PARAM_CITY_CANONICAL_PATH, DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, city.getName()));
+        }
 
         String cityDisplayName = ((City) city).getDisplayName();
         model.put(MODEL_CITY_NAME, cityDisplayName);
