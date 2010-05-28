@@ -19,14 +19,12 @@ Disallow: /cgi-bin/$LCSTATE
 Disallow: /cgi-bin/addcomments
 Disallow: /cgi-bin/az/sci_compare
 Disallow: /cgi-bin/browse
-Disallow: /cgi-bin/byaddr
 Disallow: /cgi-bin/ca/sci_compare
 Disallow: /cgi-bin/choose
 Disallow: /cgi-bin/compare
 Disallow: /cgi-bin/conversion
 Disallow: /cgi-bin/cs
 Disallow: /cgi-bin/cs_compare
-Disallow: /cgi-bin/feedback
 Disallow: /cgi-bin/feedback
 Disallow: /cgi-bin/mail
 Disallow: /cgi-bin/membership
@@ -82,10 +80,6 @@ Disallow: /school/addComments.page
 Disallow: /school/mapSchool
 Disallow: /school/thankYouHover.page
 Disallow: /school/updateRatings.page
-Disallow: /*/*/*schools/?*
-Disallow: /*/private-charter/*
-Disallow: /*/public-charter/*
-Disallow: /*/public-private/*
 Disallow: /search/feedback.page
 Disallow: /support_code/
 Disallow: /templates/
