@@ -1919,21 +1919,6 @@ body.ie6 .clearfix {
 /* =4a-6 find your school top cities and states module (fstcas)
 -------------------------------------------------------------------------------------*/
 
-#fstcasHeader h2 {
-    float:left;
-}
-#fstcasTabs {
-    float:left;
-}
-#fstcasTabs div {
-    float:left;
-    padding:0 17px 0 17px;
-}
-
-#fstcasImages img {
-    width:101px;
-}
-
 #fstcasContainer .text1bold {
     color:#DD6611;
 }
@@ -1941,14 +1926,16 @@ body.ie6 .clearfix {
 #fstcasContainer {
     width:598px;
     height:345px;
-    padding:15px;
 }
+
 #fstcasContainer .tab {
     height:28px;
 }
+
 #fstcasContainer .col {
     width:101px;
 }
+
 #fstcasContainer a {
     text-decoration:none;
 }
@@ -1958,8 +1945,31 @@ body.ie6 .clearfix {
     padding-right:15px;
     width:101px;
 }
+
 #fstcasContainer .col5 {
     padding-right:0px;
+}
+
+#fstcasBody {
+    padding:15px;
+    border: 1px solid lightgray;
+}
+
+#fstcasHeader h2 {
+    float:left;
+}
+
+#fstcasTabs {
+    float:left;
+}
+
+#fstcasTabs div {
+    float:left;
+    padding:0 17px 0 17px;
+}
+
+#fstcasImages img {
+    width:101px;
 }
 
 #fstcasOtherCities {
@@ -1967,22 +1977,40 @@ body.ie6 .clearfix {
 }
 
 #fstcasOtherCities p {
-    margin-bottom:15px;
+    margin: 15px 0 15px 0;
     color: #DD6611;
 }
 
 #fstcasByCities {
     clear:both;
 }
+
 #fstcasByStates {
     clear:both;
 }
+
 #fstcasByStates p {
-    margin:15px 0 15px 0;
+    margin:0px 0 15px 0;
+}
+
+#fstcasByCities p.text3 {
+    margin:0px 0 15px 0;
 }
 
 #fstcasTopCities {
     margin-bottom: 15px;
+}
+
+#fstcasTopCities li img {
+    padding-right:5px;
+}
+
+#fstcasTopCities .extraPadding {
+    padding-right:10px;
+}
+
+#fstcasImages {
+    clear:both;
 }
 
 /* =4b-1 community landing
