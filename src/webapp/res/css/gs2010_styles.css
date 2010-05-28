@@ -1919,13 +1919,19 @@ body.ie6 .clearfix {
 /* =4a-6 find your school top cities and states module (fstcas)
 -------------------------------------------------------------------------------------*/
 
-#fstcasContainer .text1bold {
-    color:#DD6611;
-}
-
 #fstcasContainer {
     width:598px;
     height:345px;
+}
+
+#fstcasBody {
+    padding:15px;
+    border: 1px solid lightgray;
+    height:272px;
+}
+
+#fstcasContainer .text1bold {
+    color:#DD6611;
 }
 
 #fstcasContainer .tab {
@@ -1940,7 +1946,7 @@ body.ie6 .clearfix {
     text-decoration:none;
 }
 
-#fstcasContainer .col1, .col2, .col3, .col4, .col5 {
+#fstcasContainer .col1, #fstcasContainer .col2, #fstcasContainer .col3, #fstcasContainer .col4, #fstcasContainer .col5 {
     float:left;
     padding-right:15px;
     width:101px;
@@ -1948,11 +1954,6 @@ body.ie6 .clearfix {
 
 #fstcasContainer .col5 {
     padding-right:0px;
-}
-
-#fstcasBody {
-    padding:15px;
-    border: 1px solid lightgray;
 }
 
 #fstcasHeader h2 {

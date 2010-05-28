@@ -184,9 +184,9 @@
                     </div>
                 </c:forEach>
             </div>
-            <br clear="all" />
+            <br class="clearfloat" />
          </div>
-        <br clear="all" />
+        <br class="clearfloat" />
     </div>
 
 
