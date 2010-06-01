@@ -821,7 +821,7 @@ body.cobranded #pageGS {
     height: 18px;
     background: url(/res/img/nav/topnavSprite_bg.png) 100% -198px no-repeat;
     width: auto;
-    padding: 3px 15px 3px 6px;
+    padding: 3px 15px 3px 10px;
 }
 
 #topnav_menusubnav li.over a.over {
