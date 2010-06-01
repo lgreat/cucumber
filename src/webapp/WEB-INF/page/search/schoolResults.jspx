@@ -35,7 +35,6 @@
     <title>
         <c:out value="${title}" escapeXml="false"/>
     </title>
-        <meta name="robots" content="follow,noindex"/>
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         <!--
