@@ -15,7 +15,6 @@ import gs.data.state.State;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.community.IReportContentService;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
@@ -77,8 +76,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             return errorJSON(response, errors);
         }
 
-        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
-
         ReviewCommand reviewCommand = (ReviewCommand) command;
 
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
@@ -109,8 +106,11 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             getSubscriptionDao().saveSubscription(sub);
 
             //Must perform omniture tracking since we're creating this user here.
-            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
+            // aroy: This doesn't work since cookies aren't set by an ajax response
+            // So for now I'm commenting it out. It appears that
+            // RegistrationHoverController.updateUserProfile handles this case anyway
+//            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+//            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
 
             isNewUser = true;
         }
@@ -231,19 +231,18 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",user, emailAttributes);
         }
 
-        //trigger the success events
-        if (userRatedOneOrMoreCategories(reviewCommand)) {
-            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentRating);
-        }
-
-        if (StringUtils.isNotBlank(reviewCommand.getComments())) {
-            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentReview);
-        }
 
         Map<Object, Object> values = new HashMap<Object, Object>();
         values.put("status", "true");
         values.put("userId", user.getId().toString());
-        values.put("reviewPosted", new Boolean(reviewPosted).toString());
+        //trigger the success events
+        if (reviewPosted && userRatedOneOrMoreCategories(reviewCommand)) {
+            values.put("ratingEvent", OmnitureTracking.SuccessEvent.ParentRating.toOmnitureString());
+        }
+        if (reviewPosted && StringUtils.isNotBlank(reviewCommand.getComments())) {
+            values.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
+        }
+        values.put("reviewPosted", String.valueOf(reviewPosted));
         values.put("redirectUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
         String jsonString = new JSONObject(values).toString();
 

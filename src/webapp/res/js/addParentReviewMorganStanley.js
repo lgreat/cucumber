@@ -354,6 +354,18 @@ function GS_postSchoolReview(email, callerFormId) {
                 subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
             }
         }
+        var successEvents = "";
+        if (data.ratingEvent != undefined) {
+            successEvents += data.ratingEvent;
+        }
+        if (data.reviewEvent != undefined) {
+            successEvents += data.reviewEvent;
+        }
+        if (successEvents != "") {
+            omnitureEventNotifier.clear();
+            omnitureEventNotifier.successEvents = successEvents;
+            omnitureEventNotifier.send();
+        }        
         if (callerFormId) {
             GSType.hover.signInHover.hide();
             GSType.hover.joinHover.hide();
