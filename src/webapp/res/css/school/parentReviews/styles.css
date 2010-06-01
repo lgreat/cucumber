@@ -334,6 +334,10 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     top: 0;
 }
 
+#showParentReviews .principalReview .reportReview, #showParentReviews .principalReview .reported {
+    top: 5px;
+    right: 12px;
+}
 #showParentReviews .review .reportReview a {
     text-decoration: none;
     color: #0066B8;

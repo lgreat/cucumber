@@ -104,8 +104,8 @@
                     
                     <br/>
 
-                    <input type="checkbox" name="permit"/> I give GreatSchools permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
-                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use.</link:termsOfUse>
+                    <input type="checkbox" name="permit" id="permit" /><label id="touAgree" for="permit">I give GreatSchools permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
+                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
 
                     <button class="btn25" type="submit" name="submitPrincipalReview"
                             id="submitPrincipalReview">
