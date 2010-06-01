@@ -302,8 +302,6 @@
     }
 </jsp:scriptlet>
 <c:if test="${showGlobalNavPromo968x30}">
-    <div id="global_nav_promo_968">
-        <ad:adTag position="Global_NavPromo_968x30"/>
-    </div>
+    <ad:adTag position="Global_NavPromo_968x30"/>
 </c:if>
 </jsp:root>
