@@ -83,6 +83,9 @@ public class CBIIntegrationController implements ReadWriteController {
         String recipients = request.getParameter("recipients");
         String coachMessage = request.getParameter("body");
         String responseStr = "";
+        String responseStr1 = "";
+        String responseStr2 = "";
+        String responseStr3 = "";
         System.getProperties().setProperty("sun.net.client.defaultConnectTimeout", "200000") ;
         List<Integer> grpMembersInt = new ArrayList<Integer>();
         if(StringUtils.isNotBlank(recipients) && StringUtils.isNotBlank(exactTargetKey) && StringUtils.isNotBlank(coachMessage)){
@@ -100,10 +103,32 @@ public class CBIIntegrationController implements ReadWriteController {
                 }
                 Map<String, String> commonAttributes = new HashMap();
                 commonAttributes.put("cbCoachMsg",coachMessage);
-                responseStr = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+                long start = System.currentTimeMillis();
+                _exactTargetAPI.setTimeoutForET(new Long(15000));
+                responseStr1 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+                long end = System.currentTimeMillis();
+                long timems = (end - start);
+                System.out.println("timems1----------------------------"+timems);
+                System.out.println("responseStr1----------------------------"+responseStr1);
+
+                start = System.currentTimeMillis();
+                _exactTargetAPI.setTimeoutForET(new Long(0));
+                responseStr2 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+                end = System.currentTimeMillis();
+                timems = (end - start);
+                System.out.println("timems2----------------------------"+timems);
+                System.out.println("responseStr2----------------------------"+responseStr2);
+                
+                start = System.currentTimeMillis();
+//               _exactTargetAPI.setTimeoutForET(null);
+                responseStr3 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+                end = System.currentTimeMillis();
+                timems = (end - start);
+                System.out.println("timems3----------------------------"+timems);
+                System.out.println("responseStr3----------------------------"+responseStr3);
+
             }
         }
-//      System.getProperties().setProperty("sun.net.client.defaultConnectTimeout", "2000") ;
       return responseStr;
     }
     
