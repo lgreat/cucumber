@@ -320,6 +320,7 @@ h3.title1white, h3.srchCat {
 
 .text3 {
     font: 12px Arial, sans-serif;
+    color: #333;
 }
 
 .text3bold {
@@ -761,7 +762,7 @@ body.cobranded #pageGS {
 
 #google_ads_div_Global_NavPromo_968x30 {
     padding: 0 5px;
-    height: 30px;
+    height: 39px;
 }
 
 /* =3e subnav menus
