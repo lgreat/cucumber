@@ -5225,15 +5225,19 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 	padding: 20px 15px;
 }
 
+#bts1-2010 .mod_hd h3{
+    background: none;
+}
+
 #bts2-2010 .mod_hd{
-	width: 393px; height: 24px;
+	width: 393px; height: 54px;
 	background: url(/res/img/bts2010-hd/bts_hd-2.png) no-repeat left top;
-	padding: 15px;
+	padding: 0 15px;
 }
 
 #bts2-2010 .mod_hd h4{
 	text-align: right;
-	padding-top: 9px;
+	padding-top: 20px;
 }
 
 #bts1-2010 .bts_hd_top{
