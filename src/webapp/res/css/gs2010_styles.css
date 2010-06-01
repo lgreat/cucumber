@@ -3139,6 +3139,17 @@ button#hover_forgotPasswordSubmit {
     line-height: .9;
 }
 
+.noSchoolAlert {
+    background: #f9eccd;
+    padding: 4px 10px 7px 10px;
+    margin-bottom: 7px;
+}
+
+.noSchoolAlert img {
+    position: relative;
+    top: 3px;
+}
+
 /* =4d-1 search styles
 -------------------------------------------------------------------------------------------*/
 

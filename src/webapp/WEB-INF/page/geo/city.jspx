@@ -111,6 +111,16 @@
 <tr>
 <td width="65%" style="vertical-align:top">
 
+<c:if test="${param.noSchoolAlert eq 1}">
+    <!-- GS-9940 -->
+    <div class="noSchoolAlert">
+        <p>
+        <img src="/res/img/bullet/exclaim2.gif" alt="Exclamation mark"/>
+        Oops! The school you were looking for may no longer exist. See more schools below.
+        </p>
+    </div>
+</c:if>
+
 <c:if test="${stateAbbrevLowerCase ne 'dc'}">
     <div id="cityrating">
         <div id="ratingimage"><gsml:img src="/res/img/citydist_ratings/GS_CD_c_${strCityRating}.gif"

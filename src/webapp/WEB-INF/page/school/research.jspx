@@ -62,6 +62,9 @@
         <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('rc')"/>
     </c:if>
+    <c:if test="${not empty requestScope.canonicalStatePath}">
+        <link rel="canonical" href="${requestScope.canonicalStatePath}" />
+    </c:if>
 </head>
 
 <ad:setSlotPrefix slotPrefix="Research_Compare_State_Home_Page"/>
@@ -78,6 +81,21 @@
 
 <td style="width: 651px" valign="top">
 <table width="651" cellpadding="0" cellspacing="0" border="0">
+<c:if test="${param.noSchoolAlert eq 1}">
+    <!-- GS-9940 -->
+    <tr>
+        <td colspan="3">
+            <div class="noSchoolAlert">
+                <p>
+                <img src="/res/img/bullet/exclaim2.gif" alt="Exclamation mark"/>
+                Oops! The school you were looking for may no longer exist. See more schools below.
+                </p>
+            </div>
+        </td>
+    </tr>
+</c:if>
+
+
 <tr>
     <td colspan="3">
         <h1 id="stateSchools">

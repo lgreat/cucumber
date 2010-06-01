@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +61,9 @@ public class ResearchController extends AbstractController implements IDirectory
     /** The # of cities to display in the top cities list */
     private final static int CITY_LIST_SIZE = 5;
 
+    /** Rel canonical */
+    public static final String MODEL_CITY_CANONICAL_PATH = "canonicalStatePath";
+
     /** The form view - set in pages-servlet.xml */
     private String _viewName;
 
@@ -83,6 +87,13 @@ public class ResearchController extends AbstractController implements IDirectory
 
         if (StringUtils.isNotBlank(request.getParameter(CLEAR_PARAM))) {
             _cache = null;
+        }
+
+        // GS-9940
+        if (state != null && request.getParameter("noSchoolAlert") != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state, null);
+            mAndV.getModel().put(MODEL_CITY_CANONICAL_PATH,
+                                 urlBuilder.asFullUrl(request));
         }
 
         String form = request.getParameter(FORM_PARAM);

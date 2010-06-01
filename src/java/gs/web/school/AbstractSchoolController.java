@@ -96,6 +96,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                         } else {
                             // GS-9940 Redirect requests for inactive schools to the city home
                             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), fields.getCityName());
+                            urlBuilder.addParameter("noSchoolAlert", "1");
                             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                         }
                     } catch (Exception e) {
@@ -103,6 +104,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                                 fields.getSchoolID() + " in state: " + state, e);
                         // GS-9940 Redirect requests for inactive schools to the city home
                         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, fields.getCityName());
+                        urlBuilder.addParameter("noSchoolAlert", "1");
                         return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                     }
                 //}
