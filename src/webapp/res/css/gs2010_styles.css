@@ -5230,14 +5230,14 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 }
 
 #bts2-2010 .mod_hd{
-	width: 393px; height: 54px;
+	width: 393px; height: 43px;
 	background: url(/res/img/bts2010-hd/bts_hd-2.png) no-repeat left top;
 	padding: 0 15px;
 }
 
 #bts2-2010 .mod_hd h4{
 	text-align: right;
-	padding-top: 20px;
+	line-height:2.7;
 }
 
 #bts1-2010 .bts_hd_top{
@@ -5439,3 +5439,6 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 .tod .back { left: 7px; }
 .tod .forward:hover { text-decoration: none; }
 .tod .back:hover { text-decoration: none; }
+.tod a.disabled { color: #c6c6c6; }
+
+
