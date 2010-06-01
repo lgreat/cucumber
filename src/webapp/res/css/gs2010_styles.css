@@ -224,7 +224,15 @@ h3.title1white, h3.srchCat {
 
 /* classes applied to h4 */
 .subhead2, .subhead3, .subhead4 {
-    font-weight: 400;
+    font: 18px Georgia, "Times New Roman", Times, serif;
+}
+
+.subhead2{
+    color: #d61;
+}
+
+.subhead2-333 {
+    color: #333;
 }
 
 .subhead3 {
@@ -237,7 +245,7 @@ h3.title1white, h3.srchCat {
 
 .subhead5 {
     font: bold 13px Arial, sans-serif;
-    color:#000;
+    color:#fff;
 }
 
 .subhead5serif-d61 {
@@ -333,12 +341,17 @@ h3.title1white, h3.srchCat {
     color: black;
 }
 
+.smallText2-777 {
+    font: 10px Arial, Helvetica, sans-serif;
+    color: #777;
+}
+
 .smallAlertText {
     font: 11px Arial, Helvetica, sans-serif;
     color: #333;
 }
 a.smallAlertText {
-    color: #0066b8;
+    color: #0066bb;
 }
 .smallText1bold {
     font: bold 11px/1.3 Arial, Helvetica, sans-serif;
@@ -911,6 +924,11 @@ body.cobranded #pageGS {
 .col {
     position: relative;
     float: left;
+}
+
+.col-rt {
+    position: relative;
+    float: right;
 }
 
 #contentGS {
@@ -5167,3 +5185,238 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 #realtorDotCom.rdc_short img {
     width: 115px;
 }
+
+
+/* Back to School 2010
+-------------------------------------------------------------------------------------------*/
+
+#bts1-2010{
+	width: 596px; height: 191px;
+	border: 1px solid #ccc;
+}
+
+#bts2-2010{
+	width: 423px; height: 258px;
+}
+
+#bts3-2010{
+	width: 968px; height: 39px;
+	background: url(/res/img/bts2010-hd/bts_hd-3.png) no-repeat left top;
+}
+
+#bts1-2010 .mod_hd{
+	width: 145px; height: 151px;
+	background-color: #fc6;
+	padding: 20px 15px;
+}
+
+#bts2-2010 .mod_hd{
+	width: 393px; height: 24px;
+	background: url(/res/img/bts2010-hd/bts_hd-2.png) no-repeat left top;
+	padding: 15px;
+}
+
+#bts2-2010 .mod_hd h4{
+	text-align: right;
+	padding-top: 9px;
+}
+
+#bts1-2010 .bts_hd_top{
+	padding-bottom: 14px;
+}
+
+#bts1-2010 .bts_hd_btm{
+	padding-top: 8px;
+	border-top: 5px dotted #f4891d;
+}
+
+#bts1-2010 .mod_bd{
+	width:421px; height: 191px;
+	background-color: white;
+}
+
+#bts2-2010 .mod_bd{
+	width:421px; height: 142px;
+	background-color: white;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+#bts3-2010 .mod_bd{
+	padding-left: 300px;
+}
+
+#bts1-2010 .mod_ft{
+	width: 407px;
+	padding: 0 7px 0 7px;
+}
+
+#bts2-2010 .mod_ft{
+	width: 407px;
+	padding: 0 7px 0 7px;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+
+#bts1-2010 .bts_ft{
+	height: 31px;
+	padding: 4px 0 5px 0;
+	border-top:1px dotted #999;
+}
+
+#bts2-2010 .bts_ft{
+	height: 31px;
+	padding: 4px 0 5px 0;
+	border-top:1px dotted #999;
+}
+
+.mod_ft ul{
+	clear: left;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+.mod_ft li{
+	float: left;
+	height: 13px;
+	padding: 0 10px 2px 0;
+}
+
+#bts3-2010 .mod_ft .subscribeText{
+	padding-top: 12px;
+}
+
+.mod_ft .sponsorText{
+	text-align:right;
+	line-height: 1.2;
+}
+
+#bts3-2010 .mod_ft .sponsorText{
+	text-align:right;
+	line-height: 1.2;
+	padding: 16px 0 0 45px;
+}
+
+.mod_ft .sponsorLogo{
+	float:right;
+	padding-left: 5px;
+}
+
+#bts3-2010 .mod_ft .sponsorLogo{
+	padding: 10px 4px 0 4px;
+}
+
+.bts_photo { }
+
+.bts_photo img
+{
+	margin: 0 10px 0 0;
+	padding: 0;
+	border: 1px solid #c6c6c6;
+	display: block;
+	float: left;
+}
+
+.tod
+{
+	width: 421px;
+	height: 150px;
+	position: relative;
+}
+
+#bts2-2010 .tod{
+	height: 142px;
+}
+
+#bts3-2010 .tod{
+	width: 440px;
+	height: 39px;
+}
+
+.tod .wrapper {
+	width: 355px;/* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
+	overflow: auto;
+	height: 130px;
+	margin: 0 33px;
+	position: absolute;
+	top: 20px;
+}
+
+#bts2-2010 .tod .wrapper{
+	top: 12px;
+}
+
+#bts3-2010 .tod .wrapper{
+	width: 440px;
+	margin: 0;
+	height: 16px;
+	top: 16px;
+}
+
+.tod ul a img { }
+
+.tod .wrapper ul
+{
+	width: 99999px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin: 0 0 0 -15px;
+	padding: 0;
+	position: relative;
+	top: 0;
+}
+
+#bts3-2010 .tod .wrapper ul {
+	margin: 0;
+}
+
+.tod ul li
+{
+	display: block;
+	float: left;
+	padding: 0 15px;
+	width: 355px;
+	height: 130px;
+	background-color: white;
+}
+
+#bts3-2010 .tod ul li{
+	width: 440px;
+	height: 16px;
+	padding: 0;
+	background-color: transparent;
+}
+
+.tod ul li a img { display: block; }
+
+.tod .enabled {
+	display: block;
+	top: 60px;
+	width: 16px;
+	height: 26px;
+	position: absolute;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	font: bold 24px/0.9 Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.tod .disabled {
+	display: block;
+	top: 60px;
+	width: 16px;
+	height: 26px;
+	position: absolute;
+	cursor: default;
+	border: 1px solid #ccc;
+	font: bold 24px/0.9 Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.tod .forward { right: 7px; }
+.tod .back { left: 7px; }
+.tod .forward:hover { text-decoration: none; }
+.tod .back:hover { text-decoration: none; }
