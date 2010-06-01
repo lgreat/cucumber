@@ -241,7 +241,7 @@
         <p>
             <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
             ${gsweb:boldifyFirstXWords(escapedComments, 10)}
-        </p><br/><span class="principal author">Submitted by ${postedByDisplay}</span>
+        </p><p class="principal author">Submitted by ${postedByDisplay}</p>
 
             <c:choose>
                 <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
