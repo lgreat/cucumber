@@ -1934,6 +1934,9 @@ body.ie6 .clearfix {
     text-transform: uppercase;
 }
 
+#Homepage_House_Ad_598x102 {
+    margin-bottom: 20px;
+}
 /* =4a-6 find your school top cities and states module (fstcas)
 -------------------------------------------------------------------------------------*/
 
@@ -2019,11 +2022,11 @@ body.ie6 .clearfix {
 }
 
 #fstcasOtherCities h4 {
-    margin: 15px 0 15px 0;
+    margin: 0 0 15px;
 }
 
 #fstcasTopCities .col {
-    padding: 95px 0 0;
+    padding: 90px 0 0;
     background: url('/res/img/home/cityStock_NY.png') no-repeat;
 }
 #fstcasTopCities .col2 {
