@@ -243,11 +243,6 @@
             ${gsweb:boldifyFirstXWords(escapedComments, 10)}
         </p><br/><span class="principal author">Submitted by ${postedByDisplay}</span>
 
-
-            <p class="respond"><link:schoolProfileParentReview
-                school="${school}" anchor="schoolReviewSubmitForm"
-                >Write your own review</link:schoolProfileParentReview></p>
-
             <c:choose>
                 <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
                     <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
