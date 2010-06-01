@@ -97,35 +97,34 @@ public class CBIIntegrationController implements ReadWriteController {
         if(grpMembersInt.size()>0){
             List<User> users = _userDao.findUsersFromIds(grpMembersInt);
             if(users.size() >0){
-                List<String> emails = new ArrayList();
-                for(User user :users){
-                    emails.add(user.getEmail());
-                }
-                Map<String, String> commonAttributes = new HashMap();
-                commonAttributes.put("cbCoachMsg",coachMessage);
-                long start = System.currentTimeMillis();
-                _exactTargetAPI.setTimeoutForET(new Long(15000));
-                responseStr1 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-                long end = System.currentTimeMillis();
-                long timems = (end - start);
-                System.out.println("timems1----------------------------"+timems);
-                System.out.println("responseStr1----------------------------"+responseStr1);
-
-                start = System.currentTimeMillis();
-                _exactTargetAPI.setTimeoutForET(new Long(0));
-                responseStr2 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-                end = System.currentTimeMillis();
-                timems = (end - start);
-                System.out.println("timems2----------------------------"+timems);
-                System.out.println("responseStr2----------------------------"+responseStr2);
-                
-                start = System.currentTimeMillis();
-//               _exactTargetAPI.setTimeoutForET(null);
-                responseStr3 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-                end = System.currentTimeMillis();
-                timems = (end - start);
-                System.out.println("timems3----------------------------"+timems);
-                System.out.println("responseStr3----------------------------"+responseStr3);
+//                List<String> emails = new ArrayList();
+//                for(User user :users){
+//                    emails.add(user.getEmail());
+//                }
+//                Map<String, String> commonAttributes = new HashMap();
+//                commonAttributes.put("cbCoachMsg",coachMessage);
+//                long start = System.currentTimeMillis();
+//                ExactTargetAPI et1 = new ExactTargetAPI(new Long(15000));
+//                responseStr1 = et1.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+//                long end = System.currentTimeMillis();
+//                long timems = (end - start);
+//                System.out.println("timems1----------------------------"+timems);
+//                System.out.println("responseStr1----------------------------"+responseStr1);
+//
+//                start = System.currentTimeMillis();
+//                ExactTargetAPI et2 = new ExactTargetAPI(new Long(0));
+//                responseStr2 = et2.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+//                end = System.currentTimeMillis();
+//                timems = (end - start);
+//                System.out.println("timems2----------------------------"+timems);
+//                System.out.println("responseStr2----------------------------"+responseStr2);
+//
+//                start = System.currentTimeMillis();
+//                responseStr3 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
+//                end = System.currentTimeMillis();
+//                timems = (end - start);
+//                System.out.println("timems3----------------------------"+timems);
+//                System.out.println("responseStr3----------------------------"+responseStr3);
 
             }
         }
