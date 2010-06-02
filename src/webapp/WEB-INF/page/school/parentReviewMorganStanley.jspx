@@ -24,6 +24,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
           content="Write a review for your child's school today and you can help other parents make a more informed choice about which school is right for their family."/>
+    <meta name="robots" content="follow,noindex"/>
     <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
     <pageHelper:externalCss file="/res/css/school/parentReviews/parentR.css"/>
     <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
