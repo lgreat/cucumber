@@ -7,200 +7,206 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form">
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:spring="http://www.springframework.org/tags/form">
 
-    <c:set var="pageName" value="API Terms of Use"/>
-    <html>
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<c:set var="pageName" value="API Terms of Use"/>
+<html>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <title>Principal feedback form | GreatSchools </title>
-        <meta content="todo" name="description"/>
-        <meta content="todo" name="keywords"/>
+<head>
+    <title>Principal feedback form | GreatSchools </title>
+    <meta content="todo" name="description"/>
+    <meta content="todo" name="keywords"/>
 
-        <link rel="stylesheet" href="/res/css/gs2010_styles.css" type="text/css"/>
-    </head>
+    <link rel="stylesheet" href="/res/css/gs2010_styles.css" type="text/css"/>
+</head>
 
-    <gsml:body adPageName="Principal feedback form " pageLayout="nocol">
+<gsml:body adPageName="Principal feedback form " pageLayout="nocol">
 
-        <div id="principalReviewFormContainer">
+    <div id="principalReviewFormContainer">
 
-            <h2>School Official: Respond to reviews about ${school.name}</h2>
+        <h2>School Official: Respond to reviews about ${school.name}</h2>
 
-            <h5>What's your point of view?</h5>
+        <h5>What's your point of view?</h5>
 
-            <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
-                <link:parentReviewGuidelines
-                        onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                        styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
-            </p>
+        <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
+            <link:parentReviewGuidelines
+                    onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                    styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
+        </p>
 
-            <br/>
+        <br/>
 
-            <p>GreatSchools will display your full name and job title with your comment.</p>
+        <p>GreatSchools will display your full name and job title with your comment.</p>
 
-            <form:form id="principalReviewForm" method="post" action="principalComments.page" commandName="reviewCommand"  >
-                <input type="hidden" value="" name="member_id"/>
-                <input type="hidden" value="${school.name}" name="schoolname"/>
-                <input type="hidden" value="public" name="schooltype"/>
-                <input type="hidden" value="principal" name="who"/>
-                <input type="hidden" value="${school.databaseState}" name="state"/>
-                <input type="hidden" value="${school.id}" name="id"/>
+        <form:form id="principalReviewForm" method="post" action="principalComments.page" commandName="reviewCommand">
+            <form:errors path="*" cssClass="error invalid" cssStyle="display:block;" />
+            <input type="hidden" value="" name="member_id"/>
+            <input type="hidden" value="${school.name}" name="schoolname"/>
+            <input type="hidden" value="public" name="schooltype"/>
+            <input type="hidden" value="principal" name="who"/>
+            <input type="hidden" value="${school.databaseState}" name="state"/>
+            <input type="hidden" value="${school.id}" name="id"/>
 
-                <fieldset class="contactPw">
-                    <ul>
+            <fieldset class="contactPw">
+                <ul>
 
-                        <li class="principalReview_firstName">
-                            <label for="fName">First name *</label>
-                            <input type="text" id="fName" name="first_name"/>
+                    <li class="principalReview_firstName">
+                        <label for="fName">First name *</label>
+                        <spring:input id="fName" path="firstName"/>
 
-                            <span class="error invalid">Please provide your first name</span>
+                        <span class="error invalid">Please provide your first name</span>
 
-                        </li>
-                        <li class="principalReview_lastName">
-                            <label for="lName">Last name *</label>
-                            <input type="text" id="lName" name="last_name"/>
+                    </li>
+                    <li class="principalReview_lastName">
+                        <label for="lName">Last name *</label>
+                        <spring:input id="lName" path="lastName"/>
 
-                            <span class="error invalid">Please provide your last name</span>
+                        <span class="error invalid">Please provide your last name</span>
 
-                        </li>
-                        <li class="principalReview_jobTitle">
-                            <label for="jobTitle">Job title *</label>
-                            <input type="text" id="jobTitle" name="job_title"/>
+                    </li>
+                    <li class="principalReview_jobTitle">
+                        <label for="jobTitle">Job title *</label>
+                        <spring:input id="jobTitle" path="jobTitle"/>
 
-                            <span class="error invalid">Please provide your job title</span>
+                        <span class="error invalid">Please provide your job title</span>
 
-                        </li>
-                        <li class="principalReview_email">
-                            <label for="jemail">Email address *</label>
-                            <input type="text" id="jemail" name="email"/>
+                    </li>
+                    <li class="principalReview_email">
+                        <label for="jemail">Email address *</label>
+                        <spring:input id="jemail" path="email"/>
 
-                            <span class="error invalid">Please provide a valid email address</span>
+                        <span class="error invalid">Please provide a valid email address</span>
 
-                        </li>
-                        <li class="principalReview_comments">
-                            <label for="principal-comments">Comments *</label>
-                            <c:set var="comments" value="comments"/>
-                            <c:if test="${not empty review.comments}">
-                                <c:set var="comments" value="${review.comments}"/>
-                            </c:if>
-                            <textarea id="principal-comments" name="comments">${comments}</textarea>
-                            <span class="error invalid">Please provide us with your comments</span>
-                            <p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
+                    </li>
+                    <li class="principalReview_comments">
+                        <label for="principal-comments">Comments *</label>
+                        <c:set var="comments" value="comments"/>
+                        <c:if test="${not empty review.comments}">
+                            <c:set var="comments" value="${review.comments}"/>
+                        </c:if>
+                        <spring:textarea id="principal-comments" path="comments">${comments}</spring:textarea>
+                        <span class="error invalid">Please provide us with your comments</span>
 
-                        </li>
+                        <p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
 
-                    </ul>
-                </fieldset>
+                    </li>
+
+                </ul>
+            </fieldset>
 
 
-                <fieldset class="btns">
+            <fieldset class="btns">
 
                     <span class="error invalid"
                           id="principalReview_termsNotChecked">You must agree to our terms of use before proceeding</span>
 
-                    <br/>
+                <br/>
 
-                    <input type="checkbox" name="permit" id="permit" /><label id="touAgree" for="permit">I give GreatSchools permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
-                    <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
+                <input type="checkbox" name="permit" id="permit"/><label id="touAgree"
+                                                                         for="permit">I give GreatSchools permission to post my comments online for other parents to read.
+                <br/>Checking this box means you agree to the
+                <link:termsOfUse title="GreatSchools Terms of Service"
+                                 target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
 
-                    <button class="btn25" type="submit" name="submitPrincipalReview"
-                            id="submitPrincipalReview">
-                        <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
-                    </button>
+                <button class="btn25" type="submit" name="submitPrincipalReview"
+                        id="submitPrincipalReview">
+                    <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
+                </button>
 
-                    <p>
-                        Thank you for your help!
-                    </p>
+                <p>
+                    Thank you for your help!
+                </p>
 
-                </fieldset>
+            </fieldset>
 
-            </form:form>
-        </div>
+        </form:form>
+    </div>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            jQuery(function () {
+        jQuery(function () {
 
-                function validateEmail(elementValue) {
-                    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-                    return emailPattern.test(elementValue);
+            function validateEmail(elementValue) {
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                return emailPattern.test(elementValue);
+            }
+
+            jQuery('#principalReviewForm').submit(function () {
+                var pass = true;
+
+                var firstNameError = jQuery('#principalReviewForm .principalReview_firstName .invalid');
+                var lastNameError = jQuery('#principalReviewForm .principalReview_lastName .invalid');
+                var emailError = jQuery('#principalReviewForm .principalReview_email .invalid');
+                var termsError = jQuery('#principalReviewForm #principalReview_termsNotChecked');
+                var jobTitleError = jQuery('#principalReviewForm .principalReview_jobTitle .invalid');
+                var commentsError = jQuery('#principalReviewForm .principalReview_comments .invalid')
+
+                firstNameError.hide();
+                lastNameError.hide();
+                emailError.hide();
+                termsError.hide();
+                jobTitleError.hide();
+                commentsError.hide();
+
+                var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
+                var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
+                var email = jQuery('#principalReviewForm [name="email"]').val();
+                var terms = jQuery('#principalReviewForm [name="permit"]');
+                var jobTitle = jQuery('#principalReviewForm [name="job_title"]').val();
+                var comments = jQuery('#principalReviewForm [name="comments"]').val();
+
+                if (firstName == undefined || firstName.length == 0) {
+                    firstNameError.show();
+                    pass = false;
                 }
 
-                jQuery('#principalReviewForm').submit(function () {
-                    var pass = true;
+                if (lastName == undefined || lastName.length == 0) {
+                    lastNameError.show();
+                    pass = false;
+                }
 
-                    var firstNameError = jQuery('#principalReviewForm .principalReview_firstName .invalid');
-                    var lastNameError = jQuery('#principalReviewForm .principalReview_lastName .invalid');
-                    var emailError = jQuery('#principalReviewForm .principalReview_email .invalid');
-                    var termsError = jQuery('#principalReviewForm #principalReview_termsNotChecked');
-                    var jobTitleError = jQuery('#principalReviewForm .principalReview_jobTitle .invalid');
-                    var commentsError = jQuery('#principalReviewForm .principalReview_comments .invalid')
+                if (email == undefined || email.length == 0 || !validateEmail(email)) {
+                    emailError.show();
+                    pass = false
+                }
 
-                    firstNameError.hide();
-                    lastNameError.hide();
-                    emailError.hide();
-                    termsError.hide();
-                    jobTitleError.hide();
-                    commentsError.hide();
+                if (!terms.attr("checked")) {
+                    termsError.show();
+                    pass = false;
+                }
 
-                    var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
-                    var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
-                    var email = jQuery('#principalReviewForm [name="email"]').val();
-                    var terms = jQuery('#principalReviewForm [name="permit"]');
-                    var jobTitle = jQuery('#principalReviewForm [name="job_title"]').val();
-                    var comments = jQuery('#principalReviewForm [name="comments"]').val();
+                if (jobTitle == undefined || jobTitle.length == 0) {
+                    jobTitleError.show();
+                    pass = false;
+                }
 
-                    if (firstName == undefined || firstName.length == 0) {
-                        firstNameError.show();
-                        pass = false;
-                    }
+                if (comments == undefined || comments.length == 0 || comments == 'comments') {
+                    commentsError.show();
+                    pass = false;
+                }
 
-                    if (lastName == undefined || lastName.length == 0) {
-                        lastNameError.show();
-                        pass = false;
-                    }
-
-                    if (email == undefined || email.length == 0 || !validateEmail(email)) {
-                        emailError.show();
-                        pass = false
-                    }
-
-                    if (!terms.attr("checked")) {
-                        termsError.show();
-                        pass = false;
-                    }
-
-                    if (jobTitle == undefined || jobTitle.length == 0) {
-                        jobTitleError.show();
-                        pass = false;
-                    }
-
-                    if (comments == undefined || comments.length == 0  || comments == 'comments') {
-                        commentsError.show();
-                        pass = false;
-                    }
-
-                    return pass;
-                });
-
-                jQuery('#principal-comments').click(function () {
-                    if (jQuery('#principal-comments').val() == "Comments") {
-                        jQuery('#principal-comments').val("");
-                    }
-                })
-
+                return pass;
             });
 
-        </script>
+            jQuery('#principal-comments').click(function () {
+                if (jQuery('#principal-comments').val() == "Comments") {
+                    jQuery('#principal-comments').val("");
+                }
+            })
 
-        <mod:tracking pageName="principal feedback form" hier1="ESP,principal feedback form"/>
-    </gsml:body>
+        });
+
+    </script>
+
+    <mod:tracking pageName="principal feedback form" hier1="ESP,principal feedback form"/>
+</gsml:body>
 
 
-    </html>
+</html>
 </jsp:root>

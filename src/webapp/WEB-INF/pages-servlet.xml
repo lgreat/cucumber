@@ -1870,6 +1870,11 @@
         <property name="commandName" value="reviewCommand"/>
         <property name="formView" value="school/principalReview" />
         <property name="successView" value="redirect:/school/parentReviews.page"/>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+            </list>
+        </property>
     </bean>
 
     <bean name="/school/parentReviews/submit.page"

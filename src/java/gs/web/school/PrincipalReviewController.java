@@ -149,6 +149,7 @@ public class PrincipalReviewController extends SimpleFormController implements R
         review.setPoster(Poster.PRINCIPAL);
         review.setSchool(school);
         review.setComments(reviewCommand.getComments());
+        review.setJobTitle(reviewCommand.getJobTitle());
         _reviewDao.saveReview(review);
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
