@@ -18,7 +18,7 @@
     <div id="principalReviewSubmittedHover" style="display:none;">
         <h2>Thank you for submitting a comment</h2>
 
-        <p>Please note that it can take up to 48 hours for your comment to be posted to our site. While you're here, we'd like to invite you to fill out a
+        <p><span style="font-weight:bold;">Please note that it can take up to 48 hours for your comment to be posted to our site.</span> While you're here, we'd like to invite you to fill out a
             survey on your school's programs, activities, and extracurriculars. It only takes a few minutes and will help parents get a full picture of your school.
         </p>
 
