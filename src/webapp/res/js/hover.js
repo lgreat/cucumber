@@ -345,6 +345,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show BTS tip
         jQuery('#joinHover .joinHover_btstip').show();
+        // hide partners
+        jQuery('#joinHover .joinHover_partners').hide();
 
         //set up checkboxes
         jQuery('#joinHover #opt4').attr('checked', true);
