@@ -24,7 +24,6 @@ public class CBIIntegrationController implements ReadWriteController {
     private static final String SECRET_KEY = "cbounder";
     /** Keys to the actions supported by this controller */
     public static final String SEND_TRIGGERED_EMAIL = "send_triggered_email";
-    public static final String SEND_COACH_TRIGGERED_EMAIL = "send_coach_triggered_email";
     public static final String SUBSCRIBE_CB_NL = "subscribe_cb_nl";
     public static final String UNSUBSCRIBE_CB_NL = "unsubscribe_cb_nl";
     public static final String SUBSCRIBE_CB_COURSE_COMPLETE = "subscribe_cb_coursecomplete";
@@ -44,8 +43,6 @@ public class CBIIntegrationController implements ReadWriteController {
             String action = request.getParameter(ACTION_PARAM);
             if (SEND_TRIGGERED_EMAIL.equals(action)) {
                 out.print(sendExactTargetTriggeredEmail(request));
-            }else if(SEND_COACH_TRIGGERED_EMAIL.equals(action)){
-                out.print(sendCoachMessageExactTargetTriggeredEmail(request));
             }else if(UNSUBSCRIBE_CB_NL.equals(action)){
                 out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
             }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
@@ -78,59 +75,6 @@ public class CBIIntegrationController implements ReadWriteController {
         return response.toString();
     }
 
-    protected String sendCoachMessageExactTargetTriggeredEmail(HttpServletRequest request) {
-        String exactTargetKey = request.getParameter("etkey");
-        String recipients = request.getParameter("recipients");
-        String coachMessage = request.getParameter("body");
-        String responseStr = "";
-        String responseStr1 = "";
-        String responseStr2 = "";
-        String responseStr3 = "";
-        System.getProperties().setProperty("sun.net.client.defaultConnectTimeout", "200000") ;
-        List<Integer> grpMembersInt = new ArrayList<Integer>();
-        if(StringUtils.isNotBlank(recipients) && StringUtils.isNotBlank(exactTargetKey) && StringUtils.isNotBlank(coachMessage)){
-            List<String> grpMembersStr = Arrays.asList(recipients.split(","));
-            for(String member : grpMembersStr){
-                grpMembersInt.add(Integer.parseInt(member));
-            }
-        }
-        if(grpMembersInt.size()>0){
-            List<User> users = _userDao.findUsersFromIds(grpMembersInt);
-            if(users.size() >0){
-//                List<String> emails = new ArrayList();
-//                for(User user :users){
-//                    emails.add(user.getEmail());
-//                }
-//                Map<String, String> commonAttributes = new HashMap();
-//                commonAttributes.put("cbCoachMsg",coachMessage);
-//                long start = System.currentTimeMillis();
-//                ExactTargetAPI et1 = new ExactTargetAPI(new Long(15000));
-//                responseStr1 = et1.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-//                long end = System.currentTimeMillis();
-//                long timems = (end - start);
-//                System.out.println("timems1----------------------------"+timems);
-//                System.out.println("responseStr1----------------------------"+responseStr1);
-//
-//                start = System.currentTimeMillis();
-//                ExactTargetAPI et2 = new ExactTargetAPI(new Long(0));
-//                responseStr2 = et2.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-//                end = System.currentTimeMillis();
-//                timems = (end - start);
-//                System.out.println("timems2----------------------------"+timems);
-//                System.out.println("responseStr2----------------------------"+responseStr2);
-//
-//                start = System.currentTimeMillis();
-//                responseStr3 = _exactTargetAPI.sendTriggeredEmails(exactTargetKey,emails,commonAttributes);
-//                end = System.currentTimeMillis();
-//                timems = (end - start);
-//                System.out.println("timems3----------------------------"+timems);
-//                System.out.println("responseStr3----------------------------"+responseStr3);
-
-            }
-        }
-      return responseStr;
-    }
-    
      public String subscribeUser(String email,String state,SubscriptionProduct subProduct) {
         StringBuilder response = new StringBuilder();
         User user = _userDao.findUserFromEmailIfExists(email);
