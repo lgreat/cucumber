@@ -148,11 +148,22 @@
                 <c:set var="stateColumns" value="5" />
                 <c:set var="totalStates" value="${fn:length(states)}" />
                 <c:set var="stateRows" value="${totalStates / stateColumns}" />
+                <c:set var="index" value="0"/>
+
                 <ul>
                 <c:forEach var="columnNumber" begin="0" end="${stateColumns-1}">
+                    <c:set var="rowsThisColumn" value="${stateRows}"/>
+                    <c:choose>
+                        <c:when test="${columnNumber eq 0}">
+                            <c:set var="rowsThisColumn" value="${stateRows-1}"/>
+                        </c:when>
+                        <c:when test="${columnNumber eq 1}">
+                            <c:set var="rowsThisColumn" value="${stateRows+1}"/>
+                        </c:when>
+                    </c:choose>
                     <li class="col${columnNumber+1} col text1">
                         <ul>
-                            <c:forEach var="i" begin="${columnNumber * stateRows}" end="${(columnNumber * stateRows) + stateRows-1}">
+                            <c:forEach var="i" begin="${index}" end="${index + rowsThisColumn-1}">
                                 <!-- Washington DC in states list needs to display with actual name District of Columbia and appear after Deleware -->
                                 <c:if test="${states[i].name ne 'DC'}">
                                     <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}">${states[i].longName}</a></li>
@@ -163,13 +174,12 @@
                             </c:forEach>
                         </ul>
                     </li>
+                    <c:set var="index" value="${index + rowsThisColumn}"/>
                 </c:forEach>
                 </ul>
             </div>
          </div>
     </div>
-
-
 
     <script type="text/javascript">
         //jQuery('#fstcasByCities').hide();
