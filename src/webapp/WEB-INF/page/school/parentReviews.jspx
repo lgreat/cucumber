@@ -302,7 +302,11 @@
             </c:set>
 
             ${pageControls}
-            <c:forEach var="review" items="${cmd.reviews}" begin="1">
+            <c:set var="parentReviewsStart" value="0"/>
+            <c:if test="${cmd.reviews[0].who eq 'principal'}">
+                <c:set var="parentReviewsStart" value="1"/>
+            </c:if>
+            <c:forEach var="review" items="${cmd.reviews}" begin="${parentReviewsStart}">
                 <pg:item>
                     <c:set var="who" value=""/>
                     <c:if test="${!(empty(review.who) or review.who eq 'other')}">
