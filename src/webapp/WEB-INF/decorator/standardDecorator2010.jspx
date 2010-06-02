@@ -121,6 +121,7 @@
 <communityHover:schoolReviewThankYou/>
 <communityHover:emailValidatedSchoolReview/>
 <school:principalConfirmHover/>
+<school:principalReviewSubmitted/>
 
 
 <div id="marginGS">

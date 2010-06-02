@@ -758,6 +758,12 @@ GSType.hover.PrincipalConfirmation = function() {
 }
 GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("principalConfirmationHover");
 
+GSType.hover.PrincipalReviewSubmitted = function() {
+    this.loadDialog = function() {
+      this.dialogByWidth(640);
+    };
+}
+GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover");
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
@@ -776,6 +782,7 @@ GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolR
 
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
+GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1030,6 +1037,7 @@ jQuery(function() {
 
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
+    GSType.hover.principalReviewSubmitted.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',
@@ -1170,6 +1178,8 @@ jQuery(function() {
         GSType.hover.emailValidatedSchoolReview.showPublished();
     } else if (showHover == "emailValidatedSchoolReviewQueued") {
         GSType.hover.emailValidatedSchoolReview.showQueued();
+    } else if (showHover == "principalReviewSubmitted") {
+        GSType.hover.principalReviewSubmitted.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
