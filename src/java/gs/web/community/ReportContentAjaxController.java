@@ -53,7 +53,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
         }
 
         User reportee = null;
-        Integer authorId;
+        Integer authorId = null;
         boolean checkForReporteeUserProfile = true;
         if (command.getType() == ReportedEntity.ReportedEntityType.discussion ||
                 command.getType() == ReportedEntity.ReportedEntityType.reply) {
@@ -66,28 +66,32 @@ public class ReportContentAjaxController extends SimpleFormController implements
             authorId = command.getContentId();
         } else if (command.getType() == ReportedEntity.ReportedEntityType.schoolReview) {
             Review review = _reviewDao.getReview(command.getContentId());
-            if (review == null || review.getUser() == null) {
+            if (review == null) {
                 return null;
             }
-            authorId = review.getUser().getId();
+            if (review.getUser() != null) {
+                authorId = review.getUser().getId();
+            }
             checkForReporteeUserProfile = false;
         } else {
             _log.warn("Unknown report content type: " + command.getType());
             return null;
         }
 
-        if (authorId == null) {
+        if (authorId != null) {
+            try {
+                reportee = _userDao.findUserFromId(authorId);
+            } catch (ObjectRetrievalFailureException orfe) {
+                // reportee stays null
+            }
+        } else if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview) {
             _log.warn("Could not determine reportee's member id for content: '" + command.getContentId() + "'");
             return null;
         }
 
-        try {
-            reportee = _userDao.findUserFromId(authorId);
-        } catch (ObjectRetrievalFailureException orfe) {
-            // reportee stays null
-        }
-
-        if (reportee == null || (checkForReporteeUserProfile && reportee.getUserProfile() == null)) {
+        if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview
+                && (reportee == null
+                    || (checkForReporteeUserProfile && reportee.getUserProfile() == null))) {
             _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");
             return null;
         }

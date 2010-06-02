@@ -334,6 +334,11 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     top: 0;
 }
 
+#showParentReviews .review .reported {
+    color:#DD6611;
+    font-weight: bold;
+}
+
 #showParentReviews .principalReview .reportReview, #showParentReviews .principalReview .reported {
     top: 5px;
     right: 12px;
