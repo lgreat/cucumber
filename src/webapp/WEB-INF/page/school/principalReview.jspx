@@ -154,11 +154,11 @@
                 jobTitleError.hide();
                 commentsError.hide();
 
-                var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
-                var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
+                var firstName = jQuery('#principalReviewForm [name="firstName"]').val();
+                var lastName = jQuery('#principalReviewForm [name="lastName"]').val();
                 var email = jQuery('#principalReviewForm [name="email"]').val();
                 var terms = jQuery('#principalReviewForm [name="permit"]');
-                var jobTitle = jQuery('#principalReviewForm [name="job_title"]').val();
+                var jobTitle = jQuery('#principalReviewForm [name="jobTitle"]').val();
                 var comments = jQuery('#principalReviewForm [name="comments"]').val();
 
                 if (firstName == undefined || firstName.length == 0) {
