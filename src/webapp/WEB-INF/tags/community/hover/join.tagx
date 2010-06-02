@@ -133,7 +133,7 @@
                         <input type="checkbox" name="btsTip" value="true" id="opt4" /><label for="opt4">Sign me up for daily Back-to-School tips.</label>
                         <p class="btstip_version">
                             Select a version:
-                            <input type="radio" name="btsTipVersion" value="e" id="btstip_elem"/>
+                            <input type="radio" name="btsTipVersion" value="e" id="btstip_elem" checked="checked"/>
                             <label for="btstip_elem">Elementary School</label>
                             <input type="radio" name="btsTipVersion" value="m" id="btstip_mid"/>
                             <label for="btstip_mid">Middle School</label>

@@ -50,11 +50,10 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
 
         if (userCommand.isBtsTip()) {
-            // if no BTS tip version is set, or tip version is not valid e/m/h, use e
-            if (userCommand.getBtsTipVersion() == null ||
-                    (!"e".equals(userCommand.getBtsTipVersion()) &&
-                     !"m".equals(userCommand.getBtsTipVersion()) &&
-                     !"h".equals(userCommand.getBtsTipVersion()))) {
+            // if tip version is not valid e/m/h, use e
+            if (!"e".equals(userCommand.getBtsTipVersion()) &&
+                !"m".equals(userCommand.getBtsTipVersion()) &&
+                !"h".equals(userCommand.getBtsTipVersion())) {
                 userCommand.setBtsTipVersion("e");
             }
         }
