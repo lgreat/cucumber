@@ -303,12 +303,5 @@
 </jsp:scriptlet>
 <c:if test="${showGlobalNavPromo968x30}">
     <ad:adTag position="Global_NavPromo_968x30"/>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            if (jQuery('#google_ads_div_Global_NavPromo_968x30').length == 1) {
-                jQuery('#contentGS').css('border-top','none');
-            }
-        });
-    </script>
 </c:if>
 </jsp:root>
