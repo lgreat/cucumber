@@ -3,11 +3,11 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:gsweb="gstaglib">
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form">
 
     <c:set var="pageName" value="API Terms of Use"/>
     <html>
@@ -34,16 +34,16 @@
             <h5>What's your point of view?</h5>
 
             <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
-<link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                                 styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
+                <link:parentReviewGuidelines
+                        onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                        styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
             </p>
 
             <br/>
 
             <p>GreatSchools will display your full name and job title with your comment.</p>
 
-            <form id="principalReviewForm" enctype="application/x-www-form-urlencoded" method="post"
-                  action="/cgi-bin/pq/send_rating" style="margin-top:10px;">
+            <form:form id="principalReviewForm" method="post" action="principalComments.page" commandName="reviewCommand"  >
                 <input type="hidden" value="" name="member_id"/>
                 <input type="hidden" value="${school.name}" name="schoolname"/>
                 <input type="hidden" value="public" name="schooltype"/>
@@ -58,40 +58,40 @@
                             <label for="fName">First name *</label>
                             <input type="text" id="fName" name="first_name"/>
 
-                                <span class="error invalid">Please provide your first name</span>
-                            
+                            <span class="error invalid">Please provide your first name</span>
+
                         </li>
                         <li class="principalReview_lastName">
                             <label for="lName">Last name *</label>
                             <input type="text" id="lName" name="last_name"/>
 
-                                <span class="error invalid">Please provide your last name</span>
+                            <span class="error invalid">Please provide your last name</span>
 
                         </li>
                         <li class="principalReview_jobTitle">
                             <label for="jobTitle">Job title *</label>
                             <input type="text" id="jobTitle" name="job_title"/>
 
-                                <span class="error invalid">Please provide your job title</span>
+                            <span class="error invalid">Please provide your job title</span>
 
                         </li>
                         <li class="principalReview_email">
                             <label for="jemail">Email address *</label>
                             <input type="text" id="jemail" name="email"/>
 
-                                <span class="error invalid">Please provide your email address</span>
+                            <span class="error invalid">Please provide a valid email address</span>
 
                         </li>
-                        <li>
+                        <li class="principalReview_comments">
                             <label for="principal-comments">Comments *</label>
-                            <c:set var="comments" value="comments" />
+                            <c:set var="comments" value="comments"/>
                             <c:if test="${not empty review.comments}">
-                                <c:set var="comments" value="${review.comments}" />
+                                <c:set var="comments" value="${review.comments}"/>
                             </c:if>
                             <textarea id="principal-comments" name="comments">${comments}</textarea>
+                            <span class="error invalid">Please provide us with your comments</span>
+                            <p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
 
-<p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
-                            
                         </li>
 
                     </ul>
@@ -100,8 +100,9 @@
 
                 <fieldset class="btns">
 
-                    <span class="error invalid" id="principalReview_termsNotChecked">You must agree to our terms of use before proceeding</span>
-                    
+                    <span class="error invalid"
+                          id="principalReview_termsNotChecked">You must agree to our terms of use before proceeding</span>
+
                     <br/>
 
                     <input type="checkbox" name="permit" id="permit" /><label id="touAgree" for="permit">I give GreatSchools permission to post my comments online for other parents to read. <br/>Checking this box means you agree to the
@@ -118,13 +119,17 @@
 
                 </fieldset>
 
-
-            </form>
+            </form:form>
         </div>
 
         <script type="text/javascript">
 
             jQuery(function () {
+
+                function validateEmail(elementValue) {
+                    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                    return emailPattern.test(elementValue);
+                }
 
                 jQuery('#principalReviewForm').submit(function () {
                     var pass = true;
@@ -134,19 +139,21 @@
                     var emailError = jQuery('#principalReviewForm .principalReview_email .invalid');
                     var termsError = jQuery('#principalReviewForm #principalReview_termsNotChecked');
                     var jobTitleError = jQuery('#principalReviewForm .principalReview_jobTitle .invalid');
-
+                    var commentsError = jQuery('#principalReviewForm .principalReview_comments .invalid')
 
                     firstNameError.hide();
                     lastNameError.hide();
                     emailError.hide();
                     termsError.hide();
                     jobTitleError.hide();
+                    commentsError.hide();
 
                     var firstName = jQuery('#principalReviewForm [name="first_name"]').val();
                     var lastName = jQuery('#principalReviewForm [name="last_name"]').val();
                     var email = jQuery('#principalReviewForm [name="email"]').val();
                     var terms = jQuery('#principalReviewForm [name="permit"]');
                     var jobTitle = jQuery('#principalReviewForm [name="job_title"]').val();
+                    var comments = jQuery('#principalReviewForm [name="comments"]').val();
 
                     if (firstName == undefined || firstName.length == 0) {
                         firstNameError.show();
@@ -154,11 +161,11 @@
                     }
 
                     if (lastName == undefined || lastName.length == 0) {
-                       lastNameError.show();
+                        lastNameError.show();
                         pass = false;
                     }
 
-                    if (email == undefined || email.length == 0) {
+                    if (email == undefined || email.length == 0 || !validateEmail(email)) {
                         emailError.show();
                         pass = false
                     }
@@ -173,16 +180,19 @@
                         pass = false;
                     }
 
+                    if (comments == undefined || comments.length == 0  || comments == 'comments') {
+                        commentsError.show();
+                        pass = false;
+                    }
+
                     return pass;
                 });
-
 
                 jQuery('#principal-comments').click(function () {
                     if (jQuery('#principal-comments').val() == "Comments") {
                         jQuery('#principal-comments').val("");
                     }
                 })
-
 
             });
 
