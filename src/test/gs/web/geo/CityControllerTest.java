@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.30 2010/05/28 16:54:40 ssprouse Exp $
+ * $Id: CityControllerTest.java,v 1.31 2010/06/02 17:59:54 ssprouse Exp $
  */
 
 package gs.web.geo;
@@ -276,7 +276,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
         String path = (String) modelAndView.getModel().get(CityController.PARAM_CITY_CANONICAL_PATH);
 
-        assertEquals("/california/san-francisco/", path);
+        assertEquals("http://" + request.getServerName() + ((request.getServerPort() != 80) ? ":" + request.getServerPort() : "") + "/california/san-francisco/", path);
     }
 
     public void testModelDoesntContainCityCanonicalPathWhenCityIncorrect() throws Exception {
