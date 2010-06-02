@@ -4104,6 +4104,12 @@ margin:10px 0 14px 20px;
     padding: 3px 0;
 }
 
+#manageNewsletters fieldset ol .btstip label {
+    float: none;
+    padding: 3px 0;
+    width: auto;
+}
+
 #manageNewsletters fieldset ol input {
     float: left;
     width: 132px;
@@ -4111,6 +4117,25 @@ margin:10px 0 14px 20px;
     margin: 0 3px 0 10px;
     border: 1px solid #999;
     outline-style: none;
+}
+
+#manageNewsletters fieldset ol .btstip input {
+    float: none;
+    width: auto;
+    padding: 3px 0;
+    margin: 0 6px 0 0px;
+    border: none;
+    outline-style: none;
+}
+
+#manageNewsletters .btstip .prompt {
+    float: left;
+    width: 110px;
+    padding-left: 17px; 
+}
+
+#manageNewsletters .btstip .versions {
+    float: left;
 }
 
 #manageNewsletters fieldset ol select {

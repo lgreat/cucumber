@@ -115,6 +115,13 @@ public class ManagementCommand {
     private boolean pledge;
     private int pledgeId;
 
+    //variables for bts tips
+    private boolean btsTip;
+    private String btsTipVersion;
+    private int btsTip_eId;
+    private int btsTip_mId;
+    private int btsTip_hId;
+
     private boolean tooManySchoolsError = false;
 
     public boolean isTooManySchoolsError() {
@@ -724,5 +731,43 @@ public class ManagementCommand {
         return 0;
     }
 
+    public boolean isBtsTip() {
+        return btsTip;
+    }
 
+    public void setBtsTip(boolean btsTip) {
+        this.btsTip = btsTip;
+    }
+
+    public String getBtsTipVersion() {
+        return btsTipVersion;
+    }
+
+    public void setBtsTipVersion(String btsTipVersion) {
+        this.btsTipVersion = btsTipVersion;
+    }
+
+    public int getBtsTip_eId() {
+        return btsTip_eId;
+    }
+
+    public void setBtsTip_eId(int btsTip_eId) {
+        this.btsTip_eId = btsTip_eId;
+    }
+
+    public int getBtsTip_mId() {
+        return btsTip_mId;
+    }
+
+    public void setBtsTip_mId(int btsTip_mId) {
+        this.btsTip_mId = btsTip_mId;
+    }
+
+    public int getBtsTip_hId() {
+        return btsTip_hId;
+    }
+
+    public void setBtsTip_hId(int btsTip_hId) {
+        this.btsTip_hId = btsTip_hId;
+    }
 }

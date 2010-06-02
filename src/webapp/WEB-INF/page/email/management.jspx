@@ -453,6 +453,50 @@
     </div>
 </fieldset>
 
+<fieldset id="btsTips">
+    <div class="formContentGS clearfix">
+
+        <div class="formBarGS col">
+            <img src="/res/img/email/tod_email_img.gif" width="83" height="65" alt="school bus"
+                 class="newsletterImage"/>
+        </div>
+
+        <div class="formMainGS col">
+            <div class="newsletterInfo">
+                <p class="newsletterHeader text2bold">Back-to-School Tip of the Day</p>
+
+                <p class="newsletterDescription text2">Get our exclusive daily tips on topics from preventing summer brain drain to gearing up for the new school year.</p>
+                <ol>
+                    <li>
+                        <fieldset>
+                            <ol>
+                                <li>
+                                    <form:checkbox path="btsTip" cssClass="newsletterCheckbox"
+                                           id="btstip_checkbox"/>
+                                    <label for="btstip_checkbox">Subscribe to this newsletter (ends Sept 7, 2010)</label></li>
+                            </ol>
+                            <div class="btstip">
+                                    <div class="prompt">Select a version:</div>
+                                    <div class="versions">
+                                        <form:radiobutton path="btsTipVersion" value="e" id="btstip_elementary"/>
+                                        <label for="btstip_elementary">Elementary</label><br/>
+                                        <form:radiobutton path="btsTipVersion" value="m" id="btstip_middleschool"/>
+                                        <label for="btstip_middleschool">Middle</label><br/>
+                                        <form:radiobutton path="btsTipVersion" value="h" id="btstip_highschool"/>
+                                        <label for="btstip_highschool">High</label><br/>
+                                        <form:hidden path="btsTip_eId"/>
+                                        <form:hidden path="btsTip_mId"/>
+                                        <form:hidden path="btsTip_hId"/>
+                                    </div>
+                            </div>
+                        </fieldset>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
 
 <!-- GS-8784 -->
 <c:set var="showBrainDrain" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>

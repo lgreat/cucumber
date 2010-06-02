@@ -150,8 +150,25 @@ public class ManagementController extends SimpleFormController implements ReadWr
                 }else if(s.getProduct().equals(SubscriptionProduct.PLEDGE)){
                     command.setPledge(true);
                     command.setPledgeId(s.getId());
+                }else if (s.getProduct().equals(SubscriptionProduct.BTSTIP_E)) {
+                    command.setBtsTip(true);
+                    command.setBtsTipVersion("e");
+                    command.setBtsTip_eId(s.getId());
+                }else if (s.getProduct().equals(SubscriptionProduct.BTSTIP_M)) {
+                    command.setBtsTip(true);
+                    command.setBtsTipVersion("m");
+                    command.setBtsTip_mId(s.getId());
+                }else if (s.getProduct().equals(SubscriptionProduct.BTSTIP_H)) {
+                    command.setBtsTip(true);
+                    command.setBtsTipVersion("h");
+                    command.setBtsTip_hId(s.getId());
                 }
             }
+        }
+
+        // set default version of BTS tip to elementary
+        if (command.getBtsTipVersion() == null) {
+            command.setBtsTipVersion("e");
         }
 
         doMyNthList(user,command);
@@ -326,6 +343,30 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if(command.getChooserpack_hId() >0 && !command.isChooserpack_h()){
             _subscriptionDao.removeSubscription(command.getChooserpack_hId());
+        }
+
+        if(command.isBtsTip() && (!(command.getBtsTip_eId() >0)) && "e".equals(command.getBtsTipVersion())){
+            Subscription s = new Subscription(user,SubscriptionProduct.BTSTIP_E, state);
+            _subscriptionDao.saveSubscription(s);
+        }
+        if(command.getBtsTip_eId() >0 && (!command.isBtsTip() || !"e".equals(command.getBtsTipVersion()))){
+            _subscriptionDao.removeSubscription(command.getBtsTip_eId());
+        }
+
+        if(command.isBtsTip() && (!(command.getBtsTip_mId() >0)) && "m".equals(command.getBtsTipVersion())){
+            Subscription s = new Subscription(user,SubscriptionProduct.BTSTIP_M, state);
+            _subscriptionDao.saveSubscription(s);
+        }
+        if(command.getBtsTip_mId() >0 && (!command.isBtsTip() || !"m".equals(command.getBtsTipVersion()))){
+            _subscriptionDao.removeSubscription(command.getBtsTip_mId());
+        }
+
+        if(command.isBtsTip() && (!(command.getBtsTip_hId() >0)) && "h".equals(command.getBtsTipVersion())){
+            Subscription s = new Subscription(user,SubscriptionProduct.BTSTIP_H, state);
+            _subscriptionDao.saveSubscription(s);
+        }
+        if(command.getBtsTip_hId() >0 && (!command.isBtsTip() || !"h".equals(command.getBtsTipVersion()))){
+            _subscriptionDao.removeSubscription(command.getBtsTip_hId());
         }
 
         if((!(command.getSponsorId() >0)) && command.isSponsor()){
@@ -504,6 +545,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if (command.isPledge()) {
             messages.add("Updates about The GreatSchools Parents Pledge");
+        }
+        if (command.isBtsTip()) {
+            messages.add("Back-to-School Tip of the Day");
         }
     }
 

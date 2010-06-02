@@ -130,15 +130,15 @@
                     <li class="joinHover_ld"><input type="checkbox" name="ldNewsletter" value="true" id="opt2"/><label
                             for="opt2">Send me monthly emails about Learning Difficulties.</label></li>
                     <li class="joinHover_btstip">
-                        <input type="checkbox" name="btsTip" value="true" id="opt4" /><label for="opt4">Sign me up for daily Back-to-School tips.</label>
+                        <input type="checkbox" name="btsTip" value="true" id="opt4" /><label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
                         <p class="btstip_version">
                             Select a version:
                             <input type="radio" name="btsTipVersion" value="e" id="btstip_elem" checked="checked"/>
-                            <label for="btstip_elem">Elementary School</label>
-                            <input type="radio" name="btsTipVersion" value="m" id="btstip_mid"/>
-                            <label for="btstip_mid">Middle School</label>
+                            <label for="btstip_elem">Elementary</label>
+                            <input type="radio" name="btsTipVersion" value="m" id="btstip_middle"/>
+                            <label for="btstip_middle">Middle</label>
                             <input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>
-                            <label for="btstip_high">High School</label>
+                            <label for="btstip_high">High</label>
                         </p>
                     </li>
                     <li class="joinHover_partners"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/><label
