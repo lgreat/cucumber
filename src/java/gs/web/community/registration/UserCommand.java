@@ -48,6 +48,26 @@ public class UserCommand implements EmailValidator.IEmail {
     private int _mystatSchoolId;
     private State _mystatSchoolState;
 
+    // back to school tips
+    private boolean _btsTip = false;
+    private String btsTipVersion = null;
+
+    public boolean isBtsTip() {
+        return _btsTip;
+    }
+
+    public void setBtsTip(boolean btsTip) {
+        _btsTip = btsTip;
+    }
+
+    public String getBtsTipVersion() {
+        return btsTipVersion;
+    }
+
+    public void setBtsTipVersion(String btsTipVersion) {
+        this.btsTipVersion = btsTipVersion;
+    }
+
     public List<NthGraderSubscription> getGradeNewsletters() {
         return _gradeNewsletters;
     }

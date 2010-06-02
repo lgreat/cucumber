@@ -16,6 +16,7 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         GlobalHeader,
         FooterNewsletter,
         SchoolReview,
+        BTSTip,
     }
     private boolean _mslOnly;
     private String _how;

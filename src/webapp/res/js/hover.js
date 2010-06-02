@@ -114,6 +114,8 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover li.grades ul').hide();
         // hide LD newsletter
         jQuery('#joinHover li.joinHover_ld').hide();
+        // hide BTS tip
+        jQuery('#joinHover li.joinHover_btstip').hide();
         //check checkbox for greatnews
         jQuery('#joinHover #opt1').attr('checked', true);
     };
@@ -330,6 +332,26 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showLearningDifficultiesNewsletter;
+        GSType.hover.joinHover.show();
+    };
+    this.showBackToSchoolTipOfTheDay = function() {
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        GSType.hover.joinHover.onSubmitCallback = null;
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("Back-to-School Tip of the Day");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "to get Back-to-School tips delivered straight to your inbox!");
+        // show nth / MSS
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+        // show BTS tip
+        jQuery('#joinHover .joinHover_btstip').show();
+
+        //set up checkboxes
+        jQuery('#joinHover #opt4').attr('checked', true);
+
+        GSType.hover.joinHover.setJoinHoverType("BTSTip");
+
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showBackToSchoolTipOfTheDay;
         GSType.hover.joinHover.show();
     };
     this.showJoinPostComment = function() {

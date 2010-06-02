@@ -2840,6 +2840,10 @@ a.ui-dialog-titlebar-close .ui-icon {
     font-weight: 400;
 }
 
+.prefs .btstip_version label {
+    font-weight: normal;
+}
+
 .contactPw li, .signin li {
     margin-bottom: 10px;
     overflow: hidden;
@@ -2942,6 +2946,12 @@ p.hlpTxt {
     float: left;
     margin: 0 3px 6px 0;
 }
+.prefs ul.col .btstip_version input, .prefs ul.col .btstip_version label {
+    float: none;
+}
+.prefs ul.col .btstip_version input {
+    margin: 0 5px 6px 8px;
+}
 #pickGrade_SCPP label, #pickGrade_SCPP input {
     display: inline;
     margin: 2px 5px 3px 0;
@@ -2954,6 +2964,10 @@ body.nocol #pickGrade_SCPP input {
 }
 .prefs ul.col label {
     width: 420px;
+}
+
+.prefs ul.col .btstip_version label {
+    width: auto;
 }
 
 .prefs ul.col  p {

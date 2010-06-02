@@ -49,6 +49,16 @@ public class RegistrationHoverController extends RegistrationController implemen
             userCommand.setGradeNewsletters(nthGraderSubscriptions);
         }
 
+        if (userCommand.isBtsTip()) {
+            // if no BTS tip version is set, or tip version is not valid e/m/h, use e
+            if (userCommand.getBtsTipVersion() == null ||
+                    (!"e".equals(userCommand.getBtsTipVersion()) &&
+                     !"m".equals(userCommand.getBtsTipVersion()) &&
+                     !"h".equals(userCommand.getBtsTipVersion()))) {
+                userCommand.setBtsTipVersion("e");
+            }
+        }
+
         if (StringUtils.equals("Loading...", userCommand.getCity())) {
             userCommand.setCity(null);
         }
@@ -184,6 +194,9 @@ public class RegistrationHoverController extends RegistrationController implemen
         if (userCommand.getLdNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("learning_dis"), state));
         }
+        if (userCommand.isBtsTip()) {
+            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("btstip_" + userCommand.getBtsTipVersion()), state));
+        }
 
         if (subscriptions.size() > 0) {
             getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
@@ -209,6 +222,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 return "hover_footernewsletter";
             case SchoolReview:
                 return "hover_review";
+            case BTSTip:
+                return "hover_btstip";
         }
         return null;
     }

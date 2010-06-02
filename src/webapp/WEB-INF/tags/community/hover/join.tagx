@@ -92,7 +92,7 @@
                 <ul class="col">
                     <li class="grades">
                         <input type="checkbox" name="newsletter" value="true" id="opt1"/><label
-                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including perieodic updates about
+                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                         <strong>Lowell High School</strong>.</label>
 
                         <p>In 2009-2010 my children are in:</p>
@@ -129,6 +129,18 @@
                     </li>
                     <li class="joinHover_ld"><input type="checkbox" name="ldNewsletter" value="true" id="opt2"/><label
                             for="opt2">Send me monthly emails about Learning Difficulties.</label></li>
+                    <li class="joinHover_btstip">
+                        <input type="checkbox" name="btsTip" value="true" id="opt4" /><label for="opt4">Sign me up for daily Back-to-School tips.</label>
+                        <p class="btstip_version">
+                            Select a version:
+                            <input type="radio" name="btsTipVersion" value="e" id="btstip_elem"/>
+                            <label for="btstip_elem">Elementary School</label>
+                            <input type="radio" name="btsTipVersion" value="m" id="btstip_mid"/>
+                            <label for="btstip_mid">Middle School</label>
+                            <input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>
+                            <label for="btstip_high">High School</label>
+                        </p>
+                    </li>
                     <li class="joinHover_partners"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/><label
                             for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
                     <li class="joinHover_terms"><input type="checkbox" name="terms" value="true" id="touy"/><label
