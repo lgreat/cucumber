@@ -3816,7 +3816,12 @@ margin:10px 0 14px 20px;
     width:300px;
     margin-left:134px;
 }
-
+#principalReviewSubmittedHover_cancel {
+    margin-left:5px;
+}
+#continueToSurvey {
+    float:left;
+}
 
 /* =4g- video page
 -------------------------------------------------------------------------------------------*/
