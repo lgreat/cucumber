@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.64 2010/05/28 16:54:40 ssprouse Exp $
+ * $Id: CityController.java,v 1.65 2010/06/02 17:52:06 ssprouse Exp $
  */
 
 package gs.web.geo;
@@ -153,7 +153,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
         Map model = new HashMap();
 
         if (!StringUtils.isEmpty(cityNameParam) && city != null && state != null) {
-            model.put(PARAM_CITY_CANONICAL_PATH, DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, city.getName()));
+            model.put(PARAM_CITY_CANONICAL_PATH, "http://" + request.getServerName() + ((request.getServerPort() != 80) ? ":" + request.getServerPort() : "") + DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, city.getName()));
         }
 
         String cityDisplayName = ((City) city).getDisplayName();
