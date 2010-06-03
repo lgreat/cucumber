@@ -45,30 +45,7 @@ General comments:
     position: relative;
     zoom: 1;
 }
-#utilLinks li, #utilLinks li.nav_menu {
-    display: inline-block;
-}
 
-
-#utilLinks li.over .nav_group_items {
-    left: -25px;
-    top:13px;
-}
-#utilLinks .nav_menu {
-    border: 0;
-}
-
-#utilLinks li .nav_group_items {
-    top: 19px;
-}
-
-#utilLinks li.last {
-    border: 0 none;
-}
-
-#utilLinks li.over .nav_group_items {
-    left: -26px;
-}
 
 #topnav_search fieldset select {
     top: 2px;
@@ -129,10 +106,6 @@ body.ie7 #navbar #topnav_menusubnav .nav_menu, *+html #navbar #topnav_menusubnav
 
 body.ie7 #navbar #topnav_menusubnav .nav_menu .nav_group_items, *+html #navbar #topnav_menusubnav .nav_menu nav_group_items {
     z-index: 200;
-}
-
-body.ie7 #utilLinks li .nav_group_items {
-    top: 22px;
 }
 
 body.ie7 #navbar {
@@ -247,9 +220,6 @@ body.ie7 #pickGrade label, * + html #pickGrade label {
     height: 91px;
 }
 
-*+html #utilLinks li .nav_group_items {
-    top: 22px;
-}
 
 *+html #navbar {
     position: relative;
@@ -374,12 +344,12 @@ body.ie6 #utilLinks, *html #utilLinks {
 
 body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu {
     z-index: 200;
-    top:6px;
+
 }
 
 body.ie6 #utilLinks .nav_menu .nav_group_items, *html #utilLinks .nav_menu .nav_group_items {
     z-index: 300;
-    top: 22px;
+
 }
 
 body.ie6 #navbar {
@@ -545,57 +515,54 @@ body.ie6 .lftDoor25 {
 
 /* =3a utility links
 -------------------------------------------------------------------------------------------*/
-
-body.ie8 #utilLinks li, body.ie8 #utilLinks li.nav_menu {
+#utilLinks li {
     display: inline-block;
 }
 
-body.ie8 #utilLinks .nav_menu a.nav_group_heading {
+
+#utilLinks li.over .nav_group_items {
+    left: -25px;
+    top:13px;
+}
+#utilLinks .nav_menu {
+    border: 0;
+}
+
+#utilLinks li .nav_group_items {
+    top: 19px;
+}
+
+#utilLinks li.last {
+    border: 0 none;
+}
+
+
+#utilLinks .nav_menu a.nav_group_heading {
     padding: 0 17px 0 6px;
 }
 
-body.ie8 #utilLinks li.over .nav_group_items {
-    left: -25px; top:13px;
+#utilLinks li.over .nav_group_items {
+    left: -25px;
+    top:13px;
 }
-body.ie7 #utilLinks, *+html #utilLinks {
-    z-index: 100;
-}
-
-body.ie7 #utilLinks li, *+html #utilLinks li, body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu  {
+body.ie7 #utilLinks li,  *+html #utilLinks li {
     display: inline;
 }
-body.ie7 #utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.nav_group_heading {
-    padding: 6px 17px 6px 6px;
-    margin: 3px 0 6px 0;
+body.ie7 #utilLinks li .nav_group_items li, *+html #utilLinks li .nav_group_items li {
+    display: block;
 }
-body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
-    z-index: 200;
-    top: 6px;
+body.ie7 #utilLinks .nav_menu a.nav_group_heading, *+html  #utilLinks .nav_menu a.nav_group_heading {
+    padding: 0 17px 0 6px;
 }
-
-body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
-    z-index: 300;
-    top: 17px;
-}
-
-body.ie7 #utilLinks li.over .nav_group_items {
-    left: -25px; top:17px;
-}
-body.ie6 #utilLinks li, *html #utilLinks li, body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu  {
+body.ie6 #utilLinks li,  *html #utilLinks li {
     display: inline;
 }
-body.ie6 #utilLinks .nav_menu a.nav_group_heading, *html #utilLinks .nav_menu a.nav_group_heading {
-    padding: 6px 17px 6px 6px;
-    margin: 3px 0 6px 0;
+body.ie6 #utilLinks li .nav_group_items li, *html #utilLinks li .nav_group_items li {
+    display: block;
 }
-
-body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu {
-    top: 6px;
+body.ie6 #utilLinks .nav_menu a.nav_group_heading, *html  #utilLinks .nav_menu a.nav_group_heading {
+    padding: 0 17px 0 6px;
 }
-body.ie6 #utilLinks li.over .nav_group_items, *html #utilLinks li.over .nav_group_items {
-    left: -25px; top:17px;
-}
-
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 

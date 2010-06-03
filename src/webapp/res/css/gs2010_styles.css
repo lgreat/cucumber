@@ -489,6 +489,7 @@ body.cobranded #pageGS {
 
 #utilLinks li, #utilLinks li.nav_menu {
     display: inline;
+    float: left;
     padding: 0 6px;
     border-right: 1px solid #fff;
     font-size: 10px;
@@ -505,7 +506,6 @@ body.cobranded #pageGS {
 
 #utilLinks li a {
     color: #fff;
-    display:inline-block;
 }
 
 #utilLinks .nav_menu {
@@ -538,6 +538,7 @@ body.cobranded #pageGS {
 #utilLinks li .nav_group_items li {
     display: block;
     padding: 6px;
+    float: none;
 }
 
 #utilLinks li.over .nav_group_items {
@@ -547,6 +548,7 @@ body.cobranded #pageGS {
 #utilLinks .over .nav_group_items a {
     background: transparent;
     color: #06b;
+    display: block;
 }
 
 /* =3b logo
