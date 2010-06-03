@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
@@ -46,7 +47,7 @@
                         <li>Names! Do not target specific individuals or identify teachers, students, or staff. This is for safety and privacy reasons.</li>
                         <li>Accusations that someone has committed a crime.</li>
                         <li>Threats against the school, staff, or student body.</li>
-                        <li>Outdated or false information &amp;mdash; for instance, the review is about a school your child never attended or has not attended in the past three years.</li>
+                        <li>Outdated or false information &amp;mdash; for instance, the review is about a school your child never attended or has not attended in the past four years.</li>
                     </ol>
 
                     <h2>Privacy</h2>
