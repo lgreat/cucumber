@@ -49,12 +49,10 @@ General comments:
     display: inline-block;
 }
 
-#utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
-}
 
 #utilLinks li.over .nav_group_items {
-    left: -25px; top:13px;
+    left: -25px;
+    top:13px;
 }
 #utilLinks .nav_menu {
     border: 0;
@@ -127,9 +125,14 @@ body.ie7 #utilLinks, *+html #utilLinks {
     z-index: 100;
 }
 
+body.ie7 #utilLinks li, *+html #utilLinks li {
+    display: inline;
+}
+body.ie7#utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.nav_group_heading {
+    padding: 6px 17px 6px 6px;
+}
 body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
     z-index: 200;
-    top:6px;
 }
 
 body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
