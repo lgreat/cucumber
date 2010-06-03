@@ -86,11 +86,7 @@
                     </li>
                     <li class="principalReview_comments">
                         <label for="principal-comments">Comments *</label>
-                        <c:set var="comments" value="comments"/>
-                        <c:if test="${not empty review.comments}">
-                            <c:set var="comments" value="${review.comments}"/>
-                        </c:if>
-                        <spring:textarea id="principal-comments" path="comments">${comments}</spring:textarea>
+                        <spring:textarea id="principal-comments" path="comments" ></spring:textarea>
                         <span class="error invalid">Please provide us with your comments</span>
 
                         <p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
