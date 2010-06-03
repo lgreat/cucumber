@@ -125,7 +125,7 @@ body.ie7 #utilLinks, *+html #utilLinks {
     z-index: 100;
 }
 
-body.ie7 #utilLinks li, *+html #utilLinks li {
+body.ie7 #utilLinks li, *+html #utilLinks li, body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu  {
     display: inline;
 }
 body.ie7#utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.nav_group_heading {
