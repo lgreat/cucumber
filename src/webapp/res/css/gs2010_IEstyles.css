@@ -133,6 +133,7 @@ body.ie7#utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.
 }
 body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
     z-index: 200;
+    top: 6px;
 }
 
 body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
