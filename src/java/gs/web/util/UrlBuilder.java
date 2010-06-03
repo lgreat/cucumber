@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.219 2010/05/24 21:58:12 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.220 2010/06/03 17:34:22 yfan Exp $
  */
 
 package gs.web.util;
@@ -682,7 +682,7 @@ public class UrlBuilder {
         if (SCHOOL_CHOICE_CENTER.equals(page)) {
             _path = "/school-choice/";
         } else if (HEALTHY_KIDS.equals(page)) {
-            _path = "/content/healthyKids.page";
+            _path = "/healthy-kids.topic?content=2504";
         } else if (SPECIAL_NEEDS.equals(page)) {
             _path = "/LD.topic?content=1541";
         } else if (MEDIA_CHOICES.equals(page)) {
