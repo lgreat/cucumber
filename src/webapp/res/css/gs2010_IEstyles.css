@@ -121,25 +121,7 @@ body.ie7 #mainWrap, *+html #mainWrap {
     z-index: 1;
 }
 
-body.ie7 #utilLinks, *+html #utilLinks {
-    z-index: 100;
-}
 
-body.ie7 #utilLinks li, *+html #utilLinks li, body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu  {
-    display: inline;
-}
-body.ie7#utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.nav_group_heading {
-    padding: 6px 17px 6px 6px;
-}
-body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
-    z-index: 200;
-    top: 6px;
-}
-
-body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
-    z-index: 300;
-    top: 22px;
-}
 
 body.ie7 #navbar #topnav_menusubnav .nav_menu, *+html #navbar #topnav_menusubnav .nav_menu {
     z-index: 100;
@@ -575,22 +557,42 @@ body.ie8 #utilLinks .nav_menu a.nav_group_heading {
 body.ie8 #utilLinks li.over .nav_group_items {
     left: -25px; top:13px;
 }
+body.ie7 #utilLinks, *+html #utilLinks {
+    z-index: 100;
+}
 
-body.ie7 #utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
+body.ie7 #utilLinks li, *+html #utilLinks li, body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu  {
+    display: inline;
+}
+body.ie7 #utilLinks .nav_menu a.nav_group_heading, *+html #utilLinks .nav_menu a.nav_group_heading {
+    padding: 6px 17px 6px 6px;
     margin: 3px 0 6px 0;
+}
+body.ie7 #utilLinks li.nav_menu, *+html #utilLinks li.nav_menu {
+    z-index: 200;
+    top: 6px;
+}
+
+body.ie7 #utilLinks .nav_menu .nav_group_items, *+html #utilLinks .nav_menu .nav_group_items {
+    z-index: 300;
+    top: 17px;
 }
 
 body.ie7 #utilLinks li.over .nav_group_items {
     left: -25px; top:17px;
 }
-
-body.ie6 #utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
+body.ie6 #utilLinks li, *html #utilLinks li, body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu  {
+    display: inline;
+}
+body.ie6 #utilLinks .nav_menu a.nav_group_heading, *html #utilLinks .nav_menu a.nav_group_heading {
+    padding: 6px 17px 6px 6px;
     margin: 3px 0 6px 0;
 }
 
-body.ie6 #utilLinks li.over .nav_group_items {
+body.ie6 #utilLinks li.nav_menu, *html #utilLinks li.nav_menu {
+    top: 6px;
+}
+body.ie6 #utilLinks li.over .nav_group_items, *html #utilLinks li.over .nav_group_items {
     left: -25px; top:17px;
 }
 
