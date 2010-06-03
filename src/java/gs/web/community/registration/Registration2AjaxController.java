@@ -1,5 +1,7 @@
 package gs.web.community.registration;
 
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -29,7 +31,9 @@ import gs.data.geo.IGeoDao;
 public class Registration2AjaxController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "/community/registration2Ajax.page";
-    public static final int MAX_RESULTS_TO_RETURN = 10;
+    final public static String FORMAT_PARAM = "format";
+    final public static String TYPE_PARAM = "type";
+    final public static String SCHOOL_TYPE = "school";
 
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
@@ -62,10 +66,19 @@ public class Registration2AjaxController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
+        PrintWriter out = response.getWriter();
+
+        if (StringUtils.equals("json", request.getParameter(FORMAT_PARAM))) {
+            String type = request.getParameter(TYPE_PARAM);
+            if (StringUtils.equals(SCHOOL_TYPE, type)) {
+                outputSchoolJson(state, city, out);
+            }
+            return null;
+        }
+
         String grade = request.getParameter("grade");
         String childNum = request.getParameter("childNum");
 
-        PrintWriter out = response.getWriter();
         try {
             if (city != null) {
                 String onChange = request.getParameter("onchange");
@@ -126,6 +139,35 @@ public class Registration2AjaxController implements Controller {
             outputOption(out, "-1", "My child's school is not listed");
         }
         out.print("</select>");
+    }
+
+    protected void outputSchoolJson(State state, String city, PrintWriter out) {
+        List<School> schools = null;
+        JSONObject rval = new JSONObject();
+        if (state != null && !StringUtils.isBlank(city)) {
+            schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
+        }
+        if (schools == null) {
+            schools = new ArrayList<School>();
+        }
+
+        try {
+            List<JSONObject> schoolList = new ArrayList<JSONObject>(schools.size());
+            JSONObject chooseSchool = new JSONObject();
+            chooseSchool.put("name", "- Choose school -");
+            chooseSchool.put("id", "-1");
+            schoolList.add(chooseSchool);
+            for (School school: schools) {
+                JSONObject cityJson = new JSONObject();
+                cityJson.put("name", school.getName());
+                cityJson.put("id", school.getId());
+                schoolList.add(cityJson);
+            }
+            rval.put("schools", schoolList);
+        } catch (JSONException jsone) {
+            _log.error("Error converting school list to JSON: " + jsone, jsone);
+        }
+        out.print(rval.toString());
     }
 
     protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange, String onClick) {

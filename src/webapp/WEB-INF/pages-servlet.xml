@@ -2646,4 +2646,10 @@
         <property name="commandClass" value="gs.web.admin.SchoolReviewEditCommand"/>
     </bean>
 
+    <bean name="/admin/schoolReview/holdList.page"
+          class="gs.web.admin.HeldSchoolAdminController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/admin/schoolReview/holdList"/>
+    </bean>
+
 </beans>
