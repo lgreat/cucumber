@@ -3003,7 +3003,7 @@ body.nocol #pickGrade_SCPP li, body.nocol #pickGrade_SCPP ul {
 body.nocol #scpp_picker #pickGrade_SCPP{
     border: 0;
     width:276px;
-    height: 24px;
+    height: 48px;
     list-style: none;
     background: none;
     padding: 5px 0 0;
