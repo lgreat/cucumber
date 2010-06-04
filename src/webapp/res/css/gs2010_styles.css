@@ -3008,6 +3008,7 @@ body.nocol #scpp_picker #pickGrade_SCPP{
     background: none;
     padding: 5px 0 0;
     position: relative;
+    display: block;
 
 }
 #pickGrade_SCPP {

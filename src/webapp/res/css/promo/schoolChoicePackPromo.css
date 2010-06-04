@@ -115,8 +115,7 @@ body.nocol #schoolChoicePackPromo .mod_bd h4, body.nocol #schoolChoicePackPromo 
     height: 30px;
 }
 body.nocol #schoolChoicePackPromo div#email_go {
-    border: 1px solid #fff;
-    height: 30px;
+    height: 34px;
 }
 #schoolChoicePackPromo div#email_go #cemail {
     vertical-align:top;
@@ -214,6 +213,7 @@ body.nocol #schoolChoicePackPromo div.mod_bd {
     float:none;
     width:262px;
     height: 18px;
+    overflow: hidden;
 }
 #scpp_form span.error {
     display: inline;

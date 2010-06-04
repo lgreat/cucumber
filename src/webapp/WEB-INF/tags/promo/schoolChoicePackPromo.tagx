@@ -126,7 +126,7 @@
                     <span class="error">Please choose a school grade level.</span>
                 </div>
                 <div id="gradeSelect" style="${(not empty caller)?'display:none;':''}">
-                    <span class="text2">I'm looking for a:</span>
+                    <p class="text2">I'm looking for a:</p>
 
                         <ul id="scpp_picker">
                             <li id="pickGrade_SCPP">
