@@ -198,6 +198,7 @@
                     <li><link:cmsCategoryBrowse topicIDs="124" language="EN" styleId="GlobalNav_HD_BehaviorAndDiscipline" styleClass="GS_CI9_">Behavior &amp;amp; Discipline</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="157" language="EN" styleId="GlobalNav_HD_SocialSkills" styleClass="GS_CI9_">Social Skills</link:cmsCategoryBrowse></li>
                     <li><link:healthyKids styleId="GlobalNav_HD_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; Nutrition</link:healthyKids></li>
+                    <li><link:mediaChoices id="GlobalNav_HD_MediaMatters" styleClass="GS_CI9_">Media Matters</link:mediaChoices></li>
                     <li><link:cmsCategoryBrowse topicIDs="136" language="EN" styleId="GlobalNav_HD_EmotionalWellBeing" styleClass="GS_CI9_">Emotional Well-Being</link:cmsCategoryBrowse></li>
                     <li><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleId="GlobalNav_HD_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft"><!-- small community icon --></span>&amp;nbsp;Talk About It</link:cmsContent></li>
                     <li class="last"><a href="/parenting.topic?content=1539"
@@ -213,9 +214,9 @@
                     <li class="first"><link:cmsCategoryBrowse topicIDs="133" language="EN" styleId="GlobalNav_AA_AcademicSkills" styleClass="GS_CI9_">Academic Skills</link:cmsCategoryBrowse></li>
                     <li><a href="/homework-help.topic?content=1544" id="GlobalNav_AA_HomeworkHelp" class="GS_CI9_">Homework Help</a></li>
                     <li><a href="/college-prep.topic?content=1542" id="GlobalNav_AA_PrepForCollege" class="GS_CI9_">Prep for College</a></li>
-                    <li><link:mediaChoices id="GlobalNav_AA_MediaMatters" styleClass="GS_CI9_">Media Matters</link:mediaChoices></li>
                     <li><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book Reviews</link:cmsCategoryBrowse></li>
                     <li><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning Activities</link:cmsCategoryBrowse></li>
+                    <li><a href="/improvement.topic?content=1543" id="GlobalNav_AA_ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
                     <li><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
                     <li><link:cmsCategoryBrowse topicIDs="150" language="EN" styleId="GlobalNav_AA_SummerActivities" styleClass="GS_CI9_">Summer Activities</link:cmsCategoryBrowse></li>
                     <li><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft"><!-- small community icon --></span>&amp;nbsp;Talk About It</link:cmsContent></li>
