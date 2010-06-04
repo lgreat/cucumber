@@ -3976,6 +3976,10 @@ margin:10px 0 14px 20px;
     padding-bottom:10px;
 }
 
+#userInfo .aboutMe .defaultBioText {
+    display: none;
+}
+
 #accountEditBio .submit{
     margin-left:105px;
 }

@@ -32,17 +32,17 @@
 
     <script type="text/javascript">
         $(function() {
-            //<c:if test = "${requestScope.canEditMember}" >
 
             // =========================================================================
             // about me
             // -------------------------------------------------------------------------
 
-            function showAboutMeOnLoad() {
+            function showAboutMeOnLoad(canEditBioText) {
                 var bioText = $('.aboutMe .bioText');
                 var defaultText = $('.aboutMe .defaultBioText');
                 //alert('bioText: '+bioText);
-                if (bioText.text() == '') {
+                <![CDATA[
+                if (bioText.text() == '' && canEditBioText) {
                     defaultText.show();
                     bioText.hide();                    
                 } else {
@@ -50,7 +50,10 @@
                     bioText.show();
                 }
                 return false;
+                ]]>
             }
+
+            //<c:if test = "${requestScope.canEditMember}" >
 
             function toggleAboutMe() {
                 var bioText = $('.aboutMe .bioText');
@@ -132,7 +135,7 @@
             });
 
             //</c:if>
-            showAboutMeOnLoad();
+            showAboutMeOnLoad(${requestScope.canEditMember});
 
         });
     </script>
