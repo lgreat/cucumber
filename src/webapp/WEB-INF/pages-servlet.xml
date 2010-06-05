@@ -13,6 +13,7 @@
 
     <context:component-scan base-package="gs.web.api" />
     <context:component-scan base-package="gs.web.school" />
+    <context:component-scan base-package="gs.web.backToSchool" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -27,6 +28,7 @@
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
+                <bean class="gs.web.backToSchool.BackToSchoolChecklistInterceptor"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
@@ -37,6 +39,8 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.api.admin.AuthInterceptor"/>
+                <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
+                <bean class="gs.web.backToSchool.BackToSchoolChecklistInterceptor"/>
             </list>
         </property>
     </bean>

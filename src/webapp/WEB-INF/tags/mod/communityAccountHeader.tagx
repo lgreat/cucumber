@@ -5,13 +5,15 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-    >
-<jsp:directive.tag import="java.net.URLEncoder"/>
-<jsp:directive.tag body-content="empty"/>
-<jsp:directive.attribute name="communityHost" required="true"
-                         description="Hostname of community server, such as community.greatschools.org"/>
-<jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
-                         description="True if topnav is loaded via community iframe"/>
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        >
+    <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="communityHost" required="true"
+                             description="Hostname of community server, such as community.greatschools.org"/>
+    <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
+                             description="True if topnav is loaded via community iframe"/>
 
     <ul id="utilLinks">
         <li>
@@ -34,6 +36,14 @@
                 <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
             </ul>
         </li>
-        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding></li>
+
+        <li class="last"><link:communityLanding><span
+                class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding>
+
+            <div class="smallText">
+                Back-to-school Checklist (${not empty backToSchoolChecklistCompletedItems? fn:length(backToSchoolChecklistCompletedItems) : 0}/5)
+            </div>
+        </li>
     </ul>
+    <promo:backToSchoolChecklistBubble/>
 </jsp:root>

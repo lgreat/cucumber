@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="Description" content="Things to keep in mind when participating in the GreatSchools community"/>
+        <meta name="keywords" content="community guidelines, greatschools"/>
+
+        <title>Community Guidelines | GreatSchools</title>
+        <!-- pageHelper:externalCss file="/res/css/widelayout.css"/ -->
+        <link rel="stylesheet" href="/res/css/_textStyles.css" type="text/css"/>
+        <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css"/>
+    </head>
+
+    <gsml:body adPageName="backToSchool-checklist-landing">
+
+        <h2>GreatSchools Back-to-School Checklist</h2>
+
+        <p>With summer in full swing, it's never ti early to stsart planning for the new school year. Since we know how busy you are, we've vreated a list of five simple tasks for you to complete on our site. Once you've completed step 1 of joining GreatSchools, we'll track your progress here as long as you're signed in. Onve you're finished, you'll automatically reveive an email from us with details on how to claim your FREE 1 subject notebook from Carolina Pad.</p>
+
+        <div>5 easy steps</div>
+
+        <ul>
+            <li>
+            Join GreatSchools for access to our newsletters, parent community and more! Already a member? Sign in.
+            </li>
+            <li>
+                Subscribe to our free "Back-to-School Tip of the Day email series.
+
+                <form name="btsChecklistForm" method="post" action="#">
+                    
+                    <input type="text" name="email"/>
+                </form>
+            </li>
+
+        </ul>
+
+    </gsml:body>
+    </html>
+</jsp:root>

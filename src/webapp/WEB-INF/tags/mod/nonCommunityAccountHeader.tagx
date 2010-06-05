@@ -6,6 +6,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         >
     <jsp:directive.tag body-content="empty"/>
 
@@ -21,13 +22,19 @@
                 email="${requestScope.context.email}">Join Us</link:registration></li>
 
         <li><link:loginOrRegister email="${requestScope.context.email}"
-                                               onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
-                                               redirect="${myUrl}">Sign In</link:loginOrRegister></li>
+                                  onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
+                                  redirect="${myUrl}">Sign In</link:loginOrRegister></li>
         <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
-                                                  <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
-        <li class="last"><link:communityLanding><span class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding></li>
+        <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
+        <li class="last"><link:communityLanding><span
+                class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding>
 
+            <div class="smallText">
+                Back-to-school Checklist (${not empty backToSchoolChecklistCompletedItems? fn:length(backToSchoolChecklistCompletedItems) : 0}/5)
+            </div>
+        </li>
     </ul>
 
-
+    <promo:backToSchoolChecklistBubble/>
+    
 </jsp:root>

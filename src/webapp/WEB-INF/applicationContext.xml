@@ -192,4 +192,10 @@
     </bean>
 
     <bean id="cmsFeatureEmbeddedLinkResolver" class="gs.web.content.cms.CmsContentLinkResolver"/>
+    
+    <bean id="backToSchoolChecklist" class="gs.web.backToSchool.BackToSchoolChecklist"
+          scope="prototype">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
 </beans>
