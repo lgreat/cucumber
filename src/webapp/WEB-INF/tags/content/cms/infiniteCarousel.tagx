@@ -101,7 +101,7 @@
             <h3 class="ic_title title2-d61">${pageScope.name}</h3>
 
             <div class="wrapper">
-                <ul>
+                <ul class="unordered-carousel">
                     <c:forEach var="carouselItem" items="${pageScope.items}" varStatus="carouselStatus">
                         <c:choose>
                             <c:when test="${carouselItem.newWindow}">

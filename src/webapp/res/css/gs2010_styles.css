@@ -2289,7 +2289,48 @@ body.ie6 .clearfix {
 /* =4c-3 infinite carousel
 -------------------------------------------------------------------------------------------*/
 
-.captioned_photo {
+.infiniteCarousel {
+    width: 421px;
+    height: 204px;
+    border: 1px solid #c6c6c6;
+    position: relative;
+}
+
+.ic_title {
+    width: 398px;
+    margin: 0 12px;
+    padding: 5px 0 6px 2px;
+    border-bottom: 1px dotted #999;
+}
+
+.infiniteCarousel .wrapper {
+    width: 353px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
+    /*overflow: auto;*/
+    overflow: hidden;
+    min-height: 9em;
+    margin: 0 34px;
+    position: absolute;
+    top: 50px;
+}
+
+.infiniteCarousel .unordered-carousel {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -14px;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel .captioned_photo {
+    display: block;
+    float: left;
+    padding: 0 15px;
+    width: 96px;
+    height: 145px;
+    border-right: 1px solid #c6c6c6;
 }
 
 .captioned_photo img {
@@ -2307,57 +2348,6 @@ body.ie6 .clearfix {
     text-align: center;
     display: block;
     overflow: hidden;
-}
-
-.infiniteCarousel {
-    width: 421px;
-    height: 204px;
-    border: 1px solid #c6c6c6;
-    position: relative;
-}
-
-.ic_title {
-    width: 398px;
-    margin: 0 12px;
-    padding: 5px 0 6px 2px;
-    border-bottom: 1px dotted #999;
-}
-
-.infiniteCarousel .wrapper {
-    width: 353px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
-/*overflow: auto;*/
-    overflow: hidden;
-    min-height: 9em;
-    margin: 0 34px;
-    position: absolute;
-    top: 50px;
-}
-
-.infiniteCarousel ul a img {
-}
-
-.infiniteCarousel .wrapper ul {
-    width: 9999px;
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
-    margin: 0 0 0 -14px;
-    padding: 0;
-    position: relative;
-    top: 0;
-}
-
-.infiniteCarousel ul li {
-    display: block;
-    float: left;
-    padding: 0 15px;
-    width: 96px;
-    height: 145px;
-    border-right: 1px solid #c6c6c6;
-}
-
-.infiniteCarousel ul li a img {
-    display: block;
 }
 
 .infiniteCarousel .arrow {
