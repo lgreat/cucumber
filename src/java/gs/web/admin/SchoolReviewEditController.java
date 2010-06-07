@@ -133,6 +133,23 @@ public class SchoolReviewEditController extends SimpleFormController implements 
                 }
             }
 
+            if (StringUtils.equals("h", review.getStatus())) {
+                Map<String,String> emailAttributes = new HashMap<String,String>();
+                review.setSchoolDao(_schoolDao);
+                review.setUserDao(_userDao);
+                emailAttributes.put("schoolName", review.getSchool().getName());
+                emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+                StringBuffer reviewLink = new StringBuffer("<a href=\"");
+                UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                urlBuilder.addParameter("lr", "true");
+                reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+                reviewLink.append("\">your review</a>");
+                emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+                _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+            }
+
             review.setStatus("p");
             review.setProcessDate(Calendar.getInstance().getTime());
             _reviewDao.saveReview(review);

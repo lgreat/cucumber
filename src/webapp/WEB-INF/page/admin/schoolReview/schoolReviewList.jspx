@@ -51,6 +51,7 @@
                 <h2>Flagged reviews</h2>
 
                 <p>To see unprocessed reviews, <a href="?showUnprocessed=true">click here</a>.</p>
+                <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <br/>
 
                 <c:if test="${totalFlaggedReviews gt 0}">
@@ -101,6 +102,7 @@
                                     <c:when test="${review.status eq 'p'}">Public/live</c:when>
                                     <c:when test="${review.status eq 'a'}">Ratings only public/live</c:when>
                                     <c:when test="${review.status eq 'd' or review.status eq 'r'}">Disabled</c:when>
+                                    <c:when test="${review.status eq 'h'}">Held</c:when>
                                     <c:otherwise>${review.status}</c:otherwise>
                                 </c:choose>
                             </td>
@@ -122,6 +124,7 @@
                 <h2>Unprocessed reviews</h2>
 
                 <p>To see flagged reviews, <a href="?showFlagged=true">click here</a>.</p>
+                <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <br/>
                 <c:if test="${totalUnprocessedReviews gt 0}">
                     <div style="margin-right: 250px;">
@@ -169,6 +172,7 @@
                                     <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
                                     <c:when test="${review.status eq 'p'}">Public/live</c:when>
                                     <c:when test="${review.status eq 'd'}">Disabled</c:when>
+                                    <c:when test="${review.status eq 'h'}">Held</c:when>
                                     <c:otherwise>${review.status}</c:otherwise>
                                 </c:choose>
                             </td>

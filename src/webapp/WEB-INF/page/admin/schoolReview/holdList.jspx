@@ -6,7 +6,9 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:gsweb="gstaglib"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:link="urn:www.greatschools.org/taglib/link"
+        xmlns:gsweb="gstaglib"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -104,6 +106,10 @@
     </head>
     <gsml:body pageLayout="nocol" adPageName="schoolReviewList">
 
+        <p>To see flagged reviews, <a href="/admin/schoolReview/list.page?showFlagged=true">click here</a>.</p>        
+        <p>To see unprocessed reviews, <a href="/admin/schoolReview/list.page?showUnprocessed=true">click here</a>.</p>
+        <br/>
+
         <div class="addHold">
             <h2>Add a school to the hold list</h2>
             <form action="/admin/schoolReview/holdList.page" method="post">
@@ -150,7 +156,7 @@
                     <c:forEach items="${requestScope.holdList}" var="heldSchool">
                         <c:set var="school" value="${heldSchool.school}"/>
                         <tr>
-                            <td>${school.name}</td>
+                            <td><link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview></td>
                             <td>${school.databaseState}</td>
                             <td>${heldSchool.notes}</td>
                             <fmt:formatDate value="${heldSchool.created}" var="holdCreated"

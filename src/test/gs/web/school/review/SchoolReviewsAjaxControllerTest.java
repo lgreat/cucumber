@@ -2,6 +2,7 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.school.IHeldSchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.CategoryRating;
@@ -9,23 +10,17 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.data.util.email.EmailContentHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.IReportContentService;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 
-import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
-import static org.easymock.classextension.EasyMock.createStrictMock;
 
 /**
  * @author dlee
@@ -45,6 +40,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     MockJavaMailSender _sender;
     private IReportedEntityDao _reportedEntityDao;
     private ExactTargetAPI _exactTargetAPI;
+    private IHeldSchoolDao _heldSchoolDao;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -60,6 +56,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         _reportContentService = createMock(IReportContentService.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
+        _heldSchoolDao = createStrictMock(IHeldSchoolDao.class);
 
         _school = new School();
         _school.setDatabaseState(State.CA);
@@ -89,6 +86,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setReportContentService(_reportContentService);
         _controller.setReportedEntityDao(_reportedEntityDao);
         _controller.setExactTargetAPI(_exactTargetAPI);
+        _controller.setHeldSchoolDao(_heldSchoolDao);
 
     }
 
@@ -105,6 +103,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_exactTargetAPI);
 
         replay(_subscriptionDao);
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+        replay(_heldSchoolDao);
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
@@ -113,6 +113,51 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_reviewDao);
         verify(_subscriptionDao);
         verify(_exactTargetAPI);
+        verify(_heldSchoolDao);
+    }
+
+    private void checkHoldListGeneric(String initialStatus, String expectedStatus) {
+        Review review = new Review();
+        review.setStatus(initialStatus);
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(true);
+        replay(_heldSchoolDao);
+        _controller.checkHoldList(_school, review);
+        verify(_heldSchoolDao);
+        assertEquals("Expecting review to be in held status", expectedStatus, review.getStatus());
+    }
+
+    public void testCheckHoldListPublish() {
+        checkHoldListGeneric("p", "h");
+    }
+
+    public void testCheckHoldListDisable() {
+        checkHoldListGeneric("d", "h");
+    }
+
+    public void testCheckHoldListUnprocessed() {
+        checkHoldListGeneric("u", "h");
+    }
+
+    public void testCheckHoldListProvisionalPublish() {
+        checkHoldListGeneric("pp", "ph");
+    }
+
+    public void testCheckHoldListProvisionalDisable() {
+        checkHoldListGeneric("pd", "ph");
+    }
+
+    public void testCheckHoldListProvisionalUnprocessed() {
+        checkHoldListGeneric("pu", "ph");
+    }
+
+    public void testCheckHoldListNoop() {
+        Review review = new Review();
+        review.setStatus("p");
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+        replay(_heldSchoolDao);
+        _controller.checkHoldList(_school, review);
+        verify(_heldSchoolDao);
+        assertEquals("Expecting review to keep original status", "p", review.getStatus());
     }
 
     public void testSubmitExistingUserReviewRejected() throws Exception {

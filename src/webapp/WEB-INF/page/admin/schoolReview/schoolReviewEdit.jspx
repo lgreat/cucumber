@@ -81,6 +81,7 @@
                     <c:when test="${review.status eq 'p'}">(public/live)</c:when>
                     <c:when test="${review.status eq 'a'}">(ratings only public/live)</c:when>
                     <c:when test="${review.status eq 'd' or review.status eq 'r'}">(disabled)</c:when>
+                    <c:when test="${review.status eq 'h'}">Held</c:when>
                 </c:choose>
             </span>
             <br/>
@@ -189,6 +190,17 @@
                     For pre-moderated reviews, the options to Publish/Reject
                     -->
                     <p>This review is currently <strong>unprocessed</strong>.</p>
+                    <input type="submit" name="enableReview" value="Publish Review"/>
+                    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                    <input type="submit" name="disableReview" value="Reject Review"/>
+                    <br/>
+                    <br/>
+                </c:when>
+                <c:when test="${review.status eq 'h'}">
+                    <!--
+                    For held reviews, the options to Publish/Reject
+                    -->
+                    <p>This review is currently <strong>held</strong>.</p>
                     <input type="submit" name="enableReview" value="Publish Review"/>
                     &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
                     <input type="submit" name="disableReview" value="Reject Review"/>

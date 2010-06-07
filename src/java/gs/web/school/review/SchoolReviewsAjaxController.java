@@ -4,6 +4,7 @@ import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
+import gs.data.school.IHeldSchoolDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -60,6 +61,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     private ISchoolDao _schoolDao;
 
     private IAlertWordDao _alertWordDao;
+
+    private IHeldSchoolDao _heldSchoolDao;
 
     private EmailHelperFactory _emailHelperFactory;
 
@@ -187,6 +190,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
+        checkHoldList(school, review);
+
 
         Integer existingId = review.getId();
 
@@ -210,7 +215,9 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
         }
 
-        if (Poster.STUDENT.equals(reviewCommand.getPoster())) {
+        if (Poster.STUDENT.equals(reviewCommand.getPoster())
+                || StringUtils.equals("h", review.getStatus())
+                || StringUtils.equals("ph", review.getStatus())) {
             reviewPosted = false;
         }
 
@@ -251,6 +258,20 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         response.getWriter().write(jsonString);
         response.getWriter().flush();
         return null;
+    }
+
+    protected void checkHoldList(School school, Review review) {
+        try {
+            if (_heldSchoolDao.isSchoolOnHoldList(school)) {
+                if (StringUtils.length(review.getStatus()) == 2) {
+                    review.setStatus("ph");
+                } else {
+                    review.setStatus("h");
+                }
+            }
+        } catch (Exception e) {
+            _log.warn("Error checking hold list: " + e, e);
+        }
     }
 
     protected static boolean userRatedOneOrMoreCategories(ReviewCommand rc) {
@@ -523,5 +544,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public IHeldSchoolDao getHeldSchoolDao() {
+        return _heldSchoolDao;
+    }
+
+    public void setHeldSchoolDao(IHeldSchoolDao heldSchoolDao) {
+        _heldSchoolDao = heldSchoolDao;
     }
 }
