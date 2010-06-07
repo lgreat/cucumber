@@ -224,6 +224,9 @@
     </div>
     <!-- carousel -->
 
+    <!-- GS-9920 moved to directly below carousel during BTS season -->
+    <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
+
     <variant:a>
         <school:findSchoolTopCitesAndStates />
     </variant:a>
@@ -231,7 +234,8 @@
     <c:if test="${requestScope.recentCmsContent ne null}">
         <moreContent:gradeByGrade/>
     </c:if>
-    <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
+
+    <!-- GS-9920 move 598x102 back to here after BTS season -->
 
     <variant:b>
         <school:findSchoolTopCitesAndStates />
