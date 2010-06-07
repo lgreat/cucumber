@@ -166,6 +166,7 @@
                 </c:choose>
                 <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
                     <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
+                         class="carousel-image"
                          width="584"
                          height="288"
                          alt="${homepage.featureLinks[status.index].imageAltText}"/>
@@ -191,7 +192,7 @@
                        target="${featureLinkTarget}">${featureLink.title}</a>
                 </h2>
 
-                <p>
+                <p class="teaser">
                     <a class="text3"
                        href="${fn:escapeXml(featureLink.url)}"
                        target="${featureLinkTarget}">${featureLink.description}</a>
@@ -204,16 +205,16 @@
 
             <c:if test="${fn:length(homepage.featureLinks) gt 1}">
                 <div id="nav">
-                    <ul>
-                        <li id="prev" class="prev-position"><!--do not collapse --></li>
+                    <ul class="button-holder">
+                        <li id="prev" class="button prev-position"><!--do not collapse --></li>
                     </ul>
-                    <ul id="buttons">
+                    <ul id="buttons" class="button-holder">
                         <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                            <li id="carouselSlide${status.index + 1}" class="off">${status.index + 1}</li>
+                            <li id="carouselSlide${status.index + 1}" class="button off">${status.index + 1}</li>
                         </c:forEach>
                     </ul>
-                    <ul>
-                        <li id="next" class="next-position"><!--do not collapse --></li>
+                    <ul class="button-holder">
+                        <li id="next" class="button next-position"><!--do not collapse --></li>
                     </ul>
                 </div>
                 <!--nav -->

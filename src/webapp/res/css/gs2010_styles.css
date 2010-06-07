@@ -1267,7 +1267,7 @@ body.ie6 .clearfix {
     display: block;
 }
 
-#carousel #image img {
+#image .carousel-image {
     position: absolute;
     left: 0;
     top: 0;
@@ -1292,7 +1292,7 @@ body.ie6 .clearfix {
     height: 60px;
 }
 
-#carousel #info h2 {
+#info .headline {
     position: absolute;
     left: 14px;
     top: 6px;
@@ -1301,7 +1301,7 @@ body.ie6 .clearfix {
     display: none;
 }
 
-#carousel #info p {
+#info .teaser {
     position: absolute;
     left: 14px;
     bottom: 8px;
@@ -1316,13 +1316,13 @@ body.ie6 .clearfix {
     bottom: 8px;
 }
 
-#carousel #info ul {
+#nav .button-holder {
     list-style: none outside none;
     margin: 0;
     padding: 0;
 }
 
-#carousel #info li {
+#nav .button {
     display: inline;
     cursor: pointer;
 }
