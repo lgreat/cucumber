@@ -905,10 +905,12 @@ body.ie6 #es-gbgTabs a, body.ie6 #fstcasTabs ul li a {
 
 body.ie6 #es-gbgTabs .selected, body.ie6 #fstcasTabs ul li.selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
+    top:5px;
 }
 
 body.ie6 #es-gbgTabs .selected a, body.ie6 #fstcasTabs ul li.selected a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
+    top:5px;
 }
 
 /* =4a-6 find your school top cities and states module (fstcas)
