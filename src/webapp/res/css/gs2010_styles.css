@@ -1462,7 +1462,7 @@ body.ie6 .clearfix {
     padding: 15px 20px;
 }
 
-#mostPopular.mod_bd li {
+#mostPopular .mostpopItem {
     padding: 6px 0;
 }
 
@@ -1836,7 +1836,7 @@ body.ie6 .clearfix {
     margin-top: -5px;
 }
 
-#gbgTabs .selected a, #fstcasTabs ul li.selected a {
+#gbgTabs .selected .grade-level, #fstcasTabs ul li.selected a {
     text-decoration: none;
     color: black;
     background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
@@ -1888,19 +1888,15 @@ body.ie6 .clearfix {
     padding: 0 15px;
 }
 
-#gbgContent li span {
+#gbgContent .sprite {
     margin-bottom: -4px;
-}
-
-#gbgContent .border-left-dotted {
-    border-left: 1px dotted #999;
 }
 
 #gbgContent .seeMore {
     margin: 0 15px 0 0;
 }
 
-#gbgContent span span {
+#gbgContent .alertDoubleArrow {
     margin: 0;
 }
 

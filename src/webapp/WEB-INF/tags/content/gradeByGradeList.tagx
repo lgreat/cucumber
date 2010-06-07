@@ -11,7 +11,8 @@
     <c:set var="optimalTitleLength" value="40"/>
 
     <!-- GS-9160 See CmsHomePageController.java inner class RecentContent for list of contentType's -->
-    <ul class="fltlft text3">
+    <div class="unit size1of2 brdrt_dotted">
+    <ul class="text3">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count lt 4}">
                 <li><span class="sprite ${recentItem.contentType} mrgrt_10"><!-- do not collapse --></span>
@@ -29,7 +30,9 @@
             </c:if>
         </c:forEach>
     </ul>
-    <ul class="fltlft text3 border-left-dotted">
+    </div>
+    <div class="unit size1of2 lastUnit">
+    <ul class="text3">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count gt 3}">
                 <li><span class="sprite ${recentItem.contentType} mrgrt_10"><!-- do not collapse --></span>
@@ -47,5 +50,6 @@
             </c:if>
         </c:forEach>
     </ul>
+    </div>
 
 </jsp:root>

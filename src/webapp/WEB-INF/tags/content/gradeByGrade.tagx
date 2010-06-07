@@ -146,7 +146,7 @@
         // End - tick marks positioned
         //
         // Present initial tab selected
-        jQuery('#gbgContent div').hide();
+        jQuery('#gbgContent>div').hide();
         jQuery('#gbg-content-' + selectedLevel).show();
         jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
         // End - initial tab selected
@@ -162,7 +162,7 @@
         jQuery('#gbgTabs ul li').click(function() {
             // Present the tab selected
             selectedLevel = jQuery(this).attr('class').substring(8, 9);
-            jQuery('#gbgContent div').hide();
+            jQuery('#gbgContent>div').hide();
             jQuery('#gbg-content-' + selectedLevel).show();
             jQuery('#gbgTabs ul li').removeClass('selected');
             jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
@@ -237,7 +237,7 @@
             theHandle.stop().animate({ 'left': newpos }, 200);
             jQuery('#gbgTabs ul li').removeClass('selected');
             jQuery('.gbg-tab-' + selectedLevel).addClass('selected');
-            jQuery('#gbgContent div').hide();
+            jQuery('#gbgContent>div').hide();
             jQuery('#gbg-content-' + selectedLevel).show();
             return false;
         };
@@ -314,15 +314,15 @@
             <!-- end gbgTop -->
             <div id="gbgTabs">
                 <ul>
-                    <li class="gbg-tab-p"><a href="#">Preschool</a></li>
-                    <li class="gbg-tab-k"><a href="#">Kindergarten</a></li>
-                    <li class="gbg-tab-1"><a href="#">1st</a></li>
-                    <li class="gbg-tab-2"><a href="#">2nd</a></li>
-                    <li class="gbg-tab-3"><a href="#">3rd</a></li>
-                    <li class="gbg-tab-4"><a href="#">4th</a></li>
-                    <li class="gbg-tab-5"><a href="#">5th</a></li>
-                    <li class="gbg-tab-m"><a href="#">Middle School</a></li>
-                    <li class="gbg-tab-h"><a href="#">High School</a></li>
+                    <li class="gbg-tab-p"><a href="#" class="grade-level">Preschool</a></li>
+                    <li class="gbg-tab-k"><a href="#" class="grade-level">Kindergarten</a></li>
+                    <li class="gbg-tab-1"><a href="#" class="grade-level">1st</a></li>
+                    <li class="gbg-tab-2"><a href="#" class="grade-level">2nd</a></li>
+                    <li class="gbg-tab-3"><a href="#" class="grade-level">3rd</a></li>
+                    <li class="gbg-tab-4"><a href="#" class="grade-level">4th</a></li>
+                    <li class="gbg-tab-5"><a href="#" class="grade-level">5th</a></li>
+                    <li class="gbg-tab-m"><a href="#" class="grade-level">Middle School</a></li>
+                    <li class="gbg-tab-h"><a href="#" class="grade-level">High School</a></li>
                 </ul>
             </div>
             <!-- end gbgTabs -->
@@ -340,48 +340,48 @@
             </div>
             <!-- end gbgSlider -->
             <div id="gbgContent">
-                <div id="gbg-content-p">
+                <div id="gbg-content-p" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['198']}"/>
                     <br class="clearfloat"/>
                     <span class="seeMore fltrt smallAlertText"><link:preschool>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:preschool></span>
                 </div>
-                <div id="gbg-content-k">
+                <div id="gbg-content-k" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['199']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-1">
+                <div id="gbg-content-1" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['200']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-2">
+                <div id="gbg-content-2" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['201']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-3">
+                <div id="gbg-content-3" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['202']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-4">
+                <div id="gbg-content-4" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['203']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-5">
+                <div id="gbg-content-5" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['204']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:elementary-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:elementary-school></span>
                 </div>
-                <div id="gbg-content-m">
+                <div id="gbg-content-m" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['205']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:middle-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:middle-school></span>
                 </div>
-                <div id="gbg-content-h">
+                <div id="gbg-content-h" class="line">
                     <content:gradeByGradeList itemList="${requestScope.recentCmsContent['206']}"/>
                     <span class="seeMore fltrt smallAlertText"><link:high-school>See more <span
                             class="alertDoubleArrow">&amp;#187;</span></link:high-school></span>
