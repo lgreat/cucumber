@@ -236,6 +236,8 @@
                 <div class="spacer_15"><!-- do not collapse --></div>
             </c:if>
 
+            <ad:adTag position="House_Ad_423x230"/>
+
             <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                   items="${requestScope.carouselItems}"/>
 
