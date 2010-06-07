@@ -1181,6 +1181,12 @@ jQuery(function() {
     } else if (showHover == "emailValidatedSchoolReviewQueued") {
         GSType.hover.emailValidatedSchoolReview.showQueued();
     } else if (showHover == "principalReviewSubmitted") {
+
+        pageTracking.pageName =  "School Officials Comment Thanks Hover";
+        pageTracking.hierarchy = "ESP,School Comment Thanks Hover";
+        pageTracking.server = "www.greatschools.org";
+        pageTracking.send();
+
         GSType.hover.principalReviewSubmitted.show();
     }
 
