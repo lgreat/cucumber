@@ -222,6 +222,8 @@ GSType.hover.JoinHover = function() {
                     if (el.tagName == "A") {
                         if (el.target || el.onclick)
                             return false;
+                        if (el.className && el.className.indexOf('no_interrupt') > -1)
+                            return false;
                         if (el.href && el.href != '' && el.href != '#' && el.href != (window.location.href+'#'))
                             return el;
                     }

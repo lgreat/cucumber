@@ -42,7 +42,7 @@
                 <div class="notRated">
                     <link:schoolProfileParentReview
                             school="${school}" anchor="schoolReviewSubmitForm"
-                            styleClass="submodal-344-362 schoolProfileParentReview" styleId="Ratings_Module"
+                            styleClass="schoolProfileParentReview no_interrupt" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/7970_b/rate_this_school.gif"
                                   alt="Rate this school!"
@@ -71,7 +71,7 @@
 
                     <link:schoolProfileParentReview
                             school="${school}" anchor="schoolReviewSubmitForm"
-                            styleId="Ratings_Module"
+                            styleId="Ratings_Module" styleClass="no_interrupt"
                             >
                         <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It"
                                   styleClass="rateItButton"/>

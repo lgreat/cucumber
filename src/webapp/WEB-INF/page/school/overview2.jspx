@@ -174,7 +174,7 @@
                                     <div class="${latestReviewsModel.totalReviews eq 1 ? 'rateItInReviewSingle' : 'rateItInReview'}">
                                         <link:schoolProfileParentReview
                                                 school="${school}" anchor="schoolReviewSubmitForm"
-                                                styleId="Latest_PR_RateIt">
+                                                styleId="Latest_PR_RateIt" styleClass="no_interrupt">
                                             <gsml:img src="/res/img/school/overview/submit_RateIt.gif"
                                                       alt="Rate It" />
                                         </link:schoolProfileParentReview>

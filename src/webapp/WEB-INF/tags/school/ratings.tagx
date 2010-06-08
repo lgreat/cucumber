@@ -94,7 +94,7 @@
                 <c:when test="${not hasParentRating}">
                     <link:schoolProfileParentReview
                             school="${school}" anchor="schoolReviewSubmitForm"
-                            styleId="Ratings_Module"
+                            styleId="Ratings_Module" styleClass="no_interrupt"
                             >
 
                         <c:choose>
@@ -146,7 +146,7 @@
                     </link:schoolProfileParentReview>
                     <link:schoolProfileParentReview
                             school="${school}" anchor="schoolReviewSubmitForm"
-                            styleId="Ratings_Module"
+                            styleId="Ratings_Module" styleClass="no_interrupt"
                             >
                         <c:choose>
                             <!-- ratings summary not shown for other schools -->

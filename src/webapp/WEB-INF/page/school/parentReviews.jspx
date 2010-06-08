@@ -110,7 +110,7 @@
             <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif"
                       alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars"/>
             <link:schoolProfileParentReview
-                    anchor="schoolReviewSubmitForm"
+                    anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
                     school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
                                                  alt="Rate it"
                                                  styleClass="rateIt"/></link:schoolProfileParentReview>
@@ -391,7 +391,7 @@
 
 
                             <p class="respond"><link:schoolProfileParentReview
-                                school="${school}" anchor="schoolReviewSubmitForm"
+                                school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
                                 >Write your own review</link:schoolProfileParentReview></p>
 
                             <c:choose>

@@ -213,10 +213,10 @@
                 <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
-                                                styleClass="rateImg toolsImg"><gsml:img
+                                                styleClass="rateImg toolsImg no_interrupt"><gsml:img
                         src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileParentReview>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
-                                                styleClass="rate toolsTxt">Rate it!</link:schoolProfileParentReview>
+                                                styleClass="rate toolsTxt no_interrupt">Rate it!</link:schoolProfileParentReview>
                 
 
                 <c:choose>
@@ -351,7 +351,7 @@
             <c:when test="${parent_rating eq 0}">
                 <c:set var="parent_rating_title" value="Rate this school!"/>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
-                                                styleClass="parent_rating parent_${parent_rating}"
+                                                styleClass="parent_rating parent_${parent_rating} no_interrupt"
                                                 title="${parent_rating_title}">
                     &amp;#160;
                 </link:schoolProfileParentReview>
