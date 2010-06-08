@@ -434,7 +434,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         <c:when test="${isCityBrowse}">
             <span class="text2">View city information for <link:city
                     city="${cityName}"
-                    state="${state}" styleClass="minilink">${cityDisplayName}, ${state}</link:city></span>
+                    state="${state}" styleClass="minilink">${cityName}, ${state}</link:city></span>
         </c:when>
         <c:otherwise>
             <link:districtHome
