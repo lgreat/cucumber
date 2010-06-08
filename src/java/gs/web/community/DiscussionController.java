@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -74,6 +75,7 @@ public class DiscussionController extends AbstractController {
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
     private IReportedEntityDao _reportedEntityDao;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -194,6 +196,11 @@ public class DiscussionController extends AbstractController {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView(VIEW_NOT_FOUND);
         }
+
+        if (board != null && board.getCity() != null && board.getCity().getState() != null) {
+            _stateSpecificFooterHelper.placePopularCitiesInModel(board.getCity().getState(), model);
+        }
+
 
         return new ModelAndView(_viewName, model);
     }
@@ -405,5 +412,13 @@ public class DiscussionController extends AbstractController {
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

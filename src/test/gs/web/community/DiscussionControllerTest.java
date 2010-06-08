@@ -7,10 +7,11 @@ import gs.data.content.cms.ContentKey;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.community.*;
 import gs.data.cms.IPublicationDao;
+import gs.web.geo.StateSpecificFooterHelper;
 import org.springframework.web.servlet.ModelAndView;
 
 import static gs.data.community.IDiscussionReplyDao.DiscussionReplySort;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
     IPublicationDao _publicationDao;
     IUserDao _userDao;
     IReportedEntityDao _reportedEntityDao;
+    StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     @Override
     public void setUp() throws Exception {
@@ -40,24 +42,26 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao = createStrictMock(IDiscussionReplyDao.class);
         _userDao = createStrictMock(IUserDao.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
+        _stateSpecificFooterHelper = createStrictMock(StateSpecificFooterHelper.class);
         _controller.setCmsDiscussionBoardDao(_discussionBoardDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
         _controller.setUserDao(_userDao);
         _controller.setReportedEntityDao(_reportedEntityDao);
+        _controller.setStateSpecificFooterHelper(_stateSpecificFooterHelper);
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
+        replayMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao, _stateSpecificFooterHelper);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
+        verifyMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao, _stateSpecificFooterHelper);
     }
 
     private void resetAllMocks() {
-        resetMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao);
+        resetMocks(_discussionBoardDao, _discussionDao, _discussionReplyDao, _publicationDao, _userDao, _reportedEntityDao, _stateSpecificFooterHelper);
     }
 
     public void testBasics() {
@@ -66,6 +70,8 @@ public class DiscussionControllerTest extends BaseControllerTestCase {
         assertSame(_discussionDao, _controller.getDiscussionDao());
         assertSame(_discussionReplyDao, _controller.getDiscussionReplyDao());
         assertSame(_publicationDao, _controller.getPublicationDao());
+        assertSame(_reportedEntityDao, _controller.getReportedEntityDao());
+        assertSame(_stateSpecificFooterHelper, _controller.getStateSpecificFooterHelper());
     }
 
     public void testGetTotalPages() {
