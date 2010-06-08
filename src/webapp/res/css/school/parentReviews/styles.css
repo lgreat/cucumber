@@ -245,7 +245,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 
 #showParentReviews {
     float: left;
-    width: 532px;    
+    width: 534px;    
 }
 
 #showParentReviews h2 {
@@ -390,7 +390,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 -----------------------------------*/
 #showParentReviews .principalReview {
     background-color: #dee;
-    width: auto;
+    width: 502px;
     margin: 0 0 23px 0;
     padding: 15px;
 }
