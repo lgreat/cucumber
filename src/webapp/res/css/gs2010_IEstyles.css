@@ -27,6 +27,7 @@ General comments:
 =4c-5.1 start a conversation
 =4c-5.2 preview a conversation
 =4c-6 elementary schools grade by grade
+=4d- community join hovers
 =4d-3 community avatar hover
 =4f-1 school profile
 =4h inline sign-in
@@ -917,6 +918,13 @@ body.ie6 #es-gbgTabs .selected a, body.ie6 #fstcasTabs ul li.selected a {
 -------------------------------------------------------------------------------------*/
 body.ie6 .box ul {
     height: 1%;
+}
+
+/* =4d- community join hovers
+-------------------------------------------------------------------------------------------*/
+body.ie8 #moreGrades li{
+    padding-top:0;
+    margin-bottom:3px;
 }
 
 /* =4d-3 community avatar hover
