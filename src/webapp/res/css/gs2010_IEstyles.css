@@ -926,6 +926,22 @@ body.hover #standardAvatarForm input{
     left:35px;
 }
 
+body.ie6 .prefs .btstip_version{
+    vertical-align:middle;
+}
+
+body.ie6 #joinGS .btstips{
+    z-index:0;
+}
+
+body.ie6 #joinGS .grades{
+    z-index:1;
+}
+
+body.ie6 #joinGS .joinHover_btstip{
+    z-index:0;
+}
+
 /* =4f-1 school profile
 -------------------------------------------------------------------------------------------*/
 

@@ -88,11 +88,11 @@
                     </li>
                 </ul>
             </fieldset>
-            <fieldset class="prefs">
-                <ul class="col">
+            <fieldset class="prefs formText2">
+                <ul class="col btstips">
                     <li class="grades">
-                        <input type="checkbox" name="newsletter" value="true" id="opt1"/><label
-                            for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
+                        <input type="checkbox" name="newsletter" value="true" id="opt1"/>
+                        <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                         <strong>Lowell High School</strong>.</label>
 
                         <p>In 2009-2010 my children are in:</p>
@@ -122,29 +122,35 @@
                                         <li><input type="checkbox" value="myhs" id="gH" name="grades"/><label
                                                 for="gH">High School</label></li>
                                     </ul>
-                                    <button class="btn25" id="gradeDone" type="button"><span class="lftDoor25"><span class="rtDoor25">Done</span></span></button>
+                                    <button class="btn25" id="gradeDone" type="button">
+                                        <span class="lftDoor25"><span class="rtDoor25">Done</span></span></button>
                                 </div>
                             </li>
                         </ul>
                     </li>
-                    <li class="joinHover_ld"><input type="checkbox" name="ldNewsletter" value="true" id="opt2"/><label
-                            for="opt2">Send me monthly emails about Learning Difficulties.</label></li>
-                    <li class="joinHover_btstip">
-                        <input type="checkbox" name="btsTip" value="true" id="opt4" /><label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
-                        <p class="btstip_version">
-                            Select a version:
-                            <input type="radio" name="btsTipVersion" value="e" id="btstip_elem" checked="checked"/>
-                            <label for="btstip_elem">Elementary</label>
-                            <input type="radio" name="btsTipVersion" value="m" id="btstip_middle"/>
-                            <label for="btstip_middle">Middle</label>
-                            <input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>
-                            <label for="btstip_high">High</label>
-                        </p>
+                    <li class="joinHover_ld">
+                        <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
+                        <label for="opt2">Send me monthly emails about Learning Difficulties.</label>
                     </li>
-                    <li class="joinHover_partners"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/><label
-                            for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
-                    <li class="joinHover_terms"><input type="checkbox" name="terms" value="true" id="touy"/><label
-                            for="touy">I agree to the
+                    <li class="joinHover_btstip">
+                        <input type="checkbox" name="btsTip" value="true" id="opt4" />
+                        <label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
+                        <ul class="inner-row">
+                        <li class="btstip_version">
+                            <span>Select a version:</span>
+                            <input type="radio" name="btsTipVersion" value="e" id="btstip_elem" checked="checked"/>
+                            <label for="btstip_elem">Elementary School</label>
+                            <input type="radio" name="btsTipVersion" value="m" id="btstip_middle"/>
+                            <label for="btstip_middle">Middle School</label>
+                            <input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>
+                            <label for="btstip_high">High School</label>
+                        </li>
+                        </ul>
+                    </li>
+                    <li class="joinHover_partners"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/>
+                        <label for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
+                    <li class="joinHover_terms"><input type="checkbox" name="terms" value="true" id="touy"/>
+                        <label for="touy">I agree to the
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
                             href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>

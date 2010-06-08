@@ -341,6 +341,11 @@ h3.title1white, h3.srchCat {
     color: #777;
 }
 
+.formText2 {
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
 .smallText2 {
     font: 10px Arial, Helvetica, sans-serif;
     color: black;
@@ -2823,12 +2828,12 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin: 0;
 }
 
-.ui-dialog fieldset label {
-    font: 700 13px Arial, sans-serif;
+.ui-dialog .prefs .inner-row {
+    padding:0 20px;
 }
 
 .prefs label {
-    font-weight: 400;
+    /*font-weight: 400;*/
 }
 
 .prefs .btstip_version label {
@@ -2905,7 +2910,7 @@ p.hlpTxt {
 }
 
 .valid {
-    color: #118600;
+    color: #180;
     background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
 }
 
@@ -3039,7 +3044,7 @@ body.nocol #grdShow_SCPP {
     left: -100000px;
     width: 228px;
     height: 148px;
-    background: #fff;
+    background-color: #fff;
     border: solid #2092c4;
     border-width: 0 1px 1px;
     outline: none;
