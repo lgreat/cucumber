@@ -764,8 +764,13 @@ GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("pri
 
 GSType.hover.PrincipalReviewSubmitted = function() {
     this.loadDialog = function() {
+      jQuery('#principalReviewSubmittedHover').bind('dialogclose', this.onClose.gs_bind(this));
       this.dialogByWidth(640);
     };
+
+    this.onClose = function() {
+        window.location.reload();
+    }
 }
 GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover");
 
