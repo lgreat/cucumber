@@ -243,10 +243,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         values.put("status", "true");
         values.put("userId", user.getId().toString());
         //trigger the success events
-        if (reviewPosted && userRatedOneOrMoreCategories(reviewCommand)) {
-            values.put("ratingEvent", OmnitureTracking.SuccessEvent.ParentRating.toOmnitureString());
-        }
-        if (reviewPosted && StringUtils.isNotBlank(reviewCommand.getComments())) {
+        if (StringUtils.isNotBlank(reviewCommand.getComments())) {
             values.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
         }
         values.put("reviewPosted", String.valueOf(reviewPosted));
@@ -272,6 +269,24 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         } catch (Exception e) {
             _log.warn("Error checking hold list: " + e, e);
         }
+    }
+
+    /**
+     * Returns true if any of the rating categories besides the overall rating is chosen.
+     */
+    protected static boolean userRatedOneOrMoreSubcategories(ReviewCommand rc) {
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getActivities()) && null != rc.getActivities()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getParent()) && null != rc.getParent()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPrincipal()) && null != rc.getPrincipal()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getSafety()) && null != rc.getSafety()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getTeacher()) && null != rc.getTeacher()) return true;
+
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPProgram()) && null != rc.getPProgram()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPParents()) && null != rc.getPParents()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPTeachers()) && null != rc.getPTeachers()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPSafety()) && null != rc.getPSafety()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPFacilities()) && null != rc.getPFacilities()) return true;
+        return false;
     }
 
     protected static boolean userRatedOneOrMoreCategories(ReviewCommand rc) {
