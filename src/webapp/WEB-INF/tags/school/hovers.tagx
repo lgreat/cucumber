@@ -84,11 +84,8 @@
             <c:when test="${school.levelCode == 'p'}">
             </c:when>
             <c:otherwise>
-                <!-- GS-8291 Replacing with new MSS hover, see schoolInterruptRegistrationHover.tagx -->
                 <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
                 <!-- to (potentially) trigger MSS modal on exit -->
-                <!--<community:schoolInterruptRegistrationHover schoolId="${school.id}" schoolState="${school.databaseState}"/>-->
-                <!--<pageHelper:addOnLoadHandler handler="showMssAutoHoverOnExit();"/>-->
                 <!-- GS-8864 Replacing new MSS hover with newer MSS hover, see hover.js and join.tagx -->
                 <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${school.name}', ${school.id}, '${school.databaseState}');"/>
             </c:otherwise>

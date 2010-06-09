@@ -2429,31 +2429,6 @@
         <property name="viewName" value="email/unsubscribeSuccess"/>
     </bean>
 
-    <bean name="/community/registration/popup/schoolInterruptRegistrationHover.page"
-          class="gs.web.community.registration.popup.SchoolInterruptRegistrationHoverController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
-        <property name="how" value="MSS Hover"/>
-        <property name="formView" value="community/registration/popup/schoolInterruptRegistrationHover"/>
-        <property name="errorView" value="/community/registration/registrationSoapError"/>
-        <property name="validators">
-            <list>
-                <ref local="emailValidator"/>
-            </list>
-        </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
-        <property name="requireEmailValidation" value="true"/>
-        <property name="chooserRegistration" value="false"/>
-        <property name="tableDao">
-            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
-        </property>
-        <property name="hoverView" value="/community/registration/popup/sendToDestination.page"/>
-    </bean>
-
     <bean name="/community/registration/popup/LDRegistrationHover.page"
           class="gs.web.community.registration.popup.LDRegistrationHoverController"
           autowire="byName" lazy-init="true">
