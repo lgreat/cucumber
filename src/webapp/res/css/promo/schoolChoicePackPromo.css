@@ -134,8 +134,14 @@ body.nocol #schoolChoicePackPromo div#email_go {
 body.ie7 #scpp_picker {
     height: 27px;
 }
+*+html body.nocol #scpp_picker {
+    height: 48px;
+}
 body.ie7 #gradeSelect {
     height: 56px;
+}
+*+html body.nocol #gradeSelect {
+    height: 88px;
 }
 body.ie7 #email_go {
     height: 30px;
