@@ -7,12 +7,6 @@ function sendToDestination() {
     if (window.nthGraderRegistrationDialog != undefined) {
         window.nthGraderRegistrationDialog.dialog.cancel();
     }
-    if (window.autoMssHover != undefined) {
-        window.autoMssHover.dialog.cancel();
-    }
-    if (window.ldRegistrationDialog != undefined) {
-        window.ldRegistrationDialog.dialog.cancel();
-    }
 
     if (destUrl != '' && destUrl != 'reload') {
         window.location = destUrl;
