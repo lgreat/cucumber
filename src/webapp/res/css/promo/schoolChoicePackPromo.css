@@ -128,8 +128,17 @@ body.nocol #schoolChoicePackPromo div#email_go {
     display: inline;
 }
 #schoolChoicePackPromo #gradeSelect {
-    overflow: hidden;
+    overflow: visible;
     clear: both;
+}
+body.ie7 #scpp_picker {
+    height: 27px;
+}
+body.ie7 #gradeSelect {
+    height: 56px;
+}
+body.ie7 #email_go {
+    height: 30px;
 }
 #schoolChoicePackPromo div#email_go #send {
     margin:0;
