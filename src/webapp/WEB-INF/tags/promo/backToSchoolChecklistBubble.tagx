@@ -6,18 +6,28 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 <div id="btsChecklistBubble" style="display:none;">
-        <div class="smallText1 tint_777 closebtn fltrt btsChecklistBubbleClose">CLOSE <img
-                src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
-                height="11" alt="close modal"/></div>
-        <span>new on greatschools</span>
-        <span>Back-to-School Checklist</span>
+    <div class="smallText1 tint_777 closebtn fltrt btsChecklistBubbleClose">CLOSE <img
+            src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
+            height="11" alt="close modal"/></div>
+    
+    <span class="smallText">NEW ON GREATSCHOOLS</span>
+    
+    <a href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Back-to-School Checklist</a>
 
-        <p>Five easy steps to make sure you're ready for the new school year. We'll track your progress and send you a free 1 subject notebook from our partner,
-            <span>Carolina Pad</span> when you're done.</p>
 
-        <a href="#" id="btsChecklistBubbleRemindLater">Remind me later</a>
-        <a href="#">No thanks</a>
-    </div>
+    <p class="text3">Five easy steps to make sure you're ready for the new school year. We'll track your progress and send you a free 1 subject notebook from our partner,
+    <a href="#" id="carolinaPadLink">Carolina Pad</a> when you're done.</p>
+
+    <br/>
+    
+    <a id="getStarted" href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Get started <span class="alertDoubleArrow">&amp;#187;</span></a>
+
+    <br/>
+    
+    <a class="smallText1 btsSmallLink" href="#" id="btsChecklistBubbleRemindLater">Remind me later</a> |
+    <a class="smallText1 btsSmallLink" href="#">No thanks</a>
+</div>
+
     <script type="text/javascript">
         var sitePreferences = subCookie.getObject("site_pref");
 

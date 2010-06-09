@@ -8,7 +8,10 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
+    <jsp:directive.page import="java.util.List"/>
+    <jsp:directive.page import="gs.web.backToSchool.BackToSchoolChecklist"/>
     <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -28,28 +31,134 @@
         <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css"/>
     </head>
 
-    <gsml:body adPageName="backToSchool-checklist-landing">
+    <gsml:body adPageName="backToSchool-checklist-landing" pageLayout="nocol">
 
-        <h2>GreatSchools Back-to-School Checklist</h2>
+        <div id="btsChecklistContainer">
+            <h2 class="btsHead">GreatSchools Back-to-School Checklist</h2>
 
-        <p>With summer in full swing, it's never ti early to stsart planning for the new school year. Since we know how busy you are, we've vreated a list of five simple tasks for you to complete on our site. Once you've completed step 1 of joining GreatSchools, we'll track your progress here as long as you're signed in. Onve you're finished, you'll automatically reveive an email from us with details on how to claim your FREE 1 subject notebook from Carolina Pad.</p>
+            <p>
+                <span>With summer in full swing, it's never ti early to stsart planning for the new school year.</span> Since we know how busy you are, we've vreated a list of five simple tasks for you to complete on our site. Once you've completed step 1 of joining GreatSchools, we'll track your progress here as long as you're signed in. Onve you're finished, you'll automatically reveive an email from us with details on how to claim your
+                <span>FREE</span> <span>1 subject notebook from Carolina Pad.</span></p>
 
-        <div>5 easy steps</div>
+            
+            <span class="subhead3">5 easy steps</span>
+            <span class="subhead3" style="float:right;">${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0} of 5 completed</span>
 
-        <ul>
-            <li>
-            Join GreatSchools for access to our newsletters, parent community and more! Already a member? Sign in.
-            </li>
-            <li>
-                Subscribe to our free "Back-to-School Tip of the Day email series.
+            <br class="clearfloat"/>
+            <table id="btsChecklistTable">
 
-                <form name="btsChecklistForm" method="post" action="#">
-                    
-                    <input type="text" name="email"/>
-                </form>
-            </li>
+                <tr>
+                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_1.gif"/></td>
+                    <td class="btsChecklistCol2">Join GreatSchools for access to our newsletters, parent community and more! Already a member? Sign in.</td>
+                    <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'JOIN'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
+                </tr>
+                <tr>
+                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_2.gif"/></td>
+                    <td class="btsChecklistCol2">Subscribe to our free "Back-to-School Tip of the Day email series.
+                        <c:if test="${!(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'EMAIL_SERIES'))}">
+                            <form id="btsTipOfTheDayForm" name="btsTipOfTheDayForm" method="post" action="#">
+                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_e"/>Elementary School
+                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_m"/>Middle School
+                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_h"/>High School
 
-        </ul>
+                                <br class="clearfloat"/>
+
+                                <label for="email">Email </label>
+                                <c:choose>
+                                    <c:when test="${not empty requestScope.context.user.email}">
+                                        <input type="text" name="email" id="email" value="${requestScope.context.user.email}"
+                                               disabled="true"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="text" name="email" id="email"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <button class="btn25" type="button" name="subscribeBtn" id="subscribeBtn">
+                                        <span class="lftDoor25"><span class="rtDoor25">Subscribe</span></span>
+                                </button>
+                            </form>
+                        </c:if>
+
+                    </td>
+                    <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'EMAIL_SERIES'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
+                </tr>
+                <tr>
+                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_3.gif"/></td>
+                    <td class="btsChecklistCol2">Review one of the following Back-to-School supply lists:
+                        <ul>
+                            <li>All grade levels school supply list to get you started</li>
+                            <li><a href="#"
+                                   class="btsSupplyList">Back to basics: A supply list for elementary school</a></li>
+                            <li><a href="#" class="btsSupplyList">Back to basics: A supply list for middle school</a>
+                            </li>
+                            <li><a href="#" class="btsSupplyList">Back to basics: A supply list for high school</a></li>
+                        </ul>
+                    </td>
+
+                    <td class="btsChecklistCol3"><span
+                             class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'BACK_TO_SCHOOL_SUPPLY_LIST'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_4.gif"/></td>
+                    <td class="btsChecklistCol2">Read <a href="#" id="btsArticle1">Article 1</a></td>
+                    <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE1'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
+                </tr>
+                <tr>
+                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_5.gif"/></td>
+                    <td class="btsChecklistCol2">Read <a href="#" id="btsArticle2">Article 2</a></td>
+                    <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE2'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
+                </tr>
+            </table>
+        </div>
+
+        <script type="text/javascript">
+            jQuery('.btsSupplyList').click(function() {
+                var checklistItem = 'BACK_TO_SCHOOL_SUPPLY_LIST';
+                var params = {};
+                params.checklistItem = checklistItem;
+                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
+                    //callback
+                });
+            });
+
+            jQuery('#btsArticle1').click(function() {
+                var checklistItem = "ARTICLE1";
+                var params = {};
+                params.checklistItem = checklistItem;
+                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
+                    //callback
+                });
+            });
+
+            jQuery('#btsArticle2').click(function() {
+                var checklistItem = "ARTICLE2";
+                var params = {};
+                params.checklistItem = checklistItem;
+                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
+                    //callback
+
+                });
+            });
+
+            jQuery('#subscribeBtn').click(function() {
+                var form = jQuery('#btsTipOfTheDayForm').serialize();
+
+                if (GS.showJoinHover(form.email, window.location.href, GS.showJoinHover(form.email, window.location.href, GSType.hover.joinHover.showBackToSchoolTipOfTheDay, window.location.href))) {
+                    jQuery.post("/backToSchool/backToSchoolTipOfTheDayAjax.page", form, function(data) {
+                        alert(data);
+                    });
+                }
+
+                return false;
+            });
+
+            jQuery('#btsChecklistBubble').hide();
+
+        </script>
 
     </gsml:body>
     </html>

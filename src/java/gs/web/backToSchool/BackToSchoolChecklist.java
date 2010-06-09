@@ -14,7 +14,7 @@ public class BackToSchoolChecklist {
     @Autowired
     private IUserDao _userDao;
 
-    enum BackToSchoolChecklistItem {
+    public enum BackToSchoolChecklistItem {
         JOIN,
         EMAIL_SERIES,
         BACK_TO_SCHOOL_SUPPLY_LIST,
@@ -36,6 +36,10 @@ public class BackToSchoolChecklist {
         List<BackToSchoolChecklistItem> completedItems = getCompletedItems(user);
 
         return (completedItems.containsAll(Arrays.asList(solutionSet)) && hasCompletedEmailSeries(user));
+    }
+
+    public static final int getNumberOfCompletedItems(User user) {
+        return getCompletedItems(user).size();
     }
 
     public static final List<BackToSchoolChecklistItem> getCompletedItems(User user) {

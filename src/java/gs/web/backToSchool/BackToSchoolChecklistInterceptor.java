@@ -17,7 +17,7 @@ public class BackToSchoolChecklistInterceptor extends HandlerInterceptorAdapter 
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
 
-            request.setAttribute("backToSchoolChecklistCompletedItems", BackToSchoolChecklist.getCompletedItems(user));
+            request.setAttribute("backToSchoolChecklistNumberCompleted", BackToSchoolChecklist.getNumberOfCompletedItems(user));
             request.setAttribute("backToSchoolChecklistComplete", BackToSchoolChecklist.hasCompletedChecklist(user));
 
             return true;

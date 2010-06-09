@@ -3,8 +3,10 @@ package gs.web.backToSchool;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
+import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -17,16 +19,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/backToSchool/backToSchoolChecklist.page")
-public class BackToSchoolChecklistController {
+public class BackToSchoolChecklistController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     BackToSchoolChecklist _backToSchoolChecklist;
 
     @RequestMapping(method=RequestMethod.GET)
     public String handleRequestInternal(HttpServletRequest request, Model model) throws Exception {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+
+        if (sessionContext == null) {
+            _log.warn("No SessionContext found in request.");
+            return null;
+        }
+
+        User user = sessionContext.getUser();
+
+        List<BackToSchoolChecklist.BackToSchoolChecklistItem> completedItems = BackToSchoolChecklist.getCompletedItems(user);
+
+        model.addAttribute("backToSchoolChecklistCompletedItems", StringUtils.join(completedItems, ','));
         return "backToSchool/backToSchoolChecklist";
     }
 

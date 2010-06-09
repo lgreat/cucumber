@@ -88,5 +88,4 @@ public class BackToSchoolChecklistTest extends BaseTestCase {
         verify(_userDao);
     }
 
-    
 }

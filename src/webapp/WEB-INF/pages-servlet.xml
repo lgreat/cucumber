@@ -39,7 +39,11 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.api.admin.AuthInterceptor"/>
+                <bean class="gs.web.util.ReadWriteInterceptor"/>
+                <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
+                <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
+                <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
                 <bean class="gs.web.backToSchool.BackToSchoolChecklistInterceptor"/>
             </list>
         </property>

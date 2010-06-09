@@ -5498,3 +5498,73 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     right:0px;
     z-index:100;
 }
+
+#btsChecklistContainer {
+    width:640px;
+    padding:10px;
+}
+
+.btsHead {
+    font: 27px;
+    color: #DD6611;
+}
+
+#btsChecklistContainer p{
+    width:620px;
+}
+
+#btsChecklistContainer .subhead3 {
+    color:#DD6611;
+    float:left;
+}
+
+#btsChecklistTable  {
+    border-top:1px solid #999;
+    margin: 8px 10px 8px 10px;
+}
+
+#btsChecklistTable td {
+    padding-top:8px;
+    padding-bottom:8px;
+}
+
+.btsChecklistCol1 {
+    padding-right:10px;
+}
+
+.btsChecklistCol2 {
+    width: 500px;
+}
+
+.btsChecklistCol3 {
+    width:50px;
+    padding-left:10px;
+}
+
+#btsChecklistContainer .sprite {
+    width:24px;
+    height:21px;    
+}
+
+#btsChecklistContainer .sprite.unchecked {
+    background: url('/res/img/backToSchool/checkbox.gif');
+    repeat-x: no-repeat;
+    repeat-y: no-repeat;
+    background-position:center;
+    width:17px;
+    height:17px;
+}
+
+#btsChecklistContainer .sprite.checked {
+    background: url('/res/img/backToSchool/checkmark.gif');
+}
+
+#carolinaPadLink {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btsSmallLink {
+
+}
+
