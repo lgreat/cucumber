@@ -1836,12 +1836,12 @@ body.ie6 .clearfix {
     overflow: hidden;
 }
 
-#gbgTabs .selected, #fstcasTabs ul li.selected {
+#gbgTabs .selected, #fstcasTabs .selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right top;
     margin-top: -5px;
 }
 
-#gbgTabs .selected .grade-level, #fstcasTabs ul li.selected a {
+#gbgTabs .selected .grade-level, #fstcasTabs .selected .fys-tab-text {
     text-decoration: none;
     color: black;
     background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
@@ -2016,7 +2016,7 @@ body.ie6 .clearfix {
     font: 700 13px Arial, Helvetica, sans-serif;
     color: #0066B8;
 }
-#fstcasTabs ul li.selected a {
+#fstcasTabs .selected .fys-tab-text {
     color: #333;
 }
 #fstcasImages img {
@@ -2730,24 +2730,12 @@ a.ui-dialog-titlebar-close .ui-icon {
     position: relative;
 }
 
-.ui-dialog-content h2 {
-    margin: 25px 0 12px;
-    font: 24px / 1 Georgia, serif;
-    color: #d61;
-    position: relative;
-}
-
 #signInHover .ui-dialog-content h2 {
     width: 508px;
 }
 
 #joinHover {
     position: relative;
-}
-
-#joinHover h2 {
-    overflow: hidden;
-    height: 26px;
 }
 
 #signInHover h2 {
@@ -2761,16 +2749,8 @@ a.ui-dialog-titlebar-close .ui-icon {
     color: #333;
 }
 
-#joinHover.ui-dialog-content h2 span {
-    float: left;
-    display: inline;
-}
-
-#joinHover.ui-dialog-content h2 span.hoverTitle {
-    font: 24px / 1 Georgia, serif;
-    margin: 0 64px 0 0;
-    color: #d61;
-    position: relative;
+#joinHover .hoverTitle span{
+    padding:11px 0 0 65px;
 }
 
 .ui-dialog-content h2 span a {

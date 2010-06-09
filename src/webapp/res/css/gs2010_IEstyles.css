@@ -899,17 +899,17 @@ body.ie6 #es-gbgTabs li, body.ie6 #fstcasTabs ul li {
     margin: 0;
 }
 
-body.ie6 #es-gbgTabs a, body.ie6 #fstcasTabs ul li a {
+body.ie6 #es-gbgTabs a, body.ie6 #fstcasTabs .fys-tab-text {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -34px;
     margin: 0;
 }
 
-body.ie6 #es-gbgTabs .selected, body.ie6 #fstcasTabs ul li.selected {
+body.ie6 #es-gbgTabs .selected, body.ie6 #fstcasTabs .selected {
     background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
     top:5px;
 }
 
-body.ie6 #es-gbgTabs .selected a, body.ie6 #fstcasTabs ul li.selected a {
+body.ie6 #es-gbgTabs .selected a, body.ie6 #fstcasTabs .selected .fys-tab-text {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
     top:5px;
 }

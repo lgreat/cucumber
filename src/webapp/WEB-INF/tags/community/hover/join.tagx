@@ -7,12 +7,12 @@
         >
 
     <div id="joinHover" style="display:none">
-        <h2>
-            <span class="hoverTitle">Speak your mind</span>
-            <span>Already a member?
-                <a href="#" id="lnchSignin" onclick="">Sign in</a>
-            </span>
-        </h2>
+        <div class="hoverTitle">
+        <h2 class="fltlft">Speak your mind</h2>
+        <span class="fltlft">Already a member? <a href="#" id="lnchSignin" onclick="">Sign in</a></span>
+        </div>
+
+        <div class="spacer_25"><!-- do not collapse --></div>
 
         <div class="dialog_intro">
             <div class="introTxt col">

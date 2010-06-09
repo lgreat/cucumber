@@ -18,8 +18,8 @@
 
                 <div id="fstcasTabs">
                     <ul>
-                        <li class="tab selected" id="fstcasByCitiesTab"><a href="#">By City</a></li>
-                        <li class="tab" id="fstcasByStatesTab"><a href="#">By State</a></li>
+                        <li class="tab selected" id="fstcasByCitiesTab"><a class="fys-tab-text" href="#">By City</a></li>
+                        <li class="tab" id="fstcasByStatesTab"><a class="fys-tab-text" href="#">By State</a></li>
                     </ul>
                 </div>
         </div>
