@@ -650,12 +650,12 @@ body.cobranded #pageGS {
     background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
 
-#topnav_search ul #srch1.active label {
+#topnav_search ul #srch1.active .radLabel {
     background-position: 100% -158px;
     color: #333;
 }
 
-#topnav_search ul #srch2.active label {
+#topnav_search ul #srch2.active .radLabel {
     background-position: 100% -158px;
     color: #333;
 }
@@ -718,56 +718,56 @@ body.cobranded #pageGS {
     background: url(/res/img/nav/topnav_btnsSprite_bg.png) 0 0 no-repeat;
 }
 
-#globalnav li#n1 a {
+#n1 .GS_CI9_ {
     width: 114px;
 }
 
-#globalnav li#n1 a:hover, #globalnav li#n1.active a {
+#n1 .GS_CI9_:hover, #n1.active .GS_CI9_ {
     background-position: 0 -34px;
 }
 
-#globalnav li#n2 a {
+#n2 .GS_CI9_ {
     width: 169px;
     background-position: -114px 0;
 }
 
-#globalnav li#n2 a:hover, #globalnav li#n2.active a {
+#n2 .GS_CI9_:hover, #n2.active .GS_CI9_ {
     background-position: -114px -34px;
 }
 
-#globalnav li#n3 a {
+#n3 .GS_CI9_ {
     width: 142px;
     background-position: -283px 0;
 }
 
-#globalnav li#n3 a:hover, #globalnav li#n3.active a {
+#n3 .GS_CI9_:hover, #n3.active .GS_CI9_ {
     background-position: -283px -34px;
 }
 
-#globalnav li#n4 a {
+#n4 .GS_CI9_ {
     width: 208px;
     background-position: -425px 0;
 }
 
-#globalnav li#n4 a:hover, #globalnav li#n4.active a {
+#n4 .GS_CI9_:hover, #n4.active .GS_CI9_ {
     background-position: -425px -34px;
 }
 
-#globalnav li#n5 a {
+#n5 .GS_CI9_ {
     width: 175px;
     background-position: -633px 0;
 }
 
-#globalnav li#n5 a:hover, #globalnav li#n5.active a {
+#n5 .GS_CI9_:hover, #n5.active .GS_CI9_ {
     background-position: -633px -34px;
 }
 
-#globalnav li#n6 a {
+#n6 .GS_CI9_ {
     width: 160px;
     background-position: -808px 0;
 }
 
-#globalnav li#n6 a:hover, #globalnav li#n6.active a {
+#n6 .GS_CI9_:hover, #n6.active .GS_CI9_ {
     background-position: -808px -34px;
 }
 
@@ -840,7 +840,7 @@ body.cobranded #pageGS {
     background-position: 100% -222px;
 }
 
-#topnav_menusubnav li.topnav_subnav_active a {
+#topnav_menusubnav .topnav_subnav_active .GS_CI9_ {
     color: #333;
 }
 
@@ -858,7 +858,7 @@ body.cobranded #pageGS {
     left: 0;
 }
 
-#topnav_menusubnav ul.nav_group_items li {
+#topnav_menusubnav .nav_group_items .nav-group-item {
     float: none;
     display: block;
     text-align: left;
@@ -866,15 +866,15 @@ body.cobranded #pageGS {
     width: auto;
 }
 
-#topnav_menusubnav li.over ul.nav_group_items a {
+#topnav_menusubnav .over .nav_group_items .GS_CI9_ {
     color: #06b;
 }
 
-#topnav_menusubnav li.over ul.nav_group_items li.over a {
+#topnav_menusubnav .over .nav_group_items .over .GS_CI9_ {
     color: #fff;
 }
 
-#topnav_menusubnav ul.nav_group_items li a, #topnav_menusubnav ul.nav_group_items li.over a {
+#topnav_menusubnav .nav_group_items .nav-group-item .GS_CI9_, #topnav_menusubnav .nav_group_items .nav-group-item.over .GS_CI9_ {
     background: none;
 }
 
@@ -901,7 +901,7 @@ body.cobranded #pageGS {
     border-bottom: 1px solid #F1F1F1;
 }
 
-#topnav ul#topnav_menusubnav li a.topnav_subnav_first {
+#topnav_menusubnav li a.topnav_subnav_first {
     color: #D66671;
 }
 
@@ -909,7 +909,7 @@ body.cobranded #pageGS {
     position: relative;
 }
 
-#topnav ul#topnav_menusubnav li, #myAccountMenu li {
+#topnav_menusubnav li, #myAccountMenu li {
     padding-left: 3px;
     float: left;
 }
