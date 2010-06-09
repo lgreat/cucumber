@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.220 2010/06/03 17:34:22 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.221 2010/06/09 00:53:27 aroy Exp $
  */
 
 package gs.web.util;
@@ -156,11 +156,6 @@ public class UrlBuilder {
     public static final VPage USER_PROFILE = new VPage("vpage:userProfile");
     public static final VPage USER_ACCOUNT = new VPage("vpage:userAccount");
     public static final VPage RECENT_ACTIVITY = new VPage("vpage:recentActivity");
-    /**
-     * for the four part tip sheet promo
-     */
-    public static final VPage CHOOSER_REGISTRATION_HOVER = new VPage("vpage:chooserRegistrationHover");
-    public static final VPage CHOOSER_REGISTRATION = new VPage("vpage:chooserRegistration");
 
     /**
      * school profile pages
@@ -1154,13 +1149,6 @@ public class UrlBuilder {
             }
             sb.append("/preschools/");
             _path = sb.toString();
-        } else if (CHOOSER_REGISTRATION_HOVER.equals(page)) {
-            _perlPage = false;
-            _path = "/community/registration/popup/chooserRegistrationHover.page";
-
-        } else if(CHOOSER_REGISTRATION.equals(page)){
-            _perlPage = false;
-            _path = "/community/chooserRegistration.page";
         } else if (API_ADMIN_LOGIN.equals(page)) {
             StringBuilder sb = new StringBuilder();
             _perlPage = false;

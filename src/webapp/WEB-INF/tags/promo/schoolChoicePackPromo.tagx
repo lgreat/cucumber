@@ -27,13 +27,6 @@
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 
-    <community:chooserRegistrationHover/>
-    <script type="text/javascript">
-        function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
-            return chooserRegistrationDialog.prepAndShow(decodeURIComponent(href), emailUrlEncoded);
-        }
-    </script>
-
     <div id="schoolChoicePackPromo" class="mod ${showBorder ?'bordered':''}">
 
         <c:choose>
