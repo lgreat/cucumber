@@ -70,3 +70,11 @@ Also, you need to set reloadable=true in the context descriptor for gsweb.
 This should be in <tomcat_home>\conf\Catalina\localhost\ROOT.xml or <tomcat_home>\conf\Catalina\localhost\gs-web.xml
 
 
+JavaScript/CSS Combining/Minification
+==========================================
+When running on any server name besides "localhost" (or attempting to load perl files locally)
+the standard decorator expects a combined/compressed JS file and a compressed CSS file to be present. 
+These files do not exist in CVS, they are constructed by a special maven target. To construct
+these files, in /GSWeb execute
+mvn minify:minify
+See the maven-minify-plugin section in GSWeb's pom.xml for configuration details.
