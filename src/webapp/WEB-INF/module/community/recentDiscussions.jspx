@@ -138,7 +138,14 @@
                         <c:set var="avatarSize" value="48"/>
                         <c:set var="textSize" value="text3"/>
                         <c:set var="avatar" value="avatar_48"/>
+                        <c:choose>
+                        <c:when test="${showLargeFirstAvatar}">
                         <c:set var="discussionTopic" value="discussionTopic_363"/>
+                        </c:when>
+                        <c:otherwise>
+                        <c:set var="discussionTopic" value="discussionTopic_540"/>
+                        </c:otherwise>
+                        </c:choose>
                         <!--<c:choose>-->
                             <!--<c:when test="${showLargeFirstAvatar}">-->
                                 <!--<c:choose>-->
