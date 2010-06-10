@@ -131,7 +131,7 @@
                                             <td class="dottedLineBottomBox" colspan="2">
                                                 <link:schoolProfileOverview school="${s.school}"
                                                                             title="${s.school.name}"
-                                                                            styleClass="text3 fltlft">${s.school.name}</link:schoolProfileOverview>
+                                                                            styleClass="text3-06b fltlft">${s.school.name}</link:schoolProfileOverview>
 
                                                 <c:choose>
                                                     <c:when test="${levelCode eq 'p'}">

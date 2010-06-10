@@ -136,7 +136,7 @@
                 <div class="mod_bd">
                     <c:forEach var="discussion" items="${requestScope.discussions}" varStatus="status">
                         <c:set var="avatarSize" value="48"/>
-                        <c:set var="textSize" value="text3"/>
+                        <c:set var="textSize" value="text3-06b"/>
                         <c:set var="avatar" value="avatar_48"/>
                         <c:choose>
                         <c:when test="${showLargeFirstAvatar}">

@@ -323,6 +323,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.text3-06b {
+    font: 12px Arial, sans-serif;
+    color: #06b;
+}
+
 .text3bold {
     font: bold 12px/1.3 Arial, Helvetica, sans-serif;
 }

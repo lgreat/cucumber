@@ -116,7 +116,7 @@
                                 <img src="${carouselItem.imageUrl}" height="110" width="96"
                                      alt="${carouselItem.imageAltText}"/>
 
-                                <span class="text3">${carouselItem.linkText}</span>
+                                <span class="text3-06b">${carouselItem.linkText}</span>
                             </a>
                         </li>
                     </c:forEach>
