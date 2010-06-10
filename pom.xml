@@ -267,6 +267,33 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>maven-minify-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
+                    <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
+                    <cssSourceDir>/res/css</cssSourceDir>
+                    <cssSourceFiles>
+                        <param>gs2010_styles.css</param>
+                    </cssSourceFiles>
+                    <cssFinalFile>gs2010_styles.combined.css</cssFinalFile>
+                    <jsSourceDir>/res/js</jsSourceDir>
+                    <jsSourceFiles>
+                        <param>jquery/jquery-1.3.2.min.js</param>
+                        <param>jquery/jquery-ui-1.7.2.min.js</param>
+                        <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js</param>
+                        <param>global.js</param>
+                        <param>topnavpromo.js</param>
+                        <param>topnav.js</param>
+                        <param>hover.js</param>
+                        <param>deferredcontent.js</param>
+                    </jsSourceFiles>
+                    <jsFinalFile>combined.js</jsFinalFile>
+                    <!--<verbose>true</verbose>-->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

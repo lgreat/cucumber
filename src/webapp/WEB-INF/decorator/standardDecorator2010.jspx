@@ -43,13 +43,42 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
 
-
     <c:if test="${!requestScope.pageHelper.adFree}">
         <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
     </c:if>
-    <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER"/>
-    <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+
+    <c:choose>
+        <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost') and empty param.compressedScripts}">
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER"/>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+
+            <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js"/>
+            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js"/>
+            <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js"/>
+            <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
+            <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+
+            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER"/>
+            <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
+        </c:otherwise>
+    </c:choose>
+
     <gsml:url var="gs2010_IEstyles" value="/res/css/gs2010_IEstyles.css?v=$RELEASE_NUMBER"/>
     <![CDATA[
     <!--[if lte IE 8]>
@@ -57,34 +86,11 @@
     <![endif]-->
     ]]>
 
-    <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
-
-    <gsml:url var="jqueryjs" value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
-    <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
-
-    <gsml:url var="jqueryuijs" value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
-    <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
-
-    <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js"/>
-    <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
-    
-    <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
-
-    <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
-
-    <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
-
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
     </c:if>
 
-    <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
-    <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
     <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER"/>
     <![CDATA[
     <!--[if lte IE 6]>
