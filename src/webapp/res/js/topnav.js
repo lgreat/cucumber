@@ -23,11 +23,7 @@ jQuery(document).ready(function() {
 
     /* My Account menu */
 
-    jQuery('#utilLinks > .nav_menu').hover(function() {
-        jQuery(this).addClass('over');
-    }, function() {
-        jQuery(this).removeClass('over');
-    });
+
     /* search tab click functions */
     jQuery('#topnav_search .radLabel').click(function(){
         jQuery(this).parent('li').removeClass('inactive').addClass('active');

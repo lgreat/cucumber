@@ -26,24 +26,26 @@
         </li>
         <li class="nav_menu"><link:userAccount
                 styleClass="nav_group_heading">My account</link:userAccount>
-            <ul class="nav_group_items">
-                <li class="first">
-                    <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
-                </li>
-                <li><link:recentActivity>My recent activity</link:recentActivity></li>
-                <li><link:userProfile
-                        username="${requestScope.context.screenName}">My profile</link:userProfile></li>
-                <li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>
-            </ul>
+            <!--<ul class="nav_group_items">-->
+                <!--<li class="first">-->
+                    <!--<link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>-->
+                <!--</li>-->
+                <!--<li><link:recentActivity>My recent activity</link:recentActivity></li>-->
+                <!--<li><link:userProfile-->
+                        <!--username="${requestScope.context.screenName}">My profile</link:userProfile></li>-->
+                <!--<li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>-->
+            <!--</ul>-->
         </li>
+        <li class="last">
+            <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
+            <!--<link:communityLanding><span-->
+                <!--class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>-->
 
-        <li class="last"><link:communityLanding><span
-                class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding>
 
-            <div class="smallText">
-                <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
-            </div>
         </li>
     </ul>
+    <div id="bts2010ChkLst" class="smallText">
+        <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
+    </div>
     <promo:backToSchoolChecklistBubble/>
 </jsp:root>

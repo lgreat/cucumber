@@ -527,19 +527,6 @@ body.cobranded #pageGS {
     padding: 0;
 }
 
-#utilLinks .nav_menu a.nav_group_heading {
-    padding: 3px 17px 6px 6px;
-    margin: 0;
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 101% -251px;
-
-}
-
-#utilLinks .over a.nav_group_heading {
-    background-position: 101% -294px;
-    background-color: #fff;
-    color: #06b;
-}
-
 #utilLinks li .nav_group_items {
     position: absolute;
     width: 108px;
@@ -839,7 +826,9 @@ body.cobranded #pageGS {
     width: auto;
     padding: 3px 15px 3px 10px;
 }
-
+#topnav_comm .community-sm {
+    margin-bottom: -5px;
+}
 #topnav_menusubnav li.over a.over {
     color: #fff;
     background-position: 100% -222px;
@@ -5551,6 +5540,15 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 
 .btsSmallLink {
 
+}
+#bts2010ChkLst {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+}
+#bts2010ChkLst a {
+    color: #fff;
+    font-size: 10px;
 }
 /* BTS Header Ad */
 #SiteHeader_Promo_220x100 {

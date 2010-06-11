@@ -26,15 +26,17 @@
                                   redirect="${myUrl}">Sign In</link:loginOrRegister></li>
         <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
         <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
-        <li class="last"><link:communityLanding><span
-                class="sprite community-2f85eb-sm"><!-- community icon --></span><strong>&amp;nbsp;Community</strong></link:communityLanding>
+        <li class="last">
+            <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
+            <!--<link:communityLanding><span-->
+                <!--class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>-->
 
-            <div class="smallText">
-                <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
-            </div>
+
         </li>
     </ul>
-
+    <div id="bts2010ChkLst" class="smallText">
+        <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
+    </div>
     <promo:backToSchoolChecklistBubble/>
     
 </jsp:root>
