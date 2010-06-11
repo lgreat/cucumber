@@ -146,6 +146,7 @@
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="kindercare"/>
                 <property name="cookieDomain" value=".greatschools.org"/>
+                <property name="cookieMaxAge" value="-1"/>
             </bean>
         </property>
         <property name="care2PromoCookieGenerator">

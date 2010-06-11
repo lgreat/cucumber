@@ -10,7 +10,7 @@ jQuery(function() {
         jQuery('#kindercareSpinny').hide();
         jQuery('#kindercareLeadGenForm').hide();
         jQuery('#kindercareThankYou').show();
-        subCookie.setObjectProperty('kindercare', kindercareCookieKey, 1, 9001);
+        subCookie.setObjectProperty('kindercare', kindercareCookieKey, 1);
     }
 
     jQuery('#kindercareLeadGenSubmit').click(function() {
