@@ -278,7 +278,7 @@ body.ie6 #topnav_menusubnav li a {
 *html #topnav_search ul #srch1 label,
 *html #topnav_search ul #srch2 label,
 *html #topnav_menusubnav li a {
-    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+    background-image: url(/res/img/nav/topnavSprite_bg_v1_2.gif);
 }
 
 body.ie6 #topnav_search fieldset select, *html #topnav_search fieldset select {

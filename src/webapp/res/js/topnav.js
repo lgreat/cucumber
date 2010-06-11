@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
     /* Subnav menus */
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){
-        jQuery('#qNew').attr('style','width:300px')
+        jQuery('#qNew').attr('style','width:268px')
     }
     jQuery('#topnav_menusubnav > .nav_menu').hover(function() {
         jQuery(this).addClass('over');
