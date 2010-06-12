@@ -2461,7 +2461,6 @@
         <property name="communityTableDao">
             <bean factory-bean="backToSchoolCommunityFactory" factory-method="getTableDao"/>
         </property>
-        <property name="redirect" value="true" />
     </bean>
 
      <bean id="backToSchoolCommunityFactory"

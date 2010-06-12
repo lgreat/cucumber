@@ -28,11 +28,6 @@ public class BackToSchoolHomeController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        if (_redirect) {
-            return new ModelAndView("redirect:/back-to-school-shopping.topic?content=2547", model);
-            //Early exit
-        }
-
         getCommunityTopicsAndLinks(model, request);
         return new ModelAndView(getViewName(), model);
     }
