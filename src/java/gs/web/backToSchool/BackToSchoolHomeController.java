@@ -18,6 +18,7 @@ import gs.web.util.UrlUtil;
  */
 
 public class BackToSchoolHomeController extends AbstractController {
+    public boolean _redirect;
     public String _viewName;
     private ITableDao _communityTableDao;
     public static final String DEV_COMMUNITY = "od6";
@@ -26,6 +27,12 @@ public class BackToSchoolHomeController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
+
+        if (_redirect) {
+            return new ModelAndView("redirect:/back-to-school-shopping.topic?content=2547", model);
+            //Early exit
+        }
+
         getCommunityTopicsAndLinks(model, request);
         return new ModelAndView(getViewName(), model);
     }
@@ -85,5 +92,11 @@ public class BackToSchoolHomeController extends AbstractController {
         _communityTableDao = boilerPlateTableDao;
     }
 
+    public boolean isRedirect() {
+        return _redirect;
+    }
 
+    public void setRedirect(boolean redirect) {
+        _redirect = redirect;
+    }
 }
