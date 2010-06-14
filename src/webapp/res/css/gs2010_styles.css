@@ -822,9 +822,11 @@ body.cobranded #pageGS {
     text-decoration: none;
     display: block;
     height: 18px;
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 100% -198px no-repeat;
     width: auto;
     padding: 3px 15px 3px 10px;
+}
+#topnav_menusubnav a.arrow {
+    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 100% -198px no-repeat;
 }
 #topnav_comm .community-sm {
     margin-bottom: -5px;

@@ -27,7 +27,7 @@
         <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
         <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
         <li class="last">
-            <link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>
+            <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
             <!--<link:communityLanding><span-->
                 <!--class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>-->
 

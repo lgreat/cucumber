@@ -192,7 +192,7 @@
         <ul id="topnav_menusubnav">
             <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')}"><a href="/back-to-school"
                     id="GlobalNav_BackToSchoolButton"
-                    class="arrow nav_group_heading GS_CI9_ "
+                    class="nav_group_heading GS_CI9_ "
                     >Back-to-School Shopping</a>
             </li>
             <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
@@ -278,7 +278,7 @@
                                      <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
             <!--</li>-->
             <li id="topnav_comm" class="nav_menu">
-                <link:communityLanding styleClass="arrow nav_group_heading GS_CI9_ "><span
+                <link:communityLanding styleClass="nav_group_heading GS_CI9_ "><span
                 class="sprite community-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding>
             </li>
             <!--<li id="topnav_sm" class="nav_menu">-->
