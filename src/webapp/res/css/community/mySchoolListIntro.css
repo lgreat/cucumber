@@ -19,7 +19,7 @@
     font-weight: bold;
 }
 
-.contentGS p {
+.description p {
     margin: 0em 0 1.2em 0;
     line-height: 15px;
 }
@@ -30,8 +30,8 @@
 }
 
 .content {
-    float: right;
-    width: 678px;
+    /*float: right;*/
+    /*width: 678px;*/
     margin-top: 15px;
 }
 
@@ -40,9 +40,9 @@
 }
 
 .mslLogin {
-    position: absolute;
-    right: 0;
-    top: 0;
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*top: 0;*/
 }
 
 .contentGS .mslLogin a {
