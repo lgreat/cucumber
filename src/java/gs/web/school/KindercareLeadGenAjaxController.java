@@ -4,6 +4,7 @@ import gs.data.school.IKindercareLeadGenDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.KindercareLeadGen;
 import gs.data.school.School;
+import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -25,7 +26,7 @@ import java.util.Date;
  */
 @org.springframework.stereotype.Controller
 @RequestMapping("/school/kindercareLeadGenAjax.page")
-public class KindercareLeadGenAjaxController {
+public class KindercareLeadGenAjaxController implements ReadWriteAnnotationController {
     // QA URL
 //    public static final String KINDERCARE_SUBMIT_URL =
 //            "http://klc-services-qa.whitehorse.com/klcleadservice/LeadService.asmx/SubmitLead";
