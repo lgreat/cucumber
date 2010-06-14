@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.59 2010/06/11 21:54:37 mwong Exp $
+ * $Id: AdPosition.java,v 1.60 2010/06/14 18:54:26 mwong Exp $
  */
 package gs.web.ads;
 
@@ -74,7 +74,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Badge_100x69 = new AdPosition("Badge_100x69", true);
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
     public static final AdPosition Header_212x96 = new AdPosition("Header_212x96", true);
-    public static final AdPosition SiteHeader_Promo_220x100 = new AdPosition("SiteHeader_Promo_220x100", true);      
+    public static final AdPosition SiteHeader_Promo_220x100 = new AdPosition("SiteHeader_Promo_220x100", true); //GS-10080      
     public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true, Header_728x90);
     public static final AdPosition Header_728x90_B_Test = new AdPosition("Header_728x90_B_Test", true, Header_728x90);
     public static final AdPosition Header_728x90_C_Test = new AdPosition("Header_728x90_C_Test", true, Header_728x90);
@@ -137,6 +137,7 @@ public class AdPosition extends Enum {
     public static final AdPosition TopRatedSponsor_310x40 = new AdPosition("TopRatedSponsor_310x40", true); // GS-9999
     public static final AdPosition Global_NavPromo_968x30 = new AdPosition("Global_NavPromo_968x30", true); // GS-9975
     public static final AdPosition House_Ad_423x230 = new AdPosition("House_Ad_423x230", true); // GS-9920
+    public static final AdPosition Library_Article_Page_Inline_598x50 = new AdPosition("Library_Article_Page_Inline_598x50 ", true); // GS-10041
 
     private boolean _isGAMPosition;
     private String _baseName = null;
