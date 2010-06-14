@@ -5475,39 +5475,71 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     z-index:100;
 }
 
-#btsChecklistContainer {
-    width:640px;
-    padding:10px;
+
+
+#bts2010.mod {
+    padding-top:15px;
+}
+#bts2010.mod h2 {
+    margin-bottom: 10px;
+}
+#bts2010.mod p {
+    margin-bottom: 15px;
+}
+#bts2010.mod p strong em {
+    font-style: normal;
+    color: #d61;
 }
 
-.btsHead {
-    font: 27px;
-    color: #DD6611;
+#btsChecklistTable .sprite {
+    width:24px;
+    height:21px;
+}
+#btsChecklistTable .sprite.unchecked  {
+    background:url(/res/img/backToSchool/checkbox.gif) 3px 4px no-repeat;
 }
 
-#btsChecklistContainer p{
-    width:620px;
+#btsChecklistTable .sprite.checked {
+    background: url(/res/img/backToSchool/checkmark.gif) 0 0 no-repeat;
 }
-
-#btsChecklistContainer .subhead3 {
-    color:#DD6611;
-    float:left;
+#btsCount {
+    float: right;
 }
-
 #btsChecklistTable  {
-    border-top:1px solid #999;
-    margin: 8px 10px 8px 10px;
+    border: solid #999;
+    border-width: 1px 0;
+    margin: 8px 0;
 }
 
 #btsChecklistTable td {
     padding-top:8px;
     padding-bottom:8px;
+    vertical-align: top;
+    border-bottom: 1px dotted #999;
 }
-
+#btsChecklistTable tr.last td {
+    border-bottom: 0;
+}
 .btsChecklistCol1 {
     padding-right:10px;
 }
-
+#btsTipOfTheDayForm ul {
+    overflow: hidden;
+    margin: 6px 0;
+}
+#btsTipOfTheDayForm #email {
+    float: left;
+    width: 232px;
+    margin-right: 8px;
+}
+#btsTipOfTheDayForm .col {
+    margin: 0 20px 0 0;
+    vertical-align: middle;
+    height: 18px;
+}
+#btsTipOfTheDayForm .btsTipOfTheDay {
+    float: left;
+}
 .btsChecklistCol2 {
     width: 500px;
 }
@@ -5517,24 +5549,9 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     padding-left:10px;
 }
 
-#btsChecklistContainer .sprite {
-    width:24px;
-    height:21px;    
+#btsSp3Items {
+    margin: 5px 0 5px 56px;
 }
-
-#btsChecklistContainer .sprite.unchecked {
-    background: url('/res/img/backToSchool/checkbox.gif');
-    repeat-x: no-repeat;
-    repeat-y: no-repeat;
-    background-position:center;
-    width:17px;
-    height:17px;
-}
-
-#btsChecklistContainer .sprite.checked {
-    background: url('/res/img/backToSchool/checkmark.gif');
-}
-
 #carolinaPadLink {
     font-weight: bold;
     text-decoration: none;

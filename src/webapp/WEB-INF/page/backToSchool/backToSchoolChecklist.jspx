@@ -33,23 +33,28 @@
 
     <gsml:body adPageName="backToSchool-checklist-landing" pageLayout="nocol">
 
-        <div id="btsChecklistContainer">
-            <h2 class="btsHead">GreatSchools Back-to-School Checklist</h2>
+        <div id="mainGS" class="col">
+            <div id="bts2010" class="mod">
+            <h2>GreatSchools Back-to-School Checklist</h2>
 
             <p>
-                <span>With summer in full swing, it's never ti early to stsart planning for the new school year.</span> Since we know how busy you are, we've vreated a list of five simple tasks for you to complete on our site. Once you've completed step 1 of joining GreatSchools, we'll track your progress here as long as you're signed in. Onve you're finished, you'll automatically reveive an email from us with details on how to claim your
-                <span>FREE</span> <span>1 subject notebook from Carolina Pad.</span></p>
+                <strong>With summer in full swing, it's never too early to start planning for the new school year.</strong> Since we know how busy you are, we've created a list of five simple tasks for you to complete on our site. Once you've completed step 1 of joining GreatSchools, we'll track your progress here as long as you're signed in. Once you're finished, you'll automatically receive an email from us with details on how to claim your
+                <strong><em>FREE</em> 1 subject notebook from Carolina Pad.</strong></p>
 
             
-            <span class="subhead3">5 easy steps</span>
-            <span class="subhead3" style="float:right;">${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0} of 5 completed</span>
+            <h4 class="subhead2">5 easy steps <span id="btsCount"><span class="sprite big-pencil"><!-- not empty --></span>${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0} of 5 completed</span></h4>
+
 
             <br class="clearfloat"/>
             <table id="btsChecklistTable">
 
                 <tr>
                     <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_1.gif"/></td>
-                    <td class="btsChecklistCol2">Join GreatSchools for access to our newsletters, parent community and more! Already a member? Sign in.</td>
+                    <td class="btsChecklistCol2"><link:registration
+                onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
+                email="${requestScope.context.email}">Join GreatSchools</link:registration> for access to our newsletters, parent community and more! Already a member? <link:loginOrRegister email="${requestScope.context.email}"
+                                  onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
+                                  redirect="${myUrl}">Sign in</link:loginOrRegister>.</td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'JOIN'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
                 <tr>
@@ -57,16 +62,16 @@
                     <td class="btsChecklistCol2">Subscribe to our free "Back-to-School Tip of the Day email series.
                         <c:if test="${!(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'EMAIL_SERIES'))}">
                             <form id="btsTipOfTheDayForm" name="btsTipOfTheDayForm" method="post" action="#">
-                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
-                                       value="btstip_e"/>Elementary School
-                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
-                                       value="btstip_m"/>Middle School
-                                <input name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
-                                       value="btstip_h"/>High School
+                                <ul>
+                                <li class="col"><input id="btsElemS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_e"/><label for="btsElemS">Elementary School</label></li>
+                                <li class="col"><input id="btsMidS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_m"/><label for="btsMidS">Middle School</label></li>
+                                <li class="col"><input id="btsHS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
+                                       value="btstip_h"/><label for="btsHS">High School</label></li>
+                                </ul>
 
-                                <br class="clearfloat"/>
-
-                                <label for="email">Email </label>
+                                <p>
                                 <c:choose>
                                     <c:when test="${not empty requestScope.context.user.email}">
                                         <input type="text" name="email" id="email" value="${requestScope.context.user.email}"
@@ -79,6 +84,7 @@
                                 <button class="btn25" type="button" name="subscribeBtn" id="subscribeBtn">
                                         <span class="lftDoor25"><span class="rtDoor25">Subscribe</span></span>
                                 </button>
+                                </p>
                             </form>
                         </c:if>
 
@@ -88,13 +94,13 @@
                 <tr>
                     <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_3.gif"/></td>
                     <td class="btsChecklistCol2">Review one of the following Back-to-School supply lists:
-                        <ul>
-                            <li>All grade levels school supply list to get you started</li>
+                        <ul id="btsSp3Items">
+                            <li><span class="alertDoubleArrow">&amp;#187;</span> All grade levels school supply list to get you started</li>
                             <li><a href="#"
-                                   class="btsSupplyList">Back to basics: A supply list for elementary school</a></li>
-                            <li><a href="#" class="btsSupplyList">Back to basics: A supply list for middle school</a>
+                                   class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for elementary school</a></li>
+                            <li><a href="#" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for middle school</a>
                             </li>
-                            <li><a href="#" class="btsSupplyList">Back to basics: A supply list for high school</a></li>
+                            <li><a href="#" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for high school</a></li>
                         </ul>
                     </td>
 
@@ -107,12 +113,17 @@
                     <td class="btsChecklistCol2">Read <a href="#" id="btsArticle1">Article 1</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE1'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
-                <tr>
+                <tr class="last">
                     <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_5.gif"/></td>
                     <td class="btsChecklistCol2">Read <a href="#" id="btsArticle2">Article 2</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE2'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
             </table>
+                </div>
+        </div>
+        <div id="sidebarGS" class="col">
+            <!-- ads go below -->
+
         </div>
 
         <script type="text/javascript">
