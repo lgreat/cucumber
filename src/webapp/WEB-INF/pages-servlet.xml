@@ -2455,12 +2455,9 @@
     </bean>
 
     <bean name="/content/backToSchool.page"
-          class="gs.web.backToSchool.BackToSchoolHomeController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/backToSchool/backToSchoolHome"/>
-        <property name="communityTableDao">
-            <bean factory-bean="backToSchoolCommunityFactory" factory-method="getTableDao"/>
-        </property>
+        <property name="redirectPath" value="/back-to-school-shopping.topic?content=2547"/>
     </bean>
 
      <bean id="backToSchoolCommunityFactory"

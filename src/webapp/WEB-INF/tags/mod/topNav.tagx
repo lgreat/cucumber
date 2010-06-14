@@ -190,7 +190,7 @@
     </ul>
 
         <ul id="topnav_menusubnav">
-            <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')}"><a href="/back-to-school"
+            <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')}"><a href="/back-to-school-shopping.topic?content=2547"
                     id="GlobalNav_BackToSchoolButton"
                     class="nav_group_heading GS_CI9_ "
                     >Back-to-School Shopping</a>
