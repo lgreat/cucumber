@@ -25,8 +25,7 @@ public class HttpCacheFilterTest extends BaseControllerTestCase {
         cacheFilter.doFilter(request, response, chain);
 
         // Verify that cache headers were set
-        assertEquals("public; max-age: 3600", response.getHeader(HttpCacheInterceptor.HEADER_CACHE_CONTROL));
-        assertEquals("", response.getHeader(HttpCacheInterceptor.HEADER_PRAGMA));
+        assertEquals("public, max-age=86400", response.getHeader(HttpCacheInterceptor.HEADER_CACHE_CONTROL));
         assertTrue(((Long) response.getHeader(HttpCacheInterceptor.HEADER_EXPIRES)) > 0);
         
         cacheFilter.destroy();
