@@ -20,7 +20,7 @@
 
                 <p>to participate in the parent community and other discussions on our site.</p>
             </div>
-            <img class="stockPhoto col" src="/res/img/discussion_boards/db_jnStock1_ph.jpg" alt="young boy and mother stock photo"/>
+            <img id="joinHover_stockPhoto" class="stockPhoto col" src="/res/img/pixel.gif" alt="young boy and mother stock photo"/>
         </div>
 
         <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">

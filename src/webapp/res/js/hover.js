@@ -118,6 +118,10 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover li.joinHover_btstip').hide();
         //check checkbox for greatnews
         jQuery('#joinHover #opt1').attr('checked', true);
+        var stockPhotoUrl = '/res/img/discussion_boards/db_jnStock1_ph.jpg';
+        if (jQuery('#joinHover_stockPhoto').attr('src') != stockPhotoUrl) {
+            jQuery('#joinHover_stockPhoto').attr('src', stockPhotoUrl);
+        }
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
