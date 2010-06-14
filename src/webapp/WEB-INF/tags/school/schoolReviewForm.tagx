@@ -14,7 +14,6 @@
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
 <pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>
 <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
-<pageHelper:externalJavascript file="/res/js/externalTracking.js"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 

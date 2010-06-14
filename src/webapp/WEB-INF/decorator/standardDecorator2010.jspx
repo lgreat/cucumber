@@ -42,7 +42,7 @@
     <title>
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
-
+    
     <c:if test="${!requestScope.pageHelper.adFree}">
         <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
@@ -61,6 +61,7 @@
             <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="externalTracking" value="/res/js/externalTracking.js"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
@@ -69,6 +70,7 @@
             <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>

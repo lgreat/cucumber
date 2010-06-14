@@ -678,6 +678,9 @@ GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewE
 
 //Base School Review Thank You Hover
 GSType.hover.SchoolReviewThankYou = function() {
+    this.pageName = "";
+    this.hierarchy = "";
+    
     this.loadDialog = function() {
         this.dialogByWidth(640);
     };
@@ -685,8 +688,15 @@ GSType.hover.SchoolReviewThankYou = function() {
         this.setTitle("Thank you for submitting a review");
         this.setBody(this.body());
         jQuery('#schoolReviewThankYou').bind('dialogclose', this.onClose.gs_bind(this));
+        this.sendOmnitureTrackingInfo();
         this.show();
     };
+    this.sendOmnitureTrackingInfo = function() {
+        pageTracking.pageName =  this.getPageName();
+        pageTracking.hierarchy = this.getHierarchy();
+        pageTracking.server = "www.greatschools.org";
+        pageTracking.send();
+    }
     this.onClose = function() {
     };
     //override in specific hovers!
@@ -709,7 +719,13 @@ GSType.hover.SchoolReviewPostedThankYou = function() {
     };
     this.onClose = function() {
         //window.location.reload();
-    }
+    };
+    this.getHierarchy = function() {
+        return "Account,Registration,Existing Member Review Published Hover";
+    };
+    this.getPageName = function() {
+        return "Existing Member Review Published Hover";
+    };
 };
 GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
 
@@ -717,7 +733,13 @@ GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolRevie
 GSType.hover.SchoolReviewNotPostedThankYou = function() {
     this.body = function() {
         return "Please note that it can take up to 48 hours for your review to be posted to our site.";
-    }
+    };
+    this.getHierarchy = function() {
+        return "Account,Registration,Existing Member Review Submitted Hover";
+    };
+    this.getPageName = function() {
+        return "Existing Member Review Submitted Hover";
+    };
 };
 GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
 
@@ -731,9 +753,17 @@ GSType.hover.EmailValidatedSchoolReview = function() {
         GSType.hover.emailValidatedSchoolReview.show();
     };
     this.showPublished = function() {
+        pageTracking.pageName =  "Account Verified Review Published Hover";
+        pageTracking.hierarchy = "Account,Registration,Account Verified Review Published Hover";
+        pageTracking.server = "www.greatschools.org";
+        pageTracking.send();
         GSType.hover.emailValidatedSchoolReview.showHover("Your registration is complete and your review has been published.");
     };
     this.showQueued = function() {
+        pageTracking.pageName =  "Account Verified Review Submitted Hover";
+        pageTracking.hierarchy = "Account,Registration,Account Verified Review Submitted Hover";
+        pageTracking.server = "www.greatschools.org";
+        pageTracking.send();
         GSType.hover.emailValidatedSchoolReview.showHover("Your registration is complete. Please note that it can take up to 48 hours for your review to be posted to our site.");
     };
     this.setBody = function(body) {
@@ -774,8 +804,8 @@ GSType.hover.PrincipalReviewSubmitted = function() {
 
     this.onClose = function() {
         window.location.reload();
-    }
-}
+    };
+};
 GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover");
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
