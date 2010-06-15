@@ -22,10 +22,10 @@
                     username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
         </li>
         <li>
-            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign out</gsml:a>
+            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
         </li>
         <li class="nav_menu"><link:userAccount
-                styleClass="nav_group_heading">My account</link:userAccount>
+                styleClass="nav_group_heading">My Account</link:userAccount>
             <!--<ul class="nav_group_items">-->
                 <!--<li class="first">-->
                     <!--<link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>-->

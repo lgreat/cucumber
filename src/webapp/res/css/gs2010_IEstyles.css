@@ -261,7 +261,7 @@ body.ie6 #grade-by-grade {
     height: 297px;
 }
 
-body.ie6 #utilLinks .nav_menu a.nav_group_heading,
+
 body.ie6 #topnav_search fieldset,
 body.ie6 #topnav_search ul #srch1,
 body.ie6 #topnav_search ul #srch2,
@@ -271,7 +271,7 @@ body.ie6 #topnav_menusubnav li a {
     background-image: url(/res/img/nav/topnavSprite_bg.gif);
 }
 
-*html #utilLinks .nav_menu a.nav_group_heading,
+
 *html #topnav_search fieldset,
 *html #topnav_search ul #srch1,
 *html #topnav_search ul #srch2,
@@ -538,9 +538,7 @@ body.ie6 .lftDoor25 {
 }
 
 
-#utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
-}
+
 
 #utilLinks li.over .nav_group_items {
     left: -25px;
@@ -552,18 +550,14 @@ body.ie7 #utilLinks li,  *+html #utilLinks li {
 body.ie7 #utilLinks li .nav_group_items li, *+html #utilLinks li .nav_group_items li {
     display: block;
 }
-body.ie7 #utilLinks .nav_menu a.nav_group_heading, *+html  #utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
-}
+
 body.ie6 #utilLinks li,  *html #utilLinks li {
     display: inline;
 }
 body.ie6 #utilLinks li .nav_group_items li, *html #utilLinks li .nav_group_items li {
     display: block;
 }
-body.ie6 #utilLinks .nav_menu a.nav_group_heading, *html  #utilLinks .nav_menu a.nav_group_heading {
-    padding: 0 17px 0 6px;
-}
+
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 
