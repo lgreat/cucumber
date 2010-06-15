@@ -98,7 +98,7 @@ public class SchoolReviewEditController extends SimpleFormController implements 
 
             // JIRA GS-9956 when a principal review for a school is enabled, disable any other principal reviews which might already exist for this school
             if ("principal".equals(review.getWho())) {
-                List<Review> reviews = _reviewDao.findPrincipalReviewsBySchool(review.getSchool());
+                List<Review> reviews = _reviewDao.findPublishedPrincipalReviewsBySchool(review.getSchool());
 
                 if (reviews != null && reviews.size() > 0) {
                     for (Review oldReview : reviews){

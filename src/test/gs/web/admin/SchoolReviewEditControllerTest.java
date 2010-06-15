@@ -104,7 +104,7 @@ public class SchoolReviewEditControllerTest extends BaseControllerTestCase {
         reviews.add(oldReview1);
         reviews.add(oldReview2);
 
-        expect(_reviewDao.findPrincipalReviewsBySchool(isA(School.class))).andReturn(reviews);
+        expect(_reviewDao.findPublishedPrincipalReviewsBySchool(isA(School.class))).andReturn(reviews);
         _reviewDao.saveReview(eq(oldReview1));
         _reviewDao.saveReview(eq(oldReview2));
         _reviewDao.saveReview(eq(review));
