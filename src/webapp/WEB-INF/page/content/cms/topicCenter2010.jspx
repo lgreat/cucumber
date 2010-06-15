@@ -110,7 +110,6 @@
             <!-- end logoAd -->
 
             <div class="spacer_5"><!--do not collapse--></div>
-            <gsweb:adTagGenerator position="Library_Article_Page_Inline_598x50"/>
             <c:set var="showFeatureGroups" value="false"/>
             <c:if test="${not empty topicCenter.featureGroups}">
                 <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
@@ -175,6 +174,7 @@
             </div>
 
     </div>
+            <gsweb:adTagGenerator position="Inline_598x50"/>
     <!-- end #featured -->
     <div class="spacer_15"><!-- don't collapse --></div>
     <!-- Subtopics -->
