@@ -4280,6 +4280,7 @@ additional icons on the sprite.
 1) Viewport: the defined width and height of each icon
 */
 
+/* column 1 */
 .sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2010-06-15.png);
@@ -4355,6 +4356,13 @@ additional icons on the sprite.
     background-position: 0 -200px;
 }
 
+.close1{
+    width:11px;
+    height:11px;
+    background-position: 0 -220px;
+}
+
+/* column 2 */
 .twitter {
     width: 16px;
     height: 16px;
@@ -4415,6 +4423,19 @@ additional icons on the sprite.
     background-position: -20px -180px;
 }
 
+.twitter-x19 {
+    width: 19px;
+    height: 19px;
+    background-position: -20px -200px;
+}
+
+.facebook-x19 {
+    width: 19px;
+    height: 19px;
+    background-position: -20px -220px;
+}
+
+/* column 3 */
 .community {
     width: 33px;
     height: 20px;
@@ -4445,6 +4466,49 @@ additional icons on the sprite.
     background-position: -40px -80px;
 }
 
+.add {
+    width: 10px;
+    height: 10px;
+    background-position: -40px -100;
+}
+
+.rate {
+    width: 13px;
+    height: 12px;
+    background-position: -40px -120;
+}
+
+.subscribe {
+    width: 11px;
+    height: 13px;
+    background-position: -40px -140;
+}
+
+.compare {
+    width: 12px;
+    height: 14px;
+    background-position: -40px -160;
+}
+
+.print {
+    width: 15px;
+    height: 11px;
+    background-position: -40px -180;
+}
+
+.send {
+    width: 11px;
+    height: 8px;
+    background-position: -40px -200;
+}
+
+.close2 {
+    width: 11px;
+    height: 11px;
+    background-position: -40px -220;
+}
+
+/* column 4 */
 .community-fc6-lg {
     width: 50px;
     height: 41px;
