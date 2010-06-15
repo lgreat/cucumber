@@ -447,7 +447,7 @@ h4.subhead2 a {
     clear: right;
 }
 
-/* =2- ads
+/* =2 ads
 -------------------------------------------------------------------------------------------*/
 
 .gsAd, #adLeaderboard {
@@ -467,6 +467,9 @@ h4.subhead2 a {
 #adLeaderboard table td.ad {
     text-align: left;
     vertical-align: top;
+}
+#Inline_598x50 {
+    margin: 0 0 15px;
 }
 
 #pageGS {
