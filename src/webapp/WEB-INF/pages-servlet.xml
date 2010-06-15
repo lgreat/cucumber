@@ -2455,9 +2455,11 @@
     </bean>
 
     <bean name="/content/backToSchool.page"
-          class="gs.web.util.Redirect301Controller"
+          class="gs.web.content.cms.CmsTopicCenterController2010"
           autowire="byName" lazy-init="true">
-        <property name="redirectPath" value="/back-to-school-shopping.topic?content=2547"/>
+        <property name="viewName" value="/content/cms/topicCenter2010"/>
+        <property name="useAdKeywords" value="true"/>
+        <property name="topicCenterContentID" value="2547"/>
     </bean>
 
      <bean id="backToSchoolCommunityFactory"
