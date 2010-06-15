@@ -1008,12 +1008,12 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-05-27.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-06-14.gif);
 }
 
 body.ie6 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-05-27.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-06-14.gif);
 }
 
 /* =9 buttons
