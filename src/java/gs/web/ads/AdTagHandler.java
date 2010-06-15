@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.29 2010/05/27 23:25:58 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.30 2010/06/15 20:52:04 mwong Exp $
  */
 package gs.web.ads;
 
@@ -91,6 +91,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 if (slotName != "Global_Nav_Promo_865x24"
                         && slotName != "Global_Nav_Promo_952x24"
                         && slotName != "Global_NavPromo_968x30"
+                        && slotName != "SiteHeader_Promo_220x100"
                         && StringUtils.isNotBlank(slotPrefix)) {
                     slotName = slotPrefix + slotName ;
                 }
