@@ -176,7 +176,7 @@
     </div>
     <!-- end #featured -->
     <div class="spacer_15"><!-- don't collapse --></div>
-        <gsweb:adTagGenerator position="Inline_598x50"/>
+    <gsweb:adTagGenerator position="Inline_598x50"/>
     <!-- Subtopics -->
     <div id="topicContentGS" class="clearfix">
 
