@@ -298,7 +298,7 @@
                         <c:if test="${not empty discussion.discussionBoard}">
                             in
                             <span class="smallText1">
-                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                <link:cmsContent contentKey="${discussion.discussionBoard.contentKey}"
                                                  fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
                             </span>
                         </c:if>
