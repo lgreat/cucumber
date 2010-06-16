@@ -40,13 +40,15 @@
                     <a href="http://www.facebook.com/greatschools"
                        title="Facebook" target="_blank"
                        onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;">
-                        <span class="sprite facebook-x19"><!-- do not collapse --></span> Facebook
+                        <img width="19" height="19" src="/res/img/nav/facebook_19px.png"
+                             alt="Facebook" class="facebook"/> Facebook
                     </a>
                     and
                     <a href="http://twitter.com/greatschools"
                        title="Twitter" target="_blank"
                        onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;">
-                        <span class="sprite twitter-x19"><!-- do not collapse --></span> Twitter
+                        <img width="19" height="19" src="/res/img/nav/twitter_19px.png"
+                             alt="Twitter" class="twitter"/> Twitter
                     </a>
                 </h3>
             </td></tr>

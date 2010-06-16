@@ -4469,43 +4469,43 @@ additional icons on the sprite.
 .add {
     width: 10px;
     height: 10px;
-    background-position: -40px -100;
+    background-position: -40px -100px;
 }
 
 .rate {
     width: 13px;
     height: 12px;
-    background-position: -40px -120;
+    background-position: -40px -120px;
 }
 
 .subscribe {
     width: 11px;
     height: 13px;
-    background-position: -40px -140;
+    background-position: -40px -140px;
 }
 
 .compare {
     width: 12px;
     height: 14px;
-    background-position: -40px -160;
+    background-position: -40px -160px;
 }
 
 .print {
     width: 15px;
     height: 11px;
-    background-position: -40px -180;
+    background-position: -40px -180px;
 }
 
 .send {
     width: 11px;
     height: 8px;
-    background-position: -40px -200;
+    background-position: -40px -200px;
 }
 
 .close2 {
     width: 11px;
     height: 11px;
-    background-position: -40px -220;
+    background-position: -40px -220px;
 }
 
 /* column 4 */

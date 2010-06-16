@@ -284,8 +284,8 @@
             <!--<li id="topnav_sm" class="nav_menu">-->
                 <!--<p class="socialMedia">-->
                     <!--Find us on:-->
-                    <!--<a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><span class="sprite facebook-x19">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
-                    <!--<a href="http://twitter.com/greatschools" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><span class="sprite twitter-x19">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <!--<a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><img src="/res/img/nav/facebook_19px.png" width="19" height="19" alt="Facebook" class="fb"/></a>-->
+                    <!--<a href="http://twitter.com/greatschools" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><img src="/res/img/nav/twitter_19px.png" width="19" height="19" alt="Twitter" class="tweet"/></a>-->
                 <!--</p>-->
             <!--</li>-->
         </ul>
