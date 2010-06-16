@@ -1002,7 +1002,8 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-06-15.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-06-16.gif);
+    background-image: url(/res/img/sprites/iconSprite_2010-06-16.gif);
 }
 
 body.ie6 .sprite {
@@ -1059,7 +1060,9 @@ body.ie7 .outline3, body.ie6 .outline3 {
 body.ie7 #dcNCLB_school .mod_hd h3 {
     height: auto;
 }
-
+body.ie7 #btsCount .pencil_bg {
+    top: 3px;
+}
 #realtorDotCom p input.rdType {
     top: 0;
 }
@@ -1086,4 +1089,8 @@ body.ie7 #dcNCLB_school .mod_hd h3 {
 
 *+html #realtorDotCom.rdc_short input#rdcCity {
     top: 4px;
+}
+
+body.ie6 #btsCount .pencil_bg {
+    top: 3px;
 }

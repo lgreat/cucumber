@@ -42,7 +42,7 @@
                 <strong><em>FREE</em> 1 subject notebook from Carolina Pad.</strong></p>
 
             
-            <h4 class="subhead2">5 easy steps <span id="btsCount"><span class="sprite big-pencil"><!-- not empty --></span>${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0} of 5 completed</span></h4>
+            <h4 class="subhead2">5 easy steps <span id="btsCount"><span class="sprite pencil_bg"><!-- not empty --></span>${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0} of 5 completed</span></h4>
 
 
             <br class="clearfloat"/>
