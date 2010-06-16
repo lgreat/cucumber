@@ -144,7 +144,7 @@
         <link:mySchoolList school="${school}" styleClass="addImg toolsImg"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
         <link:mySchoolList school="${school}" styleClass="add toolsTxt">Add to My School List</link:mySchoolList>
 
-        <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+        <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
 
         <link:schoolProfileAddParentReview
                 school="${school}"
@@ -206,13 +206,13 @@
                 <link:schoolProfileParentReview
                         school="${school}"
                         styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
-                    &amp;#160;
+                    &amp;nbsp;
                 </link:schoolProfileParentReview>
             </c:when>
             <c:otherwise>
                 <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
                 <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
-                    &amp;#160;
+                    &amp;nbsp;
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
@@ -300,11 +300,11 @@
     <div id="subnav">
         <c:if test="${!requestScope.context.crawler}">
         <ul>
-            <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
+            <li><a href="javascript:window.print();" title="">Print</a>&amp;nbsp;|&amp;nbsp;</li>
             <!-- pipe characters used as opposed to li borders, as per client request -->
             <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
             <li><gsml:a href="${mailToFriendUrl}"
-                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;</li>
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;nbsp;|&amp;nbsp;</li>
             <li><a href="javascript:openDelicious()"
                    onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
         </ul>
@@ -323,7 +323,7 @@
 
     <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
         <div class="breadcrumb">
-            <span class="hr">&amp;#160;</span>
+            <span class="hr">&amp;nbsp;</span>
             <h2>
                 <link:research state="${state}">${state.longName} schools</link:research>
                 ${delimiter}

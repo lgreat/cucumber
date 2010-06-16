@@ -204,60 +204,79 @@
     <c:if test="${!requestScope.context.crawler}">
         <div id="tools">
             <div id="topTools">
-                <link:mySchoolList school="${school}" styleClass="addImg toolsImg"
-                                   anchor="${headerLinkAnchor}"><gsml:img
-                        src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+                <!--<link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}">
+                    <gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/>
+                </link:mySchoolList>
                 <link:mySchoolList school="${school}" styleClass="add toolsTxt"
-                                   anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                                   anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
+                 <link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">
+                     <span class="sprite add"><!-- do not collapse --></span> Add to My School List</link:mySchoolList>
 
-                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
 
-                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
+                <!--<link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
                                                 styleClass="rateImg toolsImg no_interrupt"><gsml:img
                         src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileParentReview>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
-                                                styleClass="rate toolsTxt no_interrupt">Rate it!</link:schoolProfileParentReview>
-                
+                                                styleClass="rate toolsTxt no_interrupt">Rate it!</link:schoolProfileParentReview>-->
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">
+                    <span class="sprite rate"><!-- do not collapse --></span> Rate it!</link:schoolProfileParentReview>
+                <br/>
 
                 <c:choose>
                     <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
-                        <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
+                        <!--<link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
-                                                   styleClass="emailImg toolsImg"><gsml:img
+                                                   styleClass="emailImg toolsImg">
+                            <gsml:img
                                 src="/res/img/school/overview/7970_b/update_email.gif"
                                 alt="Send me updates about this school"/></link:newsletterManagement>
                         <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
-                                                   styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>
+                                                   styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>-->
+                        <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
+                                                   onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+                            <span class="sprite subscribe"><!-- do not collapse --></span> Send me updates about this school
+                                                   </link:newsletterManagement>
                     </c:when>
                     <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
-                        <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                        <!--<link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
                                                    styleClass="emailImg toolsImg"><gsml:img
                                        src="/res/img/school/overview/7970_b/update_email.gif"
                                        alt="Send me grade-by-grade updates"/></link:newsletterManagement>
                         <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
-                                                   styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
+                                                   styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>-->
+                        <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);">
+                            <span class="sprite subscribe"><!-- do not collapse --></span> Send me grade-by-grade updates
+                        </link:newsletterManagement>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
                             <c:when test="${school.levelCode == 'p'}">
                                 <!-- TODO: auto-check PK in join hover -->
-                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                <!--<link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
                                                            autocheck="mypk"
                                                            styleClass="emailImg toolsImg"><gsml:img
                                         src="/res/img/school/overview/7970_b/update_email.gif"
                                         alt="Send me grade-by-grade updates"/></link:newsletterManagement>
                                 <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
                                                            autocheck="mypk"
-                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
+                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>-->
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                                           autocheck="mypk">
+                                    <span class="sprite subscribe"><!-- do not collapse --></span> Send me grade-by-grade updates
+                                                           </link:newsletterManagement>
                             </c:when>
                             <c:otherwise>
-                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
+                                <!--<link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
                                                            styleClass="emailImg toolsImg"><gsml:img
                                         src="/res/img/school/overview/7970_b/update_email.gif"
                                         alt="Send me grade-by-grade updates"/></link:newsletterManagement>
                                 <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);"
-                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>
+                                                           styleClass="email toolsTxt">Send me grade-by-grade updates</link:newsletterManagement>-->
+                                <link:newsletterManagement onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinTrackGrade);">
+                                    <span class="sprite subscribe"><!-- do not collapse --></span> Send me grade-by-grade updates
+                                </link:newsletterManagement>
                             </c:otherwise>
                         </c:choose>
                     </c:otherwise>
@@ -265,29 +284,39 @@
             </div>
             <div id="bottomTools">
                 <c:if test="${school.levelCode != 'p'}">
-                    <link:schoolCompareSchool school="${school}" from="header"
+                    <!--<link:schoolCompareSchool school="${school}" from="header"
                                               styleClass="compareImg toolsImg"><gsml:img
                             src="/res/img/school/tools_compare.gif"
                             alt="Compare this school"/></link:schoolCompareSchool>
                     <link:schoolCompareSchool school="${school}" from="header"
-                                              styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+                                              styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>-->
+                    <link:schoolCompareSchool school="${school}" from="header">
+                        <span class="sprite compare"><!-- do not collapse --></span> Compare this school
+                    </link:schoolCompareSchool>
 
-                    <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                    &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
                 </c:if>
                 
-                <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
+                <!--<gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
                           alt="Print this page"
                           onclick="javascript:window.print();"/>
-                <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
+                <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>-->
+                <a href="javascript:window.print();" title="">
+                    <span class="sprite print"><!-- do not collapse --></span> Print
+                </a>
 
-                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
                 <gsml:url var="mailToFriendUrl"
                           value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
-                <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
+                <!--<gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
                           alt="Email this page to a friend"
                           onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"/>
                 <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
-                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>-->
+                <gsml:a href="${mailToFriendUrl}"
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
+                    <span class="sprite send"><!-- do not collapse --></span> Email
+                </gsml:a>
             </div>
 
         </div>
@@ -300,7 +329,7 @@
                                title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
             </li>
             <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                           title="${city} schools">${city} schools</link:city>&amp;#160;
+                           title="${city} schools">${city} schools</link:city>&amp;nbsp;
             </li>
             <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                 <li>&amp;gt; <link:districtHome district="${school.district}"
@@ -353,14 +382,14 @@
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
                                                 styleClass="parent_rating parent_${parent_rating} no_interrupt"
                                                 title="${parent_rating_title}">
-                    &amp;#160;
+                    &amp;nbsp;
                 </link:schoolProfileParentReview>
             </c:when>
             <c:otherwise>
                 <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
                 <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}"
                                                 title="${parent_rating_title}" anchor="${headerLinkAnchor}">
-                    &amp;#160;
+                    &amp;nbsp;
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
@@ -480,12 +509,12 @@
 <div id="subnav" class="${subNavClass}">
     <c:if test="${!requestScope.context.crawler}">
         <ul>
-            <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
+            <li><a href="javascript:window.print();" title="">Print</a>&amp;nbsp;|&amp;nbsp;</li>
             <!-- pipe characters used as opposed to li borders, as per client request -->
             <gsml:url var="mailToFriendUrl"
                       value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
             <li><gsml:a href="${mailToFriendUrl}"
-                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;nbsp;|&amp;nbsp;
             </li>
             <li><a href="javascript:openDelicious()"
                    onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a>
@@ -508,7 +537,7 @@
 
 <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
     <div class="breadcrumb">
-        <span class="hr">&amp;#160;</span>
+        <span class="hr">&amp;nbsp;</span>
 
         <h2>
             <link:research state="${state}">${state.longName} schools</link:research>

@@ -1,11 +1,16 @@
 /* ab test */
-#tools .print, #tools .emailFriend {
+/*#tools .print,*/
+#tools .emailFriend {
     padding: 10px 0 2px 0px;
     _padding-bottom: 0;
 }
 
 #tools {
     width:270px;
+}
+
+#tools a{
+    line-height:2.0;
 }
 
 #tools div#topTools{
