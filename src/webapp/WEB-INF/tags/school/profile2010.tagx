@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+<jsp:directive.tag body-content="scriptless"/>
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+
+<c:set var="state" value="${school.databaseState}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="schoolId" value="${school.id}"/>
+<c:set var="headerLinkAnchor" value="from..HeaderLink"/>
+
+<style type="text/css">
+    #schoolProfile2010 {
+        margin: 10px 15px 0 20px;
+    }
+
+    /* breadcrumbs */
+    #breadcrumbs {
+        font: 11px Arial, Arial, sans-serif;
+        padding-right: 50px;
+    }
+    #breadcrumbs ul li {
+        color: #888;
+        list-style: none;
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+    #breadcrumbs ul li a {
+        text-decoration: underline;
+        color: #888;
+    }
+
+    #schoolProfileHeader {
+        position: relative;
+    }
+
+    /* tool links */
+    #schoolToolLinks {
+        font-size: 12px;
+    }
+    #schoolToolLinks span {
+        margin-right: 10px;
+    }
+    #schoolToolLinks img, #schoolToolLinks span.sprite {
+        margin-right: 3px;
+    }
+
+    /* School info */
+    #schoolInfo {
+        position: absolute;
+        right: 0;
+        top: 25px;
+    }
+    #schoolInfoLeftColumn {
+        float: left;
+        margin-right: 25px;
+    }
+    #schoolInfoRightColumn {
+        float: left;
+    }
+    #schoolInfo label {
+        float: left;
+        width: 50px;
+        margin-right: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    /* columns */
+    #schoolProfileLeftColumn {
+        float: left;
+        width: 612px;
+    }
+    #schoolProfileRightColumn {
+        float: right;
+        width: 300px;
+    }
+
+    #schoolProfileBody {
+        margin-top: 15px;
+    }
+    /* Tabs */
+    #schoolProfileTabs {
+        list-style: none outside none;
+    }
+    #schoolProfileTabs li {
+        float: left;
+        text-align: center;
+        border-top: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        padding: 5px 15px;
+    }
+    #sptab1 {
+        border-left: 1px solid #ccc;
+    }
+    #schoolProfileTabs li.inactive {
+        background-color: #EBEBEB;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #schoolProfileContentsWrapper {
+        border: 1px solid #ccc;
+        position: relative;
+        top: -1px;
+        clear: left;
+    }
+    #bodyContents {
+        padding: 11px 16px 11px 12px;
+    }
+</style>
+
+<school:hovers school="${school}" tab="${tab}"/>
+
+<div id="schoolProfile2010" class="${(tab eq 'overview')? 'overview' : ''}">
+
+    <div id="schoolProfileHeader">
+        <div id="breadcrumbs">
+            <!-- TODO: Fill in URL -->
+            <div class="fltrt">Notice an inaccuracy? <a href="#">Let us know!</a></div>
+            <ul>
+                <li><link:home>Home</link:home> &amp;gt; </li>
+                <li><link:research state="${state}"
+                                   title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
+                </li>
+                <li><link:city city="${city}" state="${school.physicalAddress.state}"
+                               title="${city} schools">${city} <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
+                </li>
+                <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                    <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                       title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
+                    </li>
+                </c:if>
+                <c:if test="${school.levelCode == 'p'}">
+                    <li>&amp;gt; <link:schools cityName="${city}" levelCode="p">${city} preschools</link:schools></li>
+                </c:if>
+            </ul>
+        </div>
+        <!-- end: breadcrumbs -->
+
+        <!-- School name -->
+        <div id="schoolName">
+            <h1>${school.name}</h1>
+        </div>
+        <!-- End School name -->
+
+        <div id="schoolTypeInfo">
+            <!-- School Type -->
+            <c:if test="${school.levelCode != 'p'}">
+                ${gsweb:capitalize(school.type.schoolTypeName)} |
+            </c:if>
+            <!-- Grade levels -->
+            ${school.gradeLevels}
+            <!-- Enrollment -->
+            <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+            <c:choose>
+                <c:when test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                    | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'Student')}
+                </c:when>
+            </c:choose>
+        </div>
+
+        <div id="schoolToolLinks">
+            <span>
+                <img alt="Add to My School List" src="/res/img/school/tools_th_add.gif"/>
+                <link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+            </span>
+            <span>
+                <img alt="Rate and Review" src="/res/img/school/tools_th_rate.gif"/>
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; Review</link:schoolProfileParentReview>
+            </span>
+            <span>
+                <img src="/res/img/school/overview/7970_b/print.gif" alt="Print this page"/>
+                <a href="javascript:window.print();">Print</a>
+            </span>
+            <span>
+                <gsml:url var="mailToFriendUrl"
+                          value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
+                <img src="/res/img/school/tools_th_email.gif" alt="Email this page to a friend"/>
+                <a href="${mailToFriendUrl}"
+                        onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</a>
+            </span>
+            <span>
+                <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+            </span>
+        </div>
+
+        <div id="schoolInfo">
+            <c:if test="${not empty school.phone or not empty school.fax or not empty school.webSite}">
+                <div id="schoolInfoLeftColumn">
+                    <c:if test="${not empty school.phone}">
+                        <div><label>Phone:</label> ${school.phone}</div>
+                    </c:if>
+                    <c:if test="${not empty school.fax}">
+                        <div><label>Fax:</label> ${school.fax}</div>
+                    </c:if>
+                    <!-- TODO: Hours? -->
+                    <c:if test="${not empty school.webSite}">
+                        <div>
+                            <c:choose>
+                                <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
+                                    <a href="${school.webSite}" target="_blank">School Website</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="http://${school.webSite}" target="_blank">School Website</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </c:if>
+                </div>
+            </c:if>
+            <div id="schoolInfoRightColumn">
+                <address class="adr">
+                    <div class="street-address">${school.physicalAddress.street}</div>
+                    <div>
+                        <span class="locality">${school.physicalAddress.city}</span>,
+                        <span class="region">${school.physicalAddress.state.abbreviation} </span>
+                        <span class="postal-code">${school.physicalAddress.zip}</span>
+                    </div>
+                    <div>
+                        <c:if test="${not empty(school.county)}">
+                            <c:choose>
+                                <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
+                                <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
+                                <c:otherwise>${school.county} County</c:otherwise>
+                            </c:choose>
+                        </c:if>
+                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                            <c:if test="${not empty(school.county)}"> | </c:if>
+                            <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
+                        </c:if>
+                    </div>
+                </address>
+                <c:if test="${school.districtId gt 0 and school.levelCode ne 'p'}">
+                    <div>
+                        <link:districtHome district="${school.district}"
+                                           title="District information"><c:out value="${school.district.name}"
+                                                                               escapeXml="true"/></link:districtHome>
+                    </div>
+                </c:if>
+            </div>
+
+        </div>
+    </div>
+    <!-- end schoolProfileHeader -->
+
+    <div id="schoolProfileBody">
+        <div id="schoolProfileLeftColumn">
+            <div id="schoolProfileTabsWrapper">
+                <ul id="schoolProfileTabs">
+                    <li id="sptab1" class="${(tab eq 'overview')?'active':'inactive'}">
+                        <c:choose>
+                            <c:when test="${tab eq 'overview'}">Overview</c:when>
+                            <c:otherwise>
+                                <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li id="sptab2" class="${(tab eq 'reviews')?'active':'inactive'}">
+                        <c:choose>
+                            <c:when test="${tab eq 'reviews'}">Reviews</c:when>
+                            <c:otherwise>
+                                <link:schoolProfileParentReview school="${school}" anchor="${headerLinkAnchor}">Reviews</link:schoolProfileParentReview>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li id="sptab3" class="${(tab eq 'schoolStats')?'active':'inactive'}">
+                        <c:choose>
+                            <c:when test="${tab eq 'schoolStats'}">School Stats</c:when>
+                            <c:otherwise>
+                                <a href="#${headerLinkAnchor}" onclick="return false;">School Stats</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li id="sptab4" class="${(tab eq 'schoolMap')?'active':'inactive'}">
+                        <c:choose>
+                            <c:when test="${tab eq 'schoolMap'}">Map this School</c:when>
+                            <c:otherwise>
+                                <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map this School</link:mapSchool>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                </ul>
+            </div>
+            <!-- end schoolProfileTabsWrapper -->
+            <div id="schoolProfileContentsWrapper">
+                <div id="bodyContents">
+                    <jsp:doBody/>
+                </div>
+            </div>
+        </div>
+        <!-- end schoolProfileLeftColumn -->
+
+        <div id="schoolProfileRightColumn">
+            Right Column
+        </div>
+        <!-- end schoolProfileRightColumn -->
+
+        <br class="clearfloat"/>
+    </div>
+    <!-- end schoolProfileBody -->
+
+</div>
+<!-- end schoolProfile2010 -->
+</jsp:root>
