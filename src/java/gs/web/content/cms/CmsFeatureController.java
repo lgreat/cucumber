@@ -216,6 +216,8 @@ public class CmsFeatureController extends AbstractController {
             builder = new UrlBuilder(new ContentKey("TopicCenter",1539L));
         } else if (contentId == 1192L) {
             builder = new UrlBuilder(new ContentKey("ArticleSlideshow",2402L));
+        } else if (contentId == 2422L) { // GS-10148
+            builder = new UrlBuilder(new ContentKey("Article", 338L));
         }
 
         return builder;
