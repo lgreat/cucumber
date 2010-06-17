@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.92 2010/05/25 01:17:14 aroy Exp $
+ * $Id: SchoolsController.java,v 1.93 2010/06/17 00:20:16 yfan Exp $
  */
 
 package gs.web.school;
@@ -227,10 +227,11 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             paramSchoolType = fields.getSchoolTypesParams();
         }
 
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
         if (paramSchoolType != null) {
             model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
             for (String schoolType : paramSchoolType) {
-                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
                 if (pageHelper != null) {
                     pageHelper.addAdKeywordMulti("type", schoolType);
                 }
@@ -322,6 +323,11 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 model.put("title", "District not found");
 
                 return new ModelAndView("status/error", model);
+            }
+
+            if (pageHelper != null) {
+                pageHelper.addAdKeyword("district_name", district.getName());
+                pageHelper.addAdKeyword("district_id", district.getId().toString());
             }
 
             model.put(MODEL_DISTRICT, district.getId().toString());
