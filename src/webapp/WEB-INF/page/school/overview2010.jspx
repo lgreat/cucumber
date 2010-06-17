@@ -44,6 +44,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <gsml:body adPageName="overview" pageLayout="nocol">
         <school:profile2010 school="${school}" tab="overview">
 
+            <h2>School Summary</h2>
+
+            <content:ratingsSummary school="${school}"/>
+
+            <h5>Parent Reviews &amp; ratings</h5>
+
+            <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}" />
 
         </school:profile2010>
         

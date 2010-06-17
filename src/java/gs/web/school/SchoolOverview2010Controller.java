@@ -4,6 +4,7 @@ import gs.data.community.Subscription;
 import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.SitePrefCookie;
@@ -61,6 +62,8 @@ public class SchoolOverview2010Controller extends
 
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
             model.put("reviews", reviews);
+            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            model.put("ratings", ratings);
 
             //_schoolProfileHeaderHelper.updateModel(model);
 
