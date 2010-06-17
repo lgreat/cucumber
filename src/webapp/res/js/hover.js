@@ -136,7 +136,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
     };
     this.setTitle = function(title) {
-        jQuery('#joinHover h2 span.hoverTitle').html(title);
+        jQuery('#joinHover div.hoverTitle h2').html(title);
     };
     this.setSubTitle = function(subTitle, subTitleText) {
         jQuery('#joinHover .introTxt h3').html(subTitle);
