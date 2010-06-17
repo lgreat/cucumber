@@ -50,7 +50,11 @@
 
     /* tool links */
     #schoolToolLinks {
+        width: 500px;
         font-size: 12px;
+        margin-top: 5px;
+        padding-top: 3px;
+        border-top: 1px dotted #ccc;
     }
     #schoolToolLinks span {
         margin-right: 10px;
@@ -63,7 +67,10 @@
     #schoolInfo {
         position: absolute;
         right: 0;
-        top: 25px;
+        top: 0;
+        border: 1px solid #83BBD9;
+        background-color: #F4FAFD;
+        padding: 12px;
     }
     #schoolInfoLeftColumn {
         float: left;
@@ -94,6 +101,9 @@
         margin-top: 15px;
     }
     /* Tabs */
+    #schoolProfileTabsWrapper {
+        position: relative;
+    }
     #schoolProfileTabs {
         list-style: none outside none;
     }
@@ -102,18 +112,26 @@
         text-align: center;
         border-top: 1px solid #ccc;
         border-right: 1px solid #ccc;
-        padding: 5px 15px;
+        padding: 5px 12px;
     }
     #sptab1 {
         border-left: 1px solid #ccc;
     }
+    #schoolProfileTabs li.active {
+        padding: 8px 18px;
+    }
     #schoolProfileTabs li.inactive {
         background-color: #EBEBEB;
-        border-bottom: 1px solid #ccc;
+        position: relative;
+        top: 5px;
     }
 
+    #schoolInaccuracy {
+        font-size: 11px;
+    }
     #schoolProfileContentsWrapper {
-        border: 1px solid #ccc;
+        border: 1px solid #C6C6C6;
+        border-top: 15px solid #154192;
         position: relative;
         top: -1px;
         clear: left;
@@ -129,8 +147,6 @@
 
     <div id="schoolProfileHeader">
         <div id="breadcrumbs">
-            <!-- TODO: Fill in URL -->
-            <div class="fltrt">Notice an inaccuracy? <a href="#">Let us know!</a></div>
             <ul>
                 <li><link:home>Home</link:home> &amp;gt; </li>
                 <li><link:research state="${state}"
@@ -164,6 +180,10 @@
             </c:if>
             <!-- Grade levels -->
             ${school.gradeLevels}
+            <!-- Religious affiliation -->
+            <c:if test="${not empty school.affiliation}">
+                | ${school.affiliation}
+            </c:if>
             <!-- Enrollment -->
             <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
             <c:choose>
@@ -207,7 +227,7 @@
                     <c:if test="${not empty school.fax}">
                         <div><label>Fax:</label> ${school.fax}</div>
                     </c:if>
-                    <!-- TODO: Hours? -->
+                    <!-- TODO: School hours? -->
                     <c:if test="${not empty school.webSite}">
                         <div>
                             <c:choose>
@@ -279,9 +299,9 @@
                     </li>
                     <li id="sptab3" class="${(tab eq 'schoolStats')?'active':'inactive'}">
                         <c:choose>
-                            <c:when test="${tab eq 'schoolStats'}">School Stats</c:when>
+                            <c:when test="${tab eq 'schoolStats'}">Test Scores &amp;amp; Stats</c:when>
                             <c:otherwise>
-                                <a href="#${headerLinkAnchor}" onclick="return false;">School Stats</a>
+                                <a href="#${headerLinkAnchor}" onclick="return false;">Test Scores &amp;amp; Stats</a>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -294,6 +314,11 @@
                         </c:choose>
                     </li>
                 </ul>
+                <!-- TODO: Fill in URL -->
+                <div id="schoolInaccuracy" class="fltrt">
+                    Notice an inaccuracy?
+                    <a href="#">Let us know!</a>
+                </div>
             </div>
             <!-- end schoolProfileTabsWrapper -->
             <div id="schoolProfileContentsWrapper">
