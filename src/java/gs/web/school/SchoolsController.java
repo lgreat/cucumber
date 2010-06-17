@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.93 2010/06/17 00:20:16 yfan Exp $
+ * $Id: SchoolsController.java,v 1.94 2010/06/17 22:38:09 aroy Exp $
  */
 
 package gs.web.school;
@@ -406,14 +406,24 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         // Build the results and the model
         String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
         String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
-        if (sortColumn == null) {
-            sortColumn = "schoolResultsHeader";
-            sortDirection = "asc";
-        }
-        if (sortDirection == null) {
-            if (sortColumn.equals("schoolResultsHeader")) {
+        if (isDistrictBrowse) {
+            if (sortColumn == null) {
+                sortColumn = "schoolResultsHeader";
                 sortDirection = "asc";
-            } else {
+            }
+            if (sortDirection == null) {
+                if (sortColumn.equals("schoolResultsHeader")) {
+                    sortDirection = "asc";
+                } else {
+                    sortDirection = "desc";
+                }
+            }
+        } else {
+            if (sortColumn == null) {
+                sortColumn = "ratingsHeader";
+                sortDirection = "desc";
+            }
+            if (sortDirection == null) {
                 sortDirection = "desc";
             }
         }

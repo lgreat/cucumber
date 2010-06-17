@@ -387,10 +387,24 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
                                                 UrlBuilder.SCHOOLS_IN_DISTRICT);
         request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
     } else if (request.getAttribute("cityName") != null) {
+        HashSet&lt;SchoolType> schoolTypeSet = new HashSet&lt;SchoolType>(1);
+        if (request.getAttribute("publicChecked") != null
+                &amp;&amp; request.getAttribute("charterChecked") == null
+                &amp;&amp; request.getAttribute("privateChecked") == null) {
+            schoolTypeSet.add(SchoolType.PUBLIC);
+        } else if (request.getAttribute("publicChecked") == null
+                &amp;&amp; request.getAttribute("charterChecked") != null
+                &amp;&amp; request.getAttribute("privateChecked") == null) {
+            schoolTypeSet.add(SchoolType.CHARTER);
+        } else if (request.getAttribute("publicChecked") == null
+                &amp;&amp; request.getAttribute("charterChecked") == null
+                &amp;&amp; request.getAttribute("privateChecked") != null) {
+            schoolTypeSet.add(SchoolType.PRIVATE);
+        }
         UrlBuilder myCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
                                                 SessionContextUtil.getSessionContext(request).getStateOrDefault(),
                                                 (String)request.getAttribute("cityName"),
-                                                new HashSet&lt;SchoolType>(0), null);
+                                                schoolTypeSet, (LevelCode)request.getAttribute("lc"));
         request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
     }
 </jsp:scriptlet>
