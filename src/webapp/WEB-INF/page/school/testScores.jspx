@@ -1,0 +1,19 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+
+    <title>Test Scores</title>
+</head>
+<body class="nocol">
+<div>
+    ${testScoresHtml}
+</div>
+</body>
+<mod:tracking pageName="School Profile Page Not Found"
+              hier1="School,Page Not Found"/>
+</html>
+</jsp:root>

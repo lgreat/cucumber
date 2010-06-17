@@ -2584,4 +2584,19 @@
         <property name="viewName" value="/admin/schoolReview/holdList"/>
     </bean>
 
+    <bean name="/school/testScores.page"
+          class="gs.web.school.TestScoresController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/school/testScores"/>
+        <property name="perlContentPath" value="/cgi-bin/test"/>
+    </bean>
+
+    <bean name="/school/overview2010.page"
+         class="gs.web.school.SchoolOverview2010Controller"
+         autowire="byName" lazy-init="true">
+       <property name="viewName">
+           <value>school/overview2010</value>
+       </property>
+   </bean>
+
 </beans>
