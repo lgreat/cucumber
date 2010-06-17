@@ -1,6 +1,7 @@
 package gs.web.district;
 
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -155,6 +156,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
         School school = null;
         String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
         if (!StringUtils.isBlank(schoolIdStr)) {
+            UrlBuilder relCanonical = new UrlBuilder(district, UrlBuilder.DISTRICT_HOME);
+            model.put("relCanonical", relCanonical.asFullUrl(request));
             try {
                 int schoolId = Integer.parseInt(schoolIdStr);
                 school = _schoolDao.getSchoolById(state, schoolId);
