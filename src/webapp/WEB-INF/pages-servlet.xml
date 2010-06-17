@@ -1241,14 +1241,6 @@
         <property name="viewName" value="/content/election2008Quiz"/>
     </bean>
 
-    <bean name="/preschool/index.page"
-          class="gs.web.content.cms.CmsTopicCenterController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/preschool/index2"/>
-        <property name="topicCenterContentID" value="1573"/>
-        <property name="useAdKeywords" value="false"/>
-    </bean>
-
     <bean id="gradeLevelLandingPageLinksFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgGszopBhMGYQ"/>

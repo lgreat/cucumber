@@ -32,7 +32,7 @@ import gs.data.util.CmsUtil;
 import gs.web.util.PageHelper;
 
 public class CmsTopicCenterController2010 extends AbstractController {
-    private static final Logger _log = Logger.getLogger(CmsTopicCenterController.class);
+    private static final Logger _log = Logger.getLogger(CmsTopicCenterController2010.class);
 
     /**
      * Spring Bean ID
