@@ -126,7 +126,7 @@
             pageHelper.addAdKeyword("school_id", school.getId().toString());
             pageHelper.addAdKeyword("zipcode", school.getZipcode());
 
-            if (school.getDistrictId() != 0 && "p".equals(school.getLevelCode())) {
+            if (school.getDistrictId() != 0 && !"p".equals(school.getLevelCode())) {
                 pageHelper.addAdKeyword("district_name", school.getDistrict().getName());
                 pageHelper.addAdKeyword("district_id", String.valueOf(school.getDistrictId()));
             }
