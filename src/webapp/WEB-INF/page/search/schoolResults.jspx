@@ -42,7 +42,8 @@
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
         var levelCode = '${param.lc}';
         var page = '${param.p}';
-        function reloadPageWithFilters() {
+        var sortSelection = '';
+        function reloadPageWithFilters(sortColId) {
             var charterBox = document.getElementById('type_schools_charter');
             var publicBox = document.getElementById('type_schools_public');
             var privateBox = document.getElementById('type_schools_private');
@@ -64,6 +65,34 @@
             if (privateBox.checked) {
                 reloadUrl += '&st=private';
             }
+
+            if (sortColId != undefined) {
+                reloadUrl += "&sortColumn=" + sortColId;
+                if (sortColId == 'schoolResultsHeader') {
+                    sortSelection = "School+name";
+                } else if (sortColId == 'ratingsHeader') {
+                    sortSelection = "GS+Rating";
+                } else if (sortColId == 'reviewsHeader') {
+                    sortSelection = "Parent+Rating";
+                }
+            } else {
+                reloadUrl += "&sortColumn=" + "${sortColumn}";
+            }
+
+            if (sortColId == "${sortColumn}") {
+                reloadUrl += "&sortDirection=${(sortDirection eq 'desc' ? 'asc' : 'desc')}";
+            } else  if (sortColId == "schoolResultsHeader") {
+                reloadUrl += "&sortDirection=asc";
+            } else if (sortColId != null) {
+                reloadUrl += "&sortDirection=desc";
+            } else {
+                reloadUrl += "&sortDirection=${sortDirection}";
+            }
+
+            if (sortSelection != '') {
+                reloadUrl += "&sortSelection=" + sortSelection;
+            }
+
             document.location = reloadUrl;
         }
         -->
@@ -107,6 +136,7 @@
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
+<pageHelper:externalCss file="/res/css/search/searchResultsHeader.css"/>
 <c:set var="hasCityResults" value="false"/>
 <c:set var="hasDistrictResults" value="false"/>
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
@@ -305,7 +335,9 @@
 
 <div id="searchResults">
     <c:if test="${not empty mainResults}">
-        <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"/>
+        <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"
+                              sortColumn="${sortColumn}"
+                              sortDirection="${sortDirection ne null ? sortDirection : 'asc'}"/>
     </c:if>
     <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
         <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
@@ -341,7 +373,9 @@
               query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
               hier1="Search,${pagename},${hVal}"
               schoolType="${stOmniture}"
-              schoolLevel="${param.lc}"/>
+              schoolLevel="${param.lc}"
+              sortSelection="${param.sortSelection}"
+        />
 </gsml:body>
 </html>
 </jsp:root>

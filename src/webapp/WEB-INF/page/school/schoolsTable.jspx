@@ -417,6 +417,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
 <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
+<pageHelper:externalCss file="/res/css/search/searchResultsHeader.css"/>
 <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
 

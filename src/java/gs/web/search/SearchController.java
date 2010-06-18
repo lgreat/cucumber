@@ -3,10 +3,8 @@ package gs.web.search;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.search.GSQueryParser;
-import gs.data.search.SearchCommand;
+import gs.data.search.*;
 import gs.data.search.Searcher;
-import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
@@ -29,6 +27,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +65,9 @@ public class SearchController extends AbstractFormController {
 
     public static final String PARAM_SCHOOL_TYPE = "st";
     public static final String PARAM_LEVEL_CODE = "lc";
+
+    public static final String PARAM_SORT_COLUMN = "sortColumn";
+    public static final String PARAM_SORT_DIRECTION = "sortDirection";
 
     private static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
@@ -212,8 +214,38 @@ public class SearchController extends AbstractFormController {
 
         boolean resultsToShow = false;
 
+        // Build the results and the model
+        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
+        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
+        if (sortColumn == null) {
+            sortColumn = "schoolResultsHeader";
+            sortDirection = "asc";
+        }
+        if (sortDirection == null) {
+            if (sortColumn.equals("schoolResultsHeader")) {
+                sortDirection = "asc";
+            } else {
+                sortDirection = "desc";
+            }
+        }
+        model.put(PARAM_SORT_COLUMN, sortColumn);
+        model.put(PARAM_SORT_DIRECTION, sortDirection);
+
+        Sort sort = createSort(request, searchCommand);
+        searchCommand.setSort(sort);
+
         Hits hits = _searcher.search(searchCommand);
-        ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
+
+        Comparator comparator = SchoolComparatorFactory.createComparator(sortColumn, sortDirection);
+
+        ResultsPager _resultsPager;
+        if (comparator != null) {
+            // sort the hits using the comparator
+            _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()), comparator);
+        } else {
+            _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
+        }
+
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
             // GS-6867 zip code searches can force a state switch to occur, so switch states if necessary
@@ -360,10 +392,10 @@ public class SearchController extends AbstractFormController {
             return null;
         }
 
-        String sortColumn = request.getParameter("sortColumn");
-        String sortDirection = request.getParameter("sortDirection");
+        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
+        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
         Sort result = null;
-        if (sortColumn == null || sortColumn.equals("schoolName")) {
+        if (sortColumn == null || sortColumn.equals("schoolResultsHeader")) {
             boolean descending = false;  // default is ascending order
             if (sortDirection != null && sortDirection.equals("desc")) {
                 descending = true;

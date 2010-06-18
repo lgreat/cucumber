@@ -9,21 +9,99 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gsweb="gstaglib">
 <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
+    <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
+    <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
-    
+
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        <!--
+         var SchoolTableTag = {
+            mouseOver: function(node){
+
+                node.style.textDecoration = "underline";
+                var images = node.getElementsByTagName('img');
+                for(var i = 0; i < images.length; i++ ) {
+                    if (images[i].className == "sortActive"){
+                        images[i].style.display = "none";
+                    }
+                    if (images[i].className == "sortMouseOver"){
+                        images[i].style.display = "inline";
+                    }
+                }
+            },
+            mouseOut: function(node){
+                node.style.textDecoration = "none";
+                var images = node.getElementsByTagName('img');
+                for(var i = 0; i < images.length; i++ ) {
+                    if (images[i].className == "sortActive"){
+                        images[i].style.display = "inline";
+                    }
+                    if (images[i].className == "sortMouseOver"){
+                        images[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        -->
+        ]]>
+    </script>
+
     <div id="searchResultsHeader" class="cleared">
-        <div id="schoolResultsHeader" class="${hideRating ? 'wideSchoolResultsHeader' : ''}">
+         <div class="firstspace">
+            <!-- comment to keep the tag from collapsing -->
+        </div>
+        <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''} ${hideRating ? 'wideSchoolResultsHeader' : ''}" id="schoolResultsHeader"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
+             onclick="reloadPageWithFilters('schoolResultsHeader')">
             School Name
+            <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
+            <gsml:img styleClass="sortMouseOver"
+                                  src="/res/img/search/${activeColumn ne 'schoolResultsHeader' ? 'arrow_up.gif' :
+                                    sortDirection ne 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
+
         </div>
-        <div id="ratingsHeader" class="${hideRating ? 'hidden' : ''}">
+        <div class="divider">
+            <!-- comment to keep the tag from collapsing -->
+        </div>
+        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}  ${hideRating ? 'hidden' : ''}" id="ratingsHeader"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
+             onclick="reloadPageWithFilters('ratingsHeader')">
             GreatSchools Rating
+            <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
+            <gsml:img styleClass="sortMouseOver"
+                                  src="/res/img/search/${activeColumn ne 'ratingsHeader' ? 'arrow_down.gif' :
+                                    sortDirection ne 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
         </div>
-        <div id="reviewsHeader">
+        <div class="divider ${hideRating ? 'hidden' : ''}" >
+            <!-- comment to keep the tag from collapsing -->
+        </div>
+        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} " id="reviewsHeader"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
+             onclick="reloadPageWithFilters('reviewsHeader')">
             Parent Rating
+            <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
+            <gsml:img styleClass="sortMouseOver"
+                                  src="/res/img/search/${activeColumn ne 'reviewsHeader' ? 'arrow_down.gif' :
+                                    sortDirection ne 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
         </div>
     </div>
+
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
             <c:set var="school" value="${schoolResult.school}"/>

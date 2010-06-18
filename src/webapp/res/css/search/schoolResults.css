@@ -170,10 +170,7 @@ Tabs and filters
     height: 15px;
 }
 .filterWrapper{
-    background-color:green;
     position: relative;
-    background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
-    padding-bottom: 10px;
     margin-bottom: 5px;
 }
 
@@ -218,7 +215,7 @@ Search results
 */
 
 #searchResults {
-    padding-top: 10px;
+    padding-top: 4px;
 }
 
 #searchResults div.about,
@@ -286,6 +283,14 @@ div.phone {
     padding-top: 15px;
 	margin: 0 0 15px 0;
     clear: both;
+}
+
+#searchResultsList .result:first-child{
+    border-top: 0px;
+}
+
+#searchResultsList .result.first {
+    border-top: 0px;
 }
 
 #searchResultsList .school {

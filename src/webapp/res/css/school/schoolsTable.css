@@ -20,9 +20,6 @@
     width: 475px;
 }
 
-#searchResults {
-    padding-top: 4px;
-}
 #searchfilterform div.formContainer{
     height:24px;
     line-height:23px;
@@ -69,81 +66,8 @@
     padding-bottom: 15px;
 }
 
-
-#searchResultsHeader {
-    width: 542px;
-    margin-top:5px;
-    margin-bottom: 0px;
-    background: url(/res/img/search/tab_off_bg.gif) repeat;
-    line-height:22px;
-}
-
-#schoolResultsHeader {
-    width: 205px;
-    margin-right: 0px;
-    margin-left: 0px
-}
-#searchResultsHeader div.divider {
-    float:left;
-    background: url(/res/img/search/tab_divider.gif) no-repeat;
-    width:3px;
-    margin: 0px;
-    padding: 0px;
-    height:22px;
-}
-#searchResultsHeader div.firstspace {
-    float:left;
-    width:0px;
-    margin: 0px;
-    padding: 0px;
-    height:22px;
-}
-#searchResultsHeader div.active{
-    background: url(/res/img/search/tab_on_bg.gif) repeat;
-}
-
-#searchResultsHeader img.sortActive{
-    display: inline;
-    margin: 2px;
-}
-
-#searchResultsHeader img.sortInActive{
-    display: none;
-}
-#searchResultsHeader img.sortMouseOver{
-    display: none;
-    margin: 2px;
-}
-
-#ratingsHeader {
-    width: 163px;
-    margin-right: 0px;
-    margin-left: 0px;
-}
-#schoolResultsHeader.wideSchoolResultsHeader{
-    width: 371px;
-    margin-right: 0px;
-    margin-left: 0px;
-}
-
 .hidden{
     display: none;
-}
-
-#searchResultsList .result:first-child{
-    border-top: 0px;
-}
-
-#searchResultsList .result.first {
-    border-top: 0px;
-}
-
-#reviewsHeader {
-    float:left;
-    width: 151px;
-    margin-right: 0px;
-    padding-left: 12px;
-    text-align : left;
 }
 
 .contentGS {
@@ -177,16 +101,6 @@
 #searchResults div.district {
     font-size: small;
 }
-
-#searchResultsHeader {
-    cursor: pointer;
-}
-
-#searchResultsHeader :hover{
-    background: url(/res/img/search/tab_on_bg.gif) repeat;
-    text-decoration: underline;
-}
-
 
 .cobranded #searchfooter {
     width: 400px !important;
