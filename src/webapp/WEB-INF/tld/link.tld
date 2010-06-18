@@ -2882,6 +2882,145 @@
     </tag>
 
     <tag>
+        <name>kindergarten</name>
+        <tag-class>gs.web.jsp.link.KindergartenTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>kindergarten</display-name>
+        <description>
+            <![CDATA[Link to the kindergarten landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>first-grade</name>
+        <tag-class>gs.web.jsp.link.FirstGradeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>first-grade</display-name>
+        <description>
+            <![CDATA[Link to the kindergarten landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>second-grade</name>
+        <tag-class>gs.web.jsp.link.SecondGradeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>second-grade</display-name>
+        <description>
+            <![CDATA[Link to the second-grade landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>third-grade</name>
+        <tag-class>gs.web.jsp.link.ThirdGradeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>third-grade</display-name>
+        <description>
+            <![CDATA[Link to the third-grade landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>fourth-grade</name>
+        <tag-class>gs.web.jsp.link.FourthGradeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>fourth-grade</display-name>
+        <description>
+            <![CDATA[Link to the fourth-grade landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>fifth-grade</name>
+        <tag-class>gs.web.jsp.link.FifthGradeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>fifth-grade</display-name>
+        <description>
+            <![CDATA[Link to the fifth-grade landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>stateStandards</name>
         <tag-class>gs.web.jsp.link.microsite.StateStandardsTagHandler</tag-class>
         <body-content>JSP</body-content>

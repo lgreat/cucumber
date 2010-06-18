@@ -321,17 +321,12 @@ public class CmsTopicCenterController2010 extends AbstractController {
         return subtopics;
     }
 
-    private static void populateBrowseByGradeElementarySubSubtopicsTemplate(String title, List<CmsCategory> categories) {
-        CmsSubSubtopic subSubtopic = new CmsSubSubtopic();
-        subSubtopic.setTitle(title);
-        subSubtopic.setKategories(categories);
-        BROWSE_BY_GRADE_ELEMENTARY_SUBSUBTOPICS_TEMPLATE.add(subSubtopic);
-    }
-
-    private static void populateBrowseByGradeElementarySubtopicsTemplate(String title, List<CmsCategory> categories) {
+    private static void populateBrowseByGradeElementarySubtopicsTemplate(String title, String path) {
         CmsSubtopic subtopic = new CmsSubtopic();
         subtopic.setTitle(title);
-        subtopic.setKategories(categories);
+        CmsLink link = new CmsLink();
+        link.setUrl(path);
+        subtopic.setMoreLink(link);
         BROWSE_BY_GRADE_ELEMENTARY_SUBTOPICS_TEMPLATE.add(subtopic);
     }
 
@@ -357,26 +352,14 @@ public class CmsTopicCenterController2010 extends AbstractController {
         List<CmsCategory> middleCats = getCategoryList(CmsConstants.MIDDLE_SCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
         List<CmsCategory> highCats = getCategoryList(CmsConstants.HIGH_SCHOOL_CATEGORY_ID, CmsCategory.TYPE_GRADE);
 
-        List<CmsCategory> readingCats = getCategoryList(CmsConstants.READING_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
-        List<CmsCategory> mathCats = getCategoryList(CmsConstants.MATH_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
-        List<CmsCategory> writingCats = getCategoryList(CmsConstants.WRITING_CATEGORY_ID, CmsCategory.TYPE_SUBJECT);
-        List<CmsCategory> learningActivitiesCats = getCategoryList(CmsConstants.LEARNING_ACTIVITIES_CATEGORY_ID, CmsCategory.TYPE_TOPIC);
-
-        // elementary school subsubtopics
-
-        populateBrowseByGradeElementarySubSubtopicsTemplate("Reading", readingCats);
-        populateBrowseByGradeElementarySubSubtopicsTemplate("Math", mathCats);
-        populateBrowseByGradeElementarySubSubtopicsTemplate("Writing", writingCats);
-        populateBrowseByGradeElementarySubSubtopicsTemplate("Learning Activities", learningActivitiesCats);
-
         // elementary school subtopics
 
-        populateBrowseByGradeElementarySubtopicsTemplate("Kindergarten", kCats);
-        populateBrowseByGradeElementarySubtopicsTemplate("First Grade", firstCats);
-        populateBrowseByGradeElementarySubtopicsTemplate("Second Grade", secondCats);
-        populateBrowseByGradeElementarySubtopicsTemplate("Third Grade", thirdCats);
-        populateBrowseByGradeElementarySubtopicsTemplate("Fourth Grade", fourthCats);
-        populateBrowseByGradeElementarySubtopicsTemplate("Fifth Grade", fifthCats);
+        populateBrowseByGradeElementarySubtopicsTemplate("Kindergarten", CmsConstants.KINDERGARTEN_TOPIC_CENTER_PATH);
+        populateBrowseByGradeElementarySubtopicsTemplate("First Grade", CmsConstants.FIRST_GRADE_TOPIC_CENTER_PATH);
+        populateBrowseByGradeElementarySubtopicsTemplate("Second Grade", CmsConstants.SECOND_GRADE_TOPIC_CENTER_PATH);
+        populateBrowseByGradeElementarySubtopicsTemplate("Third Grade", CmsConstants.THIRD_GRADE_TOPIC_CENTER_PATH);
+        populateBrowseByGradeElementarySubtopicsTemplate("Fourth Grade", CmsConstants.FOURTH_GRADE_TOPIC_CENTER_PATH);
+        populateBrowseByGradeElementarySubtopicsTemplate("Fifth Grade", CmsConstants.FIFTH_GRADE_TOPIC_CENTER_PATH);
 
         // other subtopics
 

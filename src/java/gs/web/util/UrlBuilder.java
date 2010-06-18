@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.221 2010/06/09 00:53:27 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.222 2010/06/18 00:02:36 yfan Exp $
  */
 
 package gs.web.util;
@@ -251,6 +251,16 @@ public class UrlBuilder {
     public static final VPage ELEMENTARY_SCHOOL = new VPage("vpage:elementarySchool");
     public static final VPage MIDDLE_SCHOOL = new VPage("vpage:middleSchool");
     public static final VPage HIGH_SCHOOL = new VPage("vpage:highSchool");
+
+    /**
+     * Elementary school grade topic centers
+     */
+    public static final VPage KINDERGARTEN = new VPage("vpage:kindergarten");
+    public static final VPage FIRST_GRADE = new VPage("vpage:firstGrade");
+    public static final VPage SECOND_GRADE = new VPage("vpage:secondGrade");
+    public static final VPage THIRD_GRADE = new VPage("vpage:thirdGrade");
+    public static final VPage FOURTH_GRADE = new VPage("vpage:fourthGrade");
+    public static final VPage FIFTH_GRADE = new VPage("vpage:fifthGrade");
 
     /**
      * test score landing page
@@ -680,6 +690,18 @@ public class UrlBuilder {
             _path = "/healthy-kids.topic?content=2504";
         } else if (SPECIAL_NEEDS.equals(page)) {
             _path = "/LD.topic?content=1541";
+        } else if (KINDERGARTEN.equals(page)) {
+            _path = CmsConstants.KINDERGARTEN_TOPIC_CENTER_PATH;
+        } else if (FIRST_GRADE.equals(page)) {
+            _path = CmsConstants.FIRST_GRADE_TOPIC_CENTER_PATH;
+        } else if (SECOND_GRADE.equals(page)) {
+            _path = CmsConstants.SECOND_GRADE_TOPIC_CENTER_PATH;
+        } else if (THIRD_GRADE.equals(page)) {
+            _path = CmsConstants.THIRD_GRADE_TOPIC_CENTER_PATH;
+        } else if (FOURTH_GRADE.equals(page)) {
+            _path = CmsConstants.FOURTH_GRADE_TOPIC_CENTER_PATH;
+        } else if (FIFTH_GRADE.equals(page)) {
+            _path = CmsConstants.FIFTH_GRADE_TOPIC_CENTER_PATH;
         } else if (MEDIA_CHOICES.equals(page)) {
             _path = "/media-choices.topic?content=2439";
         } else if (MOVING_WITH_KIDS.equals(page)) {
