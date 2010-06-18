@@ -338,7 +338,7 @@
     <!-- end #squareadvert -->
 
 
-    <c:if test="${topicCenter.gradeLevelTopicCenter}">
+    <c:if test="${topicCenter.gradeLevelTopicCenter or topicCenter.elementaryGradeTopicCenter}">
         <c:choose>
             <c:when test="${topicCenter.preschoolTopicCenter}">
                 <c:set var="levelCode" value="p"/>
@@ -348,7 +348,7 @@
             </c:when>
             <c:otherwise>
                 <c:choose>
-                    <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+                    <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">
                         <c:set var="levelCode" value="e"/>
                         <c:set var="levelCodePhrase" value="elementary schools"/>
                     </c:when>

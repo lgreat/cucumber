@@ -142,7 +142,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
             // find a school module
-            if (topicCenter.isGradeLevelTopicCenter()) {
+            if (topicCenter.isGradeLevelTopicCenter() || topicCenter.isElementaryGradeTopicCenter()) {
                 // check for a change of city
                 SessionContext context = SessionContextUtil.getSessionContext(request);
                 String cityName = request.getParameter("city");
@@ -159,7 +159,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 LevelCode levelCode = null;
                 if (topicCenter.isPreschoolTopicCenter()) {
                     levelCode = LevelCode.PRESCHOOL;
-                } else if (topicCenter.isElementarySchoolTopicCenter()) {
+                } else if (topicCenter.isElementarySchoolTopicCenter() || topicCenter.isElementaryGradeTopicCenter()) {
                     levelCode = LevelCode.ELEMENTARY;
                 } else if (topicCenter.isMiddleSchoolTopicCenter()) {
                     levelCode = LevelCode.MIDDLE;
