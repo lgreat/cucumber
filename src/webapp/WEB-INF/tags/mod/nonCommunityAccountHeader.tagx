@@ -34,11 +34,8 @@
 
         </li>
     </ul>
-
     <div id="bts2010ChkLst" class="smallText">
-        <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
+        <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"><span class="sprite pencil_sm"><!-- not empty --></span> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
     </div>
     <promo:backToSchoolChecklistBubble/>
-    
-    
 </jsp:root>

@@ -5,27 +5,26 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
-<div id="btsChecklistBubble" style="display:none;">
-    <div class="smallText1 tint_777 closebtn fltrt btsChecklistBubbleClose">CLOSE <img
-            src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
-            height="11" alt="close modal"/></div>
+<div id="btsChecklistBubble" class="rnd8" style="display:none;">
+    <p class="smallText1 tint_777 closebtn fltrt btsChecklistBubbleClose">close<span class="sprite close2"><!-- not empty --></span></p>
     
-    <span class="smallText">NEW ON GREATSCHOOLS</span>
+    <p id="btsNewOnGS" class="smallText1"><strong>New On GreatSchools</strong></p>
     
-    <a href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Back-to-School Checklist</a>
+    <h4 class="subhead6"><a href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Back-to-School Checklist</a></h4>
 
 
-    <p class="text3">Five easy steps to make sure you're ready for the new school year. We'll track your progress and send you a free 1 subject notebook from our partner,
-    <a href="#" id="carolinaPadLink">Carolina Pad</a> when you're done.</p>
+    <p class="text3">Take five easy steps to ensure you're ready for the new school year and you'll get 25% off + free shipping from our partner, <a href="http://www.carolinapad.com/" target="new">Carolina Pad</a>. Free notebook for the first 2,500 to finish! </p>
 
-    <br/>
-    
-    <a id="getStarted" href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Get started <span class="alertDoubleArrow">&amp;#187;</span></a>
 
-    <br/>
     
-    <a class="smallText1 btsSmallLink" href="#" id="btsChecklistBubbleRemindLater">Remind me later</a> |
-    <a class="smallText1 btsSmallLink" href="#">No thanks</a>
+    <p class="text1"><strong><a id="getStarted" href="/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_Promo');};jQuery('#btsChecklistBubble').hide()">Get started <span class="alertDoubleArrow">&amp;#187;</span></a></strong></p>
+
+
+    <p id="btsBubbleOpts" class="smallText1"><a class="btsSmallLink" href="#" id="btsChecklistBubbleRemindLater">Remind me later</a> |
+    <a class="btsSmallLink" id="btsChecklistBubbleNoThanks" href="#">No thanks</a></p>
+    <a href="http://www.carolinapad.com/" target="new"><img src="/res/img/promo/BTS2010/sponsoredByCarolinapad.jpg" alt="Sponsored by Carolina Pad" width="70" height="29" id="btsBubblesSponsor" /></a>
+    <b class="aout"><!-- not empty --></b>
+    <b class="asolid"><!-- not empty --></b>
 </div>
 
     <script type="text/javascript">
@@ -38,11 +37,19 @@
         jQuery('.btsChecklistBubbleClose').click(function() {
             subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
             jQuery('#btsChecklistBubble').hide();
-        })
+            return false;
+        });
+
+        jQuery('#btsChecklistBubbleNoThanks').click(function() {
+            subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
+            jQuery('#btsChecklistBubble').hide();
+            return false;
+        });
 
         jQuery('#btsChecklistBubbleRemindLater').click(function() {
             subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 0);
             jQuery('#btsChecklistBubble').hide();
-        })
+            return false;
+        });
     </script>
 </jsp:root>

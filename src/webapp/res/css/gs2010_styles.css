@@ -5396,9 +5396,7 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 
 .mod_ft ul{
 	clear: left;
-	list-style-image: none;
-	list-style-position: outside;
-	list-style-type: none;
+	list-style: none;
 }
 
 .mod_ft li{
@@ -5483,9 +5481,7 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 .tod .wrapper ul
 {
 	width: 99999px;
-	list-style-image: none;
-	list-style-position: outside;
-	list-style-type: none;
+	list-style: none;
 	margin: 0 0 0 -15px;
 	padding: 0;
 	position: relative;
@@ -5552,13 +5548,57 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     padding:20px 12px 15px 12px;
     background:#FFF;
     position:absolute;
-    top:70px;
+    top: 50px;
     right:0px;
     z-index:100;
+    border: 1px solid #ccc;
+}
+#btsChecklistBubble .btsChecklistBubbleClose {
+    cursor: pointer;
+    text-transform: uppercase;
+}
+#btsChecklistBubble .btsChecklistBubbleClose .sprite {
+    position: relative;
+    top: 1.3px;
+    margin: 0 0 0 3px;
+}
+#btsNewOnGS.smallText1 {
+    color: #333;
+    margin: 0 0 5px;
+    text-transform: uppercase;
 }
 
-
-
+#btsChecklistBubble .subhead6 {
+    margin: 0 0 5px;
+}
+#btsChecklistBubble p {
+    margin: 0 0 10px;
+}
+p#btsBubbleOpts {
+    margin: 0;
+}
+#btsBubblesSponsor {
+    position: absolute;
+    bottom: 15px;
+    right: 12px;
+}
+#btsChecklistBubble b {
+    border-right: 12px solid rgba(255, 255, 255, 0.0);
+	border-left: 12px solid rgba(255, 255, 255, 0.0);
+    top: -13px;
+    font-size: 0;
+    left: 235px;
+    line-height: 0;
+    position: absolute;
+    width: 0;
+}
+#btsChecklistBubble .aout {
+    border-bottom: 12px solid #CCCCCC;
+}
+#btsChecklistBubble .asolid {
+    border-bottom: 12px solid #FFFFFF;
+    top: -12px;
+}
 #bts2010.mod {
     padding-top:15px;
 }
@@ -5591,6 +5631,13 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     position: relative;
     top: 7px;
     margin: 0 3px 0 0;
+}
+#bts2010ChkLst .pencil_sm {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    text-decoration: none;
+    top: 2px;
 }
 #btsChecklistTable  {
     border: solid #999;
