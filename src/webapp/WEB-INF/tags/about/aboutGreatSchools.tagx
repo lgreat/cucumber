@@ -13,6 +13,7 @@
         boardOfDirectors
         advisors
         management
+        contactUs
     -->
 
     <div id="about_us_nav" class="mod">
@@ -87,7 +88,16 @@
                 <li><a rel="nofollow" href="/promo/webbyAwardWinner.page">Awards</a></li>
                 <li><a target="_blank" href="http://blogs.greatschools.org">Blog</a></li>
                 <li><a href="/cgi-bin/static/jobs.inc">Jobs</a></li>
-                <li><link:contactUs>Contact Us</link:contactUs></li>
+                <li>
+                    <c:choose>
+                        <c:when test="${pageScope.selected eq 'contactUs'}">
+                            <span class="text2">Contact Us</span>
+                        </c:when>
+                        <c:otherwise>
+                            <link:contactUs>Contact Us</link:contactUs>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
             </ul>
         </div>
     </div>

@@ -7,6 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:form="http://www.springframework.org/tags/form"
@@ -134,25 +135,40 @@
 </head>
 
 <gsml:body adPageName="contactUs" pageLayout="leftside">
+<p class="breadcrumbs smallAlertText">
+    <link:home>Home</link:home>
+    &amp;gt;
+    <link:contactUs>Contact Us</link:contactUs>
+</p>
 
-    <div id="mainGS" class="col">
-        <h1>Contact Us</h1>
+<h1>Contact Us</h1>
 
-        <p>
-            Do you have any questions or feedback for us? Make sure you check out the
-            <gsml:a href="/about/gsFaq.page?state=${state}">GreatSchools FAQ</gsml:a> -- the answer
-            you're looking for may already be there!
-        </p>
+<div id="mainGS">
 
-        <p>
-            If not, just <strong>choose a topic from the drop-down menu below</strong> and fill out the appropriate
-            form to get in touch with us. You'll need to join GreatSchools or sign in before you can submit
-            feedback.
-        </p>
+<div id="aboutNav" class="col">
+    <about:aboutGreatSchools selected="contactUs"/>
+</div>
+<div id="contactUsMainGS" class="col">
 
-        <hr/>
+<p class="text2">
+    <span class="text1bold">Do you have any questions or feedback for us?</span> Make sure you check out the
+    <strong><gsml:a href="/about/gsFaq.page?state=${state}">GreatSchools FAQ</gsml:a></strong> -- the answer
+    you're looking for may already be there!
+</p>
 
-        <label for="mainFeedbackTopicSelect"><strong>I'd like to contact GreatSchools about: </strong></label>
+<div class="spacer_15"><!-- do not collapse --></div>
+<p class="text2">
+    If not, just <strong>choose a topic from the drop-down menu below</strong> and fill out the appropriate
+    form to get in touch with us. You'll need to join GreatSchools or sign in before you can submit
+    feedback.
+</p>
+
+<div class="spacer_15"><!-- do not collapse --></div>
+<div class="brdbtm_dotted"><!-- do not collapse --></div>
+<div class="spacer_10"><!-- do not collapse --></div>
+<ol class="formlist2">
+    <li class="fl2-item">
+        <label for="mainFeedbackTopicSelect" class="label1 text1bold">I'd like to contact GreatSchools about</label>
         <select id="mainFeedbackTopicSelect" disabled="disabled">
             <option value="defaultOption">- Select an option -</option>
             <option value="incorrectSchoolDistrictInfo">Incorrect or missing school/district information</option>
@@ -165,500 +181,565 @@
             <option value="join">Trouble joining or signing in</option>
             <option value="other">Something else</option>
         </select>
-        <hr/>
+    </li>
+</ol>
+<div class="spacer_10"><!-- do not collapse --></div>
+<div class="brdbtm_dotted"><!-- do not collapse --></div>
+<div class="spacer_10"><!-- do not collapse --></div>
+<c:if test="${showConfirmMessage}">
+    <div id="confirmText">
+        <p>Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
+    </div>
+</c:if>
+<c:if test="${!showConfirmMessage}">
+    <div id="defaultOptionFeedback" class="jqFeedback formHelperText">
+        <p>Once you have selected an option above the appropriate form will load below.</p>
+    </div>
+</c:if>
 
-        <c:if test="${showConfirmMessage}">
-            <div id="confirmText">
-                <p>Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
-            </div>
-        </c:if>
-        <c:if test="${!showConfirmMessage}">
-            <div id="defaultOptionFeedback" class="jqFeedback">
-                <p>Once you have selected an option above the appropriate form will load below.</p>
-            </div>
-        </c:if>
-
-        <div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
-            <p>
-                Please choose one of the specific options below. Keep in mind that we rely on state Departments of
-                Education and the National Center for Education Statistics (NCES) for our school directory and are
-                unable to add public or charter schools individually to our site. If a public or charter school is
-                missing, it's usually because these data sources failed to provide the information. If you know of
-                a public or charter school that isn't listed, we recommend that you contact the appropriate state
-                Department of Education to ask them to list the school. Thanks for your help! We're always working
-                to make sure that our school listings are completely current and accurate.
-            </p>
-
-            <p>
-                <select id="incorrectSchoolDistrictSubTopicSelect">
-                    <option value="default">- Select an option -</option>
-                    <option value="incorrectSchool">Report incorrect school information</option>
-                    <option value="incorrectDistrict">Report incorrect district information</option>
-                    <option value="addPreSchool">Get a preschool added to the GreatSchools site</option>
-                    <option value="addPrivateSchool">Get a private school added to the GreatSchools site</option>
-                </select>
-            </p>
-
-            <div id="incorrectSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
-                 style="display: none;">
-                <p>We strive to keep our school information up to date, but we realize there may be changes that are
-                    not reflected in our data. If you see any school information (like contact information) that you
-                    know to be incorrect, please take the following steps, so that we can provide our users with the
-                    best possible information:</p>
-
-                <ol>
-                    <li>We rely on state Departments of Education and the National Center for Education Statistics
-                        (NCES) for our school contact information. Please notify the appropriate state Department of
-                        Education to correct the school's information.
-                    </li>
-                    <li>Let the school's principal know that they can sign up for an Enhanced School Profile,
-                        which will allow them to directly edit the school's information, as well as contribute
-                        additional information about the school.
-                    </li>
-                    <li>In the meantime, you can use the form below to let us know about the incorrect data and
-                        we will fix it. However, please note that our manual corrections will be overwritten by
-                        the state or national data source the next time we import their data, so step 1 above is
-                        very important.
-                    </li>
-                </ol>
-                <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                           id="incorrectSchoolDistrictInfo_incorrectSchool"
-                           onsubmit="incorrectSchool_challenge.value = Recaptcha.get_challenge(); incorrectSchool_response.value = Recaptcha.get_response();">
-                    <input type="hidden" name="feedbackType" value="incorrectSchoolDistrictInfo_incorrectSchool"/>
-                    <form:hidden path="challenge" id="incorrectSchool_challenge" />
+<div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
+    <p class="text2">
+        Please choose one of the specific options below. Keep in mind that we rely on state Departments of
+        Education and the National Center for Education Statistics (NCES) for our school directory and are
+        unable to add public or charter schools individually to our site. If a public or charter school is
+        missing, it's usually because these data sources failed to provide the information. If you know of
+        a public or charter school that isn't listed, we recommend that you contact the appropriate state
+        Department of Education to ask them to list the school. Thanks for your help! We're always working
+        to make sure that our school listings are completely current and accurate.
+    </p>
+<div class="spacer_15"><!-- do not collapse --></div>
+<ol class="formlist2">
+    <li class="fl2-item">
+        <label for="incorrectSchoolDistrictSubTopicSelect" class="label1 text1bold">&amp;nbsp;</label>
+        <select id="incorrectSchoolDistrictSubTopicSelect">
+            <option value="default">- Select an option -</option>
+            <option value="incorrectSchool">Report incorrect school information</option>
+            <option value="incorrectDistrict">Report incorrect district information</option>
+            <option value="addPreSchool">Get a preschool added to the GreatSchools site</option>
+            <option value="addPrivateSchool">Get a private school added to the GreatSchools site</option>
+        </select>
+    </li>
+</ol>
+<div class="spacer_15"><!-- do not collapse --></div>
+    <div id="incorrectSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
+         style="display: none;">
+        <p class="text2">We strive to keep our school information up to date, but we realize there may be changes that are
+            not reflected in our data. If you see any school information (like contact information) that you
+            know to be incorrect, please take the following steps, so that we can provide our users with the
+            best possible information:</p>
+<div class="spacer_15"><!-- do not collapse --></div>
+        <ol class="ordered-list1 text2">
+            <li class="list-item">We rely on state Departments of Education and the National Center for Education Statistics
+                (NCES) for our school contact information. Please notify the appropriate state Department of
+                Education to correct the school's information.
+            </li>
+            <li class="list-item">Let the school's principal know that they can sign up for an Enhanced School Profile,
+                which will allow them to directly edit the school's information, as well as contribute
+                additional information about the school.
+            </li>
+            <li class="list-item">In the meantime, you can use the form below to let us know about the incorrect data and
+                we will fix it. However, please note that our manual corrections will be overwritten by
+                the state or national data source the next time we import their data, so step 1 above is
+                very important.
+            </li>
+        </ol>
+<div class="spacer_10"><!-- do not collapse --></div>
+        <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+                   id="incorrectSchoolDistrictInfo_incorrectSchool"
+                   onsubmit="incorrectSchool_challenge.value = Recaptcha.get_challenge(); incorrectSchool_response.value = Recaptcha.get_response();">
+            <input type="hidden" name="feedbackType" value="incorrectSchoolDistrictInfo_incorrectSchool"/>
+            <fieldset class="fieldset1 bg-fff">
+                <legend class="legend1">
+                    <span class="legend1-position">Your Details</span>
+                </legend>
+                <ol class="formlist1">
+                    <form:hidden path="challenge" id="incorrectSchool_challenge"/>
                     <form:hidden path="response" id="incorrectSchool_response"/>
 
-                    <form:label path="submitterName">Your name: </form:label>
-                    <form:input path="submitterName"/>
-                    <form:errors path="submitterName" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="submitterName">
+                            Your name <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:input cssClass="text1-ededed" path="submitterName"/>
+                        <form:errors path="submitterName"/>
+                    </li>
 
-                    <form:label path="submitterEmail">Your email: </form:label>
-                    <form:input path="submitterEmail"/>
-                    <form:errors path="submitterEmail" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="submitterEmail">
+                            Your email <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:input cssClass="text1-ededed" path="submitterEmail"/>
+                        <form:errors path="submitterEmail"/>
+                    </li>
+            </ol>
+            </fieldset>
 
-                    <form:label path="state" for="schoolInfoFields.state" >State: </form:label>
-                    <form:select path="state" id="schoolInfoFields.state">
-                        <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="state" />
-                    <br/>
+              <fieldset class="fieldset1 bg-ebebeb">
+                <legend class="legend1">
+                    <span class="legend1-position">School Details</span>
+                </legend>
+                <ol class="formlist1">
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="state"
+                                    for="schoolInfoFields.state">
+                            State <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="state" id="schoolInfoFields.state">
+                            <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="state"/>
+                    </li>
 
-                    <form:label path="cityName" for="schoolInfoFields.cityName">City: </form:label>
-                    <form:select path="cityName" id="schoolInfoFields.cityName">
-                        <form:option value="" label="- Choose city -"/>
-                        <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="cityName" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="cityName"
+                                    for="schoolInfoFields.cityName">
+                            City <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="cityName" id="schoolInfoFields.cityName">
+                            <form:option value="" label="- Choose city -"/>
+                            <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="cityName"/>
+                    </li>
 
-                    <form:label path="schoolId" for="schoolInfoFields.schoolId">School: </form:label>
-                    <form:select path="schoolId" id="schoolInfoFields.schoolId">
-                        <form:option value="" label="- Choose School -"/>
-                        <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="schoolId" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="schoolId"
+                                    for="schoolInfoFields.schoolId">
+                            School <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="schoolId" id="schoolInfoFields.schoolId">
+                            <form:option value="" label="- Choose School -"/>
+                            <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="schoolId"/>
+                    </li>
 
-                    <form:label path="schoolInfoFields.infoType">Info type: </form:label>
-                    <form:select path="schoolInfoFields.infoType">
-                        <form:option value="" label="- Select an option -"/>
-                        <form:options items="${requestScope.incorrectSchoolInfoTypeOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="schoolInfoFields.infoType" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold"
+                                    path="schoolInfoFields.infoType">
+                            Type of incorrect/missing information <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="schoolInfoFields.infoType">
+                            <form:option value="" label="- Select an option -"/>
+                            <form:options items="${requestScope.incorrectSchoolInfoTypeOptions}" itemValue="value"
+                                          itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="schoolInfoFields.infoType"/>
+                    </li>
 
-                    <form:label path="schoolInfoFields.referenceUrl">Reference url: </form:label>
-                    <form:input path="schoolInfoFields.referenceUrl"/>
-                    <form:errors path="schoolInfoFields.referenceUrl" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold"
+                                    path="schoolInfoFields.referenceUrl">Web page address/URL</form:label>
+                        <form:input cssClass="text1-fff" path="schoolInfoFields.referenceUrl"/>
+                        <form:errors path="schoolInfoFields.referenceUrl"/>
+                    </li>
 
-                    <form:label path="schoolInfoFields.relationship">Relationship to school: </form:label>
-                    <form:input path="schoolInfoFields.relationship"/>
-                    <form:errors path="schoolInfoFields.relationship" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold"
+                                    path="schoolInfoFields.relationship">
+                            Your relationship to school or district <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:input cssClass="text1-fff" path="schoolInfoFields.relationship"/>
+                        <form:errors path="schoolInfoFields.relationship"/>
+                    </li>
 
-                    <form:label path="schoolInfoFields.comment">Question/comment: </form:label>
-                    <form:textarea path="schoolInfoFields.comment" rows="3" cols="20"/>
-                    <form:errors path="schoolInfoFields.comment" />
-                    <br/>
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold"
+                                    path="schoolInfoFields.comment">
+                            Your question or comment <em class="sprite star required"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:textarea cssClass="text1-fff" path="schoolInfoFields.comment" rows="3" cols="20"/>
+                        <form:errors path="schoolInfoFields.comment"/>
+                    </li>
 
-                    <div id="incorrectSchool_captcha" class="captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <form:errors path="response" />
-                    <br/>
-
-                    <input type="submit" name="Submit" value="submit"/>
-                </form:form>
-            </div>
-            <div id="incorrectDistrictSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
-                 style="display: none;">
-                <p>We strive to keep our school information up to date, but we realize there may be changes that
-                    are not reflected in our data. If you see any district information that you know to be incorrect,
-                    please take the following steps, so that we can provide our users with the best possible
-                    information:</p>
-
-                <ol>
-                    <li>We rely on state Departments of Education and the National Center for Education Statistics (NCES) for our district information. Please notify the appropriate state Department of Education to make any corrections.</li>
-                    <li>In the meantime, you can use the form below to let us know about the incorrect data and we will fix it. However, please note that our manual corrections will be overwritten by the state or national data source the next time we import their data, so step 1 above is very important.</li>
+                    <li class="fl1-item">
+                        <div id="incorrectSchool_captcha" class="captcha">
+                            <!-- no collapse -->
+                        </div>
+                        <form:errors path="response"/>
+                    </li>
                 </ol>
-
-                <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                           id="incorrectSchoolDistrictInfo_incorrectDistrict"
-                           onsubmit="incorrectDistrict_challenge.value = Recaptcha.get_challenge(); incorrectDistrict_response.value = Recaptcha.get_response();">
-                    <input type="hidden" name="feedbackType" value="incorrectSchoolDistrictInfo_incorrectDistrict"/>
-                    <form:hidden path="challenge" id="incorrectDistrict_challenge"/>
-                    <form:hidden path="response" id="incorrectDistrict_response"/>
-
-                    <form:label path="submitterName" for="incorrectDistrict_submitterName">Your name: </form:label>
-                    <form:input path="submitterName" id="incorrectDistrict_submitterName"/>
-                    <form:errors path="submitterName" />
-                    <br/>
-
-                    <form:label path="submitterEmail" for="incorrectDistrict_submitterEmail">Your email: </form:label>
-                    <form:input path="submitterEmail" id="incorrectDistrict_submitterEmail"/>
-                    <form:errors path="submitterEmail" />
-                    <br/>
-
-                    <form:label path="districtInfoFields.districtName">District name: </form:label>
-                    <form:input path="districtInfoFields.districtName"/>
-                    <form:errors path="districtInfoFields.districtName" />
-                    <br/>
-
-                    <form:label path="state" for="districtInfoFields.state">State: </form:label>
-                    <form:select path="state" id="districtInfoFields.state">
-                        <form:options items="${allStateOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <form:errors path="state" />
-                    <br/>
-
-                    <form:label path="districtInfoFields.referenceUrl">Reference url: </form:label>
-                    <form:input path="districtInfoFields.referenceUrl"/>
-                    <form:errors path="districtInfoFields.referenceUrl" />
-                    <br/>
-
-                    <form:label path="districtInfoFields.relationship">Relationship to school: </form:label>
-                    <form:input path="districtInfoFields.relationship"/>
-                    <form:errors path="districtInfoFields.relationship" />
-                    <br/>
-
-                    <form:label path="districtInfoFields.comment">Question/comment: </form:label>
-                    <form:textarea path="districtInfoFields.comment" rows="3" cols="20"/>
-                    <form:errors path="districtInfoFields.comment" />
-                    <br/>
-
-                    <div class="captcha" id="incorrectDistrict_captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <form:errors path="response" />
-                    <br/>
-
-                    <input type="submit" name="Submit" value="submit"/>
-                </form:form>
-            </div>
-            <div id="addPreSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback" style="display: none;">
-                <p><gsml:a href="/about/feedback/submitPreschool.page">Add a preschool.</gsml:a></p>
-            </div>
-            <div id="addPrivateSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
-                 style="display: none;">
-                <p><gsml:a href="/about/feedback/submitPrivateSchool.page">Add a private school.</gsml:a></p>
-            </div>
-        </div>
-        <div id="gsRatingsFeedback" class="jqFeedback" style="display: none;">
-            <p>
-                Have questions, ideas, problems, or praise about GreatSchools ratings or test score information?
-                Post in our feedback community with the form below!
-            </p>
-            <script type="text/javascript" charset="utf-8">
-                var is_ssl = ("https:" == document.location.protocol);
-                var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-                document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-
-            <script type="text/javascript" charset="utf-8">
-                var feedback_widget_options = {};
-
-                feedback_widget_options.display = "inline";
-                feedback_widget_options.company = "greatschools";
-
-                feedback_widget_options.style = "question";
-                feedback_widget_options.product = "greatschools_greatschools_ratings_test_scores";
-
-                feedback_widget_options.limit = "3";
-
-                var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-            </script>
-
-        </div>
-        <div id="schoolRatingsReviewsFeedback" class="jqFeedback" style="display: none;">
-            <p>
-                If you see a problematic review or if you're having trouble submitting your rating or review, please
-                use the form below. If you have other questions or concerns about school reviews, please be sure to
-                read our <gsml:a href="/cgi-bin/static/guidelines.html">Reviews FAQ</gsml:a> here. If a particular
-                review was not posted, the reason is that it did not abide
-                by our review guidelines or <link:termsOfUse>terms of use</link:termsOfUse>. Should you contact us about a missing review, you will
-                receive the information detailed in the FAQ. We appreciate your understanding!
-            </p>
-            <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                       id="schoolRatingsReviews"
-                       onsubmit="schoolRatingsReviews_challenge.value = Recaptcha.get_challenge(); schoolRatingsReviews_response.value = Recaptcha.get_response();">
-                <input type="hidden" name="feedbackType" value="schoolRatingsReviews"/>
-                <form:hidden path="challenge" id="schoolRatingsReviews_challenge"/>
-                <form:hidden path="response" id="schoolRatingsReviews_response"/>
-
-                <form:label path="submitterName" for="schoolRatingsReviews_submitterName">Your name: </form:label>
-                <form:input path="submitterName" id="schoolRatingsReviews_submitterName"/>
-                <form:errors path="submitterName" />
-                <br/>
-
-                <form:label path="submitterEmail" for="schoolRatingsReviews_submitterEmail">Your email: </form:label>
-                <form:input path="submitterEmail" id="schoolRatingsReviews_submitterEmail"/>
-                <form:errors path="submitterEmail" />
-                <br/>
-
-                <form:label path="state" for="schoolRatingsReviewsFields.state">State: </form:label>
-                <form:select path="state" id="schoolRatingsReviewsFields.state">
-                    <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="state" />
-                <br/>
-
-                <form:label path="cityName" for="schoolRatingsReviewsFields.cityName">City: </form:label>
-                <form:select path="cityName" id="schoolRatingsReviewsFields.cityName">
-                    <form:option value="" label="- Choose city -"/>
-                    <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="cityName" />
-                <br/>
-
-                <form:label path="schoolId" for="schoolRatingsReviewsFields.schoolId">School: </form:label>
-                <form:select path="schoolId" id="schoolRatingsReviewsFields.schoolId">
-                    <form:option value="" label="- Choose School -"/>
-                    <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="schoolId" />
-                <br/>
-
-                <form:label path="schoolRatingsReviewsFields.comment" for="schoolRatingsComment">Comment: </form:label>
-                <form:textarea id="schoolRatingsComment" path="schoolRatingsReviewsFields.comment" rows="3" cols="20"/>
-                <form:errors path="schoolRatingsReviewsFields.comment" />
-                <br/>
-                
-                <div class="captcha" id="schoolRatingsReviews_captcha">
-                    <!-- no collapse -->
-                </div>
-                <form:errors path="response" />
-                <br/>
-
-                <input type="submit" name="Submit" value="submit"/>
-            </form:form>
-        </div>
-        <div id="articlesCommunityFeedback" class="jqFeedback" style="display: none;">
-            <p>Have questions, ideas, problems, or praise about our articles or community? Post in our feedback community with the form below!</p>
-            <script type="text/javascript" charset="utf-8">
-              var is_ssl = ("https:" == document.location.protocol);
-              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-              document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-
-            <script type="text/javascript" charset="utf-8">
-              var feedback_widget_options = {};
-
-              feedback_widget_options.display = "inline";
-              feedback_widget_options.company = "greatschools";
-
-
-              feedback_widget_options.style = "question";
-              feedback_widget_options.product = "greatschools_articles_community";
-
-
-
-              feedback_widget_options.limit = "3";
-
-
-              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-            </script>
-        </div>
-        <div id="newslettersFeedback" class="jqFeedback" style="display: none;">
-            <p>Have questions, ideas, problems, or praise about our newsletters? Post in our feedback community with the form below!</p>
-            <script type="text/javascript" charset="utf-8">
-              var is_ssl = ("https:" == document.location.protocol);
-              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-              document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-
-            <script type="text/javascript" charset="utf-8">
-              var feedback_widget_options = {};
-
-              feedback_widget_options.display = "inline";
-              feedback_widget_options.company = "greatschools";
-
-              feedback_widget_options.style = "question";
-              feedback_widget_options.product = "greatschools_email_newsletters";
-
-              feedback_widget_options.limit = "3";
-
-              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-            </script>
-        </div>
-        <div id="espFeedback" class="jqFeedback" style="display: none;">
-            <p>
-                If you are a principal or school official and need help with an existing Enhanced School
-                Profile (ESP) or signing up for a new one, please use the form below. You can learn more about
-                ESPs in our <gsml:a href="/cgi-bin/static/ed_extra.inc">FAQ</gsml:a> here.
-            </p>
-            <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                       id="esp"
-                       onsubmit="esp_challenge.value = Recaptcha.get_challenge(); esp_response.value = Recaptcha.get_response();">
-                <input type="hidden" name="feedbackType" value="esp"/>
-                <form:hidden path="challenge" id="esp_challenge"/>
-                <form:hidden path="response" id="esp_response"/>
-
-                <form:label path="espFields.title">Title: </form:label>
-                <form:input path="espFields.title"/>
-                <form:errors path="espFields.title" />
-                <br/>
-
-                <form:label path="submitterName" for="espFields.submitterName">Your name: </form:label>
-                <form:input path="submitterName" id="espFields.submitterName"/>
-                <form:errors path="submitterName" />
-                <br/>
-
-                <form:label path="submitterEmail" for="espFields.submitterEmail">Your email: </form:label>
-                <form:input path="submitterEmail" id="espFields.submitterEmail"/>
-                <form:errors path="submitterEmail" />
-                <br/>
-
-                <form:label path="state" for="espFields.state">State: </form:label>
-                <form:select path="state" id="espFields.state">
-                    <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="state" />
-                <br/>
-
-                <form:label path="cityName" for="espFields.cityName">City: </form:label>
-                <form:select path="cityName" id="espFields.cityName">
-                    <form:option value="" label="- Choose city -"/>
-                    <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="cityName" />
-                <br/>
-
-                <form:label path="schoolId" for="espFields.schoolId">School: </form:label>
-                <form:select path="schoolId" id="espFields.schoolId">
-                    <form:option value="" label="- Choose School -"/>
-                    <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
-                </form:select>
-                <form:errors path="schoolId" />
-                <br/>
-
-                <form:label path="espFields.phone">Phone: </form:label>
-                <form:input path="espFields.phone"/>
-                <form:errors path="espFields.phone" />
-                <br/>
-
-                <form:label path="espFields.comment">Comment: </form:label>
-                <form:textarea path="espFields.comment" rows="3" cols="20"/>
-                <form:errors path="espFields.comment" />
-                <br/>
-
-                <div class="captcha" id="esp_captcha">
-                    <!-- no collapse -->
-                </div>
-                <form:errors path="response" />
-                <br/>
-
-                <input type="submit" name="Submit" value="submit"/>
-            </form:form>
-        </div>
-        <div id="advertisingFeedback" class="jqFeedback" style="display: none;">
-            <ul>
-                <li>
-                    Please click here for more detailed information on advertising or partnering with
-                    GreatSchools.
-                </li>
-                <li>
-                    For advertising sales, please contact:<br/>
-                    Marisa Procter: Midwest and New York Sales Director, mprocter@greatschools.org, 415.983.3813<br/>
-                    Lauren Guetz: West and East Coast Sales Manager, lguetz@greatschools.org, 415.983.3815<br/>
-                </li>
-            </ul>
-            <p>
-                For business development and licensing, please contact:
-                Jennifer Leibick, Business Development Manager
-                jleibick@greatschools.org
-            </p>
-        </div>
-        <div id="joinFeedback" class="jqFeedback" style="display: none;">
-            <p>
-                We're sorry you're having trouble! Please fill out the form below with as much detail as
-                possible and we'll get back to you shortly.
-            </p>
-            <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-                       id="join"
-                       onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
-                <input type="hidden" name="feedbackType" value="join"/>
-                <form:hidden path="challenge" id="join_challenge"/>
-                <form:hidden path="response" id="join_response"/>
-
-                <form:label path="submitterName" for="joinFields.submitterName">Your name: </form:label>
-                <form:input path="submitterName" id="joinFields.submitterName"/>
-                <form:errors path="submitterName" />
-                <br/>
-
-                <form:label path="submitterEmail" for="joinFields.submitterEmail">Your email: </form:label>
-                <form:input path="submitterEmail" id="joinFields.submitterEmail"/>
-                <form:errors path="submitterEmail" />
-                <br/>
-
-                <form:label path="joinFields.comment">Comment: </form:label>
-                <form:textarea path="joinFields.comment" rows="3" cols="20"/>
-                <form:errors path="joinFields.comment" />
-                <br/>
-
-                <div class="captcha" id="join_captcha">
-                    <!-- no collapse -->
-                </div>
-                <form:errors path="response" />
-                <br/>
-
-                <input type="submit" name="Submit" value="submit"/>
-            </form:form>
-        </div>
-        <div id="otherFeedback" class="jqFeedback" style="display: none;">
-            <script type="text/javascript" charset="utf-8">
-              var is_ssl = ("https:" == document.location.protocol);
-              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/"
-            : "http://s3.amazonaws.com/getsatisfaction.com/";
-              document.write(unescape("%3Cscript src='" + asset_host +
-            "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-
-            <script type="text/javascript" charset="utf-8">
-              var feedback_widget_options = {};
-
-              feedback_widget_options.display = "inline";
-              feedback_widget_options.company = "greatschools";
-
-
-              feedback_widget_options.style = "question";
-
-
-
-
-              feedback_widget_options.limit = "5";
-
-
-              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-            </script>
-        </div>
-
+            </fieldset>
+            <!--<input type="submit" name="Submit" value="submit"/>-->
+            <fieldset class="fs1-submit">
+                <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">Submit</span>
+                    </span>
+                </button>
+            </fieldset>
+        </form:form>
+<div class="spacer_10"><!-- do not collapse --></div>
+        <p class="alertBox1 text3">
+            <span class="sprite alert"><!-- do not collapse --></span>
+            &amp;nbsp;GreatSchools is an independent nonprofit organization. We do not have information about
+            school calendars, job openings, transcripts or classmates. For these topics, please contact the
+            school or district directly.
+        </p>
     </div>
-    <div id="sidebarGS" class="col">
-        <!-- no collapse -->
+    <div id="incorrectDistrictSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
+         style="display: none;">
+        <p>We strive to keep our school information up to date, but we realize there may be changes that
+            are not reflected in our data. If you see any district information that you know to be incorrect,
+            please take the following steps, so that we can provide our users with the best possible
+            information:</p>
+
+        <ol>
+            <li>We rely on state Departments of Education and the National Center for Education Statistics (NCES) for our district information. Please notify the appropriate state Department of Education to make any corrections.</li>
+            <li>In the meantime, you can use the form below to let us know about the incorrect data and we will fix it. However, please note that our manual corrections will be overwritten by the state or national data source the next time we import their data, so step 1 above is very important.</li>
+        </ol>
+
+        <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+                   id="incorrectSchoolDistrictInfo_incorrectDistrict"
+                   onsubmit="incorrectDistrict_challenge.value = Recaptcha.get_challenge(); incorrectDistrict_response.value = Recaptcha.get_response();">
+            <input type="hidden" name="feedbackType" value="incorrectSchoolDistrictInfo_incorrectDistrict"/>
+            <form:hidden path="challenge" id="incorrectDistrict_challenge"/>
+            <form:hidden path="response" id="incorrectDistrict_response"/>
+
+            <form:label path="submitterName" for="incorrectDistrict_submitterName">Your name: </form:label>
+            <form:input path="submitterName" id="incorrectDistrict_submitterName"/>
+            <form:errors path="submitterName"/>
+            <br/>
+
+            <form:label path="submitterEmail" for="incorrectDistrict_submitterEmail">Your email: </form:label>
+            <form:input path="submitterEmail" id="incorrectDistrict_submitterEmail"/>
+            <form:errors path="submitterEmail"/>
+            <br/>
+
+            <form:label path="districtInfoFields.districtName">District name: </form:label>
+            <form:input path="districtInfoFields.districtName"/>
+            <form:errors path="districtInfoFields.districtName"/>
+            <br/>
+
+            <form:label path="state" for="districtInfoFields.state">State: </form:label>
+            <form:select path="state" id="districtInfoFields.state">
+                <form:options items="${allStateOptions}" itemValue="value" itemLabel="name"/>
+            </form:select>
+            <form:errors path="state"/>
+            <br/>
+
+            <form:label path="districtInfoFields.referenceUrl">Reference url: </form:label>
+            <form:input path="districtInfoFields.referenceUrl"/>
+            <form:errors path="districtInfoFields.referenceUrl"/>
+            <br/>
+
+            <form:label path="districtInfoFields.relationship">Relationship to school: </form:label>
+            <form:input path="districtInfoFields.relationship"/>
+            <form:errors path="districtInfoFields.relationship"/>
+            <br/>
+
+            <form:label path="districtInfoFields.comment">Question/comment: </form:label>
+            <form:textarea path="districtInfoFields.comment" rows="3" cols="20"/>
+            <form:errors path="districtInfoFields.comment"/>
+            <br/>
+
+            <div class="captcha" id="incorrectDistrict_captcha">
+                <!-- no collapse -->
+            </div>
+            <form:errors path="response"/>
+            <br/>
+
+            <input type="submit" name="Submit" value="submit"/>
+        </form:form>
     </div>
+    <div id="addPreSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback" style="display: none;">
+        <p><gsml:a href="/about/feedback/submitPreschool.page">Add a preschool.</gsml:a></p>
+    </div>
+    <div id="addPrivateSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
+         style="display: none;">
+        <p><gsml:a href="/about/feedback/submitPrivateSchool.page">Add a private school.</gsml:a></p>
+    </div>
+</div>
+<div id="gsRatingsFeedback" class="jqFeedback" style="display: none;">
+    <p>
+        Have questions, ideas, problems, or praise about GreatSchools ratings or test score information?
+        Post in our feedback community with the form below!
+    </p>
+    <script type="text/javascript" charset="utf-8">
+        var is_ssl = ("https:" == document.location.protocol);
+        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        var feedback_widget_options = {};
+
+        feedback_widget_options.display = "inline";
+        feedback_widget_options.company = "greatschools";
+
+        feedback_widget_options.style = "question";
+        feedback_widget_options.product = "greatschools_greatschools_ratings_test_scores";
+
+        feedback_widget_options.limit = "3";
+
+        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
+
+</div>
+<div id="schoolRatingsReviewsFeedback" class="jqFeedback" style="display: none;">
+    <p>
+        If you see a problematic review or if you're having trouble submitting your rating or review, please
+        use the form below. If you have other questions or concerns about school reviews, please be sure to
+        read our <gsml:a href="/cgi-bin/static/guidelines.html">Reviews FAQ</gsml:a> here. If a particular
+        review was not posted, the reason is that it did not abide
+        by our review guidelines or
+        <link:termsOfUse>terms of use</link:termsOfUse>. Should you contact us about a missing review, you will
+        receive the information detailed in the FAQ. We appreciate your understanding!
+    </p>
+    <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+               id="schoolRatingsReviews"
+               onsubmit="schoolRatingsReviews_challenge.value = Recaptcha.get_challenge(); schoolRatingsReviews_response.value = Recaptcha.get_response();">
+        <input type="hidden" name="feedbackType" value="schoolRatingsReviews"/>
+        <form:hidden path="challenge" id="schoolRatingsReviews_challenge"/>
+        <form:hidden path="response" id="schoolRatingsReviews_response"/>
+
+        <form:label path="submitterName" for="schoolRatingsReviews_submitterName">Your name: </form:label>
+        <form:input path="submitterName" id="schoolRatingsReviews_submitterName"/>
+        <form:errors path="submitterName"/>
+        <br/>
+
+        <form:label path="submitterEmail" for="schoolRatingsReviews_submitterEmail">Your email: </form:label>
+        <form:input path="submitterEmail" id="schoolRatingsReviews_submitterEmail"/>
+        <form:errors path="submitterEmail"/>
+        <br/>
+
+        <form:label path="state" for="schoolRatingsReviewsFields.state">State: </form:label>
+        <form:select path="state" id="schoolRatingsReviewsFields.state">
+            <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="state"/>
+        <br/>
+
+        <form:label path="cityName" for="schoolRatingsReviewsFields.cityName">City: </form:label>
+        <form:select path="cityName" id="schoolRatingsReviewsFields.cityName">
+            <form:option value="" label="- Choose city -"/>
+            <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="cityName"/>
+        <br/>
+
+        <form:label path="schoolId" for="schoolRatingsReviewsFields.schoolId">School: </form:label>
+        <form:select path="schoolId" id="schoolRatingsReviewsFields.schoolId">
+            <form:option value="" label="- Choose School -"/>
+            <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="schoolId"/>
+        <br/>
+
+        <form:label path="schoolRatingsReviewsFields.comment" for="schoolRatingsComment">Comment: </form:label>
+        <form:textarea id="schoolRatingsComment" path="schoolRatingsReviewsFields.comment" rows="3" cols="20"/>
+        <form:errors path="schoolRatingsReviewsFields.comment"/>
+        <br/>
+
+        <div class="captcha" id="schoolRatingsReviews_captcha">
+            <!-- no collapse -->
+        </div>
+        <form:errors path="response"/>
+        <br/>
+
+        <input type="submit" name="Submit" value="submit"/>
+    </form:form>
+</div>
+<div id="articlesCommunityFeedback" class="jqFeedback" style="display: none;">
+    <p>Have questions, ideas, problems, or praise about our articles or community? Post in our feedback community with the form below!</p>
+    <script type="text/javascript" charset="utf-8">
+        var is_ssl = ("https:" == document.location.protocol);
+        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        var feedback_widget_options = {};
+
+        feedback_widget_options.display = "inline";
+        feedback_widget_options.company = "greatschools";
+
+
+        feedback_widget_options.style = "question";
+        feedback_widget_options.product = "greatschools_articles_community";
+
+
+        feedback_widget_options.limit = "3";
+
+
+        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
+</div>
+<div id="newslettersFeedback" class="jqFeedback" style="display: none;">
+    <p>Have questions, ideas, problems, or praise about our newsletters? Post in our feedback community with the form below!</p>
+    <script type="text/javascript" charset="utf-8">
+        var is_ssl = ("https:" == document.location.protocol);
+        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        var feedback_widget_options = {};
+
+        feedback_widget_options.display = "inline";
+        feedback_widget_options.company = "greatschools";
+
+        feedback_widget_options.style = "question";
+        feedback_widget_options.product = "greatschools_email_newsletters";
+
+        feedback_widget_options.limit = "3";
+
+        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
+</div>
+<div id="espFeedback" class="jqFeedback" style="display: none;">
+    <p>
+        If you are a principal or school official and need help with an existing Enhanced School
+        Profile (ESP) or signing up for a new one, please use the form below. You can learn more about
+        ESPs in our <gsml:a href="/cgi-bin/static/ed_extra.inc">FAQ</gsml:a> here.
+    </p>
+    <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+               id="esp"
+               onsubmit="esp_challenge.value = Recaptcha.get_challenge(); esp_response.value = Recaptcha.get_response();">
+        <input type="hidden" name="feedbackType" value="esp"/>
+        <form:hidden path="challenge" id="esp_challenge"/>
+        <form:hidden path="response" id="esp_response"/>
+
+        <form:label path="espFields.title">Title: </form:label>
+        <form:input path="espFields.title"/>
+        <form:errors path="espFields.title"/>
+        <br/>
+
+        <form:label path="submitterName" for="espFields.submitterName">Your name: </form:label>
+        <form:input path="submitterName" id="espFields.submitterName"/>
+        <form:errors path="submitterName"/>
+        <br/>
+
+        <form:label path="submitterEmail" for="espFields.submitterEmail">Your email: </form:label>
+        <form:input path="submitterEmail" id="espFields.submitterEmail"/>
+        <form:errors path="submitterEmail"/>
+        <br/>
+
+        <form:label path="state" for="espFields.state">State: </form:label>
+        <form:select path="state" id="espFields.state">
+            <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="state"/>
+        <br/>
+
+        <form:label path="cityName" for="espFields.cityName">City: </form:label>
+        <form:select path="cityName" id="espFields.cityName">
+            <form:option value="" label="- Choose city -"/>
+            <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="cityName"/>
+        <br/>
+
+        <form:label path="schoolId" for="espFields.schoolId">School: </form:label>
+        <form:select path="schoolId" id="espFields.schoolId">
+            <form:option value="" label="- Choose School -"/>
+            <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="schoolId"/>
+        <br/>
+
+        <form:label path="espFields.phone">Phone: </form:label>
+        <form:input path="espFields.phone"/>
+        <form:errors path="espFields.phone"/>
+        <br/>
+
+        <form:label path="espFields.comment">Comment: </form:label>
+        <form:textarea path="espFields.comment" rows="3" cols="20"/>
+        <form:errors path="espFields.comment"/>
+        <br/>
+
+        <div class="captcha" id="esp_captcha">
+            <!-- no collapse -->
+        </div>
+        <form:errors path="response"/>
+        <br/>
+
+        <input type="submit" name="Submit" value="submit"/>
+    </form:form>
+</div>
+<div id="advertisingFeedback" class="jqFeedback" style="display: none;">
+    <ul>
+        <li>
+            Please click here for more detailed information on advertising or partnering with
+            GreatSchools.
+        </li>
+        <li>
+            For advertising sales, please contact:<br/>
+            Marisa Procter: Midwest and New York Sales Director, mprocter@greatschools.org, 415.983.3813<br/>
+            Lauren Guetz: West and East Coast Sales Manager, lguetz@greatschools.org, 415.983.3815<br/>
+        </li>
+    </ul>
+    <p>
+        For business development and licensing, please contact:
+        Jennifer Leibick, Business Development Manager
+        jleibick@greatschools.org
+    </p>
+</div>
+<div id="joinFeedback" class="jqFeedback" style="display: none;">
+    <p>
+        We're sorry you're having trouble! Please fill out the form below with as much detail as
+        possible and we'll get back to you shortly.
+    </p>
+    <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
+               id="join"
+               onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
+        <input type="hidden" name="feedbackType" value="join"/>
+        <form:hidden path="challenge" id="join_challenge"/>
+        <form:hidden path="response" id="join_response"/>
+
+        <form:label path="submitterName" for="joinFields.submitterName">Your name: </form:label>
+        <form:input path="submitterName" id="joinFields.submitterName"/>
+        <form:errors path="submitterName"/>
+        <br/>
+
+        <form:label path="submitterEmail" for="joinFields.submitterEmail">Your email: </form:label>
+        <form:input path="submitterEmail" id="joinFields.submitterEmail"/>
+        <form:errors path="submitterEmail"/>
+        <br/>
+
+        <form:label path="joinFields.comment">Comment: </form:label>
+        <form:textarea path="joinFields.comment" rows="3" cols="20"/>
+        <form:errors path="joinFields.comment"/>
+        <br/>
+
+        <div class="captcha" id="join_captcha">
+            <!-- no collapse -->
+        </div>
+        <form:errors path="response"/>
+        <br/>
+
+        <input type="submit" name="Submit" value="submit"/>
+    </form:form>
+</div>
+<div id="otherFeedback" class="jqFeedback" style="display: none;">
+    <script type="text/javascript" charset="utf-8">
+        var is_ssl = ("https:" == document.location.protocol);
+        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/"
+                : "http://s3.amazonaws.com/getsatisfaction.com/";
+        document.write(unescape("%3Cscript src='" + asset_host +
+                "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        var feedback_widget_options = {};
+
+        feedback_widget_options.display = "inline";
+        feedback_widget_options.company = "greatschools";
+
+
+        feedback_widget_options.style = "question";
+
+
+        feedback_widget_options.limit = "5";
+
+
+        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
+</div>
+
+</div>
+</div>
+
     <mod:tracking pageName="contactUs" hier1="Home,Corporate,AboutUs,Feedback"/>
 </gsml:body>
 </html>

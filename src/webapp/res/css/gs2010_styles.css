@@ -57,6 +57,7 @@ General comments:
 =4i-1.1 change email & password
 =4i-1.2 manage newsletters
 =4i-2 user activity
+=4j contact us
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -64,6 +65,8 @@ General comments:
 =8 footer
 =9 buttons
 =10 grids
+=11 forms
+=12 lists
 =debugging styles
 =temporary modules
 */
@@ -915,7 +918,7 @@ body.cobranded #pageGS {
 
 /* END subnav spacing */
 
-/* =4- page layouts
+/* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 
 #mainWrap {
@@ -984,6 +987,16 @@ body.cobranded #pageGS {
     width: 423px;
     padding-left: 15px;
     padding-bottom: 25px;
+}
+
+#contactUsbarGS.col{
+    width:160px;
+    padding-left:20px;
+}
+
+#contactUsMainGS.col{
+    width:753px;
+    padding-left:15px;
 }
 
 .mod_hd h3 {
@@ -4265,6 +4278,12 @@ margin:10px 0 14px 20px;
     border: 0;
 }
 
+/* =4j contact us
+-------------------------------------------------------------------------------------------*/
+#contactUsbarGS li{
+    padding:3px 0;
+}
+
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
 
@@ -4350,7 +4369,7 @@ additional icons on the sprite.
     background-position: 0 -180px;
 }
 
-.required {
+.star {
     width: 9px;
     height: 10px;
     background-position: 0 -200px;
@@ -4989,7 +5008,7 @@ button {
     color: #fff;
 }
 
-/* =10- grids
+/* =10 grids
 -------------------------------------------------------------------------------------------*/
 
 .line, .lastUnit {
@@ -5043,6 +5062,238 @@ button {
 .lastUnit {
     float: none;
     width: auto;
+}
+
+/* =11 forms
+-------------------------------------------------------------------------------------------*/
+
+/* error box styles */
+.alertBox1 {
+    display: block;
+    padding: 12px;
+    margin: 0 0 1em 0;
+    background-color: #f9eccd
+}
+
+.errorBox1 {
+    display: block;
+    padding: 12px;
+    margin: 0 0 1em 0;
+    background-color: #f4f4f4;
+    border: 1px solid #c03;
+}
+
+.errorMessage1 {
+    font-weight: normal;
+    left: 30em;
+    position: absolute;
+    top: 0.2em;
+    width: 19em;
+}
+
+.required {
+    position: absolute;
+    right: -0.8em;
+    top: 0.2em;
+}
+
+/* fieldset styles */
+.fieldset1 {
+    border-style: solid none none;
+    border-top: 1px dotted #999;
+    clear: left;
+    float: left;
+    margin: 0 0 -1em;
+    padding: 0 0 1em;
+    position: relative;
+    width: 100%;
+}
+
+.bg-fff {
+    background-color: #FFFFFF;
+}
+
+.bg-ebebeb {
+    background-color: #EBEBEB;
+}
+
+.fs1-submit {
+    background-color: #FFFFFF;
+    float: none;
+    width: auto;
+    border-style: solid none none;
+    border-top: 1px dotted #999;
+    clear: left;
+    margin: 0 0 -1em;
+    padding: 1.5em 0 1em 19em;
+    position: relative;
+}
+
+/* legend styles */
+.legend1 {
+    font-weight: bold;
+    padding: 0;
+}
+
+.legend1-position {
+    font-size: 135%;
+    left: 0.75em;
+    margin-top: 0.5em;
+    position: absolute;
+    top: 0;
+}
+
+/* form list styles */
+.formlist1 {
+    list-style: none outside none;
+    padding: 3.5em 1em 0;
+    zoom: 1; /* for ie7 & ie6 */
+}
+
+.formlist2 {
+    list-style: none outside none;
+    padding: 0 1em;
+    zoom: 1; /* for ie7 & ie6 */
+}
+
+.fl1-item {
+    clear: left;
+    float: left;
+    padding-bottom: 1em;
+    width: 100%;
+    list-style: none outside none;
+}
+
+.fl2-item {
+    clear: left;
+    float: left;
+    width: 100%;
+    list-style: none outside none;
+}
+
+.state {
+    width: auto;
+}
+
+.ie7 .state, .ie6 .state {
+    width: 287px;
+}
+
+.zip {
+    width: auto;
+}
+
+.zipinput {
+    width: 44px;
+}
+
+/* labels and inputs */
+.label1 {
+    float: left;
+    margin-right: 1em;
+    position: relative;
+    text-align: right;
+    width: 19em;
+}
+
+.ziplabel {
+    float: left;
+    margin-right: 1em;
+    position: relative;
+    text-align: right;
+    width: 3em;
+}
+
+.text1-fff {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px inset #F0F0F0;
+}
+
+.text1-ededed {
+    background: none repeat scroll 0 0 #EDEDED;
+    border: 1px inset #F0F0F0;
+}
+
+/* fieldset radio and checkbox styles */
+.fs1-inner {
+    background-color: transparent;
+    background-image: none;
+    border-style: none;
+    clear: left;
+    float: left;
+    margin: 0 0 -2.5em;
+    padding: 0 0 1em;
+    position: relative;
+    width: 100%;
+}
+
+/* legend radio and checkbox styles */
+.legend1-inner {
+    display: inline-block;
+    float: left;
+    font-weight: normal;
+    margin-right: 1em;
+    text-align: right;
+    width: 17em;
+    padding: 0;
+}
+
+/* form list radio and checkbox styles */
+.formlist1-inner {
+    margin: 0 0 0 18em;
+    padding: 0;
+    position: relative;
+    top: -1.5em;
+    list-style: none outside none;
+    zoom: 1; /* for ie6 */
+}
+
+.radio1 {
+    display: inline;
+    padding-right: 1.5em;
+    width: auto;
+    clear: left;
+    float: left;
+    padding-bottom: 1em;
+    list-style: none outside none;
+}
+
+.radio1-last {
+    display: inline;
+    padding-right: 1.5em;
+    width: auto;
+    clear: none;
+    float: left;
+    padding-bottom: 1em;
+    list-style: none outside none;
+}
+
+.noclear {
+    clear: none;
+}
+
+.label1-inner {
+    float: none;
+    margin-right: auto;
+    text-align: right;
+    width: auto;
+    position: relative;
+}
+
+.inputwidth-75 {
+    width: 75px;
+}
+
+.inputwidth-112 {
+    width: 112px;
+}
+
+/* =12 lists
+-------------------------------------------------------------------------------------------*/
+.ordered-list1 .list-item{
+    list-style: decimal outside none;
+    margin: 0 1.5em;
+    padding: 0.25em 0;
 }
 
 /* =debugging styles
