@@ -36,7 +36,7 @@
             float:left;
             padding:10px;
         }
-        #overallRating {
+        #overallRating2 {
             float:left;
             padding:10px;
         }
@@ -66,7 +66,7 @@
 
 
 
-        <div id="overallRating">
+        <div id="overallRating2">
             <p>Overall School Rating</p>
             <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif" alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
             <br/>
