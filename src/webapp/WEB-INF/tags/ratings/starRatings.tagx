@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:pg="http://jsptags.com/tags/navigation/pager"
+
+          xmlns:form="http://www.springframework.org/tags/form">
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="gs.data.school.review.Ratings"/>
+
+
+    <jsp:directive.attribute name="ratings" required="true" description="Collection of ratings"
+                             type="gs.data.school.review.Ratings"/>
+    <jsp:directive.attribute name="preschoolOrGradeschool" required="true"
+                             description="Valid values: preschools, gradeschool" type="java.lang.String"/>
+
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        request.setAttribute("catFacilities", Ratings.Category.P_Facilities);
+        request.setAttribute("catParents", Ratings.Category.P_Parents);
+        request.setAttribute("catProgram", Ratings.Category.P_Program);
+        request.setAttribute("catSafety", Ratings.Category.P_Safety);
+        request.setAttribute("catTeachers", Ratings.Category.P_Teachers);
+    </jsp:scriptlet>
+
+
+    <c:choose>
+        <c:when test="${preschoolOrGradeschool eq 'preschool'}">
+
+            <ul>
+                <c:set var="curCatValue" value="${ratings.averageRatingMap[catFacilities]}"/>
+                <c:set var="curCatName" value="Facilities &amp; equipment"/>
+                <c:if test="${not empty curCatValue}">
+                    <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                               alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                               styleClass="sm_stars"/></li>
+                </c:if>
+                <c:set var="curCatValue" value="${ratings.averageRatingMap[catTeachers]}"/>
+                <c:set var="curCatName" value="Teacher quality"/>
+                <c:if test="${not empty curCatValue}">
+                    <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                               alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                               styleClass="sm_stars"/></li>
+                </c:if>
+                <c:set var="curCatValue" value="${ratings.averageRatingMap[catParents]}"/>
+                <c:set var="curCatName" value="Parent involvement"/>
+                <c:if test="${not empty curCatValue}">
+                    <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                               alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                               styleClass="sm_stars"/></li>
+                </c:if>
+            </ul>
+
+            <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                   onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+            </p>
+        </c:when>
+        <c:when test="${preschoolOrGradeschool eq 'gradeschool'}">
+
+            <ul>
+                <c:if test="${not empty ratings.avgPrincipal}">
+                    <li>Principal leadership<gsml:img
+                            src="/res/img/map/ratings_parent_city_${ratings.avgPrincipal}.gif"
+                            alt="Principal leadership: ${ratings.avgPrincipal} out of 5 stars"
+                            styleClass="sm_stars"/></li>
+                </c:if>
+                <c:if test="${not empty ratings.avgTeachers}">
+                    <li>Teacher quality<gsml:img
+                            src="/res/img/map/ratings_parent_city_${ratings.avgTeachers}.gif"
+                            alt="Teacher quality: ${ratings.avgTeachers} out of 5 stars"
+                            styleClass="sm_stars"/></li>
+                </c:if>
+                <c:if test="${not empty ratings.avgParents}">
+                    <li>Parent involvement<gsml:img
+                            src="/res/img/map/ratings_parent_city_${ratings.avgParents}.gif"
+                            alt="Parent involvement: ${ratings.avgParents} out of 5 stars"
+                            styleClass="sm_stars"/></li>
+                </c:if>
+            </ul>
+        </c:when>
+    </c:choose>
+
+
+</jsp:root>

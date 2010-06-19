@@ -60,6 +60,17 @@ public class MapSchoolController extends AbstractSchoolController {
      * @param schools list of NearbySchool objects
      */
     protected void loadRatings(HttpServletRequest request, List<NearbySchool> schools) {
+
+        // MapSchools for populating the map info bubbles
+        request.setAttribute("mapSchools", getRatingsForNearbySchools(schools));
+    }
+
+    /**
+     * Returns a list of MapSchools for a given list of NearbySchools
+     * @param schools list of nearby schools
+     * @return MapSchools
+     */
+    public List<MapSchool> getRatingsForNearbySchools(List<NearbySchool> schools) {
         // this is our data structure -- contains basically a school, a GS rating, and a parent rating
         List<MapSchool> mapSchools = new ArrayList<MapSchool>();
         // for each school
@@ -81,8 +92,8 @@ public class MapSchoolController extends AbstractSchoolController {
             // Add data structure to list
             mapSchools.add(mapSchool);
         }
-        // MapSchools for populating the map info bubbles
-        request.setAttribute("mapSchools", mapSchools);
+
+        return mapSchools;
     }
 
     public String getViewName() {
@@ -101,21 +112,4 @@ public class MapSchoolController extends AbstractSchoolController {
         _reviewDao = reviewDao;
     }
 
-    /**
-     * Extends NearbySchool as a convenience (but it really buys me nothing). The only used fields are:
-     * neighbor (from super, for the school),
-     * rating (from super, for the gs rating),
-     * and parentRating (defined here, for the parent rating)
-     */
-    public class MapSchool extends NearbySchool {
-        private Ratings _parentRatings;
-
-        public Ratings getParentRatings() {
-            return _parentRatings;
-        }
-
-        public void setParentRatings(Ratings parentRatings) {
-            _parentRatings = parentRatings;
-        }
-    }
 }

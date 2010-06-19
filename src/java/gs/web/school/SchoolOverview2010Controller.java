@@ -2,6 +2,9 @@ package gs.web.school;
 
 import gs.data.community.Subscription;
 import gs.data.community.User;
+import gs.data.school.IPQDao;
+import gs.data.school.NearbySchool;
+import gs.data.school.PQ;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
@@ -18,10 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -33,6 +33,8 @@ public class SchoolOverview2010Controller extends
     private IReviewDao _reviewDao;
     //private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
+    private IPQDao _PQDao;
+    
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest
             request, HttpServletResponse response) throws Exception {
@@ -64,6 +66,28 @@ public class SchoolOverview2010Controller extends
             model.put("reviews", reviews);
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
+
+            /*
+             * get PQ data to find quote if it exists
+             */
+            List<PQ> pqs = _PQDao.findBySchool(school);
+            if (pqs != null && pqs.size() > 0 ) {
+                String bestKnownFor = pqs.get(0).getBestKnownFor();
+                
+                if (bestKnownFor != null) {
+                    model.put("bestKnownFor", bestKnownFor);
+                }
+            }
+
+            /*
+             * obtain nearby schools and place into model
+             */
+            //TODO: use findNearbySchoolsWithRatings but add distance field to SchoolWithRatings...and/or write new map tagx
+            //List<SchoolWithRatings> nearbySchools = getSchoolDao().findNearbySchoolsWithRatings(school.getDatabaseState(), school.getLat(), school.getLon(), 50f, 25, null);
+            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 25);
+            request.setAttribute("mapSchools", getRatingsForNearbySchools(nearbySchools));
+            //request.setAttribute("mapSchools", nearbySchools);
+
 
             //_schoolProfileHeaderHelper.updateModel(model);
 
@@ -180,6 +204,42 @@ public class SchoolOverview2010Controller extends
         return false;
     }
 
+
+    //TODO: DANGER!!! method below was copied from MapSchoolController but distance copy was added. Move into helper class
+    /**
+     * Returns a list of MapSchools for a given list of NearbySchools
+     * @param schools list of nearby schools
+     * @return MapSchools
+     */
+    public List<MapSchool> getRatingsForNearbySchools(List<NearbySchool> schools) {
+        // this is our data structure -- contains basically a school, a GS rating, and a parent rating
+        List<MapSchool> mapSchools = new ArrayList<MapSchool>();
+        // for each school
+        for (NearbySchool nearbySchool: schools) {
+            School school = nearbySchool.getNeighbor();
+            // MapSchool is a subclass of NearbySchool
+            MapSchool mapSchool = new MapSchool();
+            // now we copy over the fields we want: school and gs rating
+            // School. I don't like that it is called neighbor, but that's from the superclass NearbySchool
+            mapSchool.setNeighbor(school);
+            // GS rating
+            mapSchool.setRating(nearbySchool.getRating());
+
+            // Retrieve parent ratings
+            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            // Parent ratings
+            mapSchool.setParentRatings(ratings);
+
+            //Add distance
+            mapSchool.setDistance(nearbySchool.getDistance());
+
+            // Add data structure to list
+            mapSchools.add(mapSchool);
+        }
+
+        return mapSchools;
+    }
+
     public String getViewName() {
         return _viewName;
     }
@@ -194,5 +254,13 @@ public class SchoolOverview2010Controller extends
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public IPQDao getPQDao() {
+        return _PQDao;
+    }
+
+    public void setPQDao(IPQDao pqDao) {
+        _PQDao = pqDao;
     }
 }

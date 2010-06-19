@@ -151,12 +151,12 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         assertNotNull(mapSchools);
         assertEquals(2, mapSchools.size());
         // #1
-        MapSchoolController.MapSchool mapSchool1 = (MapSchoolController.MapSchool) mapSchools.get(0);
+        MapSchool mapSchool1 = (MapSchool) mapSchools.get(0);
         assertEquals(school1, mapSchool1.getNeighbor());
         assertEquals(new Integer(5), mapSchool1.getRating());
         assertEquals(ratings1, mapSchool1.getParentRatings());
         // #2
-        MapSchoolController.MapSchool mapSchool2 = (MapSchoolController.MapSchool) mapSchools.get(1);
+        MapSchool mapSchool2 = (MapSchool) mapSchools.get(1);
         assertEquals(school2, mapSchool2.getNeighbor());
         assertEquals(new Integer(5), mapSchool2.getRating());
         assertEquals(ratings2, mapSchool2.getParentRatings());
