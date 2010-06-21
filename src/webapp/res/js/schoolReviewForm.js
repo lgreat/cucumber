@@ -60,9 +60,9 @@ function GS_postSchoolReview(email, callerFormId) {
             successEvents += data.reviewEvent;
         }
         if (successEvents != "") {
-            omnitureEventNotifier.clear();
-            omnitureEventNotifier.successEvents = successEvents;
-            omnitureEventNotifier.send();
+            pageTracking.clear();
+            pageTracking.successEvents = successEvents;
+            pageTracking.send();
         }
         var redirectUrl = window.location.href;
         var reloading = true;
