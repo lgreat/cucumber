@@ -102,6 +102,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         command.setFirstName(user.getFirstName());
 
         // your location
+        if(user.getUserProfile() == null){return;}
         State userState = user.getUserProfile().getState();
         command.setUserState(userState);
         command.setUserCity(user.getUserProfile().getCity());
