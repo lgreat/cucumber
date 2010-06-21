@@ -1088,6 +1088,13 @@ body.cobranded #pageGS {
     line-height: 25px;
 }
 
+.spacer_30 {
+    clear: both;
+    height: 30px;
+    font-size: 1px;
+    line-height: 30px;
+}
+
 .spacer_40 {
     clear: both;
     height: 40px;
@@ -5085,16 +5092,36 @@ button {
 
 .errorMessage1 {
     font-weight: normal;
-    left: 30em;
-    position: absolute;
-    top: 0.2em;
-    width: 19em;
+    width: 190px;
+    text-align:left;
 }
 
 .required {
     position: absolute;
     right: -0.8em;
     top: 0.2em;
+}
+
+.helperMessage1{
+    position:absolute;
+    top: 2.0em;
+    left: 315px;
+    font-weight: normal;
+    text-align:left;
+    width:400px;
+}
+
+.helperMessage2{
+    position:absolute;
+    width:160px;
+    top: 3.0em;
+    left: 140px;
+    font-weight: normal;
+}
+
+.helperMessage3{
+    width:315px;
+    text-align:right;
 }
 
 /* fieldset styles */
@@ -5125,7 +5152,7 @@ button {
     border-top: 1px dotted #999;
     clear: left;
     margin: 0 0 -1em;
-    padding: 1.5em 0 1em 19em;
+    padding: 1.5em 0 1em 330px;
     position: relative;
 }
 
@@ -5146,13 +5173,13 @@ button {
 /* form list styles */
 .formlist1 {
     list-style: none outside none;
-    padding: 3.5em 1em 0;
+    padding: 3.5em 15px 0;
     zoom: 1; /* for ie7 & ie6 */
 }
 
 .formlist2 {
     list-style: none outside none;
-    padding: 0 1em;
+    padding: 0 15px;
     zoom: 1; /* for ie7 & ie6 */
 }
 
@@ -5187,13 +5214,18 @@ button {
     width: 44px;
 }
 
+/* captcha */
+.captcha{
+    padding-left:310px;
+}
+
 /* labels and inputs */
 .label1 {
     float: left;
     margin-right: 1em;
     position: relative;
     text-align: right;
-    width: 19em;
+    width: 300px;
 }
 
 .ziplabel {

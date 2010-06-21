@@ -10,7 +10,7 @@ import org.apache.commons.validator.EmailValidator;
  * @author Dave Roy <mailto:droy@greatschools.net>
  */
 public class FeedbackValidator implements Validator {
-    private static String FIELD_REQUIRED_MSG = "Field required.";
+    private static String FIELD_REQUIRED_MSG = "This is a required field.";
 
     public boolean supports(Class aClass) {
         return aClass.equals(ContactUsCommand.class);
@@ -42,6 +42,7 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateIncorrectSchoolInfo(ContactUsCommand command, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
@@ -56,6 +57,7 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateIncorrectDistrictInfo(ContactUsCommand command, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "districtInfoFields.districtName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
@@ -68,6 +70,7 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateSchoolRatingsReviews(ContactUsCommand command, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
@@ -80,6 +83,7 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateEsp(ContactUsCommand command, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
@@ -97,6 +101,7 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateJoin(ContactUsCommand command, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "joinFields.comment", null, FIELD_REQUIRED_MSG);
 

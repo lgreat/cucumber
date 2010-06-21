@@ -18,7 +18,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:externalCss file="/res/css/widelayout.css"/>
+<!--<pageHelper:externalCss file="/res/css/widelayout.css"/>-->
 <pageHelper:externalJavascript file="http://api.recaptcha.net/js/recaptcha_ajax.js"/>
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
@@ -261,7 +261,14 @@
                             Your name <em class="sprite star required"><!-- do not collapse --></em>
                         </form:label>
                         <form:input cssClass="text1-ededed" path="submitterName"/>
-                        <form:errors path="submitterName"/>
+                        <!--<form:errors path="submitterName"/>-->
+                        <form:errors path="submitterName">
+                            <c:forEach items="${messages}" var="message">
+                                 <strong class="errorMessage1 formErrorText"><span
+                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
@@ -269,7 +276,14 @@
                             Your email <em class="sprite star required"><!-- do not collapse --></em>
                         </form:label>
                         <form:input cssClass="text1-ededed" path="submitterEmail"/>
-                        <form:errors path="submitterEmail"/>
+                        <!--<form:errors path="submitterEmail"/>-->
+                        <form:errors path="submitterEmail">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
             </ol>
             </fieldset>
@@ -287,7 +301,14 @@
                         <form:select path="state" id="schoolInfoFields.state">
                             <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
                         </form:select>
-                        <form:errors path="state"/>
+                        <!--<form:errors path="state"/>-->
+                        <form:errors path="state">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
@@ -299,7 +320,14 @@
                             <form:option value="" label="- Choose city -"/>
                             <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
                         </form:select>
-                        <form:errors path="cityName"/>
+                        <!--<form:errors path="cityName"/>-->
+                        <form:errors path="cityName">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
@@ -311,7 +339,14 @@
                             <form:option value="" label="- Choose School -"/>
                             <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
                         </form:select>
-                        <form:errors path="schoolId"/>
+                        <!--<form:errors path="schoolId"/>-->
+                        <form:errors path="schoolId">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
@@ -324,39 +359,71 @@
                             <form:options items="${requestScope.incorrectSchoolInfoTypeOptions}" itemValue="value"
                                           itemLabel="name"/>
                         </form:select>
-                        <form:errors path="schoolInfoFields.infoType"/>
+                        <!--<form:errors path="schoolInfoFields.infoType"/>-->
+                        <form:errors path="schoolInfoFields.infoType">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
                         <form:label cssClass="label1 text2bold"
-                                    path="schoolInfoFields.referenceUrl">Web page address/URL</form:label>
+                                    path="schoolInfoFields.referenceUrl">Web page address/URL
+                        <strong class="helperMessage1 formHelperText">Copy and paste this from the browser's address bar from the school page.</strong>
+                        </form:label>
                         <form:input cssClass="text1-fff" path="schoolInfoFields.referenceUrl"/>
                         <form:errors path="schoolInfoFields.referenceUrl"/>
                     </li>
-
+<div class="spacer_15"><!-- do not collapse --></div>
                     <li class="fl1-item">
                         <form:label cssClass="label1 text2bold"
                                     path="schoolInfoFields.relationship">
                             Your relationship to school or district <em class="sprite star required"><!-- do not collapse --></em>
                         </form:label>
                         <form:input cssClass="text1-fff" path="schoolInfoFields.relationship"/>
-                        <form:errors path="schoolInfoFields.relationship"/>
+                        <!--<form:errors path="schoolInfoFields.relationship"/>-->
+                        <form:errors path="schoolInfoFields.relationship">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
                         <form:label cssClass="label1 text2bold"
                                     path="schoolInfoFields.comment">
                             Your question or comment <em class="sprite star required"><!-- do not collapse --></em>
+                            <strong class="helperMessage2 formHelperText">If you are submitting a correction, list both the information as it
+                            appears on our site and your corrected version.</strong>
                         </form:label>
-                        <form:textarea cssClass="text1-fff" path="schoolInfoFields.comment" rows="3" cols="20"/>
-                        <form:errors path="schoolInfoFields.comment"/>
+                        <form:textarea cssClass="text1-fff" path="schoolInfoFields.comment" rows="10" cols="40"/>
+                        <!--<form:errors path="schoolInfoFields.comment"/>-->
+                        <form:errors path="schoolInfoFields.comment">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
 
                     <li class="fl1-item">
                         <div id="incorrectSchool_captcha" class="captcha">
                             <!-- no collapse -->
                         </div>
-                        <form:errors path="response"/>
+                        <!--<form:errors path="response"/>-->
+                        <form:errors path="response">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="captcha errorMessage1 formErrorText"><span
+                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
                     </li>
                 </ol>
             </fieldset>
@@ -368,11 +435,14 @@
                     </span>
                 </button>
             </fieldset>
+            <br class="clearfloat"/>
         </form:form>
-<div class="spacer_10"><!-- do not collapse --></div>
+<div class="spacer_25"><!-- do not collapse --></div>
+<div class="helperMessage3 formText1"><span class="sprite star"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field</div>
+<div class="spacer_15"><!-- do not collapse --></div>
         <p class="alertBox1 text3">
             <span class="sprite alert"><!-- do not collapse --></span>
-            &amp;nbsp;GreatSchools is an independent nonprofit organization. We do not have information about
+            &amp;nbsp;Note: GreatSchools is an independent nonprofit organization. We do not have information about
             school calendars, job openings, transcripts or classmates. For these topics, please contact the
             school or district directly.
         </p>
