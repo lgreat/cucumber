@@ -102,6 +102,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         command.setFirstName(user.getFirstName());
 
         // your location
+        if(user.getUserProfile() == null){return;}
         State userState = user.getUserProfile().getState();
         command.setUserState(userState);
         command.setUserCity(user.getUserProfile().getCity());
@@ -243,6 +244,12 @@ public class ManagementController extends SimpleFormController implements ReadWr
             BindException be)
             throws Exception {
         ManagementCommand command =  (ManagementCommand) be.getTarget();
+        User user1 = new User();
+        user1.setId(command.getUserId());
+        if(user1.getUserProfile() == null){
+            return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");
+        }
+
         if(command.getUserId() == 0){
             return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");
         }else{
@@ -250,12 +257,10 @@ public class ManagementController extends SimpleFormController implements ReadWr
             model.put(getCommandName(), command);
             User user = new User();
             user.setId(command.getUserId());
-            if(user.getUserProfile() == null){
-                return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");                
-            }
             PageHelper.setMemberCookie(request, response, user);
             return new ModelAndView("email/management",model);
         }
+        
     }
 
     @Override
