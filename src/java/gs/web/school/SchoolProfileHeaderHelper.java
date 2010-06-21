@@ -27,14 +27,9 @@ public class SchoolProfileHeaderHelper {
 
     public void updateModel(School school, Map<String, Object> model) {
         if (school != null) {
-            // TODO: Better way to retrieve active PQ?
-            List<PQ> pqs = _PQDao.findBySchool(school);
-            if (pqs != null) {
-                for (PQ pq: pqs) {
-                    if (StringUtils.equals("live", pq.getLive())) {
-                        updateWithPQ(model, pq);
-                    }
-                }
+            PQ pq = _PQDao.findBySchool(school);
+            if (pq != null) {
+                 updateWithPQ(model, pq);
             }
 
             if (model.get(PQ_HOURS) == null) {

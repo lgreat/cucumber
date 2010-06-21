@@ -70,9 +70,9 @@ public class SchoolOverview2010Controller extends
             /*
              * get PQ data to find quote if it exists
              */
-            List<PQ> pqs = _PQDao.findBySchool(school);
-            if (pqs != null && pqs.size() > 0 ) {
-                String bestKnownFor = pqs.get(0).getBestKnownFor();
+            PQ pq = _PQDao.findBySchool(school);
+            if (pq != null) {
+                String bestKnownFor = pq.getBestKnownFor();
                 
                 if (bestKnownFor != null) {
                     model.put("bestKnownFor", bestKnownFor);
