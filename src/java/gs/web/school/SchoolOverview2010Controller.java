@@ -31,7 +31,7 @@ public class SchoolOverview2010Controller extends
     private String _viewName;
 
     private IReviewDao _reviewDao;
-    //private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     private IPQDao _PQDao;
     
@@ -89,7 +89,7 @@ public class SchoolOverview2010Controller extends
             //request.setAttribute("mapSchools", nearbySchools);
 
 
-            //_schoolProfileHeaderHelper.updateModel(model);
+            _schoolProfileHeaderHelper.updateModel(school, model);
 
             // if confirm=true is passed in as a parameter to theoverview page, always show the
             // school choice pack promo thank you
@@ -262,5 +262,13 @@ public class SchoolOverview2010Controller extends
 
     public void setPQDao(IPQDao pqDao) {
         _PQDao = pqDao;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }

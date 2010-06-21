@@ -175,11 +175,18 @@
 
         <div id="schoolTypeInfo">
             <!-- School Type -->
-            <c:if test="${school.levelCode != 'p'}">
+            <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)} |
             </c:if>
             <!-- Grade levels -->
-            ${school.gradeLevels}
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p'}">
+                    Preschool
+                </c:when>
+                <c:otherwise>
+                    ${school.gradeLevels}
+                </c:otherwise>
+            </c:choose>
             <!-- Religious affiliation -->
             <c:if test="${not empty school.affiliation}">
                 | ${school.affiliation}
@@ -227,7 +234,9 @@
                     <c:if test="${not empty school.fax}">
                         <div><label>Fax:</label> ${school.fax}</div>
                     </c:if>
-                    <!-- TODO: School hours? -->
+                    <c:if test="${not empty requestScope.pq_hours}">
+                        <div><label>Hours:</label> ${requestScope.pq_hours}</div>
+                    </c:if>
                     <c:if test="${not empty school.webSite}">
                         <div>
                             <c:choose>
@@ -258,10 +267,8 @@
                                 <c:otherwise>${school.county} County</c:otherwise>
                             </c:choose>
                         </c:if>
-                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                            <c:if test="${not empty(school.county)}"> | </c:if>
-                            <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
-                        </c:if>
+                        <c:if test="${not empty(school.county)}"> | </c:if>
+                        <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
                     </div>
                 </address>
                 <c:if test="${school.districtId gt 0 and school.levelCode ne 'p'}">
@@ -307,9 +314,9 @@
                     </li>
                     <li id="sptab4" class="${(tab eq 'schoolMap')?'active':'inactive'}">
                         <c:choose>
-                            <c:when test="${tab eq 'schoolMap'}">Map this School</c:when>
+                            <c:when test="${tab eq 'schoolMap'}">Map</c:when>
                             <c:otherwise>
-                                <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map this School</link:mapSchool>
+                                <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map</link:mapSchool>
                             </c:otherwise>
                         </c:choose>
                     </li>
