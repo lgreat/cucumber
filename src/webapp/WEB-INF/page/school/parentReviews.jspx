@@ -222,7 +222,11 @@
         <p class="author">
                     <c:set var="principalName" value="${review.user.firstName}" />
                         <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
-                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                    <span class="principalName">${principalName}</span>
+            <c:if test="${not empty principalName}">
+            , 
+            </c:if>
+            ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                 <c:choose>
                     <c:when test="${review.status eq 'd'}">
