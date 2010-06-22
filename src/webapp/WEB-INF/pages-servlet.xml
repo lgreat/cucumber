@@ -2580,14 +2580,14 @@
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/testScores"/>
-        <property name="perlContentPath" value="/cgi-bin/test.cgi"/>
+        <property name="perlContentPath" value="/cgi-bin/test"/>
     </bean>
 
     <bean name="/school/teachersStudents.page"
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/teachersStudents"/>
-        <property name="perlContentPath" value="/cgi-bin/foo"/>
+        <property name="perlContentPath" value="/cgi-bin/test"/>
     </bean>
 
     <bean name="/school/overview2010.page"
