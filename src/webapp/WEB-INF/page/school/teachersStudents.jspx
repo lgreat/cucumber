@@ -7,10 +7,10 @@
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-    <title>Test Scores</title>
+    <title>Teachers and Students</title>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
-    <school:profile2010 school="${school}" tab="schoolStats" subtab="testScores">
+    <school:profile2010 school="${school}" tab="schoolStats" subtab="teachersStudents">
         <div>
             ${perlHtml}
         </div>

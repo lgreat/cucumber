@@ -14,71 +14,73 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.HashMap;
 
-public class TestScoresController extends AbstractSchoolController implements Controller {
-    private static Logger _log = Logger.getLogger(TestScoresController.class);
+public class PerlFetchController extends AbstractSchoolController implements Controller {
+    private static final Logger _log = Logger.getLogger(PerlFetchController.class);
+
+    protected static final String VIEW_NOT_FOUND = "/status/error404";
+    protected static final String VIEW_ERROR = "/status/error500";
+    protected static final String DEV_HOST = "ssprouse.dev.greatschools.org";
+    public static final String HTML_ATTRIBUTE = "perlHtml";
 
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
-
     private String _perlContentPath;
-
     private String _viewName;
-  
-    public static final String HTML_ATTRIBUTE = "testScoresHtml";
-
-    public static final String DEV_HOST = "ssprouse.dev.greatschools.org";
 
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         HashMap<String, Object> model = new HashMap<String, Object>();
 
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
+        if (school == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView(VIEW_NOT_FOUND);
+        }
         String perlResponse;
-
-        String href = getAbsoluteHref(request);
-
+        String href = getAbsoluteHref(school, request);
         String view = getViewName();
 
         try {
             perlResponse = getResponseFromUrl(href);
 
-            if (school != null) {
-                _schoolProfileHeaderHelper.updateModel(school, model);
-            }
+            _schoolProfileHeaderHelper.updateModel(school, model);
 
-            model.put("testScoresHtml", perlResponse);
+            model.put(HTML_ATTRIBUTE, perlResponse);
         } catch (BadResponseException e) {
             _log.error("Problem retrieving data from " + href + ". Aborting and bubbling up response code ", e);
             response.sendError(e.getResponseCode(), null);
 
             if (e.getResponseCode() == 404 ) {
-                view = "/status/error404";
+                view = VIEW_NOT_FOUND;
             } else if (e.getResponseCode() == 500 ) {
                 model.put("javax.servlet.error.exception", e);
-                view = "/status/error500";
+                view = VIEW_ERROR;
             }
         }
 
         return new ModelAndView(view, model);
     }
-    
-    public String getAbsoluteHref(HttpServletRequest request) {
+
+    protected String getAbsoluteHref(School school, HttpServletRequest request) {
         String relativePath = getPerlContentPath();
 
-        String href = request.getProtocol() + "://" + request.getServerName() + ":" + request.getServerPort() + relativePath;
+        relativePath += "?id=" + school.getId() + "&state=" + school.getDatabaseState();
+
+        String href = request.getProtocol() + "://" + request.getServerName() +
+                ((request.getServerPort() != 80)?(":" + request.getServerPort()):"") +
+                relativePath;
 
         if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             href = "http://" + DEV_HOST + relativePath;
         }
-        
+
         return href;
     }
 
     class BadResponseException extends Exception {
         private int _responseCode;
-        
-        public BadResponseException(int responseCode) {
-            super("Request returned bad response code: " + responseCode);
+
+        public BadResponseException(int responseCode, String url) {
+            super("Request to " + url + " returned bad response code: " + responseCode);
             _responseCode = responseCode;
         }
 
@@ -86,15 +88,15 @@ public class TestScoresController extends AbstractSchoolController implements Co
             return _responseCode;
         }
     }
-    
-    public String getResponseFromUrl(String absoluteHref) throws BadResponseException {
 
+    protected String getResponseFromUrl(String absoluteHref) throws BadResponseException {
         HttpURLConnection connection = null;
         BufferedReader reader;
         StringBuilder response = new StringBuilder();
         String line;
         URL serverAddress;
 
+        _log.info("Fetching perl from " + absoluteHref);
         try {
             serverAddress = new URL(absoluteHref);
 
@@ -106,7 +108,7 @@ public class TestScoresController extends AbstractSchoolController implements Co
 
             int responseCode = connection.getResponseCode();
             if (responseCode >= 400 ) {
-                throw new BadResponseException(responseCode);
+                throw new BadResponseException(responseCode, absoluteHref);
             }
 
             reader  = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -115,12 +117,14 @@ public class TestScoresController extends AbstractSchoolController implements Co
                 response.append(line).append('\n');
             }
 
+            _log.info("Got response " + responseCode + ":\n" + response);
+
         } catch (MalformedURLException e) {
-            _log.debug("Could not understand given url: " + absoluteHref, e);
+            _log.error("Could not understand given url: " + absoluteHref, e);
         } catch (ProtocolException e) {
-            _log.debug("Error reading from given url: " + absoluteHref, e);
+            _log.error("Error reading from given url: " + absoluteHref, e);
         } catch (IOException e) {
-            _log.debug("Error reading from given url: " + absoluteHref, e);
+            _log.error("Error reading from given url: " + absoluteHref, e);
         }
         finally {
             if (connection != null) {

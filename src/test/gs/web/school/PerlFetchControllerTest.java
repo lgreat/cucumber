@@ -1,5 +1,7 @@
 package gs.web.school;
 
+import gs.data.school.School;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -7,40 +9,47 @@ import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.classextension.EasyMock.*;
 
-public class TestScoresControllerTest extends BaseControllerTestCase {
+public class PerlFetchControllerTest extends BaseControllerTestCase {
 
-    TestScoresController _controller;
+    private PerlFetchController _controller;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
-
+    private School _school;
 
     public void setUp() throws Exception {
         super.setUp();
-        _controller = new TestScoresController();
+        _controller = new PerlFetchController();
         _controller.setPerlContentPath("/cgi-bin/test");
+        _controller.setViewName("view");
 
         _schoolProfileHeaderHelper = createStrictMock(SchoolProfileHeaderHelper.class);
         _controller.setSchoolProfileHeaderHelper(_schoolProfileHeaderHelper);
+
+        _school = new School();
+        _school.setId(1);
+        _school.setDatabaseState(State.CA);
+
+        getRequest().setAttribute("school", _school);
     }
 
     public void testBasics() {
         assertSame(_schoolProfileHeaderHelper, _controller.getSchoolProfileHeaderHelper());
+        assertEquals("/cgi-bin/test", _controller.getPerlContentPath());
+        assertEquals("view", _controller.getViewName());
     }
 
     public void testGetAbsoluteHrefDev() throws Exception {
-        String href = _controller.getAbsoluteHref(getRequest());
-        assertEquals("http://www.greatschools.org:80/cgi-bin/test", href);
+        String href = _controller.getAbsoluteHref(_school, getRequest());
+        assertEquals("http://www.greatschools.org/cgi-bin/test?id=1&state=CA", href);
     }
 
     public void testGetAbsoluteHrefDevWhenDeveloperWorkstation() throws Exception {
         getRequest().setServerName("localhost");
-        String href = _controller.getAbsoluteHref(getRequest());
-        assertEquals("http://ssprouse.dev.greatschools.org/cgi-bin/test", href);
+        String href = _controller.getAbsoluteHref(_school, getRequest());
+        assertEquals("http://ssprouse.dev.greatschools.org/cgi-bin/test?id=1&state=CA", href);
     }
 
     public void testGetResponseFromUrl() throws Exception {
-        TestScoresController controller = new TestScoresController();
-
-        String response = controller.getResponseFromUrl("http://ssprouse.dev.greatschools.org/cgi-bin/test");
+        String response = _controller.getResponseFromUrl("http://ssprouse.dev.greatschools.org/cgi-bin/test");
 
         assertNotNull(response);
         assertTrue(response.length() > 0);
@@ -51,20 +60,20 @@ public class TestScoresControllerTest extends BaseControllerTestCase {
         _controller.setPerlContentPath("/cgi-bin/testpage.cgi");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
 
-        assertTrue(mAndV.getModelMap().containsKey(TestScoresController.HTML_ATTRIBUTE));
+        assertTrue(mAndV.getModelMap().containsKey(PerlFetchController.HTML_ATTRIBUTE));
     }
 
     public void testBean() throws Exception {
-        TestScoresController controller = (TestScoresController) getApplicationContext().getBean("/school/testScores.page");
+        PerlFetchController controller = (PerlFetchController) getApplicationContext().getBean("/school/testScores.page");
         getRequest().setServerName("localhost");
 
         controller.setPerlContentPath("/cgi-bin/test");
 
         ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
 
-        assertTrue(mAndV.getModelMap().containsKey(TestScoresController.HTML_ATTRIBUTE));
-        
-        String r = (String) mAndV.getModelMap().get(TestScoresController.HTML_ATTRIBUTE);
+        assertTrue(mAndV.getModelMap().containsKey(PerlFetchController.HTML_ATTRIBUTE));
+
+        String r = (String) mAndV.getModelMap().get(PerlFetchController.HTML_ATTRIBUTE);
         assertEquals("<?xml version=\"1.0\"?>\n" +
                 "<methodResponse>\n" +
                 "    <fault>\n" +
@@ -85,15 +94,13 @@ public class TestScoresControllerTest extends BaseControllerTestCase {
     }
 
     public void testFailure() throws Exception {
-
-        TestScoresController controller = new TestScoresController();
         getRequest().setServerName("localhost");
 
         MockHttpServletResponse response = getResponse();
 
-        controller.setPerlContentPath("/cgi-bin/doesnotexist");
+        _controller.setPerlContentPath("/cgi-bin/doesnotexist");
 
-        ModelAndView mAndV = controller.handleRequestInternal(getRequest(), response);
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), response);
 
         assertTrue(response.getStatus() == 404);
         assertTrue("/status/error404".equals(mAndV.getViewName()));

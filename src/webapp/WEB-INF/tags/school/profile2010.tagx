@@ -338,8 +338,7 @@
                         </c:when>
                         <c:when test="${school.type.name eq 'private'}">
                             <c:set var="sptab3_name" value="School Stats"/>
-                            <!-- TODO: Link to teachers/students -->
-                            <c:set var="sptab3_link"><a href="#" onclick="return false;">${sptab3_name}</a></c:set>
+                            <c:set var="sptab3_link"><a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
                         </c:when>
                     </c:choose>
                     <c:if test="${not empty sptab3_name}">
@@ -392,17 +391,14 @@
                                     </c:choose>
                                 </li>
                             </c:if>
-                            <c:if test="${school.levelCode ne 'p'}">
-                                <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active':'inactive'}">
-                                    <c:choose>
-                                        <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
-                                        <c:otherwise>
-                                            <!-- TODO: link to teachers/students -->
-                                            <a href="#" onclick="return false;">Teachers &amp;amp; Students</a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </li>
-                            </c:if>
+                            <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active':'inactive'}">
+                                <c:choose>
+                                    <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
+                                    <c:otherwise>
+                                        <a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Teachers &amp;amp; Students</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </li>
                             <c:if test="${requestScope.hasSurveyData}">
                                 <li id="spstab4" class="${(subtab eq 'survey')?'active':'inactive'}">
                                     <c:choose>
