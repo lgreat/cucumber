@@ -218,7 +218,7 @@
                  <link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">
                      <span class="sprite add"><!-- do not collapse --></span> Add to My School List</link:mySchoolList>
 
-                &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
+                <strong>&amp;nbsp;|&amp;nbsp;</strong><!-- pipe divider as opposed to link border, as per client request -->
 
                 <!--<link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
                                                 styleClass="rateImg toolsImg no_interrupt"><gsml:img
@@ -300,7 +300,7 @@
                         <span class="sprite compare"><!-- do not collapse --></span> Compare this school
                     </link:schoolCompareSchool>
 
-                    &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
+                    <strong>&amp;nbsp;|&amp;nbsp;</strong><!-- pipe divider as opposed to link border, as per client request -->
                 </c:if>
                 
                 <!--<gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
@@ -311,7 +311,7 @@
                     <span class="sprite print"><!-- do not collapse --></span> Print
                 </a>
 
-                &amp;nbsp;|&amp;nbsp;<!-- pipe divider as opposed to link border, as per client request -->
+                <strong>&amp;nbsp;|&amp;nbsp;</strong><!-- pipe divider as opposed to link border, as per client request -->
                 <gsml:url var="mailToFriendUrl"
                           value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
                 <!--<gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
