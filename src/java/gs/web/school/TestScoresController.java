@@ -1,11 +1,10 @@
 package gs.web.school;
 
-import gs.data.util.string.StringUtils;
+import gs.data.school.School;
 import gs.web.util.UrlUtil;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +14,10 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.HashMap;
 
-public class TestScoresController implements Controller {
+public class TestScoresController extends AbstractSchoolController implements Controller {
     private static Logger _log = Logger.getLogger(TestScoresController.class);
+
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     private String _perlContentPath;
 
@@ -26,29 +27,39 @@ public class TestScoresController implements Controller {
 
     public static final String DEV_HOST = "ssprouse.dev.greatschools.org";
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         HashMap<String, Object> model = new HashMap<String, Object>();
 
-        String perlResponse = null;
+        School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
+
+        String perlResponse;
 
         String href = getAbsoluteHref(request);
 
+        String view = getViewName();
+
         try {
             perlResponse = getResponseFromUrl(href);
+
+            if (school != null) {
+                _schoolProfileHeaderHelper.updateModel(school, model);
+            }
+
+            model.put("testScoresHtml", perlResponse);
         } catch (BadResponseException e) {
-            _log.debug("Problem retrieving data from perl. Aborting and bubbling up response code ", e);
+            _log.error("Problem retrieving data from " + href + ". Aborting and bubbling up response code ", e);
             response.sendError(e.getResponseCode(), null);
 
             if (e.getResponseCode() == 404 ) {
-                setViewName("/status/error404");
+                view = "/status/error404";
             } else if (e.getResponseCode() == 500 ) {
-                setViewName("/status/error500");
+                model.put("javax.servlet.error.exception", e);
+                view = "/status/error500";
             }
         }
 
-        model.put("testScoresHtml", perlResponse);
-        return new ModelAndView(this.getViewName(), model);
+        return new ModelAndView(view, model);
     }
     
     public String getAbsoluteHref(HttpServletRequest request) {
@@ -74,19 +85,15 @@ public class TestScoresController implements Controller {
         public int getResponseCode() {
             return _responseCode;
         }
-
-        public void setResponseCode(int responseCode) {
-            this._responseCode = responseCode;
-        }
     }
     
     public String getResponseFromUrl(String absoluteHref) throws BadResponseException {
 
         HttpURLConnection connection = null;
-        BufferedReader reader  = null;
+        BufferedReader reader;
         StringBuilder response = new StringBuilder();
-        String line = null;
-        URL serverAddress = null;
+        String line;
+        URL serverAddress;
 
         try {
             serverAddress = new URL(absoluteHref);
@@ -138,5 +145,13 @@ public class TestScoresController implements Controller {
 
     public void setPerlContentPath(String perlContentPath) {
         _perlContentPath = perlContentPath;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }

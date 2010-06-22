@@ -15,7 +15,8 @@
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
-<jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+<jsp:directive.attribute name="tab" required="true" description="The Selected Tab" type="java.lang.String"/>
+<jsp:directive.attribute name="subtab" required="false" description="The Selected Sub-Tab, if any" type="java.lang.String"/>
 
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
@@ -101,10 +102,11 @@
         margin-top: 15px;
     }
     /* Tabs */
-    #schoolProfileTabsWrapper {
+    #schoolProfileTabsWrapper, #schoolProfileSubTabsWrapper {
         position: relative;
+        clear: left;
     }
-    #schoolProfileTabs {
+    #schoolProfileTabs, #schoolProfileSubTabs {
         list-style: none outside none;
     }
     #schoolProfileTabs li {
@@ -125,6 +127,26 @@
         position: relative;
         top: 5px;
     }
+
+    #schoolProfileSubTabsWrapper {
+        width: 100%;
+        border-bottom: 1px solid #A2CEE5;
+        height: 27px;
+        background-color: #F0F8FD;
+    }
+    #schoolProfileSubTabs li {
+        float: left;
+        text-align: center;
+        padding: 5px 12px;
+    }
+    #schoolProfileSubTabs li.active {
+        background-color: #154192;
+        color: #FFF;
+    }
+    #schoolProfileSubTabs li.inactive {
+        background-color: #F0F8FD;
+    }
+
 
     #schoolInaccuracy {
         font-size: 11px;
@@ -304,14 +326,30 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <li id="sptab3" class="${(tab eq 'schoolStats')?'active':'inactive'}">
-                        <c:choose>
-                            <c:when test="${tab eq 'schoolStats'}">Test Scores &amp;amp; Stats</c:when>
-                            <c:otherwise>
-                                <a href="#${headerLinkAnchor}" onclick="return false;">Test Scores &amp;amp; Stats</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
+                    <c:choose>
+                        <c:when test="${requestScope.hasTestScores}">
+                            <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
+                            <c:set var="sptab3_link"><a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
+                        </c:when>
+                        <c:when test="${school.type.name eq 'private'}">
+                            <c:set var="sptab3_name" value="School Stats"/>
+                            <c:set var="sptab3_link"><a href="#" onclick="return false;">${sptab3_name}</a></c:set>
+                        </c:when>
+                        <c:when test="${school.levelCode eq 'p'}">
+                            <c:set var="sptab3_name" value="Program Details"/>
+                            <c:set var="sptab3_link"><a href="#" onclick="return false;">${sptab3_name}</a></c:set>
+                        </c:when>
+                    </c:choose>
+                    <c:if test="${not empty sptab3_name}">
+                        <li id="sptab3" class="${(tab eq 'schoolStats')?'active':'inactive'}">
+                            <c:choose>
+                                <c:when test="${tab eq 'schoolStats'}">${sptab3_name}</c:when>
+                                <c:otherwise>
+                                    ${sptab3_link}
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:if>
                     <li id="sptab4" class="${(tab eq 'schoolMap')?'active':'inactive'}">
                         <c:choose>
                             <c:when test="${tab eq 'schoolMap'}">Map</c:when>
@@ -329,6 +367,30 @@
             </div>
             <!-- end schoolProfileTabsWrapper -->
             <div id="schoolProfileContentsWrapper">
+                <div id="schoolProfileSubTabsWrapper">
+                    <ul id="schoolProfileSubTabs">
+                        <li id="spstab1" class="${(subtab eq 'testScores')?'active':'inactive'}">
+                            <c:choose>
+                                <c:when test="${subtab eq 'testScores'}">Test scores</c:when>
+                                <c:otherwise>
+                                    <a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Test scores</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                        <c:if test="${school.type.name eq 'public'}">
+                            <li id="spstab2" class="${(subtab eq 'ratings')?'active':'inactive'}">
+                                <c:choose>
+                                    <c:when test="${subtab eq 'ratings'}">GreatSchools Ratings</c:when>
+                                    <c:otherwise>
+                                        <link:schoolProfileRating school="${school}" anchor="${headerLinkAnchor}">GreatSchools Ratings</link:schoolProfileRating>
+                                    </c:otherwise>
+                                </c:choose>
+                            </li>
+                        </c:if>
+                    </ul>
+                </div>
+                <!-- end schoolProfileSubTabsWrapper -->
+                <br class="clearfloat"/>
                 <div id="bodyContents">
                     <jsp:doBody/>
                 </div>

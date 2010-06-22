@@ -5,15 +5,25 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.easymock.classextension.EasyMock.*;
 
 public class TestScoresControllerTest extends BaseControllerTestCase {
 
     TestScoresController _controller;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new TestScoresController();
         _controller.setPerlContentPath("/cgi-bin/test");
+
+        _schoolProfileHeaderHelper = createStrictMock(SchoolProfileHeaderHelper.class);
+        _controller.setSchoolProfileHeaderHelper(_schoolProfileHeaderHelper);
+    }
+
+    public void testBasics() {
+        assertSame(_schoolProfileHeaderHelper, _controller.getSchoolProfileHeaderHelper());
     }
 
     public void testGetAbsoluteHrefDev() throws Exception {
@@ -37,8 +47,9 @@ public class TestScoresControllerTest extends BaseControllerTestCase {
     }
 
     public void testHandleInternal() throws Exception {
-
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        getRequest().setServerName("dev.greatschools.org");
+        _controller.setPerlContentPath("/cgi-bin/testpage.cgi");
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
 
         assertTrue(mAndV.getModelMap().containsKey(TestScoresController.HTML_ATTRIBUTE));
     }
@@ -49,7 +60,7 @@ public class TestScoresControllerTest extends BaseControllerTestCase {
 
         controller.setPerlContentPath("/cgi-bin/test");
 
-        ModelAndView mAndV = controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
 
         assertTrue(mAndV.getModelMap().containsKey(TestScoresController.HTML_ATTRIBUTE));
         
@@ -82,10 +93,10 @@ public class TestScoresControllerTest extends BaseControllerTestCase {
 
         controller.setPerlContentPath("/cgi-bin/doesnotexist");
 
-        ModelAndView mAndV = controller.handleRequest(getRequest(), response);
+        ModelAndView mAndV = controller.handleRequestInternal(getRequest(), response);
 
         assertTrue(response.getStatus() == 404);
-        assertTrue("/status/error404".equals(controller.getViewName()));
+        assertTrue("/status/error404".equals(mAndV.getViewName()));
 
     }
 

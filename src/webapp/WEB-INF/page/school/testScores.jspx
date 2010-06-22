@@ -1,19 +1,22 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           version="2.0">
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-
     <title>Test Scores</title>
 </head>
-<body class="nocol">
-<div>
-    ${testScoresHtml}
-</div>
-</body>
-<mod:tracking pageName="School Profile Page Not Found"
-              hier1="School,Page Not Found"/>
+<gsml:body adPageName="overview" pageLayout="nocol">
+    <school:profile2010 school="${school}" tab="schoolStats" subtab="testScores">
+        <div>
+            ${testScoresHtml}
+        </div>
+    </school:profile2010>
+    <mod:tracking pageName="School Profile Page Not Found"
+                  hier1="School,Page Not Found"/>
+</gsml:body>
 </html>
 </jsp:root>
