@@ -267,8 +267,8 @@ body.ie6 #topnav_search ul #srch1,
 body.ie6 #topnav_search ul #srch2,
 body.ie6 #topnav_search ul #srch1 label,
 body.ie6 #topnav_search ul #srch2 label,
-body.ie6 #topnav_menusubnav li a {
-    background-image: url(/res/img/nav/topnavSprite_bg.gif);
+body.ie6 #topnav_menusubnav li a.arrow {
+    background-image: url(/res/img/nav/topnavSprite_bg_v1_2.gif);
 }
 body.ie6 #topnav_menusubnav #topnav_bts a, body.ie6 #topnav_menusubnav #topnav_comm a {background: none;}
 
@@ -277,7 +277,7 @@ body.ie6 #topnav_menusubnav #topnav_bts a, body.ie6 #topnav_menusubnav #topnav_c
 *html #topnav_search ul #srch2,
 *html #topnav_search ul #srch1 label,
 *html #topnav_search ul #srch2 label,
-*html #topnav_menusubnav li a {
+*html #topnav_menusubnav li a.arrow {
     background-image: url(/res/img/nav/topnavSprite_bg_v1_2.gif);
 }
 
