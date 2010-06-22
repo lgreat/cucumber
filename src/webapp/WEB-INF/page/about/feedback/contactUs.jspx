@@ -362,7 +362,7 @@
                         <!--<form:errors path="schoolInfoFields.infoType"/>-->
                         <form:errors path="schoolInfoFields.infoType">
                             <c:forEach items="${messages}" var="message"> 
-                                <strong class="errorMessage1 formErrorText"><span
+                                <strong class="fatselect1 errorMessage1 formErrorText"><span
                                         class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                 </strong>
                             </c:forEach>
@@ -405,7 +405,7 @@
                         <!--<form:errors path="schoolInfoFields.comment"/>-->
                         <form:errors path="schoolInfoFields.comment">
                             <c:forEach items="${messages}" var="message"> 
-                                <strong class="errorMessage1 formErrorText"><span
+                                <strong class="textarea1 errorMessage1 formErrorText"><span
                                         class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                 </strong>
                             </c:forEach>

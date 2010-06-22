@@ -43,7 +43,9 @@ public class FeedbackValidator implements Validator {
 
     protected void validateIncorrectSchoolInfo(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        if (errors.getFieldErrors("submitterEmail").size() > 0) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
@@ -51,7 +53,7 @@ public class FeedbackValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolInfoFields.relationship", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolInfoFields.comment", null, FIELD_REQUIRED_MSG);
 
-        if (!getEmailValidator().isValid(command.getSubmitterEmail())) {
+        if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
         }
     }

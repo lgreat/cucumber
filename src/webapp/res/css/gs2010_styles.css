@@ -5219,6 +5219,12 @@ button {
     padding-left:310px;
 }
 
+/* textarea and fatselect */
+.textarea1, .fatselect1{
+    padding-top:3px;
+    padding-left:315px;
+}
+
 /* labels and inputs */
 .label1 {
     float: left;
