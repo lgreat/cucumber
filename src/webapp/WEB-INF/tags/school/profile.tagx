@@ -126,7 +126,8 @@
             pageHelper.addAdKeyword("school_id", school.getId().toString());
             pageHelper.addAdKeyword("zipcode", school.getZipcode());
 
-            if (school.getDistrictId() != 0 && !"p".equals(school.getLevelCode())) {
+            // set district name and id ad attributes only if there's a district and school is not preschool-only
+            if (school.getDistrictId() != 0 && school.getLevelCode() != null && !school.getLevelCode().equals("p")) {
                 pageHelper.addAdKeyword("district_name", school.getDistrict().getName());
                 pageHelper.addAdKeyword("district_id", String.valueOf(school.getDistrictId()));
             }
