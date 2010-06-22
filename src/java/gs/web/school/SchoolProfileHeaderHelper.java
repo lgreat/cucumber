@@ -7,6 +7,7 @@ import gs.data.school.School;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
+import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,10 +25,12 @@ public class SchoolProfileHeaderHelper {
 
     private IPQDao _PQDao;
     private ITestDataSetDao _testDataSetDao;
+    private ISurveyDao _surveyDao;
     private static final String PQ_START_TIME = "pq_startTime";
     private static final String PQ_END_TIME = "pq_endTime";
     private static final String PQ_HOURS = "pq_hours";
     private static final String HAS_TEST_SCORES = "hasTestScores";
+    private static final String HAS_SURVEY_DATA = "hasSurveyData";
 
     public void updateModel(School school, Map<String, Object> model) {
         if (school != null) {
@@ -56,6 +59,7 @@ public class SchoolProfileHeaderHelper {
             }
             model.put(HAS_TEST_SCORES, hasTestScores);
 
+            model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
         }
     }
 
@@ -81,5 +85,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
+    }
+
+    public ISurveyDao getSurveyDao() {
+        return _surveyDao;
+    }
+
+    public void setSurveyDao(ISurveyDao surveyDao) {
+        _surveyDao = surveyDao;
     }
 }
