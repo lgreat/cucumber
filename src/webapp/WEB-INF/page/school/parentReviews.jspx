@@ -221,7 +221,9 @@
             <h4>The school's point of view</h4>
         <p class="author">
                     <c:set var="principalName" value="${review.user.firstName}" />
-                        <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
+                        <c:if test="${not empty (review.user.lastName)}">
+                            <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
+                        </c:if>
                     <span class="principalName">${principalName}</span>
             <c:if test="${not empty principalName}">
             , 
