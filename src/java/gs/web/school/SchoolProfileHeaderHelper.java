@@ -45,7 +45,7 @@ public class SchoolProfileHeaderHelper {
                     SchoolCensusValue hoursPerDay = info.getLatestValue(school,
                                                                         CensusDataType.HOURS_IN_SCHOOL_DAY);
                     if (hoursPerDay != null) {
-                        model.put(PQ_HOURS, hoursPerDay.getValueText() + " hours per day");
+                        model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
                     }
                 }
             }
