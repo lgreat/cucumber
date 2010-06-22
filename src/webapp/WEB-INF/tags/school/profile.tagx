@@ -224,7 +224,7 @@
                         src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileParentReview>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm"
                                                 styleClass="rate toolsTxt no_interrupt">Rate it!</link:schoolProfileParentReview>-->
-                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt">
                     <span class="sprite rate"><!-- do not collapse --></span> Rate it!</link:schoolProfileParentReview>
                 <br/>
 
