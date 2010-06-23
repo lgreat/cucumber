@@ -7,6 +7,7 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.data.util.CommunityUtil"/>
+    <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag body-content="scriptless"/>
     <!-- Required attributes -->
     <jsp:directive.attribute name="user" required="true" type="gs.data.community.User"
@@ -37,6 +38,11 @@
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
 
         request.setAttribute("validAvatarSize", CommunityUtil.getClosestValidAvatarSize(width));
+
+        if (user.getUserProfile() == null &amp;&amp; UrlUtil.isDevEnvironment(request.getServerName())) {
+            // error handling
+            request.setAttribute("anonymous", "true");
+        }
     </jsp:scriptlet>
 
 
