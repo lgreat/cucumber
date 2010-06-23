@@ -32,16 +32,17 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 
-        request.setAttribute("avatarPath", CommunityUtil.getAvatarPath(user.getId()));
-        request.setAttribute("avatarName", CommunityUtil.getAvatarFilename(user.getId(), width, "jpg"));
         request.setAttribute("useNewCommunity", CommunityUtil.isNewCommunityEnabled());
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
 
         request.setAttribute("validAvatarSize", CommunityUtil.getClosestValidAvatarSize(width));
 
-        if (user.getUserProfile() == null &amp;&amp; UrlUtil.isDevEnvironment(request.getServerName())) {
-            // error handling
+        if (UrlUtil.isDevEnvironment(request.getServerName()) &amp;&amp; (user == null || user.getUserProfile() == null)) {
+            // error handling -- force anonymous avatar
             request.setAttribute("anonymous", "true");
+        } else {
+            request.setAttribute("avatarPath", CommunityUtil.getAvatarPath(user.getId()));
+            request.setAttribute("avatarName", CommunityUtil.getAvatarFilename(user.getId(), width, "jpg"));
         }
     </jsp:scriptlet>
 
