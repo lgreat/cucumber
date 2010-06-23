@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UserProfileTagHandler.java,v 1.6 2009/12/04 22:27:02 chriskimm Exp $
+ * $Id: UserProfileTagHandler.java,v 1.7 2010/06/23 21:48:10 aroy Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.web.util.UrlBuilder;
 import gs.data.community.User;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspException;
@@ -28,6 +29,10 @@ public class UserProfileTagHandler extends LinkTagHandler {
         } else if (_user != null && _user.getUserProfile() != null) {
             builder = new UrlBuilder(_user, UrlBuilder.USER_PROFILE);
         } else {
+            // aroy: stop this from crashing on dev servers, where the DB is often out of sync
+            if (getSessionContext() != null && UrlUtil.isDevEnvironment(getSessionContext().getHostName())) {
+                return new UrlBuilder("user_not_on_this_server", UrlBuilder.USER_PROFILE);
+            }
             if (_user == null) {
                 throw new IllegalArgumentException("UserProfileTagHandler requires a non-null community user");
             } else {
