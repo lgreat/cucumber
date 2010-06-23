@@ -27,13 +27,17 @@
     </head>
 
     <gsml:body pageLayout="nocol" adPageName="apiDocs">
-    <div id="api_docs">
+    <div id="api_docs" class="technical_overview">
         <jsp:include page="/api/leftNav.module" />
 
         <c:if test="${registration eq 'success'}">
             <div class="success_message">Your request has been submitted.
                 We will respond to you within the next 3-4 business days.</div>
         </c:if>
+            <div class="fltrt box_ad">
+                <ad:setSlotPrefix slotPrefix="Api_Technical_Overview"/>
+                <ad:AboveFold_300x250/>
+            </div>
         <div class="content">
             <div class="callfirst">
                 <h2>Technical Overview</h2>

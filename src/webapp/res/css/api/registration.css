@@ -1,3 +1,8 @@
+#AboveFold_300x250 {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
 /* api/registration.css */
 div#api_regg {
     float:left;
@@ -143,17 +148,12 @@ div#finder_promo .blurb {
     padding:0;
 }
 
-.greyDotVert {
-	background-image: url(/res/img/api/grey_dot_vert.gif);
-	background-repeat: repeat-y;
-}
-
 #schoolFinderPromo{
 	background-image: url(/res/img/api/mapwidget_map.gif);
 	background-repeat: no-repeat;
 	background-position: 0px 30px;
 
-    width: 247px;
+    width: 260px;
     height: 152px;
     padding: 4px 0px;
 }
@@ -181,11 +181,6 @@ div#finder_promo .blurb {
 	padding: 5px 0px 1px;
 	background-color: #fff;
     /*position: relative;*/
-}
-
-tr.glanceTitle{
-    font-weight:bold;
-    font-size:12px;
 }
 
 td.getStarted{
@@ -216,15 +211,6 @@ td.getStarted{
     background-repeat: no-repeat;
     background-position: 0px 0px;
     padding-left:20px;
-}
-
-table.atAGlance{
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-table.atAGlance td{
-    height:25px;
 }
 
 .note{

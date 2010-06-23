@@ -38,6 +38,10 @@ div.content {
     float:left;
 }
 
+.technical_overview div.content {
+    width: 469px;
+}
+
 div#sidebar {
     width:200px;
     float:right;
@@ -163,28 +167,11 @@ div.apiTerms .apiTermsSection{
     font-weight:bold;
 }
 
+#AboveFold_300x250 {
+    float: right;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* needed for IE 6 */
+.box_ad {
+    width: 300px;
+}
