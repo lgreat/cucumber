@@ -44,72 +44,75 @@ public class SchoolProfileHeaderHelper {
     private static final String GRADE_DISCUSSION_BOARD_ID = "gradeDiscussionBoardId";
 
     public void updateModel(School school, Map<String, Object> model) {
-        if (school != null) {
-            // Determine PQ
-            PQ pq = _PQDao.findBySchool(school);
-            if (pq != null) {
-                 updateWithPQ(model, pq);
-            }
+        try {
+            if (school != null) {
+                // Determine PQ
+                PQ pq = _PQDao.findBySchool(school);
+                if (pq != null) {
+                     updateWithPQ(model, pq);
+                }
 
-            if (model.get(PQ_HOURS) == null) {
-                ICensusInfo info = school.getCensusInfo();
-                if (info != null) {
-                    SchoolCensusValue hoursPerDay = info.getLatestValue(school,
-                                                                        CensusDataType.HOURS_IN_SCHOOL_DAY);
-                    if (hoursPerDay != null) {
-                        model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
+                if (model.get(PQ_HOURS) == null) {
+                    ICensusInfo info = school.getCensusInfo();
+                    if (info != null) {
+                        SchoolCensusValue hoursPerDay = info.getLatestValue(school,
+                                                                            CensusDataType.HOURS_IN_SCHOOL_DAY);
+                        if (hoursPerDay != null) {
+                            model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
+                        }
+                    }
+                }
+
+                // Determine private school test scores
+                boolean hasTestScores = true;
+                if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+                    hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
+                            _testDataSetDao.hasDisplayableData(school);
+                } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                    hasTestScores = false;
+                }
+                model.put(HAS_TEST_SCORES, hasTestScores);
+
+                // TODO: Determine levelcode of survey with most results
+                // Determine survey results
+                model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
+
+                // Determine community module
+                City city = _geoDao.findCity(school.getDatabaseState(), school.getCity());
+                boolean foundLocalBoard = false;
+                if (city != null) {
+                    LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
+                    if (localBoard != null) {
+                        model.put(LOCAL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
+                        foundLocalBoard = true;
+                    }
+                }
+                if (!foundLocalBoard && school.getLevelCode() != null) {
+                    // default to grade level board for lowest level of school
+                    long topicCenterId = -1;
+                    LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
+                    if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
+                        topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
+                    } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
+                        topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
+                    } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
+                        topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
+                    } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
+                        topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+                    }
+                    if (topicCenterId > -1) {
+                        CmsTopicCenter topicCenter =
+                                _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
+                        if (topicCenter != null
+                                && topicCenter.getDiscussionBoardId() != null
+                                && topicCenter.getDiscussionBoardId() > -1) {
+                            model.put(GRADE_DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
+                        }
                     }
                 }
             }
-
-            // Determine private school test scores
-            boolean hasTestScores = true;
-            if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
-                hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
-                        _testDataSetDao.hasDisplayableData(school);
-            } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                hasTestScores = false;
-            }
-            model.put(HAS_TEST_SCORES, hasTestScores);
-
-            // TODO: Determine levelcode of survey with most results
-            // Determine survey results
-            model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
-
-            // Determine community module
-            City city = _geoDao.findCity(school.getDatabaseState(), school.getCity());
-            boolean foundLocalBoard = false;
-            if (city != null) {
-                LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
-                if (localBoard != null) {
-                    model.put(LOCAL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
-                    foundLocalBoard = true;
-                }
-            }
-            if (!foundLocalBoard) {
-                // default to grade level board for lowest level of school
-                long topicCenterId = -1;
-                LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
-                if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
-                    topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
-                } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
-                    topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
-                } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
-                    topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
-                } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
-                    topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
-                }
-                if (topicCenterId > -1) {
-                    CmsTopicCenter topicCenter =
-                            _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
-                    if (topicCenter != null
-                            && topicCenter.getDiscussionBoardId() != null
-                            && topicCenter.getDiscussionBoardId() > -1) {
-                        model.put(GRADE_DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
-                    }
-                }
-            }
-
+        } catch (Exception e) {
+            _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
     }
 
