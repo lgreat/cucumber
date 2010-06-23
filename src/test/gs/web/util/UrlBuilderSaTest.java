@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.123 2010/06/03 17:34:22 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.124 2010/06/23 21:26:25 aroy Exp $
  */
 
 package gs.web.util;
@@ -358,6 +358,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.CONTACT_US, State.WY, "Xyz");
         assertEquals("/cgi-bin/feedback/WY", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.PROFILE_FEEDBACK, State.WY, "Xyz");
+        assertEquals("/cgi-bin/feedback_faq/WY?fbtype=profile", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.TERMS_OF_USE, State.WY, null);
         assertEquals("/terms/?state=WY", builder.asSiteRelative(request));

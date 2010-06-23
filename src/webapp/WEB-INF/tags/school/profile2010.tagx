@@ -12,11 +12,14 @@
           xmlns:gsweb="gstaglib"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="true" description="The Selected Tab" type="java.lang.String"/>
 <jsp:directive.attribute name="subtab" required="false" description="The Selected Sub-Tab, if any" type="java.lang.String"/>
+<jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"
+                         description="Omniture page name for custom click tracking"/>
 
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
@@ -318,9 +321,9 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <li id="sptab2" class="${(tab eq 'reviews')?'active':'inactive'}">
+                    <li id="sptab2" class="${(tab eq 'parentReviews')?'active':'inactive'}">
                         <c:choose>
-                            <c:when test="${tab eq 'reviews'}">Reviews</c:when>
+                            <c:when test="${tab eq 'parentReviews'}">Reviews</c:when>
                             <c:otherwise>
                                 <link:schoolProfileParentReview school="${school}" anchor="${headerLinkAnchor}">Reviews</link:schoolProfileParentReview>
                             </c:otherwise>
@@ -363,7 +366,7 @@
                 <!-- TODO: Fill in URL -->
                 <div id="schoolInaccuracy" class="fltrt">
                     Notice an inaccuracy?
-                    <a href="#">Let us know!</a>
+                    <link:profileFeedback>Let us know!</link:profileFeedback>
                 </div>
             </div>
             <!-- end schoolProfileTabsWrapper -->
@@ -423,7 +426,80 @@
         <!-- end schoolProfileLeftColumn -->
 
         <div id="schoolProfileRightColumn">
-            Right Column
+            <c:choose>
+                <c:when test="${tab eq 'overview'}">
+                    <ad:AboveFold_300x250/>
+
+                    <variant:b>
+                        <promo:schoolChoicePackPromo
+                                schoolName="${school.name}" 
+                                showBorder="${true}" 
+                                showSchoolChoiceLink="${true}"
+                                schoolObjectForRedirect="${school}"
+                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
+                    </variant:b>
+                    
+                    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
+
+                    <!-- Community module -->
+                    <c:set var="recentDiscussions" value=""/>
+                    <c:choose>
+                        <c:when test="${requestScope.localDiscussionBoardId gt 0}">
+                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                            <c:set var="recentDiscussions">
+                                <c:import
+                                        url="/community/recentLocalDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;cityName=${school.city}"/>
+                            </c:set>
+                        </c:when>
+                        <c:when test="${requestScope.gradeDiscussionBoardId gt 0}">
+                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                            <c:set var="recentDiscussions">
+                                <c:import
+                                        url="/community/recentDiscussions.module?board_id=${requestScope.gradeDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
+                            </c:set>
+                        </c:when>
+                    </c:choose>
+                    ${recentDiscussions}
+                    
+                    <ad:BelowFold_300x250/>
+                </c:when>
+                <c:when test="${tab eq 'map'}">
+
+                </c:when>
+                <c:otherwise>
+                    <ad:AboveFold_300x250/>
+
+                    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
+
+                    <promo:searchRealtorDotCom omniturePageName="${pageName}" showAdPct="0" size="300x137"
+                                               defaultCity="${school.city}" defaultState="${school.databaseState}"/>
+
+                    <!-- Community module -->
+                    <c:set var="recentDiscussions" value=""/>
+                    <c:choose>
+                        <c:when test="${requestScope.localDiscussionBoardId gt 0}">
+                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                            <c:set var="recentDiscussions">
+                                <c:import
+                                        url="/community/recentLocalDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;cityName=${school.city}"/>
+                            </c:set>
+                        </c:when>
+                        <c:when test="${requestScope.gradeDiscussionBoardId gt 0}">
+                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                            <c:set var="recentDiscussions">
+                                <c:import
+                                        url="/community/recentDiscussions.module?board_id=${requestScope.gradeDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
+                            </c:set>
+                        </c:when>
+                    </c:choose>
+                    ${recentDiscussions}
+
+                    <ad:BelowFold_300x250/>
+
+                    <ad:BelowFold_Top_300x125/>
+
+                </c:otherwise>
+            </c:choose>
         </div>
         <!-- end schoolProfileRightColumn -->
 

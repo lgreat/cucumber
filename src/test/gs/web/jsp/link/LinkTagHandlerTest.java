@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.77 2010/04/21 22:55:58 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.78 2010/06/23 21:26:25 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -419,6 +419,17 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setTopicOption(null);
         builder = tagHandler.createUrlBuilder();
         assertEquals(relativeUrl + "&redirect=http%3A%2F%2Fwww.greatschools.org%2Fsurvey%2Fresults.page%3Fid%3D1%26state%3Dca%26level%3Dh%26page%3D0",builder.asSiteRelative(null));
+    }
+
+    public void testProfileFeedback(){
+        ProfileFeedbackTagHandler tagHandler = new ProfileFeedbackTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+
+        String relativeUrl = "/cgi-bin/feedback_faq/CA?fbtype=profile";
+        UrlBuilder builder;
+
+        builder = tagHandler.createUrlBuilder();
+        assertEquals(relativeUrl,builder.asSiteRelative(null));
     }
 
     public void testResearch() {

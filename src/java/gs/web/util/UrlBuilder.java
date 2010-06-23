@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.222 2010/06/18 00:02:36 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.223 2010/06/23 21:26:25 aroy Exp $
  */
 
 package gs.web.util;
@@ -109,6 +109,7 @@ public class UrlBuilder {
     public static final VPage CONTACT_US = new VPage("vpage:contactUs");
     public static final VPage FEEDBACK = new VPage("vpage:feedback");
     public static final VPage DESIGN_FEEDBACK = new VPage("vpage:design_feedback");
+    public static final VPage PROFILE_FEEDBACK = new VPage("vpage:profile_feedback");
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
     public static final VPage DISTRICT_HOME = new VPage("vpage:districtHome");
@@ -1047,6 +1048,11 @@ public class UrlBuilder {
             _perlPage = true;
 
             setParameter("fbtype", "design");
+            _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
+        } else if (PROFILE_FEEDBACK.equals(page)) {
+            _perlPage = true;
+
+            setParameter("fbtype", "profile");
             _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
         } else if (TERMS_OF_USE.equals(page)) {
             _perlPage = false;

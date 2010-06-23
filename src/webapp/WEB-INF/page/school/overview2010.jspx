@@ -93,7 +93,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </style>
     </head>
     <gsml:body adPageName="overview" pageLayout="nocol">
-        <school:profile2010 school="${school}" tab="overview">
+        <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
 
             <div id="overviewContainer">
 

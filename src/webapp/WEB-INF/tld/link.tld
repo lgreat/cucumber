@@ -758,6 +758,15 @@
         </attribute>
     </tag>
     <tag>
+        <name>profileFeedback</name>
+        <tag-class>gs.web.jsp.link.ProfileFeedbackTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Feedback</display-name>
+        <description>
+            <![CDATA[School Profile Feedback.]]>
+        </description>
+    </tag>
+    <tag>
         <name>feedback</name>
         <tag-class>gs.web.jsp.link.FeedbackTagHandler</tag-class>
         <body-content>JSP</body-content>
