@@ -188,12 +188,12 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <c:if test="${showConfirmMessage}">
     <div id="confirmText">
-        <p>Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
+        <p class="text2bold-180">Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
     </div>
 </c:if>
 <c:if test="${!showConfirmMessage}">
-    <div id="defaultOptionFeedback" class="jqFeedback formHelperText">
-        <p>Once you have selected an option above the appropriate form will load below.</p>
+    <div id="defaultOptionFeedback" class="jqFeedback">
+        <p class="formHelperText">Once you have selected an option above the appropriate form will load below.</p>
     </div>
 </c:if>
 
@@ -1104,59 +1104,131 @@
 <!-- ** 10. Advertising & partnerships ** -->
 <!-- ************************************ -->
 <div id="advertisingFeedback" class="jqFeedback" style="display: none;">
-    <ul>
-        <li>
-            Please click here for more detailed information on advertising or partnering with
-            GreatSchools.
-        </li>
-        <li>
-            For advertising sales, please contact:<br/>
-            Marisa Procter: Midwest and New York Sales Director, mprocter@greatschools.org, 415.983.3813<br/>
-            Lauren Guetz: West and East Coast Sales Manager, lguetz@greatschools.org, 415.983.3815<br/>
-        </li>
-    </ul>
-    <p>
-        For business development and licensing, please contact:
-        Jennifer Leibick, Business Development Manager
-        jleibick@greatschools.org
+
+    <div class="spacer_20"><!-- do not collapse --></div>
+    <p class="text2bold" href="#">
+        <a href="/about/partnerOpportunities.page">
+        <span class="alertDoubleArrow">&amp;raquo;</span> Detailed information on advertising or partnering with GreatSchools.
+        </a>
     </p>
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <p class="text2bold">For advertising sales, please contact:</p>
+    <ul class="unordered-list1 text2-d61">
+        <li class="list-item"><span class="text2">Marisa Procter: Midwest and New York Sales Director, <a href="mailto:mprocter@greatschools.org">mprocter@greatschools.org</a>, 415.983.3813</span></li>
+        <li class="list-item"><span class="text2">Lauren Guetz: West and East Coast Sales Manager, <a href="mailto:lguetz@greatschools.org">lguetz@greatschools.org</a>, 415.983.3815</span></li>
+    </ul>
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <p class="text2bold">For business development and licensing, please contact:</p>
+    <ul class="unordered-list1 text2-d61">
+        <li class="list-item"><span class="text2">Jennifer Leibick, Business Development Manager, <a href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></span></li>
+    </ul>
+
 </div>
+
+<!-- *************************************** -->
+<!-- ** 11. Trouble joining or signing in ** -->
+<!-- *************************************** -->
 <div id="joinFeedback" class="jqFeedback" style="display: none;">
-    <p>
+    <p class="text2">
         We're sorry you're having trouble! Please fill out the form below with as much detail as
         possible and we'll get back to you shortly.
     </p>
+
+    <div class="spacer_10"><!-- do not collapse --></div>
     <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
                id="join"
                onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
-        <input type="hidden" name="feedbackType" value="join"/>
-        <form:hidden path="challenge" id="join_challenge"/>
-        <form:hidden path="response" id="join_response"/>
 
-        <form:label path="submitterName" for="joinFields.submitterName">Your name: </form:label>
-        <form:input path="submitterName" id="joinFields.submitterName"/>
-        <form:errors path="submitterName"/>
-        <br/>
+        <fieldset class="fieldset1 bg-fff">
+            <legend class="legend1">
+                <span class="legend1-position">Your Details</span>
+            </legend>
+            <ol class="formlist1">
 
-        <form:label path="submitterEmail" for="joinFields.submitterEmail">Your email: </form:label>
-        <form:input path="submitterEmail" id="joinFields.submitterEmail"/>
-        <form:errors path="submitterEmail"/>
-        <br/>
+                <input type="hidden" name="feedbackType" value="join"/>
+                <form:hidden path="challenge" id="join_challenge"/>
+                <form:hidden path="response" id="join_response"/>
 
-        <form:label path="joinFields.comment">Comment: </form:label>
-        <form:textarea path="joinFields.comment" rows="3" cols="20"/>
-        <form:errors path="joinFields.comment"/>
-        <br/>
+                <li class="fl1-item">
+                    <form:label cssClass="label1 text2bold" path="submitterName"
+                                for="joinFields.submitterName">Your name <em
+                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:input cssClass="text1-ededed" path="submitterName" id="joinFields.submitterName"/>
+                    <!--<form:errors path="submitterName"/>-->
+                    <form:errors path="submitterName">
+                        <c:forEach items="${messages}" var="message">
+                             <strong class="errorMessage1 formErrorText"><span
+                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                        </strong>
+                        </c:forEach>
+                    </form:errors>
+                </li>
 
-        <div class="captcha" id="join_captcha">
-            <!-- no collapse -->
-        </div>
-        <form:errors path="response"/>
-        <br/>
+                <li class="fl1-item">
+                    <form:label cssClass="label1 text2bold" path="submitterEmail"
+                                for="joinFields.submitterEmail">Your email <em
+                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:input cssClass="text1-ededed" path="submitterEmail" id="joinFields.submitterEmail"/>
+                    <!--<form:errors path="submitterEmail"/>-->
+                    <form:errors path="submitterEmail">
+                        <c:forEach items="${messages}" var="message">
+                             <strong class="errorMessage1 formErrorText"><span
+                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                        </strong>
+                        </c:forEach>
+                    </form:errors>
+                </li>
 
-        <input type="submit" name="Submit" value="submit"/>
+                <li class="fl1-item">
+                    <form:label cssClass="label1 text2bold" path="joinFields.comment">Comment <em
+                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:textarea cssClass="text1-ededed" path="joinFields.comment" rows="10" cols="40"/>
+                    <!--<form:errors path="joinFields.comment"/>-->
+                    <form:errors path="joinFields.comment">
+                        <c:forEach items="${messages}" var="message">
+                             <strong class="errorMessage1 formErrorText"><span
+                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                        </strong>
+                        </c:forEach>
+                    </form:errors>
+                </li>
+
+                <li class="fl1-item">
+                    <div class="captcha" id="join_captcha">
+                        <!-- no collapse -->
+                    </div>
+                    <!--<form:errors path="response"/>-->
+                    <form:errors path="response">
+                        <c:forEach items="${messages}" var="message">
+                             <strong class="errorMessage1 formErrorText"><span
+                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                        </strong>
+                        </c:forEach>
+                    </form:errors>
+                </li>
+
+            </ol>
+        </fieldset>
+        <!--<input type="submit" name="Submit" value="submit"/>-->
+        <fieldset class="fs1-submit">
+            <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
+                    <span class="lftDoor25">
+                        <span class="rtDoor25">Submit</span>
+                    </span>
+            </button>
+        </fieldset>
+        <br class="clearfloat"/>
     </form:form>
+
+    <div class="spacer_25"><!-- do not collapse --></div>
+    <div class="helperMessage3 formText1"><span
+            class="sprite star"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
+    </div>
 </div>
+
+<!-- *********************** -->
+<!-- ** 12.Something else ** -->
+<!-- *********************** -->
 <div id="otherFeedback" class="jqFeedback" style="display: none;">
     <script type="text/javascript" charset="utf-8">
         var is_ssl = ("https:" == document.location.protocol);

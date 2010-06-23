@@ -321,6 +321,11 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.text2bold-180 {
+    font: bold 13px Arial, Helvetica, sans-serif;
+    color: #180;
+}
+
 .text3 {
     font: 12px Arial, sans-serif;
     color: #333;
@@ -5331,6 +5336,12 @@ button {
 .ordered-list1 .list-item{
     list-style: decimal outside none;
     margin: 0 1.5em;
+    padding: 0.25em 0;
+}
+
+.unordered-list1 .list-item{
+    list-style: disc outside none;
+    margin: 0 1.0em;
     padding: 0.25em 0;
 }
 
