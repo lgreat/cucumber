@@ -245,7 +245,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,false));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
-        if(rows.size() >0){
+        if(rows != null && rows.size() >0){
             model.put("stateBoilerplate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate").toString().replaceAll("\n","<br/>"));
             model.put("stateBoilerplateHeading",(rows.get(0).get("stateboilerplateheading")) == null ? "": rows.get(0).get("stateboilerplateheading").toString());
         }else{
