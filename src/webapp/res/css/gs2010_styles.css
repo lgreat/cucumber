@@ -5096,7 +5096,7 @@ button {
     text-align:left;
 }
 
-.required {
+.requiredIndicator1 {
     position: absolute;
     right: -0.8em;
     top: 0.2em;
