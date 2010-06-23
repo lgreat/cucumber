@@ -302,7 +302,9 @@
                 <!-- TODO-10166-RANDALL 15.2 HOTFIX -->
                 <!-- Randall, please style this ad slot so that the module will look fine both with and without the ad slot,
                      and with the ad slot both targeted with something or not targeted with something. -->
-                <ad:adTag position="RYH_Sponsor_90x32"/>
+                <c:if test="${showSponsor}">
+                    <ad:adTag position="RYH_Sponsor_90x32"/>
+                </c:if>
 
                 <!--</form>-->
             </div>
