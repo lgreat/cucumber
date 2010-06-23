@@ -18,6 +18,7 @@
 <jsp:directive.attribute name="showViewAll" required="true" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="allowEditsDeletesReports" required="true" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="showFullReplies" required="true" type="java.lang.Boolean"/>
+<jsp:directive.attribute name="showSponsor" required="true" type="java.lang.Boolean"/>
 
 <c:if test="${not empty discussion}">
 
@@ -297,6 +298,12 @@
                 <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
                 </button>
+
+                <!-- TODO-10166-RANDALL 15.2 HOTFIX -->
+                <!-- Randall, please style this ad slot so that the module will look fine both with and without the ad slot,
+                     and with the ad slot both targeted with something or not targeted with something. -->
+                <ad:adTag position="RYH_Sponsor_90x32"/>
+
                 <!--</form>-->
             </div>
             <!-- end ryh-reply -->

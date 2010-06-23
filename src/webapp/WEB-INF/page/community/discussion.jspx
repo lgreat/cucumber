@@ -462,7 +462,7 @@
 
 <c:choose>
     <c:when test="${discussion.raiseYourHand}">
-        <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${validUser}" signedIn="${not empty validUser}" redirectUrl="${uri}" ryhMaxNumReplies="${pageSize}" style="ryhDetail" showViewAll="false" allowEditsDeletesReports="true" showFullReplies="true"/>
+        <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${validUser}" signedIn="${not empty validUser}" redirectUrl="${uri}" ryhMaxNumReplies="${pageSize}" style="ryhDetail" showViewAll="false" allowEditsDeletesReports="true" showFullReplies="true" showSponsor="false"/>
     </c:when>
     <c:otherwise>
 

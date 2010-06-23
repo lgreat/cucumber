@@ -68,7 +68,7 @@
 
         <c:set var="raiseYourHand">
             <c:import
-                    url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;limit=3&amp;style=ryhLandingPage&amp;showViewAll=true"/>
+                    url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode('TopicCenter#2077')}&amp;limit=3&amp;style=ryhLandingPage&amp;showViewAll=true&amp;showSponsor=false"/>
         </c:set>
         ${raiseYourHand}
 

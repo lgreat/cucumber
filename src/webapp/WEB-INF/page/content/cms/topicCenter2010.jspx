@@ -243,7 +243,7 @@
 
             <c:set var="raiseYourHand">
                 <c:import
-                        url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true"/>
+                        url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
             </c:set>
             ${raiseYourHand}
 

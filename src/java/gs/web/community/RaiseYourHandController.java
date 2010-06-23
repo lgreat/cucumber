@@ -44,12 +44,14 @@ public class RaiseYourHandController extends AbstractController {
     public static final String MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES = "ryhMaxNumReplies";
     public static final String MODEL_STYLE = "style";
     public static final String MODEL_SHOW_VIEW_ALL = "showViewAll";
+    public static final String MODEL_SHOW_SPONSOR = "showSponsor";
 
     public static final String PARAM_FEATURE_CONTENT_KEY = "featureContentKey";
     public static final String PARAM_REDIRECT_URL = "redirectUrl";
     public static final String PARAM_LIMIT = "limit";
     public static final String PARAM_STYLE = "style";
     public static final String PARAM_SHOW_VIEW_ALL = "showViewAll";
+    public static final String PARAM_SHOW_SPONSOR = "showSponsor";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -83,6 +85,7 @@ public class RaiseYourHandController extends AbstractController {
             model.put(MODEL_RAISE_YOUR_HAND_MAX_NUM_REPLIES, limit);
             model.put(MODEL_STYLE, style);
             model.put(MODEL_SHOW_VIEW_ALL, showViewAll);
+            model.put(MODEL_SHOW_SPONSOR, "true".equals(request.getParameter(PARAM_SHOW_SPONSOR)));
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User user = null;

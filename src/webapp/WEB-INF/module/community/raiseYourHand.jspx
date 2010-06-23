@@ -6,6 +6,6 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
 
-    <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${user}" signedIn="${signedIn}" redirectUrl="${redirectUrl}" ryhMaxNumReplies="${ryhMaxNumReplies}" style="${style}" showViewAll="${showViewAll}" allowEditsDeletesReports="false" showFullReplies="false"/>
+    <community:raiseYourHand discussion="${discussion}" replies="${replies}" currentDate="${currentDate}" user="${user}" signedIn="${signedIn}" redirectUrl="${redirectUrl}" ryhMaxNumReplies="${ryhMaxNumReplies}" style="${style}" showViewAll="${showViewAll}" allowEditsDeletesReports="false" showFullReplies="false" showSponsor="${showSponsor}"/>
 
 </jsp:root>
