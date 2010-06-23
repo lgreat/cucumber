@@ -18,32 +18,34 @@
             description="Page title"
             required="false"/>
 
-    <c:url var="iframeUrl" value="http://pbid.pro-market.net/engine">
-        <c:param name="site" value="120697"/>
-        <c:param name="size" value="1x1"/>
-        <c:choose>
-            <c:when test="${empty pageScope.category}">
-                <c:param name="category" value="education"/>
-            </c:when>
-            <c:otherwise>
-                <c:param name="category" value="${pageScope.category}"/>
-            </c:otherwise>
-        </c:choose>
-        <c:choose>
-            <c:when test="${empty pageScope.title}">
-                <c:param name="kw" value="greatschools"/>
-            </c:when>
-            <c:otherwise>
-                <c:param name="kw" value="${pageScope.title}"/>
-            </c:otherwise>
-        </c:choose>
-    </c:url>
+    <c:set var="siteCode" value="121171"/><!-- for testing use only -->
+    <!--c:set var="siteCode" value="120697"/--><!-- for production use -->
 
-    <c:set var="xmlEscapedIframeUrl"><c:out value="${iframeUrl}" escapeXml="true"/></c:set>
+    <c:choose>
+        <c:when test="${empty pageScope.category}">
+            <c:set var="category" value="education"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="category" value='${fn:replace(pageScope.category, "\"", "")}'/>
+        </c:otherwise>
+    </c:choose>
+    <c:choose>
+        <c:when test="${empty pageScope.title}">
+            <c:set var="keyword" value="greatschools"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="keyword" value='${fn:replace(pageScope.title, "\"", "")}'/>
+        </c:otherwise>
+    </c:choose>
 
     <![CDATA[
-    <iframe width="1" height="1" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"
-            src="${xmlEscapedIframeUrl}"><!-- don't collapse --></iframe>
+    <script type="text/javascript">
+    <!--
+    an_category = "${category}";
+    an_keyword = "${keyword}";
+    //-->
+    </script>
+    <script type="text/javascript" src="http://ads.pro-market.net/ads/scripts/site-${siteCode}.js"></script>
     ]]>
 
 </jsp:root>
