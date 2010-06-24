@@ -497,7 +497,7 @@ body.cobranded #pageGS {
 }
 
 #Sponsor_90x32 {
-    width:90px; height:32px;
+    width:90px;
     clear:both;
     float:right;
     margin:10px 20px 0 0;
@@ -505,7 +505,7 @@ body.cobranded #pageGS {
 }
 
 #RYH_Sponsor_90x32 {
-    width:90px; height:32px;
+    width:90px;
     float:right;
     margin:0;
     zoom:1;
