@@ -2,10 +2,7 @@ package gs.web.school;
 
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.data.survey.Answer;
-import gs.data.survey.ISurveyDao;
-import gs.data.survey.Question;
-import gs.data.survey.Survey;
+import gs.data.survey.*;
 import gs.web.BaseControllerTestCase;
 
 import static org.easymock.EasyMock.*;
@@ -43,13 +40,22 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         answer.setId(3);
         map.put(question, answer);
 
+        List<UserResponse> userResponses = new ArrayList<UserResponse>();
+        UserResponse response = new UserResponse();
+        response.setResponseValue("one,two,three");
+        userResponses.add(response);
+
         expect(_surveyDao.findSurveyIdWithMostResultsForSchool(school)).andReturn(survey.getId());
         expect(_surveyDao.findSurveyById(survey.getId())).andReturn(survey);
         expect(_surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle)).andReturn(map);
-        _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, question.getId(), answer.getId(), survey.getId());
+        expect(_surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, question.getId(), answer.getId(), survey.getId())).andReturn(userResponses);
 
         replay(_surveyDao);
 
-        _controller.getOneResponseTokenForAnswer(school, answerTitle);
+        String value = _controller.getOneResponseTokenForAnswer(school, answerTitle);
+
+        assertEquals(value, "one");
+
+        verify(_surveyDao);
     }
 }
