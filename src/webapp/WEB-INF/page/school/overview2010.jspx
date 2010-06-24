@@ -147,7 +147,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <content:ratingsSummary school="${school}"/>
 
                 <strong>School highlights</strong>
-                <school:schoolHighlightsList school="${school}"/>
+                <school:schoolHighlightsList school="${school}"/>;${surveySampleList}
 
                 <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
                 <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>

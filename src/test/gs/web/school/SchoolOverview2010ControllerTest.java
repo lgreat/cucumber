@@ -44,9 +44,9 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         map.put(question, answer);
 
         expect(_surveyDao.findSurveyIdWithMostResultsForSchool(school)).andReturn(survey.getId());
-        expect(_surveyDao.findSurveyById(9)).andReturn(survey);
+        expect(_surveyDao.findSurveyById(survey.getId())).andReturn(survey);
         expect(_surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle)).andReturn(map);
-        _surveyDao.findSurveyResultsBySchoolQuestionAnswer(isA(School.class), question.getId(), answer.getId(), survey.getId());
+        _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, question.getId(), answer.getId(), survey.getId());
 
         replay(_surveyDao);
 

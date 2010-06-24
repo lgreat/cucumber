@@ -46,6 +46,9 @@ public class SchoolOverview2010Controller extends
     private ISurveyDao _surveyDao;
 
     private IPQDao _PQDao;
+
+    private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
+    public static String SURVEY_SAMPLE_ATTRIBUTE = "surveySampleList";
     
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest
@@ -106,6 +109,8 @@ public class SchoolOverview2010Controller extends
 
             _schoolProfileHeaderHelper.updateModel(school, model);
 
+            populateModelWithSurveyData(school, model);
+
             // if confirm=true is passed in as a parameter to theoverview page, always show the
             // school choice pack promo thank you
             String confirmStr = request.getParameter("confirm");
@@ -141,20 +146,11 @@ public class SchoolOverview2010Controller extends
         return new ModelAndView(_viewName, model);
     }
 
-
     public void populateModelWithSurveyData(School school, Map<String,Object> model) {
-        int[] questionsToFind = {1,34};
-        String levelCode = "h";
-
-        String arts = "Arts";
-        String sports = "Sports";
-        String specialPrograms = "Other special programs";
-
-        String[] answers = {"Arts", "Sports", "Other special programs"};
 
         Set<String> results = new HashSet();
 
-        for (String answer : answers) {
+        for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
             String token = getOneResponseTokenForAnswer(school, answer);
 
             if (token != null)  {
@@ -162,7 +158,7 @@ public class SchoolOverview2010Controller extends
             }
         }
 
-        model.put("surveyResultsSample", StringUtils.join(results, ";"));
+        model.put(SURVEY_SAMPLE_ATTRIBUTE, StringUtils.join(results, ";"));
     }
 
     public String getOneResponseTokenForAnswer(School school, String answerTitle) {
@@ -183,13 +179,19 @@ public class SchoolOverview2010Controller extends
             }
         }
 
-        UserResponse userResponse = artsResponses.get(0);
+        String item = null;
+        UserResponse userResponse = null;
+        String response = null;
 
-        String response = userResponse.getResponseValue();
+        if (artsResponses.size() > 0) {
+            userResponse = artsResponses.get(0);
+        }
+
+        response = userResponse.getResponseValue();
 
         String[] tokens = StringUtils.split(response, ',');
 
-        String item = tokens[0];
+        item = tokens[0];
 
         return item;
     }
