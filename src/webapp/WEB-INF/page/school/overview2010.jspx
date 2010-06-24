@@ -10,34 +10,37 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         >
-    <jsp:directive.page import="gs.web.util.PageHelper"/>
-    <jsp:directive.page import="gs.data.school.School"/>
-    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.data.school.School"/>
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
 
-                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    <jsp:directive.page contentType="text/html"/>
-    <jsp:scriptlet>
-        PageHelper.setPageName(request, "spp_overview");
-        School school = (School) request.getAttribute("school");
-        if (school != null) {
-            PageHelper.setYahooRealEstateCity(request, school.getCity());
-        }
-    </jsp:scriptlet>
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    PageHelper.setPageName(request, "spp_overview");
+    School school = (School) request.getAttribute("school");
+    if (school != null) {
+        PageHelper.setYahooRealEstateCity(request, school.getCity());
+    }
+</jsp:scriptlet>
 
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-    <head>
-        <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
-        <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
-        <title>${gsweb:schoolPageTitle(school)}</title>
-        <!-- SearchMonkey eRDF support-->
-        <link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/"/>
-        <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#"/>
-        <!-- TODO: Is the following necessary? -->
-        <![CDATA[
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
+    <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+    <title>${gsweb:schoolPageTitle(school)}</title>
+    <!-- SearchMonkey eRDF support-->
+    <link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/"/>
+    <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#"/>
+    <!-- TODO: Is the following necessary? -->
+    <![CDATA[
 <!--[if IE 7]>
 <link rel="stylesheet" type="text/css"
 href="/res/css/school/parentReviewForm_ie7.css" />
@@ -95,110 +98,164 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <gsml:body adPageName="overview" pageLayout="nocol">
         <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
 
-            <div id="overviewContainer">
+        <div id="overviewContainer">
 
-                <div id="overviewColumn1">
+            <div id="overviewColumn1">
 
-                    <!-- overall school rating box -->
-                    <div id="overallRating">
+                <!-- overall school rating box -->
+                <div id="overallRating">
 
+                    <c:if test="${not empty gs_rating}">
                         <p>GreatSchools Rating</p>
-                        <c:set var="gsRating" value="5"/>
-                        <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif"
-                                  alt="GreatSchools Rating: ${gsRating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                        <gsml:img src="/res/img/school/overview/ratings_gs_med_${gs_rating}.gif"
+                                  alt="GreatSchools Rating: ${gs_rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
                         <a href="#">GreatSchools evaluation criteria</a>
                         <br/>
-
-                        <p>Overall community rating</p>
-
-                        <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif"
-                                  alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
-                        <a href="#">Read all 999 reviews</a>
-
-                        <button class="btn25" type="submit" name="reviewBtn" id="reviewBtn">
-                            <span class="lftDoor25"><span class="rtDoor25">Review school</span></span>
-                        </button>
-                    </div>
-
-                </div>
-
-                <div id="overviewColumn2">
-
-                    <c:if test="${not empty bestKnownFor}">
-                        <div id="bestKnownFor">
-                            <p>"${bestKnownFor}"</p> <!-- TODO: info icon + hover -->
-                            <a href="#">Read more from the school principal <span>&#187;</span></a>
-                        </div>
                     </c:if>
 
-                    <h2>School Summary</h2>
+                    <p>Overall community rating</p>
 
-                    <content:ratingsSummary school="${school}"/>
+                    <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif"
+                              alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
 
+                    <c:choose>
+                        <c:when test="${fn:length(reviews) gt 0}">
+                            <a href="#">Read all ${fn:length(reviews)} reviews</a>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileParentReview
+                                    school="${school}">Be the first to review</link:schoolProfileParentReview>
+                        </c:otherwise>
+                    </c:choose>
 
-                    <c:if test="${school.levelCode != 'p'}">
-                        <div id="espLink">
-                            Are you a principal? <a href="#">Complete your school's profile</a>
-                        </div>
-                    </c:if>
-
-
-                    <div id="map">
-                        &#160;
-                        <noscript>JavaScript is required in order to view a map of the city and its
-                            schools.
-                        </noscript>
-                    </div>
-                    <map:school id="map"
-                                tooltips="true"
-                                schools="${mapSchools}"
-                                school="${school}"/>
-
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>COMPARE</th>
-                                <th>SCHOOL</th>
-                                <th>GREATSCHOOLS <br/>RATING</th>
-                                <th>PARENT <br/>RATING</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${mapSchools}" var="s">
-                                <tr>
-                                    <td><input type="checkbox"/>COMPARE</td>
-                                    <td>
-                                        ${s.neighbor.name}<br/>
-                                        ${s.distance} miles
-                                    </td>
-                                    <td>${s.rating}</td>
-                                    <td>${s.parentRatings.overall}</td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-
-
-                    <h5>Parent Reviews &amp; ratings</h5>
-
-
-
+                    <button class="btn25" type="submit" name="reviewBtn" id="reviewBtn">
+                        <span class="lftDoor25"><span class="rtDoor25">Review school</span></span>
+                    </button>
                 </div>
-                <br class="clearfloat"/>
-
-                <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}"/>
-
 
             </div>
 
-        </school:profile2010>
+            <div id="overviewColumn2">
 
-        <div style="display:none">
-            <mod:tracking pageName="${pageName}"
-                          hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                          school="${school}"/>
+                <c:if test="${not empty bestKnownFor}">
+                    <div id="bestKnownFor">
+                        <p>"${bestKnownFor}"</p> <!-- TODO: info icon + hover -->
+                        <a href="#">Read more from the school principal <span>&#187;</span></a>
+                    </div>
+                </c:if>
+
+                <content:ratingsSummary school="${school}"/>
+
+                <strong>School highlights</strong>
+                <school:schoolHighlightsList school="${school}"/>
+
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+
+                <c:if test="${school.levelCode != 'p'}">
+                    <div id="espLink">
+                        Are you a principal? <a href="#">Complete your school's profile</a>
+                    </div>
+                </c:if>
+
+                <h3>Compare to nearby schools</h3>
+                <span><link:mapSchool school="${school}">Larger map</link:mapSchool><span
+                        class="alertDoubleArrow">&amp;#187;</span></span>
+
+                <div id="map">
+                    &#160;
+                    <noscript>JavaScript is required in order to view a map of the city and its
+                        schools.
+                    </noscript>
+                </div>
+                <map:school id="map" tooltips="true"
+                            schools="${mapSchools}"
+                            school="${school}"/>
+
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>COMPARE</th>
+                        <th>SCHOOL</th>
+                        <th>GREATSCHOOLS <br/>RATING</th>
+                        <th>PARENT <br/>RATING</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${mapSchools}" var="s">
+                        <tr>
+                            <td><input type="checkbox"/>COMPARE</td>
+                            <td>
+                                ${s.neighbor.name}<br/>
+                                ${s.distance} miles
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty s.rating and s.rating gt 0}">
+                                        <img src="/res/img/map/ratings_gs_map_${s.rating}.gif"
+                                             alt="rating ${s.rating}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="/res/img/school/ratings/na.gif" alt="N/A"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <link:schoolProfileParentReview school="${school}">
+                                    <c:choose>
+                                        <c:when test="${not empty s.parentRatings.overall}">
+                                            <img src="/res/img/school/parentReviews/stars_med_${s.parentRatings.overall}.gif"
+                                                 alt="${s.parentRatings.overall} stars" height="12px"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="/res/img/search/rateit.jpg" alt="0 stars"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileParentReview>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn25" type="submit" name="compareBtn" id="compareBtn">
+                                <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                            </button>
+                        </td>
+                        <td colspan="2">
+                            <!-- TODO: paging -->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h5>Parent Reviews &amp; ratings</h5>
+
+            </div>
+            <br class="clearfloat"/>
+
+            <c:if test="${fn:length(reviews) gt 0}">
+                <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}"/>
+
+                <link:schoolProfileParentReview school="${school}">Read all reviews <span
+                        class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+            </c:if>
+
+            <div>
+                Share your own experience with ${school.name}.
+                <link:schoolProfileParentReview school="${school}">Submit a review <span
+                        class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+            </div>
+
         </div>
-    </gsml:body>
-    </html>
+
+    </school:profile2010>
+
+    <div style="display:none">
+        <mod:tracking pageName="${pageName}"
+                      hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+                      school="${school}"/>
+    </div>
+</gsml:body>
+</html>
 </jsp:root>

@@ -2,19 +2,24 @@ package gs.web.school;
 
 import gs.data.community.Subscription;
 import gs.data.community.User;
-import gs.data.school.IPQDao;
-import gs.data.school.NearbySchool;
-import gs.data.school.PQ;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.survey.*;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.PageHelper;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -28,10 +33,17 @@ import java.util.*;
  */
 public class SchoolOverview2010Controller extends
         AbstractSchoolController implements IDirectoryStructureUrlController {
+    protected static final Log _log = LogFactory.getLog(SchoolOverview2010Controller.class.getName());
+
+    public static final String BEAN_ID = "/school/overview2010.page";
+
     private String _viewName;
 
     private IReviewDao _reviewDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+    private IRatingsConfigDao _ratingsConfigDao;
+    private TestManager _testManager;
+    private ISurveyDao _surveyDao;
 
     private IPQDao _PQDao;
     
@@ -39,13 +51,14 @@ public class SchoolOverview2010Controller extends
     protected ModelAndView handleRequestInternal(HttpServletRequest
             request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         String schoolIdStr = request.getParameter("id");
 
         if (schoolIdStr == null) {
             schoolIdStr = (String) request.getAttribute(AbstractSchoolController.SCHOOL_ID_ATTRIBUTE);
         }
 
+        
         // GS-3044 - number1expert cobrand specific code
         SessionContext sessionContext =
                 SessionContextUtil.getSessionContext(request);
@@ -56,7 +69,6 @@ public class SchoolOverview2010Controller extends
                 return null;
             }
         }
-
 
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
@@ -88,6 +100,9 @@ public class SchoolOverview2010Controller extends
             request.setAttribute("mapSchools", getRatingsForNearbySchools(nearbySchools));
             //request.setAttribute("mapSchools", nearbySchools);
 
+            Integer gsRating = getGSRatingFromDao(pageHelper, school);
+
+            model.put("gs_rating", gsRating);
 
             _schoolProfileHeaderHelper.updateModel(school, model);
 
@@ -124,6 +139,104 @@ public class SchoolOverview2010Controller extends
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+
+    public void populateModelWithSurveyData(School school, Map<String,Object> model) {
+        int[] questionsToFind = {1,34};
+        String levelCode = "h";
+
+        String arts = "Arts";
+        String sports = "Sports";
+        String specialPrograms = "Other special programs";
+
+        String[] answers = {"Arts", "Sports", "Other special programs"};
+
+        Set<String> results = new HashSet();
+
+        for (String answer : answers) {
+            String token = getOneResponseTokenForAnswer(school, answer);
+
+            if (token != null)  {
+                results.add(token);
+            }
+        }
+
+        model.put("surveyResultsSample", StringUtils.join(results, ";"));
+    }
+
+    public String getOneResponseTokenForAnswer(School school, String answerTitle) {
+        
+        Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
+
+        Survey survey = _surveyDao.findSurveyById(surveyId);
+
+        Map<Question,Answer> artsQAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
+
+        List<UserResponse> artsResponses = new ArrayList<UserResponse>();
+
+        Set<Map.Entry<Question,Answer>> entrySet = artsQAndA.entrySet();
+        for (Map.Entry<Question,Answer> entry : entrySet) {
+            artsResponses = _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
+            if (artsResponses != null && artsResponses.size() > 0) {
+                break;
+            }
+        }
+
+        UserResponse userResponse = artsResponses.get(0);
+
+        String response = userResponse.getResponseValue();
+
+        String[] tokens = StringUtils.split(response, ',');
+
+        String item = tokens[0];
+
+        return item;
+    }
+
+
+    /**
+     * Obtain GS rating from Ratings DAO. Use caching unless is a dev environment
+     *
+     * @param pageHelper
+     * @param school
+     * @return
+     * @throws IOException
+     */
+    public Integer getGSRatingFromDao(PageHelper pageHelper, School school) throws IOException {
+        boolean isFromCache = true;
+        if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+            isFromCache = false;
+        }
+
+        return getGSRatingFromDao(pageHelper, school, isFromCache);
+    }
+
+    public Integer getGSRatingFromDao(PageHelper pageHelper, School school, boolean useCache) {
+        Integer greatSchoolsRating = null;
+        IRatingsConfig ratingsConfig = null;
+
+        try {
+            ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), useCache);
+        } catch (IOException e) {
+            _log.debug("Failed to get ratings config from ratings config dao", e);
+        }
+
+        if (null != ratingsConfig) {
+            SchoolTestValue schoolTestValue = _testManager.getOverallRating(school, ratingsConfig.getYear());
+
+            if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+
+                greatSchoolsRating = schoolTestValue.getValueInteger();
+
+                if (schoolTestValue.getValueInteger() > 0 && schoolTestValue.getValueInteger() < 11) {
+                    //TODO: do we need this?
+                    pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
+                }
+            }
+        }
+
+        return greatSchoolsRating;
     }
 
     // Checks to see if the user has any "School Chooser Pack" subscription
@@ -204,7 +317,6 @@ public class SchoolOverview2010Controller extends
         return false;
     }
 
-
     //TODO: DANGER!!! method below was copied from MapSchoolController but distance copy was added. Move into helper class
     /**
      * Returns a list of MapSchools for a given list of NearbySchools
@@ -270,5 +382,29 @@ public class SchoolOverview2010Controller extends
 
     public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    }
+
+    public IRatingsConfigDao getRatingsConfigDao() {
+        return _ratingsConfigDao;
+    }
+
+    public void setRatingsConfigDao(IRatingsConfigDao ratingsConfigDao) {
+        _ratingsConfigDao = ratingsConfigDao;
+    }
+
+    public TestManager getTestManager() {
+        return _testManager;
+    }
+
+    public void setTestManager(TestManager testManager) {
+        _testManager = testManager;
+    }
+
+    public ISurveyDao getSurveyDao() {
+        return _surveyDao;
+    }
+
+    public void setSurveyDao(ISurveyDao surveyDao) {
+        _surveyDao = surveyDao;
     }
 }
