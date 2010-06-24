@@ -87,6 +87,14 @@ public class ManagementController extends SimpleFormController implements ReadWr
         //first try to get user from email in url parameter
         User user = getUserDao().findUserFromEmailIfExists(request.getParameter("email"));
 
+        //then try from userId parameter
+        if(user == null){
+            Integer userId = new Integer(request.getParameter("ref"));
+            if(userId.intValue() > 0){
+                user = getUserDao().findUserFromId(userId.intValue());
+            }
+        }
+
         //if email not in parameter, check if the user is signed in
         if(user == null){
             if(PageHelper.isMemberAuthorized(request)){
@@ -102,10 +110,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
         command.setFirstName(user.getFirstName());
 
         // your location
-        if(user.getUserProfile() == null){return;}
-        State userState = user.getUserProfile().getState();
+        State userState;
+        if(user.getUserProfile() != null){
+            userState = user.getUserProfile().getState();
+            command.setUserCity(user.getUserProfile().getCity());
+        }else{
+            userState = user.getState();
+            command.setUserCity(user.getTown());
+        }
         command.setUserState(userState);
-        command.setUserCity(user.getUserProfile().getCity());
         List<City> userCities = _geoDao.findAllCitiesByState(userState);
         City userCity = new City();
         userCity.setName("My city is not listed");
@@ -244,11 +257,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
             BindException be)
             throws Exception {
         ManagementCommand command =  (ManagementCommand) be.getTarget();
-        User user1 = new User();
-        user1.setId(command.getUserId());
-        if(user1.getUserProfile() == null){
-            return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");
-        }
 
         if(command.getUserId() == 0){
             return new ModelAndView("redirect:/community/loginOrRegister.page?redirect=/email/management.page");

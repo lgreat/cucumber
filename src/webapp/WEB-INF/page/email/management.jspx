@@ -105,7 +105,7 @@
 
         <div class="formMainGS col">
             <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Weekly Updates</p>
+                <p class="newsletterHeader text2bold"><a name="greatnews_anchor">Weekly Updates</a></p>
 
                 <p class="newsletterDescription text2">The tips and tools you need to make smart choices about your child’s education.</p>
                 <ol>
@@ -127,7 +127,7 @@
             <c:set var="showMynth" value="${ emailCmd.greatnews ? 'showIt' : 'hideIt' }"/>
 
             <div id="mynth" class="mynth ${showMynth}">
-                <p class="text2">Personalize your weekly updates by indicating your <br/>child(ren)'s grade level(s) for 2009-2010:</p>
+                <p class="text2"><a name="mynth_anchor">Personalize your weekly updates by indicating your</a> <br/>child(ren)'s grade level(s) for 2009-2010:</p>
                 <ol class="horizontal">
                         <li>
                             <fieldset>
@@ -229,7 +229,7 @@
 
         <div class="formMainGS col">
             <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Help kids with learning difficulties</p>
+                <p class="newsletterHeader text2bold"><a name="sed_anchor">Monthly Special Education Updates</a></p>
 
                 <p class="newsletterDescription text2">Get the resources you need to support your child with a learning disability or an attention problem.</p>
                 <ol>
@@ -263,7 +263,7 @@
 
             <div class="formMainGS col">
                 <div class="newsletterInfo">
-                    <p class="newsletterHeader text2bold">Find the right school for your child</p>
+                    <p class="newsletterHeader text2bold"><a name="chooser_anchor">Find the right school for your child</a></p>
 
                     <p class="newsletterDescription text2">
                         Find the right school with our four-part email series
@@ -351,7 +351,7 @@
         <div class="formBarGS col">
             <img src="/res/img/email/teacher.jpg" width="83" height="65" alt="teacher" class="newsletterImage"/>
         </div>
-
+        <a name="mystat_anchor"></a>
         <div class="formMainGS col">
             <div class="newsletterInfo">
                 <c:if test="${emailCmd.tooManySchoolsError}">
@@ -463,7 +463,7 @@
 
         <div class="formMainGS col">
             <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Back-to-School Tip of the Day</p>
+                <p class="newsletterHeader text2bold"><a name="bts_anchor">Back-to-School Tip of the Day</a></p>
 
                 <p class="newsletterDescription text2">Get our exclusive daily tips on topics from preventing summer brain drain to gearing up for the new school year.</p>
                 <ol>
@@ -511,7 +511,7 @@
 
             <div class="formMainGS col">
                 <div class="newsletterInfo">
-                    <p class="newsletterHeader text2bold">Back-to-school countdown tips</p>
+                    <p class="newsletterHeader text2bold"><a name="seasonal_anchor">Back-to-school countdown tips</a></p>
 
                     <p class="newsletterDescription text2">
                         Engage your child in learning over the break and ease him into
@@ -570,7 +570,7 @@
 
         <div class="formMainGS col">
             <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Send me valuable offers and information from GreatSchools partners</p>
+                <p class="newsletterHeader text2bold"><a name="sponsor_anchor">Send me valuable offers and information from GreatSchools partners</a></p>
                 <ol>
                     <li>
                         <fieldset>
@@ -600,7 +600,7 @@
             </div>
             <div class="formMainGS col">
                 <div class="newsletterInfo">
-                    <p class="newsletterHeader text2bold">Send me updates about The GreatSchools Parents Pledge</p>
+                    <p class="newsletterHeader text2bold"><a name="pledge_anchor">Send me updates about The GreatSchools Parents Pledge</a></p>
                     <ol>
                         <li>
                             <fieldset>
