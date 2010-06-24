@@ -490,24 +490,24 @@ body.cobranded #pageGS {
     background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
 }
 
-#Homepage_61x47 {
+#Homepage_61x47 { /* GS-10165 */
     width:61px; height:47px;
     position:absolute;
     bottom:10px; right:7px;
 }
 
-#Sponsor_90x32 {
+#RYH_Sponsor_90x32 { /* GS-10166 */
+    width:90px;
+    float:right;
+    margin:0;
+    zoom:1;
+}
+
+#Sponsor_90x32 { /* GS-10167 */
     width:90px;
     clear:both;
     float:right;
     margin:10px 20px 0 0;
-    zoom:1;
-}
-
-#RYH_Sponsor_90x32 {
-    width:90px;
-    float:right;
-    margin:0;
     zoom:1;
 }
 
