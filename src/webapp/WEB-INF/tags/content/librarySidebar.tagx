@@ -30,15 +30,15 @@
                         <a href="#grade-tips" id="gradeTips">By Grade</a>
                         <div class="toggle">
                             <ul id="grade-tips">
-                                <li><link:cmsCategoryBrowse gradeIDs="198" language="EN">Preschool</link:cmsCategoryBrowse></li>
+                                <li><link:preschool>Preschool</link:preschool></li>
                                 <li><link:kindergarten>Kindergarten</link:kindergarten></li>
                                 <li><link:first-grade>1st Grade</link:first-grade></li>
                                 <li><link:second-grade>2nd Grade</link:second-grade></li>
                                 <li><link:third-grade>3rd Grade</link:third-grade></li>
                                 <li><link:fourth-grade>4th Grade</link:fourth-grade></li>
                                 <li><link:fifth-grade>5th Grade</link:fifth-grade></li>
-                                <li><link:cmsCategoryBrowse gradeIDs="205" language="EN">Middle School</link:cmsCategoryBrowse></li>
-                                <li class="last"><link:cmsCategoryBrowse gradeIDs="206" language="EN">High School</link:cmsCategoryBrowse></li>
+                                <li><link:middle-school>Middle School</link:middle-school></li>
+                                <li class="last"><link:high-school>High School</link:high-school></li>
                             </ul>
                         </div>
                     </li>
