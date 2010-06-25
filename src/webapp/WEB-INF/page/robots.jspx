@@ -86,6 +86,9 @@ Disallow: /templates/
 Disallow: /content/holidayGiving.page
 Disallow: /holiday-giving/
 Disallow: /content/holidayLearning.page
+Disallow: /alert
+Disallow: /alert/ 
+
 
 </c:set>
 
