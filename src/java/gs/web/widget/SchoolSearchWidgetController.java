@@ -25,10 +25,8 @@ import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.json.JSONArray;
 
-import java.util.StringTokenizer;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.net.*;
 import java.io.*;
 
@@ -50,6 +48,8 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     // GGeoStatusCode
     // http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode
     private static final String G_GEO_SUCCESS = "200";
+
+    private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
     private boolean _hidePreschools;
 
@@ -259,6 +259,9 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     }
                 }
             }
+        } else {
+            _log.warn("SCHOOL_FINDER_WIDGET_GEOCODING_STATUS: statusCode = " + code +
+                      ", timestamp = " + dateTimeFormatter.format(new Date()));            
         }
 
         return hasResults;
