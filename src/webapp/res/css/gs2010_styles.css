@@ -5130,7 +5130,7 @@ button {
 .helperMessage1{
     position:absolute;
     top: 2.0em;
-    left: 315px;
+    left: 270px;
     font-weight: normal;
     text-align:left;
     width:400px;
@@ -5140,12 +5140,12 @@ button {
     position:absolute;
     width:160px;
     top: 3.0em;
-    left: 140px;
+    left: 95px;
     font-weight: normal;
 }
 
 .helperMessage3{
-    width:315px;
+    width:270px;
     text-align:right;
 }
 
@@ -5177,7 +5177,7 @@ button {
     border-top: 1px dotted #999;
     clear: left;
     margin: 0 0 -1em;
-    padding: 1.5em 0 1em 330px;
+    padding: 1.5em 0 1em 285px;
     position: relative;
 }
 
@@ -5205,6 +5205,12 @@ button {
 .formlist2 {
     list-style: none outside none;
     padding: 0 15px;
+    zoom: 1; /* for ie7 & ie6 */
+}
+
+.formlist3 {
+    list-style: none outside none;
+    padding: 0;
     zoom: 1; /* for ie7 & ie6 */
 }
 
@@ -5241,13 +5247,13 @@ button {
 
 /* captcha */
 .captcha{
-    padding-left:310px;
+    padding-left:265px;
 }
 
 /* textarea and fatselect */
 .textarea1, .fatselect1{
     padding-top:3px;
-    padding-left:315px;
+    padding-left:270px;
 }
 
 /* labels and inputs */
@@ -5256,7 +5262,15 @@ button {
     margin-right: 1em;
     position: relative;
     text-align: right;
-    width: 300px;
+    width: 255px;
+}
+
+.label2 {
+    float: left;
+    margin-right: 1em;
+    position: relative;
+    text-align: left;
+    width: 270px;
 }
 
 .ziplabel {

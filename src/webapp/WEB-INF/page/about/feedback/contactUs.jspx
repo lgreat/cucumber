@@ -151,24 +151,18 @@
 <div id="contactUsMainGS" class="col">
 
 <p class="text2">
-    <span class="text1bold">Do you have any questions or feedback for us?</span> Make sure you check out the
+    <span class="text1bold">Do you have questions or feedback for us?</span> Make sure you check out the
     <strong><gsml:a href="/about/gsFaq.page?state=${state}">GreatSchools FAQ</gsml:a></strong> -- the answer
-    you're looking for may already be there!
-</p>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-<p class="text2">
-    If not, just <strong>choose a topic from the drop-down menu below</strong> and fill out the appropriate
-    form to get in touch with us. You'll need to join GreatSchools or sign in before you can submit
-    feedback.
+    you're looking for may already be there! If not, just <strong>choose a topic from the drop-down menu below</strong> and fill out the appropriate
+    form to get in touch with us.
 </p>
 
 <div class="spacer_15"><!-- do not collapse --></div>
 <div class="brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
-<ol class="formlist2">
+<ol class="formlist3">
     <li class="fl2-item">
-        <label for="mainFeedbackTopicSelect" class="label1 text1bold">I'd like to contact GreatSchools about</label>
+        <label for="mainFeedbackTopicSelect" class="label2 text1bold">I'd like to contact GreatSchools about</label>
         <select id="mainFeedbackTopicSelect" disabled="disabled">
             <option value="defaultOption">- Select an option -</option>
             <option value="incorrectSchoolDistrictInfo">Incorrect or missing school/district information</option>
@@ -188,29 +182,23 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <c:if test="${showConfirmMessage}">
     <div id="confirmText">
-        <p class="text2bold-180">Thanks for your feedback! We'll email you with a response within the next 1-2 business days.</p>
+        <p class="text2bold-180">Thank you for contacting GreatSchools! We'll respond to your feedback as soon as possible.</p>
     </div>
 </c:if>
 <c:if test="${!showConfirmMessage}">
     <div id="defaultOptionFeedback" class="jqFeedback">
-        <p class="formHelperText">Once you have selected an option above the appropriate form will load below.</p>
+        <p class="formHelperText">Once you have selected an option above, the appropriate form will load below.</p>
     </div>
 </c:if>
 
 <div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
     <p class="text2">
-        Please choose one of the specific options below. Keep in mind that we rely on state Departments of
-        Education and the National Center for Education Statistics (NCES) for our school directory and are
-        unable to add public or charter schools individually to our site. If a public or charter school is
-        missing, it's usually because these data sources failed to provide the information. If you know of
-        a public or charter school that isn't listed, we recommend that you contact the appropriate state
-        Department of Education to ask them to list the school. Thanks for your help! We're always working
-        to make sure that our school listings are completely current and accurate.
+        Note: We can add preschools and private schools individually, but not public or charter schools. <gsml:a href="/about/gsFaq.page#faq-datapublic">Find out why</gsml:a>.
     </p>
 <div class="spacer_15"><!-- do not collapse --></div>
 <ol class="formlist2">
     <li class="fl2-item">
-        <label for="incorrectSchoolDistrictSubTopicSelect" class="label1 text1bold">&amp;nbsp;</label>
+        <label for="incorrectSchoolDistrictSubTopicSelect" class="label1 text2bold">Provide more detail about your feedback</label>
         <select id="incorrectSchoolDistrictSubTopicSelect">
             <option value="default">- Select an option -</option>
             <option value="incorrectSchool">Report incorrect school information</option>
@@ -264,29 +252,29 @@
 
                 <li class="fl1-item">
                     <form:label cssClass="label1 text2bold" path="submitterName">
-                        Your name <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                        Your name<em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:input cssClass="text1-ededed" path="submitterName"/>
                     <!--<form:errors path="submitterName"/>-->
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            <strong class="errorMessage1 formErrorText">
+                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
                     <form:label cssClass="label1 text2bold" path="submitterEmail">
-                        Your email <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                        Your email<em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:input cssClass="text1-ededed" path="submitterEmail"/>
                     <!--<form:errors path="submitterEmail"/>-->
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -300,8 +288,7 @@
             </legend>
             <ol class="formlist1">
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="state"
-                                for="schoolInfoFields.state">
+                    <form:label cssClass="label1 text2bold" path="state" for="schoolInfoFields.state">
                         State <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:select path="state" id="schoolInfoFields.state">
@@ -310,16 +297,15 @@
                     <!--<form:errors path="state"/>-->
                     <form:errors path="state">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="cityName"
-                                for="schoolInfoFields.cityName">
+                    <form:label cssClass="label1 text2bold" path="cityName" for="schoolInfoFields.cityName">
                         City <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:select path="cityName" id="schoolInfoFields.cityName">
@@ -329,16 +315,15 @@
                     <!--<form:errors path="cityName"/>-->
                     <form:errors path="cityName">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="schoolId"
-                                for="schoolInfoFields.schoolId">
+                    <form:label cssClass="label1 text2bold" path="schoolId" for="schoolInfoFields.schoolId">
                         School <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:select path="schoolId" id="schoolInfoFields.schoolId">
@@ -348,18 +333,16 @@
                     <!--<form:errors path="schoolId"/>-->
                     <form:errors path="schoolId">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold"
-                                path="schoolInfoFields.infoType">
-                        Type of incorrect/missing information <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                    <form:label cssClass="label1 text2bold" path="schoolInfoFields.infoType">
+                        Type of incorrect/missing information <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:select path="schoolInfoFields.infoType">
                         <form:option value="" label="- Select an option -"/>
@@ -369,46 +352,45 @@
                     <!--<form:errors path="schoolInfoFields.infoType"/>-->
                     <form:errors path="schoolInfoFields.infoType">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="fatselect1 errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="fatselect1 errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold"
-                                path="schoolInfoFields.referenceUrl">Web page address/URL
-                        <strong class="helperMessage1 formHelperText">Copy and paste this from the browser's address bar from the school page.</strong>
+                    <form:label cssClass="label1 text2bold" path="schoolInfoFields.referenceUrl">
+                        Web page address/URL
+                        <strong class="helperMessage1 formHelperText">
+                            Copy and paste this from the browser's address bar from the school page.
+                        </strong>
                     </form:label>
                     <form:input cssClass="text1-fff" path="schoolInfoFields.referenceUrl"/>
                     <form:errors path="schoolInfoFields.referenceUrl"/>
                 </li>
                 <div class="spacer_15"><!-- do not collapse --></div>
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold"
-                                path="schoolInfoFields.relationship">
-                        Your relationship to school or district <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                    <form:label cssClass="label1 text2bold" path="schoolInfoFields.relationship">
+                        Your relationship to school or district <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:input cssClass="text1-fff" path="schoolInfoFields.relationship"/>
                     <!--<form:errors path="schoolInfoFields.relationship"/>-->
                     <form:errors path="schoolInfoFields.relationship">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold"
-                                path="schoolInfoFields.comment">
-                        Your question or comment <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em>
-                        <strong class="helperMessage2 formHelperText">If you are submitting a correction, list both the information as it
-                            appears on our site and your corrected version.</strong>
+                    <form:label cssClass="label1 text2bold" path="schoolInfoFields.comment">
+                        Your question or comment <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                        <strong class="helperMessage2 formHelperText">
+                            If you are submitting a correction, list both the information as it appears on our site and your corrected version.
+                        </strong>
                     </form:label>
                     <form:textarea cssClass="text1-fff" path="schoolInfoFields.comment" rows="10" cols="40"/>
                     <!--<form:errors path="schoolInfoFields.comment"/>-->
@@ -422,14 +404,12 @@
                 </li>
 
                 <li class="fl1-item">
-                    <div id="incorrectSchool_captcha" class="captcha">
-                        <!-- no collapse -->
-                    </div>
+                    <div id="incorrectSchool_captcha" class="captcha"><!-- no collapse --></div>
                     <!--<form:errors path="response"/>-->
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="captcha errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -448,8 +428,8 @@
     </form:form>
 
     <div class="spacer_25"><!-- do not collapse --></div>
-    <div class="helperMessage3 formText1"><span
-            class="sprite star"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
+    <div class="helperMessage3 formText1">
+        <span class="sprite star"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="alertBox1 text3">
@@ -489,32 +469,32 @@
                     <form:hidden path="response" id="incorrectDistrict_response"/>
 
                     <li class="fl1-item">
-                        <form:label cssClass="label1 text2bold" path="submitterName"
-                                    for="incorrectDistrict_submitterName">Your name <em
-                                class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                        <form:label cssClass="label1 text2bold" path="submitterName" for="incorrectDistrict_submitterName">
+                            Your name<em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                        </form:label>
                         <form:input cssClass="text1-ededed" path="submitterName" id="incorrectDistrict_submitterName"/>
                         <!--<form:errors path="submitterName"/>-->
                         <form:errors path="submitterName">
                             <c:forEach items="${messages}" var="message">
-                                 <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
+                                <strong class="errorMessage1 formErrorText">
+                                    &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
                             </c:forEach>
                         </form:errors>
                     </li>
 
                     <li class="fl1-item">
-                        <form:label cssClass="label1 text2bold" path="submitterEmail"
-                                    for="incorrectDistrict_submitterEmail">Your email <em
-                                class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                        <form:label cssClass="label1 text2bold" path="submitterEmail" for="incorrectDistrict_submitterEmail">
+                            Your email<em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                        </form:label>
                         <form:input cssClass="text1-ededed" path="submitterEmail"
                                     id="incorrectDistrict_submitterEmail"/>
                         <!--<form:errors path="submitterEmail"/>-->
                         <form:errors path="submitterEmail">
                             <c:forEach items="${messages}" var="message">
-                                 <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
+                                <strong class="errorMessage1 formErrorText">
+                                    &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
                             </c:forEach>
                         </form:errors>
                     </li>
@@ -596,7 +576,7 @@
                         <!--<form:errors path="districtInfoFields.comment"/>-->
                         <form:errors path="districtInfoFields.comment">
                             <c:forEach items="${messages}" var="message">
-                                 <strong class="errorMessage1 formErrorText"><span
+                                 <strong class="textarea1 errorMessage1 formErrorText"><span
                                     class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
@@ -640,7 +620,7 @@
 <!-- ** 3. Get a preschool added to the GreatSchools site ** -->
 <!-- ******************************************************* -->
     <div id="addPreSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback" style="display: none;">
-        <p><gsml:a href="/about/feedback/submitPreschool.page">Add a preschool.</gsml:a></p>
+        <p><gsml:a href="/about/feedback/submitPreschool.page">Please click here to add a preschool to our site.</gsml:a></p>
     </div>
 
 <!-- ***************************************************** -->
@@ -648,7 +628,7 @@
 <!-- ***************************************************** -->
     <div id="addPrivateSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
          style="display: none;">
-        <p><gsml:a href="/about/feedback/submitPrivateSchool.page">Add a private school.</gsml:a></p>
+        <p><gsml:a href="/about/feedback/submitPrivateSchool.page">Please click here to add a private school to our site.</gsml:a></p>
     </div>
 </div>
 
@@ -714,31 +694,31 @@
                 <form:hidden path="response" id="schoolRatingsReviews_response"/>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterName"
-                                for="schoolRatingsReviews_submitterName">Your name <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:label cssClass="label1 text2bold" path="submitterName" for="schoolRatingsReviews_submitterName">
+                        Your name <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                    </form:label>
                     <form:input cssClass="text1-ededed" path="submitterName" id="schoolRatingsReviews_submitterName"/>
                     <!--<form:errors path="submitterName"/>-->
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterEmail"
-                                for="schoolRatingsReviews_submitterEmail">Your email <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:label cssClass="label1 text2bold" path="submitterEmail" for="schoolRatingsReviews_submitterEmail">
+                        Your email <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                    </form:label>
                     <form:input cssClass="text1-ededed" path="submitterEmail" id="schoolRatingsReviews_submitterEmail"/>
                     <!--<form:errors path="submitterEmail"/>-->
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            <strong class="errorMessage1 formErrorText">
+                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
@@ -760,7 +740,7 @@
                     <!--<form:errors path="state"/>-->
                     <form:errors path="state">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
+                            <strong class="errorMessage1 formErrorText"><span
                                     class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
@@ -777,7 +757,7 @@
                     <!--<form:errors path="cityName"/>-->
                     <form:errors path="cityName">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
+                            <strong class="errorMessage1 formErrorText"><span
                                     class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
@@ -794,7 +774,7 @@
                     <!--<form:errors path="schoolId"/>-->
                     <form:errors path="schoolId">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
+                            <strong class="errorMessage1 formErrorText"><span
                                     class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
@@ -811,7 +791,7 @@
                     <!--<form:errors path="schoolRatingsReviewsFields.comment"/>-->
                     <form:errors path="schoolRatingsReviewsFields.comment">
                         <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
+                            <strong class="textarea1 errorMessage1 formErrorText"><span
                                     class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
@@ -1026,30 +1006,32 @@
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterEmail"
-                                for="espFields.submitterEmail">Your email <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:label cssClass="label1 text2bold" path="submitterEmail" for="espFields.submitterEmail">
+                        Your email <em class="sprite star requiredIndicator1"><!-- do not collapse --></em>
+                    </form:label>
                     <form:input cssClass="text1-fff" path="submitterEmail" id="espFields.submitterEmail"/>
                     <!--<form:errors path="submitterEmail"/>-->
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            <strong class="errorMessage1 formErrorText">
+                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
 
                 <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="espFields.phone">Your phone <em
-                            class="sprite star requiredIndicator1"><!-- do not collapse --></em></form:label>
+                    <form:label cssClass="label1 text2bold" path="espFields.phone">
+                        Your phone
+                        <!--<em class="sprite star requiredIndicator1">&lt;!&ndash; do not collapse &ndash;&gt;</em>-->
+                    </form:label>
                     <form:input cssClass="text1-fff" path="espFields.phone"/>
                     <!--<form:errors path="espFields.phone"/>-->
                     <form:errors path="espFields.phone">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            <strong class="errorMessage1 formErrorText">
+                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
@@ -1060,7 +1042,7 @@
                     <!--<form:errors path="espFields.comment"/>-->
                     <form:errors path="espFields.comment">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
+                             <strong class="textarea1 errorMessage1 formErrorText"><span
                                 class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
@@ -1074,7 +1056,7 @@
                     <!--<form:errors path="response"/>-->
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
+                             <strong class="captcha errorMessage1 formErrorText"><span
                                 class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
@@ -1172,9 +1154,9 @@
                     <!--<form:errors path="submitterEmail"/>-->
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            <strong class="errorMessage1 formErrorText">
+                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
@@ -1186,7 +1168,7 @@
                     <!--<form:errors path="joinFields.comment"/>-->
                     <form:errors path="joinFields.comment">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
+                             <strong class="textarea1 errorMessage1 formErrorText"><span
                                 class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
@@ -1200,7 +1182,7 @@
                     <!--<form:errors path="response"/>-->
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
+                             <strong class="captcha errorMessage1 formErrorText"><span
                                 class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>

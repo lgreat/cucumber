@@ -60,54 +60,62 @@ public class FeedbackValidator implements Validator {
 
     protected void validateIncorrectDistrictInfo(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        if (errors.getFieldErrors("submitterEmail").size() > 0) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "districtInfoFields.districtName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "districtInfoFields.relationship", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "districtInfoFields.comment", null, FIELD_REQUIRED_MSG);
 
-        if (!getEmailValidator().isValid(command.getSubmitterEmail())) {
+        if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
         }
     }
 
     protected void validateSchoolRatingsReviews(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        if (errors.getFieldErrors("submitterEmail").size() > 0) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolRatingsReviewsFields.comment", null, FIELD_REQUIRED_MSG);
 
-        if (!getEmailValidator().isValid(command.getSubmitterEmail())) {
+        if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
         }
     }
 
     protected void validateEsp(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        if (errors.getFieldErrors("submitterEmail").size() > 0) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.comment", null, FIELD_REQUIRED_MSG);
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.comment", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.title", null, FIELD_REQUIRED_MSG);
         String phone = command.getEspFields().getPhone();
         if (!StringUtils.isBlank(phone) && !phone.replaceAll("\\D", "").matches("\\d{10}")) {
             errors.rejectValue("espFields.phone", null, "Please enter a valid phone number.");
         }
 
-        if (!getEmailValidator().isValid(command.getSubmitterEmail())) {
+        if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
         }
     }
 
     protected void validateJoin(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        if (errors.getFieldErrors("submitterEmail").size() > 0) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "joinFields.comment", null, FIELD_REQUIRED_MSG);
 
-        if (!getEmailValidator().isValid(command.getSubmitterEmail())) {
+        if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
         }
     }
