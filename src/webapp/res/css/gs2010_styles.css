@@ -3014,11 +3014,11 @@ body.nocol #pickGrade_SCPP input {
     overflow: visible;
     z-index: 100;
 }
-body.nocol #pickGrade_SCPP li, body.nocol #pickGrade_SCPP ul {
+body.nocol #schoolChoicePackPromo #pickGrade_SCPP li, body.nocol #schoolChoicePackPromo #pickGrade_SCPP ul {
     display: inline;
 
 }
-body.nocol #scpp_picker #pickGrade_SCPP{
+body.nocol #schoolChoicePackPromo #scpp_picker #pickGrade_SCPP{
     border: 0;
     width:276px;
     height: 48px;
@@ -3036,7 +3036,7 @@ body.nocol #scpp_picker #pickGrade_SCPP{
     width: auto;
     font-size: 12px;
 }
-body.nocol #pickGrade_SCPP label {
+body.nocol #schoolChoicePackPromo #pickGrade_SCPP label {
     width: 108px;
     margin: 0 0 3px 5px;
     height: 18px;

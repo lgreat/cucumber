@@ -432,11 +432,12 @@
 
                     <variant:b>
                         <promo:schoolChoicePackPromo
-                                schoolName="${school.name}" 
-                                showBorder="${true}" 
+                                schoolName="${school.name}"
+                                showBorder="${true}"
                                 showSchoolChoiceLink="${true}"
                                 schoolObjectForRedirect="${school}"
-                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
+                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                />
                     </variant:b>
                     
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>

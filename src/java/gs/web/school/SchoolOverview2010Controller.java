@@ -91,7 +91,11 @@ public class SchoolOverview2010Controller extends
                 
                 if (bestKnownFor != null) {
                     model.put("bestKnownFor", bestKnownFor);
+                } else {
+                    model.put("espLink", "profile");
                 }
+            } else {
+                model.put("espLink", "principal");
             }
 
             /*
@@ -152,46 +156,54 @@ public class SchoolOverview2010Controller extends
 
         for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
             String token = getOneResponseTokenForAnswer(school, answer);
-
+            StringUtils.replace(token, "_", " ");
             if (token != null)  {
                 results.add(token);
             }
         }
 
-        model.put(SURVEY_SAMPLE_ATTRIBUTE, StringUtils.join(results, ";"));
+        model.put(SURVEY_SAMPLE_ATTRIBUTE, StringUtils.join(results, "; "));
     }
 
+    /**
+     * Fetches a Map of questions and answers from the survey dao, using the given answer bean title property.
+     * Uses the first question and answer in map to fetch a list of responses from the dao. Throws away all
+     * but the first response. Splits the response on comma, and returns the first token.
+     * 
+     * @param school
+     * @param answerTitle
+     * @return
+     */
     public String getOneResponseTokenForAnswer(School school, String answerTitle) {
         
         Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
 
         Survey survey = _surveyDao.findSurveyById(surveyId);
 
-        Map<Question,Answer> artsQAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
+        Map<Question,Answer> qAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
 
-        List<UserResponse> artsResponses = new ArrayList<UserResponse>();
+        List<UserResponse> responses = new ArrayList<UserResponse>();
 
-        Set<Map.Entry<Question,Answer>> entrySet = artsQAndA.entrySet();
-        for (Map.Entry<Question,Answer> entry : entrySet) {
-            artsResponses = _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
-            if (artsResponses != null && artsResponses.size() > 0) {
-                break;
+        if (qAndA != null && qAndA.size() > 0) {
+            Set<Map.Entry<Question,Answer>> entrySet = qAndA.entrySet();
+            for (Map.Entry<Question,Answer> entry : entrySet) {
+                responses = _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
+                if (responses != null && responses.size() > 0) {
+                    break;
+                }
             }
         }
 
         String item = null;
-        UserResponse userResponse = null;
-        String response = null;
+        UserResponse userResponse;
+        String response;
 
-        if (artsResponses.size() > 0) {
-            userResponse = artsResponses.get(0);
+        if (responses.size() > 0) {
+            userResponse = responses.get(0);
+            response = userResponse.getResponseValue();
+            String[] tokens = StringUtils.split(response, ',');
+            item = tokens[0];
         }
-
-        response = userResponse.getResponseValue();
-
-        String[] tokens = StringUtils.split(response, ',');
-
-        item = tokens[0];
 
         return item;
     }

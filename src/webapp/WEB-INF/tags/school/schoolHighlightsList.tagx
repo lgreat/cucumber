@@ -60,9 +60,9 @@
         -->
     
         <!-- School Type -->
-        <c:if test="${school.levelCode != 'p'}">
+        <!--<c:if test="${school.levelCode != 'p'}">
             ${gsweb:capitalize(school.type.schoolTypeName)} school;
-        </c:if>
+        </c:if>-->
 
 
         <!-- Enrollment -->
@@ -98,7 +98,7 @@
 
         <!-- Association(s) -->
         <c:if test="${not empty school.association}">
-            Associations: ${school.association};
+            Associations: ${school.association}
         </c:if>
 
 

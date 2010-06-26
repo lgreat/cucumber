@@ -12,7 +12,8 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
@@ -47,215 +48,329 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <![endif]-->
      ]]>
         <!-- TODO: Move into global css -->
-        <style type="text/css">
-            #overviewColumn1 {
-                width: 158px;
-                float: left;
-            }
+    <style type="text/css">
+        #overviewColumn1 {
+            width: 158px;
+            float: left;
+        }
 
-            #overviewColumn2 {
-                width: 400px;
-                float: left;
-                margin-left: 15px;
-            }
+        #overviewColumn2 {
+            width: 400px;
+            float: left;
+            margin-left: 15px;
+        }
 
-            #bestKnownFor {
-                font-size: 17px;
-                text-align: center;
-                width: 400px;
-            }
+        #bestKnownFor {
+            font-size: 16px;
+            text-align: center;
+            width: 400px;
+        }
 
-            #bestKnownFor a {
-                font-size: 12px;
-            }
+        #bestKnownFor a {
+            font-size: 12px;
+        }
 
-            #espLink {
-                background: #FAEACF url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
-                padding: 9px 44px 9px 29px;
-                margin: 15px 15px 5px 0;
-            }
+        #espLink {
+            background: #FAEACF url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
+            padding: 9px 44px 9px 29px;
+            margin: 15px 15px 5px 0;
+        }
 
-            #overallRating {
-                display: block;
-                background-color: #F4FAFD;
-                width: 158px;
-                border: 1px solid #A2D0E4;
-                height: 283px;
-                text-align: center;
-                font-size: 12px;
-            }
+        #overallRating {
+            display: block;
+            background-color: #F4FAFD;
+            width: 158px;
+            border: 1px solid #A2D0E4;
+            height: 283px;
+            text-align: center;
+            font-size: 12px;
+        }
 
-            #overallRating p, #overallRating img, #overallRating a, #overallRating button {
-                padding-bottom: 6px;
-                display: block;
-            }
+        #overallRating p, #overallRating img, #overallRating a, #overallRating button {
+            padding-bottom: 6px;
+            display: block;
+        }
 
-            #map {
-                height:277px;
-            }
-        </style>
-    </head>
-    <gsml:body adPageName="overview" pageLayout="nocol">
-        <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
+        #map {
+            height: 277px;
+        }
 
-        <div id="overviewContainer">
+        #js-esp-info-hover {
+            position: absolute;
+            left: 600px;
+            top: 10px;
+            font-size: 12px;
+            background: #FFF;
+            border: 1px solid #999;
+            padding: 4px;
+            width: 300px;
+            z-index: 9999999;
+        }
 
-            <div id="overviewColumn1">
+        #nearby-schools-table {
+            font-size: 11px;
+        }
 
-                <!-- overall school rating box -->
-                <div id="overallRating">
+        #submit-review-link-box {
+            background: #FAEACF;
+            padding: 5px;
+        }
 
-                    <c:if test="${not empty gs_rating}">
-                        <p>GreatSchools Rating</p>
-                        <gsml:img src="/res/img/school/overview/ratings_gs_med_${gs_rating}.gif"
-                                  alt="GreatSchools Rating: ${gs_rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                        <a href="#">GreatSchools evaluation criteria</a>
-                        <br/>
-                    </c:if>
+        #nearby-schools-table td {
+            padding: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('#js-esp-principal-link').click(function() {
 
-                    <p>Overall community rating</p>
+            });
+            jQuery('#js-esp-profile-link').click(function() {
 
-                    <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif"
-                              alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
+            });
+            jQuery('#js-esp-info').mouseover(function() {
+                jQuery('#js-esp-info-hover').show();
+            });
+            jQuery('#js-esp-info').mouseout(function() {
+                jQuery('#js-esp-info-hover').hide();
+            });
+        });
+    </script>
+</head>
+<gsml:body adPageName="overview" pageLayout="nocol">
+<school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
 
-                    <c:choose>
-                        <c:when test="${fn:length(reviews) gt 0}">
-                            <a href="#">Read all ${fn:length(reviews)} reviews</a>
-                        </c:when>
-                        <c:otherwise>
-                            <link:schoolProfileParentReview
-                                    school="${school}">Be the first to review</link:schoolProfileParentReview>
-                        </c:otherwise>
-                    </c:choose>
+<div id="overviewContainer">
 
-                    <button class="btn25" type="submit" name="reviewBtn" id="reviewBtn">
-                        <span class="lftDoor25"><span class="rtDoor25">Review school</span></span>
-                    </button>
-                </div>
+<div id="overviewColumn1">
 
+    <!-- overall school rating box -->
+    <div id="overallRating">
+
+        <c:if test="${not empty gs_rating}">
+            <p>GreatSchools Rating</p>
+            <gsml:img src="/res/img/school/overview/ratings_gs_med_${gs_rating}.gif"
+                      alt="GreatSchools Rating: ${gs_rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+            <a href="#">GreatSchools evaluation criteria</a>
+            <br/>
+        </c:if>
+
+        <p>Overall community rating</p>
+
+        <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif"
+                  alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
+
+        <c:choose>
+            <c:when test="${fn:length(reviews) gt 0}">
+                <a href="#">Read all ${fn:length(reviews)} reviews</a>
+            </c:when>
+            <c:otherwise>
+                <link:schoolProfileParentReview
+                        school="${school}">Be the first to review</link:schoolProfileParentReview>
+            </c:otherwise>
+        </c:choose>
+
+        <button class="btn25" type="submit" name="reviewBtn" id="reviewBtn">
+            <span class="lftDoor25"><span class="rtDoor25">Review school</span></span>
+        </button>
+    </div>
+
+</div>
+
+<div id="overviewColumn2">
+
+    <c:if test="${not empty bestKnownFor}">
+        <div id="bestKnownFor">
+            <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
+            </p> <!-- TODO: info icon + hover -->
+            <!-- TODO: link this to esp display page--><a href="#">Read more from the school principal <span
+                class="alertDoubleArrow">&#187;</span></a>
+
+            <div id="js-esp-info-hover" style="display:none;">
+                <!-- TODO: link this to esp display page-->
+                <p>This statement has been provided by the principal or a school official at ${school.name}.<a
+                        href="#">See this school's official school profile <span
+                        class="alertDoubleArrow">&amp;#187;</span></a></p>
             </div>
+        </div>
+    </c:if>
 
-            <div id="overviewColumn2">
+    <content:ratingsSummary school="${school}"/>
 
-                <c:if test="${not empty bestKnownFor}">
-                    <div id="bestKnownFor">
-                        <p>"${bestKnownFor}"</p> <!-- TODO: info icon + hover -->
-                        <a href="#">Read more from the school principal <span>&#187;</span></a>
-                    </div>
-                </c:if>
+    <br/><br/>
 
-                <content:ratingsSummary school="${school}"/>
+    <!-- School highlights -->
+    <c:set var="schoolHighlights">
+        <school:schoolHighlightsList school="${school}"/>
+    </c:set>
+    <c:if test="${not empty surveySampleList}">
+        <c:set var="schoolHighlights" value="${schoolHighlights};${surveySampleList}"/>
+    </c:if>
+    <c:if test="${not empty schoolHighlights}">
+        <strong>School highlights:</strong><br/>
+        ${schoolHighlights}
+        <a href="#">More <span class="alertDoubleArrow">&#187;</span></a>
+        <br/><br/>
+    </c:if>
+    <!-- end school highlights -->
 
-                <strong>School highlights</strong>
-                <school:schoolHighlightsList school="${school}"/>;${surveySampleList}
+    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                    styleClass="emailImg toolsImg"><gsml:img
+            src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                    styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
 
-                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
-                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
-
+    <c:if test="${empty bestKnownFor}">
+        <c:choose>
+            <c:when test="${espLink eq 'principal'}">
+                <!-- principal link box -->
                 <c:if test="${school.levelCode != 'p'}">
-                    <div id="espLink">
+                    <div id="js-esp-principal-link">
                         Are you a principal? <a href="#">Complete your school's profile</a>
                     </div>
                 </c:if>
+                <!-- end profile link box-->
+            </c:when>
 
-                <h3>Compare to nearby schools</h3>
-                <span><link:mapSchool school="${school}">Larger map</link:mapSchool><span
-                        class="alertDoubleArrow">&amp;#187;</span></span>
-
-                <div id="map">
-                    &#160;
-                    <noscript>JavaScript is required in order to view a map of the city and its
-                        schools.
-                    </noscript>
+            <c:when test="${espLink eq 'profile'}">
+                <!-- profile link box -->
+                <div id="js-esp-profile-link">
+                    <a href="#">See more official school information<span
+                            class="alertDoubleArrow">&amp;#187;</span></a>
                 </div>
-                <map:school id="map" tooltips="true"
-                            schools="${mapSchools}"
-                            school="${school}"/>
+                <!-- end profile link box -->
+            </c:when>
+        </c:choose>
+    </c:if>
 
+    <br/><br/>
 
-                <table>
-                    <thead>
-                    <tr>
-                        <th>COMPARE</th>
-                        <th>SCHOOL</th>
-                        <th>GREATSCHOOLS <br/>RATING</th>
-                        <th>PARENT <br/>RATING</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${mapSchools}" var="s">
-                        <tr>
-                            <td><input type="checkbox"/>COMPARE</td>
-                            <td>
-                                ${s.neighbor.name}<br/>
-                                ${s.distance} miles
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${not empty s.rating and s.rating gt 0}">
-                                        <img src="/res/img/map/ratings_gs_map_${s.rating}.gif"
-                                             alt="rating ${s.rating}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="/res/img/school/ratings/na.gif" alt="N/A"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <link:schoolProfileParentReview school="${school}">
-                                    <c:choose>
-                                        <c:when test="${not empty s.parentRatings.overall}">
-                                            <img src="/res/img/school/parentReviews/stars_med_${s.parentRatings.overall}.gif"
-                                                 alt="${s.parentRatings.overall} stars" height="12px"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="/res/img/search/rateit.jpg" alt="0 stars"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </link:schoolProfileParentReview>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    <tr>
-                        <td colspan="2">
-                            <button class="btn25" type="submit" name="compareBtn" id="compareBtn">
-                                <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-                            </button>
-                        </td>
-                        <td colspan="2">
-                            <!-- TODO: paging -->
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+    <!-- begin map -->
+    <h3>Compare to nearby schools</h3>
+            <span><link:mapSchool school="${school}">Larger map</link:mapSchool><span
+                    class="alertDoubleArrow">&amp;#187;</span></span>
 
-                <h5>Parent Reviews &amp; ratings</h5>
-
-            </div>
-            <br class="clearfloat"/>
-
-            <c:if test="${fn:length(reviews) gt 0}">
-                <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}"/>
-
-                <link:schoolProfileParentReview school="${school}">Read all reviews <span
-                        class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
-            </c:if>
-
-            <div>
-                Share your own experience with ${school.name}.
-                <link:schoolProfileParentReview school="${school}">Submit a review <span
-                        class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
-            </div>
-
-        </div>
-
-    </school:profile2010>
-
-    <div style="display:none">
-        <mod:tracking pageName="${pageName}"
-                      hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                      school="${school}"/>
+    <div id="map">
+        &#160;
+        <noscript>JavaScript is required in order to view a map of the city and its
+            schools.
+        </noscript>
     </div>
+    <map:school id="map" tooltips="true" schools="${mapSchools}" school="${school}"/>
+    <!-- end map -->
+
+    <br/>
+
+    <link:city city="${school.city}" state="${school.physicalAddress.state}"
+               title="${school.city} schools">Top rated ${school.city} schools</link:city> | <a
+        href="#">Cities near Berkeley</a>
+    <br/>
+
+    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.city}_${school.physicalAddress.state}?gate=gs&amp;source=a28956"
+       rel="nofollow" target="_blank"><span class="sprite house"><!-- not empty --></span> Homes for sale</a>
+
+    <br/><br/>
+
+    <!-- begin nearby schools list -->
+    <c:if test="${not empty mapSchools}">
+        <table id="nearby-schools-table">
+            <thead>
+            <tr>
+                <th>COMPARE</th>
+                <th>SCHOOL</th>
+                <th>GREATSCHOOLS <br/>RATING</th>
+                <th>PARENT <br/>RATING</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${mapSchools}" var="s">
+                <tr>
+                    <td><input id="js-compare-school-checkbox-${s.neighbor.databaseState}-${s.neighbor.id}"
+                               class="compare-school-checkbox" type="checkbox"/>COMPARE
+                    </td>
+                    <td>
+                        ${s.neighbor.name}<br/>
+                        <fmt:formatNumber type="number" maxFractionDigits="1" value="${s.distance}"/> miles
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not empty s.rating and s.rating gt 0}">
+                                <img src="/res/img/map/ratings_gs_map_${s.rating}.gif"
+                                     alt="rating ${s.rating}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/res/img/school/ratings/na.gif" alt="N/A"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <link:schoolProfileParentReview school="${school}">
+                            <c:choose>
+                                <c:when test="${not empty s.parentRatings.overall}">
+                                    <img src="/res/img/school/parentReviews/stars_med_${s.parentRatings.overall}.gif"
+                                         alt="${s.parentRatings.overall} stars" height="12px"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="/res/img/search/rateit.jpg" alt="0 stars"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileParentReview>
+                    </td>
+                </tr>
+            </c:forEach>
+            <tr>
+                <td colspan="2">
+                    <button class="btn25" type="submit" name="compareBtn" id="compareBtn">
+                        <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                    </button>
+                </td>
+                <td colspan="2">
+                    <!-- TODO: paging -->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </c:if>
+    <!-- end nearby schools list-->
+
+</div>
+
+<br class="clearfloat"/>
+<br/>
+
+<!-- TODO: chooser pack wide layout module in A version -->
+<variant:a>
+    <promo:schoolChoicePackPromo
+            schoolName="${school.name}"
+            showBorder="${false}"
+            showSchoolChoiceLink="${true}"
+            schoolObjectForRedirect="${school}"
+            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"  format="wide"/>
+</variant:a>
+
+
+<c:if test="${fn:length(reviews) gt 0}">
+    <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
+
+    <link:schoolProfileParentReview school="${school}">Read all reviews <span
+            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+</c:if>
+
+<div id="submit-review-link-box">
+    <strong>Share your own experience with ${school.name}. </strong>
+    <link:schoolProfileParentReview school="${school}">Submit a review <span
+            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+</div>
+
+</div>
+
+</school:profile2010>
+
+<div style="display:none">
+    <mod:tracking pageName="${pageName}"
+                  hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+                  school="${school}"/>
+</div>
 </gsml:body>
 </html>
 </jsp:root>

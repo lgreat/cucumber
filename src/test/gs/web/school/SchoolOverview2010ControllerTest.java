@@ -42,7 +42,7 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
 
         List<UserResponse> userResponses = new ArrayList<UserResponse>();
         UserResponse response = new UserResponse();
-        response.setResponseValue("one,two,three");
+        response.setResponseValue("o_n_e,two,three");
         userResponses.add(response);
 
         expect(_surveyDao.findSurveyIdWithMostResultsForSchool(school)).andReturn(survey.getId());
@@ -54,7 +54,7 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
 
         String value = _controller.getOneResponseTokenForAnswer(school, answerTitle);
 
-        assertEquals(value, "one");
+        assertEquals(value, "o_n_e");
 
         verify(_surveyDao);
     }
