@@ -28,7 +28,7 @@
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-                <bean class="gs.web.backToSchool.BackToSchoolChecklistInterceptor"/>
+                <bean class="gs.web.backToSchool.BackToSchoolChecklistInterceptor" autowire="byName"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
