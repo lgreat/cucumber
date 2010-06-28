@@ -127,6 +127,23 @@
 
             // Do this last
             mainSelect.removeAttr("disabled");
+
+            var mainReset = $j('#mainFeedbackTopicSelect');
+            mainReset.change(function(){
+                var selectedValue = mainReset.val();
+                $('strong.errorMessage1').remove();
+                $('#confirmText').hide();
+                if(selectedValue == 'defaultOption') {
+                    $('#defaultOptionFeedback').show();
+                }
+            });
+            var subReset = $j("#incorrectSchoolDistrictSubTopicSelect");
+            subReset.change(function(){
+                $('strong.errorMessage1').remove();
+                $('#confirmText').hide();
+
+            });
+
         });
 
         //-->
@@ -180,16 +197,19 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <div class="brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
-<c:if test="${showConfirmMessage}">
-    <div id="confirmText">
-        <p class="text2bold-180">Thank you for contacting GreatSchools! We'll respond to your feedback as soon as possible.</p>
-    </div>
-</c:if>
-<c:if test="${!showConfirmMessage}">
-    <div id="defaultOptionFeedback" class="jqFeedback">
-        <p class="formHelperText">Once you have selected an option above, the appropriate form will load below.</p>
-    </div>
-</c:if>
+
+<c:choose>
+    <c:when test="${showConfirmMessage}">
+        <div id="confirmText">
+            <p class="text2bold-180">Thank you for contacting GreatSchools! We'll respond to your feedback as soon as possible.</p>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div id="defaultOptionFeedback" class="jqFeedback">
+            <p class="formHelperText">Once you have selected an option above, the appropriate form will load below.</p>
+        </div>
+    </c:otherwise>
+</c:choose>
 
 <div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
     <p class="text2">
