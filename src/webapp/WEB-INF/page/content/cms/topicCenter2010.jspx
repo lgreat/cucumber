@@ -323,9 +323,18 @@
     
     <c:choose>
         <c:when test="${showSchoolChooserPackPromo}">
-            <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+            <c:choose>
+                <c:when test="${topicCenter.preschoolTopicCenter}">
+                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}" caller="preschool"
                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
                                  />
+                </c:when>
+                <c:otherwise>
+                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                 />
+                </c:otherwise>
+            </c:choose>
         </c:when>
         <c:otherwise>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>

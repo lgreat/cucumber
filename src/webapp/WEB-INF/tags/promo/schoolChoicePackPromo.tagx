@@ -6,7 +6,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community" xmlns:gsweb="gstaglib">
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community" xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
 
 <jsp:directive.tag body-content="empty"/>
 <jsp:directive.attribute name="schoolName" required="false" description="Name of a school" type="java.lang.String"/>
@@ -33,10 +34,10 @@
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 <c:choose>
     <c:when test="${not empty format and format eq 'wide'}">
-        <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo-wide" />
+        <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo-wide"/>
     </c:when>
     <c:otherwise>
-        <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo" />
+        <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo"/>
     </c:otherwise>
 </c:choose>
 
@@ -133,7 +134,7 @@
             <div class="errors gradeError" style="display:none;">
                 <span class="error">Please choose a school grade level.</span>
             </div>
-            <div id="gradeSelect" style="${(not empty caller)?'display:none;':''}">
+            <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
                 <p class="text2">I'm looking for a:</p>
 
                 <ul id="scpp_picker">
@@ -200,21 +201,21 @@
             <div class="privacy_terms">
                 <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
                 <span id="privacy_terms_text"
-                      class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                      class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy<br/>Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
             </div>
         </form>
 
-        <!--<c:if test="${caller eq 'preschool'}">
+        <c:if test="${caller eq 'preschool'}">
             <div class="adBox">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
                         <div class="wrapper-content">
-                            <gsweb:adTagGenerator position="Chooser_162x50"/>
+                            <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
                         </div>
                     </div>
                 </div>
             </div>
-        </c:if>-->
+        </c:if>
     </div>
 
     <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
