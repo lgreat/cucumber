@@ -88,7 +88,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         User user = getUserDao().findUserFromEmailIfExists(request.getParameter("email"));
 
         //then try from userId parameter
-        if(user == null){
+        if(user == null && request.getParameter("ref") != null){
             Integer userId = new Integer(request.getParameter("ref"));
             if(userId.intValue() > 0){
                 user = getUserDao().findUserFromId(userId.intValue());
