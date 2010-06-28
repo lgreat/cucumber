@@ -2580,7 +2580,7 @@
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/testScores"/>
-        <property name="perlContentPath" value="/cgi-bin/test"/>
+        <property name="perlContentPath" value="/modperl/achievement_simple"/>
     </bean>
 
     <bean name="/school/teachersStudents.page"

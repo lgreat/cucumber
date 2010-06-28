@@ -39,13 +39,13 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
 
     public void testGetAbsoluteHrefDev() throws Exception {
         String href = _controller.getAbsoluteHref(_school, getRequest());
-        assertEquals("http://www.greatschools.org/cgi-bin/test?id=1&state=CA", href);
+        assertEquals("http://www.greatschools.org/cgi-bin/test/ca/1", href);
     }
 
     public void testGetAbsoluteHrefDevWhenDeveloperWorkstation() throws Exception {
         getRequest().setServerName("localhost");
         String href = _controller.getAbsoluteHref(_school, getRequest());
-        assertEquals("http://ssprouse.dev.greatschools.org/cgi-bin/test?id=1&state=CA", href);
+        assertEquals("http://ssprouse.dev.greatschools.org/cgi-bin/test/ca/1", href);
     }
 
     public void testGetResponseFromUrl() throws Exception {

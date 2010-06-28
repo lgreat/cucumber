@@ -19,7 +19,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
     protected static final String VIEW_ERROR = "/status/error500";
-    protected static final String DEV_HOST = "ssprouse.dev.greatschools.org";
+    protected static final String DEV_HOST = "profile.dev.greatschools.org";
     public static final String HTML_ATTRIBUTE = "perlHtml";
 
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
@@ -63,7 +63,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
     protected String getAbsoluteHref(School school, HttpServletRequest request) {
         String relativePath = getPerlContentPath();
 
-        relativePath += "?id=" + school.getId() + "&state=" + school.getDatabaseState();
+        relativePath += "/" + school.getDatabaseState().getAbbreviationLowerCase() + "/" + school.getId();
 
         String href = request.getProtocol() + "://" + request.getServerName() +
                 ((request.getServerPort() != 80)?(":" + request.getServerPort()):"") +
@@ -103,7 +103,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
             connection = (HttpURLConnection)serverAddress.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
-            connection.setReadTimeout(1000);
+            connection.setReadTimeout(10000);
             connection.connect();
 
             int responseCode = connection.getResponseCode();
