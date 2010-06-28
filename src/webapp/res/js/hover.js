@@ -18,8 +18,16 @@ Function.prototype.gs_bind = function(obj) {
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id) {
     this.hoverId = id;
+    this.pageName = '';
+    this.hier1 = '';
     this.show = function() {
         jQuery('#' + this.hoverId).dialog('open');
+        if (this.pageName != '') {
+            pageTracking.clear();
+            pageTracking.pageName = this.pageName;
+            pageTracking.hierarchy = this.hier1;
+            pageTracking.send();
+        }
         return false;
     };
     this.hide = function() {
@@ -45,6 +53,8 @@ GSType.hover.HoverDialog = function(id) {
 //EditEmailValidated Hover
 GSType.hover.EditEmailValidated = function() {
     this.loadDialog = function () {
+        this.pageName='Email Change Verified Hover';
+        this.hier1='Hovers,Verification,Email Change Verified Hover';
         this.dialogByWidth(640);
     }
 };
@@ -53,6 +63,8 @@ GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNew
 //EmailValidated hover
 GSType.hover.EmailValidated = function() {
     this.loadDialog = function () {
+        this.pageName='Account Verified Hover';
+        this.hier1='Hovers,Verification,Account Verified Hover';
         this.dialogByWidth(640);
     }
 };
@@ -62,6 +74,8 @@ GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
 GSType.hover.ForgotPasswordHover = function() {
     this.loadOnExitUrl = null;
     this.loadDialog = function() {
+        this.pageName='Forgot Password Hover';
+        this.hier1='Hovers,Sign In,Forgot Password Hover';
         this.dialogByWidth(590);
     };
     this.addMessage = function(text) {
@@ -263,6 +277,10 @@ GSType.hover.JoinHover = function() {
             jQuery('#joinHover .school_state').val(schoolState);
         }
     };
+    this.configureOmniture = function(pageName, hier1) {
+        GSType.hover.joinHover.pageName=pageName;
+        GSType.hover.joinHover.hier1=hier1;
+    };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
@@ -274,6 +292,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
+
+        GSType.hover.joinHover.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
         GSType.hover.joinHover.show();
@@ -290,6 +310,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
 
         GSType.hover.joinHover.setJoinHoverType("ChooserTipSheet");
+
+        GSType.hover.joinHover.configureOmniture('School Chooser Pack Join Hover', 'Hovers,Join,School Chooser Pack Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
 
@@ -317,6 +339,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
         jQuery('#joinHover_cancel').hide();
 
+        GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showSchoolReviewJoin;
         GSType.hover.joinHover.show();
     };
@@ -336,6 +360,8 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover #opt2').attr('checked', true);
 
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
+
+        GSType.hover.joinHover.configureOmniture('Special Ed NL Join Hover', 'Hovers,Join,Special Ed NL Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showLearningDifficultiesNewsletter;
         GSType.hover.joinHover.show();
@@ -359,6 +385,8 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.joinHover.setJoinHoverType("BTSTip");
 
+        GSType.hover.joinHover.configureOmniture('Back to School Tips Join Hover', 'Hovers,Join,Back to School Tips Join Hover');
+
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showBackToSchoolTipOfTheDay;
         GSType.hover.joinHover.show();
     };
@@ -373,6 +401,8 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.setJoinHoverType("PostComment");
+
+        GSType.hover.joinHover.configureOmniture('Community Join Hover', 'Hovers,Join,Community Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinPostComment;
         GSType.hover.joinHover.show();
@@ -401,6 +431,8 @@ GSType.hover.JoinHover = function() {
                 "to get the grade-by-grade tips you need to make smart choices about your child's education.");
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+
+        GSType.hover.joinHover.configureOmniture('Weekly NL Join Hover', 'Hovers,Join,Weekly NL Join Hover');
 
         GSType.hover.joinHover.show();
     };
@@ -518,6 +550,8 @@ GSType.hover.SignInHover = function() {
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
     this.loadDialog = function() {
+        this.pageName='Sign In Hover';
+        this.hier1='Hovers,Sign In,Sign In Hover';
         this.dialogByWidth(590);
         jQuery('#signInHover .redirect_field').val(window.location.href);
     };
@@ -630,6 +664,8 @@ GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover')
 //ValidateEditEmail Hover
 GSType.hover.ValidateEditEmail = function() {
     this.loadDialog = function() {
+        this.pageName='Verify Change Email Hover';
+        this.hier1='Hovers,Verification,Verify Change Email Hover';
         this.dialogByWidth(640);
     }
 };
@@ -638,6 +674,8 @@ GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEdit
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
     this.loadDialog = function() {
+        this.pageName='Verify Email Hover';
+        this.hier1='Hovers,Verification,Verify Email Hover';
         this.dialogByWidth(640);
     }
 };
@@ -646,6 +684,8 @@ GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEma
 //ValidateEmailSchoolReviewHover Hover
 GSType.hover.ValidateEmailSchoolReviewHover = function() {
     this.loadDialog = function() {
+        this.pageName='School Reviews Verify Email Hover';
+        this.hier1='Hovers,Verification,School Reviews Verify Email Hover';
         this.dialogByWidth(640);
     }
 };
@@ -656,6 +696,8 @@ GSType.hover.ValidateEmailSchoolReviewHover.prototype = new GSType.hover.HoverDi
 GSType.hover.ValidateLinkExpired = function() {
     this.email = '';
     this.loadDialog = function() {
+        this.pageName='Email Verification Link Expired Hover';
+        this.hier1='Hovers,Verification,Email Verification Link Expired Hover';
         this.dialogByWidth(640);
     };
     this.setEmail = function(email) {
@@ -668,6 +710,8 @@ GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVe
 GSType.hover.EmailNotValidated = function() {
     this.email = '';
     this.loadDialog = function() {
+        this.pageName='Email Not Verified Hover';
+        this.hier1='Hovers,Verification,Email Not Verified Hover';
         this.dialogByWidth(640);
     };
     this.setEmail = function(email) {

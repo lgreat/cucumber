@@ -21,9 +21,9 @@ var pageTracking = {
         }
     },
     clear: function() {
-        s.pageName = "";
-        s.hierarchy = "";
-        s.successEvents = "";
-        eVars = {};
+        this.pageName = "";
+        this.hierarchy = "";
+        this.successEvents = "";
+        this.eVars = {};
     }
 };
