@@ -63,9 +63,10 @@ public class PerlFetchController extends AbstractSchoolController implements Con
     protected String getAbsoluteHref(School school, HttpServletRequest request) {
         String relativePath = getPerlContentPath();
 
-        relativePath += "/" + school.getDatabaseState().getAbbreviationLowerCase() + "/" + school.getId();
+        relativePath = relativePath.replaceAll("\\$STATE", school.getDatabaseState().getAbbreviationLowerCase());
+        relativePath = relativePath.replaceAll("\\$ID", String.valueOf(school.getId()));
 
-        String href = request.getProtocol() + "://" + request.getServerName() +
+        String href = request.getScheme() + "://" + request.getServerName() +
                 ((request.getServerPort() != 80)?(":" + request.getServerPort()):"") +
                 relativePath;
 

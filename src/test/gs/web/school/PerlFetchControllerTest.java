@@ -17,7 +17,7 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _controller = new PerlFetchController();
-        _controller.setPerlContentPath("/cgi-bin/test");
+        _controller.setPerlContentPath("/cgi-bin/test/$STATE/$ID");
         _controller.setViewName("view");
 
         _schoolProfileHeaderHelper = createStrictMock(SchoolProfileHeaderHelper.class);
@@ -32,7 +32,7 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
 
     public void testBasics() {
         assertSame(_schoolProfileHeaderHelper, _controller.getSchoolProfileHeaderHelper());
-        assertEquals("/cgi-bin/test", _controller.getPerlContentPath());
+        assertEquals("/cgi-bin/test/$STATE/$ID", _controller.getPerlContentPath());
         assertEquals("view", _controller.getViewName());
     }
 
