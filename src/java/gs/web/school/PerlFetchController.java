@@ -97,7 +97,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
         String line;
         URL serverAddress;
 
-        _log.info("Fetching perl from " + absoluteHref);
+        long startTime = System.currentTimeMillis();
         try {
             serverAddress = new URL(absoluteHref);
 
@@ -118,8 +118,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
                 response.append(line).append('\n');
             }
 
-            _log.info("Got response " + responseCode + ":\n" + response);
-
+            _log.info("Got response code " + responseCode);
         } catch (MalformedURLException e) {
             _log.error("Could not understand given url: " + absoluteHref, e);
         } catch (ProtocolException e) {
@@ -128,6 +127,8 @@ public class PerlFetchController extends AbstractSchoolController implements Con
             _log.error("Error reading from given url: " + absoluteHref, e);
         }
         finally {
+            _log.info("Fetching from " + absoluteHref + " took " + (System.currentTimeMillis() - startTime)
+                    + " milliseconds");
             if (connection != null) {
                 connection.disconnect();
             }
