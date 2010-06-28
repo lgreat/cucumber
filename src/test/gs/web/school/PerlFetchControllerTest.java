@@ -3,7 +3,6 @@ package gs.web.school;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,7 +44,7 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
     public void testGetAbsoluteHrefDevWhenDeveloperWorkstation() throws Exception {
         getRequest().setServerName("localhost");
         String href = _controller.getAbsoluteHref(_school, getRequest());
-        assertEquals("http://ssprouse.dev.greatschools.org/cgi-bin/test/ca/1", href);
+        assertEquals("http://profile.dev.greatschools.org/cgi-bin/test/ca/1", href);
     }
 
     public void testGetResponseFromUrl() throws Exception {
@@ -61,36 +60,6 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
 
         assertTrue(mAndV.getModelMap().containsKey(PerlFetchController.HTML_ATTRIBUTE));
-    }
-
-    public void testBean() throws Exception {
-        PerlFetchController controller = (PerlFetchController) getApplicationContext().getBean("/school/testScores.page");
-        getRequest().setServerName("localhost");
-
-        controller.setPerlContentPath("/cgi-bin/test");
-
-        ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
-
-        assertTrue(mAndV.getModelMap().containsKey(PerlFetchController.HTML_ATTRIBUTE));
-
-        String r = (String) mAndV.getModelMap().get(PerlFetchController.HTML_ATTRIBUTE);
-        assertEquals("<?xml version=\"1.0\"?>\n" +
-                "<methodResponse>\n" +
-                "    <fault>\n" +
-                "        <value>\n" +
-                "            <struct>\n" +
-                "                <member>\n" +
-                "                    <name>faultCode</name>\n" +
-                "                    <value><int>4</int></value>\n" +
-                "                </member>\n" +
-                "                <member>\n" +
-                "                    <name>faultString</name>\n" +
-                "                    <value><string>Too many parameters.</string></value>\n" +
-                "                </member>\n" +
-                "            </struct>\n" +
-                "        </value>\n" +
-                "    </fault>\n" +
-                "</methodResponse>", StringUtils.trim(r));
     }
 
     public void testFailure() throws Exception {
