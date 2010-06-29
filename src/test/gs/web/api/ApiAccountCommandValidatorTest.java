@@ -33,9 +33,8 @@ public class ApiAccountCommandValidatorTest {
         ApiAccount command = new ApiAccount();
         Errors errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(10, errors.getErrorCount());
+        assertEquals(9, errors.getErrorCount());
 
-        command.setType("f");
         command.setIndustry("education");
         command.setWebsite("www.greatschools.org");
         command.setName("name");
@@ -48,7 +47,6 @@ public class ApiAccountCommandValidatorTest {
         assertNotNull(errors.getFieldError("organization"));
 
         command = new ApiAccount();
-        command.setType("f");
         command.setIndustry("education");
         command.setWebsite("www.greatschools.org");
         command.setOrganization("Big Co");
@@ -64,7 +62,6 @@ public class ApiAccountCommandValidatorTest {
         assertNull(errors.getFieldError("confirmEmail"));
 
         command = new ApiAccount();
-        command.setType("f");
         command.setIndustry("education");
         command.setWebsite("www.greatschools.org");
         command.setName("name");

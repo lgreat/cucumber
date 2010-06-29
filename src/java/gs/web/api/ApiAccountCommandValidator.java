@@ -22,7 +22,6 @@ public class ApiAccountCommandValidator implements Validator {
     }
 
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "website", "field.required", REQUIRED_FIELD);
