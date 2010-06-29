@@ -4,6 +4,7 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
@@ -84,67 +85,87 @@ public class SchoolProfileHeaderHelper {
                 model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
 
                 // Determine community module
-                City city = _geoDao.findCity(school.getDatabaseState(), school.getCity());
-                boolean foundLocalBoard = false;
-                if (city != null) {
-                    LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
-                    if (localBoard != null) {
-                        model.put(DISCUSSION_BOARD_ID, localBoard.getBoardId());
-                        model.put(DISCUSSION_TOPIC, city.getDisplayName());
-                        model.put(DISCUSSION_TOPIC_FULL, city.getDisplayName());
-                        model.put(IS_LOCAL, true);
-                        foundLocalBoard = true;
-                    }
-                }
-                if (!foundLocalBoard && school.getLevelCode() != null) {
-                    // default to grade level board for lowest level of school
-                    long topicCenterId = -1;
-                    LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
-                    if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
-                        topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "Preschool");
-                        model.put(DISCUSSION_TOPIC_FULL, "Preschool");
-                    } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
-                        topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "Elementary");
-                        model.put(DISCUSSION_TOPIC_FULL, "Elementary School");
-                    } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
-                        topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "Middle");
-                        model.put(DISCUSSION_TOPIC_FULL, "Middle School");
-                    } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
-                        topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "High");
-                        model.put(DISCUSSION_TOPIC_FULL, "High School");
-                    }
-                    if (topicCenterId > -1) {
-                        CmsTopicCenter topicCenter =
-                                _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
-                        if (topicCenter != null
-                                && topicCenter.getDiscussionBoardId() != null
-                                && topicCenter.getDiscussionBoardId() > -1) {
-                            model.put(DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
-                            model.put(TOPIC_CENTER_ID, topicCenter.getContentKey().getIdentifier());
-                        }
-                    }
-                }
-                if (model.get(DISCUSSION_BOARD_ID) != null) {
-                    List<NameValuePair<String, String>> topicSelectInfo
-                            = new ArrayList<NameValuePair<String, String>>();
-                    // for each topic, we only need to know the title and the url to its discussion board
-                    for (CmsTopicCenter topic: getValidDiscussionTopics()) {
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD, "",
-                                                               topic.getDiscussionBoardId());
-                        NameValuePair<String, String> topicToBoard
-                                = new NameValuePair<String, String>
-                                (topic.getTitle(), urlBuilder.asSiteRelative(null));
-                        topicSelectInfo.add(topicToBoard);
-                    }
-                    model.put(DISCUSSION_TOPICS, topicSelectInfo);
-                }
+                handleCommunitySidebar(school, model);
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
+        }
+    }
+
+    protected void handleCommunitySidebar(School school, Map<String, Object> model) {
+        // determine if this is a city with a local discussion board
+        City city = _geoDao.findCity(school.getDatabaseState(), school.getCity());
+        boolean foundLocalBoard = false;
+        if (city != null) {
+            LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
+            if (localBoard != null) {
+                model.put(DISCUSSION_BOARD_ID, localBoard.getBoardId());
+                model.put(DISCUSSION_TOPIC, city.getDisplayName());
+                model.put(DISCUSSION_TOPIC_FULL, city.getDisplayName());
+                model.put(IS_LOCAL, true);
+                foundLocalBoard = true;
+            }
+        }
+        // if not, default to grade level board for lowest level of school
+        if (!foundLocalBoard && school.getLevelCode() != null) {
+            long topicCenterId = -1;
+            LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
+            if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
+                topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
+                model.put(DISCUSSION_TOPIC, "Preschool");
+                model.put(DISCUSSION_TOPIC_FULL, "Preschool");
+            } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
+                topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
+                model.put(DISCUSSION_TOPIC, "Elementary");
+                model.put(DISCUSSION_TOPIC_FULL, "Elementary School");
+            } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
+                topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
+                model.put(DISCUSSION_TOPIC, "Middle");
+                model.put(DISCUSSION_TOPIC_FULL, "Middle School");
+            } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
+                topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+                model.put(DISCUSSION_TOPIC, "High");
+                model.put(DISCUSSION_TOPIC_FULL, "High School");
+            }
+            if (topicCenterId > -1) {
+                CmsTopicCenter topicCenter =
+                        _publicationDao.populateByContentId(topicCenterId, new CmsTopicCenter());
+                if (topicCenter != null
+                        && topicCenter.getDiscussionBoardId() != null
+                        && topicCenter.getDiscussionBoardId() > -1) {
+                    model.put(DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
+                    model.put(TOPIC_CENTER_ID, topicCenter.getContentKey().getIdentifier());
+                }
+            }
+        }
+        // now that we have the board, look up the list of other topics the user can navigate to
+        if (model.get(DISCUSSION_BOARD_ID) != null) {
+            // for each of these we need the topic title and the full uri to the discussion board
+            List<NameValuePair<String, String>> topicSelectInfo
+                    = new ArrayList<NameValuePair<String, String>>();
+            Set<Long> discussionBoardIds = new HashSet<Long>();
+            // first grab all the topic centers with discussion board
+            Collection<CmsTopicCenter> topicCenters = getValidDiscussionTopics();
+            // collect their ids
+            for (CmsTopicCenter topic: topicCenters) {
+                discussionBoardIds.add(topic.getDiscussionBoardId());
+            }
+            // pull out the relevant discussion boards by id
+            Map<Long, CmsDiscussionBoard> discussionBoardsMap =
+                    _publicationDao.populateAllById(discussionBoardIds, new CmsDiscussionBoard());
+            // now put the full uri of the discussion board along with the title of the topic center
+            // into the model
+            for (CmsTopicCenter topic: topicCenters) {
+                CmsDiscussionBoard board = discussionBoardsMap.get(topic.getDiscussionBoardId());
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
+                                                       (board != null)?board.getFullUri():topic.getFullUri(),
+                                                       topic.getDiscussionBoardId());
+                NameValuePair<String, String> topicToBoard
+                        = new NameValuePair<String, String>
+                        (topic.getTitle(), urlBuilder.asSiteRelative(null));
+                topicSelectInfo.add(topicToBoard);
+            }
+            model.put(DISCUSSION_TOPICS, topicSelectInfo);
         }
     }
 
@@ -152,8 +173,10 @@ public class SchoolProfileHeaderHelper {
         // TODO: this call pulls all topic center data out of the db, when we only need some topic centers.
         // When running on localhost there is significant network traffic during this call (some 5MB) and the delay
         // is noticeable.  Can this be improved?
+        // We only need the topic centers with discussion boards
         Collection<CmsTopicCenter> topicCenters =
-                _publicationDao.populateAllByContentType("TopicCenter", new CmsTopicCenter());
+                _publicationDao.populateAllByContentType
+                        (CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE, new CmsTopicCenter());
         SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
             public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
                 return o1.getTitle().compareTo(o2.getTitle());
@@ -167,6 +190,7 @@ public class SchoolProfileHeaderHelper {
         CmsTopicCenter generalParenting = new CmsTopicCenter();
         generalParenting.setDiscussionBoardId(2420L);
         generalParenting.setTitle("General Parenting");
+        generalParenting.setFullUri("/general");
         sortedTopics.add(generalParenting);
         return sortedTopics;
     }
