@@ -69,10 +69,6 @@ public class RegistrationController extends SimpleFormController implements Read
             value = account.getIndustry() != null ? account.getIndustry() : "";
             message.append(value);
 
-            message.append("\nProduct Offering: ");
-            value = account.getType() != null ? account.getType() : "";
-            message.append(value);
-
             message.append("\nEmail: ");
             value = account.getEmail() != null ? account.getEmail() : "";
             message.append(value);

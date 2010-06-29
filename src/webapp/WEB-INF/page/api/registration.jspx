@@ -54,7 +54,7 @@
         <div class="inner cleared">
             <div class="content">
                 <h2>Overview</h2>
-                <h3>Feature GreatSchools data on your site for free!</h3>
+                <h3>Feature GreatSchools data on your site.</h3>
                 <p>GreatSchools profiles more than 90,000 public and 30,000 private
                     schools in the United States. With hundreds of thousands of ratings
                     and Parent Reviews about schools nationwide, we provide the most
@@ -86,13 +86,6 @@
                 <div id="api_reg">
                     <form:form>
                         <table border="0" >
-                            <tr>
-                               <td width="130" class="label">Product Offering *</td>
-                                <td class="label"><form:radiobutton path="type" value="f"/> Free &amp;nbsp;
-                                <form:radiobutton path="type" value="p"/> Pro (Give me a quote)</td>
-                                <td class="error"><form:errors path="type" /></td>
-                            </tr>
-
                             <tr>
                                 <td width="130" class="label">Company Name *</td>
                                 <td ><form:input path="organization" /></td>
@@ -138,7 +131,7 @@
                             </tr>
 
                             <tr>
-                                <td class="label" colspan="3">What is your intended use of this web service? *</td>
+                                <td class="label" colspan="3">What data requests are you interested in and what is your intended use of this web service? *</td>
                             </tr>
                             <tr class="iuse">
                                 <td colspan="2"><form:textarea path="intendedUse" /></td>
