@@ -128,6 +128,8 @@ td.fieldsample{
 .success_message{
     margin-bottom:10px;
     color:#d66671;
+    font-weight:bold;
+    font-size: 14px;
 }
 
 div.mainRequest{
@@ -174,4 +176,8 @@ div.apiTerms .apiTermsSection{
 /* needed for IE 6 */
 .box_ad {
     width: 300px;
+}
+
+.ratings_sample_images img {
+    padding: 5px;
 }
