@@ -363,7 +363,6 @@
                         </c:choose>
                     </li>
                 </ul>
-                <!-- TODO: Fill in URL -->
                 <div id="schoolInaccuracy" class="fltrt">
                     Notice an inaccuracy?
                     <link:profileFeedback>Let us know!</link:profileFeedback>
@@ -444,22 +443,13 @@
 
                     <!-- Community module -->
                     <c:set var="recentDiscussions" value=""/>
-                    <c:choose>
-                        <c:when test="${requestScope.localDiscussionBoardId gt 0}">
-                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                            <c:set var="recentDiscussions">
-                                <c:import
-                                        url="/community/recentLocalDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;cityName=${school.city}"/>
-                            </c:set>
-                        </c:when>
-                        <c:when test="${requestScope.gradeDiscussionBoardId gt 0}">
-                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                            <c:set var="recentDiscussions">
-                                <c:import
-                                        url="/community/recentDiscussions.module?board_id=${requestScope.gradeDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
-                            </c:set>
-                        </c:when>
-                    </c:choose>
+                    <c:if test="${not empty requestScope.discussionBoardId}">
+                        <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                        <c:set var="recentDiscussions">
+                            <c:import
+                                    url="/community/profileRecentDiscussions.module?board_id=${requestScope.discussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
+                        </c:set>
+                    </c:if>
                     ${recentDiscussions}
                     
                     <ad:BelowFold_300x250/>
@@ -472,27 +462,18 @@
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
-                    <promo:searchRealtorDotCom omniturePageName="${pageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${school.city}" defaultState="${school.databaseState}"/>
+                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
+                                               defaultCity="${school.city}" defaultState="${school.databaseState.abbreviation}"/>
 
                     <!-- Community module -->
                     <c:set var="recentDiscussions" value=""/>
-                    <c:choose>
-                        <c:when test="${requestScope.localDiscussionBoardId gt 0}">
-                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                            <c:set var="recentDiscussions">
-                                <c:import
-                                        url="/community/recentLocalDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;cityName=${school.city}"/>
-                            </c:set>
-                        </c:when>
-                        <c:when test="${requestScope.gradeDiscussionBoardId gt 0}">
-                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                            <c:set var="recentDiscussions">
-                                <c:import
-                                        url="/community/recentDiscussions.module?board_id=${requestScope.gradeDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
-                            </c:set>
-                        </c:when>
-                    </c:choose>
+                    <c:if test="${not empty requestScope.discussionBoardId}">
+                        <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                        <c:set var="recentDiscussions">
+                            <c:import
+                                    url="/community/profileRecentDiscussions.module?board_id=${requestScope.discussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${discussionTopic}"/>
+                        </c:set>
+                    </c:if>
                     ${recentDiscussions}
 
                     <ad:BelowFold_300x250/>

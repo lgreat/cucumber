@@ -16,11 +16,13 @@ import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
+import gs.data.util.NameValuePair;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -40,8 +42,11 @@ public class SchoolProfileHeaderHelper {
     private static final String PQ_HOURS = "pq_hours";
     private static final String HAS_TEST_SCORES = "hasTestScores";
     private static final String HAS_SURVEY_DATA = "hasSurveyData";
-    private static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
-    private static final String GRADE_DISCUSSION_BOARD_ID = "gradeDiscussionBoardId";
+    private static final String DISCUSSION_BOARD_ID = "discussionBoardId";
+    private static final String TOPIC_CENTER_ID = "topicCenterId";
+    private static final String DISCUSSION_TOPIC = "discussionTopic";
+    private static final String IS_LOCAL = "isLocal";
+    private static final String DISCUSSION_TOPICS = "discussionTopics";
 
     public void updateModel(School school, Map<String, Object> model) {
         try {
@@ -83,7 +88,9 @@ public class SchoolProfileHeaderHelper {
                 if (city != null) {
                     LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
                     if (localBoard != null) {
-                        model.put(LOCAL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
+                        model.put(DISCUSSION_BOARD_ID, localBoard.getBoardId());
+                        model.put(DISCUSSION_TOPIC, city.getDisplayName());
+                        model.put(IS_LOCAL, true);
                         foundLocalBoard = true;
                     }
                 }
@@ -93,12 +100,16 @@ public class SchoolProfileHeaderHelper {
                     LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
                     if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
+                        model.put(DISCUSSION_TOPIC, "Preschool");
                     } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
+                        model.put(DISCUSSION_TOPIC, "Elementary");
                     } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
+                        model.put(DISCUSSION_TOPIC, "Middle School");
                     } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+                        model.put(DISCUSSION_TOPIC, "High School");
                     }
                     if (topicCenterId > -1) {
                         CmsTopicCenter topicCenter =
@@ -106,15 +117,54 @@ public class SchoolProfileHeaderHelper {
                         if (topicCenter != null
                                 && topicCenter.getDiscussionBoardId() != null
                                 && topicCenter.getDiscussionBoardId() > -1) {
-                            model.put(GRADE_DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
+                            model.put(DISCUSSION_BOARD_ID, topicCenter.getDiscussionBoardId());
+                            model.put(TOPIC_CENTER_ID, topicCenter.getContentKey().getIdentifier());
                         }
                     }
+                }
+                if (model.get(DISCUSSION_BOARD_ID) != null) {
+                    List<NameValuePair<String, String>> topicSelectInfo
+                            = new ArrayList<NameValuePair<String, String>>();
+                    // for each topic, we only need to know the title and the url to its discussion board
+                    for (CmsTopicCenter topic: getValidDiscussionTopics()) {
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, "",
+                                                               topic.getDiscussionBoardId());
+                        NameValuePair<String, String> topicToBoard
+                                = new NameValuePair<String, String>
+                                (topic.getTitle(), urlBuilder.asSiteRelative(null));
+                        topicSelectInfo.add(topicToBoard);
+                    }
+                    model.put(DISCUSSION_TOPICS, topicSelectInfo);
                 }
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
     }
+
+    protected Collection<CmsTopicCenter> getValidDiscussionTopics() {
+        // TODO: this call pulls all topic center data out of the db, when we only need some topic centers.
+        // When running on localhost there is significant network traffic during this call (some 5MB) and the delay
+        // is noticeable.  Can this be improved?
+        Collection<CmsTopicCenter> topicCenters =
+                _publicationDao.populateAllByContentType("TopicCenter", new CmsTopicCenter());
+        SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
+            public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+        for (CmsTopicCenter topicCenter: topicCenters) {
+            if (topicCenter.getDiscussionBoardId() != null && topicCenter.getDiscussionBoardId() > 0) {
+                sortedTopics.add(topicCenter);
+            }
+        }
+        CmsTopicCenter generalParenting = new CmsTopicCenter();
+        generalParenting.setDiscussionBoardId(2420L);
+        generalParenting.setTitle("General Parenting");
+        sortedTopics.add(generalParenting);
+        return sortedTopics;
+    }
+
 
     protected void updateWithPQ(Map<String, Object> model, PQ pq) {
         if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {

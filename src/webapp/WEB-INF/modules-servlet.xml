@@ -132,6 +132,12 @@
         <property name="viewName" value="/community/recentLocalDiscussions"/>
     </bean>
 
+    <bean name="/community/profileRecentDiscussions.module"
+          class="gs.web.community.RecentDiscussionsController"
+          autowire="byName">
+        <property name="viewName" value="/community/profileRecentDiscussions"/>
+    </bean>
+
     <bean name="/community/raiseYourHand.module"
           class="gs.web.community.RaiseYourHandController"
           autowire="byName">
