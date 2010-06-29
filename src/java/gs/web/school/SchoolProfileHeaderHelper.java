@@ -176,7 +176,7 @@ public class SchoolProfileHeaderHelper {
         // We only need the topic centers with discussion boards
         Collection<CmsTopicCenter> topicCenters =
                 _publicationDao.populateAllByContentType
-                        (CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE, new CmsTopicCenter());
+                        (CmsConstants.TOPIC_CENTER_CONTENT_TYPE, new CmsTopicCenter());
         SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
             public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
                 return o1.getTitle().compareTo(o2.getTitle());
