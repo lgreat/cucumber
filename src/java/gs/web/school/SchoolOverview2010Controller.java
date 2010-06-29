@@ -156,7 +156,7 @@ public class SchoolOverview2010Controller extends
 
         for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
             String token = getOneResponseTokenForAnswer(school, answer);
-            StringUtils.replace(token, "_", " ");
+            token = StringUtils.replace(token, "_", " ");
             if (token != null)  {
                 results.add(token);
             }

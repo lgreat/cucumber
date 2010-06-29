@@ -3772,6 +3772,26 @@ margin:10px 0 14px 20px;
     cursor: pointer;
 }
 
+/* kindercare narrower format */
+#kindercareLeadGen.narrow {
+    height:165px;
+    width:587px;
+    margin-bottom:12px;
+}
+#kindercareLeadGen.narrow .left {
+    float:left;
+    height:54px;
+    width:460px;
+}
+#kindercareLeadGen.narrow .right {
+    clear:both;
+    margin-left: 124px;
+}
+#kindercareLeadGen.narrow .closeButton {
+    display:none;
+}
+
+
 /* =4f-2 parent reviews
 -------------------------------------------------------------------------------------------*/
 

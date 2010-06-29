@@ -8,12 +8,19 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+    <jsp:directive.attribute name="format" type="java.lang.String" required="false" description="Format of the module. Used to change chosen styles for this module. Valid values are: null or narrow"/>
 
+    <c:set var="extraClass" value="" />
+
+    <c:if test="${format eq 'narrow'}">
+        <c:set var="extraClass" value="narrow" />
+    </c:if>
+    
     <script type="text/javascript">
         var kindercareCookieKey = '${school.databaseState}${school.id}';
     </script>
     <![CDATA[<script type="text/javascript" src="/res/js/kindercareLeadGen.js"></script>]]>
-    <div id="kindercareLeadGen" class="promoModule">
+    <div id="kindercareLeadGen" class="promoModule ${extraClass}">
         <div class="inner">
             <div class="left">
                 <div class="kinderTitle">
