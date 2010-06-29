@@ -3,6 +3,8 @@
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
     background-color: #ffffff;
+    position:relative;
+    height:267px;
 }
 
 #schoolChoicePackPromo.bordered{
