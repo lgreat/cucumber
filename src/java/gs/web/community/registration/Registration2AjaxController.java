@@ -32,6 +32,7 @@ public class Registration2AjaxController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "/community/registration2Ajax.page";
     final public static String FORMAT_PARAM = "format";
+    final public static String JSONP_CALLBACK_PARAM = "jsoncallback";
     final public static String TYPE_PARAM = "type";
     final public static String SCHOOL_TYPE = "school";
 
@@ -66,17 +67,18 @@ public class Registration2AjaxController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
+        String grade = request.getParameter("grade");
         PrintWriter out = response.getWriter();
 
         if (StringUtils.equals("json", request.getParameter(FORMAT_PARAM))) {
             String type = request.getParameter(TYPE_PARAM);
             if (StringUtils.equals(SCHOOL_TYPE, type)) {
-                outputSchoolJson(state, city, out);
+                outputSchoolJson(state, city,grade, out,request);
             }
             return null;
         }
 
-        String grade = request.getParameter("grade");
+
         String childNum = request.getParameter("childNum");
 
         try {
@@ -141,11 +143,15 @@ public class Registration2AjaxController implements Controller {
         out.print("</select>");
     }
 
-    protected void outputSchoolJson(State state, String city, PrintWriter out) {
+    protected void outputSchoolJson(State state, String city,String grade, PrintWriter out,HttpServletRequest request) {
         List<School> schools = null;
         JSONObject rval = new JSONObject();
         if (state != null && !StringUtils.isBlank(city)) {
-            schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
+            if (StringUtils.isNotBlank(grade)) {
+                schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+            } else {
+                schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
+            }
         }
         if (schools == null) {
             schools = new ArrayList<School>();
@@ -167,7 +173,22 @@ public class Registration2AjaxController implements Controller {
         } catch (JSONException jsone) {
             _log.error("Error converting school list to JSON: " + jsone, jsone);
         }
-        out.print(rval.toString());
+
+        String jsonCallbackParam = getSanitizedJsonpParam(request);
+        if(jsonCallbackParam != null){
+            String res= jsonCallbackParam+"("+rval+");";
+            out.print(res);
+        }else{
+            out.print(rval.toString());
+        }
+    }
+
+    protected String getSanitizedJsonpParam(HttpServletRequest request) {
+        String jsonpParam = request.getParameter(JSONP_CALLBACK_PARAM);
+        if ( StringUtils.isEmpty(jsonpParam)) return null;
+        if ( StringUtils.length(jsonpParam) > 128 ) return null;
+        if ( !jsonpParam.matches("^jsonp\\d+$")) return null;
+        return jsonpParam;
     }
 
     protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange, String onClick) {

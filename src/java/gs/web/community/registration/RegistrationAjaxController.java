@@ -266,7 +266,13 @@ public class RegistrationAjaxController implements Controller {
         } catch (JSONException jsone) {
             _log.error("Error converting city list to JSON: " + jsone, jsone);
         }
-        out.print(rval.toString());
+        String jsonCallbackParam = getSanitizedJsonpParam(request);
+        if(jsonCallbackParam != null){
+            String res= jsonCallbackParam+"("+rval+");";
+            out.print(res);
+        }else{
+            out.print(rval.toString());
+        }
     }
 
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
