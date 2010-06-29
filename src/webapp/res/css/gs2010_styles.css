@@ -5952,7 +5952,9 @@ p#btsBubbleOpts {
     font-style: normal;
     color: #d61;
 }
-
+#bts2010.mod .smallText1 {
+    color: #333
+}
 #btsChecklistTable .sprite {
     width:24px;
     height:21px;
@@ -6013,6 +6015,12 @@ p#btsBubbleOpts {
 }
 #btsTipOfTheDayForm .btsTipOfTheDay {
     float: left;
+    
+}
+#btsTipOfTheDayForm p {
+    overflow: hidden;
+    height: 27px;
+    vertical-align: middle;
 }
 .btsChecklistCol2 {
     width: 500px;
@@ -6026,11 +6034,28 @@ p#btsBubbleOpts {
 #btsSp3Items {
     margin: 5px 0 5px 56px;
 }
+#btsEmail, #subscribeBtn {
+    position: relative;
+    float: left;
+    margin: 0 5px 0 0;
+}
+#btsEmail {
+    top: 2px;
+    width: 216px;
+}
+#subscribeBtn  .lftDoor25 {
+    margin: 0;
+}
 #carolinaPadLink {
     font-weight: bold;
     text-decoration: none;
 }
-
+#google_ads_div_BTS2010_Checklist_SponsorPromo_300x600 {
+    text-align: center;
+}
+#google_ads_div_BTS2010_Checklist_SponsorPromo_300x600 div{
+    margin: 15px auto;
+}
 .btsSmallLink {
 
 }

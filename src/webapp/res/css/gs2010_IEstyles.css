@@ -1094,3 +1094,32 @@ body.ie7 #btsCount .pencil_bg {
 body.ie6 #btsCount .pencil_bg {
     top: 3px;
 }
+#btsChecklistBubble b {
+    border-right: 12px dashed #fff;
+	border-left: 12px dashed #fff;
+    top: -13px;
+    font-size: 0;
+    left: 235px;
+    line-height: 0;
+    position: absolute;
+    width: 0;
+}
+#btsChecklistBubble .aout {
+    border-bottom: 12px solid #CCCCCC;
+}
+#btsChecklistBubble .asolid {
+    border-bottom: 12px solid #FFFFFF;
+    top: -12px;
+}
+* + html #btsChecklistBubble .btsChecklistBubbleClose .sprite {
+    left: 3px;
+    top: -1px;
+}
+* html #btsChecklistBubble .btsChecklistBubbleClose .sprite {
+    left: 3px;
+}
+#btsTipOfTheDayForm .col {
+    border: 0;
+    display: inline;
+    width: auto;
+}
