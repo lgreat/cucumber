@@ -201,7 +201,7 @@
             <div class="privacy_terms">
                 <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
                 <span id="privacy_terms_text"
-                      class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy<br/>Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                      class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
             </div>
         </form>
 
