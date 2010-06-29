@@ -154,14 +154,24 @@ div.apiTerms{
     margin-left:20px;
 }
 
+div.apiTerms .apiTermsHeading {
+    clear: both;
+    padding-bottom: 15px;
+}
+
 div.apiTerms .apiTermsTitle{
-    font-size:16px;
+    float: left;
+    /*font-size:16px;*/
     font-weight:bold;
 }
 
+div.apiTerms .apiTermsEffective {
+    float: right;
+}
+
 div.apiTerms .apiTermsSection{
-    font-size:14px;
-    font-weight:bold;
+    /*font-size:14px;*/
+    /*font-weight:bold;*/
 }
 
 .apiTermsHighlight{
@@ -178,6 +188,22 @@ div.apiTerms .apiTermsSection{
     width: 300px;
 }
 
+.parentRatingsStars img {
+    padding-right: 20px;
+}
+
 .ratings_sample_images img {
     padding: 5px;
+}
+
+div.apiTerms .link {
+    text-decoration:underline;
+}
+
+div.apiTerms .emphasis {
+    text-decoration:underline;
+}
+
+div.apiTerms .strong {
+    font-weight:bold;
 }

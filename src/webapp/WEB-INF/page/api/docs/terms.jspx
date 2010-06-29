@@ -27,23 +27,26 @@
     </head>
 
     <body>
-    <div id="api_docs">
+    <div id="api_docs" class="terms">
         <div class="apiTerms">
-        <div class="apiTermsTitle">GreatSchools API Terms of Service</div>
-        <div class="apiTermsEffective">Effective July 2010</div><!-- TODO-10180 need to add css -->
-        <p>Thank you for using the GreatSchools.org, Inc. ("GreatSchools.org") GreatSchools API. By using the GreatSchools API, (the "API"), you and the organization listed in your Request for Service ("You") accept and agree to be bound by the following terms and conditions (the "Terms of Service").</p>
+        <div class="apiTermsHeading">
+            <div class="apiTermsTitle">GreatSchools API Terms of Service</div>
+            <div class="apiTermsEffective">Effective July 2010</div>
+            <!-- TODO-10180 need to add css -->
+        </div>
+        <p>Thank you for using the GreatSchools.org, Inc. (&amp;quot;GreatSchools.org&amp;quot;) GreatSchools API. By using the GreatSchools API, (the &amp;quot;API&amp;quot;), you and the organization listed in your Request for Service (&amp;quot;You&amp;quot;) accept and agree to be bound by the following terms and conditions (the &amp;quot;Terms of Service&amp;quot;).</p>
         <div class="apiTermsSection">1. GreatSchools API</div>
         <p>a. Applying to Become an Approved Licensee</p>
-        <p>To apply to become an approved licensee, please submit a Request for access to the GreatSchools API ("Request"). You hereby represent and warrant to GreatSchools.org that all information included in your Request is true, complete and accurate.</p>
+        <p>To apply to become an approved licensee, please submit a Request for access to the GreatSchools API (&amp;quot;Request&amp;quot;). You hereby represent and warrant to GreatSchools.org that all information included in your Request is true, complete and accurate.</p>
         <p>b. API Service</p>
-        <p>The GreatSchools API enables approved licensees to obtain and display local school information from GreatSchools.org's API database ("GreatSchools API Service") on their Web sites, subject to the conditions and limitations in these Terms of Service. The API includes an API client library and associated documentation that allows approved licensees to display results from the GreatSchools API in accordance with these Terms of Service.</p>
+        <p>The GreatSchools API enables approved licensees to obtain and display local school information from GreatSchools.org's API database (&amp;quot;GreatSchools API Service&amp;quot;) on their Web sites, subject to the conditions and limitations in these Terms of Service. The API includes an API client library and associated documentation that allows approved licensees to display results from the GreatSchools API in accordance with these Terms of Service.</p>
         <p>GreatSchools.org reserves the right to approve on a case-by-case basis uses of the API beyond Web site use. If you would like to use the API for a non-Web site implementation, please describe your proposed use in your Request. GreatSchools.org may amend these Terms of Service by addendum for approved non-Web site uses.</p>
         <p>c. Modifications</p>
         <p>GreatSchools.org reserves the right to release updated versions of the API and to require You to obtain and use the most recent version. GreatSchools.org may modify the Terms of Service at any time with or without notice, and You can review the most current version of the Terms of Service online at any time at <a href="http://www.greatschools.org/api/registration.page">www.greatschools.org/api/registration.page</a> (or any other URL as GreatSchools.org may decide from time to time). If a modification is unacceptable to You, You may cancel the Service by stopping your use of the Service. If You continue to use the Service, You will be deemed to have accepted the modifications.</p>
         <div class="apiTermsSection">2. License GreatSchools API Service</div>
-        <p>Effective upon GreatSchools.org's acceptance of You as an approved licensee pursuant to your Request, and subject to the terms of these Terms of Service (including, without limitation, Section 4 below), GreatSchools.org will grant You a nontransferable, nonsublicensable, nonexclusive license during the term set forth in a fully executed agreement to: (a) access the API, (b) implement the API on Your Website(s) specified in your Request ("Website"), and (c) display GreatSchools API Service on Your Website(s) for consumers to access such data for their personal use, without charge, and without requiring user to sign in or enter a user name and/or pass code to access the data.</p>
+        <p>Effective upon GreatSchools.org's acceptance of You as an approved licensee pursuant to your Request, and subject to the terms of these Terms of Service (including, without limitation, Section 4 below), GreatSchools.org will grant You a nontransferable, nonsublicensable, nonexclusive license during the term set forth in a fully executed agreement to: (a) access the API, (b) implement the API on Your Website(s) specified in your Request (&amp;quot;Website&amp;quot;), and (c) display GreatSchools API Service on Your Website(s) for consumers to access such data for their personal use, without charge, and without requiring user to sign in or enter a user name and/or pass code to access the data.</p>
         <div class="apiTermsSection">3. Branding License</div>
-        <p>GS will grant, to Licensee, a non-exclusive, nontransferable, non sublicensible license, during the term set forth in a fully executed agreement, to access the API, implement the API on your Web site (s) specified in your request and display the API, GS' trademarks, logos and other brands provided by GS (the “GS Brands”) for the purpose of:  (i) identifying the GS Content on the Licensee Web Sites as content provided by GS, (ii) linking to the GS Web Site from the Licensee Web Sites, and (iii) including in promotional materials as described in Section 2.1 of the licensing agreement.</p>
+        <p>GS will grant, to Licensee, a non-exclusive, nontransferable, non sublicensible license, during the term set forth in a fully executed agreement, to access the API, implement the API on your Web site(s) specified in your request and display the API, GS' trademarks, logos and other brands provided by GS (the &amp;quot;<span class="strong">GS Brands</span>&amp;quot;) for the purpose of:  (i) identifying the GS Content on the Licensee Web Sites as content provided by GS, (ii) linking to the GS Web Site from the Licensee Web Sites, and (iii) including in promotional materials as described in Section 2.1 of the licensing agreement.</p>
         <p>In using the GreatSchools.org Brand Features, You agree that You will not:</p>
         <ol type="a">
             <li>Display a GreatSchools.org Brand Feature in any manner that implies a relationship or affiliation with, or sponsorship or endorsement by GreatSchools.org, other than Your use of the API;</li>
@@ -57,15 +60,15 @@
         <ol type="a">
             <li>All calls to the API must reference Your unique API Key.</li>
             <li>You agree to keep Your API Key confidential, and to not share it with any third party, including without limitation subsidiaries, affiliates and partner organizations. Any third party must submit its own Request and API Key request.</li>
-            <li>You agree to provide the GreatSchools API Service to Your users on an "as is" basis, with disclaimers substantially similar to those set forth in Section 5 of the licensing agreement.</li>
+            <li>You agree to provide the GreatSchools API Service to Your users on an &amp;quot;as is&amp;quot; basis, with disclaimers substantially similar to those set forth in Section 5 of the licensing agreement.</li>
             <li>You may not use the GreatSchools API data to develop a stand-alone application that substantial re-creates the functionality offered by www.GreatSchools.org, or for the purpose of competing directly with www.GreatSchools.org.</li>
             <li>You must clearly and conspicuously display the GreatSchools.org Brand Features on any Web page that displays or uses the API or GreatSchools API Service, in accordance with the Branding Requirements.</li>
             <li>You may not, and You may not permit Your users or any third parties to, modify, obscure or disable the GreatSchools API Service that You display on Your site.</li>
             <li>You agree that You will not display or permit Your users or any third parties to display the GreatSchools API Service in a manner that makes it appear to be available on a third party Website.</li>
             <li>You may present GreatSchools API data only on a transactional basis. You agree not to allow Your users to access GreatSchools API Service in bulk.</li>
             <li>You may not use or make available the API data as part of any webpage that allows users to blog, comment, rate, or otherwise provide feedback regarding schools or related information, or as part of a webpage that promotes the availability of this type of service, on any Web site other than a GreateSchools.org Web site.</li>
-            <li>You must use commercially reasonable efforts to prevent the GreatSchools API data from being downloaded in bulk or otherwise scraped. Such efforts include "spider traps,"C.A.P.T.C.H.A.," velocity checks, source IP analysis, or other methods that are as effective.</li>
-            <li>You shall not tag links to GreatSchools.org hereunder with a "nofollow" attribute or otherwise prevent or discourage search engines from following or scoring the link.</li>
+            <li>You must use commercially reasonable efforts to prevent the GreatSchools API data from being downloaded in bulk or otherwise scraped. Such efforts include &amp;quot;spider traps,&amp;quot;C.A.P.T.C.H.A.,&amp;quot; velocity checks, source IP analysis, or other methods that are as effective.</li>
+            <li>You shall not tag links to GreatSchools.org hereunder with a &amp;quot;nofollow&amp;quot; attribute or otherwise prevent or discourage search engines from following or scoring the link.</li>
             <li>You agree to use the API and GreatSchools API Service only for purposes that are legal, proper and in accordance with these Terms of Service. By way of illustration and not limitation, You agree that You will not and will not permit Your users or other third parties to:
                 <ol type="i">
                 <li>Use or provide data elements from the GreatSchools API Service to enhance the data of any third party, including by generating any derivative works using GreatSchools API Service;</li>
@@ -78,7 +81,7 @@
             <li>Unless otherwise notified to you by GreatSchools.org, You may make up to [1500] direct server requests to the API per day. GreatSchools.org reserves the right at its discretion to reduce or increase the maximum number of calls applicable to You immediately and without notice. In addition, subject to GreatSchools.org's discretion, GreatSchools.org may approve You to make an additional number of direct server calls per day if You adhere to these Terms of Service and pass a GreatSchools.org audit and review. To request an increase in the maximum number of calls, please send an email to <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a>.</li>
             <li>You agree to refrain from reproducing, modifying, distributing, decompiling, disassembling or reverse engineering any portion of the API or any GreatSchools API Service.</li>
             <li>You understand and agree that You are solely responsible for providing user support and any other technical assistance for any implementation of the API in Your Website. GreatSchools.org is under no obligation to provide You or Your users with user support or any other technical assistance.</li>
-            <li>If You become aware that any user of Your implementation of the API is in material breach of these Terms of Service (including, without limitation, the Branding Requirements), You agree to notify GreatSchools.org promptly by sending an email to <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a> , and to take prompt, commercially reasonable action at Your expense to remedy the breach.</li>
+            <li>If You become aware that any user of Your implementation of the API is in material breach of these Terms of Service (including, without limitation, the Branding Requirements), You agree to notify GreatSchools.org promptly by sending an email to <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a>, and to take prompt, commercially reasonable action at Your expense to remedy the breach.</li>
         </ol>
         <div class="apiTermsSection">5. Privacy Policy</div>
         <p>GreatSchools.org's collection of personal data is governed by GreatSchools.org's Privacy Policy. You understand and agree that GreatSchools.org may access, preserve and disclose Your information if required to do so by law or in a good faith belief that such access or disclosure is reasonably necessary to comply with legal process or to protect the rights, property and/or safety of GreatSchools.org, its affiliates or the public.</p>
@@ -87,13 +90,13 @@
         <div class="apiTermsSection">7. Indemnity</div>
         <p>You agree to defend, hold harmless and indemnify GreatSchools.org, and its subsidiaries, affiliates, officers, agents, employees, suppliers, licensors and partners from and against any and all claims, losses, damages (actual and consequential), suits, judgments, litigation costs and attorneys' fees, of every kind and nature arising from or in any way related to (i) Your or Your users' use of the API, GreatSchools API Service or Brand Features, (i) violation by You of these Terms of Service or other actions connected to Your use of the Service or API. In such a case, GreatSchools.org will provide You with written notice of such claim, suit or other action.</p>
         <div class="apiTermsSection">8. No Warranty</div>
-        <p>GREATSCHOOLS.ORG PROVIDES THE API, GREATSCHOOLS API SERVICE AND BRAND FEATURES "AS IS," "WITH ALL FAULTS" AND "AS AVAILABLE." THE ENTIRE RISK AS TO SATISFACTORY QUALITY, PERFORMANCE, ACCURACY AND EFFORT IS WITH YOU.</p>
+        <p>GREATSCHOOLS.ORG PROVIDES THE API, GREATSCHOOLS API SERVICE AND BRAND FEATURES &amp;quot;AS IS,&amp;quot; &amp;quot;WITH ALL FAULTS&amp;quot; AND &amp;quot;AS AVAILABLE.&amp;quot; THE ENTIRE RISK AS TO SATISFACTORY QUALITY, PERFORMANCE, ACCURACY AND EFFORT IS WITH YOU.</p>
         <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, GREATSCHOOLS.ORG EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES OR CONDITIONS, EXPRESS, STATUTORY OR IMPLIED, INCLUDING WITHOUT LIMITATION (A) WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, WORKMANLIKE EFFORT, ACCURACY, TITLE, QUIET ENJOYMENT, NO ENCUMBRANCES, NO LIENS AND NONINFRINGEMENT, (B) WARRANTIES OR CONDITIONS ARISING THROUGH COURSE OF DEALING OR USAGE OF TRADE AND (C) WARRANTIES OR CONDITIONS OF UNINTERRUPTED OR ERROR-FREE ACCESS OR USE.</p>
         <div class="apiTermsSection">9. Liability Limitation; Exclusive Remedy</div>
         <p>IN NO EVENT WILL GREATSCHOOLS.ORG BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, EXEMPLARY OR PUNITIVE DAMAGES ARISING OUT OF, BASED ON, OR RESULTING FROM THESE TERMS OF SERVICE OR YOUR OR YOUR USERS' USE OF THE API, GREATSCHOOLS API SERVICE, OR BRAND FEATURES, EVEN IF GREATSCHOOLS.ORG HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE EXCLUSION OF DAMAGES UNDER THIS PARAGRAPH IS INDEPENDENT OF YOUR EXCLUSIVE REMEDY AND SURVIVES IN THE EVENT SUCH REMEDY FAILS OF ITS ESSENTIAL PURPOSE OR IS OTHERWISE DEEMED UNENFORCEABLE. THESE LIMITATIONS AND EXCLUSIONS APPLY WITHOUT REGARD TO WHETHER THE DAMAGES ARISE FROM (A) BREACH OF CONTRACT, (B) BREACH OF WARRANTY, (C) NEGLIGENCE OR (D) ANY OTHER CAUSE OF ACTION, TO THE EXTENT SUCH EXCLUSION AND LIMITATIONS ARE NOT PROHIBITED BY APPLICABLE LAW.</p>
         <p>IF YOU DO NOT AGREE WITH ANY PART OF THESE TERMS OF SERVICE, OR YOU HAVE ANY DISPUTE OR CLAIM AGAINST GREATSCHOOLS.ORG WITH RESPECT TO THESE TERMS OF SERVICE OR THE API, YOUR SOLE AND EXCLUSIVE REMEDY IS TO DISCONTINUE USING THE API, GREATSCHOOLS API SERVICE AND BRAND FEATURES.</p>
         <div class="apiTermsSection">10. Intellectual Property</div>
-        <p>For purposes of these Terms of Service, "Intellectual Property Rights" shall mean any and all rights existing from time to time under patent law, copyright law, moral rights law, trade secret law, trademark law, unfair competition law, publicity rights law, privacy rights law, and any and all other proprietary rights, and any and all applications, renewals, extensions and restorations thereof, now or hereafter in force and effect worldwide. You acknowledge that GreatSchools.org or its licensors owns all right, title and interest, including without limitation all Intellectual Property Rights, in and to the API and GreatSchools API, and that You shall not acquire any right, title or interest to the API or GreatSchools API or any Intellectual Property Rights therein.</p>
+        <p>For purposes of these Terms of Service, &amp;quot;Intellectual Property Rights&amp;quot; shall mean any and all rights existing from time to time under patent law, copyright law, moral rights law, trade secret law, trademark law, unfair competition law, publicity rights law, privacy rights law, and any and all other proprietary rights, and any and all applications, renewals, extensions and restorations thereof, now or hereafter in force and effect worldwide. You acknowledge that GreatSchools.org or its licensors owns all right, title and interest, including without limitation all Intellectual Property Rights, in and to the API and GreatSchools API, and that You shall not acquire any right, title or interest to the API or GreatSchools API or any Intellectual Property Rights therein.</p>
         <div class="apiTermsSection">11. Term and Termination</div>
             <ol type="a">
                 <li>Term. The term of the Terms of Service shall commence on the date upon which agree to the Terms of Service and shall continue in force thereafter, unless terminated as provided herein.</li>
@@ -111,7 +114,7 @@
         <p>You represent that You have the authority to bind the organization (if any) identified in Your Request. You agree not to export to any place any part of the API, GreatSchools API Service and Brand Features provided to You or any direct product thereof except in compliance with, and with all licenses and approvals required under, applicable export laws, rules and regulations. If provided to the U.S. government, the API, GreatSchools API Service and Brand Features are provided with the commercial license rights described herein. If any provision of these Terms of Service is found by a court of competent jurisdiction to be invalid or unenforceable, then the invalid or unenforceable provision will be replaced with a valid, enforceable provision that most closely matches the intent of the original provision and the remainder of these Terms of Service will continue in effect. The section titles in these Terms of Service are solely for the convenience of the parties and have no legal or contractual significance. GreatSchools.org may assign these Terms of Service, in whole or in part, at any time with or without notice to You. You may not transfer, assign, sublicense or delegate the Terms of Service or Your API Key to any third party. GreatSchools.org's failure to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision. Except as expressly stated herein, these Terms of Service constitute the entire agreement between You and GreatSchools.org with respect to the API and supersede any prior or contemporaneous agreements between You and GreatSchools.org.</p>
 
         <div class="apiTermsTitle">GreatSchools.org API Branding Requirements</div>
-        <p>All API users must clearly and conspicuously display the GreatSchools.org name, logo(s) and link(s) to GreatSchools.org (the "Brand Features") on any web page that displays or uses the GreatSchools API Service, in accordance with the following branding requirements.  If you have any questions about the GreatSchools API service, please contact us at <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a></p>
+        <p>All API users must clearly and conspicuously display the GreatSchools.org name, logo(s) and link(s) to GreatSchools.org (the &amp;quot;Brand Features&amp;quot;) on any web page that displays or uses the GreatSchools API Service, in accordance with the following branding requirements.  If you have any questions about the GreatSchools API service, please contact us at <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a></p>
 
         <div class="apiTermsTitle">GreatSchools Attribution Requirements</div>
 
@@ -143,11 +146,11 @@
                 <li>www.greatschools.net</li>
             </ul>
 
-        <p>Partner must allow search engines to crawl the links pointing from their website to GreatSchools.  Links may not include the attribute rel="no follow".  This rule applies to all links described below.</p>
+        <p>Partner must allow search engines to crawl the links pointing from their website to GreatSchools.  Links may not include the attribute rel=&amp;quot;no follow&amp;quot;.  This rule applies to all links described below.</p>
 
-        <p>Correct:   &amp;lt;a href="http://www.greatschools.org"&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
-        <p>Incorrect:  &amp;lt;a href="http://www.greatschools.org" rel="nofollow"&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
-        <p>When linking to the GreatSchools homepage, avoid non-descriptive anchor text, such as "click here".  Instead, use "GreatSchools" or "school ratings" or "school information" as your anchor text.</p>
+        <p>Correct:   &amp;lt;a href=&amp;quot;http://www.greatschools.org&amp;quot;&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
+        <p>Incorrect:  &amp;lt;a href=&amp;quot;http://www.greatschools.org&amp;quot; rel=&amp;quot;nofollow&amp;quot;&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
+        <p>When linking to the GreatSchools homepage, avoid non-descriptive anchor text, such as &amp;quot;click here&amp;quot;.  Instead, use &amp;quot;GreatSchools&amp;quot; or &amp;quot;school ratings&amp;quot; or &amp;quot;school information&amp;quot; as your anchor text.</p>
 
         <div class="apiTermsSection">A.  School Profiles</div>
 
@@ -156,29 +159,29 @@
             <li>Sample School Profile page on GreatSchools website:<br/>
                 http://www.greatschools.org/illinois/chicago/953-Bell-Elementary-School/</li>
             <li>Example HTML link from Partner site:<br/>
-                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/953-Bell-Elementary-School/"&amp;gt;Bell Elementary School&amp;lt;/a&amp;gt;
+                &amp;lt;a href=&amp;quot;http://www.greatschools.org/illinois/chicago/953-Bell-Elementary-School/&amp;quot;&amp;gt;Bell Elementary School&amp;lt;/a&amp;gt;
             </li>
             <li>Either of the following two anchor text formats must be used within the link:
                 <ul>
-                    <li>Bell Elementary School</li>
-                    <li>More information on Bell Elementary School</li>
+                    <li><span class="link">Bell Elementary School</span></li>
+                    <li><span class="link">More information on Bell Elementary School</span></li>
                 </ul>
             </li>
         </ul>
 
         <div class="apiTermsSection">B. Test Scores</div>
 
-        <p>Where applicable, Partner will also link to the Test Scores page associated with that school on the GreatSchools website.  The words "test scores" must be included in the anchor text.</p>
+        <p>Where applicable, Partner will also link to the Test Scores page associated with that school on the GreatSchools website.  The words &amp;quot;test scores&amp;quot; must be included in the anchor text.</p>
         <ul>
             <li>Sample Test Scores page for a specific school on GreatSchools website:<br/>
                 http://www.greatschools.org/modperl/achievement/il/953</li>
             <li>Example HTML for link from Partner site:<br/>
-                &amp;lt;a href="http://www.greatschools.org/modperl/achievement/il/953"&amp;gt;View test scores&amp;lt;/a&amp;gt;
+                &amp;lt;a href=&amp;quot;http://www.greatschools.org/modperl/achievement/il/953&amp;quot;&amp;gt;View test scores&amp;lt;/a&amp;gt;
             </li>
             <li>Either of the following two anchor text formats must be used within the link:
                 <ul>
-                    <li>Test scores</li>
-                    <li>View test scores</li>
+                    <li><span class="link">Test scores</span></li>
+                    <li><span class="link">View test scores</span></li>
                 </ul>
             </li>
         </ul>
@@ -187,21 +190,26 @@
 
         <p>Partner will have access to school reviews GreatSchools has gathered.  School reviews are comprised of two parts: 1) an overall star rating for a school (on a scale of 1-5 stars) and 2) written comments that have been submitted to GreatSchools by parents, students, school officials and others. Below are usage, display, and linking guidelines for school reviews.</p>
         <ul>
-            <li>A school’s overall star rating may be labeled as “School Rating”, “Parent Rating”, or simply “Rating”.  Partner may not label the star rating as a “GreatSchools Rating” which carries a specific meaning (see section D).</li>
-            <li>Partner may use overall star rating images provided by GreatSchools (examples below), or their own.</li>
-            <li>TODO-10180 ADD STARS IMAGES</li>
-            <li>The comments that have been collected about a school may be labeled as “School Reviews”, “Parent Reviews” or simply “Reviews”. Partner may not label the comments as a “GreatSchools Rating” which carries a specific meaning (see section D).</li>
+            <li>A school's overall star rating may be labeled as &amp;quot;School Rating&amp;quot;, &amp;quot;Parent Rating&amp;quot;, or simply &amp;quot;Rating&amp;quot;.  Partner may <span class="emphasis">not</span> label the star rating as a &amp;quot;GreatSchools Rating&amp;quot; which carries a specific meaning (see section D).</li>
+            <li class="parentRatingsStars">Partner may use overall star rating images provided by GreatSchools (examples below), or their own.<br/>
+                <img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
+                <img src="/res/img/map/ratings_parent_city_4.gif" alt="4 out of 5 stars"/>
+                <img src="/res/img/map/ratings_parent_city_3.gif" alt="3 out of 5 stars"/>
+                <img src="/res/img/map/ratings_parent_city_2.gif" alt="2 out of 5 stars"/>
+                <img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
+            </li>
+            <li>The comments that have been collected about a school may be labeled as &amp;quot;School Reviews&amp;quot;, &amp;quot;Parent Reviews&amp;quot; or simply &amp;quot;Reviews&amp;quot;. Partner may <span class="emphasis">not</span> label the comments as a &amp;quot;GreatSchools Rating&amp;quot; which carries a specific meaning (see section D).</li>
             <li>School Reviews may not be used in any other calculation or manipulated. They may not be used in any aggregate calculation with other data.</li>
             <li>Partner may display up to 60 words, or 300 characters (including spaces) of each school review.  Longer reviews must be truncated and more text should be indicated with an ellipsis (...). Partner must link to the full text all school reviews on the GreatSchools website.</li>
             <li>Example of review displayed on Partner site:<br/>
-                "The best thing I could have done for my child. We have been at Bell since 2nd grade. My daughter is now in 7th grade. This school has developed my daughter in amazing ways. Not only is it the strongest academically but the sports opportunities are wonderful. Our basketball teams ..."   More reviews &amp;gt;</li>
+                &amp;quot;The best thing I could have done for my child. We have been at Bell since 2nd grade. My daughter is now in 7th grade. This school has developed my daughter in amazing ways. Not only is it the strongest academically but the sports opportunities are wonderful. Our basketball teams ...&amp;quot;   <span class="link">More reviews</span> &amp;gt;</li>
             <li>Sample link to the School Reviews page for the full review: http://www.greatschools.org/school/parentReviews.page?id=953&amp;amp;state=IL </li>
             <li>The following anchor text formats are acceptable when linking to school reviews on the GreatSchools website:
                 <ul>
-                    <li>X reviews (where X is the number of reviews)</li>
-                    <li>More reviews</li>
-                    <li>Bell Elementary School reviews</li>
-                    <li>More reviews of Bell Elementary School</li>
+                    <li><span class="link">X reviews</span> (where X is the number of reviews)</li>
+                    <li><span class="link">More reviews</span></li>
+                    <li><span class="link">Bell Elementary School reviews</span></li>
+                    <li><span class="link">More reviews of Bell Elementary School</span></li>
                 </ul>
             </li>
         </ul>
@@ -210,13 +218,13 @@
 
         <p>The GreatSchools Rating is a 1-10 number (10 is best) that provides a quick overview of a public school's academic performance.  GreatSchools Ratings are based on a comparison of standardized test results for all public schools in the state. Below are usage, display, and linking guidelines for GreatSchools Ratings.</p>
         <ul>
-            <li>GreatSchools Ratings for all public and public charter schools must be titled as “GreatSchools Ratings”.</li>
-            <li>GreatSchools Ratings must be a whole number between 1-10 and state “X out of 10”.</li>
+            <li>GreatSchools Ratings for all public and public charter schools must be titled as &amp;quot;GreatSchools Ratings&amp;quot;.</li>
+            <li>GreatSchools Ratings must be a whole number between 1-10 and state &amp;quot;X out of 10&amp;quot;.</li>
             <li>GreatSchools Ratings may not be used in any other calculation or manipulated. It may not be used in any aggregate calculation with other data.</li>
-            <li>Explanatory text provided by GreatSchools must be accessible from any page on Partner’s web site that displays GreatSchools Ratings. This text will be included in the GreatSchools feed.  You may also choose to link to a more detailed explanation of the GreatSchools Ratings. This link will be included in the GreatSchools feed.</li>
+            <li>Explanatory text provided by GreatSchools must be accessible from any page on Partner's web site that displays GreatSchools Ratings. This text will be included in the GreatSchools feed.  You may also choose to link to a more detailed explanation of the GreatSchools Ratings. This link will be included in the GreatSchools feed.</li>
             <li>On each page where the GreatSchools Ratings reside, GreatSchools will be cited as the source with a link to www.greatschools.org.  Or, alternatively, the GreatSchools logo must be displayed and it must link to the GreatSchools homepage.</li>
             <li>GreatSchools Ratings will be displayed as GreatSchools-branded images, never as plain text.</li>
-            <li>Images for each Rating (1-10) and “N/A” will be provided by GreatSchools. Different sizes will be available for use in search results and other pages. GreatSchools will provide the branded images. Below are some samples and recommendations for usage:
+            <li>Images for each Rating (1-10) and &amp;quot;N/A&amp;quot; will be provided by GreatSchools. Different sizes will be available for use in search results and other pages. GreatSchools will provide the branded images. Below are some samples and recommendations for usage:
                 <ul>
                     <li>Each image shall link to the corresponding School Profile page on the GreatSchools website.</li>
                     <li>Alt text for this link should read:  SCHOOLNAME GreatSchools Rating, where SCHOOLNAME is the name of the school.</li>
@@ -226,29 +234,66 @@
 
         <div class="apiTermsSection">GreatSchools Ratings &amp;mdash; Sample Images</div>
 
-        <table>
+        <table class="ratings_sample_images">
             <tr>
                 <td>
                     <div class="apiTermsSection">SMALL</div>
                     Recommended for search results and list pages
                 </td>
-                <td>TODO-10180 ADD IMAGES</td>
+                <td colspan="2">
+                    <img src="/res/img/school/ratings/10.gif" alt="10"/>
+                    <img src="/res/img/school/ratings/9.gif" alt="9"/>
+                    <img src="/res/img/school/ratings/8.gif" alt="8"/>
+                    <img src="/res/img/school/ratings/7.gif" alt="7"/>
+                    <img src="/res/img/school/ratings/6.gif" alt="6"/>
+                    <img src="/res/img/school/ratings/5.gif" alt="5"/>
+                    <img src="/res/img/school/ratings/4.gif" alt="4"/>
+                    <img src="/res/img/school/ratings/3.gif" alt="3"/>
+                    <img src="/res/img/school/ratings/2.gif" alt="2"/>
+                    <img src="/res/img/school/ratings/1.gif" alt="1"/>
+                </td>
             </tr>
             <tr>
                 <td>
                     <div class="apiTermsSection">MEDIUM</div>
                     Recommended for school profiles and detail pages
                 </td>
-                <td>TODO-10180 ADD IMAGES</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="apiTermsSection">LARGE</div>
-                    At Partner’s discretion, large versions of the GreatSchools Rating may be used.
+                <td>
+                    <img src="/res/img/school/ratings/ratings_gs_head_10.gif" alt="GreatSchools Rating: 10 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_9.gif" alt="GreatSchools Rating: 9 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_8.gif" alt="GreatSchools Rating: 8 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_7.gif" alt="GreatSchools Rating: 7 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_6.gif" alt="GreatSchools Rating: 6 out of 10."/>
+
+                </td>
+                <td>
+                    <img src="/res/img/school/ratings/ratings_gs_head_5.gif" alt="GreatSchools Rating: 5 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_4.gif" alt="GreatSchools Rating: 4 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_3.gif" alt="GreatSchools Rating: 3 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_2.gif" alt="GreatSchools Rating: 2 out of 10."/>
+                    <img src="/res/img/school/ratings/ratings_gs_head_1.gif" alt="GreatSchools Rating: 1 out of 10."/>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">TODO-10180 ADD IMAGES</td>
+                <td colspan="3">
+                    <div class="apiTermsSection">LARGE</div>
+                    At Partner's discretion, large versions of the GreatSchools Rating may be used.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <img src="/res/img/school/overview/ratings_gs_med_10.gif" alt="GreatSchools Rating: 10 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_9.gif" alt="GreatSchools Rating: 9 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_8.gif" alt="GreatSchools Rating: 8 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_7.gif" alt="GreatSchools Rating: 7 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_6.gif" alt="GreatSchools Rating: 6 out of 10."/>
+                    <br/>
+                    <img src="/res/img/school/overview/ratings_gs_med_5.gif" alt="GreatSchools Rating: 5 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_4.gif" alt="GreatSchools Rating: 4 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_3.gif" alt="GreatSchools Rating: 3 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_2.gif" alt="GreatSchools Rating: 2 out of 10."/>
+                    <img src="/res/img/school/overview/ratings_gs_med_1.gif" alt="GreatSchools Rating: 1 out of 10."/>
+                </td>
             </tr>
         </table>
 
@@ -259,7 +304,7 @@
             <li>Sample School District page on GreatSchools website:<br/>
                 http://www.greatschools.org/illinois/chicago/Chicago-Public-Schools/</li>
             <li>Example HTML for link from Partner site:<br/>
-                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/Chicago-Public-Schools/"&amp;gt;More about the Chicago Public Schools district&amp;lt;/a&amp;gt;
+                &amp;lt;a href=&amp;quot;http://www.greatschools.org/illinois/chicago/Chicago-Public-Schools/&amp;quot;&amp;gt;More about the Chicago Public Schools district&amp;lt;/a&amp;gt;
             </li>
             <li>Following are suggested anchor text formats that may be used within the link:
                 <ul>
@@ -276,7 +321,7 @@
             <li>Sample City Profile page on GreatSchools website:<br/>
                 http://www.greatschools.org/illinois/chicago/</li>
             <li>Example HTML for link from Partner site:<br/>
-                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/"&amp;gt;Chicago schools&amp;lt;/a&amp;gt;
+                &amp;lt;a href=&amp;quot;http://www.greatschools.org/illinois/chicago/&amp;quot;&amp;gt;Chicago schools&amp;lt;/a&amp;gt;
             </li>
             <li>Following are suggested anchor text formats that may be used within the link:
                 <ul>
@@ -287,7 +332,7 @@
         </ul>
 
         <!-- TODO-10180 add underlines -->
-        <!-- TODO-10180 fix special characters: “ ” ‘ ’ & " --> 
+        <!-- TODO-10180 fix special characters: “ ” ' ' & " --> 
 
         </div>
 
