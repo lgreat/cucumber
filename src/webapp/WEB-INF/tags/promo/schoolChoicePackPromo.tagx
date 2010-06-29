@@ -74,7 +74,7 @@
 
     <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
 
-        <c:if test="${not format eq 'wide'}">
+        <c:if test="${format ne 'wide'}">
             <h4>School Chooser Toolkit</h4>
         </c:if>
 
