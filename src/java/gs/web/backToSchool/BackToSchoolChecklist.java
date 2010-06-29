@@ -78,7 +78,7 @@ public class BackToSchoolChecklist {
         return completedItems;
     }
 
-    
+    @Deprecated
     public static final boolean hasCompletedEmailSeries(User user) {
 
         if (user != null) {
