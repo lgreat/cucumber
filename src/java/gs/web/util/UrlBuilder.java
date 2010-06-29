@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.223 2010/06/23 21:26:25 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.224 2010/06/29 19:15:17 aroy Exp $
  */
 
 package gs.web.util;
@@ -298,6 +298,7 @@ public class UrlBuilder {
      * Community Pages
      */
     public static final VPage COMMUNITY_DISCUSSION = new VPage("vpage:communityDiscussion");
+    public static final VPage COMMUNITY_DISCUSSION_BOARD = new VPage("vpage:communityDiscussionBoard");
     public static final VPage RAISE_YOUR_HAND_LANDING = new VPage("vpage:raiseYourHandLanding");
     public static final VPage RAISE_YOUR_HAND_FEATURED_QUESTIONS = new VPage("vpage:raiseYourHandFeaturedQuestions");
     public static final VPage RECENT_CONVERSATIONS = new VPage("vpage:recentConversations");
@@ -678,6 +679,9 @@ public class UrlBuilder {
         _perlPage = false;
         if (COMMUNITY_DISCUSSION.equals(page)) {
             _path = fullUri + "/community/discussion.gs";
+            setParameter("content", String.valueOf(contentIdentifier));
+        } else if (COMMUNITY_DISCUSSION_BOARD.equals(page)) {
+            _path = fullUri + "/community.gs";
             setParameter("content", String.valueOf(contentIdentifier));
         }
     }

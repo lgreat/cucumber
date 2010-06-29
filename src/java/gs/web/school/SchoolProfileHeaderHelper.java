@@ -45,6 +45,7 @@ public class SchoolProfileHeaderHelper {
     private static final String DISCUSSION_BOARD_ID = "discussionBoardId";
     private static final String TOPIC_CENTER_ID = "topicCenterId";
     private static final String DISCUSSION_TOPIC = "discussionTopic";
+    private static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     private static final String IS_LOCAL = "isLocal";
     private static final String DISCUSSION_TOPICS = "discussionTopics";
 
@@ -90,6 +91,7 @@ public class SchoolProfileHeaderHelper {
                     if (localBoard != null) {
                         model.put(DISCUSSION_BOARD_ID, localBoard.getBoardId());
                         model.put(DISCUSSION_TOPIC, city.getDisplayName());
+                        model.put(DISCUSSION_TOPIC_FULL, city.getDisplayName());
                         model.put(IS_LOCAL, true);
                         foundLocalBoard = true;
                     }
@@ -101,15 +103,19 @@ public class SchoolProfileHeaderHelper {
                     if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
                         model.put(DISCUSSION_TOPIC, "Preschool");
+                        model.put(DISCUSSION_TOPIC_FULL, "Preschool");
                     } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
                         model.put(DISCUSSION_TOPIC, "Elementary");
+                        model.put(DISCUSSION_TOPIC_FULL, "Elementary School");
                     } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "Middle School");
+                        model.put(DISCUSSION_TOPIC, "Middle");
+                        model.put(DISCUSSION_TOPIC_FULL, "Middle School");
                     } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
                         topicCenterId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
-                        model.put(DISCUSSION_TOPIC, "High School");
+                        model.put(DISCUSSION_TOPIC, "High");
+                        model.put(DISCUSSION_TOPIC_FULL, "High School");
                     }
                     if (topicCenterId > -1) {
                         CmsTopicCenter topicCenter =
@@ -127,7 +133,7 @@ public class SchoolProfileHeaderHelper {
                             = new ArrayList<NameValuePair<String, String>>();
                     // for each topic, we only need to know the title and the url to its discussion board
                     for (CmsTopicCenter topic: getValidDiscussionTopics()) {
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, "",
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD, "",
                                                                topic.getDiscussionBoardId());
                         NameValuePair<String, String> topicToBoard
                                 = new NameValuePair<String, String>

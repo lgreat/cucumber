@@ -36,7 +36,7 @@
                 <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
                     <c:forEach var="myTc" items="${requestScope.discussionTopics}">
                         <gsml:selectOption value="${myTc.value}"
-                                           selected="${myTc.key == requestScope.title}">${myTc.key}</gsml:selectOption>
+                                           selected="${myTc.key == requestScope.discussionTopicFull}">${myTc.key}</gsml:selectOption>
                     </c:forEach>
                     <c:if test="${requestScope.isLocal eq true}">
                         <gsml:selectOption value=""
