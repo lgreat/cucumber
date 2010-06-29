@@ -3,6 +3,7 @@ package gs.web.backToSchool;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -28,6 +29,8 @@ public class BackToSchoolChecklistController implements ReadWriteAnnotationContr
 
     BackToSchoolChecklist _backToSchoolChecklist;
 
+    public final static String CHECKLIST_COMPLETE_GAM_KEY = "bts_checklist";
+
     @RequestMapping(method=RequestMethod.GET)
     public String handleRequestInternal(HttpServletRequest request, Model model) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -40,6 +43,13 @@ public class BackToSchoolChecklistController implements ReadWriteAnnotationContr
         User user = sessionContext.getUser();
 
         List<BackToSchoolChecklist.BackToSchoolChecklistItem> completedItems = BackToSchoolChecklist.getCompletedItems(user);
+
+        boolean complete = BackToSchoolChecklist.hasCompletedChecklist(user);
+
+        if (complete) {
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            pageHelper.addAdKeyword("CHECKLIST_COMPLETE_GAM_KEY", "complete");
+        }
 
         model.addAttribute("backToSchoolChecklistCompletedItems", StringUtils.join(completedItems, ','));
         return "backToSchool/backToSchoolChecklist";

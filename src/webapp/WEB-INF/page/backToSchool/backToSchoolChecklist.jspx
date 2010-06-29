@@ -54,21 +54,30 @@
 
                 <tr>
                     <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_1.gif"/></td>
-                    <td class="btsChecklistCol2"><link:registration
+                    <td class="btsChecklistCol2">
+                        <c:choose>
+                            <c:when test="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'JOIN'))}">
+                                <span >Join GreatSchools</span> for access to our newsletters, parent community and more!
+                            </c:when>
+                            <c:otherwise>
+                                <link:registration
                 onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
                 email="${requestScope.context.email}">Join GreatSchools</link:registration> for access to our newsletters, parent community and more! Already a member? <link:loginOrRegister email="${requestScope.context.email}"
                                   onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
-                                  redirect="${myUrl}">Sign in</link:loginOrRegister>.</td>
+                                  redirect="${myUrl}">Sign in</link:loginOrRegister>.
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'JOIN'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
                 <tr>
-                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_2.gif"/></td>
+                    <td class="btsChecklistCol1"><img alt="Step 2" src="/res/img/backToSchool/step_2.gif"/></td>
                     <td class="btsChecklistCol2">Subscribe to our free "Back-to-School Tip of the Day email series.
                         <c:if test="${!(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'EMAIL_SERIES'))}">
                             <form id="btsTipOfTheDayForm" name="btsTipOfTheDayForm" method="post" action="#">
                                 <ul>
                                 <li class="col"><input id="btsElemS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
-                                       value="btstip_e"/><label for="btsElemS">Elementary School</label></li>
+                                       value="btstip_e" checked="true"/><label for="btsElemS">Elementary School</label></li>
                                 <li class="col"><input id="btsMidS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
                                        value="btstip_m"/><label for="btsMidS">Middle School</label></li>
                                 <li class="col"><input id="btsHS" name="btsTipOfTheDay" class="btsTipOfTheDay" type="radio"
@@ -96,7 +105,7 @@
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'EMAIL_SERIES'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
                 <tr>
-                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_3.gif"/></td>
+                    <td class="btsChecklistCol1"><img alt="Step 3" src="/res/img/backToSchool/step_3.gif"/></td>
                     <td class="btsChecklistCol2">Review one of the following Back-to-School supply lists:
                         <ul id="btsSp3Items">
                             <li><a href="/back-to-school/supplies/supply-list-to-get-you-started.gs?content=109" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> All grade levels school supply list to get you started</a></li>
@@ -111,12 +120,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_4.gif"/></td>
+                    <td class="btsChecklistCol1"><img alt="Step 4" src="/res/img/backToSchool/step_4.gif"/></td>
                     <td class="btsChecklistCol2">Read <a href="/students/summer-activities/stop-brain-drain.gs?content=1510" id="btsArticle1">Stop summer brain drain</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE1'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
                 <tr class="last">
-                    <td class="btsChecklistCol1"><img alt="Step 1" src="/res/img/backToSchool/step_5.gif"/></td>
+                    <td class="btsChecklistCol1"><img alt="Step 5" src="/res/img/backToSchool/step_5.gif"/></td>
                     <td class="btsChecklistCol2">Read <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71" id="btsArticle2">Nine steps to a smart start</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE2'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
@@ -124,10 +133,7 @@
                 </div>
         </div>
         <div id="sidebarGS" class="col">
-            <!-- ads go below -->
-
-            <!--<gsweb:adTagGenerator position="SponsorPromo_300x600"/>-->
-
+            <gsweb:adTagGenerator position="SponsorPromo_300x600"/>
         </div>
 
         <script type="text/javascript">
@@ -164,7 +170,7 @@
 
                 if (GS.showJoinHover(form.email, window.location.href, GS.showJoinHover(form.email, window.location.href, GSType.hover.joinHover.showBackToSchoolTipOfTheDay, window.location.href))) {
                     jQuery.post("/backToSchool/backToSchoolTipOfTheDayAjax.page", form, function(data) {
-                        alert(data);
+                        window.location.reload();
                     });
                 }
 

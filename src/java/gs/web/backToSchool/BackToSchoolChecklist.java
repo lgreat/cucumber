@@ -4,6 +4,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,8 @@ public class BackToSchoolChecklist {
 
     @Autowired
     private ExactTargetAPI _exactTargetAPI;
+
+    public static final String EXACT_TARGET_EMAIL_KEY = "B2S_Checklist";
 
     public enum BackToSchoolChecklistItem {
         JOIN,
@@ -88,6 +91,10 @@ public class BackToSchoolChecklist {
     }
 
     public boolean addChecklistItem(String checklistItem, User user) {
+        if (user != null && hasCompletedChecklist(user)) {
+            return false; //early exit
+        }
+
         boolean added = false;
         UserProfile profile = null;
         if (user != null && user.getUserProfile() != null) {
@@ -105,19 +112,12 @@ public class BackToSchoolChecklist {
             _userDao.updateUser(user);
             added = true;
         }
-
+        
         if (BackToSchoolChecklist.hasCompletedChecklist(user)) {
-            sendEmail(user);
+            _exactTargetAPI.sendTriggeredEmail(EXACT_TARGET_EMAIL_KEY, user);
         }
 
         return added;
-    }
-
-    public void sendEmail(User user) {
-        Map<String,String> attr = new HashMap<String,String>();
-
-        
-        //TODO: _exactTargetAPI.sendTriggeredEmail("", user, attr);
     }
 
     public IUserDao getUserDao() {
