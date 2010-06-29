@@ -118,7 +118,8 @@
         <div class="apiTermsSection">I. GreatSchools Logos &amp;amp; Images</div>
         <p>GreatSchools will provide logos and related images for attribution purposes.  Images are available in web-ready .jpg, .gif, and .png formats.  Should you require images of a different file size, type, or resolution, please ask us.  We are happy to meet your needs and maintain our branding standards in this way.</p>
             <ul>
-                <li>Logos are available from our Media Room:  <a href="http://www.greatschools.org/about/pressRoom.page">http://www.greatschools.org/about/pressRoom.page</a></li>
+                <li>Logos are available from our Media Room:<br/>
+                    <a href="http://www.greatschools.org/about/pressRoom.page">http://www.greatschools.org/about/pressRoom.page</a></li>
                 <li>Partner may not stretch or skew images horizontally or vertically.</li>
                 <li>Partner may, however, resize images with proportional constraints.</li>
                 <li>If placing the GreatSchools logo on non-white background, Partner must request a version with a transparent background from their GreatSchools contact.</li>
@@ -127,26 +128,166 @@
         <p>Attribution and links to GreatSchools data must be displayed on the Partner's website according to the specifications below.</p>
         <p>Partner web pages that contain GreatSchools data or content must cite GreatSchools as the source and link to <a href="http://www.greatschools.org">www.greatschools.org</a>.  Or, alternatively, the GreatSchools logo must be displayed and it must link to the GreatSchools homepage.</p>
         <p>When referencing GreatSchools, keep in mind that 'GreatSchools' is the official name of our organization and should always appear as a single, capitalized word.  Our website is located at <a href="http://www.greatschools.org">www.greatschools.org</a>.</p>
-        <!-- TODO-10180 got this far, all below is outdated -->
 
-        <p>For all pages displaying GreatSchools data:</p>
-        <p>-	Display a "Data powered by [GreatSchools.org]" 	logo linked to http://www.greatschools.org as done below
-        <br/><a href="http://www.greatschools.org" target="_blank"><img border="0" src="/res/img/logo/logo_GS_125x70transparent.gif" alt="powered by GreatSchools"/></a></p>
+        <p>Correct:</p>
+            <ul>
+                <li>GreatSchools</li>
+                <li>GreatSchools.org</li>
+                <li>www.greatschools.org</li>
+            </ul>
+        <p>Incorrect:</p>
+            <ul>
+                <li>Great Schools</li>
+                <li>great schools</li>
+                <li>greatschools.net</li>
+                <li>www.greatschools.net</li>
+            </ul>
 
-        <div class="apiTermsSection">Links</div>
-        <p>The following output elements must be present and link to http://www.greatschools.org using the standard linking format on your site, with appropriate URL links from the API call. Links to GreatSchools may not include the attribute rel="nofollow".</p>
-        <p>API responses should include all of the appropriate links necessary to meet our branding requirements as detailed below.</p>
-        <p><span class="apiTermsHighlight">For pages presenting school information</span> you must include a conspicuous link to:</p>
-        <p>-	"See more information about [School Name] from GreatSchools.org" where an individual school profile is displayed</p>
-        <p><span class="apiTermsHighlight">For pages presenting city information</span> you must include a conspicuous link to </p>
-        <p>-	"See more information on [City Name] schools from GreatSchools.org"</p>
-        <p><span class="apiTermsHighlight">For pages presenting school reviews or ratings</span> you must include a conspicuous link to</p>
-        <p>-	"Read more reviews on [School Name] from GreatSchools.org"</p>
-        <div class="apiTermsSection">Disclaimer</div>
-        <p>All web pages that display GreatSchools API Service must include the following text:</p>
-        <p>&amp;copy; GreatSchools.org, Inc. 2010.  Use is subject to Terms of Service.</p>
-        <p>If you have any questions about the GreatSchools API service, please contact us at <a href="mailto:api-support@greatschools.org">api-support@greatschools.org</a></p>
+        <p>Partner must allow search engines to crawl the links pointing from their website to GreatSchools.  Links may not include the attribute rel="no follow".  This rule applies to all links described below.</p>
 
+        <p>Correct:   &amp;lt;a href="http://www.greatschools.org"&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
+        <p>Incorrect:  &amp;lt;a href="http://www.greatschools.org" rel="nofollow"&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
+        <p>When linking to the GreatSchools homepage, avoid non-descriptive anchor text, such as "click here".  Instead, use "GreatSchools" or "school ratings" or "school information" as your anchor text.</p>
+
+        <div class="apiTermsSection">A.  School Profiles</div>
+
+        <p>Partner will provide text links to School Profile pages on GreatSchools using the school name within the anchor text, for every school name listed on their website.</p>
+        <ul>
+            <li>Sample School Profile page on GreatSchools website:<br/>
+                http://www.greatschools.org/illinois/chicago/953-Bell-Elementary-School/</li>
+            <li>Example HTML link from Partner site:<br/>
+                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/953-Bell-Elementary-School/"&amp;gt;Bell Elementary School&amp;lt;/a&amp;gt;
+            </li>
+            <li>Either of the following two anchor text formats must be used within the link:
+                <ul>
+                    <li>Bell Elementary School</li>
+                    <li>More information on Bell Elementary School</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="apiTermsSection">B. Test Scores</div>
+
+        <p>Where applicable, Partner will also link to the Test Scores page associated with that school on the GreatSchools website.  The words "test scores" must be included in the anchor text.</p>
+        <ul>
+            <li>Sample Test Scores page for a specific school on GreatSchools website:<br/>
+                http://www.greatschools.org/modperl/achievement/il/953</li>
+            <li>Example HTML for link from Partner site:<br/>
+                &amp;lt;a href="http://www.greatschools.org/modperl/achievement/il/953"&amp;gt;View test scores&amp;lt;/a&amp;gt;
+            </li>
+            <li>Either of the following two anchor text formats must be used within the link:
+                <ul>
+                    <li>Test scores</li>
+                    <li>View test scores</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="apiTermsSection">C. School Reviews</div>
+
+        <p>Partner will have access to school reviews GreatSchools has gathered.  School reviews are comprised of two parts: 1) an overall star rating for a school (on a scale of 1-5 stars) and 2) written comments that have been submitted to GreatSchools by parents, students, school officials and others. Below are usage, display, and linking guidelines for school reviews.</p>
+        <ul>
+            <li>A school’s overall star rating may be labeled as “School Rating”, “Parent Rating”, or simply “Rating”.  Partner may not label the star rating as a “GreatSchools Rating” which carries a specific meaning (see section D).</li>
+            <li>Partner may use overall star rating images provided by GreatSchools (examples below), or their own.</li>
+            <li>TODO-10180 ADD STARS IMAGES</li>
+            <li>The comments that have been collected about a school may be labeled as “School Reviews”, “Parent Reviews” or simply “Reviews”. Partner may not label the comments as a “GreatSchools Rating” which carries a specific meaning (see section D).</li>
+            <li>School Reviews may not be used in any other calculation or manipulated. They may not be used in any aggregate calculation with other data.</li>
+            <li>Partner may display up to 60 words, or 300 characters (including spaces) of each school review.  Longer reviews must be truncated and more text should be indicated with an ellipsis (...). Partner must link to the full text all school reviews on the GreatSchools website.</li>
+            <li>Example of review displayed on Partner site:<br/>
+                "The best thing I could have done for my child. We have been at Bell since 2nd grade. My daughter is now in 7th grade. This school has developed my daughter in amazing ways. Not only is it the strongest academically but the sports opportunities are wonderful. Our basketball teams ..."   More reviews &amp;gt;</li>
+            <li>Sample link to the School Reviews page for the full review: http://www.greatschools.org/school/parentReviews.page?id=953&amp;amp;state=IL </li>
+            <li>The following anchor text formats are acceptable when linking to school reviews on the GreatSchools website:
+                <ul>
+                    <li>X reviews (where X is the number of reviews)</li>
+                    <li>More reviews</li>
+                    <li>Bell Elementary School reviews</li>
+                    <li>More reviews of Bell Elementary School</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="apiTermsSection">D. GreatSchools Ratings</div>
+
+        <p>The GreatSchools Rating is a 1-10 number (10 is best) that provides a quick overview of a public school's academic performance.  GreatSchools Ratings are based on a comparison of standardized test results for all public schools in the state. Below are usage, display, and linking guidelines for GreatSchools Ratings.</p>
+        <ul>
+            <li>GreatSchools Ratings for all public and public charter schools must be titled as “GreatSchools Ratings”.</li>
+            <li>GreatSchools Ratings must be a whole number between 1-10 and state “X out of 10”.</li>
+            <li>GreatSchools Ratings may not be used in any other calculation or manipulated. It may not be used in any aggregate calculation with other data.</li>
+            <li>Explanatory text provided by GreatSchools must be accessible from any page on Partner’s web site that displays GreatSchools Ratings. This text will be included in the GreatSchools feed.  You may also choose to link to a more detailed explanation of the GreatSchools Ratings. This link will be included in the GreatSchools feed.</li>
+            <li>On each page where the GreatSchools Ratings reside, GreatSchools will be cited as the source with a link to www.greatschools.org.  Or, alternatively, the GreatSchools logo must be displayed and it must link to the GreatSchools homepage.</li>
+            <li>GreatSchools Ratings will be displayed as GreatSchools-branded images, never as plain text.</li>
+            <li>Images for each Rating (1-10) and “N/A” will be provided by GreatSchools. Different sizes will be available for use in search results and other pages. GreatSchools will provide the branded images. Below are some samples and recommendations for usage:
+                <ul>
+                    <li>Each image shall link to the corresponding School Profile page on the GreatSchools website.</li>
+                    <li>Alt text for this link should read:  SCHOOLNAME GreatSchools Rating, where SCHOOLNAME is the name of the school.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="apiTermsSection">GreatSchools Ratings &amp;mdash; Sample Images</div>
+
+        <table>
+            <tr>
+                <td>
+                    <div class="apiTermsSection">SMALL</div>
+                    Recommended for search results and list pages
+                </td>
+                <td>TODO-10180 ADD IMAGES</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="apiTermsSection">MEDIUM</div>
+                    Recommended for school profiles and detail pages
+                </td>
+                <td>TODO-10180 ADD IMAGES</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="apiTermsSection">LARGE</div>
+                    At Partner’s discretion, large versions of the GreatSchools Rating may be used.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">TODO-10180 ADD IMAGES</td>
+            </tr>
+        </table>
+
+        <div class="apiTermsSection">E. School Districts</div>
+
+        <p>The GreatSchools website also provides information about public school districts across the country. Below are guidelines for linking to School District pages.</p>
+        <ul>
+            <li>Sample School District page on GreatSchools website:<br/>
+                http://www.greatschools.org/illinois/chicago/Chicago-Public-Schools/</li>
+            <li>Example HTML for link from Partner site:<br/>
+                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/Chicago-Public-Schools/"&amp;gt;More about the Chicago Public Schools district&amp;lt;/a&amp;gt;
+            </li>
+            <li>Following are suggested anchor text formats that may be used within the link:
+                <ul>
+                    <li>More about the Chicago Public Schools district</li>
+                    <li>Overview of the Chicago Public Schools district</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="apiTermsSection">F. City Profiles</div>
+
+        <p>The GreatSchools website also contains profiles of 18,000 cities, small towns and areas across the country. Below are guidelines for linking to city profiles.</p>
+        <ul>
+            <li>Sample City Profile page on GreatSchools website:<br/>
+                http://www.greatschools.org/illinois/chicago/</li>
+            <li>Example HTML for link from Partner site:<br/>
+                &amp;lt;a href="http://www.greatschools.org/illinois/chicago/"&amp;gt;Chicago schools&amp;lt;/a&amp;gt;
+            </li>
+            <li>Following are suggested anchor text formats that may be used within the link:
+                <ul>
+                    <li>Chicago schools</li>
+                    <li>Overview of the Chicago schools</li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- TODO-10180 add underlines -->
+        <!-- TODO-10180 fix special characters: “ ” ‘ ’ & " --> 
 
         </div>
 
