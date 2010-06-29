@@ -46,7 +46,7 @@
 
 
 <div id="main">
-<h1>GreatSchools API <sup><span style="font-size:12px;">beta</span></sup></h1>
+<h1>GreatSchools API</h1>
 
 <div id="content">
 
@@ -124,6 +124,7 @@
                                     <form:option value="finance">Finance</form:option>
                                     <form:option value="government">Government</form:option>
                                     <form:option value="media">Media - Journalism</form:option>
+                                    <form:option value="real estate">Real Estate</form:option>
                                     <form:option value="technology">Technology</form:option>
                                     <form:option value="other">Other</form:option>
                                 </form:select></td>
@@ -179,7 +180,7 @@
                     <tr>
                         <td colspan="2" class="getStarted one">
                             <div class="getStarted1">Submit the form on this page to request a key to our API.</div>
-                            <div class="getStarted2">We review all requests during the beta period to evaluate.how the API may be used.</div>
+                            <div class="getStarted2">We review all requests to evaluate how the API may be used.</div>
                             <div class="getStarted3">We'll send you an API key. Read our <a href="/api/docs/main.page">documentation</a> to get started.</div>
                         </td>
                     </tr>
@@ -193,7 +194,7 @@
             <div class="contentRight">
                 <div id="schoolFinderPromo">
                     <h2 class="topSchoolsHeader" style="margin:0;padding:0;">Want your own SchoolFinder?</h2>
-                    <p>Take ours! Display GreatSchools' test scores, ratings and stats on your Web site for free.</p>
+                    <p>Take ours! Display GreatSchools data on your Web site for free.</p>
                     <a href="/schoolfinder/widget/customize.page">
                         <img src="/res/img/button/go.gif" alt="go"/>
                     </a>
