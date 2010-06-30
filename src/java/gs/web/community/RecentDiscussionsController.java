@@ -39,7 +39,7 @@ public class RecentDiscussionsController extends AbstractController {
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String PARAM_BOARD_ID = "board_id";
-    public static final String PARAM_DISCUSSION_TOPIC = "discussionTopic";
+    public static final String PARAM_DISCUSSION_TOPIC = "topic";
     public static final String PARAM_LIMIT = "limit";
     public static final String PARAM_CALLER_URI = "uri";
     public static final String PARAM_STYLE = "style";
