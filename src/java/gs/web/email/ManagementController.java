@@ -22,6 +22,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,8 @@ import java.lang.reflect.Method;
  */
 public class ManagementController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
+
+    public static final String BEAN_ID = "/email/management.page";
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
@@ -415,7 +418,12 @@ public class ManagementController extends SimpleFormController implements ReadWr
             ExactTargetAPI _etAPI = (ExactTargetAPI)getApplicationContext().getBean(ExactTargetAPI.BEAN_ID);
             _etAPI.deleteSubscriber(user.getEmail());
         }
-        return new ModelAndView(getSuccessView(), model);
+
+        if (user.getUserProfile() != null) {
+            return new ModelAndView(getSuccessView(), model);
+        } else {
+            return new ModelAndView(new RedirectView(BEAN_ID + "?ref=" + user.getId()));
+        }
     }
 
     protected void doMySchoolStats(User user, ManagementCommand command, List<Subscription> newSubscriptions,

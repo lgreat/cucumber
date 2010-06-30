@@ -2396,8 +2396,8 @@
         <property name="commandName" value="emailCmd"/>
         <property name="commandClass" value="gs.web.email.ManagementCommand"/>
         <property name="formView" value="/email/management"/>
-        <!--
         <property name="successView" value="redirect:/account/?msg=updatedSubscriptions" />
+        <!--
         <property name="errorView" value="redirect:/community/loginOrRegister.page"/>
         <property name="validators">
             <list>
