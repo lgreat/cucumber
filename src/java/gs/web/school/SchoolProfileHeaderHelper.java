@@ -50,9 +50,16 @@ public class SchoolProfileHeaderHelper {
     private static final String IS_LOCAL = "isLocal";
     private static final String DISCUSSION_TOPICS = "discussionTopics";
 
+    private void logDuration(long durationInMillis, String eventName) {
+        _log.info(eventName + " took " + durationInMillis + " milliseconds");
+    }
+
     public void updateModel(School school, Map<String, Object> model) {
+        long startTime;
+        long totalTime = System.currentTimeMillis();
         try {
             if (school != null) {
+                startTime = System.currentTimeMillis();
                 // Determine PQ
                 PQ pq = _PQDao.findBySchool(school);
                 if (pq != null) {
@@ -69,27 +76,35 @@ public class SchoolProfileHeaderHelper {
                         }
                     }
                 }
+                logDuration(System.currentTimeMillis() - startTime, "Determining PQ and hours per day");
 
                 // Determine private school test scores
                 boolean hasTestScores = true;
                 if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+                    startTime = System.currentTimeMillis();
                     hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
                             _testDataSetDao.hasDisplayableData(school);
+                    logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
                 } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                     hasTestScores = false;
                 }
                 model.put(HAS_TEST_SCORES, hasTestScores);
 
                 // TODO: Determine levelcode of survey with most results
+                startTime = System.currentTimeMillis();
                 // Determine survey results
                 model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
+                logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
+                startTime = System.currentTimeMillis();
                 // Determine community module
                 handleCommunitySidebar(school, model);
+                logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
+        logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
     }
 
     protected void handleCommunitySidebar(School school, Map<String, Object> model) {
