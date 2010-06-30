@@ -19,8 +19,10 @@
                 return '';
             }
             function selectTopic(url) {
-                if (url &amp;&amp; url.length > 0) {
-                    document.location=url;
+                if (url) {
+                    if (url.length > 0) {
+                        document.location=url;
+                    }
                 }
             }
         </script>
@@ -77,7 +79,7 @@
             <br class="clearfloat"/>
             <hr class="hr"/>
             <h2>Got a question about ${requestScope.discussionTopic} Schools?</h2>
-            <textarea id="jq_profileRecentDiscussionsTitleBox"
+            <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
                       class="textarea"
                       onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); checkLogin();"
                       onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>

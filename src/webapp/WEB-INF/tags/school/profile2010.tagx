@@ -281,13 +281,15 @@
             </c:if>
             <div id="schoolInfoRightColumn">
                 <address class="adr">
-                    <div class="street-address">${school.physicalAddress.street}</div>
-                    <div>
+                    <span class="street-address">${school.physicalAddress.street}</span>
+                    <br/>
+                    <span>
                         <span class="locality">${school.physicalAddress.city}</span>,
                         <span class="region">${school.physicalAddress.state.abbreviation} </span>
                         <span class="postal-code">${school.physicalAddress.zip}</span>
-                    </div>
-                    <div>
+                    </span>
+                    <br/>
+                    <span>
                         <c:if test="${not empty(school.county)}">
                             <c:choose>
                                 <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
@@ -297,7 +299,7 @@
                         </c:if>
                         <c:if test="${not empty(school.county)}"> | </c:if>
                         <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
-                    </div>
+                    </span>
                 </address>
                 <c:if test="${school.districtId gt 0 and school.levelCode ne 'p'}">
                     <div>
