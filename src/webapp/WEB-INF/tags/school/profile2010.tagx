@@ -195,8 +195,9 @@
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p' and requestScope.hasSurveyData}">
                             <c:set var="sptab3_name" value="Program Details"/>
-                            <!-- TODO: Link to parent survey display page -->
-                            <c:set var="sptab3_link"><a href="#" onclick="return false;">${sptab3_name}</a></c:set>
+                            <c:set var="sptab3_link"><link:surveyResults
+                                    school="${school}" level="${surveyLevelCode}"
+                                    styleClass="GS_CI9_">${sptab3_name}</link:surveyResults></c:set>
                         </c:when>
                         <c:when test="${requestScope.hasTestScores}">
                             <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
@@ -269,8 +270,9 @@
                                     <c:choose>
                                         <c:when test="${subtab eq 'survey'}">Programs &amp;amp; Extracurriculars</c:when>
                                         <c:otherwise>
-                                            <link:startSurveyResults school="${school}"
-                                                                     styleClass="GS_CI9_">Programs &amp;amp; Extracurriculars</link:startSurveyResults>
+                                            <link:surveyResults school="${school}"
+                                                                level="${surveyLevelCode}"
+                                                                styleClass="GS_CI9_">Programs &amp;amp; Extracurriculars</link:surveyResults>
                                         </c:otherwise>
                                     </c:choose>
                                 </li>

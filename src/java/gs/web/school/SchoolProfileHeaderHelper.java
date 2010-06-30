@@ -44,6 +44,7 @@ public class SchoolProfileHeaderHelper {
     private static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     private static final String IS_LOCAL = "isLocal";
     private static final String DISCUSSION_TOPICS = "discussionTopics";
+    private static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
 
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
@@ -85,9 +86,13 @@ public class SchoolProfileHeaderHelper {
                 }
                 model.put(HAS_TEST_SCORES, hasTestScores);
 
-                // TODO: Determine levelcode of survey with most results
                 startTime = System.currentTimeMillis();
                 // Determine survey results
+                Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
+                if (surveyId != null) {
+                    String levelCode = _surveyDao.findSurveyLevelCodeById(surveyId);
+                    model.put(SURVEY_LEVEL_CODE, levelCode);
+                }
                 model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
                 logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
