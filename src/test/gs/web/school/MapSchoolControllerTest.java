@@ -12,6 +12,8 @@ import gs.data.school.review.Ratings;
 import gs.data.state.State;
 import org.easymock.MockControl;
 
+import static org.easymock.classextension.EasyMock.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao(_schoolDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setViewName("/viewName");
+        _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
 
         _request = getRequest();
 

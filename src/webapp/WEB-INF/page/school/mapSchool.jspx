@@ -45,7 +45,8 @@
 
     <gsml:body adPageName="schoolMap" pageLayout="nocol">
 
-        <school:profile school="${school}" tab="schoolMap">
+        <ad:setSlotPrefix slotPrefix="MapSchool"/>
+        <school:profile2010 school="${school}" tab="schoolMap" omniturePageName="${pageName}">
 
             <!-- being large Google map -->
             <div id="largeMap">
@@ -128,23 +129,11 @@
                 </div>
                 <!-- end: col_center -->
 
-                <!-- begin right column -->
-                <div id="col_right">
-
-                    <promo:searchRealtorDotCom omniturePageName="${pageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${city}" defaultState="${stateAbbrev}"/>
-                    <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
-                    <div class="ad_middle">
-                        <ad:setSlotPrefix slotPrefix="MapSchool"/>
-                        <ad:AboveFold_300x250/>
-                    </div>
-                </div>
-                <!-- end: col_right" -->
             </div>
             <!-- end: largeMap -->
             <br style="clear: left;"/>
 
-        </school:profile>
+        </school:profile2010>
         <mod:tracking pageName="${pageName}"
                       hier1="School,Map"
                       school="${school}"/>

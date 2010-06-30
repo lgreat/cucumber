@@ -1919,11 +1919,19 @@
         </property>
     </bean>
 
-    <bean name="/school/overview.page"
+    <bean name="/school/overviewOld.page"
           class="gs.web.school.SchoolOverviewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/overview2</value>
+        </property>
+    </bean>
+
+    <bean name="/school/overview.page"
+          class="gs.web.school.SchoolOverview2010Controller"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/overview2010</value>
         </property>
     </bean>
 
@@ -2590,13 +2598,5 @@
         <property name="privateSchoolContentPath" value="/cgi-bin/$STATE/otherprivate_simple/$ID"/>
         <property name="publicSchoolContentPath" value="/cgi-bin/$STATE/other_simple/$ID"/>
     </bean>
-
-    <bean name="/school/overview2010.page"
-         class="gs.web.school.SchoolOverview2010Controller"
-         autowire="byName" lazy-init="true">
-       <property name="viewName">
-           <value>school/overview2010</value>
-       </property>
-   </bean>
 
 </beans>

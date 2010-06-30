@@ -21,13 +21,11 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -41,7 +39,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
     /**
      * Spring Bean id
      */
-    public static final String BEAN_ID = "/school/overview.page";
+    public static final String BEAN_ID = "/school/overviewOld.page";
 
     protected static final Log _log = LogFactory.getLog(SchoolOverviewController.class.getName());
 

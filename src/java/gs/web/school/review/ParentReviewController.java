@@ -10,6 +10,7 @@ import gs.data.school.review.Review;
 import gs.data.security.Permission;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.KindercareLeadGenHelper;
+import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -35,6 +36,7 @@ public class ParentReviewController extends AbstractController {
     private IReviewDao _reviewDao;
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_SORT_BY = "sortBy";
@@ -152,6 +154,8 @@ public class ParentReviewController extends AbstractController {
                         
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
+
+            _schoolProfileHeaderHelper.updateModel(school, model);
         }
         return new ModelAndView(getViewName(), model);
     }
@@ -267,5 +271,13 @@ public class ParentReviewController extends AbstractController {
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }

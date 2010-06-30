@@ -66,7 +66,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     School s = _schoolDao.getSchoolById(state, id);
                     if (s.isActive()) {
                         // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url 
-                        if (this instanceof SchoolOverviewController && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
+                        if (this instanceof SchoolOverview2010Controller && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
                             UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
                             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                         }
@@ -77,7 +77,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     _log.warn("Could not get a valid or active school: " +
                             schoolId + " in state: " + state, e);
                 }
-            } else if (this instanceof SchoolOverviewController) {
+            } else if (this instanceof SchoolOverview2010Controller) {
                 DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
                 //if (shouldHandleRequest(fields)) {
                     try {

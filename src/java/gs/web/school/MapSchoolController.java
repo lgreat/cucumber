@@ -30,12 +30,13 @@ public class MapSchoolController extends AbstractSchoolController {
 
     private String _viewName;
     private IReviewDao _reviewDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         // the school is obtained from the request by our super class: AbstractSchoolController
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         // five nearest schools
         List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 5);
@@ -50,6 +51,8 @@ public class MapSchoolController extends AbstractSchoolController {
         if (nearbySchools.size() > 0) {
             loadRatings(request, nearbySchools);
         }
+
+        _schoolProfileHeaderHelper.updateModel(school, model);
 
         return new ModelAndView(_viewName, model);
     }
@@ -112,4 +115,11 @@ public class MapSchoolController extends AbstractSchoolController {
         _reviewDao = reviewDao;
     }
 
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    }
 }

@@ -83,12 +83,11 @@
                               reporterId="${validUser.id}"/>
 <!-- End report it dialog -->
 
-<school:profile school="${school}" tab="parentReviews">
-<gsml:equalizeColumns ids="'col_left','col_right'"/>
+<school:profile2010 school="${school}" tab="parentReviews" omniturePageName="${pageName}">
 
 <div id="parentReview">
 <school:parentReviewThankYou schoolName="${school.name}"/>
-<div id="col_left">
+<!--<div id="col_left">-->
 
 <c:set var="hasPreschoolCategoryRatings" value="${
                          not empty cmd.ratings.averageRatingMap[catFacilities]
@@ -492,28 +491,12 @@
 <!-- end: callouts -->
 
 <p class="disclaimer">Parent ratings and reviews do not represent the views of GreatSchools.org nor does GreatSchools.org check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
-</div>
+<!--</div>-->
 <!-- end: col_left" -->
 
-<div id="col_right" class="noprint">
-    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
-
-    <c:set var="rdcCity" value="${school.physicalAddress.city}, ${school.physicalAddress.state}"/>
-    <promo:searchRealtorDotCom omniturePageName="${pageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_REVIEWS" showAdPct="70">
-        <ad:Top_300x137/>
-    </promo:searchRealtorDotCom>
-
-    <ad:AboveFold_300x600/>
-    <div class="ad_middle"><ad:multiTextAd blurb="Advertiser links"/></div>
-    <div class="ad_middle"><ad:BelowFold_300x250/></div>
-    <c:if test="${empty param.hideMap}">
-        <div class="ad_middle"><school:nearbySchools school="${school}"/></div>
-    </c:if>
-</div>
-<!-- end: col_right -->
 </div>
 <!-- end: parentReview -->
-</school:profile>
+</school:profile2010>
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Reviews,Read Reviews"
               school="${school}"

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.7 2009/12/04 22:27:16 chriskimm Exp $
+ * $Id: RatingsControllerTest.java,v 1.8 2010/06/30 14:32:33 aroy Exp $
  */
 package gs.web.test.rating;
 
@@ -16,8 +16,11 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.BaseControllerTestCase;
+import gs.web.school.SchoolProfileHeaderHelper;
 import org.easymock.MockControl;
 import org.springframework.validation.BindException;
+
+import static org.easymock.classextension.EasyMock.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         MockControl schoolResultControl = MockControl.createControl(ISchoolDao.class);
         ISchoolDao mockSchoolDao = (ISchoolDao) schoolResultControl.getMock();
         mockSchoolDao.getSchoolById(_state, _schoolId);
+        _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
 
         _school = new School();
         _school.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_10));

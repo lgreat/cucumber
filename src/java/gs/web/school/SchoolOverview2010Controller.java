@@ -35,7 +35,7 @@ public class SchoolOverview2010Controller extends
         AbstractSchoolController implements IDirectoryStructureUrlController {
     protected static final Log _log = LogFactory.getLog(SchoolOverview2010Controller.class.getName());
 
-    public static final String BEAN_ID = "/school/overview2010.page";
+    public static final String BEAN_ID = "/school/overview.page";
 
     private String _viewName;
 

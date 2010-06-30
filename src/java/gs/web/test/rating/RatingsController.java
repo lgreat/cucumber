@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.21 2010/05/06 23:24:40 yfan Exp $
+ * $Id: RatingsController.java,v 1.22 2010/06/30 14:32:33 aroy Exp $
  */
 package gs.web.test.rating;
 
@@ -12,6 +12,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +45,7 @@ public class RatingsController extends AbstractCommandController {
     private ITestDataSetDao _testDataSetDao;
     private List _onLoadValidators;
     private TestManager _testManager;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private boolean _showingSubjectGroups = false;
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
@@ -75,15 +77,16 @@ public class RatingsController extends AbstractCommandController {
 
         //another check for errors since retrieving school could have set errors
         if (!errors.hasErrors()) {
-            Map model = referenceData(request, command, errors);
+            Map<String, Object> model = referenceData(request, command, errors);
+            _schoolProfileHeaderHelper.updateModel(ratingsCommand.getSchool(), model);
             return new ModelAndView(getViewName(), model);
         } else {
             return new ModelAndView(getViewName(), errors.getModel());
         }
     }
 
-    protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
-        Map model = new HashMap();
+    protected Map<String,Object> referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+        Map<String,Object> model = new HashMap<String, Object>();
         RatingsCommand ratingsCommand = (RatingsCommand) command;
 
         if (!errors.hasErrors()) {
@@ -165,5 +168,13 @@ public class RatingsController extends AbstractCommandController {
 
     public void setShowingSubjectGroups(final boolean showingSubjectGroups) {
         _showingSubjectGroups = showingSubjectGroups;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }
