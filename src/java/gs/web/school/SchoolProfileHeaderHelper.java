@@ -4,7 +4,6 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.content.cms.CmsConstants;
-import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
@@ -158,58 +157,28 @@ public class SchoolProfileHeaderHelper {
             // for each of these we need the topic title and the full uri to the discussion board
             List<NameValuePair<String, String>> topicSelectInfo
                     = new ArrayList<NameValuePair<String, String>>();
-            Set<Long> discussionBoardIds = new HashSet<Long>();
-            // first grab all the topic centers with discussion board
-            Collection<CmsTopicCenter> topicCenters = getValidDiscussionTopics();
-            // collect their ids
-            for (CmsTopicCenter topic: topicCenters) {
-                discussionBoardIds.add(topic.getDiscussionBoardId());
-            }
-            // pull out the relevant discussion boards by id
-            Map<Long, CmsDiscussionBoard> discussionBoardsMap =
-                    _publicationDao.populateAllById(discussionBoardIds, new CmsDiscussionBoard());
-            // now put the full uri of the discussion board along with the title of the topic center
-            // into the model
-            for (CmsTopicCenter topic: topicCenters) {
-                CmsDiscussionBoard board = discussionBoardsMap.get(topic.getDiscussionBoardId());
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
-                                                       (board != null)?board.getFullUri():topic.getFullUri(),
-                                                       topic.getDiscussionBoardId());
-                NameValuePair<String, String> topicToBoard
-                        = new NameValuePair<String, String>
-                        (topic.getTitle(), urlBuilder.asSiteRelative(null));
-                topicSelectInfo.add(topicToBoard);
-            }
+            addToList(topicSelectInfo, "/students", CmsConstants.ACADEMICS_ACTIVITIES_DISCUSSION_BOARD_ID, "Academics &amp; Activities");
+            addToList(topicSelectInfo, "/elementary-school", CmsConstants.ELEMENTARY_SCHOOL_DISCUSSION_BOARD_ID, "Elementary School");
+            addToList(topicSelectInfo, "/general", CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID, "General Parenting");
+            addToList(topicSelectInfo, "/parenting", CmsConstants.HEALTH_DEVELOPMENT_DISCUSSION_BOARD_ID, "Health &amp; Development");
+            addToList(topicSelectInfo, "/high-school", CmsConstants.HIGH_SCHOOL_DISCUSSION_BOARD_ID, "High School");
+            addToList(topicSelectInfo, "/improvement", CmsConstants.IMPROVE_YOUR_SCHOOL_DISCUSSION_BOARD_ID, "Improve Your School");
+            addToList(topicSelectInfo, "/middle-school", CmsConstants.MIDDLE_SCHOOL_DISCUSSION_BOARD_ID, "Middle School");
+            addToList(topicSelectInfo, "/preschool", CmsConstants.PRESCHOOL_DISCUSSION_BOARD_ID, "Preschool");
+            addToList(topicSelectInfo, "/special-education", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID, "Special Education");
             model.put(DISCUSSION_TOPICS, topicSelectInfo);
         }
     }
 
-    protected Collection<CmsTopicCenter> getValidDiscussionTopics() {
-        // TODO: this call pulls all topic center data out of the db, when we only need some topic centers.
-        // When running on localhost there is significant network traffic during this call (some 5MB) and the delay
-        // is noticeable.  Can this be improved?
-        // We only need the topic centers with discussion boards
-        Collection<CmsTopicCenter> topicCenters =
-                _publicationDao.populateAllByContentType
-                        (CmsConstants.TOPIC_CENTER_CONTENT_TYPE, new CmsTopicCenter());
-        SortedSet<CmsTopicCenter> sortedTopics = new TreeSet<CmsTopicCenter>(new Comparator<CmsTopicCenter>() {
-            public int compare(CmsTopicCenter o1, CmsTopicCenter o2) {
-                return o1.getTitle().compareTo(o2.getTitle());
-            }
-        });
-        for (CmsTopicCenter topicCenter: topicCenters) {
-            if (topicCenter.getDiscussionBoardId() != null && topicCenter.getDiscussionBoardId() > 0) {
-                sortedTopics.add(topicCenter);
-            }
-        }
-        CmsTopicCenter generalParenting = new CmsTopicCenter();
-        generalParenting.setDiscussionBoardId(2420L);
-        generalParenting.setTitle("General Parenting");
-        generalParenting.setFullUri("/general");
-        sortedTopics.add(generalParenting);
-        return sortedTopics;
+    protected void addToList(List<NameValuePair<String, String>> topicSelectInfo,
+                             String fullUri, Long discussionBoardId, String topicTitle) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
+                                               fullUri,
+                                               discussionBoardId);
+        NameValuePair<String, String> topicToBoard
+                = new NameValuePair<String, String> (topicTitle, urlBuilder.asSiteRelative(null));
+        topicSelectInfo.add(topicToBoard);
     }
-
 
     protected void updateWithPQ(Map<String, Object> model, PQ pq) {
         if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {
