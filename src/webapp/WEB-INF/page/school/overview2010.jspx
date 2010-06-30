@@ -210,7 +210,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <school:schoolHighlightsList school="${school}"/>
         </c:set>
         <c:if test="${not empty schoolHighlights}">
-            <school:schoolHighlightsList school="${schoolHighlights};"/>
+            <c:set var="schoolHighlightsList" value="${schoolHighlights};"/>
         </c:if>
         <c:if test="${not empty surveySampleList}">
             <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
