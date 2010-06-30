@@ -85,10 +85,18 @@
             <img id="kindercareLeadGenClose" class="closeButton" 
                  src="/res/img/promo/promoModule/close_box.png" alt="Close"/>
             <img src="/res/img/promo/promoModule/right_rule.png" class="right_rule" alt=""/>
-            <a href="http://www.kindercare.com/?cid=GS"
-               class="kindercare_logo"
-               target="_blank"><img src="/res/img/promo/promoModule/kindercare/kindercare_logo.png"
-                                    alt="KinderCare Learning Centers" width="131" height="120"/></a>            
+            
+            <a href="http://www.kindercare.com/?cid=GS" class="kindercare_logo" target="_blank">
+                <c:choose>
+                    <c:when test="${format eq 'narrow'}">
+                        <img src="/res/img/promo/promoModule/kindercare/kindercare_logo.png" alt="KinderCare Learning Centers" width="116" height="105"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img src="/res/img/promo/promoModule/kindercare/kindercare_logo.png" alt="KinderCare Learning Centers" width="131" height="120"/>
+                    </c:otherwise>
+                </c:choose>
+            </a>
+
         </div>
     </div>
 </jsp:root>

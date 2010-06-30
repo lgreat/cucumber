@@ -3782,12 +3782,26 @@ margin:10px 0 14px 20px;
     float:left;
     height:54px;
     width:460px;
+    padding-left:109px;
 }
 #kindercareLeadGen.narrow .right {
     clear:both;
-    margin-left: 124px;
+    margin-left: 99px;
 }
 #kindercareLeadGen.narrow .closeButton {
+    display:none;
+}
+#kindercareLeadGen.narrow .right form .kinder_informed {
+    width:240px;
+}
+#kindercareLeadGen.narrow .right form .kinder_offers {
+    width:240px;
+}
+#kindercareLeadGen.narrow .inner {
+    height:155px;
+    background: url("/res/img/promo/promoModule/bottom_rule.png") repeat-x scroll 0 159px #F9ECCD;
+}
+#kindercareLeadGen.narrow .dotted_rule {
     display:none;
 }
 
