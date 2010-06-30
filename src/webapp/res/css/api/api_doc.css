@@ -155,23 +155,24 @@ div.apiTerms{
 }
 
 div.apiTerms .apiTermsHeading {
-    clear: both;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    float:left;
 }
 
 div.apiTerms .apiTermsTitle{
-    float: left;
-    /*font-size:16px;*/
     font-weight:bold;
 }
 
 div.apiTerms .apiTermsEffective {
-    float: right;
+    float:right;
+}
+
+div.apiTerms .clearfloat {
+    clear:both;
 }
 
 div.apiTerms .apiTermsSection{
-    /*font-size:14px;*/
-    /*font-weight:bold;*/
+    clear:both;
 }
 
 .apiTermsHighlight{
@@ -188,11 +189,32 @@ div.apiTerms .apiTermsSection{
     width: 300px;
 }
 
-.parentRatingsStars img {
+div.apiTerms .parentRatingsStars img {
     padding-right: 20px;
 }
 
-.ratings_sample_images img {
+div.apiTerms .ratingsSampleImages {
+    margin-top:15px;
+    margin-bottom: 25px;
+    border: 1px solid #000;
+    border-spacing: 0;
+}
+
+div.apiTerms .ratingsSampleImages .size {
+    width: 270px;
+}
+
+div.apiTerms .ratingsSampleImages .spacer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid #000;
+}
+
+div.apiTerms .ratingsSampleImages td {
+    padding: 5px;
+}
+
+div.apiTerms .ratingsSampleImages img {
     padding: 5px;
 }
 
@@ -206,4 +228,20 @@ div.apiTerms .emphasis {
 
 div.apiTerms .strong {
     font-weight:bold;
+}
+
+div.apiTerms .spacedList li {
+    padding-bottom: 10px;
+}
+
+div.apiTerms .spacedList .spacedListNested li {
+    padding-bottom: 0;
+}
+
+div.apiTerms .attrReq {
+    text-decoration: underline;
+}
+
+div.apiTerms .attrLinks {
+    font-weight: bold;
 }
