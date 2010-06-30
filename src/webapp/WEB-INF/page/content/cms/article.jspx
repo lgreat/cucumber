@@ -604,9 +604,6 @@
 </c:choose>
 
 <div id="rightColumn">
-    <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
-            feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
-
     <c:choose>
         <!--
             GS-8341: Initial implementation
@@ -658,6 +655,9 @@
             <div id="squareadvert">
                 <ad:AboveFold_300x250/>
             </div>
+
+            <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
+                    feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
             <c:set var="ckid" value="${feature.contentKey.identifier}"/>
             <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
