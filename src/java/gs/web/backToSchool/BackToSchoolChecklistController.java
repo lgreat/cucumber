@@ -48,7 +48,7 @@ public class BackToSchoolChecklistController implements ReadWriteAnnotationContr
 
         if (complete) {
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            pageHelper.addAdKeyword("CHECKLIST_COMPLETE_GAM_KEY", "complete");
+            pageHelper.addAdKeyword(CHECKLIST_COMPLETE_GAM_KEY, "complete");
         }
 
         model.addAttribute("backToSchoolChecklistCompletedItems", StringUtils.join(completedItems, ','));
