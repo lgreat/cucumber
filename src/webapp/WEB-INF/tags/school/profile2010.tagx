@@ -310,7 +310,7 @@
                         <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
                         <c:set var="recentDiscussions">
                             <c:import
-                                    url="/community/profileRecentDiscussions.module?board_id=${requestScope.discussionBoardId}&amp;limit=3&amp;uri=${myUrl}"/>
+                                    url="/community/profileRecentDiscussions.module?board_id=${requestScope.discussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${discussionTopic}"/>
                         </c:set>
                     </c:if>
                     ${recentDiscussions}
