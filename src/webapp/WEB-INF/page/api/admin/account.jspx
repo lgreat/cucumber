@@ -47,7 +47,7 @@
             </li>
             <li>Website: ${account.website}</li>
             <li>Phone: ${account.phone}</li>
-            <!-- <li>Industry: ${account.industry}</li>    -->
+            <li>Industry: ${account.industry}</li>    
             <li>Intended Use: ${account.intendedUse}</li>
             <li>
                 <c:choose>
