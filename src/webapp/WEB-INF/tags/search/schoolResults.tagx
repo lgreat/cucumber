@@ -13,7 +13,7 @@
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
-    <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
+    <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : '' }" />
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
 
     <script language="JavaScript" type="text/javascript">

@@ -217,12 +217,9 @@ public class SearchController extends AbstractFormController {
         // Build the results and the model
         String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
         String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
-        if (sortColumn == null) {
-            sortColumn = "schoolResultsHeader";
-            sortDirection = "asc";
-        }
+        // don't have a default sort
         if (sortDirection == null) {
-            if (sortColumn.equals("schoolResultsHeader")) {
+            if (sortColumn != null && sortColumn.equals("schoolResultsHeader")) {
                 sortDirection = "asc";
             } else {
                 sortDirection = "desc";
