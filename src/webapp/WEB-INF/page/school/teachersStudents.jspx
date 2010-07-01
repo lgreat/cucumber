@@ -13,6 +13,7 @@
     <c:set var="pageName" value="Teachers|Students"/>
     <pageHelper:externalCss file="/css/gs.css"/>
     <pageHelper:externalCss file="/css/spp2.css"/>
+    <pageHelper:externalJavascript file="/js/anchorSectionToggler.js"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
     <school:profile2010 school="${school}" tab="schoolStats" subtab="teachersStudents" omniturePageName="${pageName}">
