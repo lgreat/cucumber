@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.70 2010/06/23 20:30:03 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.71 2010/07/01 16:27:09 aroy Exp $
  */
 
 package gs.web.util;
@@ -50,6 +50,10 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
         assertEquals("http://dev.greatschools.org/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://dev.greatschools.org/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+
+        // Test perl resources
+        assertEquals("http://dev.greatschools.org/js/global.js", _urlUtil.buildUrl("/js/global.js", request));
+        assertEquals("http://dev.greatschools.org/css/gs.css", _urlUtil.buildUrl("/css/gs.css", request));
 
         request.setServerName("staging.greatschools.org");
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
