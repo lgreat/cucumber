@@ -6,11 +6,14 @@ import gs.data.school.School;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.school.SchoolProfileHeaderHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -29,6 +32,7 @@ public class SurveyResultsController extends AbstractController {
 
     private ISurveyDao _surveyDao;
     private ISchoolDao _schoolDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     private static final String VIEW_NAME = "survey/results";
     private static final String MODEL_NAME = "results";
@@ -52,11 +56,14 @@ public class SurveyResultsController extends AbstractController {
             }
         }
 
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        _schoolProfileHeaderHelper.updateModel(school, model);
+
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
-        ModelAndView mAndV = new ModelAndView(VIEW_NAME);
-        mAndV.getModel().put(MODEL_NAME, results);
-        mAndV.getModel().put(MODEL_LEVEL, levelString);
-        return mAndV;
+        model.put(MODEL_NAME, results);
+        model.put(MODEL_LEVEL, levelString);
+        return new ModelAndView(VIEW_NAME, model);
     }
 
     public ISurveyDao getSurveyDao() {
@@ -73,5 +80,13 @@ public class SurveyResultsController extends AbstractController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }

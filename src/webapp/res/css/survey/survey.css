@@ -70,6 +70,14 @@
 	margin-top:7px;
 }
 
+#schoolProfile #left-col{
+    border-right: 0;
+    width: auto;
+    float: none;
+    padding-right: 0;
+    margin-top: 0;
+}
+
 #right-col{
 	float:right;
 	width:300px;

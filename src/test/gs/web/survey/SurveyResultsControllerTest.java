@@ -7,7 +7,9 @@ import gs.data.survey.ISurveyDao;
 import gs.data.survey.SurveyResults;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
+
+import gs.web.school.SchoolProfileHeaderHelper;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -29,6 +31,8 @@ public class SurveyResultsControllerTest extends BaseControllerTestCase {
                 getBean(ISchoolDao.BEAN_ID);
         _surveyDao = createMock(ISurveyDao.class);
         _controller.setSurveyDao(_surveyDao);
+        SchoolProfileHeaderHelper _schoolProfileHeaderHelper = createStrictMock(SchoolProfileHeaderHelper.class);
+        _controller.setSchoolProfileHeaderHelper(_schoolProfileHeaderHelper);
     }
 
     public void testHandleRequest_SchoolWithResults() throws Exception {

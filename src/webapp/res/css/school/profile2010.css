@@ -66,6 +66,7 @@
 #schoolProfileLeftColumn {
     float: left;
     width: 612px;
+    margin-bottom: 20px;    
 }
 #schoolProfileRightColumn {
     float: right;
