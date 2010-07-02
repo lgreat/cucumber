@@ -34,17 +34,17 @@ public class SchoolProfileHeaderHelper {
     private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
-    private static final String PQ_START_TIME = "pq_startTime";
-    private static final String PQ_END_TIME = "pq_endTime";
-    private static final String PQ_HOURS = "pq_hours";
-    private static final String HAS_TEST_SCORES = "hasTestScores";
-    private static final String HAS_SURVEY_DATA = "hasSurveyData";
-    private static final String DISCUSSION_BOARD_ID = "discussionBoardId";
-    private static final String DISCUSSION_TOPIC = "discussionTopic";
-    private static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
-    private static final String IS_LOCAL = "isLocal";
-    private static final String DISCUSSION_TOPICS = "discussionTopics";
-    private static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
+    public static final String PQ_START_TIME = "pq_startTime";
+    public static final String PQ_END_TIME = "pq_endTime";
+    public static final String PQ_HOURS = "pq_hours";
+    public static final String HAS_TEST_SCORES = "hasTestScores";
+    public static final String HAS_SURVEY_DATA = "hasSurveyData";
+    public static final String DISCUSSION_BOARD_ID = "discussionBoardId";
+    public static final String DISCUSSION_TOPIC = "discussionTopic";
+    public static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
+    public static final String IS_LOCAL = "isLocal";
+    public static final String DISCUSSION_TOPICS = "discussionTopics";
+    public static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
 
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
@@ -56,55 +56,69 @@ public class SchoolProfileHeaderHelper {
         try {
             if (school != null) {
                 startTime = System.currentTimeMillis();
-                // Determine PQ
-                PQ pq = _PQDao.findBySchool(school);
-                if (pq != null) {
-                     updateWithPQ(model, pq);
-                }
-
-                if (model.get(PQ_HOURS) == null) {
-                    ICensusInfo info = school.getCensusInfo();
-                    if (info != null) {
-                        SchoolCensusValue hoursPerDay = info.getLatestValue(school,
-                                                                            CensusDataType.HOURS_IN_SCHOOL_DAY);
-                        if (hoursPerDay != null) {
-                            model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
-                        }
-                    }
-                }
+                determinePQ(school, model); // Determine PQ
                 logDuration(System.currentTimeMillis() - startTime, "Determining PQ and hours per day");
 
-                // Determine private school test scores
-                boolean hasTestScores = true;
-                if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
-                    startTime = System.currentTimeMillis();
-                    hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
-                            _testDataSetDao.hasDisplayableData(school);
-                    logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
-                } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                    hasTestScores = false;
-                }
-                model.put(HAS_TEST_SCORES, hasTestScores);
+                startTime = System.currentTimeMillis();
+                determineTestScores(school, model); // Determine private school test scores
+                logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
 
                 startTime = System.currentTimeMillis();
-                // Determine survey results
-                Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
-                if (surveyId != null) {
-                    String levelCode = _surveyDao.findSurveyLevelCodeById(surveyId);
-                    model.put(SURVEY_LEVEL_CODE, levelCode);
-                }
-                model.put(HAS_SURVEY_DATA, _surveyDao.hasSurveyData(school));
+                determineSurveyResults(school, model); // Determine survey results
                 logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
                 startTime = System.currentTimeMillis();
-                // Determine community module
-                handleCommunitySidebar(school, model);
+                handleCommunitySidebar(school, model); // Determine community module
                 logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
+    }
+
+    protected void determineSurveyResults(School school, Map<String, Object> model) {
+        Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
+        if (surveyId != null) {
+            String levelCode = _surveyDao.findSurveyLevelCodeById(surveyId);
+            model.put(SURVEY_LEVEL_CODE, levelCode);
+            model.put(HAS_SURVEY_DATA, true);
+        } else {
+            model.put(HAS_SURVEY_DATA, false);
+        }
+    }
+
+    protected void determineTestScores(School school, Map<String, Object> model) {
+        boolean hasTestScores = true;
+        if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+            hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
+                    _testDataSetDao.hasDisplayableData(school);
+        } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            hasTestScores = false;
+        }
+        model.put(HAS_TEST_SCORES, hasTestScores);
+    }
+
+    protected void determinePQ(School school, Map<String, Object> model) {
+        PQ pq = _PQDao.findBySchool(school);
+        if (pq != null) {
+            if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {
+                model.put(PQ_START_TIME, pq.getStartTime());
+                model.put(PQ_END_TIME, pq.getEndTime());
+                model.put(PQ_HOURS, pq.getStartTime() + " - " + pq.getEndTime());
+            }
+        }
+
+        if (model.get(PQ_HOURS) == null) {
+            ICensusInfo info = school.getCensusInfo();
+            if (info != null) {
+                SchoolCensusValue hoursPerDay = info.getLatestValue(school,
+                                                                    CensusDataType.HOURS_IN_SCHOOL_DAY);
+                if (hoursPerDay != null) {
+                    model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
+                }
+            }
+        }
     }
 
     protected void handleCommunitySidebar(School school, Map<String, Object> model) {
@@ -158,6 +172,9 @@ public class SchoolProfileHeaderHelper {
         model.put(DISCUSSION_TOPICS, topicSelectInfo);
     }
 
+    /**
+     * Helper method for handleCommunitySidebar.
+     */
     protected void addToList(List<NameValuePair<String, String>> topicSelectInfo,
                              String fullUri, Long discussionBoardId, String topicTitle) {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
@@ -166,14 +183,6 @@ public class SchoolProfileHeaderHelper {
         NameValuePair<String, String> topicToBoard
                 = new NameValuePair<String, String> (topicTitle, urlBuilder.asSiteRelative(null));
         topicSelectInfo.add(topicToBoard);
-    }
-
-    protected void updateWithPQ(Map<String, Object> model, PQ pq) {
-        if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {
-            model.put(PQ_START_TIME, pq.getStartTime());
-            model.put(PQ_END_TIME, pq.getEndTime());
-            model.put(PQ_HOURS, pq.getStartTime() + " - " + pq.getEndTime());
-        }
     }
 
     public IPQDao getPQDao() {
