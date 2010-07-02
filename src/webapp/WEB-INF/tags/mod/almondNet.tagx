@@ -18,8 +18,8 @@
             description="Page title"
             required="false"/>
 
-    <!--c:set var="siteCode" value="121171"/--><!-- for testing use only -->
-    <c:set var="siteCode" value="120697"/><!-- for production use -->
+    <c:set var="siteCode" value="121711"/><!-- for testing use only -->
+    <!--c:set var="siteCode" value="120697"/--><!-- for production use -->
 
     <c:choose>
         <c:when test="${empty pageScope.category}">
