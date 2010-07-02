@@ -189,7 +189,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <div id="bestKnownFor">
                 <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
                 </p> <!-- TODO: info icon + hover -->
-                <!-- TODO: link this to esp display page--><a href="#">Read more from the school principal <span
+                <!-- TODO: link this to esp display page-->
+                <a href="#">Read more from the school principal <span
                     class="alertDoubleArrow">&#187;</span></a>
 
                 <div id="js-esp-info-hover" style="display:none;">
@@ -224,9 +225,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </c:if>
         <!-- end school highlights -->
 
-        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                        styleClass="emailImg toolsImg"><gsml:img
-                src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+        <span class="sprite emailIt"><!-- do not collapse --></span>
         <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
                         styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
 
@@ -236,7 +235,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <!-- principal link box -->
                     <c:if test="${school.levelCode != 'p'}">
                         <div id="js-esp-principal-link">
-                            Are you a principal? <a href="#">Complete your school's profile</a>
+                            <span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a>
                         </div>
                     </c:if>
                     <!-- end profile link box-->
