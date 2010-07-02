@@ -155,16 +155,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <c:if test="${not empty gs_rating}">
                 <p>GreatSchools Rating</p>
-                <gsml:img src="/res/img/school/overview/ratings_gs_med_${gs_rating}.gif"
-                          alt="GreatSchools Rating: ${gs_rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                <span class="sprite badge_lg_${gs_rating}"><!-- do not collapse --></span>
                 <a href="#">GreatSchools evaluation criteria</a>
                 <br/>
             </c:if>
 
             <p>Overall community rating</p>
 
-            <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif"
-                      alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
+            <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
 
             <c:choose>
                 <c:when test="${fn:length(reviews) gt 0}">
@@ -303,11 +301,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         <td>
                             <c:choose>
                                 <c:when test="${not empty s.rating and s.rating gt 0}">
-                                    <img src="/res/img/map/ratings_gs_map_${s.rating}.gif"
-                                         alt="rating ${s.rating}"/>
+                                    <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="/res/img/school/ratings/na.gif" alt="N/A"/>
+                                    <span class="sprite badge_sm_na"><!-- do not collapse --></span>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -315,11 +312,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             <link:schoolProfileParentReview school="${school}">
                                 <c:choose>
                                     <c:when test="${not empty s.parentRatings.overall}">
-                                        <img src="/res/img/school/parentReviews/stars_med_${s.parentRatings.overall}.gif"
-                                             alt="${s.parentRatings.overall} stars" height="12px"/>
+                                        <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
                                     </c:when>
                                     <c:otherwise>
-                                        <img src="/res/img/search/rateit.jpg" alt="0 stars"/>
+                                        <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                                     </c:otherwise>
                                 </c:choose>
                             </link:schoolProfileParentReview>

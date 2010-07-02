@@ -64,7 +64,7 @@
 
         <div id="overallRating2">
             <p>Overall School Rating</p>
-            <gsml:img src="/res/img/school/overview/stars_${ratings.overall}.gif" alt="Overall rating: ${ratings.overall} out of 5 stars" styleClass="stars"/>
+            <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
             <br/>
             Read all ${totalReviews} reviews
         </div>
@@ -101,22 +101,16 @@
                 <c:when test="${ratings.gradeschool}">
                         <ul>
                             <c:if test="${not empty ratings.avgPrincipal}">
-                                <li>Principal leadership<gsml:img
-                                        src="/res/img/map/ratings_parent_city_${ratings.avgPrincipal}.gif"
-                                        alt="Principal leadership: ${ratings.avgPrincipal} out of 5 stars"
-                                        styleClass="sm_stars"/></li>
+                                <li>Principal leadership <span class="sprite stars_sm_${ratings.avgPrincipal}"><!-- do not collapse --></span>
+                                </li>
                             </c:if>
                             <c:if test="${not empty ratings.avgTeachers}">
-                                <li>Teacher quality<gsml:img
-                                        src="/res/img/map/ratings_parent_city_${ratings.avgTeachers}.gif"
-                                        alt="Teacher quality: ${ratings.avgTeachers} out of 5 stars"
-                                        styleClass="sm_stars"/></li>
+                                <li>Teacher quality <span class="sprite stars_sm_${ratings.avgTeachers}"><!-- do not collapse --></span>
+                                </li>
                             </c:if>
                             <c:if test="${not empty ratings.avgParents}">
-                                <li>Parent involvement<gsml:img
-                                        src="/res/img/map/ratings_parent_city_${ratings.avgParents}.gif"
-                                        alt="Parent involvement: ${ratings.avgParents} out of 5 stars"
-                                        styleClass="sm_stars"/></li>
+                                <li>Parent involvement <span class="sprite stars_sm_${ratings.avgParents}"><!-- do not collapse --></span>
+                                </li>
                             </c:if>
                         </ul>
                 </c:when>
@@ -155,7 +149,7 @@
                         </c:when>
                         <c:otherwise>
                             <div class="reportReview">
-                                <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                                <span class="sprite reportIt-nbg"><!-- do not collapse --></span>
                                 <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
                                    id="report_schoolReview_${review.id}">Report it</a>
                             </div>
@@ -167,8 +161,7 @@
                         <c:set var="curStarRating" value="${review.POverall.name}"/>
                     </c:if>
                     <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
-                        <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif" height="10"
-                                  styleClass="stars" alt="${curStarRating} out of 5 stars"/>
+                        <span class="sprite stars_sm_${curStarRating}"><!-- do not collapse --></span>
                     </c:if>
                     <c:if test="${who eq 'principal'}">
                         <h4>The schools's point of view</h4>
