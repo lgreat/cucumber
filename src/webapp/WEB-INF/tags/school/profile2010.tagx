@@ -29,11 +29,12 @@
 
 <school:hovers school="${school}" tab="${tab}"/>
 
-<div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
+<div id="schoolProfileGS" class="${(tab eq 'overview')? 'overview' : ''}">
 
-    <div id="schoolProfileHeader">
+    <div id="schoolProfileHeaderGS" class="clearfix">
+        <div id="schoolHeaderInfoLeft" class="col">
         <div id="breadcrumbs">
-            <ul>
+            <ul class="utility-navigation-999">
                 <li><link:home>Home</link:home> &amp;gt; </li>
                 <li><link:research state="${state}"
                                    title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
@@ -59,7 +60,7 @@
         </div>
         <!-- End School name -->
 
-        <div id="schoolTypeInfo">
+        <p id="schoolTypeInfo">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)} |
@@ -84,47 +85,52 @@
                     | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'Student')}
                 </c:when>
             </c:choose>
-        </div>
+        </p>
+
+        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 
         <div id="schoolToolLinks">
-            <span>
+            <ul class="smallAlertText">
+            <li>
                 <span class="sprite add2"><!-- do not collapse --></span>
                 <link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
-            </span>
-            <span>
+            </li>
+            <li>
                 <span class="sprite rate2"><!-- do not collapse --></span>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; Review</link:schoolProfileParentReview>
-            </span>
-            <span>
+            </li>
+            <li>
                 <span class="sprite print2"><!-- do not collapse --></span>
                 <a href="javascript:window.print();">Print</a>
-            </span>
-            <span>
+            </li>
+            <li>
                 <gsml:url var="mailToFriendUrl"
                           value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
                 <span class="sprite emailIt"><!-- do not collapse --></span>
                 <a href="${mailToFriendUrl}"
                         onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</a>
-            </span>
-            <span>
+            </li>
+            <li>
                 <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
-            </span>
+            </li>
+            </ul>
+        </div>
         </div>
 
-        <div id="schoolInfo">
+        <div id="schoolHeaderInfoRight" class="col">
             <c:if test="${not empty school.phone or not empty school.fax or not empty school.webSite}">
-                <div id="schoolInfoLeftColumn">
+                <div id="schoolInfoLeftColumn" class="text3">
                     <c:if test="${not empty school.phone}">
-                        <div><label>Phone:</label> ${school.phone}</div>
+                        <p><span>PHONE: </span>${school.phone}</p>
                     </c:if>
                     <c:if test="${not empty school.fax}">
-                        <div><label>Fax:</label> ${school.fax}</div>
+                        <p><span>FAX: </span>${school.fax}</p>
                     </c:if>
                     <c:if test="${not empty requestScope.pq_hours}">
-                        <div><label>Hours:</label> ${requestScope.pq_hours}</div>
+                        <p><span>HOURS: </span>${requestScope.pq_hours}</p>
                     </c:if>
                     <c:if test="${not empty school.webSite}">
-                        <div>
+                        <p>
                             <c:choose>
                                 <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
                                     <a href="${school.webSite}" target="_blank">School Website</a>
@@ -133,21 +139,19 @@
                                     <a href="http://${school.webSite}" target="_blank">School Website</a>
                                 </c:otherwise>
                             </c:choose>
-                        </div>
+                        </p>
                     </c:if>
                 </div>
             </c:if>
-            <div id="schoolInfoRightColumn">
-                <address class="adr">
-                    <span class="street-address">${school.physicalAddress.street}</span>
-                    <br/>
-                    <span>
+            <div id="schoolInfoRightColumn" class="text3">
+                <!--<address class="adr">-->
+                    <p class="street-address">${school.physicalAddress.street}</p>
+                    <p>
                         <span class="locality">${school.physicalAddress.city}</span>,
                         <span class="region">${school.physicalAddress.state.abbreviation} </span>
                         <span class="postal-code">${school.physicalAddress.zip}</span>
-                    </span>
-                    <br/>
-                    <span>
+                    </p>
+                    <p>
                         <c:if test="${not empty(school.county)}">
                             <c:choose>
                                 <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
@@ -157,15 +161,19 @@
                         </c:if>
                         <c:if test="${not empty(school.county)}"> | </c:if>
                         <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
-                    </span>
-                </address>
+                    </p>
+                <!--</address>-->
                 <c:if test="${school.districtId gt 0 and school.levelCode ne 'p'}">
-                    <div>
+                    <p>
                         <link:districtHome district="${school.district}"
                                            title="District information"><c:out value="${school.district.name}"
                                                                                escapeXml="true"/></link:districtHome>
-                    </div>
+                    </p>
                 </c:if>
+            </div>
+            <div class="spacer_5"><!-- do not collapse --></div>
+            <div id="schoolInfoFooter" class="smallAlertText">
+                <p>Like <span class="sprite facebook"><!-- do not collapse --></span> 12.932 people like Lowell High School</p>
             </div>
 
         </div>
@@ -173,7 +181,7 @@
     <!-- end schoolProfileHeader -->
 
     <div id="schoolProfileBody">
-        <div id="schoolProfileLeftColumn">
+        <div id="schoolProfileLeftColumn" class="col">
             <div id="schoolProfileTabsWrapper">
                 <ul id="schoolProfileTabs">
                     <li id="sptab1" class="${(tab eq 'overview')?'active':'inactive'}">
@@ -289,7 +297,7 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
-        <div id="schoolProfileRightColumn">
+        <div id="schoolProfileRightColumn" class="col">
             <c:choose>
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x250/>

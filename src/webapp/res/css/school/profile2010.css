@@ -1,9 +1,9 @@
-#schoolProfile {
+/*#schoolProfile {
     margin: 10px 15px 0 20px;
-}
+}*/
 
 /* breadcrumbs */
-#breadcrumbs {
+/*#breadcrumbs {
     font: 11px Arial, Arial, sans-serif;
     padding-right: 50px;
 }
@@ -17,13 +17,13 @@
 #breadcrumbs ul li a {
     text-decoration: underline;
     color: #888;
-}
+}*/
 
-#schoolProfileHeader {
+/*#schoolProfileHeader {
     position: relative;
 }
 
-/* tool links */
+*//* tool links *//*
 #schoolToolLinks {
     width: 500px;
     font-size: 12px;
@@ -36,10 +36,10 @@
 }
 #schoolToolLinks img, #schoolToolLinks span.sprite {
     margin-right: 3px;
-}
+}*/
 
 /* School info */
-#schoolInfo {
+/*#schoolInfo {
     position: absolute;
     right: 0;
     top: 0;
@@ -53,17 +53,17 @@
 }
 #schoolInfoRightColumn {
     float: left;
-}
-#schoolInfo label {
+}*/
+/*#schoolInfo label {
     float: left;
     width: 50px;
     margin-right: 5px;
     text-transform: uppercase;
     font-weight: bold;
-}
+}*/
 
 /* columns */
-#schoolProfileLeftColumn {
+/*#schoolProfileLeftColumn {
     float: left;
     width: 612px;
     margin-bottom: 20px;    
@@ -71,14 +71,14 @@
 #schoolProfileRightColumn {
     float: right;
     width: 300px;
-}
+}*/
 #schoolProfileRightColumn .mod {
     margin-top: 20px;
 }
 
-#schoolProfileBody {
+/*#schoolProfileBody {
     margin-top: 15px;
-}
+}*/
 /* Tabs */
 #schoolProfileTabsWrapper, #schoolProfileSubTabsWrapper {
     position: relative;

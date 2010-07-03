@@ -58,6 +58,8 @@ General comments:
 =4i-1.2 manage newsletters
 =4i-2 user activity
 =4j contact us
+=4k school profile 2010
+=4k-1 overview
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -138,6 +140,16 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.utility-navigation {
+    font:11px Arial, Helvetica, sans-serif;
+    color:#fff;
+}
+
+.utility-navigation-999 {
+    font:11px Arial, Helvetica, sans-serif;
+    color:#999;
 }
 
 h1 {
@@ -4356,6 +4368,97 @@ margin:10px 0 14px 20px;
 #contactUsbarGS li{
     padding:3px 0;
 }
+
+/* =4k school profile 2010
+-------------------------------------------------------------------------------------------*/
+/* school profile page */
+#schoolProfileGS {
+    padding: 15px 0 0 20px;
+}
+
+/* school profile header */
+#schoolProfileHeaderGS {
+    width:931px;
+    padding-right: 17px;
+}
+
+#schoolHeaderInfoLeft {
+    width: 507px;
+    margin-right: 14px;
+}
+
+/* breadcrumbs */
+#breadcrumbs ul li {
+    list-style: none outside none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+#schoolName h1{
+    line-height:1.5;
+}
+
+#schoolToolLinks ul li {
+    list-style: none outside none;
+    display: inline;
+    margin: 0;
+    padding:5px 20px 0 0;
+}
+
+#schoolToolLinks .sprite {
+    margin:10px 3px 0 0;
+}
+
+#schoolHeaderInfoRight{
+    width: 378px;
+    min-height:88px;
+    padding: 15px;
+    border: 1px solid #83bbd9;
+    background-color:#f4fafd;
+}
+
+#schoolHeaderInfoRight p{
+    line-height:1.5;
+}
+
+#schoolInfoLeftColumn {
+    float: left;
+    margin-right: 25px;
+}
+
+#schoolInfoLeftColumn span{
+    display:inline-block;
+    width:50px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#schoolInfoRightColumn {
+    float: left;
+}
+
+#schoolInfoFooter {
+    clear:both;
+}
+
+/* school profile body */
+#schoolProfileBody {
+    margin-top: 11px;
+}
+
+#schoolProfileLeftColumn {
+    width: 614px;
+}
+#schoolProfileRightColumn {
+    width: 300px;
+    padding:0 17px;
+}
+
+/* =4k-1 overview
+-------------------------------------------------------------------------------------------*/
+
 
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
