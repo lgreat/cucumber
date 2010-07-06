@@ -5,7 +5,8 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
-<div id="btsChecklistBubble" class="rnd8">
+
+<div id="btsChecklistBubble" class="rnd8" style="display:none;">
     <p class="smallText1 tint_777 closebtn fltrt btsChecklistBubbleClose">close<span class="sprite close2"><!-- not empty --></span></p>
     
     <p id="btsNewOnGS" class="smallText1"><strong>New On GreatSchools</strong></p>
@@ -28,67 +29,31 @@
 </div>
 
     <script type="text/javascript">
-// setHover is used to make IE6behave by inserting an IFRAME
-// to "shim" the drop-downs above form select controls and media objects.
         var sitePreferences = subCookie.getObject("site_pref");
 
         if (sitePreferences == undefined || sitePreferences.hideBtsChecklist != "true") {
-            jQuery('#btsChecklistBubble').addClass('show');
+            jQuery('#btsChecklistBubble').show();
         }
+
 
         jQuery('.btsChecklistBubbleClose').click(function() {
             subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
-            jQuery('#btsChecklistBubble').removeClass('show');
-            jQuery('#bubbleIframe').removeClass('show');
+            jQuery('#btsChecklistBubble').hide();
             return false;
         });
 
         jQuery('#btsChecklistBubbleNoThanks').click(function() {
             subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
-            jQuery('#btsChecklistBubble').removeClass('show');
-            jQuery('#bubbleIframe').removeClass('show');
+            jQuery('#btsChecklistBubble').hide();
             return false;
         });
 
         jQuery('#btsChecklistBubbleRemindLater').click(function() {
             subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 0);
-            jQuery('#btsChecklistBubble').removeClass('show');
-            jQuery('#bubbleIframe').removeClass('show');
+            jQuery('#btsChecklistBubble').hide();
             return false;
         });
-        var sfHover = function() {
-            // Support the standard nav without a class of nav.
-            if(!document.getElementById("btsChecklistBubble")) return;
-            var el = document.getElementById("btsChecklistBubble");
-            var pa = document.getElementById("header");
-            setHover(el,pa);
-        };
-        var setHover = function(box,parent) {
-            var ieMat=document.createElement("iframe");
-            ieMat.src="javascript:false";
-            ieMat.scrolling="no";
-            ieMat.frameBorder="0";
-            ieMat.id = "bubbleIframe";
-            ieMat.className = "show";
-            ieMat.style.width=box.offsetWidth+"px";
-            ieMat.style.height=box.offsetHeight+"px";
-            ieMat.style.zIndex="100";
-            parent.insertBefore(ieMat,box);
-            box.style.zIndex="101";
-        };
-        /*@cc_on
-            @if (@_jscript_version == 5.6){
-                if (sitePreferences == undefined || sitePreferences.hideBtsChecklist != "true"){
-                    window.attachEvent('onload', sfHover);
-                }
-            }
-            @else {
-                return;
-            }
-            @end
-        @*/
-
-        
-
     </script>
+
+
 </jsp:root>
