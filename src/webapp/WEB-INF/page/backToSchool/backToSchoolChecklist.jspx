@@ -137,54 +137,28 @@
         </div>
 
         <script type="text/javascript">
-            jQuery('.btsSupplyList').click(function() {
-                var checklistItem = 'BACK_TO_SCHOOL_SUPPLY_LIST';
-                var params = {};
-                params.checklistItem = checklistItem;
-                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
-                    //callback
-                });
-            });
-
-            jQuery('#btsArticle1').click(function() {
-                var checklistItem = "ARTICLE1";
-                var params = {};
-                params.checklistItem = checklistItem;
-                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
-                    //callback
-                });
-            });
-
-            jQuery('#btsArticle2').click(function() {
-                var checklistItem = "ARTICLE2";
-                var params = {};
-                params.checklistItem = checklistItem;
-                jQuery.post("/backToSchool/backToSchoolChecklist.page", params, function() {
-                    //callback
-
-                });
-            });
-
-            jQuery('#subscribeBtn').click(function() {
-                var form = jQuery('#btsTipOfTheDayForm').serialize();
-
-                if (GS.showJoinHover(form.email, window.location.href, GS.showJoinHover(form.email, window.location.href, GSType.hover.joinHover.showBackToSchoolTipOfTheDay, window.location.href))) {
-                    jQuery.post("/backToSchool/backToSchoolTipOfTheDayAjax.page", form, function(data) {
-                        window.location.reload();
-                    });
-                }
-
-                return false;
-            });
-
-            jQuery('#btsEmail').click(function() {
-                var value = jQuery('#btsEmail').val();
-                if (value == 'Enter your email address') {
-                    jQuery('#btsEmail').val("");
-                }
-            });
-
             jQuery('#btsChecklistBubble').hide();
+
+            jQuery(function() {
+                jQuery('#subscribeBtn').click(function() {
+                    var form = jQuery('#btsTipOfTheDayForm').serialize();
+
+                    if (GS.showJoinHover(form.email, window.location.href, GS.showJoinHover(form.email, window.location.href, GSType.hover.joinHover.showBackToSchoolTipOfTheDay, window.location.href))) {
+                        jQuery.post("/backToSchool/backToSchoolTipOfTheDayAjax.page", form, function(data) {
+                            window.location.reload();
+                        });
+                    }
+
+                    return false;
+                });
+
+                jQuery('#btsEmail').click(function() {
+                    var value = jQuery('#btsEmail').val();
+                    if (value == 'Enter your email address') {
+                        jQuery('#btsEmail').val("");
+                    }
+                });
+            });
 
         </script>
 
