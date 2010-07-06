@@ -6263,15 +6263,18 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 
 
 #btsChecklistBubble {
-    font:11px;
+    font-size: 11px;
     width:288px;
     padding:20px 12px 15px 12px;
     background:#FFF;
     position:absolute;
     top: 50px;
-    right:0px;
+    right:100000px;
     z-index:100;
     border: 1px solid #ccc;
+}
+#btsChecklistBubble.show {
+    right: 0px;
 }
 #btsChecklistBubble .btsChecklistBubbleClose {
     cursor: pointer;

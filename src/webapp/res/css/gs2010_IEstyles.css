@@ -1123,3 +1123,11 @@ body.ie6 #btsCount .pencil_bg {
     display: inline;
     width: auto;
 }
+*html #bubbleIframe {
+    position: absolute;
+    top: 50px;
+    right:100000px;
+}
+*html #bubbleIframe.show {
+    right: 0px;
+}
