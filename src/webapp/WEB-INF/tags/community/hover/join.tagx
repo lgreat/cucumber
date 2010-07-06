@@ -95,7 +95,7 @@
                         <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                         <strong>Lowell High School</strong>.</label>
 
-                        <p>In 2009-2010 my children are in:</p>
+                        <p>In 2010-2011 my children are in:</p>
                         <ul>
                             <li id="pickGrade">
                                 <input type="checkbox" value="mypk" id="gp" name="grades"/>

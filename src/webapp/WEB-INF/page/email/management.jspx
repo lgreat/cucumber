@@ -127,7 +127,7 @@
             <c:set var="showMynth" value="${ emailCmd.greatnews ? 'showIt' : 'hideIt' }"/>
 
             <div id="mynth" class="mynth ${showMynth}">
-                <p class="text2">Personalize your weekly updates by indicating your<a name="mynth_anchor">&amp;nbsp;</a> <br/>child(ren)'s grade level(s) for 2009-2010:</p>
+                <p class="text2">Personalize your weekly updates by indicating your<a name="mynth_anchor">&amp;nbsp;</a> <br/>child(ren)'s grade level(s) for 2010-2011:</p>
                 <ol class="horizontal">
                         <li>
                             <fieldset>
