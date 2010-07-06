@@ -1283,6 +1283,33 @@ body.ie6 .clearfix {
     -webkit-border-radius: 8px;
 }
 
+.rnd-top-3 {
+/* for firefox and webkit browsers */
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+}
+
+.rnd-top-4 {
+/* for firefox and webkit browsers  */
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+}
+
+/* linear gradients
+-------------------------------------------------------------------------------------------*/
+
+.gradient-1 {
+    background: #149; /* for non-css3 browsers */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#276ab3', endColorstr = '#143e90'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #276ab3, #143e90); /* for firefox 3.6+ */
+}
+
 /* =4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
@@ -4445,7 +4472,7 @@ margin:10px 0 14px 20px;
 
 /* school profile body */
 #schoolProfileBody {
-    margin-top: 11px;
+    margin-top: 14px;
 }
 
 #schoolProfileLeftColumn {
@@ -4453,12 +4480,78 @@ margin:10px 0 14px 20px;
 }
 #schoolProfileRightColumn {
     width: 300px;
-    padding:0 17px;
+    padding:10px 17px 0;
+}
+#schoolProfileTabsWrapper {
+    float: left;
+    background: none;
+    line-height: normal;
+    padding-left:6px;
+    position:relative;
+}
+
+#schoolProfileTabsWrapper ul {
+    white-space: nowrap;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    list-style: none;
+}
+
+#schoolProfileTabsWrapper li {
+    float: left;
+    display: inline-block;
+    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right -34px;
+    margin: 0 0 0 5px;
+    padding: 0;
+}
+
+#schoolProfileTabsWrapper a {
+    display: inline-block;
+    text-decoration: none;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left -34px;
+    margin: 0 0 0 -5px;
+    padding: 5px 15px;
+    outline: 0 none;
+    -moz-outline: 0 none;
+    overflow: hidden;
+}
+
+#schoolProfileTabsWrapper .active {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.png) no-repeat right top;
+    margin-top: -5px;
+}
+
+#schoolProfileTabsWrapper .active a {
+    text-decoration: none;
+    color: black;
+    background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
+    padding: 5px 15px 10px 15px;
+}
+
+#schoolInaccuracy{
+    position:absolute;
+    top:8px; right:0;
+}
+
+#schoolProfileTabBar{
+    position:absolute;
+    top:25px; left:0;
+    clear:both;
+    width:614px;
+    height:8px;
+    z-index:1;
+    zoom:1;
+}
+
+#schoolProfileContentsWrapper{
+    clear:both;
+    border: 1px solid #c6c6c6;
+    padding:0 15px 15px;
 }
 
 /* =4k-1 overview
 -------------------------------------------------------------------------------------------*/
-
 
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
@@ -4716,34 +4809,34 @@ additional icons on the sprite.
 }
 
 .pencil_med {
-	width: 16px;
-	height: 18px;
-	background-position: -40px -240px;
+    width: 16px;
+    height: 18px;
+    background-position: -40px -240px;
 }
 
 /* column 60 */
 .add2 {
-	width: 15px;
-	height: 16px;
-	background-position: -60px -100px;
+    width: 15px;
+    height: 16px;
+    background-position: -60px -100px;
 }
 
 .rate2 {
-	width: 16px;
-	height: 18px;
-	background-position: -60px -120px;
+    width: 16px;
+    height: 18px;
+    background-position: -60px -120px;
 }
 
 .info {
-	width: 18px;
-	height: 18px;
-	background-position: -60px -160px;
+    width: 18px;
+    height: 18px;
+    background-position: -60px -160px;
 }
 
 .print2 {
-	width: 16px;
-	height: 18px;
-	background-position: -60px -180px;
+    width: 16px;
+    height: 18px;
+    background-position: -60px -180px;
 }
 
 /* column 80 */
@@ -4755,211 +4848,211 @@ additional icons on the sprite.
 
 /* column 140 */
 .stars_sm_rate_it {
-	width: 69px;
-	height: 24px;
-	background-position: -140px 0;
+    width: 69px;
+    height: 24px;
+    background-position: -140px 0;
 }
 
 .stars_sm_0 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -30px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -30px;
 }
 
 .stars_sm_1 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -50px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -50px;
 }
 
 .stars_sm_2 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -70px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -70px;
 }
 
 .stars_sm_3 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -90px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -90px;
 }
 
 .stars_sm_4 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -110px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -110px;
 }
 
 .stars_sm_5 {
-	width: 69px;
-	height: 14px;
-	background-position: -140px -130px;
+    width: 69px;
+    height: 14px;
+    background-position: -140px -130px;
 }
 
 /* column 220 */
 .stars_lg_0 {
-	width: 103px;
-	height: 19px;
-	background-position: -220px 0;
+    width: 103px;
+    height: 19px;
+    background-position: -220px 0;
 }
 
 .stars_lg_1 {
-	width: 102px;
-	height: 20px;
-	background-position: -220px -20px;
+    width: 102px;
+    height: 20px;
+    background-position: -220px -20px;
 }
 
 .stars_lg_2 {
-	width: 102px;
-	height: 20px;
-	background-position: -220px -40px;
+    width: 102px;
+    height: 20px;
+    background-position: -220px -40px;
 }
 
 .stars_lg_3 {
-	width: 102px;
-	height: 20px;
-	background-position: -220px -60px;
+    width: 102px;
+    height: 20px;
+    background-position: -220px -60px;
 }
 
 .stars_lg_4 {
-	width: 102px;
-	height: 20px;
-	background-position: -220px -80px;
+    width: 102px;
+    height: 20px;
+    background-position: -220px -80px;
 }
 
 .stars_lg_5 {
-	width: 102px;
-	height: 20px;
-	background-position: -220px -100px;
+    width: 102px;
+    height: 20px;
+    background-position: -220px -100px;
 }
 
 /* column 340 */
 .badge_sm_na {
-	width: 22px;
-	height: 22px;
-	background-position: -340px 0;
+    width: 22px;
+    height: 22px;
+    background-position: -340px 0;
 }
 
 .badge_sm_1 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -30px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -30px;
 }
 
 .badge_sm_2 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -60px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -60px;
 }
 
 .badge_sm_3 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -90px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -90px;
 }
 
 .badge_sm_4 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -120px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -120px;
 }
 
 .badge_sm_5 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -150px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -150px;
 }
 
 .badge_sm_6 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -180px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -180px;
 }
 
 .badge_sm_7 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -210px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -210px;
 }
 
 .badge_sm_8 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -240px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -240px;
 }
 
 .badge_sm_9 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -270px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -270px;
 }
 
 .badge_sm_10 {
-	width: 22px;
-	height: 22px;
-	background-position: -340px -300px;
+    width: 22px;
+    height: 22px;
+    background-position: -340px -300px;
 }
 
 /* column 380 */
 .badge_lg_1 {
-	width: 93px;
-	height: 93px;
-	background-position: -380px 0;
+    width: 93px;
+    height: 93px;
+    background-position: -380px 0;
 }
 
 .badge_lg_2 {
-	width: 93px;
-	height: 93px;
-	background-position: -380px -100px;
+    width: 93px;
+    height: 93px;
+    background-position: -380px -100px;
 }
 
 .badge_lg_3 {
-	width: 93px;
-	height: 93px;
-	background-position: -380px -200px;
+    width: 93px;
+    height: 93px;
+    background-position: -380px -200px;
 }
 
 .badge_lg_4 {
-	width: 93px;
-	height: 93px;
-	background-position: -380px -300px;
+    width: 93px;
+    height: 93px;
+    background-position: -380px -300px;
 }
 
 .badge_lg_5 {
-	width: 93px;
-	height: 93px;
-	background-position: -380px -400px;
+    width: 93px;
+    height: 93px;
+    background-position: -380px -400px;
 }
 
 /* column 480 */
 .badge_lg_6 {
-	width: 93px;
-	height: 93px;
-	background-position: -480px 0;
+    width: 93px;
+    height: 93px;
+    background-position: -480px 0;
 }
 
 .badge_lg_7 {
-	width: 93px;
-	height: 93px;
-	background-position: -480px -100px;
+    width: 93px;
+    height: 93px;
+    background-position: -480px -100px;
 }
 
 .badge_lg_8 {
-	width: 93px;
-	height: 93px;
-	background-position: -480px -200px;
+    width: 93px;
+    height: 93px;
+    background-position: -480px -200px;
 }
 
 .badge_lg_9 {
-	width: 93px;
-	height: 93px;
-	background-position: -480px -300px;
+    width: 93px;
+    height: 93px;
+    background-position: -480px -300px;
 }
 
 .badge_lg_10 {
-	width: 93px;
-	height: 93px;
-	background-position: -480px -400px;
+    width: 93px;
+    height: 93px;
+    background-position: -480px -400px;
 }
 
 /* =6 editorialFooter
