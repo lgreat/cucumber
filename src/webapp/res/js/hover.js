@@ -266,6 +266,41 @@ GSType.hover.JoinHover = function() {
             };
         }
     };
+    this.showJoinNthHoverOnExit = function() {
+        var arr = getElementsByCondition(
+                function(el) {
+                    if (el.tagName == "A") {
+                        if (el.target || el.onclick)
+                            return false;
+                        if (el.className && el.className.indexOf('no_interrupt') > -1)
+                            return false;
+                        if (el.href && el.href != '' && el.href != '#' && el.href != (window.location.href+'#'))
+                            return el;
+                    }
+                    return false;
+                }, document
+                );
+
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].onclick = function () {
+                gRedirectAnchor = this;
+                try {
+                    var sitePreferences = subCookie.getObject("site_pref");
+
+                    if (sitePreferences == undefined || sitePreferences.schoolOverviewAlreadyVisited == undefined || sitePreferences.schoolOverviewAlreadyVisited != "true") {
+                        subCookie.setObjectProperty("site_pref", "schoolOverviewAlreadyVisited", true, 9001);
+                        window.destUrl = gRedirectAnchor.href;
+                        GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                        GSType.hover.joinHover.showJoinNth();
+                        return false;
+                    }
+
+                } catch (e) {
+                }
+                return true;
+            };
+        }
+    };
     this.configureForMss = function(schoolName, schoolId, schoolState) {
         if (schoolName) {
             GSType.hover.joinHover.schoolName = schoolName;

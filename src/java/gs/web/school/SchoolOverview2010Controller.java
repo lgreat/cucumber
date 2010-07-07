@@ -31,8 +31,7 @@ import java.util.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class SchoolOverview2010Controller extends
-        AbstractSchoolController implements IDirectoryStructureUrlController {
+public class SchoolOverview2010Controller extends AbstractSchoolController implements IDirectoryStructureUrlController {
     protected static final Log _log = LogFactory.getLog(SchoolOverview2010Controller.class.getName());
 
     public static final String BEAN_ID = "/school/overview.page";
@@ -49,10 +48,9 @@ public class SchoolOverview2010Controller extends
 
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SURVEY_SAMPLE_ATTRIBUTE = "surveySampleList";
-    
+
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest
-            request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         String schoolIdStr = request.getParameter("id");
@@ -61,14 +59,11 @@ public class SchoolOverview2010Controller extends
             schoolIdStr = (String) request.getAttribute(AbstractSchoolController.SCHOOL_ID_ATTRIBUTE);
         }
 
-        
+
         // GS-3044 - number1expert cobrand specific code
-        SessionContext sessionContext =
-                SessionContextUtil.getSessionContext(request);
-        if (sessionContext.isCobranded() &&
-                "number1expert".equals(sessionContext.getCobrand())) {
-            if (handleNumber1ExpertLeadGen(request, response,
-                    schoolIdStr, sessionContext)) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        if (sessionContext.isCobranded() && "number1expert".equals(sessionContext.getCobrand())) {
+            if (handleNumber1ExpertLeadGen(request, response, schoolIdStr, sessionContext)) {
                 return null;
             }
         }
@@ -88,7 +83,7 @@ public class SchoolOverview2010Controller extends
             PQ pq = _PQDao.findBySchool(school);
             if (pq != null) {
                 String bestKnownFor = pq.getBestKnownFor();
-                
+
                 if (bestKnownFor != null) {
                     model.put("bestKnownFor", bestKnownFor);
                 } else {
@@ -121,28 +116,22 @@ public class SchoolOverview2010Controller extends
             if ("true".equals(confirmStr)) {
                 model.put("showSchoolChooserPackPromo", true);
             } else {
-                model.put("showSchoolChooserPackPromo",
-                        showSchoolChooserPackPromo(request, response));
+                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request, response));
             }
 
-            KindercareLeadGenHelper.checkForKindercare(request,
-                    response, school, model);
+            KindercareLeadGenHelper.checkForKindercare(request, response, school, model);
 
             // TODO: is this necessary?
             String tempMsg = sessionContext.getTempMsg();
-            if (StringUtils.isNotBlank(tempMsg) &&
-                    tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
+            if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
                 String stateParam = tempMsg.substring(10, 12);
                 String idParam = tempMsg.substring(12);
-                String schoolState =
-                        school.getDatabaseState().getAbbreviation();
+                String schoolState = school.getDatabaseState().getAbbreviation();
                 String schoolId = String.valueOf(school.getId());
-                if (schoolState.equals(stateParam) &&
-                        schoolId.equals(idParam)) {
+                if (schoolState.equals(stateParam) && schoolId.equals(idParam)) {
                     model.put("fromSurveyPage", Boolean.TRUE);
                 }
-                SessionContextUtil util =
-                        sessionContext.getSessionContextUtil();
+                SessionContextUtil util = sessionContext.getSessionContextUtil();
                 util.clearTempMsg(response);
             }
         }
@@ -150,14 +139,14 @@ public class SchoolOverview2010Controller extends
         return new ModelAndView(_viewName, model);
     }
 
-    public void populateModelWithSurveyData(School school, Map<String,Object> model) {
+    public void populateModelWithSurveyData(School school, Map<String, Object> model) {
 
         Set<String> results = new HashSet();
 
         for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
             String token = getOneResponseTokenForAnswer(school, answer);
             token = StringUtils.replace(token, "_", " ");
-            if (token != null)  {
+            if (token != null) {
                 results.add(token);
             }
         }
@@ -169,24 +158,24 @@ public class SchoolOverview2010Controller extends
      * Fetches a Map of questions and answers from the survey dao, using the given answer bean title property.
      * Uses the first question and answer in map to fetch a list of responses from the dao. Throws away all
      * but the first response. Splits the response on comma, and returns the first token.
-     * 
+     *
      * @param school
      * @param answerTitle
      * @return
      */
     public String getOneResponseTokenForAnswer(School school, String answerTitle) {
-        
+
         Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
 
         Survey survey = _surveyDao.findSurveyById(surveyId);
 
-        Map<Question,Answer> qAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
+        Map<Question, Answer> qAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
 
         List<UserResponse> responses = new ArrayList<UserResponse>();
 
         if (qAndA != null && qAndA.size() > 0) {
-            Set<Map.Entry<Question,Answer>> entrySet = qAndA.entrySet();
-            for (Map.Entry<Question,Answer> entry : entrySet) {
+            Set<Map.Entry<Question, Answer>> entrySet = qAndA.entrySet();
+            for (Map.Entry<Question, Answer> entry : entrySet) {
                 responses = _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
                 if (responses != null && responses.size() > 0) {
                     break;
@@ -256,8 +245,7 @@ public class SchoolOverview2010Controller extends
     // Checks to see if the user has any "School Chooser Pack" subscription
     // products.  Returns false if they do.
 
-    public static boolean showSchoolChooserPackPromo(HttpServletRequest
-            request, HttpServletResponse response) {
+    public static boolean showSchoolChooserPackPromo(HttpServletRequest request, HttpServletResponse response) {
         boolean show = true;
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         User u = sc.getUser();
@@ -276,23 +264,17 @@ public class SchoolOverview2010Controller extends
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
 
-        String schoolChoicePackAlreadySubmitted =
-                cookie.getProperty("schoolChoicePackAlreadySubmitted");
-        String showSchoolChoicePackConfirm =
-                cookie.getProperty("showSchoolChoicePackConfirm");
+        String schoolChoicePackAlreadySubmitted = cookie.getProperty("schoolChoicePackAlreadySubmitted");
+        String showSchoolChoicePackConfirm = cookie.getProperty("showSchoolChoicePackConfirm");
 
-        if ("true".equals(schoolChoicePackAlreadySubmitted) &&
-                !"true".equals(showSchoolChoicePackConfirm)) {
+        if ("true".equals(schoolChoicePackAlreadySubmitted) && !"true".equals(showSchoolChoicePackConfirm)) {
             show = false;
         }
 
         return show;
     }
 
-    protected boolean handleNumber1ExpertLeadGen(HttpServletRequest
-            request, HttpServletResponse response,
-                                                 String schoolIdStr,
-                                                 SessionContext sessionContext) throws IOException {
+    protected boolean handleNumber1ExpertLeadGen(HttpServletRequest request, HttpServletResponse response, String schoolIdStr, SessionContext sessionContext) throws IOException {
         Cookie[] cookies = request.getCookies();
         String agentId = null;
         if (cookies != null) {
@@ -311,18 +293,13 @@ public class SchoolOverview2010Controller extends
                 for (int i = 0; cookies.length > i; i++) {
                     if (biregCookieName.equals(cookies[i].getName()) &&
 
-                            StringUtils.isNotEmpty(cookies[i].getValue()) &&
-                            !cookies[i].getValue().equals("0")) {
+                            StringUtils.isNotEmpty(cookies[i].getValue()) && !cookies[i].getValue().equals("0")) {
                         foundCookie = true;
                     }
                 }
                 if (!foundCookie) {
                     // send to bireg
-                    UrlBuilder urlBuilder = new UrlBuilder
-                            (UrlBuilder.GET_BIREG,
-                                    sessionContext.getStateOrDefault(),
-                                    new Integer(schoolIdStr),
-                                    new Integer(agentId));
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.GET_BIREG, sessionContext.getStateOrDefault(), new Integer(schoolIdStr), new Integer(agentId));
                     response.sendRedirect(urlBuilder.asFullUrl(request));
                     return true;
                 }
@@ -332,8 +309,10 @@ public class SchoolOverview2010Controller extends
     }
 
     //TODO: DANGER!!! method below was copied from MapSchoolController but distance copy was added. Move into helper class
+
     /**
      * Returns a list of MapSchools for a given list of NearbySchools
+     *
      * @param schools list of nearby schools
      * @return MapSchools
      */
@@ -341,7 +320,7 @@ public class SchoolOverview2010Controller extends
         // this is our data structure -- contains basically a school, a GS rating, and a parent rating
         List<MapSchool> mapSchools = new ArrayList<MapSchool>();
         // for each school
-        for (NearbySchool nearbySchool: schools) {
+        for (NearbySchool nearbySchool : schools) {
             School school = nearbySchool.getNeighbor();
             // MapSchool is a subclass of NearbySchool
             MapSchool mapSchool = new MapSchool();

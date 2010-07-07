@@ -22,7 +22,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         SchoolSummaryHelper helper = new SchoolSummaryHelper();
         RatingsSummaryCommand command = helper.buildRatingsSummaryCommand(_school, this.getSchoolDao(), this.getReviewDao()) ;
-        SchoolMessageBuilder builder = helper.getMessageBuilder(command);
+        SchoolMessageBuilder builder = helper.getMessageBuilder(_school);
 
         writeOpeningDiv();
 

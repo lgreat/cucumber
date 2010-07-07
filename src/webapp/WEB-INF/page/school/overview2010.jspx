@@ -209,7 +209,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <school:schoolHighlightsList school="${school}"/>
         </c:set>
         <c:if test="${not empty schoolHighlights}">
-            <c:set var="schoolHighlightsList" value="${schoolHighlights};"/>
+            <c:set var="schoolHighlightsList" value="${schoolHighlights}; "/>
         </c:if>
         <c:if test="${not empty surveySampleList}">
             <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
@@ -369,6 +369,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </div>
 
 </school:profile2010>
+
+
+    <script type="text/javascript">
+        GSType.hover.joinHover.showJoinNthHoverOnExit();
+    </script>
+
 
 <div style="display:none">
     <mod:tracking pageName="${pageName}"
