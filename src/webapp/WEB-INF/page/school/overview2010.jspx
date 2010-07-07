@@ -306,11 +306,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <tbody>
                 <c:forEach items="${mapSchools}" var="s">
                     <tr>
-                        <td><input id="js-compare-school-checkbox-${s.neighbor.databaseState}-${s.neighbor.id}"
+                        <td><input id="${s.neighbor.databaseState}${s.neighbor.id}"
                                    class="compare-school-checkbox" type="checkbox"/>COMPARE
                         </td>
                         <td>
-                            ${s.neighbor.name}<br/>
+                            <link:schoolProfileOverview school="${s.neighbor}">
+                                ${s.neighbor.name}<br/>
+                            </link:schoolProfileOverview>
                             <fmt:formatNumber type="number" maxFractionDigits="1" value="${s.distance}"/> miles
                         </td>
                         <td>
@@ -339,7 +341,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </c:forEach>
                 <tr>
                     <td colspan="2">
-                        <button class="btn25" type="submit" name="compareBtn" id="compareBtn">
+                        <button class="btn25" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
                             <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
                         </button>
                     </td>
@@ -387,7 +389,29 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
     <script type="text/javascript">
-        GSType.hover.joinHover.showJoinNthHoverOnExit();
+        jQuery(function() {
+            schoolIdList = '';
+            schoolIdListCount = 0;
+            jQuery('.compare-school-checkbox').click( function(item){
+                if (schoolIdList != '') {
+                    schoolIdList += ',';
+                }
+                
+                schoolIdList += jQuery(this).attr('id');
+                schoolIdListCount++;
+
+                if (schoolIdListCount > 1) {
+                    jQuery('#compareBtn').attr('disabled', '');
+                }
+            });
+
+            jQuery('#compareBtn').click(function() {
+                window.location = '/compareSchools.page?compare.x=true&amp;sc=' + schoolIdList;
+            });
+
+            GSType.hover.joinHover.showJoinNthHoverOnExit();
+        });
+
     </script>
 
 
