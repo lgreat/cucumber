@@ -51,16 +51,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
      ]]>
         <!-- TODO: Move into global css -->
     <style type="text/css">
-        #overviewColumn1 {
+        /*#overviewColumn1 {
             width: 158px;
             float: left;
-        }
+        }*/
 
-        #overviewColumn2 {
+        /*#overviewColumn2 {
             width: 400px;
             float: left;
             margin-left: 15px;
-        }
+        }*/
 
         #bestKnownFor {
             font-size: 16px;
@@ -78,7 +78,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             margin: 15px 15px 5px 0;
         }
 
-        #overallRating {
+        /*#overallRating {
             display: block;
             background-color: #F4FAFD;
             width: 158px;
@@ -91,7 +91,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         #overallRating p, #overallRating img, #overallRating a, #overallRating button {
             padding-bottom: 6px;
             display: block;
-        }
+        }*/
 
         #map {
             height: 277px;
@@ -154,19 +154,25 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div id="overallRating">
 
             <c:if test="${not empty gs_rating}">
-                <p>GreatSchools Rating</p>
+                <p class="text3">GreatSchools Rating</p>
+                <div class="spacer_5"><!-- do not collapse --></div>
                 <span class="sprite badge_lg_${gs_rating}"><!-- do not collapse --></span>
-                <a href="#">GreatSchools evaluation criteria</a>
-                <br/>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <a class="smallAlertText" href="#">GreatSchools<br/>evaluation criteria</a>
+
             </c:if>
 
-            <p>Overall community rating</p>
-
+            <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <p class="text3">Overall community rating</p>
+            <div class="spacer_5"><!-- do not collapse --></div>
             <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
+            <div class="spacer_5"><!-- do not collapse --></div>
 
             <c:choose>
                 <c:when test="${fn:length(reviews) gt 0}">
-                    <a href="#">Read all ${fn:length(reviews)} reviews</a>
+                    <a class="smallAlertText" href="#">Read all ${fn:length(reviews)} reviews</a>
+                    <div class="spacer_5"><!-- do not collapse --></div>
                 </c:when>
                 <c:otherwise>
                     <link:schoolProfileParentReview
@@ -174,22 +180,22 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </c:otherwise>
             </c:choose>
 
-            <button class="btn25" type="submit" name="reviewBtn" id="reviewBtn">
-                <span class="lftDoor25"><span class="rtDoor25">Review school</span></span>
+            <button class="btn25-2" type="submit" name="reviewBtn" id="reviewBtn">
+                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
             </button>
         </div>
 
     </div>
 
     <div id="overviewColumn2">
+        <div class="spacer_15"><!-- do not collapse --></div>
 
         <c:if test="${not empty bestKnownFor}">
             <div id="bestKnownFor">
                 <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
                 </p> <!-- TODO: info icon + hover -->
                 <!-- TODO: link this to esp display page-->
-                <a href="#">Read more from the school principal <span
-                    class="alertDoubleArrow">&#187;</span></a>
+                <a href="#">Read more from the school principal <span class="alertDoubleArrow">&#187;</span></a>
 
                 <div id="js-esp-info-hover" style="display:none;">
                     <!-- TODO: link this to esp display page-->
@@ -200,9 +206,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </div>
         </c:if>
 
-        <content:ratingsSummary school="${school}"/>
-
-        <br/><br/>
+        <div class="text2">
+            <content:ratingsSummary school="${school}"/>
+        </div>
 
         <!-- School highlights -->
         <c:set var="schoolHighlights">
@@ -216,23 +222,26 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </c:if>
 
         <c:if test="${not empty schoolHighlights}">
-            <strong>School highlights:</strong><br/>
+            <p class="text2bold">School highlights:</p>
+            <div class="text2">
             ${schoolHighlights}
-            <a href="#">More <span class="alertDoubleArrow">&#187;</span></a>
-            <br/><br/>
+            <span class="iblock fltrt smallAlertText"><a href="#">More <span class="alertDoubleArrow">&#187;</span></a></span>
+            </div>
+            <div class="spacer_15"><!-- do not collapse --></div>
         </c:if>
         <!-- end school highlights -->
 
         <span class="sprite emailIt"><!-- do not collapse --></span>
         <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                        styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+                        styleClass="email toolsTxt text3-06b"> Email me updates about this school</promo:mssHover>
 
         <c:if test="${empty bestKnownFor}">
             <c:choose>
                 <c:when test="${espLink eq 'principal'}">
                     <!-- principal link box -->
                     <c:if test="${school.levelCode != 'p'}">
-                        <div id="js-esp-principal-link">
+                        <div class="spacer_10"><!-- do not collapse --></div>
+                        <div id="js-esp-principal-link" class="alertBox2 text2">
                             <span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a>
                         </div>
                     </c:if>
@@ -242,7 +251,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <c:when test="${espLink eq 'profile'}">
                     <!-- profile link box -->
                     <div id="js-esp-profile-link">
-                        <a href="#">See more official school information<span
+                        <a href="#">See more official school information <span
                                 class="alertDoubleArrow">&amp;#187;</span></a>
                     </div>
                     <!-- end profile link box -->
@@ -250,14 +259,17 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </c:choose>
         </c:if>
 
-        <br/><br/>
+        <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+        <div class="spacer_15"><!-- do not collapse --></div>
 
         <!-- begin map -->
-        <h3>Compare to nearby schools</h3>
-                <span><link:mapSchool school="${school}">Larger map</link:mapSchool><span
-                        class="alertDoubleArrow">&amp;#187;</span></span>
 
-        <div id="map">
+        <div class="title2-d61">Compare to nearby schools<span class="smallAlertText fltrt iblock padtop_7"><link:mapSchool school="${school}">Larger map </link:mapSchool><span
+                        class="alertDoubleArrow">&amp;#187;</span></span></div>
+
+        <div class="spacer_15"><!-- do not collapse --></div>
+
+        <div id="map" class="border-c6">
             &#160;
             <noscript>JavaScript is required in order to view a map of the city and its
                 schools.
@@ -266,14 +278,17 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <map:school id="map" tooltips="true" schools="${mapSchools}" school="${school}"/>
         <!-- end map -->
 
-        <br/>
 
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="text3">
         <link:city city="${school.city}" state="${school.physicalAddress.state}"
                    title="${school.city} schools">Top rated ${school.city} schools</link:city> | <a
             href="#">Cities near Berkeley</a>
-        <br/>
-
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="smallAlertText">
         <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+        </div>
 
         <br/><br/>
 

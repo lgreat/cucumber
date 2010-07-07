@@ -1073,6 +1073,10 @@ body.cobranded #pageGS {
     border-left: 1px solid #c6c6c6;
 }
 
+.text-align-rt{
+    text-align:right;
+}
+
 .fltlft {
 /* this class can be used to float an element left in your page */
     float: left;
@@ -1155,6 +1159,10 @@ body.cobranded #pageGS {
     border: 1px dotted #333;
 }
 
+.border-c6 {
+    border: 1px solid #c6c6c6;
+}
+
 .brdbtm_dotted {
     border-bottom: 1px dotted #999;
 }
@@ -1189,6 +1197,10 @@ body.cobranded #pageGS {
 
 .mrglft_neg5 {
     margin-left: -5px;
+}
+
+.padtop_7{
+    padding-top: 7px;
 }
 
 .padrt_5 {
@@ -4430,7 +4442,7 @@ margin:10px 0 14px 20px;
     list-style: none outside none;
     display: inline;
     margin: 0;
-    padding:5px 20px 0 0;
+    padding:5px 18px 0 0;
 }
 
 #schoolToolLinks .sprite {
@@ -4552,6 +4564,37 @@ margin:10px 0 14px 20px;
 
 /* =4k-1 overview
 -------------------------------------------------------------------------------------------*/
+
+#overviewColumn1 {
+    width: 160px;
+    float: left;
+}
+
+#overallRating {
+    padding:10px;
+    display: block;
+    background-color: #F4FAFD;
+    width: 138px;
+    border: 1px solid #A2D0E4;
+    /*height: 283px;*/
+    text-align: center;
+    /*font-size: 12px;*/
+}
+
+#overallRating p, #overallRating img, #overallRating a, #overallRating button {
+    /*padding-bottom: 6px;*/
+    /*display: block;*/
+}
+
+#overviewColumn2 {
+    width: 407px;
+    float: left;
+    padding-left: 15px;
+}
+
+#rating_summary p{
+    padding-bottom:15px;
+}
 
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
@@ -5519,6 +5562,67 @@ button {
     color: #fff;
 }
 
+/* alternate do not change */
+.btn25-2 {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    background-color: transparent; /* hide form background color in IE */
+}
+
+.lftDoor25 {
+    display: inline-block;
+    padding: 0 0 0 15px;
+    line-height: 25px;
+    float: left;
+    margin-top: -2px;
+}
+
+.rtDoor25 {
+    display: inline-block;
+    padding: 0 15px 0 0;
+    height: 25px;
+    line-height: 25px;
+}
+
+/* skin */
+.lftDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
+}
+
+.rtDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
+}
+
+.btn25-2:active .lftDoor25, .btn25-2:hover .lftDoor25 {
+    background-position: left bottom;
+}
+
+.btn25-2:active .rtDoor25, .btn25-2:hover .rtDoor25 {
+    background-position: right bottom;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+/* icon */
+.lftDoor25 .rtDoor25 img {
+    margin: 0;
+    border: 0 none transparent;
+}
+
+.lftDoor25 .rtDoor25 {
+    white-space:nowrap;
+}
+
+/* font size and family */
+#marginGS .btn25-2, .ui-dialog .btn25-2 {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #444;
+    color: #fff;
+}
+
 /* =10 grids
 -------------------------------------------------------------------------------------------*/
 
@@ -5583,7 +5687,14 @@ button {
     display: block;
     padding: 12px;
     margin: 0 0 1em 0;
-    background-color: #f9eccd
+    background-color: #f9eccd;
+}
+
+.alertBox2 {
+    display: block;
+    padding: 0 10px;
+    background-color: #f9eccd;
+    height:26px;
 }
 
 .errorBox1 {
