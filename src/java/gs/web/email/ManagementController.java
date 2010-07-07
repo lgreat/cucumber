@@ -419,7 +419,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             _etAPI.deleteSubscriber(user.getEmail());
         }
 
-        if (user.getUserProfile() != null) {
+        if (user.getUserProfile() != null && PageHelper.isMemberAuthorized(request)) {
             return new ModelAndView(getSuccessView(), model);
         } else {
             return new ModelAndView(new RedirectView(BEAN_ID + "?ref=" + user.getId()));
