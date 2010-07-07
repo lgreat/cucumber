@@ -21,7 +21,7 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title>GreatSchools.org API Browse Cities Documentation</title>
+        <title>GreatSchools.org API City Overview Documentation</title>
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
         <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
@@ -39,8 +39,8 @@
 
 
             <div class="callfirst">
-                <h2>Browse Cities</h2>
-                Returns information about a city. All calls for a Browse Cities are in this format:
+                <h2>City Overview</h2>
+                Returns information about a city. All calls to City Overview are in this format:
                 <div class="sample_url">http://${apiHost}/cities/[components]?[parameters]</div>
             </div>
             <div class="call">

@@ -41,7 +41,7 @@
                                 <li><a href="/api/docs/schoolReviews.page">School Reviews</a></li>
                                 <li><a href="/api/docs/schoolTestScores.page">School Test Scores</a></li>
                                 <li><a href="/api/docs/schoolCensusData.page">School Census Data</a></li>
-                                <li><a href="/api/docs/cityBrowse.page">Browse Cities</a></li>
+                                <li><a href="/api/docs/cityBrowse.page">City Overview</a></li>
                                 <li><a href="/api/docs/citiesNearby.page">Nearby Cities</a></li>
                                 <li class="last"><a href="/api/docs/districtBrowse.page">Browse Districts</a></li>
                             </ul>
