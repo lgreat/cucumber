@@ -106,7 +106,7 @@
             });
 
             jQuery('${pageScope.openElementJQuerySelector}').click(function() {
-                GS.startDiscussionHover.showCreate();
+                return GS.startDiscussionHover.showCreate();
             });
         });
     </script>
