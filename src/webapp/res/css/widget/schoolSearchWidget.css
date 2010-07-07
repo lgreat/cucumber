@@ -308,3 +308,6 @@ div#helpTabBody h3 {
         text-decoration: underline;
     }
 
+p#noQuery, p#noResults {
+    display:none;
+}

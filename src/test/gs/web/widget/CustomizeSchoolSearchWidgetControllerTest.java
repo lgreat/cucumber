@@ -8,7 +8,6 @@ import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -43,8 +42,7 @@ public class CustomizeSchoolSearchWidgetControllerTest extends BaseControllerTes
 
     public void testBasicPost() throws Exception {
         getRequest().setMethod("POST");
-        expect(_schoolSearchWidgetController.getGoogleApiKey(isA(String.class))).andReturn("someKey");
-        _schoolSearchWidgetController.parseSearchQuery(isA(String.class),isA(String.class),
+        _schoolSearchWidgetController.parseSearchQuery(isA(String.class),
                 isA(SchoolSearchWidgetCommand.class), isA(HttpServletRequest.class), isA(BindException.class));
         replay(_schoolSearchWidgetController);
         ModelAndView mv =_controller.handleRequest(getRequest(),getResponse());

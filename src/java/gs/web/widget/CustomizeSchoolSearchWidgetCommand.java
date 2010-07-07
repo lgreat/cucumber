@@ -42,6 +42,11 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _widgetCode;
     private String _uniqueId;
     private City _city;
+    private String _cityName = "Fremont";
+    private String _state = "CA";
+    private String _normalizedAddress = "Fremont, CA 94536";
+    private float _lat = 37.57101f;
+    private float _lon = -121.98144f;
     private static Map<String,String> _defaultColorMap;
 
     static{
@@ -289,8 +294,13 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
                 separator = "&amp;";
             }
             rval += separator  + "textColor=" + URLEncoder.encode(_textColor, "UTF-8");
-            rval += separator  + "bordersColor=" + URLEncoder.encode(_bordersColor, "UTF-8");
             separator = "&amp;";
+            rval += separator  + "bordersColor=" + URLEncoder.encode(_bordersColor, "UTF-8");
+            rval += separator  + "lat=" + URLEncoder.encode(String.valueOf(_lat), "UTF-8");
+            rval += separator  + "lon=" + URLEncoder.encode(String.valueOf(_lon), "UTF-8");
+            rval += separator  + "cityName=" + URLEncoder.encode(_cityName, "UTF-8");
+            rval += separator  + "state=" + URLEncoder.encode(_state, "UTF-8");
+            rval += separator  + "normalizedAddress=" + URLEncoder.encode(_normalizedAddress, "UTF-8");
         } catch (UnsupportedEncodingException uee) {
             _log.error(uee);
         }
@@ -299,7 +309,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         rval += separator  + "height=" + getIframeHeight();
         rval += separator  + "zoom=" + getZoom();
 
-        
+
         return rval;
     }
 
@@ -336,5 +346,43 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         _widgetCodeCheck = widgetCodeCheck;
     }
 
+    public String getCityName() {
+        return _cityName;
+    }
 
+    public void setCityName(String cityName) {
+        _cityName = cityName;
+    }
+
+    public String getState() {
+        return _state;
+    }
+
+    public void setState(String state) {
+        _state = state;
+    }
+
+    public String getNormalizedAddress() {
+        return _normalizedAddress;
+    }
+
+    public void setNormalizedAddress(String normalizedAddress) {
+        _normalizedAddress = normalizedAddress;
+    }
+
+    public float getLat() {
+        return _lat;
+    }
+
+    public void setLat(float lat) {
+        _lat = lat;
+    }
+
+    public float getLon() {
+        return _lon;
+    }
+
+    public void setLon(float lon) {
+        _lon = lon;
+    }
 }

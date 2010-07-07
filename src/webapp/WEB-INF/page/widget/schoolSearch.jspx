@@ -26,11 +26,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>School Search Widget - GreatSchools</title>
 
-        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-        <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
-        <pageHelper:externalJavascript file="/res/js/global.js"/>
-        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+        <c:set var="hasLatLon" value="${requestScope.command.lat != 0 and requestScope.command.lon != 0}"/>
+
+        <c:if test="${hasLatLon}">
+            <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+            <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
+            <pageHelper:externalJavascript file="/res/js/global.js"/>
+            <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+        </c:if>
         <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.js"/>
+        <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
 
         <c:set var="cobrandHostname" value="${requestScope.command.cobrandHostname}" scope="page"/>
         <jsp:scriptlet>
@@ -68,6 +73,7 @@
             <base href="http://${baseHref}"/>
         </c:if>
 
+        <c:if test="${hasLatLon}">
         <jsp:scriptlet>
             SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand)pageContext.findAttribute("command");
             int schoolSearchWidgetWidth = command.getWidth();
@@ -109,24 +115,77 @@
                 width: ${requestScope.command.width-45}px;
             }
         </style>
+        </c:if>
+
+        <!-- can do choose-when-otherwise insetad of if and block above -->
+        <c:if test="${!hasLatLon}">
+            <style type="text/css">
+                div#schoolSearchWidget {
+                    display:none;
+                }
+            </style>
+        </c:if>
+
     </head>
     <body>
-    <c:set var="mapTabClass" value=""/>
-    <c:set var="searchTabClass" value=""/>
-    <c:set var="helpTabClass" value=""/>
-    <c:choose>
-        <c:when test="${requestScope.command.displayTab eq 'map'}">
-            <c:set var="mapTabClass" value="selected"/>
-        </c:when>
-        <c:when test="${requestScope.command.displayTab eq 'help'}">
-            <c:set var="helpTabClass" value="selected"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="searchTabClass" value="selected"/>
-        </c:otherwise>
-    </c:choose>
+
+    <c:set var="filters">
+        <div class="filters">
+            <ul>
+                <c:if test="${!requestScope.command.hidePreschools}">
+                    <li>
+                        <gsml:checkbox name="preschool"
+                                       styleId="filter_p"
+                                       checked="${requestScope.command.preschoolFilterChecked}"
+                                       onclick="toggleFilter('p', this.checked, '${requestScope.command.searchQuery}');"/>
+                        <label for="filter_p">Preschool</label>
+                    </li>
+                </c:if>
+                <li>
+                    <gsml:checkbox name="elementary"
+                                   styleId="filter_e"
+                                   checked="${requestScope.command.elementaryFilterChecked}"
+                                   onclick="toggleFilter('e', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_e">Elementary</label>
+                </li>
+                <li>
+                    <gsml:checkbox name="middle"
+                                   styleId="filter_m"
+                                   checked="${requestScope.command.middleFilterChecked}"
+                                   onclick="toggleFilter('m', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_m">Middle</label>
+                </li>
+                <li>
+                    <gsml:checkbox name="high"
+                                   styleId="filter_h"
+                                   checked="${requestScope.command.highFilterChecked}"
+                                   onclick="toggleFilter('h', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_h">High</label>
+                </li>
+            </ul>
+        </div>
+    </c:set>
 
     <div id="schoolSearchWidget">
+
+    <c:choose>
+      <c:when test="${hasLatLon}">
+
+        <c:set var="mapTabClass" value=""/>
+        <c:set var="searchTabClass" value=""/>
+        <c:set var="helpTabClass" value=""/>
+        <c:choose>
+            <c:when test="${requestScope.command.displayTab eq 'map'}">
+                <c:set var="mapTabClass" value="selected"/>
+            </c:when>
+            <c:when test="${requestScope.command.displayTab eq 'help'}">
+                <c:set var="helpTabClass" value="selected"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="searchTabClass" value="selected"/>
+            </c:otherwise>
+        </c:choose>
+
         <!-- Begin Tab Bar -->
         <div class="tabBar">
             <div id="mapTab" class="${mapTabClass}" onclick="showMapTab();">Map</div>
@@ -150,40 +209,7 @@
                     <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
                 </a>
             </div>
-            <div class="filters">
-                <ul>
-                    <c:if test="${!requestScope.command.hidePreschools}">
-                        <li>
-                            <gsml:checkbox name="preschool"
-                                           styleId="filter_p"
-                                           checked="${requestScope.command.preschoolFilterChecked}"
-                                           onclick="toggleFilter('p', this.checked, '${requestScope.command.searchQuery}');"/>
-                            <label for="filter_p">Preschool</label>
-                        </li>
-                    </c:if>
-                    <li>
-                        <gsml:checkbox name="elementary"
-                                       styleId="filter_e"
-                                       checked="${requestScope.command.elementaryFilterChecked}"
-                                       onclick="toggleFilter('e', this.checked, '${requestScope.command.searchQuery}');"/>
-                        <label for="filter_e">Elementary</label>
-                    </li>
-                    <li>
-                        <gsml:checkbox name="middle"
-                                       styleId="filter_m"
-                                       checked="${requestScope.command.middleFilterChecked}"
-                                       onclick="toggleFilter('m', this.checked, '${requestScope.command.searchQuery}');"/>
-                        <label for="filter_m">Middle</label>
-                    </li>
-                    <li>
-                        <gsml:checkbox name="high"
-                                       styleId="filter_h"
-                                       checked="${requestScope.command.highFilterChecked}"
-                                       onclick="toggleFilter('h', this.checked, '${requestScope.command.searchQuery}');"/>
-                        <label for="filter_h">High</label>
-                    </li>
-                </ul>
-            </div>
+            ${filters}
             <c:choose>
                 <c:when test="${fn:length(requestScope.command.schools) gt 0}">
                     <div id="map">&#160;
@@ -221,12 +247,20 @@
         </div>
         <!-- End Map Tab-->
 
+        </c:when>
+        <c:otherwise>
+            ${filters}
+        </c:otherwise>
+      </c:choose>
+
         <!-- Begin Search Tab-->
         <div id="searchTabBody" class="tabBody ${searchTabClass}">
             <h2>Find Schools</h2>
 
             <p>Find the top schools in a city or near an address or zip code</p>
 
+            <p class="warning" id="noQuery">Please enter an address or zip code</p>
+            <p class="warning" id="noResults">No school results found for &amp;quot;<span id="noResultsSearchQuery"><!-- don't collapse --></span>&amp;quot;</p>
             <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
 
             <form:form name="searchForm" action="/widget/schoolSearch.page" method="post" onsubmit="return submitSearch();">
@@ -240,6 +274,9 @@
                 <form:hidden path="zoom" id="zoom"/>
                 <form:hidden path="lat" id="lat"/>
                 <form:hidden path="lon" id="lon"/>
+                <form:hidden path="cityName" id="cityName"/>
+                <form:hidden path="state" id="state"/>
+                <form:hidden path="normalizedAddress" id="normalizedAddress"/>
                 <form:hidden path="cobrandHostname" id="cobrandHostname"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
@@ -249,6 +286,7 @@
         </div>
         <!-- End Search Tab-->
 
+    <c:if test="${hasLatLon}">
         <div id="helpTabBody" class="tabBody ${helpTabClass}">
             <h3>
                 More information
@@ -313,7 +351,15 @@
                 }
             </script>
         </c:if>
+
+      </c:if>
     </div>
+
+    <c:if test="${!hasLatLon}">
+    <script type="text/javascript">
+        submitSearch();
+    </script>
+    </c:if>
     </body>
     </html>
 </jsp:root>

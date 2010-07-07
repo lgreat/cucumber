@@ -90,9 +90,15 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         if(StringUtils.isBlank(checkAjaxCall)){
             SchoolSearchWidgetCommand widgetCommand = new SchoolSearchWidgetCommand();
             BindException widgetErrors = new BindException(widgetCommand, "widgetCommand");
+
+            widgetCommand.setLat(command.getLat());
+            widgetCommand.setLon(command.getLon());
+            widgetCommand.setCityName(command.getCityName());
+            widgetCommand.setState(command.getState());
+            widgetCommand.setNormalizedAddress(command.getNormalizedAddress());
+
             _schoolSearchWidgetController.parseSearchQuery(
                 command.getSearchQuery(),
-                _schoolSearchWidgetController.getGoogleApiKey(request.getServerName()),
                 widgetCommand, request, widgetErrors);
             command.setCity(widgetCommand.getCity());
        }

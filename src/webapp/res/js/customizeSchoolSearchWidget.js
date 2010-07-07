@@ -56,6 +56,56 @@ function updateColorSelect(selectElementId, inputElement){
     document.getElementById(selectElementId).value = inputElement.value;
 }
 
+// also in schoolSearchWidget.js
+// http://stackoverflow.com/questions/237104/javascript-array-containsobj
+Array.prototype.contains = function(obj) {
+  var i = this.length;
+  while (i--) {
+    if (this[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// also in schoolSearchWidget.js
+// requires http://maps.google.com/maps/api/js?sensor=false
+function gsGeocode(searchInput, callbackFunction) {
+    var geocoder = new google.maps.Geocoder();
+    if (geocoder && searchInput) {
+        geocoder.geocode( { 'address': searchInput}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var geocodeResult = new Array();
+            geocodeResult['lat'] = results[0].geometry.location.lat();
+            geocodeResult['lon'] = results[0].geometry.location.lng();
+            geocodeResult['normalizedAddress'] = results[0].formatted_address.replace(", USA","");
+            for (var i = 0; i < results[0].address_components.length; i++) {
+                if (results[0].address_components[i].types.contains('administrative_area_level_1')) {
+                    geocodeResult['state'] = results[0].address_components[i].short_name;
+                }
+                if (results[0].address_components[i].types.contains('locality')) {
+                    geocodeResult['city'] = results[0].address_components[i].short_name;
+                }
+                if (results[0].address_components[i].types.contains('country')) {
+                    geocodeResult['country'] = results[0].address_components[i].short_name;
+                }
+            }
+            // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
+            if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
+                  'city' in geocodeResult && 'state' in geocodeResult &&
+                  'normalizedAddress' in geocodeResult &&
+                  'country' in geocodeResult) ||
+                geocodeResult['country'] != 'US') {
+                geocodeResult = null;
+            }
+        } else {
+            geocodeResult = null;
+        }
+        callbackFunction(geocodeResult);
+      });
+    }
+}
+
 function setIFrameSrc() {
     var form = $('customizeForm');
     var searchZipCode = form['searchQuery'];
@@ -78,6 +128,10 @@ function setIFrameSrc() {
         alert("Minimum height is 434");
         errors = true;
     }
+    else if(trimString($F(searchZipCode)) == '') {
+        alert("Please enter an address, zip code or city and state");
+        errors = true;
+    }
 
 
     if(((trimString($F(textColor))).length != 3 && (trimString($F(textColor))).length != 6) || (trimString($F(textColor))).match('[^a-fA-F0-9]') != null) {
@@ -89,13 +143,26 @@ function setIFrameSrc() {
 
 
     if(!errors) {
-       var params = {'checkAjaxCall':'foo','searchQuery':trimString($F(searchZipCode)),'textColor':trimString($F(textColor)),'bordersColor':trimString($F(bordersColor)),'width':trimString($F(width)),'height':trimString($F(height)),'zoom':trimString($F(zoom))};
-        new Ajax.Request(
-            url,
-        {
-        method: 'post',
-        parameters: params,
-        onSuccess: showResponse
+        gsGeocode(trimString($F(searchZipCode)), function(geocodeResult) {
+            if (geocodeResult != null) {
+                document.getElementById('lat').value = geocodeResult['lat'];
+                document.getElementById('lon').value = geocodeResult['lon'];
+                document.getElementById('cityName').value = geocodeResult['city'];
+                document.getElementById('state').value = geocodeResult['state'];
+                document.getElementById('normalizedAddress').value = geocodeResult['normalizedAddress'];
+
+                var params = {'checkAjaxCall':'foo','lat':geocodeResult['lat'],'lon':geocodeResult['lon'],'cityName':geocodeResult['cityName'],'state':geocodeResult['state'],'normalizedAddress':geocodeResult['normalizedAddress'],'searchQuery':trimString($F(searchZipCode)),'textColor':trimString($F(textColor)),'bordersColor':trimString($F(bordersColor)),'width':trimString($F(width)),'height':trimString($F(height)),'zoom':trimString($F(zoom))};
+                new Ajax.Request(
+                        url,
+                {
+                    method: 'post',
+                    parameters: params,
+                    onSuccess: showResponse
+                });
+            } else {
+                alert('Please enter an address, zip code or city and state');
+            }
+
         });
     }
     else{
@@ -121,8 +188,9 @@ function setWidthHeight(width,height){
     var iFrameHeight =  parseInt(height) - 66;
     $('widgetIFrame').width = iFrameWidth;
     $('widgetIFrame').height = iFrameHeight;
-    $('GS_schoolSearchWidget').style.width = iFrameWidth+2;
-    $('GS_preview_div').style.width = parseInt(width) -40;
+    // the prototype versions of the next statements weren't working
+    jQuery('#GS_schoolSearchWidget').css('width',iFrameWidth+2);
+    jQuery('#GS_preview_div').css('width',parseInt(width) -40);
 }
 
 function setBackgroundColorDropdown(selectElementId, inputElement){

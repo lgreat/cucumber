@@ -14,6 +14,9 @@ public class SchoolSearchWidgetCommand {
     private String _searchQuery = "Enter city & state or zip code";
     private List<SchoolWithRatings> _schools = new ArrayList<SchoolWithRatings>();
     private City _city;
+    private String _cityName;
+    private String _state;
+    private String _normalizedAddress;
     private String _mapLocationPrefix;
     private String _mapLocationString;
     private String _mapLocationSuffix;
@@ -216,6 +219,30 @@ public class SchoolSearchWidgetCommand {
 
     public void setCobrandHostname(String cobrandHostname) {
         _cobrandHostname = cobrandHostname;
+    }
+
+    public String getCityName() {
+        return _cityName;
+    }
+
+    public void setCityName(String cityName) {
+        _cityName = cityName;
+    }
+
+    public String getState() {
+        return _state;
+    }
+
+    public void setState(String state) {
+        _state = state;
+    }
+
+    public String getNormalizedAddress() {
+        return _normalizedAddress;
+    }
+
+    public void setNormalizedAddress(String normalizedAddress) {
+        _normalizedAddress = normalizedAddress;
     }
 
     public String getLevelCodeString() {

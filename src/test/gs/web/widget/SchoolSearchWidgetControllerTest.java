@@ -8,21 +8,14 @@ import gs.data.school.SchoolWithRatings;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
 import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
 import gs.data.state.StateManager;
 import gs.data.state.State;
-import gs.data.admin.cobrand.ICobrandDao;
-import gs.data.json.IJSONDao;
-import gs.data.json.JSONObject;
 
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.net.URL;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -35,16 +28,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
     private StateManager _stateManager;
-    private ICobrandDao _cobrandDao;
-    private IJSONDao _jsonDao;
 
-    final private static String GMAPS_JSON_602 = "{\n"+
-            "  \"name\": \"1600asdfadsfaafsa\",\n"+
-            "  \"Status\": {\n"+
-            "    \"code\": 602,\n"+
-            "    \"request\": \"geocode\"\n"+
-            "  }\n"+
-            "}";
 
     public void setUp() throws Exception {
         super.setUp();
@@ -55,15 +39,11 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         _schoolDao = createStrictMock(ISchoolDao.class);
         _reviewDao = createStrictMock(IReviewDao.class);
         _stateManager = createStrictMock(StateManager.class);
-        _cobrandDao = createStrictMock(ICobrandDao.class);
-        _jsonDao = createStrictMock(IJSONDao.class);
 
         _controller.setGeoDao(_geoDao);
         _controller.setSchoolDao(_schoolDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setStateManager(_stateManager);
-        _controller.setCobrandDao(_cobrandDao);
-        _controller.setJsonDao(_jsonDao);
 
         _command = new SchoolSearchWidgetCommand();
 
@@ -75,8 +55,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         replay(_schoolDao);
         replay(_reviewDao);
         replay(_stateManager);
-        replay(_cobrandDao);
-        replay(_jsonDao);
     }
 
     protected void verifyAll() {
@@ -84,8 +62,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         verify(_schoolDao);
         verify(_reviewDao);
         verify(_stateManager);
-        verify(_cobrandDao);
-        verify(_jsonDao);
     }
 
     protected void resetAll() {
@@ -93,8 +69,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         reset(_schoolDao);
         reset(_reviewDao);
         reset(_stateManager);
-        reset(_cobrandDao);
-        reset(_jsonDao);
     }
 
     public void testBasics() {
@@ -102,8 +76,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         assertSame(_schoolDao, _controller.getSchoolDao());
         assertSame(_reviewDao, _controller.getReviewDao());
         assertSame(_stateManager, _controller.getStateManager());
-        assertSame(_cobrandDao, _controller.getCobrandDao());
-        assertSame(_jsonDao, _controller.getJsonDao());
     }
 
     public void testCommandBasics() {
@@ -247,11 +219,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("displayTab", "map");
         getRequest().setParameter("searchQuery", "nowhere");
 
-        expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
-        expect(_geoDao.findUniqueCity("nowhere")).andReturn(null);
-        URL url = new URL("http://maps.google.com/maps/geo?q=nowhere&output=json&sensor=false");
-        expect(_jsonDao.fetch(url, "UTF-8")).andReturn(new JSONObject(GMAPS_JSON_602, "UTF-8"));
-
         replayAll();
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         verifyAll();
@@ -261,8 +228,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
     }
 
     public void testOnBindAndValidate() throws Exception {
-        expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
-
         replayAll();
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         verifyAll();
@@ -287,10 +252,8 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         // look up parent ratings
         _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
 
-        expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
-
         replayAll();
-        _controller.parseSearchQuery("Alameda, CA", _controller.getGoogleApiKey("www.greatschools.org"), _command, getRequest(), _errors);
+        _controller.parseSearchQuery("Alameda, CA", _command, getRequest(), _errors);
         verifyAll();
 
         assertSame(schools, _command.getSchools());
