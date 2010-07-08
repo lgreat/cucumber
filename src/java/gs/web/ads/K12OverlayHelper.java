@@ -4,7 +4,11 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,9 +25,29 @@ public class K12OverlayHelper {
         return !StringUtils.isEmpty(cookie.getProperty(COOKIE_KEY));
     }
 
-    // TODO-10239 implement date range
-    public static boolean isInK12OverlayDateRange(Date currentDate) {
-        return true;
+    final private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+    // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/16, 8/23, 8/30
+    final private static Set<String> k12DateRange = new HashSet<String>();
+    static {
+        k12DateRange.add("2010-07-12"); // 7/12
+        k12DateRange.add("2010-07-13"); // 7/13
+        k12DateRange.add("2010-07-19"); // 7/19
+        k12DateRange.add("2010-07-20"); // 7/20
+        k12DateRange.add("2010-07-26"); // 7/26
+        k12DateRange.add("2010-07-27"); // 7/27
+        k12DateRange.add("2010-08-02"); // 8/2
+        k12DateRange.add("2010-08-09"); // 8/9
+        k12DateRange.add("2010-08-16"); // 8/16
+        k12DateRange.add("2010-08-23"); // 8/23
+        k12DateRange.add("2010-08-30"); // 8/30
+    }
+
+    // The overlay should only be active on the following dates:
+    // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/16, 8/23, 8/30 (12a-11:59p PT)
+    public static boolean isInK12OverlayDateRange(Date dateToCheck) {
+        String dateToCheckStr = df.format(dateToCheck);
+        return k12DateRange.contains(dateToCheckStr);
     }
 
     /**
