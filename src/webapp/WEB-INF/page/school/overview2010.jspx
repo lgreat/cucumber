@@ -122,22 +122,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             padding: 5px;
         }
     </style>
-    <script type="text/javascript">
-        jQuery(function() {
-            jQuery('#js-esp-principal-link').click(function() {
-
-            });
-            jQuery('#js-esp-profile-link').click(function() {
-
-            });
-            jQuery('#js-esp-info').mouseover(function() {
-                jQuery('#js-esp-info-hover').show();
-            });
-            jQuery('#js-esp-info').mouseout(function() {
-                jQuery('#js-esp-info-hover').hide();
-            });
-        });
-    </script>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
 <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
@@ -251,8 +235,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <c:when test="${espLink eq 'profile'}">
                     <!-- profile link box -->
                     <div id="js-esp-profile-link">
-                        <a href="#">See more official school information <span
-                                class="alertDoubleArrow">&amp;#187;</span></a>
+                        <a href="#">See more official school information <span class="alertDoubleArrow">&amp;#187;</span></a>
                     </div>
                     <!-- end profile link box -->
                 </c:when>
@@ -443,6 +426,29 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             });
 
             GSType.hover.joinHover.showJoinNthHoverOnExit();
+
+            jQuery('#js-esp-principal-link a').click(function() {
+                var schoolId = '${school.id}';
+                var schoolState = '${school.databaseState}';
+
+                if (s.tl) {s.tl(this,'o', 'PrincipalUpdate_Parent_Reviews');}
+
+                pageTracking.pageName =  "School Officials Pre Signup Hover";
+                pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+                pageTracking.server = "www.greatschools.org";
+                pageTracking.send();
+
+                GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+                return false;
+             });
+
+            jQuery('#js-esp-info').mouseover(function() {
+                jQuery('#js-esp-info-hover').show();
+            });
+            jQuery('#js-esp-info').mouseout(function() {
+                jQuery('#js-esp-info-hover').hide();
+            });
         });
 
     </script>
