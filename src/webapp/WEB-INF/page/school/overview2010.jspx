@@ -140,10 +140,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <c:if test="${not empty gs_rating}">
                 <p class="text3">GreatSchools Rating</p>
                 <div class="spacer_5"><!-- do not collapse --></div>
-                <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
+                <link:schoolProfileRating school="${school}">
+                    <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
+                </link:schoolProfileRating>
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <!-- TODO: Fill in link -->
-                <a class="smallAlertText" href="#">GreatSchools<br/>evaluation criteria</a>
+                <link:schoolProfileRating styleClass="smallAlertText" school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>
 
             </c:if>
 
@@ -401,7 +403,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <br class="clearfloat"/>
 <br/>
 
-<!-- TODO: chooser pack wide layout module in A version -->
 <variant:a>
     <promo:schoolChoicePackPromo
             schoolName="${school.name}"
