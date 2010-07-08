@@ -24,4 +24,11 @@ function killOverlay() {
 	document.getElementById("adHomepage_House_Ad_598x102").innerHTML = '<a href="http://ad.doubleclick.net/clk;226334596;50167786;t?http://go.k12.com/wm/tb/cons/k12/200907/orange_a/index.html?se=GREATSCHOOLS&campaign=NAT" target="_new"><img src="http://www.greatschools.org/catalog/images/k12overlay_static598x74.gif" /></a>';
 }
 
-swfobject.addDomLoadEvent(initOverlay);
+if (typeof GA_googleAddAttr == 'function') {
+    swfobject.addDomLoadEvent(initOverlay);
+} else {
+    jQuery(document).ready(function() {
+        document.body.style.background = '#68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y';
+        document.getElementById('marginGS').style.display = 'block';
+    });
+}

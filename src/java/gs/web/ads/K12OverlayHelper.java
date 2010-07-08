@@ -30,6 +30,9 @@ public class K12OverlayHelper {
     // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/16, 8/23, 8/30
     final private static Set<String> k12DateRange = new HashSet<String>();
     static {
+        // TODO-10239 remove me!
+        k12DateRange.add("2010-07-08"); // for testing only!
+
         k12DateRange.add("2010-07-12"); // 7/12
         k12DateRange.add("2010-07-13"); // 7/13
         k12DateRange.add("2010-07-19"); // 7/19
