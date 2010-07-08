@@ -146,7 +146,7 @@
             </script>
             ]]>
             <script type="text/javascript">
-                //GA_googleUseSyncSRARendering();
+                GA_googleUseSyncSRARendering();
                 GA_googleFetchAds();
             </script>
         </c:if>
