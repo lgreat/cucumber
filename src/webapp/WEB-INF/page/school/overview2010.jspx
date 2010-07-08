@@ -144,7 +144,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
                 </link:schoolProfileRating>
                 <div class="spacer_5"><!-- do not collapse --></div>
-                <!-- TODO: Fill in link -->
                 <link:schoolProfileRating styleClass="smallAlertText" school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>
 
             </c:if>
@@ -158,8 +157,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <c:choose>
                 <c:when test="${fn:length(reviews) gt 0}">
-                    <!-- TODO: Fill in link -->
-                    <a class="smallAlertText" href="#">Read all ${fn:length(reviews)} reviews</a>
+                    <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
+                        Read all ${fn:length(reviews)} reviews
+                    </link:schoolProfileParentReview>
                     <div class="spacer_5"><!-- do not collapse --></div>
                 </c:when>
                 <c:otherwise>
@@ -221,9 +221,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <c:if test="${not empty schoolHighlights}">
             <p class="text2bold">School highlights:</p>
             <div class="text2">
-            ${schoolHighlights}
-            <!-- TODO: Fill in link -->
-            <span class="iblock fltrt smallAlertText"><a href="#">More <span class="alertDoubleArrow">&#187;</span></a></span>
+                ${schoolHighlights}
+                <span class="iblock fltrt smallAlertText">
+                    <link:enhancedSchoolProfile school="${school}">
+                        More <span class="alertDoubleArrow">&#187;</span>
+                    </link:enhancedSchoolProfile>
+                </span>
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
         </c:if>
@@ -240,7 +243,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <c:if test="${school.levelCode != 'p'}">
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div id="js-esp-principal-link" class="alertBox2 text2">
-                            <!-- TODO: Fill in link -->
                             <span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a>
                         </div>
                     </c:if>
