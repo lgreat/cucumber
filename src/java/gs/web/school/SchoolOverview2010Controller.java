@@ -72,7 +72,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
-            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school,3);
             model.put("reviews", reviews);
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
