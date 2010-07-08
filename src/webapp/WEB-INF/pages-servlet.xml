@@ -2599,4 +2599,11 @@
         <property name="publicSchoolContentPath" value="/cgi-bin/$STATE/other_simple/$ID"/>
     </bean>
 
+    <bean name="/school/enhancedSchoolProfile.page"
+          class="gs.web.school.PerlFetchController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/school/enhancedSchoolProfile"/>
+        <property name="perlContentPath" value="/cgi-bin/$STATE/pqview_simple/$ID"/>
+    </bean>
+
 </beans>

@@ -19,7 +19,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
     protected static final String VIEW_ERROR = "/status/error500";
-    protected static final String DEV_HOST = "profile.dev.greatschools.org";
+    protected static final String DEV_HOST = "dev.greatschools.org";
     public static final String HTML_ATTRIBUTE = "perlHtml";
 
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;

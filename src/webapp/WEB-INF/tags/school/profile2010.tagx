@@ -184,7 +184,7 @@
             <div id="schoolProfileTabsWrapper">
                 <div id="schoolProfileTabBar" class="gradient-1 rnd-top-4"><!-- do not collapse --></div>
                 <ul id="schoolProfileTabs" class="text2">
-                    <li id="sptab1" class="${(tab eq 'overview')?'active':'inactive'}">
+                    <li id="sptab1" class="${(tab eq 'overview' or tab eq 'esp')?'active':'inactive'}">
                                 <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
                     </li>
                     <li id="sptab2" class="${(tab eq 'parentReviews')?'active':'inactive'}">

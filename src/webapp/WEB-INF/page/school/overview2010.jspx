@@ -142,6 +142,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <span class="sprite badge_lg_${gs_rating}"><!-- do not collapse --></span>
                 <div class="spacer_5"><!-- do not collapse --></div>
+                <!-- TODO: Fill in link -->
                 <a class="smallAlertText" href="#">GreatSchools<br/>evaluation criteria</a>
 
             </c:if>
@@ -155,6 +156,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <c:choose>
                 <c:when test="${fn:length(reviews) gt 0}">
+                    <!-- TODO: Fill in link -->
                     <a class="smallAlertText" href="#">Read all ${fn:length(reviews)} reviews</a>
                     <div class="spacer_5"><!-- do not collapse --></div>
                 </c:when>
@@ -178,14 +180,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <div id="bestKnownFor">
                 <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
                 </p> <!-- TODO: info icon + hover -->
-                <!-- TODO: link this to esp display page-->
-                <a href="#">Read more from the school principal <span class="alertDoubleArrow">&#187;</span></a>
+                <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
 
                 <div id="js-esp-info-hover" style="display:none;">
-                    <!-- TODO: link this to esp display page-->
-                    <p>This statement has been provided by the principal or a school official at ${school.name}.<a
-                            href="#">See this school's official school profile <span
-                            class="alertDoubleArrow">&amp;#187;</span></a></p>
+                    <p>This statement has been provided by the principal or a school official at ${school.name}.
+                        <link:enhancedSchoolProfile
+                                school="${school}">See this school's official school profile <span
+                                class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile></p>
                 </div>
             </div>
         </c:if>
@@ -209,6 +210,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <p class="text2bold">School highlights:</p>
             <div class="text2">
             ${schoolHighlights}
+            <!-- TODO: Fill in link -->
             <span class="iblock fltrt smallAlertText"><a href="#">More <span class="alertDoubleArrow">&#187;</span></a></span>
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
@@ -226,6 +228,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <c:if test="${school.levelCode != 'p'}">
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div id="js-esp-principal-link" class="alertBox2 text2">
+                            <!-- TODO: Fill in link -->
                             <span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a>
                         </div>
                     </c:if>
@@ -235,7 +238,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <c:when test="${espLink eq 'profile'}">
                     <!-- profile link box -->
                     <div id="js-esp-profile-link">
-                        <a href="#">See more official school information <span class="alertDoubleArrow">&amp;#187;</span></a>
+                        <link:enhancedSchoolProfile school="${school}">See more official school information <span class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
                     </div>
                     <!-- end profile link box -->
                 </c:when>

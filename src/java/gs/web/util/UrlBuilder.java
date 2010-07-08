@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.224 2010/06/29 19:15:17 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.225 2010/07/08 15:25:41 aroy Exp $
  */
 
 package gs.web.util;
@@ -172,6 +172,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
     public static final VPage SCHOOL_PROFILE_ESP_LOGIN = new VPage("vpage:schoolEspLogin");
+    public static final VPage SCHOOL_PROFILE_ESP = new VPage("vpage:schoolEspView");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
@@ -581,6 +582,11 @@ public class UrlBuilder {
             _path = "/cgi-bin/pq_start.cgi/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" + school.getId();
+        } else if (SCHOOL_PROFILE_ESP.equals(page)) {
+            _perlPage = false;
+            _path = "/school/enhancedSchoolProfile.page";
+            setParameter("id", String.valueOf(school.getId()));
+            setParameter("state", school.getDatabaseState().getAbbreviation());
         } else if (SCHOOL_TAKE_SURVEY.equals(page)) {
             _perlPage = false;
             _path = "/survey/form.page";
