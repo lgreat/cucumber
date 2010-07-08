@@ -5,6 +5,8 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
+    <jsp:directive.attribute name="showK12Overlay" required="false" description="Whether to show the K12 site overlay ad" type="java.lang.Boolean"/>
     <c:set var="pos" value="${not empty position ? position : 'Header_728x90'}" />
-    <gsweb:adTagGenerator position="${pos}"/>
+    <c:set var="showK12Overlay" value="${not empty showK12Overlay ? showK12Overlay : false}" />
+    <gsweb:adTagGenerator position="${pos}" showK12Overlay="${pageScope.showK12Overlay}"/>
 </jsp:root>

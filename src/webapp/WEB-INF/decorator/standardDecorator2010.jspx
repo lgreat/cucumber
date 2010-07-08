@@ -18,7 +18,8 @@
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
-<c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
 <c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}</c:set>
 
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${browserClass}</c:set>
@@ -37,6 +38,14 @@
     </c:otherwise>
 </c:choose>
 
+<jsp:scriptlet>
+    request.setAttribute("tabs", PageHelper.pageIds);
+</jsp:scriptlet>
+<c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
+<!-- use request scope so that home page index.jspx and ad tags can check this variable showK12Overlay -->
+<c:set var="showK12Overlay" value="${gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}" scope="request"/>
+
+
 <head profile="${profile}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
@@ -49,8 +58,8 @@
     </c:if>
 
     <c:choose>
-        <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.163') and empty param.compressedScripts}">
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER"/>
+        <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209') and empty param.compressedScripts}">
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v2=$RELEASE_NUMBER"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
@@ -62,6 +71,7 @@
             <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js"/>
+            <gsml:url var="swfobject" value="/res/js/swfobject-2.2.js"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
@@ -71,13 +81,32 @@
             <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${swfobject}"></script>]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v2=$RELEASE_NUMBER"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
-            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v2=$RELEASE_NUMBER"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${showK12Overlay}">
+            <c:choose>
+                <c:when test="${isHomePage}">
+                    <gsml:url var="gsoverlayad" value="/res/js/ads/gs-overlay-ad.js"/>
+                </c:when>
+                <c:otherwise>
+                    <gsml:url var="gsoverlayad" value="/res/js/ads/gs-overlay-ad2.js"/>
+                </c:otherwise>
+            </c:choose>
+            <![CDATA[<script type="text/javascript" src="${gsoverlayad}"></script>]]>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="bodybgcss" value="/res/css/bodyBg.css?v=$RELEASE_NUMBER"/>
+            <![CDATA[<link rel="stylesheet" href="${bodybgcss}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>
 
@@ -131,10 +160,32 @@
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
 
+<c:if test="${showK12Overlay}">
+    <c:choose>
+        <c:when test="${isHomePage}">
+            <div id="overlay-adslot" style="z-index:99999;"><!-- don't collapse --></div>
+        </c:when>
+        <c:otherwise>
+            <div id="overlay-728-adslot" style="z-index:99999;"><!-- don't collapse --></div> 
+        </c:otherwise>
+    </c:choose>
+    <a href="http://ad.doubleclick.net/jump/N2942.114495.5898853556421/B4641383;sz=1x1;ord=[timestamp]?"><img
+            src="http://ad.doubleclick.net/ad/N2942.114495.5898853556421/B4641383;sz=1x1;ord=[timestamp]?"
+            border="0" width="1" height="1" alt="Click Here"/></a>
+</c:if>
 
-<div id="marginGS">
+<c:choose>
+    <c:when test="${showK12Overlay}">
+        <c:set var="marginGSStyle" value="display:none"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="marginGSStyle" value=""/>
+    </c:otherwise>
+</c:choose>
+
+<div id="marginGS" style="${pageScope.marginGSStyle}">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <ad:x22 position="Header_728x90"/>
+        <ad:x22 position="Header_728x90" showK12Overlay="${pageScope.showK12Overlay}"/>
     </c:if>
     <cobrand:header/>
 

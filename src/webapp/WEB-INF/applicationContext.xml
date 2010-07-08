@@ -159,6 +159,12 @@
                 <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
+        <property name="k12OverlayCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="k12Overlay"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"
