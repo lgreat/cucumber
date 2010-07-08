@@ -2,14 +2,24 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"/>
 
-    <c:set var="onclick" value=""/>
-    <c:if test="${not empty requestScope.omniturePageName}">
-        <c:set var="onclick">if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_inlinelink');} return true;</c:set>
-    </c:if>
+    <jsp:scriptlet>
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        request.setAttribute("isFramed",Boolean.valueOf(context.isFramed()));
+        request.setAttribute("isCobranded",Boolean.valueOf(context.isCobranded()));
+    </jsp:scriptlet>
 
-    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">
-        <span class="sprite house"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
-    </a>
+    <c:if test="${not isFramed or not isCobranded}">
+        <c:set var="onclick" value=""/>
+        <c:if test="${not empty requestScope.omniturePageName}">
+            <c:set var="onclick">if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_inlinelink');} return true;</c:set>
+        </c:if>
+
+        <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">
+            <span class="sprite house"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
+        </a>
+    </c:if>
 </jsp:root>
