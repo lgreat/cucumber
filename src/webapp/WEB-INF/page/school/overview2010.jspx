@@ -93,9 +93,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             display: block;
         }*/
 
-        #map {
+        /*#map {
             height: 277px;
-        }
+        }*/
 
         #js-esp-info-hover {
             position: absolute;
@@ -109,18 +109,18 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             z-index: 9999999;
         }
 
-        #nearby-schools-table {
+        /*#nearby-schools-table {
             font-size: 11px;
-        }
+        }*/
 
         #submit-review-link-box {
             background: #FAEACF;
             padding: 5px;
         }
 
-        #nearby-schools-table td {
+        /*#nearby-schools-table td {
             padding: 5px;
-        }
+        }*/
     </style>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
@@ -140,7 +140,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <c:if test="${not empty gs_rating}">
                 <p class="text3">GreatSchools Rating</p>
                 <div class="spacer_5"><!-- do not collapse --></div>
-                <span class="sprite badge_lg_${gs_rating}"><!-- do not collapse --></span>
+                <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <!-- TODO: Fill in link -->
                 <a class="smallAlertText" href="#">GreatSchools<br/>evaluation criteria</a>
@@ -151,7 +151,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <div class="spacer_10"><!-- do not collapse --></div>
             <p class="text3">Overall community rating</p>
             <div class="spacer_5"><!-- do not collapse --></div>
-            <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
+            <span class="sprite stars_lg_b_${ratings.overall}"><!-- do not collapse --></span>
             <div class="spacer_5"><!-- do not collapse --></div>
 
             <c:choose>
@@ -276,17 +276,22 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
         </div>
 
-        <br/><br/>
+        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
 
         <!-- begin nearby schools list -->
         <c:if test="${not empty mapSchools}">
             <table id="nearby-schools-table">
+                <col align="center" style="background-color:blue;"/>
+                <col align="left" width="212"/>
+                <col align="center" style="background-color:green;"/>
+                <col align="center" style="background-color:blue;"/>
                 <thead>
-                <tr>
+                <tr class="brdbtm_dotted smallText2bold">
                     <th>COMPARE</th>
                     <th>SCHOOL</th>
-                    <th>GREATSCHOOLS <br/>RATING</th>
-                    <th>PARENT <br/>RATING</th>
+                    <th>GREATSCHOOLS RATING</th>
+                    <th>PARENT RATING</th>
                 </tr>
                 </thead>
                 <tbody>
