@@ -1,6 +1,8 @@
 package gs.web.promo;
 
 import gs.data.admin.IPropertyDao;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,7 +11,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -56,8 +57,10 @@ public class SearchRealtorDotComController extends AbstractController {
                 showAdPct = overrideAdPercentage / 100.0d;
             }
 
+            SessionContext context = SessionContextUtil.getSessionContext(request);
+            boolean isFramed = (context != null) && context.isFramed();
             boolean showAd = false;
-            if (Math.random() < showAdPct) {
+            if (isFramed || Math.random() < showAdPct) {
                 showAd = true;
             }
 
