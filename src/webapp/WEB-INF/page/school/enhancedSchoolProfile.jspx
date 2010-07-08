@@ -10,7 +10,8 @@
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-    <title>The Principal's View of ${school.name}</title>
+    <title>The Principal's View of ${school.name} - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}</title>
+    <meta name="description" content="See what the principal of ${school.name} has to say about this ${school.city}, ${school.databaseState.longName} - ${school.databaseState} school"/>
     <c:set var="pageName" value="Principal Questionnaire"/>
     <pageHelper:externalCss file="/css/gs.css"/>
     <pageHelper:externalCss file="/css/spp2.css"/>

@@ -9,7 +9,8 @@
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-    <title>Test Scores</title>
+    <title>${school.name} Test Scores - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}</title>
+    <meta name="description" content="See test scores and view results for ${school.name} students - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
     <c:set var="pageName" value="Test Scores"/>
     <pageHelper:externalCss file="/css/gs.css"/>
     <pageHelper:externalCss file="/css/spp2.css"/>
