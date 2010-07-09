@@ -37,6 +37,7 @@ public class SchoolProfileHeaderHelper {
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
+    public static final String HAS_SCHOOL_STATS = "hasSchoolStats";
     public static final String HAS_TEST_SCORES = "hasTestScores";
     public static final String HAS_SURVEY_DATA = "hasSurveyData";
     public static final String DISCUSSION_BOARD_ID = "discussionBoardId";
@@ -62,6 +63,15 @@ public class SchoolProfileHeaderHelper {
                 startTime = System.currentTimeMillis();
                 determineTestScores(school, model); // Determine private school test scores
                 logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
+
+                // Determine school stats (for preschools)
+                if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                    if (StringUtils.isNotBlank(school.getStateId())
+                            || StringUtils.isNotBlank(school.getNcesCode())) {
+                        // for PKs with state_id or nces_code, link to school stats
+                        model.put(HAS_SCHOOL_STATS, true);
+                    }
+                }
 
                 startTime = System.currentTimeMillis();
                 determineSurveyResults(school, model); // Determine survey results
