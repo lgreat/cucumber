@@ -2588,22 +2588,22 @@
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/testScores"/>
-        <property name="perlContentPath" value="/modperl/achievement_simple/$STATE/$ID"/>
+        <property name="perlContentPath" value="/gscache/achievement_simple/$STATE/$ID"/>
     </bean>
 
     <bean name="/school/teachersStudents.page"
           class="gs.web.school.TeachersStudentsController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/teachersStudents"/>
-        <property name="privateSchoolContentPath" value="/cgi-bin/$STATE/otherprivate_simple/$ID"/>
-        <property name="publicSchoolContentPath" value="/cgi-bin/$STATE/other_simple/$ID"/>
+        <property name="privateSchoolContentPath" value="/gscache/otherprivate_simple/$STATE/$ID"/>
+        <property name="publicSchoolContentPath" value="/gscache/other_simple/$STATE/$ID"/>
     </bean>
 
     <bean name="/school/enhancedSchoolProfile.page"
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/enhancedSchoolProfile"/>
-        <property name="perlContentPath" value="/cgi-bin/$STATE/pqview_simple/$ID"/>
+        <property name="perlContentPath" value="/gscache/pqview_simple/$STATE/$ID"/>
     </bean>
 
 </beans>
