@@ -1097,6 +1097,10 @@ body.cobranded #pageGS {
     text-align:right;
 }
 
+.text-align-lft{
+    text-align:left;
+}
+
 .vert-align-mid{
     vertical-align:middle;
 }
@@ -1189,6 +1193,10 @@ body.cobranded #pageGS {
 
 .brdbtm_dotted {
     border-bottom: 1px dotted #999;
+}
+
+.brdbtm_solid {
+    border-bottom: 1px solid #999;
 }
 
 .brdrt_dotted {
@@ -4635,12 +4643,24 @@ margin:10px 0 14px 20px;
 /* =4k-1.1 nearby schools table
 -------------------------------------------------------------------------------------------*/
 
-#nearby-schools-table {
-    font-size: 11px;
+#nearby-schools-table-header {
+    /*font-size: 11px;*/
 }
 
-#nearby-schools-table td {
-    padding: 5px;
+#nearby-schools-table-body td{
+    padding: 10px 0;
+}
+
+.bg-color-fff {
+    background-color:white;
+}
+
+.bg-color-f4fafd {
+    background-color:#f4fafd;
+}
+
+.bg-color-f9eccd {
+    background-color:#f9eccd;
 }
 
 /* =4k-1.2 school choice pack promotion
