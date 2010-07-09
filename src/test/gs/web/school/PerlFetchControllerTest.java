@@ -38,7 +38,7 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
 
     public void testGetAbsoluteHrefDev() throws Exception {
         String href = _controller.getAbsoluteHref(_school, getRequest());
-        assertEquals("http://www.greatschools.org/cgi-bin/test/ca/1", href);
+        assertEquals("http://localhost/cgi-bin/test/ca/1", href);
     }
 
     public void testGetAbsoluteHrefDevWhenDeveloperWorkstation() throws Exception {
