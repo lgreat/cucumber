@@ -75,11 +75,15 @@ public class K12OverlayHelper {
     // http://www.greatschools.org/preschool/
     // http://www.greatschools.org/students.topic?content=1540
     // http://www.greatschools.org/school-choice/
+    //
+    // http://clone.greatschools.org/find-a-school/defining-your-ideal/choosing-a-school.gs?content=33
+    // --> uses FindaSchoo 
     final private static Set<String> editorialValuesToExclude = new HashSet<String>();
     static {
         editorialValuesToExclude.add("Preschool");
         editorialValuesToExclude.add("AcademicsA");
         editorialValuesToExclude.add("Findaschoo");
+        editorialValuesToExclude.add("FindaSchoo");
     }
 
     final private static Set<String> articleIdValuesToExclude = new HashSet<String>();
