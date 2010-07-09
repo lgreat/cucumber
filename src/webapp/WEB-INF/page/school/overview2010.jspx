@@ -233,9 +233,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <div class="text2">
         ${schoolHighlights}
                 <span class="iblock fltrt smallAlertText">
-                    <link:enhancedSchoolProfile school="${school}">
+                    <link:surveyResults school="${school}">
                         More <span class="alertDoubleArrow">&#187;</span>
-                    </link:enhancedSchoolProfile>
+                    </link:surveyResults>
                 </span>
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
@@ -374,7 +374,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     </link:schoolProfileParentReview>
                 </td>
             </tr>
-        <c:forEach items="${mapSchools}" var="s" begin="0" end="3">
+        <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
                 <tr class="brdbtm_dotted">
                     <td>
                         <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">

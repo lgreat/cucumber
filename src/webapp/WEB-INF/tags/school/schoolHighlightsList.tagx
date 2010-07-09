@@ -50,33 +50,6 @@
             Accepts ${school.ageRangeAsString};
         </c:if>
 
-        <!-- Grade levels --><!--
-        <c:set var="levels" value="${school.gradeLevels}"/>
-        
-        <c:choose>
-            <c:when test="${!fn:contains(levels, '-') and !fn:contains(levels,',')}">Grade&#32;${levels}</c:when>
-            <c:otherwise>Grades <c:out value="${levels}"/></c:otherwise>
-        </c:choose>;
-        -->
-    
-        <!-- School Type -->
-        <!--<c:if test="${school.levelCode != 'p'}">
-            ${gsweb:capitalize(school.type.schoolTypeName)} school;
-        </c:if>-->
-
-
-        <!-- Enrollment -->
-
-        <!--<c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-        <c:choose>
-            <c:when test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')},
-            </c:when>
-            <c:otherwise>
-                Enrollment: N/A,
-            </c:otherwise>
-        </c:choose>-->
-
         <!-- Subtype(s) -->
         <c:set var="subtypes" value="${subtypes}"/>
         <c:if test="${(not empty subtypes) or (not empty school.affiliation)}">
@@ -84,7 +57,7 @@
                 <c:if test="${not empty school.affiliation}">
                     <c:choose>
                         <c:when test="${(not empty subtypes)}">
-                            ${school.affiliation},&#32;
+                            ${school.affiliation};&#32;
                         </c:when>
                         <c:otherwise>
                             ${school.affiliation}
@@ -93,12 +66,12 @@
                 </c:if>
                 ${subtypes}
             </c:set>
-                ${gsweb:capitalize(subs)};
+            ${gsweb:capitalize(subs)};&#32;
         </c:if>
 
         <!-- Association(s) -->
         <c:if test="${not empty school.association}">
-            Associations: ${school.association}
+            Associations: ${school.association};&#32;
         </c:if>
 
 </jsp:root>
