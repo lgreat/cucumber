@@ -411,7 +411,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             showBorder="${false}"
             showSchoolChoiceLink="${true}"
             schoolObjectForRedirect="${school}"
-            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}" format="wide"/>
+            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+            format="wide"
+            school="${school}"
+            />
 </variant:a>
 
 

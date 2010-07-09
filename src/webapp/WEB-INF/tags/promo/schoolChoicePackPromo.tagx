@@ -288,29 +288,57 @@
                     <p class="text2">I'm looking for a:</p>
 
                     <ul id="scpp_picker">
-                        <li id="pickGrade_SCPP">
-                            <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
-                            <label for="p_check">Preschool</label>
-                            <button id="grdShow_SCPP" type="button" title="show more">show more</button>
-                            <div id="moreGrades_SCPP">
-                                <ul>
-                                    <li>
-                                        <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
-                                                       checked="${(caller eq 'elementary')}"/>
-                                        <label for="e_check">Elementary school</label></li>
-                                    <li>
-                                        <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
-                                                       checked="${(caller eq 'middle')}"/>
-                                        <label for="m_check">Middle school</label>
-                                    </li>
-                                    <li>
-                                        <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
-                                                       checked="${(caller eq 'high')}"/>
-                                        <label for="h_check">High school</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        <c:choose>
+                            <c:when test="${not empty school}">
+                                <li id="pickGrade_SCPP">
+                                    <gsml:checkbox name="p" styleId="p_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'p')}"/>
+                                    <label for="p_check">Preschool</label>
+                                    <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                    <div id="moreGrades_SCPP">
+                                        <ul>
+                                            <li>
+                                                <gsml:checkbox name="e" styleId="e_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'e')}"/>
+                                                <label for="e_check">Elementary school</label></li>
+                                            <li>
+                                                <gsml:checkbox name="m" styleId="m_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'m')}"/>
+                                                <label for="m_check">Middle school</label>
+                                            </li>
+                                            <li>
+                                                <gsml:checkbox name="h" styleId="h_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'h')}"/>
+                                                <label for="h_check">High school</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li id="pickGrade_SCPP">
+                                    <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
+                                    <label for="p_check">Preschool</label>
+                                    <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                    <div id="moreGrades_SCPP">
+                                        <ul>
+                                            <li>
+                                                <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                               checked="${(caller eq 'elementary')}"/>
+                                                <label for="e_check">Elementary school</label></li>
+                                            <li>
+                                                <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                               checked="${(caller eq 'middle')}"/>
+                                                <label for="m_check">Middle school</label>
+                                            </li>
+                                            <li>
+                                                <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                               checked="${(caller eq 'high')}"/>
+                                                <label for="h_check">High school</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+
                     </ul>
                 </div>
                 <jsp:scriptlet>
