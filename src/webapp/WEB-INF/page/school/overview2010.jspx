@@ -197,14 +197,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <content:ratingsSummary school="${school}"/>
         </div>
 
-        <c:choose>
-            <c:when test="${school.type.name eq 'public'}">
-                Learn more about this school's <a href="#">teachers</a> and <a href="#">students</a>.
-            </c:when>
-            <c:when test="${school.type.name eq 'private'}">
-                Learn more about this school's <a href="#">students</a>.
-            </c:when>
-        </c:choose>
+        <c:if test="${not empty school.type.name and school.type.name ne 'p'}">
+            Learn more about this school's <link:schoolProfileCensus school="${school}" anchor="teachers">teachers</link:schoolProfileCensus> and <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.
+        </c:if>
+
         <br/><br/>
 
         <!-- School highlights -->
