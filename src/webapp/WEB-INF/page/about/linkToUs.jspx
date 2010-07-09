@@ -82,7 +82,7 @@
                         <br class="clearBoth"/>
                     <h2 id="webServiceApi">School Finder web service API</h2>
                     <p>Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data.</p>
-                    <p>Click <a href="http://www.greatschools.org/api/registration.page">here</a> to visit the GreatSchools API page for more information.</p>
+                    <p>Click <a href="/api/registration.page">here</a> to visit the GreatSchools API page for more information.</p>
             
                     
                     <!--<h2 id="textlinks">Text Links</h2>-->
