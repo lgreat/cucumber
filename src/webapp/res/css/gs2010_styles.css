@@ -60,6 +60,9 @@ General comments:
 =4j contact us
 =4k school profile 2010
 =4k-1 overview
+=4k-1.1 nearby schools table
+=4k-1.2 school choice pack promotion
+=4k-1.3 parent reviews
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -384,9 +387,18 @@ h3.title1white, h3.srchCat {
     color: black;
 }
 
+.smallText2italic {
+    font: italic 10px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
 .smallAlertText {
     font: 11px Arial, Helvetica, sans-serif;
     color: #333;
+}
+.smallAlertText-fff {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #fff;
 }
 a.smallAlertText {
     color: #0066bb;
@@ -436,6 +448,11 @@ a.smallAlertText {
 .alertDoubleArrow {
     font: 15px Arial, Helvetica, sans-serif;
     color: #d61;
+}
+
+.alertDoubleArrow-fff {
+    font: 15px Arial, Helvetica, sans-serif;
+    color: #fff;
 }
 
 .result_title {
@@ -1078,6 +1095,10 @@ body.cobranded #pageGS {
 
 .text-align-rt{
     text-align:right;
+}
+
+.vert-align-mid{
+    vertical-align:middle;
 }
 
 .fltlft {
@@ -4565,6 +4586,14 @@ margin:10px 0 14px 20px;
     padding:0 15px 15px;
 }
 
+#parentReviewsHeader{
+    padding:15px 0;
+}
+
+#overallRating2{
+    text-align:center;
+}
+
 /* =4k-1 overview
 -------------------------------------------------------------------------------------------*/
 
@@ -4603,12 +4632,47 @@ margin:10px 0 14px 20px;
     height: 277px;
 }
 
+/* =4k-1.1 nearby schools table
+-------------------------------------------------------------------------------------------*/
+
 #nearby-schools-table {
     font-size: 11px;
 }
 
 #nearby-schools-table td {
     padding: 5px;
+}
+
+/* =4k-1.2 school choice pack promotion
+-------------------------------------------------------------------------------------------*/
+
+#schoolChoicePackPromo-wide {
+    background-color: #F9E9CE;
+    width:100%;
+    height:126px;
+}
+
+#schoolChoicePackPromo-wide .mod_hd h3 {
+    font: 18px Georgia, "Times New Roman", Times, serif;
+    color:#d61;
+    background:none;
+    padding:10px 15px;
+}
+
+#schoolChoicePackPromo-wide div.mod_bd {
+    padding: 0 15px 15px;
+}
+
+/* =4k-1.3 parent reviews
+-------------------------------------------------------------------------------------------*/
+
+#parentReviews .review{
+    padding:15px 0;
+}
+
+#parentReviews .review-hd{
+    line-height:18px;
+    display:block;
 }
 
 /* =5 icons
@@ -6025,7 +6089,21 @@ button {
     display: block;
     padding: 0 10px;
     background-color: #f9eccd;
-    height:26px;
+    line-height:26px;
+}
+
+.alertBox3 {
+    display: block;
+    padding: 0 10px;
+    background-color: #f9eccd;
+    line-height:30px;
+}
+
+.alertBox4 {
+    display: block;
+    padding: 0;
+    background-color: transparent;
+    line-height:30px;
 }
 
 .errorBox1 {

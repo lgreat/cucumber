@@ -26,109 +26,94 @@
 <c:set var="totalReviews" value="${fn:length(reviews)}"/>
 <!-- begin Parent Reviews -->
 
-<style>
-    .reportReview {
-        float: right;
-    }
-
-    .review {
-        padding: 10px;
-    }
-
-    #shareExperience {
-        float: left;
-        padding: 10px;
-    }
-
-    #overallRating2 {
-        float: left;
-        padding: 10px;
-    }
-
-    #categoryRatings {
-        float: left;
-        padding: 10px;
-    }
-
-</style>
-
 <div id="parentReviewsContainer">
     <div class="mod_hd">
-        <h3>Parent Reviews</h3>
+        <h3>Parent Reviews
+            <span class="smallAlertText fltrt iblock padtop_7"><link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
+            class="alertDoubleArrow-fff">&amp;#187;</span></link:schoolProfileParentReview></span>
+        </h3>
     </div>
 
-    <div id="parentReviewsHeader" class="brdbtm_dotted">
-        <div id="shareExperience">
-            Share your experience
-            <button class="btn25" type="submit">
-                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-            </button>
+    <div id="parentReviewsHeader" class="brdbtm_dotted line">
+        <div class="unit size1of3">
+            <div id="shareExperience">
+                <p class="text2bold">Share your experience</p>
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <button class="btn25-2" type="submit">
+                    <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
+                </button>
+            </div>
         </div>
 
 
-        <div id="overallRating2">
-            <p>Overall School Rating</p>
-            <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
-            <br/>
-            Read all ${totalReviews} reviews
+        <div class="unit size1of3">
+            <div id="overallRating2">
+                <p class="text2bold">Overall School Rating</p>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <span class="smallAlertText"><link:schoolProfileParentReview school="${school}">Read all ${totalReviews} reviews</link:schoolProfileParentReview></span>
+            </div>
         </div>
         <!-- end: rating_parent -->
 
-
-        <div id="categoryRatings">
-            <c:choose>
-                <c:when test="${ratings.preschool}">
-                    <ul>
-                        <c:set var="curCatValue" value="${ratings.averageRatingMap[catFacilities]}"/>
-                        <c:set var="curCatName" value="Facilities &amp; equipment"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:set var="curCatValue" value="${ratings.averageRatingMap[catTeachers]}"/>
-                        <c:set var="curCatName" value="Teacher quality"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:set var="curCatValue" value="${ratings.averageRatingMap[catParents]}"/>
-                        <c:set var="curCatName" value="Parent involvement"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                    </ul>
-                </c:when>
-                <c:when test="${ratings.gradeschool}">
-                    <ul>
-                        <c:if test="${not empty ratings.avgPrincipal}">
-                            <li>Principal leadership <span
-                                    class="sprite stars_sm_${ratings.avgPrincipal}"><!-- do not collapse --></span>
-                            </li>
-                        </c:if>
-                        <c:if test="${not empty ratings.avgTeachers}">
-                            <li>Teacher quality <span
-                                    class="sprite stars_sm_${ratings.avgTeachers}"><!-- do not collapse --></span>
-                            </li>
-                        </c:if>
-                        <c:if test="${not empty ratings.avgParents}">
-                            <li>Parent involvement <span
-                                    class="sprite stars_sm_${ratings.avgParents}"><!-- do not collapse --></span>
-                            </li>
-                        </c:if>
-                    </ul>
-                </c:when>
-            </c:choose>
+        <div class="unit size1of3 lastUnit">
+            <div id="categoryRatings">
+                <c:choose>
+                    <c:when test="${ratings.preschool}">
+                        <ul>
+                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catFacilities]}"/>
+                            <c:set var="curCatName" value="Facilities &amp; equipment"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catTeachers]}"/>
+                            <c:set var="curCatName" value="Teacher quality"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catParents]}"/>
+                            <c:set var="curCatName" value="Parent involvement"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                        </ul>
+                    </c:when>
+                    <c:when test="${ratings.gradeschool}">
+                        <ul>
+                            <c:if test="${not empty ratings.avgPrincipal}">
+                                <li>Principal leadership <span
+                                        class="fltrt sprite stars_sm_${ratings.avgPrincipal}"><!-- do not collapse --></span>
+                                </li>
+                                <div class="spacer_5"><!-- do not collapse --></div>
+                            </c:if>
+                            <c:if test="${not empty ratings.avgTeachers}">
+                                <li>Teacher quality <span
+                                        class="fltrt sprite stars_sm_${ratings.avgTeachers}"><!-- do not collapse --></span>
+                                </li>
+                                <div class="spacer_5"><!-- do not collapse --></div>
+                            </c:if>
+                            <c:if test="${not empty ratings.avgParents}">
+                                <li>Parent involvement <span
+                                        class="fltrt sprite stars_sm_${ratings.avgParents}"><!-- do not collapse --></span>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </c:when>
+                </c:choose>
+            </div>
         </div>
-        <br class="clearfloat"/>
-
     </div>
 
 
-    <br class="clearfloat"/>
+
+    <!--<br class="clearfloat"/>-->
 
 
     <div id="parentReviews">
@@ -145,22 +130,13 @@
                 <c:set var="reviewClass" value="review principalReview"/>
             </c:if>
 
+            <!-- post container -->
             <div class="${reviewClass} brdbtm_dotted">
+                <div class="review-hd">
+                    <div class="fltlft">
                 <a name="ps${review.id}"><!-- not empty--></a>
 
-                <c:choose>
-                    <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                        <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="reportReview">
-                            <span class="sprite reportIt-nbg"><!-- do not collapse --></span>
-                            <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
-                               id="report_schoolReview_${review.id}">Report it</a>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-
+                <!-- star rating -->
                 <c:set var="curStarRating" value="${review.quality.name}"/>
                 <c:if test="${school.levelCode eq 'p'}">
                     <c:set var="curStarRating" value="${review.POverall.name}"/>
@@ -172,8 +148,27 @@
                     <h4>The schools's point of view</h4>
                 </c:if>
 
-                Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/>
+                <!-- posted on... -->
+                <span class="smallText1"> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                    </div>
 
+                <!-- report it -->
+                <c:choose>
+                    <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                        <span class="fltrt reported smallAlertTextBold">You've reported this review.</span>
+                    </c:when>
+                    <c:otherwise>
+                                        <span class="fltrt smallAlertTextBold">
+                                            <span class="sprite reportIt-nbg"><!-- do not collapse --></span>
+                                            <a class="reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                                               id="report_schoolReview_${review.id}">Report it</a>
+                                        </span>
+                    </c:otherwise>
+                </c:choose>
+                    <br class="clearBoth"/>
+                </div>
+
+                <!-- author's name -->
                 <p class="author">
                     <c:choose>
                         <c:when test="${who eq 'principal' and not empty(review.user)}">
@@ -218,17 +213,18 @@
                     </c:when>
                 </c:choose>
 
-                <p>
+                <!-- post content -->
+                <p class="text3">
                     <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
                     ${gsweb:boldifyFirstXWords(escapedComments, 10)}
                     <c:choose>
                         <c:when test="${who eq 'principal'}">
                             <c:if test="${not empty postedByDisplay}"><br/><span
-                                    class="principal author">--Submitted by ${postedByDisplay}</span></c:if>
+                                    class="principal author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${not empty postedByDisplay}"><br/><span
-                                    class="author">--Submitted by ${postedByDisplay}</span></c:if>
+                                    class="author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
                         </c:otherwise>
                     </c:choose>
                 </p>

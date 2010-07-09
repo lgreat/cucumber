@@ -113,10 +113,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             font-size: 11px;
         }*/
 
-        #submit-review-link-box {
+        /*#submit-review-link-box {
             background: #FAEACF;
             padding: 5px;
-        }
+        }*/
 
         /*#nearby-schools-table td {
             padding: 5px;
@@ -243,7 +243,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <c:if test="${school.levelCode != 'p'}">
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div id="js-esp-principal-link" class="alertBox2 text2">
-                            <span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a>
+                            <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a></p>
                         </div>
                     </c:if>
                     <!-- end profile link box-->
@@ -402,8 +402,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
     </div>
 
-<br class="clearfloat"/>
-<br/>
+<div class="spacer_15"><!-- do not collapse --></div>
 
 <variant:a>
     <promo:schoolChoicePackPromo
@@ -417,18 +416,22 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             />
 </variant:a>
 
+<div class="spacer_15"><!-- do not collapse --></div>
 
 <c:if test="${fn:length(reviews) gt 0}">
     <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
 
-    <link:schoolProfileParentReview school="${school}">Read all reviews <span
+    <div class="alertBox4 smallAlertTextBold">
+    <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
             class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+        <br class="clearBoth"/>
+    </div>
 </c:if>
 
-<div id="submit-review-link-box">
-    <strong>Share your own experience with ${school.name}. </strong>
-    <link:schoolProfileParentReview school="${school}">Submit a review <span
-            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+<div id="submit-review-link-box" class="alertBox3 text3bold">
+    <p>Share your own experience with ${school.name}.
+    <span class="smallAlertText"><link:schoolProfileParentReview school="${school}">Submit a review <span
+            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview></span></p>
 </div>
 
 </div>

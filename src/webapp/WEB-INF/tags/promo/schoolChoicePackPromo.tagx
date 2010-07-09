@@ -35,10 +35,20 @@
 <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 
+schoolName: <c:out value="${schoolName}" default="schoolName not set."/><br/>
+showBorder: <c:out value="${showBorder}" default="showBorder not set."/><br/>
+showSchoolChoiceLink: <c:out value="${showSchoolChoiceLink}" default="showSchoolChoiceLink not set."/><br/>
+showConfirmation: <c:out value="${showConfirmation}" default="showConfirmation not set."/><br/>
+schoolObjectForRedirect: <c:out value="${schoolObjectForRedirect}" default="schoolObjectForRedirect not set."/><br/>
+caller: <c:out value="${caller}" default="caller not set."/><br/>
+showHeader: <c:out value="${showHeader}" default="showHeader not set."/><br/>
+format: <c:out value="${format}" default="format not set."/><br/>
 
 <c:choose>
 <c:when test="${not empty format and format eq 'wide'}">
     <div id="schoolChoicePackPromo-wide" class="mod ${showBorder ?'bordered':''}">
+
+schoolChoicePackPromoId: <c:out value="${schoolChoicePackPromoId}" default="schoolChoicePackPromoId not set."/><br/>
 
         <c:choose>
             <c:when test="${showConfirmation}">
