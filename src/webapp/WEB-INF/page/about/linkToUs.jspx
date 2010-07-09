@@ -82,10 +82,7 @@
                         <br class="clearBoth"/>
                     <h2 id="webServiceApi">School Finder web service API</h2>
                     <p>Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data.</p>
-                    <p>Please contact our team for more information: </p>
-                    <p>Jennifer Leibick, Business Development Manager<br />
-                       415.983.3812<br />
-                       <a href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></p>
+                    <p>Click <a href="http://www.greatschools.org/api/registration.page">here</a> to visit the GreatSchools API page for more information.</p>
             
                     
                     <!--<h2 id="textlinks">Text Links</h2>-->
