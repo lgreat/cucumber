@@ -32,204 +32,354 @@
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+
+
+
+
 <c:choose>
     <c:when test="${not empty format and format eq 'wide'}">
-        <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo-wide"/>
+        <div id="schoolChoicePackPromo-wide" class="mod ${showBorder ?'bordered':''}">
+
+            <c:choose>
+                <c:when test="${showConfirmation}">
+                    <c:set var="formPanelDisplay" value="none"/>
+                    <c:set var="confirmPanelDisplay" value="block"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="formPanelDisplay" value="block"/>
+                    <c:set var="confirmPanelDisplay" value="none"/>
+                </c:otherwise>
+            </c:choose>
+
+            <div class="mod_hd">
+                <h3>
+                    <c:choose>
+                        <c:when test="${not empty schoolName}">
+                            Is ${schoolName} Right for Your Child?
+                        </c:when>
+                        <c:otherwise>
+                            Choose the Right School
+                        </c:otherwise>
+                    </c:choose>
+                </h3>
+            </div>
+
+            <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
+
+                <p class="blurb text3">
+                    Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
+                </p>
+
+                <jsp:scriptlet>
+                    String redirectUrl;
+                    String redirectUrlForConfirm;
+                    UrlBuilder builder;
+                    UrlBuilder builderForConfirm;
+                    if (showSchoolChoiceLink) {
+                        builder = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true, schoolObjectForRedirect);
+                    } else if (StringUtils.equals("elementary", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else if (StringUtils.equals("middle", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else if (StringUtils.equals("high", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else {
+                        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                    }
+
+                    redirectUrl = builder.asSiteRelativeXml(request);
+                    redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
+                    jspContext.setAttribute("logoutRedirect", redirectUrl);
+                    jspContext.setAttribute("redirectForConfirm", redirectUrlForConfirm);
+
+                </jsp:scriptlet>
+
+                <form id="scpp_form" action="">
+                    <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
+
+                    <div class="errors gradeError" style="display:none;">
+                        <span class="error">Please choose a school grade level.</span>
+                    </div>
+                    <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
+                        <p class="text2">I'm looking for a:</p>
+
+                        <ul id="scpp_picker">
+                            <li id="pickGrade_SCPP">
+                                <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
+                                <label for="p_check">Preschool</label>
+                                <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                <div id="moreGrades_SCPP">
+                                    <ul>
+                                        <li>
+                                            <gsml:checkbox name="e" styleId="e_check" styleClass="ck" checked="${(caller eq 'elementary')}"/>
+                                            <label for="e_check">Elementary school</label></li>
+                                        <li>
+                                            <gsml:checkbox name="m" styleId="m_check" styleClass="ck" checked="${(caller eq 'middle')}"/>
+                                            <label for="m_check">Middle school</label>
+                                        </li>
+                                        <li>
+                                            <gsml:checkbox name="h" styleId="h_check" styleClass="ck" checked="${(caller eq 'high')}"/>
+                                            <label for="h_check">High school</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <jsp:scriptlet>
+                        request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                    </jsp:scriptlet>
+                    <div class="errors emailError" style="display:none;">
+                        <span class="error">Please enter a valid email address.</span>
+                    </div>
+                    <div id="email_go">
+
+                        <c:choose>
+                            <c:when test="${communityAuth}">
+                                <input id="cemail" name="cemail" class="required email" value="${requestScope.context.user.email}" disabled="true"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input id="cemail" name="cemail" class="required email" value="Enter email address"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <button class="btn25" type="submit" id="send">
+                            <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                        </button>
+                    </div>
+
+                    <c:if test="${communityAuth}">
+                        <div class="logoutDiv">
+                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                        </div>
+                    </c:if>
+
+
+                    <div class="errors termsError" style="display:none;">
+                        <span class="error">Please accept the Terms of Use.</span>
+                    </div>
+                    <div class="privacy_terms">
+                        <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                        <span id="privacy_terms_text"
+                              class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                    </div>
+                </form>
+
+                <c:if test="${caller eq 'preschool'}">
+                    <div class="adBox">
+                        <div class="wrapper-outer">
+                            <div class="wrapper-inner">
+                                <div class="wrapper-content">
+                                    <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+
+            <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
+                <h4 class="subhead1">
+                    Thank you!
+                </h4>
+
+                <p class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</p>
+                <c:if test="${showSchoolChoiceLink}">
+                    <p class="blurb">In the meantime,
+                        <link:schoolChoiceCenter
+                                id="linkToSchoolChoice">check out our tips for getting started &gt;</link:schoolChoiceCenter>
+                    </p>
+                </c:if>
+            </div>
+        </div>
     </c:when>
     <c:otherwise>
         <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo"/>
-    </c:otherwise>
-</c:choose>
+        <div id="${schoolChoicePackPromoId}" class="mod ${showBorder ?'bordered':''}">
 
-<div id="${schoolChoicePackPromoId}" class="mod ${showBorder ?'bordered':''}">
-
-    <c:choose>
-        <c:when test="${showConfirmation}">
-            <c:set var="formPanelDisplay" value="none"/>
-            <c:set var="confirmPanelDisplay" value="block"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="formPanelDisplay" value="block"/>
-            <c:set var="confirmPanelDisplay" value="none"/>
-        </c:otherwise>
-    </c:choose>
-
-    <c:if test="${showHeader ne false}">
-        <div class="mod_hd">
             <c:choose>
-                <c:when test="${not empty schoolName}">
-                    <h3>
-                        Is ${schoolName} Right for Your Child?
-                    </h3>
+                <c:when test="${showConfirmation}">
+                    <c:set var="formPanelDisplay" value="none"/>
+                    <c:set var="confirmPanelDisplay" value="block"/>
                 </c:when>
                 <c:otherwise>
-                    <h3>
-                        Choose the Right School
-                    </h3>
+                    <c:set var="formPanelDisplay" value="block"/>
+                    <c:set var="confirmPanelDisplay" value="none"/>
                 </c:otherwise>
             </c:choose>
-        </div>
-    </c:if>
 
-
-    <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
-
-        <c:if test="${format ne 'wide'}">
-            <h4>School Chooser Toolkit</h4>
-        </c:if>
-
-        <c:set var="schoolWord" value="a school and"/>
-        <c:choose>
-            <c:when test="${caller eq 'elementary'}">
-                <c:set var="schoolWord" value="an elementary school and how to"/>
-            </c:when>
-            <c:when test="${caller eq 'middle'}">
-                <c:set var="schoolWord" value="a middle school and how to"/>
-            </c:when>
-            <c:when test="${caller eq 'high'}">
-                <c:set var="schoolWord" value="a high school and how to"/>
-            </c:when>
-        </c:choose>
-
-        <p class="blurb text3">
-            Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
-        </p>
-
-        <jsp:scriptlet>
-            String redirectUrl;
-            String redirectUrlForConfirm;
-            UrlBuilder builder;
-            UrlBuilder builderForConfirm;
-            if (showSchoolChoiceLink) {
-                builder = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
-                builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true, schoolObjectForRedirect);
-            } else if (StringUtils.equals("elementary", caller)) {
-                builder = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
-                builderForConfirm = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
-                builderForConfirm.addParameter("confirm", "true");
-            } else if (StringUtils.equals("middle", caller)) {
-                builder = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
-                builderForConfirm = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
-                builderForConfirm.addParameter("confirm", "true");
-            } else if (StringUtils.equals("high", caller)) {
-                builder = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
-                builderForConfirm = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
-                builderForConfirm.addParameter("confirm", "true");
-            } else {
-                builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
-                builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
-            }
-
-            redirectUrl = builder.asSiteRelativeXml(request);
-            redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
-            jspContext.setAttribute("logoutRedirect", redirectUrl);
-            jspContext.setAttribute("redirectForConfirm", redirectUrlForConfirm);
-
-
-        </jsp:scriptlet>
-
-        <form id="scpp_form" action="">
-            <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
-
-            <div class="errors gradeError" style="display:none;">
-                <span class="error">Please choose a school grade level.</span>
-            </div>
-            <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
-                <p class="text2">I'm looking for a:</p>
-
-                <ul id="scpp_picker">
-                    <li id="pickGrade_SCPP">
-                        <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
-                        <label for="p_check">Preschool</label>
-                        <button id="grdShow_SCPP" type="button" title="show more">show more</button>
-                        <div id="moreGrades_SCPP">
-                            <ul>
-                                <li>
-                                    <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
-                                                   checked="${(caller eq 'elementary')}"/>
-                                    <label for="e_check">Elementary school</label></li>
-                                <li>
-                                    <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
-                                                   checked="${(caller eq 'middle')}"/>
-                                    <label for="m_check">Middle school</label>
-                                </li>
-                                <li>
-                                    <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
-                                                   checked="${(caller eq 'high')}"/>
-                                    <label for="h_check">High school</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <jsp:scriptlet>
-                request.setAttribute("communityAuth",
-                        Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-            </jsp:scriptlet>
-            <div class="errors emailError" style="display:none;">
-                <span class="error">Please enter a valid email address.</span>
-            </div>
-            <div id="email_go">
-
-                <c:choose>
-                    <c:when test="${communityAuth}">
-                        <input id="cemail" name="cemail" class="required email"
-                               value="${requestScope.context.user.email}" disabled="true"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input id="cemail" name="cemail" class="required email" value="Enter email address"/>
-                    </c:otherwise>
-                </c:choose>
-
-                <button class="btn25" type="submit" id="send">
-                    <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                </button>
-            </div>
-
-
-            <c:if test="${communityAuth}">
-                <div class="logoutDiv">
-                    <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+            <c:if test="${showHeader ne false}">
+                <div class="mod_hd">
+                    <c:choose>
+                        <c:when test="${not empty schoolName}">
+                            <h3>
+                                Is ${schoolName} Right for Your Child?
+                            </h3>
+                        </c:when>
+                        <c:otherwise>
+                            <h3>
+                                Choose the Right School
+                            </h3>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:if>
 
+            <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
 
-            <div class="errors termsError" style="display:none;">
-                <span class="error">Please accept the Terms of Use.</span>
-            </div>
-            <div class="privacy_terms">
-                <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
-                <span id="privacy_terms_text"
-                      class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
-            </div>
-        </form>
+                <h4>School Chooser Toolkit</h4>
 
-        <c:if test="${caller eq 'preschool'}">
-            <div class="adBox">
-                <div class="wrapper-outer">
-                    <div class="wrapper-inner">
-                        <div class="wrapper-content">
-                            <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
+                <p class="blurb text3">
+                    Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
+                </p>
+
+                <jsp:scriptlet>
+                    String redirectUrl;
+                    String redirectUrlForConfirm;
+                    UrlBuilder builder;
+                    UrlBuilder builderForConfirm;
+                    if (showSchoolChoiceLink) {
+                        builder = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true, schoolObjectForRedirect);
+                    } else if (StringUtils.equals("elementary", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else if (StringUtils.equals("middle", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else if (StringUtils.equals("high", caller)) {
+                        builder = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                        builderForConfirm.addParameter("confirm", "true");
+                    } else {
+                        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                        builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                    }
+
+                    redirectUrl = builder.asSiteRelativeXml(request);
+                    redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
+                    jspContext.setAttribute("logoutRedirect", redirectUrl);
+                    jspContext.setAttribute("redirectForConfirm", redirectUrlForConfirm);
+
+
+                </jsp:scriptlet>
+
+                <form id="scpp_form" action="">
+                    <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
+
+                    <div class="errors gradeError" style="display:none;">
+                        <span class="error">Please choose a school grade level.</span>
+                    </div>
+                    <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
+                        <p class="text2">I'm looking for a:</p>
+
+                        <ul id="scpp_picker">
+                            <li id="pickGrade_SCPP">
+                                <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
+                                <label for="p_check">Preschool</label>
+                                <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                <div id="moreGrades_SCPP">
+                                    <ul>
+                                        <li>
+                                            <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                           checked="${(caller eq 'elementary')}"/>
+                                            <label for="e_check">Elementary school</label></li>
+                                        <li>
+                                            <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                           checked="${(caller eq 'middle')}"/>
+                                            <label for="m_check">Middle school</label>
+                                        </li>
+                                        <li>
+                                            <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                           checked="${(caller eq 'high')}"/>
+                                            <label for="h_check">High school</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <jsp:scriptlet>
+                        request.setAttribute("communityAuth",
+                                Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                    </jsp:scriptlet>
+                    <div class="errors emailError" style="display:none;">
+                        <span class="error">Please enter a valid email address.</span>
+                    </div>
+                    <div id="email_go">
+
+                        <c:choose>
+                            <c:when test="${communityAuth}">
+                                <input id="cemail" name="cemail" class="required email"
+                                       value="${requestScope.context.user.email}" disabled="true"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input id="cemail" name="cemail" class="required email" value="Enter email address"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <button class="btn25" type="submit" id="send">
+                            <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                        </button>
+                    </div>
+
+
+                    <c:if test="${communityAuth}">
+                        <div class="logoutDiv">
+                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                        </div>
+                    </c:if>
+
+
+                    <div class="errors termsError" style="display:none;">
+                        <span class="error">Please accept the Terms of Use.</span>
+                    </div>
+                    <div class="privacy_terms">
+                        <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                        <span id="privacy_terms_text"
+                              class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                    </div>
+                </form>
+
+                <c:if test="${caller eq 'preschool'}">
+                    <div class="adBox">
+                        <div class="wrapper-outer">
+                            <div class="wrapper-inner">
+                                <div class="wrapper-content">
+                                    <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </div>
-        </c:if>
-    </div>
 
-    <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
-        <h4 class="subhead1">
-            Thank you!
-        </h4>
+            <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
+                <h4 class="subhead1">
+                    Thank you!
+                </h4>
 
-        <p class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</p>
-        <c:if test="${showSchoolChoiceLink}">
-            <p class="blurb">In the meantime,
-                <link:schoolChoiceCenter
-                        id="linkToSchoolChoice">check out our tips for getting started &gt;</link:schoolChoiceCenter>
-            </p>
-        </c:if>
-    </div>
-</div>
+                <p class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</p>
+                <c:if test="${showSchoolChoiceLink}">
+                    <p class="blurb">In the meantime,
+                        <link:schoolChoiceCenter
+                                id="linkToSchoolChoice">check out our tips for getting started &gt;</link:schoolChoiceCenter>
+                    </p>
+                </c:if>
+            </div>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+
 </jsp:root>
