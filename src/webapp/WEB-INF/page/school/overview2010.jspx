@@ -359,7 +359,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </link:schoolProfileParentReview>
             </td>
         </tr>
-        <c:forEach items="${mapSchools}" var="s">
+        <c:forEach items="${mapSchools}" var="s" begin="0" end="3">
             <tr>
                 <td>
                     <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
