@@ -15,7 +15,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
@@ -51,16 +51,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
      ]]>
         <!-- TODO: Move into global css -->
     <style type="text/css">
-        /*#overviewColumn1 {
-            width: 158px;
-            float: left;
-        }*/
+            /*#overviewColumn1 {
+                width: 158px;
+                float: left;
+            }*/
 
-        /*#overviewColumn2 {
-            width: 400px;
-            float: left;
-            margin-left: 15px;
-        }*/
+            /*#overviewColumn2 {
+                width: 400px;
+                float: left;
+                margin-left: 15px;
+            }*/
 
         #bestKnownFor {
             font-size: 16px;
@@ -78,24 +78,24 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             margin: 15px 15px 5px 0;
         }
 
-        /*#overallRating {
-            display: block;
-            background-color: #F4FAFD;
-            width: 158px;
-            border: 1px solid #A2D0E4;
-            height: 283px;
-            text-align: center;
-            font-size: 12px;
-        }
+            /*#overallRating {
+                display: block;
+                background-color: #F4FAFD;
+                width: 158px;
+                border: 1px solid #A2D0E4;
+                height: 283px;
+                text-align: center;
+                font-size: 12px;
+            }
 
-        #overallRating p, #overallRating img, #overallRating a, #overallRating button {
-            padding-bottom: 6px;
-            display: block;
-        }*/
+            #overallRating p, #overallRating img, #overallRating a, #overallRating button {
+                padding-bottom: 6px;
+                display: block;
+            }*/
 
-        /*#map {
-            height: 277px;
-        }*/
+            /*#map {
+                height: 277px;
+            }*/
 
         #js-esp-info-hover {
             position: absolute;
@@ -109,294 +109,312 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             z-index: 9999999;
         }
 
-        /*#nearby-schools-table {
-            font-size: 11px;
-        }*/
+            /*#nearby-schools-table {
+                font-size: 11px;
+            }*/
 
-        /*#submit-review-link-box {
-            background: #FAEACF;
-            padding: 5px;
-        }*/
+            /*#submit-review-link-box {
+                background: #FAEACF;
+                padding: 5px;
+            }*/
 
-        /*#nearby-schools-table td {
-            padding: 5px;
-        }*/
+            /*#nearby-schools-table td {
+                padding: 5px;
+            }*/
     </style>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
+<ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+
 <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
 
 <div id="overviewContainer">
 
-    <c:if test="${requestScope.isKindercare eq true}">
-        <promo:kindercare school="${school}" format="narrow"/>
-    </c:if>
+<c:if test="${requestScope.isKindercare eq true}">
+    <promo:kindercare school="${school}" format="narrow"/>
+</c:if>
 
-    <div id="overviewColumn1">
+<div id="overviewColumn1">
 
-        <!-- overall school rating box -->
-        <div id="overallRating">
+    <!-- overall school rating box -->
+    <div id="overallRating">
 
-            <c:if test="${not empty gs_rating}">
-                <p class="text3">GreatSchools Rating</p>
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <link:schoolProfileRating school="${school}">
-                    <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
-                </link:schoolProfileRating>
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <link:schoolProfileRating styleClass="smallAlertText" school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>
+        <c:if test="${not empty gs_rating}">
+            <p class="text3">GreatSchools Rating</p>
 
-            </c:if>
-
-            <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <p class="text3">Overall community rating</p>
             <div class="spacer_5"><!-- do not collapse --></div>
-            <span class="sprite stars_lg_b_${ratings.overall}"><!-- do not collapse --></span>
+            <link:schoolProfileRating school="${school}">
+                <span class="sprite badge_lg_b_${gs_rating}"><!-- do not collapse --></span>
+            </link:schoolProfileRating>
+
             <div class="spacer_5"><!-- do not collapse --></div>
+            <link:schoolProfileRating styleClass="smallAlertText"
+                                      school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>
 
-            <c:choose>
-                <c:when test="${fn:length(reviews) gt 0}">
-                    <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                        Read all ${fn:length(reviews)} reviews
-                    </link:schoolProfileParentReview>
-                    <div class="spacer_5"><!-- do not collapse --></div>
-                </c:when>
-                <c:otherwise>
-                    <link:schoolProfileParentReview
-                            school="${school}">Be the first to review</link:schoolProfileParentReview>
-                </c:otherwise>
-            </c:choose>
+        </c:if>
 
-            <button class="btn25-2" type="submit" name="reviewBtn" id="reviewBtn">
-                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-            </button>
-        </div>
+        <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
+        <p class="text3">Overall community rating</p>
 
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <span class="sprite stars_lg_b_${ratings.overall}"><!-- do not collapse --></span>
+
+        <div class="spacer_5"><!-- do not collapse --></div>
+
+        <c:choose>
+            <c:when test="${fn:length(reviews) gt 0}">
+                <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
+                    Read all ${fn:length(reviews)} reviews
+                </link:schoolProfileParentReview>
+
+                <div class="spacer_5"><!-- do not collapse --></div>
+            </c:when>
+            <c:otherwise>
+                <link:schoolProfileParentReview
+                        school="${school}">Be the first to review</link:schoolProfileParentReview>
+            </c:otherwise>
+        </c:choose>
+
+        <button class="btn25-2" type="submit" name="reviewBtn" id="reviewBtn">
+            <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
+        </button>
     </div>
 
-    <div id="overviewColumn2">
-        <div class="spacer_15"><!-- do not collapse --></div>
+    <ad:AboveFold_Left_160x600/>
 
-        <c:if test="${not empty bestKnownFor}">
-            <div id="bestKnownFor">
-                <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
-                </p> <!-- TODO: info icon + hover -->
-                <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
+</div>
 
-                <div id="js-esp-info-hover" style="display:none;">
-                    <p>This statement has been provided by the principal or a school official at ${school.name}.
-                        <link:enhancedSchoolProfile
-                                school="${school}">See this school's official school profile <span
-                                class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile></p>
-                </div>
-            </div>
-        </c:if>
+<div id="overviewColumn2">
+<div class="spacer_15"><!-- do not collapse --></div>
 
-        <div class="text2">
-            <content:ratingsSummary school="${school}"/>
+<c:if test="${not empty bestKnownFor}">
+    <div id="bestKnownFor">
+        <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
+        </p> <!-- TODO: info icon + hover -->
+        <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span
+                class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
+
+        <div id="js-esp-info-hover" style="display:none;">
+            <p>This statement has been provided by the principal or a school official at ${school.name}.
+                <link:enhancedSchoolProfile
+                        school="${school}">See this school's official school profile <span
+                        class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile></p>
         </div>
+    </div>
+</c:if>
 
-        <c:if test="${not empty school.type.name and school.type.name ne 'p'}">
-            Learn more about this school's <link:schoolProfileCensus school="${school}" anchor="teachers">teachers</link:schoolProfileCensus> and <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.
-        </c:if>
+<div class="text2">
+    <content:ratingsSummary school="${school}"/>
+</div>
 
-        <br/><br/>
+<c:if test="${not empty school.type.name and school.type.name ne 'p'}">
+    Learn more about this school's <link:schoolProfileCensus school="${school}"
+                                                             anchor="teachers">teachers</link:schoolProfileCensus> and
+    <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.
+</c:if>
 
-        <!-- School highlights -->
-        <c:set var="schoolHighlights">
-            <school:schoolHighlightsList school="${school}"/>
-        </c:set>
-        <c:if test="${not empty schoolHighlights}">
-            <c:set var="schoolHighlightsList" value="${schoolHighlights}; "/>
-        </c:if>
-        <c:if test="${not empty surveySampleList}">
-            <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
-        </c:if>
+<br/><br/>
 
-        <c:if test="${not empty schoolHighlights}">
-            <p class="text2bold">School highlights:</p>
-            <div class="text2">
-                ${schoolHighlights}
+<!-- School highlights -->
+<c:set var="schoolHighlights">
+    <school:schoolHighlightsList school="${school}"/>
+</c:set>
+<c:if test="${not empty schoolHighlights}">
+    <c:set var="schoolHighlightsList" value="${schoolHighlights}; "/>
+</c:if>
+<c:if test="${not empty surveySampleList}">
+    <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
+</c:if>
+
+<c:if test="${not empty schoolHighlights}">
+    <p class="text2bold">School highlights:</p>
+
+    <div class="text2">
+        ${schoolHighlights}
                 <span class="iblock fltrt smallAlertText">
                     <link:enhancedSchoolProfile school="${school}">
                         More <span class="alertDoubleArrow">&#187;</span>
                     </link:enhancedSchoolProfile>
                 </span>
-            </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-        </c:if>
-        <!-- end school highlights -->
-
-        <span class="sprite emailIt"><!-- do not collapse --></span>
-        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                        styleClass="email toolsTxt text3-06b"> Email me updates about this school</promo:mssHover>
-
-        <c:if test="${empty bestKnownFor}">
-            <c:choose>
-                <c:when test="${espLink eq 'principal'}">
-                    <!-- principal link box -->
-                    <c:if test="${school.levelCode != 'p'}">
-                        <div class="spacer_10"><!-- do not collapse --></div>
-                        <div id="js-esp-principal-link" class="alertBox2 text2">
-                            <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a href="#">Complete your school's profile</a></p>
-                        </div>
-                    </c:if>
-                    <!-- end profile link box-->
-                </c:when>
-
-                <c:when test="${espLink eq 'profile'}">
-                    <!-- profile link box -->
-                    <div id="js-esp-profile-link">
-                        <link:enhancedSchoolProfile school="${school}">See more official school information <span class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
-                    </div>
-                    <!-- end profile link box -->
-                </c:when>
-            </c:choose>
-        </c:if>
-
-        <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
-        <div class="spacer_15"><!-- do not collapse --></div>
-
-        <!-- begin map -->
-
-        <div class="title2-d61">Compare to nearby schools<span class="smallAlertText fltrt iblock padtop_7"><link:mapSchool school="${school}">Larger map </link:mapSchool><span
-                        class="alertDoubleArrow">&amp;#187;</span></span></div>
-
-        <div class="spacer_15"><!-- do not collapse --></div>
-
-        <div id="map" class="border-c6">
-            &#160;
-            <noscript>JavaScript is required in order to view a map of the city and its
-                schools.
-            </noscript>
-        </div>
-        <map:school id="map" tooltips="true" schools="${mapSchools}" school="${school}"/>
-        <!-- end map -->
-
-
-        <div class="spacer_5"><!-- do not collapse --></div>
-        <div class="text3">
-        <link:city city="${school.city}" state="${school.physicalAddress.state}"
-                   title="${school.city} schools">Top rated ${school.city} schools</link:city> | <a
-            href="#">Cities near Berkeley</a>
-        </div>
-        <div class="spacer_5"><!-- do not collapse --></div>
-        <div class="smallAlertText">
-        <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
-        </div>
-
-        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-        <div class="spacer_10"><!-- do not collapse --></div>
-
-        <!-- begin nearby schools list -->
-        <c:if test="${not empty mapSchools}">
-            <table id="nearby-schools-table">
-                <col align="center" style="background-color:blue;"/>
-                <col align="left" width="212"/>
-                <col align="center" style="background-color:green;"/>
-                <col align="center" style="background-color:blue;"/>
-                <thead>
-                <tr class="brdbtm_dotted smallText2bold">
-                    <th>COMPARE</th>
-                    <th>SCHOOL</th>
-                    <th>GREATSCHOOLS RATING</th>
-                    <th>PARENT RATING</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                                <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>COMPARE
-                            </c:if>
-                        </td>
-                        <td>
-                            <link:schoolProfileOverview school="${school}">
-                                ${school.name}<br/>
-                            </link:schoolProfileOverview>
-                            0 miles
-                        </td>
-                        <td>
-                            <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                                <c:choose>
-                                    <c:when test="${not empty gs_rating and gs_rating gt 0}">
-                                        <span class="sprite badge_sm_${gs_rating}"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
-                        </td>
-                        <td>
-                            <link:schoolProfileParentReview school="${school}">
-                                <c:choose>
-                                    <c:when test="${not empty ratings.overall}">
-                                        <span class="sprite stars_sm_${ratings.overall}"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileParentReview>
-                        </td>
-                    </tr>
-                    <c:forEach items="${mapSchools}" var="s">
-                        <tr>
-                            <td>
-                                <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
-                                    <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox" type="checkbox"/>COMPARE
-                                </c:if>
-                            </td>
-                            <td>
-                                <link:schoolProfileOverview school="${s.neighbor}">
-                                    ${s.neighbor.name}<br/>
-                                </link:schoolProfileOverview>
-                                <fmt:formatNumber type="number" maxFractionDigits="1" value="${s.distance}"/> miles
-                            </td>
-                            <td>
-                                <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
-                                    <c:choose>
-                                        <c:when test="${not empty s.rating and s.rating gt 0}">
-                                            <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:if>
-                            </td>
-                            <td>
-                                <link:schoolProfileParentReview school="${school}">
-                                    <c:choose>
-                                        <c:when test="${not empty s.parentRatings.overall}">
-                                            <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </link:schoolProfileParentReview>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                <tr>
-                    <td colspan="2">
-                        <button class="btn25" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
-                            <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-                        </button>
-                    </td>
-                    <td colspan="2">
-                        <!-- TODO: paging -->
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </c:if>
-        <!-- end nearby schools list-->
-
     </div>
+    <div class="spacer_15"><!-- do not collapse --></div>
+</c:if>
+<!-- end school highlights -->
+
+<span class="sprite emailIt"><!-- do not collapse --></span>
+<promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                styleClass="email toolsTxt text3-06b"> Email me updates about this school</promo:mssHover>
+
+<c:if test="${empty bestKnownFor}">
+    <c:choose>
+        <c:when test="${espLink eq 'principal'}">
+            <!-- principal link box -->
+            <c:if test="${school.levelCode != 'p'}">
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div id="js-esp-principal-link" class="alertBox2 text2">
+                    <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a
+                            href="#">Complete your school's profile</a></p>
+                </div>
+            </c:if>
+            <!-- end profile link box-->
+        </c:when>
+
+        <c:when test="${espLink eq 'profile'}">
+            <!-- profile link box -->
+            <div id="js-esp-profile-link">
+                <link:enhancedSchoolProfile school="${school}">See more official school information <span
+                        class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
+            </div>
+            <!-- end profile link box -->
+        </c:when>
+    </c:choose>
+</c:if>
+
+<div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+<div class="spacer_15"><!-- do not collapse --></div>
+
+<!-- begin map -->
+
+<div class="title2-d61">Compare to nearby schools<span class="smallAlertText fltrt iblock padtop_7"><link:mapSchool
+        school="${school}">Larger map </link:mapSchool><span
+        class="alertDoubleArrow">&amp;#187;</span></span></div>
+
+<div class="spacer_15"><!-- do not collapse --></div>
+
+<div id="map" class="border-c6">
+    &#160;
+    <noscript>JavaScript is required in order to view a map of the city and its
+        schools.
+    </noscript>
+</div>
+<map:school id="map" tooltips="true" schools="${mapSchools}" school="${school}"/>
+<!-- end map -->
+
+
+<div class="spacer_5"><!-- do not collapse --></div>
+<div class="text3">
+    <link:city city="${school.city}" state="${school.physicalAddress.state}"
+               title="${school.city} schools">Top rated ${school.city} schools</link:city> | <a
+        href="#">Cities near Berkeley</a>
+</div>
+<div class="spacer_5"><!-- do not collapse --></div>
+<div class="smallAlertText">
+    <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+</div>
+
+<div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+<div class="spacer_10"><!-- do not collapse --></div>
+
+<!-- begin nearby schools list -->
+<c:if test="${not empty mapSchools}">
+    <table id="nearby-schools-table">
+        <col align="center" style="background-color:blue;"/>
+        <col align="left" width="212"/>
+        <col align="center" style="background-color:green;"/>
+        <col align="center" style="background-color:blue;"/>
+        <thead>
+        <tr class="brdbtm_dotted smallText2bold">
+            <th>COMPARE</th>
+            <th>SCHOOL</th>
+            <th>GREATSCHOOLS RATING</th>
+            <th>PARENT RATING</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
+                    <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>COMPARE
+                </c:if>
+            </td>
+            <td>
+                <link:schoolProfileOverview school="${school}">
+                    ${school.name}<br/>
+                </link:schoolProfileOverview>
+                0 miles
+            </td>
+            <td>
+                <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
+                    <c:choose>
+                        <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                            <span class="sprite badge_sm_${gs_rating}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+            </td>
+            <td>
+                <link:schoolProfileParentReview school="${school}">
+                    <c:choose>
+                        <c:when test="${not empty ratings.overall}">
+                            <span class="sprite stars_sm_${ratings.overall}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </link:schoolProfileParentReview>
+            </td>
+        </tr>
+        <c:forEach items="${mapSchools}" var="s">
+            <tr>
+                <td>
+                    <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
+                        <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
+                               type="checkbox"/>COMPARE
+                    </c:if>
+                </td>
+                <td>
+                    <link:schoolProfileOverview school="${s.neighbor}">
+                        ${s.neighbor.name}<br/>
+                    </link:schoolProfileOverview>
+                    <fmt:formatNumber type="number" maxFractionDigits="1" value="${s.distance}"/> miles
+                </td>
+                <td>
+                    <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
+                        <c:choose>
+                            <c:when test="${not empty s.rating and s.rating gt 0}">
+                                <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </td>
+                <td>
+                    <link:schoolProfileParentReview school="${school}">
+                        <c:choose>
+                            <c:when test="${not empty s.parentRatings.overall}">
+                                <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </link:schoolProfileParentReview>
+                </td>
+            </tr>
+        </c:forEach>
+        <tr>
+            <td colspan="2">
+                <button class="btn25" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
+                    <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                </button>
+            </td>
+            <td colspan="2">
+                <!-- TODO: paging -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</c:if>
+<!-- end nearby schools list-->
+
+</div>
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
@@ -418,8 +436,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
 
     <div class="alertBox4 smallAlertTextBold">
-    <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
-            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+        <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
+                class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
         <br class="clearBoth"/>
     </div>
 </c:if>
@@ -435,54 +453,56 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </school:profile2010>
 
 
-    <script type="text/javascript">
-        jQuery(function() {
-            schoolIdList = '';
-            schoolIdListCount = 0;
-            jQuery('.compare-school-checkbox').click( function(item){
-                if (schoolIdList != '') {
-                    schoolIdList += ',';
-                }
-                
-                schoolIdList += jQuery(this).attr('id');
-                schoolIdListCount++;
+<script type="text/javascript">
+    jQuery(function() {
+        schoolIdList = '';
+        schoolIdListCount = 0;
+        jQuery('.compare-school-checkbox').click(function(item) {
+            if (schoolIdList != '') {
+                schoolIdList += ',';
+            }
 
-                if (schoolIdListCount > 1) {
-                    jQuery('#compareBtn').attr('disabled', '');
-                }
-            });
+            schoolIdList += jQuery(this).attr('id');
+            schoolIdListCount++;
 
-            jQuery('#compareBtn').click(function() {
-                window.location = '/compareSchools.page?compare.x=true&amp;sc=' + schoolIdList;
-            });
-
-            GSType.hover.joinHover.showJoinNthHoverOnExit();
-
-            jQuery('#js-esp-principal-link a').click(function() {
-                var schoolId = '${school.id}';
-                var schoolState = '${school.databaseState}';
-
-                if (s.tl) {s.tl(this,'o', 'PrincipalUpdate_Parent_Reviews');}
-
-                pageTracking.pageName =  "School Officials Pre Signup Hover";
-                pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
-                pageTracking.server = "www.greatschools.org";
-                pageTracking.send();
-
-                GSType.hover.principalConfirmation.show(schoolId, schoolState);
-
-                return false;
-             });
-
-            jQuery('#js-esp-info').mouseover(function() {
-                jQuery('#js-esp-info-hover').show();
-            });
-            jQuery('#js-esp-info').mouseout(function() {
-                jQuery('#js-esp-info-hover').hide();
-            });
+            if (schoolIdListCount > 1) {
+                jQuery('#compareBtn').attr('disabled', '');
+            }
         });
 
-    </script>
+        jQuery('#compareBtn').click(function() {
+            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + schoolIdList;
+        });
+
+        GSType.hover.joinHover.showJoinNthHoverOnExit();
+
+        jQuery('#js-esp-principal-link a').click(function() {
+            var schoolId = '${school.id}';
+            var schoolState = '${school.databaseState}';
+
+            if (s.tl) {
+                s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
+            }
+
+            pageTracking.pageName = "School Officials Pre Signup Hover";
+            pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+            pageTracking.server = "www.greatschools.org";
+            pageTracking.send();
+
+            GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+            return false;
+        });
+
+        jQuery('#js-esp-info').mouseover(function() {
+            jQuery('#js-esp-info-hover').show();
+        });
+        jQuery('#js-esp-info').mouseout(function() {
+            jQuery('#js-esp-info-hover').hide();
+        });
+    });
+
+</script>
 
 
 <div style="display:none">
