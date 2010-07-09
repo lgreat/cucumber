@@ -238,6 +238,12 @@
         <function-signature>boolean isShowK12Overlay(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)</function-signature>
     </function>
 
+    <function>
+        <name>isExcludeFromK12Overlay</name>
+        <function-class>gs.web.ads.K12OverlayHelper</function-class>
+        <function-signature>boolean isExcludeFromK12Overlay(gs.web.util.PageHelper)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

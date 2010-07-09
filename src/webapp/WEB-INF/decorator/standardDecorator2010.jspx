@@ -43,7 +43,7 @@
 </jsp:scriptlet>
 <c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
 <!-- use request scope so that home page index.jspx and ad tags can check this variable showK12Overlay -->
-<c:set var="showK12Overlay" value="${gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}" scope="request"/>
+<c:set var="showK12Overlay" value="${!gsweb:isExcludeFromK12Overlay(requestScope.pageHelper) and gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}" scope="request"/>
 
 
 <head profile="${profile}">

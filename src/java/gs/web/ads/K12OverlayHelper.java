@@ -1,14 +1,15 @@
 package gs.web.ads;
 
+import gs.web.util.PageHelper;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,7 +32,7 @@ public class K12OverlayHelper {
     final private static Set<String> k12DateRange = new HashSet<String>();
     static {
         // TODO-10239 remove me!
-        k12DateRange.add("2010-07-08"); // for testing only!
+        k12DateRange.add("2010-07-09"); // for testing only!
 
         k12DateRange.add("2010-07-12"); // 7/12
         k12DateRange.add("2010-07-13"); // 7/13
@@ -62,5 +63,58 @@ public class K12OverlayHelper {
         // cookie check and date check
         return !K12OverlayHelper.hasK12OverlayCookie(request,response) &&
                 K12OverlayHelper.isInK12OverlayDateRange(new Date());
+    }
+
+    // Preschool editorial and landing page (any page with GA_googleAddAttr('editorial','Preschool');)
+    // Choose the right school editorial and landing page (any page with GA_googleAddAttr('editorial','Findaschoo');)
+    // Academics and activities editorial and landing page (any page with GA_googleAddAttr('editorial','AcademicsA');)
+    // http://www.greatschools.org/back-to-school/supplies/supply-list-to-get-you-started.gs?content=109
+    // http://www.greatschools.org/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082
+    //
+    // URLs for landing pages that should be excluded (included in above categories):
+    // http://www.greatschools.org/preschool/
+    // http://www.greatschools.org/students.topic?content=1540
+    // http://www.greatschools.org/school-choice/
+    final private static Set<String> editorialValuesToExclude = new HashSet<String>();
+    static {
+        editorialValuesToExclude.add("Preschool");
+        editorialValuesToExclude.add("AcademicsA");
+        editorialValuesToExclude.add("Findaschoo");
+    }
+
+    final private static Set<String> articleIdValuesToExclude = new HashSet<String>();
+    static {
+        articleIdValuesToExclude.add("109"); // articleIdValuesToExclude
+        articleIdValuesToExclude.add("1082");
+    }
+
+    final private static String GAM_EDITORIAL_KEYWORD = "editorial";
+    final private static String GAM_ARTICLE_ID_KEYWORD = "article_id";
+
+    public static boolean isExcludeFromK12Overlay(PageHelper pageHelper) {
+        boolean excludeFromK12Overlay = false;
+        if (pageHelper != null) {
+            MultiMap adKeywords = pageHelper.getAdKeywords();
+            if (adKeywords != null) {
+                Collection<String> values = (Collection<String>) adKeywords.get(GAM_EDITORIAL_KEYWORD);
+                if (values != null) {
+                    Collection intersection = CollectionUtils.intersection(editorialValuesToExclude, values);
+                    if (intersection != null && intersection.size() > 0) {
+                        excludeFromK12Overlay = true;
+                    }
+                }
+
+                if (!excludeFromK12Overlay) {
+                    values = (Collection<String>) adKeywords.get(GAM_ARTICLE_ID_KEYWORD);
+                    if (values != null) {
+                        Collection intersection = CollectionUtils.intersection(articleIdValuesToExclude, values);
+                        if (intersection != null && intersection.size() > 0) {
+                            excludeFromK12Overlay = true;
+                        }
+                    }
+                }
+            }
+        }
+        return excludeFromK12Overlay;
     }
 }
