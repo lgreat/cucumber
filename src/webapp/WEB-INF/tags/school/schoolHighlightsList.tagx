@@ -47,7 +47,7 @@
 
         <!-- Age range -->
         <c:if test="${school.levelCode eq 'p' and school.ageRangeAsString ne ''}">
-            ${school.ageRangeAsString};
+            Accepts ${school.ageRangeAsString};
         </c:if>
 
         <!-- Grade levels --><!--
