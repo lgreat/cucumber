@@ -171,12 +171,12 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
         Map<Question, Answer> qAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
 
-        List<UserResponse> responses = new ArrayList<UserResponse>();
+        List<List<String>> responses = new ArrayList<List<String>>();
 
         if (qAndA != null && qAndA.size() > 0) {
             Set<Map.Entry<Question, Answer>> entrySet = qAndA.entrySet();
             for (Map.Entry<Question, Answer> entry : entrySet) {
-                responses = _surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
+                responses = _surveyDao.findFriendlyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
                 if (responses != null && responses.size() > 0) {
                     break;
                 }
@@ -184,14 +184,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
         String item = null;
-        UserResponse userResponse;
-        String response;
+        List<String> tokens;
 
         if (responses.size() > 0) {
-            userResponse = responses.get(0);
-            response = userResponse.getResponseValue();
-            String[] tokens = StringUtils.split(response, ',');
-            item = tokens[0];
+            tokens = responses.get(0);
+            if (tokens != null && tokens.size() > 0) {
+                item = tokens.get(0);
+            }
         }
 
         return item;

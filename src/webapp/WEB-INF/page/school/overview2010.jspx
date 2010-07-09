@@ -244,7 +244,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <span class="sprite emailIt"><!-- do not collapse --></span>
 <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                styleClass="email toolsTxt text3-06b"> Email me updates about this school</promo:mssHover>
+                styleClass="email toolsTxt text3-06b"> Get email updates about this school</promo:mssHover>
 
 <c:if test="${empty bestKnownFor}">
     <c:choose>
@@ -253,7 +253,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <c:if test="${school.levelCode != 'p'}">
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div id="js-esp-principal-link" class="alertBox2 text2">
-                    <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you a principal? <a
+                    <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you the principal? <a
                             href="#">Complete your school's profile</a></p>
                 </div>
             </c:if>
@@ -295,8 +295,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="text3">
     <link:city city="${school.city}" state="${school.physicalAddress.state}"
-               title="${school.city} schools">Top rated ${school.city} schools</link:city> | <a
-        href="#">Cities near Berkeley</a>
+               title="${school.city} schools">Top rated ${school.city} schools</link:city> |
+    <link:nearbyCities state="${school.physicalAddress.state}" city="${school.city}">Cities near ${school.city}</link:nearbyCities>
 </div>
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="smallAlertText">

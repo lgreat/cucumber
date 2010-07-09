@@ -40,15 +40,17 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         answer.setId(3);
         map.put(question, answer);
 
-        List<UserResponse> userResponses = new ArrayList<UserResponse>();
-        UserResponse response = new UserResponse();
-        response.setResponseValue("o_n_e,two,three");
+        List<List<String>> userResponses = new ArrayList<List<String>>();
+        ArrayList<String> response = new ArrayList<String>();
+        response.add("o_n_e");
+        response.add("two");
+        response.add("three");
         userResponses.add(response);
 
         expect(_surveyDao.findSurveyIdWithMostResultsForSchool(school)).andReturn(survey.getId());
         expect(_surveyDao.findSurveyById(survey.getId())).andReturn(survey);
         expect(_surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle)).andReturn(map);
-        expect(_surveyDao.findSurveyResultsBySchoolQuestionAnswer(school, question.getId(), answer.getId(), survey.getId())).andReturn(userResponses);
+        expect(_surveyDao.findFriendlyResultsBySchoolQuestionAnswer(school, question.getId(), answer.getId(), survey.getId())).andReturn(userResponses);
 
         replay(_surveyDao);
 

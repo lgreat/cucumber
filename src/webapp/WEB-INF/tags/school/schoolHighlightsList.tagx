@@ -101,5 +101,4 @@
             Associations: ${school.association}
         </c:if>
 
-
 </jsp:root>
