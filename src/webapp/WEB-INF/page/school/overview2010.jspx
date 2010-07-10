@@ -300,9 +300,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="text3">
-    <link:city city="${school.city}" state="${school.physicalAddress.state}"
-               title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
-    <link:nearbyCities state="${school.physicalAddress.state}" city="${school.city}">Cities near ${school.city}</link:nearbyCities>
+    <c:choose>
+        <c:when test="${school.city eq 'Washington' and school.databaseState eq 'DC'}">
+            <link:city city="${school.city}" state="${school.physicalAddress.state}" title="${school.city} schools">Top-rated Washington, D.C. schools</link:city> |
+            <link:nearbyCities state="${school.physicalAddress.state}" city="${school.city}">Cities near Washington, D.C.</link:nearbyCities>
+        </c:when>
+        <c:otherwise>
+            <link:city city="${school.city}" state="${school.physicalAddress.state}" title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
+            <link:nearbyCities state="${school.physicalAddress.state}" city="${school.city}">Cities near ${school.city}</link:nearbyCities>
+        </c:otherwise>
+    </c:choose>
 </div>
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="smallAlertText">
