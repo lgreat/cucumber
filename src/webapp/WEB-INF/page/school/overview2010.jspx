@@ -15,7 +15,8 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
@@ -340,7 +341,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </colgroup>
             <tbody>
             <tr class="brdbtm_dotted bg-color-f9eccd">
-                <td>
+                <td align="center">
                     <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                type="checkbox"/>
@@ -381,7 +382,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </tr>
         <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
                 <tr class="brdbtm_dotted">
-                    <td>
+                    <td align="center">
                         <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
                             <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
                                    type="checkbox"/>
@@ -429,9 +430,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
-        <button class="btn25" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
+        <div id="submitCompare">
+        <button class="btn25 fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
             <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-        </button>
+        </button><span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
+        </div>
 
         <!-- TODO: paging -->
 
@@ -482,9 +485,20 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         schoolIdList = '';
         schoolIdListCount = 0;
         jQuery('.compare-school-checkbox').click(function(item) {
+            console.log('hello');
             if (schoolIdList != '') {
                 schoolIdList += ',';
             }
+
+            // to highlight table row
+            var theTD = jQuery(this).parent();
+            var theTR = theTD.parent();
+            if(jQuery(this+':not(:checked)')) {
+                theTR.toggleClass('bg-color-f4fafd');
+            }
+
+
+
 
             schoolIdList += jQuery(this).attr('id');
             schoolIdListCount++;
@@ -525,6 +539,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             jQuery('#js-esp-info-hover').hide();
         });
     });
+
+
+    function countChecked() {
+//        console.log('hello from countChecked');
+        var n = jQuery('#nearby-schools-table-body input:checked').length;
+        jQuery('.submitCompareError').text(n == 1 ? "Select two or more to compare" : "");
+    }
+
+    countChecked();
+    jQuery(":checkbox").click(countChecked);
 
 </script>
 
