@@ -156,7 +156,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
         <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
-        <p class="text3">Overall community rating</p>
+        <p class="text3">Overall parent rating</p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <span class="sprite stars_lg_b_${ratings.overall}"><!-- do not collapse --></span>
@@ -301,7 +301,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="text3">
     <link:city city="${school.city}" state="${school.physicalAddress.state}"
-               title="${school.city} schools">Top rated ${school.city} schools</link:city> |
+               title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
     <link:nearbyCities state="${school.physicalAddress.state}" city="${school.city}">Cities near ${school.city}</link:nearbyCities>
 </div>
 <div class="spacer_5"><!-- do not collapse --></div>
