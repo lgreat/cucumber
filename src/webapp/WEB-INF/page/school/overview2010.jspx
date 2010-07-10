@@ -353,7 +353,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         ${school.name}
                     </link:schoolProfileOverview></p>
 
-                    <p class="text3">0 miles</p>
+                    <p class="text3"><!-- not empty --></p>
                 </td>
                 <td>
                     <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
