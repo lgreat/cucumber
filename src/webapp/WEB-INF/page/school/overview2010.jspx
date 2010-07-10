@@ -482,34 +482,28 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <script type="text/javascript">
     jQuery(function() {
-        schoolIdList = '';
-        schoolIdListCount = 0;
-        jQuery('.compare-school-checkbox').click(function(item) {
-            console.log('hello');
-            if (schoolIdList != '') {
-                schoolIdList += ',';
-            }
 
+        jQuery('.compare-school-checkbox').click(function(item) {
             // to highlight table row
             var theTD = jQuery(this).parent();
             var theTR = theTD.parent();
             if(jQuery(this+':not(:checked)')) {
                 theTR.toggleClass('bg-color-f4fafd');
             }
-
-
-
-
-            schoolIdList += jQuery(this).attr('id');
-            schoolIdListCount++;
-
-            if (schoolIdListCount > 1) {
-                jQuery('#compareBtn').attr('disabled', '');
-            }
         });
 
         jQuery('#compareBtn').click(function() {
-            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + schoolIdList;
+            var list = '';
+            var first = true;
+            jQuery('#nearby-schools-table-body input:checked').each(function (){
+                if (first) {
+                    first = false
+                } else {
+                    list += ',';
+                }
+                list += jQuery(this).attr('id');
+            });
+            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
         });
 
         GSType.hover.joinHover.showJoinNthHoverOnExit();
@@ -542,8 +536,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
     function countChecked() {
-//        console.log('hello from countChecked');
         var n = jQuery('#nearby-schools-table-body input:checked').length;
+        if (n >= 2) {
+            jQuery('#compareBtn').attr('disabled', '');
+        } else {
+            jQuery('#compareBtn').attr('disabled', 'disabled');
+        }
         jQuery('.submitCompareError').text(n == 1 ? "Select two or more to compare" : "");
     }
 
