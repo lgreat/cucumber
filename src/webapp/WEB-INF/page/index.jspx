@@ -227,19 +227,13 @@
     <!-- GS-9920 moved to directly below carousel during BTS season -->
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102" showK12Overlay="${requestScope.showK12Overlay}"/>
 
-    <variant:a>
-        <school:findSchoolTopCitesAndStates />
-    </variant:a>
+    <school:findSchoolTopCitesAndStates />
 
     <c:if test="${requestScope.recentCmsContent ne null}">
         <moreContent:gradeByGrade/>
     </c:if>
 
     <!-- GS-9920 move 598x102 back to here after BTS season -->
-
-    <variant:b>
-        <school:findSchoolTopCitesAndStates />
-    </variant:b>
 
 </div>
 <!-- end mainGS -->
