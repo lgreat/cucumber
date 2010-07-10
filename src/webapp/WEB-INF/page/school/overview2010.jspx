@@ -221,7 +221,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <school:schoolHighlightsList school="${school}"/>
 </c:set>
 <c:if test="${not empty schoolHighlights}">
-    <c:set var="schoolHighlightsList" value="${schoolHighlights}; "/>
+    <c:set var="schoolHighlightsList" value="${schoolHighlights};&#32;"/>
 </c:if>
 <c:if test="${not empty surveySampleList}">
     <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
@@ -233,9 +233,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <div class="text2">
         ${schoolHighlights}
                 <span class="iblock fltrt smallAlertText">
-                    <link:surveyResults school="${school}">
-                        More <span class="alertDoubleArrow">&#187;</span>
-                    </link:surveyResults>
+                    <c:if test="${hasSurveyData}">
+                        <link:surveyResults school="${school}" level="${surveyLevelCode}">
+                            More <span class="alertDoubleArrow">&#187;</span>
+                        </link:surveyResults>
+                    </c:if>
                 </span>
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
@@ -276,9 +278,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <!-- begin map -->
 
-<div class="title2-d61">Compare to nearby schools<span class="smallAlertText fltrt iblock padtop_7"><link:mapSchool
-        school="${school}">Larger map </link:mapSchool><span
-        class="alertDoubleArrow">&amp;#187;</span></span></div>
+<div class="title2-d61">Compare to nearby schools
+    <span class="smallAlertText fltrt iblock padtop_7">
+        <link:mapSchool school="${school}">Larger map </link:mapSchool>
+        <span class="alertDoubleArrow">&amp;#187;</span>
+    </span>
+</div>
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
