@@ -2603,7 +2603,7 @@
           class="gs.web.school.PerlFetchController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/enhancedSchoolProfile"/>
-        <property name="perlContentPath" value="/gscache/pqview_simple/$STATE/$ID"/>
+        <property name="perlContentPath" value="/cgi-bin/$STATE/pqview_simple/$ID"/>
     </bean>
 
 </beans>
