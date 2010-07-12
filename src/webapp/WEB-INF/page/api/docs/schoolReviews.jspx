@@ -133,7 +133,7 @@
             <div class="call">
                 <h2>Sample Request</h2>
                 <div class="sample_url">http://${apiHost}/reviews/city/CA/Alameda?key=[yourAPIkey]&amp;limit=2</div>
-                Returns 2 most recent reviews for school in California with GreatSchools ID of 1.
+                Returns 2 most recent reviews for schools in the city of Alameda, CA.
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
