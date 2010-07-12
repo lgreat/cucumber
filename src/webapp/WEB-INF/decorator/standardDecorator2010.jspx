@@ -97,10 +97,10 @@
         <c:when test="${showK12Overlay}">
             <c:choose>
                 <c:when test="${isHomePage}">
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12.js?v=$RELEASE_NUMBER"/>
+                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12.v2.js"/>
                 </c:when>
                 <c:otherwise>
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12-2.js?v=$RELEASE_NUMBER"/>
+                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12-2.v2.js"/>
                 </c:otherwise>
             </c:choose>
             <![CDATA[<script type="text/javascript" src="${gsoverlayad}"></script>]]>
@@ -171,7 +171,7 @@
         </c:otherwise>
     </c:choose>
     <a href="http://ad.doubleclick.net/jump/N2942.114495.5898853556421/B4641383;sz=1x1;ord=[timestamp]?"><img
-            src="http://ad.doubleclick.net/ad/N2942.114495.5898853556421/B4641383;sz=1x1;ord=[timestamp]?"
+            src="/res/img/pixel.gif" id="k12Tracker"
             border="0" width="1" height="1" alt="Click Here"/></a>
 </c:if>
 
