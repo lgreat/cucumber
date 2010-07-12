@@ -97,10 +97,10 @@
         <c:when test="${showK12Overlay}">
             <c:choose>
                 <c:when test="${isHomePage}">
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12.js"/>
+                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12.js?v=$RELEASE_NUMBER"/>
                 </c:when>
                 <c:otherwise>
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12-2.js"/>
+                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12-2.js?v=$RELEASE_NUMBER"/>
                 </c:otherwise>
             </c:choose>
             <![CDATA[<script type="text/javascript" src="${gsoverlayad}"></script>]]>
