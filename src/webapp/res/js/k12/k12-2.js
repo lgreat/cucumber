@@ -22,6 +22,10 @@ function killOverlay() {
 	swfobject.removeSWF("overlay-728-adslot");
 	document.body.style.overflow = 'auto';
 	document.getElementById("adHeader_728x90").innerHTML = '<a href="http://ad.doubleclick.net/clk;226334596;50167786;t?http://go.k12.com/wm/tb/cons/k12/200907/orange_a/index.html?se=GREATSCHOOLS&campaign=NAT" target="_new"><img src="http://www.greatschools.org/catalog/images/k12overlay_static728x90.gif" /></a>';
+
+    if (typeof k12Callback == 'function') {
+        k12Callback();
+    }
 }
 
 jQuery(document).ready(function() {

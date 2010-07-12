@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          >
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:gsweb="gstaglib"
+        >
     <jsp:directive.tag body-content="empty"
                        description="Call javascript to equalize columns."/>
-    <jsp:directive.attribute name="ids" required="true" description="comma separated list of ids to equalize. Ids need to be wrapped in single quote."/>
-    <jsp:scriptlet>
-        String functionCall = "BoxHeights.equalize(" + ids + ")";
-        //call relocate deferred content first so that deferred items will be used in any height calculations.
-        gs.web.util.PageHelper.addOnLoadHandler(request, "relocateDeferredContent()");
-        gs.web.util.PageHelper.addOnLoadHandler(request, functionCall);
-    </jsp:scriptlet>
+    <jsp:directive.attribute name="ids" required="true"
+                             description="comma separated list of ids to equalize. Ids need to be wrapped in single quote."/>
+
+    <c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
+    <!-- WARNING: this logic is repeated in standardDecorator2010.jspx; keep consistent! -->
+    <!-- use request scope so that home page index.jspx and ad tags can check this variable showK12Overlay -->
+    <c:set var="showK12Overlay"
+           value="${!gsweb:isExcludeFromK12Overlay(requestScope.pageHelper) and gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}"
+           scope="request"/>
+
+    <c:choose>
+        <c:when test="${showK12Overlay}">
+            <script type="text/javascript">
+                function k12Callback() {
+                    BoxHeights.equalize(${ids});
+                }
+            </script>
+        </c:when>
+        <c:otherwise>
+            <jsp:scriptlet>
+                String functionCall = "BoxHeights.equalize(" + ids + ")";
+                //call relocate deferred content first so that deferred items will be used in any height calculations.
+                gs.web.util.PageHelper.addOnLoadHandler(request, "relocateDeferredContent()");
+                gs.web.util.PageHelper.addOnLoadHandler(request, functionCall);
+            </jsp:scriptlet>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
