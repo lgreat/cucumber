@@ -1014,7 +1014,7 @@ body.cobranded #pageGS {
 }
 
 .leftside #contentGS, .nocol #contentGS, .cityPage #contentGS, .preschool #contentGS, .research #contentGS,
-.balanced #contentGS, .framed #mainWrap, .framed #contentGS, .framed #pageGS, .framed #footerFrm {
+.balanced #contentGS, .framed #mainWrap, .framed #contentGS, .framed #pageGS, .framed #footerFrm, .overview #contentGS {
     background: #fff;
     padding: 0;
 }
@@ -3212,7 +3212,7 @@ body.nocol #moreGrades_SCPP  li {
 #moreGrades li, #manageNewsletters #moreGrades li, #moreGrades_SCPP li {
     padding: 3px 0 0 5px;
     margin: 0 0 6px;
-    overflow: auto;
+    overflow: hidden;
 }
 
 #moreGrades li label, #manageNewsletters #moreGrades li label, #moreGrades_SCPP li label {
@@ -4669,7 +4669,7 @@ margin:10px 0 14px 20px;
 #schoolChoicePackPromo-wide {
     background-color: #F9E9CE;
     width:100%;
-    height:126px;
+    /*height:126px;*/
 }
 
 #schoolChoicePackPromo-wide .mod_hd h3 {
@@ -4680,8 +4680,45 @@ margin:10px 0 14px 20px;
 }
 
 #schoolChoicePackPromo-wide div.mod_bd {
-    padding: 0 15px 15px;
+    padding: 0 15px
 }
+
+.form_image{
+    width:97px;
+    padding-right:10px;
+}
+
+.form_panel{
+    width:445px;
+    padding-bottom:10px;
+}
+
+#gradeSelect {
+    overflow: visible;
+    float:left;
+}
+
+#gradeSelect p{
+    margin-top:10px;
+}
+
+#email_go{
+    padding-top:5px;
+}
+
+#cemail {
+    margin:2px 5px 0 5px;
+    width:114px;
+    color:#888888;
+    font-family: Arial,Arial,sans-serif;
+    font-size: 13px;
+    float: left;
+}
+
+#schoolChoicePackPromo-wide .privacy_terms {
+    clear:both;
+}
+
 
 /* =4k-1.3 parent reviews
 -------------------------------------------------------------------------------------------*/

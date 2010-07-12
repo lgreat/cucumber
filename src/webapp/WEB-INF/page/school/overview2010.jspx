@@ -124,7 +124,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             }*/
     </style>
 </head>
-<gsml:body adPageName="overview" pageLayout="nocol">
+<gsml:body adPageName="overview" pageLayout="overview">
 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
 
 <school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
