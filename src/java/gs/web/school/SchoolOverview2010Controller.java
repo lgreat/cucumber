@@ -156,7 +156,9 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             }
         }
 
-        highlights.add(StringUtils.capitalize(school.getAffiliation()));
+        if (school.getAffiliation() != null) {
+            highlights.add(StringUtils.capitalize(school.getAffiliation()));
+        }
 
         if (school.getAssociation() != null) {
             highlights.add("Associations: " + school.getAssociation());
