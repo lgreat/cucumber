@@ -29,12 +29,13 @@
 
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
-        <div id="profileRecentDiscussions" class="clearfix mod">
+        <div id="profileRecentDiscussions" class="mod">
             <div class="mod_hd">
                 <h3>${requestScope.discussionTopicFull} Community</h3>
             </div>
-            <div class="viewTopic">
-                <label for="profileRecentDiscussions_topicSelect">View topic:</label>
+            <div class="mod_bd">
+            <div class="viewTopic brdbtm_dotted text3">
+                <label for="profileRecentDiscussions_topicSelect">View topic: </label>
                 <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
                     <c:forEach var="myTc" items="${requestScope.discussionTopics}">
                         <gsml:selectOption value="${myTc.value}"
@@ -46,14 +47,13 @@
                     </c:if>
                 </select>
             </div>
-            <hr class="hr"/>
-            <div class="spacer_10"><!-- do not collapse --></div>
+            <div class="profileDiscussions brdbtm_dotted">    
             <ul>
                 <c:forEach var="discussion" items="${requestScope.discussions}">
-                    <li class="clearfix">
+                    <li>
                         <div class="sprite discussion fltlft mrgtop_5 mrgrt_10"><!-- do not collapse --></div>
 
-                        <div class="fltlft">
+                        <div class="fltlft profilediscussion">
                             <p class="text3bold">
                                 <link:discussion discussionId="${discussion.id}"
                                                  fullUri="${fullUri}">${discussion.title}</link:discussion>
@@ -73,22 +73,22 @@
                 </c:forEach>
             </ul>
 
-            <p class="smallAlertText"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+            <p class="text3bold profileMore"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
                                               fullUri="${fullUri}">More conversations <span class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
 
-            <br class="clearfloat"/>
-            <hr class="hr"/>
-            <h2>Got a question about ${requestScope.discussionTopic} Schools?</h2>
+            </div>
+            <div class="profileStartDiscussions brdbtm_dotted">
+                <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic} Schools?</p>
+                <div class="spacer_10"><!-- do not collapse --></div>
             <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
-                      class="textarea"
+                      class="textarea bg-ebebeb text2"
                       onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); checkLogin();"
                       onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
-
+    <div class="spacer_10"><!-- do not collapse --></div>
             <div>
                 <a class="btn25 jq_startADiscussion" href="#" onclick="this.blur(); return false;">
                     <span class="lftDoor25">
-                        <span class="rtDoor25"><span
-                                class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Submit</span>
+                        <span class="rtDoor25">Submit</span>
                     </span>
                 </a>
                 <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
@@ -97,6 +97,9 @@
                                                  discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
                                                  getTitleFunc="GS_getProfileDiscussionTitle()"/>
             </div> <!-- end start a discussion button -->
+                <div class="spacer_10"><!-- do not collapse --></div>
+            </div>    
+            </div>
         </div>
         <!-- end recentDiscussions -->
 
