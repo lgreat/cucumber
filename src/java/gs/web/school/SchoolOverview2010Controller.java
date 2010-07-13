@@ -47,7 +47,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IPQDao _PQDao;
 
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
-    public static String SURVEY_SAMPLE_ATTRIBUTE = "surveySampleList";
+    public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -108,7 +108,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             _schoolProfileHeaderHelper.updateModel(school, model);
 
-            populateModelWithSurveyData(school, model);
+            populateModelWithSchoolHighlights(school, model);
 
             // if confirm=true is passed in as a parameter to theoverview page, always show the
             // school choice pack promo thank you
@@ -139,19 +139,31 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         return new ModelAndView(_viewName, model);
     }
 
-    public void populateModelWithSurveyData(School school, Map<String, Object> model) {
+    public void populateModelWithSchoolHighlights(School school, Map<String, Object> model) {
 
-        Set<String> results = new HashSet();
+        Set<String> highlights = new HashSet();
+
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && school.getAgeRangeAsString() != null) {
+            highlights.add("Accepts " + school.getAgeRangeAsString());
+        }
+
+        highlights.add(StringUtils.capitalize(SchoolSubtype.getSubtypes(school)));
+
+        highlights.add(StringUtils.capitalize(school.getAffiliation()));
+
+        if (school.getAssociation() != null) {
+            highlights.add("Associations: " + school.getAssociation());
+        }
 
         for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
             String token = getOneResponseTokenForAnswer(school, answer);
             token = StringUtils.replace(token, "_", " ");
             if (token != null) {
-                results.add(token);
+                highlights.add(token);
             }
         }
 
-        model.put(SURVEY_SAMPLE_ATTRIBUTE, StringUtils.join(results, "; "));
+        model.put(SCHOOL_HIGHLIGHTS_ATTRIBUTE, StringUtils.join(highlights, "; "));
     }
 
     /**

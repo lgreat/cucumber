@@ -29,8 +29,13 @@
 <div id="parentReviewsContainer">
     <div class="mod_hd">
         <h3>Recent Reviews
-            <span class="smallAlertText fltrt iblock padtop_7"><link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
-            class="alertDoubleArrow-fff">&amp;#187;</span></link:schoolProfileParentReview></span>
+            <c:if test="${totalReviews gt 0}">
+                <span class="smallAlertText fltrt iblock padtop_7">
+                    <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
+                    class="alertDoubleArrow-fff">&amp;#187;</span>
+                    </link:schoolProfileParentReview>
+                </span>
+            </c:if>
         </h3>
     </div>
 

@@ -232,16 +232,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <br/><br/>
 
 <!-- School highlights -->
-<c:set var="schoolHighlights">
-    <school:schoolHighlightsList school="${school}"/>
-</c:set>
-<c:if test="${not empty schoolHighlights}">
-    <c:set var="schoolHighlightsList" value="${schoolHighlights};&#32;"/>
-</c:if>
-<c:if test="${not empty surveySampleList}">
-    <c:set var="schoolHighlights" value="${schoolHighlights}${surveySampleList}"/>
-</c:if>
-
 <c:if test="${not empty schoolHighlights}">
     <p class="text2bold">School highlights:</p>
 
@@ -504,12 +494,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
 <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
-
-<div class="alertBox4 smallAlertTextBold">
-    <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
-            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
-    <br class="clearBoth"/>
-</div>
+<c:if test="${fn:length(reviews) gt 0}">
+    <div class="alertBox4 smallAlertTextBold">
+        <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
+                class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+        <br class="clearBoth"/>
+    </div>
+</c:if>
 
 
 <div id="submit-review-link-box" class="alertBox3 text3bold">
@@ -518,6 +509,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview></span></p>
 </div>
 
+</div>
+
+</school:profile2010>
+
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
     <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
     <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
@@ -525,10 +520,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <strong>Are you relocating?</strong> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter> Tips | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
     </div>
 </c:if>
-
-</div>
-
-</school:profile2010>
 
 
 <script type="text/javascript">
