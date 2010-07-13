@@ -94,7 +94,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new EspTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/school/enhancedSchoolProfile.page?id=8&state=NY", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/ny/pqview/8", builder.asSiteRelative(null));
     }
 
     public void testCompareSchoolLinkTagHandler() {
