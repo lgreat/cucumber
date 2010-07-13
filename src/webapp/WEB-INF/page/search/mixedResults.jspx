@@ -82,7 +82,9 @@
         <c:if test="${not empty mainResults}">
             <c:choose>
                 <c:when test="${type eq 'school'}">
-                    <search:schoolResults results="${mainResults}"/>
+                    <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"
+                              sortColumn="${sortColumn}"
+                              sortDirection="${sortDirection ne null ? sortDirection : 'asc'}"/>
                 </c:when>
                 <c:otherwise>
                     <search:articleResults results="${mainResults}"/>
