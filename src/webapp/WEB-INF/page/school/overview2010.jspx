@@ -135,6 +135,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <promo:kindercare school="${school}" format="narrow"/>
 </c:if>
 
+<c:set var="overallRating" value="${ratings.overall}"/>
+<c:if test="${empty ratings.overall}">
+    <c:set var="overallRating" value="0"/>
+</c:if>
+
 <div id="overviewColumn1">
 
     <!-- overall school rating box -->
@@ -159,7 +164,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <p class="text3">Overall parent rating</p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
-        <span class="sprite stars_lg_b_${ratings.overall}"><!-- do not collapse --></span>
+        <link:schoolProfileParentReview school="${school}">
+            <span class="sprite stars_lg_b_${overallRating}"><!-- do not collapse --></span>
+        </link:schoolProfileParentReview>
 
         <div class="spacer_5"><!-- do not collapse --></div>
 
@@ -245,9 +252,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </c:if>
 <!-- end school highlights -->
 
-<span class="sprite emailIt"><!-- do not collapse --></span>
-<promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                styleClass="email toolsTxt text3-06b"> Get email updates about this school</promo:mssHover>
+<c:if test="${(school.type.schoolTypeName != 'private') and (school.levelCode != 'p')}">
+    <link:newsletterManagement styleClass="email toolsTxt text3-06b" schoolId="${school.id}" schoolState="${school.databaseState}" onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+        <span class="sprite emailIt"><!-- do not collapse --></span> Send me updates about this school
+    </link:newsletterManagement>
+</c:if>
 
 <c:if test="${empty bestKnownFor}">
     <c:choose>
@@ -319,21 +328,32 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
+<c:set var="displayCompareColumn" value="${school.levelCode ne 'p'}"/>
+<c:set var="displayGSRatingColumn" value="${school.levelCode ne 'p'}"/>
+
     <!-- begin nearby schools list -->
     <c:if test="${not empty mapSchools}">
         <table id="nearby-schools-table-header">
             <colgroup>
-                <col align="center" width="62"/>
+                <c:if test="${displayCompareColumn}">
+                    <col align="center" width="62"/>
+                </c:if>
                 <col align="left" width="179"/>
-                <col align="right" width="90"/>
+                <c:if test="${displayGSRatingColumn}">
+                    <col align="right" width="90"/>
+                </c:if>
                 <col align="center" width="69"/>
                 <col align="center" width="7"/>
             </colgroup>
             <thead>
             <tr class="brdbtm_solid smallText2bold">
-                <th>COMPARE</th>
+                <c:if test="${displayCompareColumn}">
+                    <th>COMPARE</th>
+                </c:if>
                 <th class="text-align-lft">SCHOOL</th>
-                <th>GREATSCHOOLS RATING</th>
+                <c:if test="${displayGSRatingColumn}">
+                    <th>GREATSCHOOLS RATING</th>
+                </c:if>
                 <th>PARENT RATING</th>
                 <th><!-- do not collapse --></th>
             </tr>
@@ -341,20 +361,26 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </table>
         <table id="nearby-schools-table-body">
             <colgroup>
-                <col align="center" width="62"/>
+                <c:if test="${displayCompareColumn}">
+                    <col align="center" width="62"/>
+                </c:if>
                 <col align="left" width="212"/>
-                <col align="center" width="57"/>
+                <c:if test="${displayGSRatingColumn}">
+                    <col align="center" width="57"/>
+                </c:if>
                 <col align="center" width="76"/>
             </colgroup>
             <tbody>
             <tr class="brdbtm_dotted bg-color-f9eccd">
-                <td align="center">
-                    <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
-                               type="checkbox"/>
-                        <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
-                    </c:if>
-                </td>
+                <c:if test="${displayCompareColumn}">
+                    <td align="center">
+                        <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
+                            <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                                   type="checkbox"/>
+                            <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
+                        </c:if>
+                    </td>
+                </c:if>
                 <td>
                     <p class="text2bold"><link:schoolProfileOverview school="${school}">
                         ${school.name}
@@ -362,18 +388,20 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
                     <p class="text3"><!-- not empty --></p>
                 </td>
-                <td>
-                    <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                        <c:choose>
-                            <c:when test="${not empty gs_rating and gs_rating gt 0}">
-                                <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:if>
-                </td>
+                <c:if test="${displayGSRatingColumn}">
+                    <td>
+                        <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
+                            <c:choose>
+                                <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                                    <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+                    </td>
+                </c:if>
                 <td>
                     <link:schoolProfileParentReview school="${school}">
                         <c:choose>
@@ -389,14 +417,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </tr>
         <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
                 <tr class="brdbtm_dotted">
-                    <td align="center">
-                        <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
-                            <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
-                                   type="checkbox"/>
-                            <label for="${s.neighbor.databaseState}${s.neighbor.id}"
-                                   class="smallText2">COMPARE</label>
-                        </c:if>
-                    </td>
+                    <c:if test="${displayCompareColumn}">
+                        <td align="center">
+                            <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
+                                <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
+                                       type="checkbox"/>
+                                <label for="${s.neighbor.databaseState}${s.neighbor.id}"
+                                       class="smallText2">COMPARE</label>
+                            </c:if>
+                        </td>
+                    </c:if>
                     <td>
                         <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
                             ${s.neighbor.name}
@@ -405,18 +435,20 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                                                            value="${s.distance}"/> miles</p>
                     </td>
-                    <td>
-                        <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
-                            <c:choose>
-                                <c:when test="${not empty s.rating and s.rating gt 0}">
-                                    <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:if>
-                    </td>
+                    <c:if test="${displayGSRatingColumn}">
+                        <td>
+                            <c:if test="${not fn:startsWith(s.neighbor.levelCode, 'p')}">
+                                <c:choose>
+                                    <c:when test="${not empty s.rating and s.rating gt 0}">
+                                        <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+                        </td>
+                    </c:if>
                     <td>
                         <link:schoolProfileParentReview school="${school}">
                             <c:choose>
@@ -466,21 +498,29 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<c:if test="${fn:length(reviews) gt 0}">
-    <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
 
-    <div class="alertBox4 smallAlertTextBold">
-        <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
-                class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
-        <br class="clearBoth"/>
-    </div>
-</c:if>
+<school:parentReviews school="${school}" reviews="${reviews}" maxReviews="4" ratings="${ratings}"/>
+
+<div class="alertBox4 smallAlertTextBold">
+    <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
+            class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
+    <br class="clearBoth"/>
+</div>
+
 
 <div id="submit-review-link-box" class="alertBox3 text3bold">
     <p>Share your own experience with ${school.name}.
     <span class="smallAlertText"><link:schoolProfileParentReview school="${school}">Submit a review <span
             class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview></span></p>
 </div>
+
+<c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
+    <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
+    <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
+    <div id="YahooRealEstateLink">
+        <strong>Are you relocating?</strong> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter> Tips | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
+    </div>
+</c:if>
 
 </div>
 
@@ -554,6 +594,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
     countChecked();
     jQuery(":checkbox").click(countChecked);
+
+    jQuery('#reviewBtn').click(function() {
+       window.location.href = '/school/parentReviews.page?id=${school.id}&amp;state=${fn:toLowerCase(school.databaseState)}';
+    });
 
 </script>
 
