@@ -4,6 +4,7 @@ import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
 
 import gs.data.school.*;
+import gs.web.util.UrlUtil;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -53,17 +54,15 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         writeClosingDiv();
     }
 
-    public String getReviewSchoolLink(String s){
-        UrlBuilder b = new UrlBuilder(_school, UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
+    public String getReviewSchoolLink(String s) {
+        UrlBuilder b = new UrlBuilder(_school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
         PageContext pageContext = (PageContext)getJspContext();
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 
         StringBuilder sb = new StringBuilder();
         sb.append("<a href=\"");
         sb.append(b.asSiteRelativeXml(request));
-
         sb.append("\" class=\"submodal-344-362 addParentReviewLink\"");
-        sb.append(" onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false; \"");
         sb.append(">") ;
         sb.append(s);
         sb.append("</a>");
