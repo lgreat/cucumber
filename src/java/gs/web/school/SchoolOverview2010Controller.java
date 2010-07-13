@@ -141,13 +141,20 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void populateModelWithSchoolHighlights(School school, Map<String, Object> model) {
 
-        Set<String> highlights = new HashSet();
+        //I want guaranteed ordering otherwise the capitalization and concatenation of the items in the collection gets tricky
+        Set<String> highlights = new TreeSet();
 
         if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && school.getAgeRangeAsString() != null) {
             highlights.add("Accepts " + school.getAgeRangeAsString());
         }
 
-        highlights.add(StringUtils.capitalize(SchoolSubtype.getSubtypes(school)));
+        String subtypesCSL = SchoolSubtype.getSubtypes(school);
+        if (subtypesCSL != null) {
+            String[] subtypes = StringUtils.split(subtypesCSL, ',');
+            for (String subtype : subtypes) {
+                highlights.add(StringUtils.capitalize(subtype));
+            }
+        }
 
         highlights.add(StringUtils.capitalize(school.getAffiliation()));
 
