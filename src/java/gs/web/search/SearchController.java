@@ -236,11 +236,17 @@ public class SearchController extends AbstractFormController {
         Comparator comparator = SchoolComparatorFactory.createComparator(sortColumn, sortDirection);
 
         ResultsPager _resultsPager;
+        ResultsPager.ResultType resultType;
+        try {
+            resultType = ResultsPager.ResultType.valueOf(searchCommand.getType());
+        } catch (Exception e) {
+            resultType = ResultsPager.ResultType.school;
+        }
         if (comparator != null) {
             // sort the hits using the comparator
-            _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()), comparator);
+            _resultsPager = new ResultsPager(hits, resultType, comparator);
         } else {
-            _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
+            _resultsPager = new ResultsPager(hits, resultType);
         }
 
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
