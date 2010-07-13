@@ -183,10 +183,11 @@
                     </p>
                 </c:if>
             </div>
-            <div class="spacer_5"><!-- do not collapse --></div>
-            <div id="schoolInfoFooter" class="smallAlertText">
-                <p>Like <span class="sprite facebook"><!-- do not collapse --></span> 12.932 people like Lowell High School</p>
-            </div>
+            <!-- GS-10170 commenting out until 15.5 -->
+            <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+            <!--<div id="schoolInfoFooter" class="smallAlertText">-->
+                <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
+            <!--</div>-->
 
         </div>
     </div>
