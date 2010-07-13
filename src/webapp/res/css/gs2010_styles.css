@@ -4496,7 +4496,7 @@ margin:10px 0 14px 20px;
 
 #schoolInfoLeftColumn {
     float: left;
-    margin-right: 25px;
+    width:150px;
 }
 
 #schoolInfoLeftColumn span{
@@ -4509,6 +4509,8 @@ margin:10px 0 14px 20px;
 
 #schoolInfoRightColumn {
     float: left;
+    padding-left:25px;
+    width:203px;
 }
 
 #schoolInfoFooter {
@@ -4631,6 +4633,11 @@ margin:10px 0 14px 20px;
     width: 407px;
     float: left;
     padding-left: 15px;
+}
+
+#bestKnownFor {
+    text-align: center;
+    padding-bottom:15px
 }
 
 #rating_summary p{

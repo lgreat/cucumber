@@ -63,7 +63,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 margin-left: 15px;
             }*/
 
-        #bestKnownFor {
+        /*#bestKnownFor {
             font-size: 16px;
             text-align: center;
             width: 400px;
@@ -71,7 +71,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
         #bestKnownFor a {
             font-size: 12px;
-        }
+        }*/
 
         #espLink {
             background: #FAEACF url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
@@ -156,10 +156,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <div class="spacer_5"><!-- do not collapse --></div>
             <link:schoolProfileRating styleClass="smallAlertText"
                                       school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>
+            <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
 
         </c:if>
 
-        <div class="brdbtm_dotted spacer_10"><!-- do not collapse --></div>
+
         <div class="spacer_10"><!-- do not collapse --></div>
         <p class="text3">Overall parent rating</p>
 
@@ -197,11 +198,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_15"><!-- do not collapse --></div>
 
 <c:if test="${not empty bestKnownFor}">
-    <div id="bestKnownFor">
-        <p>"${bestKnownFor}"<img id="js-esp-info" alt="information" src="/res/img/icons/infoIcon.gif"/>
-        </p> <!-- TODO: info icon + hover -->
-        <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span
-                class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
+    <div id="bestKnownFor" class="brdbtm_dotted">
+
+        <p class="introText">"${bestKnownFor}" <span id="js-esp-info"
+                                                     class="sprite info"><!-- do not collapse --></span></p>
+
+        <!-- TODO: info icon + hover -->
+        <div class="text3">
+            <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span
+                    class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
+        </div>
 
         <div id="js-esp-info-hover" style="display:none;">
             <p>This statement has been provided by the principal or a school official at ${school.name}.
@@ -210,6 +216,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile></p>
         </div>
     </div>
+    <div class="spacer_15"><!-- do not collapse --></div>
 </c:if>
 
 <div class="text2">
