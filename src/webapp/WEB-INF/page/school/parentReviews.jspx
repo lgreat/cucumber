@@ -77,6 +77,7 @@
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
+<ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
 
 <!-- Report it dialog -->
 <community:reportContentHover openingElementSelector=".reportIt"
