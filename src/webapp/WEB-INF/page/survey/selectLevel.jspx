@@ -51,8 +51,8 @@
             }
         </style>
     </head>
-    <body>
-    <school:profile school="${school}" tab="surveys">
+    <gsml:body adPageName="survey" pageLayout="nocol">
+    <school:profile2010 omniturePageName="${pagename}" school="${school}" tab="survey">
         <div id="left-col">
             <div id="intro-start" class="intro">
                 <gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
@@ -120,15 +120,11 @@
                 </form:form>
             </div>
         </div>
-
-        <div id="right-col">
-            <ad:House_Ad_300x137 referredBy="Parent Survey: School Level Select Page" />
-            <ad:AboveFold_300x250/>
-        </div>
-        </school:profile>
+        <br class="clearfloat"/>
+        </school:profile2010>
 
         <mod:tracking pageName="${pagename}"
                       hier1="School,Parent Survey,School Level Select Page"/>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
