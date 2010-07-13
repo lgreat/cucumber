@@ -148,20 +148,21 @@ public class SchoolProfileHeaderHelper {
         // if not, default to grade level board for lowest level of school
         if (!foundLocalBoard && school.getLevelCode() != null) {
             LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
-            if (LevelCode.Level.PRESCHOOL_LEVEL == lowestLevel) {
-                model.put(DISCUSSION_TOPIC, "Preschool");
+            // only display Preschool board for p-only schools
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                model.put(DISCUSSION_TOPIC, "preschool");
                 model.put(DISCUSSION_TOPIC_FULL, "Preschool");
                 model.put(DISCUSSION_BOARD_ID, CmsConstants.PRESCHOOL_DISCUSSION_BOARD_ID);
             } else if (LevelCode.Level.ELEMENTARY_LEVEL == lowestLevel) {
-                model.put(DISCUSSION_TOPIC, "Elementary");
+                model.put(DISCUSSION_TOPIC, "elementary");
                 model.put(DISCUSSION_TOPIC_FULL, "Elementary School");
                 model.put(DISCUSSION_BOARD_ID, CmsConstants.ELEMENTARY_SCHOOL_DISCUSSION_BOARD_ID);
             } else if (LevelCode.Level.MIDDLE_LEVEL == lowestLevel) {
-                model.put(DISCUSSION_TOPIC, "Middle");
+                model.put(DISCUSSION_TOPIC, "middle");
                 model.put(DISCUSSION_TOPIC_FULL, "Middle School");
                 model.put(DISCUSSION_BOARD_ID, CmsConstants.MIDDLE_SCHOOL_DISCUSSION_BOARD_ID);
             } else if (LevelCode.Level.HIGH_LEVEL == lowestLevel) {
-                model.put(DISCUSSION_TOPIC, "High");
+                model.put(DISCUSSION_TOPIC, "high");
                 model.put(DISCUSSION_TOPIC_FULL, "High School");
                 model.put(DISCUSSION_BOARD_ID, CmsConstants.HIGH_SCHOOL_DISCUSSION_BOARD_ID);
             }

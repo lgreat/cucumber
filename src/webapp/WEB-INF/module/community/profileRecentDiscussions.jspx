@@ -78,7 +78,7 @@
 
             </div>
             <div class="profileStartDiscussions brdbtm_dotted">
-                <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic} Schools?</p>
+                <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}<c:choose><c:when test="${requestScope.discussionTopic eq 'Preschool'}">s</c:when><c:otherwise> Schools</c:otherwise></c:choose>?</p>
                 <div class="spacer_10"><!-- do not collapse --></div>
             <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
                       class="textarea bg-ebebeb text2"
