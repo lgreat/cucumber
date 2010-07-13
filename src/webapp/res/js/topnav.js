@@ -9,10 +9,10 @@ jQuery(document).ready(function() {
     }
     jQuery('#topnav_menusubnav > .nav_menu').hover(function() {
         jQuery(this).addClass('over');
-        jQuery(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').addClass('over');
+        jQuery(this).children('.nav_group_heading').addClass('over');
     }, function() {
         jQuery(this).removeClass('over');
-        jQuery(this).children('.nav_group_heading:not(#GlobalNav_CommunityButton)').removeClass('over');
+        jQuery(this).children('.nav_group_heading').removeClass('over');
     });
 
     jQuery('#topnav_menusubnav li.nav_menu ul.nav_group_items li').hover(function() {
