@@ -35,20 +35,34 @@
         <div id="breadcrumbs">
             <ul class="utility-navigation-999">
                 <li><link:home>Home</link:home> &amp;gt; </li>
-                <li><link:research state="${state}"
-                                   title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
-                </li>
-                <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                               title="${city} schools">${city} <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
-                </li>
-                <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                    <li>&amp;gt; <link:districtHome district="${school.district}"
-                                                       title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
-                    </li>
-                </c:if>
-                <c:if test="${school.levelCode == 'p'}">
-                    <li>&amp;gt; <link:schools cityName="${city}" levelCode="p">${city} preschools</link:schools></li>
-                </c:if>
+                <c:choose>
+                    <c:when test="${state eq 'DC'}">
+                        <li><link:research state="${state}"
+                                           title="District of Columbia">District of Columbia</link:research> &amp;gt;
+                        </li>
+                        <li><link:city city="${city}" state="${school.physicalAddress.state}"
+                                       title="${city} schools">Washington, D.C. <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
+                        </li>
+                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                            <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                            title="District information">DCPS</link:districtHome>
+                            </li>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <li><link:research state="${state}"
+                                           title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
+                        </li>
+                        <li><link:city city="${city}" state="${school.physicalAddress.state}"
+                                       title="${city} schools">${city} <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
+                        </li>
+                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                            <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                               title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
+                            </li>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
         <!-- end: breadcrumbs -->
@@ -62,15 +76,18 @@
         <p id="schoolTypeInfo">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
-                ${gsweb:capitalize(school.type.schoolTypeName)} |
+                ${gsweb:capitalize(school.type.schoolTypeName)}
             </c:if>
             <!-- Grade levels -->
             <c:choose>
                 <c:when test="${school.levelCode eq 'p'}">
                     Preschool
                 </c:when>
+                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                    <!-- Leave blank -->
+                </c:when>
                 <c:otherwise>
-                    ${school.gradeLevels}
+                    | ${school.gradeLevels}
                 </c:otherwise>
             </c:choose>
             <!-- Religious affiliation -->
@@ -79,11 +96,9 @@
             </c:if>
             <!-- Enrollment -->
             <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-            <c:choose>
-                <c:when test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                    | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'Student')}
-                </c:when>
-            </c:choose>
+            <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'Student')}
+            </c:if>
         </p>
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -184,7 +199,7 @@
             <div id="schoolProfileTabsWrapper">
                 <div id="schoolProfileTabBar" class="gradient-1 rnd-top-4"><!-- do not collapse --></div>
                 <ul id="schoolProfileTabs" class="text2">
-                    <li id="sptab1" class="${(tab eq 'overview' or tab eq 'esp')?'active':'inactive'}">
+                    <li id="sptab1" class="${(tab eq 'overview')?'active':'inactive'}">
                                 <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
                     </li>
                     <li id="sptab2" class="${(tab eq 'parentReviews')?'active':'inactive'}">
