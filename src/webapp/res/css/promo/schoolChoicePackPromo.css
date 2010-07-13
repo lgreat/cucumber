@@ -1,4 +1,4 @@
-#schoolChoicePackPromo {
+/*#schoolChoicePackPromo {
     color: #666666;
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
@@ -11,7 +11,7 @@
     border: 2px solid #EEEEEE;
     padding:10px 10px 10px 13px;
 
-}
+}*/
 
 #schoolChoicePackPromo img.headicon {
     float:left;
@@ -28,10 +28,10 @@
     padding:5px;
 
 }
-#schoolChoicePackPromo .mod_bd h4 {
+/*#schoolChoicePackPromo .mod_bd h4 {
     font: 700 14px Arial, sans-serif;
     width: 216px;
-}
+}*/
 
 body.nocol #schoolChoicePackPromo .mod_hd h3 {
     font: 700 16px/1.1 Arial, sans-serif;
@@ -59,10 +59,10 @@ body.nocol #col_right #schoolChoicePackPromo .mod_bd h4 {
     font-size:19px;
 }
 
-#schoolChoicePackPromo .blurb {
+/*#schoolChoicePackPromo .blurb {
     margin:5px 0 12px 0;
     width: 216px;
-}
+}*/
 
 body.nocol #schoolChoicePackPromo .mod_bd h4, body.nocol #schoolChoicePackPromo .blurb {
     width: auto;
@@ -113,9 +113,9 @@ body.nocol #schoolChoicePackPromo .mod_bd h4, body.nocol #schoolChoicePackPromo 
     margin:0;
     padding-top:1px;
 }
-#schoolChoicePackPromo div#email_go {
+/*#schoolChoicePackPromo div#email_go {
     height: 30px;
-}
+}*/
 body.nocol #schoolChoicePackPromo div#email_go {
     height: 34px;
 }
@@ -129,10 +129,10 @@ body.nocol #schoolChoicePackPromo div#email_go {
     float: left;
     display: inline;
 }
-#schoolChoicePackPromo #gradeSelect {
+/*#schoolChoicePackPromo #gradeSelect {
     overflow: visible;
     clear: both;
-}
+}*/
 body.ie7 #scpp_picker {
     height: 27px;
 }
@@ -156,13 +156,13 @@ body.ie7 #email_go {
     display: inline;
 }
 
-#schoolChoicePackPromo .privacy_terms {
+/*#schoolChoicePackPromo .privacy_terms {
     position: relative;
     margin:4px 0 0 0;
     padding: 0;
     height: 18px;
     width: 296px;
-}
+}*/
 
 body.nocol #schoolChoicePackPromo .privacy_terms {
     height: 30px;
@@ -178,13 +178,13 @@ body.nocol #schoolChoicePackPromo .privacy_terms {
 body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_checkbox {
     margin: 3px 3px 3px 0;
 }
-#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
+/*#schoolChoicePackPromo .privacy_terms #privacy_terms_text {
     line-height: 15px;
     position: relative;
     float: left;
     top: 1px;
     width:175px;
-}
+}*/
 
 body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_text {
     width: auto;
@@ -194,11 +194,11 @@ body.nocol #schoolChoicePackPromo .privacy_terms #privacy_terms_text {
     float:left;
 }
 
-#schoolChoicePackPromo div.mod_bd {
+/*#schoolChoicePackPromo div.mod_bd {
     padding: 15px;
     background: url(/res/img/school/compare/21121_thumb_boy_apple.jpg) 97% 8px no-repeat;
     height: auto;
-}
+}*/
 #schoolChoicePackPromo #confirm_panel.mod_bd {
     height: 187px;
 }

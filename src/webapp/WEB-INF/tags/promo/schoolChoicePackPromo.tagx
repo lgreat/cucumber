@@ -221,7 +221,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 <c:otherwise>
     <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo"/>
 
-    <div id="${schoolChoicePackPromoId}" class="mod ${showBorder ?'bordered':''}">
+    <div id="${schoolChoicePackPromoId}" class="mod clearfix ${showBorder ?'bordered':''}">
 
         <c:choose>
             <c:when test="${showConfirmation}">
@@ -238,9 +238,9 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             <div class="mod_hd">
                 <c:choose>
                     <c:when test="${not empty schoolName}">
-                        <h3>
+                        <h5 class="subhead2">
                             Is ${schoolName} Right for Your Child?
-                        </h3>
+                        </h5>
                     </c:when>
                     <c:otherwise>
                         <h3>
@@ -253,11 +253,20 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 
         <div id="form_panel" class="mod_bd" style="display:${formPanelDisplay}">
 
-            <h4>School Chooser Toolkit</h4>
+            <!--<h4>School Chooser Toolkit</h4>-->
 
+            <div class="form_panel col">
             <p class="blurb text3">
                 Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
             </p>
+                <div class="spacer_5"><!-- do not collapse --></div>
+            <p>I'm looking for a(n):</p>
+                </div>
+
+            <div class="form_image col">
+                <img src="/res/img/schoolChoice/schoolChoicePackPromo.png" width="97" height="75"
+                     alt="school choice pack"/>
+            </div>
 
             <jsp:scriptlet>
                 String redirectUrl;
@@ -292,6 +301,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 
             </jsp:scriptlet>
 
+            <div class="clearBoth">
             <form id="scpp_form" action="">
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
@@ -299,7 +309,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     <span class="error">Please choose a school grade level.</span>
                 </div>
                 <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
-                    <p class="text2">I'm looking for a(n):</p>
+
 
                     <ul id="scpp_picker">
                         <c:choose>
@@ -361,22 +371,26 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <div class="errors emailError" style="display:none;">
                     <span class="error">Please enter a valid email address.</span>
                 </div>
-                <div id="email_go">
+                <fieldset class="clearBoth promoFieldset">
+                    <ol>
+                        <li>
+                            <c:choose>
+                                <c:when test="${communityAuth}">
+                                    <input id="cemail" name="cemail" class="required email formText1"
+                                           value="${requestScope.context.user.email}" disabled="true"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="cemail" name="cemail" class="required email formText1"
+                                           value="Enter email address"/>
+                                </c:otherwise>
+                            </c:choose>
 
-                    <c:choose>
-                        <c:when test="${communityAuth}">
-                            <input id="cemail" name="cemail" class="required email"
-                                   value="${requestScope.context.user.email}" disabled="true"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input id="cemail" name="cemail" class="required email" value="Enter email address"/>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <button class="btn25" type="submit" id="send">
-                        <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                    </button>
-                </div>
+                            <button class="btn25" type="submit" id="send">
+                                <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                            </button>
+                        </li>
+                    </ol>
+                </fieldset>
 
 
                 <c:if test="${communityAuth}">
@@ -389,12 +403,19 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <div class="errors termsError" style="display:none;">
                     <span class="error">Please accept the Terms of Use.</span>
                 </div>
-                <div class="privacy_terms">
-                    <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
-                        <span id="privacy_terms_text"
-                              class="smallText1">I accept the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
-                </div>
+                <fieldset class="promoFieldset">
+                    <ol>
+                        <li>
+                            <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                            <label for="privacy_terms_checkbox"
+                                   class="smallText1 privacy_terms_checkbox_label">I accept the GreatSchools
+                                <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
+                                <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
+                        </li>
+                    </ol>
+                </fieldset>
             </form>
+                </div>
 
             <c:if test="${caller eq 'preschool'}">
                 <div class="adBox">
@@ -423,6 +444,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             </c:if>
         </div>
     </div>
+<div class="spacer_15"><!-- do not collapse --></div>
 </c:otherwise>
 </c:choose>
 
