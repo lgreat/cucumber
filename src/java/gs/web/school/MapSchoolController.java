@@ -52,7 +52,7 @@ public class MapSchoolController extends AbstractSchoolController {
             loadRatings(request, nearbySchools);
         }
 
-        _schoolProfileHeaderHelper.updateModel(school, model);
+        _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
         return new ModelAndView(_viewName, model);
     }

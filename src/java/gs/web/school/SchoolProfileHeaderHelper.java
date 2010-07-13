@@ -15,11 +15,15 @@ import gs.data.school.census.SchoolCensusValue;
 import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
 import gs.data.util.NameValuePair;
+import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -34,6 +38,7 @@ public class SchoolProfileHeaderHelper {
     private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -51,7 +56,8 @@ public class SchoolProfileHeaderHelper {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
     }
 
-    public void updateModel(School school, Map<String, Object> model) {
+    public void updateModel(HttpServletRequest request, HttpServletResponse response,
+                            School school, Map<String, Object> model) {
         long startTime;
         long totalTime = System.currentTimeMillis();
         try {
@@ -78,13 +84,73 @@ public class SchoolProfileHeaderHelper {
                 logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
                 startTime = System.currentTimeMillis();
-                handleCommunitySidebar(school, model); // Determine community module
+                City city = handleCommunitySidebar(school, model); // Determine community module
                 logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
+
+                startTime = System.currentTimeMillis();
+                handleAdKeywords(request, school);
+                logDuration(System.currentTimeMillis() - startTime, "Handling ad keywords");
+
+                if (city != null && response != null) {
+                    startTime = System.currentTimeMillis();
+                    PageHelper.setCityIdCookie(request, response, city);
+                    logDuration(System.currentTimeMillis() - startTime, "Handling city id cookie");
+                }
+
+                startTime = System.currentTimeMillis();
+                handleStateSpecificFooter(request, school);
+                logDuration(System.currentTimeMillis() - startTime, "Handling state specific footer");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
+    }
+
+    protected void handleStateSpecificFooter(HttpServletRequest request, School school) {
+        // GS-10018
+        Map dummyModel = new HashMap(2);
+        _stateSpecificFooterHelper.placePopularCitiesInModel(school.getDatabaseState(), dummyModel);
+        request.setAttribute(StateSpecificFooterHelper.MODEL_TOP_CITIES,
+                             dummyModel.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
+        request.setAttribute(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS,
+                             dummyModel.get(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS));
+    }
+
+    protected void handleAdKeywords(HttpServletRequest request, School school) {
+        try {
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            String levelAbbrev = school.getLevelCode().getLowestLevel().getName();
+            String schoolType = school.getType().getSchoolTypeName();
+            request.setAttribute("schoolType", schoolType);
+
+            String adPageName = "school/" + schoolType + '/' + levelAbbrev;
+            request.setAttribute("adPageName", adPageName);
+
+            // GS-5064
+            String county = school.getCounty();
+            String city = school.getCity();
+
+            if (null != pageHelper) {
+                pageHelper.addAdKeyword("type", schoolType);
+                for (LevelCode.Level level : school.getLevelCode().getIndividualLevelCodes()) {
+                    pageHelper.addAdKeywordMulti("level", level.getName());
+                }
+                pageHelper.addAdKeyword("county", county);
+                pageHelper.addAdKeyword("city", city);
+                pageHelper.addAdKeyword("school_id", school.getId().toString());
+                pageHelper.addAdKeyword("zipcode", school.getZipcode());
+
+                // set district name and id ad attributes only if there's a district and school is not preschool-only
+                if (school.getDistrictId() != 0 && school.getLevelCode() != null
+                        && !school.getLevelCode().toString().equals("p")) {
+                    pageHelper.addAdKeyword("district_name", school.getDistrict().getName());
+                    pageHelper.addAdKeyword("district_id", String.valueOf(school.getDistrictId()));
+                }
+            }
+        } catch (Exception e) {
+            _log.warn("Error constructing ad keywords in new profile header");
+        }
     }
 
     protected void determineSurveyResults(School school, Map<String, Object> model) {
@@ -125,13 +191,13 @@ public class SchoolProfileHeaderHelper {
                 SchoolCensusValue hoursPerDay = info.getLatestValue(school,
                                                                     CensusDataType.HOURS_IN_SCHOOL_DAY);
                 if (hoursPerDay != null) {
-                    model.put(PQ_HOURS, hoursPerDay.getValueFloat() + " hours per day");
+                    model.put(PQ_HOURS, hoursPerDay.getValueInteger() + " hours per day");
                 }
             }
         }
     }
 
-    protected void handleCommunitySidebar(School school, Map<String, Object> model) {
+    protected City handleCommunitySidebar(School school, Map<String, Object> model) {
         // determine if this is a city with a local discussion board
         City city = _geoDao.findCity(school.getDatabaseState(), school.getCity());
         boolean foundLocalBoard = false;
@@ -181,6 +247,7 @@ public class SchoolProfileHeaderHelper {
         addToList(topicSelectInfo, "/preschool", CmsConstants.PRESCHOOL_DISCUSSION_BOARD_ID, "Preschool");
         addToList(topicSelectInfo, "/special-education", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID, "Special Education");
         model.put(DISCUSSION_TOPICS, topicSelectInfo);
+        return city;
     }
 
     /**
@@ -234,5 +301,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public StateSpecificFooterHelper getStateSpecificFooterHelper() {
+        return _stateSpecificFooterHelper;
+    }
+
+    public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
+        _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 }

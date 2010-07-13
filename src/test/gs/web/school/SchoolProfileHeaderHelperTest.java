@@ -101,7 +101,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         verifyAllMocks();
 
         assertNull(_model.get(PQ_START_TIME));
-        assertEquals("2.5 hours per day", _model.get(PQ_HOURS));
+        assertEquals("3 hours per day", _model.get(PQ_HOURS));
         assertNull(_model.get(PQ_END_TIME));
     }
 

@@ -106,7 +106,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             model.put("gs_rating", gsRating);
 
-            _schoolProfileHeaderHelper.updateModel(school, model);
+            _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
             populateModelWithSchoolHighlights(school, model);
 

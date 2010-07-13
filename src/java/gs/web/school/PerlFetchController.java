@@ -57,7 +57,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
         try {
             perlResponse = getResponseFromUrl(href);
 
-            _schoolProfileHeaderHelper.updateModel(school, model);
+            _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
             model.put(HTML_ATTRIBUTE, perlResponse);
         } catch (BadResponseException e) {

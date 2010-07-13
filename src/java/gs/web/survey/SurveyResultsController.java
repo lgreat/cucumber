@@ -58,7 +58,7 @@ public class SurveyResultsController extends AbstractController {
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        _schoolProfileHeaderHelper.updateModel(school, model);
+        _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
         model.put(MODEL_NAME, results);

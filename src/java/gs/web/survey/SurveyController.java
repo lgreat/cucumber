@@ -158,7 +158,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             referenceData.put("states", getStateManager().getSortedAbbreviations());
         }
 
-        _schoolProfileHeaderHelper.updateModel(urc.getSchool(), referenceData);
+        _schoolProfileHeaderHelper.updateModel(request, null, urc.getSchool(), referenceData);
 
         return referenceData;
     }

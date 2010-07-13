@@ -155,7 +155,7 @@ public class ParentReviewController extends AbstractController {
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
 
-            _schoolProfileHeaderHelper.updateModel(school, model);
+            _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
     }

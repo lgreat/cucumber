@@ -53,7 +53,7 @@ public class SchoolLevelController extends SimpleFormController {
             model.put("state", school.getStateAbbreviation().getAbbreviation());
             return new ModelAndView(getSuccessView(), model);
         } else {
-            _schoolProfileHeaderHelper.updateModel(school, data);
+            _schoolProfileHeaderHelper.updateModel(request, response, school, data);
             return super.showForm(request, response, bindException, data);
         }
     }
