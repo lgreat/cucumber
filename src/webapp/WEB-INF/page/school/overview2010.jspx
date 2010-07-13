@@ -250,6 +250,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
 </c:if>
+
+
 <!-- end school highlights -->
 
 <c:if test="${(school.type.schoolTypeName != 'private') and (school.levelCode != 'p')}">
@@ -374,11 +376,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <tr class="brdbtm_dotted bg-color-f9eccd">
                 <c:if test="${displayCompareColumn}">
                     <td align="center">
-                        <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                            <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
-                                   type="checkbox"/>
-                            <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
-                        </c:if>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                        <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                     </td>
                 </c:if>
                 <td>
@@ -390,16 +389,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </td>
                 <c:if test="${displayGSRatingColumn}">
                     <td>
-                        <c:if test="${not fn:startsWith(school.levelCode, 'p')}">
-                            <c:choose>
-                                <c:when test="${not empty gs_rating and gs_rating gt 0}">
-                                    <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                                <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </c:if>
                 <td>
