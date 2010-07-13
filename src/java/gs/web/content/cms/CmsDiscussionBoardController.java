@@ -199,9 +199,9 @@ public class CmsDiscussionBoardController extends AbstractController {
             }
 
             if (StringUtils.isNotBlank(board.getPageTitle())) {
-                pageTitle = board.getPageTitle().replaceAll(" Community$", "");
+                pageTitle = board.getPageTitle();
             } else {
-                pageTitle = board.getTitle().replaceAll(" Community$", "");
+                pageTitle = board.getTitle();
             }
             if (isRaiseYourHand()) {
                 title = pageTitle;
