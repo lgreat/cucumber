@@ -16,6 +16,7 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailContentHelper;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -69,6 +70,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
     private StateManager _stateManager;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
@@ -155,6 +157,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             referenceData.put("schoolNotListed", schoolNotListed);
             referenceData.put("states", getStateManager().getSortedAbbreviations());
         }
+
+        _schoolProfileHeaderHelper.updateModel(urc.getSchool(), referenceData);
 
         return referenceData;
     }
@@ -596,5 +600,13 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }

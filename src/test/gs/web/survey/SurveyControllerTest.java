@@ -17,6 +17,7 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailContentHelper;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import org.easymock.IAnswer;
@@ -64,6 +65,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao(_schoolDao);
         _controller.setStateManager(_stateManager);
         _controller.setEmailContentHelper(new MockEmailContentHelper());
+        _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
 
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.org");

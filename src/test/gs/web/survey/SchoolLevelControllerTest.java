@@ -5,13 +5,21 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.school.SchoolProfileHeaderHelper;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
+import static org.easymock.classextension.EasyMock.*;
 
 public class SchoolLevelControllerTest extends BaseControllerTestCase {
     private SchoolLevelController _controller = new SchoolLevelController();
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+
+        _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
+    }
 
     public void testControllerRedirectsWithNoLevelForSingleLevelSchools() throws Exception {
         School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY);

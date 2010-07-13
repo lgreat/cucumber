@@ -4,6 +4,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.survey.ISurveyDao;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.school.SchoolProfileHeaderHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class SchoolLevelController extends SimpleFormController {
 
     private ISurveyDao _surveyDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
@@ -45,12 +47,13 @@ public class SchoolLevelController extends SimpleFormController {
         }
 
         if (oneLevel) {
-            ModelAndView modelAndView = new ModelAndView(getSuccessView());
-            modelAndView.getModel().put("level", lev.getName());
-            modelAndView.getModel().put("id", school.getId());
-            modelAndView.getModel().put("state", school.getStateAbbreviation().getAbbreviation());
-            return modelAndView;
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("level", lev.getName());
+            model.put("id", school.getId());
+            model.put("state", school.getStateAbbreviation().getAbbreviation());
+            return new ModelAndView(getSuccessView(), model);
         } else {
+            _schoolProfileHeaderHelper.updateModel(school, data);
             return super.showForm(request, response, bindException, data);
         }
     }
@@ -121,5 +124,13 @@ public class SchoolLevelController extends SimpleFormController {
 
     public void setSurveyDao(ISurveyDao surveyDao) {
         _surveyDao = surveyDao;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }
