@@ -14,6 +14,10 @@ import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.NameValuePair;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
@@ -24,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -39,6 +44,8 @@ public class SchoolProfileHeaderHelper {
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private IRatingsConfigDao _ratingsConfigDao;
+    private TestManager _testManager;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -88,6 +95,10 @@ public class SchoolProfileHeaderHelper {
                 logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
 
                 startTime = System.currentTimeMillis();
+                handleGSRating(request, school);
+                logDuration(System.currentTimeMillis() - startTime, "Handling GS Rating");
+
+                startTime = System.currentTimeMillis();
                 handleAdKeywords(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling ad keywords");
 
@@ -105,6 +116,31 @@ public class SchoolProfileHeaderHelper {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
+    }
+
+    protected void handleGSRating(HttpServletRequest request, School school) throws IOException {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper == null) {
+            return;
+        }
+        boolean isFromCache = true;
+        if (pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+            isFromCache = false;
+        }
+
+        IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), isFromCache);
+
+        if (null != ratingsConfig) {
+            SchoolTestValue schoolTestValue =
+                    _testManager.getOverallRating(school, ratingsConfig.getYear());
+
+            if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+                request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
+                if (schoolTestValue.getValueInteger() > 0 && schoolTestValue.getValueInteger() < 11) {
+                    pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
+                }
+            }
+        }
     }
 
     protected void handleStateSpecificFooter(HttpServletRequest request, School school) {
@@ -309,5 +345,21 @@ public class SchoolProfileHeaderHelper {
 
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
+
+    public IRatingsConfigDao getRatingsConfigDao() {
+        return _ratingsConfigDao;
+    }
+
+    public void setRatingsConfigDao(IRatingsConfigDao ratingsConfigDao) {
+        _ratingsConfigDao = ratingsConfigDao;
+    }
+
+    public TestManager getTestManager() {
+        return _testManager;
+    }
+
+    public void setTestManager(TestManager testManager) {
+        this._testManager = testManager;
     }
 }

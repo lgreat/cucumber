@@ -12,13 +12,16 @@ import gs.data.school.census.SchoolCensusValue;
 import gs.data.state.State;
 import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.BaseTestCase;
+import gs.web.geo.StateSpecificFooterHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static gs.web.school.SchoolProfileHeaderHelper.*;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -31,7 +34,9 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
     private ICensusInfo _censusInfo;
-
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private IRatingsConfigDao _ratingsConfigDao;
+    private TestManager _testManager;
     
     private Map<String, Object> _model;
     private School _school;
@@ -48,13 +53,19 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         _localBoardDao = createStrictMock(ILocalBoardDao.class);
         _geoDao = createStrictMock(IGeoDao.class);
         _censusInfo = createStrictMock(ICensusInfo.class);
+        _stateSpecificFooterHelper = createStrictMock(StateSpecificFooterHelper.class);
+        _ratingsConfigDao = createStrictMock(IRatingsConfigDao.class);
+        _testManager = createStrictMock(TestManager.class);
 
         _helper.setPQDao(_PQDao);
         _helper.setTestDataSetDao(_testDataSetDao);
         _helper.setSurveyDao(_surveyDao);
         _helper.setLocalBoardDao(_localBoardDao);
         _helper.setGeoDao(_geoDao);
-        
+        _helper.setStateSpecificFooterHelper(_stateSpecificFooterHelper);
+        _helper.setRatingsConfigDao(_ratingsConfigDao);
+        _helper.setTestManager(_testManager);
+
         _model = new HashMap<String, Object>();
 
         _school = new School();
@@ -62,11 +73,11 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
     
     private void replayAllMocks() {
-        replayMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo);
+        replayMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo);
+        verifyMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager);
     }
 
     public void testBasics() {
