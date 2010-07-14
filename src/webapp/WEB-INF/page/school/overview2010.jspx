@@ -200,7 +200,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:if test="${not empty bestKnownFor}">
     <div id="bestKnownFor" class="brdbtm_dotted">
 
-        <p class="introText">"${bestKnownFor}" <span id="js-esp-info"
+        <p class="introText">"We're known for our ${bestKnownFor}" <span id="js-esp-info"
                                                      class="sprite info"><!-- do not collapse --></span></p>
 
         <!-- TODO: info icon + hover -->
