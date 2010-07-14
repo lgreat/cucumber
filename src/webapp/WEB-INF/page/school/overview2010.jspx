@@ -327,135 +327,186 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
-<c:set var="displayCompareColumn" value="${school.levelCode ne 'p'}"/>
-<c:set var="displayGSRatingColumn" value="${school.levelCode ne 'p'}"/>
+<c:set var="" value="${school.levelCode ne 'p'}"/>
 
     <!-- begin nearby schools list -->
     <c:if test="${not empty mapSchools}">
-        <table id="nearby-schools-table-header">
-            <colgroup>
-                <c:if test="${displayCompareColumn}">
-                    <col align="center" width="62"/>
-                </c:if>
-                <col align="left" width="179"/>
-                <c:if test="${displayGSRatingColumn}">
-                    <col align="right" width="90"/>
-                </c:if>
-                <col align="center" width="69"/>
-                <col align="center" width="7"/>
-            </colgroup>
-            <thead>
-            <tr class="brdbtm_solid smallText2bold">
-                <c:if test="${displayCompareColumn}">
-                    <th>COMPARE</th>
-                </c:if>
-                <th class="text-align-lft">SCHOOL</th>
-                <c:if test="${displayGSRatingColumn}">
-                    <th>GREATSCHOOLS RATING</th>
-                </c:if>
-                <th>PARENT RATING</th>
-                <th><!-- do not collapse --></th>
-            </tr>
-            </thead>
-        </table>
-        <table id="nearby-schools-table-body">
-            <colgroup>
-                <c:if test="${displayCompareColumn}">
-                    <col align="center" width="62"/>
-                </c:if>
-                <col align="left" width="212"/>
-                <c:if test="${displayGSRatingColumn}">
-                    <col align="center" width="57"/>
-                </c:if>
-                <col align="center" width="76"/>
-            </colgroup>
-            <tbody>
-            <tr class="brdbtm_dotted bg-color-f9eccd">
-                <c:if test="${displayCompareColumn}">
-                    <td align="center">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
-                        <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
-                    </td>
-                </c:if>
-                <td>
-                    <p class="text2bold"><link:schoolProfileOverview school="${school}">
-                        ${school.name}
-                    </link:schoolProfileOverview></p>
-
-                    <p class="text3"><!-- not empty --></p>
-                </td>
-                <c:if test="${displayGSRatingColumn}">
-                    <td>
-                        <c:choose>
-                            <c:when test="${not empty gs_rating and gs_rating gt 0}">
-                                <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </c:if>
-                <td>
-                    <link:schoolProfileParentReview school="${school}">
-                        <c:choose>
-                            <c:when test="${not empty ratings.overall}">
-                                <span class="sprite stars_sm_y_${ratings.overall}"><!-- do not collapse --></span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="sprite stars_sm_y_rate_it"><!-- do not collapse --></span>
-                            </c:otherwise>
-                        </c:choose>
-                    </link:schoolProfileParentReview>
-                </td>
-            </tr>
-        <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                <tr class="brdbtm_dotted">
-                    <c:if test="${displayCompareColumn}">
+        <c:choose>
+            <c:when test="${school.levelCode ne 'p'}">
+                <table id="nearby-schools-table-header">
+                    <colgroup>
+                        <col align="center" width="62"/>
+                        <col align="left" width="179"/>
+                        <col align="right" width="90"/>
+                        <col align="center" width="69"/>
+                        <col align="center" width="7"/>
+                    </colgroup>
+                    <thead>
+                    <tr class="brdbtm_solid smallText2bold">
+                        <th>COMPARE</th>
+                        <th class="text-align-lft">SCHOOL</th>
+                        <th>GREATSCHOOLS RATING</th>
+                        <th>PARENT RATING</th>
+                        <th><!-- do not collapse --></th>
+                    </tr>
+                    </thead>
+                </table>
+                <table id="nearby-schools-table-body">
+                    <colgroup>
+                        <col align="center" width="62"/>
+                        <col align="left" width="212"/>
+                        <col align="center" width="57"/>
+                        <col align="center" width="76"/>
+                    </colgroup>
+                    <tbody>
+                    <tr class="brdbtm_dotted bg-color-f9eccd">
                         <td align="center">
-                            <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
-                                   type="checkbox"/>
-                            <label for="${s.neighbor.databaseState}${s.neighbor.id}"
-                                   class="smallText2">COMPARE</label>
+                            <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                            <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                         </td>
-                    </c:if>
-                    <td>
-                        <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
-                            ${s.neighbor.name}
-                        </link:schoolProfileOverview></p>
+                        <td>
+                            <p class="text2bold"><link:schoolProfileOverview school="${school}">
+                                ${school.name}
+                            </link:schoolProfileOverview></p>
 
-                        <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
-                                                           value="${s.distance}"/> miles</p>
-                    </td>
-                    <c:if test="${displayGSRatingColumn}">
+                            <p class="text3"><!-- not empty --></p>
+                        </td>
                         <td>
                             <c:choose>
-                                <c:when test="${not empty s.rating and s.rating gt 0}">
-                                    <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                                <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                                    <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                    <span class="sprite badge_sm_y_na"><!-- do not collapse --></span>
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                    </c:if>
-                    <td>
-                        <link:schoolProfileParentReview school="${school}">
-                            <c:choose>
-                                <c:when test="${not empty s.parentRatings.overall}">
-                                    <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
-                        </link:schoolProfileParentReview>
-                    </td>
-                </tr>
-            </c:forEach>
+                        <td>
+                            <link:schoolProfileParentReview school="${school}">
+                                <c:choose>
+                                    <c:when test="${not empty ratings.overall}">
+                                        <span class="sprite stars_sm_y_${ratings.overall}"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite stars_sm_y_rate_it"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
+                        </td>
+                    </tr>
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
+                            <tr class="brdbtm_dotted">
+                                <td align="center">
+                                    <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
+                                           type="checkbox"/>
+                                    <label for="${s.neighbor.databaseState}${s.neighbor.id}"
+                                           class="smallText2">COMPARE</label>
+                                </td>
+                                <td>
+                                    <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
+                                        ${s.neighbor.name}
+                                    </link:schoolProfileOverview></p>
 
-            </tbody>
-        </table>
+                                    <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
+                                                                       value="${s.distance}"/> miles</p>
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${not empty s.rating and s.rating gt 0}">
+                                            <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <link:schoolProfileParentReview school="${school}">
+                                        <c:choose>
+                                            <c:when test="${not empty s.parentRatings.overall}">
+                                                <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <table id="nearby-schools-table-header">
+                    <colgroup>
+                        <col align="left" width="179"/>
+                        <col align="center" width="69"/>
+                        <col align="center" width="7"/>
+                    </colgroup>
+                    <thead>
+                    <tr class="brdbtm_solid smallText2bold">
+                        <th class="text-align-lft">SCHOOL</th>
+                        <th>PARENT RATING</th>
+                        <th><!-- do not collapse --></th>
+                    </tr>
+                    </thead>
+                </table>
+                <table id="nearby-schools-table-body">
+                    <colgroup>
+                        <col align="left" width="212"/>
+                        <col align="center" width="76"/>
+                    </colgroup>
+                    <tbody>
+                        <tr class="brdbtm_dotted bg-color-f9eccd">
+                            <td>
+                                <p class="text2bold"><link:schoolProfileOverview school="${school}">
+                                    ${school.name}
+                                </link:schoolProfileOverview></p>
+
+                                <p class="text3"><!-- not empty --></p>
+                            </td>
+                            <td>
+                                <link:schoolProfileParentReview school="${school}">
+                                    <c:choose>
+                                        <c:when test="${not empty ratings.overall}">
+                                            <span class="sprite stars_sm_y_${ratings.overall}"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite stars_sm_y_rate_it"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileParentReview>
+                            </td>
+                        </tr>
+                        <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
+                            <tr class="brdbtm_dotted">
+                                <td>
+                                    <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
+                                        ${s.neighbor.name}
+                                    </link:schoolProfileOverview></p>
+
+                                    <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
+                                                                       value="${s.distance}"/> miles</p>
+                                </td>
+                                <td>
+                                    <link:schoolProfileParentReview school="${school}">
+                                        <c:choose>
+                                            <c:when test="${not empty s.parentRatings.overall}">
+                                                <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
