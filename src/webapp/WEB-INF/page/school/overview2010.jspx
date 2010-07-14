@@ -327,7 +327,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
-<c:set var="" value="${school.levelCode ne 'p'}"/>
 
     <!-- begin nearby schools list -->
     <c:if test="${not empty mapSchools}">
