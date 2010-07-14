@@ -25,7 +25,7 @@ Large Google Map
 	width: 356px;
 	float: left;
 	padding-right: 9px;
-	border-right: 1px solid #dedede;
+	/*border-right: 1px solid #dedede;*/
 }
 
 #col_right {

@@ -269,5 +269,6 @@
             </a>
         </div>
     </div>
+    <div class="spacer_10"><!-- do not collapse --></div>
 </c:if>
 </jsp:root>
