@@ -10,93 +10,90 @@
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
     <jsp:directive.attribute name="format" type="java.lang.String" required="false" description="Format of the module. Used to change chosen styles for this module. Valid values are: null or narrow"/>
 
-    <c:set var="extraClass" value="" />
-
-    <c:if test="${format eq 'narrow'}">
-        <c:set var="extraClass" value="narrow" />
-    </c:if>
-    
     <script type="text/javascript">
         var kindercareCookieKey = '${school.databaseState}${school.id}';
     </script>
     <![CDATA[<script type="text/javascript" src="/res/js/kindercareLeadGen.js"></script>]]>
-    <div id="kindercareLeadGen" class="promoModule ${extraClass}">
-        <div class="inner">
-            <div class="left">
-                <div class="kinderTitle">
-                    Interested in more information from this KinderCare center?
-                </div>
-                <div class="text3" id="kindercareIntroText">
-                    Submit your name and email and <strong>${school.name}</strong>
-                    will contact you soon about tuition, availability &amp;amp; programs
-                    for your child.
-                </div>
-                <div id="kindercareFirstNameError" class="kindercareLeadGenError errorTextBold hidden">
-                    Please enter a first name.
-                </div>
-                <div id="kindercareLastNameError" class="kindercareLeadGenError errorTextBold hidden">
-                    Please enter a last name.
-                </div>
-                <div id="kindercareEmailError" class="kindercareLeadGenError errorTextBold hidden">
-                    Please enter an email address.
-                </div>
-            </div>
-            <img src="/res/img/promo/promoModule/dotted_rule.png" class="dotted_rule" alt=""/>
-            <div class="right">
-                <form id="kindercareLeadGenForm" action="#" method="POST">
-                    <ul>
-                        <li>
-                            <label for="kinder_firstname" class="smallText1bold">First name:</label>
-                            <input id="kinder_firstname" name="firstName"/>
-                        </li>
-                        <li>
-                            <label for="kinder_lastname" class="smallText1bold">Last name:</label>
-                            <input id="kinder_lastname" name="lastName"/>
-                        </li>
-                        <li>
-                            <label for="kinder_email" class="smallText1bold">Email:</label>
-                            <input id="kinder_email" name="email"/>
-                        </li>
-                        <li>
-                            <img class="submitButton" id="kindercareLeadGenSubmit"
-                                 src="/res/img/button/btn_submit_61x21.png" alt="Submit"/>
-                            <img src="/res/img/school/animatedProcessing.gif" alt="Processing..." class="hidden"
-                                 id="kindercareSpinny"/>
-                        </li>
-                    </ul>
-                    <input type="hidden" name="schoolId" id="kinder_schoolId" value="${school.id}"/>
-                    <input type="hidden" name="state" id="kinder_state" value="${school.databaseState}"/>
 
-                    <div class="kinder_informed">
-                        <input type="checkbox" name="informed" id="kinder_informed"/>
-                        <label for="kinder_informed" class="smallText1">Keep me informed about KinderCare programs in my area.</label>
-                    </div>
-                    <div class="kinder_offers">
-                        <input type="checkbox" name="offers" id="kinder_offers"/>
-                        <label for="kinder_offers" class="smallText1">I would like to receive special offers from KinderCare
-                            and Knowledge Learning Corporation partners.</label>
-                    </div>
-                </form>
-                <div id="kindercareThankYou" class="hidden text1">
-                    Thanks for submitting your information! <br/>
-                    Someone from Kindercare will contact you soon.
-                </div>
-            </div>
-            <img id="kindercareLeadGenClose" class="closeButton" 
-                 src="/res/img/promo/promoModule/close_box.png" alt="Close"/>
-            <img src="/res/img/promo/promoModule/right_rule.png" class="right_rule" alt=""/>
-            
+    <div id="kindercareLeadGen" class="mod clearfix">
+
+        <div class="left col">
             <a href="http://www.kindercare.com/?cid=GS" class="kindercare_logo" target="_blank">
-                <c:choose>
-                    <c:when test="${format eq 'narrow'}">
-                        <img src="/res/img/promo/promoModule/kindercare/kindercare_logo.png" alt="KinderCare Learning Centers" width="116" height="105"/>
-                    </c:when>
-                    <c:otherwise>
-                        <img src="/res/img/promo/promoModule/kindercare/kindercare_logo.png" alt="KinderCare Learning Centers" width="131" height="120"/>
-                    </c:otherwise>
-                </c:choose>
+                <img src="/res/img/promo/promoModule/kindercare/kindercare_logo-1.png" alt="KinderCare Learning Centers"
+                     width="84" height="84"/>
             </a>
 
         </div>
+
+        <div class="right col">
+
+            <div class="introText">
+                Interested in more information from this KinderCare center?
+            </div>
+            <div class="spacer_5"><!-- do not collapse --></div>
+            <div class="text3">
+                Submit your name and email and <strong>${school.name}</strong>
+                will contact you soon about tuition, availability &amp;amp; programs
+                for your child.
+            </div>
+            <div class="spacer_5"><!-- do not collapse --></div>
+
+            <form id="kindercareLeadGenForm" action="#" method="POST">
+                <fieldset class="contact">
+                    <ol class="smallAlertText">
+                        <li>
+                            <label for="kinder_firstname">First name:<strong
+                                    id="kindercareFirstNameError" class="kindercareLeadGenError formErrorText hidden">
+                                Please enter a first name.
+                            </strong></label>
+                            <input id="kinder_firstname" name="firstName"/>
+                        </li>
+                        <li>
+                            <label for="kinder_lastname">Last name:<strong
+                                    id="kindercareLastNameError" class="kindercareLeadGenError formErrorText hidden">
+                                Please enter a last name.
+                            </strong></label>
+                            <input id="kinder_lastname" name="lastName"/>
+                        </li>
+                        <li>
+                            <label for="kinder_email">Email:<strong id="kindercareEmailError"
+                                                                                           class="kindercareLeadGenError formErrorText hidden">
+                                Please enter an email address.
+                            </strong></label>
+                            <input id="kinder_email" name="email"/>
+                        </li>
+                    </ol>
+                    <input type="hidden" name="schoolId" id="kinder_schoolId" value="${school.id}"/>
+                    <input type="hidden" name="state" id="kinder_state" value="${school.databaseState}"/>
+                </fieldset>
+
+                <fieldset class="moreInfo">
+                    <ol class="smallText1">
+                        <li class="kinder_informed">
+                            <input type="checkbox" name="informed" id="kinder_informed"/>
+                            <label for="kinder_informed">Keep me informed about KinderCare programs in my area.</label>
+                        </li>
+                        <li class="kinder_offers">
+                            <input type="checkbox" name="offers" id="kinder_offers"/>
+                            <label for="kinder_offers">I would like to receive special offers from KinderCare
+                                and Knowledge Learning Corporation partners.</label>
+                        </li>
+                    </ol>
+                </fieldset>
+                <fieldset class="submit">
+                    <button id="kindercareLeadGenSubmit" class="btn25" type="submit">
+                        <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
+                    </button>
+
+                    <img src="/res/img/school/animatedProcessing.gif" alt="Processing..." class="hidden"
+                         id="kindercareSpinny"/>
+                </fieldset>
+            </form>
+            <div id="kindercareThankYou" class="hidden text1">
+                Thanks for submitting your information! <br/>
+                Someone from Kindercare will contact you soon.
+            </div>
+        </div>
+
     </div>
 </jsp:root>
