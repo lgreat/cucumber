@@ -273,7 +273,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
         <c:when test="${espLink eq 'profile'}">
             <!-- profile link box -->
-            <div id="js-esp-profile-link">
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <div id="js-esp-profile-link" class="alertBox2 text2">
                 <link:enhancedSchoolProfile school="${school}">See more official school information <span
                         class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
             </div>

@@ -29,10 +29,21 @@
 
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
+        <!--<c:out value="${fn:length(requestScope.discussionTopicFull)}"/>-->
+
         <div id="profileRecentDiscussions" class="mod">
-            <div class="mod_hd">
-                <h3>${requestScope.discussionTopicFull} Community</h3>
-            </div>
+            <c:choose>
+                <c:when test="${fn:length(requestScope.discussionTopicFull) le 15}">
+                    <div class="mod_hd">
+                        <h3>${requestScope.discussionTopicFull} Community</h3>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="mod_hd_1">
+                        <h3>${requestScope.discussionTopicFull} Community</h3>
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <div class="mod_bd">
             <div class="viewTopic brdbtm_dotted text3">
                 <label for="profileRecentDiscussions_topicSelect">View topic: </label>
