@@ -152,7 +152,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         if (subtypesCSL != null) {
             String[] subtypes = StringUtils.split(subtypesCSL, ',');
             for (String subtype : subtypes) {
-                highlights.add(StringUtils.capitalize(subtype));
+                highlights.add(StringUtils.capitalize(StringUtils.trim(subtype)));
             }
         }
 
