@@ -83,8 +83,11 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             PQ pq = _PQDao.findBySchool(school);
             if (pq != null) {
                 String bestKnownFor = pq.getBestKnownFor();
-
                 if (bestKnownFor != null) {
+                    if (!StringUtils.endsWith(bestKnownFor, ".")) {
+                        bestKnownFor += ".";
+                    }
+
                     model.put("bestKnownFor", bestKnownFor);
                 } else {
                     model.put("espLink", "profile");
