@@ -25,6 +25,7 @@
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="schoolId" value="${school.id}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
+<c:set var="omniturePageName" value="${omniturePageName}" scope="request"/>
 
 <school:hovers school="${school}" tab="${tab}"/>
 
