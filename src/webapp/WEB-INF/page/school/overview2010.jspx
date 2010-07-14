@@ -435,16 +435,25 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         </c:forEach>
                     </tbody>
                 </table>
+                <div class="spacer_10"><!-- do not collapse --></div>
+
+        <div id="submitCompare">
+        <button class="btn25 fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
+            <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+        </button><span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
+        </div>
             </c:when>
             <c:otherwise>
                 <table id="nearby-schools-table-header">
                     <colgroup>
-                        <col align="left" width="179"/>
+                        <col align="center" width="7"/>
+                        <col align="left" width="324"/>
                         <col align="center" width="69"/>
                         <col align="center" width="7"/>
                     </colgroup>
                     <thead>
                     <tr class="brdbtm_solid smallText2bold">
+                        <th><!-- do not collapse --></th>
                         <th class="text-align-lft">SCHOOL</th>
                         <th>PARENT RATING</th>
                         <th><!-- do not collapse --></th>
@@ -453,11 +462,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </table>
                 <table id="nearby-schools-table-body">
                     <colgroup>
-                        <col align="left" width="212"/>
+                        <col align="center" width="7"/>
+                        <col align="left" width="324"/>
                         <col align="center" width="76"/>
                     </colgroup>
                     <tbody>
                         <tr class="brdbtm_dotted bg-color-f9eccd">
+                            <td><!-- do not collapse --></td>
                             <td>
                                 <p class="text2bold"><link:schoolProfileOverview school="${school}">
                                     ${school.name}
@@ -480,6 +491,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         </tr>
                         <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
                             <tr class="brdbtm_dotted">
+                                <td><!-- do not collapse --></td>
                                 <td>
                                     <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
                                         ${s.neighbor.name}
@@ -507,13 +519,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </c:otherwise>
         </c:choose>
 
-        <div class="spacer_10"><!-- do not collapse --></div>
 
-        <div id="submitCompare">
-        <button class="btn25 fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
-            <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-        </button><span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
-        </div>
 
         <!-- TODO: paging -->
 
