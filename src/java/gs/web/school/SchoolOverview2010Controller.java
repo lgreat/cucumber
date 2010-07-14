@@ -82,7 +82,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
              */
             PQ pq = _PQDao.findBySchool(school);
             if (pq != null) {
-                String bestKnownFor = StringUtils.capitalize(pq.getBestKnownFor());
+                String bestKnownFor = pq.getBestKnownFor();
 
                 if (bestKnownFor != null) {
                     model.put("bestKnownFor", bestKnownFor);
