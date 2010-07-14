@@ -440,9 +440,8 @@
     <div class="feedback">
         <c:choose>
             <c:when test="${cmd.totalReviews gt 0}">
-                <p>Were these ratings and reviews helpful to you? <a
-                        href="mailto:commentfeedback@greatschools.org?subject=${school.name} ${stateAbbrev} ${school.id}"
-                        title="Give us feedback">Give us feedback &#62;</a></p>
+                <p>Were these ratings and reviews helpful to you?
+                   <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Give us feedback &#62;</link:schoolFeedback></p>
             </c:when>
             <c:otherwise>
                 <p>

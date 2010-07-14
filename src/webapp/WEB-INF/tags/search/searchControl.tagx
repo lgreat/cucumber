@@ -6,7 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib" xmlns:link="urn:www.greatschools.org/taglib/link">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="rememberQuery" required="false"/>
     <jsp:directive.attribute name="showStates" required="false"/>
@@ -75,7 +75,7 @@
                         <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>
                         </li>
                         <li><gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a></li>
-                        <li><gsml:a href="/search/feedback.page?state=$STATE&amp;q=${param.q}">Help us improve</gsml:a>
+                        <li><link:schoolFeedback>Report an inaccuracy</link:schoolFeedback>
                         </li>
                     </ul>
                 </c:if>
@@ -98,7 +98,7 @@
     <script language="javascript" type="text/javascript">
         <![CDATA[
         //<!--
-        jQuery(function(){
+        jQuery(function() {
             jQuery('#c').change(function() {
                 var stateElement = jQuery('#refine_stateSelector');
                 if (jQuery('#c').val() == "articles") {

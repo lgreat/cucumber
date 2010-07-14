@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.226 2010/07/13 17:34:17 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.227 2010/07/14 23:38:24 yfan Exp $
  */
 
 package gs.web.util;
@@ -107,9 +107,6 @@ public class UrlBuilder {
     public static final VPage CITIES_MORE_NEARBY = new VPage("vpage:moreNearbyCities");
 
     public static final VPage CONTACT_US = new VPage("vpage:contactUs");
-    public static final VPage FEEDBACK = new VPage("vpage:feedback");
-    public static final VPage DESIGN_FEEDBACK = new VPage("vpage:design_feedback");
-    public static final VPage PROFILE_FEEDBACK = new VPage("vpage:profile_feedback");
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
     public static final VPage DISTRICT_HOME = new VPage("vpage:districtHome");
@@ -779,8 +776,29 @@ public class UrlBuilder {
             _path = "/featured/questions/";
         } else if (RECENT_CONVERSATIONS.equals(page)) {
             _path = "/community/activity/";
+        } else if (CONTACT_US.equals(page)) {
+            _perlPage = true;
+            _path = "/about/feedback.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
+        }
+    }
+
+    public UrlBuilder(VPage page, String feedbackType, String cityName, Integer schoolId) {
+        init(page);
+
+        if (CONTACT_US.equals(page)) {
+            if (StringUtils.isNotBlank(feedbackType)) {
+                setParameter("feedbackType", feedbackType);
+            }
+            if (schoolId != null) {
+                setParameter("schoolId", String.valueOf(schoolId));
+            }
+            if (StringUtils.isNotBlank(cityName)) {
+                setParameter("city", String.valueOf(cityName));
+            }
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
 
@@ -1042,27 +1060,6 @@ public class UrlBuilder {
                 setParameter("email", param0);
             }
             setParameter("state", state.getAbbreviation());
-        } else if (CONTACT_US.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/feedback/" + state.getAbbreviation();
-        } else if (FEEDBACK.equals(page)) {
-            _perlPage = true;
-
-            setParameter("fbtype", "gen");
-            if (param0 != null) {
-                addParameter("topicOption", param0);
-            }
-            _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
-        } else if (DESIGN_FEEDBACK.equals(page)) {
-            _perlPage = true;
-
-            setParameter("fbtype", "design");
-            _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
-        } else if (PROFILE_FEEDBACK.equals(page)) {
-            _perlPage = true;
-
-            setParameter("fbtype", "profile");
-            _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
         } else if (TERMS_OF_USE.equals(page)) {
             _perlPage = false;
             _path = "/terms/";

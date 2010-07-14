@@ -758,21 +758,12 @@
         </attribute>
     </tag>
     <tag>
-        <name>profileFeedback</name>
-        <tag-class>gs.web.jsp.link.ProfileFeedbackTagHandler</tag-class>
+        <name>schoolFeedback</name>
+        <tag-class>gs.web.jsp.link.SchoolFeedbackTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Feedback</display-name>
         <description>
             <![CDATA[School Profile Feedback.]]>
-        </description>
-    </tag>
-    <tag>
-        <name>feedback</name>
-        <tag-class>gs.web.jsp.link.FeedbackTagHandler</tag-class>
-        <body-content>JSP</body-content>
-        <display-name>Feedback</display-name>
-        <description>
-            <![CDATA[Feedback.]]>
         </description>
         <attribute>
             <name>styleClass</name>
@@ -789,24 +780,101 @@
             <description>target window to open link in</description>
         </attribute>
         <attribute>
-            <name>topicOption</name>
+            <name>schoolId</name>
             <required>false</required>
-            <type>java.lang.String</type>
-            <description>Topic to be selected when opening general feedback (fbtype = gen)</description>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School ID</description>
         </attribute>
         <attribute>
-            <name>redirect</name>
+            <name>cityName</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>URL to redirect back to after feedback is provided</description>
+            <description>City name</description>
         </attribute>
+    </tag>
+    <tag>
+        <name>districtFeedback</name>
+        <tag-class>gs.web.jsp.link.DistrictFeedbackTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>District information Feedback</display-name>
+        <description>
+            <![CDATA[District information Feedback.]]>
+        </description>
         <attribute>
-            <name>onclick</name>
+            <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Javascript onclick value</description>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>espFeedback</name>
+        <tag-class>gs.web.jsp.link.EspFeedbackTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>ESP Feedback</display-name>
+        <description>
+            <![CDATA[ESP Feedback.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolRatingsReviewsFeedback</name>
+        <tag-class>gs.web.jsp.link.SchoolRatingsReviewsFeedbackTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School ratings and reviews Feedback</display-name>
+        <description>
+            <![CDATA[School ratings and reviews Feedback.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>schoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School ID</description>
+        </attribute>
+        <attribute>
+            <name>cityName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>City name</description>
         </attribute>
     </tag>
 

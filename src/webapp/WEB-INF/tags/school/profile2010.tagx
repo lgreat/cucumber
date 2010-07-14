@@ -195,7 +195,7 @@
 
     <div id="schoolProfileBody">
         <div id="schoolProfileLeftColumn" class="col">
-            <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:profileFeedback>Let us know</link:profileFeedback>!</div>
+            <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
 
             <div id="schoolProfileTabsWrapper">
                 <div id="schoolProfileTabBar" class="gradient-1 rnd-top-4"><!-- do not collapse --></div>

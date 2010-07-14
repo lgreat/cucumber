@@ -103,7 +103,7 @@
                 </ul>
                  </c:if>
                 <div id="keyTermDefinitions"><link:cmsContent contentKey="Article#2424" fullUri="/find-a-school/school-terminology" target="_blank">Know the system: Key terms</link:cmsContent></div>
-                <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <gsml:a href="/cgi-bin/feedback_faq/${district.physicalAddress.state}?fbtype=district">Let us know!</gsml:a></div>
+                <div id="innaccuracyLink"><span class="letUsKnow">Notice an inaccuracy? </span> <link:districtFeedback>Let us know!</link:districtFeedback></div>
                 ${model.definitionsDiv}
             </div>
         </div>

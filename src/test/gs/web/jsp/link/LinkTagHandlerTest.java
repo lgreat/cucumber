@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.78 2010/06/23 21:26:25 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.79 2010/07/14 23:38:25 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -393,39 +393,14 @@ public class LinkTagHandlerTest extends BaseTestCase {
         ContactUsTagHandler tagHandler = new ContactUsTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/feedback/CA", builder.asSiteRelative(null));
-    }
-
-
-    public void testFeedback(){
-        FeedbackTagHandler tagHandler = new FeedbackTagHandler();
-        assertNotNull("Expected an instance of FeedbackTagHandler to exist", tagHandler);
-        tagHandler.setPageContext(new MockPageContext());
-
-        String relativeUrl = "/cgi-bin/feedback_faq/CA?fbtype=gen"  ;
-        UrlBuilder builder;
-
-        // Variation 1: No topicOption defined
-        builder = tagHandler.createUrlBuilder();
-        assertEquals(relativeUrl,builder.asSiteRelative(null))    ;
-
-        //Variation 2: topicOption is set
-        tagHandler.setTopicOption("Parent_survey");
-        builder = tagHandler.createUrlBuilder();
-        assertEquals(relativeUrl + "&topicOption=Parent_survey",builder.asSiteRelative(null));
-
-        //Variation 3: redirect is set
-        tagHandler.setRedirect("http://www.greatschools.org/survey/results.page?id=1&state=ca&level=h&page=0");
-        tagHandler.setTopicOption(null);
-        builder = tagHandler.createUrlBuilder();
-        assertEquals(relativeUrl + "&redirect=http%3A%2F%2Fwww.greatschools.org%2Fsurvey%2Fresults.page%3Fid%3D1%26state%3Dca%26level%3Dh%26page%3D0",builder.asSiteRelative(null));
+        assertEquals("/about/feedback.page", builder.asSiteRelative(null));
     }
 
     public void testProfileFeedback(){
-        ProfileFeedbackTagHandler tagHandler = new ProfileFeedbackTagHandler();
+        SchoolFeedbackTagHandler tagHandler = new SchoolFeedbackTagHandler();
         tagHandler.setPageContext(new MockPageContext());
 
-        String relativeUrl = "/cgi-bin/feedback_faq/CA?fbtype=profile";
+        String relativeUrl = "/about/feedback.page?feedbackType=incorrectSchoolDistrictInfo_incorrectSchool";
         UrlBuilder builder;
 
         builder = tagHandler.createUrlBuilder();
