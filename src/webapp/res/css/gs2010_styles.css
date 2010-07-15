@@ -4490,6 +4490,11 @@ margin:10px 0 14px 20px;
     line-height:1.5;
 }
 
+#schoolName h1 a {
+    color: #DD6611;
+    text-decoration: none;
+}
+
 #schoolToolLinks ul li {
     list-style: none outside none;
     display: inline;

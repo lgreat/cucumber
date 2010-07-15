@@ -70,7 +70,16 @@
 
         <!-- School name -->
         <div id="schoolName">
-            <h1>${school.name}</h1>
+            <h1>
+                <c:choose>
+                    <c:when test="${tab eq 'overview'}">
+                        ${school.name}
+                    </c:when>
+                    <c:otherwise>
+                        <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                    </c:otherwise>
+                </c:choose>
+            </h1>
         </div>
         <!-- End School name -->
 
