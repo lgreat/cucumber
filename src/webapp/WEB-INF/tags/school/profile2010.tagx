@@ -221,7 +221,7 @@
                             <c:choose>
                                 <c:when test="${requestScope.hasSchoolStats}">
                                     <c:set var="sptab3_name" value="School Stats"/>
-                                    <c:set var="sptab3_link"><a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
+                                    <c:set var="sptab3_link"><link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">${sptab3_name}</link:schoolProfileCensus></c:set>
                                 </c:when>
                                 <c:when test="${requestScope.hasSurveyData}">
                                     <c:set var="sptab3_name" value="Program Details"/>
@@ -233,11 +233,11 @@
                         </c:when>
                         <c:when test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
                             <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
-                            <c:set var="sptab3_link"><a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
+                            <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
                         </c:when>
                         <c:when test="${school.levelCode ne 'p' and school.type.name eq 'private'}">
                             <c:set var="sptab3_name" value="School Stats"/>
-                            <c:set var="sptab3_link"><a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
+                            <c:set var="sptab3_link"><link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">${sptab3_name}</link:schoolProfileCensus></c:set>
                         </c:when>
                     </c:choose>
                     <c:if test="${not empty sptab3_name}">
@@ -246,7 +246,7 @@
                         </li>
                     </c:if>
                     <li id="sptab4" class="${(tab eq 'schoolMap')?'active':'inactive'}">
-                                <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map</link:mapSchool>
+                        <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map</link:mapSchool>
                     </li>
                 </ul>
 
@@ -269,7 +269,7 @@
                                     <c:choose>
                                         <c:when test="${subtab eq 'testScores'}">Test scores</c:when>
                                         <c:otherwise>
-                                            <a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Test scores</a>
+                                            <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test scores</link:schoolProfileTestscore>
                                         </c:otherwise>
                                     </c:choose>
                                 </li><span class="pipes">|</span>
@@ -289,7 +289,7 @@
                                     <c:choose>
                                         <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
                                         <c:otherwise>
-                                            <a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Teachers &amp;amp; Students</a>
+                                            <link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">Teachers &amp;amp; Students</link:schoolProfileCensus>
                                         </c:otherwise>
                                     </c:choose>
                                 </li><span class="pipes">|</span>
