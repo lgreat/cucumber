@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.91 2010/03/09 23:45:15 eddie Exp $
+ * $Id: PageHelper.java,v 1.92 2010/07/15 23:24:50 aroy Exp $
  */
 
 package gs.web.util;
@@ -635,6 +635,15 @@ public class PageHelper {
 
     public boolean isAdminServer() {
         return _urlUtil.isAdminServer(_sessionContext.getHostName());
+    }
+
+    /**
+     * Returns true if this server shouldn't be crawled by search engines.
+     */
+    public boolean isNoCrawlServer() {
+        return isStagingServer()
+                || isAdminServer() 
+                || UrlUtil.isQAServer(_sessionContext.getHostName());
     }
 
     /**

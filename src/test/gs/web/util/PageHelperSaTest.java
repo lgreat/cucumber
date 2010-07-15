@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.52 2010/03/09 23:45:15 eddie Exp $
+ * $Id: PageHelperSaTest.java,v 1.53 2010/07/15 23:24:50 aroy Exp $
  */
 
 package gs.web.util;
@@ -747,6 +747,43 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setHostName("www.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse("Expected false for www.greatschools.org", pageHelper.isAdminServer());
+    }
+
+    public void testIsNoCrawlServer() {
+        MockSessionContext sessionFacade = new MockSessionContext();
+        PageHelper pageHelper;
+
+        sessionFacade.setHostName("admin.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for admin.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("cmsqa1.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for cmsqa1.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("cmsqa2.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for cmsqa2.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("qa.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for qa.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("staging.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for staging.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("clone.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for clone.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("www.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertFalse("Expected false for www.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("dev.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertFalse("Expected false for dev.greatschools.org", pageHelper.isNoCrawlServer());
     }
 
     protected void setUp() throws Exception {

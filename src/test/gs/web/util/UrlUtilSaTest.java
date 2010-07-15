@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.71 2010/07/01 16:27:09 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.72 2010/07/15 23:24:49 aroy Exp $
  */
 
 package gs.web.util;
@@ -298,6 +298,13 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue("Expected true for admin URL", UrlUtil.isAdminServer("admin.greatschools.org"));
         assertTrue("Expected true for maddy URL", UrlUtil.isAdminServer("admin.greatschools.org"));
         assertFalse("Expected false for production URL", UrlUtil.isAdminServer("www.greatschools.org"));
+    }
+
+    public void testIsQAServer() {
+        assertTrue("Expected true for qa URL", UrlUtil.isQAServer("cmsqa1.greatschools.org"));
+        assertTrue("Expected true for qa URL", UrlUtil.isQAServer("cmsqa2.greatschools.org"));
+        assertTrue("Expected true for qa URL", UrlUtil.isQAServer("qa.greatschools.org"));
+        assertFalse("Expected false for production URL", UrlUtil.isQAServer("www.greatschools.org"));
     }
 
     public void testIsCommunityContentLink() {

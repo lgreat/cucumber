@@ -92,8 +92,8 @@ Disallow: /alert/
 </c:set>
 
 <c:choose>
-<!-- We don't allow staging to be crawled -->
-<c:when test="${requestScope.pageHelper.stagingServer or requestScope.pageHelper.adminServer}">
+<!-- We don't allow some servers to be crawled -->
+<c:when test="${requestScope.pageHelper.noCrawlServer}">
 User-agent: *
 Disallow: /    
 </c:when>
