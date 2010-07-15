@@ -25,6 +25,9 @@
 <api:nav />
 <div id="content">
 <div><h2>Api Accounts</h2></div>
+<c:if test="${not empty param.deletedAccountName and not empty param.deletedAccountEmail}">
+    <div class="note">Deleted API account for ${param.deletedAccountName} (${param.deletedAccountEmail}}).</div>
+</c:if>
 <table>
     <tr>
         <th>Name</th>

@@ -67,3 +67,9 @@ div#admin_login td span {
 .hide {
     display:none;
 }
+
+.note {
+    background-color: #ffd700;
+    padding: 3px;
+    margin-bottom: 6px;
+}

@@ -38,6 +38,7 @@
             </div>
         </c:if>
         <div><h2>Api Account Details</h2></div>
+        <p><a href="/api/admin/editAccount.page" class="editAccount">Edit</a> | <a href="/api/admin/deleteAccount.page?id=${account.id}&amp;amp;email=${gsweb:urlEncode(account.email)}" class="deleteAccount">Delete</a></p>
         <ul>
             <li>Name: ${account.name}</li>
             <li>Organization: ${account.organization}</li>
