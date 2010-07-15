@@ -8,11 +8,11 @@ $(function() {
 
     });
 
-    $('.accountConfig').click(function () {
-        $('#update').show();
-    });
-
     $('.deleteAccount').click(function () {
         return confirm('Are you sure you want to delete this account?');
+    });
+
+    $('#cancel').click(function () {
+        window.location = '/api/admin/accounts.page';
     });
 });

@@ -28,57 +28,82 @@
     <body>
     <api:nav />
     <div id="content">
+        <div><h2>Api Account Details</h2></div>
+
         <c:if test="${not empty messages}">
-            <div class="messages">
-                <ul>
-                    <c:forEach var="message" items="${messages}">
-                        <li>${message}</li>
-                    </c:forEach>
-                </ul>
+            <div class="note">
+                <c:forEach var="message" items="${messages}">
+                    ${message}<br/>
+                </c:forEach>
             </div>
         </c:if>
-        <div><h2>Api Account Details</h2></div>
-        <p><a href="/api/admin/editAccount.page" class="editAccount">Edit</a> | <a href="/api/admin/deleteAccount.page?id=${account.id}&amp;amp;email=${gsweb:urlEncode(account.email)}" class="deleteAccount">Delete</a></p>
-        <ul>
-            <li>Name: ${account.name}</li>
-            <li>Organization: ${account.organization}</li>
-            <li>Email:  <a href="mailto:${account.email}?subject=Regarding your use of the GreatSchools API &amp;body=Name: ${account.name}%0AOrganization: ${account.organization}
-            %0AEmail: ${account.email}%0AWebsite: ${account.website}%0APhone: ${account.phone}
-            %0AIntended Use: ${account.intendedUse}%0AApi Key: ${account.apiKey}">${account.email}</a>
-            </li>
-            <li>Website: ${account.website}</li>
-            <li>Phone: ${account.phone}</li>
-            <li>Industry: ${account.industry}</li>    
-            <li>Intended Use: ${account.intendedUse}</li>
-            <li>
-                <c:choose>
-                    <c:when test="${not empty account.apiKey}">
-                        Api Key: ${account.apiKey}
-                        <c:set var="key_button" value="Delete Key" />
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="key_button" value="Generate Key" />
-                    </c:otherwise>
-                </c:choose>
-                <form:form> 
-                    <input id="save" type="submit" value="${key_button}" />
-                    <input type="hidden" name="action" value="toggle_active" />
-                </form:form>
-            </li>
-        </ul>
-        
-        <div id="">
-            <form:form commandName="account">
-                <div>
-                    <form:radiobuttons path="type" items="${account.typeOptions}" cssClass="accountType accountConfig" />
-                    <div id="premium_options" class="${account.type ne 'p' ? 'hide' : ''}">
-                        <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}" cssClass="accountConfig"/>
-                    </div>
+
+        <form:form commandName="account">
+
+            <div class="formFields">
+                <div class="info">
+                    <form:label path="name" cssClass="main">Name:</form:label>
+                    <form:input path="name" maxlength="127"/>
                 </div>
-                <input id="update" type="submit" value="Save Changes" class="hide"/>
-                <input type="hidden" name="action" value="update" />
+                <div class="info">
+                    <form:label path="organization" cssClass="main">Organization:</form:label>
+                    <form:input path="organization" maxlength="127"/>
+                </div>
+                <div class="info">
+                    <form:label path="email" cssClass="main">Email:</form:label>
+                    <form:input path="email" maxlength="127"/>
+                </div>
+                <div class="info">
+                    <form:label path="website" cssClass="main">Website:</form:label>
+                    <form:input path="website" maxlength="127"/>
+                </div>
+                <div class="info">
+                    <form:label path="phone" cssClass="main">Phone:</form:label>
+                    <form:input path="phone" maxlength="127"/>
+                </div>
+                <div class="info">
+                    <form:label path="industry" cssClass="main">Industry:</form:label>
+                    <form:input path="industry" maxlength="127"/>
+                </div>
+                <div class="info">
+                    <form:label path="intendedUse" cssClass="main">Intended Use:</form:label>
+                    <form:textarea path="intendedUse" cols="60" rows="8"/>
+                </div>
+                <div class="info">
+                    <form:label path="type" cssClass="main">Type:</form:label>
+                    <form:radiobuttons path="type" items="${account.typeOptions}" cssClass="accountType accountConfig"/>
+                </div>
+                <div id="premium_options" class="info ${account.type ne 'p' ? 'hide' : ''}">
+                    <form:label path="intendedUse" cssClass="main">Premium Options:</form:label>
+                    <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}"
+                                                          cssClass="accountConfig"/>
+                </div>
+                <div class="actions">
+                    <input id="cancel" type="button" value="&amp;lt; Back"/>
+                    <input id="update" type="submit" value="Save Changes"/>
+                    <input type="hidden" name="action" value="update"/>
+                </div>
+            </div>
+        </form:form>
+
+        <div class="apiKey">
+            API key:
+            <c:choose>
+                <c:when test="${not empty account.apiKey}">
+                    ${account.apiKey}
+                    <c:set var="key_button" value="Delete Key"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="key_button" value="Generate Key"/>
+                </c:otherwise>
+            </c:choose>
+            <form:form cssStyle="display:inline;">
+                <input id="save" type="submit" value="${key_button}"/>
+                <input type="hidden" name="action" value="toggle_active"/>
             </form:form>
         </div>
+
+        <p><a href="/api/admin/deleteAccount.page?id=${account.id}&amp;amp;email=${gsweb:urlEncode(account.email)}" class="deleteAccount">Delete account</a></p>
     </div>
     </body>
     </html>

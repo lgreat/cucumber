@@ -70,6 +70,42 @@ div#admin_login td span {
 
 .note {
     background-color: #ffd700;
-    padding: 3px;
     margin-bottom: 6px;
+    padding: 5px 10px;
+}
+
+.apiKey {
+    margin-top: 25px;
+}
+
+.info label.main {
+    width: 150px;
+    float:left;
+}
+
+.info input[type=text] {
+    float:left;
+    width:250px;
+}
+
+.info textarea {
+    float:left;
+}
+
+.info {
+    clear:both;
+    padding-top: 5px;
+}
+
+.actions {
+    clear:both;
+    padding-top: 10px;
+}
+
+#update {
+    float: right;
+}
+
+.formFields {
+    width: 640px;
 }

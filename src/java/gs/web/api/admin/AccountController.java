@@ -72,6 +72,15 @@ public class AccountController implements ReadWriteAnnotationController {
                          ModelMap model) {
 
         ApiAccount account = getApiAccountDao().getAccountById(id);
+
+        account.setName(acct.getName());
+        account.setOrganization(acct.getOrganization());
+        account.setEmail(acct.getEmail());        
+        account.setWebsite(acct.getWebsite());
+        account.setPhone(acct.getPhone());
+        account.setIndustry(acct.getIndustry());
+        account.setIntendedUse(acct.getIntendedUse());
+
         String type = acct.getType();
         account.setType(type);
         String opts;
