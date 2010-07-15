@@ -22,9 +22,9 @@ Large Google Map
 }
 
 #col_center {
-	width: 356px;
+	width: 407px;
 	float: left;
-	padding-right: 9px;
+	/*padding-right: 9px;*/
 	/*border-right: 1px solid #dedede;*/
 }
 
@@ -35,7 +35,7 @@ Large Google Map
 }
 
 #map {
-    width: 354px;
+    width: 405px;
     height: 441px;
     border: 1px solid #ccc;
 }
