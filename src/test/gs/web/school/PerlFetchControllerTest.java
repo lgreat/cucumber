@@ -38,7 +38,7 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
 
     public void testGetAbsoluteHrefDev() throws Exception {
         String href = _controller.getAbsoluteHref(_school, getRequest());
-        assertEquals("http://www.greatschools.org/cgi-bin/test/ca/1", href);
+        assertEquals("http://localhost/cgi-bin/test/ca/1", href);
     }
 
     public void testGetAbsoluteHrefDevWhenDeveloperWorkstation() throws Exception {
@@ -52,15 +52,6 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
 
         assertNotNull(response);
         assertTrue(response.length() > 0);
-    }
-
-    // Test fails on conint since there is no /cgi-bin/testpage.cgi
-    public void xtestHandleInternal() throws Exception {
-        getRequest().setServerName("dev.greatschools.org");
-        _controller.setPerlContentPath("/cgi-bin/testpage.cgi");
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-
-        assertTrue(mAndV.getModelMap().containsKey(PerlFetchController.HTML_ATTRIBUTE));
     }
 
     public void testFailure() throws Exception {

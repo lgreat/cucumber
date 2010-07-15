@@ -8,7 +8,6 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.HashMap;
 
-public class PerlFetchController extends AbstractSchoolController implements Controller {
+public class PerlFetchController extends AbstractSchoolController {
     private static final Logger _log = Logger.getLogger(PerlFetchController.class);
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
@@ -55,11 +54,17 @@ public class PerlFetchController extends AbstractSchoolController implements Con
         String view = getViewName();
 
         try {
-            perlResponse = getResponseFromUrl(href);
-
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
-            model.put(HTML_ATTRIBUTE, perlResponse);
+            perlResponse = getResponseFromUrl(href);
+
+            if (StringUtils.isNotBlank(perlResponse)) {
+                model.put(HTML_ATTRIBUTE, perlResponse);
+            } else {
+                _log.error("Empty response received from perl at " + href);
+                response.sendError(500);
+                view = VIEW_ERROR;
+            }
         } catch (BadResponseException e) {
             _log.error("Problem retrieving data from " + href + ". Aborting and bubbling up response code ", e);
             response.sendError(e.getResponseCode(), null);
@@ -67,6 +72,9 @@ public class PerlFetchController extends AbstractSchoolController implements Con
             if (e.getResponseCode() == 404 ) {
                 view = VIEW_NOT_FOUND;
             } else if (e.getResponseCode() == 500 ) {
+                model.put("javax.servlet.error.exception", e);
+                view = VIEW_ERROR;
+            } else {
                 model.put("javax.servlet.error.exception", e);
                 view = VIEW_ERROR;
             }
@@ -81,7 +89,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
         relativePath = relativePath.replaceAll("\\$STATE", school.getDatabaseState().getAbbreviationLowerCase());
         relativePath = relativePath.replaceAll("\\$ID", String.valueOf(school.getId()));
 
-        String href = request.getScheme() + "://" + request.getServerName() +
+        String href = request.getScheme() + "://localhost" +
                 ((request.getServerPort() != 80)?(":" + request.getServerPort()):"") +
                 relativePath;
 
@@ -105,7 +113,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
         }
     }
 
-    protected String getResponseFromUrl(String absoluteHref) throws BadResponseException {
+    protected String getResponseFromUrl(String absoluteHref) throws BadResponseException, IOException {
         HttpURLConnection connection = null;
         BufferedReader reader;
         StringBuilder response = new StringBuilder();
@@ -134,14 +142,7 @@ public class PerlFetchController extends AbstractSchoolController implements Con
             }
 
             _log.info("Got response code " + responseCode);
-        } catch (MalformedURLException e) {
-            _log.error("Could not understand given url: " + absoluteHref, e);
-        } catch (ProtocolException e) {
-            _log.error("Error reading from given url: " + absoluteHref, e);
-        } catch (IOException e) {
-            _log.error("Error reading from given url: " + absoluteHref, e);
-        }
-        finally {
+        } finally {
             _log.info("Fetching from " + absoluteHref + " took " + (System.currentTimeMillis() - startTime)
                     + " milliseconds");
             if (connection != null) {
