@@ -7,11 +7,6 @@ public class ContactUsTagHandler extends LinkTagHandler {
     private String _cityName;
     private Integer _schoolId;
 
-    public ContactUsTagHandler() {
-        super();
-        setRel("nofollow");
-    }
-
     @Override
     protected UrlBuilder createUrlBuilder() {
         return new UrlBuilder(UrlBuilder.CONTACT_US, _feedbackType, _cityName, _schoolId);
