@@ -38,7 +38,7 @@
             </div>
         </c:if>
 
-        <form:form commandName="account">
+        <form:form commandName="account" id="accountDetails">
 
             <div class="formFields">
                 <div class="info">
@@ -63,7 +63,17 @@
                 </div>
                 <div class="info">
                     <form:label path="industry" cssClass="main">Industry:</form:label>
-                    <form:input path="industry" maxlength="127"/>
+                    <!-- copied from registration.jspx -->
+                    <form:select path="industry">
+                        <form:option value="">Choose One</form:option>
+                        <form:option value="education">Education</form:option>
+                        <form:option value="finance">Finance</form:option>
+                        <form:option value="government">Government</form:option>
+                        <form:option value="media">Media - Journalism</form:option>
+                        <form:option value="real estate">Real Estate</form:option>
+                        <form:option value="technology">Technology</form:option>
+                        <form:option value="other">Other</form:option>
+                    </form:select>
                 </div>
                 <div class="info">
                     <form:label path="intendedUse" cssClass="main">Intended Use:</form:label>
@@ -80,30 +90,53 @@
                 </div>
                 <div class="actions">
                     <input id="cancel" type="button" value="&amp;lt; Back"/>
-                    <input id="update" type="submit" value="Save Changes"/>
-                    <input type="hidden" name="action" value="update"/>
+                    <c:choose>
+                        <c:when test="${not empty account.id}">
+                            <input class="submit" type="submit" value="Save Changes"/>
+                            <input type="hidden" name="action" value="update"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input class="submit" type="submit" value="Create Account"/>
+                            <input type="hidden" name="action" value="create"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </form:form>
 
-        <div class="apiKey">
-            API key:
-            <c:choose>
-                <c:when test="${not empty account.apiKey}">
-                    ${account.apiKey}
-                    <c:set var="key_button" value="Delete Key"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="key_button" value="Generate Key"/>
-                </c:otherwise>
-            </c:choose>
-            <form:form cssStyle="display:inline;">
-                <input id="save" type="submit" value="${key_button}"/>
-                <input type="hidden" name="action" value="toggle_active"/>
-            </form:form>
-        </div>
+        <hr/>
 
-        <p><a href="/api/admin/deleteAccount.page?id=${account.id}&amp;amp;email=${gsweb:urlEncode(account.email)}" class="deleteAccount">Delete account</a></p>
+        <c:choose>
+            <c:when test="${not empty account.id}">
+                <div class="info">
+                    <label class="main">API key:</label>
+                    <c:choose>
+                        <c:when test="${not empty account.apiKey}">
+                            ${account.apiKey}
+                            <c:set var="key_button" value="Delete Key"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="key_button" value="Generate Key"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <form:form cssStyle="display:inline;">
+                        <input id="save" type="submit" value="${key_button}"/>
+                        <input type="hidden" name="action" value="toggle_active"/>
+                    </form:form>
+                </div>
+
+                <hr/>
+
+                <p>
+                    <a href="/api/admin/deleteAccount.page?id=${account.id}&amp;amp;email=${gsweb:urlEncode(account.email)}"
+                       class="deleteAccount">Delete account</a></p>
+            </c:when>
+            <c:otherwise>
+                <div>
+                    The API key can be generated after creating this account.
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
     </body>
     </html>

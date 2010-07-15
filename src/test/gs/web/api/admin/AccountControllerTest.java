@@ -39,7 +39,7 @@ public class AccountControllerTest {
         expect(_apiAccountDao.getAccountById(1)).andReturn(new ApiAccount());
         replay(_apiAccountDao);
         ModelMap mm = new ModelMap();
-        String view = _controller.showPage(1, mm);
+        String view = _controller.viewEditAccount(1, mm);
         assertEquals(AccountController.MAIN_VIEW, view);
         verify(_apiAccountDao);
     }

@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * @author chriskimm@greatschools.org
  */
 @Controller
-@RequestMapping("/api/admin/account.page")
+@RequestMapping(value={"/api/admin/account.page","/api/admin/createAccount.page"})
 public class AccountController implements ReadWriteAnnotationController {
 
     public static final String MODEL_MESSAGES = "messages";
@@ -43,7 +43,14 @@ public class AccountController implements ReadWriteAnnotationController {
     private IApiAccountDao _apiAccountDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showPage(@RequestParam("id") int id, ModelMap model) {
+    public String createAccount(ModelMap model) {
+        model.addAttribute(MODEL_ACCOUNT, new ApiAccount());
+        model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
+        return MAIN_VIEW;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = "id")
+    public String viewEditAccount(@RequestParam("id") int id, ModelMap model) {
         ApiAccount account = getApiAccountDao().getAccountById(id);
         model.addAttribute(MODEL_ACCOUNT, account);
         model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
@@ -62,6 +69,26 @@ public class AccountController implements ReadWriteAnnotationController {
         }
         getApiAccountDao().save(account);
         model.addAttribute(MODEL_ACCOUNT, account);
+        model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
+        return MAIN_VIEW;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=create")
+    public String create(@ModelAttribute("account") ApiAccount acct,
+                         ModelMap model) {
+
+        String type = acct.getType();
+        String opts;
+        if ("f".equals(type)) {
+            acct.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, "");
+        } else if (acct.getPremiumOptions() != null) {
+            opts = StringUtils.join(acct.getPremiumOptions(), ",");
+            acct.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, opts);
+        }
+        getApiAccountDao().save(acct);
+
+        setMessageInModel(model, "Account created.");
+        model.addAttribute(MODEL_ACCOUNT, acct);
         model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
         return MAIN_VIEW;
     }

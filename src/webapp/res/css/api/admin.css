@@ -74,12 +74,12 @@ div#admin_login td span {
     padding: 5px 10px;
 }
 
-.apiKey {
-    margin-top: 25px;
-}
-
 .info label.main {
     width: 150px;
+    float:left;
+}
+
+.info select {
     float:left;
 }
 
@@ -102,10 +102,14 @@ div#admin_login td span {
     padding-top: 10px;
 }
 
-#update {
+.formFields input[type=submit] {
     float: right;
 }
 
 .formFields {
     width: 640px;
+}
+
+#accountDetails {
+    margin-bottom: 30px;
 }
