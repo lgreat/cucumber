@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.127 2010/07/14 23:45:17 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.128 2010/07/15 00:02:45 yfan Exp $
  */
 
 package gs.web.util;
@@ -363,7 +363,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/about/feedback.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.CONTACT_US, "incorrectSchoolDistrictInfo_incorrectSchool", "Carson", 2438);
-        assertEquals("/about/feedback.page?feedbackType=incorrectSchoolDistrictInfo_incorrectSchool&city=Carson&schoolId=2438", builder.asSiteRelative(request));
+        assertEquals("/about/feedback.page?city=Carson&feedbackType=incorrectSchoolDistrictInfo_incorrectSchool&schoolId=2438", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.TERMS_OF_USE, State.WY, null);
         assertEquals("/terms/?state=WY", builder.asSiteRelative(request));
