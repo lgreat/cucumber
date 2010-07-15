@@ -212,7 +212,7 @@
                             <c:choose>
                                 <c:when test="${requestScope.hasSchoolStats}">
                                     <c:set var="sptab3_name" value="School Stats"/>
-                                    <c:set var="sptab3_link"><link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">${sptab3_name}</link:schoolProfileCensus></c:set>
+                                    <c:set var="sptab3_link"><a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
                                 </c:when>
                                 <c:when test="${requestScope.hasSurveyData}">
                                     <c:set var="sptab3_name" value="Program Details"/>
@@ -224,11 +224,11 @@
                         </c:when>
                         <c:when test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
                             <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
-                            <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
+                            <c:set var="sptab3_link"><a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
                         </c:when>
                         <c:when test="${school.levelCode ne 'p' and school.type.name eq 'private'}">
                             <c:set var="sptab3_name" value="School Stats"/>
-                            <c:set var="sptab3_link"><link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">${sptab3_name}</link:schoolProfileCensus></c:set>
+                            <c:set var="sptab3_link"><a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">${sptab3_name}</a></c:set>
                         </c:when>
                     </c:choose>
                     <c:if test="${not empty sptab3_name}">
@@ -237,14 +237,13 @@
                         </li>
                     </c:if>
                     <li id="sptab4" class="${(tab eq 'schoolMap')?'active':'inactive'}">
-                        <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map</link:mapSchool>
+                                <link:mapSchool school="${school}" anchor="${headerLinkAnchor}">Map</link:mapSchool>
                     </li>
                 </ul>
 
             </div><!-- end schoolProfileTabsWrapper -->
 
-            <div id="schoolProfileContentsWrapper">
-                <!-- Display subnav iff:
+            <!-- Display subnav iff:
                     * school stats tab is selected in main nav
                     and any of the following
                     * school is public or charter
@@ -255,43 +254,43 @@
                             and (school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
                             and (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))}">
                     <div id="schoolProfileSubTabsWrapper">
-                        <ul id="schoolProfileSubTabs">
+                        <ul id="schoolProfileSubTabs" class="text3">
                             <c:if test="${requestScope.hasTestScores}">
-                                <li id="spstab1" class="${(subtab eq 'testScores')?'active':'inactive'}">
+                                <li id="spstab1" class="${(subtab eq 'testScores')?'active text3bold-d61':'inactive'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'testScores'}">Test scores</c:when>
                                         <c:otherwise>
-                                            <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test scores</link:schoolProfileTestscore>
+                                            <a href="/school/testScores.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Test scores</a>
                                         </c:otherwise>
                                     </c:choose>
-                                </li>
+                                </li><span class="pipes">|</span>
                             </c:if>
                             <c:if test="${school.type.name ne 'private'}">
-                                <li id="spstab2" class="${(subtab eq 'ratings')?'active':'inactive'}">
+                                <li id="spstab2" class="${(subtab eq 'ratings')?'active text3bold-d61':'inactive'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'ratings'}">GreatSchools Ratings</c:when>
                                         <c:otherwise>
                                             <link:schoolProfileRating school="${school}" anchor="${headerLinkAnchor}">GreatSchools Ratings</link:schoolProfileRating>
                                         </c:otherwise>
                                     </c:choose>
-                                </li>
+                                </li><span class="pipes">|</span>
                             </c:if>
                             <c:if test="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}">
-                                <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active':'inactive'}">
+                                <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active text3bold-d61':'inactive'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
                                         <c:otherwise>
-                                            <link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">Teachers &amp;amp; Students</link:schoolProfileCensus>
+                                            <a href="/school/teachersStudents.page?id=${school.id}&amp;amp;state=${school.databaseState}#${headerLinkAnchor}">Teachers &amp;amp; Students</a>
                                         </c:otherwise>
                                     </c:choose>
-                                </li>
+                                </li><span class="pipes">|</span>
                             </c:if>
                             <c:if test="${requestScope.hasSurveyData}">
                                 <c:choose>
                                     <c:when test="${school.levelCode eq 'p'}"><c:set var="spstab4_name" value="Program Details"/></c:when>
                                     <c:otherwise><c:set var="spstab4_name" value="Programs &amp;amp; Extracurriculars"/></c:otherwise>
                                 </c:choose>
-                                <li id="spstab4" class="${(subtab eq 'survey')?'active':'inactive'}">
+                                <li id="spstab4" class="${(subtab eq 'survey')?'active text3bold-d61':'inactive'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'survey'}">${spstab4_name}</c:when>
                                         <c:otherwise>
@@ -306,6 +305,9 @@
                     </div>
                     <!-- end schoolProfileSubTabsWrapper -->
                 </c:if>
+
+            <div id="schoolProfileContentsWrapper">
+
                 
                 <div id="bodyContents">
                     <jsp:doBody/>
@@ -342,7 +344,7 @@
                         </c:set>
                     </c:if>
                     ${recentDiscussions}
-                    
+
                     <ad:BelowFold_300x250/>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
