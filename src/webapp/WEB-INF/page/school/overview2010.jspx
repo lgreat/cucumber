@@ -574,6 +574,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     </div>
 </c:if>
 
+<c:set var="schoolType" value="${school.type.schoolTypeName}" />
+<c:set var="levelCode" value="${school.levelCode}" />
 
 <script type="text/javascript">
     jQuery(function() {
@@ -601,8 +603,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
         });
 
-        GSType.hover.joinHover.showJoinNthHoverOnExit();
-
         jQuery('#js-esp-principal-link a').click(function() {
             var schoolId = '${school.id}';
             var schoolState = '${school.databaseState}';
@@ -629,6 +629,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         });
     });
 
+    if ('${levelCode}' == 'p' || '${schoolType}' == 'private') {
+        GSType.hover.joinHover.showJoinNthHoverOnExit();
+    }
 
     function countChecked() {
         var n = jQuery('#nearby-schools-table-body input:checked').length;
