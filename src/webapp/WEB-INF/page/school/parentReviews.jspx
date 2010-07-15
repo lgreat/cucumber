@@ -441,7 +441,7 @@
         <c:choose>
             <c:when test="${cmd.totalReviews gt 0}">
                 <p>Were these ratings and reviews helpful to you?
-                   <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Give us feedback &#62;</link:schoolFeedback></p>
+                   <link:schoolRatingsReviewsFeedback schoolId="${school.id}" cityName="${school.city}">Give us feedback &#62;</link:schoolRatingsReviewsFeedback></p>
             </c:when>
             <c:otherwise>
                 <p>

@@ -392,7 +392,7 @@
 <div class="nextprev">
     <div class="feedback">
         Do you have questions or comments about completing the survey?
-        <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}" target="_blank">Give us feedback &#62; </link:schoolFeedback>
+        <link:contactUs target="_blank">Give us feedback &#62; </link:contactUs>
    </div>
     <div class="previousnextouterwrap" id="outerteachers">
         <div class="previousnextwrap">
