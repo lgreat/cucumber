@@ -25,6 +25,9 @@
                     }
                 }
             }
+            function GS_prd_checklogin() {
+                GS.showJoinHover('${requestScope.user.email}',window.location.href,GSType.hover.joinHover.showJoinPostComment);
+            }
         </script>
 
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
@@ -93,7 +96,7 @@
                 <div class="spacer_10"><!-- do not collapse --></div>
             <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
                       class="textarea bg-ebebeb text2"
-                      onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); checkLogin();"
+                      onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
                       onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
     <div class="spacer_10"><!-- do not collapse --></div>
             <div>
