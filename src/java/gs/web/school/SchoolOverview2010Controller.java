@@ -159,17 +159,16 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             }
         }
 
-        if (school.getAffiliation() != null) {
+        if (StringUtils.trimToNull(school.getAffiliation()) != null) {
             highlights.add(StringUtils.capitalize(school.getAffiliation()));
         }
 
-        if (school.getAssociation() != null) {
+        if (StringUtils.trimToNull(school.getAssociation()) != null) {
             highlights.add("Associations: " + school.getAssociation());
         }
 
         for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
-            String token = getOneResponseTokenForAnswer(school, answer);
-            token = StringUtils.replace(token, "_", " ");
+            String token = StringUtils.trimToNull(getOneResponseTokenForAnswer(school, answer));
             if (token != null) {
                 highlights.add(token);
             }
