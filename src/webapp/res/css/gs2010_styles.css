@@ -4923,7 +4923,6 @@ margin:10px 0 14px 20px;
 
 #schoolProfileSubTabsWrapper{
     clear:both;
-    width:612px;
     height:27px;
     padding-top:4px;
     background-color:#f4fafd;
@@ -4933,15 +4932,16 @@ margin:10px 0 14px 20px;
 
 #schoolProfileSubTabs{
     line-height:27px;
+    padding-left:15px;
 }
 
 #schoolProfileSubTabs li{
     display:inline;
-    padding:0 15px;
 }
 
 #schoolProfileSubTabs .pipes{
     color:#999;
+    padding:0 15px;
 }
 
 /* =5 icons
