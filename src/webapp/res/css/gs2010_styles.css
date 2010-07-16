@@ -6185,12 +6185,20 @@ button {
     background-color: transparent; /* hide form background color in IE */
 }
 
+.btn25-inactive {
+    cursor: default;
+    display: block;
+    margin: 0;
+    border: 0 none transparent;
+    padding: 0;
+    background-color: transparent; /* hide form background color in IE */
+}
+
 .lftDoor25 {
     display: inline-block;
     padding: 0 0 0 15px;
     line-height: 25px;
     float: left;
-    margin-top: -2px;
 }
 
 .rtDoor25 {
@@ -6201,6 +6209,14 @@ button {
 }
 
 /* skin */
+.btn25-inactive .lftDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left bottom;
+}
+
+.btn25-inactive .rtDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right bottom;
+}
+
 .lftDoor25 {
     background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
 }
@@ -6210,11 +6226,11 @@ button {
 }
 
 .btn25:active .lftDoor25, .btn25:hover .lftDoor25 {
-    background-position: left bottom;
+    background-position: left -25px;
 }
 
 .btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
-    background-position: right bottom;
+    background-position: right -25px;
     outline: none; /* hide dotted outline in Firefox */
 }
 
@@ -6229,7 +6245,7 @@ button {
 }
 
 /* font size and family */
-#marginGS .btn25, .ui-dialog .btn25 {
+#marginGS .btn25, #marginGS .btn25-inactive, .ui-dialog .btn25, .ui-dialog .btn25-inactive {
     font: bold 14px Arial, Helvetica, sans-serif;
     text-decoration: none;
     text-shadow: 1px 1px 1px #444;
@@ -6271,11 +6287,11 @@ button {
 }
 
 .btn25-2:active .lftDoor25, .btn25-2:hover .lftDoor25 {
-    background-position: left bottom;
+    background-position: left -25px;
 }
 
 .btn25-2:active .rtDoor25, .btn25-2:hover .rtDoor25 {
-    background-position: right bottom;
+    background-position: right -25px;
     outline: none; /* hide dotted outline in Firefox */
 }
 
