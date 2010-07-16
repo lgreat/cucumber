@@ -225,16 +225,21 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         int myStatNum = 1;
         for (Subscription myStat: myStats ) {
-            School school = _schoolDao.getSchoolById(myStat.getState(), myStat.getSchoolId());
-            schools.add(school);
-            myStatIds.add(myStat.getId());
-            Class dummyClass = Class.forName("gs.web.email.ManagementCommand");
+            try{
+                School school;
+                school = _schoolDao.getSchoolById(myStat.getState(), myStat.getSchoolId());
+                schools.add(school);
+                myStatIds.add(myStat.getId());
+                Class dummyClass = Class.forName("gs.web.email.ManagementCommand");
 
-            Method meth = dummyClass.getMethod("setSchool" + myStatNum,Boolean.TYPE);
-            Method meth2 = dummyClass.getMethod("setName" + myStatNum,String.class);
-            meth.invoke(command,true);
-            meth2.invoke(command,school.getName());
-            myStatNum++;
+                Method meth = dummyClass.getMethod("setSchool" + myStatNum,Boolean.TYPE);
+                Method meth2 = dummyClass.getMethod("setName" + myStatNum,String.class);
+                meth.invoke(command,true);
+                meth2.invoke(command,school.getName());
+                myStatNum++;
+            }catch(ObjectRetrievalFailureException orfe){
+                    // ain't doin' nathan cos i don't care about schools that don't exist
+            }
         }
         command.setMyStatIds(myStatIds);
         command.setCurrentMySchoolStats(schools);
