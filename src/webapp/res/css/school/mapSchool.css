@@ -4,10 +4,12 @@ Large Google Map
 -------------------------------------------------------*/
 
 #largeMap {
-	width: 864px;
-	_width: 866px; /* IE 6 hack */
+	/*width: 864px;*/
+	/*_width: 866px;  */
+/* IE 6 hack */
+    width:582px;
 	float: left;
-	margin: 5px 0 10px 0;
+	/*margin: 5px 0 10px 0;*/
 }
 
 /* columns
@@ -15,15 +17,19 @@ Large Google Map
 
 #col_left {
 	width: 173px;
-	margin: 0 13px 0 0;
-	_margin: 0 10px 0 0; /* IE 6 hack */
+	/*margin: 0 13px 0 0;*/
+	/*_margin: 0 10px 0 0; */
+    padding-right:13px;
+    _padding-right:9px;
+/* IE 6 hack */
 	float: left;
     position: relative;
 }
 
 #col_center {
-	width: 407px;
+	width: 396px;
 	float: left;
+    zoom:1;
 	/*padding-right: 9px;*/
 	/*border-right: 1px solid #dedede;*/
 }
@@ -35,7 +41,7 @@ Large Google Map
 }
 
 #map {
-    width: 405px;
+    width: 394px;
     height: 441px;
     border: 1px solid #ccc;
 }
@@ -120,7 +126,7 @@ Large Google Map
 ul#extraLinks {
     position: absolute;
     bottom: 10px;
-    right: 2px;
+    right: 15px;
 }
 
 ul#extraLinks li {

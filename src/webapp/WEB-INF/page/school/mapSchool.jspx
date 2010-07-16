@@ -48,6 +48,7 @@
         <ad:setSlotPrefix slotPrefix="MapSchool"/>
         <school:profile2010 school="${school}" tab="schoolMap" omniturePageName="${pageName}">
 
+            <div class="spacer_15"><!-- do not collapse --></div>
             <!-- being large Google map -->
             <div id="largeMap">
                 <!-- being left column -->
