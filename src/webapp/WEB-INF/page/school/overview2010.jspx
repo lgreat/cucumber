@@ -395,7 +395,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         </td>
                     </tr>
                     <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                            <tr class="brdbtm_dotted">
+                            <tr class="brdbtm_dotted" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
                                 <td align="center">
                                     <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
                                            type="checkbox"/>
@@ -403,7 +403,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                            class="smallText2">COMPARE</label>
                                 </td>
                                 <td>
-                                    <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
+                                    <p class="text2bold nearby-schools-link" id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}"><link:schoolProfileOverview school="${s.neighbor}">
                                         ${s.neighbor.name}
                                     </link:schoolProfileOverview></p>
 
@@ -491,10 +491,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             </td>
                         </tr>
                         <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                            <tr class="brdbtm_dotted">
+                            <tr class="brdbtm_dotted" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
                                 <td><!-- do not collapse --></td>
                                 <td>
-                                    <p class="text2bold"><link:schoolProfileOverview school="${s.neighbor}">
+                                    <p class="text2bold nearby-schools-link" id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}"><link:schoolProfileOverview school="${s.neighbor}">
                                         ${s.neighbor.name}
                                     </link:schoolProfileOverview></p>
 
@@ -584,8 +584,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             // to highlight table row
             var theTD = jQuery(this).parent();
             var theTR = theTD.parent();
-            if(jQuery(this+':not(:checked)')) {
-                theTR.toggleClass('bg-color-f4fafd');
+
+            if (jQuery(this).attr('checked')) {
+                theTR.addClass('bg-color-f4fafd');
+            } else {
+                theTR.removeClass('bg-color-f4fafd');
             }
         });
 
@@ -628,10 +631,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             jQuery('#js-esp-info-hover').hide();
         });
     });
-
-    if ('${levelCode}' == 'p' || '${schoolType}' == 'private') {
-        GSType.hover.joinHover.showJoinNthHoverOnExit();
-    }
 
     function countChecked() {
         var n = jQuery('#nearby-schools-table-body input:checked').length;
