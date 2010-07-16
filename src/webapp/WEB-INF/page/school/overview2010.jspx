@@ -192,6 +192,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
     <ad:AboveFold_Left_160x600/>
 
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <div id="osse">
+        <img src="/res/img/school/overview/OSSE-1.png" width="160" height="200" alt="OSSE"/>
+    </div>
+
 </div>
 
 <div id="overviewColumn2">
