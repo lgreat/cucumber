@@ -1,5 +1,8 @@
 package gs.web.api.admin;
 
+import gs.web.api.ApiAccountCommandValidator;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +45,9 @@ public class AccountController implements ReadWriteAnnotationController {
     @Autowired
     private IApiAccountDao _apiAccountDao;
 
+    @Autowired
+    private ApiAccountCommandValidator _apiAccountValidator;
+
     @RequestMapping(method = RequestMethod.GET)
     public String createAccount(ModelMap model) {
         model.addAttribute(MODEL_ACCOUNT, new ApiAccount());
@@ -74,27 +80,13 @@ public class AccountController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "action=create")
-    public String create(@ModelAttribute("account") ApiAccount acct,
+    public String create(@ModelAttribute("account") ApiAccount account, BindingResult result,
                          ModelMap model) {
-
-        String type = acct.getType();
-        String opts;
-        if ("f".equals(type)) {
-            acct.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, "");
-        } else if (acct.getPremiumOptions() != null) {
-            opts = StringUtils.join(acct.getPremiumOptions(), ",");
-            acct.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, opts);
-        }
-        getApiAccountDao().save(acct);
-
-        setMessageInModel(model, "Account created.");
-        model.addAttribute(MODEL_ACCOUNT, acct);
-        model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
-        return MAIN_VIEW;
+        return createUpdateHelper(account, result, model);
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "action=update")
-    public String update(@ModelAttribute("account") ApiAccount acct,
+    public String update(@ModelAttribute("account") ApiAccount acct, BindingResult result,
                          @RequestParam("id") int id,
                          ModelMap model) {
 
@@ -117,9 +109,27 @@ public class AccountController implements ReadWriteAnnotationController {
             opts = StringUtils.join(acct.getPremiumOptions(), ",");
             account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, opts);
         }
-        getApiAccountDao().save(account);
 
-        setMessageInModel(model, "Account settings updated.");
+        return createUpdateHelper(account, result, model);
+    }
+
+    private String createUpdateHelper(ApiAccount account, BindingResult result, ModelMap model) {
+        // http://wheelersoftware.com/articles/spring-bean-validation-framework.html
+        account.setConfirmEmail(account.getEmail());
+        account.setTermsApproved(true);
+        _apiAccountValidator.validate(account, result);
+
+        if (result.hasErrors()) {
+            setMessageInModel(model, "Please correct errors and re-submit the form.");
+        } else {
+            if (account.getId() != null) {
+                setMessageInModel(model, "Account settings updated.");
+            } else {
+                setMessageInModel(model, "Account created.");
+            }
+            getApiAccountDao().save(account);
+        }
+
         model.addAttribute(MODEL_ACCOUNT, account);
         model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
         return MAIN_VIEW;
@@ -173,5 +183,13 @@ public class AccountController implements ReadWriteAnnotationController {
 
     public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
         _emailHelperFactory = emailHelperFactory;
-    }    
+    }
+
+    public ApiAccountCommandValidator getApiAccountValidator() {
+        return _apiAccountValidator;
+    }
+
+    public void setApiAccountValidator(ApiAccountCommandValidator apiAccountValidator) {
+        _apiAccountValidator = apiAccountValidator;
+    }
 }

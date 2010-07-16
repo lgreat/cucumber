@@ -68,12 +68,6 @@ div#admin_login td span {
     display:none;
 }
 
-.note {
-    background-color: #ffd700;
-    margin-bottom: 6px;
-    padding: 5px 10px;
-}
-
 .info label.main {
     width: 150px;
     float:left;
@@ -112,4 +106,22 @@ div#admin_login td span {
 
 #accountDetails {
     margin-bottom: 30px;
+}
+
+.note {
+    background-color: #9acd32;
+    margin-bottom: 6px;
+    padding: 5px 10px;
+}
+
+.error {
+    background-color: #cc0000;
+    color: #fff;
+    margin-bottom: 6px;
+    padding: 5px 10px 3px;
+}
+
+.fieldError {
+    color: #cc0000;
+    margin-left: 5px;
 }

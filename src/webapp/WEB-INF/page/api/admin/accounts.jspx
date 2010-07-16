@@ -25,14 +25,10 @@
 <api:nav />
 <div id="content">
 <div><h2>Api Accounts</h2></div>
-    <c:choose>
-        <c:when test="${not empty param.deletedAccountName and not empty param.deletedAccountEmail}">
-            <div class="note">Deleted API account for ${param.deletedAccountName} (${param.deletedAccountEmail}}).</div>
-        </c:when>
-        <c:otherwise>
-            <div><a href="/api/admin/createAccount.page">Create new account</a></div>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${not empty param.deletedAccountName and not empty param.deletedAccountEmail}">
+        <div class="note">Deleted API account for ${param.deletedAccountName} (${param.deletedAccountEmail}).</div>
+    </c:if>
+    <div><a href="/api/admin/createAccount.page">Create new account</a></div>
 <table>
     <tr>
         <th>Name</th>

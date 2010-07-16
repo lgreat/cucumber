@@ -5,7 +5,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+          version="2.0" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:spring="http://www.springframework.org/tags">
 
     <c:set var="pageName" value="API Registration"/>
     <html>
@@ -26,12 +27,17 @@
     </head>
 
     <body>
-    <api:nav />
+    <api:nav/>
     <div id="content">
         <div><h2>Api Account Details</h2></div>
 
+        <c:set var="notificationClass" value="note"/>
+        <spring:hasBindErrors name="account">
+            <c:set var="notificationClass" value="error"/>
+        </spring:hasBindErrors>
+
         <c:if test="${not empty messages}">
-            <div class="note">
+            <div class="${notificationClass}">
                 <c:forEach var="message" items="${messages}">
                     ${message}<br/>
                 </c:forEach>
@@ -44,22 +50,27 @@
                 <div class="info">
                     <form:label path="name" cssClass="main">Name:</form:label>
                     <form:input path="name" maxlength="127"/>
+                    <form:errors path="name" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="organization" cssClass="main">Organization:</form:label>
                     <form:input path="organization" maxlength="127"/>
+                    <form:errors path="organization" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="email" cssClass="main">Email:</form:label>
                     <form:input path="email" maxlength="127"/>
+                    <form:errors path="email" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="website" cssClass="main">Website:</form:label>
                     <form:input path="website" maxlength="127"/>
+                    <form:errors path="website" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="phone" cssClass="main">Phone:</form:label>
                     <form:input path="phone" maxlength="127"/>
+                    <form:errors path="phone" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="industry" cssClass="main">Industry:</form:label>
@@ -74,10 +85,12 @@
                         <form:option value="technology">Technology</form:option>
                         <form:option value="other">Other</form:option>
                     </form:select>
+                    <form:errors path="industry" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="intendedUse" cssClass="main">Intended Use:</form:label>
                     <form:textarea path="intendedUse" cols="60" rows="8"/>
+                    <form:errors path="intendedUse" cssClass="fieldError"/>
                 </div>
                 <div class="info">
                     <form:label path="type" cssClass="main">Type:</form:label>
@@ -86,7 +99,7 @@
                 <div id="premium_options" class="info ${account.type ne 'p' ? 'hide' : ''}">
                     <form:label path="intendedUse" cssClass="main">Premium Options:</form:label>
                     <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}"
-                                                          cssClass="accountConfig"/>
+                                     cssClass="accountConfig"/>
                 </div>
                 <div class="actions">
                     <input id="cancel" type="button" value="&amp;lt; Back"/>

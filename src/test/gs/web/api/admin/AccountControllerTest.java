@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import static org.easymock.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.validation.BindingResult;
+
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -89,7 +91,7 @@ public class AccountControllerTest {
         expect(_apiAccountDao.getAccountById(123)).andReturn(account);
         _apiAccountDao.save(account);
         replay(_apiAccountDao);
-        _controller.update(account, 123, new ModelMap());
+        _controller.update(account, isA(BindingResult.class), 123, new ModelMap());
         verify(_apiAccountDao);
     }
 }
