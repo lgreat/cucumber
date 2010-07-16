@@ -86,6 +86,9 @@ function initSchoolInfo() {
   <c:if test="${not empty curSchool.lon}">
     mySchool = new Object();
 
+    mySchool.id = "${curSchool.id}";
+    mySchool.databaseState = "${curSchool.databaseState}";
+    mySchool.rating = "${nearbySchool.rating}";
     mySchool.name = "${curSchool.name}";
     mySchool.street = "${curSchool.physicalAddress.street}";
     mySchool.city = "${curSchool.physicalAddress.city}";
@@ -121,6 +124,7 @@ function initSchoolInfo() {
     mySchool.parentRatingHtml += '</div>';
 
     mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    mySchool.gPoint = new GPoint(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
@@ -128,7 +132,7 @@ function initSchoolInfo() {
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
+    var rval = '<div class="schoolInfoWindow" id="schoolInfoWindow-' + school.databaseState + school.id + '" style="font: 12px/15px Trebuchet MS, sans-serif;">';
     rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
     rval += '<div style="height: 28px; width: 150px;">';
     rval += school.ratingHtml;
@@ -147,6 +151,7 @@ function getSchoolInfoWindowHtml(school) {
         rval += '<p class="schoolPhone">' + school.phone + '</p>';
     }
     rval += '</div>'; // schoolInfoWindow
+
     return rval;
 }
 ]]>
@@ -170,9 +175,27 @@ function initMap() {
       } else {
         tooltip = null;
       }
-      marker = new GMarker(curSchool.location, {title: tooltip});
+
+        var pushpinIcon = new GIcon();
+        if (curSchool.rating != '') {
+            pushpinIcon.image = '/res/img/map/GS_gsr_' + curSchool.rating + '_forground.png';  //     >_<
+            pushpinIcon.transparent = '/res/img/map/GS_gsr_' + curSchool.rating + '_forground_trans.png';
+            pushpinIcon.shadow = '/res/img/map/GS_gsr_1_backgroundshadow.png';
+        } else {
+            pushpinIcon.image = '/res/img/map/GS_gsr_na_forground.png';
+            pushpinIcon.transparent = '/res/img/map/GS_gsr_na_forground_trans.png';
+            pushpinIcon.shadow = '/res/img/map/GS_gsr_1_backgroundshadow.png';
+        }
+        pushpinIcon.iconSize = new GSize(40,40);
+        pushpinIcon.iconAnchor = new GPoint(11,34);
+        pushpinIcon.infoWindowAnchor = new GPoint(13,2);
+        pushpinIcon.infoShadowAnchor = new GPoint(13,2);
+        pushpinIcon.shadowSize = new GSize(39,34);
+
+      marker = new GMarker(curSchool.location, {icon:pushpinIcon, title: tooltip});
       addBubbleListener(marker, curSchool);
       map.addOverlay(marker);
+
       bounds.extend(curSchool.location);
     }
     ]]>
@@ -205,6 +228,15 @@ function initMap() {
 
 function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
+
+      jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
+          jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
+      });
+      jQuery('#nearby-schools-' + school.databaseState + school.id ).addClass('bg-color-f4fafd');
+  });
+
+  jQuery('#nearby-schools-link-'+school.databaseState + school.id).mouseover(function() {
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
 }
