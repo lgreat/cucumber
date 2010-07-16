@@ -4,6 +4,7 @@ import gs.data.api.ApiAccount;
 import gs.data.api.IApiAccountDao;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
+import gs.web.api.ApiAccountCommandValidator;
 import org.springframework.ui.ModelMap;
 import static org.easymock.EasyMock.*;
 import org.junit.Before;
@@ -34,6 +35,7 @@ public class AccountControllerTest {
         _javaMailSender.setHost("greatschools.org");
         _factory.setMailSender(_javaMailSender);
         _controller.setEmailHelperFactory(_factory);
+        _controller.setApiAccountValidator(new ApiAccountCommandValidator());
     }
 
     @Test
