@@ -444,7 +444,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <div class="spacer_10"><!-- do not collapse --></div>
 
         <div id="submitCompare">
-        <button class="btn25 fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
+        <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
             <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
         </button><span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
         </div>
