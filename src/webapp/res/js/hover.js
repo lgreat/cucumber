@@ -267,7 +267,7 @@ GSType.hover.JoinHover = function() {
         }
     };
     this.showJoinNthHoverOnExit = function() {
-        if (isMember()) {
+        if (GS.isMember()) {
             return true;
         }
         var arr = getElementsByCondition(
