@@ -123,7 +123,7 @@
                             schools.
                         </noscript>
                     </div>
-                    <map:school id="map"
+                    <map:oldSchool id="map"
                                 tooltips="true"
                                 schools="${mapSchools}"
                                 school="${school}"/>
