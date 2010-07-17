@@ -61,6 +61,7 @@ General comments:
 =4k school profile 2010
 =4k-1 overview
 =4k-1.1 nearby schools table
+=4k-1.2.0 school choice pack promotion (home page and preschool landing page)
 =4k-1.2.1 school choice pack promotion (wide layout)
 =4k-1.2.2 school choice pack promotion (narrow layout)
 =4k-1.3 parent reviews
@@ -554,7 +555,7 @@ body.cobranded #pageGS {
 #Chooser_Sponsor_162x50 { /* GS-10184 */
     width:162px; height:50px;
     position:absolute;
-    bottom:17px; right:20px;
+    bottom:10px; right:20px;
 }
 
 /* =3 header/topnav
@@ -4703,6 +4704,47 @@ margin:10px 0 14px 20px;
 
 .bg-color-f9eccd {
     background-color:#f9eccd;
+}
+
+/* =4k-1.2.0 school choice pack promotion (home page and preschool landing page)
+-------------------------------------------------------------------------------------------*/
+
+#scpp {
+    position:relative;
+    height:284px;
+}
+
+#scpp .mod_bd {
+    padding: 15px;
+}
+
+#scpp h4 {
+    padding-bottom:5px;
+}
+
+#scpp #cemail{
+    float:left;
+    width:182px;
+    margin-right:5px;
+}
+
+#scpp #privacy_terms_checkbox{
+    float:left;
+}
+
+#scpp .privacy_terms_checkbox_label {
+    display:block;
+    padding-left:25px;
+}
+
+#scpp .privacy_terms_checkbox_label_preschool {
+    display:block;
+    padding-left:25px;
+    width:145px;
+}
+
+#scpp .promoFieldset{
+    padding-top:5px;
 }
 
 /* =4k-1.2.1 school choice pack promotion (wide layout)

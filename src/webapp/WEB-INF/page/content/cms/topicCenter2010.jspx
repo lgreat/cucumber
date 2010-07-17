@@ -327,19 +327,24 @@
         </c:choose>
     </div>
     <!-- end #seasonalPromo -->
-    
+
     <c:choose>
         <c:when test="${showSchoolChooserPackPromo}">
             <c:choose>
                 <c:when test="${topicCenter.preschoolTopicCenter}">
-                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}" caller="preschool"
-                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                 />
+                    <promo:schoolChoicePackPromo
+                            showBorder="${false}"
+                            showSchoolChoiceLink="${false}"
+                            caller="preschool"
+                            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                            />
                 </c:when>
                 <c:otherwise>
-                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
-                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                 />
+                    <promo:schoolChoicePackPromo
+                            showBorder="${false}"
+                            showSchoolChoiceLink="${false}"
+                            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                            />
                 </c:otherwise>
             </c:choose>
         </c:when>

@@ -305,8 +305,12 @@
 
     <c:choose>
         <c:when test="${showSchoolChooserPackPromo}">
-    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
-                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
+            <promo:schoolChoicePackPromo
+                    showBorder="${false}"
+                    showSchoolChoiceLink="${false}"
+                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                    caller="sidebar"
+                    />
         </c:when>
         <c:otherwise>
             <ad:Top_300x137/>

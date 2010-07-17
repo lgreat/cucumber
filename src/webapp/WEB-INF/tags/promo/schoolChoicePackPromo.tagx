@@ -218,6 +218,218 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 
 <!-- ====================================== -->
 
+<c:when test="${not empty caller and caller eq 'sidebar' or caller eq 'preschool'}">
+    <c:set var="schoolChoicePackPromoId" value="scpp"/>
+
+    <div id="${schoolChoicePackPromoId}" class="mod clearfix">
+        <div class="mod_hd">
+            <h3>Choose the Right School</h3>
+        </div>
+        <div class="mod_bd">
+            <img class="fltrt" src="/res/img/school/compare/21121_thumb_boy_apple.jpg" width="89" height="143" alt="little boy" />
+            <h4 class="text1bold-d61">School Chooser Toolkit</h4>
+            <p class="text3">
+                Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
+            </p>
+
+            <!--<div class="clearBoth">-->
+            <div>
+                <form id="scpp_form" action="">
+                    <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
+
+                    <div class="errors gradeError" style="display:none;">
+                        <span class="error">Please choose a school grade level.</span>
+                    </div>
+                    <div id="gradeSelect">
+                        <p class="text2">I'm looking for a(n):</p>
+
+                        <jsp:scriptlet>
+                            String redirectUrl;
+                            String redirectUrlForConfirm;
+                            UrlBuilder builder;
+                            UrlBuilder builderForConfirm;
+                            if (showSchoolChoiceLink) {
+                                builder = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                                builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true, schoolObjectForRedirect);
+                            } else if (StringUtils.equals("elementary", caller)) {
+                                builder = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                                builderForConfirm = new UrlBuilder(UrlBuilder.ELEMENTARY_SCHOOL);
+                                builderForConfirm.addParameter("confirm", "true");
+                            } else if (StringUtils.equals("middle", caller)) {
+                                builder = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                                builderForConfirm = new UrlBuilder(UrlBuilder.MIDDLE_SCHOOL);
+                                builderForConfirm.addParameter("confirm", "true");
+                            } else if (StringUtils.equals("high", caller)) {
+                                builder = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                                builderForConfirm = new UrlBuilder(UrlBuilder.HIGH_SCHOOL);
+                                builderForConfirm.addParameter("confirm", "true");
+                            } else {
+                                builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                                builderForConfirm = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                            }
+
+                            redirectUrl = builder.asSiteRelativeXml(request);
+                            redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
+                            jspContext.setAttribute("logoutRedirect", redirectUrl);
+                            jspContext.setAttribute("redirectForConfirm", redirectUrlForConfirm);
+
+
+                        </jsp:scriptlet>
+
+                        <ul id="scpp_picker">
+                            <c:choose>
+                                <c:when test="${not empty school}">
+                                    <li id="pickGrade_SCPP">
+                                        <gsml:checkbox name="p" styleId="p_check" styleClass="ck"
+                                                       checked="${fn:startsWith(school.levelCode,'p')}"/>
+                                        <label for="p_check">Preschool</label>
+                                        <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                        <div id="moreGrades_SCPP">
+                                            <ul>
+                                                <li>
+                                                    <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'e')}"/>
+                                                    <label for="e_check">Elementary school</label></li>
+                                                <li>
+                                                    <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'m')}"/>
+                                                    <label for="m_check">Middle school</label>
+                                                </li>
+                                                <li>
+                                                    <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'h')}"/>
+                                                    <label for="h_check">High school</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li id="pickGrade_SCPP">
+                                        <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
+                                        <label for="p_check">Preschool</label>
+                                        <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                        <div id="moreGrades_SCPP">
+                                            <ul>
+                                                <li>
+                                                    <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                                   checked="${(caller eq 'elementary')}"/>
+                                                    <label for="e_check">Elementary school</label></li>
+                                                <li>
+                                                    <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                                   checked="${(caller eq 'middle')}"/>
+                                                    <label for="m_check">Middle school</label>
+                                                </li>
+                                                <li>
+                                                    <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                                   checked="${(caller eq 'high')}"/>
+                                                    <label for="h_check">High school</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+
+                        </ul>
+                    </div>
+                    <jsp:scriptlet>
+                        request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                    </jsp:scriptlet>
+                    <div class="errors emailError" style="display:none;">
+                        <span class="error">Please enter a valid email address.</span>
+                    </div>
+                    <fieldset class="clearBoth promoFieldset">
+                        <ol>
+                            <li>
+                                <c:choose>
+                                    <c:when test="${communityAuth}">
+                                        <input id="cemail" name="cemail" class="required email formText1"
+                                               value="${requestScope.context.user.email}" disabled="true"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input id="cemail" name="cemail" class="required email formText1"
+                                               value="Enter email address"/>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <button class="btn25" type="submit" id="send">
+                                    <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                                </button>
+                            </li>
+                        </ol>
+                    </fieldset>
+
+
+                    <c:if test="${communityAuth}">
+                        <div class="logoutDiv">
+                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                        </div>
+                    </c:if>
+
+
+                    <div class="errors termsError" style="display:none;">
+                        <span class="error">Please accept the Terms of Use.</span>
+                    </div>
+
+                    <c:choose>
+                        <c:when test="${caller eq 'preschool'}">
+                            <c:set var="privacyTermsLabelClass" value="privacy_terms_checkbox_label_preschool"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="privacyTermsLabelClass" value="privacy_terms_checkbox_label"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <fieldset class="promoFieldset">
+                        <ol>
+                            <li>
+                                <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                                <label for="privacy_terms_checkbox"
+                                       class="smallText1 ${privacyTermsLabelClass}">I accept the GreatSchools
+                                    <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
+                                    <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
+                            </li>
+                        </ol>
+                    </fieldset>
+                </form>
+            </div>
+
+            <c:if test="${caller eq 'preschool'}">
+                <div class="adBox">
+                    <div class="wrapper-outer">
+                        <div class="wrapper-inner">
+                            <div class="wrapper-content">
+                                <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+        </div>
+
+        <!--<div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
+            <h4 class="subhead1">
+                Thank you!
+            </h4>
+
+            <p class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</p>
+            <c:if test="${showSchoolChoiceLink}">
+                <p class="blurb">In the meantime,
+                    <link:schoolChoiceCenter
+                            id="linkToSchoolChoice">check out our tips for getting started &gt;</link:schoolChoiceCenter>
+                </p>
+            </c:if>
+        </div>-->
+
+    </div>
+    <!-- close mod -->
+</c:when>
+
+<!-- ====================================== -->
+
 <c:otherwise>
     <c:set var="schoolChoicePackPromoId" value="schoolChoicePackPromo"/>
 
@@ -302,120 +514,124 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             </jsp:scriptlet>
 
             <div class="clearBoth">
-            <form id="scpp_form" action="">
-                <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
+                <form id="scpp_form" action="">
+                    <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
-                <div class="errors gradeError" style="display:none;">
-                    <span class="error">Please choose a school grade level.</span>
-                </div>
-                <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
-
-
-                    <ul id="scpp_picker">
-                        <c:choose>
-                            <c:when test="${not empty school}">
-                                <li id="pickGrade_SCPP">
-                                    <gsml:checkbox name="p" styleId="p_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'p')}"/>
-                                    <label for="p_check">Preschool</label>
-                                    <button id="grdShow_SCPP" type="button" title="show more">show more</button>
-                                    <div id="moreGrades_SCPP">
-                                        <ul>
-                                            <li>
-                                                <gsml:checkbox name="e" styleId="e_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'e')}"/>
-                                                <label for="e_check">Elementary school</label></li>
-                                            <li>
-                                                <gsml:checkbox name="m" styleId="m_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'m')}"/>
-                                                <label for="m_check">Middle school</label>
-                                            </li>
-                                            <li>
-                                                <gsml:checkbox name="h" styleId="h_check" styleClass="ck" checked="${fn:startsWith(school.levelCode,'h')}"/>
-                                                <label for="h_check">High school</label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li id="pickGrade_SCPP">
-                                    <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
-                                    <label for="p_check">Preschool</label>
-                                    <button id="grdShow_SCPP" type="button" title="show more">show more</button>
-                                    <div id="moreGrades_SCPP">
-                                        <ul>
-                                            <li>
-                                                <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
-                                                               checked="${(caller eq 'elementary')}"/>
-                                                <label for="e_check">Elementary school</label></li>
-                                            <li>
-                                                <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
-                                                               checked="${(caller eq 'middle')}"/>
-                                                <label for="m_check">Middle school</label>
-                                            </li>
-                                            <li>
-                                                <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
-                                                               checked="${(caller eq 'high')}"/>
-                                                <label for="h_check">High school</label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
+                    <div class="errors gradeError" style="display:none;">
+                        <span class="error">Please choose a school grade level.</span>
+                    </div>
+                    <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
 
 
-                    </ul>
-                </div>
-                <jsp:scriptlet>
-                    request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                </jsp:scriptlet>
-                <div class="errors emailError" style="display:none;">
-                    <span class="error">Please enter a valid email address.</span>
-                </div>
-                <fieldset class="clearBoth promoFieldset">
-                    <ol>
-                        <li>
+                        <ul id="scpp_picker">
                             <c:choose>
-                                <c:when test="${communityAuth}">
-                                    <input id="cemail" name="cemail" class="required email formText1"
-                                           value="${requestScope.context.user.email}" disabled="true"/>
+                                <c:when test="${not empty school}">
+                                    <li id="pickGrade_SCPP">
+                                        <gsml:checkbox name="p" styleId="p_check" styleClass="ck"
+                                                       checked="${fn:startsWith(school.levelCode,'p')}"/>
+                                        <label for="p_check">Preschool</label>
+                                        <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                        <div id="moreGrades_SCPP">
+                                            <ul>
+                                                <li>
+                                                    <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'e')}"/>
+                                                    <label for="e_check">Elementary school</label></li>
+                                                <li>
+                                                    <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'m')}"/>
+                                                    <label for="m_check">Middle school</label>
+                                                </li>
+                                                <li>
+                                                    <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                                   checked="${fn:startsWith(school.levelCode,'h')}"/>
+                                                    <label for="h_check">High school</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <input id="cemail" name="cemail" class="required email formText1"
-                                           value="Enter email address"/>
+                                    <li id="pickGrade_SCPP">
+                                        <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
+                                        <label for="p_check">Preschool</label>
+                                        <button id="grdShow_SCPP" type="button" title="show more">show more</button>
+                                        <div id="moreGrades_SCPP">
+                                            <ul>
+                                                <li>
+                                                    <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
+                                                                   checked="${(caller eq 'elementary')}"/>
+                                                    <label for="e_check">Elementary school</label></li>
+                                                <li>
+                                                    <gsml:checkbox name="m" styleId="m_check" styleClass="ck"
+                                                                   checked="${(caller eq 'middle')}"/>
+                                                    <label for="m_check">Middle school</label>
+                                                </li>
+                                                <li>
+                                                    <gsml:checkbox name="h" styleId="h_check" styleClass="ck"
+                                                                   checked="${(caller eq 'high')}"/>
+                                                    <label for="h_check">High school</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
 
-                            <button class="btn25" type="submit" id="send">
-                                <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                            </button>
-                        </li>
-                    </ol>
-                </fieldset>
 
-
-                <c:if test="${communityAuth}">
-                    <div class="logoutDiv">
-                        <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                        </ul>
                     </div>
-                </c:if>
+                    <jsp:scriptlet>
+                        request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                    </jsp:scriptlet>
+                    <div class="errors emailError" style="display:none;">
+                        <span class="error">Please enter a valid email address.</span>
+                    </div>
+                    <fieldset class="clearBoth promoFieldset">
+                        <ol>
+                            <li>
+                                <c:choose>
+                                    <c:when test="${communityAuth}">
+                                        <input id="cemail" name="cemail" class="required email formText1"
+                                               value="${requestScope.context.user.email}" disabled="true"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input id="cemail" name="cemail" class="required email formText1"
+                                               value="Enter email address"/>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <button class="btn25" type="submit" id="send">
+                                    <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
+                                </button>
+                            </li>
+                        </ol>
+                    </fieldset>
 
 
-                <div class="errors termsError" style="display:none;">
-                    <span class="error">Please accept the Terms of Use.</span>
-                </div>
-                <fieldset class="promoFieldset">
-                    <ol>
-                        <li>
-                            <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
-                            <label for="privacy_terms_checkbox"
-                                   class="smallText1 privacy_terms_checkbox_label">I accept the GreatSchools
-                                <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
-                                <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
-                        </li>
-                    </ol>
-                </fieldset>
-            </form>
-                </div>
+                    <c:if test="${communityAuth}">
+                        <div class="logoutDiv">
+                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                        </div>
+                    </c:if>
+
+
+                    <div class="errors termsError" style="display:none;">
+                        <span class="error">Please accept the Terms of Use.</span>
+                    </div>
+                    <fieldset class="promoFieldset">
+                        <ol>
+                            <li>
+                                <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                                <label for="privacy_terms_checkbox"
+                                       class="smallText1 privacy_terms_checkbox_label">I accept the GreatSchools
+                                    <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
+                                    <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
+                            </li>
+                        </ol>
+                    </fieldset>
+                </form>
+            </div>
 
             <c:if test="${caller eq 'preschool'}">
                 <div class="adBox">
