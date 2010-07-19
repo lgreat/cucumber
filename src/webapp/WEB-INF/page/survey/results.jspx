@@ -147,7 +147,7 @@
         <img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
         <div id="right">
             <div class="blurb">
-                <h1>${school.name} ${level} parent survey</h1>
+                <h4>${school.name} ${level} parent survey</h4>
                 <h2>
                     Read what parents shared about their experiences at this school.
                     Results are based on ${results.totalResponses} response${results.totalResponses != 1 ? 's' : ''}.
