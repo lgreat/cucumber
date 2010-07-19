@@ -521,9 +521,9 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                         <span class="error">Please choose a school grade level.</span>
                     </div>
                     <fieldset>
-                        <ol>
-                            <div class="line">
-                                <div class="unit size1of2">
+                        <div class="line">
+                            <div class="unit size1of2">
+                                <ol>
                                     <li>
                                         <gsml:checkbox name="p" styleId="p_check" styleClass="ck"/>
                                         <label for="p_check">Preschool</label>
@@ -533,8 +533,10 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                                                        checked="${(caller eq 'middle')}"/>
                                         <label for="m_check">Middle school</label>
                                     </li>
-                                </div>
-                                <div class="unit size1of2 lastUnit">
+                                </ol>
+                            </div>
+                            <div class="unit size1of2 lastUnit">
+                                <ol>
                                     <li>
                                         <gsml:checkbox name="e" styleId="e_check" styleClass="ck"
                                                        checked="${(caller eq 'elementary')}"/>
@@ -544,9 +546,10 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                                                        checked="${(caller eq 'high')}"/>
                                         <label for="h_check">High school</label>
                                     </li>
-                                </div>
+
+                                </ol>
                             </div>
-                        </ol>
+                        </div>
                     </fieldset>
                     <div class="spacer_15"><!-- do not collapse --></div>
                     <jsp:scriptlet>
