@@ -44,9 +44,9 @@
 <!-- Force recalculation of column heights -->
 <script type="text/javascript">
     function GS_resizeColumns() {
-        document.getElementById('${mainColumnId}').style.height = null;
-        document.getElementById('col_right').style.height = null;
-        BoxHeights.equalize('${mainColumnId}','col_right');
+        //document.getElementById('${mainColumnId}').style.height = null;
+        //document.getElementById('col_right').style.height = null;
+        //BoxHeights.equalize('${mainColumnId}','col_right');
     }
 
     jQuery(function () {
