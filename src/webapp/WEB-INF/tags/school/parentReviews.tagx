@@ -10,7 +10,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
 
-          xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+          xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
@@ -21,45 +22,53 @@
                          type="gs.data.school.review.Ratings"/>
 <jsp:directive.attribute name="maxReviews" required="false" description="Total reviews to display"
                          type="java.lang.Integer"/>
+<jsp:directive.attribute name="validUser" required="false" type="gs.data.community.User" description="If exists, the user object for the member which is currently authorized"/>
 
 
 <c:set var="totalReviews" value="${fn:length(reviews)}"/>
 <!-- begin Parent Reviews -->
 
 <div id="parentReviewsContainer">
-    <div class="mod_hd">
-        <h3>Recent Reviews
-            <c:if test="${totalReviews gt 0}">
+<div class="mod_hd">
+    <h3>Recent Reviews
+        <c:if test="${totalReviews gt 0}">
                 <span class="smallAlertText fltrt iblock padtop_7">
                     <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
-                    class="alertDoubleArrow-fff">&amp;#187;</span>
+                            class="alertDoubleArrow-fff">&amp;#187;</span>
                     </link:schoolProfileParentReview>
                 </span>
-            </c:if>
-        </h3>
+        </c:if>
+    </h3>
+</div>
+
+<div id="parentReviewsHeader" class="brdbtm_dotted line">
+    <div class="unit size1of3">
+        <div id="shareExperience">
+            <p class="text2bold">Share your experience</p>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <button class="btn25-2" type="submit">
+                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
+            </button>
+        </div>
     </div>
 
-    <div id="parentReviewsHeader" class="brdbtm_dotted line">
-        <div class="unit size1of3">
-            <div id="shareExperience">
-                <p class="text2bold">Share your experience</p>
-                <div class="spacer_10"><!-- do not collapse --></div>
-                <button class="btn25-2" type="submit">
-                    <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-                </button>
-            </div>
-        </div>
+    <c:if test="${totalReviews gt 0}">
 
-        <c:if test="${totalReviews gt 0}">
+        <community:reportContentHover openingElementSelector=".reportIt" reporterId="${validUser.id}"/>
+
         <div class="unit size1of3">
             <div id="overallRating2">
                 <c:if test="${not empty ratings.overall}">
                     <p class="text2bold">Overall Parent Rating</p>
                 </c:if>
+
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
+
                 <div class="spacer_5"><!-- do not collapse --></div>
-                <span class="smallAlertText"><link:schoolProfileParentReview school="${school}">Read all ${totalReviews} reviews</link:schoolProfileParentReview></span>
+                <span class="smallAlertText"><link:schoolProfileParentReview
+                        school="${school}">Read all ${totalReviews} reviews</link:schoolProfileParentReview></span>
             </div>
         </div>
         <!-- end: rating_parent -->
@@ -116,49 +125,49 @@
                 </c:choose>
             </div>
         </div>
+    </c:if>
+</div>
+
+
+<!--<br class="clearfloat"/>-->
+
+
+<div id="parentReviews">
+
+    <c:forEach var="review" items="${reviews}" begin="0">
+        <c:set var="who" value=""/>
+        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+            <c:set var="who" value="${review.who}"/>
         </c:if>
-    </div>
 
+        <!-- does user permit name to display-->
+        <c:set var="reviewClass" value="review"/>
+        <c:if test="${who eq 'principal'}">
+            <c:set var="reviewClass" value="review principalReview"/>
+        </c:if>
 
+        <!-- post container -->
+        <div class="${reviewClass} brdbtm_dotted">
+            <div class="review-hd">
+                <div class="fltlft">
+                    <a name="ps${review.id}"><!-- not empty--></a>
 
-    <!--<br class="clearfloat"/>-->
+                    <!-- star rating -->
+                    <c:set var="curStarRating" value="${review.quality.name}"/>
+                    <c:if test="${school.levelCode eq 'p'}">
+                        <c:set var="curStarRating" value="${review.POverall.name}"/>
+                    </c:if>
+                    <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                        <span class="sprite stars_sm_${curStarRating}"><!-- do not collapse --></span>
+                    </c:if>
+                    <c:if test="${who eq 'principal'}">
+                        <h4>The schools's point of view</h4>
+                    </c:if>
 
-
-    <div id="parentReviews">
-
-        <c:forEach var="review" items="${reviews}" begin="0">
-            <c:set var="who" value=""/>
-            <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                <c:set var="who" value="${review.who}"/>
-            </c:if>
-
-            <!-- does user permit name to display-->
-            <c:set var="reviewClass" value="review"/>
-            <c:if test="${who eq 'principal'}">
-                <c:set var="reviewClass" value="review principalReview"/>
-            </c:if>
-
-            <!-- post container -->
-            <div class="${reviewClass} brdbtm_dotted">
-                <div class="review-hd">
-                    <div class="fltlft">
-                <a name="ps${review.id}"><!-- not empty--></a>
-
-                <!-- star rating -->
-                <c:set var="curStarRating" value="${review.quality.name}"/>
-                <c:if test="${school.levelCode eq 'p'}">
-                    <c:set var="curStarRating" value="${review.POverall.name}"/>
-                </c:if>
-                <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
-                    <span class="sprite stars_sm_${curStarRating}"><!-- do not collapse --></span>
-                </c:if>
-                <c:if test="${who eq 'principal'}">
-                    <h4>The schools's point of view</h4>
-                </c:if>
-
-                <!-- posted on... -->
-                <span class="smallText1"> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
-                    </div>
+                    <!-- posted on... -->
+                    <span class="smallText1"> Posted on <fmt:formatDate dateStyle="medium"
+                                                                        value="${review.posted}"/></span>
+                </div>
 
                 <!-- report it -->
                 <c:choose>
@@ -173,79 +182,79 @@
                                         </span>
                     </c:otherwise>
                 </c:choose>
-                    <br class="clearBoth"/>
-                </div>
+                <br class="clearBoth"/>
+            </div>
 
-                <!-- author's name -->
-                <p class="author">
-                    <c:choose>
-                        <c:when test="${who eq 'principal' and not empty(review.user)}">
-                            <c:set var="principalName" value="${review.user.firstName}"/>
-                            <c:if test="${not empty (review.user.lastName)}">
-                                <c:set var="principalName" value="${principalName} ${review.user.lastName}"/>
-                            </c:if>
-                            <jsp:useBean id="currentDate" class="java.util.Date"/>
-                            <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,currentDate)}
-                        </c:when>
-                        <c:otherwise>
-                            ${gsweb:periodBetweenDates(review.posted,currentDate)}
-                        </c:otherwise>
-                    </c:choose>
-                    <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                        <c:choose>
-                            <c:when test="${review.status eq 'd'}">
-                                (deleted)
-                                | <a href="#" class="enableLink link"
-                                     onclick="enableReview(${review.id}); return false;">Enable</a>
-                            </c:when>
-                            <c:when test="${review.status eq 'p'}">
-                                | <a href="#" class="disableLink link"
-                                     onclick="disableReview(${review.id}); return false;">Disable</a>
-                            </c:when>
-                        </c:choose>
-                    </gsml:ifUserCanDeleteContent>
-                </p>
-
-                <c:set var="postedByDisplay" value=""/>
+            <!-- author's name -->
+            <p class="author">
                 <c:choose>
                     <c:when test="${who eq 'principal' and not empty(review.user)}">
-                        <c:set var="postedByDisplay" value="an administrator at this school"/>
+                        <c:set var="principalName" value="${review.user.firstName}"/>
+                        <c:if test="${not empty (review.user.lastName)}">
+                            <c:set var="principalName" value="${principalName} ${review.user.lastName}"/>
+                        </c:if>
+                        <jsp:useBean id="currentDate" class="java.util.Date"/>
+                        <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,currentDate)}
                     </c:when>
-                    <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
-                        <c:set var="postedByDisplay"
-                               value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                    </c:when>
-                    <c:when test="${review.who ne ''}">
-                        <c:set var="postedByDisplay"
-                               value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
-                    </c:when>
+                    <c:otherwise>
+                        ${gsweb:periodBetweenDates(review.posted,currentDate)}
+                    </c:otherwise>
                 </c:choose>
-
-                <!-- post content -->
-                <p class="text3">
-                    <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
-                    ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                     <c:choose>
-                        <c:when test="${who eq 'principal'}">
-                            <c:if test="${not empty postedByDisplay}"><br/><span
-                                    class="principal author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
+                        <c:when test="${review.status eq 'd'}">
+                            (deleted)
+                            | <a href="#" class="enableLink link"
+                                 onclick="enableReview(${review.id}); return false;">Enable</a>
                         </c:when>
-                        <c:otherwise>
-                            <c:if test="${not empty postedByDisplay}"><br/><span
-                                    class="author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
-                        </c:otherwise>
+                        <c:when test="${review.status eq 'p'}">
+                            | <a href="#" class="disableLink link"
+                                 onclick="disableReview(${review.id}); return false;">Disable</a>
+                        </c:when>
                     </c:choose>
-                </p>
+                </gsml:ifUserCanDeleteContent>
+            </p>
+
+            <c:set var="postedByDisplay" value=""/>
+            <c:choose>
+                <c:when test="${who eq 'principal' and not empty(review.user)}">
+                    <c:set var="postedByDisplay" value="an administrator at this school"/>
+                </c:when>
+                <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
+                    <c:set var="postedByDisplay"
+                           value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
+                </c:when>
+                <c:when test="${review.who ne ''}">
+                    <c:set var="postedByDisplay"
+                           value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                </c:when>
+            </c:choose>
+
+            <!-- post content -->
+            <p class="text3">
+                <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
+                ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+                <c:choose>
+                    <c:when test="${who eq 'principal'}">
+                        <c:if test="${not empty postedByDisplay}"><br/><span
+                                class="principal author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${not empty postedByDisplay}"><br/><span
+                                class="author smallText2italic">--Submitted by ${postedByDisplay}</span></c:if>
+                    </c:otherwise>
+                </c:choose>
+            </p>
 
 
-            </div>
-            <!-- end: review -->
+        </div>
+        <!-- end: review -->
 
-        </c:forEach>
+    </c:forEach>
 
 
-    </div>
-    <!-- end: showParentReviews -->
+</div>
+<!-- end: showParentReviews -->
 
 </div>
 

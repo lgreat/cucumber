@@ -68,6 +68,14 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             }
         }
 
+        //used to support the "Report It" links in recent reviews list
+        if(PageHelper.isMemberAuthorized(request)){
+            User user = sessionContext.getUser();
+            if (user != null) {
+                model.put("validUser", user);
+            }
+        }
+
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
