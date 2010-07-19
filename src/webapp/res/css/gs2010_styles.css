@@ -64,6 +64,7 @@ General comments:
 =4k-1.2.0 school choice pack promotion (home page and preschool landing page)
 =4k-1.2.1 school choice pack promotion (wide layout)
 =4k-1.2.2 school choice pack promotion (narrow layout)
+=4k-1.2.3 school choice pack promotion (2009 styles)
 =4k-1.3 parent reviews
 =4k-1.4 profile recent discussions
 =4k-1.5 kindercare
@@ -4786,6 +4787,10 @@ margin:10px 0 14px 20px;
     margin-top:10px;
 }
 
+#schoolChoicePackPromo-wide #scpp_picker {
+    float:left;
+}
+
 #schoolChoicePackPromo-wide #email_go{
     padding-top:5px;
 }
@@ -4841,6 +4846,72 @@ margin:10px 0 14px 20px;
 
 #schoolChoicePackPromo .promoFieldset{
     padding-top:5px;
+}
+
+/* =4k-1.2.3 school choice pack promotion (2009 styles)
+-------------------------------------------------------------------------------------------*/
+
+#schoolChoicePackPromo-2009 {
+    color: #666666;
+    font-family: Arial,Arial,sans-serif;
+    font-size: 13px;
+    background-color: #ffffff;
+    position:relative;
+    height:284px;
+}
+
+#schoolChoicePackPromo-2009.mod{
+    padding-right:10px;
+}
+
+#schoolChoicePackPromo-2009.bordered{
+    border: 2px solid #EEEEEE;
+    padding:10px 10px 10px 13px;
+
+}
+
+#schoolChoicePackPromo-2009 .mod_bd h4 {
+    font: 700 14px Arial, sans-serif;
+    width: 216px;
+}
+
+body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
+    background: url('/res/img/promo/clipboard_icon.jpg') 0 0 no-repeat;
+    padding: 3px 0 0 38px;
+    height: 32px;
+}
+
+#schoolChoicePackPromo-2009 .blurb {
+    margin:5px 0 12px 0;
+    /*width: 216px;*/
+    width:auto;
+}
+
+#schoolChoicePackPromo-2009 #gradeSelect {
+    overflow: visible;
+    clear: both;
+}
+
+#schoolChoicePackPromo-2009 ol, #schoolChoicePackPromo-2009 ol li {
+    list-style: none;
+    background:none;
+    padding:3px 0;
+    margin:0;
+}
+
+#schoolChoicePackPromo-2009 #cemail{
+    float:left;
+    width:182px;
+    margin-right:5px;
+}
+
+#schoolChoicePackPromo-2009 #privacy_terms_checkbox{
+    float:left;
+}
+
+#schoolChoicePackPromo-2009 .privacy_terms_checkbox_label {
+    display:block;
+    padding-left:25px;
 }
 
 /* =4k-1.3 parent reviews

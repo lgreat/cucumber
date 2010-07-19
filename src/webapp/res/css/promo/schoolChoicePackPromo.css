@@ -1,4 +1,4 @@
-/*#schoolChoicePackPromo {
+#schoolChoicePackPromo-2009 {
     color: #666666;
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
@@ -7,11 +7,11 @@
     height:284px;
 }
 
-#schoolChoicePackPromo.bordered{
+#schoolChoicePackPromo-2009.bordered{
     border: 2px solid #EEEEEE;
     padding:10px 10px 10px 13px;
 
-}*/
+}
 
 #schoolChoicePackPromo img.headicon {
     float:left;
@@ -28,10 +28,10 @@
     padding:5px;
 
 }
-/*#schoolChoicePackPromo .mod_bd h4 {
+#schoolChoicePackPromo-2009 .mod_bd h4 {
     font: 700 14px Arial, sans-serif;
     width: 216px;
-}*/
+}
 
 body.nocol #schoolChoicePackPromo .mod_hd h3 {
     font: 700 16px/1.1 Arial, sans-serif;
@@ -39,7 +39,7 @@ body.nocol #schoolChoicePackPromo .mod_hd h3 {
     padding: 5px 15px 5px 15px;
     height: auto;
 }
-body.nocol #schoolChoicePackPromo .mod_bd h4 {
+body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     background: url('/res/img/promo/clipboard_icon.jpg') 0 0 no-repeat;
     padding: 3px 0 0 38px;
     height: 32px;
@@ -59,10 +59,11 @@ body.nocol #col_right #schoolChoicePackPromo .mod_bd h4 {
     font-size:19px;
 }
 
-/*#schoolChoicePackPromo .blurb {
+#schoolChoicePackPromo-2009 .blurb {
     margin:5px 0 12px 0;
-    width: 216px;
-}*/
+    /*width: 216px;*/
+    width:auto;
+}
 
 body.nocol #schoolChoicePackPromo .mod_bd h4, body.nocol #schoolChoicePackPromo .blurb {
     width: auto;
@@ -129,10 +130,10 @@ body.nocol #schoolChoicePackPromo div#email_go {
     float: left;
     display: inline;
 }
-/*#schoolChoicePackPromo #gradeSelect {
+#schoolChoicePackPromo-2009 #gradeSelect {
     overflow: visible;
     clear: both;
-}*/
+}
 body.ie7 #scpp_picker {
     height: 27px;
 }
