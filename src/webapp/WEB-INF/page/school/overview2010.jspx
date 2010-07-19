@@ -302,13 +302,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<div id="map" class="border-c6">
+<div id="nearbySchoolsMap" class="border-c6">
     &#160;
     <noscript>JavaScript is required in order to view a map of the city and its
         schools.
     </noscript>
 </div>
-<map:school id="map" tooltips="true" schools="${mapSchools}" school="${school}"/>
+<map:school id="nearbySchoolsMap" tooltips="true" schools="${mapSchools}" school="${school}"/>
 <!-- end map -->
 
 
