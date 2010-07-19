@@ -36,12 +36,6 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
-    <jsp:scriptlet>
-            UrlBuilder builder;
-            SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-            builder = new UrlBuilder(UrlBuilder.DESIGN_FEEDBACK, context.getStateOrDefault());
-            request.setAttribute("design_feedback_url", builder.asSiteRelativeXml(request));
-    </jsp:scriptlet>
     <gsml:equalizeColumns ids="'col_left','col_right'"/>
 </head>
 <gsml:body adPageName="mySchoolList" pageLayout="nocol">
