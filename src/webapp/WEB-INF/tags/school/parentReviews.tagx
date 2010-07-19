@@ -53,7 +53,9 @@
         <c:if test="${totalReviews gt 0}">
         <div class="unit size1of3">
             <div id="overallRating2">
-                <p class="text2bold">Overall Parent Rating</p>
+                <c:if test="${not empty ratings.overall}">
+                    <p class="text2bold">Overall Parent Rating</p>
+                </c:if>
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
                 <div class="spacer_5"><!-- do not collapse --></div>
