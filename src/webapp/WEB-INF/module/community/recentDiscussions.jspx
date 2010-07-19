@@ -79,14 +79,14 @@
                             </c:forEach>
 
                             <div class="fltlft">
-                                <a class="btn25 startADiscussion" href="#" onclick="this.blur();return false">
+                                <a class="btn25 jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
             <span class="lftDoor25">
                 <span class="rtDoor25">
                     <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</span>
             </span>
                                 </a>
                                 <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                                 openElementJQuerySelector=".startADiscussion"
+                                                                 openElementJQuerySelector=".jqRecentDiscussions_startADiscussion"
                                                                  topicCenterId="${requestScope.discussionBoard.topicCenterId}"
                                                                  discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
                                                                  selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"
