@@ -117,7 +117,7 @@
                         </span>
                     </a>
                     <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                     openElementJQuerySelector=".startjqRecentLocalDiscussions_startADiscussionADiscussion"
+                                                     openElementJQuerySelector=".jqRecentLocalDiscussions_startADiscussion"
                                                      topicCenterId="${requestScope.discussionBoard.topicCenterId}"
                                                      discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
                                                      getTitleFunc="getLocalDiscussionTitle()"/>
