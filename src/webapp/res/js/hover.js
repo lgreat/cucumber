@@ -136,6 +136,7 @@ GSType.hover.JoinHover = function() {
         if (jQuery('#joinHover_stockPhoto').attr('src') != stockPhotoUrl) {
             jQuery('#joinHover_stockPhoto').attr('src', stockPhotoUrl);
         }
+        jQuery('#jq_screenNameWarning').show();
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
@@ -369,13 +370,18 @@ GSType.hover.JoinHover = function() {
         }
         GSType.hover.joinHover.setTitle("Almost done!");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-                " to submit your review. Once you verify your email adress, your review will be posted, provided it meets our guidelines.");
+                " to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
 
         // set label for weekly updates opt-in
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+        if (GSType.hover.joinHover.schoolName) {
+            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+        } else {
+            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+        }
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
         jQuery('#joinHover_cancel').hide();
+        jQuery('#jq_screenNameWarning').hide();
 
         GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 

@@ -55,7 +55,7 @@
                             <span class="error valid">Your username is available</span>
                             <span class="error invalid"><!--not empty--></span>
                         </div>
-                        <p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>
+                        <p class="hlpTxt" id="jq_screenNameWarning">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>
                     </li>
                     <li class="joinHover_password">
                         <label for="jpword">Password * <br/>
