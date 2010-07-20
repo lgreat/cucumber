@@ -163,6 +163,11 @@ public class PrincipalReviewController extends SimpleFormController implements R
     public boolean validCookieExists(HttpServletRequest request, School school) {
 
         Map<String, String> credentials = _schoolDao.getPrincipalCredentials(school);
+
+        if (credentials == null) {
+            return false; //early exit
+        }
+
         String username = credentials.get("username");
         String password = credentials.get("password");
 

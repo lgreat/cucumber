@@ -211,4 +211,20 @@ public class PrincipalReviewControllerTest extends BaseControllerTestCase {
         assertTrue("user should now have a one free school subscription", hasOneFreeSchoolSubscription);
     }
 
+    public void testValidCookieExistsThrowsNoNPE() throws Exception {
+
+        School school = new School();
+        school.setId(378927894);
+        school.setDatabaseState(State.CA);
+
+        expect(_schoolDao.getPrincipalCredentials(school)).andReturn(null);
+        replay(_schoolDao);
+
+        boolean result = _controller.validCookieExists(getRequest(), school);
+
+        verify(_schoolDao);
+        assertFalse("validCookieExists should have returned false for invalid school", result);
+    }
+
+
 }
