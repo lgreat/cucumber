@@ -328,6 +328,31 @@
     </div>
     <!-- end #seasonalPromo -->
 
+
+    <!-- use this code to always show Pampers Easy Ups sponsorship of chooser pack -->
+    <c:choose>
+        <c:when test="${topicCenter.preschoolTopicCenter}">
+            <promo:schoolChoicePackPromo
+                    showBorder="${false}"
+                    showSchoolChoiceLink="${false}"
+                    caller="preschool"
+                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                    />
+        </c:when>
+        <c:when test="${showSchoolChooserPackPromo}">
+            <promo:schoolChoicePackPromo
+                    showBorder="${false}"
+                    showSchoolChoiceLink="${false}"
+                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                    />
+        </c:when>
+        <c:otherwise>
+            <ad:House_Ad_300x137 referredBy="${pageName}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- revert to this code after Pampers Easy Ups sponsorship of chooser pack is over -->
+    <!--
     <c:choose>
         <c:when test="${showSchoolChooserPackPromo}">
             <c:choose>
@@ -352,6 +377,7 @@
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:otherwise>
     </c:choose>
+    -->
 
     <div id="squareadvert">
         <ad:AboveFold_300x250/>
