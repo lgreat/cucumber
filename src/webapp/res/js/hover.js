@@ -136,7 +136,6 @@ GSType.hover.JoinHover = function() {
         if (jQuery('#joinHover_stockPhoto').attr('src') != stockPhotoUrl) {
             jQuery('#joinHover_stockPhoto').attr('src', stockPhotoUrl);
         }
-        jQuery('#jq_screenNameWarning').show();
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
@@ -381,7 +380,6 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
         jQuery('#joinHover_cancel').hide();
-        jQuery('#jq_screenNameWarning').hide();
 
         GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 
