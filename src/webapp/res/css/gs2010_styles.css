@@ -48,7 +48,7 @@ General comments:
 =4e-5 about sponsors
 =4e-6 data and widgets
 =4f schools
-=4f-1 school profile
+=4f-1 school profile (deprecated: see 4k)
 =4f-3 principal reviews
 =4g video page
 =4h inline sign-in
@@ -68,6 +68,7 @@ General comments:
 =4k-1.3 parent reviews
 =4k-1.4 profile recent discussions
 =4k-1.5 kindercare
+=4k-1.6 Washington D.C.: No Child Left Behind
 =4k-2 test scores and stats
 =5 icons
 =6 editorialFooter
@@ -276,7 +277,7 @@ h3.title1white, h3.srchCat {
 }
 
 .subhead6 {
-    font-family: Arial, sans-serif;
+    font-family: bold 18px Arial, sans-serif;
     color: #333;
 }
 
@@ -5049,6 +5050,43 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     width:220px;
 }
 
+/* =4k-1.6 Washington D.C.: No Child Left Behind
+-------------------------------------------------------------------------------------------*/
+
+#dcNCLB_school .mod_hd h3{
+    background:transparent;
+    font: bold 16px/1.2 Arial, sans-serif;
+    color:white;
+    padding:0;
+}
+
+#dcNCLB_school .mod_hd {
+    padding: 5px 10px;
+    width: 140px;
+}
+
+#dcNCLB_school .mod_bd {
+    border-bottom:1px solid #c6c6c6;
+    border-left:1px solid #c6c6c6;
+    border-right:1px solid #c6c6c6;
+    padding: 6px 10px 60px 10px;
+    position: relative;
+    width: 138px;
+}
+
+/* ====== media ====== */
+#dcNCLB_school .media {padding:3px 0;}
+#dcNCLB_school .media, #dcNCLB_school .bd {overflow:hidden; _overflow:visible; zoom:1;}
+#dcNCLB_school .media .img {float:left; margin-right: 10px;}
+#dcNCLB_school .media .img img{display:block;}
+#dcNCLB_school .media .imgExt{float:right; margin-left: 10px;}
+
+#dcNCLB_school .logo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
 /*=4k-2 test scores and stats
 -------------------------------------------------------------------------------------------*/
 
@@ -5093,7 +5131,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-07-16.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-07-20.png);
 }
 
 .reportIt-nbg {
@@ -5176,6 +5214,12 @@ additional icons on the sprite.
     width: 12px;
     height: 12px;
     background-position: 0 -240px;
+}
+
+.pdf_sm {
+    width: 17px;
+    height: 17px;
+    background-position: 0 -260px;
 }
 
 /* column 20 */
@@ -6816,23 +6860,12 @@ button {
 .dcNCLB {
     margin-bottom: 10px;
 }
-#dcNCLB_district .mod_hd h3, #dcNCLB_school .mod_hd h3 {
+#dcNCLB_district .mod_hd h3 {
     margin: 0;
     padding: 10px 9px;
     font: 400 18px/1 Arial, sans-serif;
     color: #fff;
     background: #3556a3;
-}
-#dcNCLB_school .mod_hd h3 {
-    width: 159px;
-}
-#dcNCLB_school .mod_bd {
-    border: solid #eee;
-    border-width: 0 2px 2px;
-    padding: 14px 10px 10px 15px;
-    position: relative;
-    width: 148px;
-    height: 148px;
 }
 #dcNCLB_district .mod_bd {
     border: solid #c6c6c6;

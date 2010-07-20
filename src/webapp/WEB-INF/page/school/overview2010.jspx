@@ -205,10 +205,19 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
     <ad:AboveFold_Left_160x600/>
 
-    <div class="spacer_10"><!-- do not collapse --></div>
-    <div id="osse">
-        <img src="/res/img/school/overview/OSSE-1.png" width="160" height="200" alt="OSSE"/>
-    </div>
+    <!--<p>school.physicalAddress.state: <c:out value="${school.physicalAddress.state}" default="not set."/></p>
+    <p>school.type.schoolTypeName: <c:out value="${school.type.schoolTypeName}" default="not set."/></p>
+    <p>school.levelCode: <c:out value="${school.levelCode}" default="not set."/></p>-->
+
+    <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
+        <c:if test="${requestScope.context.showDcNclbModules and isDcNclbSchool}">
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <school:dcNclbReportCard
+                    school="${school}"
+                    showAllSchoolLinks="${requestScope.context.showDcNclbAllSchoolLinks}"
+                    schoolCodesToShow="${requestScope.context.dcNclbSchoolCodesToShow}"
+                    />
+        </c:if>
 
 </div>
 

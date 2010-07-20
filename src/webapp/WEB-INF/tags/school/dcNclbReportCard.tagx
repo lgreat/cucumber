@@ -23,27 +23,45 @@
 
     <c:set var="showSchoolLink" value="${pageScope.showAllSchoolLinks or gsweb:contains(pageScope.schoolCodesToShow, pageScope.schoolCode)}"/>
 
-    <!-- TODO-9899 -->
-    <div class="mod dcNCLB" id="dcNCLB_school">
-        <div class="mod_hd">
+    <!-- DONE-9899 -->
+    <div id="dcNCLB_school" class="mod">
+        <div class="mod_hd gradient-1">
             <h3>2008-2009 NCLB Report Cards</h3>
         </div>
         <div class="mod_bd">
-        <c:if test="${pageScope.showSchoolLink}">
-            <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                    alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
-                                                      target="_blank">School Report Card</gsml:a></p>
-        </c:if>
+            <ul class="text3">
+            <c:if test="${pageScope.showSchoolLink}">
+                <li class="media">
+                    <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                    <div class="bd">
+                    <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
+                            target="_blank"> School Report Card
+                    </gsml:a>
+                    </div>
+                </li>
+            </c:if>
+            <li class="media">
+                <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                <div class="bd">
+                <gsml:a
+                        href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
+                        target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
+                </gsml:a>
+                </div>
+            </li>
+            <li class="media">
+                <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                <div class="bd">
+                <gsml:a
+                        href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
+                        target="_blank"> Washington, DC Report Card
+                </gsml:a>
+                </div>
+            </li>
+            </ul>
 
-        <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
-                                                  target="_blank">${pageScope.districtLinkTextTerm} Report Card</gsml:a></p>
-
-        <p><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17"
-                alt="pdf icon"/><gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
-                                                  target="_blank">Washington, DC Report Card</gsml:a></p>
-
-        <img src="/res/img/promo/dcnclb/schoolpage_osse-logo.gif" class="logo" alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+            <img src="/res/img/school/overview/OSSE-2.png" class="logo" width="138" height="45"
+                 alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
         </div>
     </div>
 
