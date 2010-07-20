@@ -4545,7 +4545,7 @@ margin:10px 0 14px 20px;
 
 /* school profile body */
 #schoolProfileBody {
-    margin-top: 14px;
+    /*width:948px;*/
 }
 
 #schoolProfileLeftColumn {
@@ -4609,7 +4609,7 @@ margin:10px 0 14px 20px;
 
 #schoolProfileTabBar{
     position:absolute;
-    top:25px; left:0;
+    top:25px; left:0; _left:1px;
     clear:both;
     width:614px;
     height:8px;
@@ -4663,6 +4663,14 @@ margin:10px 0 14px 20px;
 #overallRating p, #overallRating img, #overallRating a, #overallRating button {
     /*padding-bottom: 6px;*/
     /*display: block;*/
+}
+
+#reviewBtn {
+    width:138px;
+}
+
+#overallRating > #reviewBtn {
+    width:auto;
 }
 
 #overviewColumn2 {

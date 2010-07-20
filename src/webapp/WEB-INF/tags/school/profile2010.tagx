@@ -203,6 +203,7 @@
     </div>
     <!-- end schoolProfileHeader -->
 
+    <div class="spacer_15"><!-- do not collapse --></div>
     <div id="schoolProfileBody">
         <div id="schoolProfileLeftColumn" class="col">
             <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
@@ -395,10 +396,10 @@
         </div>
         <!-- end schoolProfileRightColumn -->
 
-        <br class="clearfloat"/>
     </div>
     <!-- end schoolProfileBody -->
 
 </div>
 <!-- end schoolProfile -->
+<br class="clearfloat"/>
 </jsp:root>
