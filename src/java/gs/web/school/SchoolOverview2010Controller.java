@@ -109,7 +109,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
              */
             //TODO: use findNearbySchoolsWithRatings but add distance field to SchoolWithRatings...and/or write new map tagx
             //List<SchoolWithRatings> nearbySchools = getSchoolDao().findNearbySchoolsWithRatings(school.getDatabaseState(), school.getLat(), school.getLon(), 50f, 25, null);
-            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 5);
+            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 25);
             request.setAttribute("mapSchools", getRatingsForNearbySchools(nearbySchools));
             //request.setAttribute("mapSchools", nearbySchools);
 
@@ -155,8 +155,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         //I want guaranteed ordering otherwise the capitalization and concatenation of the items in the collection gets tricky
         Set<String> highlights = new TreeSet();
 
-        if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && school.getAgeRangeAsString() != null) {
-            highlights.add("Accepts " + school.getAgeRangeAsString());
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && StringUtils.trimToNull(school.getAgeRangeAsString()) != null) {
+            highlights.add("Accepts " + StringUtils.trim(school.getAgeRangeAsString()));
         }
 
         String subtypesCSL = SchoolSubtype.getSubtypes(school);
