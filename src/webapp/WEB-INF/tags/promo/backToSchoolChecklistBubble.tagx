@@ -29,7 +29,7 @@
 </div>
 
     <script type="text/javascript">
-        var sitePreferences = subCookie.getObject("site_pref");
+        var sitePreferences = subCookie.getObject("btsChecklist");
 
         if (sitePreferences == undefined || sitePreferences.hideBtsChecklist != "true") {
             jQuery('#btsChecklistBubble').show();
@@ -37,19 +37,19 @@
 
 
         jQuery('.btsChecklistBubbleClose').click(function() {
-            subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
+            subCookie.setObjectProperty("btsChecklist", "hideBtsChecklist", true, 9001);
             jQuery('#btsChecklistBubble').hide();
             return false;
         });
 
         jQuery('#btsChecklistBubbleNoThanks').click(function() {
-            subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 9001);
+            subCookie.setObjectProperty("btsChecklist", "hideBtsChecklist", true, 9001);
             jQuery('#btsChecklistBubble').hide();
             return false;
         });
 
         jQuery('#btsChecklistBubbleRemindLater').click(function() {
-            subCookie.setObjectProperty("site_pref", "hideBtsChecklist", true, 0);
+            subCookie.setObjectProperty("btsChecklist", "hideBtsChecklist", true, 0);
             jQuery('#btsChecklistBubble').hide();
             return false;
         });
