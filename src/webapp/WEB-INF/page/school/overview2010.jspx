@@ -369,11 +369,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         <col align="center" width="7"/>
                     </colgroup>
                     <thead>
-                    <tr class="brdbtm_solid smallText2bold">
-                        <th>COMPARE</th>
+                    <tr class="smallText2bold">
+                        <th align="center">COMPARE</th>
                         <th class="text-align-lft">SCHOOL</th>
-                        <th>GREATSCHOOLS RATING</th>
-                        <th>PARENT RATING</th>
+                        <th align="center">GREATSCHOOLS RATING</th>
+                        <th align="center">PARENT RATING</th>
                         <th><!-- do not collapse --></th>
                     </tr>
                     </thead>
@@ -382,23 +382,24 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <colgroup>
                         <col align="center" width="62"/>
                         <col align="left" width="212"/>
-                        <col align="center" width="57"/>
+                        <col align="left" width="57"/>
                         <col align="center" width="76"/>
                     </colgroup>
                     <tbody>
-                    <tr class="brdbtm_dotted bg-color-f9eccd">
-                        <td align="center">
-                            <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                    <tr>
+                        <td class="bg-color-f9eccd" align="center">
+                            <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                                   type="checkbox"/><br/>
                             <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                         </td>
-                        <td>
+                        <td class="bg-color-f9eccd">
                             <p class="text2bold"><link:schoolProfileOverview school="${school}">
                                 ${school.name}
                             </link:schoolProfileOverview></p>
 
                             <p class="text3"><!-- not empty --></p>
                         </td>
-                        <td>
+                        <td class="bg-color-f9eccd" align="left">
                             <c:choose>
                                 <c:when test="${not empty gs_rating and gs_rating gt 0}">
                                     <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
@@ -408,7 +409,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td>
+                        <td class="bg-color-f9eccd" align="center">
                             <link:schoolProfileParentReview school="${school}">
                                 <c:choose>
                                     <c:when test="${not empty ratings.overall}">
@@ -422,54 +423,58 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         </td>
                     </tr>
                     <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                            <tr class="brdbtm_dotted" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                                <td align="center">
-                                    <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
-                                           type="checkbox"/>
-                                    <label for="${s.neighbor.databaseState}${s.neighbor.id}"
-                                           class="smallText2">COMPARE</label>
-                                </td>
-                                <td>
-                                    <p class="text2bold nearby-schools-link" id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}"><link:schoolProfileOverview school="${s.neighbor}">
+                        <tr id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
+                            <td align="center">
+                                <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
+                                       type="checkbox"/><br/>
+                                <label for="${s.neighbor.databaseState}${s.neighbor.id}"
+                                       class="smallText2">COMPARE</label>
+                            </td>
+                            <td>
+                                <p class="text2bold nearby-schools-link"
+                                   id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
+                                    <link:schoolProfileOverview school="${s.neighbor}">
                                         ${s.neighbor.name}
                                     </link:schoolProfileOverview></p>
 
-                                    <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
-                                                                       value="${s.distance}"/> miles</p>
-                                </td>
-                                <td>
+                                <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
+                                                                   value="${s.distance}"/> miles</p>
+                            </td>
+                            <td align="left">
+                                <c:choose>
+                                    <c:when test="${not empty s.rating and s.rating gt 0}">
+                                        <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td align="center">
+                                <link:schoolProfileParentReview school="${school}">
                                     <c:choose>
-                                        <c:when test="${not empty s.rating and s.rating gt 0}">
-                                            <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                                        <c:when test="${not empty s.parentRatings.overall}">
+                                            <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                                         </c:otherwise>
                                     </c:choose>
-                                </td>
-                                <td>
-                                    <link:schoolProfileParentReview school="${school}">
-                                        <c:choose>
-                                            <c:when test="${not empty s.parentRatings.overall}">
-                                                <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </link:schoolProfileParentReview>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                                </link:schoolProfileParentReview>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-        <div id="submitCompare">
-        <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn" disabled="disabled">
-            <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-        </button><span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
-        </div>
+                <div id="submitCompare">
+                    <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn"
+                            disabled="disabled">
+                        <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                    </button>
+                    <span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
+                </div>
             </c:when>
             <c:otherwise>
                 <table id="nearby-schools-table-header">
@@ -480,10 +485,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         <col align="center" width="7"/>
                     </colgroup>
                     <thead>
-                    <tr class="brdbtm_solid smallText2bold">
+                    <tr class="smallText2bold">
                         <th><!-- do not collapse --></th>
                         <th class="text-align-lft">SCHOOL</th>
-                        <th>PARENT RATING</th>
+                        <th align="center">PARENT RATING</th>
                         <th><!-- do not collapse --></th>
                     </tr>
                     </thead>
@@ -495,53 +500,55 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         <col align="center" width="76"/>
                     </colgroup>
                     <tbody>
-                        <tr class="brdbtm_dotted bg-color-f9eccd">
+                    <tr>
+                        <td class="bg-color-f9eccd"><!-- do not collapse --></td>
+                        <td class="bg-color-f9eccd">
+                            <p class="text2bold"><link:schoolProfileOverview school="${school}">
+                                ${school.name}
+                            </link:schoolProfileOverview></p>
+
+                            <p class="text3"><!-- not empty --></p>
+                        </td>
+                        <td class="bg-color-f9eccd" align="center">
+                            <link:schoolProfileParentReview school="${school}">
+                                <c:choose>
+                                    <c:when test="${not empty ratings.overall}">
+                                        <span class="sprite stars_sm_y_${ratings.overall}"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite stars_sm_y_rate_it"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
+                        </td>
+                    </tr>
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
+                        <tr id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
                             <td><!-- do not collapse --></td>
                             <td>
-                                <p class="text2bold"><link:schoolProfileOverview school="${school}">
-                                    ${school.name}
-                                </link:schoolProfileOverview></p>
+                                <p class="text2bold nearby-schools-link"
+                                   id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
+                                    <link:schoolProfileOverview school="${s.neighbor}">
+                                        ${s.neighbor.name}
+                                    </link:schoolProfileOverview></p>
 
-                                <p class="text3"><!-- not empty --></p>
+                                <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
+                                                                   value="${s.distance}"/> miles</p>
                             </td>
-                            <td>
+                            <td align="center">
                                 <link:schoolProfileParentReview school="${school}">
                                     <c:choose>
-                                        <c:when test="${not empty ratings.overall}">
-                                            <span class="sprite stars_sm_y_${ratings.overall}"><!-- do not collapse --></span>
+                                        <c:when test="${not empty s.parentRatings.overall}">
+                                            <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="sprite stars_sm_y_rate_it"><!-- do not collapse --></span>
+                                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                                         </c:otherwise>
                                     </c:choose>
                                 </link:schoolProfileParentReview>
                             </td>
                         </tr>
-                        <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                            <tr class="brdbtm_dotted" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                                <td><!-- do not collapse --></td>
-                                <td>
-                                    <p class="text2bold nearby-schools-link" id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}"><link:schoolProfileOverview school="${s.neighbor}">
-                                        ${s.neighbor.name}
-                                    </link:schoolProfileOverview></p>
-
-                                    <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
-                                                                       value="${s.distance}"/> miles</p>
-                                </td>
-                                <td>
-                                    <link:schoolProfileParentReview school="${school}">
-                                        <c:choose>
-                                            <c:when test="${not empty s.parentRatings.overall}">
-                                                <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </link:schoolProfileParentReview>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                    </c:forEach>
                     </tbody>
                 </table>
             </c:otherwise>
@@ -613,9 +620,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             var theTR = theTD.parent();
 
             if (jQuery(this).attr('checked')) {
-                theTR.addClass('bg-color-f4fafd');
+                theTR.children().addClass('bg-color-f4fafd');
             } else {
-                theTR.removeClass('bg-color-f4fafd');
+                theTR.children().removeClass('bg-color-f4fafd');
+                <span class="sprite badge "
+                badge_sm_b_n
+                children('.sprite').classFilter()
             }
         });
 

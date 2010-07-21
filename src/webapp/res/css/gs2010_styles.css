@@ -4696,12 +4696,13 @@ margin:10px 0 14px 20px;
 /* =4k-1.1 nearby schools table
 -------------------------------------------------------------------------------------------*/
 
-#nearby-schools-table-header {
-    /*font-size: 11px;*/
+#nearby-schools-table-header th{
+    border-bottom:1px solid #999;
 }
 
 #nearby-schools-table-body td{
     padding: 10px 0;
+    border-bottom:1px dotted #999;
 }
 
 .bg-color-fff {
