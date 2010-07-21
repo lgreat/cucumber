@@ -97,7 +97,7 @@
                                     <form:errors path="organization">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -109,7 +109,7 @@
                                     <form:errors path="website">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -121,7 +121,7 @@
                                     <form:errors path="name">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -133,7 +133,7 @@
                                     <form:errors path="phone">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -148,7 +148,7 @@
                                         </c:if>
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -163,7 +163,7 @@
                                         </c:if>
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -184,7 +184,7 @@
                                     <form:errors path="industry">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -201,7 +201,7 @@
                                     <form:errors path="intendedUse">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>
@@ -217,7 +217,7 @@
                                     <form:errors path="termsApproved">
                                         <c:forEach items="${messages}" var="message">
                                              <strong class="errorMessage1 formErrorText"><span
-                                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                         </strong>
                                         </c:forEach>
                                     </form:errors>

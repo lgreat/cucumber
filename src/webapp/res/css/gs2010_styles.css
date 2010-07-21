@@ -4844,17 +4844,61 @@ margin:10px 0 14px 20px;
     margin-right:5px;
 }
 
+*+html #schoolChoicePackPromo #send{
+    display:inline;
+}
+
+#schoolChoicePackPromo #send{
+    _display:inline;
+}
+
 #schoolChoicePackPromo #privacy_terms_checkbox{
     float:left;
+}
+
+*+html #schoolChoicePackPromo .privacy_terms_checkbox_label {
+    float:right;
+    padding-left:0;
 }
 
 #schoolChoicePackPromo .privacy_terms_checkbox_label {
     display:block;
     padding-left:25px;
+    _float:right;
+    _padding-left:0;
 }
 
 #schoolChoicePackPromo .promoFieldset{
-    padding-top:5px;
+    padding-top:14px;
+}
+
+/* error messaging */
+#schoolChoicePackPromo .cemail{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo .cemail-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#schoolChoicePackPromo .privacy_terms_checkbox{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo .privacy_terms_checkbox-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
 }
 
 /* =4k-1.2.3 school choice pack promotion (2009 styles)
@@ -5271,7 +5315,7 @@ additional icons on the sprite.
     background-position: -20px -140px;
 }
 
-.alert {
+.i-alert {
     width: 13px;
     height: 13px;
     background-position: -20px -160px;

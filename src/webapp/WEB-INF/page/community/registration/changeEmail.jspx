@@ -93,7 +93,7 @@
                                           <spring:bind path="emailCmd.email">
                                               <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                                                   <p class="formErrorText">
-                                                      <span class="sprite alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
+                                                      <span class="sprite i-alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
                                                                                        text="${status.errorMessage}"/>
                                                   </p>
                                               </c:if>
@@ -101,7 +101,7 @@
                                           <spring:bind path="emailCmd.newEmail">
                                               <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                                                   <p class="formErrorText">
-                                                      <span class="sprite alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
+                                                      <span class="sprite i-alert"><!-- alert icon --></span>&amp;nbsp;<spring:message code="${status.errorCode}"
                                                                                        text="${status.errorMessage}"/>
                                                   </p>
                                               </c:if>

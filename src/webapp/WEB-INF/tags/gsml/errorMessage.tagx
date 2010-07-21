@@ -31,7 +31,7 @@
                         <c:if test="${useImage eq 'true'}">
                             <!--<gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
                                       alt="Error" styleClass="${imageClass}"/>-->
-                            <span class="sprite alert"><!--icon--></span>&amp;nbsp;
+                            <span class="sprite i-alert"><!--icon--></span>&amp;nbsp;
                         </c:if>
                         <p class="${styleClass}">
                             <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
@@ -46,7 +46,7 @@
                             <li>
                                 <c:if test="${useImage eq 'true'}">
                                     <!--<gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Error"/>-->
-                                    <span class="sprite alert"><!--icon--></span>&amp;nbsp;
+                                    <span class="sprite i-alert"><!--icon--></span>&amp;nbsp;
                                 </c:if>
                                 <spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/>
                             </li>

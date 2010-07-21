@@ -84,7 +84,7 @@
             <form:input id="firstName" path="firstName" maxlength="24"/>
 
             <p id="firstNameError" class="formErrorText"><span
-                    class="sprite alert"><!-- alert icon --></span> First name must be 2-24 characters</p>
+                    class="sprite i-alert"><!-- alert icon --></span> First name must be 2-24 characters</p>
         </li>
     </ol>
     <div class="spacer_5"><!-- do not collapse --></div>

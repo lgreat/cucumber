@@ -279,7 +279,7 @@
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message">
                             <strong class="errorMessage1 formErrorText">
-                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -294,7 +294,7 @@
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -318,7 +318,7 @@
                     <form:errors path="state">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -336,7 +336,7 @@
                     <form:errors path="cityName">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -354,7 +354,7 @@
                     <form:errors path="schoolId">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -373,7 +373,7 @@
                     <form:errors path="schoolInfoFields.infoType">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="fatselect1 errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -399,7 +399,7 @@
                     <form:errors path="schoolInfoFields.relationship">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -417,7 +417,7 @@
                     <form:errors path="schoolInfoFields.comment">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="textarea1 errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -429,7 +429,7 @@
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="captcha errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -453,7 +453,7 @@
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="alertBox1 text3">
-        <span class="sprite alert"><!-- do not collapse --></span>
+        <span class="sprite i-alert"><!-- do not collapse --></span>
         &amp;nbsp;Note: GreatSchools is an independent nonprofit organization. We do not have information about
         school calendars, job openings, transcripts or classmates. For these topics, please contact the
         school or district directly.
@@ -497,7 +497,7 @@
                         <form:errors path="submitterName">
                             <c:forEach items="${messages}" var="message">
                                 <strong class="errorMessage1 formErrorText">
-                                    &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                 </strong>
                             </c:forEach>
                         </form:errors>
@@ -513,7 +513,7 @@
                         <form:errors path="submitterEmail">
                             <c:forEach items="${messages}" var="message">
                                 <strong class="errorMessage1 formErrorText">
-                                    &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                 </strong>
                             </c:forEach>
                         </form:errors>
@@ -535,7 +535,7 @@
                         <form:errors path="districtInfoFields.districtName">
                             <c:forEach items="${messages}" var="message">
                                  <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
                         </form:errors>
@@ -551,7 +551,7 @@
                         <form:errors path="state">
                             <c:forEach items="${messages}" var="message">
                                  <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
                         </form:errors>
@@ -566,7 +566,7 @@
                         <form:errors path="districtInfoFields.referenceUrl">
                             <c:forEach items="${messages}" var="message">
                                  <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
                         </form:errors>
@@ -581,7 +581,7 @@
                         <form:errors path="districtInfoFields.relationship">
                             <c:forEach items="${messages}" var="message">
                                  <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
                         </form:errors>
@@ -597,7 +597,7 @@
                         <form:errors path="districtInfoFields.comment">
                             <c:forEach items="${messages}" var="message">
                                  <strong class="textarea1 errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                             </c:forEach>
                         </form:errors>
@@ -611,7 +611,7 @@
                         <form:errors path="response">
                             <c:forEach items="${messages}" var="message"> 
                                 <strong class="captcha errorMessage1 formErrorText"><span
-                                        class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                        class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                                 </strong>
                             </c:forEach>
                         </form:errors>
@@ -722,7 +722,7 @@
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -737,7 +737,7 @@
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
                             <strong class="errorMessage1 formErrorText">
-                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -761,7 +761,7 @@
                     <form:errors path="state">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -778,7 +778,7 @@
                     <form:errors path="cityName">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -795,7 +795,7 @@
                     <form:errors path="schoolId">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -812,7 +812,7 @@
                     <form:errors path="schoolRatingsReviewsFields.comment">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="textarea1 errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -826,7 +826,7 @@
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message"> 
                             <strong class="captcha errorMessage1 formErrorText"><span
-                                    class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -850,7 +850,7 @@
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="alertBox1 text3">
-        <span class="sprite alert"><!-- do not collapse --></span>
+        <span class="sprite i-alert"><!-- do not collapse --></span>
         &amp;nbsp;Note: GreatSchools is an independent nonprofit organization. We do not have information about
         school calendars, job openings, transcripts or classmates. For these topics, please contact the
         school or district directly.
@@ -949,7 +949,7 @@
                     <form:errors path="state">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -966,7 +966,7 @@
                     <form:errors path="cityName">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -983,7 +983,7 @@
                     <form:errors path="schoolId">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1005,7 +1005,7 @@
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1019,7 +1019,7 @@
                     <form:errors path="espFields.title">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1034,7 +1034,7 @@
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
                             <strong class="errorMessage1 formErrorText">
-                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -1050,7 +1050,7 @@
                     <form:errors path="espFields.phone">
                         <c:forEach items="${messages}" var="message">
                             <strong class="errorMessage1 formErrorText">
-                                &amp;nbsp;<span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -1063,7 +1063,7 @@
                     <form:errors path="espFields.comment">
                         <c:forEach items="${messages}" var="message">
                              <strong class="textarea1 errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1077,7 +1077,7 @@
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message">
                              <strong class="captcha errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1160,7 +1160,7 @@
                     <form:errors path="submitterName">
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1175,7 +1175,7 @@
                     <form:errors path="submitterEmail">
                         <c:forEach items="${messages}" var="message">
                             <strong class="errorMessage1 formErrorText">
-                                <span class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                             </strong>
                         </c:forEach>
                     </form:errors>
@@ -1189,7 +1189,7 @@
                     <form:errors path="joinFields.comment">
                         <c:forEach items="${messages}" var="message">
                              <strong class="textarea1 errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>
@@ -1203,7 +1203,7 @@
                     <form:errors path="response">
                         <c:forEach items="${messages}" var="message">
                              <strong class="captcha errorMessage1 formErrorText"><span
-                                class="sprite alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
                         </strong>
                         </c:forEach>
                     </form:errors>

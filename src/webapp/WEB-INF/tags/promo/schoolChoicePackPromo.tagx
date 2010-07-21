@@ -788,8 +788,8 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     <jsp:scriptlet>
                         request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                     </jsp:scriptlet>
-                    <div class="errors emailError" style="display:none;">
-                        <span class="error">Please enter a valid email address.</span>
+                    <div class="cemail emailError">
+                        <strong class="cemail-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please enter a valid email address.</strong>
                     </div>
                     <fieldset class="clearBoth promoFieldset">
                         <ol>
@@ -819,10 +819,11 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                         </div>
                     </c:if>
 
-
-                    <div class="errors termsError" style="display:none;">
-                        <span class="error">Please accept the Terms of Use.</span>
+                    <div class="privacy_terms_checkbox termsError">
+                        <strong class="privacy_terms_checkbox-error formErrorText"><span
+                                class="sprite i-alert"><!-- do not collapse --></span> Please accept the Terms of Use.</strong>
                     </div>
+
                     <fieldset class="promoFieldset">
                         <ol>
                             <li>
@@ -830,7 +831,8 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                                 <label for="privacy_terms_checkbox"
                                        class="smallText1 privacy_terms_checkbox_label">I accept the GreatSchools
                                     <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
-                                    <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
+                                    <link:termsOfUse>Terms of Use</link:termsOfUse>.
+                                </label>
                             </li>
                         </ol>
                     </fieldset>

@@ -35,7 +35,7 @@
         <div id="newuser" class="size1of2 col">
             <c:if test="${alertMessageType ne null and alertMessageType ne ''}">
                 <p class="infoMessage">
-                    <span class="sprite alert"><!--icon--></span>
+                    <span class="sprite i-alert"><!--icon--></span>
                 <span>Please login or register to
                     <c:choose>
                         <c:when test="${alertMessageType eq 'Question'}">
