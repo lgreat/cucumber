@@ -663,8 +663,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         var n = jQuery('#nearby-schools-table-body input:checked').length;
         if (n >= 2) {
             jQuery('#compareBtn').attr('disabled', '');
+            jQuery('#compareBtn').removeClass('btn25-inactive');
+            jQuery('#compareBtn').addClass('btn25');
         } else {
             jQuery('#compareBtn').attr('disabled', 'disabled');
+            jQuery('#compareBtn').removeClass('btn25');
+            jQuery('#compareBtn').addClass('btn25-inactive');
         }
         jQuery('.submitCompareError').text(n == 1 ? "Select two or more to compare" : "");
     }
