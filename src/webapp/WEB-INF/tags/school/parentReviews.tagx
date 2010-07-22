@@ -32,11 +32,11 @@
 <div class="mod_hd">
     <h3>Recent Reviews
         <c:if test="${totalReviews gt 0}">
-                <span class="smallAlertText fltrt iblock padtop_7">
+                <div class="smallAlertText">
                     <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
                             class="alertDoubleArrow-fff">&amp;#187;</span>
                     </link:schoolProfileParentReview>
-                </span>
+                </div>
         </c:if>
     </h3>
 </div>
@@ -109,19 +109,19 @@
                     <c:when test="${ratings.gradeschool}">
                         <ul>
                             <c:if test="${not empty ratings.avgPrincipal}">
-                                <li>Principal leadership <span
+                                <li><span class="fltlft">Principal leadership</span><span
                                         class="fltrt sprite stars_sm_${ratings.avgPrincipal}"><!-- do not collapse --></span>
                                 </li>
                                 <div class="spacer_5"><!-- do not collapse --></div>
                             </c:if>
                             <c:if test="${not empty ratings.avgTeachers}">
-                                <li>Teacher quality <span
+                                <li><span class="fltlft">Teacher quality</span><span
                                         class="fltrt sprite stars_sm_${ratings.avgTeachers}"><!-- do not collapse --></span>
                                 </li>
                                 <div class="spacer_5"><!-- do not collapse --></div>
                             </c:if>
                             <c:if test="${not empty ratings.avgParents}">
-                                <li>Parent involvement <span
+                                <li><span class="fltlft">Parent involvement</span><span
                                         class="fltrt sprite stars_sm_${ratings.avgParents}"><!-- do not collapse --></span>
                                 </li>
                             </c:if>

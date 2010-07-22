@@ -1073,6 +1073,10 @@ body.cobranded #pageGS {
     padding-left:15px;
 }
 
+.mod_hd{
+    position:relative;
+}
+
 .mod_hd h3 {
     padding: 0 15px;
     background: #149 url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
@@ -4634,13 +4638,7 @@ margin:10px 0 14px 20px;
     width:582px;
 }*/
 
-#parentReviewsHeader{
-    padding:15px 0;
-}
 
-#overallRating2{
-    text-align:center;
-}
 
 /* =4k-1 overview
 -------------------------------------------------------------------------------------------*/
@@ -4970,6 +4968,22 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 
 /* =4k-1.3 parent reviews
 -------------------------------------------------------------------------------------------*/
+
+#parentReviewsContainer .mod_hd div{
+    position:absolute;
+    top:7px;
+    right:15px;
+    _right:30px;
+}
+
+#parentReviewsHeader{
+    clear:both;
+    padding:15px 0;
+}
+
+#overallRating2{
+    text-align:center;
+}
 
 #parentReviews .review{
     padding:15px 0;
