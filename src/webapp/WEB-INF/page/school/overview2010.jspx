@@ -623,9 +623,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 theTR.children().addClass('bg-color-f4fafd');
             } else {
                 theTR.children().removeClass('bg-color-f4fafd');
-                <span class="sprite badge "
-                badge_sm_b_n
-                children('.sprite').classFilter()
             }
         });
 
