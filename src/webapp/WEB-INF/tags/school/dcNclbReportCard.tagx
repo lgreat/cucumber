@@ -30,34 +30,37 @@
         </div>
         <div class="mod_bd">
             <ul class="text3">
-            <c:if test="${pageScope.showSchoolLink}">
+                <c:if test="${pageScope.showSchoolLink}">
+                    <li class="media">
+                        <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+
+                        <div class="bd">
+                            <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
+                                    target="_blank"> School Report Card
+                            </gsml:a>
+                        </div>
+                    </li>
+                </c:if>
                 <li class="media">
                     <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+
                     <div class="bd">
-                    <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
-                            target="_blank"> School Report Card
-                    </gsml:a>
+                        <gsml:a
+                                href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
+                                target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
+                        </gsml:a>
                     </div>
                 </li>
-            </c:if>
-            <li class="media">
-                <span class="sprite pdf_sm img"><!-- do not collapse --></span>
-                <div class="bd">
-                <gsml:a
-                        href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
-                        target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
-                </gsml:a>
-                </div>
-            </li>
-            <li class="media">
-                <span class="sprite pdf_sm img"><!-- do not collapse --></span>
-                <div class="bd">
-                <gsml:a
-                        href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
-                        target="_blank"> Washington, DC Report Card
-                </gsml:a>
-                </div>
-            </li>
+                <li class="media">
+                    <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+
+                    <div class="bd">
+                        <gsml:a
+                                href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
+                                target="_blank"> Washington, DC Report Card
+                        </gsml:a>
+                    </div>
+                </li>
             </ul>
 
             <img src="/res/img/school/overview/OSSE-2.png" class="logo" width="138" height="45"

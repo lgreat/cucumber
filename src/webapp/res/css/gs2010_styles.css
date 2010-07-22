@@ -4988,7 +4988,7 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 
 #profileRecentDiscussions .profileDiscussions{
     clear:both;
-    padding:15px 10px;
+    padding:12px 10px;
 }
 
 #profileRecentDiscussions .profilediscussion{
@@ -5004,6 +5004,13 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     clear:both;
     padding:15px 10px 0;
 }
+
+/* ====== media ====== */
+#profileRecentDiscussions .media {padding:3px 0;}
+#profileRecentDiscussions .media, #profileRecentDiscussions .bd {overflow:hidden; _overflow:visible; zoom:1;}
+#profileRecentDiscussions .media .img {float:left; margin-right: 10px;}
+#profileRecentDiscussions .media .img img{display:block;}
+#profileRecentDiscussions .media .imgExt{float:right; margin-left: 10px;}
 
 #profileRecentDiscussions .textarea {
     width:258px;
