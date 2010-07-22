@@ -45,8 +45,13 @@ public class HeldSchoolAdminController extends AbstractController implements Rea
         boolean redirect = false;
         String alert = null;
         if (StringUtils.equals(ACTION_ADD, request.getParameter(PARAM_ACTION))) {
-            if (addSchoolToHold(request)) {
-                alert = "schoolAdded";
+            try {
+                if (addSchoolToHold(request)) {
+                    alert = "schoolAdded";
+                    redirect = true;
+                }
+            } catch (DuplicateSchoolException dse) {
+                alert = "duplicateSchool";
                 redirect = true;
             }
         } else if (StringUtils.equals(ACTION_DELETE, request.getParameter(PARAM_ACTION))) {
@@ -96,26 +101,35 @@ public class HeldSchoolAdminController extends AbstractController implements Rea
         return false;
     }
 
-    protected boolean addSchoolToHold(HttpServletRequest request) {
+    protected boolean addSchoolToHold(HttpServletRequest request) throws DuplicateSchoolException {
         try {
             int schoolId = Integer.parseInt(request.getParameter(PARAM_SCHOOL_ID));
             State state = State.fromString(request.getParameter(PARAM_SCHOOL_STATE));
             String notes = request.getParameter(PARAM_NOTES);
             return addSchoolToHold(schoolId, state, notes);
+        } catch (DuplicateSchoolException dse) {
+            throw dse;
         } catch (Exception e) {
             _log.warn("Error parsing parameters", e);
         }
         return false;
     }
 
-    protected boolean addSchoolToHold(int schoolId, State state, String notes) {
+    protected boolean addSchoolToHold(int schoolId, State state, String notes) throws DuplicateSchoolException {
         if (state != null) {
             try {
                 School school = _schoolDao.getSchoolById(state, schoolId);
                 if (school != null) {
-                    _heldSchoolDao.save(new HeldSchool(schoolId, state, notes));
-                    return true;
+                    if (!_heldSchoolDao.isSchoolOnHoldList(school)) {
+                        _heldSchoolDao.save(new HeldSchool(schoolId, state, notes));
+                        return true;
+                    } else {
+                        throw new DuplicateSchoolException
+                                ("School " + school.getName() + " is already on the hold list.");
+                    }
                 }
+            } catch (DuplicateSchoolException dse) {
+                throw dse;
             } catch (Exception e) {
                 _log.warn("Error saving HeldSchool", e);
             }
@@ -145,5 +159,11 @@ public class HeldSchoolAdminController extends AbstractController implements Rea
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    protected class DuplicateSchoolException extends Exception {
+        DuplicateSchoolException(String m) {
+            super(m);
+        }
     }
 }

@@ -98,6 +98,8 @@
                         alert("The school has been added to the hold list.")
                     } else if (holdSchoolAlert == 'schoolRemoved') {
                         alert("The school has been removed from the hold list.")
+                    } else if (holdSchoolAlert == 'duplicateSchool') {
+                        alert("That school is already on the hold list.");
                     }
                     subCookie.deleteObjectProperty("site_pref", "holdSchoolAlert");                    
                 }

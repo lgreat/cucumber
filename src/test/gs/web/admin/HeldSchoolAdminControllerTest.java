@@ -83,16 +83,37 @@ public class HeldSchoolAdminControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-    public void testAddSchoolToHold() {
+    public void testAddSchoolToHold() throws HeldSchoolAdminController.DuplicateSchoolException {
         getRequest().setParameter(HeldSchoolAdminController.PARAM_SCHOOL_ID, "1");
         getRequest().setParameter(HeldSchoolAdminController.PARAM_SCHOOL_STATE, "CA");
         getRequest().setParameter(HeldSchoolAdminController.PARAM_NOTES, "notes");
 
-        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(new School());
+        School school = new School();
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_heldSchoolDao.isSchoolOnHoldList(school)).andReturn(false);
         _heldSchoolDao.save(isA(HeldSchool.class));
 
         replayAllMocks();
         assertTrue(_controller.addSchoolToHold(getRequest()));
+        verifyAllMocks();
+    }
+
+    public void testAddDuplicateSchoolToHold() {
+        getRequest().setParameter(HeldSchoolAdminController.PARAM_SCHOOL_ID, "1");
+        getRequest().setParameter(HeldSchoolAdminController.PARAM_SCHOOL_STATE, "CA");
+        getRequest().setParameter(HeldSchoolAdminController.PARAM_NOTES, "notes");
+
+        School school = new School();
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_heldSchoolDao.isSchoolOnHoldList(school)).andReturn(true);
+
+        replayAllMocks();
+        try {
+            _controller.addSchoolToHold(getRequest());
+            fail("Expect duplicate school to be ignored.");
+        } catch (HeldSchoolAdminController.DuplicateSchoolException dse) {
+            // ok!
+        }
         verifyAllMocks();
     }
 }
