@@ -721,11 +721,14 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <form id="scpp_form" action="">
                     <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
-                    <div class="errors gradeError" style="display:none;">
+                    <!--<div class="errors gradeError" style="display:none;">
                         <span class="error">Please choose a school grade level.</span>
+                    </div>-->
+                    <div class="gradeSelect gradeError">
+                        <strong class="gradeSelect-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please choose a school grade level.</strong>
                     </div>
                     <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
-
+                        <fieldset class="clearBoth promoFieldset">
 
                         <ul id="scpp_picker">
                             <c:choose>
@@ -782,8 +785,8 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                                 </c:otherwise>
                             </c:choose>
 
-
                         </ul>
+                        </fieldset>
                     </div>
                     <jsp:scriptlet>
                         request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));

@@ -4872,6 +4872,20 @@ margin:10px 0 14px 20px;
 }
 
 /* error messaging */
+#schoolChoicePackPromo .gradeSelect{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo .gradeSelect-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
 #schoolChoicePackPromo .cemail{
     clear:both;
     position:relative;
