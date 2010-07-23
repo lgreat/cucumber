@@ -117,8 +117,13 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             <form id="scpp_form" action="">
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
-                <div class="errors gradeError" style="display:none;">
-                    <span class="error">Please choose a school grade level.</span>
+                <div class="gradeSelect gradeError">
+                    <div class="spacer_15"><!-- do not collapse --></div>
+                    <strong class="gradeSelect-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please choose a school grade level.</strong>
+                </div>
+                <div class="cemail emailError">
+                    <div class="spacer_15"><!-- do not collapse --></div>
+                    <strong class="cemail-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please enter a valid email address.</strong>
                 </div>
                 <div id="gradeSelect" style="${(not empty caller and caller ne 'preschool')?'display:none;':''}">
                     <p class="text2 fltlft">I'm looking for a(n):&amp;nbsp;</p>
@@ -149,9 +154,6 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <jsp:scriptlet>
                     request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                 </jsp:scriptlet>
-                <div class="errors emailError" style="display:none;">
-                    <span class="error">Please enter a valid email address.</span>
-                </div>
                 <div id="email_go">
 
                     <c:choose>
@@ -175,8 +177,9 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     </div>
                 </c:if>
 
-                <div class="errors termsError" style="display:none;">
-                    <span class="error">Please accept the Terms of Use.</span>
+                <div class="privacy_terms_checkbox termsError">
+                    <div class="spacer_15"><!-- do not collapse --></div>
+                    <strong class="privacy_terms_checkbox-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please accept the Terms of Use.</strong>
                 </div>
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>

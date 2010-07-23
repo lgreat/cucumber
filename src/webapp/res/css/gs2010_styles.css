@@ -3095,6 +3095,9 @@ body.nocol #pickGrade_SCPP input {
 #pickGrade_SCPP #m_check {
     clear: left;
 }
+#pickGrade_SCPP #h_check {
+    clear: left;
+}
 .prefs ul.col label {
     width: 420px;
 }
@@ -4665,7 +4668,7 @@ margin:10px 0 14px 20px;
 }
 
 #reviewBtn {
-    width:138px;
+    _width:138px;
 }
 
 #overallRating > #reviewBtn {
@@ -4761,7 +4764,7 @@ margin:10px 0 14px 20px;
 
 #schoolChoicePackPromo-wide {
     background-color: #F9E9CE;
-    width:100%;
+    width:582px;
     /*height:126px;*/
 }
 
@@ -4785,6 +4788,14 @@ margin:10px 0 14px 20px;
     width:445px;
     padding-bottom:10px;
 }
+
+*+html #schoolChoicePackPromo-wide .form_panel{
+    width:455px
+}
+
+/*#schoolChoicePackPromo-wide .form_panel{
+    _width:455px
+}*/
 
 #gradeSelect {
     overflow: visible;
@@ -4814,6 +4825,57 @@ margin:10px 0 14px 20px;
 
 #schoolChoicePackPromo-wide .privacy_terms {
     clear:both;
+}
+
+/* error messaging */
+#schoolChoicePackPromo-wide .gradeSelect{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-wide .gradeSelect-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#schoolChoicePackPromo-wide .cemail{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-wide .cemail-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+*+html #schoolChoicePackPromo-wide #send{
+    width:57px;
+}
+
+#schoolChoicePackPromo-wide #send{
+    _width:57px;
+}
+
+#schoolChoicePackPromo-wide .privacy_terms_checkbox{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-wide .privacy_terms_checkbox-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
 }
 
 /* =4k-1.2.2 school choice pack promotion (narrow layout)
@@ -4988,6 +5050,14 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     top:7px;
     right:15px;
     _right:30px;
+}
+
+*+html #parentReviewsContainer .mod_hd{
+    z-index:-1;
+}
+
+#parentReviewsContainer .mod_hd{
+    _z-index:-1;
 }
 
 #parentReviewsHeader{
