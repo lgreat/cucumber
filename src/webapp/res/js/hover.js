@@ -235,6 +235,12 @@ GSType.hover.JoinHover = function() {
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        this.showHoverOnExit(GSType.hover.joinHover.showJoinAuto);
+    };
+    this.showNthHoverOnExit = function() {
+        this.showHoverOnExit(GSType.hover.joinHover.showJoinNth);
+    }
+    this.showHoverOnExit = function(showHoverFunction) {
         var arr = getElementsByCondition(
                 function(el) {
                     if (el.tagName == "A") {
@@ -253,51 +259,16 @@ GSType.hover.JoinHover = function() {
             arr[i].onclick = function () {
                 gRedirectAnchor = this;
                 try {
+                    //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
+                    //the same functionality as existing "mss auto hover on exit", but displays depending on school type
+                    //Therefore, use the same cookie and don't mess too much with existing code at this time.
                     if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
                         GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
-                        GSType.hover.joinHover.showJoinAuto();
+                        showHoverFunction();
                         return false;
                     }
-                } catch (e) {
-                }
-                return true;
-            };
-        }
-    };
-    this.showJoinNthHoverOnExit = function() {
-        if (GS.isMember()) {
-            return true;
-        }
-        var arr = getElementsByCondition(
-                function(el) {
-                    if (el.tagName == "A") {
-                        if (el.target || el.onclick)
-                            return false;
-                        if (el.className && el.className.indexOf('no_interrupt') > -1)
-                            return false;
-                        if (el.href && el.href != '' && el.href != '#' && el.href != (window.location.href+'#'))
-                            return el;
-                    }
-                    return false;
-                }, document
-                );
-
-        for (var i = 0; i < arr.length; i++) {
-            arr[i].onclick = function () {
-                gRedirectAnchor = this;
-                try {
-                    var sitePreferences = subCookie.getObject("site_pref");
-
-                    if (sitePreferences == undefined || sitePreferences.schoolOverviewAlreadyVisited == undefined || sitePreferences.schoolOverviewAlreadyVisited != "true") {
-                        subCookie.setObjectProperty("site_pref", "schoolOverviewAlreadyVisited", true, 9001);
-                        window.destUrl = gRedirectAnchor.href;
-                        GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
-                        GSType.hover.joinHover.showJoinNth();
-                        return false;
-                    }
-
                 } catch (e) {
                 }
                 return true;

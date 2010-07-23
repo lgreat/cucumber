@@ -78,16 +78,24 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
-    <c:if test="${showNLHover and school.type.schoolTypeName != 'private'}">
-        <!-- to trigger MSS modal on exit -->
+    <c:if test="${showNLHover}">
         <c:choose>
-            <c:when test="${school.levelCode == 'p'}">
+            <c:when test="${school.type.schoolTypeName == 'private'}">
+                <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
             </c:when>
             <c:otherwise>
-                <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
-                <!-- to (potentially) trigger MSS modal on exit -->
-                <!-- GS-8864 Replacing new MSS hover with newer MSS hover, see hover.js and join.tagx -->
-                <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${school.name}', ${school.id}, '${school.databaseState}');"/>
+                <!-- to trigger MSS modal on exit -->
+                <c:choose>
+                    <c:when test="${school.levelCode == 'p'}">
+                        <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
+                    </c:when>
+                    <c:otherwise>
+                        <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
+                        <!-- to (potentially) trigger MSS modal on exit -->
+                        <!-- GS-8864 Replacing new MSS hover with newer MSS hover, see hover.js and join.tagx -->
+                        <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${school.name}', ${school.id}, '${school.databaseState}');"/>
+                    </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
     </c:if>
