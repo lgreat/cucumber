@@ -5042,6 +5042,49 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     padding-left:25px;
 }
 
+/* error messaging */
+#schoolChoicePackPromo-2009 .gradeSelect{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-2009 .gradeSelect-error{
+    position:absolute;
+    left:0; top:-10px;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#schoolChoicePackPromo-2009 .cemail{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-2009 .cemail-error{
+    position:absolute;
+    left:0; top:-10px;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#schoolChoicePackPromo-2009 .privacy_terms_checkbox{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#schoolChoicePackPromo-2009 .privacy_terms_checkbox-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
 /* =4k-1.3 parent reviews
 -------------------------------------------------------------------------------------------*/
 
@@ -6475,7 +6518,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     margin: 0 3px 0 3px;
 }
 
-/* =9- buttons
+/* =9 buttons
 -------------------------------------------------------------------------------------------*/
 
 /* ------------------- */

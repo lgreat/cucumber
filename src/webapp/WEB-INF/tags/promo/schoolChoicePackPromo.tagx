@@ -372,8 +372,12 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     </c:if>
 
 
-                    <div class="errors termsError" style="display:none;">
+                    <!--<div class="errors termsError" style="display:none;">
                         <span class="error">Please accept the Terms of Use.</span>
+                    </div>-->
+                    <div class="privacy_terms_checkbox termsError">
+                        <strong class="privacy_terms_checkbox-error formErrorText"><span
+                                class="sprite i-alert"><!-- do not collapse --></span> Please accept the Terms of Use.</strong>
                     </div>
 
                     <c:choose>
@@ -520,8 +524,11 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <form id="scpp_form" action="">
                     <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
-                    <div class="errors gradeError" style="display:none;">
+                    <!--<div class="errors gradeError" style="display:none;">
                         <span class="error">Please choose a school grade level.</span>
+                    </div>-->
+                    <div class="gradeSelect gradeError">
+                        <strong class="gradeSelect-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please choose a school grade level.</strong>
                     </div>
                     <fieldset>
                         <div class="line">
@@ -558,8 +565,11 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     <jsp:scriptlet>
                         request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                     </jsp:scriptlet>
-                    <div class="errors emailError" style="display:none;">
+                    <!--<div class="errors emailError" style="display:none;">
                         <span class="error">Please enter a valid email address.</span>
+                    </div>-->
+                    <div class="cemail emailError">
+                        <strong class="cemail-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please enter a valid email address.</strong>
                     </div>
                     <fieldset class="clearBoth promoFieldset">
                         <ol>
@@ -589,8 +599,13 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     </c:if>
 
 
-                    <div class="errors termsError" style="display:none;">
+                    <!--<div class="errors termsError" style="display:none;">
                         <span class="error">Please accept the Terms of Use.</span>
+                    </div>-->
+                    <div class="privacy_terms_checkbox termsError">
+                        <div class="spacer_10"><!-- do not collapse --></div>
+                        <strong class="privacy_terms_checkbox-error formErrorText"><span
+                                class="sprite i-alert"><!-- do not collapse --></span> Please accept the Terms of Use.</strong>
                     </div>
                     <fieldset class="promoFieldset">
                         <ol>
@@ -724,9 +739,6 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <form id="scpp_form" action="">
                     <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
 
-                    <!--<div class="errors gradeError" style="display:none;">
-                        <span class="error">Please choose a school grade level.</span>
-                    </div>-->
                     <div class="gradeSelect gradeError">
                         <strong class="gradeSelect-error formErrorText"><span class="sprite i-alert"><!-- do not collapse --></span> Please choose a school grade level.</strong>
                     </div>
