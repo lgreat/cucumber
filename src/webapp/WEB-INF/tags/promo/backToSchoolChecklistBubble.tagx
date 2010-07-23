@@ -53,7 +53,40 @@
             jQuery('#btsChecklistBubble').hide();
             return false;
         });
+
     </script>
+
+    <script type="text/javascript">
+        /*@cc_on
+        if (@_jscript_version == 5.6 || (@_jscript_version == 5.7 &amp;&amp; !window.XMLHttpRequest)){
+            var sfHover = function() {
+                // Support the standard nav without a class of nav.
+                if(!document.getElementById("btsChecklistBubble")) return;
+                var el = document.getElementById("btsChecklistBubble");
+                setHover(el);
+            };
+            var setHover = function(el) {
+                var ieMat=document.createElement('iframe');
+                if(document.location.protocol == "https:"){
+                    ieMat.src="//0";
+                }
+                else {
+                    ieMat.id="bubbleShim";
+                    ieMat.src="javascript:false";
+                    ieMat.scrolling="no";
+                    ieMat.frameBorder="0";
+                    ieMat.style.width=el.offsetWidth+"px";
+                    ieMat.style.height=el.offsetHeight+"px";
+                    ieMat.style.zIndex="-1";
+                    el.appendChild(ieMat);
+                    el.style.zIndex="101";
+                }
+            };
+            if (window.attachEvent) window.attachEvent('onload', sfHover);
+        }
+        @*/
+    </script>
+
 
 
 </jsp:root>

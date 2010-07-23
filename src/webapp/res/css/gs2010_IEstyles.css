@@ -1123,3 +1123,9 @@ body.ie6 #btsCount .pencil_bg {
     display: inline;
     width: auto;
 }
+#bubbleShim, #topnav_menusubnav ul iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
+}
