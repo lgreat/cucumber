@@ -4723,7 +4723,6 @@ margin:10px 0 14px 20px;
 
 #scpp {
     position:relative;
-    height:284px;
 }
 
 #scpp .mod_bd {
@@ -4740,23 +4739,83 @@ margin:10px 0 14px 20px;
     margin-right:5px;
 }
 
+*+html #scpp #send{
+    float:left;
+}
+
+#scpp #send{
+    _float:left;
+}
+
 #scpp #privacy_terms_checkbox{
     float:left;
 }
 
+*+html #scpp .privacy_terms_checkbox_label, *+html #scpp .privacy_terms_checkbox_label_preschool {
+    float:left;
+    padding-left:10px;
+}
+
 #scpp .privacy_terms_checkbox_label {
+    _float:left;
     display:block;
     padding-left:25px;
+    _padding-left:10px;
 }
 
 #scpp .privacy_terms_checkbox_label_preschool {
+    _float:left;
     display:block;
     padding-left:25px;
+    _padding-left:10px;
     width:145px;
 }
 
 #scpp .promoFieldset{
     padding-top:5px;
+}
+
+/* error messaging */
+#scpp .gradeSelect{
+    float:left;
+    position:relative;
+    display:none;
+}
+
+#scpp .gradeSelect-error{
+    position:absolute;
+    left:0; top:-2px;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#scpp .cemail{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#scpp .cemail-error{
+    position:absolute;
+    left:0; top:-12px;
+    display:block;
+    font-weight:normal;
+    width:200px;
+}
+
+#scpp .privacy_terms_checkbox{
+    clear:both;
+    position:relative;
+    display:none;
+}
+
+#scpp .privacy_terms_checkbox-error{
+    position:absolute;
+    left:0; top:0;
+    display:block;
+    font-weight:normal;
+    width:200px;
 }
 
 /* =4k-1.2.1 school choice pack promotion (wide layout)
@@ -4765,7 +4824,6 @@ margin:10px 0 14px 20px;
 #schoolChoicePackPromo-wide {
     background-color: #F9E9CE;
     width:582px;
-    /*height:126px;*/
 }
 
 #schoolChoicePackPromo-wide .mod_hd h3 {
@@ -4792,10 +4850,6 @@ margin:10px 0 14px 20px;
 *+html #schoolChoicePackPromo-wide .form_panel{
     width:455px
 }
-
-/*#schoolChoicePackPromo-wide .form_panel{
-    _width:455px
-}*/
 
 #gradeSelect {
     overflow: visible;
