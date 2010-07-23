@@ -80,7 +80,10 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
-            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school,3);
+            // page only needs up to three, but we need the total number as well
+            // should probably add a method _reviewDao.getTotalPublishedReviewsBySchool(school)
+            // and limit the following query to 3
+            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
             model.put("reviews", reviews);
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
