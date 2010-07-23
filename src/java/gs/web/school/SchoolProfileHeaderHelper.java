@@ -249,7 +249,7 @@ public class SchoolProfileHeaderHelper {
         }
         // if not, default to grade level board for lowest level of school
         if (!foundLocalBoard && school.getLevelCode() != null) {
-            LevelCode.Level lowestLevel = school.getLevelCode().getLowestLevel();
+            LevelCode.Level lowestLevel = school.getLevelCode().getLowestNonPreSchoolLevel();
             // only display Preschool board for p-only schools
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                 model.put(DISCUSSION_TOPIC, "preschool");
