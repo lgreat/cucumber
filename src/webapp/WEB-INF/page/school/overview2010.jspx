@@ -111,7 +111,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 height: 277px;
             }*/
 
-        #js-esp-info-hover {
+        /*#js-esp-info-popup {
             position: absolute;
             left: 600px;
             top: 10px;
@@ -121,7 +121,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             padding: 4px;
             width: 300px;
             z-index: 9999999;
-        }
+        }*/
 
             /*#nearby-schools-table {
                 font-size: 11px;
@@ -226,8 +226,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <c:if test="${not empty bestKnownFor}">
     <div id="bestKnownFor" class="brdbtm_dotted">
+        <div class="spacer_10"><!-- do not collapse --></div>
 
-        <p class="introText">"We're known for our ${bestKnownFor}" <span id="js-esp-info"
+        <p class="introText">"We're known for our ${bestKnownFor}" <span id="js-esp-info-trigger"
                                                      class="sprite info"><!-- do not collapse --></span></p>
 
         <!-- TODO: info icon + hover -->
@@ -236,11 +237,15 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
         </div>
 
-        <div id="js-esp-info-hover" style="display:none;">
-            <p>This statement has been provided by the principal or a school official at ${school.name}.
+        <div id="js-esp-info-popup">
+            <b class="esp-popup-arrow">&amp;nbsp;</b>
+            <b class="esp-popup-arrow-outline">&amp;nbsp;</b>
+            <div id="js-esp-info-content">
+            <p class="text3">This statement has been provided by the principal or a school official at ${school.name}.
                 <link:enhancedSchoolProfile
                         school="${school}">See this school's official school profile <span
                         class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile></p>
+            </div>
         </div>
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
@@ -658,12 +663,76 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             return false;
         });
 
-        jQuery('#js-esp-info').mouseover(function() {
-            jQuery('#js-esp-info-hover').show();
+        /*jQuery('#js-esp-info-trigger').mouseover(function() {
+            jQuery('#js-esp-info-popup').show();
         });
-        jQuery('#js-esp-info').mouseout(function() {
-            jQuery('#js-esp-info-hover').hide();
+        jQuery('#js-esp-info-trigger').mouseout(function() {
+            jQuery('#js-esp-info-popup').hide();
+        });*/
+
+        $('#bestKnownFor').each(function () {
+            // options
+            var distance = 20;
+            var time = 250;
+            var hideDelay = 500;
+
+            var hideDelayTimer = null;
+
+            // tracker
+            var beingShown = false;
+            var shown = false;
+
+            var trigger = $('#js-esp-info-trigger', this);
+            var popup = $('#js-esp-info-popup', this).css('opacity', 0);
+
+            // set the mouseover and mouseout on both element
+            $([trigger.get(0), popup.get(0)]).mouseover(function () {
+                // stops the hide event if we move from the trigger to the popup element
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+
+                // don't trigger the animation again if we're being shown, or already visible
+                if (beingShown || shown) {
+                    return;
+                } else {
+                    beingShown = true;
+
+                    // reset position of popup box
+                    popup.css({
+                        top: -8,
+                        left: 390,
+                        display: 'block' // brings the popup back in to view
+                    })
+
+                        // (we're using chaining on the popup) now animate it's opacity and position
+                            .animate({
+                        left: '-=' + distance + 'px',
+                        opacity: 1
+                    }, time, 'swing', function() {
+                        // once the animation is complete, set the tracker variables
+                        beingShown = false;
+                        shown = true;
+                    });
+                }
+            }).mouseout(function () {
+                // reset the timer if we get fired again - avoids double animations
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+
+                // store the timer so that it can be cleared in the mouseover if required
+                hideDelayTimer = setTimeout(function () {
+                    hideDelayTimer = null;
+                    popup.animate({
+                        left: '-=' + distance + 'px',
+                        opacity: 0
+                    }, time, 'swing', function () {
+                        // once the animate is complete, set the tracker variables
+                        shown = false;
+                        // hide the popup entirely after the effect (opacity alone doesn't do the job)
+                        popup.css('display', 'none');
+                    });
+                }, hideDelay);
+            });
         });
+
     });
 
     function countChecked() {

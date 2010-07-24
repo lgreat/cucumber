@@ -166,6 +166,9 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                             <c:when test="${communityAuth}">
                                 <input id="cemail" name="cemail" class="required email"
                                        value="${requestScope.context.user.email}" disabled="true"/>
+                                <strong class="logoutDiv-helper">
+                                    <a href="/community/logout.page?redirect=${logoutRedirect}" class="formHelperText">Not ${requestScope.context.user.email}?</a>
+                                </strong>
                             </c:when>
                             <c:otherwise>
                                 <input id="cemail" name="cemail" class="required email" value="Enter email address"/>
@@ -177,10 +180,17 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                         </button>
                     </div>
 
-                    <c:if test="${communityAuth}">
+                    <!--<c:if test="${communityAuth}">
                         <div class="logoutDiv">
-                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                            <div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>
+                            <strong class="logoutDiv-helper formHelperText">
+                                <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                            </strong>
                         </div>
+                    </c:if>-->
+
+                    <c:if test="${communityAuth}">
+                        <div class="spacer_10"><!-- do not collapse --></div>
                     </c:if>
 
                     <div class="privacy_terms_checkbox termsError">
