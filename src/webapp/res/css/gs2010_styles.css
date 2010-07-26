@@ -4558,10 +4558,12 @@ margin:10px 0 14px 20px;
 
 #schoolProfileLeftColumn {
     width: 614px;
+    z-index:1;
 }
 #schoolProfileRightColumn {
     width: 300px;
     padding:10px 17px 0;
+    z-index:0;
 }
 #schoolProfileTabsWrapper {
     float: left;
@@ -4684,7 +4686,7 @@ margin:10px 0 14px 20px;
 #bestKnownFor {
     position:relative;
     text-align: center;
-    padding-bottom:15px
+    padding-bottom:15px;
 }
 
 #js-esp-info-content {
@@ -4697,11 +4699,7 @@ margin:10px 0 14px 20px;
 
 #js-esp-info-popup{
     display:none;
-    /*display:block;*/
     position: absolute;
-    /*left: 370px;*/
-    /*top: -8px;*/
-    z-index: 9999999;
     padding-left:15px
 }
 
