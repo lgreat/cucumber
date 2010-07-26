@@ -4496,10 +4496,6 @@ margin:10px 0 14px 20px;
     padding: 0;
 }
 
-#schoolName h1{
-    line-height:1.5;
-}
-
 #schoolName h1 a {
     color: #DD6611;
     text-decoration: none;
@@ -4553,7 +4549,6 @@ margin:10px 0 14px 20px;
 
 /* school profile body */
 #schoolProfileBody {
-    /*width:948px;*/
 }
 
 #schoolProfileLeftColumn {
@@ -4631,19 +4626,9 @@ margin:10px 0 14px 20px;
     clear:both;
     border: 1px solid #c6c6c6;
     padding:3px 15px 15px;
-    width:582px;
-    /*zoom:1;*/
-}
-
-/*#bodyContents{
+    _padding-top:9px;
     width:582px;
 }
-
-#overviewContainer{
-    width:582px;
-}*/
-
-
 
 /* =4k-1 overview
 -------------------------------------------------------------------------------------------*/
@@ -4654,27 +4639,23 @@ margin:10px 0 14px 20px;
 }
 
 #overallRating {
-    padding:10px;
+    padding: 10px;
     display: block;
     background-color: #F4FAFD;
     width: 138px;
     border: 1px solid #A2D0E4;
-    /*height: 283px;*/
     text-align: center;
-    /*font-size: 12px;*/
 }
 
 #overallRating p, #overallRating img, #overallRating a, #overallRating button {
-    /*padding-bottom: 6px;*/
-    /*display: block;*/
 }
 
 #reviewBtn {
-    _width:138px;
+    _width: 138px;
 }
 
 #overallRating > #reviewBtn {
-    width:auto;
+    width: auto;
 }
 
 #overviewColumn2 {
@@ -4684,9 +4665,9 @@ margin:10px 0 14px 20px;
 }
 
 #bestKnownFor {
-    position:relative;
+    position: relative;
     text-align: center;
-    padding-bottom:15px;
+    padding-bottom: 15px;
 }
 
 #js-esp-info-content {
@@ -4694,64 +4675,66 @@ margin:10px 0 14px 20px;
     border: 1px solid #999;
     padding: 10px;
     width: 288px;
-    text-align:left;
+    text-align: left;
 }
 
-#js-esp-info-popup{
-    display:none;
+#js-esp-info-popup {
+    display: none;
     position: absolute;
-    padding-left:15px
+    padding-left: 15px
 }
 
-#js-esp-info-popup b.esp-popup-arrow-outline{
-	font-size: 0px;
-	line-height: 0%;
-	width: 0px;
-	border-top: 11px solid rgba(255, 255, 255, 0.0);
-	border-right: 15px solid #999;
-	border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+#js-esp-info-popup b.esp-popup-arrow-outline {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-right: 15px solid #999;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 #js-esp-info-popup b.esp-popup-arrow {
-	font-size: 0px;
-	line-height: 0%;
-	width: 0px;
-	border-top:11px solid rgba(255, 255, 255, 0.0);
-	border-right: 15px solid white;
-	border-bottom:11px solid rgba(255, 255, 255, 0.0);
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-right: 15px solid white;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
-	font-size: 0px;
-	line-height: 0%;
-	width: 0px;
-	border-top: 11px solid white;
-	border-right: 15px solid #c6c6c6;
-	border-bottom: 11px solid white;
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid white;
+    border-right: 15px solid #c6c6c6;
+    border-bottom: 11px solid white;
 }
 
 .ie6 #js-esp-info-popup b.esp-popup-arrow, .ie7 #js-esp-info-popup b.esp-popup-arrow, .ie8 #js-esp-info-popup b.esp-popup-arrow {
-	font-size: 0px;
-	line-height: 0%;
-	width: 0px;
-	border-top:11px dashed black;
-	border-right: 15px solid white;
-	border-bottom:11px dashed black;
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px dashed black;
+    border-right: 15px solid white;
+    border-bottom: 11px dashed black;
 }
 
-#js-esp-info-popup b.esp-popup-arrow-outline{
-    position:absolute;
-    left:1px; top:15px;
+#js-esp-info-popup b.esp-popup-arrow-outline {
+    position: absolute;
+    left: 1px;
+    top: 15px;
 }
 
-#js-esp-info-popup b.esp-popup-arrow{
-	position:absolute;
-	left:3px; top:15px;
-    z-index:20;
+#js-esp-info-popup b.esp-popup-arrow {
+    position: absolute;
+    left: 3px;
+    top: 15px;
+    z-index: 20;
 }
 
-#rating_summary p{
-    padding-bottom:15px;
+#rating_summary p {
+    padding-bottom: 15px;
 }
 
 #nearbySchoolsMap {
@@ -5137,7 +5120,6 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 
 #schoolChoicePackPromo-2009 .blurb {
     margin:5px 0 12px 0;
-    /*width: 216px;*/
     width:auto;
 }
 
@@ -5413,6 +5395,7 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     clear:both;
     height:27px;
     padding-top:4px;
+    _padding-top:12px;
     background-color:#f4fafd;
     border-right:1px solid #83bbd9;
     border-left:1px solid #83bbd9;
