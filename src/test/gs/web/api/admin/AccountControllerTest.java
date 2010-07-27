@@ -4,12 +4,12 @@ import gs.data.api.ApiAccount;
 import gs.data.api.IApiAccountDao;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.api.ApiAccountCommandValidator;
 import org.springframework.ui.ModelMap;
 import static org.easymock.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.validation.BindingResult;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +23,7 @@ public class AccountControllerTest {
     private AccountController _controller;
     private IApiAccountDao _apiAccountDao;
     private MockJavaMailSender _javaMailSender;
+    private GsMockHttpServletRequest _request;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +37,10 @@ public class AccountControllerTest {
         _factory.setMailSender(_javaMailSender);
         _controller.setEmailHelperFactory(_factory);
         _controller.setApiAccountValidator(new ApiAccountCommandValidator());
+
+        _request = new GsMockHttpServletRequest();
+        _request.setServerName("www.greatschools.org");
+
     }
 
     @Test
@@ -58,7 +63,7 @@ public class AccountControllerTest {
         _apiAccountDao.save(account);
         replay(_apiAccountDao);
         assertNull(account.getApiKey());
-        String view = _controller.toggleActive(123, new ModelMap());
+        String view = _controller.toggleActive(_request, 123, new ModelMap());
         assertEquals(AccountController.MAIN_VIEW, view);
         assertNotNull(account.getApiKey());
         
@@ -77,9 +82,30 @@ public class AccountControllerTest {
         _apiAccountDao.save(account);
         replay(_apiAccountDao);
         assertNotNull(account.getApiKey());
-        String view = _controller.toggleActive(123, new ModelMap());
+        String view = _controller.toggleActive(_request, 123, new ModelMap());
         verify(_apiAccountDao);
         assertEquals(AccountController.MAIN_VIEW, view);
         assertNull(account.getApiKey());
     }
+
+    // Uncomment following for live email send tests
+//    private ApplicationContext getApplicationContext() {
+//        String[] paths = {"applicationContext.xml",
+//                          "modules-servlet.xml",
+//                          "pages-servlet.xml"
+//        };
+//        return new ClassPathXmlApplicationContext(paths, gs.data.util.SpringUtil.getApplicationContext());
+//    }
+//
+//
+//    @Test
+//    public void sendKeyEmail() throws IOException, MessagingException {
+//        AccountController controller = new AccountController();
+//        controller.setEmailHelperFactory((EmailHelperFactory) getApplicationContext().getBean(EmailHelperFactory.BEAN_ID));
+//        ApiAccount account = new ApiAccount();
+//        account.setId(123);
+//        account.setEmail("aroy@greatschools.org");
+//        account.setApiKey("123asldjf179");
+//        controller.sendKeyEmail(_request, account);
+//    }
 }

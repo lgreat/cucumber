@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.227 2010/07/14 23:38:24 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.228 2010/07/27 20:53:42 aroy Exp $
  */
 
 package gs.web.util;
@@ -291,6 +291,7 @@ public class UrlBuilder {
      * Api Pages
      */
     public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
+    public static final VPage API_DOCS_MAIN = new VPage("vpage:apiDocsMain");
 
     /**
      * Community Pages
@@ -1192,6 +1193,9 @@ public class UrlBuilder {
                 sb.append(param0);
             }
             _path = sb.toString();
+        } else if (API_DOCS_MAIN.equals(page)) {
+            _perlPage = false;
+            _path = "/api/docs/main.page";
         } else if(USER_ACCOUNT.equals(page)){
             _perlPage = false;
             _path = "/account/";

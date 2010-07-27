@@ -1,8 +1,8 @@
 package gs.web.api.admin;
 
 import gs.web.api.ApiAccountCommandValidator;
+import gs.web.util.UrlBuilder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +20,7 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.web.util.ReadWriteAnnotationController;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.ArrayList;
@@ -64,11 +65,11 @@ public class AccountController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(method=RequestMethod.POST, params = "action=toggle_active")
-    public String toggleActive(@RequestParam("id") int id, ModelMap model) {
+    public String toggleActive(HttpServletRequest request, @RequestParam("id") int id, ModelMap model) {
         ApiAccount account = getApiAccountDao().getAccountById(id);
         if (StringUtils.isBlank(account.getApiKey())) {
             account.setApiKey(ApiAccountUtils.generateAccountKey(account.getName()));
-            sendKeyEmail(account);
+            sendKeyEmail(request, account);
             setMessageInModel(model, "Api Key Email sent.");
         } else {
             account.setApiKey(null);
@@ -149,20 +150,41 @@ public class AccountController implements ReadWriteAnnotationController {
      *
      * @param account an ApiAccount type
      */
-    void sendKeyEmail(ApiAccount account) {
+    void sendKeyEmail(HttpServletRequest request, ApiAccount account) {
         try {
             EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+            emailHelper.enableHtmlWrapper();
+            emailHelper.setSentToCustomMessage("");
             emailHelper.setToEmail(account.getEmail());
             emailHelper.setFromEmail("api-support@greatschools.org");
             emailHelper.setFromName("GreatSchools API Support");
-            emailHelper.setSubject("GreatSchools Api Key");
+            emailHelper.setSubject("Your GreatSchools API key is enclosed!");
+
             StringBuffer message = new StringBuffer();
-
-            message.append("\nKey: ");
+            message.append("Thanks for your interest in the GreatSchools API. ");
             String value = account.getApiKey() != null ? account.getApiKey() : "";
-            message.append(value);
+            message.append("Your request has been approved and your API key is: ").append(value);
+            message.append("<br/><br/>");
+            message.append("For instructions on getting started, please ");
+            UrlBuilder docsMainLink = new UrlBuilder(UrlBuilder.API_DOCS_MAIN, null);
+            message.append(docsMainLink.asAbsoluteAnchor(request, "click here").asATag()).append(". ");
+            message.append("Please keep in mind that our API has a 1,500 call limit per day. ");
+            message.append("Should you make more than 1,500 calls in a day, you will be charged per the overage schedule below:");
+            message.append("<br/><br/>");
+            message.append("1,501-3,000 calls: $0.08/call").append("<br/>");
+            message.append("3,001-4,500 calls: $0.05/call").append("<br/>");
+            message.append("4,501-6,000 calls: $0.03/call").append("<br/>");
+            message.append(">6,000 calls: You will be contacted by a GreatSchools representative directly.").append("<br/>");
+            message.append("<br/>");
+            message.append("Please save this email for future reference. ");
+            message.append("If you have any questions or feedback on the API, email: ");
+            String supportEmail = "API-support@greatschools.org";
+            message.append("<a href=\"mailto:").append(supportEmail).append("\">").append(supportEmail).append("</a>.");
+            message.append("<br/><br/>");
+            message.append("Thank you,<br/>");
+            message.append("The GreatSchools Team");
 
-            emailHelper.setTextBody(message.toString());
+            emailHelper.setHtmlBody(message.toString());
             emailHelper.send();
         } catch (MessagingException e) {
             _log.warning(e.toString());
