@@ -31,7 +31,7 @@
 
 <div id="schoolProfileGS" class="${(tab eq 'overview')? 'overview' : ''}">
 
-    <div id="schoolProfileHeaderGS" class="clearfix">
+    <div id="schoolProfileHeaderGS vcard" class="clearfix">
         <div id="schoolHeaderInfoLeft" class="col">
         <div id="breadcrumbs">
             <ul class="utility-navigation-999">
@@ -73,10 +73,10 @@
             <h1>
                 <c:choose>
                     <c:when test="${tab eq 'overview'}">
-                        ${school.name}
+                        <span class="fn org">${school.name}</span>
                     </c:when>
                     <c:otherwise>
-                        <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                        <link:schoolProfileOverview school="${school}"><span class="fn org">${school.name}</span></link:schoolProfileOverview>
                     </c:otherwise>
                 </c:choose>
             </h1>
@@ -145,10 +145,10 @@
             <c:if test="${not empty school.phone or not empty school.fax or not empty school.webSite}">
                 <div id="schoolInfoLeftColumn" class="text3">
                     <c:if test="${not empty school.phone}">
-                        <p><span>PHONE: </span>${school.phone}</p>
+                        <p class="tel"><span>PHONE: </span>${school.phone}</p>
                     </c:if>
                     <c:if test="${not empty school.fax}">
-                        <p><span>FAX: </span>${school.fax}</p>
+                        <p class="fax"><span>FAX: </span>${school.fax}</p>
                     </c:if>
                     <c:if test="${not empty requestScope.pq_hours}">
                         <p><span>HOURS: </span>${requestScope.pq_hours}</p>
@@ -157,17 +157,17 @@
                         <p>
                             <c:choose>
                                 <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
-                                    <a href="${school.webSite}" target="_blank">School Website</a>
+                                    <a href="${school.webSite}" target="_blank" class="url">School Website</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="http://${school.webSite}" target="_blank">School Website</a>
+                                    <a href="http://${school.webSite}" target="_blank" class="url">School Website</a>
                                 </c:otherwise>
                             </c:choose>
                         </p>
                     </c:if>
                 </div>
             </c:if>
-            <div id="schoolInfoRightColumn" class="text3">
+            <div id="schoolInfoRightColumn adr" class="text3">
                     <p class="street-address">${school.physicalAddress.street}</p>
                     <p>
                         <span class="locality">${school.physicalAddress.city}</span>,
