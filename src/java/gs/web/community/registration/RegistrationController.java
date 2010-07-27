@@ -505,8 +505,17 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
+        sendValidationEmail(request, user, redirectUrl, false);
+    }
+
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
+                                       boolean schoolReviewFlow) {
         try {
-            getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+            if (schoolReviewFlow) {
+                getEmailVerificationEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+            } else {
+                getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+            }
         } catch (Exception e) {
             _log.error("Error sending email message: " + e, e);
         }

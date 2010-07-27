@@ -126,7 +126,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 emailRedirectUrl = "/";
             }
 
-            sendValidationEmail(request, user, emailRedirectUrl);
+            sendValidationEmail(request, user, emailRedirectUrl,
+                                RegistrationHoverCommand.JoinHoverType.SchoolReview == userCommand.getJoinHoverType());
         }
         String redirect = userCommand.getRedirectUrl();
        
