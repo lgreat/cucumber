@@ -362,8 +362,8 @@
                     <ad:BelowFold_300x250/>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
-                    <promo:searchRealtorDotCom omniturePageName="${pageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${city}" defaultState="${stateAbbrev}"/>
+                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
+                                               defaultCity="${school.city}" defaultState="${school.databaseState.abbreviation}"/>
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
                     <div class="ad_middle">
                         <ad:AboveFold_300x250/>
