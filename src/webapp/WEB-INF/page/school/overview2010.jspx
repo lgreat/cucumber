@@ -156,7 +156,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div id="overviewColumn1">
 
     <!-- overall school rating box -->
-    <div id="overallRating">
+    <div id="overallRating" class="hreview-aggregate">
 
         <c:if test="${not empty gs_rating}">
             <p class="text3">GreatSchools Rating</p>
@@ -179,7 +179,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <link:schoolProfileParentReview school="${school}">
-            <span class="sprite stars_lg_b_${overallRating}"><!-- do not collapse --></span>
+            <span class="sprite stars_lg_b_${overallRating} stars_${overallRating}" title="${overallRating} star rating"><!-- do not collapse --></span>
         </link:schoolProfileParentReview>
 
         <div class="spacer_5"><!-- do not collapse --></div>
@@ -187,7 +187,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <c:choose>
             <c:when test="${fn:length(reviews) gt 0}">
                 <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                    Read all ${fn:length(reviews)} reviews
+                    Read all <span class="count">${fn:length(reviews)}</span> reviews
                 </link:schoolProfileParentReview>
 
                 <div class="spacer_5"><!-- do not collapse --></div>

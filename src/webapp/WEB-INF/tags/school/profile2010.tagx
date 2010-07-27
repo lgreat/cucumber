@@ -167,7 +167,7 @@
                     </c:if>
                 </div>
             </c:if>
-            <div id="schoolInfoRightColumn adr" class="text3">
+            <div id="schoolInfoRightColumn" class="text3 adr">
                     <p class="street-address">${school.physicalAddress.street}</p>
                     <p>
                         <span class="locality">${school.physicalAddress.city}</span>,
