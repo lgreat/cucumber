@@ -61,7 +61,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             <h3>
                 <c:choose>
                     <c:when test="${not empty schoolName}">
-                        Is ${schoolName} Right for Your Child?
+                        Is ${schoolName} right for your child?
                     </c:when>
                     <c:otherwise>
                         Choose the Right School
@@ -79,7 +79,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 
             <div class="form_panel col">
                 <p class="blurb text3">
-                    Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
+                    Use our step-by-step guide to nail down what you want in a school and make the most of your visit.
                 </p>
 
                 <jsp:scriptlet>
@@ -476,7 +476,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <c:choose>
                     <c:when test="${not empty schoolName}">
                         <h5 class="subhead2">
-                            Is ${schoolName} Right for Your Child?
+                            Is ${schoolName} right for your child?
                         </h5>
                     </c:when>
                     <c:otherwise>
@@ -676,7 +676,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
         <c:choose>
             <c:when test="${not empty schoolName}">
                 <h5 class="subhead2">
-                    Is ${schoolName} Right for Your Child?
+                    Is ${schoolName} right for your child?
                 </h5>
             </c:when>
             <c:otherwise>
