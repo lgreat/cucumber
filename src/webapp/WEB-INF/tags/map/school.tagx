@@ -9,245 +9,281 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 <jsp:directive.tag body-content="empty"
-                   description="Draw a map of a school with nearby schools marked and extra info in a bubble." />
+                   description="Draw a map of a school with nearby schools marked and extra info in a bubble."/>
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
-<jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is centered on"/>
+<jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
+                         description="The school this map is centered on"/>
 <jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
-<jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
-<jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom to start with, defaults to 9"/>
-<jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom to start with, defaults to 12"/>
+<jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?"/>
+<jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer"
+                         description="Minimum google zoom to start with, defaults to 9"/>
+<jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer"
+                         description="Maximum google zoom to start with, defaults to 12"/>
+<jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
+    <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="org.apache.commons.logging.LogFactory"/>
+    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.tag import="org.springframework.web.context.support.WebApplicationContextUtils"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
-<map:setup/>
-<pageHelper:addOnLoadHandler handler="doMapSchools()"/>
+    <jsp:scriptlet>
+            ApplicationContext ac =
+                    WebApplicationContextUtils.getWebApplicationContext(application);
+            ICobrandDao dao = (ICobrandDao) ac.getBean(ICobrandDao.BEAN_ID);
+            String serverName = request.getServerName();
 
-<script type="text/javascript">
-<![CDATA[
-<!--
-]]>
+            // GS-6354 remove typo-ed trailing dot from server name before looking up
+            if (serverName.endsWith(".")) {
+                SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+                serverName = StringUtils.chomp(serverName, ".");
+                // http://cpickslay.office.greatschools.org./city/Alameda/CA?cpn=123
+                String uri = "http://" + serverName + context.getOriginalRequestURI();
+                if (StringUtils.isNotEmpty(request.getQueryString())) {
+                    uri = uri + "?" + request.getQueryString();
+                }
+                response.sendRedirect(uri);
+            }
 
-function extendBoundsToCenterOnPoint(point, bounds) {
-  bounds.extend(reflectPoint(point, bounds.getNorthEast()));
-  bounds.extend(reflectPoint(point, bounds.getSouthWest()));
-}
+            Cobrand c = dao.getCobrandByHostname(serverName);
+            if (c == null) {
+                LogFactory.getLog("GoogleMappingApi").error("Unable to find key for server name " +
+                        serverName);
+            } else {
+                request.setAttribute("key", c.getGoogleMapsKey());
+            }
+    </jsp:scriptlet>
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;key=${requestScope.key}"/>
 
-// Given points x (outlier) and y (center), returns point z such that the rectangle defined by
-// x and z has its center at y. Returns a GLatLng object
-function reflectPoint(centerPoint, outlierPoint) {
-  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
-                     centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
-}
 
-var minZoom = ${not empty minZoom?minZoom:6};
-var maxZoom = ${not empty maxZoom?maxZoom:13};
-var displayTooltips = ${not empty tooltips};
-var schoolArray = new Array();
-var centerSchool = new Object();
-centerSchool.name = "${school.name}";
-centerSchool.street = "${school.physicalAddress.street}";
-centerSchool.city = "${school.physicalAddress.city}";
-centerSchool.state = "${school.physicalAddress.state.abbreviation}";
-centerSchool.zip = "${school.physicalAddress.zip}";
-centerSchool.phone = '<c:if test="${not empty school.phone}">${school.phone}</c:if>';
-centerSchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
-centerSchool.location = new GLatLng(${school.lat}, ${school.lon});
+    <script type="text/javascript">
+    GS.GSMapHelper = function(id, centerLatitude, centerLongitude) {
 
-centerSchool.ratingHtml = '';
-<c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
-    var schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+        var self = this;
+        var map = null;
+        var infoWindowTemplate = jQuery('#schoolInfoWindow');
+        var minZoom = 9;
+        var maxZoom = 12;
+        var markers = {};
+        var infoWindow = new google.maps.InfoWindow();
 
-    centerSchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
-                       schoolRatingImg +
-                       '</link:schoolProfileRating></div>';
-</c:if>
-centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
-<c:set var="parent_rating" value="0"/>
-<c:if test="${parent_ratings.displayOverallRating eq true}">
-    <c:set var="parent_rating" value="${parent_ratings.overall}"/>
-</c:if>
+        this.setup = function() {
+            var center = new google.maps.LatLng(centerLatitude, centerLongitude);
+            var mapOptions = {
+                zoom: 15,
+                center: center,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-<c:choose>
-    <c:when test="${parent_rating eq 0}">
-        <c:set var="parent_rating_title" value="Be the first to rate!"/>
-        centerSchool.parentRatingHtml += '<link:schoolProfileParentReview
-                school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
-    </c:when>
-    <c:otherwise>
-        <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
-        centerSchool.parentRatingHtml += '<link:schoolProfileParentReview school="${school}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="${parent_rating_title}"/></link:schoolProfileParentReview>';
-    </c:otherwise>
-</c:choose>
-centerSchool.parentRatingHtml += '</div>';
-
-function initSchoolInfo() {
-    var mySchool;
-    var schoolRatingImg;
-<c:forEach var="nearbySchool" items="${schools}">
-  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>   
-  <c:if test="${not empty curSchool.lon}">
-    mySchool = new Object();
-
-    mySchool.id = "${curSchool.id}";
-    mySchool.databaseState = "${curSchool.databaseState}";
-    mySchool.rating = "${nearbySchool.rating}";
-    mySchool.name = "${curSchool.name}";
-    mySchool.street = "${curSchool.physicalAddress.street}";
-    mySchool.city = "${curSchool.physicalAddress.city}";
-    mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";
-    mySchool.zip = "${curSchool.physicalAddress.zip}";
-    mySchool.phone = '<c:if test="${not empty curSchool.phone}">${curSchool.phone}</c:if>';
-    mySchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
-
-    mySchool.ratingHtml = '';
-    <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
-        schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-
-        mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
-                           schoolRatingImg +
-                           '</link:schoolProfileRating></div>';
-    </c:if>
-    mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
-    <c:set var="parent_rating" value="0"/>
-    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
-        <c:set var="parent_rating" value="${nearbySchool.parentRatings.overall}"/>
-    </c:if>
-    <c:choose>
-        <c:when test="${parent_rating eq 0}">
-            <c:set var="parent_rating_title" value="Be the first to rate!"/>
-            mySchool.parentRatingHtml += '<link:schoolProfileParentReview school="${curSchool}"
-                                title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
-        </c:when>
-        <c:otherwise>
-            <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
-            mySchool.parentRatingHtml += '<link:schoolProfileParentReview school="${curSchool}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/></link:schoolProfileParentReview>';
-        </c:otherwise>
-    </c:choose>
-    mySchool.parentRatingHtml += '</div>';
-
-    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
-    mySchool.gPoint = new GPoint(${curSchool.lat},${curSchool.lon});
-    schoolArray.push(mySchool);
-  </c:if>
-</c:forEach>
-}
-
-<![CDATA[
-function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" id="schoolInfoWindow-' + school.databaseState + school.id + '" style="font: 12px/15px Trebuchet MS, sans-serif;">';
-    rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
-    rval += '<div style="height: 28px; width: 150px;">';
-    rval += school.ratingHtml;
-    rval += school.parentRatingHtml;
-    rval += '</div>';
-    rval += '<address style="width: 210px; clear: left; margin-top: 10px; _margin-top: 5px;">';
-    rval += school.street + '<br />';
-    rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
-    rval += '</address>';
-    rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
-            encodeURIComponent(school.address) +
-            '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions &gt;</a>';
-    if (school.phone == '') {
-        rval += '<br/><br/>';
-    } else {
-        rval += '<p class="schoolPhone">' + school.phone + '</p>';
-    }
-    rval += '</div>'; // schoolInfoWindow
-
-    return rval;
-}
-]]>
-
-function initMap() {
-    var i = 0;
-    var tooltip = null;
-    var map = new GMap2(document.getElementById("${id}"));
-    var marker;
-
-    map.addControl(new GLargeMapControl());
-    map.addControl(new GScaleControl());
-    map.setCenter(centerSchool.location, 17);
-    var bounds = new GLatLngBounds();
-    bounds.extend(centerSchool.location);
-    <![CDATA[
-    for (var counter=0; counter < schoolArray.length; counter++) {
-      var curSchool = schoolArray[counter];
-      if (displayTooltips) {
-        tooltip = curSchool.name;
-      } else {
-        tooltip = null;
-      }
-
-        var pushpinIcon = new GIcon();
-        if (curSchool.rating != '') {
-            pushpinIcon.image = '/res/img/map/GS_gsr_' + curSchool.rating + '_forground.png';  //     >_<
-            pushpinIcon.transparent = '/res/img/map/GS_gsr_' + curSchool.rating + '_forground_trans.png';
-            pushpinIcon.shadow = '/res/img/map/GS_gsr_1_backgroundshadow.png';
-        } else {
-            pushpinIcon.image = '/res/img/map/GS_gsr_na_forground.png';
-            pushpinIcon.transparent = '/res/img/map/GS_gsr_na_forground_trans.png';
-            pushpinIcon.shadow = '/res/img/map/GS_gsr_1_backgroundshadow.png';
+            map = new google.maps.Map(document.getElementById(id), mapOptions);
+            //map.addControl(new GLargeMapControl());
+            //map.addControl(new GScaleControl());
+            
+            google.maps.event.addListener(map, 'click', function() {
+                infowindow.close();
+            });
+            
+            jQuery('#schoolInfoWindow').remove();
         }
-        pushpinIcon.iconSize = new GSize(40,40);
-        pushpinIcon.iconAnchor = new GPoint(11,34);
-        pushpinIcon.infoWindowAnchor = new GPoint(13,2);
-        pushpinIcon.infoShadowAnchor = new GPoint(13,2);
-        pushpinIcon.shadowSize = new GSize(39,34);
 
-      marker = new GMarker(curSchool.location, {icon:pushpinIcon, title: tooltip});
-      addBubbleListener(marker, curSchool);
-      map.addOverlay(marker);
+        this.getMap = function() {
+            return map;
+        }
 
-      bounds.extend(curSchool.location);
+        this.addMarker = function(marker, state, id) {
+            markers[state + id] = marker;
+        }
+
+        this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
+            if (id == undefined || databaseState == undefined || lat == undefined || lon == undefined) {
+                return;
+            }
+
+            var location = new google.maps.LatLng(lat,lon);
+            var marker = this.getGSRatingMarker(location, name, rating);
+            marker.infoWindowMarkup = infoWindowMarkup;
+            
+            this.addMarker(marker, databaseState, id);
+
+            google.maps.event.addListener(marker, "click", function() {
+                infoWindow.setContent(marker.infoWindowMarkup);
+                infoWindow.open(map, marker);
+                markerClickedCallback(databaseState, id);
+            });
+        }
+
+        this.showMarkerBubble = function(state, id) {
+            var marker = markers[state + id];
+            if (marker != undefined) {
+                infoWindow.setContent(marker.infoWindowMarkup);
+                infoWindow.open(map, marker);
+            }
+        }
+
+        this.getBoundsToFitMarkers = function() {
+            var bounds = null;
+            var position = null;
+
+            for (var marker in markers) {
+                position = markers[marker].getPosition();
+
+                if (bounds == null) {
+                    bounds = new google.maps.LatLngBounds(position);
+                } else {
+                    bounds.extend(position);
+                }
+            }
+            return bounds;
+        }
+
+        this.expandMapToFitMarkers = function() {
+            var bounds = this.getBoundsToFitMarkers();
+            map.fitBounds(bounds);
+        }
+
+        this.drawMarkers = function() {
+            for (var marker in markers) {
+                markers[marker].setMap(map);
+            }
+        }
+
+        this.removeMarker = function(state, id) {
+            delete markers[state + id];
+        }
+
+        this.createPrivateSchoolMarker = function(position, tooltip) {
+                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_private_forground.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+
+            var marker = new google.maps.Marker({
+                position: position,
+                title: tooltip,
+                icon: icon,
+                shadow: shadow
+            });
+
+            return marker;
+        }
+
+        this.createPreschoolMarker = function(position, tooltip) {
+                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_preschool_forground.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+
+            var marker = new google.maps.Marker({
+                position: position,
+                title: tooltip,
+                icon: icon,
+                shadow: shadow
+            });
+
+            return marker;
+        }
+
+        this.getGSRatingMarker = function(position, tooltip, rating) {
+
+            if (rating != '') {
+                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_' + rating + '_forground.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                //pushpinIcon.transparent = '/res/img/map/GS_gsr_' + rating + '_forground_trans.png';
+            } else {
+                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_na_forground.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                        new google.maps.Size(40,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34));
+                //pushpinIcon.transparent = '/res/img/map/GS_gsr_na_forground_trans.png';
+            }
+
+            var marker = new google.maps.Marker({
+                position: position,
+                title: tooltip,
+                icon: icon,
+                shadow: shadow
+            });
+
+            //pushpinIcon.iconAnchor = new GPoint(11, 34);
+            //pushpinIcon.infoWindowAnchor = new GPoint(13, 2);
+            //pushpinIcon.infoShadowAnchor = new GPoint(13, 2);
+            //pushpinIcon.shadowSize = new GSize(39, 34);
+            return marker;
+        }
+
+        //var displayTooltips = ${not empty tooltips};
+
+        function doMapSchools() {
+            if (GBrowserIsCompatible()) {
+                initSchoolInfo();
+                initMap();
+            }
+        }
+
     }
+
+    var markerClickedCallback = function(state, id) {
+        jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
+            jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
+        });
+        jQuery('#nearby-schools-' + state + id).addClass('bg-color-f4fafd');
+    }
+
+    </script>
+
+
+    <script type="text/javascript">
+    <![CDATA[
+    <!--
     ]]>
+        <c:set var="infoWindowMarkup">
+            <map:schoolBubble school="${school}" greatSchoolsRating="${gs_rating}" parentRating="${parent_rating}" />
+        </c:set>
 
-    var arrowIcon = new GIcon();
-    arrowIcon.image = "/res/img/map/green_arrow.png";
-    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
-    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
-    arrowIcon.iconSize = new GSize(39,34);
-    arrowIcon.iconAnchor = new GPoint(11,34);
-    arrowIcon.infoWindowAnchor = new GPoint(13,2);
-    arrowIcon.infoShadowAnchor = new GPoint(13,2);
-    arrowIcon.shadowSize = new GSize(39,34);
+        jQuery(function(){
+            mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}');
+            mapHelper.setup();
 
-    if (displayTooltips) {
-      tooltip = centerSchool.name;
-    } else {
-      tooltip = null;
-    }
-    marker = new GMarker(centerSchool.location, {icon:arrowIcon, title: tooltip});
-    addBubbleListener(marker, centerSchool);
-    map.addOverlay(marker);
-    extendBoundsToCenterOnPoint(centerSchool.location, bounds);
 
-    var zoom = map.getBoundsZoomLevel(bounds);
-    if (zoom > maxZoom) zoom = maxZoom;
-    if (minZoom > zoom) zoom = minZoom;
-    map.setZoom(zoom);
-}
+                mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','adfsfs','${school.lat}','${school.lon}',9, '${(infoWindowMarkup)}', markerClickedCallback);
 
-function addBubbleListener(marker, school) {
-  GEvent.addListener(marker, "click", function() {
-      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
+            <c:forEach var ="nearbySchool" items = "${schools}">
+                <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+                <c:set var="infoWindowMarkup">
+                    <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.rating}" />
+                </c:set>
 
-      jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
-          jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
-      });
-      jQuery('#nearby-schools-' + school.databaseState + school.id ).addClass('bg-color-f4fafd');
-  });
+                mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','adfsfs','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback);
 
-  jQuery('#nearby-schools-link-'+school.databaseState + school.id).mouseover(function() {
-      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
-  });
-}
+                jQuery('#nearby-schools-link-' + '${curSchool.databaseState}' + '${curSchool.id}').mouseover(function() {
+                    mapHelper.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
+                });
+            </c:forEach>
+            google.maps.event.addListenerOnce(mapHelper.getMap(), 'tilesloaded', function() {
+                mapHelper.drawMarkers();
+                mapHelper.expandMapToFitMarkers();
+            });
 
-function doMapSchools() {
-  if (GBrowserIsCompatible()) {
-      initSchoolInfo();
-      initMap();
-  }
-}
--->
-</script>
+        });
+    -->
+    </script>
 
 </jsp:root>

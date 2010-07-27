@@ -362,6 +362,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
     <!-- begin nearby schools list -->
+    <c:set var="pageSize" value="5"/>
     <c:if test="${not empty mapSchools}">
         <c:choose>
             <c:when test="${school.levelCode ne 'p'}">
@@ -427,8 +428,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             </link:schoolProfileParentReview>
                         </td>
                     </tr>
-                    <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                        <tr id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
+                    <c:set var="nearbySchoolClass" value="nearby-school" />
+                    <c:set var="count" value="0"/>
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="24">
+                        <c:set var="count" value="${count+1}"/>
+                        <c:if test="${count gt pageSize}">
+                            <c:set var="nearbySchoolClass" value="nearby-school hidden" />
+                        </c:if>
+                        <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
                             <td align="center">
                                 <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
                                        type="checkbox"/><br/>
@@ -527,8 +534,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             </link:schoolProfileParentReview>
                         </td>
                     </tr>
-                    <c:forEach items="${mapSchools}" var="s" begin="0" end="4">
-                        <tr id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
+                    <c:set var="nearbySchoolClass" value="nearby-school" />
+                    <c:set var="count" value="0"/>
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="24">
+                        <c:set var="count" value="${count+1}"/>
+                        <c:if test="${count gt pageSize}">
+                            <c:set var="nearbySchoolClass" value="nearby-school hidden" />
+                        </c:if>
+                        <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
                             <td><!-- do not collapse --></td>
                             <td>
                                 <p class="text2bold nearby-schools-link"
@@ -559,9 +572,18 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </c:otherwise>
         </c:choose>
 
+        <c:forEach begin="0" end="${fn:length(mapSchools)}" step="5" var="i">
+            <span style="border:1px solid black;padding:2px;" class="pager-tab" onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i}, ${pageSize})">
+                <fmt:formatNumber value="${i/5+1}" maxFractionDigits="0"/>
+            </span>
+        </c:forEach>
 
-
-        <!-- TODO: paging -->
+        <script type="text/javascript">
+            function flipPage(id, pageItemClass, start, count) {
+                jQuery('#' + id).find('.' + pageItemClass).addClass("hidden");
+                jQuery('#' + id).find('.' + pageItemClass).slice(start, start+count).removeClass("hidden");
+            }
+        </script>
 
     </c:if>
     <!-- end nearby schools list-->
