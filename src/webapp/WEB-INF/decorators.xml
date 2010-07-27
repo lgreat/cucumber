@@ -14,9 +14,7 @@
     <!--!!!!!DEPReCATED!!!!!...try to use brandPopupDecorator-->
     
     <decorator name="brandPopupDecorator" page="brandPopupDecorator.jspx">
-        <pattern>/api/docs/terms.page*</pattern>        
-        <pattern>/school/addComments.page*</pattern>
-        <pattern>/school/updateRatings.page*</pattern>
+        <pattern>/api/docs/terms.page*</pattern>
         <pattern>/school/thankYouHover.page*</pattern>        
         <pattern>/school/aboutPublicCharter.page*</pattern>
         <pattern>/community/registration/popup/*</pattern>

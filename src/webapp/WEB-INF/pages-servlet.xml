@@ -161,8 +161,8 @@
         <property name="urlMap">
             <map>
                 <entry key="/school/parentReviews.page" value="parentReviews"/>
-                <entry key="/school/addComments.page" value="addParentReviews"/>
-                <entry key="/school/updateRatings.page" value="updateRatings"/>
+                <entry key="/school/addComments.page" value="parentReviews"/>
+                <entry key="/school/updateRatings.page" value="parentReviews"/>
                 <entry key="/survey/form.page" value="surveyController"/>
                 <entry key="/survey/results.page" value="surveyResultsController"/>
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
