@@ -16,11 +16,7 @@
     <jsp:directive.attribute name="reporterId" required="true" type="java.lang.Integer"
                              description="ID of user reporting the content"/>
 
-    <!-- pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/ -->
     <pageHelper:externalCss file="/res/css/content/db_reportIt_hoverPage.css"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js"/>
-    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
 
     <script type="text/javascript">
         GS.reportContent_idOfOpeningElement = '';
@@ -37,9 +33,6 @@
             jQuery('#reportHoverIntroContentType').html(contentTypeNormalized);
             jQuery('#reportHoverHeader').html(contentTypeNormalized);
         }
-        omnitureEventNotifier.pageName="Report Item Hover";
-        omnitureEventNotifier.heirarchy="Community,Actions,Report Item Hover";
-        omnitureEventNotifier.server="${requestScope.context.hostName}";
 
         jQuery(function() {
             jQuery('${pageScope.openingElementSelector}').click(function() {
@@ -67,7 +60,10 @@
                     jQuery('#reportItDialog').dialog('open');
                     jQuery('#reportReason').focus();
 
-                    omnitureEventNotifier.send(); // trigger pageview
+                     pageTracking.clear();
+                     pageTracking.pageName = "Report Item Hover";
+                     pageTracking.hierarchy = "Community,Actions,Report Item Hover";
+                     pageTracking.send();
                  }
                  return false;
             });
