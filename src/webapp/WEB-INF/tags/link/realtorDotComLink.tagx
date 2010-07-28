@@ -5,17 +5,22 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="customLinkSuffix" required="false" type="java.lang.String"/>
 
     <jsp:scriptlet>
         SessionContext context = SessionContextUtil.getSessionContext(request);
-        request.setAttribute("isFramed",Boolean.valueOf(context.isFramed()));
-        request.setAttribute("isCobranded",Boolean.valueOf(context.isCobranded()));
+        request.setAttribute("isFramed", context.isFramed());
+        request.setAttribute("isCobranded", context.isCobranded());
     </jsp:scriptlet>
 
     <c:if test="${not isFramed or not isCobranded}">
+        <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelink"/>
+        <c:if test="${not empty customLinkSuffix}">
+            <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_${customLinkSuffix}"/>
+        </c:if>
         <c:set var="onclick" value=""/>
         <c:if test="${not empty requestScope.omniturePageName}">
-            <c:set var="onclick">if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_inlinelink');} return true;</c:set>
+            <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
 
         <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">

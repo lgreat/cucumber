@@ -135,7 +135,7 @@
                         onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</a>
             </li>
             <li>
-                <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+                <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
             </li>
             </ul>
         </div>
