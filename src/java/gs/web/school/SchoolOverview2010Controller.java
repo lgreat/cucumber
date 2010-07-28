@@ -112,7 +112,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
              */
             //TODO: use findNearbySchoolsWithRatings but add distance field to SchoolWithRatings...and/or write new map tagx
             //List<SchoolWithRatings> nearbySchools = getSchoolDao().findNearbySchoolsWithRatings(school.getDatabaseState(), school.getLat(), school.getLon(), 50f, 25, null);
-            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 25);
+            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 20);
             request.setAttribute("mapSchools", getRatingsForNearbySchools(nearbySchools));
             //request.setAttribute("mapSchools", nearbySchools);
 
