@@ -31,7 +31,7 @@
 
 <div id="schoolProfileGS" class="${(tab eq 'overview')? 'overview' : ''}">
 
-    <div id="schoolProfileHeaderGS vcard" class="clearfix">
+    <div id="schoolProfileHeaderGS" class="clearfix vcard">
         <div id="schoolHeaderInfoLeft" class="col">
         <div id="breadcrumbs">
             <ul class="utility-navigation-999">
