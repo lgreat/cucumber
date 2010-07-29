@@ -65,76 +65,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
      ]]>
         <!-- TODO: Move into global css -->
     <style type="text/css">
-            /*#overviewColumn1 {
-                width: 158px;
-                float: left;
-            }*/
-
-            /*#overviewColumn2 {
-                width: 400px;
-                float: left;
-                margin-left: 15px;
-            }*/
-
-        /*#bestKnownFor {
-            font-size: 16px;
-            text-align: center;
-            width: 400px;
-        }
-
-        #bestKnownFor a {
-            font-size: 12px;
-        }*/
-
         #espLink {
             background: #FAEACF url('/res/img/school/parentReviews/bluePencil.png') 5px 50% no-repeat;
             padding: 9px 44px 9px 29px;
             margin: 15px 15px 5px 0;
         }
-
-            /*#overallRating {
-                display: block;
-                background-color: #F4FAFD;
-                width: 158px;
-                border: 1px solid #A2D0E4;
-                height: 283px;
-                text-align: center;
-                font-size: 12px;
-            }
-
-            #overallRating p, #overallRating img, #overallRating a, #overallRating button {
-                padding-bottom: 6px;
-                display: block;
-            }*/
-
-            /*#map {
-                height: 277px;
-            }*/
-
-        /*#js-esp-info-popup {
-            position: absolute;
-            left: 600px;
-            top: 10px;
-            font-size: 12px;
-            background: #FFF;
-            border: 1px solid #999;
-            padding: 4px;
-            width: 300px;
-            z-index: 9999999;
-        }*/
-
-            /*#nearby-schools-table {
-                font-size: 11px;
-            }*/
-
-            /*#submit-review-link-box {
-                background: #FAEACF;
-                padding: 5px;
-            }*/
-
-            /*#nearby-schools-table td {
-                padding: 5px;
-            }*/
     </style>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
@@ -362,7 +297,55 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
     <!-- begin nearby schools list -->
-    <c:set var="pageSize" value="5"/>
+<c:set var="TOTAL_SCHOOL_LIMIT" value="20"/>
+<c:set var="ROWS_PER_PAGE_LIMIT" value="4"/>
+<c:set var="PAGE_LIMIT" value="5"/>
+
+<c:set var="numberOfSchools" value="${fn:length(mapSchools)}"/>
+<c:set var="stragglers" value="${numberOfSchools % ROWS_PER_PAGE_LIMIT}"/>
+<c:choose>
+    <c:when test="${stragglers ne 0}">
+        <c:set var="blankRows" value="${ROWS_PER_PAGE_LIMIT - stragglers}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="blankRows" value="0"/>
+    </c:otherwise>
+</c:choose>
+<c:choose>
+    <c:when test="${numberOfSchools lt TOTAL_SCHOOL_LIMIT}">
+        <c:set var="totalSchoolRows" value="${numberOfSchools}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="totalSchoolRows" value="${TOTAL_SCHOOL_LIMIT}"/>
+    </c:otherwise>
+</c:choose>
+<c:choose>
+    <c:when test="${numberOfSchools lt TOTAL_SCHOOL_LIMIT}">
+        <c:set var="totalRows" value="${totalSchoolRows + blankRows}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="totalRows" value="${TOTAL_SCHOOL_LIMIT}"/>
+    </c:otherwise>
+</c:choose>
+<c:set var="pages"><fmt:formatNumber value="${totalRows / ROWS_PER_PAGE_LIMIT}" maxFractionDigits="0"/></c:set>
+<c:choose>
+    <c:when test="${pages lt PAGE_LIMIT}">
+        <c:set var="totalPages" value="${pages}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="totalPages" value="${PAGE_LIMIT}"/>
+    </c:otherwise>
+</c:choose>
+
+    <c:set var="pageSize" value="4"/>
+
+    <!--<p>numberOfSchools: <c:out value="${numberOfSchools}" default="not set."/></p>
+    <p>stragglers: <c:out value="${stragglers}" default="not set."/></p>
+    <p>blankRows: <c:out value="${blankRows}" default="not set."/></p>
+    <p>totalSchoolRows: <c:out value="${totalSchoolRows}" default="not set."/></p>
+    <p>totalRows: <c:out value="${totalRows}" default="not set."/></p>
+    <p>totalPages: <c:out value="${totalPages}" default="not set."/></p>-->
+
     <c:if test="${not empty mapSchools}">
         <c:choose>
             <c:when test="${school.levelCode ne 'p'}">
@@ -393,19 +376,19 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     </colgroup>
                     <tbody>
                     <tr>
-                        <td class="bg-color-f9eccd" align="center">
+                        <td class="bg-color-f9eccd brdbtm_dotted" align="center">
                             <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                    type="checkbox"/><br/>
                             <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                         </td>
-                        <td class="bg-color-f9eccd">
+                        <td class="bg-color-f9eccd brdbtm_dotted">
                             <p class="text2bold"><link:schoolProfileOverview school="${school}">
                                 ${school.name}
                             </link:schoolProfileOverview></p>
 
                             <p class="text3"><!-- not empty --></p>
                         </td>
-                        <td class="bg-color-f9eccd" align="left">
+                        <td class="bg-color-f9eccd brdbtm_dotted" align="left">
                             <c:choose>
                                 <c:when test="${not empty gs_rating and gs_rating gt 0}">
                                     <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
@@ -415,7 +398,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td class="bg-color-f9eccd" align="center">
+                        <td class="bg-color-f9eccd brdbtm_dotted" align="center">
                             <link:schoolProfileParentReview school="${school}">
                                 <c:choose>
                                     <c:when test="${not empty ratings.overall}">
@@ -430,19 +413,19 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     </tr>
                     <c:set var="nearbySchoolClass" value="nearby-school" />
                     <c:set var="count" value="0"/>
-                    <c:forEach items="${mapSchools}" var="s" begin="0" end="24">
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="${totalSchoolRows - 1}">
                         <c:set var="count" value="${count+1}"/>
-                        <c:if test="${count gt pageSize}">
+                        <c:if test="${count gt ROWS_PER_PAGE_LIMIT}">
                             <c:set var="nearbySchoolClass" value="nearby-school hidden" />
                         </c:if>
                         <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                            <td align="center">
+                            <td class="brdbtm_dotted" align="center">
                                 <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
                                        type="checkbox"/><br/>
                                 <label for="${s.neighbor.databaseState}${s.neighbor.id}"
                                        class="smallText2">COMPARE</label>
                             </td>
-                            <td>
+                            <td class="brdbtm_dotted">
                                 <p class="text2bold nearby-schools-link"
                                    id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                                     <link:schoolProfileOverview school="${s.neighbor}">
@@ -452,7 +435,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                 <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                                                                    value="${s.distance}"/> miles</p>
                             </td>
-                            <td align="left">
+                            <td class="brdbtm_dotted" align="left">
                                 <c:choose>
                                     <c:when test="${not empty s.rating and s.rating gt 0}">
                                         <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
@@ -462,7 +445,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td align="center">
+                            <td class="brdbtm_dotted" align="center">
                                 <link:schoolProfileParentReview school="${school}">
                                     <c:choose>
                                         <c:when test="${not empty s.parentRatings.overall}">
@@ -476,14 +459,33 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             </td>
                         </tr>
                     </c:forEach>
+                    <c:choose>
+                        <c:when test="${totalPages gt 1}">
+                            <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="nearbySchoolClass" value="nearby-school"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${blankRows gt 0}">
+                        <c:forEach begin="0" end="${blankRows - 1}">
+                            <tr class="${nearbySchoolClass}">
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                     </tbody>
                 </table>
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-                <div id="submitCompare">
+                <div id="submitCompare" class="fltlft">
                     <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn"
                             disabled="disabled">
                         <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                        <br class="clearfloat"/>
                     </button>
                     <span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
                 </div>
@@ -513,15 +515,15 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     </colgroup>
                     <tbody>
                     <tr>
-                        <td class="bg-color-f9eccd"><!-- do not collapse --></td>
-                        <td class="bg-color-f9eccd">
+                        <td class="bg-color-f9eccd brdbtm_dotted"><!-- do not collapse --></td>
+                        <td class="bg-color-f9eccd brdbtm_dotted">
                             <p class="text2bold"><link:schoolProfileOverview school="${school}">
                                 ${school.name}
                             </link:schoolProfileOverview></p>
 
                             <p class="text3"><!-- not empty --></p>
                         </td>
-                        <td class="bg-color-f9eccd" align="center">
+                        <td class="bg-color-f9eccd brdbtm_dotted" align="center">
                             <link:schoolProfileParentReview school="${school}">
                                 <c:choose>
                                     <c:when test="${not empty ratings.overall}">
@@ -536,14 +538,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     </tr>
                     <c:set var="nearbySchoolClass" value="nearby-school" />
                     <c:set var="count" value="0"/>
-                    <c:forEach items="${mapSchools}" var="s" begin="0" end="24">
+                    <c:forEach items="${mapSchools}" var="s" begin="0" end="${totalSchoolRows - 1}">
                         <c:set var="count" value="${count+1}"/>
-                        <c:if test="${count gt pageSize}">
+                        <c:if test="${count gt ROWS_PER_PAGE_LIMIT}">
                             <c:set var="nearbySchoolClass" value="nearby-school hidden" />
                         </c:if>
                         <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                            <td><!-- do not collapse --></td>
-                            <td>
+                            <td class="brdbtm_dotted"><!-- do not collapse --></td>
+                            <td class="brdbtm_dotted">
                                 <p class="text2bold nearby-schools-link"
                                    id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                                     <link:schoolProfileOverview school="${s.neighbor}">
@@ -553,7 +555,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                                 <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                                                                    value="${s.distance}"/> miles</p>
                             </td>
-                            <td align="center">
+                            <td class="brdbtm_dotted" align="center">
                                 <link:schoolProfileParentReview school="${school}">
                                     <c:choose>
                                         <c:when test="${not empty s.parentRatings.overall}">
@@ -567,22 +569,89 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                             </td>
                         </tr>
                     </c:forEach>
+                    <c:choose>
+                        <c:when test="${totalPages gt 1}">
+                            <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="nearbySchoolClass" value="nearby-school"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${blankRows gt 0}">
+                        <c:forEach begin="0" end="${blankRows - 1}">
+                            <tr class="${nearbySchoolClass}">
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                     </tbody>
                 </table>
             </c:otherwise>
         </c:choose>
 
-        <c:forEach begin="0" end="${fn:length(mapSchools)}" step="5" var="i">
-            <span style="border:1px solid black;padding:2px;" class="pager-tab" onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i}, ${pageSize})">
-                <fmt:formatNumber value="${i/5+1}" maxFractionDigits="0"/>
-            </span>
-        </c:forEach>
+        <div class="pagination">
+            <c:if test="${totalPages gt 1}">
+                <c:forEach begin="0" end="${totalRows - 1}" step="${ROWS_PER_PAGE_LIMIT}" var="i" varStatus="status">
+                    <c:if test="${status.first}">
+                        <span class="pager-tab active"
+                              onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i})">
+                            <fmt:formatNumber value="${i/ROWS_PER_PAGE_LIMIT+1}" maxFractionDigits="0"/>
+                        </span>
+                    </c:if>
+                    <c:if test="${not status.first}">
+                        <span class="pager-tab"
+                              onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i})">
+                            <fmt:formatNumber value="${i/ROWS_PER_PAGE_LIMIT+1}" maxFractionDigits="0"/>
+                        </span>
+                    </c:if>
+                </c:forEach>
+
+                <span class="prv_nxt">Next &amp;raquo;</span>
+            </c:if>
+        </div>
 
         <script type="text/javascript">
-            function flipPage(id, pageItemClass, start, count) {
+            var PAGESIZE = 4;
+            var currentStartPoint = null;
+            function flipPage(id, pageItemClass, startPoint) {
+
+                currentStartPoint = startPoint;
+//                console.log('id: '+id + ', pageItemClass: ' + pageItemClass + ', start: ' + startPoint);
                 jQuery('#' + id).find('.' + pageItemClass).addClass("hidden");
-                jQuery('#' + id).find('.' + pageItemClass).slice(start, start+count).removeClass("hidden");
+                jQuery('#' + id).find('.' + pageItemClass).slice(startPoint, startPoint + PAGESIZE).removeClass("hidden");
             }
+            jQuery(function() {
+                jQuery('.pager-tab').click(function() {
+                    jQuery('.pager-tab').removeClass('active');
+                    jQuery(this).addClass('active');
+                });
+
+                jQuery('.prv_nxt').click(function() {
+
+                    var activeIndex = null;
+                    var maxIndex = jQuery('.pager-tab').get().length;
+//                    console.log('maxIndex: '+maxIndex);
+                    jQuery('.pager-tab').each(function(index) {
+                        if(jQuery(this).hasClass('active')){
+                            activeIndex = index;
+//                            console.log('activeIndex: '+activeIndex);
+                            activeIndex++;
+                        }
+                        if(activeIndex == maxIndex){
+                            activeIndex = 0;
+                        }
+                        currentStartPoint = activeIndex * PAGESIZE;
+                    });
+
+                    jQuery('.pager-tab').removeClass('active');
+                    jQuery('.pager-tab:eq('+activeIndex+')').addClass('active');
+
+                    flipPage('nearby-schools-table-body', 'nearby-school', currentStartPoint);
+
+                });
+            });
         </script>
 
     </c:if>

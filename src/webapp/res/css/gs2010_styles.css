@@ -1222,6 +1222,10 @@ body.cobranded #pageGS {
     border-bottom: 1px solid #999;
 }
 
+.brdbtm_dotted-fff{
+    border-bottom:1px dotted #fff;
+}
+
 .brdrt_dotted {
     border-right: 1px dotted #999;
 }
@@ -2077,6 +2081,7 @@ body.ie6 .clearfix {
     font-size: 12px;
     background: #c8c8c8;
     display: inline;
+    cursor:pointer;
 }
 
 .pagination span.ellipsis {
@@ -4748,9 +4753,18 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     border-bottom:1px solid #999;
 }
 
+#nearby-schools-table-body {
+    border-collapse:separate;
+    border-spacing:0;
+    empty-cells:show;
+}
+
 #nearby-schools-table-body td{
-    padding: 10px 0;
-    border-bottom:1px dotted #999;
+    /*padding: 10px 0;*/
+}
+
+.nearby-school{
+    height:69px;
 }
 
 .bg-color-fff {
