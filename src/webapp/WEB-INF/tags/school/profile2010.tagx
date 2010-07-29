@@ -121,7 +121,7 @@
             </li>
             <li>
                 <span class="sprite rate2"><!-- do not collapse --></span>
-                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; Review</link:schoolProfileParentReview>
+                <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; review</link:schoolProfileParentReview>
             </li>
             <li>
                 <span class="sprite print2"><!-- do not collapse --></span>
