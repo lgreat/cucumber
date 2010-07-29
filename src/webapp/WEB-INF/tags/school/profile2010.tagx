@@ -107,7 +107,7 @@
             <!-- Enrollment -->
             <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
             <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'Student')}
+                | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
         </p>
 
