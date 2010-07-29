@@ -270,7 +270,7 @@
                                     <c:choose>
                                         <c:when test="${subtab eq 'testScores'}">Test Scores</c:when>
                                         <c:otherwise>
-                                            <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test scores</link:schoolProfileTestscore>
+                                            <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test Scores</link:schoolProfileTestscore>
                                         </c:otherwise>
                                     </c:choose>
                                     <span class="pipes">|</span>
