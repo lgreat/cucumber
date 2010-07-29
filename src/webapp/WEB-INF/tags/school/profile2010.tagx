@@ -42,7 +42,7 @@
                                            title="District of Columbia">District of Columbia</link:research> &amp;gt;
                         </li>
                         <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">Washington, D.C. <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
+                                       title="${city} schools">Washington, D.C. <c:choose><c:when test="${school.levelCode eq 'p'}">Preschools</c:when><c:otherwise>Schools</c:otherwise></c:choose></link:city>&amp;#160;
                         </li>
                         <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                             <li>&amp;gt; <link:districtHome district="${school.district}"
@@ -52,10 +52,10 @@
                     </c:when>
                     <c:otherwise>
                         <li><link:research state="${state}"
-                                           title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt;
+                                           title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
                         </li>
                         <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">${city} <c:if test="${school.levelCode eq 'p'}">pre</c:if>schools</link:city>&amp;#160;
+                                       title="${city} schools">${city} <c:choose><c:when test="${school.levelCode eq 'p'}">Preschools</c:when><c:otherwise>Schools</c:otherwise></c:choose></link:city>&amp;#160;
                         </li>
                         <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                             <li>&amp;gt; <link:districtHome district="${school.district}"
