@@ -18,7 +18,8 @@ function postKillOverlay() {
 }
 
 function initOverlay() {
-    if (!hasK12Cookie()) {
+    var version = swfobject.getFlashPlayerVersion();
+    if (!hasK12Cookie() && version.major >= 9) {
         var flashvars = {};
         var params = {wmode:"opaque", allowscriptaccess:"always", salign:"top", bgcolor:"#FFFFFF"};
         var attributes = {};
