@@ -28,7 +28,6 @@ public class K12OverlayHelper {
 
     final private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-    // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/16, 8/23, 8/30
     final private static Set<String> k12DateRange = new HashSet<String>();
     static {
         k12DateRange.add("2010-07-12"); // 7/12
@@ -39,13 +38,20 @@ public class K12OverlayHelper {
         k12DateRange.add("2010-07-27"); // 7/27
         k12DateRange.add("2010-08-02"); // 8/2
         k12DateRange.add("2010-08-09"); // 8/9
+        k12DateRange.add("2010-08-10"); // 8/10 *GS-10386*
+        k12DateRange.add("2010-08-11"); // 8/11 *GS-10386*
         k12DateRange.add("2010-08-16"); // 8/16
+        k12DateRange.add("2010-08-17"); // 8/17 *GS-10386*
+        k12DateRange.add("2010-08-18"); // 8/18 *GS-10386*
         k12DateRange.add("2010-08-23"); // 8/23
+        k12DateRange.add("2010-08-24"); // 8/24 *GS-10386*
+        k12DateRange.add("2010-08-25"); // 8/25 *GS-10386*
         k12DateRange.add("2010-08-30"); // 8/30
     }
 
     // The overlay should only be active on the following dates:
-    // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/16, 8/23, 8/30 (12a-11:59p PT)
+    // 7/12, 7/13, 7/19, 7/20, 7/26, 7/27, 8/2, 8/9, 8/10, 8/11,
+    // 8/16, 8/17, 8/18, 8/23, 8/24, 8/25, 8/30 (12a-11:59p PT)
     public static boolean isInK12OverlayDateRange(Date dateToCheck) {
         String dateToCheckStr = df.format(dateToCheck);
         return k12DateRange.contains(dateToCheckStr);

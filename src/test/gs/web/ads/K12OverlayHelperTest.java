@@ -26,8 +26,14 @@ public class K12OverlayHelperTest extends BaseControllerTestCase {
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-07-27")));
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-02")));
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-09")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-10")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-11")));
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-16")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-17")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-18")));
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-23")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-24")));
+        assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-25")));
         assertTrue(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-08-30")));
 
         assertFalse(K12OverlayHelper.isInK12OverlayDateRange(df.parse("2010-07-11")));
