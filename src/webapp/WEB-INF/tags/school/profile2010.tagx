@@ -268,7 +268,7 @@
                             <c:if test="${requestScope.hasTestScores}">
                                 <li id="spstab1" class="${(subtab eq 'testScores')?'active text3bold-d61':'inactive'}">
                                     <c:choose>
-                                        <c:when test="${subtab eq 'testScores'}">Test scores</c:when>
+                                        <c:when test="${subtab eq 'testScores'}">Test Scores</c:when>
                                         <c:otherwise>
                                             <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test scores</link:schoolProfileTestscore>
                                         </c:otherwise>
