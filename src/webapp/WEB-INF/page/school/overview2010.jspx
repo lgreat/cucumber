@@ -110,7 +110,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
         <div class="spacer_10"><!-- do not collapse --></div>
-        <p class="text3">Overall parent rating</p>
+        <p class="text3">Overall Parent Rating</p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <link:schoolProfileParentReview school="${school}">
