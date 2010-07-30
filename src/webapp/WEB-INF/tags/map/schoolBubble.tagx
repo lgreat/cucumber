@@ -7,43 +7,54 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
         >
 
     <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
-    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school to display within the bubble"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
+                             description="The school to display within the bubble"/>
     <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
     <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>
 
-    <div id="schoolInfoWindow" class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">
-        <div class="schoolName" style="width: 210px;">{school.name}</div>
-        <div style="height: 28px; width: 150px;">
-            <div class="schoolRating" style="float: left">
+
+    <!--
+var height = 85; // default height
+var heightMultiplier = Math.floor(school.name.length / 30);
+// add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
+// this is a guesstimate of how many chars it takes to wrap to the next line
+height += heightMultiplier * 13;-->
+
+    <div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: 85px; width: 240px;">
+
+        <link:schoolProfileOverview school="${school}" styleClass="schoolName" target="_blank"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview>
+
+        <div class="schoolRatings">
+            <div class="schoolRating"><div>GreatSchools Rating</div>
                 <link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
                     <gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
                 </link:schoolProfileRating>
             </div>
-
-            <div class="parentRating" style="float: left">
-
-                <!-- when there is NO parent rating -->
-                <link:schoolProfileParentReview school="${school}">
-                    <img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="$Be the first to rate!"
-                         onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'"
-                         onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/>
+            <div class="parentRating">
+                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                    <img src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src='/res/img/school/ratings/rateit_03.gif'" onmouseout="this.src='/res/img/school/ratings/rateit_01.gif'"/>
                 </link:schoolProfileParentReview>
-
-                <!-- when there IS a parent rating -->
-                <link:schoolProfileParentReview school="${school}">
-                    <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
-                              alt="Parent Rating: ${parentRating} out of 5 stars"/>
-                </link:schoolProfileParentReview>
-
             </div>
         </div>
+        <div class="schoolInfo">
+            <div class="typeGrade">
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
+                    <c:otherwise>${school.type}, ${school.gradeLevels}</c:otherwise>
+                </c:choose>
+            </div>
 
-        <address style="width: 210px; clear: left; margin-top: 10px; _margin-top: 5px;">${school.physicalAddress.street}<br/>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/></address>
+            <address>${school.physicalAddress.street}<br/>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/></address>
 
-        <p class="schoolPhone">${school.phone}</p>
+            <c:if test="${empty school.phone}"><br/></c:if>
+
+            <p class="schoolPhone">${school.phone}</p>
+
+        </div>
     </div>
 
 
