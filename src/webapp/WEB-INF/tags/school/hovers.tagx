@@ -32,6 +32,7 @@
     boolean surveyEligible = false;
     int cookieLife = 15 * 60 * 60 * 24; // 15 days
     int surveyHoverPct = 0;
+    boolean seenInterstitial = CookieUtil.hasCookie(request, "gs_interstitial");
     try {
         surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
     } catch (Exception e) {
@@ -70,6 +71,7 @@
     }
     request.setAttribute("showNLHover", showNLHover);
     request.setAttribute("showSurvey", showSurvey);
+    request.setAttribute("seenInterstitial", seenInterstitial);
     // End GS-7445
 
 ]]></jsp:scriptlet>
@@ -80,13 +82,15 @@
     <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
     <c:if test="${showNLHover}">
         <c:choose>
-            <c:when test="${school.type.schoolTypeName == 'private'}">
-                <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
+            <c:when test="${school.levelCode == 'p'}">
+                <c:if test="${seenInterstitial eq true}">
+                    <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
+                </c:if>
             </c:when>
             <c:otherwise>
                 <!-- to trigger MSS modal on exit -->
                 <c:choose>
-                    <c:when test="${school.levelCode == 'p'}">
+                    <c:when test="${school.type.schoolTypeName == 'private'}">
                         <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
                     </c:when>
                     <c:otherwise>

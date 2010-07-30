@@ -71,6 +71,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             margin: 15px 15px 5px 0;
         }
     </style>
+    <c:if test="${school.levelCode == 'p'}">
+        <c:if test="${requestScope.context.interstitialEnabled}">
+            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+            <pageHelper:addOnLoadHandler handler="doInterstitial('pkSchool')"/>
+        </c:if>
+    </c:if>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
