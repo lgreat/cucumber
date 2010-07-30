@@ -692,7 +692,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
 
     <div class="form_panel col">
         <p class="blurb text3">
-            Use our step-by-step guide to nail down what you want in a school and how to make the most of your visit.
+            Use our step-by-step guide to nail down what you want in a school and make the most of your visit.
         </p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
