@@ -32,13 +32,7 @@
     <title>${pageTitle} | GreatSchools</title>
     <meta name="description" content="${topicCenter.metaDescription}"/>
     <meta name="keywords" content="${topicCenter.metaKeywords}"/>
-    <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
     <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
-    <!--<pageHelper:externalCss file="/res/css/widelayout.css"/>-->
-    <!--<pageHelper:externalCss file="/res/css/content/cmsTopicCenter.css"/>-->
-    <!--<pageHelper:externalCss file="/res/css/content/db_tc_hover.css"/>-->
-    <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
-    <!--<pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>-->
 
     <c:choose>
         <c:when test="${topicCenter.healthAndDevelopmentTopicCenter}">
@@ -80,103 +74,11 @@
 
 
     <div id="mainGS" class="col">
-        <div id="featured" class="fltlft">
-            <div class="spacer_10"><!--do not collapse--></div>
-            <h1 class="fltlft">${topicCenter.title}</h1>
+    <div class="spacer_10"><!--do not collapse--></div>
+    <div><h1 class="fltlft">${topicCenter.title}</h1></div>
 
-            <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-            <div class="logoAd fltrt mrgtop_5">
-                <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
-                    <c:set var="licensorLogo">
-                        <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
-                    </c:set>
-                </c:if>
-                <c:choose>
-                    <c:when test="${not empty licensorLogo}">
-                        <!--<c:choose>-->
-                            <!--<c:when test="${not empty topicCenter.licensorUrl}">-->
-                                <!--<a href="${topicCenter.licensorUrl}" target="_blank">${licensorLogo}</a>-->
-                            <!--</c:when>-->
-                            <!--<c:otherwise>-->
-                                ${licensorLogo}
-                            <!--</c:otherwise>-->
-                        <!--</c:choose>-->
-                    </c:when>
-                    <c:otherwise>
-                        <ad:adTag position="HeaderLogo_88x33"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <!-- end logoAd -->
-
-            <div class="spacer_5"><!--do not collapse--></div>
-            <c:set var="showFeatureGroups" value="false"/>
-            <c:if test="${not empty topicCenter.featureGroups}">
-                <c:forEach var="featureGroup" items="${topicCenter.featureGroups}">
-                    <c:if test="${not empty featureGroup.mainFeatureLink and not empty featureGroup.otherFeatureLinks}">
-                        <c:set var="showFeatureGroups" value="true"/>
-                    </c:if>
-                </c:forEach>
-            </c:if>
-
-            <c:if test="${showFeatureGroups and topicCenter.elementarySchoolTopicCenter}">
-                <div id="es-gbg">
-                    <div id="es-gbgTabs">
-                        <ul>
-                            <c:forEach var="featureGroup" items="${topicCenter.featureGroups}" varStatus="status">
-                                <c:choose>
-                                    <c:when test="${status.count eq 1}">
-                                        <c:set var="gradeLevel" value="k"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="gradeLevel" value="${status.count - 1}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <li class="es-gbg-tab-${gradeLevel}"><a href="#" hideFocus="true">${featureGroup.title}</a></li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                    <!-- end gbgTabs -->
-                    <div id="es-gbgSlider">
-                        <div id="es-gbgHandle" hideFocus="true"><!-- do not collapse --></div>
-                        <span id="es-gbg-marker-k"><!-- do not collapse --></span>
-                        <span id="es-gbg-marker-1"><!-- do not collapse --></span>
-                        <span id="es-gbg-marker-2"><!-- do not collapse --></span>
-                        <span id="es-gbg-marker-3"><!-- do not collapse --></span>
-                        <span id="es-gbg-marker-4"><!-- do not collapse --></span>
-                        <span id="es-gbg-marker-5"><!-- do not collapse --></span>
-                    </div>
-                    <!-- end es-gbgSlider -->
-                </div>
-                <!-- end es-gbg -->
-            </c:if>
-
-        <!-- Features -->
-            <div id="featureContent">
-                <c:choose>
-                    <c:when test="${showFeatureGroups}">
-                        <c:forEach var="featureGroup" items="${topicCenter.featureGroups}" varStatus="status">
-                            <!--<div>${featureGroup.title}</div>-->
-                            <cms:topicCenterFeature imageUrl="${featureGroup.imageUrl}"
-                                                    imageAltText="${featureGroup.imageAltText}"
-                                                    mainFeatureLink="${featureGroup.mainFeatureLink}"
-                                                    otherFeatureLinks="${featureGroup.otherFeatureLinks}"
-                                                    wrapperClass="featureGroup_${status.count}"/>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <cms:topicCenterFeature imageUrl="${topicCenter.imageUrl}"
-                                                imageAltText="${topicCenter.imageAltText}"
-                                                mainFeatureLink="${topicCenter.mainFeatureLink}"
-                                                otherFeatureLinks="${topicCenter.otherFeatureLinks}"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-    </div>
-    <!-- end #featured -->
-    <div class="spacer_15"><!-- don't collapse --></div>
-    <gsweb:adTagGenerator position="Inline_598x50"/>
+    <div class="spacer_5"><!-- don't collapse --></div>
+    <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
     <!-- Subtopics -->
     <div id="topicContentGS" class="clearfix">
 
@@ -227,6 +129,27 @@
 
         <div id="topicMainGS" class="col">
 
+            <div id="featured">
+
+                <div id="featured-image">
+                    <a href="${topicCenter.mainFeatureLink.url}">
+                        <img src="${topicCenter.imageUrl}" width="421" height="213" alt="${topicCenter.imageAltText}"/>
+                    </a>
+                </div>
+
+                <div id="featured-copy" class="gradient-2">
+                    <c:if test="${not empty topicCenter.mainFeatureLink}">
+                        <h3 class="title2"><a
+                                href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
+
+                        <div class="spacer_10"><!--do not collapse--></div>
+                        <p class="text3">${topicCenter.mainFeatureLink.description}</p>
+                    </c:if>
+                </div>
+
+            </div>
+            <!-- end #featured -->
+<div class="spacer_10"><!--do not collapse--></div>
             <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="inlineAd">
                 <ad:adTag position="Inline_423x60"/>
@@ -259,7 +182,6 @@
             <c:set var="recentDiscussions">
                 <c:import
                         url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
-                <!--&amp;uri=${myUrl}&amp;style=fall2009-->
             </c:set>
             <c:if test="${!empty recentDiscussions}">
                 <div class="spacer_10"><!-- don't collapse --></div>
