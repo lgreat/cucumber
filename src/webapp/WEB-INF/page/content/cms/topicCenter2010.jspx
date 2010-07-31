@@ -143,7 +143,13 @@
                                 href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
 
                         <div class="spacer_10"><!--do not collapse--></div>
-                        <p class="text3">${topicCenter.mainFeatureLink.description}</p>
+                        <p class="text3">
+                            ${topicCenter.mainFeatureLink.description}
+                                <span class="smallAlertText fltrt">
+                                    <a href="${topicCenter.mainFeatureLink.url}">More <span
+                                            class="alertDoubleArrow">&amp;raquo;</span></a>
+                                </span>
+                        </p>
                     </c:if>
                 </div>
 
