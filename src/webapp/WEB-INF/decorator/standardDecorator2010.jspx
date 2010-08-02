@@ -60,7 +60,7 @@
 
     <c:choose>
         <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.163') and empty param.compressedScripts}">
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v2=$RELEASE_NUMBER"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
@@ -85,10 +85,10 @@
             <![CDATA[<script type="text/javascript" src="${swfobject}"></script>]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v2=$RELEASE_NUMBER"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
-            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v2=$RELEASE_NUMBER"/>
+            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
