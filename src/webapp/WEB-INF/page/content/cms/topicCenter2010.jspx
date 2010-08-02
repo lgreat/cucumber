@@ -267,45 +267,15 @@
                     showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
                     />
         </c:when>
-        <c:when test="${showSchoolChooserPackPromo}">
-            <promo:schoolChoicePackPromo
-                    showBorder="${false}"
-                    showSchoolChoiceLink="${false}"
-                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+        <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.kindergartenTopicCenter or topicCenter.firstGradeTopicCenter or topicCenter.secondGradeTopicCenter or topicCenter.thirdGradeTopicCenter or topicCenter.fourthGradeTopicCenter or topicCenter.fifthGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+            <school:findOrCompare
+                    isHomePage="${false}"
                     />
         </c:when>
         <c:otherwise>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:otherwise>
     </c:choose>
-
-    <!-- revert to this code after Pampers Easy Ups sponsorship of chooser pack is over -->
-    <!--
-    <c:choose>
-        <c:when test="${showSchoolChooserPackPromo}">
-            <c:choose>
-                <c:when test="${topicCenter.preschoolTopicCenter}">
-                    <promo:schoolChoicePackPromo
-                            showBorder="${false}"
-                            showSchoolChoiceLink="${false}"
-                            caller="preschool"
-                            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                            />
-                </c:when>
-                <c:otherwise>
-                    <promo:schoolChoicePackPromo
-                            showBorder="${false}"
-                            showSchoolChoiceLink="${false}"
-                            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                            />
-                </c:otherwise>
-            </c:choose>
-        </c:when>
-        <c:otherwise>
-            <ad:House_Ad_300x137 referredBy="${pageName}"/>
-        </c:otherwise>
-    </c:choose>
-    -->
 
     <div id="squareadvert">
         <ad:AboveFold_300x250/>

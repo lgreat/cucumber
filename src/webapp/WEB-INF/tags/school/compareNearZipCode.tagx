@@ -12,6 +12,9 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
+    <jsp:directive.attribute name="isHomePage" required="true"
+                             description="To display the appropriate design and copy between the homepage and grade level landing pages and K-5 topic center pages."/>
+
     <![CDATA[
 
         <script type="text/javascript" language="javascript">
@@ -55,7 +58,14 @@
         <input type="hidden" name="form" value="address" />
         <input type="hidden" name="miles" value="5" />
 
-        <h3 class="title2-333">Compare schools <span class="introTextGA">near an address:</span></h3>
+        <c:choose>
+            <c:when test="${isHomePage}">
+                <h3 class="title2-333">Compare schools <span class="introTextGA">near an address:</span></h3>
+            </c:when>
+            <c:otherwise>
+                <h3 class="title2-333">Compare schools</h3>
+            </c:otherwise>
+        </c:choose>
         <div class="spacer_10"><!--do not collapse--></div>
         <div class="levelSelector">
             <label for="level" class="text2">Show me:&amp;nbsp;</label>
