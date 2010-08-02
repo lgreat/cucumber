@@ -137,15 +137,15 @@
                     </a>
                 </div>
 
-                <div id="featured-copy" class="gradient-2">
+                <div id="featured-copy" class="gradient-2 clearfix">
                     <c:if test="${not empty topicCenter.mainFeatureLink}">
                         <h3 class="title2"><a
                                 href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
 
                         <div class="spacer_10"><!--do not collapse--></div>
-                        <p class="text3">
+                        <p class="featured-copy text3">
                             ${topicCenter.mainFeatureLink.description}
-                                <span class="smallAlertText fltrt">
+                                <span class="smallAlertText more-features">
                                     <a href="${topicCenter.mainFeatureLink.url}">More <span
                                             class="alertDoubleArrow">&amp;raquo;</span></a>
                                 </span>

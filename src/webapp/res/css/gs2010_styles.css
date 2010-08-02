@@ -1342,41 +1342,61 @@ body.ie6 .clearfix {
 
 .rnd3 {
 /* this class is used to round the corners on infinite carousel buttons */
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px; /* FF1+ */
+    -webkit-border-radius: 3px; /* Saf3+, Chrome */
+    border-radius: 3px; /* Opera 10.5, IE 9 */
 }
 
 .rnd4 {
 /* this class should be used to round the corners on 25 px height buttons */
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px; /* FF1+ */
+    -webkit-border-radius: 4px; /* Saf3+, Chrome */
+    border-radius: 4px; /* Opera 10.5, IE 9 */
 }
 
 .rnd6 {
 /* this class should be used to round the corner on 35 px height buttons */
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px; /* FF1+ */
+    -webkit-border-radius: 6px; /* Saf3+, Chrome */
+    border-radius: 6px; /* Opera 10.5, IE 9 */
 }
 
 .rnd8 {
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px; /* FF1+ */
+    -webkit-border-radius: 8px; /* Saf3+, Chrome */
+    border-radius: 8px; /* Opera 10.5, IE 9 */
 }
 
 .rnd-top-3 {
 /* for firefox and webkit browsers */
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .rnd-top-4 {
 /* for firefox and webkit browsers  */
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
     -webkit-border-top-left-radius: 4px;
     -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 /* linear gradients
@@ -1385,17 +1405,19 @@ body.ie6 .clearfix {
 .gradient-1 {
     background: #149; /* for non-css3 browsers */
 
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#276ab3', endColorstr = '#143e90'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90)); /* for webkit browsers */
-    background: -moz-linear-gradient(top, #276ab3, #143e90); /* for firefox 3.6+ */
+    background: -moz-linear-gradient(top, #276ab3, #143e90); /* FF3.6 */
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #276ab3),color-stop(1, #143e90)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')"; /* IE8 */
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#276ab3', endColorStr='#143e90'); /* IE6,IE7 */
 }
 
 .gradient-2 {
     background: #ebebeb; /* for non-css3 browsers */
 
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#ebebeb'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ebebeb)); /* for webkit browsers */
-    background: -moz-linear-gradient(top, #ffffff, #ebebeb); /* for firefox 3.6+ */
+    background: -moz-linear-gradient(top, #ffffff, #ebebeb); /* FF3.6 */
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ffffff),color-stop(1, #ebebeb)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#ebebeb')"; /* IE8 */
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', endColorStr='#ebebeb'); /* IE6,IE7 */    
 }
 
 /* =4a- home page carousel
@@ -2391,6 +2413,16 @@ body.ie6 .clearfix {
     border-left:1px solid #c6c6c6;
     border-bottom:1px solid #c6c6c6;
     border-right:1px solid #c6c6c6;
+}
+
+#featured-copy .featured-copy{
+    position:relative;
+}
+
+#featured-copy .more-features{
+    position:absolute;
+    right:0;
+    _right:15px;
 }
 
 /* =4c-2 left navigation
