@@ -79,16 +79,6 @@ function toggleFilter(levelCode, checked, searchQuery) {
 
 }
 
-// http://www.bytemycode.com/snippets/snippet/406/
-String.prototype.escapeHTML = function ()  {
-        return(
-            this.replace(/&/g,'&amp;').
-                replace(/>/g,'&gt;').
-                replace(/</g,'&lt;').
-                replace(/"/g,'&quot;')
-        );
-    };
-
 // also in customizeSchoolSearchWidget.js
 // http://stackoverflow.com/questions/237104/javascript-array-containsobj 
 Array.prototype.contains = function(obj) {
@@ -158,7 +148,7 @@ function submitSearch() {
                 return document.forms['searchForm'].submit();
             } else {
                 if (document.getElementById('searchInput') != null) {
-                    document.getElementById('noResultsSearchQuery').innerHTML = document.getElementById('searchInput').value.escapeHTML();
+                    document.getElementById('noResultsSearchQuery').innerHTML = document.getElementById('searchInput').value;
                 }
                 document.getElementById('noQuery').style.display = 'hidden';
                 document.getElementById('noResults').style.display = 'block';
