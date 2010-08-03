@@ -6291,7 +6291,7 @@ additional icons on the sprite.
 #editorialFooter .content {
     border-bottom: 1px solid #fb0;
     overflow: hidden;
-    width: 855px;
+    width: 651px;
 }
 
 #editorialFooter .content li {
@@ -7027,9 +7027,10 @@ button {
 
 .state {
     width: auto;
+    _width: 287px;
 }
 
-.ie7 .state, .ie6 .state {
+*+html .state {
     width: 287px;
 }
 

@@ -29,6 +29,7 @@ div#leftcolAd {
 table#right {
     position:relative;
     left:220px;
+    width:660px;
 }
 
 a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,
@@ -389,7 +390,7 @@ input.district {
 	font-size: 11px;
 }
 
-.state {
+.goInterstitial .state {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 	width: 102px;

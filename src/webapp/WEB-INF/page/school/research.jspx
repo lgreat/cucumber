@@ -264,7 +264,7 @@
                 <tr>
                     <td><img style="width: 199px;height: 12px;" alt=""
                              src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
-                    <td></td>
+                    <td><!-- do not collapse --></td>
                 </tr>
             </table>
         </gsweb:form>
@@ -501,7 +501,7 @@
     </tr>
 </table>
 
-<div class="blueDot"></div>
+<!--<div class="blueDot">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
 <footer:editorialFooter secondBoxColspan="2"/>
 
