@@ -23,38 +23,50 @@
     <!-- id="findASchool" is required because it's used as an anchor in a link when the city drop-down is changed -->
     <div id="findASchool" class="mod">
         <div class="mod_hd">
-            <h3>Find a School</h3>
+            <c:choose>
+                <c:when test="${levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h'or topicCenter.elementaryGradeTopicCenter}">
+                    <h3>Local Schools</h3>
+                </c:when>
+                <c:otherwise>
+                    <h3>Find a School</h3>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="mod_bd">
-            <div id="find" class="clearfix">
-                <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial"
-                            onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
-                    <input type="hidden" name="c" value="school"/>
-                    <input type="text" name="q" id="schoolSearchText" class="fltlft text2" size="21"
-                           value="Enter school, city, or district"
-                           onfocus="textSwitch(this, '', 'Enter school, city, or district');"
-                           onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
+            <c:choose>
+                <c:when test="${levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h'or topicCenter.elementaryGradeTopicCenter}"><!-- do not collapse --></c:when>
+                <c:otherwise>
+                    <div id="find" class="clearfix">
+                        <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial"
+                                    onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
+                            <input type="hidden" name="c" value="school"/>
+                            <input type="text" name="q" id="schoolSearchText" class="fltlft text2" size="21"
+                                   value="Enter school, city, or district"
+                                   onfocus="textSwitch(this, '', 'Enter school, city, or district');"
+                                   onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
 
 
-                    <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
-                                         styleId="findStateSelector"
-                                         styleClass="text2 fltlft"
-                                         noStateLabel="--"
-                                         usingLongNames="false"
-                                         state="${requestScope.context.state}"/>
+                            <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
+                                                 styleId="findStateSelector"
+                                                 styleClass="text2 fltlft"
+                                                 noStateLabel="--"
+                                                 usingLongNames="false"
+                                                 state="${requestScope.context.state}"/>
 
-                    <button class="btn25 fltlt" type="submit">
+                            <button class="btn25 fltlt" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">GO</span>
                         </span>
-                    </button>
+                            </button>
 
-                    <!-- DONE-10167-RANDALL -->
-                    <!-- Randall, please style this ad slot so that the module will look fine
-                         with the ad slot both targeted with an ad, and not targeted with an ad. -->
-                    <ad:adTag position="Sponsor_90x32"/>
-                </gsweb:form>
-            </div>
+                            <!-- DONE-10167-RANDALL -->
+                            <!-- Randall, please style this ad slot so that the module will look fine
+             with the ad slot both targeted with an ad, and not targeted with an ad. -->
+                            <ad:adTag position="Sponsor_90x32"/>
+                        </gsweb:form>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
 
 
