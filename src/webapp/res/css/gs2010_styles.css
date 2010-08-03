@@ -994,6 +994,13 @@ body.cobranded #pageGS {
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 
+/* ====== media ====== */
+.media {padding:3px 0;}
+.media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.media .img {float:left; margin-right: 10px;}
+.media .img img{display:block;}
+.media .imgExt{float:right; margin-left: 10px;}
+
 #mainWrap {
     position: relative;
     margin: 0 auto;
@@ -5468,7 +5475,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-07-20.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-08-03.png);
 }
 
 .reportIt-nbg {
@@ -5747,6 +5754,12 @@ additional icons on the sprite.
     width: 50px;
     height: 41px;
     background-position: -80px 0;
+}
+
+.i-confirm {
+    width: 24px;
+    height: 28px;
+    background-position: -80px -50px;
 }
 
 /* column 130 */
