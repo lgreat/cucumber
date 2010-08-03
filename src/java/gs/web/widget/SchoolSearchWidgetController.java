@@ -72,7 +72,9 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         }
 
         if (request.getParameter(COBRAND_HOSTNAME_PARAM) != null) {
-            command.setCobrandHostname(request.getParameter(COBRAND_HOSTNAME_PARAM));
+            String cobrandHostname = request.getParameter(COBRAND_HOSTNAME_PARAM);
+            // case-insensitive pattern modifier: http://jelaniharris.com/2009/case-insensitive-replaceall-in-java/
+            command.setCobrandHostname(cobrandHostname.replaceAll("(?i)greatschools\\.net", "greatschools.org"));
         }
 
         String textColor = request.getParameter(TEXT_COLOR_PARAM);
