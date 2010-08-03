@@ -22,6 +22,11 @@
 
 <ad:setSlotPrefix slotPrefix="ContentSearch"/>
 
+<c:if test="${requestScope.context.interstitialEnabled}">
+    <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+    <pageHelper:addOnLoadHandler handler="doInterstitial('ContentSearch')"/>
+</c:if>
+
 <c:choose>
     <c:when test="${requestScope.numResults gt 0}">
         <c:set var="pageTitle"><h2>${requestScope.pageTitlePrefix} &amp;quot;<span class="searchQuery"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></span>&amp;quot;</h2></c:set>
@@ -46,6 +51,7 @@
     <![endif]-->]]>
 </head>
 <body>
+
 <div id="mainGS" class="col">
    <div id="srchResults">
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
