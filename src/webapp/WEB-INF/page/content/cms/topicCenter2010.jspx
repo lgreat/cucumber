@@ -283,49 +283,60 @@
     <!-- end #squareadvert -->
 
 
-    <c:if test="${topicCenter.gradeLevelTopicCenter or topicCenter.elementaryGradeTopicCenter}">
-        <c:choose>
-            <c:when test="${topicCenter.preschoolTopicCenter}">
-                <c:set var="levelCode" value="p"/>
-                <c:set var="levelCodePhrase" value="preschools"/>
-                <c:set var="ratingHeading" value="Parent rating"/>
-                <c:set var="cityHeadingPrefix" value="Preschools in"/>
-            </c:when>
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">
-                        <c:set var="levelCode" value="e"/>
-                        <c:set var="levelCodePhrase" value="elementary schools"/>
-                    </c:when>
-                    <c:when test="${topicCenter.middleSchoolTopicCenter}">
-                        <c:set var="levelCode" value="m"/>
-                        <c:set var="levelCodePhrase" value="middle schools"/>
-                    </c:when>
-                    <c:when test="${topicCenter.highSchoolTopicCenter}">
-                        <c:set var="levelCode" value="h"/>
-                        <c:set var="levelCodePhrase" value="high schools"/>
-                    </c:when>
-                </c:choose>
-                <c:set var="ratingHeading" value="GreatSchools Rating"/>
-                <c:choose>
-                    <c:when test="${requestScope.showingTopRatedSchools}">
-                        <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}: "/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="cityHeadingPrefix" value="${gsweb:capitalize(levelCodePhrase)} in"/>
-                    </c:otherwise>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-        <school:findASchool city="${requestScope.cityObject}"
-                            specialCity="${requestScope.specialCity}"
-                            schools="${requestScope.schools}"
-                            ratingHeading="${ratingHeading}"
-                            levelCode="${levelCode}"
-                            levelCodePhrase="${levelCodePhrase}"
-                            cityHeadingPrefix="${cityHeadingPrefix}"
-                />
-    </c:if>
+    <!-- Community module -->
+    <c:choose>
+        <c:when test="${not empty requestScope.localDiscussionBoardId and not empty requestScope.localDiscussionTopic}">
+            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+            <c:set var="recentDiscussions">
+                <c:import
+                        url="/community/profileRecentDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(requestScope.localDiscussionTopic)}&amp;discussionTopicFull=${gsweb:urlEncode(requestScope.localDiscussionTopicFull)}&amp;isLocal=true"/>
+            </c:set>
+            ${recentDiscussions}
+        </c:when>
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${topicCenter.preschoolTopicCenter}">
+                    <c:set var="levelCode" value="p"/>
+                    <c:set var="levelCodePhrase" value="preschools"/>
+                    <c:set var="ratingHeading" value="Parent rating"/>
+                    <c:set var="cityHeadingPrefix" value="Preschools in"/>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">
+                            <c:set var="levelCode" value="e"/>
+                            <c:set var="levelCodePhrase" value="elementary schools"/>
+                        </c:when>
+                        <c:when test="${topicCenter.middleSchoolTopicCenter}">
+                            <c:set var="levelCode" value="m"/>
+                            <c:set var="levelCodePhrase" value="middle schools"/>
+                        </c:when>
+                        <c:when test="${topicCenter.highSchoolTopicCenter}">
+                            <c:set var="levelCode" value="h"/>
+                            <c:set var="levelCodePhrase" value="high schools"/>
+                        </c:when>
+                    </c:choose>
+                    <c:set var="ratingHeading" value="GreatSchools Rating"/>
+                    <c:choose>
+                        <c:when test="${requestScope.showingTopRatedSchools}">
+                            <c:set var="cityHeadingPrefix" value="Top ${levelCodePhrase}: "/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="cityHeadingPrefix" value="${gsweb:capitalize(levelCodePhrase)} in"/>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+            <school:findASchool city="${requestScope.cityObject}"
+                                specialCity="${requestScope.specialCity}"
+                                schools="${requestScope.schools}"
+                                ratingHeading="${ratingHeading}"
+                                levelCode="${levelCode}"
+                                levelCodePhrase="${levelCodePhrase}"
+                                cityHeadingPrefix="${cityHeadingPrefix}"
+                    />
+        </c:otherwise>
+    </c:choose>
 
     <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 

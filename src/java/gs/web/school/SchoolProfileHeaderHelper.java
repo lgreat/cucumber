@@ -56,7 +56,6 @@ public class SchoolProfileHeaderHelper {
     public static final String DISCUSSION_TOPIC = "discussionTopic";
     public static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     public static final String IS_LOCAL = "isLocal";
-    public static final String DISCUSSION_TOPICS = "discussionTopics";
     public static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
 
     private void logDuration(long durationInMillis, String eventName) {
@@ -269,34 +268,7 @@ public class SchoolProfileHeaderHelper {
                 model.put(DISCUSSION_BOARD_ID, CmsConstants.HIGH_SCHOOL_DISCUSSION_BOARD_ID);
             }
         }
-        // now that we have the board, look up the list of other topics the user can navigate to
-        // for each of these we need the topic title and the full uri to the discussion board
-        List<NameValuePair<String, String>> topicSelectInfo
-                = new ArrayList<NameValuePair<String, String>>();
-        addToList(topicSelectInfo, "/students", CmsConstants.ACADEMICS_ACTIVITIES_DISCUSSION_BOARD_ID, "Academics &amp; Activities");
-        addToList(topicSelectInfo, "/elementary-school", CmsConstants.ELEMENTARY_SCHOOL_DISCUSSION_BOARD_ID, "Elementary School");
-        addToList(topicSelectInfo, "/general", CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID, "General Parenting");
-        addToList(topicSelectInfo, "/parenting", CmsConstants.HEALTH_DEVELOPMENT_DISCUSSION_BOARD_ID, "Health &amp; Development");
-        addToList(topicSelectInfo, "/high-school", CmsConstants.HIGH_SCHOOL_DISCUSSION_BOARD_ID, "High School");
-        addToList(topicSelectInfo, "/improvement", CmsConstants.IMPROVE_YOUR_SCHOOL_DISCUSSION_BOARD_ID, "Improve Your School");
-        addToList(topicSelectInfo, "/middle-school", CmsConstants.MIDDLE_SCHOOL_DISCUSSION_BOARD_ID, "Middle School");
-        addToList(topicSelectInfo, "/preschool", CmsConstants.PRESCHOOL_DISCUSSION_BOARD_ID, "Preschool");
-        addToList(topicSelectInfo, "/special-education", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID, "Special Education");
-        model.put(DISCUSSION_TOPICS, topicSelectInfo);
         return city;
-    }
-
-    /**
-     * Helper method for handleCommunitySidebar.
-     */
-    protected void addToList(List<NameValuePair<String, String>> topicSelectInfo,
-                             String fullUri, Long discussionBoardId, String topicTitle) {
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
-                                               fullUri,
-                                               discussionBoardId);
-        NameValuePair<String, String> topicToBoard
-                = new NameValuePair<String, String> (topicTitle, urlBuilder.asSiteRelative(null));
-        topicSelectInfo.add(topicToBoard);
     }
 
     public IPQDao getPQDao() {

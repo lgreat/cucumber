@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.content.cms.CmsConstants;
+import gs.data.util.NameValuePair;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,10 +48,14 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_TITLE = "title";
     public static final String PARAM_MORE_TEXT = "moreText";
     public static final String PARAM_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
+    public static final String PARAM_DISCUSSION_TOPIC_FULL = "discussionTopicFull";
+    public static final String PARAM_IS_LOCAL = "isLocal";
 
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_DISCUSSION_TOPIC = "discussionTopic";
+    public static final String MODEL_DISCUSSION_TOPIC_FULL = "discussionTopicFull";
+    public static final String MODEL_IS_LOCAL = "isLocal";
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
@@ -62,6 +67,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_SHOW_LARGE_FIRST_AVATAR = "showLargeFirstAvatar";
     public static final String MODEL_SHOW_FORM = "showForm";
     public static final String MODEL_SHOW_CITY_MENU = "showCityMenu";
+    public static final String DISCUSSION_TOPICS = "discussionTopics";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -142,12 +148,48 @@ public class RecentDiscussionsController extends AbstractController {
             boolean showLargeFirstAvatar = (request.getParameter(PARAM_SHOW_LARGE_FIRST_AVATAR) == null ||
                     "true".equals(request.getParameter(PARAM_SHOW_LARGE_FIRST_AVATAR)));
             model.put(MODEL_SHOW_LARGE_FIRST_AVATAR, showLargeFirstAvatar);
+
+            if (request.getParameter(PARAM_DISCUSSION_TOPIC_FULL) != null) {
+                model.put(MODEL_DISCUSSION_TOPIC_FULL, request.getParameter(PARAM_DISCUSSION_TOPIC_FULL));
+            }
+            if (request.getParameter(PARAM_IS_LOCAL) != null) {
+                model.put(MODEL_IS_LOCAL, "true".equals(request.getParameter(PARAM_IS_LOCAL)));
+            }
+
+            // for profileRecentDiscussions.jspx:
+            // now that we have the board, look up the list of other topics the user can navigate to
+            // for each of these we need the topic title and the full uri to the discussion board
+            List<NameValuePair<String, String>> topicSelectInfo
+                    = new ArrayList<NameValuePair<String, String>>();
+            addToList(topicSelectInfo, "/students", CmsConstants.ACADEMICS_ACTIVITIES_DISCUSSION_BOARD_ID, "Academics &amp; Activities");
+            addToList(topicSelectInfo, "/elementary-school", CmsConstants.ELEMENTARY_SCHOOL_DISCUSSION_BOARD_ID, "Elementary School");
+            addToList(topicSelectInfo, "/general", CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID, "General Parenting");
+            addToList(topicSelectInfo, "/parenting", CmsConstants.HEALTH_DEVELOPMENT_DISCUSSION_BOARD_ID, "Health &amp; Development");
+            addToList(topicSelectInfo, "/high-school", CmsConstants.HIGH_SCHOOL_DISCUSSION_BOARD_ID, "High School");
+            addToList(topicSelectInfo, "/improvement", CmsConstants.IMPROVE_YOUR_SCHOOL_DISCUSSION_BOARD_ID, "Improve Your School");
+            addToList(topicSelectInfo, "/middle-school", CmsConstants.MIDDLE_SCHOOL_DISCUSSION_BOARD_ID, "Middle School");
+            addToList(topicSelectInfo, "/preschool", CmsConstants.PRESCHOOL_DISCUSSION_BOARD_ID, "Preschool");
+            addToList(topicSelectInfo, "/special-education", CmsConstants.SPECIAL_EDUCATION_DISCUSSION_BOARD_ID, "Special Education");
+            model.put(DISCUSSION_TOPICS, topicSelectInfo);
         } catch (Exception e) {
             // do nothing, module will render blank
             _log.warn("Invalid invocation of RecentDiscussionController", e);
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    /**
+     * Helper method
+     */
+    protected void addToList(List<NameValuePair<String, String>> topicSelectInfo,
+                             String fullUri, Long discussionBoardId, String topicTitle) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION_BOARD,
+                                               fullUri,
+                                               discussionBoardId);
+        NameValuePair<String, String> topicToBoard
+                = new NameValuePair<String, String> (topicTitle, urlBuilder.asSiteRelative(null));
+        topicSelectInfo.add(topicToBoard);
     }
 
     public ICmsDiscussionBoardDao getCmsDiscussionBoardDao() {

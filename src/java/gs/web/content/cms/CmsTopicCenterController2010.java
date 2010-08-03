@@ -3,6 +3,8 @@ package gs.web.content.cms;
 import gs.data.community.IRaiseYourHandDao;
 import gs.data.community.RaiseYourHandFeature;
 import gs.data.community.User;
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -49,6 +51,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
     private IGeoDao _geoDao;
+    private ILocalBoardDao _localBoardDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
 
@@ -62,6 +65,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
+    public static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
+    public static final String LOCAL_DISCUSSION_TOPIC = "localDiscussionTopic";
+    public static final String LOCAL_DISCUSSION_TOPIC_FULL = "localDiscussionTopicFull";
 
     //=========================================================================
     // spring mvc methods
@@ -141,8 +147,14 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
             model.put(MODEL_TOPIC_CENTER, topicCenter);
 
-            // find a school module
-            if (topicCenter.isGradeLevelTopicCenter() || topicCenter.isElementaryGradeTopicCenter()) {
+
+            // GS-10275
+            // Show the local community module we've built on the school overview page in place of the map IF a user is
+            // cookied to one of the 73 local cities. If the user isn't cookied to one of the cities, show the Map module
+            // (the Local Schools module)
+            boolean hasLocalCommunity = loadLocalCommunity(model,request);
+            if (!hasLocalCommunity) {
+                // local schools module
                 // check for a change of city
                 SessionContext context = SessionContextUtil.getSessionContext(request);
                 String cityName = request.getParameter("city");
@@ -163,8 +175,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
                     levelCode = LevelCode.ELEMENTARY;
                 } else if (topicCenter.isMiddleSchoolTopicCenter()) {
                     levelCode = LevelCode.MIDDLE;
-                } else {
+                } else if (topicCenter.isHighSchoolTopicCenter()) {
                     levelCode = LevelCode.HIGH;
+                } else {
+                    // default to elementary for non-grade-level topic centers
+                    levelCode = LevelCode.ELEMENTARY;
                 }
                 loadTopRatedSchools(model, context, levelCode);
             }
@@ -196,7 +211,34 @@ public class CmsTopicCenterController2010 extends AbstractController {
         }
     }
 
-    //===================================== ====================================
+    //=========================================================================
+    // local community
+    //=========================================================================
+
+    /**
+     * Put in the model the local discussion board and discussion topic for the cookied city, if the cookied city
+     * has a discussion board
+     * @param model
+     * @param request
+     * @return true if the cookied city has a local discussion board; false otherwise (or no cookied city)
+     */
+    protected boolean loadLocalCommunity(Map<String, Object> model, HttpServletRequest request) {
+        // determine if this is a city with a local discussion board
+        City city = SessionContextUtil.getSessionContext(request).getCity();
+        if (city != null) {
+            LocalBoard localBoard = _localBoardDao.findByCityId(city.getId());
+            if (localBoard != null) {
+                model.put(LOCAL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
+                model.put(LOCAL_DISCUSSION_TOPIC, city.getDisplayName());
+                model.put(LOCAL_DISCUSSION_TOPIC_FULL, city.getDisplayName());
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //=========================================================================
     // find a school
     //=========================================================================
 
@@ -626,5 +668,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
         _raiseYourHandDao = raiseYourHandDao;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao _localBoardDao) {
+        this._localBoardDao = _localBoardDao;
     }
 }
