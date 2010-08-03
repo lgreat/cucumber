@@ -34,7 +34,7 @@
             <pageHelper:externalJavascript file="/res/js/global.js"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         </c:if>
-        <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.v2.js"/>
+        <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.js"/>
         <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
 
         <c:set var="cobrandHostname" value="${requestScope.command.cobrandHostname}" scope="page"/>

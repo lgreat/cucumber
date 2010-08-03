@@ -56,7 +56,7 @@ function updateColorSelect(selectElementId, inputElement){
     document.getElementById(selectElementId).value = inputElement.value;
 }
 
-// also in schoolSearchWidget.v2.js
+// also in schoolSearchWidget.js
 // http://stackoverflow.com/questions/237104/javascript-array-containsobj
 Array.prototype.contains = function(obj) {
   var i = this.length;
@@ -68,7 +68,7 @@ Array.prototype.contains = function(obj) {
   return false;
 }
 
-// also in schoolSearchWidget.v2.js
+// also in schoolSearchWidget.js
 // requires http://maps.google.com/maps/api/js?sensor=false
 function gsGeocode(searchInput, callbackFunction) {
     var geocoder = new google.maps.Geocoder();
