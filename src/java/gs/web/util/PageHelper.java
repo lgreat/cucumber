@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.92 2010/07/15 23:24:50 aroy Exp $
+ * $Id: PageHelper.java,v 1.93 2010/08/03 00:56:25 ssprouse Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.geo.City;
+import gs.data.school.School;
 import gs.web.ads.AdPosition;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
@@ -252,6 +253,7 @@ public class PageHelper {
     private Set<String> _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
     private Set<String> _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
     private Map<String,String> _cssMediaMap; // map of css src to which media to use
+    private Map<String,String> _metaProperties; //meta tags with the property attribute. Used for Facebook's implementation of OpenGraph API
 
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
@@ -685,6 +687,11 @@ public class PageHelper {
                             .append("\"></link>");
                 }
             }
+            if (_metaProperties != null) {
+                for (Map.Entry entry : _metaProperties.entrySet()) {
+                    sb.append("<meta property=\"" + entry.getKey() + "\" content=\"" + entry.getValue() + "\" />");
+                }
+            }
             return sb.toString();
         }
         return "";
@@ -843,5 +850,25 @@ public class PageHelper {
         SessionContextUtil util = context.getSessionContextUtil();
         util.clearUserCookies(response);
         context.setUser(null);
+    }
+
+    public static void addMetaProperty(HttpServletRequest request, String type, String content) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addMetaProperty(type,content);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+    public void addMetaProperty(String type, String content) {
+        if (_metaProperties == null) {
+            _metaProperties = new HashMap<String,String>();
+        }
+        _metaProperties.put(type, content);
+    }
+
+    public Map<String,String> getMetaProperties() {
+        return _metaProperties;
     }
 }
