@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.228 2010/07/27 20:53:42 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.229 2010/08/03 23:32:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -29,6 +29,8 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -302,12 +304,28 @@ public class UrlBuilder {
     public static final VPage RAISE_YOUR_HAND_FEATURED_QUESTIONS = new VPage("vpage:raiseYourHandFeaturedQuestions");
     public static final VPage RECENT_CONVERSATIONS = new VPage("vpage:recentConversations");
 
+    private static void populateVPageNameMap() {
+        Field[] fields = UrlBuilder.class.getFields();
+
+        for (Field f : fields) {
+            int modifier = f.getModifiers();
+            if (f.getType() == VPage.class && Modifier.isFinal(modifier) && Modifier.isStatic(modifier)) {
+                try {
+                    vpageConstantObjectMap.put(f.getName(), (VPage) f.get(null));
+                } catch (IllegalAccessException e) {
+                    _log.debug("Problem when trying to access static field on UrlBuilder", e);
+                    //nothing else to do
+                }
+            }
+        }
+    }
+
     /**
      * For converting from constant names to the corresponding VPage constants
      */
-
     private static Map<String,VPage> vpageConstantObjectMap = new HashMap<String,VPage>();
     static {
+        populateVPageNameMap();
         vpageConstantObjectMap.put("B2S_POLL_LANDING_PAGE",B2S_POLL_LANDING_PAGE);
         vpageConstantObjectMap.put("HEALTHY_KIDS",HEALTHY_KIDS);
         vpageConstantObjectMap.put("MEDIA_CHOICES",MEDIA_CHOICES);

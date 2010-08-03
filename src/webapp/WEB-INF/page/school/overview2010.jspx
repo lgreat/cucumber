@@ -48,7 +48,7 @@
     }
 </jsp:scriptlet>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
@@ -56,6 +56,7 @@
     <!-- SearchMonkey eRDF support-->
     <link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/"/>
     <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#"/>
+    <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
     <!-- TODO: Is the following necessary? -->
     <![CDATA[
 <!--[if IE 7]>

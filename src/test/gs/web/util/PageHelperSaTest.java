@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.53 2010/07/15 23:24:50 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.54 2010/08/03 23:32:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -23,6 +23,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -831,5 +832,14 @@ public class PageHelperSaTest extends TestCase {
 
         pageHelper = new PageHelper(_sessionContext, _request);
         assertEquals("", pageHelper.getPageName());
+    }
+
+    public void testAddMetaProperty() throws Exception {
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        assertNull(pageHelper.getMetaProperties());
+        pageHelper.addMetaProperty("og:description", "some description");
+
+        Map<String,String> actual = pageHelper.getMetaProperties();
+        assertTrue(actual.containsKey("og:description") && actual.get("og:description") == "some description");
     }
 }

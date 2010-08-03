@@ -6,23 +6,37 @@
           >
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag body-content="empty" description="Used to add a meta tag to the document head. The meta tag will contain property and content attributes."/>
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true" description="Meta tag property attribute. Example use: Facebook OpenGraph implementation"/>
-    <jsp:directive.attribute name="showLongText" type="java.lang.Boolean" description="Whether or not to display the 'people like [school name]' text" required="true" />
     <jsp:directive.attribute name="url" required="false" type="java.lang.String" description="Full url for this page"/>
     <jsp:directive.attribute name="vpage" required="false" type="java.lang.String" description="URLBuilder VPage to this page"/>
     <jsp:scriptlet>
 
         String encodedUrl = url;
+        String baseUrl = null;
 
         if (vpage != null) {
             UrlBuilder.VPage vpageObj = UrlBuilder.getVPage(vpage);
             if (vpageObj != null) {
-                UrlBuilder builder = new UrlBuilder(vpageObj);
-                encodedUrl = URLEncoder.encode(builder.asFullUrl(request), "UTF-8");
+                UrlBuilder builder = new UrlBuilder(school, vpageObj);
+                if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                    baseUrl = "dev.greatschools.org";
+                } else {
+                    baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+                }
+                encodedUrl = URLEncoder.encode(baseUrl + builder.asSiteRelative(request), "UTF-8");
             }
         } else if (url != null) {
             encodedUrl = URLEncoder.encode(url, "UTF-8");
+        }
+
+        String plainTextSummary = "";
+        String schoolSummary = school.getSchoolSummary();
+        if (schoolSummary != null) {
+            <![CDATA[
+            plainTextSummary = schoolSummary.replaceAll("\\<.*?>","");
+            ]]>
         }
 
         gs.web.util.PageHelper.addMetaProperty(request, "og:title", school.getName());
@@ -30,8 +44,11 @@
         gs.web.util.PageHelper.addMetaProperty(request, "og:url", encodedUrl);
         gs.web.util.PageHelper.addMetaProperty(request, "og:image", "http://www.greatschools.org/catalog/images/GS_logo_200x179.jpg");
         gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");
-        gs.web.util.PageHelper.addMetaProperty(request, "og:description", school.getSchoolSummary());
+        gs.web.util.PageHelper.addMetaProperty(request, "og:description", plainTextSummary);
         gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", "112862918759431");
+
+        request.setAttribute("pageUrlOnFacebook", encodedUrl);
+
     </jsp:scriptlet>
 
 </jsp:root>

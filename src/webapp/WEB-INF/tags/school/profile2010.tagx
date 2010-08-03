@@ -109,6 +109,10 @@
             <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
+
+            <variant:b>
+                | <promo:facebookLikeButton showLongText="false" />
+            </variant:b>
         </p>
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -198,6 +202,10 @@
             <!--<div id="schoolInfoFooter" class="smallAlertText">-->
                 <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
             <!--</div>-->
+
+            <variant:a>
+               <promo:facebookLikeButton showLongText="true"/>
+            </variant:a>
 
         </div>
     </div>
