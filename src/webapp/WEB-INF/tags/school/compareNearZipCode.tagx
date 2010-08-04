@@ -103,6 +103,7 @@
         <!-- Randall, please style this ad slot so that the module will look fine
              with the ad slot both targeted with an ad, and not targeted with an ad. -->
         <ad:adTag position="Homepage_61x47"/>
+        <ad:adTag position="CompareSchools_61x47"/>
 
         <br class="clearfloat"/>
 

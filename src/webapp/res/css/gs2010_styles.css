@@ -540,6 +540,12 @@ body.cobranded #pageGS {
     bottom:10px; right:7px;
 }
 
+#CompareSchools_61x47 { /* GS-10275 */
+    width:61px; height:47px;
+    position:absolute;
+    bottom:10px; right:7px;
+}
+
 #RYH_Sponsor_90x32 { /* GS-10166 */
     float:right;
     margin:0;
@@ -5475,7 +5481,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-08-03.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-08-04.png);
 }
 
 .reportIt-nbg {
@@ -5542,9 +5548,9 @@ additional icons on the sprite.
     background-position: 0 -180px;
 }
 
-.star {
-    width: 9px;
-    height: 10px;
+.i-required {
+    width: 8px;
+    height: 6px;
     background-position: 0 -200px;
 }
 
