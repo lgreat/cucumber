@@ -176,12 +176,25 @@
                         <label for="topicSelect" class="text2bold tint_333">Topic</label>
                         <select id="topicSelect" name="topicCenterId">
                             <gsml:selectOption value="-1">Cities</gsml:selectOption>
-                            <c:forEach var="myTc" items="${discussionTopics}">
-                                <gsml:selectOption value="${myTc.contentKey.identifier}"
-                                                   selected="${myTc.contentKey.identifier == topicCenterId}">${myTc.title}</gsml:selectOption>
-                            </c:forEach>
+
+                            <gsml:selectOption value="1540"
+                                                   selected="${1540 == topicCenterId}">Academics &amp;amp; Activities</gsml:selectOption>
+                            <gsml:selectOption value="1574"
+                                                   selected="${1574 == topicCenterId}">Elementary School</gsml:selectOption>
                             <gsml:selectOption value="2420"
                                                selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
+                            <gsml:selectOption value="1539"
+                                                   selected="${1539 == topicCenterId}">Health &amp;amp; Development</gsml:selectOption>
+                            <gsml:selectOption value="1576"
+                                                   selected="${1576 == topicCenterId}">High School</gsml:selectOption>
+                            <gsml:selectOption value="1543"
+                                                   selected="${1543 == topicCenterId}">Improve Your School</gsml:selectOption>
+                            <gsml:selectOption value="1575"
+                                                   selected="${1575 == topicCenterId}">Middle School</gsml:selectOption>
+                            <gsml:selectOption value="1573"
+                                                   selected="${1573 == topicCenterId}">Preschool</gsml:selectOption>
+                            <gsml:selectOption value="1541"
+                                                   selected="${1541 == topicCenterId}">Special Education</gsml:selectOption>
                         </select>
                         <span class="communityGuidelines ${guidelineStyle}">Read our
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
