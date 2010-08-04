@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.94 2010/08/04 01:01:40 ssprouse Exp $
+ * $Id: PageHelper.java,v 1.95 2010/08/04 23:19:18 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -43,6 +43,9 @@ import java.util.*;
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class PageHelper {
+
+    private Map<String,String> _XMLNSes;
+
     public static final Map pageIds = new HashMap<String, String>() {{
         put("HOME", "0");
         put("RESEARCH_COMPARE", "1");
@@ -574,6 +577,42 @@ public class PageHelper {
         }
     }
 
+    public static void addXmlns(HttpServletRequest request, String name, String href) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addXmlns(name, href);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+    private void addXmlns(String name, String href) {
+        if (href != null && name != null) {
+            if (_XMLNSes == null) {
+                _XMLNSes = new HashMap<String,String>();
+            }
+            _XMLNSes.put(name,href);
+        }
+    }
+
+    public String getXmlnsList() {
+        StringBuffer sb = new StringBuffer();
+
+        for (Map.Entry<String, String> entry : _XMLNSes.entrySet()) {
+            try {
+                if (entry.getKey() != null && entry.getValue() != null) {
+                    sb.append("xmlns:").append(entry.getKey());
+                    sb.append("=\"");
+                    sb.append(UrlUtil.urlEncode(entry.getValue()));
+                    sb.append("\" ");
+                }
+            } catch (Exception e) {
+                _log.debug("Couldn't encode url " + entry.getValue(), e);
+            }
+        }
+        return sb.toString();
+    }
+
     private void addOnunloadHandler(String javascript) {
         if (javascript.indexOf('\"') != -1) {
             throw new IllegalArgumentException("Quotes not coded correctly.");
@@ -688,11 +727,11 @@ public class PageHelper {
                 }
             }
             if (_metaProperties != null) {
-                sb.append("<!-- facebook ignores comments");
+                //sb.append("<!-- facebook ignores comments");
                 for (Map.Entry entry : _metaProperties.entrySet()) {
                     sb.append("<meta property=\"" + entry.getKey() + "\" content=\"" + entry.getValue() + "\" />");
                 }
-                sb.append("-->");
+                //sb.append("-->");
             }
             return sb.toString();
         }

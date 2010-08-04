@@ -48,7 +48,7 @@
     }
 </jsp:scriptlet>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
@@ -307,6 +307,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="TOTAL_SCHOOL_LIMIT" value="20"/>
 <c:set var="ROWS_PER_PAGE_LIMIT" value="4"/>
 <c:set var="PAGE_LIMIT" value="5"/>
+<c:set var="start" value="${param.start}"/>
+<c:if test="${empty start}">
+    <c:set var="start" value="0"/>
+</c:if>
+<c:set var="thisPage" value="${(start + ROWS_PER_PAGE_LIMIT) / ROWS_PER_PAGE_LIMIT}"/>
 
 <c:set var="numberOfSchools" value="${fn:length(mapSchools)}"/>
 <c:set var="stragglers" value="${numberOfSchools % ROWS_PER_PAGE_LIMIT}"/>
@@ -601,16 +606,19 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div class="pagination">
             <c:if test="${totalPages gt 1}">
                 <c:forEach begin="0" end="${totalRows - 1}" step="${ROWS_PER_PAGE_LIMIT}" var="i" varStatus="status">
+                    <c:set var="pagerTabClass" value="pager-tab"/>
+                    <c:set var="loopPageNumber" value="${i/ROWS_PER_PAGE_LIMIT+1}"/>
+                    <c:if test="${loopPageNumber == thisPage}">
+                        <c:set var="pagerTabClass" value="pager-tab active"/>
+                    </c:if>
                     <c:if test="${status.first}">
-                        <span class="pager-tab active"
-                              onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i})">
-                            <fmt:formatNumber value="${i/ROWS_PER_PAGE_LIMIT+1}" maxFractionDigits="0"/>
+                        <span class="${pagerTabClass}" onclick="page(${i});">
+                            <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
                         </span>
                     </c:if>
                     <c:if test="${not status.first}">
-                        <span class="pager-tab"
-                              onclick="flipPage('nearby-schools-table-body', 'nearby-school', ${i})">
-                            <fmt:formatNumber value="${i/ROWS_PER_PAGE_LIMIT+1}" maxFractionDigits="0"/>
+                        <span class="${pagerTabClass}" onclick="page(${i})">
+                            <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
                         </span>
                     </c:if>
                 </c:forEach>
@@ -622,13 +630,30 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <script type="text/javascript">
             var PAGESIZE = 4;
             var currentStartPoint = null;
-            function flipPage(id, pageItemClass, startPoint) {
-
+            function flipPage(startPoint) {
                 currentStartPoint = startPoint;
-//                console.log('id: '+id + ', pageItemClass: ' + pageItemClass + ', start: ' + startPoint);
-                jQuery('#' + id).find('.' + pageItemClass).addClass("hidden");
-                jQuery('#' + id).find('.' + pageItemClass).slice(startPoint, startPoint + PAGESIZE).removeClass("hidden");
+                jQuery('#nearby-schools-table-body').find('.nearby-school').addClass("hidden");
+                jQuery('#nearby-schools-table-body').find('.nearby-school').slice(startPoint, startPoint + PAGESIZE).removeClass("hidden");
             }
+
+            function page(start) {
+                var hasQueryParam = new RegExp('[\\?]').exec(window.location.href);
+                var newHref = window.location.href;
+                if (hasQueryParam) {
+                    var startParam = '${start}';
+                    if (startParam) {
+                        newHref = newHref.replace(/(.+[\\?&amp;]start=)([^&amp;#]*)(.*)/, "$1" + start + "$3");
+                    } else {
+                        newHref = newHref.replace(/([^&amp;#]*)(.*)/, "$1" + "&amp;start=" + start + "$2");
+                    }
+                } else {
+                    newHref = newHref.replace(/([^#]*)(.*)/, "$1" + "?start=" + start + "$2");
+                }
+                window.location.href = newHref;
+            }
+
+            flipPage(${start});
+
             jQuery(function() {
                 jQuery('.pager-tab').click(function() {
                     jQuery('.pager-tab').removeClass('active');
@@ -639,11 +664,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
                     var activeIndex = null;
                     var maxIndex = jQuery('.pager-tab').get().length;
-//                    console.log('maxIndex: '+maxIndex);
                     jQuery('.pager-tab').each(function(index) {
                         if(jQuery(this).hasClass('active')){
                             activeIndex = index;
-//                            console.log('activeIndex: '+activeIndex);
                             activeIndex++;
                         }
                         if(activeIndex == maxIndex){
@@ -652,10 +675,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                         currentStartPoint = activeIndex * PAGESIZE;
                     });
 
-                    jQuery('.pager-tab').removeClass('active');
-                    jQuery('.pager-tab:eq('+activeIndex+')').addClass('active');
+                    //jQuery('.pager-tab').removeClass('active');
+                    //jQuery('.pager-tab:eq('+activeIndex+')').addClass('active');
 
-                    flipPage('nearby-schools-table-body', 'nearby-school', currentStartPoint);
+                    page(currentStartPoint);
 
                 });
             });

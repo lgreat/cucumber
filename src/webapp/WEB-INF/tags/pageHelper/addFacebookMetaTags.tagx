@@ -39,12 +39,12 @@
             ]]>
         }
 
-        gs.web.util.PageHelper.addMetaProperty(request, "og:title", school.getName());
-        gs.web.util.PageHelper.addMetaProperty(request, "og:type", "school");
-        gs.web.util.PageHelper.addMetaProperty(request, "og:url", encodedUrl);
-        gs.web.util.PageHelper.addMetaProperty(request, "og:image", "http://www.greatschools.org/catalog/images/GS_logo_200x179.jpg");
-        gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");
-        gs.web.util.PageHelper.addMetaProperty(request, "og:description", plainTextSummary);
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:title", school.getName());
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:type", "school");
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:url", encodedUrl);
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:image", "http://www.greatschools.org/catalog/images/GS_logo_200x179.jpg");
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");
+        //gs.web.util.PageHelper.addMetaProperty(request, "og:description", plainTextSummary);
         gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", "112862918759431");
 
         request.setAttribute("pageUrlOnFacebook", encodedUrl);
