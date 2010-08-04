@@ -80,11 +80,9 @@
     </script>
 
 
-    <span id="fb-like-button">
         <![CDATA[
         <fb:like href="${pageUrlOnFacebook}" layout="button" show_faces="false" font="arial"></fb:like>
         ]]>
-    </span>
 
 </jsp:root>
 

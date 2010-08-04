@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.93 2010/08/03 00:56:25 ssprouse Exp $
+ * $Id: PageHelper.java,v 1.94 2010/08/04 01:01:40 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -688,9 +688,11 @@ public class PageHelper {
                 }
             }
             if (_metaProperties != null) {
+                sb.append("<!-- facebook ignores comments");
                 for (Map.Entry entry : _metaProperties.entrySet()) {
                     sb.append("<meta property=\"" + entry.getKey() + "\" content=\"" + entry.getValue() + "\" />");
                 }
+                sb.append("-->");
             }
             return sb.toString();
         }
