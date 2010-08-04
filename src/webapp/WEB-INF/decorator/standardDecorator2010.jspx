@@ -133,7 +133,6 @@
 
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
     <!-- This tag includes ad_popunder.js -->
-    <ad:xPopunder/>
 
     ${requestScope.pageHelper.headElements}
 
@@ -211,6 +210,8 @@ ${modTracking}
 <div id="deferredContent" style="display:none;">
     ${deferredContent}
 </div>
+<ad:xPopunder/>
+
 </body>
 </html>
 </jsp:root>
