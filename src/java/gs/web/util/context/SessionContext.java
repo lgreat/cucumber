@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.39 2010/05/17 23:11:09 yfan Exp $
+ * $Id: SessionContext.java,v 1.40 2010/08/04 01:18:37 ssprouse Exp $
  */
 package gs.web.util.context;
 
@@ -281,6 +281,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
                 isInterstitialEnabledForState(_state) &&
                 isInterstitialWithinTolerance(r.nextInt(100));
 
+    }
+
+    public boolean isInterstitialEnabledIgnoreState() {
+        Random r = new Random();
+        return !isCobranded() && !isCrawler() &&
+                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")) &&
+                isInterstitialWithinTolerance(r.nextInt(100));
     }
 
     protected boolean isInterstitialEnabledForState(State state){

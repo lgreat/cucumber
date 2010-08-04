@@ -476,6 +476,56 @@ public class SessionContextTest extends BaseTestCase {
         assertFalse("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY doesn't contain the state, NV, expect call to return false", _sessionContext.isInterstitialEnabled());
     }
 
+    public void testIsInterstitialEnabledIgnoreState() {
+
+        /*
+            isCobranded  - true when the site is cobranded
+            isCrawler    - true when the user of the site is a crawler
+            property.INTERSTITIAL_ENABLED  - true/false set in the property table
+
+            testIsInterstitialEnabled() will return false when:
+                isCobranded is true or
+                isCrawler is true or
+                property.INTERSTITIAL_ENABLED isn't set or
+                property.INTERSTITIAL_ENABLED isn't set to 'true' or
+                property.INTERSTITIAL_DISPLAY_RATE isn't set to numeric value greater than 0, or
+                property.INTERSTITIAL_DISPLAY_RATE > 0 and < 100 AND a random number is generated that is greater than the value stored
+         */
+
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("false");
+        replay(_propertyDao);
+        assertFalse("Property is false, expect call to return false", _sessionContext.isInterstitialEnabledIgnoreState());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+        // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
+        // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        replay(_propertyDao);
+
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, expect call to return true (1)", _sessionContext.isInterstitialEnabledIgnoreState());
+        _sessionContext.setCobrand("cobrand");
+        assertFalse("Cobrand exists, should override rval to false", _sessionContext.isInterstitialEnabledIgnoreState());
+        _sessionContext.setCobrand(null);
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, expect call to return true (2)", _sessionContext.isInterstitialEnabledIgnoreState());
+        _sessionContext.setCrawler(true);
+        assertFalse("Crawler exists, should override rval to false", _sessionContext.isInterstitialEnabledIgnoreState());
+        _sessionContext.setCobrand("cobrand");
+        assertFalse("Both crawler and cobrand exist, should override rval to false",
+                _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand(null);
+        _sessionContext.setCrawler(false);
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, expect call to return true (3)", _sessionContext.isInterstitialEnabledIgnoreState());
+        _sessionContext.setCobrand("cobrand");
+        verify(_propertyDao);
+    }
+
+
     public void testIsInterstitialWithinTolerance(){
         reset(_propertyDao);
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("0");
