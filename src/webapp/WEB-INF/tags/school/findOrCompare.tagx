@@ -8,7 +8,7 @@
         >
     <jsp:directive.attribute name="isHomePage" required="true"
                              description="To display the appropriate design and copy between the homepage and grade level landing pages and K-5 topic center pages."/>
-    <jsp:directive.attribute name="levelCode" required="true" description="To display the appropriate input select in compare module."/>
+    <jsp:directive.attribute name="levelCode" required="false" description="To display the appropriate input select in compare module."/>
     <!--
         Requires javascript methods
         textSwitch
