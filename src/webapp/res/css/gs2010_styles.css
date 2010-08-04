@@ -994,7 +994,7 @@ body.cobranded #pageGS {
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
 
-/* ====== media ====== */
+/* ====== media block ====== */
 .media {padding:3px 0;}
 .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
 .media .img {float:left; margin-right: 10px;}

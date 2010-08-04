@@ -267,9 +267,19 @@
                     showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
                     />
         </c:when>
-        <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.kindergartenTopicCenter or topicCenter.firstGradeTopicCenter or topicCenter.secondGradeTopicCenter or topicCenter.thirdGradeTopicCenter or topicCenter.fourthGradeTopicCenter or topicCenter.fifthGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+        <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+            <c:if test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">
+                <c:set var="levelCode" value="e"/>
+            </c:if>
+            <c:if test="${topicCenter.middleSchoolTopicCenter}">
+                <c:set var="levelCode" value="m"/>
+            </c:if>
+            <c:if test="${topicCenter.highSchoolTopicCenter}">
+                <c:set var="levelCode" value="h"/>
+            </c:if>
             <school:findOrCompare
                     isHomePage="${false}"
+                    levelCode="${levelCode}"
                     />
         </c:when>
         <c:otherwise>
