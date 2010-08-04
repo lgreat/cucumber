@@ -53,7 +53,7 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         String source = page.asXml();
         // page.asXML for some reason doesn't include the DOCTYPE declaration that's in the source
         source = source.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>",
-                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML+RDFa 1.0//EN\" \"http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd\">");
         // Since we usually put article lists in a <ul> and the sample database only contains
         // some articles, we often get empty ul's on the localhost so we fill in empty ul's
         Pattern pattern = Pattern.compile("(<ul[^>]*)/>", Pattern.MULTILINE);
