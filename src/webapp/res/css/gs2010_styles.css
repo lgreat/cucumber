@@ -60,7 +60,8 @@ General comments:
 =4j contact us
 =4k school profile 2010
 =4k-1 overview
-=4k-1.1 nearby schools table
+=4k-1.1.0 school info window (Google Map bubble)
+=4k-1.1.1 nearby schools table
 =4k-1.2.0 school choice pack promotion (home page and preschool landing page)
 =4k-1.2.1 school choice pack promotion (wide layout)
 =4k-1.2.2 school choice pack promotion (narrow layout)
@@ -372,6 +373,11 @@ h3.title1white, h3.srchCat {
 .smallText1 {
     font: 11px Arial, Helvetica, sans-serif;
     color: #777;
+}
+
+.smallText1-333 {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #333;
 }
 
 .formText1 {
@@ -4780,7 +4786,27 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     height: 277px;
 }
 
-/* =4k-1.1 nearby schools table
+/* =4k-1.1.0 school info window (Google Map bubble)
+-------------------------------------------------------------------------------------------*/
+
+.schoolInfoWindow{
+    width:272px;
+    height:135px;
+    /*display:block;*/
+    /*overflow:hidden;*/
+}
+
+.schoolRatings{
+    padding-right:10px;
+    /*border-right:1px solid #999;*/
+}
+
+.schoolInfo{
+    padding-left:10px;
+    border-left:1px solid #999;
+}
+
+/* =4k-1.1.1 nearby schools table
 -------------------------------------------------------------------------------------------*/
 
 #nearby-schools-table-header th{

@@ -24,11 +24,13 @@ var heightMultiplier = Math.floor(school.name.length / 30);
 // this is a guesstimate of how many chars it takes to wrap to the next line
 height += heightMultiplier * 13;-->
 
-    <div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: 85px; width: 240px;">
+    <div class="schoolInfoWindow">
 
-        <link:schoolProfileOverview school="${school}" styleClass="schoolName" target="_blank"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview>
+        <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName" target="_blank"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
+        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="line">
 
-        <div class="schoolRatings">
+        <div class="schoolRatings smallText1-333 unit size2of5">
             <div class="schoolRating"><div>GreatSchools Rating</div>
                 <link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
                     <gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
@@ -40,7 +42,7 @@ height += heightMultiplier * 13;-->
                 </link:schoolProfileParentReview>
             </div>
         </div>
-        <div class="schoolInfo">
+        <div class="schoolInfo text3 unit size3of5 lastUnit">
             <div class="typeGrade">
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
@@ -55,6 +57,7 @@ height += heightMultiplier * 13;-->
             <p class="schoolPhone">${school.phone}</p>
 
         </div>
+            </div>
     </div>
 
 
