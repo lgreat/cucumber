@@ -13,22 +13,23 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
             >
 
+<jsp:directive.attribute name="pageSize" type="java.lang.Integer" required="true" description="Number of items to display per page"  />
+<jsp:directive.attribute name="maxPages" type="java.lang.Integer" required="true" />
 
     <!-- begin nearby schools list -->
-    <c:set var="TOTAL_SCHOOL_LIMIT" value="20"/>
-    <c:set var="ROWS_PER_PAGE_LIMIT" value="4"/>
-    <c:set var="PAGE_LIMIT" value="5"/>
+    <c:set var="TOTAL_SCHOOL_LIMIT" value="${pageSize * maxPages}"/>
+
     <c:set var="start" value="${param.start}"/>
     <c:if test="${empty start}">
         <c:set var="start" value="0"/>
     </c:if>
-    <c:set var="thisPage" value="${(start + ROWS_PER_PAGE_LIMIT) / ROWS_PER_PAGE_LIMIT}"/>
+    <c:set var="thisPage" value="${(start + pageSize) / pageSize}"/>
 
     <c:set var="numberOfSchools" value="${fn:length(mapSchools)}"/>
-    <c:set var="stragglers" value="${numberOfSchools % ROWS_PER_PAGE_LIMIT}"/>
+    <c:set var="stragglers" value="${numberOfSchools % pageSize}"/>
     <c:choose>
         <c:when test="${stragglers ne 0}">
-            <c:set var="blankRows" value="${ROWS_PER_PAGE_LIMIT - stragglers}"/>
+            <c:set var="blankRows" value="${pageSize - stragglers}"/>
         </c:when>
         <c:otherwise>
             <c:set var="blankRows" value="0"/>
@@ -44,19 +45,19 @@
     </c:choose>
     <c:choose>
         <c:when test="${numberOfSchools lt TOTAL_SCHOOL_LIMIT}">
-            <c:set var="totalRows" value="${totalSchoolRows + blankRows}"/>
+            <c:set var="rowsToDisplay" value="${totalSchoolRows + blankRows}"/>
         </c:when>
         <c:otherwise>
-            <c:set var="totalRows" value="${TOTAL_SCHOOL_LIMIT}"/>
+            <c:set var="rowsToDisplay" value="${TOTAL_SCHOOL_LIMIT}"/>
         </c:otherwise>
     </c:choose>
-    <c:set var="pages"><fmt:formatNumber value="${totalRows / ROWS_PER_PAGE_LIMIT}" maxFractionDigits="0"/></c:set>
+    <c:set var="pages"><fmt:formatNumber value="${rowsToDisplay / pageSize}" maxFractionDigits="0"/></c:set>
     <c:choose>
-        <c:when test="${pages lt PAGE_LIMIT}">
+        <c:when test="${pages lt maxPages}">
             <c:set var="totalPages" value="${pages}"/>
         </c:when>
         <c:otherwise>
-            <c:set var="totalPages" value="${PAGE_LIMIT}"/>
+            <c:set var="totalPages" value="${maxPages}"/>
         </c:otherwise>
     </c:choose>
 
@@ -131,7 +132,7 @@
                 <c:set var="count" value="0"/>
                 <c:forEach items="${mapSchools}" var="s" begin="0" end="${totalSchoolRows - 1}">
                     <c:set var="count" value="${count+1}"/>
-                    <c:if test="${count gt ROWS_PER_PAGE_LIMIT}">
+                    <c:if test="${count gt pageSize}">
                         <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
                     </c:if>
                     <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
@@ -256,7 +257,7 @@
                 <c:set var="count" value="0"/>
                 <c:forEach items="${mapSchools}" var="s" begin="0" end="${totalSchoolRows - 1}">
                     <c:set var="count" value="${count+1}"/>
-                    <c:if test="${count gt ROWS_PER_PAGE_LIMIT}">
+                    <c:if test="${count gt pageSize}">
                         <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
                     </c:if>
                     <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
@@ -310,9 +311,9 @@
 
         <div class="pagination">
             <c:if test="${totalPages gt 1}">
-                <c:forEach begin="0" end="${totalRows - 1}" step="${ROWS_PER_PAGE_LIMIT}" var="i" varStatus="status">
+                <c:forEach begin="0" end="${rowsToDisplay - 1}" step="${pageSize}" var="i" varStatus="status">
                     <c:set var="pagerTabClass" value="pager-tab"/>
-                    <c:set var="loopPageNumber" value="${i/ROWS_PER_PAGE_LIMIT+1}"/>
+                    <c:set var="loopPageNumber" value="${i/pageSize+1}"/>
                     <c:if test="${loopPageNumber == thisPage}">
                         <c:set var="pagerTabClass" value="pager-tab active"/>
                     </c:if>
@@ -333,7 +334,7 @@
         </div>
 
         <script type="text/javascript">
-            var PAGESIZE = 4;
+            var PAGESIZE = ${pageSize};
             var currentStartPoint = null;
             function flipPage(startPoint) {
                 currentStartPoint = startPoint;
