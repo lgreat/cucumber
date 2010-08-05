@@ -346,14 +346,14 @@
                 var hasQueryParam = new RegExp('[\\?]').exec(window.location.href);
                 var newHref = window.location.href;
                 if (hasQueryParam) {
-                    var startParam = '${start}';
+                    var startParam = new RegExp('start').exec(window.location.href);
                     if (startParam) {
-                        newHref = newHref.replace(/(.+[\\?&amp;]start=)([^&amp;#]*)(.*)/, "$1" + start + "$3");
+                        newHref = newHref.replace(/(.+[\\?&amp;]start=)([^&amp;#]*)([^&amp;#]*)(.*)/, "$1" + start + "$3" + "#nearbySchoolsMap");
                     } else {
-                        newHref = newHref.replace(/([^&amp;#]*)(.*)/, "$1" + "&amp;start=" + start + "$2");
+                        newHref = newHref.replace(/([^&amp;#]*)([^&amp;#]*)(.*)/, "$1" + "&amp;start=" + start + "$2" + "#nearbySchoolsMap");
                     }
                 } else {
-                    newHref = newHref.replace(/([^#]*)(.*)/, "$1" + "?start=" + start + "$2");
+                    newHref = newHref.replace(/([^#]*)(.*)/, "$1" + "?start=" + start + "#nearbySchoolsMap");
                 }
                 window.location.href = newHref;
             }
