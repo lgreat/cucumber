@@ -78,11 +78,11 @@
             map = new google.maps.Map(document.getElementById(id), mapOptions);
             //map.addControl(new GLargeMapControl());
             //map.addControl(new GScaleControl());
-            
+
             google.maps.event.addListener(map, 'click', function() {
                 infowindow.close();
             });
-            
+
             jQuery('#schoolInfoWindow').remove();
         }
 
@@ -102,7 +102,7 @@
             var location = new google.maps.LatLng(lat,lon);
             var marker = this.getGSRatingMarker(location, name, rating);
             marker.infoWindowMarkup = infoWindowMarkup;
-            
+
             this.addMarker(marker, databaseState, id);
 
             google.maps.event.addListener(marker, "click", function() {
@@ -257,18 +257,24 @@
         <c:set var="infoWindowMarkup">
             <map:schoolBubble school="${school}" greatSchoolsRating="${gs_rating}" parentRating="${parent_rating}" />
         </c:set>
+    <c:set var="infoWindowMarkup">
+                    ${fn:replace(infoWindowMarkup, "'", "\\'")}
+                </c:set>
 
         jQuery(function(){
             mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}');
             mapHelper.setup();
 
 
-                mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','adfsfs','${school.lat}','${school.lon}',9, '${(infoWindowMarkup)}', markerClickedCallback);
+                mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','adfsfs','${school.lat}','${school.lon}','9', '${(infoWindowMarkup)}', markerClickedCallback);
 
             <c:forEach var ="nearbySchool" items = "${schools}">
                 <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
                 <c:set var="infoWindowMarkup">
                     <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.rating}" />
+                </c:set>
+                <c:set var="infoWindowMarkup">
+                    ${fn:replace(infoWindowMarkup, "'", "\\'")}
                 </c:set>
 
                 mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','adfsfs','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback);
