@@ -4788,13 +4788,23 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 }
 
 #nearby-schools-table-body {
-    border-collapse:separate;
-    border-spacing:0;
+    /*border-collapse:separate;*/
+    border-collapse:collapse;
+    border-spacing:0 1px;
     empty-cells:show;
 }
 
-#nearby-schools-table-body td{
+*+html #nearby-schools-table-body, *+html #nearby-schools-table-body tbody{
+    border-bottom:1px dotted #999;
+}
+
+#nearby-schools-table-body, #nearby-schools-table-body tbody{
+    _border-bottom:1px dotted #999;
+}
+
+#nearby-schools-table-body tr{
     /*padding: 10px 0;*/
+    height:69px;
 }
 
 .nearby-school{

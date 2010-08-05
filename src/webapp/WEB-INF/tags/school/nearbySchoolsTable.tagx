@@ -304,6 +304,7 @@
                 </c:if>
                 </tbody>
             </table>
+            <div class="spacer_10"><!-- do not collapse --></div>
         </c:otherwise>
         </c:choose>
 
