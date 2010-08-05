@@ -81,7 +81,7 @@
 
     <variant:a>
         <![CDATA[
-        <fb:like layout="button_count" show_faces="false" font="arial" action="like" colorscheme="light"></fb:like>
+        <fb:like layout="button" show_faces="false" font="arial" action="like" colorscheme="light"></fb:like>
         ]]>
     </variant:a>
     <variant:b>
