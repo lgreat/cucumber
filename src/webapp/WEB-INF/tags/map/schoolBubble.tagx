@@ -27,7 +27,7 @@ height += heightMultiplier * 13;-->
 
     <div class="schoolInfoWindow">
 
-        <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName" target="_blank"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
+        <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
         <div class="spacer_10"><!-- do not collapse --></div>
         <div class="line">
 
