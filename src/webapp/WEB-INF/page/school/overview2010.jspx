@@ -271,13 +271,18 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
+<c:set var="start" value="${param.start}"/>
+<c:if test="${empty start}">
+    <c:set var="start" value="${0}"/>
+</c:if>
+<c:set var="pageSize" value="${4}"/>
 <div id="nearbySchoolsMap" class="border-c6">
     &#160;
     <noscript>JavaScript is required in order to view a map of the city and its
         schools.
     </noscript>
 </div>
-<map:school id="nearbySchoolsMap" tooltips="true" schools="${mapSchools}" school="${school}"/>
+<map:school id="nearbySchoolsMap" tooltips="true" schools="${mapSchools}" school="${school}" start="${start}" count="${pageSize}" gsRating="${gs_rating}"/>
 <!-- end map -->
 
 
@@ -302,7 +307,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
-<school:nearbySchoolsTable/>
+<school:nearbySchoolsTable school="${school}" gsRating="${gs_rating}" ratings="${ratings}" mapSchools="${mapSchools}" pageSize="4" maxPages="5"/>
     
 </div>
 

@@ -12,9 +12,13 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
             >
-
+<!-- todo: simplify input requirements a bit -->
 <jsp:directive.attribute name="pageSize" type="java.lang.Integer" required="true" description="Number of items to display per page"  />
 <jsp:directive.attribute name="maxPages" type="java.lang.Integer" required="true" />
+<jsp:directive.attribute name="school" type="gs.data.school.School" required="true" description="The main school to display at the top of the list"/>
+<jsp:directive.attribute name="gsRating" type="java.lang.String" required="true" />
+<jsp:directive.attribute name="mapSchools" type="java.util.List" required="true" description="list of MapSchool objects"/>
+<jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
 
     <!-- begin nearby schools list -->
     <c:set var="TOTAL_SCHOOL_LIMIT" value="${pageSize * maxPages}"/>

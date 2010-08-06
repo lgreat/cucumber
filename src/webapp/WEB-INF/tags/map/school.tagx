@@ -19,6 +19,9 @@
                          description="Minimum google zoom to start with, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer"
                          description="Maximum google zoom to start with, defaults to 12"/>
+<jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
+<jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
+<jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
 <jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
     <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
@@ -27,7 +30,8 @@
     <jsp:directive.tag import="org.springframework.web.context.support.WebApplicationContextUtils"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
-    <jsp:scriptlet>
+
+<jsp:scriptlet>
             ApplicationContext ac =
                     WebApplicationContextUtils.getWebApplicationContext(application);
             ICobrandDao dao = (ICobrandDao) ac.getBean(ICobrandDao.BEAN_ID);
@@ -55,6 +59,17 @@
     </jsp:scriptlet>
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;key=${requestScope.key}"/>
 
+    <c:choose>
+        <c:when test="${school.levelCode == 'p'}">
+            <c:set var="schoolType" value="$preschool"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName == 'private'}">
+            <c:set var="schoolType" value="private" />
+        </c:when>
+        <c:otherwise>
+            <c:set var="schoolType" value="" />
+        </c:otherwise>
+    </c:choose>
 
     <script type="text/javascript">
     GS.GSMapHelper = function(id, centerLatitude, centerLongitude) {
@@ -94,13 +109,22 @@
             markers[state + id] = marker;
         }
 
-        this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
+        this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, type) {
             if (id == undefined || databaseState == undefined || lat == undefined || lon == undefined) {
                 return;
             }
 
             var location = new google.maps.LatLng(lat,lon);
-            var marker = this.getGSRatingMarker(location, name, rating);
+
+            var marker = null;
+            if (type == "private") {
+                marker = this.createPrivateSchoolMarker(location, name);
+            } else if (type == "preschool") {
+                marker = this.createPreschoolMarker(location, name);
+            } else {
+                marker = this.createSchoolMarker(location, name, rating);
+            }
+
             marker.infoWindowMarkup = infoWindowMarkup;
 
             this.addMarker(marker, databaseState, id);
@@ -110,6 +134,14 @@
                 infoWindow.open(map, marker);
                 markerClickedCallback(databaseState, id);
             });
+        }
+
+        this.createAndAddPrivateSchoolMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
+            this.createAndAddMarker(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, "private");
+        }
+
+        this.createAndAddPreschoolMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
+            this.createAndAddMarker(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, "preschool");
         }
 
         this.showMarkerBubble = function(state, id) {
@@ -191,7 +223,7 @@
             return marker;
         }
 
-        this.getGSRatingMarker = function(position, tooltip, rating) {
+        this.createSchoolMarker = function(position, tooltip, rating) {
 
             if (rating != '') {
                 var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_' + rating + '_forground.png',
@@ -250,26 +282,41 @@
     </script>
 
 
+    <c:set var="schoolName" value="${fn:replace(school.name, '\'', '\\\'')}"/>
+
     <script type="text/javascript">
-    <![CDATA[
-    <!--
-    ]]>
+        <![CDATA[
+        <!--
+        ]]>
+
         <c:set var="infoWindowMarkup">
-            <map:schoolBubble school="${school}" greatSchoolsRating="${gs_rating}" parentRating="${parent_rating}" />
+            <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${parent_rating}" />
         </c:set>
-    <c:set var="infoWindowMarkup">
-                    ${fn:replace(infoWindowMarkup, "'", "\\'")}
-                </c:set>
+        <c:set var="infoWindowMarkup">
+             ${fn:replace(infoWindowMarkup, "'", "\\'")}
+        </c:set>
 
         jQuery(function(){
             mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}');
             mapHelper.setup();
+            mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}','${gsRating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
 
-
-                mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','adfsfs','${school.lat}','${school.lon}','9', '${(infoWindowMarkup)}', markerClickedCallback);
-
-            <c:forEach var ="nearbySchool" items = "${schools}">
+            <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
                 <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+                <c:set var="schoolName" value="${fn:replace(curSchool.name, '\'', '\\\'')}"/>
+
+                <c:choose>
+                    <c:when test="${curSchool.levelCode == 'p'}">
+                        <c:set var="schoolType" value="${preschool}"/>
+                    </c:when>
+                    <c:when test="${curSchool.type.schoolTypeName == 'private'}">
+                        <c:set var="schoolType" value="private" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="schoolType" value="" />
+                    </c:otherwise>
+                </c:choose>
+
                 <c:set var="infoWindowMarkup">
                     <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.rating}" />
                 </c:set>
@@ -277,7 +324,7 @@
                     ${fn:replace(infoWindowMarkup, "'", "\\'")}
                 </c:set>
 
-                mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','adfsfs','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback);
+                mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
 
                 jQuery('#nearby-schools-link-' + '${curSchool.databaseState}' + '${curSchool.id}').mouseover(function() {
                     mapHelper.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
@@ -287,9 +334,10 @@
                 mapHelper.drawMarkers();
                 mapHelper.expandMapToFitMarkers();
             });
-
         });
-    -->
+
+        -->
     </script>
+
 
 </jsp:root>
