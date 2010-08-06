@@ -193,6 +193,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <div class="spacer_15"><!-- do not collapse --></div>
 </c:if>
 
+<c:if test="${school.preschoolSubtype ne 'kindercare'}">
+    <ad:adTag position="CustomSponsor_407x65"/>
+</c:if>
+
 <div class="text2">
     <content:ratingsSummary school="${school}"/>
 </div>
