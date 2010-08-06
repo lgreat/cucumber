@@ -340,11 +340,11 @@ public class ContactUsController extends SimpleFormController {
         }
     }
 
-    public IPQDao getPqDao() {
+    public IPQDao getPQDao() {
         return _pqDao;
     }
 
-    public void setPqDao(IPQDao pqDao) {
+    public void setPQDao(IPQDao pqDao) {
         this._pqDao = pqDao;
     }
 }
