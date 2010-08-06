@@ -2,11 +2,14 @@ package gs.web.about.feedback;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.school.IPQDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.PQ;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ICaptchaCommand;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -33,12 +36,13 @@ import java.util.*;
 public class ContactUsController extends SimpleFormController {
     public static final String CONFIRMATION_PARAM = "confirm";
     public static final String SHOW_CONFIRMATION_MODEL = "showConfirmMessage";
-    protected static final String SUPPORT_EMAIL = "gs_support@greatschools.org";
+    protected static final String SUPPORT_EMAIL = "ssprouse@greatschools.org";
 
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
-
+    private IPQDao _pqDao;
+    
     private final Log _log = LogFactory.getLog(getClass());
 
     @Override
@@ -46,10 +50,11 @@ public class ContactUsController extends SimpleFormController {
                                     Object commandObj, BindException errors) throws Exception {
         ContactUsCommand command = (ContactUsCommand)commandObj;
 
+        School school = null;
         if (!StringUtils.isBlank(command.getSchoolId())) {
             try {
                 Integer schoolId = new Integer(command.getSchoolId());
-                School school = _schoolDao.getSchoolById(command.getState(), schoolId);
+                school = _schoolDao.getSchoolById(command.getState(), schoolId);
                 if (school != null) {
                     command.setSchoolName(school.getName());
                 }
@@ -58,7 +63,7 @@ public class ContactUsController extends SimpleFormController {
             }
             
         }
-        sendSupportEmail(command);
+        sendSupportEmail(command, request, school);
 
         return new ModelAndView(new RedirectView("/about/feedback.page?" + CONFIRMATION_PARAM + "=true"));
     }
@@ -149,7 +154,7 @@ public class ContactUsController extends SimpleFormController {
         }
     }
 
-    protected void sendSupportEmail(ContactUsCommand command) {
+    protected void sendSupportEmail(ContactUsCommand command, HttpServletRequest request, School school) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(SUPPORT_EMAIL);
         message.setFrom(command.getSubmitterEmail());
@@ -166,7 +171,7 @@ public class ContactUsController extends SimpleFormController {
                 customizeSchoolRatingsReviewsEmail(command, message);
                 break;
             case esp:
-                customizeEspEmail(command, message);
+                customizeEspEmail(command, message, request, school);
                 break;
             case join:
                 customizeJoinEmail(command, message);
@@ -233,7 +238,7 @@ public class ContactUsController extends SimpleFormController {
         message.setText(body.toString());
     }
 
-    protected void customizeEspEmail(ContactUsCommand command, SimpleMailMessage message) {
+    protected void customizeEspEmail(ContactUsCommand command, SimpleMailMessage message, HttpServletRequest request, School school) {
         StringBuffer body = new StringBuffer();
 
         message.setSubject("Enhanced School Profile help");
@@ -246,6 +251,21 @@ public class ContactUsController extends SimpleFormController {
         body.append("State: " ).append(command.getState()).append("\n");
         body.append("Phone: " ).append(fields.getPhone()).append("\n");
         body.append("Question/comment: " ).append(fields.getComment()).append("\n");
+
+        if (school != null && request != null) {
+            PQ pq = _pqDao.findBySchool(school);
+
+            if (pq != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
+                String href = urlBuilder.asFullUrlXml(request);
+
+                body.append("ESP Name: ").append(pq.getContactName());
+                body.append("ESP Email: ").append(pq.getContactEmail());
+                body.append("ESP Username: ").append(pq.getUserName());
+                body.append("ESP Password: ").append(pq.getPassword());
+                body.append("ESP Start link: ").append(href);
+            }
+        }
 
         message.setText(body.toString());
     }
