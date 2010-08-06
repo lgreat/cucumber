@@ -339,4 +339,12 @@ public class ContactUsController extends SimpleFormController {
             return "FormOption: name or value is null";
         }
     }
+
+    public IPQDao getPqDao() {
+        return _pqDao;
+    }
+
+    public void setPqDao(IPQDao pqDao) {
+        this._pqDao = pqDao;
+    }
 }
