@@ -87,26 +87,22 @@
                 <c:choose>
                     <c:when test="${ratings.preschool}">
                         <ul>
-                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catFacilities]}"/>
-                            <c:set var="curCatName" value="Facilities &amp; equipment"/>
-                            <c:if test="${not empty curCatValue}">
-                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                           styleClass="sm_stars"/></li>
+                            <c:if test="${not empty ratings.avgP_Facilities}">
+                                <li><span class="fltlft">Facilities &amp; equipment</span><span
+                                        class="fltrt sprite stars_sm_${ratings.avgP_Facilities}"><!-- do not collapse --></span>
+                                </li>
+                                <div class="spacer_5"><!-- do not collapse --></div>
                             </c:if>
-                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catTeachers]}"/>
-                            <c:set var="curCatName" value="Teacher quality"/>
-                            <c:if test="${not empty curCatValue}">
-                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                           styleClass="sm_stars"/></li>
+                            <c:if test="${not empty ratings.avgP_Teachers}">
+                                <li><span class="fltlft">Teacher quality</span><span
+                                        class="fltrt sprite stars_sm_${ratings.avgP_Teachers}"><!-- do not collapse --></span>
+                                </li>
+                                <div class="spacer_5"><!-- do not collapse --></div>
                             </c:if>
-                            <c:set var="curCatValue" value="${ratings.averageRatingMap[catParents]}"/>
-                            <c:set var="curCatName" value="Parent involvement"/>
-                            <c:if test="${not empty curCatValue}">
-                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                           styleClass="sm_stars"/></li>
+                            <c:if test="${not empty ratings.avgP_Parents}">
+                                <li><span class="fltlft">Parent involvement</span><span
+                                        class="fltrt sprite stars_sm_${ratings.avgP_Parents}"><!-- do not collapse --></span>
+                                </li>
                             </c:if>
                         </ul>
                     </c:when>
