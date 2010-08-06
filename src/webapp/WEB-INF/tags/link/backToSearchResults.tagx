@@ -12,11 +12,13 @@
         if (mostRecentSearchResults != null) {
             request.setAttribute("mostRecentSearchResults", mostRecentSearchResults);
         }
-        searchResultsCookie.removeProperty("mostRecentSearchResults");
+        //searchResultsCookie.removeProperty("mostRecentSearchResults");
     </jsp:scriptlet>
 
     <c:if test="${not empty mostRecentSearchResults}">
-        <a href="${mostRecentSearchResults}">&lt;&lt; Back to search results</a>
+        <span>
+            <a href="${mostRecentSearchResults}"><span class="alertDoubleArrow">&#171;</span> Back to results</a>
+        </span>
     </c:if>
 
 </jsp:root>
