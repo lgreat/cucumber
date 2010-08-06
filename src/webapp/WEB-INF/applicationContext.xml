@@ -152,6 +152,12 @@
                 <property name="cookieMaxAge" value="-1"/>
             </bean>
         </property>
+        <property name="searchResultsCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="mostRecentSearchResults"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
+            </bean>
+        </property>
         <property name="care2PromoCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="care2"/>

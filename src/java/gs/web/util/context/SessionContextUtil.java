@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.77 2010/07/08 05:12:24 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.78 2010/08/06 03:17:10 ssprouse Exp $
  */
 
 package gs.web.util.context;
@@ -119,6 +119,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _kindercareLeadGenCookieGenerator;
     private CookieGenerator _care2PromoCookieGenerator;
     private CookieGenerator _k12OverlayCookieGenerator;
+    private CookieGenerator _searchResultsCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
@@ -490,6 +491,14 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void setK12OverlayCookieGenerator(CookieGenerator k12OverlayCookieGenerator) {
         _k12OverlayCookieGenerator = k12OverlayCookieGenerator;
+    }
+
+    public CookieGenerator getSearchResultsCookieGenerator() {
+        return _searchResultsCookieGenerator;
+    }
+
+    public void setSearchResultsCookieGenerator(CookieGenerator searchResultsCookieGenerator) {
+        _searchResultsCookieGenerator = searchResultsCookieGenerator;
     }
 
     /**

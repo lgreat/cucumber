@@ -33,6 +33,7 @@
 
     <div id="schoolProfileHeaderGS" class="clearfix vcard">
         <div id="schoolHeaderInfoLeft" class="col">
+        <gslink:backToSearchResults/>
         <div id="breadcrumbs">
             <ul class="utility-navigation-999">
                 <li><link:home>Home</link:home> &amp;gt; </li>

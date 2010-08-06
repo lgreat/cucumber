@@ -7,6 +7,7 @@ import gs.data.search.*;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.school.SearchResultsCookie;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -165,6 +166,14 @@ public class SearchController extends AbstractFormController {
             viewname = "search/schoolResults";
         }
 
+        SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
+        String url = request.getRequestURL().toString();
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+            url += "?" + queryString;
+        }
+        mostRecentSearchResultsCookie.setProperty("mostRecentSearchResults", url);
+        
         return new ModelAndView(viewname, model);
     }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.94 2010/06/17 22:38:09 aroy Exp $
+ * $Id: SchoolsController.java,v 1.95 2010/08/06 03:17:10 ssprouse Exp $
  */
 
 package gs.web.school;
@@ -468,6 +468,14 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         }
 
         _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
+
+        SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
+        String url = request.getRequestURL().toString();
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+            url += "?" + queryString;
+        }
+        mostRecentSearchResultsCookie.setProperty("mostRecentSearchResults", url);
 
         return new ModelAndView(getViewName(), model);
     }
