@@ -16,7 +16,7 @@
     </jsp:scriptlet>
 
     <c:if test="${not empty mostRecentSearchResults}">
-        <a href="${mostRecentSearchResults}">Back to search results</a>
+        <a href="${mostRecentSearchResults}">&lt;&lt; Back to search results</a>
     </c:if>
 
 </jsp:root>
