@@ -341,17 +341,6 @@
             <c:choose>
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x250/>
-
-                    <variant:b>
-                        <promo:schoolChoicePackPromo
-                                schoolName="${school.name}"
-                                showBorder="${true}"
-                                showSchoolChoiceLink="${true}"
-                                schoolObjectForRedirect="${school}"
-                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                school="${school}"
-                                />
-                    </variant:b>
                     
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
                     <div class="spacer_15"><!-- do not collapse --></div>
