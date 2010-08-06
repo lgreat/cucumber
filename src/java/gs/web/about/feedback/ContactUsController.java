@@ -36,7 +36,7 @@ import java.util.*;
 public class ContactUsController extends SimpleFormController {
     public static final String CONFIRMATION_PARAM = "confirm";
     public static final String SHOW_CONFIRMATION_MODEL = "showConfirmMessage";
-    protected static final String SUPPORT_EMAIL = "ssprouse@greatschools.org";
+    protected static final String SUPPORT_EMAIL = "gs_support@greatschools.org";
 
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
@@ -259,11 +259,11 @@ public class ContactUsController extends SimpleFormController {
                 UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
                 String href = urlBuilder.asFullUrlXml(request);
 
-                body.append("ESP Name: ").append(pq.getContactName());
-                body.append("ESP Email: ").append(pq.getContactEmail());
-                body.append("ESP Username: ").append(pq.getUserName());
-                body.append("ESP Password: ").append(pq.getPassword());
-                body.append("ESP Start link: ").append(href);
+                body.append("ESP Name: ").append(pq.getContactName()).append("\n");
+                body.append("ESP Email: ").append(pq.getContactEmail()).append("\n");
+                body.append("ESP Username: ").append(pq.getUserName()).append("\n");
+                body.append("ESP Password: ").append(pq.getPassword()).append("\n");
+                body.append("ESP Start link: ").append(href).append("\n");
             }
         }
 
