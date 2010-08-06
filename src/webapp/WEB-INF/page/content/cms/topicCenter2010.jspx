@@ -333,7 +333,7 @@
             <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
             <c:set var="recentDiscussions">
                 <c:import
-                        url="/community/profileRecentDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(requestScope.localDiscussionTopic)}&amp;discussionTopicFull=${gsweb:urlEncode(requestScope.localDiscussionTopicFull)}&amp;isLocal=true"/>
+                        url="/community/profileRecentDiscussions.module?board_id=${requestScope.localDiscussionBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(requestScope.localDiscussionTopic)}&amp;discussionTopicFull=${gsweb:urlEncode(requestScope.localDiscussionTopicFull)}&amp;isLocal=true&amp;isFromProfile=false"/>
             </c:set>
             ${recentDiscussions}
         </c:when>

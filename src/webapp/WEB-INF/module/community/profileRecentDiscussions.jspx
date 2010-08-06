@@ -31,8 +31,25 @@
         </script>
 
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
+        <c:set var="isLocal" value="${requestScope.isLocal}"/>
+        <c:set var="isFromProfile" value="${requestScope.isFromProfile}"/>
 
         <!--<c:out value="${fn:length(requestScope.discussionTopicFull)}"/>-->
+        <!--<p>isLocal: <c:out value="${isLocal}" default="not set"/></p>-->
+        <!--<p>isFromProfile: <c:out value="${isFromProfile}" default="not set"/></p>-->
+
+        <c:choose>
+            <c:when test="${isFromProfile}">
+                <c:set var="viewTopicSection" value="profileViewTopic"/>
+                <c:set var="discussionsSection" value="profileDiscussions"/>
+                <c:set var="startdiscussionsSection" value="profileStartDiscussions"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="viewTopicSection" value="topicCenterViewTopic"/>
+                <c:set var="discussionsSection" value="topicCenterDiscussions"/>
+                <c:set var="startdiscussionsSection" value="topicCenterStartDiscussions"/>
+            </c:otherwise>
+        </c:choose>
 
         <div id="profileRecentDiscussions" class="mod">
             <c:choose>
@@ -48,7 +65,7 @@
                 </c:otherwise>
             </c:choose>
             <div class="mod_bd">
-                <div class="viewTopic brdbtm_dotted text3">
+                <div class="${viewTopicSection} brdbtm_dotted text3">
                     <label for="profileRecentDiscussions_topicSelect">View topic: </label>
                     <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
                         <c:forEach var="myTc" items="${requestScope.discussionTopics}">
@@ -61,7 +78,7 @@
                         </c:if>
                     </select>
                 </div>
-                <div class="profileDiscussions brdbtm_dotted">
+                <div class="${discussionsSection} brdbtm_dotted">
                     <ul>
                         <c:forEach var="discussion" items="${requestScope.discussions}">
                             <li class="media">
@@ -93,7 +110,7 @@
                             class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
 
                 </div>
-                <div class="profileStartDiscussions brdbtm_dotted">
+                <div class="${startdiscussionsSection} brdbtm_dotted">
                     <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}<c:choose><c:when
                             test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> Schools</c:otherwise></c:choose>?
                     </p>

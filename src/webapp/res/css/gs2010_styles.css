@@ -5319,13 +5319,22 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 
 /* =4k-1.4 profile recent discussions
 -------------------------------------------------------------------------------------------*/
-#profileRecentDiscussions .viewTopic{
+#profileRecentDiscussions .profileViewTopic{
     padding:7px 10px 9px;
+}
+
+#profileRecentDiscussions .topicCenterViewTopic{
+    padding:7px 15px 9px;
 }
 
 #profileRecentDiscussions .profileDiscussions{
     clear:both;
     padding:12px 10px;
+}
+
+#profileRecentDiscussions .topicCenterDiscussions{
+    clear:both;
+    padding:12px 15px;
 }
 
 #profileRecentDiscussions .profilediscussion{
@@ -5340,6 +5349,11 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 #profileRecentDiscussions .profileStartDiscussions{
     clear:both;
     padding:15px 10px 0;
+}
+
+#profileRecentDiscussions .topicCenterStartDiscussions{
+    clear:both;
+    padding:15px 15px 0;
 }
 
 /* ====== media ====== */
