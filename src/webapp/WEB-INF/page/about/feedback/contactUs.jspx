@@ -112,6 +112,7 @@
                             state : stateSelect.val(),
                             city : citySelect.val(),
                             printOptionsOnly: 'true',
+                            includePrivateSchools: 'true',
                             chooseSchoolLabel: '- Choose School -'
                         }),
                         success: function(data) {
