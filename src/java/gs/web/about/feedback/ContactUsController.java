@@ -253,9 +253,10 @@ public class ContactUsController extends SimpleFormController {
         body.append("Question/comment: " ).append(fields.getComment()).append("\n");
 
         if (school != null && request != null) {
-            PQ pq = _pqDao.findBySchool(school);
+            List<PQ> pqs = _pqDao.findAllBySchool(school);
 
-            if (pq != null) {
+            if (pqs != null && pqs.size() > 0) {
+                PQ pq = pqs.get(0);
                 UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
                 String href = urlBuilder.asFullUrlXml(request);
 
