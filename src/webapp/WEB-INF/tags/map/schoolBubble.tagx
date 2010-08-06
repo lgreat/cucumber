@@ -8,6 +8,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:gsweb="gstaglib"
         >
 
     <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
@@ -46,7 +47,7 @@ height += heightMultiplier * 13;-->
             <div class="typeGrade">
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
-                    <c:otherwise>${school.type}, ${school.gradeLevels}</c:otherwise>
+                    <c:otherwise>${gsweb:capitalize(school.type.schoolTypeName)}, ${school.gradeLevels}</c:otherwise>
                 </c:choose>
             </div>
 
