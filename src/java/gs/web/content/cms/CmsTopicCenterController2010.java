@@ -152,8 +152,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
             // Show the local community module we've built on the school overview page in place of the map IF a user is
             // cookied to one of the 73 local cities. If the user isn't cookied to one of the cities, show the Map module
             // (the Local Schools module)
-            boolean hasLocalCommunity = loadLocalCommunity(model,request);
-            if (!hasLocalCommunity) {
+            boolean hasLocalCommunity = false;
+            if (!topicCenter.isPreschoolTopicCenter()) {
+                hasLocalCommunity = loadLocalCommunity(model,request);
+            }
+            if (topicCenter.isPreschoolTopicCenter() || !hasLocalCommunity) {
                 // local schools module
                 // check for a change of city
                 SessionContext context = SessionContextUtil.getSessionContext(request);

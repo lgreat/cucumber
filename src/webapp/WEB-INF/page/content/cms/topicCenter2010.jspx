@@ -329,7 +329,7 @@
 
     <!-- select module -->
     <c:choose>
-        <c:when test="${(levelCode eq 'p' or levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h') and (not empty requestScope.localDiscussionBoardId and not empty requestScope.localDiscussionTopic)}">
+        <c:when test="${(levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h') and (not empty requestScope.localDiscussionBoardId and not empty requestScope.localDiscussionTopic)}">
             <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
             <c:set var="recentDiscussions">
                 <c:import
@@ -337,7 +337,7 @@
             </c:set>
             ${recentDiscussions}
         </c:when>
-        <c:when test="${(levelCode eq 'p' or levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h') and (empty requestScope.localDiscussionBoardId and empty requestScope.localDiscussionTopic)}">
+        <c:when test="${levelCode eq 'p' or ((levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h') and (empty requestScope.localDiscussionBoardId and empty requestScope.localDiscussionTopic))}">
             <school:findASchool city="${requestScope.cityObject}"
                                 specialCity="${requestScope.specialCity}"
                                 schools="${requestScope.schools}"
