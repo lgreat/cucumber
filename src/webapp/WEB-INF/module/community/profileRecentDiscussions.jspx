@@ -8,7 +8,9 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        >
     <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
         <script type="text/javascript">
             function GS_getProfileDiscussionTitle() {
@@ -78,6 +80,7 @@
                         </c:if>
                     </select>
                 </div>
+                <ad:adTag position="Community_Ad_300x50"/>
                 <div class="${discussionsSection} brdbtm_dotted">
                     <ul>
                         <c:forEach var="discussion" items="${requestScope.discussions}">
