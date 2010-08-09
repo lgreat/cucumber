@@ -79,8 +79,9 @@
                                                selected="true">${requestScope.discussionTopic}</gsml:selectOption>
                         </c:if>
                     </select>
+                    <ad:adTag position="Community_Ad_300x50"/>
                 </div>
-                <ad:adTag position="Community_Ad_300x50"/>
+
                 <div class="${discussionsSection} brdbtm_dotted">
                     <ul>
                         <c:forEach var="discussion" items="${requestScope.discussions}">
