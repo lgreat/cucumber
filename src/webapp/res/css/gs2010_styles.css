@@ -5328,7 +5328,7 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 /* =4k-1.4 profile recent discussions
 -------------------------------------------------------------------------------------------*/
 #profileRecentDiscussions .profileViewTopic{
-    padding:7px 10px 9px;
+    padding:7px 10px 0;
 }
 
 #profileRecentDiscussions .topicCenterViewTopic{
