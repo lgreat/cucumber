@@ -209,7 +209,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 <div class="clearBoth"><!-- do not collapse --></div>
             </div>
 
-            <c:if test="${caller eq 'preschool'}">
+            <!--<c:if test="${caller eq 'preschool'}">-->
                 <div class="adBox">
                     <div class="wrapper-outer">
                         <div class="wrapper-inner">
@@ -219,7 +219,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                         </div>
                     </div>
                 </div>
-            </c:if>
+            <!--</c:if>-->
         </div>
 
         <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
@@ -421,7 +421,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
             </form>
         </div>
 
-        <c:if test="${caller eq 'preschool'}">
+        <!--<c:if test="${caller eq 'preschool'}">-->
             <div class="adBox">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
@@ -431,7 +431,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                     </div>
                 </div>
             </div>
-        </c:if>
+        <!--</c:if>-->
 
     </div>
 
@@ -624,7 +624,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 </fieldset>
             </form>
 
-            <c:if test="${caller eq 'preschool'}">
+            <!--<c:if test="${caller eq 'preschool'}">-->
                 <div class="adBox">
                     <div class="wrapper-outer">
                         <div class="wrapper-inner">
@@ -634,7 +634,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                         </div>
                     </div>
                 </div>
-            </c:if>
+            <!--</c:if>-->
         </div>
 
         <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
@@ -861,7 +861,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
         </form>
     </div>
 
-    <c:if test="${caller eq 'preschool'}">
+    <!--<c:if test="${caller eq 'preschool'}">-->
         <div class="adBox">
             <div class="wrapper-outer">
                 <div class="wrapper-inner">
@@ -871,7 +871,7 @@ format: <c:out value="${format}" default="format not set."/><br/>-->
                 </div>
             </div>
         </div>
-    </c:if>
+    <!--</c:if>-->
 </div>
 
 <div id="confirm_panel" class="mod_bd" style="display:${confirmPanelDisplay}">
