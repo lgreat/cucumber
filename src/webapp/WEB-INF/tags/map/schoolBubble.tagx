@@ -28,22 +28,30 @@ height += heightMultiplier * 13;-->
     <div class="schoolInfoWindow">
 
         <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
-        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
 
         <div class="schoolRatings smallText1-333 unit size2of5">
-            <div class="schoolRating"><div>GreatSchools Rating</div>
-                <link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
-                    <gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
+            <div class="schoolRating">
+                <div class="fltlft">GreatSchools<br/>Rating</div>
+                <link:schoolProfileRating school="${school}" styleClass="fltrt" title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
+                    <!--<gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>-->
+                    <span class="sprite badge_sm_${greatSchoolsRating}"><!-- do not collapse --></span>
                 </link:schoolProfileRating>
             </div>
+            <div class="spacer_5"><!-- do not collapse --></div>
             <div class="parentRating">
                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                    <img src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src='/res/img/school/ratings/rateit_03.gif'" onmouseout="this.src='/res/img/school/ratings/rateit_01.gif'"/>
+                    <img width="70" height="24" src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src='/res/img/school/ratings/rateit_03.gif'" onmouseout="this.src='/res/img/school/ratings/rateit_01.gif'"/>
+
                 </link:schoolProfileParentReview>
             </div>
+            <div>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            </div>
         </div>
-        <div class="schoolInfo text3 unit size3of5 lastUnit">
+        <!--<div class="schoolInfo text3 unit size3of5 lastUnit">-->
+        <div class="schoolInfo smallText1-333 unit size3of5 lastUnit">
             <div class="typeGrade">
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
@@ -51,11 +59,19 @@ height += heightMultiplier * 13;-->
                 </c:choose>
             </div>
 
-            <address>${school.physicalAddress.street}<br/>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/></address>
+            <div>${school.physicalAddress.street}<br/>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/></div>
 
             <c:if test="${empty school.phone}"><br/></c:if>
 
             <p class="schoolPhone">${school.phone}</p>
+
+            <div>
+                <a href="#">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            </div>
+
+            <!--<div>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            </div>-->
 
         </div>
             </div>

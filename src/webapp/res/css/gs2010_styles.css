@@ -4803,7 +4803,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 .schoolInfoWindow{
     width:272px;
-    height:135px;
+    /*height:135px;*/
     /*display:block;*/
     /*overflow:hidden;*/
 }
