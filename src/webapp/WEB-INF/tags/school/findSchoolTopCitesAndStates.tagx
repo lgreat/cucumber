@@ -34,35 +34,35 @@
 
                 <ul id="fstcasTopCities">
                     <li class="col1 col">
-                        <p class="text2bold"><a href="/new-york/new-york">New York City<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
+                        <p class="text2bold"><a href="/new-york/new-york-city/">New York City<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
                             <li><a href="/new-york/new-york-city/community.gs?content=2003"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
                     </li>
                     <li class="col2 col">
-                        <p class="text2bold"><a href="/california/los-angeles">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
+                        <p class="text2bold"><a href="/california/los-angeles/">Los Angeles<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
                             <li><a href="/california/los-angeles/community.gs?content=1967"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
                     </li>
                     <li class="col3 col">
-                        <p class="text2bold"><a href="/georgia/atlanta">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
+                        <p class="text2bold"><a href="/georgia/atlanta/">Atlanta<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
                             <li><a href="/georgia/atlanta/community.gs?content=1979"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
                     </li>
                     <li class="col4 col">
-                        <p  class="text2bold"><a href="/illinois/chicago">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
+                        <p  class="text2bold"><a href="/illinois/chicago/">Chicago<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
                             <li><a href="/illinois/chicago/community.gs?content=1983"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                         </ul>
                     </li>
                     <li class="col5 col">
-                        <p  class="text2bold"><a href="/texas/houston">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
+                        <p  class="text2bold"><a href="/texas/houston/">Houston<span class="alertDoubleArrow"> &amp;raquo;</span></a></p>
                         <ul class="smallText1">
                             <li><a href="/texas/houston/community.gs?content=2016"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
@@ -166,10 +166,10 @@
                             <c:forEach var="i" begin="${index}" end="${index + rowsThisColumn-1}">
                                 <!-- Washington DC in states list needs to display with actual name District of Columbia and appear after Deleware -->
                                 <c:if test="${states[i].name ne 'DC'}">
-                                    <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}">${states[i].longName}</a></li>
+                                    <li><a href="/${fn:toLowerCase(fn:replace(states[i].longName, ' ', '-'))}/">${states[i].longName}</a></li>
                                 </c:if>
                                 <c:if test="${states[i].name eq 'DE'}">
-                                    <li><a href="/washington-dc">District of Columbia</a></li>
+                                    <li><a href="/washington-dc/">District of Columbia</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>

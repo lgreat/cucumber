@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.65 2010/06/02 17:52:06 ssprouse Exp $
+ * $Id: CityController.java,v 1.66 2010/08/11 00:42:56 yfan Exp $
  */
 
 package gs.web.geo;
@@ -136,7 +136,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
             return new ModelAndView(redirectView);
         }
 
-        if (redirectToNewStyleUrl) {
+        if (redirectToNewStyleUrl || "/new-york/new-york/".equals(request.getRequestURI())) {
             // Redirect to the new city url if we got here via the old one
             UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
             View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
