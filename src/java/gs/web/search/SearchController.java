@@ -28,9 +28,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This controller handles all search requests.
@@ -269,7 +267,11 @@ public class SearchController extends AbstractFormController {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
             model.put(MODEL_PAGE_SIZE, pageSize);
-            model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
+
+            List<Object> results = _resultsPager.getResults(page, pageSize);
+            setCityGAMAttributes(request, results);
+            model.put(MODEL_RESULTS, results);
+
             model.put(MODEL_TOTAL_HITS, hits.length());
             resultsToShow = true;
         }
@@ -397,6 +399,24 @@ public class SearchController extends AbstractFormController {
         model.put(MODEL_SHOW_SUGGESTIONS, !resultsToShow);
         model.put(MODEL_SHOW_STATE_CHOOSER, !resultsToShow);
         return model;
+    }
+
+    // GS-10448
+    private void setCityGAMAttributes(HttpServletRequest request, List<Object> results) {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            Set<String> cityNames = new HashSet<String>();
+            for (Object result : results) {
+                if (result instanceof SchoolSearchResult) {
+                    SchoolSearchResult res = (SchoolSearchResult) result;
+                    cityNames.add(res.getSchool().getCity());
+                }
+            }
+
+            for (String cityName : cityNames) {
+                pageHelper.addAdKeywordMulti("city", cityName);
+            }
+        }
     }
 
     protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand) {
