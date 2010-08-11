@@ -582,6 +582,55 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
     }
 
+    // Expect alert word to be skipped for CBI
+    public void testHandleCBIDiscussionSubmissionWithAlertWord() {
+        insertUserIntoRequest();
+
+        _command.setBody(VALID_LENGTH_DISCUSSION_POST);
+        _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        _command.setDiscussionBoardId(2L);
+        _command.setRedirect("redirect");
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        Discussion discussion = new Discussion();
+        discussion.setBoardId(2L);
+        discussion.setBody(VALID_LENGTH_DISCUSSION_POST);
+        discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        discussion.setAuthorId(_user.getId());
+
+        _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        discussion.setId(1234);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
+
+        User reporter = new User();
+                reporter.setId(-1);
+                reporter.setEmail("moderator@greatschools.org");
+                reporter.setUserProfile(new UserProfile());
+                reporter.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        replayAllMocks();
+        try {
+            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command, false);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
+    }
+
     public void testHandleDiscussionReplySubmission() {
         insertUserIntoRequest();
 
@@ -621,6 +670,45 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("redirect", _command.getRedirect());
         assertNotNull(getResponse().getCookie("omniture"));
         assertEquals("events%24%24%3A%24%24event17%3B", getResponse().getCookie("omniture").getValue());        
+    }
+
+    // expect no alert word dao activity for CBI
+    public void testHandleCBIReplySubmission() {
+        insertUserIntoRequest();
+
+        Discussion discussion = new Discussion();
+        discussion.setId(1);
+        discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
+        _command.setBody(VALID_LENGTH_REPLY_POST);
+        _command.setDiscussionId(1);
+        _command.setRedirect("redirect");
+
+        expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        DiscussionReply reply = new DiscussionReply();
+        reply.setAuthorId(_user.getId());
+        reply.setBody(VALID_LENGTH_REPLY_POST);
+        reply.setDiscussion(discussion);
+        _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
+
+        replayAllMocks();
+        try {
+            _controller.handleCBIReplySubmission(getRequest(), getResponse(), _command);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
     }
 
     public void testHandleDiscussionReplySubmissionWithLineFeeds() {

@@ -69,12 +69,16 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
         */
 
-        if (StringUtils.equals("editDiscussion", command.getType())) {
+        if (StringUtils.equals("cbiReply", command.getType())) {
+            handleCBIReplySubmission(request, response, command);
+        } else if (StringUtils.equals("cbiDiscussion", command.getType())) {
+            handleDiscussionSubmission(request, response, command, false);
+        } else if (StringUtils.equals("editDiscussion", command.getType())) {
             handleEditDiscussionSubmission(request, response, command);
         } else if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
         } else if (command.getDiscussionBoardId() != null) {
-            handleDiscussionSubmission(request, response, command);
+            handleDiscussionSubmission(request, response, command, true);
         } else if (command.getTopicCenterId() != null) {
             handleDiscussionSubmissionByTopicCenter(request, response, command);
         } else {
@@ -106,7 +110,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
         command.setDiscussionBoardId(discussionBoardId);
 
-        handleDiscussionSubmission(request, response, command);
+        handleDiscussionSubmission(request, response, command, true);
     }
 
     public static String cleanUpText(String text, int maxLength) {
@@ -133,7 +137,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     }
     
     protected void handleDiscussionSubmission
-            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command, boolean doWordFilter)
             throws IllegalStateException {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         // error checking
@@ -183,24 +187,26 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
             }
 
-            String bodyWord = _alertWordDao.hasAlertWord(discussion.getBody());
-            String titleWord = _alertWordDao.hasAlertWord(discussion.getTitle());
-            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    (bodyWord != null || titleWord != null)) {
-                // profanity filter
-                // Moderators are always allowed to post profanity
+            if (doWordFilter) {
+                String bodyWord = _alertWordDao.hasAlertWord(discussion.getBody());
+                String titleWord = _alertWordDao.hasAlertWord(discussion.getTitle());
+                if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                        (bodyWord != null || titleWord != null)) {
+                    // profanity filter
+                    // Moderators are always allowed to post profanity
 
-                String reason = "Contains the alert word \"";
-                if (bodyWord != null) {
-                    reason += bodyWord;
-                } else {
-                    reason += titleWord;
+                    String reason = "Contains the alert word \"";
+                    if (bodyWord != null) {
+                        reason += bodyWord;
+                    } else {
+                        reason += titleWord;
+                    }
+                    reason += "\"";
+                    _reportContentService.reportContent(getAlertWordFilterUser(), user, request, discussion.getId(),
+                                                        ReportedEntity.ReportedEntityType.discussion, reason);
+                    //discussion.setActive(false);
+                    _log.warn("Discussion submission triggers profanity filter.");
                 }
-                reason += "\"";
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, request, discussion.getId(),
-                                                    ReportedEntity.ReportedEntityType.discussion, reason);
-                //discussion.setActive(false);
-                _log.warn("Discussion submission triggers profanity filter.");
             }
 
             OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
@@ -326,10 +332,16 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
     }
 
+    protected void handleCBIReplySubmission
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            throws IllegalStateException {
+        handleDiscussionReplySubmissionHelper(request, response, command, false);
+    }
+
     protected void handleDiscussionReplySubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        handleDiscussionReplySubmissionHelper(request, response, command);
+        handleDiscussionReplySubmissionHelper(request, response, command, true);
 
         // omniture success event only if new discussion reply
         if (command.getDiscussionReplyId() == null) {
@@ -342,7 +354,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
      * @throws IllegalStateException if this method is called with invalid parameters in the request
      */
     protected DiscussionReply handleDiscussionReplySubmissionHelper
-            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command, boolean doWordFilter)
             throws IllegalStateException {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         // error checking
@@ -415,17 +427,19 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _discussionDao.saveKeepDates(discussion);
             }
 
-            String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());
-            if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                    bodyWord != null) {
-                // profanity filter
-                // Moderators are always allowed to post profanity
-                String reason = "Contains the alert word \"";
-                reason += bodyWord;
-                reason += "\"";
-                _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
-                        ReportedEntity.ReportedEntityType.reply, reason);
-                _log.warn("Reply triggers profanity filter.");
+            if (doWordFilter) {
+                String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());
+                if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
+                        bodyWord != null) {
+                    // profanity filter
+                    // Moderators are always allowed to post profanity
+                    String reason = "Contains the alert word \"";
+                    reason += bodyWord;
+                    reason += "\"";
+                    _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
+                            ReportedEntity.ReportedEntityType.reply, reason);
+                    _log.warn("Reply triggers profanity filter.");
+                }
             }
 
             if (StringUtils.isEmpty(command.getRedirect())) {

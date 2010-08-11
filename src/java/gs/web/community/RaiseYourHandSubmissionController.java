@@ -41,7 +41,7 @@ public class RaiseYourHandSubmissionController extends DiscussionSubmissionContr
     protected DiscussionReply handleRaiseYourHandSubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        DiscussionReply reply = handleDiscussionReplySubmissionHelper(request, response, command);
+        DiscussionReply reply = handleDiscussionReplySubmissionHelper(request, response, command, true);
 
         // omniture success event only if new raise your hand reply
         if (command.getDiscussionReplyId() == null) {
