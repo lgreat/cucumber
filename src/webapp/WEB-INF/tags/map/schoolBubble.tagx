@@ -27,19 +27,25 @@ height += heightMultiplier * 13;-->
 
     <div class="schoolInfoWindow">
 
+        <!--<p>School type is: <c:out value="${school.type.schoolTypeName}" default="not set"/></p>-->
+        <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
+
         <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
 
         <div class="schoolRatings smallText1-333 unit size2of5">
-            <div class="schoolRating">
-                <div class="fltlft">GreatSchools<br/>Rating</div>
-                <link:schoolProfileRating school="${school}" styleClass="fltrt" title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
-                    <!--<gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>-->
-                    <span class="sprite badge_sm_${greatSchoolsRating}"><!-- do not collapse --></span>
-                </link:schoolProfileRating>
-            </div>
-            <div class="spacer_5"><!-- do not collapse --></div>
+            <c:if test="${not(school.type.schoolTypeName eq 'private' or school.levelCode eq 'p')}">
+                <div class="schoolRating">
+                    <div class="fltlft">GreatSchools<br/>Rating</div>
+                    <link:schoolProfileRating school="${school}" styleClass="fltrt"
+                                              title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
+                        <!--<gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>-->
+                        <span class="sprite badge_sm_${greatSchoolsRating}"><!-- do not collapse --></span>
+                    </link:schoolProfileRating>
+                </div>
+                <div class="spacer_5"><!-- do not collapse --></div>
+            </c:if>
             <div class="parentRating">
                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
                     <img width="70" height="24" src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src='/res/img/school/ratings/rateit_03.gif'" onmouseout="this.src='/res/img/school/ratings/rateit_01.gif'"/>
@@ -66,6 +72,10 @@ height += heightMultiplier * 13;-->
             <p class="schoolPhone">${school.phone}</p>
 
             <div>
+                <!--<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
+            encodeURIComponent(school.address) +
+            '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>-->
+                <!-- TODO: Get directions from the Google Maps API -->
                 <a href="#">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>
             </div>
 

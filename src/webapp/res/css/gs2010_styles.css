@@ -566,10 +566,20 @@ body.cobranded #pageGS {
     zoom:1;
 }
 
-#Chooser_Sponsor_162x50 { /* GS-10184 */
+#scpp #Chooser_Sponsor_162x50 { /* GS-10184 */
     width:162px; height:50px;
     position:absolute;
     bottom:10px; right:20px;
+}
+
+#schoolChoicePackPromo-wide #Chooser_Sponsor_162x50 { /* GS-10321 */
+    width:162px; height:50px;
+    position:relative;
+    float:right;
+}
+
+#schoolChoicePackPromo-wide #google_ads_div_School_Profile_Page_Overview_Chooser_Sponsor_162x50 ins {/* GS-10321 */
+    float:right;
 }
 
 #Community_Ad_300x50 { /* GS-10357 */
@@ -5026,10 +5036,13 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 }
 /* helper messaging */
 
-.logoutDiv-helper{
+#schoolChoicePackPromo-wide .logoutDiv-helper{
     position:absolute;
     top:35px;
     right:42px;
+    _width:250px;
+    _text-align:right;
+    _right:450px;
 }
 
 /* error messaging */

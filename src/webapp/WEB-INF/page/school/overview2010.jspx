@@ -286,7 +286,15 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         schools.
     </noscript>
 </div>
-<map:school id="nearbySchoolsMap" tooltips="true" schools="${mapSchools}" school="${school}" start="${start}" count="${pageSize}" gsRating="${gs_rating}"/>
+<map:school
+        id="nearbySchoolsMap"
+        tooltips="true"
+        schools="${mapSchools}"
+        school="${school}"
+        start="${start}"
+        count="${pageSize}"
+        gsRating="${gs_rating}"
+        />
 <!-- end map -->
 
 
@@ -311,7 +319,14 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
-<school:nearbySchoolsTable school="${school}" gsRating="${gs_rating}" ratings="${ratings}" mapSchools="${mapSchools}" pageSize="4" maxPages="5"/>
+<school:nearbySchoolsTable
+        school="${school}"
+        gsRating="${gs_rating}"
+        ratings="${ratings}"
+        mapSchools="${mapSchools}"
+        pageSize="4"
+        maxPages="5"
+        />
     
 </div>
 
