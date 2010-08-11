@@ -17,7 +17,6 @@
     <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
     <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>
 
-
     <!--
 var height = 85; // default height
 var heightMultiplier = Math.floor(school.name.length / 30);
@@ -29,6 +28,7 @@ height += heightMultiplier * 13;-->
 
         <!--<p>School type is: <c:out value="${school.type.schoolTypeName}" default="not set"/></p>-->
         <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
+        <!--<p>Parent rating is: <c:out value="${parentRating}" default="not set"/></p>-->
 
         <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
         <div class="spacer_5"><!-- do not collapse --></div>
@@ -48,8 +48,14 @@ height += heightMultiplier * 13;-->
             </c:if>
             <div class="parentRating">
                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                    <img width="70" height="24" src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src='/res/img/school/ratings/rateit_03.gif'" onmouseout="this.src='/res/img/school/ratings/rateit_01.gif'"/>
-
+                    <c:choose>
+                        <c:when test="${not empty parentRating}">
+                            <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
                 </link:schoolProfileParentReview>
             </div>
             <div>

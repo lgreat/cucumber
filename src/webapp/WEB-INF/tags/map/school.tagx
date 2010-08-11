@@ -22,6 +22,7 @@
 <jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
 <jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
 <jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
+<jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
 <jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
     <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
@@ -290,7 +291,7 @@
         ]]>
 
         <c:set var="infoWindowMarkup">
-            <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${parent_rating}" />
+            <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${ratings.overall}" />
         </c:set>
         <c:set var="infoWindowMarkup">
              ${fn:replace(infoWindowMarkup, "'", "\\'")}
@@ -318,7 +319,7 @@
                 </c:choose>
 
                 <c:set var="infoWindowMarkup">
-                    <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.rating}" />
+                    <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.parentRatings.overall}" />
                 </c:set>
                 <c:set var="infoWindowMarkup">
                     ${fn:replace(infoWindowMarkup, "'", "\\'")}
