@@ -5556,7 +5556,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-08-04.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-08-11.png);
 }
 
 .reportIt-nbg {
@@ -6110,6 +6110,18 @@ additional icons on the sprite.
     background-position: -310px -300px;
 }
 
+.badge_sm_ps {
+    width: 22px;
+    height: 22px;
+    background-position: -310px -330px;
+}
+
+.badge_sm_pr {
+    width: 22px;
+    height: 22px;
+    background-position: -310px -360px;
+}
+
 /* column 340 */
 .badge_sm_b_na {
     width: 22px;
@@ -6177,6 +6189,18 @@ additional icons on the sprite.
     background-position: -340px -300px;
 }
 
+.badge_sm_b_ps {
+    width: 22px;
+    height: 22px;
+    background-position: -340px -330px;
+}
+
+.badge_sm_b_pr {
+    width: 22px;
+    height: 22px;
+    background-position: -340px -360px;
+}
+
 /* column 370 */
 .badge_sm_y_na {
     width: 22px;
@@ -6242,6 +6266,18 @@ additional icons on the sprite.
     width: 22px;
     height: 22px;
     background-position: -370px -300px;
+}
+
+.badge_sm_y_ps {
+    width: 22px;
+    height: 22px;
+    background-position: -370px -330px;
+}
+
+.badge_sm_y_pr {
+    width: 22px;
+    height: 22px;
+    background-position: -370px -360px;
 }
 
 /* column 400 */

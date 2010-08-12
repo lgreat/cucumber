@@ -111,6 +111,9 @@
                     </td>
                     <td class="bg-color-f9eccd brdbtm_dotted" align="left">
                         <c:choose>
+                            <c:when test="${school.type.schoolTypeName == 'private'}">
+                                <span class="sprite badge_sm_y_pr"><!-- do not collapse --></span>
+                            </c:when>
                             <c:when test="${not empty gs_rating and gs_rating gt 0}">
                                 <span class="sprite badge_sm_y_${gs_rating}"><!-- do not collapse --></span>
                             </c:when>
@@ -158,6 +161,9 @@
                         </td>
                         <td class="brdbtm_dotted" align="left">
                             <c:choose>
+                                <c:when test="${s.neighbor.type.schoolTypeName eq 'private'}">
+                                    <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                </c:when>
                                 <c:when test="${not empty s.rating and s.rating gt 0}">
                                     <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
                                 </c:when>
