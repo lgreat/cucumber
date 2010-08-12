@@ -223,7 +223,7 @@
 
         <div class="spacer_15"><!--do not collapse--></div>
 
-        <div class="${requestScope.pageType eq 'userAccount' ? 'size2of3 col': 'size1of1'}">
+        <div class="${requestScope.pageType eq 'userAccount' ? 'size63of100 col': 'size1of1'}">
             <div class="mod ${requestScope.pageType eq 'userAccount' ? 'padrt_15': ''}">
                 <div class="avatar">
                     <community:avatar user="${requestScope.pageUser}" width="95" height="95" alt="User Avatar"/>
@@ -284,13 +284,13 @@
 
         </div>
         <c:if test="${requestScope.pageType eq 'userAccount'}">
-            <div class="size1of3 col">
+            <div class="size37of100 col">
                 <div class="mod myAccount brdlft_dotted">
                     <h4 class="subhead2">Manage my account</h4>
                     <ul class="text3-d61">
                         <li><link:changeEmail>Update my email address</link:changeEmail></li>
                         <li><link:resetPassword>Change my password</link:resetPassword></li>
-                        <li><link:newsletterManagement>Manage newsletters</link:newsletterManagement></li>
+                        <li><link:newsletterManagement>Manage emails &amp;amp; newsletters</link:newsletterManagement></li>
                         <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
                     </ul>
                 </div>

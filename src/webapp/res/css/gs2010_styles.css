@@ -6960,6 +6960,14 @@ button {
     width: 80%;
 }
 
+.size37of100 {
+    width: 37%;
+}
+
+.size63of100 {
+    width: 63%;
+}
+
 .lastUnit {
     float: none;
     width: auto;

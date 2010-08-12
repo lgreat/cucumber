@@ -124,6 +124,17 @@ public class ManagementCommand {
 
     private boolean tooManySchoolsError = false;
 
+    //variable for community posts
+    private boolean _repliesToCommunityPosts;
+
+    public boolean isRepliesToCommunityPosts() {
+        return _repliesToCommunityPosts;
+    }
+
+    public void setRepliesToCommunityPosts(boolean repliesToCommunityPosts) {
+        this._repliesToCommunityPosts = repliesToCommunityPosts;
+    }
+
     public boolean isTooManySchoolsError() {
         return tooManySchoolsError;
     }

@@ -47,7 +47,7 @@
                           <ul class="text2">
                               <li>Update Email Address</li>
                               <li><link:resetPassword>Change My Password</link:resetPassword></li>
-                              <li><link:newsletterManagement>Manage Newsletters</link:newsletterManagement></li>
+                              <li><link:newsletterManagement>Manage Emails &amp; Newsletters</link:newsletterManagement></li>
                               <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
                           </ul>
                       </div>

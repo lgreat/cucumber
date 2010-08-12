@@ -256,6 +256,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
         cities.add(0, city);
         command.setCityList(cities);
         command.setStateAdd(command.getUserState());
+
+        command.setRepliesToCommunityPosts(user.getNotifyAboutReplies());
     }
 
     @Override
@@ -287,6 +289,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
 
         user.setFirstName(command.getFirstName());
 
+        // replies to community posts
+        user.setNotifyAboutReplies(command.isRepliesToCommunityPosts());
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         State state = user.getState();

@@ -22,7 +22,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>Manage My Newsletters - GreatSchools</title>
+    <title>Emails &amp;amp; Free Newsletters - GreatSchools</title>
     <!--<pageHelper:externalCss file="/res/css/email/management.css"/>-->
     <pageHelper:externalJavascript file="/res/js/prototype-1.6.0.2.js"/>
     <pageHelper:externalJavascript file="/res/js/email/management.js"/>
@@ -57,7 +57,7 @@
             <ul class="text2">
                 <li><link:changeEmail>Update Email Address</link:changeEmail></li>
                 <li><link:resetPassword>Change My Password</link:resetPassword></li>
-                <li>Manage Newsletters</li>
+                <li>Manage Emails &amp;amp; Newsletters</li>
                 <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
             </ul>
         </div>
@@ -68,7 +68,7 @@
 
 <div id="topicMainGS" class="col">
 <div id="manageNewsletters">
-<h3 class="title2-d61">Free Newsletters from GreatSchools</h3>
+<h3 class="title2-d61">Emails &amp;amp; free newsletters</h3>
 
 <div class="spacer_5"><!-- do not collapse --></div>
 <p class="text3">To subscribe, check the box. To unsubscribe, uncheck the box. Click "Save settings" when you are finished.</p>
@@ -92,6 +92,37 @@
         <div class="formBarGS col">&amp;nbsp;</div>
         <div class="formMainGS col">
             <p class="formHelperText">This is how we'll address you in our newsletters.</p>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset id="communityPosts">
+    <div class="formContentGS clearfix">
+
+        <div class="formBarGS col">
+            <img src="/res/img/email/community_faces.jpg" width="83" height="65" alt="boy with dad"
+                 class="newsletterImage"/>
+        </div>
+
+        <div class="formMainGS col">
+            <div class="newsletterInfo">
+                <p class="newsletterHeader text2bold">Replies to community posts</p>
+
+                <p class="newsletterDescription text2">Get notified whenever someone replies to a conversation or a comment you have posted.</p>
+                <ol>
+                    <li>
+                        <fieldset>
+                            <ol>
+                                <li>
+                                    <!-- TODO-10375 -->
+                                    <form:checkbox path="repliesToCommunityPosts" cssClass="newsletterCheckbox"
+                                           id="repliesToCommunityPosts"/>
+                                    <label for="repliesToCommunityPosts">Send me emails when someone replies to my post</label></li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </ol>
+            </div>
         </div>
     </div>
 </fieldset>
