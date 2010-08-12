@@ -8,29 +8,25 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-<jsp:directive.tag body-content="empty"
-                   description="Draw a map of a school with nearby schools marked and extra info in a bubble."/>
-<jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
-<jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
-                         description="The school this map is centered on"/>
-<jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
-<jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?"/>
-<jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer"
-                         description="Minimum google zoom to start with, defaults to 9"/>
-<jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer"
-                         description="Maximum google zoom to start with, defaults to 12"/>
-<jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
-<jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
-<jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
-<jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
-<jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
+
+    <jsp:directive.tag body-content="empty" description="Draw a map of a school with nearby schools marked and extra info in a bubble."/>
+    <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is centered on"/>
+    <jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
+    <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?"/>
+    <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom to start with, defaults to 9"/>
+    <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom to start with, defaults to 12"/>
+    <jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
+    <jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
+    <jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
+    <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
+    <jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
     <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="org.apache.commons.logging.LogFactory"/>
     <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
     <jsp:directive.tag import="org.springframework.web.context.support.WebApplicationContextUtils"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-
 
 <jsp:scriptlet>
             ApplicationContext ac =
