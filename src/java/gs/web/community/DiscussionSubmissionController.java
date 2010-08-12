@@ -1,5 +1,8 @@
 package gs.web.community;
 
+import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.web.jsp.link.DiscussionTagHandler;
+import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -27,6 +30,8 @@ import gs.data.security.Permission;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -51,6 +56,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private IUserDao _userDao;
     private IAlertWordDao _alertWordDao;
     private IReportContentService _reportContentService;
+    private ExactTargetAPI _exactTargetAPI;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -337,13 +343,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected void handleCBIReplySubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        handleDiscussionReplySubmissionHelper(request, response, command, false);
+        handleDiscussionReplySubmissionHelper(request, response, command, false, false);
     }
 
     protected void handleDiscussionReplySubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        handleDiscussionReplySubmissionHelper(request, response, command, true);
+        handleDiscussionReplySubmissionHelper(request, response, command, true, true);
 
         // omniture success event only if new discussion reply
         if (command.getDiscussionReplyId() == null) {
@@ -356,7 +362,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
      * @throws IllegalStateException if this method is called with invalid parameters in the request
      */
     protected DiscussionReply handleDiscussionReplySubmissionHelper
-            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command, boolean doWordFilter)
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command, boolean doWordFilter, boolean sendNotification)
             throws IllegalStateException {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         // error checking
@@ -453,9 +459,52 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 _log.info("Setting redirect to " + command.getRedirect());
             }
 
+            if (newReply && sendNotification) {
+                notifyAboutReply(request, sessionContext, board, discussion, reply, user);
+            }
+
             return reply;
         }
         return null;
+    }
+
+    // GS-10375
+    public void notifyAboutReply(HttpServletRequest request, SessionContext sessionContext, CmsDiscussionBoard board, Discussion discussion, DiscussionReply reply, User replyAuthor) {
+        User author = _userDao.findUserFromId(discussion.getAuthorId());
+
+        boolean isInternalServer =
+            UrlUtil.isDevEnvironment(sessionContext.getHostName()) ||
+            UrlUtil.isQAServer(sessionContext.getHostName()) ||
+            UrlUtil.isPreReleaseServer(sessionContext.getHostName());
+
+        boolean authorHasGsEmailAddress =
+            author.getEmail() != null &&
+            (author.getEmail().toLowerCase().endsWith("@greatschools.org") ||
+             author.getEmail().toLowerCase().endsWith("@greatschools.net"));
+
+        if (author.getNotifyAboutReplies() && discussion.isNotifyAuthorAboutReplies() &&
+            (!isInternalServer || authorHasGsEmailAddress)) {
+            _log.info("Community email notification sent to " + author.getEmail() + " (" + author.getId() +
+                    ") for reply " + reply.getId() + " from replyAuthor " + replyAuthor.getId());
+
+            Map<String,String> emailAttributes = new HashMap<String,String>();
+            if (replyAuthor.getUserProfile() != null && replyAuthor.getUserProfile().getScreenName() != null) {
+                emailAttributes.put("commenter_username", replyAuthor.getUserProfile().getScreenName());
+            }
+            if (author.getUserProfile() != null && author.getUserProfile().getScreenName() != null) {
+                emailAttributes.put("author_username", author.getUserProfile().getScreenName());
+            }
+            emailAttributes.put("post_snippet", Util.abbreviate(reply.getBody(),20));
+            DiscussionTagHandler discussionTagHandler = new DiscussionTagHandler();
+            discussionTagHandler.setDiscussion(discussion);
+            discussionTagHandler.setFullUri(board.getFullUri());
+            discussionTagHandler.setDiscussionReplyId(reply.getId());
+            UrlBuilder postUrlBuilder = discussionTagHandler.createUrlBuilder();
+            emailAttributes.put("post_url", postUrlBuilder.asSiteRelative(request));
+            emailAttributes.put("entity_id", String.valueOf(discussion.getId()));
+
+            _exactTargetAPI.sendTriggeredEmail("gs_community_notification", author, emailAttributes);
+        }
     }
 
     public IDiscussionReplyDao getDiscussionReplyDao() {
@@ -520,5 +569,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setReportContentService(IReportContentService reportContentService) {
         _reportContentService = reportContentService;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 }
