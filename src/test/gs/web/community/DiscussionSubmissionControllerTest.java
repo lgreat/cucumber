@@ -631,6 +631,53 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
     }
 
+    // Expect alert word to be skipped for CBI
+    public void testHandleDiscussionSubmissionWithIdReplacement() {
+        insertUserIntoRequest();
+
+        _command.setBody(VALID_LENGTH_DISCUSSION_POST);
+        _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        _command.setDiscussionBoardId(2L);
+        _command.setRedirect("redi*ID*rect");
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        Discussion discussion = new Discussion();
+        discussion.setBoardId(2L);
+        discussion.setBody(VALID_LENGTH_DISCUSSION_POST);
+        discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        discussion.setAuthorId(_user.getId());
+
+        _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        discussion.setId(1234);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
+
+        User reporter = new User();
+                reporter.setId(-1);
+                reporter.setEmail("moderator@greatschools.org");
+                reporter.setUserProfile(new UserProfile());
+                reporter.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        replayAllMocks();
+        try {
+            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command, false);
+        } catch (IllegalStateException ise) {
+            fail("Should not receive exception on valid submission: " + ise);
+        }
+        verifyAllMocks();
+
+        assertEquals("redi1234rect", _command.getRedirect());
+    }
+
     public void testHandleDiscussionReplySubmission() {
         insertUserIntoRequest();
 

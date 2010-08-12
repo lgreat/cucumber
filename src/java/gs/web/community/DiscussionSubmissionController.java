@@ -216,6 +216,8 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 // default to forwarding to the discussion detail page
                 String urlToContent = getDiscussionUrl(request, board.getFullUri(), Long.valueOf(discussion.getId()));
                 command.setRedirect(urlToContent);
+            } else if (StringUtils.contains(command.getRedirect(), "*ID*")) {
+                command.setRedirect(StringUtils.replace(command.getRedirect(), "*ID*", String.valueOf(discussion.getId())));
             }
         }
     }
