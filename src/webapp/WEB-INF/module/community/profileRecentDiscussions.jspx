@@ -117,7 +117,7 @@
                 </div>
                 <div class="${startdiscussionsSection} brdbtm_dotted">
                     <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}<c:choose><c:when
-                            test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> Schools</c:otherwise></c:choose>?
+                            test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> schools</c:otherwise></c:choose>?
                     </p>
 
                     <div class="spacer_10"><!-- do not collapse --></div>
