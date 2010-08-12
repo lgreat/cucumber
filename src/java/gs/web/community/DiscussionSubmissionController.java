@@ -484,6 +484,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
              author.getEmail().toLowerCase().endsWith("@greatschools.net"));
 
         if (author.getNotifyAboutReplies() && discussion.isNotifyAuthorAboutReplies() &&
+            author.getId() != replyAuthor.getId() && // don't receive notification if commenting on own discussion
             (!isInternalServer || authorHasGsEmailAddress)) {
             _log.info("Community email notification sent to " + author.getEmail() + " (" + author.getId() +
                     ") for reply " + reply.getId() + " from replyAuthor " + replyAuthor.getId());
